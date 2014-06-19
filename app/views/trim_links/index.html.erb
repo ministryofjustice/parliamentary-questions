@@ -1,10 +1,10 @@
+<%= render partial: "shared/flash_messages", flash: flash %>
 <h1>Listing trim_links</h1>
 
 <table class="table">
   <thead>
     <tr>
       <th>Filename</th>
-      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -16,7 +16,6 @@
         <td><%= trim_link.display_name %></td>
         <td><%= link_to 'Show', trim_link %></td>
         <td><%= link_to 'Edit', edit_trim_link_path(trim_link) %></td>
-        <td><%= link_to 'Destroy', trim_link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -2,8 +2,7 @@
 
 FactoryGirl.define do
   factory :trim_link do
-    filename "MyString"
-    binary_id 1
+    filename "Test file name"
     size 1
   end
 end
