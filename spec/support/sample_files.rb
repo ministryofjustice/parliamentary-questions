@@ -18,3 +18,7 @@ end
 def sample_questions_by_uin
   File.open('spec/fixtures/questions_by_uin.xml')
 end
+
+def sample_answer
+  File.open('spec/fixtures/sample_answer.xml')
+end

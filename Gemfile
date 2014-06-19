@@ -58,6 +58,7 @@ gem 'unicorn'
 
 
 gem 'httpclient'
+gem 'builder'
 
 # Authentication
 gem 'devise'
