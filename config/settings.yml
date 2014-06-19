@@ -3,3 +3,4 @@ pq_rest_api:
   username: <%= ENV['PQ_REST_API_USERNAME'] %>
   password: <%= ENV['PQ_REST_API_PASSWORD'] %>
 mail_from: no-reply@digital.justice.gov.uk
+members_api_url: http://data.parliament.uk
