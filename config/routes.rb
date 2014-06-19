@@ -1,5 +1,7 @@
 ParliamentaryQuestions::Application.routes.draw do
 
+  resources :trim_links
+
   resources :press_desks
 
   resources :press_officers
