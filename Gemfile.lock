@@ -271,6 +271,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-will_paginate
   bootstrap3-datetimepicker-rails (~> 3.0.0)
+  builder
   capybara
   capybara-email
   coffee-rails (~> 4.0.0)

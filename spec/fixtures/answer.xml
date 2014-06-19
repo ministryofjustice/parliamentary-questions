@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Answer xmlns="http://data.parliament.uk/QnA/2013/02">
+
+  <!--Whether or not the answer is a holding answer-->
+
+  <IsHoldingAnswer>false</IsHoldingAnswer>
+
+  <!--Text of the answer-->
+
+  <Text>Test answer</Text>
+
+  <!--ID of the minister answering the question-->
+
+  <MinisterId>8</MinisterId>
+
+  <!-- The question version number -->
+
+  <QuestionVersionNumber>1</QuestionVersionNumber>
+
+  <OtherQuestionsInGroup>
+
+    <QuestionInGroup>
+
+      <Uin>739572</Uin>
+
+      <QuestionVersionNumber>1</QuestionVersionNumber>
+
+    </QuestionInGroup>
+
+    <QuestionInGroup>
+
+      <Uin>738596</Uin>
+
+      <QuestionVersionNumber>2</QuestionVersionNumber>
+
+    </QuestionInGroup>
+
+  </OtherQuestionsInGroup>
+
+  <Attachments>
+
+    <Attachment>
+
+      <Title>An Excel file</Title>
+
+      <!--Filename of the attachments-->
+
+      <FileName>Book1.xlsx</FileName>
+
+      <!--Base64 encoded content of the attachments-->
+
+      <Contents>UEsDBBQABgAIAAAAIQAwd0OJbQEAAJg=</Contents>
+
+    </Attachment>
+
+    <Attachment>
+
+      <Title>A Word document</Title>
+
+      <FileName>Doc1.docx</FileName>
+
+      <Contents>UEsDBBQABgAIAAAAIQDd/JU=</Contents>
+
+    </Attachment>
+
+  </Attachments>
+
+  <AnsweringMemberHasApprovedAnswer>true</AnsweringMemberHasApprovedAnswer>
+
+</Answer>

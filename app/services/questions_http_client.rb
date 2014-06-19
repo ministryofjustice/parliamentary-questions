@@ -21,4 +21,10 @@ class QuestionsHttpClient
     response = @client.get(endpoint)
     response.content
   end
+
+  def answer(uin, body)
+    endpoint = URI::join(@base_url, "/api/qais/answers/#{uin}")
+    response = @client.put(endpoint, body)
+    {content: response.content, status: response.status}
+  end
 end
