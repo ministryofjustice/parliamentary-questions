@@ -2,17 +2,17 @@
 cd /rails
 case ${RAILS_DB_SETUP} in
 migrate)
-    echo "migrate"
-    bundle exec rake db:migrate
+    echo "migrate"                >>/rails/log/unicorn.log
+    bundle exec rake db:migrate   >>/rails/log/unicorn.log
     ;;
 seed)
     echo "seed"
-    bundle exec rake db:migrate
+    bundle exec rake db:migrate   >>/rails/log/unicorn.log
     USER_CREATE=${RAILS_DB_SEED:-'admin@admin.com, 123456789, admin'}
     echo $USER_CREATE
-    bundle exec rake "user:create[admin@admin.com, 123456789, admin]"
+    bundle exec rake "user:create[admin@admin.com, 123456789, admin]" >>/rails/log/unicorn.log
     ;;
 esac
-exec bundle exec unicorn -p 80
+exec bundle exec unicorn -p 80 >>/rails/log/unicorn.log
 
 
