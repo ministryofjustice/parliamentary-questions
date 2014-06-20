@@ -1,18 +1,21 @@
 #!/bin/bash
 cd /rails
-case ${RAILS_DB_SETUP} in
+echo "rails startup"              >>/rails/log/unicorn.log
+case ${DOCKER_STATE} in
 migrate)
-    echo "migrate"                >>/rails/log/unicorn.log
+    echo "running migrate"        >>/rails/log/unicorn.log
     bundle exec rake db:migrate   >>/rails/log/unicorn.log
     ;;
 seed)
-    echo "seed"
+    echo "running seed"           >>/rails/log/unicorn.log
     bundle exec rake db:migrate   >>/rails/log/unicorn.log
-    USER_CREATE=${RAILS_DB_SEED:-'admin@admin.com, 123456789, admin'}
+    bundle exec rake db:seed      >>/rails/log/unicorn.log
+    USER_CREATE=${RAILS_USER:-'admin@admin.com, 123456789, admin'}
     echo $USER_CREATE
-    bundle exec rake "user:create[admin@admin.com, 123456789, admin]" >>/rails/log/unicorn.log
+    echo "creating user $USER_CREATE"            >>/rails/log/unicorn.log
+    bundle exec rake "user:create[$USER_CREATE]" >>/rails/log/unicorn.log
     ;;
 esac
-exec bundle exec unicorn -p 80 >>/rails/log/unicorn.log
-
+echo "Starting unicorn"           >>/rails/log/unicorn.log
+exec bundle exec unicorn -p 80    >>/rails/log/unicorn.log
 
