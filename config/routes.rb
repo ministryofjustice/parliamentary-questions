@@ -48,4 +48,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'find_action_officers' => 'action_officers#find'
 
   get 'members/by_name' => 'members#by_name'
+  get 'import/question' => 'import#question'
+  get 'import/questions' => 'import#questions'
 end
