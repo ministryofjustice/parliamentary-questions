@@ -1,0 +1,10 @@
+<div id="members_result">
+  <div class="field">
+      <select id="members_result_select">
+      <% @members.each do |member| %>
+            <option value="<%= member['Member_Id'] %>" data-name="<%= member['DisplayAs']%>"><%= member['Member_Id'] %> - <%= member['DisplayAs'] %></option>
+      <% end %>
+      </select>
+      <%= link_to 'Select', {remote: true}, {id: 'members_result_select_link'} %>
+  </div>
+</div>
