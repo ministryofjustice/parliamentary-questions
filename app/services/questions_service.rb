@@ -57,11 +57,14 @@ class QuestionsService
     }
 
     response = @http_client.answer(uin, output)
+
+    if response[:status] != 200
+      return {error: parse_answer_error_xml(response[:content]) }
+    end
+
     preview_url = parse_answer_xml(response[:content])
     {preview_url: preview_url }
   end
-
-
 
 
   protected
@@ -83,8 +86,14 @@ class QuestionsService
 
   def parse_answer_xml(response)
     xml  = Nokogiri::XML(response)
-    xml.remove_namespaces! # easy to parse if we are only using one namespace
+    xml.remove_namespaces!
     xml.xpath('/AnswerResponse/AnswerPreviewUrl').text
+  end
+
+  def parse_answer_error_xml(response)
+    xml  = Nokogiri::XML(response)
+    xml.remove_namespaces!
+    xml.xpath('/Error/Message').text
   end
 
 end

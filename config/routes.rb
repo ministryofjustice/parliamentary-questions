@@ -28,6 +28,8 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'commission/:id' => 'commission#commission'
   post 'assign/:id' => 'commission#assign'
+  get 'answering/:id' => 'answering#index'
+  post 'answering/:id' => 'answering#answer'
 
   get '/', to: 'dashboard#index', as: :root
   get 'dashboard' => 'dashboard#index'
@@ -50,4 +52,5 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'members/by_name' => 'members#by_name'
   get 'import/question' => 'import#question'
   get 'import/questions' => 'import#questions'
+
 end

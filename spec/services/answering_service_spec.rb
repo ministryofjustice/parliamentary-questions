@@ -40,7 +40,7 @@ describe 'AnsweringService' do
 
       expect {
         @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
-      }.to raise_error 'Minister can not be nil for the question'
+      }.to raise_error 'Replying minister is not selected for the question'
 
     end
 
@@ -56,9 +56,27 @@ describe 'AnsweringService' do
 
       expect {
         @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
-      }.to raise_error 'Minister member_id can not be nil for the question'
+      }.to raise_error 'Replying minister has not member id, please update the member id of the minister'
 
     end
+
+
+    it 'should raise an exception you have a error in questions_service' do
+      allow(@http_client).to receive(:answer) { {content: sample_answer_error, status: 403} }
+
+      uin = '183366'
+      # import the question to answer into the database
+      @import_service.questions_by_uin(uin)
+
+      pq = PQ.find_by(uin: uin)
+      pq.minister = minister1
+
+      expect {
+        @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
+      }.to raise_error 'Validation failed on the request.'
+
+    end
+
 
   end
 end
