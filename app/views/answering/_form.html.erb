@@ -41,3 +41,13 @@
     <%= f.submit 'Submit Answer', :class => 'btn btn-success' %>
 
 <% end %>
+
+
+<script>
+    $('#answer-pq-form-<%= @pq.id %>').bind('ajax:success', function(e, data, status, xhr){
+        var pq_id = $(this).data('id');
+        var divToFill = "#answer-pq-" + pq_id;
+        $( divToFill ).html(data);
+    });
+</script>
+
