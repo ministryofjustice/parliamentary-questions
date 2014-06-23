@@ -70,6 +70,6 @@ class MinistersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def minister_params
-      params.require(:minister).permit(:name, :title, :email, :deleted)
+      params.require(:minister).permit(:name, :title, :email, :deleted, :member_id)
     end
 end

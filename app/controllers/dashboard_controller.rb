@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
   def index
 
     #TODO refactor to not allways call import in the PQ API
-    result_imported = @import_service.today_questions()
+    result_imported = @import_service.questions()
     #@questions = result_imported[:questions]
 
     @questions = PQ.new_questions.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
