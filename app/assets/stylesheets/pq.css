@@ -133,3 +133,7 @@ ul.questions-list {
 	width:238px;
 
 }
+
+.pq-inline-form {
+	display:inline!important;
+}
