@@ -67,6 +67,13 @@
           </div>
         </div>
 
+        <div id='trim_area_<%= question.id %>'>
+          <% question.trim_links.each do |trim| %>
+            <div id='trim_links_<%= trim.id %>'><%= link_to("Open #{trim.display_name}", {controller: 'trim_links', action: 'show', id: trim.id}) %></div>
+          <!--  <div id='trim_links_<%= trim.id %>'><%= link_to('Open trim link', {controller: 'trim_links', action: 'show', id: trim.id}, {title: trim.filename}) %></div> -->
+          <% end %>
+          <%= link_to('Add trim link', { controller: 'trim_links', action: 'new', id: question.uin} ) %>
+        </div>
       </li>
   <% end %>
 

@@ -7,7 +7,18 @@ describe TrimLink do
   		expect(trim).to be_valid
   	end
 
-  	it 'should have binary data' 
+  	it 'should have binary data' do
+  		trim.data = nil
+  		expect(trim).to be_invalid
+  	end
 
-  	it 'should be linked to a pq'
+  	it 'should be linked to a pq' do
+  		trim.pq_id = nil
+  		expect(trim).to be_invalid
+  	end
+  	describe "associations" do
+		it "should have a PQ attribute" do
+			@pq = trim.should respond_to(:pq)
+		end
+	end
 end

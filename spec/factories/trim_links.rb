@@ -4,5 +4,7 @@ FactoryGirl.define do
   factory :trim_link do
     filename "Test file name"
     size 1
+    data "binarydata?"
+    pq_id 1
   end
 end
