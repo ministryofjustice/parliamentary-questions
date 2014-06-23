@@ -108,6 +108,14 @@ describe 'QuestionsService' do
       result[:preview_url].should  eq('https://wqatest.parliament.uk/Questions/Details/36527')
     end
 
+    it 'should return the error message if the status code is not 200' do
+      allow(@http_client).to receive(:answer) { {content: sample_answer_error, status: 403} }
+
+      result = @questions_service.answer(uin: 'H112', member_id: '1234', text: 'text2 test', is_holding_answer: true)
+
+      result[:error].should  eq('Validation failed on the request.')
+    end
+
   end
 
 
