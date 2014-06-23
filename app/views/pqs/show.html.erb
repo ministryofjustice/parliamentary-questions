@@ -38,7 +38,7 @@
 
     <div class="deadline_input">
       <label for="internal_deadline">Deadline</label>
-      <div class='input-group date' id='datetimepicker' data-date-format="DD/MM/YYYY HH:mm">
+      <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
         <input class="form-control" id="pq_internal_deadline" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
         </span>
@@ -109,6 +109,44 @@
         <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
       </div>
 
+<div class="questions-detail-outer" style="overflow:auto;">
+
+	<label>Submit Draft Answer</label>
+
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;"><label for="draft_answer_received">Draft Answer Received</label>
+      </div> 
+	   <div class="input-group date datetimepicker right" id="datetimepicker2" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="draft_answer_received" name="pq[draft_answer_received]" type="text" value="<%= @pq.draft_answer_received.strftime('%d/%m/%Y %H:%M') unless @pq.draft_answer_received.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;"><label for="i_will_write_estimate">I will write estimate</label>
+	  </div>
+       <div class="input-group date datetimepicker right" id="datetimepicker3" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="i_will_write_estimate" name="pq[i_will_write_estimate]" type="text" value="<%= @pq.i_will_write_estimate.strftime('%d/%m/%Y %H:%M') unless @pq.i_will_write_estimate.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+	
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="holding_reply">Holding Reply</label>
+       </div>
+	    <div class="input-group date datetimepicker right" id="datetimepicker4" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="holding_reply" name="pq[holding_reply]" type="text" value="<%= @pq.holding_reply.strftime('%d/%m/%Y %H:%M') unless @pq.holding_reply.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+
+
+
+</div>
 <p>
 <%= f.submit 'Update', :class => 'button' %>
 </p>

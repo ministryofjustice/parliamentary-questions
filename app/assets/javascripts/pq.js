@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-	$('#datetimepicker').datetimepicker();
+	$('.datetimepicker').datetimepicker();
 	$(".multi-select-action-officers").select2({width:'250px'});
 
 	$('#allocation_response_response_action_accept').click(function (){
