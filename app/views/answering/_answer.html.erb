@@ -1,3 +1,12 @@
 
-<%= render 'form' %>
+<% if !pq.answer_preview_url.nil?%>
+    <a href="<%= pq.answer_preview_url %>">Preview the answer in the PQ Tool</a>
+<% end %>
+<% if !pq.answer.nil?%>
+    <div class="pq-answer">
+      <%= pq.answer %>
+    </div>
+<% end %>
+
+
 

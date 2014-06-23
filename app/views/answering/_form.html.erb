@@ -3,11 +3,6 @@
 
 <% flash.discard %>
 
-<% if !@pq.answer_preview_url.nil?%>
-    <a href="<%= @pq.answer_preview_url %>">Preview the answer in the PQ Tool</a>
-<% end %>
-
-
 <%= form_for @pq_answer, { :remote => true, :authenticity_token => true, :html => { :id => "answer-pq-form-#{@pq.id}", :class => 'answer-pq-form', :data => {:id => @pq.id }}, :url => { :controller => 'answering', :action => 'answer', :id => @pq.id} }  do |f| %>
 
         <% if @pq_answer.errors.any? %>
