@@ -87,6 +87,17 @@ ul.questions-list {
     padding: 15px;
 }
 
+.trim_dates {
+	clear:both;
+	width:370px;
+}
+
+.input-group date datetimepicker right
+{
+	width: 250px;
+	margin: 5px; 
+	float: right;
+}
 .member-photo
 {
 	margin: 5 5 5 5;
