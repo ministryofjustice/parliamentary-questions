@@ -1,0 +1,48 @@
+
+<%= render partial: "shared/flash_messages", flash: flash %>
+
+<% flash.discard %>
+
+<%= form_for @pq_answer, { :remote => true, :authenticity_token => true, :html => { :id => "answer-pq-form-#{@pq.id}", :class => 'answer-pq-form', :data => {:id => @pq.id }}, :url => { :controller => 'answering', :action => 'answer', :id => @pq.id} }  do |f| %>
+
+        <% if @pq_answer.errors.any? %>
+        <div class="alert  alert-danger">
+          <p>There are errors submitting the answer</p>
+          <ul>
+            <% @pq_answer.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= f.hidden_field(:pq_id) %>
+
+    <div class="form-group">
+        <label>
+          Answer:
+          <%= f.text_area :text, {class: 'form-control', rows: '3'} %>
+        </label>
+    </div>
+
+    <div class="checkbox">
+      <label>
+        <%= f.label(:is_holding_answer) %>
+        <%= f.check_box :is_holding_answer %>
+      </label>
+    </div>
+
+
+    <%= f.submit 'Submit Answer', :class => 'btn btn-success' %>
+
+<% end %>
+
+
+<script>
+    $('#answer-pq-form-<%= @pq.id %>').bind('ajax:success', function(e, data, status, xhr){
+        var pq_id = $(this).data('id');
+        var divToFill = "#answer-pq-" + pq_id;
+        $( divToFill ).html(data);
+    });
+</script>
+

@@ -16,7 +16,7 @@ module ApplicationHelper
 
 
   def version_number
-    ENV['VERSION']
+    ENV['APPVERSION']
   end
 
 end

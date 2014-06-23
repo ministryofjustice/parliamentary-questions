@@ -60,6 +60,7 @@ class ImportService
         internal_deadline: deadline,
         registered_interest: q['RegisteredInterest'],
         question_type: q['QuestionType'],
+        preview_url: q['Url'],
         progress_id: progress_id
     )
     pq
