@@ -4,6 +4,7 @@ class CreateTrimLinks < ActiveRecord::Migration
       t.string :filename
       t.integer :size
       t.binary :data
+      t.integer :pq_id
       t.timestamps
     end
   end
