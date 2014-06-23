@@ -48,6 +48,7 @@ describe 'ImportService' do
       question_one.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql(Date.today.strftime("%Y-%m-%d 10:30"))
 
       question_one.question_type.should eql('NamedDay')
+      question_one.preview_url.should eql ('https://wqatest.parliament.uk/Questions/Details/37988')
       
       # second question
       question_two = PQ.find_by(uin: 'HL673892')

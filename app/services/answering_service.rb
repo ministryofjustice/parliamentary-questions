@@ -24,7 +24,7 @@ class AnsweringService
     end
     preview_url = result[:preview_url]
     # update the preview url
-    pq.update(answer_preview_url: preview_url)
+    pq.update(preview_url: preview_url)
 
   end
 

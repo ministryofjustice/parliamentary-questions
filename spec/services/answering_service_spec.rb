@@ -27,7 +27,7 @@ describe 'AnsweringService' do
       @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
 
       pq = PQ.find_by(uin: uin)
-      pq.answer_preview_url.should eq('https://wqatest.parliament.uk/Questions/Details/36527')
+      pq.preview_url.should eq('https://wqatest.parliament.uk/Questions/Details/36527')
 
     end
 
