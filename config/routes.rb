@@ -1,5 +1,6 @@
 ParliamentaryQuestions::Application.routes.draw do
 
+
   resources :press_desks
 
   resources :press_officers
@@ -21,8 +22,11 @@ ParliamentaryQuestions::Application.routes.draw do
   devise_for :users
 
   resources :users
-  resources :pqs  
 
+  resources :pqs  
+  resources :trim_links
+
+  get 'trim_links/new/:id' => 'trim_links#new'
 
   get 'admin' => 'admin#index'
 
