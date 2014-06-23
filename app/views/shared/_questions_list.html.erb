@@ -72,7 +72,12 @@
             <div id='trim_links_<%= trim.id %>'><%= link_to("Open #{trim.display_name}", {controller: 'trim_links', action: 'show', id: trim.id}) %></div>
           <!--  <div id='trim_links_<%= trim.id %>'><%= link_to('Open trim link', {controller: 'trim_links', action: 'show', id: trim.id}, {title: trim.filename}) %></div> -->
           <% end %>
-          <%= link_to('Add trim link', { controller: 'trim_links', action: 'new', id: question.uin} ) %>
+          <%= form_for TrimLink.new(:pq_id => question.id), :html=> {:multipart=>true, :class=>'pq-inline-form'} do |f| %>
+            <label for="trim_link_file_data">Trim link to add</label>
+            <%= f.file_field :file_data, :class=>'pq-inline-form' %>
+            <%= f.hidden_field :pq_id %>
+            <%= f.submit 'Add', :class=>'btn btn-success btn-sm' %>
+        <% end %>
         </div>
       </li>
   <% end %>
