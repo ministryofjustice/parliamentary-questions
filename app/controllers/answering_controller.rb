@@ -5,7 +5,7 @@ class AnsweringController < ApplicationController
 
   def index
     @pq_answer = PQAnswer.new
-    render partial: 'answer'
+    render partial: 'form'
   end
 
   def answer
@@ -13,18 +13,17 @@ class AnsweringController < ApplicationController
     @pq_answer = PQAnswer.new(answer_params)
 
     if !@pq_answer.valid?
-      return render :partial => 'answer'
+      return render :partial => 'form'
     end
 
     begin
       @answering_service.answer(@pq, {text: @pq_answer.text, is_holding_answer: @pq_answer.is_holding_answer })
     rescue => err
       flash[:error] = err.to_s
-      return render :partial => 'answer'
+      return render :partial => 'form'
     end
 
-
-    render :partial => 'answer'
+    render :partial => 'answer', :locals => {pq: @pq}
   end
 
   protected
