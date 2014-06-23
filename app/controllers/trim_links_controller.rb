@@ -16,9 +16,11 @@ class TrimLinksController < ApplicationController
       @trim_link = TrimLink.new(:data => data, :filename => filename, :size => size, :pq_id => trim_link_params[:pq_id])
 
       if @trim_link.save
-        redirect_to dashboard_url, notice: 'Trim link was successfully created.'
+        flash[:success] = 'Trim link was successfully created.'
+        redirect_to dashboard_url
       else
-        redirect_to dashboard_url, notice: "Could not add Trim link. #{@trim_link.errors}"
+        flash[:error] = "Could not add Trim link. #{@trim_link.errors}"
+        redirect_to dashboard_url
       end
     else
       flash[:error] = "Could not add Trim link. File must be tr5"
