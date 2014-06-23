@@ -43,19 +43,13 @@ $(document).ready(function () {
         });
     });
 
-    $('.answer-pq-link').bind('ajax:success', function(e, data, status, xhr){
+    $('.answer-pq-link').on('ajax:success', function(e, data, status, xhr){
         var pq_id = $(this).data('id');
         var divToFill = "#answer-pq-" + pq_id;
         $( divToFill ).html(data);
-
-        $('#answer-pq-form-' + pq_id).bind('ajax:success', function(e, data, status, xhr){
-            var pq_id = $(this).data('id');
-            var divToFill = "#answer-pq-" + pq_id;
-            console.log(divToFill);
-            $( divToFill ).html(data);
-        });
-
     });
+
+
 
 
 });  
