@@ -1,0 +1,31 @@
+<Questions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://data.parliament.uk/QnA/2013/02">
+<Question>
+  <Uin>183366</Uin>
+  <UpdatedDate>2014-05-16T09:52:35.23Z</UpdatedDate>
+  <AnsweringBody>
+    <AnsweringBodyId>54</AnsweringBodyId>
+    <AnsweringBodyName>Ministry of Justice</AnsweringBodyName>
+  </AnsweringBody>
+  <House>
+    <HouseId>1</HouseId>
+    <HouseName>House of Commons</HouseName>
+  </House>
+  <TablingMember>
+    <MemberId>1533</MemberId>
+    <MemberName>Diana Johnson</MemberName>
+    <Constituency>Kingston upon Hull North</Constituency>
+  </TablingMember>
+  <QuestionType>NamedDay</QuestionType>
+  <RegisteredInterest>false</RegisteredInterest>
+  <Session>2013-14</Session>
+  <TabledDate>2014-01-14</TabledDate>
+  <DateForAnswer>2014-01-17</DateForAnswer>
+  <Target>The Secretary of State for Justice</Target>
+  <Text>To ask the Secretary of State for Justice, when he intends to reply to Question 181504, tabled by the hon. Member for Kingston upon Hull North on 6 January 2014 for answer on 9 January 2014; and what the reasons are for the time taken to answer.</Text>
+  <SessionNumber>3</SessionNumber>
+  <ParliamentNumber>55</ParliamentNumber>
+  <VersionNumber>1</VersionNumber>
+  <Url>https://wqatest.parliament.uk/Questions/Details/36527</Url>
+  <QuestionStatus>Tabled</QuestionStatus>
+</Question>
+</Questions>

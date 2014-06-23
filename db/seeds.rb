@@ -12,6 +12,8 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE directorates RESTART IDENT
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE divisions RESTART IDENTITY;")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE deputy_directors RESTART IDENTITY;")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers RESTART IDENTITY;")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTITY;")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
 
 puts '-populate'
 progresses = Progress.create([{name: Progress.UNALLOCATED},{name: Progress.ALLOCATED_PENDING},{name: Progress.ALLOCATED_ACCEPTED}])
@@ -76,13 +78,26 @@ deputy_directors = DeputyDirector.create!([
 	{division_id: 19, name: 'Nick Ramsey', deleted: false}
 	])
 
+PressDesk.create!([
+    {name: 'Finance press desk', deleted: false},
+    {name: 'Prisons press desk', deleted: false}
+    ])
+PressOfficer.create!([
+    {name: 'press officer one', email: 'one@press.office.com', deleted: false, press_desk_id: 1 },
+    {name: 'press officer two', email: 'two@press.office.com', deleted: false, press_desk_id: 1 },
+    {name: 'press officer three', email: 'three@press.office.com', deleted: false, press_desk_id: 2 },
+    {name: 'press officer four', email: 'four@press.office.com', deleted: false, press_desk_id: 2 },
+    ])
 action_officers = ActionOfficer.create!([
-	{deputy_director_id: 17, name: 'Colin Bruce', email: 'colin.bruce@digital.justice.gov.uk', deleted: false},
-	{deputy_director_id: 19, name: 'Daniel Penny', email: 'daniel.penny@digital.justice.gov.uk', deleted: false},
-	{deputy_director_id: 6, name: 'David Hernandez', email: 'david.hernandez@digital.justice.gov.uk', deleted: false},
-	{deputy_director_id: 7, name: 'Tehseen Udin', email: 'tehseen.udin@digital.justice.gov.uk', deleted: false},
-	{deputy_director_id: 8, name: 'Tom Wynne-Morgan', email: 'tom.wynne-morgan@digital.justice.gov.uk', deleted: false},
-	{deputy_director_id: 9, name: 'Tom Norman', email: 'tom.norman@digital.justice.gov.uk', deleted: false},
-	{deputy_director_id: 10, name: 'Mary Henley', email: 'mary.henley@digital.justice.gov.uk', deleted: false}
+	{deputy_director_id: 17, name: 'Colin Bruce', email: 'colin.bruce@digital.justice.gov.uk', deleted: false, press_desk_id: 1},
+	{deputy_director_id: 19, name: 'Daniel Penny', email: 'daniel.penny@digital.justice.gov.uk', deleted: false, press_desk_id: 1},
+	{deputy_director_id: 6, name: 'David Hernandez', email: 'david.hernandez@digital.justice.gov.uk', deleted: false, press_desk_id: 1},
+	{deputy_director_id: 7, name: 'Tehseen Udin', email: 'tehseen.udin@digital.justice.gov.uk', deleted: false, press_desk_id: 1},
+	{deputy_director_id: 8, name: 'Tom Wynne-Morgan', email: 'tom.wynne-morgan@digital.justice.gov.uk', deleted: false, press_desk_id: 2},
+	{deputy_director_id: 9, name: 'Tom Norman', email: 'tom.norman@digital.justice.gov.uk', deleted: false, press_desk_id: 2},
+	{deputy_director_id: 10, name: 'Mary Henley', email: 'mary.henley@digital.justice.gov.uk', deleted: false, press_desk_id: 2}
 	])
+
+
+
 puts 'Done'

@@ -1,3 +1,7 @@
+#global-header.with-proposition .header-wrapper .header-proposition .content {
+    margin: 9px 15px 0 15px;
+}
+
 a.btn-success {
 	color: white;
 }

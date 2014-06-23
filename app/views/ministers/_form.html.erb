@@ -14,6 +14,15 @@
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+    <%= link_to 'Search', {controller: 'members', action:'by_name', remote: true }, {id: 'search_member'}%>
+  </div>
+  <div class="field">
+      Member Id<br/>
+      <%= f.text_field :member_id %>
+  </div>
+
+  <div id="members_result">
+
   </div>
   <div class="field">
     <%= f.label :title %><br>

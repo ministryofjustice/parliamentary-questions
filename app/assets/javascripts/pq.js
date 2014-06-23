@@ -24,4 +24,23 @@ $(document).ready(function () {
 		//TODO how should ux handle error? Add it to the list, alert, flash, etc...
 
 	});
+
+
+
+    $('#search_member').bind('ajax:before', function() {
+        $(this).data('params', { name: $("#minister_name").val() });
+    });
+
+    $('#search_member').bind('ajax:success', function(e, data, status, xhr){
+        $( "#members_result" ).replaceWith(data);
+        $("#members_result_select").select2({width:'250px'});
+        $('#members_result_select_link').bind('ajax:before', function() {
+            m_id = $("#members_result_select").val();
+            m_name = $("#members_result_select option:selected").data('name');
+            $("#minister_member_id").val(m_id);
+            $("#minister_name").val(m_name);
+            return false;
+        });
+    });
+
 });  

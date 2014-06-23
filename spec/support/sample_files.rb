@@ -22,3 +22,7 @@ end
 def sample_answer
   File.open('spec/fixtures/sample_answer.xml')
 end
+
+def sample_question_for_answer
+  File.open('spec/fixtures/sample_question_for_answer.xml')
+end
