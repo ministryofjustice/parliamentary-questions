@@ -1,0 +1,22 @@
+<!-- GET http://data.parliament.uk/membersdataplatform/services/mnis/members/query/name*Diane -->
+
+<Members>
+  <Member Member_Id="172" Dods_Id="25790" Pims_Id="3572">
+    <DisplayAs>Ms Diane Abbott</DisplayAs>
+    <ListAs>Abbott, Diane</ListAs>
+    <FullTitle>Ms Diane Abbott MP</FullTitle>
+    <DateOfBirth>1953-09-27T00:00:00</DateOfBirth>
+    <DateOfDeath xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+    <Gender>F</Gender>
+    <Party Id="15">Labour</Party>
+    <House>Commons</House>
+    <MemberFrom>Hackney North and Stoke Newington</MemberFrom>
+    <HouseStartDate>1987-06-11T00:00:00</HouseStartDate>
+    <HouseEndDate xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+    <CurrentStatus Id="0" IsActive="True">
+      <Name>Current Member</Name>
+      <Reason/>
+      <StartDate>1987-06-11T00:00:00</StartDate>
+    </CurrentStatus>
+  </Member>
+</Members>

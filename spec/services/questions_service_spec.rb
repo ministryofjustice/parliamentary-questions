@@ -86,6 +86,30 @@ describe 'QuestionsService' do
   end
 
 
+  describe '#answer' do
+    it 'should generate the correct xml' do
+      allow(@http_client).to receive(:answer) { {content: sample_answer, status: 200} }
+
+      expected_xml = '<?xml version="1.0" encoding="utf-8"?><Answer xmlns="http://data.parliament.uk/QnA/2013/02"><IsHoldingAnswer>false</IsHoldingAnswer><Text>text test</Text><MinisterId>123</MinisterId></Answer>'
+
+      expect(@http_client).to receive(:answer).with('H111', expected_xml)
+      result = @questions_service.answer(uin: 'H111', member_id: '123', text: 'text test')
+      result[:preview_url].should eq('https://wqatest.parliament.uk/Questions/Details/36527')
+    end
+
+    it 'should generate the correct xml and holding answer' do
+      allow(@http_client).to receive(:answer) { {content: sample_answer, status: 200} }
+
+      expected_xml = '<?xml version="1.0" encoding="utf-8"?><Answer xmlns="http://data.parliament.uk/QnA/2013/02"><IsHoldingAnswer>true</IsHoldingAnswer><Text>text2 test</Text><MinisterId>1234</MinisterId></Answer>'
+
+      expect(@http_client).to receive(:answer).with('H112', expected_xml)
+      result = @questions_service.answer(uin: 'H112', member_id: '1234', text: 'text2 test', is_holding_answer: true)
+
+      result[:preview_url].should  eq('https://wqatest.parliament.uk/Questions/Details/36527')
+    end
+
+  end
+
 
 end
 
