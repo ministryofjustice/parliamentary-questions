@@ -30,7 +30,7 @@ SMTP_USERNAME=
 SMTP_PASSWORD=
 
 # version of the webapp
-VERSION=0.1-sprint6
+APPVERSION=0.1-sprint6
 ```
 
 
