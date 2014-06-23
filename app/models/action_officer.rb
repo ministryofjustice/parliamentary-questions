@@ -2,7 +2,6 @@ class ActionOfficer < ActiveRecord::Base
   validates :email, uniqueness: true, on: :create
   validates_format_of :email,:with => Devise::email_regexp
   validates :deputy_director_id, presence: true
-  # TODO fix this the db:seed doesn't work with this validation
   validates :press_desk_id, presence: true
   
 	has_many :action_officers_pqs

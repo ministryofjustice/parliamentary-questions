@@ -50,7 +50,7 @@ class PqsController < ApplicationController
     end
 
     def pq_params
-      params.require(:pq).permit(:internal_deadline, :seen_by_finance, :press_interest, :finance_interest, :minister_id, :policy_minister_id)
+      params.require(:pq).permit(:internal_deadline, :seen_by_finance, :press_interest, :finance_interest, :minister_id, :policy_minister_id, :draft_answer_received, :i_will_write_estimate, :holding_reply)
     end
     def prepare_ministers
       @minister_list = Minister.where(deleted: false).all

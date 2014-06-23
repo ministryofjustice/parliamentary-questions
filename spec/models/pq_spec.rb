@@ -49,5 +49,8 @@ describe PQ do
 		it 'should allow policy minister to be set' do
 			@pminister = newQ.should respond_to(:policy_minister)
 		end
+		it 'should have a collection of trim links' do
+			@trim = newQ.should respond_to(:trim_links)
+		end
 	end
 end

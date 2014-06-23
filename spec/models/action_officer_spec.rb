@@ -10,8 +10,7 @@ describe ActionOfficer do
 		officer.deputy_director_id = nil
 		expect(officer).to be_invalid
   end
-  #TODO Disable until we fix the db:seed
-  xit 'should have a press desk' do
+  it 'should have a press desk' do
     officer.press_desk_id = nil
     expect(officer).to be_invalid
   end
