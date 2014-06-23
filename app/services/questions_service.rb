@@ -39,6 +39,31 @@ class QuestionsService
     questions.first
   end
 
+
+  def answer(args)
+    uin = args[:uin]
+    member_id = args[:member_id]
+    text = args[:text]
+    is_holding_answer = args[:is_holding_answer] || false
+
+    output = ''
+    xml = ::Builder::XmlMarkup.new(:target => output)
+
+    xml.instruct!  :xml, :version=> '1.0', :encoding => 'utf-8'
+    xml.Answer('xmlns' => 'http://data.parliament.uk/QnA/2013/02') {
+      xml.IsHoldingAnswer is_holding_answer
+      xml.Text text
+      xml.MinisterId member_id
+    }
+
+    response = @http_client.answer(uin, output)
+    preview_url = parse_answer_xml(response[:content])
+    {preview_url: preview_url }
+  end
+
+
+
+
   protected
 
   def parse_questions_xml(response)
@@ -53,6 +78,13 @@ class QuestionsService
       questions.push(item["Question"])
     end
     questions
+  end
+
+
+  def parse_answer_xml(response)
+    xml  = Nokogiri::XML(response)
+    xml.remove_namespaces! # easy to parse if we are only using one namespace
+    xml.xpath('/AnswerResponse/AnswerPreviewUrl').text
   end
 
 end

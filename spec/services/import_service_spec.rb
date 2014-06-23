@@ -11,9 +11,25 @@ describe 'ImportService' do
     @import_service = ImportService.new(questions_service)
   end
 
+  describe '#questions_by_uin' do
+    it 'should store the question into the data model' do
+      allow(@http_client).to receive(:question) { import_questions_for_today }
+
+      import_result = @import_service.questions_by_uin('HL784845')
+      import_result[:questions].size.should eq(1)
+
+      question_one = PQ.find_by(uin: 'HL784845')
+      question_one.should_not be_nil
+      question_one.raising_member_id.should eql(2479)
+      question_one.question.should eql('Hello we are asking questions')
+
+    end
+  end
+
+
   describe '#today_questions' do
     it 'should store today questions into the data model' do
-      import_result = @import_service.today_questions()
+      import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
       # first question
@@ -45,7 +61,7 @@ describe 'ImportService' do
     it 'should update the question data if #today_questions is called multiple times' do
 
       # First call
-      import_result = @import_service.today_questions()
+      import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
       question_one = PQ.find_by(uin: 'HL784845')
@@ -59,7 +75,7 @@ describe 'ImportService' do
       # Second call, with different xml response
       allow(@http_client).to receive(:questions) { import_questions_for_today_with_changes }
 
-      @import_service.today_questions()
+      @import_service.questions()
 
       question_one = PQ.find_by(uin: 'HL784845')
       question_one.should_not be_nil
@@ -76,7 +92,7 @@ describe 'ImportService' do
     it 'should create new question, if you get new questions from the api' do
 
       # First call
-      import_result = @import_service.today_questions()
+      import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
       question_one = PQ.find_by(uin: 'HL784845')
@@ -93,7 +109,7 @@ describe 'ImportService' do
       # Second call, with one new question
       allow(@http_client).to receive(:questions) { import_questions_for_today_with_changes }
 
-      @import_service.today_questions()
+      @import_service.questions()
 
       question_new = PQ.find_by(uin: 'HL5151')
       question_new.should_not be_nil
@@ -103,7 +119,7 @@ describe 'ImportService' do
 
     it 'should return error hash when sent malformed XML from api' do
       allow(@http_client).to receive(:questions) { import_questions_for_today_with_missing_uin }
-      import_result = @import_service.today_questions()
+      import_result = @import_service.questions()
 
       import_result[:questions].size.should eql(1)
 
@@ -122,7 +138,7 @@ describe 'ImportService' do
 
     it 'should not overwrite the question internal_deadline' do
       # First call
-      import_result = @import_service.today_questions()
+      import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
       question_one = PQ.find_by(uin: 'HL784845')
@@ -133,7 +149,7 @@ describe 'ImportService' do
       question_one.save()
 
       # Second call, should have the deadline saved, not the default one
-      import_result = @import_service.today_questions()
+      import_result = @import_service.questions()
       question_one = PQ.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql("2012-08-29 00:00")
@@ -142,7 +158,7 @@ describe 'ImportService' do
 
 
     it 'should create the question in Unallocated state' do
-      import_result = @import_service.today_questions()
+      import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
       question_one = PQ.find_by(uin: 'HL784845')
