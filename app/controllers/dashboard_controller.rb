@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
   before_action :load_import_service
 
   # TODO define the number of question per page
