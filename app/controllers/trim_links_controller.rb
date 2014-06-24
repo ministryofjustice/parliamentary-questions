@@ -6,25 +6,29 @@ class TrimLinksController < ApplicationController
   def create
     accepted_formats = [".tr5"]
 
-    uploaded_io = trim_link_params[:file_data]
-    filename = uploaded_io.original_filename
+    if trim_link_params[:file_data].nil?
+      flash[:error] = "Please select a trim file (.tr5) before trying to add"
+      redirect_to dashboard_url
+    else
+      uploaded_io = trim_link_params[:file_data]
+      filename = uploaded_io.original_filename
+      if accepted_formats.include? File.extname(filename)
+        data = uploaded_io.read
+        size = data.size
 
-    if accepted_formats.include? File.extname(filename)
-      data = uploaded_io.read
-      size = data.size
+        @trim_link = TrimLink.new(:data => data, :filename => filename, :size => size, :pq_id => trim_link_params[:pq_id])
 
-      @trim_link = TrimLink.new(:data => data, :filename => filename, :size => size, :pq_id => trim_link_params[:pq_id])
-
-      if @trim_link.save
-        flash[:success] = 'Trim link was successfully created.'
-        redirect_to dashboard_url
+        if @trim_link.save
+          flash[:success] = 'Trim link was successfully created.'
+          redirect_to dashboard_url
+        else
+          flash[:error] = "Could not add Trim link. #{@trim_link.errors}"
+          redirect_to dashboard_url
+        end
       else
-        flash[:error] = "Could not add Trim link. #{@trim_link.errors}"
+        flash[:error] = "Could not add Trim link. File must be tr5"
         redirect_to dashboard_url
       end
-    else
-      flash[:error] = "Could not add Trim link. File must be tr5"
-      redirect_to dashboard_url
     end
   end
 
