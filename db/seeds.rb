@@ -16,7 +16,18 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTI
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
 
 puts '-populate'
-progresses = Progress.create([{name: Progress.UNALLOCATED},{name: Progress.ALLOCATED_PENDING},{name: Progress.ALLOCATED_ACCEPTED}])
+progresses = Progress.create([{name: Progress.UNALLOCATED},
+  {name: Progress.ALLOCATED_PENDING},
+  {name: Progress.ALLOCATED_ACCEPTED},
+  {name: Progress.REJECTED},
+  {name: Progress.TRANSFER},
+  {name: Progress.POD_WAITING},
+  {name: Progress.POD_QUERY},
+  {name: Progress.POD_CLEARED},
+  {name: Progress.MINISTER_WAITING},
+  {name: Progress.MINISTER_QUERY},
+  {name: Progress.MINISTER_CLEARED}])
+  
 ministers = Minister.create!([
 	{name: 'Chris Grayling', email:'no-emails-1@please.com', title: 'Secretary of State and Lord High Chancellor of Great Britain', deleted: false},
 	{name: 'Damian Green', email:'no-emails-3@please.com', title: 'Minister of State', deleted: false},
