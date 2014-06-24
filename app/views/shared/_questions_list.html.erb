@@ -1,4 +1,4 @@
-<ul class="questions-list">
+<ul class="questions-list col-md-8">
   <% questions.each do |question| %>
       <li style="overflow:auto;">
         <div class="pq-header">
@@ -9,19 +9,27 @@
           <% if question.question_type == 'Ordinary' %>
               <span class="label label-info" title="Ordinary Written">O</span>
           <% end %>
-                    <span class="deadline">
-                      <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
-                      <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>
-                    </span>
-          <div style="float: right;"><%= link_to('Track PQ', { controller: 'pqs', action: 'show', id: question.uin} ) %></div>
+          <span class="deadline">
+            <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
+            <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>
+          </span>
+          <div style="float: right;">
+            <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin} ) %>
+          </div>
         </div>
+
+        <div class="panel-indent">
+          <%= question.question %>
+        </div>
+
+        <div>
+          <span><%= question.house_name %>: <%= question.member_name %></span>
+        </div> 
 
         <div>
           Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
         </div>
-        <div>
-          <span><%= question.house_name %>: <%= question.member_name %></span>
-        </div>   
+
         <% if !question.minister_id.nil? %>    
         <div>
           Replying minister: <%= question.minister.name unless question.minister_id.nil? %></span>
@@ -32,9 +40,7 @@
           <span>Policy minister: <%= question.policy_minister.name %></span>
         </div>
         <% end %>
-        <div class = "panel-indent" style="float: left; width= 66%;">
-          <%= question.question %>
-        </div>
+        
         <div style = "float: left; width= 33%;">
           <% if question.seen_by_finance %>
               <div >
