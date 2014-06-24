@@ -20,10 +20,10 @@ class Progress < ActiveRecord::Base
     find_by_status(self.UNALLOCATED)
   end
 
-  def self.Rejected
+  def self.rejected
     find_by_status(self.REJECTED)
   end
-  def self.Transfer
+  def self.transfer
     find_by_status(self.TRANSFER)
   end
   def self.pod_waiting
