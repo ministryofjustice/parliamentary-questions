@@ -93,12 +93,19 @@ ul.questions-list {
 
 .trim_dates {
 	clear:both;
-	width:370px;
+	width:420px;
 }
 
 .input-group date datetimepicker right
 {
 	width: 250px;
+	margin: 5px; 
+	float: right;
+}
+
+.pq-details-datetime-right
+{
+	width: 185px;
 	margin: 5px; 
 	float: right;
 }

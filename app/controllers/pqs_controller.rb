@@ -2,6 +2,8 @@ class PqsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_pq, only: [:show, :update]
   before_action :prepare_ministers 
+  before_action :prepare_progresses 
+  
 
   def index
     redirect_to controller: 'dashboard'
@@ -50,7 +52,12 @@ class PqsController < ApplicationController
     end
 
     def pq_params
-      params.require(:pq).permit(:internal_deadline, :seen_by_finance, :press_interest, :finance_interest, :minister_id, :policy_minister_id, :draft_answer_received, :i_will_write_estimate, :holding_reply)
+      params.require(:pq).permit(:internal_deadline, :seen_by_finance, :press_interest, 
+      :finance_interest, :minister_id, :policy_minister_id, :draft_answer_received, 
+      :i_will_write_estimate, :holding_reply, :pod_waiting, :pod_query, :pod_clearance, 
+      :sent_to_answering_minister , :ministerial_waiting, :ministerial_query, 
+      :ministerial_clearance, :sent_back_to_action_officer, :returned_by_action_officer, 
+      :resubmitted_to_minister, :sign_off_from_minister, :progress_id)
     end
     def prepare_ministers
       @minister_list = Minister.where(deleted: false).all
@@ -58,5 +65,8 @@ class PqsController < ApplicationController
     def assignment_params
       # TODO: Check the permit again
       # params.require(:action_officers_pq).permit(:action_officer_id, :pq_id)
+    end
+    def prepare_progresses
+      @progress_list = Progress.all
     end
 end

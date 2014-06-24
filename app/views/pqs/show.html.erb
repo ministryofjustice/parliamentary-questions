@@ -107,7 +107,7 @@
     <div class="trim_dates">
       <div style="float:left; margin:5px;"><label for="draft_answer_received">Draft Answer Received</label>
       </div> 
-	   <div class="input-group date datetimepicker right" id="datetimepicker2" data-date-format="DD/MM/YYYY HH:mm">
+	   <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker2" data-date-format="DD/MM/YYYY HH:mm">
 		<input class="form-control" id="draft_answer_received" name="pq[draft_answer_received]" type="text" value="<%= @pq.draft_answer_received.strftime('%d/%m/%Y %H:%M') unless @pq.draft_answer_received.nil? %>">
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
         </span>
@@ -117,7 +117,7 @@
     <div class="trim_dates">
       <div style="float:left; margin:5px;"><label for="i_will_write_estimate">I will write estimate</label>
 	  </div>
-       <div class="input-group date datetimepicker right" id="datetimepicker3" data-date-format="DD/MM/YYYY HH:mm">
+       <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker3" data-date-format="DD/MM/YYYY HH:mm">
 		<input class="form-control" id="i_will_write_estimate" name="pq[i_will_write_estimate]" type="text" value="<%= @pq.i_will_write_estimate.strftime('%d/%m/%Y %H:%M') unless @pq.i_will_write_estimate.nil? %>">
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
         </span>
@@ -128,15 +128,139 @@
       <div style="float:left; margin:5px;">
 		  <label for="holding_reply">Holding Reply</label>
        </div>
-	    <div class="input-group date datetimepicker right" id="datetimepicker4" data-date-format="DD/MM/YYYY HH:mm">
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker4" data-date-format="DD/MM/YYYY HH:mm">
 		<input class="form-control" id="holding_reply" name="pq[holding_reply]" type="text" value="<%= @pq.holding_reply.strftime('%d/%m/%Y %H:%M') unless @pq.holding_reply.nil? %>">
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
         </span>
       </div>
     </div>
+</div>
+<div class="questions-detail-outer" style="overflow:auto;">
 
+	<label>POD Checking</label>
 
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;"><label for=" pod_waiting">Pod Waiting</label>
+      </div> 
+	   <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker5" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="pod_waiting" name="pq[pod_waiting]" type="text" value="<%= @pq.pod_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.pod_waiting.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
 
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;"><label for="i_will_write_estimate">POD Query</label>
+	  </div>
+       <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker6" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="pod_query" name="pq[pod_query]" type="text" value="<%= @pq.pod_query.strftime('%d/%m/%Y %H:%M') unless @pq.pod_query.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+	
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="holding_reply">POD Clearance</label>
+       </div>
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker7" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="pod_clearance" name="pq[pod_clearance]" type="text" value="<%= @pq.pod_clearance.strftime('%d/%m/%Y %H:%M') unless @pq.pod_clearance.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+</div>
+
+<div class="questions-detail-outer" style="overflow:auto;">
+
+	<label>Ministerial Answer</label>
+
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;"><label for="sent_to_answering_minister">Sent to Answering Minister</label>
+      </div> 
+	   <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker8" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="sent_to_answering_minister" name="pq[sent_to_answering_minister]" type="text" value="<%= @pq.sent_to_answering_minister.strftime('%d/%m/%Y %H:%M') unless @pq.sent_to_answering_minister.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;"><label for="ministerial_waiting">Ministerial Waiting</label>
+	  </div>
+       <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker9" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="ministerial_waiting" name="pq[ministerial_waiting]" type="text" value="<%= @pq.ministerial_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.ministerial_waiting.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+	
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="ministerial_query">Ministerial Query</label>
+       </div>
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker10" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="ministerial_query" name="pq[ministerial_query]" type="text" value="<%= @pq.ministerial_query.strftime('%d/%m/%Y %H:%M') unless @pq.ministerial_query.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+	
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="holding_reply">Ministerial Clearance</label>
+       </div>
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker11" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="ministerial_clearance" name="pq[ministerial_clearance]" type="text" value="<%= @pq.ministerial_clearance.strftime('%d/%m/%Y %H:%M') unless @pq.ministerial_clearance.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="holding_reply">Sent Back to Action Officer</label>
+       </div>
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker12" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="sent_back_to_action_officer" name="pq[sent_back_to_action_officer]" type="text" value="<%= @pq.sent_back_to_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.sent_back_to_action_officer.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="holding_reply">Returned by Action Officer</label>
+       </div>
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker13" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="returned_by_action_officer" name="pq[returned_by_action_officer]" type="text" value="<%= @pq.returned_by_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.returned_by_action_officer.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="holding_reply">Resubmitted to Minister</label>
+       </div>
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker14" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="resubmitted_to_minister" name="pq[resubmitted_to_minister]" type="text" value="<%= @pq.resubmitted_to_minister.strftime('%d/%m/%Y %H:%M') unless @pq.resubmitted_to_minister.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+    <div class="trim_dates">
+      <div style="float:left; margin:5px;">
+		  <label for="holding_reply">Sign Off from Minister</label>
+       </div>
+	    <div class="input-group date datetimepicker pq-details-datetime-right" id="datetimepicker15" data-date-format="DD/MM/YYYY HH:mm">
+		<input class="form-control" id="sign_off_from_minister" name="pq[sign_off_from_minister]" type="text" value="<%= @pq.sign_off_from_minister.strftime('%d/%m/%Y %H:%M') unless @pq.sign_off_from_minister.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+</div>
+
+<div>
+        <label>Progress of answer</label>
+        <%= f.collection_select(:progress_id, @progress_list, :id, :name) %>
 </div>
 <p>
 <%= f.submit 'Update', :class => 'button' %>
