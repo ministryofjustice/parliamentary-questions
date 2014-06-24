@@ -1,5 +1,5 @@
 class DirectoratesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
   before_action :set_directorate, only: [:show, :edit, :update, :destroy]
 
   # GET /directorates

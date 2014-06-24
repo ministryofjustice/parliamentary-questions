@@ -10,6 +10,7 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Role</th>
         <th>Invitiation</th>
         <th></th>
         <th></th>
@@ -19,6 +20,7 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
+          <td><%= user.roles %></td>
           <td><%= user.invited_by.try(:display_name) %></td>
           <td><%= link_to 'Edit', edit_user_path(user), {class: 'button'} %></td>
           <td><%= link_to 'Delete', user_path(user), {:method => :delete, :class => 'button', :data => { :confirm => 'Are you sure?' } }%></td>

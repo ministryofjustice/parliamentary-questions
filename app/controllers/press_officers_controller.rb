@@ -1,4 +1,5 @@
 class PressOfficersController < ApplicationController
+  before_action :authenticate_user!, PQUserFilter
   before_action :set_press_officer, only: [:show, :edit, :update, :destroy]
   before_action :prepare_press_offices
 
