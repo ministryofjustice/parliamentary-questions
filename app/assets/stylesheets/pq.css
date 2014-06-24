@@ -159,3 +159,6 @@ ul.questions-list {
 .pq-inline-form {
 	display:inline!important;
 }
+
+#status-filters {margin-top:20px}
+#status-filters .badge {float:right;}
