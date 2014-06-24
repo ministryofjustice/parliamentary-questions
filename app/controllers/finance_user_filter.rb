@@ -7,7 +7,7 @@ class FinanceUserFilter
   end
 
   def self.has_access(controller)
-    controller.current_user.roles == User.ROLE_FINANCE
+    controller.current_user.is_finance_user?
   end
 
 end

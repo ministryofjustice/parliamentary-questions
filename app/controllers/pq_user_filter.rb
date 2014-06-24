@@ -7,7 +7,7 @@ class PQUserFilter
   end
 
   def self.has_access(controller)
-    controller.current_user.roles == User.ROLE_PQ_USER
+    controller.current_user.is_pq_user?
   end
 
 end

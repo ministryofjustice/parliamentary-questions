@@ -35,7 +35,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'answering/:id' => 'answering#index'
   post 'answering/:id' => 'answering#answer'
 
-  get '/', to: 'dashboard#index', as: :root
+  get '/', to: 'root#index', as: :root
   get 'dashboard' => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'
 
