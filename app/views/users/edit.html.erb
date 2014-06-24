@@ -12,6 +12,13 @@
             <%= f.label(:name, "Email") %>
             <%= f.text_field :email, {class: 'form-control'} %>
         </div>
+
+        <div class="form-group">
+          <%= f.label(:roles, "Role") %>
+
+          <%= f.select(:roles, [ User.ROLE_PQ_USER, User.ROLE_FINANCE ]) %>
+        </div>
+
         <div class="form-group">
             <%= f.submit 'Save', {class: 'button'} %>
         </div>
