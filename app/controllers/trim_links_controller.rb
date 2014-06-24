@@ -1,5 +1,5 @@
 class TrimLinksController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
 
   # POST /trim_links
   # POST /trim_links.json

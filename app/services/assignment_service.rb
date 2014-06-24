@@ -26,5 +26,9 @@ class AssignmentService
 
   def reject(assignment, response)
     assignment.update_attributes(accept: false, reject: true, reason_option: response.reason_option, reason: response.reason)
+    pq = PQ.find_by(id: assignment.pq_id)
+
+    pro = Progress.rejected
+    pq.update progress_id: pro.id
   end
 end

@@ -1,5 +1,5 @@
 class AnsweringController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
   before_action :load_service
   before_action :set_pq
 

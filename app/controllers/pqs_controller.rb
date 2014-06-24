@@ -1,5 +1,5 @@
 class PqsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
   before_action :set_pq, only: [:show, :update]
   before_action :prepare_ministers 
   before_action :prepare_progresses 

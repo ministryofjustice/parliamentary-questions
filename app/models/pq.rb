@@ -23,6 +23,11 @@ class PQ < ActiveRecord::Base
   end
 
 
+  def self.not_seen_by_finance()
+    where('seen_by_finance = ?', false)
+  end
+
+
   # status queries
   def self.by_status(status_name)
     joins(:progress).where('progresses.name = :search', search: "#{status_name}")
@@ -36,6 +41,30 @@ class PQ < ActiveRecord::Base
   end
   def self.unallocated()
     by_status(Progress.UNALLOCATED)
+  end
+  def self.rejected
+    by_status(Progress.REJECTED)
+  end
+  def self.transfer
+    by_status(Progress.TRANSFER)
+  end
+  def self.pod_waiting
+    by_status(Progress.POD_WAITING)
+  end
+  def self.pod_query
+    by_status(Progress.POD_QUERY)
+  end
+  def self.pod_cleared
+    by_status(Progress.POD_CLEARED)
+  end
+  def self.minister_waiting
+    by_status(Progress.MINISTER_WAITING)
+  end
+  def self.minister_query
+    by_status(Progress.MINISTER_QUERY)
+  end
+  def self.minister_cleared
+    by_status(Progress.MINISTER_CLEARED)
   end
 
 end
