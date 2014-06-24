@@ -37,5 +37,29 @@ class PQ < ActiveRecord::Base
   def self.unallocated()
     by_status(Progress.UNALLOCATED)
   end
+  def self.rejected
+    by_status(Progress.REJECTED)
+  end
+  def self.transfer
+    by_status(Progress.TRANSFER)
+  end
+  def self.pod_waiting
+    by_status(Progress.POD_WAITING)
+  end
+  def self.pod_query
+    by_status(Progress.POD_QUERY)
+  end
+  def self.pod_cleared
+    by_status(Progress.POD_CLEARED)
+  end
+  def self.minister_waiting
+    by_status(Progress.MINISTER_WAITING)
+  end
+  def self.minister_query
+    by_status(Progress.MINISTER_QUERY)
+  end
+  def self.minister_cleared
+    by_status(Progress.MINISTER_CLEARED)
+  end
 
 end
