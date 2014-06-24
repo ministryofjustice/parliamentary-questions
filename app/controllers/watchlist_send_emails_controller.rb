@@ -1,5 +1,5 @@
 class WatchlistSendEmailsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
 
   def send_emails
     service = WatchlistReportService.new

@@ -1,5 +1,5 @@
 class FinanceController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, FinanceUserFilter
   before_action :load_import_service
 
   def questions

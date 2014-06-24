@@ -1,5 +1,5 @@
 class MembersController  < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
   before_action :load_service
 
   def by_name
