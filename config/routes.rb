@@ -57,4 +57,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'import/question' => 'import#question'
   get 'import/questions' => 'import#questions'
 
+  get 'finance/questions' => 'finance#questions'
+  post 'finance/confirm' => 'finance#confirm'
+
 end

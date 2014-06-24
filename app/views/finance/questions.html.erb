@@ -1,0 +1,63 @@
+
+
+<h2 class="section">New PQs Today <span class="badge"><%= @questions.count %></span></h2>
+
+<%= render partial: 'shared/flash_messages' %>
+
+
+<% if @questions.count == 0 %>
+<div>
+ <p>There are not more questions to review</p>
+</div>
+
+<% end %>
+
+
+
+<% if @questions.count > 0 %>
+
+    <%= form_tag :controller => 'finance', :action => 'confirm' do  %>
+
+    <ul class="questions-list">
+      <% @questions.each do |question| %>
+          <li style="overflow:auto;">
+            <div class="pq-header">
+              <span class="uin"><%= question.uin %></span>
+            </div>
+            <div>
+              Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
+            </div>
+            <div>
+              <span><%= question.house_name %>: <%= question.member_name %></span>
+            </div>
+
+            <div class = "panel-indent" style="float: left; width= 66%;">
+              <%= question.question %>
+            </div>
+            <div class="allocation-info">
+              <%= render partial: 'shared/question_assigned', locals: {question: question} %>
+            </div>
+
+            <input type="hidden" name="pq[<%= question.id %>][seen_by_finance]" value="true">
+            <div class="checkbox">
+              <label>Register Interest
+                <input name="pq[<%= question.id %>][finance_interest]" type="checkbox" value="true"/>
+              </label>
+            </div>
+          </li>
+      <% end %>
+    </ul>
+
+
+        <div class="form-group">
+          <%= submit_tag 'Confirm Visibility of all PQs' , class: 'button'%>
+        </div>
+
+    <% end %>
+
+
+<% end %>
+
+
+
+
