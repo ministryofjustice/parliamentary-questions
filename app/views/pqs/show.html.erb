@@ -13,6 +13,11 @@
   <div style="Width:400px; float:left;">
     <div>
         <div>
+          <% if !@pq.preview_url.nil? %>
+            <a href="<%= @pq.preview_url %>">Question in Q&A Tool</a>
+          <% end %>
+        </div>
+        <div>
         Tabling Member: <%= @pq.member_name %>
         </div>
         <div>
