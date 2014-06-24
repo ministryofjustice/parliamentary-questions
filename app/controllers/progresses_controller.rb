@@ -1,4 +1,5 @@
 class ProgressesController < ApplicationController
+  before_action :authenticate_user!, PQUserFilter
   before_action :set_progress, only: [:show, :edit, :update, :destroy]
 
   # GET /progresses

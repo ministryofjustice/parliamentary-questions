@@ -1,5 +1,5 @@
 class CommissionController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
 
   def commission
     @pq = PQ.find_by(uin: params[:id])

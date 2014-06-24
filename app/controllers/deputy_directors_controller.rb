@@ -1,5 +1,5 @@
 class DeputyDirectorsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, PQUserFilter
   before_action :set_deputy_director, only: [:show, :edit, :update, :destroy]
   before_action :prepare_divisions
 
