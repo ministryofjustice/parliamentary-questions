@@ -23,6 +23,11 @@ class PQ < ActiveRecord::Base
   end
 
 
+  def self.not_seen_by_finance()
+    where('seen_by_finance = ?', false)
+  end
+
+
   # status queries
   def self.by_status(status_name)
     joins(:progress).where('progresses.name = :search', search: "#{status_name}")
