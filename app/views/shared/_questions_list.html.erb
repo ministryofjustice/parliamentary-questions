@@ -24,11 +24,17 @@
 
         <div>
           <span><%= question.house_name %>: <%= question.member_name %></span>
-        </div> 
+        </div>
 
         <div>
           Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
         </div>
+
+        <% if !question.preview_url.nil? %>
+            <div>
+              <a href="<%= question.preview_url %>">Question in Q&A Tool</a>
+            </div>
+        <% end %>
 
         <% if !question.minister_id.nil? %>    
         <div>
