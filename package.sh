@@ -11,6 +11,7 @@ cat <<EOT >MANIFEST
 Version:  $VERSION
 Date:     $DATE
 BuildTag: $BUILD_TAG
+Commit:   $GIT_COMMIT
 
 EOT
 
