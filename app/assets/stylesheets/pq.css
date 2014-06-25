@@ -162,3 +162,15 @@ ul.questions-list {
 
 #status-filters {margin-top:20px}
 #status-filters .badge {float:right;}
+
+.pagination {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#pages {
+	clear:both;
+	width:100%;
+	display:block;
+	text-align:center;
+}
