@@ -10,7 +10,11 @@ class PQ < ActiveRecord::Base
     belongs_to :policy_minister, :class_name=>'Minister', :foreign_key=>'policy_minister_id'
  	#validates :finance_interest, :inclusion => {:in => [true, false]}, if: :seen_by_finance
   belongs_to :progress
+  after_initialize :init
 
+  def init
+    self.seen_by_finance ||= false           #will set the default value only if it's nil
+  end
 
   def self.new_questions()
     at_beginning_of_day = DateTime.now.at_beginning_of_day

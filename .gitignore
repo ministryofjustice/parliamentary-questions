@@ -23,6 +23,7 @@ capybara-*.html
 .rspec
 .rvmrc
 /.bundle
+/.idea
 /vendor/bundle
 /log/*
 /tmp/*
@@ -36,7 +37,6 @@ capybara-*.html
 \#*
 db/password.hash
 .powrc
-
 .DS_Store
 
 .watchr
