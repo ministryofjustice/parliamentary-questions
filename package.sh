@@ -8,8 +8,9 @@ fi
 DATE=`date`
 
 cat <<EOT >MANIFEST
-Version: $VERSION
-Date: $DATE
+Version:  $VERSION
+Date:     $DATE
+BuildTag: $BUILD_TAG
 
 EOT
 
