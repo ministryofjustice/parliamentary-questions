@@ -4,7 +4,7 @@ DEFAULT_DOCKERREPO="docker.local:5000"
 DEFAULT_DOCKERTAG="assets"
 
 DOCKERFILE="docker/assets/Dockerfile"
-DOCKERREPO="${DOCKERREPO:-DEFAULT_DOCKERREPO}"
+DOCKERREPO="${DOCKERREPO:-$DEFAULT_DOCKERREPO}"
 DOCKERTAG="${DOCKERTAG:-$DEFAULT_DOCKERTAG}"
 
 [ ! -d "docker" ] && echo "Please run from git root" && exit 1
