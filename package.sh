@@ -1,14 +1,14 @@
 
 if [ -n "$1" ]; then 
-  export VERSION=`echo "$1" | sed -e "s/.*release\///g"`
+  export APPVERSION=`echo "$1" | sed -e "s/.*release\///g"`
 else
-  export VERSION='latest'
+  export APPVERSION='latest'
 fi
 
 DATE=`date`
 
 cat <<EOT >MANIFEST
-Version:  $VERSION
+Version:  $APPVERSION
 Date:     $DATE
 BuildTag: $BUILD_TAG
 Commit:   $GIT_COMMIT
@@ -30,10 +30,10 @@ bundle exec rake assets:precompile RAILS_ENV=production
 # Notify hipchat in Jenkins
 
 export DOCKERTAG="${DOCKER_PREFIX}assets"
-echo "Building Assets Container ($VERSION)"
-./docker/assets/make.sh $VERSION
+echo "Building Assets Container ($APPVERSION)"
+./docker/assets/make.sh $APPVERSION
 
 export DOCKERTAG="${DOCKER_PREFIX}rails"
-echo "Building Rails Container ($VERSION)"
-./docker/rails/make.sh $VERSION
+echo "Building Rails Container ($APPVERSION)"
+./docker/rails/make.sh $APPVERSION
 
