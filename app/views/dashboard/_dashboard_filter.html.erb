@@ -1,4 +1,4 @@
-<ul id="status-filters" class="nav nav-pills nav-stacked navbar-right">
+<ul id="status-filters" class="nav nav-pills nav-stacked navbar-right col-md-3">
   <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'index') %>">
 	  <%= link_to raw("View all<span class='badge'>#{PQ.new_questions.count}</span>") , {:controller => 'dashboard', :action => 'index'} %>
   </li>
