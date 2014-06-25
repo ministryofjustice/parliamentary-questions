@@ -18,8 +18,8 @@ class CommissionController < ApplicationController
     @pq = PQ.find(pq_id)
     comm = params[:action_officers_pq][:action_officer_id]
     if comm.size==1 && comm.first.empty?
-      flash[:error] = "Please select at least one Action Officer"
-      return redirect_to action: 'commission', id: @pq.uin
+      flash.now[:error] = 'Please select at least one Action Officer'
+      return render :partial => 'shared/question_assigned', :locals => {question: @pq}
     end
     
     comm.each do |ao_id| 
@@ -27,12 +27,12 @@ class CommissionController < ApplicationController
         result = assign_one_action_officer(pq_id, ao_id)
         begin
           if result.nil?
-            flash[:error] = "Error in commissioning to #{assignment.action_officer.name}"
-            return redirect_to action: 'commission', id: @pq.uin
+            flash.now[:error] = "Error in commissioning to #{assignment.action_officer.name}"
+            return render :partial => 'shared/question_assigned', :locals => {question: @pq}
           end
         rescue => e
-          flash[:error] = "#{e}"
-          return redirect_to action: 'commission', id: @pq.uin
+          flash.now[:error] = "#{e}"
+          return render :partial => 'shared/question_assigned', :locals => {question: @pq}
         end              
       end
     end
