@@ -1,8 +1,11 @@
 #!/bin/bash
 
+DEFAULT_DOCKERREPO="docker.local:5000"
+DEFAULT_DOCKERTAG="rails"
+
 DOCKERFILE="docker/rails/Dockerfile"
-DOCKERREPO="docker.local:5000"
-DOCKERTAG=rails
+DOCKERREPO="${DOCKERREPO:-DEFAULT_DOCKERREPO}"
+DOCKERTAG="${DOCKERTAG:-$DEFAULT_DOCKERTAG}"
 
 [ ! -d "docker" ] && echo "Please run from git root" && exit 1
 
@@ -15,8 +18,12 @@ fi
 cp ${DOCKERFILE} .
 docker build -t ${TAG} --force-rm=true .
 
-echo "+ docker push ${TAG}"
-docker push ${TAG}
-echo "+ docker rmi ${TAG}"
-docker rmi ${TAG}
+if [ -z "$DOCKER_NOPUSH" ]; then
+  echo "+ docker push ${TAG}"
+  docker push ${TAG}
+fi
 
+if [ -z "$DOCKER_NORMI" ]; then
+  echo "+ docker rmi ${TAG}"
+  docker rmi ${TAG}
+fi
