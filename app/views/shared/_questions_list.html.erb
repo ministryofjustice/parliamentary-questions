@@ -9,10 +9,7 @@
           <% if question.question_type == 'Ordinary' %>
               <span class="label label-info" title="Ordinary Written">O</span>
           <% end %>
-          <span class="deadline">
-            <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
-            <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>
-          </span>
+
           <div style="float: right;">
             <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin} ) %>
           </div>
@@ -29,6 +26,11 @@
         <div>
           Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
         </div>
+        <span class="deadline">
+            Internal Deadline:
+            <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>
+            <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
+         </span>
 
         <% if !question.preview_url.nil? %>
             <div>
@@ -46,23 +48,7 @@
           <span>Policy minister: <%= question.policy_minister.name %></span>
         </div>
         <% end %>
-        
-        <div style = "float: left; width= 33%;">
-          <% if question.seen_by_finance %>
-              <div >
-                <span class = "label label-success"><span class="glyphicon glyphicon-eye-open"></span> Seen By Finance</span>
-              </div>
-          <%else%>
-              <div >
-                <span class = "label label-default" style="line-height:2;"><span class="glyphicon glyphicon-eye-close"></span> Not Seen By Finance</span>
-              </div>
-          <% end %>
-          <% if question.finance_interest %>
-              <div>
-                <span class = "label label-success">Finance Interest</span>
-              </div>
-          <% end %>
-        </div>
+
         <div class="allocation-info">
           <% if question.seen_by_finance  %>
               <div id="comm-form-container">

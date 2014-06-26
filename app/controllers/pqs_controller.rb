@@ -36,6 +36,9 @@ class PqsController < ApplicationController
     end
   end
 
+  def assign_minister
+
+  end
   # DELETE /pqs/1
   # DELETE /pqs/1.json
   #def destroy
