@@ -8,6 +8,7 @@
     <% question.action_officers_pq.each do |ao_pq|   %>
         <li>
             <%= ao_pq.action_officer.name  %>
+            (<%= ao_pq.action_officer.deputy_director.division.name %>)
             <% if ao_pq.accept %>
                 <span class="label label-success">Accepted</span>
             <% elsif ao_pq.reject %>
