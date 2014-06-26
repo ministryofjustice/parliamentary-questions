@@ -2,52 +2,60 @@ class ImportService
 
 	def initialize(questionsService = QuestionsService.new)
     	@questionsService = questionsService
-  	end
+      @progress_unallocated = Progress.unallocated
+  end
 
-	def questions(args = { dateFrom: Date.today} )
+	def questions_with_callback(args = { dateFrom: Date.today} , &block)
     questions = @questionsService.questions(args)
 
-    questions_processed = Array.new
-		errors = Array.new
-    pro = Progress.unallocated
-
     questions.each do |q|
-	      	pq = import_one_question(pro, q)
-			if pq.errors.empty?			
-				questions_processed.push(q)			
-			else				
-				errors.push({ message: pq.errors.full_messages, question:q })
-			end
+      import_one_question(q, &block)
     end
+  end
+
+  def questions_by_uin_with_callback(uin, &block)
+    q = @questionsService.questions_by_uin(uin)
+    import_one_question(q, &block)
+  end
+
+
+  def questions(args = { dateFrom: Date.today} )
+    questions_processed = Array.new
+    errors = Array.new
+
+    questions_with_callback(args) { |result|
+        if !result[:error].nil?
+          errors.push({ message: result[:error], question: result[:question] })
+        else
+          questions_processed.push(result[:question])
+        end
+    }
     {questions: questions_processed, errors: errors}
   end
 
 
   def questions_by_uin(uin)
-    q = @questionsService.questions_by_uin(uin)
-
     questions_processed = Array.new
     errors = Array.new
-    pro = Progress.unallocated
 
-    pq = import_one_question(pro, q)
-    if pq.errors.empty?
-      questions_processed.push(q)
-    else
-      errors.push({ message: pq.errors.full_messages, question:q })
-    end
-
+    questions_by_uin_with_callback(uin) { |result|
+      if !result[:error].nil?
+        errors.push({ message: result[:error], question: result[:question] })
+      else
+        questions_processed.push(result[:question])
+      end
+    }
     {questions: questions_processed, errors: errors}
   end
 
 
   protected
 
-  def import_one_question(progress, q)
+  def import_one_question(q, &block)
     pq = PQ.find_or_initialize_by(uin: q['Uin'])
     default_deadline = DateTime.now.midnight.change ({:hour => 10, :min => 30, :offset => 0})
     deadline = pq.internal_deadline || default_deadline
-    progress_id = pq.progress_id || progress.id
+    progress_id = pq.progress_id || @progress_unallocated.id
     pq.update(
         uin: q['Uin'],
         raising_member_id: q['TablingMember']['MemberId'],
@@ -63,6 +71,12 @@ class ImportService
         preview_url: q['Url'],
         progress_id: progress_id
     )
-    pq
+
+    if pq.errors.empty?
+      yield ({question: q})
+    else
+      yield ({question: q, error: pq.errors.full_messages})
+    end
+
   end
 end	
