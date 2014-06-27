@@ -13,7 +13,25 @@ class ImportController < ApplicationController
   def questions
     dateTo = DateTime.parse(params[:dateTo])
     dateFrom = DateTime.parse(params[:dateFrom])
-    import_result = @importService.questions(dateFrom: dateFrom, dateTo: dateTo)
+    @import_result = @importService.questions(dateFrom: dateFrom, dateTo: dateTo)
+
+    render :partial => 'questions_import'
+  end
+
+  def questions_force_update
+    dateTo = DateTime.parse(params[:dateTo])
+    dateFrom = DateTime.parse(params[:dateFrom])
+    @import_result = @importService.questions_no_lock(dateFrom: dateFrom, dateTo: dateTo)
+
+    render :partial => 'questions_import'
+  end
+
+  def questions_no_log
+    importService_no_log = ImportService.new
+
+    dateTo = DateTime.parse(params[:dateTo])
+    dateFrom = DateTime.parse(params[:dateFrom])
+    import_result = importService_no_log.questions(dateFrom: dateFrom, dateTo: dateTo)
 
     @questions = import_result[:questions]
     @errors = import_result[:errors]
@@ -21,9 +39,16 @@ class ImportController < ApplicationController
     render :partial => 'questions_import'
   end
 
+
+  def logs
+    @logs = ImportLog.all
+    render :partial => 'import_log'
+  end
+
+
   protected
 
-  def load_service(importService = ImportService.new)
+  def load_service(importService = ImportServiceWithDatabaseLock.new)
     @importService ||= importService
   end
 end

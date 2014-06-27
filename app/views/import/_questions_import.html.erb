@@ -1,26 +1,38 @@
 
-<h3>Imported questions</h3>
+<h3>Imported result</h3>
 
-<% @questions.each do |q| %>
+<% if !@import_result.nil? %>
+    <p> <%= @import_result %></p>
+<% end %>
 
-  <pre>
-    <%= q.to_s %>
-  </pre>
+
+<% if !@questions.nil? %>
+
+    <% @questions.each do |q| %>
+
+      <pre>
+        <%= q.to_s %>
+      </pre>
+
+    <% end %>
 
 <% end %>
 
 
+<% if !@errors.nil? %>
+
 <h3>Errors</h3>
 
-<% @errors.each do |e| %>
+    <% @errors.each do |e| %>
 
-    <h5>Error</h5>
-    <pre>
-      <%= e[:message] %>
-    </pre>
-    <pre>
-       <%= e[:question] %>
-    </pre>
+        <h5>Error</h5>
+        <pre>
+          <%= e[:message] %>
+        </pre>
+        <pre>
+           <%= e[:question] %>
+        </pre>
 
 
+    <% end %>
 <% end %>
