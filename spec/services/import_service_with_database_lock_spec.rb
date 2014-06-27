@@ -29,5 +29,33 @@ describe 'ImportServiceWithDatabaseLock' do
 
     end
 
+
+    it 'should prevent that multiple execution run at the same time' do
+
+      result = @import_service.questions()
+      result[:log_type].should eq('FINISH')
+
+      result = @import_service.questions()
+
+      result[:log_type].should eq('SKIP_RUN')
+      result[:msg].should eq('other process is running')
+
+    end
+
+
+    it 'should cleanup older results' do
+
+      ImportLog.create(log_type: 'TEST', msg: 'test', created_at: DateTime.now - 5.days)
+      ImportLog.create(log_type: 'TEST', msg: 'test', created_at: DateTime.now - 5.days)
+      ImportLog.create(log_type: 'TEST', msg: 'test', created_at: DateTime.now - 5.days)
+
+      result = @import_service.questions()
+      result[:log_type].should eq('FINISH')
+
+      ImportLog.where('log_type = ?', 'TEST').count.should eq(0)
+
+    end
+
+
   end
 end

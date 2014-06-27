@@ -1,6 +1,7 @@
 class ImportServiceWithDatabaseLock
 
-  def initialize(importService = ImportService.new)
+  def initialize(importService = ImportService.new, time_threshold = 60.minutes)
+    @time_threshold = time_threshold
     @importService = importService
     @progress_unallocated = Progress.unallocated
   end
@@ -15,8 +16,12 @@ class ImportServiceWithDatabaseLock
 
     questions_imported = 0
     errors_count = 0
-
     runner = Random.rand(1000000000)
+
+    if !naive_lock_acquire
+      return  {msg: 'other process is running', log_type: 'SKIP_RUN'}
+    end
+
     ImportLog.create(log_type: 'START', msg: "#{runner}: start running the import")
 
     @importService.questions_with_callback(args) { |result|
@@ -28,9 +33,36 @@ class ImportServiceWithDatabaseLock
         ImportLog.create(log_type: 'SUCCESS', msg: "#{runner}: #{result[:error]} ::: #{result[:question]}")
       end
     }
-    ImportLog.create(log_type: 'FINISH', msg: "#{runner}: Questions imported #{questions_imported}, Errors  #{errors_count}")
 
+    delete_old_logs
+
+    msg = "#{runner}: Questions imported #{questions_imported}, Errors  #{errors_count}"
+    ImportLog.create(log_type: 'FINISH', msg: msg)
+
+    {msg: msg, log_type: 'FINISH'}
   end
 
+  protected
+
+  # Naive lock implementation (non atomic compare-and-set)
+  # true if the lock could be acquired
+  def naive_lock_acquire
+    lastLog = ImportLog.order("created_at").last
+    if lastLog.nil?
+      return true
+    end
+    offset = DateTime.now - @time_threshold
+
+    if offset > lastLog.created_at
+      return  true
+    end
+
+    return false
+  end
+
+
+  def delete_old_logs
+    ImportLog.where('created_at < ?', DateTime.now - 4.days).delete_all
+  end
 
 end
