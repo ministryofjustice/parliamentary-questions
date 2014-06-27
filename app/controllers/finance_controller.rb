@@ -3,9 +3,9 @@ class FinanceController < ApplicationController
   before_action :load_import_service
 
   def questions
-    #TODO refactor to not allways call import in the PQ API
-    result_imported = @import_service.questions()
-    #@questions = result_imported[:questions]
+    
+    @import_service.questions()
+
 
     @questions = PQ.not_seen_by_finance.order(:internal_deadline).load
 

@@ -7,20 +7,10 @@ class ImportServiceWithDatabaseLock
   end
 
 
-  def questions(args = { dateFrom: Date.today} )
-    # Warning: This is a naive implementation of a lock using the database, to prevent that a human
-    # or a cron job with enough space between runs (for example 5 or 10 minutes)
-    # could run the method multiple times.
-    # It could happen that this method run concurrently if the rate of the calls is high, because
-    # we are not using row or table locking in the database to do a 'compare-and-set' logic
-
+  def questions_no_lock(args = { dateFrom: Date.today} )
     questions_imported = 0
     errors_count = 0
     runner = Random.rand(1000000000)
-
-    if !naive_lock_acquire
-      return  {msg: 'other process is running', log_type: 'SKIP_RUN'}
-    end
 
     ImportLog.create(log_type: 'START', msg: "#{runner}: start running the import")
 
@@ -40,6 +30,28 @@ class ImportServiceWithDatabaseLock
     ImportLog.create(log_type: 'FINISH', msg: msg)
 
     {msg: msg, log_type: 'FINISH'}
+
+  end
+
+
+  def questions(args = { dateFrom: Date.today} )
+    # Warning: This is a naive implementation of a lock using the database, to prevent that a human
+    # or a cron job with enough space between runs (for example 5 or 10 minutes)
+    # could run the method multiple times.
+    # It could happen that this method run concurrently if the rate of the calls is high, because
+    # we are not using row or table locking in the database to do a 'compare-and-set' logic
+
+    if !naive_lock_acquire
+      return  {msg: 'other process is running or not enough time since the last process run', log_type: 'SKIP_RUN'}
+    end
+
+    questions_no_lock(args)
+  end
+
+
+  # just a delegate
+  def questions_by_uin(uin)
+    @importService.questions_by_uin(uin)
   end
 
   protected

@@ -38,7 +38,6 @@ describe 'ImportServiceWithDatabaseLock' do
       result = @import_service.questions()
 
       result[:log_type].should eq('SKIP_RUN')
-      result[:msg].should eq('other process is running')
 
     end
 
