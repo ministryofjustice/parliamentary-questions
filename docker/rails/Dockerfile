@@ -8,7 +8,7 @@
 #FROM phusion/passenger-ruby21:<VERSION>
 #FROM phusion/passenger-nodejs:<VERSION>
 #FROM phusion/passenger-customizable:<VERSION>
-FROM phusion/baseimage:latest
+FROM phusion/baseimage:0.9.9
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C3173AA6
 RUN echo "deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu trusty main" > /etc/apt/sources.list.d/brightbox.list
