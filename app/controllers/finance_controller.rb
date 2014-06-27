@@ -3,7 +3,7 @@ class FinanceController < ApplicationController
   before_action :load_import_service
 
   def questions
-    
+
     @import_service.questions()
 
 
@@ -13,7 +13,6 @@ class FinanceController < ApplicationController
 
   def confirm
     params[:pq].each do |id, values|
-      puts "#{id} ->  #{values}"
       seen_by_finance = values['seen_by_finance']
       finance_interest = values['finance_interest'] || false
       pq = PQ.find(id)
