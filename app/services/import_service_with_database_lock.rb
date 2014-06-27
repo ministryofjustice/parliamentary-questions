@@ -12,6 +12,8 @@ class ImportServiceWithDatabaseLock
     errors_count = 0
     runner = Random.rand(1000000000)
 
+    t_start = Time.now
+
     ImportLog.create(log_type: 'START', msg: "#{runner}: start running the import")
 
     @importService.questions_with_callback(args) { |result|
@@ -26,7 +28,9 @@ class ImportServiceWithDatabaseLock
 
     delete_old_logs
 
-    msg = "#{runner}: Questions imported #{questions_imported}, Errors  #{errors_count}"
+    elapsed_seconds = Time.now - t_start
+
+    msg = "#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported}, Errors  #{errors_count}"
     ImportLog.create(log_type: 'FINISH', msg: msg)
 
     {msg: msg, log_type: 'FINISH'}
