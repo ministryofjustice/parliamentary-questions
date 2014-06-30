@@ -19,4 +19,10 @@ class DashboardController < ApplicationController
     @questions = PQ.by_status(params[:qstatus]).paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
   end
 
+  def transferred
+    @questions = PQ.transferred.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+    render 'by_status'
+  end
+
+
 end

@@ -71,4 +71,8 @@ class PQ < ActiveRecord::Base
     by_status(Progress.MINISTER_CLEARED)
   end
 
+  def self.transferred
+    where('transferred = true')
+  end
+
 end

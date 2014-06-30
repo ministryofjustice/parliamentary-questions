@@ -14,7 +14,7 @@
   <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.REJECTED) %>">
 	  <%= link_to raw("Rejected <span class='badge'>#{PQ.rejected.count}</span>"), {:controller => 'dashboard', :action => 'by_status' , :qstatus => Progress.REJECTED} %>
   </li>
-  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == 'Transfer') %>">
-	  <%= link_to "Transfer" , {:controller => 'dashboard', :action => 'by_status' , :qstatus => 'Transfer'} %>
+  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'transferred') %>">
+	  <%= link_to raw("Transferred <span class='badge'>#{PQ.transferred.count}</span>") , {:controller => 'dashboard', :action => 'transferred'} %>
   </li>
 </ul>
