@@ -18,6 +18,13 @@ class ImportController < ApplicationController
     render :partial => 'questions_import'
   end
 
+  def questions_async
+    ImportWorker.perform_async
+
+    @import_result = 'Run async ok'
+    render :partial => 'questions_import'
+  end
+
   def questions_force_update
     dateTo = DateTime.parse(params[:dateTo])
     dateFrom = DateTime.parse(params[:dateFrom])

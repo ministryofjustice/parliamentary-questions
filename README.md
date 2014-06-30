@@ -29,6 +29,9 @@ SMTP_PORT=<port>
 SMTP_USERNAME=
 SMTP_PASSWORD=
 
+# redis server, for sideqik jobs
+export REDIS_URL=redis://localhost:6379
+
 # version of the webapp
 APPVERSION=0.1-sprint6
 ```

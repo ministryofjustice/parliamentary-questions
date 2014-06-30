@@ -69,6 +69,14 @@ gem 'devise_invitable'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+
+# Async job, and workers execution -> http://sidekiq.org/
+gem 'sidekiq'
+# Cron jobs in ruby
+gem 'whenever', :require => false
+
+
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'database_cleaner'

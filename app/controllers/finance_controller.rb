@@ -1,14 +1,8 @@
 class FinanceController < ApplicationController
   before_action :authenticate_user!, FinanceUserFilter
-  before_action :load_import_service
 
   def questions
-
-    @import_service.questions()
-
-
     @questions = PQ.not_seen_by_finance.order(:internal_deadline).load
-
   end
 
   def confirm
@@ -19,16 +13,8 @@ class FinanceController < ApplicationController
       pq.update(seen_by_finance: seen_by_finance, finance_interest: finance_interest)
     end
 
-
     flash[:notice] = 'Successfully register interest, in the questions'
     redirect_to action: 'questions'
   end
-
-  protected
-
-  def load_import_service(service = ImportService.new)
-    @import_service ||= service
-  end
-
 
 end
