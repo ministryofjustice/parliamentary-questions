@@ -1,9 +1,6 @@
 class TransferredController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
-  before_action :set_minister, only: [:show, :edit, :update, :destroy]
-
-
   def new
     @pq = PQ.new
   end
