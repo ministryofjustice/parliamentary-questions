@@ -14,7 +14,7 @@ class ImportServiceWithDatabaseLock
 
     t_start = Time.now
 
-    ImportLog.create(log_type: 'START', msg: "#{runner}: start running the import")
+    ImportLog.create(log_type: 'START', msg: "#{runner}: start running the import, #{t_start}")
 
     @importService.questions_with_callback(args) { |result|
       if !result[:error].nil?

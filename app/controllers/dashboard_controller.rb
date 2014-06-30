@@ -1,13 +1,10 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :load_import_service
 
   # TODO define the number of question per page
   @@per_page = 5
 
   def index
-    @import_service.questions()
-
     @questions = PQ.new_questions.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
   end
 
@@ -21,12 +18,5 @@ class DashboardController < ApplicationController
   def by_status
     @questions = PQ.by_status(params[:qstatus]).paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
   end
-
-  protected
-
-  def load_import_service(service = ImportServiceWithDatabaseLock.new)
-    @import_service ||= service
-  end
-
 
 end
