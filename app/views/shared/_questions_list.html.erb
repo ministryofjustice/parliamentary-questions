@@ -9,6 +9,10 @@
           <% if question.question_type == 'Ordinary' %>
               <span class="label label-info" title="Ordinary Written">O</span>
           <% end %>
+          <% if question.transferred  %>
+              <span class="label label-info" title="Transferred">Transferred</span>
+          <% end %>
+
 
           <div style="float: right;">
             <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin} ) %>
@@ -20,15 +24,21 @@
         </div>
 
         <div>
-          <span><%= question.house_name %>: <%= question.member_name %></span>
+          <% if !question.house_name.nil?  %>
+              <span><%= question.house_name %>: <%= question.member_name %></span>
+          <% end %>
         </div>
 
         <div>
-          Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
+          <% if !question.date_for_answer.nil?  %>
+            Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y')  %>
+          <% end %>
         </div>
         <span class="deadline">
-            Internal Deadline:
-            <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>
+            <% if !question.internal_deadline.nil?  %>
+                Internal Deadline:
+                <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>
+            <% end %>
             <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
          </span>
 

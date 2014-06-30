@@ -45,6 +45,7 @@ ParliamentaryQuestions::Application.routes.draw do
   post 'dashboard/search/:search' => 'dashboard#search'
 
   get 'dashboard/by_status/:qstatus' => 'dashboard#by_status'
+  get 'dashboard/transferred' => 'dashboard#transferred'
   
   get 'assignment/:uin' => 'assignment#index'
   post 'assignment/:uin' => 'assignment#action'
@@ -66,5 +67,8 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'finance/questions' => 'finance#questions'
   post 'finance/confirm' => 'finance#confirm'
+
+  get 'transferred/new' => 'transferred#new'
+  post 'transferred/create' => 'transferred#create'
 
 end

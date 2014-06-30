@@ -1,0 +1,22 @@
+<%= form_for(@pq, url: { controller:'transferred', action:'create'} ) do |f| %>
+  <% if @pq.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pq.errors.count, "error") %> prohibited this pq from being saved:</h2>
+
+      <ul>
+      <% @pq.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    Please enter the UIN for the transferred PQ<br>
+    <%= f.text_field :uin %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

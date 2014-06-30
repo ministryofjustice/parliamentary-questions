@@ -49,6 +49,8 @@ describe 'ImportService' do
 
       question_one.question_type.should eql('NamedDay')
       question_one.preview_url.should eql ('https://wqatest.parliament.uk/Questions/Details/37988')
+
+      question_one.transferred.should eq(false)
       
       # second question
       question_two = PQ.find_by(uin: 'HL673892')
