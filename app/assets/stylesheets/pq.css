@@ -1,174 +1,113 @@
-#global-header.with-proposition .header-wrapper .header-proposition .content {
-    margin: 9px 15px 0 15px;
+#global-header.with-proposition .header-wrapper .header-proposition .content{margin:9px 15px 0 15px}
+a.btn-success{color:white}
+
+.panel-indent{
+	clear:both;
+	border:1px solid #dee0e2;
+	padding:10px;
+	width:510px;
+	margin:0px;
 }
 
-a.btn-success {
-	color: white;
+h2.section{border-bottom:solid 1px}
+h2.section .badge{vertical-align:middle}
+
+.uin{
+    font-family:"nta", Arial, sans-serif;
+    font-size:18px;
+    line-height:1.25;
+    text-transform:none;
+    font-weight:700;
 }
 
-.panel-indent {
-	
-	
-	/* Deprecated old style
-		
-	clear: both;
-	border-left: 5px solid #dee0e2;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 20px;
-	*/
-	clear: both;
-	border: 1px solid #dee0e2;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	width: 510px;
-	margin: 0px;
-}
+.pq-header{padding-bottom:1em}
 
-h2.section {
-    border-bottom: solid 1px;
+ul.questions-list{
+	list-style:none;
+    width:75%;
 }
-
-h2.section .badge {
-	vertical-align: middle;
-}
-
-.uin {
-    font-family: "nta", Arial, sans-serif;
-    font-size: 18px;
-    line-height: 1.25;
-    text-transform: none;
-    font-weight: 700;
-}
-
-.pq-header {
-	padding-bottom:1em;
-}
-
-ul.questions-list {
-	list-style: none;
-    width: 75%;
-}
-
 
 .questions-list > li{
-	margin-top: 20px;
-    border: 1px solid #bfc1c3;
-    padding: 15px;
-	margin-bottom: 20px;
+	margin-top:20px;
+    border:1px solid #bfc1c3;
+    padding:15px;
+	margin-bottom:20px;
 }
 
 
-.questions-list .button {
-	float: right;
-}
-.questions-list .commission {
-	float: left;
+.questions-list .button{float:right}
+.questions-list .commission{float: left}
+.label-success, .label-danger{line-height:2}
+.questions-list span{margin-right:10px}
+
+.questions-list .date{
+    font-size:0.9em;
+    margin:5px 0;
 }
 
-.label-success{
-	line-height:2;
-}
-.label-danger{
-	line-height:2;
-}
-
-.questions-list span {
-	margin-right: 10px;
+.questions-detail-outer{
+	width:700px;
+	margin-top:20px;
+    border:1px solid #bfc1c3;
+    padding:15px;
 }
 
-.questions-list .date {
-    font-size: 0.9em;
-    margin: 5px 0 5px 0;
-
-}
-
-.questions-detail-outer { width: 700px;
-	margin-top: 20px;
-    border: 1px solid #bfc1c3;
-    padding: 15px;
-}
-
-.trim_dates {
+.trim_dates{
 	clear:both;
 	width:420px;
 }
 
-.input-group date datetimepicker right
-{
-	width: 250px;
-	margin: 5px; 
-	float: right;
+.input-group date datetimepicker right{
+	width:250px;
+	margin:5px; 
+	float:right;
 }
 
-.pq-details-datetime-right
-{
-	width: 185px;
-	margin: 5px; 
-	float: right;
-}
-.member-photo
-{
-	margin: 5 5 5 5;
-    border: 1px solid #bfc1c3;
-    height: 90px;
-	width: 70px;
+.pq-details-datetime-right{
+	width:185px;
+	margin:5px; 
+	float:right;
 }
 
-
-.deadline_input {
-    width: 192px;
+.member-photo{
+	margin:5 5 5 5;
+    border:1px solid #bfc1c3;
+    height:90px;
+	width:70px;
 }
 
-.deadline {
+.deadline_input{width:192px}
+.deadline {}
+.deadline-overdue{color:#d9534f}
+.deadline-ok {color:#428bca}
 
+.allocation-info{
+    clear:both;
+    padding: 5px 0;
 }
 
-.deadline-overdue {
-    color: #d9534f;
-}
+.question-allocation-list{list-style: circle}
 
-.deadline-ok {
-    color: #428bca;
-}
-
-.allocation-info {
-    clear: both;
-    padding: 5px 0 5px 0;
-}
-
-.question-allocation-list {
-    list-style: circle;
-}
 .question-allocation-list li{
-    border: none;
-    margin: 3px 0 3px 0;
-    padding: 0;
+    border:none;
+    margin:3px 0;
+    padding:0;
 }
 
-.accept-reject-form {
-    margin: 20px 0 20px 0;
-}
-.select2-container-multi .select2-choices li {
-	width:238px;
+.accept-reject-form{margin: 20px 0;}
+.select2-container-multi .select2-choices li {width:238px}
+.pq-inline-form {display:inline!important}
 
-}
+#status-filters{margin-top:20px;width:250px;}
+#status-filters .badge{float:right;min-width:2.5em;background-color:#000;}
+#status-filters .active .badge{background-color:#fff}
 
-.pq-inline-form {
-	display:inline!important;
-}
-
-#status-filters {margin-top:20px}
-#status-filters .badge {float:right;}
-
-.pagination {
-    margin-top: 0;
-    margin-bottom: 0;
+.pagination{
+    margin-top:0;
+    margin-bottom:0;
 }
 
-#pages {
+#pages{
 	clear:both;
 	width:100%;
 	display:block;
