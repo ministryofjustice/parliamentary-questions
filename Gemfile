@@ -69,6 +69,8 @@ gem 'devise_invitable'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+#jQuery file upload
+gem 'remotipart', '~> 1.2'
 
 # Async job, and workers execution -> http://sidekiq.org/
 gem 'sidekiq'

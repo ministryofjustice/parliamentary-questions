@@ -25,8 +25,6 @@ $(document).ready(function () {
 
 	});
 
-
-
     $('#search_member').bind('ajax:before', function() {
         $(this).data('params', { name: $("#minister_name").val() });
     });
@@ -49,7 +47,47 @@ $(document).ready(function () {
         $( divToFill ).html(data);
     });
 
-
-
-
+    $('body')
+        .on('click', '.trim-links-header', function () {
+            console.log($(this));
+            $(this).children('.trim-links-form').show();
+        })
+        .on('click', '.trim-links-cancel', function (e) {
+            e.stopPropagation();
+            var $par = $(this).parent('.trim-links-form').first().hide();
+        })
+        .on('change', '.file-chooser', function () {
+            var fileName = $(this).val();
+            if (fileName.length > 0) {
+                $(this).siblings('input:submit').show();
+                $(this).prev('.file-choose-replace').text('Selected');
+            } else {
+                $(this).siblings('input:submit').hide();
+                $(this).prev('.file-choose-replace').text('Choose file');
+            }
+        })
+        .on('click', '.file-choose-replace', function () {
+            $(this).next('.file-chooser').click();
+        })
+        .on('ajax:success', '.form-add-trim-link', function(e, data, status, xhr) {
+            console.log('ajax:success');
+            //get the pq_id
+            var pqid = $(this).data('pqid');
+            console.log('pqid',pqid);
+            //get the div to replace
+            var $divToFill = $('#trim_area_' + pqid);
+            //put the data returned into the div
+            $divToFill.html(data);
+        })
+        .on('ajax:error', '.form-add-trim-link', function(e, xhr, status, error) {
+            console.log('ajax:fail');
+            //get the pq_id
+            var pqid = $(this).data('pqid');
+            console.log('pqid',pqid);
+            //get the div to replace
+            var $divToFill = $('#trim_area_' + pqid);
+            //put the data returned into the div
+            console.log('set html of', $divToFill.attr('id'), 'to', xhr.responseText);
+            $divToFill.html(xhr.responseText);
+        });
 });  

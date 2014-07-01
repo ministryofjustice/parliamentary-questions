@@ -1,0 +1,18 @@
+<%= render partial: "shared/flash_messages", flash: flash %>
+<% question.trim_links.each do |trim| %>
+    <!--   <div id='trim_links_<%= trim.id %>'><%= link_to("Open #{trim.display_name}", {controller: 'trim_links', action: 'show', id: trim.id}) %></div> -->
+    <div id='trim_links_<%= trim.id %>'><%= link_to('Trim link', {controller: 'trim_links', action: 'show', id: trim.id}, {title: 'Open the trim link'}) %></div>
+<% end %>
+<% if question.trim_links.count==0 %>
+    <div id="trim-links-header-<%= question.id %>" class="btn btn-info trim-links-header">No trim link
+      <div id="trim-links-form-<%= question.id %>" class="trim-links-form">
+        <div class='btn btn-danger trim-links-cancel'>Cancel trim link</div>
+        <%= form_for TrimLink.new(:pq_id => question.id), :remote => true, :authenticity_token => true, :html=> {:multipart=>true, :class=>'pq-inline-form, form-add-trim-link', :data => {:pqid => "#{question.id}" }} do |f| %>
+            <span class="file-choose-replace">Choose file</span>
+            <%= f.file_field :file_data, :class=>'pq-inline-form file-chooser' %>
+            <%= f.hidden_field :pq_id %>
+            <%= f.submit 'Add', :class=>'btn btn-success btn-sm', :style=>'display:none;' %>
+        <% end %>
+      </div>
+    </div>
+<% end %>

@@ -198,6 +198,7 @@ GEM
     redis (3.1.0)
     redis-namespace (1.5.0)
       redis (~> 3.0, >= 3.0.4)
+    remotipart (1.2.1)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -314,6 +315,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.3)
   rails_config
+  remotipart (~> 1.2)
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc
