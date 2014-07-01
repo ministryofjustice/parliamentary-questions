@@ -10,7 +10,7 @@
               <span class="label label-info" title="Ordinary Written">O</span>
           <% end %>
           <% if question.transferred  %>
-              <span class="label label-info" title="Transferred">Transferred</span>
+              <span class="label label-warning" title="Transferred">Transferred</span>
           <% end %>
 
 
@@ -95,22 +95,9 @@
             <%= render partial: 'shared/question_assigned', locals: {question: question} %>
           </div>
         </div>
-
         <div id='trim_area_<%= question.id %>'>
-          <% question.trim_links.each do |trim| %>
-          <!--   <div id='trim_links_<%= trim.id %>'><%= link_to("Open #{trim.display_name}", {controller: 'trim_links', action: 'show', id: trim.id}) %></div> -->
-           <div id='trim_links_<%= trim.id %>'><%= link_to('Trim link', {controller: 'trim_links', action: 'show', id: trim.id}, {title: 'Open the trim link'}) %></div> 
-          <% end %>
-          <% if question.trim_links.count==0 %>
-          <%= form_for TrimLink.new(:pq_id => question.id), :html=> {:multipart=>true, :class=>'pq-inline-form'} do |f| %>
-            <label for="trim_link_file_data">Add link to trim</label>
-            <%= f.file_field :file_data, :class=>'pq-inline-form' %>
-            <%= f.hidden_field :pq_id %>
-            <%= f.submit 'Add', :class=>'btn btn-success btn-sm' %>
-        <% end %>
-        <% end %>
+          <%= render partial: 'shared/trim_links', locals: {question: question} %>
         </div>
       </li>
   <% end %>
-
 </ul>

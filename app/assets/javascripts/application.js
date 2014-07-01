@@ -12,6 +12,7 @@
 //
 //= require moment
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require select2
