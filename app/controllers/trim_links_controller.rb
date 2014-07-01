@@ -34,10 +34,10 @@ class TrimLinksController < ApplicationController
 
   def create
     accepted_formats = [".tr5"]
-
+    @pq = PQ.find(trim_link_params[:pq_id])
     if trim_link_params[:file_data].nil?
       flash[:error] = "Please select a trim file (.tr5) before trying to add"
-      redirect_to dashboard_url
+      return render :partial => 'shared/trim_links', :locals => {question: @pq}
     else
       uploaded_io = trim_link_params[:file_data]
       filename = uploaded_io.original_filename
@@ -46,7 +46,6 @@ class TrimLinksController < ApplicationController
         size = data.size
 
         @trim_link = TrimLink.new(:data => data, :filename => filename, :size => size, :pq_id => trim_link_params[:pq_id])
-        @pq = PQ.find(trim_link_params[:pq_id])
         if @trim_link.save
           flash.now[:success] = 'Trim link was successfully created.'
           return render :partial => 'shared/trim_links', :locals => {question: @pq}
