@@ -174,3 +174,46 @@ ul.questions-list {
 	display:block;
 	text-align:center;
 }
+
+.trim-links-header {
+    position:relative;
+    /*width: 500px;*/
+    cursor:default;
+    margin-left:10px;
+}
+.trim-links-form {
+    /*border: 2px black solid;
+    background-color: grey;*/
+    width:250px;
+    height: auto;
+    margin: 10px;
+    vertical-align:middle;
+    display: none;
+    position:absolute;
+    top:-12px;
+    left: -12px;
+    cursor:default;
+    z-index:5;
+    float:left;
+    color:black;
+    line-height:35px;
+}
+input[type="file"] {
+    line-height: 10px;
+ }
+.trim-links-form:hover {
+    display:block;
+}
+.trim-links-cancel {
+    float:left;
+    height:35px;
+}
+.file-chooser {
+    display: none!important;
+}
+.file-choose-replace{
+    display:inline;
+    float:left;
+    line-height: 35px;
+    padding-left: 10px;
+}
