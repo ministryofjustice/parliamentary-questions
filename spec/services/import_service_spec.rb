@@ -51,6 +51,8 @@ describe 'ImportService' do
       question_one.preview_url.should eql ('https://wqatest.parliament.uk/Questions/Details/37988')
 
       question_one.transferred.should eq(false)
+
+      question_one.question_status.should eq('Tabled')
       
       # second question
       question_two = PQ.find_by(uin: 'HL673892')
