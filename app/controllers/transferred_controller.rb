@@ -9,7 +9,7 @@ class TransferredController < ApplicationController
     @pq = PQ.new(pq_params)
     @pq.transferred = true
     @pq.raising_member_id = '0'
-    @pq.question = 'This question is mark as a transferred, the text of the question it should appear once the transfer is received'
+    @pq.question = '<< This question is created as a transferred, the text of the question it should appear once the transfer question is received >>'
     @pq.save
 
     flash[notice] = 'Transferred PQ was successfully created.'
