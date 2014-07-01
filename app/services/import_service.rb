@@ -70,6 +70,7 @@ class ImportService
         registered_interest: q['RegisteredInterest'],
         question_type: q['QuestionType'],
         preview_url: q['Url'],
+        question_status: q['QuestionStatus'],
         transferred: transferred,
         progress_id: progress_id
     )

@@ -5,8 +5,6 @@
 - content_for :javascripts do
    = javascript_include_tag "application"
 
-
-
 - content_for :content_override do
    %main#wrapper(role="main")
       = render partial: "shared/navigation"
