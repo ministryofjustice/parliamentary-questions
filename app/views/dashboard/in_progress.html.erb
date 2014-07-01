@@ -1,7 +1,6 @@
 <%= render partial: "tabs" %>
 
-
-<ul class="nav nav-pills nav-stacked navbar-right">
+<ul id="status-filters" class="nav nav-pills nav-stacked navbar-right">
   <li class="active"><a href="#">POD Waiting</a></li>
   <li><a href="#">POD Query</a></li>
   <li><a href="#">Pod Cleared</a></li>
@@ -10,12 +9,7 @@
   <li><a href="#">Minister Cleared</a></li>
 </ul>
 
-
-
 <%= render partial: "shared/flash_messages", flash: flash %>
-
-
 <%= render partial: 'shared/questions_list', locals: {questions: @questions} %>
-
 
 <%= will_paginate @questions %>
