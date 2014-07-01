@@ -3,7 +3,9 @@ $(document).ready(function () {
 	$('.datetimepicker').datetimepicker();
 	$(".multi-select-action-officers").select2({width:'250px'});
 
-	$('#allocation_response_response_action_accept').click(function (){
+    $(".single-select-dropdown").select2({width:'250px', allowClear: true});
+
+    $('#allocation_response_response_action_accept').click(function (){
 		$('#reason-textarea').addClass('hide');
 	});
 	$('#allocation_response_response_action_reject').click(function (){
@@ -49,7 +51,50 @@ $(document).ready(function () {
         $( divToFill ).html(data);
     });
 
+    $(".policy-minister-form")
+        .on("ajax:success", function(e, data, status, xhr){
+
+            var pqid = $(this).data('pqid');
+
+            //get the div to refresh
+            var divToUpdate = "btn-policy-minister" + pqid;
+            //put the dat returned into the div
+            $('#'+divToUpdate).val("Updated").fadeOut(1000);
+
+        }).on("ajax:error", function(e, xhr, status, error) {
+            alert(error);
+            //TODO how should ux handle error? Add it to the list, alert, flash, etc...
+
+        });
+
+    $(".answering-minister-form")
+        .on("ajax:success", function(e, data, status, xhr){
+
+            var pqid = $(this).data('pqid');
+
+            //get the div to refresh
+
+            var divToUpdate = "btn-answering-minister" + pqid;
+            //put the dat returned into the div
+            $('#'+divToUpdate).val("Updated").fadeOut(1000);
+
+        }).on("ajax:error", function(e, xhr, status, error) {
+            alert(error + ' In Answering Minister');
+            //TODO how should ux handle error? Add it to the list, alert, flash, etc...
+
+        });
 
 
+    $('.change-policy-minister').on('change',function(e ){
+        e.stopPropagation();
+        if($(this).val()!='') {
+            $(this).siblings('input[type="submit"]').val("Update Minister").show();
+        }
+        else
+        {
+            $(this).siblings('input[type="submit"]').val("Update Minister").hide();
+        }
+
+    });
 
 });  

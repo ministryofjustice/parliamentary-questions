@@ -1,6 +1,6 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_pq, only: [:show, :update]
+  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister]
   before_action :prepare_ministers 
   before_action :prepare_progresses 
   
@@ -37,8 +37,28 @@ class PqsController < ApplicationController
   end
 
   def assign_minister
+    @pq.policy_minister_id = uppm_params[:policy_minister_id]
 
+    if @pq.save
+      return render :nothing =>  true
+    end
+
+    raise 'Error saving minister'
+end
+
+
+
+  def assign_answering_minister
+    @pq.minister_id = answering_minister_params[:minister_id]
+
+    if @pq.save
+      return render :nothing =>  true
+    end
+
+    raise 'Error saving minister'
   end
+
+
   # DELETE /pqs/1
   # DELETE /pqs/1.json
   #def destroy
@@ -72,4 +92,12 @@ class PqsController < ApplicationController
     def prepare_progresses
       @progress_list = Progress.all
     end
+  def uppm_params
+    params.require(:pq).permit(:policy_minister_id)
+
+  end
+  def answering_minister_params
+    params.require(:pq).permit(:minister_id)
+
+  end
 end
