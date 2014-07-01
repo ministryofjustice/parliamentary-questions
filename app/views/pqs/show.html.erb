@@ -9,7 +9,7 @@
   <div>
     <span class="uin"><%= @pq.uin %></span>
     <% if @pq.transferred  %>
-        <span class="label label-info" title="Transferred">Transferred</span>
+        <span class="label label-warning" title="Transferred">Transferred</span>
     <% end %>
     <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %>
   </div>
