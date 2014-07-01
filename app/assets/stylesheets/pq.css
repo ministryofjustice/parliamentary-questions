@@ -174,3 +174,6 @@ ul.questions-list {
 	display:block;
 	text-align:center;
 }
+
+.start-hidden {
+    display: none;}
