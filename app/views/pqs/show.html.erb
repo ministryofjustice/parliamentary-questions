@@ -8,6 +8,9 @@
 <div class="questions-detail-outer" style="overflow:auto;">
   <div>
     <span class="uin"><%= @pq.uin %></span>
+    <% if @pq.transferred  %>
+        <span class="label label-info" title="Transferred">Transferred</span>
+    <% end %>
     <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %>
   </div>
   <div style="Width:400px; float:left;">
@@ -67,11 +70,11 @@
     </div>
 
   </div>
-  <div class = "panel-indent" style="float: left; width= 66%;">
+  <div class = "panel-indent" style="float: left; width: 66%;">
     <%= @pq.question %>
   </div>
 
-  <div style = "float: left; width= 33%;">
+  <div style = "float: left; width: 33%;">
 	<% if @pq.seen_by_finance %>
         <div>
           <span class = "label label-success"><span class="glyphicon glyphicon-eye-open"></span> Seen By Finance</span>

@@ -56,6 +56,7 @@ class ImportService
     default_deadline = DateTime.now.midnight.change ({:hour => 10, :min => 30, :offset => 0})
     deadline = pq.internal_deadline || default_deadline
     progress_id = pq.progress_id || @progress_unallocated.id
+    transferred = pq.transferred || false
     pq.update(
         uin: q['Uin'],
         raising_member_id: q['TablingMember']['MemberId'],
@@ -69,6 +70,8 @@ class ImportService
         registered_interest: q['RegisteredInterest'],
         question_type: q['QuestionType'],
         preview_url: q['Url'],
+        question_status: q['QuestionStatus'],
+        transferred: transferred,
         progress_id: progress_id
     )
 
