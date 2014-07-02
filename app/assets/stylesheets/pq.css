@@ -38,7 +38,7 @@ ul.questions-list{
 .questions-list .button{float:right}
 .questions-list .commission{float: left}
 .label-success, .label-danger{line-height:2}
-.questions-list span{margin-right:10px}
+.questions-list > span{margin-right:10px}
 
 .questions-list .date{
     font-size:0.9em;
@@ -96,6 +96,9 @@ ul.questions-list{
 
 .accept-reject-form{margin: 20px 0;}
 .select2-container-multi .select2-choices li {width:238px}
+.select2-container .select2-choice abbr {
+    top:5px!important;
+}
 .pq-inline-form {display:inline!important}
 
 #status-filters{margin-top:20px;width:250px;}
@@ -160,4 +163,6 @@ input[type="file"] {
     line-height: 35px;
     padding-left: 10px;
 }
-
+.minister-dropdown{
+    margin: 10px 0;
+}
