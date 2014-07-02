@@ -9,7 +9,10 @@ class WorkingDays
     end
     result
   end
-  private def self.is_weekend(value)
+  
+  private
+
+  def self.is_weekend(value)
     result = false
     result = true if value.saturday? || value.sunday?
     result
