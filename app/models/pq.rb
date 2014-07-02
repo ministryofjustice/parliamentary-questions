@@ -16,6 +16,10 @@ class PQ < ActiveRecord::Base
     self.seen_by_finance ||= false           #will set the default value only if it's nil
   end
 
+  def is_in_progress?(pro)
+    progress_id == pro.id
+  end
+
   def self.new_questions()
     at_beginning_of_day = DateTime.now.at_beginning_of_day
     where('created_at >= ?', at_beginning_of_day)

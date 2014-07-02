@@ -12,8 +12,12 @@ class CommissioningService
     ao = ActionOfficer.find(assignment.action_officer_id)
     pq = PQ.find_by(id: assignment.pq_id)
 
-    pro = Progress.allocated_pending
-    pq.update progress_id: pro.id
+
+    # no accepted/rejected -> change the state to allocated_pending
+    if !(pq.is_in_progress?(Progress.allocated_accepted) || pq.is_in_progress?(Progress.rejected) )
+      pro = Progress.allocated_pending
+      pq.update progress_id: pro.id
+    end
 
 
     path = '/assignment/' + pq.uin.encode

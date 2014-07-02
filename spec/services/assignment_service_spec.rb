@@ -70,7 +70,7 @@ describe 'AssignmentService' do
       assignment = ActionOfficersPq.find(assignment_id)
 
       pq = PQ.find(assignment.pq_id)
-      pq.progress.name.should == Progress.ALLOCATED_ACCEPTED
+      pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
 
     end
 
@@ -101,6 +101,66 @@ describe 'AssignmentService' do
       assignment.reason_option.should eq('reason option')
 
     end
+
+    it 'should set the progress to rejected' do
+
+      # setup a valid assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+
+      response = double('response')
+      allow(response).to receive(:reason) { 'Some reason' }
+      allow(response).to receive(:reason_option) { 'reason option' }
+      @assignment_service.reject(assignment, response)
+
+      assignment = ActionOfficersPq.find(assignment_id)
+
+      pq = PQ.find(assignment.pq_id)
+      pq.progress.name.should  eq(Progress.REJECTED)
+    end
+
+
+    it 'should not set the progress to rejected if it is accepted' do
+
+      # accept one  assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+      # accept
+      @assignment_service.accept(assignment)
+
+      # the question progress should be ALLOCATED_ACCEPTED
+      pq = PQ.find(assignment.pq_id)
+      pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
+
+
+      # setup another assignment and reject assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+      response = double('response')
+      allow(response).to receive(:reason) { 'Some reason' }
+      allow(response).to receive(:reason_option) { 'reason option' }
+      #reject
+      @assignment_service.reject(assignment, response)
+
+      assignment = ActionOfficersPq.find(assignment_id)
+
+      # the question progress should be ALLOCATED_ACCEPTED even after the reject
+      pq = PQ.find(assignment.pq_id)
+      pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
+
+    end
+
+
+
   end
 
 end
