@@ -25,6 +25,10 @@
 
 </div>
 
+
+<% if !@question.is_in_progress?(Progress.allocated_accepted) %>
+
+
 <div class="accept-reject-form">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -92,6 +96,15 @@
       </div>
     </div>
 </div>
+
+
+<% else %>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>The question is accepted and a email has been sent with the instructions to send a draft answer, please contact Parliamentary branch if you have any questions</h4>
+      </div>
+    </div>
+<% end %>
 
 
 
