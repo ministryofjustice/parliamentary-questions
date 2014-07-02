@@ -7,10 +7,10 @@
     <div id="trim-links-header-<%= question.id %>" class="btn btn-info trim-links-header">No trim link
       <div id="trim-links-form-<%= question.id %>" class="trim-links-form">
         <div class='btn btn-danger trim-links-cancel'>Cancel trim link</div>
-        <%= form_for TrimLink.new(:pq_id => question.id), :remote => true, :authenticity_token => true, :html=> {:multipart=>true, :class=>'pq-inline-form, form-add-trim-link', :data => {:pqid => "#{question.id}" }} do |f| %>
+        <%= form_for TrimLink.new(:pq_id => question.id), :remote => true, :authenticity_token => true, :html=> {:multipart=>true, :id=>"new_trim_link_form_#{question.id}" ,:class=>'pq-inline-form, form-add-trim-link', :data => {:pqid => "#{question.id}" }} do |f| %>
             <span class="file-choose-replace">Choose file</span>
-            <%= f.file_field :file_data, :class=>'pq-inline-form file-chooser' %>
-            <%= f.hidden_field :pq_id %>
+            <%= f.file_field :file_data, :class=>'pq-inline-form file-chooser', :id=>"file_data-#{question.id}" %>
+            <%= f.hidden_field(:pq_id , :value => question.id , :id=>"pq_id-trimlink-#{question.id}") %>
             <%= f.submit 'Add', :class=>'btn btn-success btn-sm', :style=>'display:none;' %>
         <% end %>
       </div>
