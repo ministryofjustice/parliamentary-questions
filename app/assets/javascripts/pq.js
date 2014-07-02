@@ -55,6 +55,9 @@ $(document).ready(function () {
 
             var pqid = $(this).data('pqid');
 
+            //get value from select list in current form
+            var newVal = $(this).children('select').val();
+            $(this).data('current',newVal);
             //get the div to refresh
             var divToUpdate = "btn-policy-minister" + pqid;
             //put the dat returned into the div
@@ -71,6 +74,9 @@ $(document).ready(function () {
 
             var pqid = $(this).data('pqid');
 
+            //get value from select list in current form
+            var newVal = $(this).children('select').val();
+            $(this).data('current',newVal);
             //get the div to refresh
 
             var divToUpdate = "btn-answering-minister" + pqid;
@@ -86,7 +92,9 @@ $(document).ready(function () {
 
     $('.change-policy-minister').on('change',function(e ){
         e.stopPropagation();
-        if($(this).val()!='') {
+        var prevMinId = $(this).parents('form').data('current') || "";
+        console.log('control=',$(this).attr('id'),',data(current)=', prevMinId, ', changed to=',$(this).val(), ',equals change=', $(this).val()!=prevMinId)
+        if($(this).val()!=prevMinId) {
             $(this).siblings('input[type="submit"]').val("Update Minister").show();
         }
         else
