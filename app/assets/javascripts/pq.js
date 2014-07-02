@@ -95,11 +95,11 @@ $(document).ready(function () {
         var prevMinId = $(this).parents('form').data('current') || "";
         console.log('control=',$(this).attr('id'),',data(current)=', prevMinId, ', changed to=',$(this).val(), ',equals change=', $(this).val()!=prevMinId)
         if($(this).val()!=prevMinId) {
-            $(this).siblings('input[type="submit"]').val("Update Minister").show();
+            $(this).siblings('input[type="submit"]').val("Update").show();
         }
         else
         {
-            $(this).siblings('input[type="submit"]').val("Update Minister").hide();
+            $(this).siblings('input[type="submit"]').val("Update").hide();
         }
 
     });
@@ -148,5 +148,10 @@ $(document).ready(function () {
             console.log('set html of', $divToFill.attr('id'), 'to', xhr.responseText);
             $divToFill.html(xhr.responseText);
         });
-
+    $('.comm-header').on('click', function () {
+        var pqid = $(this).data('pqid');
+        var $caret = $(this).children('#comm-caret-' + pqid);
+        $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
+        $('#comm-details-' + pqid).toggleClass('start-hidden');
+    });
 });  

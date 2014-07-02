@@ -47,18 +47,34 @@
               <a href="<%= question.preview_url %>">Question in Q&A Tool</a>
             </div>
         <% end %>
+        <% if question.action_officers_pq.size > 0 %>
+            <% if !question.minister_id.nil? %>
+            <div>
+              Replying minister:
+              <div><%= mail_to question.minister.email, question.minister.name unless question.minister_id.nil? %></div>
+            </div>
+            <% end %>
+            <% if !question.policy_minister_id.nil? %>
+            <div>
+              Policy minister:
+              <div><%= mail_to question.policy_minister.email, question.policy_minister.name %></div>
+            </div>
+            <% end %>
+            <div id="">
+              Action Officer(s) assigned
+              <% question.action_officers_pq.each do |ao_pq|   %>
+                <div><%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %></div>
+              <% end %>
 
-        <!--<% if !question.minister_id.nil? %>-->
-        <!--<div>-->
-          <!--Replying minister: <%= question.minister.name unless question.minister_id.nil? %>-->
-        <!--</div>-->
-        <!--<% end %>-->
-        <!--<% if !question.policy_minister_id.nil? %>-->
-        <!--<div>-->
-          <!--<span>Policy minister: <%= question.policy_minister.name %></span>-->
-        <!--</div>-->
-        <!--<% end %>-->
-
+            </div>
+            <div id="comm-data-<%= question.id %>">
+                <div id="comm-header-<%= question.id %>" class="comm-header" data-pqid="<%= question.id %>"><span id="comm-caret-<%= question.id %>" class="fa fa-caret-right fa-lg"></span><label class="label label-sm label-success">PQ Commissioned</label></div>
+                <div id="comm-details-<%= question.id %>" class="start-hidden">
+                  <div><%= question.action_officers_pq.first.created_at.strftime("at %I:%M%p") %></div>
+                  <div><%= question.action_officers_pq.first.created_at.strftime("%m/%d/%Y") %></div>
+                </div>
+            </div>
+        <% else %>
         <div id="policy-minister-form-<%= question.id %>" class="minister-dropdown">
           <span id="policy-minister-<%= question.id %>"></span>
           <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "policy-minister-form#{question.id}", :class => 'policy-minister-form', :data => {:pqid => "#{question.id}", :current=>"#{question.policy_minister_id}"}}, :url => {:controller => 'pqs', :action => "assign_minister", :id => question.uin} do |f| %>
@@ -77,7 +93,6 @@
 
           <% end %>
         </div>
-
 
         <div class="allocation-info">
           <% if question.seen_by_finance  %>
@@ -98,5 +113,6 @@
           <%= render partial: 'shared/trim_links', locals: {question: question} %>
         </div>
       </li>
+    <% end %>
   <% end %>
 </ul>
