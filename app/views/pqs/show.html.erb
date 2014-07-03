@@ -1,19 +1,43 @@
-<h2>Question Details</h2>
+
 
 <%= render partial: "shared/flash_messages", flash: flash %>
+<h2>
+  <span class="uin">PQ Details - <%= @pq.uin %></span>
+  <% if @pq.question_type == 'NamedDay' %>
+      <span class="label label-primary" title="Named day">N</span>
+  <% end %>
+  <% if @pq.question_type == 'Ordinary' %>
+      <span class="label label-info" title="Ordinary Written">O</span>
+  <% end %>
+  <% if @pq.transferred  %>
+      <span class="label label-warning" title="Transferred">Transferred</span>
+  <% end %>
 
-<%= form_for @pq, :url => { :action => "update", :id => @pq[:uin] } do |f| %>
+<div id='trim_area_<%= @pq.id %>'>
+  <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
+</div>
+</h2>
+<div id="progress-menu">
+  <div id="progress-menu-pq" class="progress-menu-item">PQ</div>
+  <div id="progress-menu-fc" class="progress-menu-item">Finance check</div>
+  <div id="progress-menu-com" class="progress-menu-item">PQ commission</div>
+  <div id="progress-menu-ao" class="progress-menu-item">Action Officer allocation</div>
+  <div id="progress-menu-sub" class="progress-menu-item">Draft submission</div>
+  <div id="progress-menu-pod" class="progress-menu-item">POD check</div>
+  <div id="progress-menu-min" class="progress-menu-item">Minister check</div>
+  <div id="reset"><span class="fa fa-caret-right"></span>Reset PQ</div>
+</div>
 
 
-<div class="questions-detail-outer" style="overflow:auto;">
+
+<%= form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form start-hidden' } do |f| %>
+
+
+<div id="progress-menu-pq-data" class="progress-menu-data start-hidden">
   <div>
-    <span class="uin"><%= @pq.uin %></span>
-    <% if @pq.transferred  %>
-        <span class="label label-warning" title="Transferred">Transferred</span>
-    <% end %>
     <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %>
   </div>
-  <div style="Width:400px; float:left;">
+  <div>
     <div>
         <div>
           <% if !@pq.preview_url.nil? %>
@@ -37,67 +61,26 @@
           <span>Policy minister: <%= @pq.policy_minister.name %></span>
         </div>
         <% end %>
-        <div id="question_allocation_<%= @pq.id %>">
-          <%= render partial: 'shared/question_assigned', locals: {question: @pq} %>
-        </div>
     </div>
   </div>
-  <div style="float:right;">
+  <div>
 
-    <div class="deadline_input">
-      <label for="internal_deadline">Deadline</label>
-      <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
-        <input class="form-control" id="pq_internal_deadline" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
-        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-        </span>
-      </div>
-    </div>
-
-  	<div>
+    <div>
     	<span class="date">Date For Answer: <%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %></span>
   	</div>
   	<div>
     	<span class="date">Date Tabled: <%= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil? %></span>
   	</div>
-
-    <div class="checkbox">
-      <%= f.label(:seen_by_finance) %>
-      <%= f.check_box(:seen_by_finance) %>
-    </div>
-    <div class="checkbox">
-      <%= f.label(:finance_interest) %>
-      <%= f.check_box(:finance_interest) %>
-    </div>
-
   </div>
-  <div class = "panel-indent" style="float: left; width: 66%;">
+  <div>
     <%= @pq.question %>
   </div>
 
-  <div style = "float: left; width: 33%;">
-	<% if @pq.seen_by_finance %>
-        <div>
-          <span class = "label label-success"><span class="glyphicon glyphicon-eye-open"></span> Seen By Finance</span>
-        </div>
-	<%else%>
-        <div>
-            <span class = "label label-default" style="line-height:2;"><span class="glyphicon glyphicon-eye-close"></span> Not Seen By Finance</span>
-        </div>
-	<% end %>
-	<% if @pq.finance_interest %>
-        <div>
-            <span class = "label label-success">Finance Interest</span>
-        </div>
-	<% end %>
-  </div>
-
-</div>
-
-<% if @pq.registered_interest %>
- <div>
-  <span>Member has registered an interest in the Question.</span>
- </div>
-<% end %>
+      <% if @pq.registered_interest %>
+     <div>
+      <span>Member has registered an interest in the Question.</span>
+     </div>
+    <% end %>
 
       <div class="minister-info">
         <label>Set replying minister</label>
@@ -107,8 +90,49 @@
         <label>Set optional policy minister</label>
         <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
       </div>
+</div>
+<div id="progress-menu-fc-data" class="progress-menu-data start-hidden">
+  <div class="checkbox">
+    <%= f.label(:seen_by_finance) %>
+    <%= f.check_box(:seen_by_finance) %>
+  </div>
+  <div class="checkbox">
+    <%= f.label(:finance_interest) %>
+    <%= f.check_box(:finance_interest) %>
+  </div>
+</div>
+<div id="progress-menu-com-data" class="progress-menu-data start-hidden">
+  <div class="deadline_input">
+    Internal deadline
+    <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
+      <input class="form-control" id="pq_internal_deadline" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+  </div>
+  <div class="question-allocation">
+    <div>Allocation:</div>
+<% @pq.action_officers_pq.each do |ao_pq|   %>
+  <% if ao_pq %>
+    <div><%= ao_pq.action_officer.name  %> <%= link_to "Edit #{ao_pq.action_officer.name}", edit_action_officer_path(ao_pq.action_officer)  %></div>
+    <div>Email: <%= mail_to ao_pq.action_officer.email %></div>
+    <div>Phone: <%= ao_pq.action_officer.phone %></div>
+    <div>Directorate: <%= ao_pq.action_officer.deputy_director.division.directorate.name %></div>
+    <div>Division: <%= ao_pq.action_officer.deputy_director.division.name %></div>
+    <div>Deputy director: <%= ao_pq.action_officer.deputy_director.name %></div>
+    <div>Press Office: <%= ao_pq.action_officer.press_desk.name %></div>
+    <% ao_pq.action_officer.press_desk.press_officers.each do |po|   %>
+    <div><%= mail_to po.name, po.email %></div>
+    <% end %>
+ <% end %>
+<% end %>
 
-<div class="questions-detail-outer" style="overflow:auto;">
+  </div>
+</div>
+<div id="progress-menu-ao-data" class="progress-menu-data start-hidden">
+    <h2>Placeholder for Action Officer Alocation</h2>
+</div>
+<div id="progress-menu-sub-data" class="progress-menu-data start-hidden">
 
 	<label>Submit Draft Answer</label>
 
@@ -143,7 +167,7 @@
       </div>
     </div>
 </div>
-<div class="questions-detail-outer" style="overflow:auto;">
+<div id="progress-menu-pod-data" class="progress-menu-data start-hidden" >
 
 	<label>POD Checking</label>
 
@@ -178,8 +202,7 @@
       </div>
     </div>
 </div>
-
-<div class="questions-detail-outer" style="overflow:auto;">
+<div id="progress-menu-min-data" class="progress-menu-data start-hidden" >
 
 	<label>Ministerial Answer</label>
 
@@ -275,4 +298,8 @@
 </p>
 
 <% end %>
+
+
+
+
 

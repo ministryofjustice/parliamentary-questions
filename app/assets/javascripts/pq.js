@@ -169,6 +169,15 @@ $(document).ready(function () {
         $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
         $('#comm-details-' + pqid).toggleClass('start-hidden');
     });
+    $('.progress-menu-item').on('click',function() {
+        //hide all progress-menu-data items
+        $('.progress-menu-data').hide();
+        //and show the required
+        var $show = $('#' + $(this).attr('id') + '-data');
+        console.log($show);
+        $show.show();
+        $('.progress-menu-form').show();
+    });
 });
 
 
