@@ -52,6 +52,21 @@ $(document).ready(function () {
         $( divToFill ).html(data);
     });
 
+    $('.internal-dtp').datetimepicker().on('change', function(e) {
+        $(this).siblings('input[type="submit"]').val("Update").show();
+    });
+    $('.internal-deadline-form')
+        .on("ajax:success", function(e, data, status, xhr){
+            var pqid = $(this).data('pqid');
+            //get the div to refresh
+            var divToUpdate = "btn-set-deadline-" + pqid;
+            //put the dat returned into the div
+            $('#'+divToUpdate).val("Updated").fadeOut(1000);
+
+        }).on("ajax:error", function(e, xhr, status, error) {
+            alert(error);
+            //TODO how should ux handle error? Add it to the list, alert, flash, etc...
+        });
 
     $(".policy-minister-form")
         .on("ajax:success", function(e, data, status, xhr){
@@ -99,12 +114,9 @@ $(document).ready(function () {
         console.log('control=',$(this).attr('id'),',data(current)=', prevMinId, ', changed to=',$(this).val(), ',equals change=', $(this).val()!=prevMinId)
         if($(this).val()!=prevMinId) {
             $(this).siblings('input[type="submit"]').val("Update").show();
-        }
-        else
-        {
+        } else {
             $(this).siblings('input[type="submit"]').val("Update").hide();
         }
-
     });
 
 
