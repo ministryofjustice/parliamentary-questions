@@ -77,4 +77,5 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
   patch 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
 
+  patch 'set_internal_deadline/:id' => 'pqs#set_internal_deadline'
 end
