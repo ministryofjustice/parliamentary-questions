@@ -33,13 +33,16 @@
             Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y')  %>
           <% end %>
         </div>
-        <span class="deadline">
-            <% if !question.internal_deadline.nil?  %>
-                Internal Deadline:
-                <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>
-            <% end %>
-            <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
-         </span>
+        <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
+            <div>Internal deadline:</div>
+            <div class='input-group date internal-dtp' id='datetimepicker-<%= question.id %>' data-date-format="DD/MM/YYYY HH:mm">
+              <input class="form-control internal-deadline" id="pq_internal_deadline-<%= question.id %>" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+            </div>
+            <%= f.submit 'Update', :class => 'btn btn-success btn-xs start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
+        <% end %>
+
 
         <% if !question.preview_url.nil? %>
             <div>
@@ -59,7 +62,7 @@
               <div><%= mail_to question.policy_minister.email, question.policy_minister.name %></div>
             </div>
             <% end %>
-            <div id="">
+            <div>
               Action Officer(s) assigned
               <% question.action_officers_pq.each do |ao_pq|   %>
                 <div><%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
