@@ -11,16 +11,19 @@ $(document).ready(function () {
 	$('#allocation_response_response_action_reject').click(function (){
 		$('#reason-textarea').removeClass('hide');
 	});
+
 	$(".form-commission")
 	.on("ajax:success", function(e, data, status, xhr){
 		var pqid = $(this).data('pqid');
-		$('#commission'+pqid).click();
-		//get the div to refresh
-		var divToFill = "question_allocation_" + $(this).data('pqid');
-		//put the dat returned into the div
-		$('#'+divToFill).html(data);
-		//clear select list
-		$('#action_officers_pq_action_officer_id-'+pqid).select2('data', null);
+        var uin = $('#pq-frame-'+pqid+ ' span.uin').text();
+        //it worked!
+        //so - get the entire question and replace it with a flash success message
+        $('#pq-frame-'+pqid).replaceWith('<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>'+uin +' commissioned successfully</div>');
+        //increment allocated pending
+        incrementBadge('#db-filter-alloc-pend');
+        //decrement Unallocated
+        decrementBadge('#db-filter-unalloc');
+
 	}).on("ajax:error", function(e, xhr, status, error) {
 		alert('fail');
 		//TODO how should ux handle error? Add it to the list, alert, flash, etc...
@@ -154,4 +157,18 @@ $(document).ready(function () {
         $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
         $('#comm-details-' + pqid).toggleClass('start-hidden');
     });
-});  
+});
+
+
+function incrementBadge(id_of_navpill) {
+    var $filter = $(id_of_navpill);
+    var $badge = $filter.children('a').children('span');
+    var curval = parseInt($badge.text(),10);
+    $badge.text(curval+1);
+}
+function decrementBadge(id_of_navpill) {
+    var $filter = $(id_of_navpill);
+    var $badge = $filter.children('a').children('span');
+    var curval = parseInt($badge.text(),10);
+    $badge.text(curval-1);
+}
