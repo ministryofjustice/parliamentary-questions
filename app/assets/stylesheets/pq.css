@@ -166,3 +166,8 @@ input[type="file"] {
 .minister-dropdown{
     margin: 10px 0;
 }
+
+.progress-menu-form {
+    border-left:1px solid black;
+    padding-left:10px;
+}
