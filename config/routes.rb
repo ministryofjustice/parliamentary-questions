@@ -77,5 +77,9 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
   patch 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
 
+  get 'send_accept_reject_reminder/:id' => 'action_officer_reminder#accept_reject'
+  get 'send_draft_reminder/:id' => 'action_officer_reminder#send_draft'
+
   patch 'set_internal_deadline/:id' => 'pqs#set_internal_deadline'
+
 end
