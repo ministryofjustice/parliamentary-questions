@@ -9,18 +9,7 @@ class AssignmentService
     pro = Progress.allocated_accepted
     pq.update progress_id: pro.id
 
-    template = Hash.new
-    template[:name] = ao.name
-    template[:email] = ao.email
-    template[:uin] = pq.uin
-    template[:question] = pq.question
-    template[:mpname] = pq.minister.name unless pq.minister.nil?
-    template[:mpemail] = pq.minister.email unless pq.minister.nil?
-    template[:policy_mpname] = pq.policy_minister.name unless pq.policy_minister.nil?
-    template[:policy_mpemail] = pq.policy_minister.email unless pq.policy_minister.nil?
-    template[:press_email] = ao.press_desk.email_output unless ao.press_desk.nil?
-    PQAcceptedMailer.commit_email(template).deliver
-
+    PQAcceptedMailer.commit_email(pq, ao).deliver
   end
 
 

@@ -62,7 +62,9 @@
             <div id="">
               Action Officer(s) assigned
               <% question.action_officers_pq.each do |ao_pq|   %>
-                <div><%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %></div>
+                <div><%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
+                  <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+                </div>
               <% end %>
 
             </div>

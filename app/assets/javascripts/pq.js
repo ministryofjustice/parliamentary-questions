@@ -53,6 +53,12 @@ $(document).ready(function () {
     });
 
 
+    $('.ao-reminder-link').on('ajax:success', function(e, data, status, xhr){
+        $(this).after(data);
+    });
+
+
+
     $(".policy-minister-form")
         .on("ajax:success", function(e, data, status, xhr){
 
