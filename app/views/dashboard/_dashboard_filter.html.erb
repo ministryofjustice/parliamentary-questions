@@ -1,20 +1,20 @@
 <ul id="status-filters" class="nav nav-pills nav-stacked navbar-right">
-  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'index') %>">
+  <li id="db-filter-today" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'index') %>">
 	  <%= link_to raw("View all<span class='badge'>#{PQ.new_questions.count}</span>") , {:controller => 'dashboard', :action => 'index'} %>
   </li>
-  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.UNALLOCATED) %>">
+  <li id="db-filter-unalloc" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.UNALLOCATED) %>">
 	  <%= link_to raw("Unallocated<span class='badge'>#{PQ.unallocated.count}</span>") , {:controller => 'dashboard', :action => 'by_status' , :qstatus => Progress.UNALLOCATED} %>
   </li>
-  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.ALLOCATED_PENDING) %>">
+  <li id="db-filter-alloc-pend" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.ALLOCATED_PENDING) %>">
 	  <%= link_to raw("Allocated Pending<span class='badge'>#{PQ.allocated_pending.count}</span>") , {:controller => 'dashboard', :action => 'by_status' , :qstatus => Progress.ALLOCATED_PENDING} %>
   </li>
-  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.ALLOCATED_ACCEPTED) %>">
+  <li id="db-filter-alloc-accept" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.ALLOCATED_ACCEPTED) %>">
 	  <%= link_to raw("Allocated Accepted <span class='badge'>#{PQ.allocated_accepted.count}</span>"), {:controller => 'dashboard', :action => 'by_status' , :qstatus => Progress.ALLOCATED_ACCEPTED} %>
   </li>
-  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.REJECTED) %>">
+  <li id="db-filter-rejected" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.REJECTED) %>">
 	  <%= link_to raw("Rejected <span class='badge'>#{PQ.rejected.count}</span>"), {:controller => 'dashboard', :action => 'by_status' , :qstatus => Progress.REJECTED} %>
   </li>
-  <li class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'transferred') %>">
+  <li id="db-filter-transferred" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'transferred') %>">
 	  <%= link_to raw("Transferred <span class='badge'>#{PQ.transferred.count}</span>") , {:controller => 'dashboard', :action => 'transferred'} %>
   </li>
 </ul>
