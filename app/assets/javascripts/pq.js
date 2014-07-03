@@ -68,6 +68,12 @@ $(document).ready(function () {
             //TODO how should ux handle error? Add it to the list, alert, flash, etc...
         });
 
+    $('.ao-reminder-link').on('ajax:success', function(e, data, status, xhr){
+        $(this).after(data);
+    });
+
+
+
     $(".policy-minister-form")
         .on("ajax:success", function(e, data, status, xhr){
 
