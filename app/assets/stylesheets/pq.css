@@ -168,6 +168,6 @@ input[type="file"] {
 }
 
 .progress-menu-form {
-    border-left:1px solid black;
+    border:1px solid black;
     padding-left:10px;
 }

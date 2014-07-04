@@ -22,16 +22,7 @@
           <%= question.question %>
         </div>
         <!-- loop through and show rejection reasons -->
-        <% question.action_officers_pq.rejected.each do |r|  %>
-            <div id="pq-reject-reasons-<%= question.id %>">
-            <div id="pq-reject-reasons-header-<%= question.id %>">
-                <span class="label label-danger label-sm">PQ Rejected</span> by <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
-            </div>
-            <div class="panel panel-danger">
-              <%= r.reason %>
-            </div>
-            </div>
-        <% end %>
+        <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
         <!-- start of 'sub column 1'-->
         <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
             <%= render partial: 'shared/pq_dashboard_column1_commissioned', locals: {question: question} %>
