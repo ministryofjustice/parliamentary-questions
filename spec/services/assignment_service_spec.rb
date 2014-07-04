@@ -103,7 +103,7 @@ describe 'AssignmentService' do
     end
 
     it 'should set the progress to rejected' do
-
+      #pq.action_officers_pq.clear()
       # setup a valid assignment
       assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
       result = @comm_service.send(assignment)
@@ -150,7 +150,6 @@ describe 'AssignmentService' do
       allow(response).to receive(:reason_option) { 'reason option' }
       #reject
       @assignment_service.reject(assignment, response)
-
       assignment = ActionOfficersPq.find(assignment_id)
 
       # the question progress should be ALLOCATED_ACCEPTED even after the reject
@@ -159,8 +158,29 @@ describe 'AssignmentService' do
 
     end
 
-
-
+    it 'should only set the progress to rejected when all action officers reject' do
+      #set up the pq with three assignments
+      assignment1 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
+      assignment2 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
+      assignment3 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
+      #belt and braces!
+      pq.action_officers_pq.size.should eq(3)
+      #set assignment 1 to be rejected
+      response = double('response')
+      allow(response).to receive(:reason) { 'Some reason' }
+      allow(response).to receive(:reason_option) { 'reason option' }
+      #reject assignment1
+      @assignment_service.reject(assignment1, response)
+      pq = PQ.find(assignment1.pq_id)
+      pq.progress.name.should  eq(Progress.ALLOCATED_PENDING)
+      #reject assignment2
+      @assignment_service.reject(assignment2, response)
+      pq = PQ.find(assignment2.pq_id)
+      pq.progress.name.should  eq(Progress.ALLOCATED_PENDING)
+      #reject assignment3
+      @assignment_service.reject(assignment3, response)
+      pq = PQ.find(assignment3.pq_id)
+      pq.progress.name.should  eq(Progress.REJECTED)
+    end
   end
-
 end
