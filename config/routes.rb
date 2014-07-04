@@ -39,10 +39,14 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'dashboard' => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'
 
+
+  get 'search' => 'search#index'
+
   get 'filter' => 'filter#index'
   get 'filter/:search' => 'filter#index'
   get 'dashboard/search' => 'dashboard#search'
   post 'dashboard/search/:search' => 'dashboard#search'
+
 
   get 'dashboard/by_status/:qstatus' => 'dashboard#by_status'
   get 'dashboard/transferred' => 'dashboard#transferred'
