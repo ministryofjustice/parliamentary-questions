@@ -78,7 +78,10 @@
                   <div><%= question.action_officers_pq.first.created_at.strftime("%m/%d/%Y") %></div>
                 </div>
             </div>
-        <% else %>
+            <div id='trim_area_<%= question.id %>'>
+              <%= render partial: 'shared/trim_links', locals: {question: question} %>
+            </div>
+        <% else %> <!-- action officer = 0 -->
         <div id="policy-minister-form-<%= question.id %>" class="minister-dropdown">
           <span id="policy-minister-<%= question.id %>"></span>
           <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "policy-minister-form#{question.id}", :class => 'policy-minister-form', :data => {:pqid => "#{question.id}", :current=>"#{question.policy_minister_id}"}}, :url => {:controller => 'pqs', :action => "assign_minister", :id => question.uin} do |f| %>
@@ -113,9 +116,9 @@
             <%= render partial: 'shared/question_assigned', locals: {question: question} %>
           </div>
         </div>
-        <div id='trim_area_<%= question.id %>'>
-          <%= render partial: 'shared/trim_links', locals: {question: question} %>
-        </div>
+            <div id='trim_area_<%= question.id %>'>
+              <%= render partial: 'shared/trim_links', locals: {question: question} %>
+            </div>
       </li>
     <% end %>
   <% end %>
