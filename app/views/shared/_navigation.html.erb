@@ -12,9 +12,9 @@
             <li><%= link_to 'Admin', admin_path %></li>
           </ul>
 
-          <%= form_tag filter_path, { :method => 'get', :class => 'navbar-form navbar-left', :role => 'search'} do %>
+          <%= form_tag({:controller => 'search', :action => 'index'}, { :method => 'get', :class => 'navbar-form navbar-left', :role => 'search'}) do %>
               <div class="form-group">
-                <%= date_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search' } %>
+                <%= text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Type a UIN' } %>
               </div>
               <%= submit_tag "Search", { :name => nil, :class => 'btn btn-default' } %>
           <% end %>
