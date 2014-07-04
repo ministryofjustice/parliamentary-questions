@@ -55,6 +55,7 @@ $(document).ready(function () {
     $('.internal-dtp').datetimepicker().on('change', function(e) {
         $(this).siblings('input[type="submit"]').val("Update").show();
     });
+
     $('.internal-deadline-form')
         .on("ajax:success", function(e, data, status, xhr){
             var pqid = $(this).data('pqid');
@@ -72,47 +73,18 @@ $(document).ready(function () {
         $(this).after(data);
     });
 
-
-
-    $(".policy-minister-form")
+    $(".change-minister-form")
         .on("ajax:success", function(e, data, status, xhr){
-
-            var pqid = $(this).data('pqid');
-
             //get value from select list in current form
             var newVal = $(this).children('select').val();
+            //and update the forms current value
             $(this).data('current',newVal);
-            //get the div to refresh
-            var divToUpdate = "btn-policy-minister" + pqid;
-            //put the dat returned into the div
-            $('#'+divToUpdate).val("Updated").fadeOut(1000);
-
-        }).on("ajax:error", function(e, xhr, status, error) {
-            alert(error);
-            //TODO how should ux handle error? Add it to the list, alert, flash, etc...
-
-        });
-
-    $(".answering-minister-form")
-        .on("ajax:success", function(e, data, status, xhr){
-
-            var pqid = $(this).data('pqid');
-
-            //get value from select list in current form
-            var newVal = $(this).children('select').val();
-            $(this).data('current',newVal);
-            //get the div to refresh
-
-            var divToUpdate = "btn-answering-minister" + pqid;
-            //put the dat returned into the div
-            $('#'+divToUpdate).val("Updated").fadeOut(1000);
-
+            //confirm by changing the button text and fading out
+            $(this).find('input[type="submit"]').val("Updated").fadeOut(1000);
         }).on("ajax:error", function(e, xhr, status, error) {
             alert(error + ' In Answering Minister');
             //TODO how should ux handle error? Add it to the list, alert, flash, etc...
-
         });
-
 
     $('.change-policy-minister').on('change',function(e ){
         e.stopPropagation();
@@ -175,18 +147,24 @@ $(document).ready(function () {
         $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
         $('#comm-details-' + pqid).toggleClass('start-hidden');
     });
+    $('.progress-menu-item').on('click',function() {
+        //hide all progress-menu-data items
+        $('.progress-menu-data').hide();
+        //and show the required
+        $('#' + $(this).attr('id') + '-data').show();
+        $('.progress-menu-form').show();
+    });
 });
 
 
 function incrementBadge(id_of_navpill) {
-    var $filter = $(id_of_navpill);
-    var $badge = $filter.children('a').children('span');
-    var curval = parseInt($badge.text(),10);
-    $badge.text(curval+1);
+    changeBadgeBy(id_of_navpill,1);
 }
 function decrementBadge(id_of_navpill) {
-    var $filter = $(id_of_navpill);
-    var $badge = $filter.children('a').children('span');
+    changeBadgeBy(id_of_navpill,-1);
+}
+function changeBadgeBy(id_of_navpill, val) {
+    var $badge = $(id_of_navpill).children('a').children('span');
     var curval = parseInt($badge.text(),10);
-    $badge.text(curval-1);
+    $badge.text(curval+val);
 }
