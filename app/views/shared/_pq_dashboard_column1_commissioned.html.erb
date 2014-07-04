@@ -26,6 +26,3 @@
     <div><%= question.action_officers_pq.first.created_at.strftime("%m/%d/%Y") %></div>
   </div>
 </div>
-<div id='trim_area_<%= question.id %>'>
-  <%= render partial: 'shared/trim_links', locals: {question: question} %>
-</div>

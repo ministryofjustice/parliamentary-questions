@@ -18,40 +18,37 @@
           </div>
         </div>
 
-        <div class="panel-indent">
+        <div class="">
           <%= question.question %>
         </div>
-
-        <div>
-          <% if !question.house_name.nil?  %>
-              <span><%= question.house_name %>: <%= question.member_name %></span>
-          <% end %>
-        </div>
-
-        <div>
-          <% if !question.date_for_answer.nil?  %>
-            Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y')  %>
-          <% end %>
-        </div>
-        <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
-            <div>Internal deadline:</div>
-            <div class='input-group date internal-dtp' id='datetimepicker-<%= question.id %>' data-date-format="DD/MM/YYYY HH:mm">
-              <input class="form-control internal-deadline" id="pq_internal_deadline-<%= question.id %>" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-            </span>
+        <!-- loop through and show rejection reasons -->
+        <% question.action_officers_pq.rejected.each do |r|  %>
+            <div id="pq-reject-reasons-<%= question.id %>">
+            <div id="pq-reject-reasons-header-<%= question.id %>">
+                <span class="label label-danger label-sm">PQ Rejected</span> by <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
             </div>
-            <%= f.submit 'Update', :class => 'btn btn-success btn-xs start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
+            <div class="panel panel-danger">
+              <%= r.reason %>
+            </div>
+            </div>
         <% end %>
+        <!-- start of 'sub column 1'-->
+        <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
+            <%= render partial: 'shared/pq_dashboard_column1_commissioned', locals: {question: question} %>
+        <% else %>
+            <%= render partial: 'shared/pq_dashboard_column1_uncommissioned', locals: {question: question} %>
+        <% end %>
+        <!-- end of column 1-->
+
+        <!--start of sub column 2 -->
+        <%= render partial: 'shared/pq_dashboard_column2', locals: {question: question} %>
+        <!--end of column 2-->
 
         <% if !question.preview_url.nil? %>
             <div>
               <a href="<%= question.preview_url %>">Question in Q&A Tool</a>
             </div>
         <% end %>
-        <% if question.action_officers_pq.size > 0 %>
-            <%= render partial: 'shared/commissioned_pq', locals: {question: question} %>
-        <% else %> <!-- action officer = 0 -->
-            <%= render partial: 'shared/uncommissioned_pq', locals: {question: question} %>
-        <% end %>
+
   <% end %>
 </ul>

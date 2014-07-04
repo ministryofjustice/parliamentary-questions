@@ -28,11 +28,4 @@
         <% end %>
       </div>
   <% end %>
-  <div id="question_allocation_<%= question.id %>">
-    <%= render partial: 'shared/question_assigned', locals: {question: question} %>
-  </div>
 </div>
-<div id='trim_area_<%= question.id %>'>
-  <%= render partial: 'shared/trim_links', locals: {question: question} %>
-</div>
-</li>
