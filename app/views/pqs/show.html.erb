@@ -110,6 +110,9 @@
         </span>
     </div>
   </div>
+  <!-- loop through and show rejection reasons -->
+  <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
+
   <div class="question-allocation">
     <div>Allocation:</div>
 <% @pq.action_officers_pq.each do |ao_pq|   %>
