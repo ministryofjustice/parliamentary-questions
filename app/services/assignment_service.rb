@@ -20,9 +20,12 @@ class AssignmentService
     if pq.is_in_progress?(Progress.allocated_accepted)
       return
     end
-
-    pro = Progress.rejected
+    if pq.action_officers_pq.rejected.size==pq.action_officers_pq.size
+      pro = Progress.rejected
+      pq.update progress_id: pro.id
+      return
+    end
+    pro = Progress.allocated_pending
     pq.update progress_id: pro.id
-
   end
 end
