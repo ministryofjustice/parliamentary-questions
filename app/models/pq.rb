@@ -40,6 +40,13 @@ class PQ < ActiveRecord::Base
               ])
   end
 
+  def short_house_name
+    if house_name.include?('Lords')
+      'HoL'
+    else
+      'HoC'
+    end
+  end
 
   def self.not_seen_by_finance()
     where('seen_by_finance = ?', false)
