@@ -21,13 +21,23 @@ class PQ < ActiveRecord::Base
   end
 
   def self.new_questions()
-    at_beginning_of_day = DateTime.now.at_beginning_of_day
-    where('created_at >= ?', at_beginning_of_day)
+    by_status([
+                  Progress.ALLOCATED_ACCEPTED,
+                  Progress.ALLOCATED_PENDING,
+                  Progress.UNALLOCATED,
+                  Progress.REJECTED
+              ])
   end
 
   def self.in_progress()
-    at_beginning_of_day = DateTime.now.at_beginning_of_day
-    where('created_at < ?', at_beginning_of_day)
+    by_status([
+                  Progress.POD_WAITING,
+                  Progress.POD_QUERY,
+                  Progress.POD_CLEARED,
+                  Progress.MINISTER_WAITING,
+                  Progress.MINISTER_QUERY,
+                  Progress.MINISTER_CLEARED
+              ])
   end
 
 
@@ -37,8 +47,12 @@ class PQ < ActiveRecord::Base
 
 
   # status queries
-  def self.by_status(status_name)
-    joins(:progress).where('progresses.name = :search', search: "#{status_name}")
+  # accepts an string
+  #  -> by_status(Progress.ALLOCATED_ACCEPTED)
+  # or an array
+  #  -> by_status([Progress.ALLOCATED_ACCEPTED, Progress.ALLOCATED_PENDING])
+  def self.by_status(status)
+    joins(:progress).where(progresses: {name: status})
   end
 
   def self.allocated_accepted()
