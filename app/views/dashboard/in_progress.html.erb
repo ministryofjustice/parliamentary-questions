@@ -1,14 +1,5 @@
 <%= render partial: "tabs" %>
-
-<ul id="status-filters" class="nav nav-pills nav-stacked navbar-right">
-  <li class="active"><a href="#">POD Waiting</a></li>
-  <li><a href="#">Draft pending</a></li>
-  <li><a href="#">Draft received</a></li>
-  <li><a href="#">Minister Waiting</a></li>
-  <li><a href="#">Minister Query</a></li>
-  <li><a href="#">Minister Cleared</a></li>
-</ul>
-
+<%= render partial: "in_progress_filter" %>
 <%= render partial: "shared/flash_messages", flash: flash %>
 <%= render partial: 'shared/questions_list', locals: {questions: @questions} %>
 

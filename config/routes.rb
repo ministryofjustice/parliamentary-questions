@@ -49,6 +49,7 @@ ParliamentaryQuestions::Application.routes.draw do
 
 
   get 'dashboard/by_status/:qstatus' => 'dashboard#by_status'
+  get 'dashboard/in_progress_by_status/:qstatus' => 'dashboard#in_progress_by_status'
   get 'dashboard/transferred' => 'dashboard#transferred'
   
   get 'assignment/:uin' => 'assignment#index'
