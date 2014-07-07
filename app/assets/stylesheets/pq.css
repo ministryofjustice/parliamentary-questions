@@ -1,26 +1,58 @@
 #global-header.with-proposition .header-wrapper .header-proposition .content{margin:9px 15px 0 15px}
 a.btn-success{color:white}
 
+/* General ====================================================================== */
+
 .inline{display:inline;}
 .right{float:right;}
-label{display:block;font-weight:500;font-size: 18px;}
-.datetimepicker{width:12em;}
-.button, .datetimepicker{margin: 10px 0;}
+label{display:block;font-weight:500;font-size:18px;}
+.date, .datetimepicker{width:12em;}
+.button, .datetimepicker{margin: 0.5em 0em;}
+.label-primary, .label-info, .label-warning {vertical-align:6px;margin-left:1em;padding:0.4em 0.6em;}
+
+.pagination{margin-top:0;margin-bottom:0;}
+#pages{clear:both;width:100%;display:block;text-align:center;}
+
+#pq-details-header h3, .pq-header h3{display:inline;}
+
+/* PQ Details Page ============================================================== */
+.start-hidden{display:none;}
 
 #pq-details-header{padding-bottom:1em;border-bottom:1px solid #000;}
-#pq-details-header h3{display:inline;}
 #pq-detail-area{padding-top:1em;}
 
 #progress-menu a{display:block;padding-top:0.5em;width:100%;text-decoration:none;}
 #progress-menu a:hover{color:#000;border-bottom:1px solid #000;}
 #progress-menu a:active{color:#000;border-bottom:1px solid #000;}
 #progress-menu a:visited{color:#ccc;}
+/* ============================================================================== */
+
+/* PQ Dashboard Page ============================================================ */
+ul.questions-list{list-style:none;}
+.question-allocation-list li{border:none;margin:3px 0;padding:0;}
+.questions-list li{border:1px solid #bfc1c3;margin:20px 0;padding:10px 25px;}
+.questions-list li p{margin:0.5em 0em;}
+.questions-list li label{font-size:16px}
+
+.pq-header{width:100%;padding:0.5em;}
+.pq-question{padding:10px;margin:10px 0px;border:1px solid #dee0e2;width:100%;}
+
+.allocation-info .btn{margin:1em 0;}
+
+.select2-container-multi .select2-choices li{width:100%}
+.select2-container .select2-choice abbr{top:5px!important;}
+/* ============================================================================== */
+
+/* Status Filters =============================================================== */
+#status-filters{margin-top:20px;width:250px;}
+#status-filters .badge{float:right;min-width:2.5em;background-color:#000;}
+#status-filters .active .badge{background-color:#fff}
+/* ============================================================================== */
 
 
 
 
-
-
+/*
 .panel-indent{
 	clear:both;
 	border:1px solid #dee0e2;
@@ -28,37 +60,20 @@ label{display:block;font-weight:500;font-size: 18px;}
 	width:510px;
 	margin:0px;
 }
+*/
 
 h2.section{border-bottom:solid 1px}
 h2.section .badge{vertical-align:middle}
 
+/*
 .uin{
     font-family:"nta", Arial, sans-serif;
     font-size:18px;
-    /*line-height:1.25;*/
     text-transform:none;
     font-weight:700;
 }
+*/
 
-.pq-header{padding-bottom:1em}
-
-.label-primary, .label-info, .label-warning {
-    vertical-align:6px;
-    margin-left:1em;
-    padding:0.4em 0.6em;
-}
-
-ul.questions-list{
-	list-style:none;
-    width:75%;
-}
-
-.questions-list > li{
-	margin-top:20px;
-    border:1px solid #bfc1c3;
-    padding:15px;
-	margin-bottom:20px;
-}
 
 
 .questions-list .button{float:right}
@@ -66,33 +81,11 @@ ul.questions-list{
 .label-success, .label-danger{line-height:2}
 .questions-list > span{margin-right:10px}
 
-.questions-list .date{
-    font-size:0.9em;
-    margin:5px 0;
-}
-
 .questions-detail-outer{
-	width:700px;
+	/*width:700px;*/
 	margin-top:20px;
     border:1px solid #bfc1c3;
     padding:15px;
-}
-
-.trim_dates{
-	clear:both;
-	width:420px;
-}
-
-.input-group date datetimepicker right{
-	width:250px;
-	margin:5px; 
-	float:right;
-}
-
-.pq-details-datetime-right{
-	width:185px;
-	margin:5px; 
-	float:right;
 }
 
 .member-photo{
@@ -102,56 +95,30 @@ ul.questions-list{
 	width:70px;
 }
 
-.deadline_input{width:192px}
-.deadline {}
-.deadline-overdue{color:#d9534f}
-.deadline-ok {color:#428bca}
+/*.deadline_input{width:192px}*/
+/*.deadline {}*/
+/*.deadline-overdue{color:#d9534f}*/
+/*.deadline-ok {color:#428bca}*/
 
+/*
 .allocation-info{
     clear:both;
     padding: 5px 0;
 }
+*/
 
 .question-allocation-list{list-style: circle}
 
-.question-allocation-list li{
-    border:none;
-    margin:3px 0;
-    padding:0;
-}
-
 .accept-reject-form{margin: 20px 0;}
-.select2-container-multi .select2-choices li {width:238px}
-.select2-container .select2-choice abbr {
-    top:5px!important;
-}
+
+
 .pq-inline-form {display:inline!important}
-
-#status-filters{margin-top:20px;width:250px;}
-#status-filters .badge{float:right;min-width:2.5em;background-color:#000;}
-#status-filters .active .badge{background-color:#fff}
-
-.pagination{
-    margin-top:0;
-    margin-bottom:0;
-}
-
-#pages{
-	clear:both;
-	width:100%;
-	display:block;
-	text-align:center;
-}
-
-
-.start-hidden {
-    display: none;}
 
 .trim-links-header {
     position:relative;
-    /*width: 500px;*/
     cursor:default;
-    margin-left:10px;
+    margin:0.5em 0;
+    color:#000;
 }
 .trim-links-form {
     /*border: 2px black solid;
