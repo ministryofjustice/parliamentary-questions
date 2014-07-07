@@ -1,9 +1,5 @@
 <p><%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %></p>
 
-<% if !@pq.preview_url.nil? %>
-    <p><a href="<%= @pq.preview_url %>">Question in Q&A Tool</a></p>
-<% end %>
-
 <h4>Tabling Member:</h4>
 <p><%= @pq.member_name %></p>
 
@@ -33,8 +29,3 @@
     <p>Member has registered an interest in the Question.</p>
 <% end %>
 
-<label>Set replying minister</label>
-<%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
-
-<label>Set optional policy minister</label>
-<%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
