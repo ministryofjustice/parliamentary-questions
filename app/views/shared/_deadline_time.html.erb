@@ -1,8 +1,7 @@
 <% if !internal_deadline.nil? %>
-    <% from_time = DateTime.now.change ({:offset => 0}) %>
+	<% from_time = DateTime.now.change ({:offset => 0}) %>
     <% overdue = (from_time -  internal_deadline.to_datetime) > 0 %>
     <% if overdue %>
-        <span class="deadline-overdue"><i class="fa fa-exclamation-triangle"></i>
-        </span>
+        <span class="deadline-overdue"><i class="fa fa-exclamation-triangle"></i></span>
     <% end %>
 <% end %>
