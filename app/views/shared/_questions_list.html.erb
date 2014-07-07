@@ -1,45 +1,50 @@
-<ul class="questions-list col-md-8">
+<ul class="questions-list col-md-9">
   <% questions.each do |question| %>
-      <li style="overflow:auto;" id="pq-frame-<%= question.id %>">
-        <div class="pq-header">
-          <span class="uin"><%= question.uin %></span>
-          <% if question.question_type == 'NamedDay' %>
-              <span class="label label-primary" title="Named day">N</span>
-          <% end %>
-          <% if question.question_type == 'Ordinary' %>
-              <span class="label label-info" title="Ordinary Written">O</span>
-          <% end %>
-          <% if question.transferred  %>
-              <span class="label label-warning" title="Transferred">Transferred</span>
-          <% end %>
-
-          <div style="float: right;">
-            <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin} ) %>
-          </div>
-        </div>
-
-        <div class="">
-          <%= question.question %>
-        </div>
-        <!-- loop through and show rejection reasons -->
-        <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
-        <!-- start of 'sub column 1'-->
-        <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
-            <%= render partial: 'shared/pq_dashboard_column1_commissioned', locals: {question: question} %>
-        <% else %>
-            <%= render partial: 'shared/pq_dashboard_column1_uncommissioned', locals: {question: question} %>
+    <li style="overflow:auto;" id="pq-frame-<%= question.id %>">
+      <div class="pq-header">
+        <h3><%= question.uin %></h3>
+        <% if question.question_type == 'NamedDay' %>
+          <span class="label label-primary" title="Named day">N</span>
         <% end %>
+        <% if question.question_type == 'Ordinary' %>
+          <span class="label label-info" title="Ordinary Written">O</span>
+        <% end %>
+        <% if question.transferred  %>
+          <span class="label label-warning" title="Transferred">Transferred</span>
+        <% end %>
+        <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'right' ) %>
+      </div>
+
+      <div class="row">
+        <div class="pq-question col-md-9">
+            <%= question.question %>
+        </div>
+      </div>
+
+      <!-- loop through and show rejection reasons -->
+      <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
+
+      <div class="row">
+        <!-- start of 'sub column 1'-->
+        <div class="col-md-5">
+          <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
+            <%= render partial: 'shared/pq_dashboard_column1_commissioned', locals: {question: question} %>
+          <% else %>
+            <%= render partial: 'shared/pq_dashboard_column1_uncommissioned', locals: {question: question} %>
+          <% end %>
+        </div>
         <!-- end of column 1-->
 
         <!--start of sub column 2 -->
-        <%= render partial: 'shared/pq_dashboard_column2', locals: {question: question} %>
-        <!--end of column 2-->
-
-        <% if !question.preview_url.nil? %>
+        <div class="col-md-4">
+          <%= render partial: 'shared/pq_dashboard_column2', locals: {question: question} %>
+          <% if !question.preview_url.nil? %>
             <div>
               <a href="<%= question.preview_url %>">Question in Q&A Tool</a>
             </div>
-        <% end %>
-
+          <% end %>
+        </div>
+      </div>
+    </li>
   <% end %>
 </ul>
