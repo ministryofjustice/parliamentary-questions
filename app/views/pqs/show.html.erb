@@ -21,6 +21,11 @@
     <div id='trim_area_<%= @pq.id %>' class="right">
       <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
     </div>
+    <% if !@pq.preview_url.nil? %>
+        <div class="right">
+          <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
+        </div>
+    <% end %>
   </div>
 </div>
 

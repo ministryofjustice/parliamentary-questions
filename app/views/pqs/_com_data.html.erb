@@ -27,3 +27,10 @@
       <% end %>
   <% end %>
 </div>
+
+
+<label>Set replying minister</label>
+<%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
+
+<label>Set optional policy minister</label>
+<%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
