@@ -40,6 +40,9 @@
               <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
                   <p><%= mail_to po.name, po.email %></p>
               <% end %>
+              <p>
+              <%= link_to raw('Re-send acceptance email <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'btn btn-success ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
+              </p>
           <% end %>
       <% end %>
   <% else %>
@@ -54,5 +57,7 @@
 
 <label>Optional policy minister</label>
 <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
+
+
 
 <hr/>
