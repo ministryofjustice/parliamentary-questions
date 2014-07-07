@@ -14,6 +14,8 @@ WORKDIR /rails
 # Publish port 80
 EXPOSE 80
 
+ADD docker/rails/logstash-forwarder.sh /etc/logstash-forwarder.sh
+
 # ...put your own build instructions here...
 # install service files for runit
 ADD docker/rails/unicorn.service /etc/service/unicorn/run
