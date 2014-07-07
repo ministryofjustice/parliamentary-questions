@@ -7,30 +7,51 @@
   </div>
 </div>
 
+<hr/>
+
 <!-- loop through and show rejection reasons -->
 <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
 
 <div class="question-allocation">
-  <p>Allocation:</p>
-  <% @pq.action_officers_pq.each do |ao_pq| %>
-      <% if ao_pq %>
-          <p><%= ao_pq.action_officer.name %> <%= link_to "Edit #{ao_pq.action_officer.name}", edit_action_officer_path(ao_pq.action_officer) %></p>
-          <p>Email: <%= mail_to ao_pq.action_officer.email %></p>
-          <p>Phone: <%= ao_pq.action_officer.phone %></p>
-          <p>Directorate: <%= ao_pq.action_officer.deputy_director.division.directorate.name %></p>
-          <p>Division: <%= ao_pq.action_officer.deputy_director.division.name %></p>
-          <p>Deputy director: <%= ao_pq.action_officer.deputy_director.name %></p>
-          <p>Press Office: <%= ao_pq.action_officer.press_desk.name %></p>
-          <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
-              <p><%= mail_to po.name, po.email %></p>
+  <% if @pq.action_officers.size > 0 %>
+      <% @pq.action_officers_pq.each do |ao_pq| %>
+          <% if ao_pq.accept %>
+              <h5>Name of Action Officer</h5>
+              <p><%= ao_pq.action_officer.name %> <%= link_to "Edit #{ao_pq.action_officer.name}", edit_action_officer_path(ao_pq.action_officer) %></p>
+
+              <h5>Email of Action Officer</h5>
+              <p><%= mail_to ao_pq.action_officer.email %></p>
+
+              <h5>Phone of Action Officer</h5>
+              <p><%= ao_pq.action_officer.phone %></p>
+
+              <h5>Division of Action Officer</h5>
+              <p><%= ao_pq.action_officer.deputy_director.division.name %></p>
+
+              <h5>Directorate of Action Officer</h5>
+              <p><%= ao_pq.action_officer.deputy_director.division.directorate.name %></p>
+
+              <h5>Deputy director</h5>
+              <p><%= ao_pq.action_officer.deputy_director.name %></p>
+
+              <h5>Press Deck</h5>
+              <p><%= ao_pq.action_officer.press_desk.name %></p>
+              <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
+                  <p><%= mail_to po.name, po.email %></p>
+              <% end %>
           <% end %>
       <% end %>
+  <% else %>
+  <p>Not allocated</p>
   <% end %>
 </div>
 
+<hr/>
 
-<label>Set replying minister</label>
+<label>Replying minister</label>
 <%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
 
-<label>Set optional policy minister</label>
+<label>Optional policy minister</label>
 <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
+
+<hr/>
