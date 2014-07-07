@@ -1,0 +1,19 @@
+<h3>Submit Draft Answer</h3>
+
+<label for="draft_answer_received">Draft Answer Received</label>
+<div id="datetimepicker2" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="draft_answer_received" class="form-control" name="pq[draft_answer_received]" type="text" value="<%= @pq.draft_answer_received.strftime('%d/%m/%Y %H:%M') unless @pq.draft_answer_received.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+</div>
+
+<label for="i_will_write_estimate">I will write estimate</label>
+<div id="datetimepicker3" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="i_will_write_estimate" class="form-control" name="pq[i_will_write_estimate]" type="text" value="<%= @pq.i_will_write_estimate.strftime('%d/%m/%Y %H:%M') unless @pq.i_will_write_estimate.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+</div>
+
+<label for="holding_reply">Holding Reply</label>
+<div id="datetimepicker4" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="holding_reply" class="form-control" name="pq[holding_reply]" type="text" value="<%= @pq.holding_reply.strftime('%d/%m/%Y %H:%M') unless @pq.holding_reply.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+</div>
