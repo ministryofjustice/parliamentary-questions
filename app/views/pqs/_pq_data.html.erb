@@ -1,6 +1,5 @@
-<p><%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %></p>
 
-<h4>UIN</h4>
+<h4>UIN <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %></h4>
 <p><%= @pq.uin %></p>
 
 <h4>House</h4>
