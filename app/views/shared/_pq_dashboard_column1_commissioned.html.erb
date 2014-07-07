@@ -1,28 +1,26 @@
 <% if !question.minister_id.nil? %>
-    <div>
-      Replying minister:
-      <div><%= mail_to question.minister.email, question.minister.name unless question.minister_id.nil? %></div>
-    </div>
+  <p>Replying minister:</p>
+  <%= mail_to question.minister.email, question.minister.name unless question.minister_id.nil? %>
 <% end %>
-<% if !question.policy_minister_id.nil? %>
-    <div>
-      Policy minister:
-      <div><%= mail_to question.policy_minister.email, question.policy_minister.name %></div>
-    </div>
-<% end %>
-<div>
-  Action Officer(s) assigned
-  <% question.action_officers_pq.each do |ao_pq|   %>
-      <div><%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
-        <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
-      </div>
-  <% end %>
 
-</div>
+<% if !question.policy_minister_id.nil? %>
+  <p>Policy minister:</p>
+  <%= mail_to question.policy_minister.email, question.policy_minister.name %>
+<% end %>
+
+<p>Action Officer(s) assigned</p>
+<% question.action_officers_pq.each do |ao_pq| %>
+  <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
+  <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+<% end %>
+
 <div id="comm-data-<%= question.id %>">
-  <div id="comm-header-<%= question.id %>" class="comm-header" data-pqid="<%= question.id %>"><span id="comm-caret-<%= question.id %>" class="fa fa-caret-right fa-lg"></span><label class="label label-sm label-success">PQ Commissioned</label></div>
+  <div id="comm-header-<%= question.id %>" class="comm-header" data-pqid="<%= question.id %>">
+    <span id="comm-caret-<%= question.id %>" class="fa fa-caret-right fa-lg"></span>
+    <p class="label label-sm label-success">PQ Commissioned</p>
+  </div>
   <div id="comm-details-<%= question.id %>" class="start-hidden">
-    <div><%= question.action_officers_pq.first.created_at.strftime("at %I:%M%p") %></div>
-    <div><%= question.action_officers_pq.first.created_at.strftime("%m/%d/%Y") %></div>
+    <p><%= question.action_officers_pq.first.created_at.strftime("at %I:%M%p") %></p>
+    <p><%= question.action_officers_pq.first.created_at.strftime("%m/%d/%Y") %></p>
   </div>
 </div>
