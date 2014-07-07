@@ -21,6 +21,11 @@
     <div id='trim_area_<%= @pq.id %>' class="right">
       <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
     </div>
+    <% if !@pq.preview_url.nil? %>
+        <div class="right">
+          <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
+        </div>
+    <% end %>
   </div>
 </div>
 
@@ -40,199 +45,34 @@
     <%= form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form start-hidden' } do |f| %>
 
       <div id="progress-menu-pq-data" class="progress-menu-data start-hidden">
-
-        <p><%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %></p>
-
-        <% if !@pq.preview_url.nil? %>
-          <p><a href="<%= @pq.preview_url %>">Question in Q&A Tool</a></p>
-        <% end %>
-
-        <h4>Tabling Member:</h4>
-        <p><%= @pq.member_name %></p>
-
-        <h4>Constituency:</h4>
-        <p><%= @pq.member_constituency %></p>
-
-        <h4>House:</h4> 
-        <p><%= @pq.house_name %></p>
-
-        <h4>Replying minister:</h4>
-        <p><%= @pq.minister.name unless @pq.minister_id.nil? %></p>
-        <% if !@pq.policy_minister_id.nil? %>
-          <h4>Policy minister:</h4>
-          <p><%= @pq.policy_minister.name %></p>
-        <% end %>
-
-        <h4>Date For Answer:</h4>
-        <p><%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %></p>
-
-        <h4>Date Tabled:</h4>
-        <p><%= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil? %></p>
-
-        <h4>Question</h4>
-        <p><%= @pq.question %></p>
-
-        <% if @pq.registered_interest %>
-          <p>Member has registered an interest in the Question.</p>
-        <% end %>
-
-        <label>Set replying minister</label>
-        <%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
-
-        <label>Set optional policy minister</label>
-        <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
+        <%= render partial:'pq_data', locals: {f: f} %>
       </div>
 
       <div id="progress-menu-fc-data" class="progress-menu-data start-hidden">
-        <div class="checkbox">
-          <%= f.label(:seen_by_finance) %>
-          <%= f.check_box(:seen_by_finance) %>
-        </div>
-        <div class="checkbox">
-          <%= f.label(:finance_interest) %>
-          <%= f.check_box(:finance_interest) %>
-        </div>
+        <%= render partial:'fc_data', locals: {f: f} %>
       </div>
 
       <div id="progress-menu-com-data" class="progress-menu-data start-hidden">
-        <h3>PQ Commissioning</h3>
-        <div class="deadline_input">
-          Internal deadline
-          <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
-            <input class="form-control" id="pq_internal_deadline" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
-            <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-          </div>
-        </div>
-
-        <!-- loop through and show rejection reasons -->
-        <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
-
-        <div class="question-allocation">
-          <p>Allocation:</p>
-          <% @pq.action_officers_pq.each do |ao_pq| %>
-           <% if ao_pq %>
-            <p><%= ao_pq.action_officer.name %> <%= link_to "Edit #{ao_pq.action_officer.name}", edit_action_officer_path(ao_pq.action_officer) %></p>
-            <p>Email: <%= mail_to ao_pq.action_officer.email %></p>
-            <p>Phone: <%= ao_pq.action_officer.phone %></p>
-            <p>Directorate: <%= ao_pq.action_officer.deputy_director.division.directorate.name %></p>
-            <p>Division: <%= ao_pq.action_officer.deputy_director.division.name %></p>
-            <p>Deputy director: <%= ao_pq.action_officer.deputy_director.name %></p>
-            <p>Press Office: <%= ao_pq.action_officer.press_desk.name %></p>
-            <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
-              <p><%= mail_to po.name, po.email %></p>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-
-    <div id="progress-menu-ao-data" class="progress-menu-data start-hidden">
-      <h3>Action Officer Allocation</h3>
-      <strong>Placeholder for Action Officer Alocation</strong>
-    </div>
-
-    <div id="progress-menu-sub-data" class="progress-menu-data start-hidden">
-      <h3>Submit Draft Answer</h3>
-
-      <label for="draft_answer_received">Draft Answer Received</label> 
-      <div id="datetimepicker2" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="draft_answer_received" class="form-control" name="pq[draft_answer_received]" type="text" value="<%= @pq.draft_answer_received.strftime('%d/%m/%Y %H:%M') unless @pq.draft_answer_received.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+        <%= render  partial:'com_data', locals: {f: f} %>
       </div>
 
-      <label for="i_will_write_estimate">I will write estimate</label>
-      <div id="datetimepicker3" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="i_will_write_estimate" class="form-control" name="pq[i_will_write_estimate]" type="text" value="<%= @pq.i_will_write_estimate.strftime('%d/%m/%Y %H:%M') unless @pq.i_will_write_estimate.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+      <div id="progress-menu-sub-data" class="progress-menu-data start-hidden">
+        <%= render  partial:'pod_draft', locals: {f: f} %>
       </div>
 
-      <label for="holding_reply">Holding Reply</label>
-      <div id="datetimepicker4" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="holding_reply" class="form-control" name="pq[holding_reply]" type="text" value="<%= @pq.holding_reply.strftime('%d/%m/%Y %H:%M') unless @pq.holding_reply.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-    </div>
-
-    <div id="progress-menu-pod-data" class="progress-menu-data start-hidden" >
-      <h3>POD Checking</h3>
-
-      <label for="pod_waiting">Pod Waiting</label>
-      <div id="datetimepicker5" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-        <input id="pod_waiting" class="form-control" name="pq[pod_waiting]" type="text" value="<%= @pq.pod_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.pod_waiting.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+      <div id="progress-menu-pod-data" class="progress-menu-data start-hidden" >
+        <%= render partial:'pod_check', locals: {f: f} %>
       </div>
 
-      <label for="i_will_write_estimate">POD Query</label>
-      <div id="datetimepicker6" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-        <input id="pod_query" class="form-control" name="pq[pod_query]" type="text" value="<%= @pq.pod_query.strftime('%d/%m/%Y %H:%M') unless @pq.pod_query.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+      <div id="progress-menu-min-data" class="progress-menu-data start-hidden" >
+        <%= render partial:'minister_check', locals: {f: f} %>
       </div>
 
-      <label for="holding_reply">POD Clearance</label>
-	    <div id="datetimepicker7" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="pod_clearance" class="form-control" name="pq[pod_clearance]" type="text" value="<%= @pq.pod_clearance.strftime('%d/%m/%Y %H:%M') unless @pq.pod_clearance.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-    </div>
-
-    <div id="progress-menu-min-data" class="progress-menu-data start-hidden" >
-      <h3>Ministerial Answer</h3>
-
-      <label for="sent_to_answering_minister">Sent to Answering Minister</label>
-      <div id="datetimepicker8" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="sent_to_answering_minister" class="form-control" name="pq[sent_to_answering_minister]" type="text" value="<%= @pq.sent_to_answering_minister.strftime('%d/%m/%Y %H:%M') unless @pq.sent_to_answering_minister.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+      <div id="progress-menu-answer-data" class="progress-menu-data start-hidden">
+        <%= render partial:'answer', locals: {f: f} %>
       </div>
 
-      <label for="ministerial_waiting">Ministerial Waiting</label>
-      <div id="datetimepicker9" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="ministerial_waiting" class="form-control" name="pq[ministerial_waiting]" type="text" value="<%= @pq.ministerial_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.ministerial_waiting.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-
-      <label for="ministerial_query">Ministerial Query</label>
-      <div id="datetimepicker10" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-	      <input id="ministerial_query" class="form-control" name="pq[ministerial_query]" type="text" value="<%= @pq.ministerial_query.strftime('%d/%m/%Y %H:%M') unless @pq.ministerial_query.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-
-      <label for="holding_reply">Ministerial Clearance</label>
-      <div id="datetimepicker11" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="ministerial_clearance" class="form-control" name="pq[ministerial_clearance]" type="text" value="<%= @pq.ministerial_clearance.strftime('%d/%m/%Y %H:%M') unless @pq.ministerial_clearance.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-
-      <label for="holding_reply">Sent Back to Action Officer</label>
-	    <div id="datetimepicker12" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="sent_back_to_action_officer" class="form-control" name="pq[sent_back_to_action_officer]" type="text" value="<%= @pq.sent_back_to_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.sent_back_to_action_officer.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-
-      <label for="holding_reply">Returned by Action Officer</label>
-	    <div id="datetimepicker13" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="returned_by_action_officer" class="form-control" name="pq[returned_by_action_officer]" type="text" value="<%= @pq.returned_by_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.returned_by_action_officer.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-
-      <label for="holding_reply">Resubmitted to Minister</label>
-	    <div id="datetimepicker14" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="resubmitted_to_minister" class="form-control" name="pq[resubmitted_to_minister]" type="text" value="<%= @pq.resubmitted_to_minister.strftime('%d/%m/%Y %H:%M') unless @pq.resubmitted_to_minister.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-
-      <label for="holding_reply">Sign Off from Minister</label>
-	    <div id="datetimepicker15" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		    <input id="sign_off_from_minister" class="form-control" name="pq[sign_off_from_minister]" type="text" value="<%= @pq.sign_off_from_minister.strftime('%d/%m/%Y %H:%M') unless @pq.sign_off_from_minister.nil? %>">
-        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      </div>
-    </div>
-
-    <div>
-      <label>Progress of answer</label>
-      <%= f.collection_select(:progress_id, @progress_list, :id, :name) %>
-    </div>
-
-    <p><%= f.submit 'Save', :class => 'button' %></p>
-  <% end %>
+      <p><%= f.submit 'Save', :class => 'button' %></p>
+    <% end %>
   </div>
 </div>

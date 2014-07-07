@@ -1,0 +1,63 @@
+<h3>PQ Commissioning</h3>
+
+<%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
+
+
+<div class="deadline_input">
+  Internal deadline
+  <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
+    <input class="form-control" id="pq_internal_deadline" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
+    <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+  </div>
+</div>
+
+<hr/>
+
+<div class="question-allocation">
+  <% if @pq.action_officers.size > 0 %>
+      <% @pq.action_officers_pq.each do |ao_pq| %>
+          <% if ao_pq.accept %>
+              <h5>Name of Action Officer</h5>
+              <p><%= ao_pq.action_officer.name %> <%= link_to 'Edit Action Officer', edit_action_officer_path(ao_pq.action_officer), {class: 'btn'} %></p>
+
+              <h5>Email of Action Officer</h5>
+              <p><%= mail_to ao_pq.action_officer.email %></p>
+
+              <h5>Phone of Action Officer</h5>
+              <p><%= ao_pq.action_officer.phone %></p>
+
+              <h5>Division of Action Officer</h5>
+              <p><%= ao_pq.action_officer.deputy_director.division.name %></p>
+
+              <h5>Directorate of Action Officer</h5>
+              <p><%= ao_pq.action_officer.deputy_director.division.directorate.name %></p>
+
+              <h5>Deputy director</h5>
+              <p><%= ao_pq.action_officer.deputy_director.name %></p>
+
+              <h5>Press Deck</h5>
+              <p><%= ao_pq.action_officer.press_desk.name %></p>
+              <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
+                  <p><%= mail_to po.name, po.email %></p>
+              <% end %>
+              <p>
+              <%= link_to raw('Re-send acceptance email <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'btn btn-success ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
+              </p>
+          <% end %>
+      <% end %>
+  <% else %>
+  <p>Not allocated</p>
+  <% end %>
+</div>
+
+<hr/>
+
+<label>Replying minister</label>
+<%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
+
+<label>Optional policy minister</label>
+<%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
+
+
+
+<hr/>

@@ -83,12 +83,31 @@ private
   end
 
   def pq_params
-    params.require(:pq).permit(:internal_deadline, :seen_by_finance, :press_interest,
-    :finance_interest, :minister_id, :policy_minister_id, :draft_answer_received,
-    :i_will_write_estimate, :holding_reply, :pod_waiting, :pod_query, :pod_clearance,
-    :sent_to_answering_minister , :ministerial_waiting, :ministerial_query,
-    :ministerial_clearance, :sent_back_to_action_officer, :returned_by_action_officer,
-    :resubmitted_to_minister, :sign_off_from_minister, :progress_id)
+    params.require(:pq).permit(
+        :internal_deadline,
+        :seen_by_finance,
+        :press_interest,
+        :finance_interest,
+        :minister_id,
+        :policy_minister_id,
+        :draft_answer_received,
+        :i_will_write_estimate,
+        :holding_reply,
+        :pod_waiting,
+        :pod_query,
+        :pod_clearance,
+        :sent_to_answering_minister,
+        :ministerial_waiting,
+        :ministerial_query,
+        :ministerial_clearance,
+        :sent_back_to_action_officer,
+        :returned_by_action_officer,
+        :resubmitted_to_minister,
+        :sign_off_from_minister,
+        :round_robin,
+        :round_robin_date,
+        :progress_id
+    )
   end
   def prepare_ministers
     @minister_list = Minister.where(deleted: false).all
