@@ -15,8 +15,78 @@
     Please enter the UIN for the transferred PQ<br>
     <%= f.text_field :uin %>
   </div>
+  <div class="field">
+      Please enter the text of the question for the transferred PQ<br>
+      <%= f.text_field :question %>
+  </div>
+    <div>
+        Date for Answer
+        <div class='input-group date internal-dtp' id='datetimepicker' data-date-format="DD/MM/YYYY HH:mm">
 
-  <div class="actions">
+          <input class="form-control pq_dateforanswer" id="pq_dateforanswer" name="pq[date_for_answer]" type="text" value="<%= @pq.date_for_answer.strftime('%d/%m/%Y %H:%M') unless @pq.date_for_answer.nil? %>">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+      House:
+      <div class="radio">
+        <label>
+          <%= f.radio_button :house_name, 'House Of Commons' %>
+          House Of Commons
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :house_name, 'House Of Lords'%>
+          House of Lords
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      Name of Member<br>
+      <%= f.text_field :member_name %>
+    </div>
+    <div class="field">
+      Member Constituency<br>
+      <%= f.text_field :member_constituency %>
+    </div>
+    <div class="form-group">
+      Member has registered an interest in the question:
+      <div class="radio">
+        <label>
+          <%= f.radio_button :registered_interest, 'FALSE' %>
+          No
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :registered_interest, 'TRUE'%>
+          Yes
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      Question Type:
+      <div class="radio">
+        <label>
+          <%= f.radio_button :question_type, 'Ordinary' %>
+          Ordinary
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :question_type, 'NamedDay'%>
+          Named Day
+        </label>
+      </div>
+    </div>
+
+
+    <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
