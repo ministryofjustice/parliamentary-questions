@@ -13,7 +13,7 @@ cat <<EOT
       "paths": [ "/rails/log/*" ],
       "fields": {
         "project": "$PROJECT",
-        "appserver": "$APPSERVER",
+        "appserver": "rails",
         "version": "$APPVERSION",
         "env": "$ENV",
       }

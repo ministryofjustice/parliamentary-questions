@@ -19,7 +19,7 @@ cat <<EOT
       "paths": [ "/var/log/nginx/access.json" ],
       "fields": {
         "project": "$PROJECT",
-        "appserver": "$APPSERVER",
+        "appserver": "assets",
         "version": "$APPVERSION",
         "env": "$ENV",
         "format": "json"
@@ -29,7 +29,7 @@ cat <<EOT
       "paths": [ "/var/log/nginx/error.log" ],
       "fields": {
         "project": "$PROJECT",
-        "appserver": "$APPSERVER",
+        "appserver": "assets",
         "version": "$APPVERSION",
         "env": "$ENV"
       }
