@@ -1,6 +1,26 @@
 #global-header.with-proposition .header-wrapper .header-proposition .content{margin:9px 15px 0 15px}
 a.btn-success{color:white}
 
+.inline{display:inline;}
+.right{float:right;}
+label{display:block;font-weight:500;font-size: 18px;}
+.datetimepicker{width:12em;}
+.button, .datetimepicker{margin: 10px 0;}
+
+#pq-details-header{padding-bottom:1em;border-bottom:1px solid #000;}
+#pq-details-header h3{display:inline;}
+#pq-detail-area{padding-top:1em;}
+
+#progress-menu a{display:block;padding-top:0.5em;width:100%;text-decoration:none;}
+#progress-menu a:hover{color:#000;border-bottom:1px solid #000;}
+#progress-menu a:active{color:#000;border-bottom:1px solid #000;}
+#progress-menu a:visited{color:#ccc;}
+
+
+
+
+
+
 .panel-indent{
 	clear:both;
 	border:1px solid #dee0e2;
@@ -15,12 +35,18 @@ h2.section .badge{vertical-align:middle}
 .uin{
     font-family:"nta", Arial, sans-serif;
     font-size:18px;
-    line-height:1.25;
+    /*line-height:1.25;*/
     text-transform:none;
     font-weight:700;
 }
 
 .pq-header{padding-bottom:1em}
+
+.label-primary, .label-info, .label-warning {
+    vertical-align:6px;
+    margin-left:1em;
+    padding:0.4em 0.6em;
+}
 
 ul.questions-list{
 	list-style:none;
