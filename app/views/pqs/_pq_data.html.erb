@@ -1,0 +1,40 @@
+
+<h4>UIN <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %></h4>
+<p><%= @pq.uin %></p>
+
+<h4>House</h4>
+<p><%= @pq.house_name %></p>
+
+<h4>Date for answer back to Parliament</h4>
+<p><%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %></p>
+
+<h4>Tabling Member</h4>
+<p><%= @pq.member_name %></p>
+
+<h4>Question type</h4>
+<p><%= @pq.question_type %></p>
+
+<h4>Question tabled date</h4>
+<p><%= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil? %></p>
+
+<% if @pq.registered_interest %>
+    <p>* Member has registered an interest in the Question.</p>
+<% end %>
+
+
+<hr/>
+<h4>Question</h4>
+<p><%= @pq.question %></p>
+<hr/>
+
+<div class="checkbox">
+  <%= f.label(:round_robin) %>
+  <%= f.check_box(:round_robin) %>
+</div>
+
+<label>Date Round Robin guidance sent to Action Officer
+<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="round_robin_date" class="form-control" name="pq[round_robin_date]" type="text" value="<%= @pq.round_robin_date.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_date.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+</div>
+</label>

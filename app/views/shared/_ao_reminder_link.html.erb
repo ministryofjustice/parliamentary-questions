@@ -1,10 +1,10 @@
 <% if ao_pq.accept %>
     <%= link_to raw('<i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
-<% elsif ao_pq.reject %>
-<% else %>
-    <% now = DateTime.now.change ({offset: 0}) %>
+	<% elsif ao_pq.reject %>
+	<% else %>
+    	<% now = DateTime.now.change ({offset: 0}) %>
     <% if  now >= question.internal_deadline  %>
-        <%= link_to raw('<i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
+        <%= link_to raw('No response <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'btn-warning ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
     <% end %>
 <% end %>
 
