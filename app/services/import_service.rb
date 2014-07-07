@@ -30,9 +30,11 @@ class ImportService
           questions_processed.push(result[:question])
         end
     }
+
+    move_questions_from_accepted_to_pod_waiting
+
     {questions: questions_processed, errors: errors}
   end
-
 
   def questions_by_uin(uin)
     questions_processed = Array.new
@@ -82,4 +84,16 @@ class ImportService
     end
 
   end
+
+  def move_questions_from_accepted_to_pod_waiting
+    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
+    progress_id = Progress.pod_waiting.id
+
+    pqs = PQ.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
+    pqs.each do |pq_relation|
+      pq = PQ.find(pq_relation.id)
+      pq.update(progress_id: progress_id )
+    end
+  end
+
 end	
