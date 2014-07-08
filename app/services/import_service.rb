@@ -6,11 +6,19 @@ class ImportService
   end
 
 	def questions_with_callback(args = { dateFrom: Date.today} , &block)
+    t_start = Time.now
+
     questions = @questionsService.questions(args)
 
     questions.each do |q|
       import_one_question(q, &block)
     end
+
+    move_questions_from_accepted_to_pod_waiting
+
+    # log the time in statsd
+    elapsed_seconds = Time.now - t_start
+    $statsd.timing('questions.import', elapsed_seconds)
   end
 
   def questions_by_uin_with_callback(uin, &block)
@@ -23,6 +31,8 @@ class ImportService
     questions_processed = Array.new
     errors = Array.new
 
+
+
     questions_with_callback(args) { |result|
         if !result[:error].nil?
           errors.push({ message: result[:error], question: result[:question] })
@@ -30,8 +40,6 @@ class ImportService
           questions_processed.push(result[:question])
         end
     }
-
-    move_questions_from_accepted_to_pod_waiting
 
     {questions: questions_processed, errors: errors}
   end
@@ -89,11 +97,16 @@ class ImportService
     beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
     progress_id = Progress.pod_waiting.id
 
+    number_of_questions_moved = 0
     pqs = PQ.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
     pqs.each do |pq_relation|
       pq = PQ.find(pq_relation.id)
       pq.update(progress_id: progress_id )
+      number_of_questions_moved +=1
     end
+
+    Rails.logger.info "Import process, moved #{number_of_questions_moved} questions from Allocated Accepted"
+    number_of_questions_moved
   end
 
 end	
