@@ -198,6 +198,7 @@ describe 'ImportService' do
       pq_unallocated = PQ.find_by(uin: 'HL784845')
       pq_unallocated.progress.name.should eq(Progress.UNALLOCATED)
 
+
     end
 
 

@@ -11,6 +11,8 @@ class ImportService
     questions.each do |q|
       import_one_question(q, &block)
     end
+
+    move_questions_from_accepted_to_pod_waiting
   end
 
   def questions_by_uin_with_callback(uin, &block)
@@ -30,8 +32,6 @@ class ImportService
           questions_processed.push(result[:question])
         end
     }
-
-    move_questions_from_accepted_to_pod_waiting
 
     {questions: questions_processed, errors: errors}
   end
@@ -89,11 +89,16 @@ class ImportService
     beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
     progress_id = Progress.pod_waiting.id
 
+    number_of_questions_moved = 0
     pqs = PQ.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
     pqs.each do |pq_relation|
       pq = PQ.find(pq_relation.id)
       pq.update(progress_id: progress_id )
+      number_of_questions_moved +=1
     end
+
+    Rails.logger.info "Import process, moved #{number_of_questions_moved} questions from Allocated Accepted"
+    number_of_questions_moved
   end
 
 end	
