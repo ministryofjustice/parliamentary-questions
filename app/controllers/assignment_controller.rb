@@ -25,6 +25,7 @@ class AssignmentController < ApplicationController
       @assignment_service.reject(@assignment, @response)
     end
 
+    @question = PQ.find_by(uin: params[:uin])
     render 'index'
   end
 
