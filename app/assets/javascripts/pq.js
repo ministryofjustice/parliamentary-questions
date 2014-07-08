@@ -154,8 +154,41 @@ $(document).ready(function () {
         $('#' + $(this).attr('id') + '-data').show();
         $('.progress-menu-form').show();
     });
-});
 
+    $( "a" ).click(function( event ) {
+        var e=$(this).attr("id");                    
+        switch(e){
+            case "progress-menu-pq":
+                $( this ).css( "border-bottom", "1px solid #000" );
+                $("#progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            break;
+            case "progress-menu-fc":
+                $( this ).css( "border-bottom", "1px solid #000" );
+                $("#progress-menu-pq, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            break;
+            case "progress-menu-com":
+                $( this ).css( "border-bottom", "1px solid #000" );
+                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            break;
+            case "progress-menu-sub":
+                $( this ).css( "border-bottom", "1px solid #000" );
+                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            break;
+            case "progress-menu-pod":
+                $( this ).css( "border-bottom", "1px solid #000" );
+                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            break;
+            case "progress-menu-min":
+                $( this ).css( "border-bottom", "1px solid #000" );
+                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-answer").css( "border-bottom", "0" );
+            break;
+            case "progress-menu-answer":
+                $( this ).css( "border-bottom", "1px solid #000" );
+                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min").css( "border-bottom", "0" );
+            break;
+        }
+    });
+});
 
 function incrementBadge(id_of_navpill) {
     changeBadgeBy(id_of_navpill,1);
