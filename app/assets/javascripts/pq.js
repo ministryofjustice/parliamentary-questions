@@ -73,6 +73,10 @@ $(document).ready(function () {
         $(this).after(data);
     });
 
+    $('.manual-reject-link').on('ajax:success', function(e, data, status, xhr){
+        $(this).after(data);
+    });
+
     $(".change-minister-form")
         .on("ajax:success", function(e, data, status, xhr){
             //get value from select list in current form
