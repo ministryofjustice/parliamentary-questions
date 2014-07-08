@@ -10,21 +10,28 @@ label{display:block;font-weight:500;font-size:18px;}
 .button, .datetimepicker{margin: 0.5em 0em;}
 .label-primary, .label-info, .label-warning {vertical-align:6px;margin-left:1em;padding:0.4em 0.6em;}
 
-.pagination{margin-top:0;margin-bottom:0;}
 #pages{clear:both;width:100%;display:block;text-align:center;}
+.pagination{margin-top:0;margin-bottom:0;}
+.pagination > li > a, .pagination > li > span{border-top:0;border-bottom:0;}
+.pagination > li:first-child > a, .pagination > li:first-child > span{border-radius:0;border-left:0;}
+.pagination > li:last-child > a, .pagination > li:last-child > span{border-radius:0;border-right:0;}
 
 #pq-details-header h3, .pq-header h3{display:inline;}
 
 /* PQ Details Page ============================================================== */
 .start-hidden{display:none;}
 
-#pq-details-header{padding-bottom:1em;border-bottom:1px solid #000;}
-#pq-detail-area{padding-top:1em;}
+#pq-details-header{line-height:3.1em;padding:0;}
+#pq-detail-area{padding-top:1em;padding-bottom:1em;}
 
+#progress-menu{padding-right:0;margin-right:0;}
 #progress-menu a{display:block;padding-top:0.5em;width:100%;text-decoration:none;}
 #progress-menu a:hover{color:#000;border-bottom:1px solid #000;}
 #progress-menu a:active{color:#000;border-bottom:1px solid #000;}
 #progress-menu a:visited{color:#ccc;}
+
+#progress-panel{margin-left:0;padding-left:0;}
+#progress-menu-answer-data{min-height:200px;}
 /* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
@@ -73,8 +80,6 @@ h2.section .badge{vertical-align:middle}
     font-weight:700;
 }
 */
-
-
 
 .questions-list .button{float:right}
 .questions-list .commission{float: left}

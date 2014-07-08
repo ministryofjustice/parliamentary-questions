@@ -134,7 +134,7 @@ describe 'AssignmentService' do
       # accept
       @assignment_service.accept(assignment)
 
-      # the question progress should be ALLOCATED_ACCEPTED
+      # the question progress should be ALLOCATED_ACCEPTED if at least one ao is accepted
       pq = PQ.find(assignment.pq_id)
       pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
 
@@ -157,6 +157,30 @@ describe 'AssignmentService' do
       pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
 
     end
+
+    it 'should not set the progress to rejected when you change your mind and put it again to rejected' do
+
+      # accept one  assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+      # accept
+      @assignment_service.accept(assignment)
+
+      # reject the previous one
+      response = double('response')
+      allow(response).to receive(:reason) { 'Some reason' }
+      allow(response).to receive(:reason_option) { 'reason option' }
+      @assignment_service.reject(assignment, response)
+
+      # the question progress should be REJECTED
+      pq = PQ.find(assignment.pq_id)
+      pq.progress.name.should  eq(Progress.REJECTED)
+
+    end
+
 
     it 'should only set the progress to rejected when all action officers reject' do
       #set up the pq with three assignments
