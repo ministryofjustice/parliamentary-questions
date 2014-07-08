@@ -21,7 +21,7 @@ label{display:block;font-weight:500;font-size:18px;}
 /* PQ Details Page ============================================================== */
 .start-hidden{display:none;}
 
-#pq-details-header{padding-bottom:1em;border-bottom:1px solid #000;}
+#pq-details-header{line-height:3.1em;padding:0;}
 #pq-detail-area{padding-top:1em;}
 
 #progress-menu a{display:block;padding-top:0.5em;width:100%;text-decoration:none;}

@@ -7,7 +7,7 @@
 </div>
 
 <div id="pq-details-header" class="row">
-  <div class="col-md-12">
+  <div class="col-md-8">
     <h3><%= @pq.uin %></h3>
       <% if @pq.question_type == 'NamedDay' %>
         <span class="label label-primary" title="Named day">N</span>
@@ -18,14 +18,17 @@
       <% if @pq.transferred  %>
         <span class="label label-warning" title="Transferred">Transferred</span>
       <% end %>
-    <div id='trim_area_<%= @pq.id %>' class="right">
-      <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
     </div>
-    <% if !@pq.preview_url.nil? %>
-        <div class="right">
-          <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
-        </div>
-    <% end %>
+    <div class="col-md-2">
+      <% if !@pq.preview_url.nil? %>
+        <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
+      <% end %>
+    </div>
+    <div class="col-md-2">
+      <div id='trim_area_<%= @pq.id %>' class="right">
+        <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
+      </div>
+    </div>
   </div>
 </div>
 
