@@ -15,6 +15,6 @@
     <%= link_to raw("Minister Query <span class='badge'>#{PQ.minister_query.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTER_QUERY} %>
   </li>
   <li id="db-filter-minister-cleared" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.MINISTER_CLEARED) %>">
-    <%= link_to raw("Minister Query <span class='badge'>#{PQ.minister_cleared.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTER_CLEARED} %>
+    <%= link_to raw("Minister Cleared <span class='badge'>#{PQ.minister_cleared.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTER_CLEARED} %>
   </li>
 </ul>
