@@ -39,5 +39,10 @@ module ParliamentaryQuestions
     config.generators do |g| 
       g.template_engine :erb
     end
+
+    # Statsd
+
+    $statsd = Statsd.new 'localhost', 9125
+
   end
 end
