@@ -22,12 +22,16 @@ label{display:block;font-weight:500;font-size:18px;}
 .start-hidden{display:none;}
 
 #pq-details-header{line-height:3.1em;padding:0;}
-#pq-detail-area{padding-top:1em;}
+#pq-detail-area{padding-top:1em;padding-bottom:1em;}
 
+#progress-menu{padding-right:0;margin-right:0;}
 #progress-menu a{display:block;padding-top:0.5em;width:100%;text-decoration:none;}
 #progress-menu a:hover{color:#000;border-bottom:1px solid #000;}
 #progress-menu a:active{color:#000;border-bottom:1px solid #000;}
 #progress-menu a:visited{color:#ccc;}
+
+#progress-panel{margin-left:0;padding-left:0;}
+#progress-menu-answer-data{min-height:200px;}
 /* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
