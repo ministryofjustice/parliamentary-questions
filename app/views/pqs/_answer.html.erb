@@ -1,2 +1,31 @@
-<label>Progress of answer</label>
-<%= f.collection_select(:progress_id, @progress_list, :id, :name) %>
+
+<label for="answer_submitted">Date answer submitted to Q&A Tool</label>
+<div id="datetimepicker8" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="answer_submitted" class="form-control" name="pq[answer_submitted]" type="text" value="<%= @pq.answer_submitted.strftime('%d/%m/%Y %H:%M') unless @pq.answer_submitted.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+</div>
+<% if !@pq.answer_submitted.nil? && !@pq.date_for_answer.nil? %>
+    <% if @pq.answer_submitted < @pq.date_for_answer %>
+        <i class="fa fa-check-circle" style="color: #5cb85c"></i>  Answer submitted on time
+    <% elsif @pq.answer_submitted > @pq.date_for_answer %>
+        <i class="fa fa-thumbs-o-down"></i> Answer NOT submitted on time
+    <% end %>
+<% end %>
+
+<div class="checkbox">
+  <%= f.label(:library_deposit) %>
+  <%= f.check_box(:library_deposit) %>
+</div>
+
+<label for="pq_withdrawn">Date PQ withdrawn</label>
+<div id="datetimepicker9" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="pq_withdrawn" class="form-control" name="pq[pq_withdrawn]" type="text" value="<%= @pq.pq_withdrawn.strftime('%d/%m/%Y %H:%M') unless @pq.pq_withdrawn.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+</div>
+<div class="checkbox">
+  <%= f.label(:holding_reply_flag) %>
+  <%= f.check_box(:holding_reply_flag) %>
+</div>
+
+<label>Final response information released (TODO:Real list real of values)</label>
+<%= f.collection_select(:final_response_info_released, @progress_list, :id, :name) %>

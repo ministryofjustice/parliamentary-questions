@@ -1,17 +1,16 @@
 
-<label for="pod_waiting">Pod Waiting</label>
+<label for="pod_waiting">Date sent to POD</label>
 <div id="datetimepicker5" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="pod_waiting" class="form-control" name="pq[pod_waiting]" type="text" value="<%= @pq.pod_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.pod_waiting.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
 
-<label for="i_will_write_estimate">POD Query</label>
-<div id="datetimepicker6" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-  <input id="pod_query" class="form-control" name="pq[pod_query]" type="text" value="<%= @pq.pod_query.strftime('%d/%m/%Y %H:%M') unless @pq.pod_query.nil? %>">
-  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+<div class="checkbox">
+  POD Query
+  <%= f.check_box(:pod_query_flag) %>
 </div>
 
-<label for="holding_reply">POD Clearance</label>
+<label for="holding_reply">Date cleared by POD</label>
 <div id="datetimepicker7" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="pod_clearance" class="form-control" name="pq[pod_clearance]" type="text" value="<%= @pq.pod_clearance.strftime('%d/%m/%Y %H:%M') unless @pq.pod_clearance.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>

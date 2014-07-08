@@ -32,6 +32,13 @@
   <%= f.check_box(:round_robin) %>
 </div>
 
+<label>Date Guidance Received
+<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="round_robin_guidance_received" class="form-control" name="pq[round_robin_guidance_received]" type="text" value="<%= @pq.round_robin_guidance_received.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_guidance_received.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+</div>
+</label>
+
 <label>Date Round Robin guidance sent to Action Officer
 <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="round_robin_date" class="form-control" name="pq[round_robin_date]" type="text" value="<%= @pq.round_robin_date.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_date.nil? %>">
