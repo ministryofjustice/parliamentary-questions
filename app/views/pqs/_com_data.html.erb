@@ -1,6 +1,5 @@
 <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
 
-
 <div class="deadline_input">
   Internal deadline
   <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
@@ -43,7 +42,7 @@
               </p>
 
               <p>
-                <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id, remote: true}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
+                <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
               </p>
 
           <% end %>
@@ -60,7 +59,5 @@
 
 <label>Optional policy minister</label>
 <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
-
-
 
 <hr/>

@@ -1,4 +1,3 @@
-
 class ManualRejectCommissionController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
   before_action :load_service
@@ -6,15 +5,14 @@ class ManualRejectCommissionController < ApplicationController
   def reject_manual
     ao_pq = ActionOfficersPq.find(params[:id])
     if ao_pq.nil?
-      flash[:warning] = 'Commission data not found'
-      return render partial: 'shared/flash_messages'
+      return redirect_to({controller: 'dashboard', action: 'index'}, {notice: 'Commission data not found'})
     end
 
     response = AllocationResponse.new(reason_option: 'Other Reason', reason: "This question is rejected manually by #{current_user.email}")
     @assignment_service.reject(ao_pq, response)
 
-    flash[:warning] = 'Manually rejected, you have to do the commissioning again'
-    render partial: 'shared/flash_messages'
+    pq = PQ.find(ao_pq.pq_id)
+    redirect_to({controller: 'pqs', action: 'show', id: pq.uin }, {notice: 'Manually rejected, you have to do the commissioning again'})
   end
 
   private
