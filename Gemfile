@@ -50,6 +50,12 @@ end
 # Use unicorn as the app server
 gem 'unicorn'
 
+# statsd client
+gem 'statsd-ruby'
+
+# instrumentation gem for rails, we dont know if we going to use it
+#gem 'nunes'
+
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
