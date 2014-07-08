@@ -12,7 +12,7 @@ class ManualRejectCommissionController < ApplicationController
     @assignment_service.reject(ao_pq, response)
 
     pq = PQ.find(ao_pq.pq_id)
-    redirect_to({controller: 'pqs', action: 'show', id: pq.uin }, {notice: 'Manually rejected, you have to do the commissioning again'})
+    redirect_to({controller: 'pqs', action: 'show', id: pq.uin }, {notice: "#{pq.uin} manually rejected, check if you have to do the commissioning again"})
   end
 
   private
