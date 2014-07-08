@@ -6,6 +6,8 @@ class ImportService
   end
 
 	def questions_with_callback(args = { dateFrom: Date.today} , &block)
+    t_start = Time.now
+
     questions = @questionsService.questions(args)
 
     questions.each do |q|
@@ -13,6 +15,10 @@ class ImportService
     end
 
     move_questions_from_accepted_to_pod_waiting
+
+    # log the time in statsd
+    elapsed_seconds = Time.now - t_start
+    $statsd.timing('questions.import', elapsed_seconds)
   end
 
   def questions_by_uin_with_callback(uin, &block)
@@ -24,6 +30,8 @@ class ImportService
   def questions(args = { dateFrom: Date.today} )
     questions_processed = Array.new
     errors = Array.new
+
+
 
     questions_with_callback(args) { |result|
         if !result[:error].nil?
