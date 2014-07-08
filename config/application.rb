@@ -42,7 +42,7 @@ module ParliamentaryQuestions
 
     # Statsd
 
-    $statsd = Statsd.new 'localhost', 9125
+    $statsd = Statsd.new 'localhost', 8125
 
   end
 end
