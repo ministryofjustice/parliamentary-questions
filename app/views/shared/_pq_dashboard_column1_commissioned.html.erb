@@ -19,7 +19,7 @@
 <div id="comm-data-<%= question.id %>">
   <div id="comm-header-<%= question.id %>" class="comm-header" data-pqid="<%= question.id %>">
     <span id="comm-caret-<%= question.id %>" class="fa fa-caret-right fa-lg"></span>
-    <p class="label label-sm label-success">PQ Commissioned</p>
+    <p class="label label-success">PQ Commissioned</p>
   </div>
   <div id="comm-details-<%= question.id %>" class="start-hidden">
     <p><%= question.action_officers_pq.first.created_at.strftime("at %I:%M%p") %></p>

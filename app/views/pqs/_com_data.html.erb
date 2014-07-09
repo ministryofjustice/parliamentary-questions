@@ -37,20 +37,26 @@
               <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
                   <p><%= mail_to po.name, po.email %></p>
               <% end %>
+
               <p>
-              <%= link_to raw('Re-send acceptance email <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'btn btn-success ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
+                <%= link_to raw('Re-send acceptance email <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'btn btn-success ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
               </p>
 
               <p>
                 <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
               </p>
+
           <% end %>
 
           <% if !ao_pq.accept && !ao_pq.reject %>
               <div>
-              <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
-              <%= link_to raw('No response <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'btn-warning ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
-              <p><%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %></p>
+                <p>
+                  <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
+                  <%= link_to raw('No response <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'btn-warning ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
+                </p>
+                <p>
+                  <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
+                </p>
               </div>
           <% end %>
       <% end %>
@@ -61,10 +67,14 @@
 
 <hr/>
 
-<label>Replying minister</label>
-<%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
+<p>
+  <label>Replying minister</label>
+  <%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
+</p>
 
-<label>Optional policy minister</label>
-<%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
+<p>
+  <label>Optional policy minister</label>
+  <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
+</p>
 
 <hr/>
