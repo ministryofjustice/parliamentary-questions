@@ -25,13 +25,24 @@ label{display:block;font-weight:500;font-size:18px;}
 #pq-detail-area{padding-top:1em;padding-bottom:1em;}
 
 #progress-menu{padding-right:0;margin-right:0;}
-#progress-menu a{display:block;padding-top:0.5em;width:100%;text-decoration:none;}
+#progress-menu a{display:block;margin:15px 0px;width:100%;text-decoration:none;}
 #progress-menu a:hover{color:#000;border-bottom:1px solid #000;}
 /*#progress-menu a:active{color:#000;border-bottom:1px solid #000;}
 #progress-menu a:visited{color:#ccc;}*/
 
-#progress-panel{margin-left:0;padding-left:0;}
+#progress-panel{margin:0px;padding:0px;}
 #progress-menu-answer-data{min-height:200px;}
+
+#progress-menu-form .button {padding:15px;}
+
+#progress-menu-pq-data,
+#progress-menu-fc-data,
+#progress-menu-com-data,
+#progress-menu-sub-data,
+#progress-menu-pod-data,
+#progress-menu-min-data,
+#progress-menu-answer-data {padding:15px 15px 0px 0px;}
+
 /* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
