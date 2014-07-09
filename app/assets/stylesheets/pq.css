@@ -53,12 +53,13 @@ ul.questions-list{list-style:none;}
 .questions-list li label{font-size:16px}
 
 .pq-header{width:100%;padding:0.5em;}
-.pq-question{padding:10px;margin:10px 0px;border:1px solid #dee0e2;width:100%;}
-.internal-deadline-form {margin:15px 0px;}
+.pq-question{padding:10px;margin:10px 0px;}
+.internal-deadline-form {margin:15px 0px;width:100%;}
 
 .question-allocation-list li{border:none;margin:3px 0;padding:0;}
 .allocation-info .btn{margin:1em 0;}
 
+.minister-dropdown {margin:15px 0px;}
 .select2-container-multi .select2-choices li{width:100%}
 .select2-container .select2-choice abbr{top:5px!important;}
 /* ============================================================================== */
@@ -137,9 +138,6 @@ input[type="file"] {
     float:left;
     line-height: 35px;
     padding-left: 10px;
-}
-.minister-dropdown{
-    margin: 10px 0;
 }
 
 .progress-menu-form {
