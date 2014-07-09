@@ -24,7 +24,7 @@ class PqsController < ApplicationController
       flash[:success] = 'Successfully updated'
       # update the progress of the questions
       @pq_progress_changer_service.update_progress(pq_before_change, @pq)
-      return redirect_to action: 'show', id: @pq.uin }
+      return redirect_to action:'show', id: @pq.uin 
     end
     render action: 'edit'
   end
