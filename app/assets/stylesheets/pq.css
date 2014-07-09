@@ -27,8 +27,8 @@ label{display:block;font-weight:500;font-size:18px;}
 #progress-menu{padding-right:0;margin-right:0;}
 #progress-menu a{display:block;padding-top:0.5em;width:100%;text-decoration:none;}
 #progress-menu a:hover{color:#000;border-bottom:1px solid #000;}
-#progress-menu a:active{color:#000;border-bottom:1px solid #000;}
-#progress-menu a:visited{color:#ccc;}
+/*#progress-menu a:active{color:#000;border-bottom:1px solid #000;}
+#progress-menu a:visited{color:#ccc;}*/
 
 #progress-panel{margin-left:0;padding-left:0;}
 #progress-menu-answer-data{min-height:200px;}
@@ -36,14 +36,16 @@ label{display:block;font-weight:500;font-size:18px;}
 
 /* PQ Dashboard Page ============================================================ */
 ul.questions-list{list-style:none;}
-.question-allocation-list li{border:none;margin:3px 0;padding:0;}
-.questions-list li{border:1px solid #bfc1c3;margin:20px 0;padding:10px 25px;}
-.questions-list li p{margin:0.5em 0em;}
+
+.questions-list li{border-bottom:1px solid #bfc1c3;margin:18px 0 10px 0;padding:0px 25px 34px 25px;}
+.questions-list li p{margin:15px 0px;}
 .questions-list li label{font-size:16px}
 
 .pq-header{width:100%;padding:0.5em;}
 .pq-question{padding:10px;margin:10px 0px;border:1px solid #dee0e2;width:100%;}
+.internal-deadline-form {margin:15px 0px;}
 
+.question-allocation-list li{border:none;margin:3px 0;padding:0;}
 .allocation-info .btn{margin:1em 0;}
 
 .select2-container-multi .select2-choices li{width:100%}
@@ -56,35 +58,8 @@ ul.questions-list{list-style:none;}
 #status-filters .active .badge{background-color:#fff}
 /* ============================================================================== */
 
-
-
-
-/*
-.panel-indent{
-	clear:both;
-	border:1px solid #dee0e2;
-	padding:10px;
-	width:510px;
-	margin:0px;
-}
-*/
-
 h2.section{border-bottom:solid 1px}
 h2.section .badge{vertical-align:middle}
-
-/*
-.uin{
-    font-family:"nta", Arial, sans-serif;
-    font-size:18px;
-    text-transform:none;
-    font-weight:700;
-}
-*/
-
-.questions-list .button{float:right}
-.questions-list .commission{float: left}
-.label-success, .label-danger{line-height:2}
-.questions-list > span{margin-right:10px}
 
 .questions-detail-outer{
 	/*width:700px;*/
@@ -100,31 +75,19 @@ h2.section .badge{vertical-align:middle}
 	width:70px;
 }
 
-/*.deadline_input{width:192px}*/
-/*.deadline {}*/
-/*.deadline-overdue{color:#d9534f}*/
-/*.deadline-ok {color:#428bca}*/
-
-/*
-.allocation-info{
-    clear:both;
-    padding: 5px 0;
-}
-*/
-
 .question-allocation-list{list-style: circle}
 
 .accept-reject-form{margin: 20px 0;}
-
 
 .pq-inline-form {display:inline!important}
 
 .trim-links-header {
     position:relative;
     cursor:default;
-    margin:0.5em 0;
+    margin:15px 0px;
     color:#000;
 }
+
 .trim-links-form {
     /*border: 2px black solid;
     background-color: grey;*/
@@ -142,12 +105,15 @@ h2.section .badge{vertical-align:middle}
     color:black;
     line-height:35px;
 }
+
 input[type="file"] {
     line-height: 10px;
  }
+
 .trim-links-form:hover {
     display:block;
 }
+
 .trim-links-cancel {
     float:left;
     height:35px;
