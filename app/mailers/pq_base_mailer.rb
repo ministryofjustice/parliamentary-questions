@@ -1,3 +1,4 @@
+# This mailer provides basic metrics and log generation and should be used for all mail creation
 
 class PqBaseMailer < ActionMailer::Base
 
@@ -12,7 +13,7 @@ class PqBaseMailer < ActionMailer::Base
         $statsd.time(StatsHelper::MAIL_TIMING) do 
           begin
             super
-            logger.warn "Sent mail with subject '#{self[:subject]}'"
+            logger.info "Sent mail with subject '#{self[:subject]}'"
             $statsd.increment StatsHelper::MAIL_SUCCESS
           rescue => e
             logger.warn "Problem sending mail with subject '#{self[:subject]}': #{e.inspect}"
