@@ -13,7 +13,6 @@ class PqBaseMailer < ActionMailer::Base
         $statsd.time(StatsHelper::MAIL_TIMING) do 
           begin
             super
-            logger.info "Sent mail with subject '#{self[:subject]}'"
             $statsd.increment StatsHelper::MAIL_SUCCESS
           rescue => e
             logger.warn "Problem sending mail with subject '#{self[:subject]}': #{e.inspect}"
