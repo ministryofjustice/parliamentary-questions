@@ -313,6 +313,7 @@ Devise.setup do |config|
 
   Warden::Manager.after_authentication do |user,auth,opts|
     Rails.logger.info "AUTH-LOG-IN: user #{user.email}, log in"
+    $statsd.increment 'login'
   end
 
   Warden::Manager.before_logout do |user,auth,opts|
