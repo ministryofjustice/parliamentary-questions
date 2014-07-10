@@ -1,10 +1,10 @@
 <% question.action_officers_pq.rejected.each do |r|  %>
-    <div id="pq-reject-reasons-<%= question.id %>">
-      <div id="pq-reject-reasons-header-<%= question.id %>">
-        <span class="label label-danger">PQ Rejected</span> by <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
-      </div>
-      <div class="panel panel-danger">
-        <%= r.reason %>
-      </div>
-    </div>
+	<div class="row">
+    	<div id="pq-reject-reasons-<%= question.id %>" class="col-md-12">
+			<div id="pq-reject-reasons-header-<%= question.id %>">
+				<div class="label label-danger">PQ Rejected</div> by <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
+			</div>
+			<div class="panel panel-danger"><%= r.reason %></div>
+    	</div>
+	</div>
 <% end %>
