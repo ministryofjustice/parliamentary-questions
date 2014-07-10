@@ -1,4 +1,4 @@
-class WatchlistMailer < ActionMailer::Base
+class WatchlistMailer < PqBaseMailer
   default from: Settings.mail_from
   def commit_email(template_params)
 

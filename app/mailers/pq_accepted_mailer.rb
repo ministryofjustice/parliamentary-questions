@@ -1,4 +1,4 @@
-class PQAcceptedMailer < ActionMailer::Base
+class PQAcceptedMailer < PqBaseMailer
   default from: Settings.mail_from
   def commit_email(pq, ao, urgent = false)
 
