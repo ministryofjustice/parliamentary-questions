@@ -16,7 +16,7 @@
       </div>
 
       <div class="row">
-        <div class="pq-question col-md-9">
+        <div class="pq-question col-md-12">
             <%= question.question %>
         </div>
       </div>
@@ -26,7 +26,7 @@
 
       <div class="row">
         <!-- start of 'sub column 1'-->
-        <div class="col-md-5">
+        <div class="col-md-6">
           <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
             <%= render partial: 'shared/pq_dashboard_column1_commissioned', locals: {question: question} %>
           <% else %>
@@ -36,7 +36,7 @@
         <!-- end of column 1-->
 
         <!--start of sub column 2 -->
-        <div class="col-md-4">
+        <div class="col-md-6">
           <%= render partial: 'shared/pq_dashboard_column2', locals: {question: question} %>
           <% if !question.preview_url.nil? %>
             <div>
