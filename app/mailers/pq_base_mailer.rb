@@ -1,6 +1,6 @@
 # This mailer provides basic metrics and log generation and should be used for all mail creation
 
-class PqBaseMailer < ActionMailer::Base
+class PQBaseMailer < ActionMailer::Base
 
   def mail(opts, &block)
     m = super
