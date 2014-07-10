@@ -20,6 +20,16 @@ class PQ < ActiveRecord::Base
     progress_id == pro.id
   end
 
+
+  def action_officer_accepted
+    action_officers_pq.each do |ao_pq|
+      if ao_pq.accept
+        return ao_pq.action_officer
+      end
+    end
+    return nil
+  end
+
   def self.new_questions()
     by_status([
                   Progress.ALLOCATED_ACCEPTED,
@@ -99,5 +109,8 @@ class PQ < ActiveRecord::Base
   def self.transferred
     where('transferred = true')
   end
+
+
+
 
 end
