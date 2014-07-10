@@ -1,4 +1,4 @@
-class PqMailer < ActionMailer::Base
+class PqMailer < PQBaseMailer
   default from: Settings.mail_from
   def commit_email(template_params)
 
