@@ -1,4 +1,4 @@
-class ActionOfficerReminderMailer < ActionMailer::Base
+class ActionOfficerReminderMailer < PqBaseMailer
   default from: Settings.mail_from
   def remind_accept_reject_email(template_params)
 
