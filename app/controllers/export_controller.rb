@@ -1,15 +1,19 @@
 class ExportController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
-  def csv
-    @pqs = PQ.order(:uin)
 
-    send_data to_csv
+  def index
+  end
+
+
+  def csv
+    pqs = PQ.where('created_at >= ? AND updated_at <= ?', params[:date_from], params[:date_to]).order(:uin)
+    send_data to_csv(pqs)
   end
 
   private
 
-  def to_csv
+  def to_csv(pqs)
     CSV.generate do |csv|
       csv << [
           'MP',
@@ -43,7 +47,7 @@ class ExportController < ApplicationController
       ]
 
 
-      PQ.all.each do |pq|
+      pqs.each do |pq|
 
         ao = pq.action_officer_accepted
         ao_name = ao.nil? ? '' : ao.name

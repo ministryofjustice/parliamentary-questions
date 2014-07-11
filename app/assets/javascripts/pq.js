@@ -1,6 +1,11 @@
 
 $(document).ready(function () {
 	$('.datetimepicker').datetimepicker();
+
+    $('.datepicker').datetimepicker({
+        pickTime: false
+    });
+
 	$(".multi-select-action-officers").select2({width:'250px'});
 
     $(".single-select-dropdown").select2({width:'250px', allowClear: true});

@@ -88,5 +88,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   patch 'set_internal_deadline/:id' => 'pqs#set_internal_deadline'
 
-  get 'export/csv' => 'export#csv'
+  match 'export/csv' => 'export#csv', via: [:get, :post]
+  get 'export' => 'export#index'
 end
