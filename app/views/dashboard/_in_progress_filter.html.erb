@@ -2,7 +2,7 @@
   <li id="db-filter-today" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'index') %>">
     <%= link_to raw("View all<span class='badge'>#{PQ.in_progress.count}</span>") , {:controller => 'dashboard', :action => 'in_progress'} %>
   </li>
-  <li id="db-filter-draft-pending" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.DRAFT_PENDING) %>">
+  <li id="db-filter-draft-pending" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.DRAFT_PENDING) %>">
     <%= link_to raw("Draft Pending <span class='badge'>#{PQ.draft_pending.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.DRAFT_PENDING} %>
   </li>
   <li id="db-filter-pod-waitting" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.POD_WAITING) %>">
