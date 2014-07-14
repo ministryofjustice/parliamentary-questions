@@ -7,7 +7,9 @@ class ExportController < ApplicationController
 
 
   def csv
-    pqs = PQ.where('created_at >= ? AND updated_at <= ?', params[:date_from], params[:date_to]).order(:uin)
+    date_to = DateTime.parse(params[:date_to])
+    date_from = DateTime.parse(params[:date_from])
+    pqs = PQ.where('created_at >= ? AND updated_at <= ?', date_from, date_to).order(:uin)
     send_data to_csv(pqs)
   end
 
