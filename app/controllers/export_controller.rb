@@ -62,16 +62,16 @@ class ExportController < ApplicationController
             pq.member_name,           # 'MP',
             '',                       # 'Record Number',
             ao_name,                  # 'Action Officer',
-            pq.answer_submitted,      # 'Date response answered by Parly (dept)',
-            pq.internal_deadline,     # 'Draft due to Parly Branch',
-            pq.tabled_date,           # 'Date First Appeared in Parliament',
-            pq.date_for_answer,       # 'Date Due in Parliament',
-            pq.resubmitted_to_answering_minister,             # 'Date resubmitted to Minister (if appliable)',
-            pq.answering_minister_returned_by_action_officer, # 'Date returned by AO (if applicable)',
-            pq.draft_answer_received,                         # 'Date Draft Returned to PB',
-            pq.answering_minister_to_action_officer,          # 'Date sent back to AO (if applicable)',
-            pq.sent_to_answering_minister,                    # 'Date delivered to Minister',
-            pq.cleared_by_answering_minister,                 # 'Returned signed from Minister',
+            format(pq.answer_submitted),         # 'Date response answered by Parly (dept)',
+            format(pq.internal_deadline),        # 'Draft due to Parly Branch',
+            format(pq.tabled_date),              # 'Date First Appeared in Parliament',
+            format(pq.date_for_answer),          # 'Date Due in Parliament',
+            format(pq.resubmitted_to_answering_minister),             # 'Date resubmitted to Minister (if appliable)',
+            format(pq.answering_minister_returned_by_action_officer), # 'Date returned by AO (if applicable)',
+            format(pq.draft_answer_received),                         # 'Date Draft Returned to PB',
+            format(pq.answering_minister_to_action_officer),          # 'Date sent back to AO (if applicable)',
+            format(pq.sent_to_answering_minister),                    # 'Date delivered to Minister',
+            format(pq.cleared_by_answering_minister),                 # 'Returned signed from Minister',
             directorate,                 # 'Directorate',
             division,                    # 'Division',
             pq.answer,                   # 'Final Response',
@@ -80,7 +80,7 @@ class ExportController < ApplicationController
             minister_name,               # 'Minister',
             pq.answering_minister_query, # 'Ministerial Query? (if applicable)',
             pq.uin,                      # 'PIN',
-            pq.pod_clearance,            # '"Date/time of POD clearance"',
+            format(pq.pod_clearance),    # '"Date/time of POD clearance"',
             pq.pod_query_flag,           # 'PODquery',
             pq.finance_interest,         # 'Requested by finance',
             '',                          # 'Requested by HR',
@@ -90,6 +90,15 @@ class ExportController < ApplicationController
         ]
       end
     end
+  end
+
+
+  def format(datetime)
+    datetime_format = '%d/%m/%Y %H:%M'
+    if datetime.nil?
+      return ''
+    end
+    datetime.strftime(datetime_format)
   end
 
 end
