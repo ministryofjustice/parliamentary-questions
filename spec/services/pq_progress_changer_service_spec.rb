@@ -18,7 +18,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(draft_answer_received: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_WAITING)
@@ -30,7 +30,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(draft_answer_received: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.ALLOCATED_ACCEPTED)
@@ -45,7 +45,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(pod_query_flag: true)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_QUERY)
@@ -57,7 +57,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(pod_query_flag: true)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.DRAFT_PENDING)
@@ -72,7 +72,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(pod_clearance: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_CLEARED)
@@ -84,7 +84,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(pod_clearance: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_CLEARED)
@@ -97,7 +97,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(pod_clearance: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.DRAFT_PENDING)
@@ -112,7 +112,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(sent_to_answering_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_WAITING)
@@ -124,7 +124,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(sent_to_answering_minister: DateTime.now, sent_to_policy_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_WAITING)
@@ -136,7 +136,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(sent_to_answering_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_CLEARED)
@@ -148,7 +148,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(sent_to_answering_minister: DateTime.now, sent_to_policy_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_WAITING)
@@ -163,7 +163,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(answering_minister_query: true)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_QUERY)
@@ -175,7 +175,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(policy_minister_query: true)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_QUERY)
@@ -187,7 +187,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(answering_minister_query: true)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_QUERY)
@@ -200,7 +200,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(answering_minister_query: true)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_WAITING)
@@ -214,7 +214,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(cleared_by_answering_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_CLEARED)
@@ -226,7 +226,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(cleared_by_answering_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_CLEARED)
@@ -239,7 +239,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(cleared_by_answering_minister: DateTime.now, cleared_by_policy_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_CLEARED)
@@ -251,7 +251,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(cleared_by_answering_minister: DateTime.now, cleared_by_policy_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_CLEARED)
@@ -263,7 +263,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(cleared_by_answering_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_QUERY)
@@ -275,7 +275,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(cleared_by_answering_minister: DateTime.now, cleared_by_policy_minister: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_WAITING)
@@ -291,7 +291,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(answer_submitted: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.ANSWERED)
@@ -303,7 +303,7 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(pq_withdrawn: DateTime.now)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.ANSWERED)
@@ -314,7 +314,7 @@ describe 'PQProgressChangerService' do
       pq = create(:PQ, uin: uin, question: 'test question?', progress_id: Progress.minister_cleared.id)
       pq_before = pq.dup
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.MINISTER_CLEARED)
@@ -327,10 +327,31 @@ describe 'PQProgressChangerService' do
       pq_before = pq.dup
       pq.update(pq_withdrawn: true)
 
-      @pq_progress_changer_service.update_progress(pq_before, pq)
+      @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
       pq.progress.name.should eq(Progress.POD_WAITING)
+    end
+  end
+
+
+  describe 'From DRAFT_PENDING to ANSWERED' do
+    it 'should move the question from DRAFT_PENDING to ANSWERED if all the data necessary is set' do
+      uin = 'TEST1'
+      pq = create(:PQ, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
+      
+      pq.update(draft_answer_received: DateTime.now,
+                pod_query_flag: true,
+                pod_clearance: DateTime.now,
+                sent_to_answering_minister: DateTime.now,
+                answering_minister_query: true,
+                cleared_by_answering_minister: DateTime.now,
+                answer_submitted: DateTime.now)
+
+      @pq_progress_changer_service.update_progress(pq)
+
+      pq = PQ.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.ANSWERED)
     end
   end
 
