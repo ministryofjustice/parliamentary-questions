@@ -47,7 +47,9 @@ class Progress < ActiveRecord::Base
   def self.minister_cleared
     find_by_status(self.MINISTER_CLEARED)
   end
-
+  def self.answered
+    find_by_status(self.ANSWERED)
+  end
 
   # status constants
 
@@ -98,6 +100,10 @@ class Progress < ActiveRecord::Base
 
   def self.MINISTER_CLEARED
     'Minister Cleared'
+  end
+
+  def self.ANSWERED
+    'Answered'
   end
 
 

@@ -27,7 +27,8 @@ progresses = Progress.create([{name: Progress.UNALLOCATED},
   {name: Progress.POD_CLEARED},
   {name: Progress.MINISTER_WAITING},
   {name: Progress.MINISTER_QUERY},
-  {name: Progress.MINISTER_CLEARED}])
+  {name: Progress.MINISTER_CLEARED},
+  {name: Progress.ANSWERED}])
   
 ministers = Minister.create!([
 	{name: 'Chris Grayling', email:'no-emails-1@please.com', title: 'Secretary of State and Lord High Chancellor of Great Britain', deleted: false},

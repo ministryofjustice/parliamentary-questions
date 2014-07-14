@@ -207,9 +207,6 @@ describe 'PQProgressChangerService' do
     end
   end
 
-
-
-#  Minister Cleared - If - ‘cleared_by_policy_minister || cleared_by_answering_minister’ is completed - & remove from Minister Query (Both ministers need to be cleared if there are two)
   describe 'Minister Cleared' do
     it 'should move the question from MINISTER_QUERY to MINISTER_CLEARED if cleared_by_answering_minister completed and there is no policy minister' do
       uin = 'TEST1'
@@ -286,8 +283,56 @@ describe 'PQProgressChangerService' do
   end
 
 
+  #  *Remove from dashboard - if - 'answer_submitted || pq_withdrawn’ is completed
+  describe 'Answered (remove from dashboard)' do
+    it 'should move the question from MINISTER_CLEARED to ANSWERED if answer_submitted completed' do
+      uin = 'TEST1'
+      pq = create(:PQ, uin: uin, question: 'test question?', progress_id: Progress.minister_cleared.id)
+      pq_before = pq.dup
+      pq.update(answer_submitted: DateTime.now)
+
+      @pq_progress_changer_service.update_progress(pq_before, pq)
+
+      pq = PQ.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.ANSWERED)
+    end
+
+    it 'should move the question from MINISTER_CLEARED to ANSWERED if pq_withdrawn set' do
+      uin = 'TEST1'
+      pq = create(:PQ, uin: uin, question: 'test question?', progress_id: Progress.minister_cleared.id)
+      pq_before = pq.dup
+      pq.update(pq_withdrawn: DateTime.now)
+
+      @pq_progress_changer_service.update_progress(pq_before, pq)
+
+      pq = PQ.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.ANSWERED)
+    end
+
+    it 'should not move the question from MINISTER_CLEARED to ANSWERED if pq_withdrawn or answer_submitted not set ' do
+      uin = 'TEST1'
+      pq = create(:PQ, uin: uin, question: 'test question?', progress_id: Progress.minister_cleared.id)
+      pq_before = pq.dup
+
+      @pq_progress_changer_service.update_progress(pq_before, pq)
+
+      pq = PQ.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.MINISTER_CLEARED)
+    end
 
 
+    it 'should NOT move the question to ANSWERED if the progress is not MINISTER_CLEARED' do
+      uin = 'TEST1'
+      pq = create(:PQ, uin: uin, question: 'test question?', progress_id: Progress.pod_waiting.id, policy_minister_id: minister_1.id)
+      pq_before = pq.dup
+      pq.update(pq_withdrawn: true)
+
+      @pq_progress_changer_service.update_progress(pq_before, pq)
+
+      pq = PQ.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.POD_WAITING)
+    end
+  end
 
 
 end

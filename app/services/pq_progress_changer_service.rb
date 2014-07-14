@@ -10,23 +10,37 @@ class PQProgressChangerService
     minister_waiting_filter(pq_after_save, pq_before_save)
     minister_query_filter(pq_after_save, pq_before_save)
     minister_cleared_filter(pq_after_save, pq_before_save)
+    answered_filter(pq_after_save, pq_before_save)
 
   end
 
   def pod_clearance_filter(pq_after_save, pq_before_save)
-    if (pq_before_save.is_in_progress?(Progress.pod_waiting) || pq_before_save.is_in_progress?(Progress.pod_query)) && !pq_after_save.pod_clearance.nil?
+    # not (pod_waiting || pod_query)
+    if !(pq_before_save.is_in_progress?(Progress.pod_waiting) || pq_before_save.is_in_progress?(Progress.pod_query))
+      return
+    end
+
+    if !pq_after_save.pod_clearance.nil?
       update_pq(pq_after_save, Progress.pod_cleared)
     end
   end
 
   def pod_query_filter(pq_after_save, pq_before_save)
-    if pq_before_save.is_in_progress?(Progress.pod_waiting) && pq_after_save.pod_query_flag
+    if !pq_before_save.is_in_progress?(Progress.pod_waiting)
+      return
+    end
+
+    if pq_after_save.pod_query_flag
       update_pq(pq_after_save, Progress.pod_query)
     end
   end
 
   def pod_waiting_filter(pq_after_save, pq_before_save)
-    if pq_before_save.is_in_progress?(Progress.draft_pending) && !pq_after_save.draft_answer_received.nil?
+    if !pq_before_save.is_in_progress?(Progress.draft_pending)
+      return
+    end
+
+    if !pq_after_save.draft_answer_received.nil?
       update_pq(pq_after_save, Progress.pod_waiting)
     end
   end
@@ -92,6 +106,24 @@ class PQProgressChangerService
       update_pq(pq_after_save, Progress.minister_cleared)
       return
     end
+  end
+
+
+  def answered_filter(pq_after_save, pq_before_save)
+    if !pq_before_save.is_in_progress?(Progress.minister_cleared)
+      return
+    end
+
+    if !pq_after_save.pq_withdrawn.nil?
+      update_pq(pq_after_save, Progress.answered)
+      return
+    end
+
+    if !pq_after_save.answer_submitted.nil?
+      update_pq(pq_after_save, Progress.answered)
+      return
+    end
+
   end
 
 

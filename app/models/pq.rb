@@ -108,6 +108,10 @@ class PQ < ActiveRecord::Base
   def self.minister_cleared
     by_status(Progress.MINISTER_CLEARED)
   end
+  def self.answered
+    by_status(Progress.ANSWERED)
+  end
+
 
   def self.transferred
     where('transferred = true')
