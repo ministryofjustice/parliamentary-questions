@@ -33,5 +33,8 @@ class DashboardController < ApplicationController
     render 'by_status'
   end
 
-
+  def i_will_write
+    @questions = PQ.i_will_write_flag.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+    render 'in_progress_by_status'
+  end
 end

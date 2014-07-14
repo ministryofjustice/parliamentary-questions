@@ -117,6 +117,10 @@ class PQ < ActiveRecord::Base
     where('transferred = true')
   end
 
+  def self.i_will_write_flag
+    where('i_will_write = true')
+  end
+
 
 
 
