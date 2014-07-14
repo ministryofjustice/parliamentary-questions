@@ -1,9 +1,9 @@
 <ul id="status-filters" class="nav nav-pills nav-stacked navbar-right">
   <li id="db-filter-today" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'index') %>">
-    <%= link_to raw("View all<span class='badge'>#{PQ.new_questions.count}</span>") , {:controller => 'dashboard', :action => 'in_progress'} %>
+    <%= link_to raw("View all<span class='badge'>#{PQ.in_progress.count}</span>") , {:controller => 'dashboard', :action => 'in_progress'} %>
   </li>
-  <li id="db-filter-alloc-accept" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.POD_WAITING) %>">
-    <%= link_to raw("Draft Pending <span class='badge'>#{PQ.pod_waiting.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.POD_WAITING} %>
+  <li id="db-filter-draft-pending" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'by_status' && params[:qstatus] == Progress.DRAFT_PENDING) %>">
+    <%= link_to raw("Draft Pending <span class='badge'>#{PQ.draft_pending.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.DRAFT_PENDING} %>
   </li>
   <li id="db-filter-pod-waitting" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.POD_WAITING) %>">
     <%= link_to raw("POD Waiting <span class='badge'>#{PQ.pod_waiting.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.POD_WAITING} %>

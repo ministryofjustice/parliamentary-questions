@@ -14,7 +14,7 @@ class ImportService
       import_one_question(q, &block)
     end
 
-    move_questions_from_accepted_to_pod_waiting
+    move_questions_from_accepted_to_draft_pending
 
     # log the time in statsd
     elapsed_seconds = Time.now - t_start
@@ -93,9 +93,9 @@ class ImportService
 
   end
 
-  def move_questions_from_accepted_to_pod_waiting
+  def move_questions_from_accepted_to_draft_pending
     beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
-    progress_id = Progress.pod_waiting.id
+    progress_id = Progress.draft_pending.id
 
     number_of_questions_moved = 0
     pqs = PQ.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)

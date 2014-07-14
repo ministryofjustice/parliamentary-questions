@@ -26,6 +26,9 @@ class Progress < ActiveRecord::Base
   def self.transfer
     find_by_status(self.TRANSFER)
   end
+  def self.draft_pending
+    find_by_status(self.DRAFT_PENDING)
+  end
   def self.pod_waiting
     find_by_status(self.POD_WAITING)
   end
@@ -67,6 +70,11 @@ class Progress < ActiveRecord::Base
   def self.TRANSFER
     'Transfer'
   end
+
+  def self.DRAFT_PENDING
+    'Draft Pending'
+  end
+
 
   def self.POD_WAITING
     'Pod Waiting'
