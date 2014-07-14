@@ -87,6 +87,9 @@ class PQ < ActiveRecord::Base
   def self.transfer
     by_status(Progress.TRANSFER)
   end
+  def self.draft_pending
+    by_status(Progress.DRAFT_PENDING)
+  end
   def self.pod_waiting
     by_status(Progress.POD_WAITING)
   end

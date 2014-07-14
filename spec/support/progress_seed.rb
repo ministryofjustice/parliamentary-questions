@@ -4,6 +4,7 @@ def progress_seed
   let!(:unallocated) { create(:progress, name: Progress.UNALLOCATED) }
   let!(:rejected) { create(:progress, name: Progress.REJECTED) }
   let!(:transfer) { create(:progress, name: Progress.TRANSFER) }
+  let!(:draft_pending) { create(:progress, name: Progress.DRAFT_PENDING) }
   let!(:pod_waiting) { create(:progress, name: Progress.POD_WAITING) }
   let!(:pod_query) { create(:progress, name: Progress.POD_QUERY) }
   let!(:pod_cleared) { create(:progress, name: Progress.POD_CLEARED) }

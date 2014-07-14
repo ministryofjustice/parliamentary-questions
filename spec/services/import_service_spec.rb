@@ -174,9 +174,9 @@ describe 'ImportService' do
     end
 
 
-    it 'should move questions from Accepted to POD Waiting' do
+    it 'should move questions from Accepted to Draft Pending' do
 
-      # setup a pq accepted that needs to move from Accepted to POD Waiting
+      # setup a pq accepted that needs to move from Accepted to Draft Pending
       pq = create(:PQ, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.allocated_accepted.id)
       ao = create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov')
       yesterday = DateTime.now - 1.day
@@ -190,7 +190,7 @@ describe 'ImportService' do
       import_result[:questions].size.should eq(2)
 
       pq_to_move = PQ.find_by(uin: 'PQ_TO_MOVE')
-      pq_to_move.progress.name.should eq(Progress.POD_WAITING)
+      pq_to_move.progress.name.should eq(Progress.DRAFT_PENDING)
 
       pq_to_stay = PQ.find_by(uin: 'PQ_TO_STAY')
       pq_to_stay.progress.name.should eq(Progress.ALLOCATED_ACCEPTED)
