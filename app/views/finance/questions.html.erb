@@ -1,63 +1,50 @@
-
-
 <h2 class="section">New PQs Today <span class="badge"><%= @questions.count %></span></h2>
-
 <%= render partial: 'shared/flash_messages' %>
-
-
 <% if @questions.count == 0 %>
-<div>
- <p>There are not more questions to review</p>
-</div>
-
+  <p>There are not more questions to review</p>
 <% end %>
-
-
 
 <% if @questions.count > 0 %>
-
-    <%= form_tag :controller => 'finance', :action => 'confirm' do  %>
-
+  <%= form_tag :controller => 'finance', :action => 'confirm' do  %>
     <ul class="questions-list">
       <% @questions.each do |question| %>
-          <li style="overflow:auto;">
-            <div class="pq-header">
-              <span class="uin"><%= question.uin %></span>
-            </div>
-            <div>
-              Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
-            </div>
-            <div>
-              <span><%= question.house_name %>: <%= question.member_name %></span>
-            </div>
+        <li class="row">
+          <div class="pq-header col-md-12">
+            <h3><%= question.uin %></h3>
+            <% if question.question_type == 'NamedDay' %>
+              <span class="label label-primary" title="Named day">N</span>
+            <% end %>
+            <% if question.question_type == 'Ordinary' %>
+              <span class="label label-info" title="Ordinary Written">O</span>
+            <% end %>
+            <% if question.transferred  %>
+              <span class="label label-warning" title="Transferred">Transferred</span>
+            <% end %>
+          </div>
 
-            <div class = "panel-indent" style="float: left; width: 66%;">
-              <%= question.question %>
-            </div>
-            <div class="allocation-info">
-              <%= render partial: 'shared/question_assigned', locals: {question: question} %>
-            </div>
+          <div class="pq-question col-md-12">
+            <%= question.question %>
+          </div>
 
+          <div class="col-md-6" style="border:1px solid #000;">
+            <label style="margin-bottom:15px;">
+              <input name="pq[<%= question.id %>][finance_interest]" type="checkbox" value="true"/> Register Interest
+            </label>
+          </div>
+
+          <div class="col-md-6" style="border:1px solid #000;">
+            <%= question.house_name %>: <%= question.member_name %><br/>
+            Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %><br/>
+            <%= render partial: 'shared/question_assigned', locals: {question: question} %><br/>
             <input type="hidden" name="pq[<%= question.id %>][seen_by_finance]" value="true">
-            <div class="checkbox">
-              <label>Register Interest
-                <input name="pq[<%= question.id %>][finance_interest]" type="checkbox" value="true"/>
-              </label>
-            </div>
-          </li>
+          </div>
+        </li>
       <% end %>
     </ul>
-
-
-        <div class="form-group">
-          <%= submit_tag 'Confirm Visibility of all PQs' , class: 'button'%>
-        </div>
-
-    <% end %>
-
-
+    <div class="row">
+      <div class="form-group col-md-12">
+        <%= submit_tag 'Confirm Visibility of all PQs' , class: 'button'%>
+      </div>
+    </div>
+  <% end %>
 <% end %>
-
-
-
-
