@@ -1,7 +1,6 @@
 class PQProgressChangerService
 
   def update_progress(pq)
-
     #  initial state 'Draft Pending' (done by the import process)
     pod_waiting_filter(pq)
     pod_query_filter(pq)
@@ -10,17 +9,15 @@ class PQProgressChangerService
     minister_query_filter(pq)
     minister_cleared_filter(pq)
     answered_filter(pq)
-
   end
 
-  def pod_clearance_filter(pq)
-    # not (pod_waiting || pod_query)
-    if !(pq.is_in_progress?(Progress.pod_waiting) || pq.is_in_progress?(Progress.pod_query))
+  def pod_waiting_filter(pq)
+    if !pq.is_in_progress?(Progress.draft_pending)
       return
     end
 
-    if !pq.pod_clearance.nil?
-      update_pq(pq, Progress.pod_cleared)
+    if !pq.draft_answer_received.nil?
+      update_pq(pq, Progress.pod_waiting)
     end
   end
 
@@ -34,13 +31,14 @@ class PQProgressChangerService
     end
   end
 
-  def pod_waiting_filter(pq)
-    if !pq.is_in_progress?(Progress.draft_pending)
+  def pod_clearance_filter(pq)
+    # not (pod_waiting || pod_query)
+    if !(pq.is_in_progress?(Progress.pod_waiting) || pq.is_in_progress?(Progress.pod_query))
       return
     end
 
-    if !pq.draft_answer_received.nil?
-      update_pq(pq, Progress.pod_waiting)
+    if !pq.pod_clearance.nil?
+      update_pq(pq, Progress.pod_cleared)
     end
   end
 
