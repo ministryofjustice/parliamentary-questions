@@ -65,8 +65,15 @@ i.fa-envelope {color:#fff;margin-left:4px;}
 #status-filters .active .badge{background-color:#fff}
 /* ============================================================================== */
 
+/* Status Filters =============================================================== */
+
+
+
+
+
+/* ============================================================================== */
 h2.section{border-bottom:solid 1px}
-h2.section .badge{vertical-align:middle}
+h2.section .badge{vertical-align:middle;background-color:#000;}
 
 .questions-detail-outer{
 	/*width:700px;*/
