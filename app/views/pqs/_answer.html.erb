@@ -1,6 +1,6 @@
 
 <label for="answer_submitted">Date answer submitted to Q&A Tool</label>
-<div id="datetimepicker8" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<div id="datetimepicker18" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="answer_submitted" class="form-control" name="pq[answer_submitted]" type="text" value="<%= @pq.answer_submitted.strftime('%d/%m/%Y %H:%M') unless @pq.answer_submitted.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
@@ -18,7 +18,7 @@
 </div>
 
 <label for="pq_withdrawn">Date PQ withdrawn</label>
-<div id="datetimepicker9" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<div id="datetimepicker19" class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="pq_withdrawn" class="form-control" name="pq[pq_withdrawn]" type="text" value="<%= @pq.pq_withdrawn.strftime('%d/%m/%Y %H:%M') unless @pq.pq_withdrawn.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
