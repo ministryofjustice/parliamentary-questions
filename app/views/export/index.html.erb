@@ -11,13 +11,13 @@
         <div class="col-md-6">
           <%= form_tag controller: 'export', action: 'csv' do %>
               <label for="date_from">Date From</label>
-              <div class="input-group date datepicker" data-date-format="DD/MM/YYYY">
+              <div class="input-group date dateonlypicker" data-date-format="DD/MM/YYYY">
                 <input id="date_from" class="form-control" name="date_from" type="text" value="<%= Date.today.strftime('%d/%m/%Y') %>">
                 <span class="input-group-addon glyphicon glyphicon-calendar"></span>
               </div>
 
               <label for="date_to">Date To</label>
-              <div class="input-group date datepicker" data-date-format="DD/MM/YYYY">
+              <div class="input-group date dateonlypicker" data-date-format="DD/MM/YYYY">
                 <input id="date_to" class="form-control" name="date_to" type="text" value="<%= Date.today.strftime('%d/%m/%Y') %>">
                 <span class="input-group-addon glyphicon glyphicon-calendar"></span>
               </div>
