@@ -78,6 +78,8 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'transferred/new' => 'transferred#new'
   post 'transferred/create' => 'transferred#create'
 
+  get 'i_will_write/create' => 'i_will_write#create'
+
   get 'assign_minister/:id' => 'pqs#assign_minister'
   patch 'assign_minister/:id' => 'pqs#assign_minister'
 
