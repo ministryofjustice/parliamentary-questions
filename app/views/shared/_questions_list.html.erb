@@ -12,6 +12,9 @@
         <% if question.transferred  %>
           <span class="label label-warning" title="Transferred">Transferred</span>
         <% end %>
+        <% if question.i_will_write %>
+            <span class="label label-warning" title="I will write">I will write</span>
+        <% end %>
         <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'right' ) %>
       </div>
 

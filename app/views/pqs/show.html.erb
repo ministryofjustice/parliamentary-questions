@@ -19,6 +19,9 @@
       <% if @pq.transferred  %>
         <span class="label label-warning" title="Transferred">Transferred</span>
       <% end %>
+      <% if @pq.i_will_write %>
+         <span class="label label-warning" title="I will write">I will write</span>
+      <% end %>
     </div>
     <div class="col-md-2">
       <% if !@pq.preview_url.nil? %>
