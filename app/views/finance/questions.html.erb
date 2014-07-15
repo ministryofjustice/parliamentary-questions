@@ -1,4 +1,4 @@
-<h2 class="section">New PQs Today <span class="badge"><%= @questions.count %></span></h2>
+<h2>New PQ's today <span class="badge"><%= @questions.count %></span></h2>
 <%= render partial: 'shared/flash_messages' %>
 <% if @questions.count == 0 %>
   <p>There are not more questions to review</p>
@@ -26,13 +26,13 @@
             <%= question.question %>
           </div>
 
-          <div class="col-md-6" style="border:1px solid #000;">
+          <div class="col-md-6">
             <label style="margin-bottom:15px;">
               <input name="pq[<%= question.id %>][finance_interest]" type="checkbox" value="true"/> Register Interest
             </label>
           </div>
 
-          <div class="col-md-6" style="border:1px solid #000;">
+          <div class="col-md-6">
             <%= question.house_name %>: <%= question.member_name %><br/>
             Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %><br/>
             <%= render partial: 'shared/question_assigned', locals: {question: question} %><br/>
