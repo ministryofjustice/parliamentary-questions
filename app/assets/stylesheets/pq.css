@@ -1,7 +1,20 @@
-#global-header.with-proposition .header-wrapper .header-proposition .content{margin:9px 15px 0 15px}
+ @font-face {  
+      font-family: 'Bliss2Rg';  
+      src: url('/assets/fonts/Bliss2Rg.eot');  
+      src: url('/assets/fonts/Bliss2Rg.eot?#iefix') format('embedded-opentype'),  
+      url('/assets/fonts/Bliss2Rg.woff') format('woff'),  
+      url('/assets/fonts/Bliss2Rg.ttf') format('truetype');
+      font-weight: lighter;  
+      font-style: normal;  
+    }
+
+#global-header.with-proposition .header-wrapper .header-proposition .content{margin:6px 47% 0 15px; text-align: right;}
+#global-header .header-wrapper {padding-left:0px;max-width:1112px}
+body.alpha .indicator p{padding-left:0px;max-width:1112px;}
 a.btn-success{color:white}
 
 /* General ====================================================================== */
+h1 {font-family:'Bliss2Rg';font-size:24px;display:inline;}
 
 .inline{display:inline}
 .right{float:right}

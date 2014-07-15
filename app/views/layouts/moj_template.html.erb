@@ -64,6 +64,7 @@
   </head>
 
   <body class="<%= content_for?(:body_classes) ? raw("#{yield(:body_classes)}") : "#{config_item(:phase).to_s.downcase} #{config_item(:product_type).to_s.downcase}" %>">
+    
     <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
     <div id="skiplink-container">
@@ -77,17 +78,16 @@
       <div class="header-wrapper">
         <div class="header-global">
           <div class="header-logo">
-            <img src="<%= asset_path "MOJ_Logo.png" %>" alt="Ministry of Justice">
+            <img src="<%= asset_path "moj_logo.png" %>" alt="Ministry of Justice">
           </div>
           <%= yield :inside_header %>
         </div>
         <% if content_for?(:proposition_header) %>
-          <%= yield(:proposition_header) %>
+          <%= yield(:proposition_header) %>         
         <% else %>
           <div class="header-proposition">
             <div class="content">
-                <a href="/" id="proposition-name"><%= "#{config_item(:proposition_title)}" %></a>
-                <a href="https://www.gov.uk/service-manual/phases/<%= "#{config_item(:phase).to_s.downcase}" %>.html" class="proposition-phase"><%= "#{config_item(:phase).to_s.capitalize}" %></a>
+                <a href="/" id="proposition-name"><h1><%= "#{config_item(:proposition_title)}" %></h1></a>
             </div>
           </div>
         <% end %>
@@ -112,26 +112,25 @@
     <%= yield :after_header %>
 
     <div id="global-cookie-message">
-      
-        <% if content_for?(:cookie_message) %>
+      <% if content_for?(:cookie_message) %>
         <%= yield :cookie_message %>
       <% else %>
         <p>GOV.UK uses cookies to make the site simpler. <a href="https://www.gov.uk/help/cookies">Find out more about cookies</a></p>
       <% end %>
-      
     </div>
 
-    <% if content_for?(:content_override) %>
-      <%= yield(:content_override) %>
-    <% else %>
-    <%= yield :before_content %>
-
-    <div id="wrapper" class="group">
-      <section id="content" role="main">
-        <%= content_for?(:content) ? yield(:content) : yield %>
-      </section>
+    <div class="container">
+      <% if content_for?(:content_override) %>
+        <%= yield(:content_override) %>
+      <% else %>
+        <%= yield :before_content %>
+        <div id="wrapper" class="group">
+          <section id="content" role="main">
+            <%= content_for?(:content) ? yield(:content) : yield %>
+          </section>
+        </div>
+      <% end %>
     </div>
-    <% end %>
 
     <footer class="group js-footer" id="footer" role="contentinfo">
 
@@ -171,5 +170,6 @@
     <!--<![endif]-->
 
     <%= yield :body_end %>
+
   </body>
 </html>
