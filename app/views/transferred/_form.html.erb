@@ -21,7 +21,7 @@
   </div>
     <div>
         Date for Answer
-        <div class='input-group date internal-dtp' id='datetimepicker' data-date-format="DD/MM/YYYY HH:mm">
+        <div class='input-group date internal-dtp datetimepicker' id='pq_dateforanswer' data-date-format="DD/MM/YYYY HH:mm">
 
           <input class="form-control pq_dateforanswer" id="pq_dateforanswer" name="pq[date_for_answer]" type="text" value="<%= @pq.date_for_answer.strftime('%d/%m/%Y %H:%M') unless @pq.date_for_answer.nil? %>">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
