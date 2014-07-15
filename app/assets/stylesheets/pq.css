@@ -56,11 +56,11 @@ label{display:block;font-weight:500;font-size:18px;}
 /* PQ Dashboard Page ============================================================ */
 ul.questions-list{list-style:none}
 
-.questions-list li{border-bottom:1px solid #bfc1c3;margin:18px 0 10px 0;padding:0px 25px 34px 25px;}
+.questions-list li{border-bottom:1px solid #bfc1c3;margin:18px 0 10px 0;}
 .questions-list li label{font-size:16px}
 
 .pq-header{padding:0.5em;}
-.pq-question{padding:10px;margin:10px 0px;}
+.pq-question{padding:5px;margin:10px;}
 
 .question-allocation-list li{border:none;margin:3px 0px;padding:0px;}
 .allocation-info .btn{margin:1em 0em;}
@@ -73,7 +73,7 @@ i.fa-envelope {color:#fff;margin-left:4px;}
 /* ============================================================================== */
 
 /* Status Filters =============================================================== */
-#status-filters{margin-top:20px;min-width:250px;}
+#status-filters{margin-top:20px}
 #status-filters .badge{float:right;min-width:2.5em;background-color:#000;}
 #status-filters .active .badge{background-color:#fff}
 /* ============================================================================== */
