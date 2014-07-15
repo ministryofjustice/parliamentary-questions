@@ -1,7 +1,6 @@
 <% if user_signed_in? %>
-
   <nav class="navbar navbar-default " role="navigation">
-    <div class="container">
+
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <% if current_user.is_pq_user? %>
           <ul class="nav navbar-nav">
@@ -19,7 +18,5 @@
           <li><%= link_to 'Sign out', destroy_user_session_path %></li>
         </ul>
       </div>
-    </div>
   </nav>
-
 <% end %>
