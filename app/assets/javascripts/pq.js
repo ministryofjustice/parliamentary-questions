@@ -2,7 +2,7 @@
 $(document).ready(function () {
 	$('.datetimepicker').datetimepicker();
 
-    $('.datepicker').datetimepicker({
+    $('.dateonlypicker').datetimepicker({
         pickTime: false
     });
 
