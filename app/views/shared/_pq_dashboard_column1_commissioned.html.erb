@@ -14,7 +14,7 @@
 
 <p>Action Officer(s):</p>
 <% question.action_officers_pq.each do |ao_pq| %>
-  <% if !ao_pq.reject %>
+  <% if !ao_pq.reject && !ao_pq.action_officer.nil? %>
     <p>
       <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
       <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
