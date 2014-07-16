@@ -7,37 +7,36 @@
 </div>
 
 <div id="pq-details-header" class="row">
-  <div class="col-md-8">
+  <div class="col-md-8" style="border:1px solid #000;">
     <h3><%= @pq.uin %></h3>
-       <!-- <%= @pq.progress.name %> -->
-      <% if @pq.question_type == 'NamedDay' %>
-        <span class="label label-primary" title="Named day">N</span>
-      <% end %>
-      <% if @pq.question_type == 'Ordinary' %>
-        <span class="label label-info" title="Ordinary Written">O</span>
-      <% end %>
-      <% if @pq.transferred  %>
-        <span class="label label-warning" title="Transferred">Transferred</span>
-      <% end %>
-      <% if @pq.i_will_write %>
-         <span class="label label-warning" title="I will write">I will write</span>
-      <% end %>
-    </div>
-    <div class="col-md-2">
-      <% if !@pq.preview_url.nil? %>
-        <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
-      <% end %>
-    </div>
-    <div class="col-md-2">
-      <div id='trim_area_<%= @pq.id %>' class="right">
-        <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
-      </div>
+    <!-- <%= @pq.progress.name %> -->
+    <% if @pq.question_type == 'NamedDay' %>
+      <span class="label label-primary" title="Named day">N</span>
+    <% end %>
+    <% if @pq.question_type == 'Ordinary' %>
+      <span class="label label-info" title="Ordinary Written">O</span>
+    <% end %>
+    <% if @pq.transferred  %>
+      <span class="label label-warning" title="Transferred">Transferred</span>
+    <% end %>
+    <% if @pq.i_will_write %>
+      <span class="label label-warning" title="I will write">I will write</span>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <% if !@pq.preview_url.nil? %>
+      <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <div id='trim_area_<%= @pq.id %>' class="right">
+      <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
     </div>
   </div>
 </div>
 
 <div id="pq-detail-area" class="row">
-  <div id="progress-menu" class="col-md-4">
+  <div id="progress-menu" class="col-md-3">
     <a id="progress-menu-pq" class="progress-menu-item">PQ</a>
     <a id="progress-menu-fc" class="progress-menu-item">Finance check</a>
     <a id="progress-menu-com" class="progress-menu-item">PQ commission</a>
@@ -47,7 +46,7 @@
     <a id="progress-menu-answer" class="progress-menu-item">Answer</a>
   </div>
 
-  <div id="progress-panel" class="col-md-8">
+  <div id="progress-panel" class="col-md-9">
 
     <%= form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form start-hidden' } do |f| %>
 
