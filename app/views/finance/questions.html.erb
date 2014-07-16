@@ -6,10 +6,10 @@
 
 <% if @questions.count > 0 %>
   <%= form_tag :controller => 'finance', :action => 'confirm' do  %>
-    <ul class="questions-list">
+    <ul class="questions-list col-md-12">
       <% @questions.each do |question| %>
         <li class="row">
-          <div class="pq-header col-md-12">
+          <div class="pq-header">
             <h3><%= question.uin %></h3>
             <% if question.question_type == 'NamedDay' %>
               <span class="label label-primary" title="Named day">N</span>
@@ -22,12 +22,12 @@
             <% end %>
           </div>
 
-          <div class="pq-question col-md-12">
+          <div class="pq-question">
             <%= question.question %>
           </div>
 
           <div class="col-md-6">
-            <label style="margin-bottom:15px;">
+            <label>
               <input name="pq[<%= question.id %>][finance_interest]" type="checkbox" value="true"/> Register Interest
             </label>
           </div>
@@ -41,10 +41,6 @@
         </li>
       <% end %>
     </ul>
-    <div class="row">
-      <div class="form-group col-md-12">
-        <%= submit_tag 'Confirm Visibility of all PQs' , class: 'button'%>
-      </div>
-    </div>
+    <%= submit_tag 'Confirm Visibility of all PQs' , class: 'button'%>
   <% end %>
 <% end %>
