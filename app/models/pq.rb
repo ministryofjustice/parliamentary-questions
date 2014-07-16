@@ -41,6 +41,7 @@ class PQ < ActiveRecord::Base
 
   def self.in_progress()
     by_status([
+                  Progress.DRAFT_PENDING,
                   Progress.POD_WAITING,
                   Progress.POD_QUERY,
                   Progress.POD_CLEARED,
