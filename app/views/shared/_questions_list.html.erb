@@ -1,7 +1,7 @@
-<ul class="questions-list col-md-9">
+<ul class="questions-list col-md-9 col-md-pull-3">
   <% questions.each do |question| %>
-    <li style="overflow:auto;" id="pq-frame-<%= question.id %>">
-      <div class="pq-header">
+    <li id="pq-frame-<%= question.id %>" class="row">
+      <div class="pq-header col-md-12">
         <h3><%= question.uin %></h3>
         <% if question.question_type == 'NamedDay' %>
           <span class="label label-primary" title="Named day">N</span>
@@ -27,7 +27,6 @@
       <!-- loop through and show rejection reasons -->
       <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
 
-      <div class="row">
         <!-- start of 'sub column 1'-->
         <div class="col-md-6">
           <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
@@ -43,11 +42,10 @@
           <%= render partial: 'shared/pq_dashboard_column2', locals: {question: question} %>
           <% if !question.preview_url.nil? %>
             <div>
-              <a href="<%= question.preview_url %>">Question in Q&A Tool</a>
+              <a href="<%= question.preview_url %>">Question in Q&amp;A Tool</a>
             </div>
           <% end %>
         </div>
-      </div>
     </li>
   <% end %>
 </ul>
