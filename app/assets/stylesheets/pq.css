@@ -37,7 +37,7 @@ label{display:block;font-weight:500;font-size:18px;}
 #progress-menu-answer-data{min-height:200px}
 #progress-menu-form .button {padding:15px}
 #progress-menu-pq-data,#progress-menu-fc-data,#progress-menu-com-data,#progress-menu-sub-data,#progress-menu-pod-data,#progress-menu-min-data,#progress-menu-answer-data {padding:15px 15px 0px 0px;}
-#progress-menu a,.questions-list li p,.internal-deadline-form,.minister-dropdown,.trim-links-header,.button, .datetimepicker{margin:15px 0px;}
+#progress-menu a,.questions-list li p,.questions-list li label,.minister-dropdown,.trim-links-header,.button, .datetimepicker{margin:13px 0px;}
 .ao-reminder-link{margin:15px 0px}
 .comm-header{margin:15px 0px}
 .label-success{margin:15px 0px}
@@ -52,10 +52,10 @@ ul.questions-list{list-style:none}
 .questions-list li label{font-size:16px}
 
 .pq-header{padding:0.5em;}
-.pq-question{padding:5px;margin:10px;}
+.pq-question, .panel{padding:5px;margin:10px;}
 
 .question-allocation-list li{border:none;margin:3px 0px;padding:0px;}
-.allocation-info .btn{margin:1em 0em;}
+.allocation-info .btn{margin:13px 0px;}
 
 .select2-container .select2-choice abbr{top:5px!important;}
 a.btn-warning, .label-success {color:#000;padding:4px 6px;}
