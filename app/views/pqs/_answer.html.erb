@@ -36,3 +36,8 @@
 
 <label>Final response information released (TODO:Real list real of values)</label>
 <%= f.collection_select(:final_response_info_released, @progress_list, :id, :name) %>
+
+
+
+<label>Progress (TODO: for testing)</label>
+<%= f.collection_select(:progress_id, @progress_list, :id, :name) %>
