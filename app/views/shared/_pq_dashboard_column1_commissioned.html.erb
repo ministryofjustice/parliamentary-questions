@@ -1,18 +1,24 @@
 <% if !question.minister_id.nil? %>
-  <p>Replying minister:</p>
-  <%= mail_to question.minister.email, question.minister.name unless question.minister_id.nil? %>
+  <p>
+    Replying minister:<br />
+    <%= mail_to question.minister.email, question.minister.name unless question.minister_id.nil? %>
+  </p>
 <% end %>
 
 <% if !question.policy_minister_id.nil? %>
-  <p>Policy minister:</p>
-  <%= mail_to question.policy_minister.email, question.policy_minister.name %>
+  <p>
+    Policy minister:<br />
+    <%= mail_to question.policy_minister.email, question.policy_minister.name %>
+  </p>
 <% end %>
 
-<p>Action Officer(s) assigned</p>
+<p>Action Officer(s):</p>
 <% question.action_officers_pq.each do |ao_pq| %>
   <% if !ao_pq.reject %>
-    <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
-    <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+    <p>
+      <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
+      <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+    </p>
   <% end %>
 <% end %>
 
@@ -22,7 +28,9 @@
     <p class="label label-success">PQ Commissioned</p>
   </div>
   <div id="comm-details-<%= question.id %>" class="start-hidden">
-    <p><%= question.action_officers_pq.first.created_at.strftime("at %I:%M%p") %></p>
-    <p><%= question.action_officers_pq.first.created_at.strftime("%m/%d/%Y") %></p>
+    <p>
+      <%= question.action_officers_pq.first.created_at.strftime("at %I:%M%p") %><br />
+      <%= question.action_officers_pq.first.created_at.strftime("%m/%d/%Y") %>
+    </p>
   </div>
 </div>
