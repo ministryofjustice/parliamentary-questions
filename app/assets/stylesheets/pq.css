@@ -18,10 +18,11 @@ label{display:block;font-weight:500;font-size:18px;}
 
 #pages,#progress-menu a,.pq-header,.internal-deadline-form,.select2-container-multi .select2-choices li{width:100%}
 
-#pages{clear:both;display:block;text-align:center;}
+#pages{clear:both;display:block;text-align:center;margin:13px 0;}
 .pagination{margin-top:0;margin-bottom:0;}
 .pagination > li > a, .pagination > li > span{border-top:0;border-bottom:0;}
-.pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{border-radius:0;border-left:0;border-right:0;}
+.pagination > li:first-child > a, .pagination > li:first-child > span{border-radius:0;border-left:0;border-right:0;}
+.pagination > li:last-child > a, .pagination > li:last-child > span{border-radius:0;border-right:0;}
 
 #pq-details-header h3, .pq-header h3{display:inline}
 #search_field{width:8em;}
