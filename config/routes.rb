@@ -16,6 +16,7 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :directorates
 
   resources :watchlist_members
+  resources :actionlist_members
 
   resources :action_officers
 
