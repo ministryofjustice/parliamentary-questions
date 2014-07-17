@@ -1,5 +1,6 @@
 class WatchlistDashboardController < ApplicationController
-  before_action AOTokenFilter
+  before_action AOTokenFilter, only: [:index]
+  before_action :authenticate_user!, PQUserFilter, only: [:preview]
 
   def index
 
@@ -10,6 +11,10 @@ class WatchlistDashboardController < ApplicationController
 
     @questions = PQ.where(id: pq_ids).load
 
+  end
 
+  def preview
+    index
+    render 'index'
   end
 end
