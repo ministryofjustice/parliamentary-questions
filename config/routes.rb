@@ -58,6 +58,7 @@ ParliamentaryQuestions::Application.routes.draw do
   post 'assignment/:uin' => 'assignment#action'
 
   get 'watchlist/dashboard' => 'watchlist_dashboard#index'
+  get 'watchlist/preview' => 'watchlist_dashboard#preview'
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
   get 'find_action_officers' => 'action_officers#find'
 
