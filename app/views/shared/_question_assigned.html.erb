@@ -7,6 +7,7 @@
         <ul class="question-allocation-list" data-pqid="<%= question.id %>">
             <% question.action_officers_pq.each do |ao_pq|   %>
                 <li>
+                  <% if !ao_pq.action_officer.nil? %>
                     <%= ao_pq.action_officer.name  %>
                     (<%= ao_pq.action_officer.deputy_director.division.name %>)
                     <% if ao_pq.accept %>
@@ -23,6 +24,7 @@
                     <% else %>
                         <span class="label label-warning">No response</span>
                     <% end %>
+                  <% end %>
                 </li>
             <% end %>
         </ul>
