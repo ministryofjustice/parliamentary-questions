@@ -1,8 +1,12 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
+  IN_PROGRESS = 'In progress'
+  NEW = 'New'
+
   # TODO define the number of question per page
   @@per_page = 5
+
 
   def index
     @questions = PQ.new_questions.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
@@ -11,10 +15,14 @@ class DashboardController < ApplicationController
     # counter of times that the dashboard is hit
     $statsd.increment 'dashboard.hits'
 
+    @dashboard_state = NEW
   end
+
+
 
   def in_progress
     @questions = PQ.in_progress.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+    @dashboard_state = IN_PROGRESS
   end
 
   def search
@@ -22,19 +30,23 @@ class DashboardController < ApplicationController
 
   def by_status
     @questions = PQ.by_status(params[:qstatus]).paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+    @dashboard_state = NEW
   end
 
   def in_progress_by_status
     by_status
+    @dashboard_state = IN_PROGRESS
   end
 
   def transferred
     @questions = PQ.transferred.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+    @dashboard_state = NEW
     render 'by_status'
   end
 
   def i_will_write
     @questions = PQ.i_will_write_flag.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+    @dashboard_state = IN_PROGRESS
     render 'in_progress_by_status'
   end
 end
