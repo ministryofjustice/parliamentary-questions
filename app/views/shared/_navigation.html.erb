@@ -17,9 +17,13 @@
           </ul>
           <%= form_tag(search_path, { :method => 'get', :class => 'navbar-form navbar-right', :role => 'search'}) do %>
             <div class="form-group">
-              <%= text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Type a UIN' } %>
+              <%= text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search by UIN' } %>
             </div>
-            <%= submit_tag "Search", { :name => nil, :class => 'btn btn-default' } %>
+            <!-- <%= submit_tag "Search", { :name => nil, :class => 'btn btn-default' } %> -->
+            <%= button_tag(:type => 'submit', :class => 'btn btn-default', :id => 'search-button') do %>
+              <img src="<%= asset_path "search-icon.gif" %>">
+            <% end %>
+
           <% end %>
         <% end %>
         <ul class="nav navbar-nav">
