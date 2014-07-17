@@ -1,0 +1,33 @@
+<%= render partial: "shared/flash_messages", flash: flash %>
+
+<h1>Listing Actionlist members
+<%= link_to raw('<i class="fa fa-plus"></i> Add Actionlist member'), new_actionlist_member_path, {class: 'btn btn-success', style: 'color:#ffffff;'} %>
+</h1>
+
+<table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Active/Inactive</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @actionlist_members.each do |actionlist_member| %>
+      <tr>
+        <td><%= actionlist_member.name %></td>
+        <td><%= actionlist_member.email %></td>
+        <td>
+            <% if actionlist_member.deleted %>
+              <i class="fa fa-times"></i>Inactive
+            <% else %>
+              <i class="fa fa-check-circle"></i>Active
+            <% end %>
+        </td>
+        <td><%= link_to 'Show', actionlist_member, {class: 'btn btn-default' } %></td>
+        <td><%= link_to 'Edit', edit_actionlist_member_path(actionlist_member), {class: 'btn btn-info', style: 'color:#ffffff;'} %></td>
+      </tr>
+    <% end %>
+</table>
+
+<br>
+
