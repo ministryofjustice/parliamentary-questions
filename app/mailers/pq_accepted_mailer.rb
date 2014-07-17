@@ -13,6 +13,26 @@ class PQAcceptedMailer < PQBaseMailer
     @template_params[:policy_mpemail] = pq.policy_minister.email unless pq.policy_minister.nil?
     @template_params[:press_email] = ao.press_desk.email_output unless ao.press_desk.nil?
 
+
+    mp_cc_list = [
+        'Christopher.Beal@justice.gsi.gov.uk',
+        'Nicola.Calderhead@justice.gsi.gov.uk',
+        'thomas.murphy@JUSTICE.gsi.gov.uk'
+    ]
+
+    cc_list = [
+        @template_params[:mpemail],
+        @template_params[:policy_mpemail],
+        @template_params[:press_email]
+    ]
+
+    # add the mp_cc_list if the minister is 'Simon Hughes'
+    if !pq.minister.nil? && pq.minister.name == 'Simon Hughes'
+      cc_list.append(mp_cc_list)
+    end
+
+    @template_params[:cc_list] = cc_list.join(';')
+
     if urgent
       subject = "[Parliamentary-Questions] #{@template_params[:uin]} | URGENT please send the draft for the question that you have accepted"
     else
