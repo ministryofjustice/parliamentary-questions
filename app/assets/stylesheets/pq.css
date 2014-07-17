@@ -70,9 +70,10 @@ i.fa-envelope {color:#fff;margin-left:4px;}
 /* ============================================================================== */
 
 /* Status Filters =============================================================== */
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{color:#000;background-color:#ffbf47;}
 #status-filters{margin-top:20px}
 #status-filters .badge{float:right;min-width:2.5em;background-color:#000;}
-#status-filters .active .badge{background-color:#fff}
+#status-filters .active .badge{color:#6f7781;background-color:#fff}
 #db-filter-transferred, #db-filter-i-will-write{margin-top:32px}
 /* ============================================================================== */
 
