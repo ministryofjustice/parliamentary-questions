@@ -33,8 +33,9 @@ label{display:block;font-weight:500;font-size:18px;}
 .pagination > li:last-child > a, .pagination > li:last-child > span{border-radius:0;border-right:0;}
 
 #pq-details-header h3, .pq-header h3{display:inline}
-#search_field{width:8em;}
-#search-button {border:0;padding:0;}
+#search_form{display:block;}
+#search_field{width:8em;border-radius:0;}
+#search_button {margin-left:-4px;border-radius:0;width:34px;height:34px;background-color:#EEEEEE;background-image: url('icon-search.png'); background-size: 22px 22px; background-repeat: no-repeat;background-position:center;}
 #wrapper{border-bottom:0}
 /* ============================================================================== */
 
