@@ -98,12 +98,12 @@
     <div class="container">
       <div class="indicator cf">
         <p>
-          <span class="build"><%= config_item(:phase).to_s.capitalize %></span>
-          This is a new service - 
+          <span class="build"><%= config_item(:phase).upcase %></span>
+          This is a new service - your 
           <% if content_for?(:feedback_link) %>
             <%= yield(:feedback_link) %>
           <% else %>
-            <a href="<%= "#{config_item(:feedback_url)}" %>">your feedback</a>
+            <a href="<%= "#{config_item(:feedback_url)}" %>">feedback</a>
           <% end %>
           will help us to improve it
         </p>
