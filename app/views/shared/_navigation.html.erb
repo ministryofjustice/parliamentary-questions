@@ -15,15 +15,16 @@
             <li><%= link_to 'Dashboard', dashboard_path %></li>
             <li><%= link_to 'Admin', admin_path %></li>
           </ul>
-          <%= form_tag(search_path, { :method => 'get', :class => 'navbar-form navbar-right', :role => 'search'}) do %>
+          <%= form_tag(search_path, { :method => 'get', :id => 'search_form', :class => 'navbar-form navbar-right', :role => 'search'}) do %>
             <div class="form-group">
               <%= text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search by UIN' } %>
             </div>
-            <!-- <%= submit_tag "Search", { :name => nil, :class => 'btn btn-default' } %> -->
-            <%= button_tag(:type => 'submit', :class => 'btn btn-default', :id => 'search-button') do %>
-              <img src="<%= asset_path "search-icon.gif" %>">
+            <%= submit_tag "", { :name => nil, :id => 'search_button', :class => 'btn btn-default' } %>
+            <!-- 
+            <%= button_tag(:type => 'submit', :class => 'btn btn-default', :id => 'search_button') do %>
+              <img src="<%= asset_path "icon-search.png" %>">
             <% end %>
-
+              -->
           <% end %>
         <% end %>
         <ul class="nav navbar-nav">
