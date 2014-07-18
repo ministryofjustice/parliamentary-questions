@@ -1,4 +1,5 @@
 class PressDesksController < ApplicationController
+  before_action :authenticate_user!, PQUserFilter
   before_action :set_press_desk, only: [:show, :edit, :update, :destroy]
 
   # GET /press_desks
