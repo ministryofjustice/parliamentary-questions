@@ -1,8 +1,16 @@
 
 
 #global-header.with-proposition .header-wrapper .header-proposition .content{margin:6px 47% 0 15px; text-align: right;}
-#global-header .header-wrapper {padding-left:0px;max-width:1112px}
-body.alpha .indicator p{padding-left:0px;max-width:1112px;}
+#global-header .header-wrapper {padding-left:0px;max-width:1112px;color:#000;}
+
+/* header ======================================================================= */
+body.alpha .container .indicator{background-color:#fff;border-top:10px solid #005ea5;margin-left:14px;margin-right:14px;padding-left:0em !important}
+body.alpha .container .indicator p{max-width:1112px;color:#000;}
+body.alpha .container .indicator a{color:#288acd;text-decoration:underline;}
+body.alpha .container .indicator .build {display:inline-block;color:#fff;background-color:#d73380;font-weight:bold;padding:3px 6px;margin-right:12px;}
+
+/* ============================================================================== */
+
 a.btn-success{color:white}
 
 /* General ====================================================================== */
@@ -28,6 +36,7 @@ label{display:block;font-weight:500;font-size:18px;}
 #search_field{width:8em;}
 #search-button {border:0;padding:0;}
 #wrapper{border-bottom:0}
+/* ============================================================================== */
 
 /* PQ Details Page ============================================================== */
 .start-hidden{display:none;}
