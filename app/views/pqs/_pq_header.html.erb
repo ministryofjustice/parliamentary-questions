@@ -1,0 +1,28 @@
+<div id="pq-details-header" class="row">
+  <div class="col-md-8">
+    <h3><%= @pq.uin %></h3>
+    <!-- <%= @pq.progress.name %> -->
+    <% if @pq.question_type == 'NamedDay' %>
+        <span class="label label-primary" title="Named day">N</span>
+    <% end %>
+    <% if @pq.question_type == 'Ordinary' %>
+        <span class="label label-info" title="Ordinary Written">O</span>
+    <% end %>
+    <% if @pq.transferred  %>
+        <span class="label label-warning" title="Transferred">Transferred</span>
+    <% end %>
+    <% if @pq.i_will_write %>
+        <span class="label label-warning" title="I will write">I will write</span>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <% if !@pq.preview_url.nil? %>
+        <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <div id='trim_area_<%= @pq.id %>' class="right">
+      <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
+    </div>
+  </div>
+</div>
