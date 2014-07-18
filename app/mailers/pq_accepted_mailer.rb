@@ -31,6 +31,10 @@ class PQAcceptedMailer < PQBaseMailer
       cc_list.append(mp_cc_list)
     end
 
+    # add the people from the Actionlist
+    action_list_emails = ActionlistMember.where('deleted = false').collect{|it| it.email}
+    cc_list.append(action_list_emails)
+
     @template_params[:cc_list] = cc_list.join(';')
 
     if urgent
