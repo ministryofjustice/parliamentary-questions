@@ -18,7 +18,7 @@ class ImportService
 
     # log the time in statsd
     elapsed_seconds = Time.now - t_start
-    $statsd.timing('questions.import', elapsed_seconds)
+    $statsd.timing("#{StatsHelper::IMPORT}.time", elapsed_seconds)
   end
 
   def questions_by_uin_with_callback(uin, &block)
@@ -86,8 +86,10 @@ class ImportService
     )
 
     if pq.errors.empty?
+      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.error")
       yield ({question: q})
     else
+      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
       yield ({question: q, error: pq.errors.full_messages})
     end
 
