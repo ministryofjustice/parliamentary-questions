@@ -14,6 +14,7 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE deputy_directors RESTART I
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers RESTART IDENTITY;")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTITY;")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE ogds RESTART IDENTITY;")
 
 puts '-populate'
 progresses = Progress.create([{name: Progress.UNALLOCATED},
@@ -111,6 +112,8 @@ action_officers = ActionOfficer.create!([
 	{deputy_director_id: 10, name: 'Mary Henley', email: 'mary.henley@digital.justice.gov.uk', deleted: false, press_desk_id: 2}
 	])
 
-
+Ogd.create!([
+    {name:'Ministry of Defence', acronym:'MOD'}
+  ])
 
 puts 'Done'

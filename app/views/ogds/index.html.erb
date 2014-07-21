@@ -1,0 +1,35 @@
+<h1>Listing Other Government Departments</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Acronym</th>
+      <th>Active/inactive</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ogds.each do |ogd| %>
+      <tr>
+        <td><%= ogd.name %></td>
+        <td><%= ogd.acronym %></td>
+        <td>
+          <% if ogd.deleted %>
+              <i class="fa fa-times"></i>Inactive
+          <% else %>
+              <i class="fa fa-check-circle"></i>Active
+          <% end %>
+        </td>
+        <td><%= link_to 'Show', ogd %></td>
+        <td><%= link_to 'Edit', edit_ogd_path(ogd) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Government Department', new_ogd_path %>
