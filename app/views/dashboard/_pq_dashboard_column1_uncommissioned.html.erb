@@ -25,7 +25,8 @@
         <%= form_for [question, ActionOfficersPq.new], :remote => true, :authenticity_token => true, :html => { :id => "form-commission#{question.id}", :class => 'form-commission', :data => {:pqid => "#{question.id}" }}, :url => {:controller => 'commission', :action => "assign", :id => question.id } do |f| %>
             <%= collection_select(:action_officers_pq, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers', :id => "action_officers_pq_action_officer_id-#{question.id}" }) %>
             <%= f.hidden_field(:pq_id , :value => question.id, :id=>"pq_id-actoff-#{question.id}") %><br />
-            <%= f.submit 'Commission', :class => 'btn btn-success btn-sm' %>
+            <!-- <%= f.submit 'Commission', :class => 'btn btn-success btn-sm' %> -->
+            <%= f.submit 'Commission', :class => 'btn btn-commission' %>
         <% end %>
       </div>
   <% end %>
