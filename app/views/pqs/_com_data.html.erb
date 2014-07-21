@@ -43,7 +43,7 @@
               </p>
 
               <p>
-                <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
+                <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
               </p>
 
           <% end %>
@@ -55,7 +55,7 @@
                   <%= link_to raw('No response <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'btn-warning ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
                 </p>
                 <p>
-                  <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
+                  <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
                 </p>
               </div>
           <% end %>
@@ -77,4 +77,16 @@
   <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
 </p>
 
+
 <hr/>
+
+<div>
+  <label>Transfer out</label>
+  <%= f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Please select") %>
+  <label for ="transfer_out_date">Date transferred out</label>
+  <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+    <input id="transfer_out_date" class="form-control" name="pq[transfer_out_date]" type="text" value="<%= @pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil? %>">
+    <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+  </div>
+
+</div>
