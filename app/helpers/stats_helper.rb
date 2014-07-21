@@ -9,4 +9,6 @@ module StatsHelper
   MAIL_SUCCESS  = "mails.success"
   MAIL_FAILURE  = "mails.failed"
 
+
+  PAGES_TIMING   = "pages.timing"
 end
