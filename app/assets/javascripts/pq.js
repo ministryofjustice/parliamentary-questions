@@ -146,12 +146,14 @@ $(document).ready(function () {
             console.log('set html of', $divToFill.attr('id'), 'to', xhr.responseText);
             $divToFill.html(xhr.responseText);
         });
-    $('.comm-header').on('click', function () {
-        var pqid = $(this).data('pqid');
-        var $caret = $(this).children('#comm-caret-' + pqid);
-        $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
-        $('#comm-details-' + pqid).toggleClass('start-hidden');
-    });
+
+//    $('.comm-header').on('click', function () {
+//        var pqid = $(this).data('pqid');
+//        var $caret = $(this).children('#comm-caret-' + pqid);
+//        $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
+//        $('#comm-details-' + pqid).toggleClass('start-hidden');
+//    });
+
     $('.progress-menu-item').on('click',function() {
         //hide all progress-menu-data items
         $('.progress-menu-data').hide();
