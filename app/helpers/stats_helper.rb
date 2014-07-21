@@ -11,6 +11,7 @@ module StatsHelper
 
 
   PAGES_TIMING   = "pages.timing"
+  PAGES_ERRORS   = "pages.errors"
 
   TOKENS_GENERATE = "tokens.generate"
   TOKENS_VALID = "tokens.validation.valid"
