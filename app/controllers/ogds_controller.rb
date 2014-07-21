@@ -61,6 +61,14 @@ class OgdsController < ApplicationController
     end
   end
 
+  def find
+    @results = Ogd.where("name ILIKE :search OR acronym ILIKE :search", search: "%#{params[:q]}%").select(:id, :name, :deleted)
+    puts '++++++++++++++++++'
+  puts @results
+    puts '++++++++++++++++++'
+    render json: @results
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ogd
