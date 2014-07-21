@@ -1,8 +1,9 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
   before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister, :set_internal_deadline]
-  before_action :prepare_ministers 
+  before_action :prepare_ministers
   before_action :prepare_progresses
+  before_action :prepare_ogds
   before_action :load_service
 
   def index
@@ -105,7 +106,9 @@ private
         :pq_withdrawn,
         :holding_reply_flag,
         :final_response_info_released,
-        :round_robin_guidance_received
+        :round_robin_guidance_received,
+        :transfer_out_ogd_id,
+        :transfer_out_date
     )
   end
   def prepare_ministers
@@ -117,6 +120,9 @@ private
   end
   def prepare_progresses
     @progress_list = Progress.all
+  end
+  def prepare_ogds
+    @ogd_list = Ogd.all
   end
   def uppm_params
     params.require(:pq).permit(:policy_minister_id)
