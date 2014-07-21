@@ -22,6 +22,8 @@ class QuestionsService
   #         "Holding"
   #         "ScanningForVirus"
   def questions(args = { dateFrom: Date.today} )
+    t_start = Time.now
+
     format = "%Y-%m-%dT%H:%M:%S"
     options = {}
     options["dateFrom"] = args[:dateFrom].strftime(format)
@@ -30,7 +32,13 @@ class QuestionsService
 
     response = @http_client.questions(options)
 
-    return parse_questions_xml(response)
+    result = parse_questions_xml(response)
+
+    # log the time in statsd
+    elapsed_seconds = Time.now - t_start
+    $statsd.timing("#{StatsHelper::IMPORT}.qa.response_time", elapsed_seconds)
+
+    return result
   end
 
   def questions_by_uin(uin)

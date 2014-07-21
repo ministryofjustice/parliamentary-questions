@@ -21,6 +21,8 @@ class WatchlistReportService
     end_of_day = DateTime.now.end_of_day.change({:offset => 0})
     token = @tokenService.generate_token(path, entity, end_of_day)
 
+    $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"
+
     template = Hash.new
     template[:name] = member.name
     template[:entity] = entity
