@@ -2,7 +2,7 @@
 	<div class="row">
     	<div id="pq-reject-reasons-<%= question.id %>" class="col-md-12">
 			<p id="pq-reject-reasons-header-<%= question.id %>">
-				<div class="label label-danger">PQ Rejected</div>
+				<div class="label flag-pq-rejected">PQ Rejected</div>
 				 by <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
 			</p>
 			<p class="panel panel-danger"><%= r.reason %></p>

@@ -54,10 +54,28 @@ label{display:block;font-weight:500;font-size:18px;}
 #progress-menu-pq-data,#progress-menu-fc-data,#progress-menu-com-data,#progress-menu-sub-data,#progress-menu-pod-data,#progress-menu-min-data,#progress-menu-answer-data {padding:15px 15px 0px 0px;}
 #progress-menu a,.questions-list li p,.questions-list li label,.minister-dropdown,.trim-links-header,.button, .datetimepicker{margin:13px 0px;}
 .ao-reminder-link{margin:15px 0px}
-.comm-header{margin:15px 0px}
-.label-success{margin:15px 0px}
+/*.comm-header{margin:15px 0px}*/
+/*.label-success{margin:15px 0px}*/
 
-.label-danger{padding:6px 12px}
+/*.label-danger{padding:6px 12px}*/
+
+.flag-pq-accepted{
+    border-radius:6px;
+    color:#ffffff;
+    background-color:#28a197;
+    font-weight:normal;
+    margin-right: 1em;
+}
+
+.flag-pq-rejected{
+    border-radius:6px;
+    color:#ffffff;
+    background-color:#d0021b;
+    font-weight:normal;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
 /* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
@@ -76,11 +94,15 @@ ul.questions-list{list-style:none}
 a.btn-warning, .label-success {color:#000;padding:4px 6px;}
 i.fa-envelope {color:#fff;margin-left:4px;}
 
+
 /*a:visited .btn-warning.ao-reminder-link {color:#000}*/
 /* ============================================================================== */
 
 /* Status Filters =============================================================== */
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{color:#000;background-color:#ffbf47;}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a{color:#000;}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{background-color:#ffbf47;}
+
+
 #status-filters{margin-top:20px}
 #status-filters .badge{float:right;min-width:2.5em;background-color:#000;}
 #status-filters .active .badge{color:#6f7781;background-color:#fff}
@@ -120,12 +142,11 @@ h2 .badge{vertical-align:middle;background-color:#000;}
 .trim-links-header {
     position:relative;
     cursor:default;
-    color:#000;
+    color:#288ACD;
+    border: none;
 }
 
 .trim-links-form {
-    /*border: 2px black solid;
-    background-color: grey;*/
     width:250px;
     height: auto;
     margin: 10px;
@@ -137,8 +158,8 @@ h2 .badge{vertical-align:middle;background-color:#000;}
     cursor:default;
     z-index:5;
     float:left;
-    color:black;
     line-height:35px;
+    
 }
 
 input[type="file"] {
@@ -147,11 +168,14 @@ input[type="file"] {
 
 .trim-links-form:hover {
     display:block;
+    background-color: #fff;
 }
 
 .trim-links-cancel {
     float:left;
     height:35px;
+    color:#288ACD;
+    border: none;
 }
 .file-chooser {
     display: none!important;
@@ -162,6 +186,7 @@ input[type="file"] {
     line-height: 35px;
     padding-left: 10px;
 }
+
 
 .progress-menu-form {
     border:1px solid black;
