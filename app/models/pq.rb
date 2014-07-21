@@ -70,6 +70,14 @@ class PQ < ActiveRecord::Base
   # or an array
   #  -> by_status([Progress.ALLOCATED_ACCEPTED, Progress.ALLOCATED_PENDING])
   def self.by_status(status)
+    # monitor the number of questions, if you query one status only
+    if !status.kind_of?(Array)
+      # count it is use in the dashboard, so if hits the cache
+      number_of_questions = joins(:progress).where(progresses: {name: status}).count
+      key = status.underscore.gsub(' ', '_')
+      $statsd.gauge("#{StatsHelper::PROGRESS}.#{key}", number_of_questions)
+    end
+
     joins(:progress).where(progresses: {name: status})
   end
 
