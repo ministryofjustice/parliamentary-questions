@@ -16,4 +16,7 @@ module StatsHelper
   TOKENS_VALID = "tokens.validation.valid"
   TOKENS_INVALID = "tokens.validation.valid"
 
+
+  IMPORT = "questions.import"
+
 end
