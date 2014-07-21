@@ -14,6 +14,20 @@ class AOTokenFilter
 
     is_valid = token_service.is_valid(token, path, entity)
 
+    suffix = 'other'
+    if path.include? 'assignment'
+      suffix = 'commission'
+    end
+    if path.include? 'watchlist'
+      suffix = 'watchlist'
+    end
+
+    if is_valid
+      $statsd.increment "#{StatsHelper::TOKENS_VALID}.#{suffix}"
+    else
+      $statsd.increment "#{StatsHelper::TOKENS_INVALID}.#{suffix}"
+    end
+
     return is_valid
   end
 end
