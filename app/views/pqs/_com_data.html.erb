@@ -39,11 +39,11 @@
               <% end %>
 
               <p>
-                <%= link_to raw('Re-send acceptance email <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'btn btn-success ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
+                <%= link_to raw('Re-send acceptance email <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'btn btn-no-response ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
               </p>
 
               <p>
-                <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
+                <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
               </p>
 
           <% end %>
@@ -52,10 +52,10 @@
               <div>
                 <p>
                   <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
-                  <%= link_to raw('No response <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'btn-warning ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
+                  <%= link_to raw('No response <i class="fa fa-envelope"></i>'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'btn btn-no-response ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
                 </p>
                 <p>
-                  <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-warning manual-reject-link', title: 'Reject the question manually'} %>
+                  <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
                 </p>
               </div>
           <% end %>
