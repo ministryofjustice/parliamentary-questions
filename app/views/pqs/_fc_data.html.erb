@@ -3,7 +3,10 @@
 <% else %>
     <p><i class="fa fa-times-circle text-danger"></i> PQ not viewed</p>
 <% end %>
-
+<div class="checkbox">
+    <%= f.label(:seen_by_finance) %>
+    <%= f.check_box(:seen_by_finance) %>
+</div>
 <div class="checkbox">
 	<%= f.label(:finance_interest, 'Interest in PQ') %>
 	<%= f.check_box(:finance_interest) %>
