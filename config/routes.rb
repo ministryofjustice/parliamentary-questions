@@ -1,6 +1,9 @@
 ParliamentaryQuestions::Application.routes.draw do
 
 
+  resources :ogds
+  get 'find_ogd' => 'ogds#find'
+
   resources :press_desks
 
   resources :press_officers

@@ -1,0 +1,33 @@
+<%= form_for(@ogd) do |f| %>
+  <% if @ogd.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ogd.errors.count, "error") %> prohibited this ogd from being saved:</h2>
+
+      <ul>
+      <% @ogd.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :acronym %><br>
+    <%= f.text_field :acronym %>
+  </div>
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :deleted  %> Inactive
+
+        </label>
+      </div>
+    </div>
+  <div class="actions">
+    <%= f.submit 'Update OGD' %>
+  </div>
+<% end %>
