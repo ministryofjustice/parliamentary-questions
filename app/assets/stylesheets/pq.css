@@ -50,31 +50,66 @@ label{display:block;font-weight:500;font-size:18px;}
 #progress-menu a:hover{color:#000;border-bottom:1px solid #000;}
 #progress-panel{margin:0px;padding:0px;}
 #progress-menu-answer-data{min-height:200px}
-#progress-menu-form .button {padding:15px}
+/*#progress-menu-form .button {padding:15px}*/
 #progress-menu-pq-data,#progress-menu-fc-data,#progress-menu-com-data,#progress-menu-sub-data,#progress-menu-pod-data,#progress-menu-min-data,#progress-menu-answer-data {padding:15px 15px 0px 0px;}
-#progress-menu a,.questions-list li p,.questions-list li label,.minister-dropdown,.trim-links-header,.button, .datetimepicker{margin:13px 0px;}
-.ao-reminder-link{margin:15px 0px}
+#progress-menu a,.questions-list li p,.questions-list li label,.minister-dropdown,.trim-links-header,/*.button,*/ .datetimepicker{margin:13px 0px;}
+/*.ao-reminder-link{margin:15px 0px}*/
 /*.comm-header{margin:15px 0px}*/
 /*.label-success{margin:15px 0px}*/
 
 /*.label-danger{padding:6px 12px}*/
 
-.flag-pq-accepted{
-    border-radius:6px;
-    color:#ffffff;
-    background-color:#28a197;
-    font-weight:normal;
-    margin-right: 1em;
-}
+/* = Buttons ========================================================== */
+.btn-commission
+{display:block;border-radius:0;color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-left-color:#00823b;border-bottom:2px solid #003518;margin:13px 0;}
 
-.flag-pq-rejected{
-    border-radius:6px;
-    color:#ffffff;
-    background-color:#d0021b;
-    font-weight:normal;
-    margin-left: 1em;
-    margin-right: 1em;
-}
+.btn-commission:hover,
+.btn-commission:focus,
+.btn-commission:active,
+.btn-commission.active,
+.open
+.dropdown-toggle.btn-success
+{color:#ffffff;background-color:#47a447;border-color:#398439;}
+
+.btn-save
+{display:block;border-radius:0;color:#fff;background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;border-bottom:2px solid #7f9a8b;margin:13px 0;}
+
+.btn-save:hover,
+.btn-save:focus,
+.btn-save:active,
+.btn-save.active
+{color:#ffffff;background-color:#7fc19c;border-color:#398439;}
+
+
+/* = Flags ========================================================== */
+.flag-finance-unchecked,
+.flag-no-response,
+.flag-pq-accepted,
+.flag-pq-rejected,
+.btn-no-response,
+.flag-with-pod,
+.flag-pod-query,
+.flag-pod-cleared,
+.flag-with-minister,
+.flag-minister-query,
+.flag-minister-cleared,
+.flag-will-write
+{border-radius:6px;color:#fff;font-weight:normal;}
+
+.flag-finance-unchecked{background-color:#f47738}
+.flag-no-response{background-color:#f47738}
+.flag-pq-accepted{background-color:#28a197}
+.flag-pq-rejected{background-color:#d0021b}
+.btn-no-response{background-color:#f47738}
+.flag-with-pod{background-color:#2e358b}
+.flag-pod-query{background-color:#5461ff}
+.flag-pod-cleared{background-color:#a1a8ff}
+.flag-with-minister{background-color:#82622e}
+.flag-minister-query{background-color:#b58840}
+.flag-minister-cleared{background-color:#c1a87e}
+.flag-will-write{background-color:#912b88}
+
+a.btn-no-response{color:#fff}
 
 /* ============================================================================== */
 
@@ -102,20 +137,13 @@ i.fa-envelope {color:#fff;margin-left:4px;}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a{color:#000;}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{background-color:#ffbf47;}
 
-
 #status-filters{margin-top:20px}
 #status-filters .badge{float:right;min-width:2.5em;background-color:#000;}
 #status-filters .active .badge{color:#6f7781;background-color:#fff}
 #db-filter-transferred, #db-filter-i-will-write{margin-top:32px}
 /* ============================================================================== */
 
-/* Status Filters =============================================================== */
 
-
-
-
-
-/* ============================================================================== */
 h2 {border-bottom:solid 1px #bfc1c3; padding:.5em 0em;}
 h2 .badge{vertical-align:middle;background-color:#000;}
 

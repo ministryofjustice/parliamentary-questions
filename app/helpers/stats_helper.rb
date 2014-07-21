@@ -19,5 +19,6 @@ module StatsHelper
 
 
   IMPORT = "questions.import"
+  PROGRESS = "questions.progress"
 
 end
