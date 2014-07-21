@@ -1,18 +1,20 @@
-<div id="policy-minister-form-<%= question.id %>" class="minister-dropdown">
-  <span id="policy-minister-<%= question.id %>"></span>
-  <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "policy-minister-form#{question.id}", :class => 'change-minister-form', :data => {:pqid => "#{question.id}", :current=>"#{question.policy_minister_id}"}}, :url => {:controller => 'pqs', :action => "assign_minister", :id => question.uin} do |f| %>
-      <%= f.collection_select  :policy_minister_id, Minister.all, :id, :name, {:include_blank => true} ,{ :data => {:placeholder => "Select Policy Minister"}, :class => 'change-policy-minister single-select-dropdown', :id=>"policy_minister_id-#{question.id}"} %>
-      <%= f.hidden_field(:pq_id , :value => question.id , :id=>"pq_id-polmin-#{question.id}") %>
-      <%= f.submit 'Select Minister', :class => 'btn btn-success btn-xs start-hidden',  :id => "btn-policy-minister#{question.id}" %>
-  <% end %>
-</div>
-
 <div id="answering-minister-form-<%= question.id %>" class="minister-dropdown">
   <span id="answering-minister-<%= question.id %>"></span>
+  <label>Assign Answering Minister</label>
   <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "answering-minister-form#{question.id}", :class => 'change-minister-form', :data => {:pqid => "#{question.id}", :current=>"#{question.minister_id}"}}, :url => {:controller => 'pqs', :action => "assign_answering_minister", :id => question.uin} do |f| %>
       <%= f.collection_select  :minister_id, Minister.all, :id, :name, {:include_blank => true} ,{ :data => {:placeholder => "Select Answering Minister"}, :class => 'change-policy-minister single-select-dropdown', :id=>"answering_minister_id-#{question.id}"} %>
       <%= f.hidden_field(:pq_id , :value => question.id , :id=>"pq_id-ansmin-#{question.id}") %>
       <%= f.submit 'Select Minister', :class => 'btn btn-success btn-xs start-hidden',  :id => "btn-answering-minister#{question.id}" %>
+  <% end %>
+</div>
+
+<div id="policy-minister-form-<%= question.id %>" class="minister-dropdown">
+  <span id="policy-minister-<%= question.id %>"></span>
+  <label>Assign Policy Minister</label>
+  <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "policy-minister-form#{question.id}", :class => 'change-minister-form', :data => {:pqid => "#{question.id}", :current=>"#{question.policy_minister_id}"}}, :url => {:controller => 'pqs', :action => "assign_minister", :id => question.uin} do |f| %>
+      <%= f.collection_select  :policy_minister_id, Minister.all, :id, :name, {:include_blank => true} ,{ :data => {:placeholder => "Select Policy Minister"}, :class => 'change-policy-minister single-select-dropdown', :id=>"policy_minister_id-#{question.id}"} %>
+      <%= f.hidden_field(:pq_id , :value => question.id , :id=>"pq_id-polmin-#{question.id}") %>
+      <%= f.submit 'Select Minister', :class => 'btn btn-success btn-xs start-hidden',  :id => "btn-policy-minister#{question.id}" %>
   <% end %>
 </div>
 
@@ -22,7 +24,7 @@
         <label>Add action officer(s) for commissioning</label>
         <%= form_for [question, ActionOfficersPq.new], :remote => true, :authenticity_token => true, :html => { :id => "form-commission#{question.id}", :class => 'form-commission', :data => {:pqid => "#{question.id}" }}, :url => {:controller => 'commission', :action => "assign", :id => question.id } do |f| %>
             <%= collection_select(:action_officers_pq, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers', :id => "action_officers_pq_action_officer_id-#{question.id}" }) %>
-            <%= f.hidden_field(:pq_id , :value => question.id, :id=>"pq_id-actoff-#{question.id}") %>
+            <%= f.hidden_field(:pq_id , :value => question.id, :id=>"pq_id-actoff-#{question.id}") %><br />
             <%= f.submit 'Commission', :class => 'btn btn-success btn-sm' %>
         <% end %>
       </div>
