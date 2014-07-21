@@ -81,8 +81,8 @@
 <hr/>
 
 <div>
-  <label>Transfer out</label>
-  <%= f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Please select") %>
+  <label>Transfer out to</label>
+  <%= f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
   <label for ="transfer_out_date">Date transferred out</label>
   <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
     <input id="transfer_out_date" class="form-control" name="pq[transfer_out_date]" type="text" value="<%= @pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil? %>">

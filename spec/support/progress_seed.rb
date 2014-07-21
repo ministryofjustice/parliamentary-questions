@@ -12,4 +12,5 @@ def progress_seed
   let!(:minister_query) { create(:progress, name: Progress.MINISTER_QUERY) }
   let!(:minister_cleared) { create(:progress, name: Progress.MINISTER_CLEARED) }
   let!(:answered) { create(:progress, name: Progress.ANSWERED) }
-end 
+  let!(:transferred_out) { create(:progress, name: Progress.TRANSFERRED_OUT) }
+end

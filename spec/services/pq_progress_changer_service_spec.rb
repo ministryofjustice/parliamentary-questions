@@ -356,4 +356,18 @@ describe 'PQProgressChangerService' do
   end
 
 
+  describe 'TRANSFERRED_OUT' do
+    it 'should move from any other status when relevant data is set' do
+      uin = 'TEST1'
+      pq = create(:PQ, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
+      pq.update(transfer_out_ogd_id: DateTime.now,
+                transfer_out_date: DateTime.now)
+
+      @pq_progress_changer_service.update_progress(pq)
+
+      pq = PQ.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.TRANSFERRED_OUT)
+    end
+  end
+
 end

@@ -9,6 +9,7 @@ class PQProgressChangerService
     minister_query_filter(pq)
     minister_cleared_filter(pq)
     answered_filter(pq)
+    transferred_out(pq)
   end
 
   def pod_waiting_filter(pq)
@@ -123,6 +124,12 @@ class PQProgressChangerService
 
   end
 
+  def transferred_out(pq)
+    if !pq.transfer_out_ogd_id.nil? && !pq.transfer_out_date.nil?
+      update_pq(pq, Progress.transferred_out)
+      return
+    end
+  end
 
   private
   def update_pq(pq, progress)
