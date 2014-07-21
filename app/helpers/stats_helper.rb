@@ -9,4 +9,11 @@ module StatsHelper
   MAIL_SUCCESS  = "mails.success"
   MAIL_FAILURE  = "mails.failed"
 
+
+  PAGES_TIMING   = "pages.timing"
+
+  TOKENS_GENERATE = "tokens.generate"
+  TOKENS_VALID = "tokens.validation.valid"
+  TOKENS_INVALID = "tokens.validation.valid"
+
 end

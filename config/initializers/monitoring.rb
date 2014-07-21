@@ -8,7 +8,7 @@ ActiveSupport::Notifications.subscribe /process_action.action_controller/ do |*a
   view_duration = event.payload[:view_runtime]
   db_duration = event.payload[:db_runtime]
 
-  key = "pages.#{controller}.#{action}"
+  key = "#{StatsHelper::PAGES_TIMING}.#{controller}.#{action}"
   key = key.underscore
 
   $statsd.timing("#{key}.page", page_duration)
