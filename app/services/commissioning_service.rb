@@ -26,6 +26,8 @@ class CommissioningService
     tomorrow_midnight = DateTime.now.midnight.change({:offset => 0}) + 1.days
     token = @tokenService.generate_token(path, entity, tomorrow_midnight)
 
+    $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
+
     template = Hash.new
     template[:name] = ao.name
     template[:entity] = entity
