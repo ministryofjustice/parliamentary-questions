@@ -36,7 +36,7 @@ class QuestionsService
 
     # log the time in statsd
     elapsed_seconds = Time.now - t_start
-    $statsd.timing("#{StatsHelper::IMPORT}.qa.response_time", elapsed_seconds)
+    $statsd.timing("#{StatsHelper::IMPORT}.qa.response_time", elapsed_seconds * 1000)
 
     return result
   end
