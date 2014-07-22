@@ -162,7 +162,7 @@ label{display:block;font-weight:500;font-size:18px;}
 .flag-minister-query,
 .flag-minister-cleared,
 .flag-will-write
-{border-radius:6px;color:#fff;font-weight:normal;}
+{border-radius:6px;color:#fff;font-weight:normal;font-size:14px;padding:6px 12px;}
 
 .flag-finance-unchecked{background-color:#f47738}
 .flag-no-response{background-color:#f47738}
