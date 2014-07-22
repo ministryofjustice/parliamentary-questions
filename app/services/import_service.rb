@@ -18,7 +18,7 @@ class ImportService
 
     # log the time in statsd
     elapsed_seconds = Time.now - t_start
-    $statsd.timing("#{StatsHelper::IMPORT}.import_time", elapsed_seconds)
+    $statsd.timing("#{StatsHelper::IMPORT}.import_time", elapsed_seconds * 1000)
   end
 
   def questions_by_uin_with_callback(uin, &block)
