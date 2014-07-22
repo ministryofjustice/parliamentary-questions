@@ -97,8 +97,7 @@
     
     <div class="container">
       <div class="indicator cf">
-        <p>
-          <span class="build"><%= config_item(:phase).upcase %></span>
+          <span id="build"><%= config_item(:phase).upcase %></span>
           This is a new service - your 
           <% if content_for?(:feedback_link) %>
             <%= yield(:feedback_link) %>
@@ -106,7 +105,6 @@
             <a href="<%= "#{config_item(:feedback_url)}" %>">feedback</a>
           <% end %>
           will help us to improve it
-        </p>
       </div>
 
       <%= yield :after_header %>
