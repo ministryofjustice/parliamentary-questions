@@ -20,7 +20,6 @@ class PQ < ActiveRecord::Base
     progress_id == pro.id
   end
 
-
   def action_officer_accepted
     action_officers_pq.each do |ao_pq|
       if ao_pq.accept
@@ -31,24 +30,13 @@ class PQ < ActiveRecord::Base
   end
 
   def self.new_questions()
-    by_status([
-                  Progress.ALLOCATED_ACCEPTED,
-                  Progress.ALLOCATED_PENDING,
-                  Progress.UNALLOCATED,
-                  Progress.REJECTED
-              ])
+    monitor_new_questions
+    new_questions_internal
   end
 
   def self.in_progress()
-    by_status([
-                  Progress.DRAFT_PENDING,
-                  Progress.POD_WAITING,
-                  Progress.POD_QUERY,
-                  Progress.POD_CLEARED,
-                  Progress.MINISTER_WAITING,
-                  Progress.MINISTER_QUERY,
-                  Progress.MINISTER_CLEARED
-              ])
+    monitor_in_progress_questions
+    in_progress_internal
   end
 
   def short_house_name
@@ -70,15 +58,8 @@ class PQ < ActiveRecord::Base
   # or an array
   #  -> by_status([Progress.ALLOCATED_ACCEPTED, Progress.ALLOCATED_PENDING])
   def self.by_status(status)
-    # monitor the number of questions, if you query one status only
-    if !status.kind_of?(Array)
-      # count it is use in the dashboard, so if hits the cache
-      number_of_questions = joins(:progress).where(progresses: {name: status}).count
-      key = status.underscore.gsub(' ', '_')
-      $statsd.gauge("#{StatsHelper::PROGRESS}.#{key}", number_of_questions)
-    end
-
-    joins(:progress).where(progresses: {name: status})
+    monitor_questions_by_status(status)
+    by_status_internal(status)
   end
 
   def self.allocated_accepted()
@@ -129,5 +110,56 @@ class PQ < ActiveRecord::Base
   def self.i_will_write_flag
     joins(:progress).where('pqs.i_will_write = true AND progresses.name != ?', Progress.ANSWERED)
   end
+
+
+  private
+
+  def self.by_status_internal(status)
+    joins(:progress).where(progresses: {name: status})
+  end
+
+  def self.new_questions_internal()
+    by_status([
+                  Progress.ALLOCATED_ACCEPTED,
+                  Progress.ALLOCATED_PENDING,
+                  Progress.UNALLOCATED,
+                  Progress.REJECTED
+              ])
+  end
+
+  def self.in_progress_internal()
+    by_status([
+                  Progress.DRAFT_PENDING,
+                  Progress.POD_WAITING,
+                  Progress.POD_QUERY,
+                  Progress.POD_CLEARED,
+                  Progress.MINISTER_WAITING,
+                  Progress.MINISTER_QUERY,
+                  Progress.MINISTER_CLEARED
+              ])
+  end
+
+  def self.monitor_new_questions
+    number_of_questions = new_questions_internal.count
+    $statsd.gauge("#{StatsHelper::PROGRESS}.new_questions", number_of_questions)
+  end
+
+  def self.monitor_in_progress_questions
+    number_of_questions = in_progress_internal.count
+    $statsd.gauge("#{StatsHelper::PROGRESS}.in_progress", number_of_questions)
+  end
+
+  def self.monitor_questions_by_status(status)
+    # monitor the number of questions, if you query one status only
+    if status.kind_of?(Array)
+      return
+    end
+
+    # count it is use in the dashboard, so it hits the cache
+    number_of_questions = by_status_internal(status).count
+    key = status.underscore.gsub(' ', '_')
+    $statsd.gauge("#{StatsHelper::PROGRESS}.#{key}", number_of_questions)
+  end
+
 
 end
