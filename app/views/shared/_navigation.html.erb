@@ -19,12 +19,9 @@
             <div class="form-group">
               <%= text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search by UIN' } %>
             </div>
-            <%= submit_tag "", { :name => nil, :id => 'search_button', :class => 'btn btn-default' } %>
-            <!-- 
-            <%= button_tag(:type => 'submit', :class => 'btn btn-default', :id => 'search_button') do %>
-              <img src="<%= asset_path "icon-search.png" %>">
+            <%= button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do %>
+              <i class='glyphicon glyphicon-search'></i>
             <% end %>
-              -->
           <% end %>
         <% end %>
         <ul class="nav navbar-nav">
