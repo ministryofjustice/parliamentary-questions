@@ -16,7 +16,7 @@ body.alpha .indicator a:link
 {margin-left:65%;}
 
 #wrapper
-{border-bottom:none}
+{border-bottom:none;}
 
 h1
 {font-size:24px;font-weight:normal;display:inline;}
@@ -42,7 +42,7 @@ h2 .badge
 {margin-left:-4px;border-radius:0;width:34px;height:34px;color:#999;background-color:#fff;}
 
 .glyphicon-search
-{color:#979797}
+{color:#979797;}
 
 /* ============================================================================== */
 
@@ -54,16 +54,16 @@ h2 .badge
 {background-color:#ffbf47;}
 
 #status-filters
-{margin-top:20px}
+{margin-top:20px;}
 
 #status-filters .badge
 {float:right;min-width:2.5em;background-color:#000;}
 
 #status-filters .active .badge
-{color:#6f7781;background-color:#fff}
+{color:#6f7781;background-color:#fff;}
 
 #db-filter-transferred, #db-filter-i-will-write
-{margin-top:32px}
+{margin-top:32px;}
 
 /* ============================================================================== */
 
@@ -73,32 +73,54 @@ h2 .badge
 {/*border:1px solid #000;*/}
 
 .questions-list li
-{list-style:none;padding:15px}
+{list-style:none;padding:15px;}
 
 .questions-list li label
-{font-size:16px}
+{font-size:16px;}
 
 hr
 {color:#bfc1c3;background-color:#bfc1c3;height:1px;margin:0;}
 
 /* ============================================================================== */
 
-a.btn-success{color:white}
-
 /* = General ==================================================================== */
 
-.inline{display:inline}
-.right{float:right}
+.inline
+{display:inline;}
 
-label{display:block;font-weight:500;font-size:18px;}
-.date, .datetimepicker{width:12em;}
-.label-primary, .label-info, .label-warning {vertical-align:6px;margin-left:1em;padding:0.4em 0.6em;}
+.right
+{float:right;}
 
-#pages,#progress-menu a,.pq-header,.internal-deadline-form,.select2-container-multi .select2-choices li{width:100%}
+label
+{display:block;font-weight:500;font-size:18px;}
+
+.date, .datetimepicker
+{width:12em;}
+
+.label-primary,
+.label-info,
+.label-warning
+{vertical-align:6px;margin-left:1em;padding:0.4em 0.6em;}
+
+a.btn-success
+{color:white;}
+
+#pages,
+.pq-header,
+.internal-deadline-form,
+.select2-container-multi .select2-choices li
+{width:100%;}
+
+.questions-list li p,
+.questions-list li label,
+.minister-dropdown,
+.trim-links-header,
+.datetimepicker
+{margin:13px 0px;}
 
 /* ============================================================================== */
 
-/* PQ Details Page ============================================================== */
+/* = PQ Details Page ============================================================ */
 
 .start-hidden
 {display:none;}
@@ -106,34 +128,33 @@ label{display:block;font-weight:500;font-size:18px;}
 #pq-details-header
 {line-height:3.1em;padding:0px;}
 
-#pq-details-header h3, .pq-header h3{display:inline}
+#pq-details-header h3, .pq-header h3
+{display:inline;}
 
 #pq-detail-area
-{padding-top:1em;padding-bottom:1em;}
+{padding:15px 0 15px 15px;}
 
 .progress-menu-form
-{border:1px solid black;padding-left:10px;}
+{border:1px solid #000;padding:15px;}
 
 #progress-menu
 {padding-right:0;margin-right:0;}
 
 #progress-menu a
-{display:block;text-decoration:none;}
+{display:block;text-decoration:none;border-bottom:5px solid #fff;margin:15px 0px;}
 
 #progress-menu a:hover
-{color:#000;border-bottom:1px solid #000;}
+{color:#000;border-bottom:5px solid #000;}
 
 #progress-panel
-{margin:0px;padding:0px;}
+{margin:0px;padding:15px 15px 15px 0;}
 
 #progress-menu-answer-data
-{min-height:200px}
+{min-height:200px;}
 
-#progress-menu-pq-data,#progress-menu-fc-data,#progress-menu-com-data,#progress-menu-sub-data,#progress-menu-pod-data,#progress-menu-min-data,#progress-menu-answer-data {padding:15px 15px 0px 0px;}
+/* ============================================================================== */
 
-#progress-menu a,.questions-list li p,.questions-list li label,.minister-dropdown,.trim-links-header, .datetimepicker{margin:13px 0px;}
-
-/* = Buttons ========================================================== */
+/* = Buttons ==================================================================== */
 .btn-commission
 {display:block;border-radius:0;color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-left-color:#00823b;border-bottom:2px solid #003518;margin:13px 0;}
 
@@ -154,7 +175,9 @@ label{display:block;font-weight:500;font-size:18px;}
 .btn-save.active
 {color:#ffffff;background-color:#7fc19c;border-color:#398439;}
 
-/* = Flags ========================================================== */
+/* ============================================================================== */
+
+/* = Flags ====================================================================== */
 
 .flag-finance-unchecked,
 .flag-no-response,
@@ -202,15 +225,15 @@ i.fa-envelope {color:#fff;margin-left:4px;}
 /* ============================================================================== */
 
 .question-allocation-list
-{list-style: circle}
+{list-style: circle;}
 
 .accept-reject-form
 {margin: 20px 0;}
 
 .pq-inline-form
-{display:inline!important}
+{display:inline!important;}
 
-/* = TRIM links ============================================================ */
+/* = TRIM links ================================================================= */
 
 .trim-links-header
 {position:relative;cursor:default;color:#288ACD;border:none;}
@@ -219,7 +242,7 @@ i.fa-envelope {color:#fff;margin-left:4px;}
 {width:250px;height:auto;margin:10px;vertical-align:middle;display:none;position:absolute;top:-12px;left:-12px;cursor:default;z-index:5;float:left;line-height:35px;}
 
 input[type="file"]
-{line-height:10px}
+{line-height:10px;}
 
 .trim-links-form:hover
 {display:block;background-color:#fff;}
@@ -228,7 +251,7 @@ input[type="file"]
 {float:left;height:35px;color:#288ACD;border:none;}
 
 .file-chooser
-{display:none!important}
+{display:none!important;}
 
 .file-choose-replace
 {display:inline;float:left;line-height:35px;padding-left:10px;}
@@ -238,7 +261,7 @@ input[type="file"]
 /* = Pagination ================================================================= */
 
 #pages
-{clear:both;display:block;text-align:center;margin:13px 0;}
+{clear:both;display:block;width:100%;text-align:center;margin:13px 0;}
 
 .pagination
 {margin-top:0;margin-bottom:0;}
