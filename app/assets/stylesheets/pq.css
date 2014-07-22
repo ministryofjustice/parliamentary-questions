@@ -1,16 +1,19 @@
-#global-header .header-wrapper {max-width:1112px}
+#global-header .header-wrapper {max-width:1112px;}
 
 .container
-{padding: 0 15px 15px 15px}
+{padding: 0 15px 15px 15px;}
 
 body.alpha .indicator
-{padding:8px 0px; background-color:#fff; border-top:10px solid #005ea5;}
+{padding:8px 0px;background-color:#fff;border-top:10px solid #005ea5;}
 
 body.alpha .indicator a:link
-{color:#288acd; text-decoration:underline;}
+{color:#288acd;text-decoration:underline;}
 
 #build
-{display:inline-block; color:#fff; background-color:#d73380; font-weight:bold;padding:3px 6px; margin-right:12px;}
+{display:inline-block;color:#fff;background-color:#d73380;font-weight:bold;padding:3px 6px;margin-right:12px;}
+
+#proposition-name
+{margin-left:65%;}
 
 #wrapper
 {border-bottom:none}
