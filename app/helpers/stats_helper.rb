@@ -15,7 +15,7 @@ module StatsHelper
 
   TOKENS_GENERATE = "tokens.generate"
   TOKENS_VALID = "tokens.validation.valid"
-  TOKENS_INVALID = "tokens.validation.valid"
+  TOKENS_INVALID = "tokens.validation.invalid"
 
 
   IMPORT = "questions.import"
