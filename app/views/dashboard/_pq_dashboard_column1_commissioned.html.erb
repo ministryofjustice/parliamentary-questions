@@ -13,14 +13,18 @@
 <% end %>
 
 <p>Action Officer(s):</p>
-<% question.action_officers_pq.each do |ao_pq| %>
-  <% if !ao_pq.reject && !ao_pq.action_officer.nil? %>
-    <p>
-      <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
-      <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
-    </p>
+<div class="row">
+  <% question.action_officers_pq.each do |ao_pq| %>
+    <% if !ao_pq.reject && !ao_pq.action_officer.nil? %>
+      <div class="col-md-6">
+        <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
+      </div>
+      <div class="col-md-6">
+        <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
 
 <p id="comm-data-<%= question.id %>">
     <span class="label flag-pq-accepted">PQ Accepted</span> 
