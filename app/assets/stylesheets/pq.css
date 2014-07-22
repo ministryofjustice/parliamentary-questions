@@ -32,6 +32,12 @@ h2 .badge
 .navbar
 {margin-left:15px;margin-right:15px;border-radius:0;background-color:#dee0e2;}
 
+#search_form
+{display:block;margin-left:50%;}
+
+#search_field
+{width:8em;border-radius:0;}
+
 #search_button
 {margin-left:-4px;border-radius:0;width:34px;height:34px;color:#999;background-color:#fff;}
 
@@ -89,9 +95,6 @@ label{display:block;font-weight:500;font-size:18px;}
 .label-primary, .label-info, .label-warning {vertical-align:6px;margin-left:1em;padding:0.4em 0.6em;}
 
 #pages,#progress-menu a,.pq-header,.internal-deadline-form,.select2-container-multi .select2-choices li{width:100%}
-
-#search_form{display:block;}
-#search_field{width:8em;border-radius:0;}
 
 /* ============================================================================== */
 
