@@ -3,7 +3,8 @@
 .container
 {padding: 0 15px 15px 15px;}
 
-.content a{line-height:32px;vertical-align:middle;}
+.content a
+{line-height:32px;vertical-align:middle;}
 
 #build
 {display:inline-block;color:#fff;background-color:#d73380;font-weight:bold;margin-left:0.5em;padding:3px 6px;}
@@ -210,7 +211,7 @@ a.btn-success
 .flag-minister-query,
 .flag-minister-cleared,
 .flag-will-write
-{border-radius:6px;color:#fff;font-weight:normal;font-size:14px;padding:6px 12px;}
+{border-radius:6px;color:#fff;font-weight:normal;font-size:14px;padding-top:4.2px;}
 
 .flag-finance-unchecked{background-color:#f47738}
 .flag-no-response{background-color:#f47738}
