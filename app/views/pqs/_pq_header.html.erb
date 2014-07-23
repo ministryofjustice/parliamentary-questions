@@ -1,6 +1,6 @@
 <div id="pq-details-header" class="row">
-  <div class="col-md-8">
-    <h3>PQ Details - <%= @pq.uin %></h3>
+  <div id="pq-details-title" class="col-md-7">
+    <h2>PQ Details - <%= @pq.uin %></h2>
     <!-- <%= @pq.progress.name %> -->
     <% if @pq.question_type == 'NamedDay' %>
         <span class="label label-primary" title="Named day">N</span>
@@ -15,13 +15,13 @@
         <span class="label flag-will-write" title="I will write">I will write</span>
     <% end %>
   </div>
-  <div class="col-md-2">
+  <div id="qa-link" class="col-md-2">
     <% if !@pq.preview_url.nil? %>
         <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
     <% end %>
   </div>
-  <div class="col-md-2">
-    <div id='trim_area_<%= @pq.id %>' class="right">
+  <div id="trim-links" class="col-md-3">
+    <div id='trim_area_<%= @pq.id %>'>
       <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
     </div>
   </div>

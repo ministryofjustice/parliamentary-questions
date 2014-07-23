@@ -1,248 +1,793 @@
 {
-  "title": "PQ_DEV",
-  "services": {
-    "filter": {
-      "list": [],
-      "time": {
-        "from": "now-1h",
-        "to": "now"
-      }
-    }
-  },
-  "rows": [
-    {
-      "title": "",
-      "panels": [
-        {
-          "type": "graphite",
-          "span": 6,
-          "targets": [
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.allocated_accepted,'allocated_accepted')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.allocated_pending,'allocated_pending')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.draft_pending,'draft_pending')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.minister_cleared,'minister_cleared')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.minister_query,'minister_query')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.minister_waiting,'minister_waiting')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.pod_cleared,'pod_cleared')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.pod_query,'pod_query')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.pod_waiting,'pod_waiting')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.rejected,'rejected')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.unallocated,'unallocated')"
+    "title": "PQ_DEV",
+    "services": {
+        "filter": {
+            "list": [],
+            "time": {
+                "from": "now-1h",
+                "to": "now"
             }
-          ],
-          "datasource": "graphite",
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "PQs by status"
+        }
+    },
+    "rows": [
+        {
+            "title": "PQ Status",
+            "panels": [
+                {
+                    "type": "graphite",
+                    "span": 6,
+                    "targets": [
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.allocated_accepted,'allocated_accepted')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.allocated_pending,'allocated_pending')",
+                            "hide": false
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.draft_pending,'draft_pending')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.minister_cleared,'minister_cleared')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.minister_query,'minister_query')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.minister_waiting,'minister_waiting')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.pod_cleared,'pod_cleared')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.pod_query,'pod_query')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.pod_waiting,'pod_waiting')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.rejected,'rejected')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.unallocated,'unallocated')"
+                        }
+                    ],
+                    "datasource": "graphite",
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "connected",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "PQs by status"
+                },
+                {
+                    "span": 4,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 1,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "connected",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.in_progress,'in_progress')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.new_questions,'new_questions')"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "PQs (New / In Progress)"
+                }
+            ],
+            "height": "300px",
+            "collapse": false,
+            "collapsable": true,
+            "editable": true,
+            "notice": false
         },
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "targets": [
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.in_progress,'in_progress')"
-            },
-            {
-              "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.new_questions,'new_questions')"
-            }
-          ],
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "PQs (New / In Progress)"
+            "title": "",
+            "height": "200px",
+            "editable": true,
+            "collapse": false,
+            "collapsable": true,
+            "panels": [
+                {
+                    "span": 6,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "null as zero",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.qa.response_time.upper_90,'QA Response Time upper_90')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.qa.response_time.mean,'QA Response Time mean')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.import_time.undefined,'Import Time mean')",
+                            "hide": false
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.import_time.undefined,'Import Time upper_90')"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "Import Time"
+                },
+                {
+                    "span": 6,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "null as zero",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "aliasByNode(stats.pq.dev.apphost.counters.mails.*.count,6)"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "Mails Sent"
+                }
+            ],
+            "notice": false
+        },
+        {
+            "title": "Tokens",
+            "height": "150px",
+            "editable": true,
+            "collapse": false,
+            "collapsable": true,
+            "panels": [
+                {
+                    "span": 6,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "null as zero",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "alias(stats.pq.dev.apphost.counters.tokens.generate.commission.count,'Token Generated')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.counters.tokens.validation.valid.commission.count,'Valid Tokens Used')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.counters.tokens.validation.invalid.commission.undefined,'Invalid Tokens Used')"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "Commission Tokens"
+                },
+                {
+                    "span": 6,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "connected",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "alias(stats.pq.dev.apphost.counters.tokens.generate.watchlist.count,'Watchlist Token Generated')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.counters.tokens.validation.invalid.watchlist.count,'Valid Token Used')"
+                        },
+                        {
+                            "target": "alias(stats.pq.dev.apphost.counters.tokens.validation.valid.watchlist.count,'Invalid Token Used')"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "Watchlist Tokens"
+                }
+            ],
+            "notice": false
+        },
+        {
+            "title": "",
+            "height": "150px",
+            "editable": true,
+            "collapse": false,
+            "collapsable": true,
+            "panels": [
+                {
+                    "span": 6,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "null as zero",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "aliasByNode(stats.pq.dev.apphost.timers.pages.timing.dashboard_controller.*.page.count,8)"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "Dashboard Views"
+                },
+                {
+                    "span": 6,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "connected",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "aliasByNode(stats.pq.dev.apphost.timers.pages.timing.dashboard_controller.*.page.upper_90,8,10)"
+                        },
+                        {
+                            "target": "aliasByNode(stats.pq.dev.apphost.timers.pages.timing.dashboard_controller.*.page.mean,8,10)",
+                            "hide": false
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "Dashboard Page Response Time"
+                }
+            ],
+            "notice": false
+        },
+        {
+            "title": "Views",
+            "height": "150px",
+            "editable": true,
+            "collapse": false,
+            "collapsable": true,
+            "panels": [
+                {
+                    "span": 8,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "null as zero",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "aliasByNode(stats.pq.dev.apphost.timers.pages.timing.*.*.page.count,7,8)"
+                        },
+                        {
+                            "target": "alias(sumSeries(stats.pq.dev.apphost.timers.pages.timing.*.*.page.count),'TOTAL VIEWS')"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "Pages Views"
+                },
+                {
+                    "span": 4,
+                    "editable": true,
+                    "type": "graphite",
+                    "loadingEditor": false,
+                    "datasource": null,
+                    "renderer": "flot",
+                    "x-axis": true,
+                    "y-axis": true,
+                    "scale": 1,
+                    "y_formats": [
+                        "short",
+                        "short"
+                    ],
+                    "grid": {
+                        "max": null,
+                        "min": 0,
+                        "threshold1": null,
+                        "threshold2": null,
+                        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+                        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+                    },
+                    "annotate": {
+                        "enable": false
+                    },
+                    "resolution": 100,
+                    "lines": true,
+                    "fill": 0,
+                    "linewidth": 1,
+                    "points": false,
+                    "pointradius": 5,
+                    "bars": false,
+                    "stack": false,
+                    "legend": {
+                        "show": true,
+                        "values": false,
+                        "min": false,
+                        "max": false,
+                        "current": false,
+                        "total": false,
+                        "avg": false
+                    },
+                    "percentage": false,
+                    "zerofill": true,
+                    "nullPointMode": "connected",
+                    "steppedLine": false,
+                    "tooltip": {
+                        "value_type": "cumulative",
+                        "query_as_alias": true
+                    },
+                    "targets": [
+                        {
+                            "target": "stats.pq.dev.apphost.timers.pages.timing.action_officer_reminder_controller.accept_reject.page.count"
+                        }
+                    ],
+                    "aliasColors": {},
+                    "aliasYAxis": {},
+                    "title": "my thing"
+                }
+            ],
+            "notice": false
         }
-      ],
-      "height": "300px",
-      "collapse": false,
-      "collapsable": true,
-      "editable": true,
-      "notice": false
+    ],
+    "editable": true,
+    "failover": false,
+    "panel_hints": true,
+    "style": "dark",
+    "pulldowns": [
+        {
+            "type": "filtering",
+            "collapse": false,
+            "notice": false,
+            "enable": false
+        },
+        {
+            "type": "annotations",
+            "enable": true,
+            "annotations": [
+                {
+                    "name": "rails-restarts",
+                    "type": "graphite metric",
+                    "showLine": true,
+                    "iconColor": "#C0C6BE",
+                    "lineColor": "rgba(255, 96, 96, 0.592157)",
+                    "iconSize": 13,
+                    "enable": true,
+                    "target": "stats.pq.dev.apphost.sets.restart.rails.count"
+                }
+            ]
+        }
+    ],
+    "nav": [
+        {
+            "type": "timepicker",
+            "collapse": false,
+            "notice": false,
+            "enable": true,
+            "status": "Stable",
+            "time_options": [
+                "5m",
+                "15m",
+                "1h",
+                "6h",
+                "12h",
+                "24h",
+                "2d",
+                "7d",
+                "30d"
+            ],
+            "refresh_intervals": [
+                "5s",
+                "10s",
+                "30s",
+                "1m",
+                "5m",
+                "15m",
+                "30m",
+                "1h",
+                "2h",
+                "1d"
+            ],
+            "now": true
+        }
+    ],
+    "loader": {
+        "save_gist": false,
+        "save_elasticsearch": true,
+        "save_local": true,
+        "save_default": true,
+        "save_temp": true,
+        "save_temp_ttl_enable": true,
+        "save_temp_ttl": "30d",
+        "load_gist": false,
+        "load_elasticsearch": true,
+        "load_elasticsearch_size": 20,
+        "load_local": false,
+        "hide": false
     },
-    {
-      "title": "",
-      "height": "150px",
-      "editable": true,
-      "collapse": false,
-      "collapsable": true,
-      "panels": [],
-      "notice": false
-    }
-  ],
-  "editable": true,
-  "failover": false,
-  "panel_hints": true,
-  "style": "dark",
-  "pulldowns": [
-    {
-      "type": "filtering",
-      "collapse": false,
-      "notice": false,
-      "enable": false
-    },
-    {
-      "type": "annotations",
-      "enable": false
-    }
-  ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": true,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
-    }
-  ],
-  "loader": {
-    "save_gist": false,
-    "save_elasticsearch": true,
-    "save_local": true,
-    "save_default": true,
-    "save_temp": true,
-    "save_temp_ttl_enable": true,
-    "save_temp_ttl": "30d",
-    "load_gist": false,
-    "load_elasticsearch": true,
-    "load_elasticsearch_size": 20,
-    "load_local": false,
-    "hide": false
-  },
-  "refresh": false,
-  "tags": [],
-  "timezone": "browser"
+    "refresh": false,
+    "tags": [],
+    "timezone": "browser"
 }
