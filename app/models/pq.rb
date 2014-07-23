@@ -81,7 +81,7 @@ class PQ < ActiveRecord::Base
     by_status(Progress.DRAFT_PENDING)
   end
   def self.pod_waiting
-    by_status(Progress.POD_WAITING)
+    by_status(Progress.WITH_POD)
   end
   def self.pod_query
     by_status(Progress.POD_QUERY)
@@ -130,7 +130,7 @@ class PQ < ActiveRecord::Base
   def self.in_progress_internal()
     by_status([
                   Progress.DRAFT_PENDING,
-                  Progress.POD_WAITING,
+                  Progress.WITH_POD,
                   Progress.POD_QUERY,
                   Progress.POD_CLEARED,
                   Progress.MINISTER_WAITING,
