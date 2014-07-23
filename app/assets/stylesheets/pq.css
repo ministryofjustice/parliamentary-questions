@@ -84,11 +84,14 @@ h2 .badge
 
 /* = Dashboard Questions ======================================================== */
 
-.questions-list
-{/*border:1px solid #000;*/}
-
 .questions-list li
-{list-style:none;padding:15px;}
+{list-style:none;margin-right:15px;}
+
+.info-notice
+{border-left:10px solid #d0021b;margin:15px;padding-top:0.1em;padding-right:0px;padding-bottom:0.1em;padding-left:1em;}
+
+.info-notice p
+{margin-top: 2em;}
 
 .questions-list li label
 {font-size:16px;}
