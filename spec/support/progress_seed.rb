@@ -1,7 +1,7 @@
 def progress_seed
-  let!(:accepted) { create(:progress, name: Progress.ALLOCATED_ACCEPTED) }
-  let!(:pending) { create(:progress, name: Progress.ALLOCATED_PENDING) }
-  let!(:unallocated) { create(:progress, name: Progress.UNALLOCATED) }
+  let!(:unassigned) { create(:progress, name: Progress.UNASSIGNED) }
+  let!(:accepted) { create(:progress, name: Progress.ACCEPTED) }
+  let!(:pending) { create(:progress, name: Progress.NO_RESPONSE) }
   let!(:rejected) { create(:progress, name: Progress.REJECTED) }
   let!(:transfer) { create(:progress, name: Progress.TRANSFER) }
   let!(:draft_pending) { create(:progress, name: Progress.DRAFT_PENDING) }

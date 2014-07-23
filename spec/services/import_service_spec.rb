@@ -169,7 +169,7 @@ describe 'ImportService' do
       question_one = PQ.find_by(uin: 'HL784845')
       question_one.should_not be_nil
 
-      question_one.progress.name.should eq(Progress.UNALLOCATED)
+      question_one.progress.name.should eq(Progress.UNASSIGNED)
 
     end
 
@@ -193,10 +193,10 @@ describe 'ImportService' do
       pq_to_move.progress.name.should eq(Progress.DRAFT_PENDING)
 
       pq_to_stay = PQ.find_by(uin: 'PQ_TO_STAY')
-      pq_to_stay.progress.name.should eq(Progress.ALLOCATED_ACCEPTED)
+      pq_to_stay.progress.name.should eq(Progress.ACCEPTED)
 
       pq_unallocated = PQ.find_by(uin: 'HL784845')
-      pq_unallocated.progress.name.should eq(Progress.UNALLOCATED)
+      pq_unallocated.progress.name.should eq(Progress.UNASSIGNED)
 
 
     end
