@@ -5,7 +5,7 @@
       <%= question.minister.name unless question.minister_id.nil? %>
     </div>
     <div class="col-md-6">
-      <%= mail_to question.minister.email, raw("<i class='glyphicon glyphicon-envelope'></i>") unless question.minister_id.nil? %>
+      <%= mail_to question.minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email") unless question.minister_id.nil? %>
     </div>
   </div>
 <% end %>
@@ -17,7 +17,7 @@
       <%= question.policy_minister.name %>
     </div>
     <div class="col-md-6">
-      <%= mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i>")  %>
+      <%= mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")  %>
     </div>
   </div>
 <% end %>
