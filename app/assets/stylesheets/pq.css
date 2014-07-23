@@ -28,6 +28,22 @@ h3
 h2 .badge
 {vertical-align:middle;background-color:#000;}
 
+/* = Sign in ==================================================================== */
+
+#new_user
+{margin: 15px;}
+
+#new_user input
+{display:block;margin:8px 0px;}
+
+#new_user input[type="checkbox"]
+{display:inline-block;margin:8px 10px 1em 0px;}
+
+#lbl-remember-me
+{display:inline;margin:8px 0px;}
+
+/* ============================================================================== */
+
 
 /* = Navigation ================================================================= */
 
