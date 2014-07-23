@@ -21,7 +21,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.POD_WAITING)
+      pq.progress.name.should eq(Progress.WITH_POD)
     end
 
     it 'should NOT move the question to POD_WAITING if the progress is not DRAFT_PENDING' do
@@ -151,7 +151,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.POD_WAITING)
+      pq.progress.name.should eq(Progress.WITH_POD)
     end
   end
 
@@ -203,7 +203,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.POD_WAITING)
+      pq.progress.name.should eq(Progress.WITH_POD)
     end
   end
 
@@ -278,7 +278,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.POD_WAITING)
+      pq.progress.name.should eq(Progress.WITH_POD)
     end
   end
 
@@ -330,7 +330,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.POD_WAITING)
+      pq.progress.name.should eq(Progress.WITH_POD)
     end
   end
 

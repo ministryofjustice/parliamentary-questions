@@ -27,24 +27,25 @@ class Progress < ActiveRecord::Base
   def self.rejected
     find_by_status(self.REJECTED)
   end
+
+  def self.with_pod
+    find_by_status(self.WITH_POD)
+  end
+
+  def self.pod_query
+    find_by_status(self.POD_QUERY)
+  end
+
+  def self.pod_cleared
+    find_by_status(self.POD_CLEARED)
+  end
+
   # was
-
-
-
-
 
   def self.transfer
     find_by_status(self.TRANSFER)
   end
-  def self.pod_waiting
-    find_by_status(self.POD_WAITING)
-  end
-  def self.pod_query
-    find_by_status(self.POD_QUERY)
-  end
-  def self.pod_cleared
-    find_by_status(self.POD_CLEARED)
-  end
+
   def self.minister_waiting
     find_by_status(self.MINISTER_WAITING)
   end
@@ -81,6 +82,19 @@ class Progress < ActiveRecord::Base
   def self.REJECTED
     'PQ Rejected'
   end
+
+  def self.WITH_POD
+    'With POD'
+  end
+
+  def self.POD_QUERY
+    'Pod Query'
+  end
+
+  def self.POD_CLEARED
+    'Pod Cleared'
+  end
+
   # WAS
 
 
@@ -94,17 +108,8 @@ class Progress < ActiveRecord::Base
 
 
 
-  def self.POD_WAITING
-    'Pod Waiting'
-  end
 
-  def self.POD_QUERY
-    'Pod Query'
-  end
 
-  def self.POD_CLEARED
-    'Pod Cleared'
-  end
 
   def self.MINISTER_WAITING
     'Minister Waiting'
