@@ -1,15 +1,25 @@
 <% if !question.minister_id.nil? %>
-  <p>
-    Replying minister:<br />
-    <%= mail_to question.minister.email, question.minister.name unless question.minister_id.nil? %>
-  </p>
+  Replying minister:
+  <div class="row">
+    <div class="col-md-6">
+      <%= question.minister.name unless question.minister_id.nil? %>
+    </div>
+    <div class="col-md-6">
+      <%= mail_to question.minister.email, raw("<i class='glyphicon glyphicon-envelope'></i>") unless question.minister_id.nil? %>
+    </div>
+  </div>
 <% end %>
-
+<br />
 <% if !question.policy_minister_id.nil? %>
-  <p>
-    Policy minister:<br />
-    <%= mail_to question.policy_minister.email, question.policy_minister.name %>
-  </p>
+  Policy minister:
+  <div class="row">
+    <div class="col-md-6">
+      <%= question.policy_minister.name %>
+    </div>
+    <div class="col-md-6">
+      <%= mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i>")  %>
+    </div>
+  </div>
 <% end %>
 
 <p>Action Officer(s):</p>
