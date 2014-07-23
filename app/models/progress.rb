@@ -8,26 +8,33 @@ class Progress < ActiveRecord::Base
     Progress.find_by_name(status)
   end
 
-  def self.allocated_accepted
-    find_by_status(self.ALLOCATED_ACCEPTED)
+  def self.unassigned
+    find_by_status(self.UNASSIGNED)
   end
 
-  def self.allocated_pending
-    find_by_status(self.ALLOCATED_PENDING)
+  def self.no_response
+    find_by_status(self.NO_RESPONSE)
   end
 
-  def self.unallocated
-    find_by_status(self.UNALLOCATED)
+  def self.accepted
+    find_by_status(self.ACCEPTED)
+  end
+
+  def self.draft_pending
+    find_by_status(self.DRAFT_PENDING)
   end
 
   def self.rejected
     find_by_status(self.REJECTED)
   end
+  # was
+
+
+
+
+
   def self.transfer
     find_by_status(self.TRANSFER)
-  end
-  def self.draft_pending
-    find_by_status(self.DRAFT_PENDING)
   end
   def self.pod_waiting
     find_by_status(self.POD_WAITING)
@@ -55,30 +62,36 @@ class Progress < ActiveRecord::Base
   end
 
   # status constants
-
-  def self.ALLOCATED_ACCEPTED
-    'Allocated Accepted'
+  def self.UNASSIGNED
+    'Unassigned'
   end
 
-  def self.ALLOCATED_PENDING
-    'Allocated Pending'
+  def self.NO_RESPONSE
+    'No response'
   end
 
-  def self.UNALLOCATED
-    'Unallocated'
-  end
-
-  def self.REJECTED
-    'Rejected'
-  end
-
-  def self.TRANSFER
-    'Transfer'
+  def self.ACCEPTED
+    'PQ Accepted'
   end
 
   def self.DRAFT_PENDING
     'Draft Pending'
   end
+
+  def self.REJECTED
+    'PQ Rejected'
+  end
+  # WAS
+
+
+
+
+
+
+  def self.TRANSFER
+    'Transfer'
+  end
+
 
 
   def self.POD_WAITING

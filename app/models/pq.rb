@@ -63,13 +63,13 @@ class PQ < ActiveRecord::Base
   end
 
   def self.allocated_accepted()
-    by_status(Progress.ALLOCATED_ACCEPTED)
+    by_status(Progress.ACCEPTED)
   end
   def self.allocated_pending()
-    by_status(Progress.ALLOCATED_PENDING)
+    by_status(Progress.NO_RESPONSE)
   end
   def self.unallocated()
-    by_status(Progress.UNALLOCATED)
+    by_status(Progress.UNASSIGNED)
   end
   def self.rejected
     by_status(Progress.REJECTED)
@@ -120,9 +120,9 @@ class PQ < ActiveRecord::Base
 
   def self.new_questions_internal()
     by_status([
-                  Progress.ALLOCATED_ACCEPTED,
-                  Progress.ALLOCATED_PENDING,
-                  Progress.UNALLOCATED,
+                  Progress.ACCEPTED,
+                  Progress.NO_RESPONSE,
+                  Progress.UNASSIGNED,
                   Progress.REJECTED
               ])
   end

@@ -17,9 +17,10 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDE
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE ogds RESTART IDENTITY;")
 
 puts '-populate'
-progresses = Progress.create([{name: Progress.UNALLOCATED},
-  {name: Progress.ALLOCATED_PENDING},
-  {name: Progress.ALLOCATED_ACCEPTED},
+progresses = Progress.create([
+  {name: Progress.UNASSIGNED},
+  {name: Progress.NO_RESPONSE},
+  {name: Progress.ACCEPTED},
   {name: Progress.REJECTED},
   {name: Progress.TRANSFER},
   {name: Progress.DRAFT_PENDING},

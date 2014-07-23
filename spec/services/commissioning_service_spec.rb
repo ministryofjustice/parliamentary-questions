@@ -82,7 +82,7 @@ describe 'CommissioningService' do
     assignment = ActionOfficersPq.find(assignment_id)
 
     pq = PQ.find(assignment.pq_id)
-    pq.progress.name.should  eq(Progress.ALLOCATED_PENDING)
+    pq.progress.name.should  eq(Progress.NO_RESPONSE)
 
   end
 
@@ -96,7 +96,7 @@ describe 'CommissioningService' do
     @comm_service.send(assignment)
 
     pq = PQ.find(assignment.pq_id)
-    pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
+    pq.progress.name.should  eq(Progress.ACCEPTED)
 
   end
 

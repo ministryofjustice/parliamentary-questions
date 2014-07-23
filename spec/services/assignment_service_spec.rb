@@ -70,7 +70,7 @@ describe 'AssignmentService' do
       assignment = ActionOfficersPq.find(assignment_id)
 
       pq = PQ.find(assignment.pq_id)
-      pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
+      pq.progress.name.should  eq(Progress.ACCEPTED)
 
     end
 
@@ -136,7 +136,7 @@ describe 'AssignmentService' do
 
       # the question progress should be ALLOCATED_ACCEPTED if at least one ao is accepted
       pq = PQ.find(assignment.pq_id)
-      pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
+      pq.progress.name.should  eq(Progress.ACCEPTED)
 
 
       # setup another assignment and reject assignment
@@ -154,7 +154,7 @@ describe 'AssignmentService' do
 
       # the question progress should be ALLOCATED_ACCEPTED even after the reject
       pq = PQ.find(assignment.pq_id)
-      pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
+      pq.progress.name.should  eq(Progress.ACCEPTED)
 
     end
 
@@ -196,11 +196,11 @@ describe 'AssignmentService' do
       #reject assignment1
       @assignment_service.reject(assignment1, response)
       pq = PQ.find(assignment1.pq_id)
-      pq.progress.name.should  eq(Progress.ALLOCATED_PENDING)
+      pq.progress.name.should  eq(Progress.NO_RESPONSE)
       #reject assignment2
       @assignment_service.reject(assignment2, response)
       pq = PQ.find(assignment2.pq_id)
-      pq.progress.name.should  eq(Progress.ALLOCATED_PENDING)
+      pq.progress.name.should  eq(Progress.NO_RESPONSE)
       #reject assignment3
       @assignment_service.reject(assignment3, response)
       pq = PQ.find(assignment3.pq_id)

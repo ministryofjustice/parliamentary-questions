@@ -33,7 +33,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.ALLOCATED_ACCEPTED)
+      pq.progress.name.should eq(Progress.ACCEPTED)
     end
   end
 
