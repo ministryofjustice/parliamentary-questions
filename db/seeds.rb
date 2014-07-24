@@ -35,11 +35,11 @@ progresses = Progress.create([
   
 ministers = Minister.create!([
 	{name: 'Chris Grayling', email:'no-emails-1@please.com', title: 'Secretary of State and Lord High Chancellor of Great Britain', deleted: false},
-	{name: 'Damian Green', email:'no-emails-3@please.com', title: 'Minister of State', deleted: false},
-	{name: 'Jeremy Wright', email:'no-emails-5@please.com', title: 'Parliamentary Under-Secretary of State; Minister for Prisons and Rehabilitation', deleted: false},
-	{name: 'Shailesh Vara', email:'no-emails-7@please.com', title: 'Parliamentary Under-Secretary of State', deleted: false},
-	{name: 'Simon Hughes', email:'no-emails-9@please.com', title: 'Minister of State for Justice & Civil Liberties', deleted: false},
-	{name: 'Lord Faulks', email:'no-emails-10@please.com', title: 'Lord Faulks QC, Minister of State', deleted: false}])
+	{name: 'Damian Green (MP)', email:'no-emails-3@please.com', title: 'Minister of State', deleted: false},
+	{name: 'Jeremy Wright (MP)', email:'no-emails-5@please.com', title: 'Parliamentary Under-Secretary of State; Minister for Prisons and Rehabilitation', deleted: false},
+	{name: 'Shailesh Vara (MP)', email:'no-emails-7@please.com', title: 'Parliamentary Under-Secretary of State', deleted: false},
+	{name: 'Simon Hughes (MP)', email:'no-emails-9@please.com', title: 'Minister of State for Justice & Civil Liberties', deleted: false},
+	{name: 'Lord Faulks QC', email:'no-emails-10@please.com', title: 'Lord Faulks QC, Minister of State', deleted: false}])
 
 directorates = Directorate.create!([
 	{name: 'Finance Assurance and Commercial', deleted: false},
