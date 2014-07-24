@@ -19,7 +19,7 @@
           %>
             <td class="table-cell-centered">
               <% if @count > 0 %>
-                <%= link_to @count  , {:controller => 'progress_report', :action => 'index', minister_id: m.id, progress_id: p.id} %>
+                <%= link_to @count  , {:action => 'ministers_filter', minister_id: m.id, progress_id: p.id} %>
               <% else %>
               0 <!--<span class="btn btn-xs btn-default btn-block">0</span> -->
               <% end %>
