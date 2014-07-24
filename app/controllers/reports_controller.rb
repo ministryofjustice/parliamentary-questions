@@ -4,8 +4,8 @@ class ReportsController < ApplicationController
   @@per_page = 10
 
   def ministers_by_progress
-    @p = Progress.all
-    @m = Minister.all
+    @p = Progress.where(name: Progress.in_progress_questions)
+    @m = Minister.where(deleted: false)
     @pq = PQ.in_progress
   end
 
