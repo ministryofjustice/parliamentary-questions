@@ -1,6 +1,5 @@
 ParliamentaryQuestions::Application.routes.draw do
 
-
   resources :ogds
   get 'find_ogd' => 'ogds#find'
 
@@ -99,5 +98,6 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
   get 'export' => 'export#index'
 
-  match 'progress_report' => 'progress_report#index', via: [:get, :post]
+  match 'reports/ministers_filter' => 'reports#ministers_filter', via: [:get, :post]
+  get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
 end

@@ -1,0 +1,33 @@
+<h1>Ministers by progress</h1>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Progress</th>
+        <% @m.each do |m| %>
+            <th class="table-cell-centered">
+              <%= link_to m.name  , {:action => 'ministers_filter', minister_id: m.id }%>
+            </th>
+        <% end %>
+        </tr>
+
+    </thead>
+    <tbody>
+    <% @p.each do |p| %>
+        <tr>
+            <td><span class="label flag-<%= p.classname %>"><%= p.name %></span></td>
+          <% @m.each do |m|
+             @count = @pq.where('progress_id = :p_id and (minister_id = :min_id OR policy_minister_id = :min_id)', p_id:p.id, min_id: m.id).count
+          %>
+            <td class="table-cell-centered">
+              <% if @count > 0 %>
+                <%= link_to @count  , {:action => 'ministers_filter', minister_id: m.id, progress_id: p.id} %>
+              <% else %>
+              0 <!--<span class="btn btn-xs btn-default btn-block">0</span> -->
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+</table>

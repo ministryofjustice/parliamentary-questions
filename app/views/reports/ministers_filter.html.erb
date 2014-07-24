@@ -9,7 +9,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-6">
-        <%= form_tag controller: 'progress_report', action: 'index' do %>
+        <%= form_tag controller: 'reports', action: 'ministers_filter' do %>
 
             <div class="form-group">
                 <label for="minister_id">Minister</label>
@@ -21,18 +21,20 @@
         <% end %>
       </div>
     </div>
+
+    <ul id="status-filters" class="nav nav-pills">
+
+      <% @progresses.each do |progress| %>
+          <li class="<%= 'active' if (params[:progress_id] == progress[:id].to_s) %>">
+            <%= link_to raw("#{progress[:name]}<span class='badge'>#{progress[:count]}</span>") , {:action => 'ministers_filter', minister_id: params[:minister_id], progress_id: progress[:id]} %>
+          </li>
+      <% end %>
+
+    </ul>
   </div>
 </div>
 
-<ul id="status-filters" class="nav nav-pills">
 
-  <% @progresses.each do |progress| %>
-      <li class="<%= 'active' if (params[:progress_id] == progress[:id].to_s) %>">
-        <%= link_to raw("#{progress[:name]}<span class='badge'>#{progress[:count]}</span>") , {:controller => 'progress_report', :action => 'index', minister_id: params[:minister_id], progress_id: progress[:id]} %>
-      </li>
-  <% end %>
-
-</ul>
 
 
 <% if !@questions_count.nil? %>
