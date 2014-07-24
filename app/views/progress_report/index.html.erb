@@ -21,18 +21,20 @@
         <% end %>
       </div>
     </div>
+
+    <ul id="status-filters" class="nav nav-pills">
+
+      <% @progresses.each do |progress| %>
+          <li class="<%= 'active' if (params[:progress_id] == progress[:id].to_s) %>">
+            <%= link_to raw("#{progress[:name]}<span class='badge'>#{progress[:count]}</span>") , {:controller => 'progress_report', :action => 'index', minister_id: params[:minister_id], progress_id: progress[:id]} %>
+          </li>
+      <% end %>
+
+    </ul>   
   </div>
 </div>
 
-<ul id="status-filters" class="nav nav-pills">
 
-  <% @progresses.each do |progress| %>
-      <li class="<%= 'active' if (params[:progress_id] == progress[:id].to_s) %>">
-        <%= link_to raw("#{progress[:name]}<span class='badge'>#{progress[:count]}</span>") , {:controller => 'progress_report', :action => 'index', minister_id: params[:minister_id], progress_id: progress[:id]} %>
-      </li>
-  <% end %>
-
-</ul>
 
 
 <% if !@questions_count.nil? %>
