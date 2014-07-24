@@ -151,4 +151,8 @@ class Progress < ActiveRecord::Base
     ]
   end
 
+  def self.visible
+    [new_questions, in_progress_questions].flatten
+  end
+
 end
