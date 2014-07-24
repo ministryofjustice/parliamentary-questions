@@ -1,7 +1,7 @@
 <div class="pq-header col-md-12">
   <h3><%= question.uin %></h3>
   <% if question.question_type == 'NamedDay' %>
-      <span class="label label-primary" title="Named day">N</span>
+      <span class="label name-day" title="Named day">N</span>
   <% end %>
   <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'right' ) %>
 </div>
