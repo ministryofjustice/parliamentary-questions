@@ -39,6 +39,11 @@ class PQ < ActiveRecord::Base
     in_progress_internal
   end
 
+  # in_progress or new_questions, are the one visibles on the dashboard
+  def self.visibles()
+    by_status_internal(Progress.visible)
+  end
+
   def short_house_name
     if house_name.include?('Lords')
       'HoL'
