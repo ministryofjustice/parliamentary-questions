@@ -8,8 +8,8 @@ def progress_seed
   let!(:with_pod) { create(:progress, name: Progress.WITH_POD) }
   let!(:pod_query) { create(:progress, name: Progress.POD_QUERY) }
   let!(:pod_cleared) { create(:progress, name: Progress.POD_CLEARED) }
-  let!(:minister_waiting) { create(:progress, name: Progress.MINISTER_WAITING) }
-  let!(:minister_query) { create(:progress, name: Progress.MINISTER_QUERY) }
+  let!(:minister_waiting) { create(:progress, name: Progress.WITH_MINISTER) }
+  let!(:minister_query) { create(:progress, name: Progress.MINISTERIAL_QUERY) }
   let!(:minister_cleared) { create(:progress, name: Progress.MINISTER_CLEARED) }
   let!(:answered) { create(:progress, name: Progress.ANSWERED) }
   let!(:transferred_out) { create(:progress, name: Progress.TRANSFERRED_OUT) }

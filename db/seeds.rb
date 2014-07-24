@@ -27,8 +27,8 @@ progresses = Progress.create([
   {name: Progress.WITH_POD},
   {name: Progress.POD_QUERY},
   {name: Progress.POD_CLEARED},
-  {name: Progress.MINISTER_WAITING},
-  {name: Progress.MINISTER_QUERY},
+  {name: Progress.WITH_MINISTER},
+  {name: Progress.MINISTERIAL_QUERY},
   {name: Progress.MINISTER_CLEARED},
   {name: Progress.ANSWERED},
   {name: Progress.TRANSFERRED_OUT}])
