@@ -118,25 +118,13 @@ class PQ < ActiveRecord::Base
     joins(:progress).where(progresses: {name: status})
   end
 
+
   def self.new_questions_internal()
-    by_status([
-                  Progress.UNASSIGNED,
-                  Progress.NO_RESPONSE,
-                  Progress.ACCEPTED,
-                  Progress.REJECTED
-              ])
+    by_status(Progress.new_questions)
   end
 
   def self.in_progress_internal()
-    by_status([
-                  Progress.DRAFT_PENDING,
-                  Progress.WITH_POD,
-                  Progress.POD_QUERY,
-                  Progress.POD_CLEARED,
-                  Progress.WITH_MINISTER,
-                  Progress.MINISTERIAL_QUERY,
-                  Progress.MINISTER_CLEARED
-              ])
+    by_status(Progress.in_progress_questions)
   end
 
   def self.monitor_new_questions

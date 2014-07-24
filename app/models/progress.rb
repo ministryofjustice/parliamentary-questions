@@ -129,4 +129,26 @@ class Progress < ActiveRecord::Base
     'Transfer'
   end
 
+
+  def self.new_questions
+    [
+        Progress.UNASSIGNED,
+        Progress.NO_RESPONSE,
+        Progress.ACCEPTED,
+        Progress.REJECTED
+    ]
+  end
+
+  def self.in_progress_questions
+    [
+        Progress.DRAFT_PENDING,
+        Progress.WITH_POD,
+        Progress.POD_QUERY,
+        Progress.POD_CLEARED,
+        Progress.WITH_MINISTER,
+        Progress.MINISTERIAL_QUERY,
+        Progress.MINISTER_CLEARED
+    ]
+  end
+
 end
