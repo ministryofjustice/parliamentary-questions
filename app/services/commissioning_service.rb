@@ -14,8 +14,8 @@ class CommissioningService
 
 
     # no accepted/rejected -> change the state to allocated_pending
-    if !(pq.is_in_progress?(Progress.allocated_accepted) || pq.is_in_progress?(Progress.rejected) )
-      pro = Progress.allocated_pending
+    if !(pq.is_in_progress?(Progress.accepted) || pq.is_in_progress?(Progress.rejected) )
+      pro = Progress.no_response
       pq.update progress_id: pro.id
     end
 

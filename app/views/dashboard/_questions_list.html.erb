@@ -17,12 +17,12 @@
             <%= question.question %>
         </div>
       </div>
-
       <!-- loop through and show rejection reasons -->
       <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
 
       <div class="row">
         <div class="col-md-12">
+          <span class="flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
           <% if question.transferred  %>
             <span class="label label-warning" title="Transferred">Transferred</span>
           <% end %>

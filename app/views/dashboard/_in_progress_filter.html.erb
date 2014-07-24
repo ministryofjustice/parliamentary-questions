@@ -6,7 +6,7 @@
     <%= link_to raw("Draft Pending <span class='badge'>#{PQ.draft_pending.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.DRAFT_PENDING} %>
   </li>
   <li id="db-filter-pod-waitting" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.WITH_POD) %>">
-    <%= link_to raw("POD Waiting <span class='badge'>#{PQ.pod_waiting.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.WITH_POD} %>
+    <%= link_to raw("With POD <span class='badge'>#{PQ.with_pod.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.WITH_POD} %>
   </li>
   <li id="db-filter-pod-query" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.POD_QUERY) %>">
     <%= link_to raw("POD Query <span class='badge'>#{PQ.pod_query.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.POD_QUERY} %>
@@ -15,10 +15,10 @@
     <%= link_to raw("POD Cleared <span class='badge'>#{PQ.pod_cleared.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.POD_CLEARED} %>
   </li>
   <li id="db-filter-minister-waiting" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.WITH_MINISTER) %>">
-    <%= link_to raw("Minister Waiting <span class='badge'>#{PQ.minister_waiting.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.WITH_MINISTER} %>
+    <%= link_to raw("With Minister <span class='badge'>#{PQ.with_minister.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.WITH_MINISTER} %>
   </li>
   <li id="db-filter-minister-query" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.MINISTERIAL_QUERY) %>">
-    <%= link_to raw("Minister Query <span class='badge'>#{PQ.minister_query.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTERIAL_QUERY} %>
+    <%= link_to raw("Ministerial Query <span class='badge'>#{PQ.ministerial_query.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTERIAL_QUERY} %>
   </li>
   <li id="db-filter-minister-cleared" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.MINISTER_CLEARED) %>">
     <%= link_to raw("Minister Cleared <span class='badge'>#{PQ.minister_cleared.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTER_CLEARED} %>

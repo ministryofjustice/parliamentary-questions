@@ -9,7 +9,7 @@ class TransferredController < ApplicationController
     @pq = PQ.new(pq_params)
     @pq.transferred = true
     @pq.raising_member_id = '0'
-    @pq.progress_id = Progress.unallocated.id
+    @pq.progress_id = Progress.unassigned.id
 
 
     if @pq.save
