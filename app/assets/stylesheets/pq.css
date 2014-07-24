@@ -25,6 +25,9 @@ h3
 h2 .badge
 {vertical-align:middle;background-color:#000;}
 
+#status-filters h3
+{display:block;margin-bottom:20px;}
+
 /* = Sign in ==================================================================== */
 
 #new_user
@@ -61,6 +64,9 @@ h2 .badge
 
 /* ============================================================================== */
 
+.nav-tabs
+{margin-bottom:20px;}
+
 /* Status Filters =============================================================== */
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a
@@ -68,8 +74,8 @@ h2 .badge
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus
 {background-color:#ffbf47;}
 
-#status-filters
-{margin-top:20px;}
+/*#status-filters
+{margin-top:20px;}*/
 
 #status-filters .badge
 {float:right;min-width:2.5em;background-color:#000;}
