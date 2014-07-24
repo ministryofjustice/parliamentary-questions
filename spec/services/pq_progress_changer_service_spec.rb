@@ -115,7 +115,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.MINISTER_WAITING)
+      pq.progress.name.should eq(Progress.WITH_MINISTER)
     end
 
     it 'should move the question from POD_CLEARED to MINISTER_WAITING if sent_to_answering_minister and sent_to_policy_minister is completed when policy minister is set' do
@@ -127,7 +127,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.MINISTER_WAITING)
+      pq.progress.name.should eq(Progress.WITH_MINISTER)
     end
 
     it 'should NOT move the question from POD_CLEARED to MINISTER_WAITING if sent_to_answering_minister completed and sent_to_policy_minister is NOT completed when policy minister is set' do
@@ -166,7 +166,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.MINISTER_QUERY)
+      pq.progress.name.should eq(Progress.MINISTERIAL_QUERY)
     end
 
     it 'should move the question from MINISTER_WAITING to MINISTER_QUERY if policy_minister_query true when policy minister is set' do
@@ -178,7 +178,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.MINISTER_QUERY)
+      pq.progress.name.should eq(Progress.MINISTERIAL_QUERY)
     end
 
     it 'should move the question from MINISTER_WAITING to MINISTER_QUERY if answering_minister_query true when policy minister is set' do
@@ -190,7 +190,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.MINISTER_QUERY)
+      pq.progress.name.should eq(Progress.MINISTERIAL_QUERY)
     end
 
 
@@ -266,7 +266,7 @@ describe 'PQProgressChangerService' do
       @pq_progress_changer_service.update_progress(pq)
 
       pq = PQ.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.MINISTER_QUERY)
+      pq.progress.name.should eq(Progress.MINISTERIAL_QUERY)
     end
 
     it 'should NOT move the question to MINISTER_CLEARED if the progress is not MINISTER_QUERY or MINISTER_WAITING' do

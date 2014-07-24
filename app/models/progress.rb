@@ -40,21 +40,27 @@ class Progress < ActiveRecord::Base
     find_by_status(self.POD_CLEARED)
   end
 
+  def self.with_minister
+    find_by_status(self.WITH_MINISTER)
+  end
+
+  def self.ministerial_query
+    find_by_status(self.MINISTERIAL_QUERY)
+  end
+
+  def self.minister_cleared
+    find_by_status(self.MINISTER_CLEARED)
+  end
+
+  
+
   # was
 
   def self.transfer
     find_by_status(self.TRANSFER)
   end
 
-  def self.minister_waiting
-    find_by_status(self.MINISTER_WAITING)
-  end
-  def self.minister_query
-    find_by_status(self.MINISTER_QUERY)
-  end
-  def self.minister_cleared
-    find_by_status(self.MINISTER_CLEARED)
-  end
+
   def self.answered
     find_by_status(self.ANSWERED)
   end
@@ -95,28 +101,12 @@ class Progress < ActiveRecord::Base
     'Pod Cleared'
   end
 
-  # WAS
-
-
-
-
-
-
-  def self.TRANSFER
-    'Transfer'
+  def self.WITH_MINISTER
+    'With Minister'
   end
 
-
-
-
-
-
-  def self.MINISTER_WAITING
-    'Minister Waiting'
-  end
-
-  def self.MINISTER_QUERY
-    'Minister Query'
+  def self.MINISTERIAL_QUERY
+    'Ministerial Query'
   end
 
   def self.MINISTER_CLEARED
@@ -131,6 +121,8 @@ class Progress < ActiveRecord::Base
     'Transferred out'
   end
 
-
+  def self.TRANSFER
+    'Transfer'
+  end
 
 end

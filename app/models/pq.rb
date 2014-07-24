@@ -90,10 +90,10 @@ class PQ < ActiveRecord::Base
     by_status(Progress.POD_CLEARED)
   end
   def self.minister_waiting
-    by_status(Progress.MINISTER_WAITING)
+    by_status(Progress.WITH_MINISTER)
   end
   def self.minister_query
-    by_status(Progress.MINISTER_QUERY)
+    by_status(Progress.MINISTERIAL_QUERY)
   end
   def self.minister_cleared
     by_status(Progress.MINISTER_CLEARED)
@@ -133,8 +133,8 @@ class PQ < ActiveRecord::Base
                   Progress.WITH_POD,
                   Progress.POD_QUERY,
                   Progress.POD_CLEARED,
-                  Progress.MINISTER_WAITING,
-                  Progress.MINISTER_QUERY,
+                  Progress.WITH_MINISTER,
+                  Progress.MINISTERIAL_QUERY,
                   Progress.MINISTER_CLEARED
               ])
   end
