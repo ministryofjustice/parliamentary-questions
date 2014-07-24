@@ -3,9 +3,6 @@ class ProgressReportController  < ApplicationController
 
   @@per_page = 10
 
-
-
-
   def index
     minister_id = params[:minister_id]
     progress_id = params[:progress_id]
@@ -16,7 +13,8 @@ class ProgressReportController  < ApplicationController
     end
 
     progress_counters = PQ.where('minister_id = ?', minister_id).group('progress_id').count
-    Progress.order('id').each do |it|
+
+    Progress.all.each do |it|
       count = progress_counters[it.id] || 0
       @progresses.push({id: it.id, name: it.name, count: count})
     end
