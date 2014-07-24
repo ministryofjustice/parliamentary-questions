@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
       return render action: 'ministers_filter', minister_id: minister_id, progress_id: progress_id
     end
 
-    progress_counters = PQ.visibles.where('minister_id = ?', minister_id).group('progress_id').count
+    progress_counters = PQ.visibles.where('minister_id = ? OR policy_minister_id = ?', minister_id, minister_id).group('progress_id').count
 
     Progress.where(name: Progress.visible).each do |it|
       count = progress_counters[it.id] || 0
@@ -26,9 +26,9 @@ class ReportsController < ApplicationController
     end
 
     if !progress_id.nil? && !progress_id.empty?
-      pqs = PQ.visibles.where('progress_id = ? AND minister_id = ?', progress_id, minister_id)
+      pqs = PQ.visibles.where('progress_id = ? AND (minister_id = ?  OR policy_minister_id = ?)', progress_id, minister_id, minister_id)
     else
-      pqs = PQ.visibles.where('minister_id = ?', minister_id)
+      pqs = PQ.visibles.where('minister_id = ? OR policy_minister_id = ?', minister_id, minister_id)
     end
 
     @questions_count = pqs.count
