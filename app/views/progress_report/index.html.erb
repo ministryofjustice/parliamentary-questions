@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label for="minister_id">Minister</label>
-                <%= select_tag 'minister_id', options_from_collection_for_select(Minister.all_active, 'id', 'name', params[:minister_id]) %>
+                <%= select_tag 'minister_id', content_tag(:option,'Select a minister',:value=>'') + options_from_collection_for_select(Minister.all_active, 'id', 'name', params[:minister_id] ) %>
             </div>
             <div class="form-group">
               <%= submit_tag 'Report' , class: 'button'%>
@@ -23,9 +23,6 @@
     </div>
   </div>
 </div>
-
-
-
 
 <ul id="status-filters" class="nav nav-pills">
 
@@ -38,14 +35,21 @@
 </ul>
 
 
+<div class="row">
+  <p><%= @questions_count %> Questions found</p>
+</div>
 
+
+<% if !@questions.nil? %>
 
 <div class="row">
   <ul class="questions-list">
     <% @questions.each do |question| %>
         <li style="overflow:auto;">
           <div class="pq-header">
-            <span class="uin"><%= question.uin %></span>
+            <span class="uin">
+            <%= link_to(question.uin , { controller: 'pqs', action: 'show', id: question.uin} ) %>
+            </span>
           </div>
           <div>
             Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
@@ -69,4 +73,4 @@
 
 </div>
 
-
+<% end %>
