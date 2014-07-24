@@ -46,35 +46,16 @@
 
 <% if !@questions.nil? %>
 
-<div class="row">
-  <ul class="questions-list">
-    <% @questions.each do |question| %>
-        <li style="overflow:auto;">
-          <div class="pq-header">
-            <span class="uin">
-            <%= link_to(question.uin , { controller: 'pqs', action: 'show', id: question.uin} ) %>
-            </span>
-          </div>
-          <div>
-            Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
-          </div>
-          <div>
-            <span><%= question.house_name %>: <%= question.member_name %></span>
-          </div>
-
-          <div class = "panel-indent" style="float: left; width: 66%;">
-            <%= question.question %>
-          </div>
-          <div class="allocation-info">
-            <%= render partial: 'shared/question_assigned', locals: {question: question} %>
-          </div>
-        </li>
-    <% end %>
-    <div id='pages'>
-      <%= will_paginate @questions %>
-    </div>
-  </ul>
-
-</div>
+    <ul class="questions-list col-md-9">
+      <% @questions.each do |question| %>
+          <li id="pq-frame-<%= question.id %>" class="row">
+            <%= render partial: 'dashboard/question_data', locals: {question: question} %>
+          </li>
+          <hr />
+      <% end %>
+      <div id='pages'>
+        <%= will_paginate @questions %>
+      </div>
+    </ul>
 
 <% end %>
