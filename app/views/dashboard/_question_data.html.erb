@@ -1,0 +1,46 @@
+<div class="pq-header col-md-12">
+  <h3><%= question.uin %></h3>
+  <% if question.question_type == 'NamedDay' %>
+      <span class="label label-primary" title="Named day">N</span>
+  <% end %>
+  <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'right' ) %>
+</div>
+
+<div class="row">
+  <div class="pq-question col-md-12">
+    <%= question.question %>
+  </div>
+</div>
+
+<div class="status-bar col-md-12">
+  <span class="label flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
+  <% if question.transferred  %>
+      <span class="label label-warning" title="Transferred">Transferred</span>
+  <% end %>
+  <% if question.i_will_write %>
+      <span class="label flag-will-write" title="I will write">I will write</span>
+  <% end %>
+</div>
+
+<!-- loop through and show rejection reasons -->
+<%= render partial:'shared/rejected_reasons', locals: {question: question} %>
+
+<!-- start of 'sub column 1'-->
+<div class="col-md-6">
+  <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
+      <%= render partial: 'dashboard/pq_dashboard_column1_commissioned', locals: {question: question} %>
+  <% else %>
+      <%= render partial: 'dashboard/pq_dashboard_column1_uncommissioned', locals: {question: question} %>
+  <% end %>
+</div>
+<!-- end of column 1-->
+
+<!--start of sub column 2 -->
+<div class="col-md-6">
+  <%= render partial: 'dashboard/pq_dashboard_column2', locals: {question: question} %>
+  <% if !question.preview_url.nil? %>
+      <p>
+        <a href="<%= question.preview_url %>">Question in Q&amp;A Tool</a>
+      </p>
+  <% end %>
+</div>
