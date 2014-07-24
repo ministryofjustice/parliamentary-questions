@@ -14,10 +14,6 @@ class DashboardController < ApplicationController
 
   def index
     @questions = PQ.new_questions.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
-
-    # FIXME this is just testing that statsd works
-    # counter of times that the dashboard is hit
-    $statsd.increment 'dashboard.hits'
   end
 
   def in_progress
