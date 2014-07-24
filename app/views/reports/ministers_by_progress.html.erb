@@ -18,8 +18,8 @@
              @count = @pq.where('progress_id = :p_id and (minister_id = :min_id OR policy_minister_id = :min_id)', p_id:p.id, min_id: m.id).count
           %>
             <td class="table-cell-centered">
-              <% if @count>0 %>
-              <a class="" href="search?minister_id=<%= m.id %>&progress_id=<%= p.id %>"><%= @count %></a>
+              <% if @count > 0 %>
+                <%= link_to @count  , {:controller => 'progress_report', :action => 'index', minister_id: m.id, progress_id: p.id} %>
               <% else %>
               0 <!--<span class="btn btn-xs btn-default btn-block">0</span> -->
               <% end %>
