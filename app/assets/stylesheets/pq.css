@@ -225,7 +225,7 @@ a.btn-success
 .flag-ministerial-query,
 .flag-minister-cleared,
 .flag-will-write
-{border-radius:6px;color:#fff;font-weight:normal;font-size:14px;padding-top:4.2px;}
+{border-radius:6px;color:#fff;font-weight:normal;font-size:13px;padding:6px;}
 
 .flag-finance-unchecked{background-color:#f47738}
 .flag-unallocated{background-color:#f47738}
