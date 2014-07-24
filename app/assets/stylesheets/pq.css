@@ -64,8 +64,12 @@ h2 .badge
 
 /* ============================================================================== */
 
+/* = Navigation Tabs ============================================================ */
+
 .nav-tabs
 {margin-bottom:20px;}
+
+/* ============================================================================== */
 
 /* Status Filters =============================================================== */
 
@@ -73,9 +77,6 @@ h2 .badge
 {color:#000;}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus
 {background-color:#ffbf47;}
-
-/*#status-filters
-{margin-top:20px;}*/
 
 #status-filters .badge
 {float:right;min-width:2.5em;background-color:#000;}
