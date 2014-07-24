@@ -232,7 +232,7 @@ a.btn-success
 .flag-pod-query,
 .flag-rejected,
 .flag-transfer,
-.flag-transferrred,
+.flag-transferred-out,
 .flag-unallocated,
 .flag-unassigned,
 .flag-will-write,
@@ -256,7 +256,7 @@ a.btn-success
 .flag-pod-query{background-color:#5461ff;}
 .flag-rejected{background-color:#d0021b;}
 .flag-transfer{background-color:#2b8cc4;}
-.flag-transferrred{background-color:#d53880;}
+.flag-transferred-out{background-color:#d53880;}
 .flag-unallocated{background-color:#f47738;}
 .flag-unassigned{background-color:#000000;}
 .flag-will-write{background-color:#912b88;}
