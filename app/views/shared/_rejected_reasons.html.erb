@@ -4,7 +4,7 @@
             <div id="pq-reject-reasons-<%= question.id %>" class="info-notice col-md-12">
                 <p id="pq-reject-reasons-header-<%= question.id %>">
                     <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
-                    <span class="label flag-pq-rejected">Rejected</span>
+                    rejected at: 
                     <%= r.updated_at.strftime('%I:%M%p  |  %m/%d/%Y') %>
                 </p>
                 <p><%= r.reason %></p>
