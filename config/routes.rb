@@ -1,6 +1,8 @@
 ParliamentaryQuestions::Application.routes.draw do
 
 
+  get 'reports/ministers_by_progress'
+
   resources :ogds
   get 'find_ogd' => 'ogds#find'
 
