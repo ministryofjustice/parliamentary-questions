@@ -5,7 +5,9 @@
         <tr>
             <th>Progress</th>
         <% @m.each do |m| %>
-            <th class="table-cell-centered"><%= m.name %></th>
+            <th class="table-cell-centered">
+              <%= link_to m.name  , {:action => 'ministers_filter', minister_id: m.id }%>
+            </th>
         <% end %>
         </tr>
 
