@@ -6,9 +6,12 @@
 <% end %>
 
 <% if question.trim_links.count==0 %>
-    <div id="trim-links-header-<%= question.id %>" class="btn btn-default trim-links-header">Add TRIM link 
+    <div id="trim-links-header-<%= question.id %>" class="btn btn-default trim-links-header">
+        <i class="glyphicon glyphicon-link"></i> Add TRIM file 
       <div id="trim-links-form-<%= question.id %>" class="trim-links-form">
-        <div class='btn btn-default trim-links-cancel'>Cancel TRIM link</div>
+        <div class='btn btn-default trim-links-cancel'>
+            <i class="glyphicon glyphicon-link"></i> Cancel TRIM file
+        </div>
         <%= form_for TrimLink.new(:pq_id => question.id), :remote => true, :authenticity_token => true, :html=> {:multipart=>true, :id=>"new_trim_link_form_#{question.id}" ,:class=>'pq-inline-form, form-add-trim-link', :data => {:pqid => "#{question.id}" }} do |f| %>
             <span class="file-choose-replace">Choose file</span>
             <%= f.file_field :file_data, :class=>'pq-inline-form file-chooser', :id=>"file_data-#{question.id}" %>

@@ -3,14 +3,11 @@
 .container
 {padding: 0 15px 15px 15px;}
 
-body.alpha .indicator
-{padding:8px 0px;background-color:#fff;border-top:10px solid #005ea5;}
-
-body.alpha .indicator a:link
-{color:#288acd;text-decoration:underline;}
+.content a
+{line-height:32px;vertical-align:middle;}
 
 #build
-{display:inline-block;color:#fff;background-color:#d73380;font-weight:bold;padding:3px 6px;margin-right:12px;}
+{display:inline-block;color:#fff;background-color:#d73380;font-weight:bold;margin-left:0.5em;padding:3px 6px;}
 
 #proposition-name
 {margin-left:65%;}
@@ -27,6 +24,22 @@ h3
 
 h2 .badge
 {vertical-align:middle;background-color:#000;}
+
+/* = Sign in ==================================================================== */
+
+#new_user
+{margin: 15px;}
+
+#new_user input
+{display:block;margin:8px 0px;}
+
+#new_user input[type="checkbox"]
+{display:inline-block;margin:8px 10px 1em 0px;}
+
+#lbl-remember-me
+{display:inline;margin:8px 0px;}
+
+/* ============================================================================== */
 
 
 /* = Navigation ================================================================= */
@@ -71,11 +84,14 @@ h2 .badge
 
 /* = Dashboard Questions ======================================================== */
 
-.questions-list
-{/*border:1px solid #000;*/}
-
 .questions-list li
-{list-style:none;padding:15px;}
+{list-style:none;margin:15px 15px 15px 0px;}
+
+.info-notice
+{border-left:10px solid #d0021b;margin:15px;padding-top:0.1em;padding-right:0px;padding-bottom:0.1em;padding-left:1em;}
+
+.info-notice p
+{margin-top: 2em;}
 
 .questions-list li label
 {font-size:16px;}
@@ -87,8 +103,10 @@ hr
 
 /* = General ==================================================================== */
 
+/*
 .inline
 {display:inline;}
+*/
 
 .right
 {float:right;}
@@ -200,7 +218,7 @@ a.btn-success
 .flag-ministerial-query,
 .flag-minister-cleared,
 .flag-will-write
-{border-radius:6px;color:#fff;font-weight:normal;font-size:14px;padding:6px 12px;}
+{border-radius:6px;color:#fff;font-weight:normal;font-size:14px;padding-top:4.2px;}
 
 .flag-finance-unchecked{background-color:#f47738}
 .flag-unallocated{background-color:#f47738}
