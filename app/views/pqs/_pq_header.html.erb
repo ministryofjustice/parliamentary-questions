@@ -10,7 +10,7 @@
     <% if @pq.i_will_write %>
         <span class="label flag-will-write" title="I will write">I will write</span>
     <% end %>
-    <span class="flag-<%= @pq.progress.classname %>"><%= @pq.progress.name %></span>
+    <span class="label flag-<%= @pq.progress.classname %>"><%= @pq.progress.name %></span>
   </div>
   <div id="qa-link" class="col-md-2">
     <% if !@pq.preview_url.nil? %>
