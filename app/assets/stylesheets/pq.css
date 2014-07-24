@@ -207,8 +207,8 @@ a.btn-success
 .flag-finance-unchecked,
 .flag-no-response,
 .flag-unallocated,
-.flag-pq-accepted,
-.flag-pq-rejected,
+.flag-accepted,
+.flag-rejected,
 .btn-no-response,
 .flag-draft-pending,
 .flag-with-pod,
@@ -224,8 +224,8 @@ a.btn-success
 .flag-unallocated{background-color:#f47738}
 .flag-no-response{background-color:#f47738}
 .btn-no-response{background-color:#f47738}
-.flag-pq-rejected{background-color:#d0021b}
-.flag-pq-accepted{background-color:#28a197}
+.flag-rejected{background-color:#d0021b}
+.flag-accepted{background-color:#28a197}
 .flag-draft-pending{background-color:#28a197}
 .flag-with-pod{background-color:#2e358b}
 .flag-pod-query{background-color:#5461ff}
