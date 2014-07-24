@@ -103,6 +103,9 @@ h2 .badge
 .questions-list li label
 {font-size:16px;}
 
+.status-bar
+{margin:15px 0px;}
+
 hr
 {color:#bfc1c3;background-color:#bfc1c3;height:1px;margin:0;}
 
