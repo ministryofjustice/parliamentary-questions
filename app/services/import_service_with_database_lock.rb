@@ -3,7 +3,7 @@ class ImportServiceWithDatabaseLock
   def initialize(importService = ImportService.new, time_threshold = 60.minutes)
     @time_threshold = time_threshold
     @importService = importService
-    @progress_unallocated = Progress.unallocated
+    @progress_unallocated = Progress.unassigned
   end
 
 

@@ -1,12 +1,8 @@
 <div id="pq-details-header" class="row">
   <div id="pq-details-title" class="col-md-7">
-    <h2>PQ Details - <%= @pq.uin %></h2>
-    <!-- <%= @pq.progress.name %> -->
+    <h2><%= @pq.uin %> - PQ Details</h2>
     <% if @pq.question_type == 'NamedDay' %>
         <span class="label label-primary" title="Named day">N</span>
-    <% end %>
-    <% if @pq.question_type == 'Ordinary' %>
-        <span class="label label-info" title="Ordinary Written">O</span>
     <% end %>
     <% if @pq.transferred  %>
         <span class="label label-warning" title="Transferred">Transferred</span>
@@ -14,10 +10,11 @@
     <% if @pq.i_will_write %>
         <span class="label flag-will-write" title="I will write">I will write</span>
     <% end %>
+    <span class="label flag-<%= @pq.progress.classname %>"><%= @pq.progress.name %></span>
   </div>
   <div id="qa-link" class="col-md-2">
     <% if !@pq.preview_url.nil? %>
-        <a href="<%= @pq.preview_url %>">View PQ in Q&A Tool</a>
+        <a href="<%= @pq.preview_url %>">View PQ in Q&amp;A Tool</a>
     <% end %>
   </div>
   <div id="trim-links" class="col-md-3">

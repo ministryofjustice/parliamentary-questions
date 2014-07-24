@@ -1,0 +1,76 @@
+<h1>Questions Report</h1>
+
+<%= render partial: 'shared/flash_messages' %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Questions Report</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <%= form_tag controller: 'progress_report', action: 'index' do %>
+
+            <div class="form-group">
+                <label for="minister_id">Minister</label>
+                <%= select_tag 'minister_id', content_tag(:option,'Select a minister',:value=>'') + options_from_collection_for_select(Minister.all_active, 'id', 'name', params[:minister_id] ) %>
+            </div>
+            <div class="form-group">
+              <%= submit_tag 'Report' , class: 'button'%>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul id="status-filters" class="nav nav-pills">
+
+  <% @progresses.each do |progress| %>
+      <li class="<%= 'active' if (params[:progress_id] == progress[:id]) %>">
+        <%= link_to raw("#{progress[:name]}<span class='badge'>#{progress[:count]}</span>") , {:controller => 'progress_report', :action => 'index', minister_id: params[:minister_id], progress_id: progress[:id]} %>
+      </li>
+  <% end %>
+
+</ul>
+
+
+<div class="row">
+  <p><%= @questions_count %> Questions found</p>
+</div>
+
+
+<% if !@questions.nil? %>
+
+<div class="row">
+  <ul class="questions-list">
+    <% @questions.each do |question| %>
+        <li style="overflow:auto;">
+          <div class="pq-header">
+            <span class="uin">
+            <%= link_to(question.uin , { controller: 'pqs', action: 'show', id: question.uin} ) %>
+            </span>
+          </div>
+          <div>
+            Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>
+          </div>
+          <div>
+            <span><%= question.house_name %>: <%= question.member_name %></span>
+          </div>
+
+          <div class = "panel-indent" style="float: left; width: 66%;">
+            <%= question.question %>
+          </div>
+          <div class="allocation-info">
+            <%= render partial: 'shared/question_assigned', locals: {question: question} %>
+          </div>
+        </li>
+    <% end %>
+    <div id='pages'>
+      <%= will_paginate @questions %>
+    </div>
+  </ul>
+
+</div>
+
+<% end %>

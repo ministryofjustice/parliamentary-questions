@@ -98,4 +98,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
   get 'export' => 'export#index'
+
+  match 'progress_report' => 'progress_report#index', via: [:get, :post]
 end
