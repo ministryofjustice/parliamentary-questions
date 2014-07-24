@@ -2,7 +2,7 @@ class ImportService
 
 	def initialize(questionsService = QuestionsService.new)
     	@questionsService = questionsService
-      @progress_unallocated = Progress.unallocated
+      @progress_unallocated = Progress.unassigned
   end
 
 	def questions_with_callback(args = { dateFrom: Date.today} , &block)

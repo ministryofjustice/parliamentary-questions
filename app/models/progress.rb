@@ -2,6 +2,10 @@ class Progress < ActiveRecord::Base
   has_many :pqs
 
 
+  def classname
+    self.name.downcase.sub ' ', '-'
+  end
+
   # status finders
 
   def self.find_by_status(status)
@@ -52,7 +56,7 @@ class Progress < ActiveRecord::Base
     find_by_status(self.MINISTER_CLEARED)
   end
 
-  
+
 
   # was
 
@@ -78,7 +82,7 @@ class Progress < ActiveRecord::Base
   end
 
   def self.ACCEPTED
-    'PQ Accepted'
+    'Accepted'
   end
 
   def self.DRAFT_PENDING
@@ -86,7 +90,7 @@ class Progress < ActiveRecord::Base
   end
 
   def self.REJECTED
-    'PQ Rejected'
+    'Rejected'
   end
 
   def self.WITH_POD

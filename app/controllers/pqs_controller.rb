@@ -79,7 +79,7 @@ private
         :draft_answer_received,
         :i_will_write_estimate,
         :holding_reply,
-        :pod_waiting,
+        :with_pod,
         :pod_query,
         :pod_clearance,
         :round_robin,

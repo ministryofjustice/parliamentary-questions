@@ -65,10 +65,10 @@ class PQ < ActiveRecord::Base
   def self.allocated_accepted()
     by_status(Progress.ACCEPTED)
   end
-  def self.allocated_pending()
+  def self.no_response()
     by_status(Progress.NO_RESPONSE)
   end
-  def self.unallocated()
+  def self.unassigned()
     by_status(Progress.UNASSIGNED)
   end
   def self.rejected
@@ -80,7 +80,7 @@ class PQ < ActiveRecord::Base
   def self.draft_pending
     by_status(Progress.DRAFT_PENDING)
   end
-  def self.pod_waiting
+  def self.with_pod
     by_status(Progress.WITH_POD)
   end
   def self.pod_query
@@ -89,10 +89,10 @@ class PQ < ActiveRecord::Base
   def self.pod_cleared
     by_status(Progress.POD_CLEARED)
   end
-  def self.minister_waiting
+  def self.with_minister
     by_status(Progress.WITH_MINISTER)
   end
-  def self.minister_query
+  def self.ministerial_query
     by_status(Progress.MINISTERIAL_QUERY)
   end
   def self.minister_cleared
@@ -120,9 +120,9 @@ class PQ < ActiveRecord::Base
 
   def self.new_questions_internal()
     by_status([
-                  Progress.ACCEPTED,
-                  Progress.NO_RESPONSE,
                   Progress.UNASSIGNED,
+                  Progress.NO_RESPONSE,
+                  Progress.ACCEPTED,
                   Progress.REJECTED
               ])
   end

@@ -6,7 +6,7 @@ class AssignmentService
     ao = ActionOfficer.find(assignment.action_officer_id)
     pq = PQ.find_by(id: assignment.pq_id)
 
-    pro = Progress.allocated_accepted
+    pro = Progress.accepted
     pq.update progress_id: pro.id
 
     PQAcceptedMailer.commit_email(pq, ao).deliver
@@ -24,12 +24,12 @@ class AssignmentService
     end
 
     if pq.action_officers_pq.accepted.size >=1
-      pro = Progress.allocated_accepted
+      pro = Progress.accepted
       pq.update progress_id: pro.id
       return
     end
 
-    pro = Progress.allocated_pending
+    pro = Progress.no_response
     pq.update progress_id: pro.id
   end
 end
