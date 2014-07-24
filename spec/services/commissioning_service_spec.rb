@@ -82,7 +82,7 @@ describe 'CommissioningService' do
     assignment = ActionOfficersPq.find(assignment_id)
 
     pq = PQ.find(assignment.pq_id)
-    pq.progress.name.should  eq(Progress.ALLOCATED_PENDING)
+    pq.progress.name.should  eq(Progress.NO_RESPONSE)
 
   end
 
@@ -90,13 +90,13 @@ describe 'CommissioningService' do
   it 'should not set the progress to Allocated Pending if the question is already accepted' do
     assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
 
-    pq.progress_id = Progress.allocated_accepted.id
+    pq.progress_id = Progress.accepted.id
     pq.save
 
     @comm_service.send(assignment)
 
     pq = PQ.find(assignment.pq_id)
-    pq.progress.name.should  eq(Progress.ALLOCATED_ACCEPTED)
+    pq.progress.name.should  eq(Progress.ACCEPTED)
 
   end
 

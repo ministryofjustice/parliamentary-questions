@@ -2,51 +2,69 @@ class Progress < ActiveRecord::Base
   has_many :pqs
 
 
+  def classname
+    self.name.downcase.sub ' ', '-'
+  end
+
   # status finders
 
   def self.find_by_status(status)
     Progress.find_by_name(status)
   end
 
-  def self.allocated_accepted
-    find_by_status(self.ALLOCATED_ACCEPTED)
+  def self.unassigned
+    find_by_status(self.UNASSIGNED)
   end
 
-  def self.allocated_pending
-    find_by_status(self.ALLOCATED_PENDING)
+  def self.no_response
+    find_by_status(self.NO_RESPONSE)
   end
 
-  def self.unallocated
-    find_by_status(self.UNALLOCATED)
+  def self.accepted
+    find_by_status(self.ACCEPTED)
+  end
+
+  def self.draft_pending
+    find_by_status(self.DRAFT_PENDING)
   end
 
   def self.rejected
     find_by_status(self.REJECTED)
   end
-  def self.transfer
-    find_by_status(self.TRANSFER)
+
+  def self.with_pod
+    find_by_status(self.WITH_POD)
   end
-  def self.draft_pending
-    find_by_status(self.DRAFT_PENDING)
-  end
-  def self.pod_waiting
-    find_by_status(self.POD_WAITING)
-  end
+
   def self.pod_query
     find_by_status(self.POD_QUERY)
   end
+
   def self.pod_cleared
     find_by_status(self.POD_CLEARED)
   end
-  def self.minister_waiting
-    find_by_status(self.MINISTER_WAITING)
+
+  def self.with_minister
+    find_by_status(self.WITH_MINISTER)
   end
-  def self.minister_query
-    find_by_status(self.MINISTER_QUERY)
+
+  def self.ministerial_query
+    find_by_status(self.MINISTERIAL_QUERY)
   end
+
   def self.minister_cleared
     find_by_status(self.MINISTER_CLEARED)
   end
+
+
+
+  # was
+
+  def self.transfer
+    find_by_status(self.TRANSFER)
+  end
+
+
   def self.answered
     find_by_status(self.ANSWERED)
   end
@@ -55,34 +73,28 @@ class Progress < ActiveRecord::Base
   end
 
   # status constants
-
-  def self.ALLOCATED_ACCEPTED
-    'Allocated Accepted'
+  def self.UNASSIGNED
+    'Unassigned'
   end
 
-  def self.ALLOCATED_PENDING
-    'Allocated Pending'
+  def self.NO_RESPONSE
+    'No response'
   end
 
-  def self.UNALLOCATED
-    'Unallocated'
-  end
-
-  def self.REJECTED
-    'Rejected'
-  end
-
-  def self.TRANSFER
-    'Transfer'
+  def self.ACCEPTED
+    'Accepted'
   end
 
   def self.DRAFT_PENDING
     'Draft Pending'
   end
 
+  def self.REJECTED
+    'Rejected'
+  end
 
-  def self.POD_WAITING
-    'Pod Waiting'
+  def self.WITH_POD
+    'With POD'
   end
 
   def self.POD_QUERY
@@ -93,12 +105,12 @@ class Progress < ActiveRecord::Base
     'Pod Cleared'
   end
 
-  def self.MINISTER_WAITING
-    'Minister Waiting'
+  def self.WITH_MINISTER
+    'With Minister'
   end
 
-  def self.MINISTER_QUERY
-    'Minister Query'
+  def self.MINISTERIAL_QUERY
+    'Ministerial Query'
   end
 
   def self.MINISTER_CLEARED
@@ -113,6 +125,30 @@ class Progress < ActiveRecord::Base
     'Transferred out'
   end
 
+  def self.TRANSFER
+    'Transfer'
+  end
 
+
+  def self.new_questions
+    [
+        Progress.UNASSIGNED,
+        Progress.NO_RESPONSE,
+        Progress.ACCEPTED,
+        Progress.REJECTED
+    ]
+  end
+
+  def self.in_progress_questions
+    [
+        Progress.DRAFT_PENDING,
+        Progress.WITH_POD,
+        Progress.POD_QUERY,
+        Progress.POD_CLEARED,
+        Progress.WITH_MINISTER,
+        Progress.MINISTERIAL_QUERY,
+        Progress.MINISTER_CLEARED
+    ]
+  end
 
 end

@@ -169,7 +169,7 @@ describe 'ImportService' do
       question_one = PQ.find_by(uin: 'HL784845')
       question_one.should_not be_nil
 
-      question_one.progress.name.should eq(Progress.UNALLOCATED)
+      question_one.progress.name.should eq(Progress.UNASSIGNED)
 
     end
 
@@ -177,13 +177,13 @@ describe 'ImportService' do
     it 'should move questions from Accepted to Draft Pending' do
 
       # setup a pq accepted that needs to move from Accepted to Draft Pending
-      pq = create(:PQ, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.allocated_accepted.id)
+      pq = create(:PQ, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.accepted.id)
       ao = create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov')
       yesterday = DateTime.now - 1.day
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: yesterday)
 
       # setup a pq accepted that does need to move it
-      pq = create(:PQ, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.allocated_accepted.id)
+      pq = create(:PQ, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.accepted.id)
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: DateTime.now)
 
       import_result = @import_service.questions()
@@ -193,10 +193,10 @@ describe 'ImportService' do
       pq_to_move.progress.name.should eq(Progress.DRAFT_PENDING)
 
       pq_to_stay = PQ.find_by(uin: 'PQ_TO_STAY')
-      pq_to_stay.progress.name.should eq(Progress.ALLOCATED_ACCEPTED)
+      pq_to_stay.progress.name.should eq(Progress.ACCEPTED)
 
       pq_unallocated = PQ.find_by(uin: 'HL784845')
-      pq_unallocated.progress.name.should eq(Progress.UNALLOCATED)
+      pq_unallocated.progress.name.should eq(Progress.UNASSIGNED)
 
 
     end

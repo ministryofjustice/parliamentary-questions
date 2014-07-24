@@ -1,14 +1,16 @@
-<div>
-  <% if !question.house_name.nil?  %>
-      <p><%= question.short_house_name %>: <%= question.member_name %></p>
-  <% end %>
-</div>
+<% if !question.house_name.nil?  %>
+  <p>
+    <%= question.house_name %>:<br />
+    <%= question.member_name %>
+  </p>
+<% end %>
 
-<div>
-  <% if !question.date_for_answer.nil?  %>
-      <p>Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') %></p>
-  <% end %>
-</div>
+<% if !question.date_for_answer.nil?  %>
+  <p>
+    Date For Answer:<br />
+    <%= question.date_for_answer.strftime('%d/%m/%Y') %>
+  </p>
+<% end %>
 
 
 <% if @dashboard_state == 'New'%>

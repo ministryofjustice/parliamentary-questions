@@ -63,13 +63,13 @@ class PQ < ActiveRecord::Base
   end
 
   def self.allocated_accepted()
-    by_status(Progress.ALLOCATED_ACCEPTED)
+    by_status(Progress.ACCEPTED)
   end
-  def self.allocated_pending()
-    by_status(Progress.ALLOCATED_PENDING)
+  def self.no_response()
+    by_status(Progress.NO_RESPONSE)
   end
-  def self.unallocated()
-    by_status(Progress.UNALLOCATED)
+  def self.unassigned()
+    by_status(Progress.UNASSIGNED)
   end
   def self.rejected
     by_status(Progress.REJECTED)
@@ -80,8 +80,8 @@ class PQ < ActiveRecord::Base
   def self.draft_pending
     by_status(Progress.DRAFT_PENDING)
   end
-  def self.pod_waiting
-    by_status(Progress.POD_WAITING)
+  def self.with_pod
+    by_status(Progress.WITH_POD)
   end
   def self.pod_query
     by_status(Progress.POD_QUERY)
@@ -89,11 +89,11 @@ class PQ < ActiveRecord::Base
   def self.pod_cleared
     by_status(Progress.POD_CLEARED)
   end
-  def self.minister_waiting
-    by_status(Progress.MINISTER_WAITING)
+  def self.with_minister
+    by_status(Progress.WITH_MINISTER)
   end
-  def self.minister_query
-    by_status(Progress.MINISTER_QUERY)
+  def self.ministerial_query
+    by_status(Progress.MINISTERIAL_QUERY)
   end
   def self.minister_cleared
     by_status(Progress.MINISTER_CLEARED)
@@ -118,25 +118,13 @@ class PQ < ActiveRecord::Base
     joins(:progress).where(progresses: {name: status})
   end
 
+
   def self.new_questions_internal()
-    by_status([
-                  Progress.ALLOCATED_ACCEPTED,
-                  Progress.ALLOCATED_PENDING,
-                  Progress.UNALLOCATED,
-                  Progress.REJECTED
-              ])
+    by_status(Progress.new_questions)
   end
 
   def self.in_progress_internal()
-    by_status([
-                  Progress.DRAFT_PENDING,
-                  Progress.POD_WAITING,
-                  Progress.POD_QUERY,
-                  Progress.POD_CLEARED,
-                  Progress.MINISTER_WAITING,
-                  Progress.MINISTER_QUERY,
-                  Progress.MINISTER_CLEARED
-              ])
+    by_status(Progress.in_progress_questions)
   end
 
   def self.monitor_new_questions
