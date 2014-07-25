@@ -35,28 +35,5 @@
   </div>
 </div>
 
+<%= render partial: 'questions_results', locals: {questions: @questions, questions_count: @questions_count} %>
 
-
-
-<% if !@questions_count.nil? %>
-    <div class="row">
-      <p><%= @questions_count %> Questions found</p>
-    </div>
-<% end %>
-
-
-<% if !@questions.nil? %>
-
-    <ul class="questions-list col-md-9">
-      <% @questions.each do |question| %>
-          <li id="pq-frame-<%= question.id %>" class="row">
-            <%= render partial: 'dashboard/question_data', locals: {question: question} %>
-          </li>
-          <hr />
-      <% end %>
-      <div id='pages'>
-        <%= will_paginate @questions %>
-      </div>
-    </ul>
-
-<% end %>
