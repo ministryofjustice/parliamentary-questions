@@ -37,17 +37,17 @@ class ReportsController < ApplicationController
       return render action: 'ministers_filter', minister_id: minister_id, progress_id: progress_id
     end
 
-    progress_counters = PQ.visibles.where('minister_id = ? OR policy_minister_id = ?', minister_id, minister_id).group('progress_id').count
+    progress_counters = PQ_by_minister(minister_id).group('progress_id').count
 
-    Progress.where(name: Progress.visible).each do |it|
+    Progress.all.each do |it|
       count = progress_counters[it.id] || 0
       @progresses.push({id: it.id, name: it.name, count: count})
     end
 
     if !progress_id.nil? && !progress_id.empty?
-      pqs = PQ.visibles.where('progress_id = ? AND (minister_id = ?  OR policy_minister_id = ?)', progress_id, minister_id, minister_id)
+      pqs = PQ_by_minister(minister_id).where('progress_id = ? ', progress_id)
     else
-      pqs = PQ.visibles.where('minister_id = ? OR policy_minister_id = ?', minister_id, minister_id)
+      pqs = PQ_by_minister(minister_id)
     end
 
     @questions_count = pqs.count
@@ -57,17 +57,15 @@ class ReportsController < ApplicationController
   end
 
   def press_desk_filter
-    @pd = PressDesk.where(deleted: false)
-
     press_desk_id = params[:press_desk_id]
     progress_id = params[:progress_id]
     @progresses = []
+
     if press_desk_id.nil? || press_desk_id.empty?
       return render action: 'press_desk_filter', press_desk_id: press_desk_id, progress_id: progress_id
     end
 
     aos = PressDesk.find(press_desk_id).action_officers.collect{|it| it.id}
-
 
     Progress.all.each do |it|
       count = PQ_by_press_desk(aos).where('progress_id = ?', it.id).count
@@ -90,5 +88,10 @@ class ReportsController < ApplicationController
   def PQ_by_press_desk(aos)
     PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos)
   end
+
+  def PQ_by_minister(minister_id)
+    PQ.where('minister_id = ? OR policy_minister_id = ?', minister_id, minister_id)
+  end
+
 
 end
