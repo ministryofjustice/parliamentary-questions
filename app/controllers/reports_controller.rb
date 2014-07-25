@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
     @p = Progress.all
     @pd = PressDesk.where(deleted: false)
 
-    # auto-vivifying Hash
+    # auto-vivifying Hash (http://trevoke.net/blog/2009/11/06/auto-vivifying-hashes-in-ruby/)
     @counters = Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
 
     @pd.each do |pd|
@@ -55,8 +55,36 @@ class ReportsController < ApplicationController
 
     render action: 'ministers_filter', minister_id: minister_id, progress_id: progress_id
   end
-end
+
+  def press_desk_filter
+    @pd = PressDesk.where(deleted: false)
+
+    press_desk_id = params[:press_desk_id]
+    progress_id = params[:progress_id]
+    @progresses = []
+    if press_desk_id.nil? || press_desk_id.empty?
+      return render action: 'press_desk_filter', press_desk_id: press_desk_id, progress_id: progress_id
+    end
+
+    aos = PressDesk.find(press_desk_id).action_officers.collect{|it| it.id}
 
 
-def press_desk_filter
+    Progress.all.each do |it|
+      count = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos).where('progress_id = ?', it.id).count
+      @progresses.push({id: it.id, name: it.name, count: count})
+    end
+
+    if !progress_id.nil? && !progress_id.empty?
+      pqs = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos).where('progress_id = ?', progress_id)
+    else
+      pqs = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos)
+    end
+
+    @questions_count = pqs.count
+    @questions = pqs.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+
+    render action: 'press_desk_filter', press_desk_id: press_desk_id, progress_id: progress_id
+
+  end
+
 end

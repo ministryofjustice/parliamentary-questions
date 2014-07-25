@@ -1,0 +1,62 @@
+<h1>Questions Report</h1>
+
+<%= render partial: 'shared/flash_messages' %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Questions Report</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <%= form_tag controller: 'reports', action: 'press_desk_filter' do %>
+
+            <div class="form-group">
+                <label for="press_desk_id">Press Desk</label>
+                <%= select_tag 'press_desk_id', content_tag(:option,'Select a press desk',:value=>'') + options_from_collection_for_select(PressDesk.where(deleted: false), 'id', 'name', params[:press_desk_id] ) %>
+            </div>
+            <div class="form-group">
+              <%= submit_tag 'Report' , class: 'button'%>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+    <ul id="status-filters" class="nav nav-pills">
+
+      <% if !@progresses.nil? %>
+          <% @progresses.each do |progress| %>
+              <li class="<%= 'active' if (params[:progress_id] == progress[:id].to_s) %>">
+                <%= link_to raw("#{progress[:name]}<span class='badge'>#{progress[:count]}</span>") , {:action => 'press_desk_filter', press_desk_id: params[:press_desk_id], progress_id: progress[:id]} %>
+              </li>
+          <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<% if !@questions_count.nil? %>
+    <div class="row">
+      <p><%= @questions_count %> Questions found</p>
+    </div>
+<% end %>
+
+
+<% if !@questions.nil? %>
+
+    <ul class="questions-list col-md-9">
+      <% @questions.each do |question| %>
+          <li id="pq-frame-<%= question.id %>" class="row">
+            <%= render partial: 'dashboard/question_data', locals: {question: question} %>
+          </li>
+          <hr />
+      <% end %>
+      <div id='pages'>
+        <%= will_paginate @questions %>
+      </div>
+    </ul>
+
+<% end %>
