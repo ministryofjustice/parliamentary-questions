@@ -9,6 +9,25 @@ class ReportsController < ApplicationController
     @pq = PQ.in_progress
   end
 
+
+  def press_desk_by_progress
+    @p = Progress.all
+    @pd = PressDesk.where(deleted: false)
+
+    # auto-vivifying Hash
+    @counters = Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+
+    @pd.each do |pd|
+      # collect Action Officers Ids
+      aos = pd.action_officers.collect{|it| it.id}
+      # calculate the counters
+      @p.each do |p|
+        @counters[pd.id][p.id] = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos).where('progress_id = ?', p.id).count
+      end
+    end
+  end
+
+
   def ministers_filter
     minister_id = params[:minister_id]
     progress_id = params[:progress_id]
@@ -36,4 +55,8 @@ class ReportsController < ApplicationController
 
     render action: 'ministers_filter', minister_id: minister_id, progress_id: progress_id
   end
+end
+
+
+def press_desk_filter
 end
