@@ -1,0 +1,33 @@
+<h1>Press desk by progress</h1>
+
+<table class="table table-condensed table-hover">
+  <thead>
+  <tr>
+    <th>Progress</th>
+    <% @pd.each do |pd| %>
+        <th class="table-cell-centered">
+          <%= link_to pd.name  , {:action => 'press_desk_filter', press_desk_id: pd.id }%>
+        </th>
+    <% end %>
+  </tr>
+
+  </thead>
+  <tbody>
+  <% @p.each do |p| %>
+      <tr>
+        <td><span class="label flag-<%= p.classname %>"><%= p.name %></span></td>
+        <% @pd.each do |pd|
+          count = @counters[pd.id][p.id] || 0
+        %>
+            <td class="table-cell-centered">
+              <% if count > 0 %>
+                  <%= link_to count  , {:action => 'press_desk_filter', press_desk_id: pd.id, progress_id: p.id} %>
+              <% else %>
+                  0 <!--<span class="btn btn-xs btn-default btn-block">0</span> -->
+              <% end %>
+            </td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
