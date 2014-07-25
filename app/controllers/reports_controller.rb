@@ -22,7 +22,7 @@ class ReportsController < ApplicationController
       aos = pd.action_officers.collect{|it| it.id}
       # calculate the counters
       @p.each do |p|
-        @counters[pd.id][p.id] = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos).where('progress_id = ?', p.id).count
+        @counters[pd.id][p.id] = PQ_by_press_desk(aos).where('progress_id = ?', p.id).count
       end
     end
   end
@@ -70,14 +70,14 @@ class ReportsController < ApplicationController
 
 
     Progress.all.each do |it|
-      count = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos).where('progress_id = ?', it.id).count
+      count = PQ_by_press_desk(aos).where('progress_id = ?', it.id).count
       @progresses.push({id: it.id, name: it.name, count: count})
     end
 
     if !progress_id.nil? && !progress_id.empty?
-      pqs = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos).where('progress_id = ?', progress_id)
+      pqs = PQ_by_press_desk(aos).where('progress_id = ?', progress_id)
     else
-      pqs = PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos)
+      pqs = PQ_by_press_desk(aos)
     end
 
     @questions_count = pqs.count
@@ -85,6 +85,10 @@ class ReportsController < ApplicationController
 
     render action: 'press_desk_filter', press_desk_id: press_desk_id, progress_id: progress_id
 
+  end
+
+  def PQ_by_press_desk(aos)
+    PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos)
   end
 
 end
