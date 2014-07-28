@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'PQAcceptedMailer' do
 
   let(:ao) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
-  let(:minister_1) { create(:minister, name: 'name1', email: 'test1@tesk.uk') }
-  let(:minister_2) { create(:minister, name: 'name2', email: 'test2@tesk.uk') }
+  let(:minister_1) { create(:minister, name: 'Mr Name1 for Test', email: 'test1@tesk.uk') }
+  let(:minister_2) { create(:minister, name: 'Mr Name2 for Test', email: 'test2@tesk.uk') }
   let(:minister_simon) { create(:minister, name: 'Simon Hughes', email: 'simon@tesk.uk') }
 
   progress_seed
@@ -70,6 +70,23 @@ describe 'PQAcceptedMailer' do
       mail.html_part.body.should include CGI::escape(expectedCC)
 
     end
+
+
+    it 'should contain the name of the minister and the name of the policy minister' do
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+
+      PQAcceptedMailer.commit_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should include minister_1.name
+      mail.html_part.body.should include minister_1.name
+
+      mail.text_part.body.should include minister_2.name
+      mail.html_part.body.should include minister_2.name
+
+    end
+
 
 
   end
