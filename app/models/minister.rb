@@ -9,11 +9,7 @@ class Minister < ActiveRecord::Base
                                 :reject_if     => :all_blank
 
   def email
-    result = ''
-    minister_contacts.each do |c|
-      result += c.email
-    end
-    result
+    minister_contacts.where(deleted: false).pluck('email').join(';')
   end
 
   def strip_whitespace
