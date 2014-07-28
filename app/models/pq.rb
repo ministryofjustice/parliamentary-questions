@@ -1,4 +1,4 @@
-class PQ < ActiveRecord::Base
+class Pq < ActiveRecord::Base
 	validates :uin , presence: true, uniqueness:true
 	validates :raising_member_id, presence:true
 	validates :question, presence:true

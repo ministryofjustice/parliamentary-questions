@@ -7,7 +7,7 @@ class SearchController  < ApplicationController
     end
 
     uin = params[:search]
-    pq = PQ.find_by(uin: uin)
+    pq = Pq.find_by(uin: uin)
 
     if pq.nil?
       flash[:notice] = "The Question with UIN '#{uin}' not found"

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe PQ do
-	let(:newQ) {build(:PQ)}
+describe Pq do
+	let(:newQ) {build(:Pq)}
 
 	describe 'validation' do
 

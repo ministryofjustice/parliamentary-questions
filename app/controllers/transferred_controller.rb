@@ -2,11 +2,11 @@ class TransferredController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def new
-    @pq = PQ.new
+    @pq = Pq.new
   end
 
   def create
-    @pq = PQ.new(pq_params)
+    @pq = Pq.new(pq_params)
     @pq.transferred = true
     @pq.raising_member_id = '0'
     @pq.progress_id = Progress.unassigned.id

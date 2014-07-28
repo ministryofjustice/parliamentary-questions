@@ -1,7 +1,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :PQ do
+  factory :Pq do
     uin 'hl1234'
     house_id 1
     raising_member_id 1

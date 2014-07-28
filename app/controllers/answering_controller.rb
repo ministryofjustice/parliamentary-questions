@@ -33,7 +33,7 @@ class AnsweringController < ApplicationController
   end
 
   def set_pq
-    @pq = PQ.find(params[:id])
+    @pq = Pq.find(params[:id])
   end
 
   def answer_params

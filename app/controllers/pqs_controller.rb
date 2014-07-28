@@ -11,7 +11,7 @@ class PqsController < ApplicationController
   end
 
   def show
-    @pq = PQ.find_by(uin: params[:id])
+    @pq = Pq.find_by(uin: params[:id])
     if !@pq.present?
       flash[:notice] = 'Question not found'
       redirect_to action: 'index'
@@ -61,7 +61,7 @@ class PqsController < ApplicationController
 
 private
   def set_pq
-    @pq = PQ.find_by(uin: params[:id])
+    @pq = Pq.find_by(uin: params[:id])
   end
 
   def load_service(pq_progress_changer_service = PQProgressChangerService.new)

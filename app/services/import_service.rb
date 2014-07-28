@@ -62,7 +62,7 @@ class ImportService
   protected
 
   def import_one_question(q, &block)
-    pq = PQ.find_or_initialize_by(uin: q['Uin'])
+    pq = Pq.find_or_initialize_by(uin: q['Uin'])
     default_deadline = DateTime.now.midnight.change ({:hour => 10, :min => 30, :offset => 0})
     deadline = pq.internal_deadline || default_deadline
     progress_id = pq.progress_id || @progress_unallocated.id
@@ -100,9 +100,9 @@ class ImportService
     progress_id = Progress.draft_pending.id
 
     number_of_questions_moved = 0
-    pqs = PQ.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
+    pqs = Pq.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
     pqs.each do |pq_relation|
-      pq = PQ.find(pq_relation.id)
+      pq = Pq.find(pq_relation.id)
       pq.update(progress_id: progress_id )
       number_of_questions_moved +=1
     end

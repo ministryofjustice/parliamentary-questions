@@ -22,7 +22,7 @@ class ActionOfficerReminderController  < ApplicationController
   def set_data
     id = params[:id]
     ao_pq = ActionOfficersPq.find(id)
-    @pq = PQ.find(ao_pq.pq_id)
+    @pq = Pq.find(ao_pq.pq_id)
     @ao = ActionOfficer.find(ao_pq.action_officer_id)
 
     @template = Hash.new

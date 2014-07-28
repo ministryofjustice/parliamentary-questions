@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'CommissioningService' do
 
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
-  let(:pq) { create(:PQ, uin: 'HL789', question: 'test question?') }
+  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?') }
   progress_seed
 
 
@@ -81,7 +81,7 @@ describe 'CommissioningService' do
 
     assignment = ActionOfficersPq.find(assignment_id)
 
-    pq = PQ.find(assignment.pq_id)
+    pq = Pq.find(assignment.pq_id)
     pq.progress.name.should  eq(Progress.NO_RESPONSE)
 
   end
@@ -95,7 +95,7 @@ describe 'CommissioningService' do
 
     @comm_service.send(assignment)
 
-    pq = PQ.find(assignment.pq_id)
+    pq = Pq.find(assignment.pq_id)
     pq.progress.name.should  eq(Progress.ACCEPTED)
 
   end
@@ -108,7 +108,7 @@ describe 'CommissioningService' do
 
     @comm_service.send(assignment)
 
-    pq = PQ.find(assignment.pq_id)
+    pq = Pq.find(assignment.pq_id)
     pq.progress.name.should  eq(Progress.REJECTED)
 
   end

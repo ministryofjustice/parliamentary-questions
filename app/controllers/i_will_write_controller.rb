@@ -2,14 +2,14 @@ class IWillWriteController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def create
-    pq_to_dup = PQ.find_by(uin: params[:id])
+    pq_to_dup = Pq.find_by(uin: params[:id])
 
     if !pq_to_dup.i_will_write
       return redirect_to action:'pqs', controller: 'show', id: params[:id], notice: 'Error, the PQ is not flag as a \'I will write\''
     end
 
     uin_iww = "#{pq_to_dup.uin}-IWW"
-    exist = PQ.find_by(uin: uin_iww)
+    exist = Pq.find_by(uin: uin_iww)
     if !exist.nil?
       return redirect_to controller:'pqs', action: 'show', id: uin_iww, notice: "Created PQ 'I will write' #{uin_iww}"
     end

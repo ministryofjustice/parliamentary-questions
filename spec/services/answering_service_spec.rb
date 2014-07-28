@@ -21,12 +21,12 @@ describe 'AnsweringService' do
       # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
-      pq = PQ.find_by(uin: uin)
+      pq = Pq.find_by(uin: uin)
       pq.minister = minister1
 
       @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
 
-      pq = PQ.find_by(uin: uin)
+      pq = Pq.find_by(uin: uin)
       pq.preview_url.should eq('https://wqatest.parliament.uk/Questions/Details/36527')
 
     end
@@ -36,7 +36,7 @@ describe 'AnsweringService' do
       # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
-      pq = PQ.find_by(uin: uin)
+      pq = Pq.find_by(uin: uin)
 
       expect {
         @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
@@ -50,7 +50,7 @@ describe 'AnsweringService' do
       # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
-      pq = PQ.find_by(uin: uin)
+      pq = Pq.find_by(uin: uin)
       pq.minister = minister1
       pq.minister.member_id = nil
 
@@ -68,7 +68,7 @@ describe 'AnsweringService' do
       # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
-      pq = PQ.find_by(uin: uin)
+      pq = Pq.find_by(uin: uin)
       pq.minister = minister1
 
       expect {
