@@ -17,7 +17,7 @@
         <tr>
             <td><span class="label flag-<%= p.classname %>"><%= p.name %></span></td>
           <% @m.each do |m|
-             @count = @pq.where('progress_id = :p_id and (minister_id = :min_id OR policy_minister_id = :min_id)', p_id:p.id, min_id: m.id).count
+             @count = @counters[m.id][p.id] || 0
           %>
             <td class="table-cell-centered">
               <% if @count > 0 %>
