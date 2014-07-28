@@ -15,7 +15,11 @@
       <tr>
         <td><%= minister.name %></td>
         <td><%= minister.title %></td>
-        <td><%= minister.email %></td>
+        <td>
+          <% minister.minister_contacts.each do |c| %>
+            <div><%= c.email %></div>
+          <% end %>
+        </td>
         <td><% if minister.deleted %>
           <i class="fa fa-times"></i>Deleted
         <% else %>

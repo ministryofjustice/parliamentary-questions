@@ -27,11 +27,9 @@
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
+
     <%= f.fields_for :minister_contacts do |ff| %>
+        <br/>
         <hr>
         <div class="field">
           <%= ff.label :name, 'Contact Description' %>
