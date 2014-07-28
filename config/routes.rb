@@ -103,4 +103,13 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
   match 'reports/press_desk_filter' => 'reports#press_desk_filter', via: [:get, :post]
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
+
+
+  # error pages with metric for production only
+  if Rails.env.production?
+    get '401', :to => 'application#unauthorized'
+    get '404', :to => 'application#page_not_found'
+    get '500', :to => 'application#server_error'
+  end
+
 end
