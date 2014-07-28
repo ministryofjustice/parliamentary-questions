@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe 'AssignmentService' do
 
-  let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
+  let(:directorate) {create(:directorate, name: 'This Directorate', id: 1+rand(10))}
+  let(:division) {create(:division,name: 'Division', directorate_id: directorate.id, id: 1+rand(10))}
+  let(:deputy_director) { create(:deputy_director, name: 'dd name', division_id: division.id, id: 1+rand(10))}
+  let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
+  let(:action_officer2) { create(:action_officer, name: 'ao name 2', email: 'ao@ao.gov') }
+
   let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?') }
   progress_seed
 
@@ -72,6 +77,53 @@ describe 'AssignmentService' do
       pq = Pq.find(assignment.pq_id)
       pq.progress.name.should  eq(Progress.ACCEPTED)
 
+    end
+
+    it 'should set the original division_id on PQ' do
+      # setup a valid assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+
+      @assignment_service.accept(assignment)
+
+      assignment = ActionOfficersPq.find(assignment_id)
+
+      pq = Pq.find(assignment.pq_id)
+      pq.at_acceptance_division_id.should eq(division.id)
+    end
+    it 'should set the original directorate on PQ' do
+      # setup a valid assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+
+      @assignment_service.accept(assignment)
+
+      assignment = ActionOfficersPq.find(assignment_id)
+
+      pq = Pq.find(assignment.pq_id)
+      pq.at_acceptance_directorate_id.should eq(directorate.id)
+    end
+
+    it 'should not crash id division is nil' do
+      # setup a valid assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer2.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+
+      @assignment_service.accept(assignment)
+
+      assignment = ActionOfficersPq.find(assignment_id)
+
+      pq = Pq.find(assignment.pq_id)
+      pq.at_acceptance_directorate_id.should eq(nil)
     end
 
   end
