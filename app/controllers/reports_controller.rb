@@ -94,7 +94,7 @@ class ReportsController < ApplicationController
   end
 
   def PQ_by_press_desk(aos)
-    PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.id IN (?)', aos)
+    PQ.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (?)', aos)
   end
 
   def PQ_by_minister(minister_id)
