@@ -2,10 +2,10 @@
   <div id="pq-details-title" class="col-md-7">
     <h2><%= @pq.uin %> - PQ Details</h2>
     <% if @pq.question_type == 'NamedDay' %>
-        <span class="label label-primary" title="Named day">N</span>
+        <span class="label name-day" title="Named day">N</span>
     <% end %>
     <% if @pq.transferred  %>
-        <span class="label label-warning" title="Transferred">Transferred</span>
+        <span class="label flag-transferred-out" title="Transferred">Transferred</span>
     <% end %>
     <% if @pq.i_will_write %>
         <span class="label flag-will-write" title="I will write">I will write</span>
