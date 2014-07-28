@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Unauthorized (401)</title>
+  <title>The change you wanted was rejected (422)</title>
   <style>
   body {
     background-color: #EFEFEF;
@@ -48,13 +48,12 @@
 </head>
 
 <body>
-  <!-- This file lives in public/404.html -->
+  <!-- This file lives in public/422.html -->
   <div class="dialog">
-    <h1>Unauthorized.</h1>
-    <p>You don't have permission to see the page.</p>
+    <h1>The change you wanted was rejected.</h1>
+    <p>Maybe you tried to change something you didn't have access to.</p>
   </div>
-  <p></p>
+  <p>If you are the application owner check the logs for more information.</p>
 </body>
 </html>
 
-<% $statsd.increment("#{StatsHelper::PAGES_ERRORS}.401") %>
