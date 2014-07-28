@@ -41,6 +41,9 @@ module ParliamentaryQuestions
       g.template_engine :erb
     end
 
+    config.exceptions_app = self.routes
+
+
     # Statsd
 
     $statsd = Statsd.new 'localhost', 8125
