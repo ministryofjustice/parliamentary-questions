@@ -54,8 +54,8 @@ class ExportController < ApplicationController
         ao = pq.action_officer_accepted
         ao_name = ao.nil? ? '' : ao.name
         ao_email = ao.nil? ? '' : ao.email
-        division = ao.nil? ? '' : ao.deputy_director.division.name
-        directorate = ao.nil? ? '' : ao.deputy_director.division.directorate.name
+        division = pq.at_acceptance_division_id.nil? ? '' : Division.find(pq.at_acceptance_division_id).name
+        directorate = pq.at_acceptance_directorate_id.nil? ? '' : Directorate.find(pq.at_acceptance_directorate_id).name
         minister_name = pq.minister.nil? ? '' : pq.minister.name
 
         csv << [
