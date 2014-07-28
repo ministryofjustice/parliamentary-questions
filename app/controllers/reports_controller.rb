@@ -6,7 +6,15 @@ class ReportsController < ApplicationController
   def ministers_by_progress
     @p = Progress.where(name: Progress.in_progress_questions)
     @m = Minister.where(deleted: false)
-    @pq = PQ.in_progress
+
+    @counters = Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+
+    @m.each do |m|
+      # calculate the counters
+      @p.each do |p|
+        @counters[m.id][p.id] = PQ_by_minister(m.id).where('progress_id = ?', p.id).count
+      end
+    end
   end
 
 
