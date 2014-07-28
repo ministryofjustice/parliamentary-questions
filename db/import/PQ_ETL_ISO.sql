@@ -178,8 +178,8 @@ insert into deputy_directors(name, deleted)
   and not exists (select name from deputy_directors where name = "Deputy Director");
   
 insert into press_desks(name,deleted,created_at,updated_at)
-select 'Dummy', false, now(), now()
-where not exists (select name from press_desks where name = 'Dummy');
+select 'Not in TRIM', false, now(), now()
+where not exists (select name from press_desks where name = 'Not in TRIM');
 
 insert into press_officers(
 name,email,press_desk_id,deleted,
@@ -187,14 +187,14 @@ name,email,press_desk_id,deleted,
   updated_at)
 select    'No Press Officer Assigned',
   'no_reply@pq',
-  (select id from press_desks p where p.name = 'Dummy') ,
+  (select id from press_desks p where p.name = 'Not in TRIM') ,
   FALSE,
   now() ,
   now() 
   where not exists (select name from press_officers where name = 'No Press Officer Assigned');
 
 insert into action_officers(name, email, deleted, press_desk_id)
-  SELECT distinct "Action Officer" as name,"Action Officer-Internet E-Mail Address" as email, FALSE, (select id from press_desks p where p.name = 'Dummy')
+  SELECT distinct "Action Officer" as name,"Action Officer-Internet E-Mail Address" as email, FALSE, (select id from press_desks p where p.name = 'Not in TRIM')
   from Stageing
   where "Action Officer"  is not null
   and not exists (select name from action_officers where name = "Action Officer");
@@ -284,7 +284,9 @@ resubmitted_to_answering_minister,
   final_response_info_released,
   round_robin_guidance_received,
   transfer_out_ogd_id,
-  transfer_out_date)
+  transfer_out_date,
+  at_acceptance_directorate_id,
+  at_acceptance_division_id)
   SELECT to_date(s."Date First Appeared in Parliament",'DD/MM/YYYY'),
 s."Full question",
 now(),
@@ -327,7 +329,16 @@ CASE WHEN s."Holding Reply - date follow up response sent" is null THEN FALSE EL
 s."Final Response - Information Released",
 to_timestamp(s."Date Guidance Received",'DD/MM/YYYY at HH24:MI'),
 (SELECT id from ogds where name = s."Transfer to Other Government Department"),
-to_timestamp(s."Date Transferred",'DD/MM/YYYY at HH24:MI')
+to_timestamp(s."Date Transferred",'DD/MM/YYYY at HH24:MI'),
+    (select max(dr.id) from action_officers ao, deputy_directors dd, divisions d, directorates dr
+    where ao.name = s."Action Officer"
+          and ao.deputy_director_id = dd.id
+          and dd.division_id = d.id
+          and d.directorate_id = dr.id),
+    (select max(d.id) from action_officers ao, deputy_directors dd, divisions d
+    where ao.name = s."Action Officer"
+    and ao.deputy_director_id = dd.id
+    and dd.division_id = d.id)
 from stageing s
   where not exists (select uin from pqs where uin = s."Parliaments Identifying Number")
   and s."Parliaments Identifying Number" is not null;
