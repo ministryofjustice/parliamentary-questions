@@ -32,7 +32,7 @@
               <h5>Deputy director</h5>
               <p><%= ao_pq.action_officer.deputy_director.name %></p>
 
-              <h5>Press Deck</h5>
+              <h5>Press Desk</h5>
               <p><%= ao_pq.action_officer.press_desk.name %></p>
               <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
                   <p><%= mail_to po.name, po.email %></p>
