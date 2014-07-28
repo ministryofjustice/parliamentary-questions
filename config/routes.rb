@@ -1,4 +1,5 @@
 ParliamentaryQuestions::Application.routes.draw do
+  get 'ping' => 'ping#index'
 
   resources :ogds
   get 'find_ogd' => 'ogds#find'
