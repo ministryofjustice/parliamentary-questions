@@ -2,15 +2,20 @@ require 'spec_helper'
 
 describe 'PQAcceptedMailer' do
 
+  let(:contact1) { create(:minister_contact, email: 'test1@tesk.uk')}
+  let(:contact2) { create(:minister_contact, email: 'test2@tesk.uk')}
   let(:ao) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
-  let(:minister_1) { create(:minister, name: 'Mr Name1 for Test', email: 'test1@tesk.uk') }
-  let(:minister_2) { create(:minister, name: 'Mr Name2 for Test', email: 'test2@tesk.uk') }
-  let(:minister_simon) { create(:minister, name: 'Simon Hughes', email: 'simon@tesk.uk') }
+  let(:minister_1) { create(:minister, name: 'Mr Name1 for Test') }
+  let(:minister_2) { create(:minister, name: 'Mr Name2 for Test') }
+  let(:minister_simon) { create(:minister, name: 'Simon Hughes') }
+
 
   progress_seed
 
   before(:each) do
     ActionMailer::Base.deliveries = []
+    minister_1.minister_contacts << contact1
+    minister_2.minister_contacts << contact2
   end
 
   describe '#deliver' do
@@ -41,7 +46,7 @@ describe 'PQAcceptedMailer' do
 
     it 'should set the right cc with minister the right people if the minister is Simon Huges' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
-      expectedCC = 'simon@tesk.uk;test2@tesk.uk;;Christopher.Beal@justice.gsi.gov.uk;Nicola.Calderhead@justice.gsi.gov.uk;thomas.murphy@JUSTICE.gsi.gov.uk'
+      expectedCC = 'Christopher.Beal@justice.gsi.gov.uk;Nicola.Calderhead@justice.gsi.gov.uk;thomas.murphy@JUSTICE.gsi.gov.uk'
 
       PQAcceptedMailer.commit_email(pq, ao).deliver
 

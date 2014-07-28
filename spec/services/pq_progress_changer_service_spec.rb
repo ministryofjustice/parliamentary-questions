@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'PQProgressChangerService' do
 
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
-  let(:minister_1) { create(:minister, name: 'name1', email: 'test1@tesk.uk') }
+  let(:minister_1) { create(:minister, name: 'name1') }
   progress_seed
 
   before(:each) do
