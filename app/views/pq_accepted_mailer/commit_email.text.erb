@@ -3,7 +3,16 @@ You accepted the following PQ
 ============================================================================
 <%= @template_params[:question] %>.
 ============================================================================
-You should emsure the following people are included in your draft response:-
+
+<% if !@template_params[:mpname].nil? %>
+    Minister: <%= @template_params[:mpname] %>
+<% end %>
+<% if !@template_params[:mpname].nil? %>
+    Policy Minister: <%= @template_params[:policy_mpname] %>
+<% end %>
+
+
+You should ensure the following people are included in your draft response:-
 
 <%= @template_params[:cc_list]  %>
 

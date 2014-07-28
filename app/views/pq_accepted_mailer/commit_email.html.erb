@@ -10,6 +10,15 @@
   <%= @template_params[:question] %>
 </div>
 
+<div>
+  <% if !@template_params[:mpname].nil? %>
+    <p>Minister: <strong><%= @template_params[:mpname] %></strong></p>
+  <% end %>
+  <% if !@template_params[:mpname].nil? %>
+     <p>Policy Minister: <strong><%= @template_params[:policy_mpname] %></strong></p>
+  <% end %>
+</div>
+
 <h2>You can use this link to
   <%= mail_to 'MOJParliamentaryBranch@cabinet-office.gsi.gov.uk', 'send a draft response', cc: @template_params[:cc_list], subject: "[Parliament-Questions] Draft for question #{@template_params[:uin]}" %>
 </h2>
