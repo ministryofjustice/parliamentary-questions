@@ -1,5 +1,8 @@
 ParliamentaryQuestions::Application.routes.draw do
 
+  resources :minister_contacts
+  get 'minister_contacts/new/:id' => 'minister_contacts#new', :as => :new_minister_contact_withid
+
   resources :ogds
   get 'find_ogd' => 'ogds#find'
 
