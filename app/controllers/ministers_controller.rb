@@ -16,6 +16,7 @@ class MinistersController < ApplicationController
   # GET /ministers/new
   def new
     @minister = Minister.new
+    @minister.minister_contacts << MinisterContact.new
   end
 
   # GET /ministers/1/edit
@@ -26,7 +27,7 @@ class MinistersController < ApplicationController
   # POST /ministers.json
   def create
     @minister = Minister.new(minister_params)
-
+    # @minister.minister_contacts << MinisterContact.new(minister_params[:minister_contacts_attributes]['0'])
     respond_to do |format|
       if @minister.save
         format.html { redirect_to @minister, notice: 'Minister was successfully created.' }
@@ -70,6 +71,6 @@ class MinistersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def minister_params
-      params.require(:minister).permit(:name, :title, :email, :deleted, :member_id)
+      params.require(:minister).permit(:name, :title, :email, :deleted, :member_id, minister_contacts_attributes: [ :id, :name, :email, :phone, :deleted, :minister_id ])
     end
 end

@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name %>
 
     <!-- Disabled search controller (to search minister by Parliamentary API)-->
@@ -24,17 +24,36 @@
 
   </div>
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
-  <div class="field">
-    <%= f.label :deleted %><br>
-    <%= f.check_box :deleted %>
-  </div>
+    <%= f.fields_for :minister_contacts do |ff| %>
+        <hr>
+        <div class="field">
+          <%= ff.label :name, 'Contact Description' %>
+          <%= ff.text_field :name %>
+        </div>
+        <div class="field">
+          <%= ff.label :email %>
+          <%= ff.text_field :email %>
+        </div>
+        <div class="field">
+          <%= ff.label :phone %>
+          <%= ff.text_field :phone %>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <%= ff.check_box :deleted  %> Inactive
+            </label>
+          </div>
+        </div>
+    <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

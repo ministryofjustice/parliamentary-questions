@@ -16,6 +16,30 @@
 </div>
 
 <div>
+    <strong>Contacts</strong> <%= link_to 'Add new contact', new_minister_contact_withid_path(@minister) %>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>email</th>
+                <th>phone</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% @minister.minister_contacts.where(deleted: false).each do |c| %>
+            <tr>
+              <td><%= c.name %></td>
+              <td><%= c.email %></td>
+              <td><%= c.phone %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+
+
+
+</div>
+<div>
  <% if @minister.deleted %>
    <i class="fa fa-times"></i>Deleted
  <% else %>
