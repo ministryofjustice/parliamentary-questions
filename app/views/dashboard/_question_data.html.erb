@@ -3,6 +3,12 @@
   <% if question.question_type == 'NamedDay' %>
       <span class="label name-day" title="Named day">N</span>
   <% end %>
+  <% if question.transferred  %>
+      <span class="label flag-transferred-out" title="Transferred">Transferred</span>
+  <% end %>
+  <% if question.i_will_write %>
+      <span class="label flag-will-write" title="I will write">I will write</span>
+  <% end %>
   <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'right' ) %>
 </div>
 
@@ -14,12 +20,6 @@
 
 <div class="status-bar col-md-12">
   <span class="label flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
-  <% if question.transferred  %>
-      <span class="label label-warning" title="Transferred">Transferred</span>
-  <% end %>
-  <% if question.i_will_write %>
-      <span class="label flag-will-write" title="I will write">I will write</span>
-  <% end %>
 </div>
 
 <!-- loop through and show rejection reasons -->
