@@ -16,6 +16,11 @@ seed)
     bundle exec rake "user:create[$USER_CREATE]" >>/rails/log/unicorn.log 2>&1
     ;;
 esac
+if [ -n "${IMPORT_URL}" ]; then
+    echo "Running import from URL ${IMPORT_URL}"
+    curl -o /tmp/dbimport "${IMPORT_URL}" 2>>/rails/log/unicorn.log
+    bundle exec rake db:import_transform[/tmp/dbimport] >>/rails/log/unicorn.log 2>&1
+fi
 
 # Increment restart metric
 echo "restart.rails:1|s" | nc.traditional -w 1 -u 127.0.0.1 8125
