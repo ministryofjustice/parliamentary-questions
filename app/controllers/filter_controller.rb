@@ -9,7 +9,7 @@ class FilterController < ApplicationController
   	@message = "Please pick a date to display items"
   	if params[:search] != nil
 
-      @results = PQ.where(:tabled_date => params[:search])
+      @results = Pq.where(:tabled_date => params[:search])
 
       #@questions = @questions_service.questions()
 

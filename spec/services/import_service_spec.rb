@@ -18,7 +18,7 @@ describe 'ImportService' do
       import_result = @import_service.questions_by_uin('HL784845')
       import_result[:questions].size.should eq(1)
 
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.raising_member_id.should eql(2479)
       question_one.question.should eql('Hello we are asking questions')
@@ -33,7 +33,7 @@ describe 'ImportService' do
       import_result[:questions].size.should eq(2)
 
       # first question
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.raising_member_id.should eql(2479)
       question_one.question.should eql('Hello we are asking questions')
@@ -55,7 +55,7 @@ describe 'ImportService' do
       question_one.question_status.should eq('Tabled')
       
       # second question
-      question_two = PQ.find_by(uin: 'HL673892')
+      question_two = Pq.find_by(uin: 'HL673892')
       question_two.should_not be_nil
       question_two.raising_member_id.should eql(9742)
       question_two.question.should eql("I'm asking questions too")
@@ -69,11 +69,11 @@ describe 'ImportService' do
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.question.should eql('Hello we are asking questions')
 
-      question_two = PQ.find_by(uin: 'HL673892')
+      question_two = Pq.find_by(uin: 'HL673892')
       question_two.should_not be_nil
       question_two.question.should eql("I'm asking questions too")
 
@@ -82,11 +82,11 @@ describe 'ImportService' do
 
       @import_service.questions()
 
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.question.should eql('Hello we are asking questions')
 
-      question_two = PQ.find_by(uin: 'HL673892')
+      question_two = Pq.find_by(uin: 'HL673892')
       question_two.should_not be_nil
       # The question text is different now
       question_two.question.should eql("The Text Changed")
@@ -100,15 +100,15 @@ describe 'ImportService' do
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.question.should eql('Hello we are asking questions')
 
-      question_two = PQ.find_by(uin: 'HL673892')
+      question_two = Pq.find_by(uin: 'HL673892')
       question_two.should_not be_nil
       question_two.question.should eql("I'm asking questions too")
 
-      question_new = PQ.find_by(uin: 'HL5151')
+      question_new = Pq.find_by(uin: 'HL5151')
       question_new.should be_nil
 
       # Second call, with one new question
@@ -116,7 +116,7 @@ describe 'ImportService' do
 
       @import_service.questions()
 
-      question_new = PQ.find_by(uin: 'HL5151')
+      question_new = Pq.find_by(uin: 'HL5151')
       question_new.should_not be_nil
       question_new.question.should eql('New question in the api')
 
@@ -146,7 +146,7 @@ describe 'ImportService' do
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql(Date.today.strftime("%Y-%m-%d 10:30"))
 
@@ -155,7 +155,7 @@ describe 'ImportService' do
 
       # Second call, should have the deadline saved, not the default one
       import_result = @import_service.questions()
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql("2012-08-29 00:00")
 
@@ -166,7 +166,7 @@ describe 'ImportService' do
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
-      question_one = PQ.find_by(uin: 'HL784845')
+      question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
 
       question_one.progress.name.should eq(Progress.UNASSIGNED)
@@ -177,25 +177,25 @@ describe 'ImportService' do
     it 'should move questions from Accepted to Draft Pending' do
 
       # setup a pq accepted that needs to move from Accepted to Draft Pending
-      pq = create(:PQ, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.accepted.id)
+      pq = create(:Pq, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.accepted.id)
       ao = create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov')
       yesterday = DateTime.now - 1.day
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: yesterday)
 
       # setup a pq accepted that does need to move it
-      pq = create(:PQ, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.accepted.id)
+      pq = create(:Pq, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.accepted.id)
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: DateTime.now)
 
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
-      pq_to_move = PQ.find_by(uin: 'PQ_TO_MOVE')
+      pq_to_move = Pq.find_by(uin: 'PQ_TO_MOVE')
       pq_to_move.progress.name.should eq(Progress.DRAFT_PENDING)
 
-      pq_to_stay = PQ.find_by(uin: 'PQ_TO_STAY')
+      pq_to_stay = Pq.find_by(uin: 'PQ_TO_STAY')
       pq_to_stay.progress.name.should eq(Progress.ACCEPTED)
 
-      pq_unallocated = PQ.find_by(uin: 'HL784845')
+      pq_unallocated = Pq.find_by(uin: 'HL784845')
       pq_unallocated.progress.name.should eq(Progress.UNASSIGNED)
 
 

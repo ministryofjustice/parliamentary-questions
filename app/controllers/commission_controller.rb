@@ -2,7 +2,7 @@ class CommissionController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def commission
-    @pq = PQ.find_by(uin: params[:id])
+    @pq = Pq.find_by(uin: params[:id])
     if @pq.nil?
       flash[:notice] = 'Question not found'
       redirect_to action: 'index'
@@ -15,7 +15,7 @@ class CommissionController < ApplicationController
 
   def assign
     pq_id = params[:action_officers_pq][:pq_id]
-    @pq = PQ.find(pq_id)
+    @pq = Pq.find(pq_id)
     comm = params[:action_officers_pq][:action_officer_id]
     if comm.size==1 && comm.first.empty?
       flash.now[:error] = 'Please select at least one Action Officer'

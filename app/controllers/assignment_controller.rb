@@ -25,7 +25,7 @@ class AssignmentController < ApplicationController
       @assignment_service.reject(@assignment, @response)
     end
 
-    @question = PQ.find_by(uin: params[:uin])
+    @question = Pq.find_by(uin: params[:uin])
     render 'index'
   end
 
@@ -47,7 +47,7 @@ class AssignmentController < ApplicationController
         return render :file => 'public/401.html', :status => :unauthorized
       end
 
-      @question = PQ.find_by(uin: params[:uin])
+      @question = Pq.find_by(uin: params[:uin])
       @ao = @assignment.action_officer
 
     end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'AssignmentService' do
 
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
-  let(:pq) { create(:PQ, uin: 'HL789', question: 'test question?') }
+  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?') }
   progress_seed
 
   before(:each) do
@@ -69,7 +69,7 @@ describe 'AssignmentService' do
 
       assignment = ActionOfficersPq.find(assignment_id)
 
-      pq = PQ.find(assignment.pq_id)
+      pq = Pq.find(assignment.pq_id)
       pq.progress.name.should  eq(Progress.ACCEPTED)
 
     end
@@ -118,7 +118,7 @@ describe 'AssignmentService' do
 
       assignment = ActionOfficersPq.find(assignment_id)
 
-      pq = PQ.find(assignment.pq_id)
+      pq = Pq.find(assignment.pq_id)
       pq.progress.name.should  eq(Progress.REJECTED)
     end
 
@@ -135,7 +135,7 @@ describe 'AssignmentService' do
       @assignment_service.accept(assignment)
 
       # the question progress should be ALLOCATED_ACCEPTED if at least one ao is accepted
-      pq = PQ.find(assignment.pq_id)
+      pq = Pq.find(assignment.pq_id)
       pq.progress.name.should  eq(Progress.ACCEPTED)
 
 
@@ -153,7 +153,7 @@ describe 'AssignmentService' do
       assignment = ActionOfficersPq.find(assignment_id)
 
       # the question progress should be ALLOCATED_ACCEPTED even after the reject
-      pq = PQ.find(assignment.pq_id)
+      pq = Pq.find(assignment.pq_id)
       pq.progress.name.should  eq(Progress.ACCEPTED)
 
     end
@@ -176,7 +176,7 @@ describe 'AssignmentService' do
       @assignment_service.reject(assignment, response)
 
       # the question progress should be REJECTED
-      pq = PQ.find(assignment.pq_id)
+      pq = Pq.find(assignment.pq_id)
       pq.progress.name.should  eq(Progress.REJECTED)
 
     end
@@ -195,15 +195,15 @@ describe 'AssignmentService' do
       allow(response).to receive(:reason_option) { 'reason option' }
       #reject assignment1
       @assignment_service.reject(assignment1, response)
-      pq = PQ.find(assignment1.pq_id)
+      pq = Pq.find(assignment1.pq_id)
       pq.progress.name.should  eq(Progress.NO_RESPONSE)
       #reject assignment2
       @assignment_service.reject(assignment2, response)
-      pq = PQ.find(assignment2.pq_id)
+      pq = Pq.find(assignment2.pq_id)
       pq.progress.name.should  eq(Progress.NO_RESPONSE)
       #reject assignment3
       @assignment_service.reject(assignment3, response)
-      pq = PQ.find(assignment3.pq_id)
+      pq = Pq.find(assignment3.pq_id)
       pq.progress.name.should  eq(Progress.REJECTED)
     end
   end

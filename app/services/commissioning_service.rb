@@ -10,7 +10,7 @@ class CommissioningService
 
     actionOfficersPq = ActionOfficersPq.create(action_officer_id: assignment.action_officer_id, pq_id: assignment.pq_id, accept: false, reject: false)
     ao = ActionOfficer.find(assignment.action_officer_id)
-    pq = PQ.find_by(id: assignment.pq_id)
+    pq = Pq.find_by(id: assignment.pq_id)
 
 
     # no accepted/rejected -> change the state to allocated_pending

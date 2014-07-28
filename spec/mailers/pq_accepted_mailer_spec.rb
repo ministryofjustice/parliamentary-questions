@@ -16,7 +16,7 @@ describe 'PQAcceptedMailer' do
   describe '#deliver' do
     it 'should set question and the email' do
 
-      pq = create(:PQ, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
       PQAcceptedMailer.commit_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
@@ -27,7 +27,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should set the right cc with minister and policy minister' do
-      pq = create(:PQ, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'test1@tesk.uk;test2@tesk.uk'
 
       PQAcceptedMailer.commit_email(pq, ao).deliver
@@ -40,7 +40,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should set the right cc with minister the right people if the minister is Simon Huges' do
-      pq = create(:PQ, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
       expectedCC = 'simon@tesk.uk;test2@tesk.uk;;Christopher.Beal@justice.gsi.gov.uk;Nicola.Calderhead@justice.gsi.gov.uk;thomas.murphy@JUSTICE.gsi.gov.uk'
 
       PQAcceptedMailer.commit_email(pq, ao).deliver
@@ -59,7 +59,7 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
 
-      pq = create(:PQ, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'test1@tesk.uk;test2@tesk.uk;;a1@a1.com;a2@a2.com'
 
       PQAcceptedMailer.commit_email(pq, ao).deliver

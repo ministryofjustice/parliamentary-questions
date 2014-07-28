@@ -9,7 +9,7 @@ class WatchlistDashboardController < ApplicationController
 
     pq_ids = allocated_today.collect{|it| it.pq_id}
 
-    @questions = PQ.where(id: pq_ids).load
+    @questions = Pq.where(id: pq_ids).load
 
   end
 

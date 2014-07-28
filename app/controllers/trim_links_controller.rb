@@ -34,7 +34,7 @@ class TrimLinksController < ApplicationController
 
   def create
     accepted_formats = [".tr5"]
-    @pq = PQ.find(trim_link_params[:pq_id])
+    @pq = Pq.find(trim_link_params[:pq_id])
     if trim_link_params[:file_data].nil?
       flash[:error] = "Please select a trim file (.tr5) before trying to add"
       return render :partial => 'shared/trim_links', :locals => {question: @pq}
