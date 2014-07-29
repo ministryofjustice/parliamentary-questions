@@ -10,6 +10,9 @@ class Pq < ActiveRecord::Base
     belongs_to :policy_minister, :class_name=>'Minister', :foreign_key=>'policy_minister_id'
  	#validates :finance_interest, :inclusion => {:in => [true, false]}, if: :seen_by_finance
   belongs_to :progress
+  belongs_to :transfer_out_ogd, :class_name=>'Ogd', :foreign_key => 'transfer_out_ogd_id'
+  belongs_to :transfer_in_ogd, :class_name=>'Ogd', :foreign_key => 'transfer_in_ogd_id'
+
   after_initialize :init
 
   def init
