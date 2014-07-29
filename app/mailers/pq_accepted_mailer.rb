@@ -4,7 +4,7 @@ class PQAcceptedMailer < PQBaseMailer
 
     @template_params = Hash.new
     @template_params[:name] = ao.name
-    @template_params[:email] = ao.email
+    @template_params[:email] = ao.emails
     @template_params[:uin] = pq.uin
     @template_params[:question] = pq.question
     @template_params[:mpname] = pq.minister.name unless pq.minister.nil?

@@ -132,7 +132,7 @@ $(document).ready(function () {
         $('#' + $(this).attr('id') + '-data').show();
         $('.progress-menu-form').show();
     });
-
+    /*
     $( "a" ).click(function( event ) {
         var e=$(this).attr("id");                    
         switch(e){
@@ -166,6 +166,7 @@ $(document).ready(function () {
             break;
         }
     });
+    */
 });
 
 function incrementBadge(id_of_navpill) {
