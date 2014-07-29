@@ -21,6 +21,10 @@
     <p>* Member has registered an interest in the Question.</p>
 <% end %>
 
+
+<% if @pq.transfer_in_ogd_id %>
+    <p>Transferred in from <%= @pq.transfer_in_ogd.name %><%= ' on ' + @pq.transfer_in_date.strftime('%d/%m/%Y')  unless @pq.transfer_in_date.nil? %></p>
+<% end %>
 <hr/>
 
 <h4>Question</h4>

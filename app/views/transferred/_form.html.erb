@@ -85,6 +85,16 @@
       </div>
     </div>
 
+    <div  class="form-group">
+      <label>Transferred in from</label>
+      <%= f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
+      <label for ="transfer_in_date">Date transferred in</label>
+      <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+        <input id="transfer_in_date" class="form-control" name="pq[transfer_in_date]" type="text" value="<%= @pq.transfer_in_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_in_date.nil? %>">
+        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+      </div>
+
+    </div>
 
     <div class="actions">
     <%= f.submit %>
