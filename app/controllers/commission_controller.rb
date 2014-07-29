@@ -18,16 +18,19 @@ class CommissionController < ApplicationController
     @pq = Pq.find(pq_id)
     comm = params[:action_officers_pq][:action_officer_id]
 
+    if params[:minister_id].nil? || params[:minister_id].empty?
+      return render text: 'Please select at least the answering minister', status: :bad_request
+    end
 
     @pq.minister_id = params[:minister_id]
     @pq.policy_minister_id = params[:policy_minister_id]
 
     if !@pq.save
-      raise 'Error saving minister'
+      return render text: 'Error saving minister', status: :bad_request
     end
 
     if comm.size==1 && comm.first.empty?
-      raise 'Error at least one Action Officer is need it'
+      return render text: 'Please select at least one Action Officer', status: :bad_request
     end
     
     comm.each do |ao_id| 

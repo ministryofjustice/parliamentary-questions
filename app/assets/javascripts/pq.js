@@ -30,7 +30,7 @@ $(document).ready(function () {
         decrementBadge('#db-filter-unalloc');
 
 	}).on("ajax:error", function(e, xhr, status, error) {
-		alert('Please select at least one action officer');
+		alert(xhr.responseText);
 	});
 
     $('#search_member').bind('ajax:before', function() {
