@@ -14,6 +14,13 @@ describe ActionOfficer do
     officer.press_desk_id = nil
     expect(officer).to be_invalid
   end
+
+  it 'should have return concatenated emails if group_email is set' do
+    expect(officer.emails).to eql('action.officer@email.com')
+    officer.group_email = 'group.email@email.com'
+    expect(officer.emails).to eql('action.officer@email.com;group.email@email.com')
+  end
+
   describe "associations" do
      
     it "should have a deputy director attribute" do

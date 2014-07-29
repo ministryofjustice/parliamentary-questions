@@ -1,6 +1,7 @@
 class ActionOfficer < ActiveRecord::Base
   validates :email, uniqueness: true, on: :create
   validates_format_of :email,:with => Devise::email_regexp
+  validates_format_of :group_email,:with => Devise::email_regexp, :allow_blank =>true
   validates :deputy_director_id, presence: true
   validates :press_desk_id, presence: true
   
@@ -18,6 +19,14 @@ class ActionOfficer < ActiveRecord::Base
     self.deleted  ||= false           #will set the default value only if it's nil
   end
 
+  def emails
+    if group_email.blank?
+      self[:email]
+    else
+      "#{self[:email]};#{self[:group_email]}"
+    end
+  end
+  
   def name_with_div
     if deputy_director.nil?
       name
