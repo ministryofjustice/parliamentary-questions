@@ -1,5 +1,6 @@
 class TransferredController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
+  before_action :prepare_ogds
 
   def new
     @pq = Pq.new
@@ -26,8 +27,20 @@ class TransferredController < ApplicationController
   private
 
   def pq_params
-    params.require(:pq).permit(:uin, :question, :house_name, :member_name, :member_constituency, :date_for_answer, :registered_interest, :type_of_question )
+    params.require(:pq).permit(:uin,
+                               :question,
+                               :house_name,
+                               :member_name,
+                               :member_constituency,
+                               :date_for_answer,
+                               :registered_interest,
+                               :type_of_question,
+                               :transfer_in_ogd_id,
+                               :transfer_in_date)
   end
 
+  def prepare_ogds
+    @ogd_list = Ogd.all
+  end
 
 end
