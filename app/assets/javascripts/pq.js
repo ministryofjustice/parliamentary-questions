@@ -30,9 +30,7 @@ $(document).ready(function () {
         decrementBadge('#db-filter-unalloc');
 
 	}).on("ajax:error", function(e, xhr, status, error) {
-		alert('fail');
-		//TODO how should ux handle error? Add it to the list, alert, flash, etc...
-
+		alert('Please select at least one action officer');
 	});
 
     $('#search_member').bind('ajax:before', function() {
