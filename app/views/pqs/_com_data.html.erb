@@ -1,7 +1,10 @@
 <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
 
 <div class="deadline_input">
-  <label for="pq_internal_deadline">Internal deadline</label>
+  <label for="pq_internal_deadline">
+    <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %>
+    Internal deadline
+  </label>
   <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
     <input id="pq_internal_deadline" class="form-control" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
