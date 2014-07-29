@@ -78,31 +78,6 @@ $(document).ready(function () {
         $(this).after(data);
     });
 
-    $(".change-minister-form")
-        .on("ajax:success", function(e, data, status, xhr){
-            //get value from select list in current form
-            var newVal = $(this).children('select').val();
-            //and update the forms current value
-            $(this).data('current',newVal);
-            //confirm by changing the button text and fading out
-            $(this).find('input[type="submit"]').val("Updated").fadeOut(1000);
-        }).on("ajax:error", function(e, xhr, status, error) {
-            alert(error + ' In Answering Minister');
-            //TODO how should ux handle error? Add it to the list, alert, flash, etc...
-        });
-
-    $('.change-policy-minister').on('change',function(e ){
-        e.stopPropagation();
-        var prevMinId = $(this).parents('form').data('current') || "";
-        console.log('control=',$(this).attr('id'),',data(current)=', prevMinId, ', changed to=',$(this).val(), ',equals change=', $(this).val()!=prevMinId)
-        if($(this).val()!=prevMinId) {
-            $(this).siblings('input[type="submit"]').val("Update").show();
-        } else {
-            $(this).siblings('input[type="submit"]').val("Update").hide();
-        }
-    });
-
-
     $('body')
         .on('click', '.trim-links-header', function () {
             console.log($(this));
