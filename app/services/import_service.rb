@@ -63,8 +63,6 @@ class ImportService
 
   def import_one_question(q, &block)
     pq = Pq.find_or_initialize_by(uin: q['Uin'])
-    default_deadline = DateTime.now.midnight.change ({:hour => 10, :min => 30, :offset => 0})
-    deadline = pq.internal_deadline || default_deadline
     progress_id = pq.progress_id || @progress_unallocated.id
     transferred = pq.transferred || false
     pq.update(
@@ -76,7 +74,6 @@ class ImportService
         member_constituency: q['TablingMember']['Constituency'],
         house_name: q['House']['HouseName'],
         date_for_answer: q['DateForAnswer'],
-        internal_deadline: deadline,
         registered_interest: q['RegisteredInterest'],
         question_type: q['QuestionType'],
         preview_url: q['Url'],
