@@ -1,5 +1,5 @@
 
-<label for="answer_submitted">Date answer submitted to Q&A Tool</label>
+<label for="answer_submitted">Date answer submitted</label>
 <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="answer_submitted" class="form-control" name="pq[answer_submitted]" type="text" value="<%= @pq.answer_submitted.strftime('%d/%m/%Y %H:%M') unless @pq.answer_submitted.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
