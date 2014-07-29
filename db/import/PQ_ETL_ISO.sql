@@ -239,7 +239,13 @@ insert into ogds(name, deleted)
   SELECT distinct "Transfer to Other Government Department" as name, FALSE
   from Stageing
   where "Transfer to Other Government Department"  is not null
-    and not exists (select name from ogds where name = "Transfer to Other Government Department");
+    and not exists (select name from ogds where name = "Transfer to Other Government Department")
+  union
+  SELECT distinct "Transfer to MoJ from other Government Department" as name, FALSE
+  from Stageing
+  where "Transfer to MoJ from other Government Department"  is not null
+  and not exists (select name from ogds where name = "Transfer to MoJ from other Government Department");
+
 
 insert into pqs(
   tabled_date,
@@ -286,7 +292,9 @@ resubmitted_to_answering_minister,
   transfer_out_ogd_id,
   transfer_out_date,
   at_acceptance_directorate_id,
-  at_acceptance_division_id)
+  at_acceptance_division_id,
+  transfer_in_ogd_id,
+  transfer_in_date)
   SELECT to_date(s."Date First Appeared in Parliament",'DD/MM/YYYY'),
 s."Full question",
 now(),
@@ -338,7 +346,9 @@ to_timestamp(s."Date Transferred",'DD/MM/YYYY at HH24:MI'),
     (select max(d.id) from action_officers ao, deputy_directors dd, divisions d
     where ao.name = s."Action Officer"
     and ao.deputy_director_id = dd.id
-    and dd.division_id = d.id)
+    and dd.division_id = d.id),
+    (SELECT id from ogds where name = s."Transfer to MoJ from other Government Department"),
+to_timestamp(s."Date transferred to MoJ",'DD/MM/YYYY at HH24:MI')
 from stageing s
   where not exists (select uin from pqs where uin = s."Parliaments Identifying Number")
   and s."Parliaments Identifying Number" is not null;
