@@ -27,8 +27,7 @@ class CommissionController < ApplicationController
     end
 
     if comm.size==1 && comm.first.empty?
-      flash.now[:error] = 'Please select at least one Action Officer'
-      return render :partial => 'shared/question_assigned', :locals => {question: @pq}
+      raise 'Error at least one Action Officer is need it'
     end
     
     comm.each do |ao_id| 
