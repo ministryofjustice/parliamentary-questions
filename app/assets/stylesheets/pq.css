@@ -164,7 +164,7 @@ a.btn-success
 {display:none;}
 
 #pq-details-header
-{line-height: 62px;margin: 0 15px 0 15px;}
+{line-height: 62px;margin: 0 15px 0 0;}
 
 #pq-details-title h2,
 #pq-details-title span.label,
@@ -174,23 +174,28 @@ a.btn-success
 #qa-link a
 {color:#4a8acd;}
 
-#pq-detail-area
-{padding:15px 0 15px 15px;}
+#progress-menu
+{z-index:1;padding-right:0px;}
+
+#progress-menu ul li a:link {}
+
+#progress-menu ul li a:visited {}
+
+#progress-menu ul li a:hover, #progress-menu ul li a:active 
+{
+    background-image: url('progress-tab-bg.png'); background-repeat: repeat-x;
+    border-top:1px solid #c2c2c2;
+    border-bottom:1px solid #c2c2c2;
+    border-left:1px solid #c2c2c2;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
 
 .progress-menu-form
-{border:1px solid #000;padding:15px;}
-
-#progress-menu
-{padding-right:0;margin-right:0;}
-
-#progress-menu a
-{display:block;text-decoration:none;border-bottom:5px solid #fff;margin:15px 0px;}
-
-#progress-menu a:hover
-{color:#000;border-bottom:5px solid #000;}
+{border:1px solid #c2c2c2; padding:15px; margin-left:-1px;}
 
 #progress-panel
-{margin:0px;padding:15px 15px 15px 0;}
+{margin:0px;padding:0px;}
 
 #progress-menu-answer-data
 {min-height:200px;}
