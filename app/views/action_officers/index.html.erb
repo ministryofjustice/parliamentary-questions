@@ -15,7 +15,11 @@
   <%  @action_officers.each do |action_officer| %>
     <tr>
       <td><%= action_officer.name %></td>
-      <td><%=  action_officer.email %></td>
+      <td>
+        <!--<%= mail_to action_officer.emails, raw("#{action_officer.email}<br>#{action_officer.group_email unless action_officer.group_email.blank?}") %>-->
+        <%= mail_to action_officer.email, action_officer.email %>
+        <%= mail_to action_officer.group_email, raw("<br>#{action_officer.group_email}") unless action_officer.group_email.blank? %>
+      </td>
       <td><%=  action_officer.phone %></td>
       <td><%= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil? %></td>
       <td><%= action_officer.press_desk.name unless action_officer.press_desk.nil? %></td>

@@ -5,14 +5,14 @@ class ActionOfficerReminderController  < ApplicationController
   def accept_reject
     ActionOfficerReminderMailer.remind_accept_reject_email(@template).deliver
 
-    flash[:notice] = "A reminder email has been sent to #{@ao.email}"
+    flash[:notice] = "A reminder email has been sent to #{@ao.emails}"
     render partial: 'shared/flash_messages'
   end
 
   def send_draft
     PQAcceptedMailer.commit_email(@pq, @ao, true).deliver
 
-    flash[:notice] = "A reminder to send the draft has been sent to #{@ao.email}"
+    flash[:notice] = "A reminder to send the draft has been sent to #{@ao.emails}"
     render partial: 'shared/flash_messages'
   end
 
@@ -27,7 +27,7 @@ class ActionOfficerReminderController  < ApplicationController
 
     @template = Hash.new
     @template[:name] = @ao.name
-    @template[:email] = @ao.email
+    @template[:email] = @ao.emails
     @template[:uin] = @pq.uin
     @template[:question] = @pq.question
   end
