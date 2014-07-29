@@ -45,7 +45,6 @@ describe 'ImportService' do
       question_one.registered_interest.should eql(false)
       question_one.tabled_date.strftime("%Y-%m-%d").should eql('2013-01-22')
 
-      question_one.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql(Date.today.strftime("%Y-%m-%d 10:30"))
 
       question_one.question_type.should eql('NamedDay')
       question_one.preview_url.should eql ('https://wqatest.parliament.uk/Questions/Details/37988')
@@ -59,7 +58,6 @@ describe 'ImportService' do
       question_two.should_not be_nil
       question_two.raising_member_id.should eql(9742)
       question_two.question.should eql("I'm asking questions too")
-      question_two.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql(Date.today.strftime("%Y-%m-%d 10:30"))
 
     end
 
@@ -148,7 +146,6 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
-      question_one.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql(Date.today.strftime("%Y-%m-%d 10:30"))
 
       question_one.internal_deadline = DateTime.new(2012, 8, 29,  0,  0,  0)
       question_one.save()
