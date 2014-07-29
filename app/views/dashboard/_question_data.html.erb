@@ -19,6 +19,9 @@
 </div>
 
 <div class="status-bar col-md-12">
+  <% if !question.seen_by_finance  %>
+      <span class="label flag-no-response">Not checked by finance</span>
+  <% end %>
   <span class="label flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
 </div>
 

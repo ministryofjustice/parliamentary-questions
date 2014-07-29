@@ -60,7 +60,7 @@ private
       @action_officer = ActionOfficer.find(params[:id])
     end
     def action_officer_params
-      params.require(:action_officer).permit(:name, :email, :phone, :deleted, :deputy_director_id, :press_desk_id)
+      params.require(:action_officer).permit(:name, :email, :group_email, :phone, :deleted, :deputy_director_id, :press_desk_id)
     end
     def prepare_dropdowns
       @deputy_directors = DeputyDirector.where(deleted: false).all

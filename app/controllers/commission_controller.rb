@@ -17,9 +17,17 @@ class CommissionController < ApplicationController
     pq_id = params[:action_officers_pq][:pq_id]
     @pq = Pq.find(pq_id)
     comm = params[:action_officers_pq][:action_officer_id]
+
+
+    @pq.minister_id = params[:minister_id]
+    @pq.policy_minister_id = params[:policy_minister_id]
+
+    if !@pq.save
+      raise 'Error saving minister'
+    end
+
     if comm.size==1 && comm.first.empty?
-      flash.now[:error] = 'Please select at least one Action Officer'
-      return render :partial => 'shared/question_assigned', :locals => {question: @pq}
+      raise 'Error at least one Action Officer is need it'
     end
     
     comm.each do |ao_id| 
