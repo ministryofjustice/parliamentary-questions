@@ -179,5 +179,9 @@ function decrementBadge(id_of_navpill) {
 function changeBadgeBy(id_of_navpill, val) {
     var $badge = $(id_of_navpill).children('a').children('span');
     var curval = parseInt($badge.text(),10);
-    $badge.text(curval+val);
+    var nextval = curval+val;
+    if (nextval < 0) {
+        nextval = 0;
+    }
+    $badge.text(nextval);
 }
