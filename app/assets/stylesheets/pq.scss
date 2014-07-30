@@ -184,7 +184,7 @@ a.btn-success
 {background-color:#fff;background-image:none;margin-right:0px;padding-right:0px;width: 99%;}
 */
 .activeTab, .nav-pills > li > a.progress-menu-item:hover
-{background-image: url('progress-tab-bg.png');background-repeat: repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
+{background-image: url(image_path('progress-tab-bg.png'));background-repeat: repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
 
 .inactiveTab
 {border:none;background-image:none;}
