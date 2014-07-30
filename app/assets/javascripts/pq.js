@@ -134,7 +134,7 @@ $(document).ready(function () {
     });
 
     /* PQ Details Page - Set intial opened tab */
-    var pqStage = $("#pq_final_response_info_released option:selected").val();
+    var pqStage = $("#pq_progress_id option:selected").val();
     if(pqStage == 2 || pqStage == 4) {
         $("#progress-menu-com").addClass("activeTab");
         $("#progress-menu-com-data").removeClass("start-hidden");
