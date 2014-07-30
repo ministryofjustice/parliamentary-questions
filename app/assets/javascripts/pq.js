@@ -159,41 +159,63 @@ $(document).ready(function () {
         $('#' + $(this).attr('id') + '-data').show();
         $('.progress-menu-form').show();
     });
-    /*
-    $( "a" ).click(function( event ) {
-        var e=$(this).attr("id");                    
+
+    /* PQ Details Page - Set intial opened tab */
+    var pqStage = $("#pq_final_response_info_released option:selected").val();
+    if(pqStage == 2 || pqStage == 4) {
+        $("#progress-menu-com").addClass("activeTab");
+        $("#progress-menu-com-data").removeClass("start-hidden");
+    }
+    else if (pqStage == 3 || pqStage == 6) {
+        $("#progress-menu-sub").addClass("activeTab");
+        $("#progress-menu-sub-data").removeClass("start-hidden");
+    }
+    else if (pqStage == 7 || pqStage == 8 || pqStage == 9) {
+        $("#progress-menu-pod").addClass("activeTab");
+        $("#progress-menu-pod-data").removeClass("start-hidden");
+    }
+    else if (pqStage == 10 || pqStage == 11 || pqStage == 12) {
+        $("#progress-menu-min").addClass("activeTab");
+        $("#progress-menu-min-data").removeClass("start-hidden");
+    }
+    else if (pqStage == 13 || pqStage == 14) {
+        $("#progress-menu-answer").addClass("activeTab");
+        $("#progress-menu-answer-data").removeClass("start-hidden");
+    }
+    else {
+        $("#progress-menu-pq").addClass("activeTab");
+        $("#progress-menu-pq-data").removeClass("start-hidden");
+    }
+
+    /* PQ Details Page - Set styling when tab clicked */
+    $("a").click(function(event) {
+        var e="#"+$(this).attr("id");
+        $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
         switch(e){
-            case "progress-menu-pq":
-                $( this ).css( "border-bottom", "5px solid #000" );
-                $("#progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            case "#progress-menu-pq":
+                $(e).removeClass("inactiveTab").addClass("activeTab");
             break;
-            case "progress-menu-fc":
-                $( this ).css( "border-bottom", "5px solid #000" );
-                $("#progress-menu-pq, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            case "#progress-menu-fc":
+                $(e).removeClass("inactiveTab").addClass("activeTab");
             break;
-            case "progress-menu-com":
-                $( this ).css( "border-bottom", "5px solid #000" );
-                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            case "#progress-menu-com":
+                $(e).removeClass("inactiveTab").addClass("activeTab");
             break;
-            case "progress-menu-sub":
-                $( this ).css( "border-bottom", "5px solid #000" );
-                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            case "#progress-menu-sub":
+               $(e).removeClass("inactiveTab").addClass("activeTab");
             break;
-            case "progress-menu-pod":
-                $( this ).css( "border-bottom", "5px solid #000" );
-                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-min, #progress-menu-answer").css( "border-bottom", "0" );
+            case "#progress-menu-pod":
+                $(e).removeClass("inactiveTab").addClass("activeTab");
             break;
-            case "progress-menu-min":
-                $( this ).css( "border-bottom", "5px solid #000" );
-                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-answer").css( "border-bottom", "0" );
+            case "#progress-menu-min":
+                $(e).removeClass("inactiveTab").addClass("activeTab");
             break;
-            case "progress-menu-answer":
-                $( this ).css( "border-bottom", "5px solid #000" );
-                $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min").css( "border-bottom", "0" );
+            case "#progress-menu-answer":
+                $(e).removeClass("inactiveTab").addClass("activeTab");
             break;
         }
     });
-    */
+
 });
 
 function incrementBadge(id_of_navpill) {
