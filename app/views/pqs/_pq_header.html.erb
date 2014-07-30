@@ -5,10 +5,10 @@
         <span class="label name-day" title="Named day">N</span>
     <% end %>
     <% if @pq.transferred  %>
-        <span class="label flag-transferred-out" title="Transferred">Transferred</span>
+        <span class="label flag-transferred-out" title="Transferred">T</span>
     <% end %>
     <% if @pq.i_will_write %>
-        <span class="label flag-will-write" title="I will write">I will write</span>
+        <span class="label flag-will-write" title="I will write">IWW</span>
     <% end %>
     <span class="label flag-<%= @pq.progress.classname %>"><%= @pq.progress.name %></span>
   </div>
