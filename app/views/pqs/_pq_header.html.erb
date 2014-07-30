@@ -1,5 +1,5 @@
 <div id="pq-details-header" class="row">
-  <div id="pq-details-title" class="col-md-7">
+  <div id="pq-details-title" class="col-md-9">
     <h2><%= @pq.uin %> - PQ Details</h2>
     <% if @pq.question_type == 'NamedDay' %>
         <span class="label name-day" title="Named day">N</span>
@@ -12,14 +12,13 @@
     <% end %>
     <span class="label flag-<%= @pq.progress.classname %>"><%= @pq.progress.name %></span>
   </div>
-  <div id="qa-link" class="col-md-2">
-    <% if !@pq.preview_url.nil? %>
-        <a href="<%= @pq.preview_url %>">View PQ in Q&amp;A Tool</a>
-    <% end %>
-  </div>
   <div id="trim-links" class="col-md-3">
     <div id='trim_area_<%= @pq.id %>'>
       <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
+      <br />
+      <% if !@pq.preview_url.nil? %>
+        <a href="<%= @pq.preview_url %>"><i class="fa fa-eye"></i> View PQ in Q&amp;A Tool</a>
+      <% end %>
     </div>
   </div>
 </div>
