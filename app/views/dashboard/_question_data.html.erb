@@ -5,10 +5,10 @@
       <span class="label name-day" title="Named day">N</span>
     <% end %>
     <% if question.transferred  %>
-      <span class="label flag-transferred-out" title="Transferred">Transferred</span>
+      <span class="label flag-transferred-out" title="Transferred">T</span>
     <% end %>
     <% if question.i_will_write %>
-      <span class="label flag-will-write" title="I will write">I will write</span>
+      <span class="label flag-will-write" title="I will write">IWW</span>
     <% end %>
     <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'right' ) %>
   </div>
@@ -22,7 +22,7 @@
 
 <div class="status-bar col-md-12">
   <% if !question.seen_by_finance  %>
-      <span class="label flag-no-response">Not checked by finance</span>
+      <span class="label flag-finance-unchecked">Not checked by finance</span>
   <% end %>
   <span class="label flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
 </div>

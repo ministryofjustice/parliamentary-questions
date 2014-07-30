@@ -116,8 +116,15 @@ hr
 
 /* = General ==================================================================== */
 
-.fa-exclamation-triangle
+i.fa-exclamation-triangle,
+i.fa-times-circle
 {color:#df3034;}
+
+i.fa-envelope
+{color:#fff;margin-left:4px;}
+
+i.fa-check-circle
+{color:#00823b;}
 
 .right
 {float:right;}
@@ -244,7 +251,7 @@ a.btn-success
 .flag-accepted{background-color:#28a197;}
 .flag-answered{background-color:#006435;}
 .flag-draft-pending{background-color:#85994b;}
-.flag-finance-unchecked{background-color:#f47738;}
+.flag-finance-unchecked{background-color:#b10e1e;}
 .flag-minister-cleared{background-color:#c1a87e;}
 .flag-ministerial-query{background-color:#b58840;}
 .flag-no-response{background-color:#f47738;}
@@ -252,10 +259,10 @@ a.btn-success
 .flag-pod-query{background-color:#5461ff;}
 .flag-rejected{background-color:#d0021b;}
 .flag-transfer{background-color:#2b8cc4;}
-.flag-transferred-out{background-color:#d53880;}
+.flag-transferred-out{background-color:#7d7d7d;}
 .flag-unallocated{background-color:#f47738;}
-.flag-unassigned{background-color:#000000;}
-.flag-will-write{background-color:#912b88;}
+.flag-unassigned{background-color:#bd10e0;}
+.flag-will-write{background-color:#5f5f5f;}
 .flag-with-minister{background-color:#82622e;}
 .flag-with-pod{background-color:#2e358b;}
 
@@ -282,9 +289,6 @@ a.btn-no-response{color:#fff}
 a.btn-warning,
 .label-success
 {color:#000;padding:4px 6px;}
-
-i.fa-envelope
-{color:#fff;margin-left:4px;}
 
 /* ============================================================================== */
 
