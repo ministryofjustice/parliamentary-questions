@@ -108,7 +108,9 @@ private
         :final_response_info_released,
         :round_robin_guidance_received,
         :transfer_out_ogd_id,
-        :transfer_out_date
+        :transfer_out_date,
+        :transfer_in_ogd_id,
+        :transfer_in_date
     )
   end
   def prepare_ministers
