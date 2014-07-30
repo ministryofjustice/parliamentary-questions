@@ -137,7 +137,7 @@ a.btn-success
 {color:#fff;}
 
 #pages,
-.pq-header,
+/*.pq-header,*/
 .internal-deadline-form,
 .select2-container-multi .select2-choices li
 {width:100%;}
@@ -261,12 +261,16 @@ a.btn-success
 
 a.btn-no-response{color:#fff}
 
+.flag-will-write, .flag-transferred-out{margin:0px 12px;vertical-align:6px;}
+
 /* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
 
+/*
 .pq-header
 {padding:0.5em;}
+*/
 
 .pq-question, .panel
 {padding:5px;margin:10px;}
