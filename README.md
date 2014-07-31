@@ -32,6 +32,9 @@ SMTP_PASSWORD=
 # redis server, for sideqik jobs
 export REDIS_URL=redis://localhost:6379
 
+# host to deploy the assets (following the assets pipeline)
+ASSET_HOST=http://assets.example.com
+
 # version of the webapp
 APPVERSION=0.1-sprint6
 ```
