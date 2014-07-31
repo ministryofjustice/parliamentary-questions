@@ -27,8 +27,10 @@
   <span class="label flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
 </div>
 
-<!-- loop through and show rejection reasons -->
+<% if [Progress.UNASSIGNED,Progress.NO_RESPONSE,Progress.REJECTED].include?(question.progress_id) %>
+<!-- if a question is unassigned, No response or rejected: loop through and show rejection reasons -->
 <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
+<% end %>
 
 <!-- start of 'sub column 1'-->
 <div class="col-md-6">
