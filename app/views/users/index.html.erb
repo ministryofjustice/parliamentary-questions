@@ -11,9 +11,9 @@
         <th>Name</th>
         <th>Email</th>
         <th>Role</th>
-        <th>Invitiation</th>
+        <th>Active</th>
+        <th>Invited by</th>
         <th>Last active</th>
-        <th></th>
         <th></th>
       </tr>
 
@@ -22,10 +22,16 @@
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td><%= user.roles %></td>
-          <td><%= user.invited_by.try(:display_name) %></td>
+          <td>
+            <% if user.is_active %>
+                <i class="fa fa-check-circle text-success"></i>
+            <% else %>
+                <i class="fa fa-times text-danger"></i>
+            <% end %>
+          </td>
+          <td><%= user.invited_by_user %></td>
           <td><%= time_ago_in_words(user.last_sign_in_at) unless user.last_sign_in_at.nil? %></td>
           <td><%= link_to 'Edit', edit_user_path(user), {class: 'button'} %></td>
-          <td><%= link_to 'Delete', user_path(user), {:method => :delete, :class => 'button', :data => { :confirm => 'Are you sure?' } }%></td>
         </tr>
       <% end %>
 

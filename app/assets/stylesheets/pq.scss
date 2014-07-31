@@ -109,11 +109,6 @@ h2 .badge
 .status-bar
 {margin:15px 0px;}
 
-/*
-.ao-reminder-link
-{font-size:11px;}
-*/
-
 hr
 {color:#bfc1c3;background-color:#bfc1c3;height:1px;margin:0;}
 
@@ -121,10 +116,15 @@ hr
 
 /* = General ==================================================================== */
 
-/*
-.inline
-{display:inline;}
-*/
+i.fa-exclamation-triangle,
+i.fa-times-circle
+{color:#df3034;}
+
+i.fa-envelope
+{color:#fff;margin-left:4px;}
+
+i.fa-check-circle
+{color:#00823b;}
 
 .right
 {float:right;}
@@ -144,7 +144,7 @@ a.btn-success
 {color:#fff;}
 
 #pages,
-.pq-header,
+/*.pq-header,*/
 .internal-deadline-form,
 .select2-container-multi .select2-choices li
 {width:100%;}
@@ -164,12 +164,12 @@ a.btn-success
 {display:none;}
 
 #pq-details-header
-{line-height: 62px;margin: 0 15px 0 0;}
+{line-height:62px;margin:0 15px 0 0;}
 
 #pq-details-title h2,
 #pq-details-title span.label,
 #qa-link a
-{vertical-align: middle;}
+{vertical-align:middle;}
 
 #qa-link a
 {color:#4a8acd;}
@@ -177,29 +177,27 @@ a.btn-success
 #progress-menu
 {z-index:1;padding-right:0px;}
 
-#progress-menu ul li a:link {}
+.nav-pills > li > a.progress-menu-item
+{border-top-right-radius:initial;border-bottom-right-radius:initial;}
+/*
+.nav-pills > li > a.progress-menu-item:hover
+{background-color:#fff;background-image:none;margin-right:0px;padding-right:0px;width: 99%;}
+*/
+.activeTab, .nav-pills > li > a.progress-menu-item:hover
+{background-image: url(image_path('progress-tab-bg.png'));background-repeat: repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
 
-#progress-menu ul li a:visited {}
-
-#progress-menu ul li a:hover, #progress-menu ul li a:active 
-{
-    background-image: url('progress-tab-bg.png'); background-repeat: repeat-x;
-    border-top:1px solid #c2c2c2;
-    border-bottom:1px solid #c2c2c2;
-    border-left:1px solid #c2c2c2;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-}
+.inactiveTab
+{border:none;background-image:none;}
 
 .progress-menu-form
-{border:1px solid #c2c2c2; padding:15px; margin-left:-1px;}
+{border:1px solid #c2c2c2; padding:15px; margin-left:-1px;min-height:350px;}
 
 #progress-panel
 {margin:0px;padding:0px;}
-
+/*
 #progress-menu-answer-data
-{min-height:200px;}
-
+{min-height:350px;}
+*/
 /* ============================================================================== */
 
 /* = Buttons ==================================================================== */
@@ -253,7 +251,7 @@ a.btn-success
 .flag-accepted{background-color:#28a197;}
 .flag-answered{background-color:#006435;}
 .flag-draft-pending{background-color:#85994b;}
-.flag-finance-unchecked{background-color:#f47738;}
+.flag-finance-unchecked{background-color:#b10e1e;}
 .flag-minister-cleared{background-color:#c1a87e;}
 .flag-ministerial-query{background-color:#b58840;}
 .flag-no-response{background-color:#f47738;}
@@ -261,21 +259,20 @@ a.btn-success
 .flag-pod-query{background-color:#5461ff;}
 .flag-rejected{background-color:#d0021b;}
 .flag-transfer{background-color:#2b8cc4;}
-.flag-transferred-out{background-color:#d53880;}
+.flag-transferred-out{background-color:#7d7d7d;}
 .flag-unallocated{background-color:#f47738;}
-.flag-unassigned{background-color:#000000;}
-.flag-will-write{background-color:#912b88;}
+.flag-unassigned{background-color:#bd10e0;}
+.flag-will-write{background-color:#5f5f5f;}
 .flag-with-minister{background-color:#82622e;}
 .flag-with-pod{background-color:#2e358b;}
 
 a.btn-no-response{color:#fff}
 
+.flag-will-write, .flag-transferred-out{margin:0px 12px;vertical-align:6px;}
+
 /* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
-
-.pq-header
-{padding:0.5em;}
 
 .pq-question, .panel
 {padding:5px;margin:10px;}
@@ -292,9 +289,6 @@ a.btn-no-response{color:#fff}
 a.btn-warning,
 .label-success
 {color:#000;padding:4px 6px;}
-
-i.fa-envelope
-{color:#fff;margin-left:4px;}
 
 /* ============================================================================== */
 
@@ -358,4 +352,7 @@ input[type="file"]
 
 .table-cell-centered
 {text-align:center;}
+
+/* = Devise alerts ============================================================== */
+.alert-block{ color: #3A87AD; background-color: #D9EDF7; border-color: #BCE8F1; }
 /* ============================================================================== */
