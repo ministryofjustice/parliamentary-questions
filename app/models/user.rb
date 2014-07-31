@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     #remember to call the super
     #then put our own check to determine "active" state using
     #our own "is_active" column
-    super and self.is_active?
+    super and self.is_active!=false
   end
 
   def set_defaults
