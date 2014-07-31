@@ -235,11 +235,11 @@
                             "target": "alias(stats.pq.dev.apphost.timers.questions.import.qa.response_time.mean,'QA Response Time mean')"
                         },
                         {
-                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.import_time.undefined,'Import Time mean')",
+                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.import_time.mean,'Import Time mean')",
                             "hide": false
                         },
                         {
-                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.import_time.undefined,'Import Time upper_90')"
+                            "target": "alias(stats.pq.dev.apphost.timers.questions.import.import_time.upper_90,'Import Time upper_90')"
                         }
                     ],
                     "aliasColors": {},
