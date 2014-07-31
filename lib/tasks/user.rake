@@ -9,7 +9,8 @@ namespace :user do
     User.create!(email: email,
                  password: password,
                  password_confirmation: password,
-                 name: name)
+                 name: name,
+                 is_active: true)
     puts 'User created!'
   end
 end
