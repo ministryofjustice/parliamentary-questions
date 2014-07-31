@@ -149,7 +149,7 @@ describe 'CommissioningService' do
     mail.html_part.body.should include pq.uin
     mail.html_part.body.should include pq.question
     mail.html_part.body.should include pq.member_name
-    mail.html_part.body.should include pq.internal_deadline
+    mail.html_part.body.should include pq.internal_deadline.strftime('%d/%m/%Y %H:%M')
     mail.html_part.body.should include action_officer.name
     mail.html_part.body.should include deputy_director.name
 
@@ -157,7 +157,7 @@ describe 'CommissioningService' do
     mail.text_part.body.should include pq.uin
     mail.text_part.body.should include pq.question
     mail.text_part.body.should include pq.member_name
-    mail.text_part.body.should include pq.internal_deadline
+    mail.text_part.body.should include pq.internal_deadline.strftime('%d/%m/%Y %H:%M')
     mail.text_part.body.should include action_officer.name
     mail.text_part.body.should include deputy_director.name
 
