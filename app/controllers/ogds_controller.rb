@@ -1,4 +1,5 @@
 class OgdsController < ApplicationController
+  before_action :authenticate_user!, PQUserFilter
   before_action :set_ogd, only: [:show, :edit, :update, :destroy]
 
   # GET /ogds
