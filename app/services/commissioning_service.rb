@@ -49,6 +49,8 @@ class CommissioningService
     pq = Pq.find_by(id: assignment.pq_id)
     dd = DeputyDirector.find_by(id: ao.deputy_director_id)
 
+    return 'Deputy Director has no email' if dd.email.blank?
+
     template = Hash.new
     template[:uin] = pq.uin
     template[:question] = pq.question
@@ -59,8 +61,6 @@ class CommissioningService
     template[:email] = dd.email
 
 
-
-    # TODO: Refactor the mailers for dd
     PqMailer.notify_dd_email(template).deliver
 
     return { assignment_id: actionOfficersPq.id}
