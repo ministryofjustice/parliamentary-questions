@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     flash[:notice] = 'User updated' if @user.update_attributes(user_params)
-    render 'show'
+    redirect_to users_path
   end
 
   def destroy
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   protected
   def user_params
-    params.require(:user).permit(:email, :admin, :name, :roles)
+    params.require(:user).permit(:email, :admin, :name, :roles, :is_active)
   end
 
 end
