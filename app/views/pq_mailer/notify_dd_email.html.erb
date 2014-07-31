@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h2><%= @template_params[:dd_name] %>, </h2>
+<p><%= @template_params[:ao_name] %> has been allocated the following Parliamentary Question:</p>
+<div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;font-size: 110%;">
+  <p>UIN: <%= @template_params[:uin]%></p>
+  <%= @template_params[:question] %>
+  <p>Asked by: <%= @template_params[:member_name] %></p>
+</div>
+
+<p>An Accept or Reject Response is expected from them by 2p.m. today.</p>
+<p>The Draft response to the question is expected by <%= @template_params[:internal_deadline].strftime('%d/%m/%Y %H:%M') %></p>
+<p>If you have any questions, please <a href="mailto:MOJParliamentaryBranch@cabinet-office.gsi.gov.uk">Contact the PQ Team</a></p>
+<%#= TODO: Change the email! %>
+
+<div style="margin-top: 50px; border-top: 1px solid;">
+  Parliamentary Questions<br/>
+  9.25, 9th Floor, Ministry of Justice, 102 Petty France, SW1H 9AJ<br/>
+  T: 0203 334 4302<br/>
+  E: <a href="mailto:MOJParliamentaryBranch@cabinet-office.gsi.gov.uk">MOJParliamentaryBranch@cabinet-office.gsi.gov.uk</a><br/>
+  <br/><%#= TODO: Change the email! %>
+
+  <div style="font-size: 75%;">
+    Private Office Directorate has changed some of its processes: please refer to the Intranet pages on Working with Private Office <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-private-office/index.htm">http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-private-office/index.htm</a> for full details.<br/>
+    It is the responsibility of the policy or business unit to ensure that emails and documents are properly retained and filed on EDRM and accessible to all who need them. Private Office Directorate will not be retaining these records.
+  </div>
+</div>
+
+</body>
+</html>
