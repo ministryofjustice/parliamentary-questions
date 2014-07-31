@@ -58,7 +58,12 @@ class CommissionController < ApplicationController
       assignment = ActionOfficersPq.new(pq_id: pq_id, action_officer_id: ao_id)
       comm_service = CommissioningService.new
       result = comm_service.send(assignment)
-      result      
+      if result.nil?
+        flash.now[:error] = "Error in commissioning to #{assignment.action_officer.name}"
+        return render :partial => 'shared/question_assigned', :locals => {question: @pq}
+      else
+        result = comm_service.notify_dd(assignment)
+      end
     end
   
     def assignment_params

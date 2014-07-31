@@ -40,4 +40,29 @@ class CommissioningService
 
     return {token: token, assignment_id: actionOfficersPq.id}
   end
+  def notify_dd(assignment)
+    raise 'Action Officer is not selected' if assignment.action_officer_id.nil?
+    raise 'Question is not selected' if assignment.pq_id.nil?
+
+    actionOfficersPq = ActionOfficersPq.create(action_officer_id: assignment.action_officer_id, pq_id: assignment.pq_id, accept: false, reject: false)
+    ao = ActionOfficer.find(assignment.action_officer_id)
+    pq = Pq.find_by(id: assignment.pq_id)
+    dd = DeputyDirector.find_by(id: ao.deputy_director_id)
+
+    template = Hash.new
+    template[:uin] = pq.uin
+    template[:question] = pq.question
+    template[:member_name] = pq.member_name
+    template[:internal_deadline] = pq.internal_deadline
+    template[:ao_name] = ao.name
+    template[:dd_name] = dd.name
+    template[:email] = dd.email
+
+
+
+    # TODO: Refactor the mailers for dd
+    PqMailer.notify_dd_email(template).deliver
+
+    return { assignment_id: actionOfficersPq.id}
+  end
 end
