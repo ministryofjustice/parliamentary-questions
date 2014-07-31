@@ -42,7 +42,8 @@
               <% end %>
 
               <p>
-                <%= link_to raw('<i class="glyphicon glyphicon-envelope"></i> Re-send acceptance email'), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
+                <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>
+                <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Re-send acceptance email#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
               </p>
 
               <p>
@@ -55,7 +56,8 @@
               <div>
                 <p>
                   <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
-                  <%= link_to raw('<i class="glyphicon glyphicon-envelope"></i> Send reminder'), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
+                  <% reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : '' %>
+                  <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
                 </p>
                 <p>
                   <%= link_to raw('Manual reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
