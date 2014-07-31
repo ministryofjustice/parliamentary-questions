@@ -34,8 +34,19 @@
     </p>
 <% end %>
 
-<label>Final response information released (TODO:Real list real of values)</label>
-<%= f.collection_select(:final_response_info_released, @progress_list, :id, :name) %>
+<label>Final response information released</label>
+<%= f.select(:final_response_info_released, [
+        "",
+        "Comercial in confidence",
+        "Disproportionate cost",
+        "Full disclosure",
+        "Holding reply [named day PQ only]",
+        "I will write",
+        "Information not held centrally",
+        "Information not recorded",
+        "Partial disclosure",
+        "Partial Disproportionate cost",
+        "Referral"]) %>
 
 
 
