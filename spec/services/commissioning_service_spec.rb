@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe 'CommissioningService' do
 
-  let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
-  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?') }
+  let(:deputy_director) { create(:deputy_director, name: 'dd name', email: 'dd@dd.gov', id: 1+rand(10))}
+  let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
+  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30' ) }
   progress_seed
 
 
@@ -132,4 +133,35 @@ describe 'CommissioningService' do
   end
 
 
+  it 'should send an email to the deputy director the right data' do
+
+    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+
+    result = @comm_service.notify_dd(assignment)
+
+    mail = ActionMailer::Base.deliveries.first
+
+   # entity = {entity: "assignment:#{result[:assignment_id]}"}.to_query
+
+   # url = "/assignment/HL789"
+
+
+    mail.html_part.body.should include pq.uin
+    mail.html_part.body.should include pq.question
+    mail.html_part.body.should include pq.member_name
+    mail.html_part.body.should include pq.internal_deadline
+    mail.html_part.body.should include action_officer.name
+    mail.html_part.body.should include deputy_director.name
+
+
+    mail.text_part.body.should include pq.uin
+    mail.text_part.body.should include pq.question
+    mail.text_part.body.should include pq.member_name
+    mail.text_part.body.should include pq.internal_deadline
+    mail.text_part.body.should include action_officer.name
+    mail.text_part.body.should include deputy_director.name
+
+    mail.to.should include deputy_director.email
+
+  end
 end
