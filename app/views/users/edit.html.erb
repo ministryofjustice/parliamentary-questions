@@ -20,6 +20,15 @@
         </div>
 
         <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <%= f.check_box :is_active  %> Active
+
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
             <%= f.submit 'Save', {class: 'button'} %>
         </div>
     <% end %>
