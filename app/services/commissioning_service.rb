@@ -51,15 +51,19 @@ class CommissioningService
 
     return 'Deputy Director has no email' if dd.email.blank?
 
+
     template = Hash.new
     template[:uin] = pq.uin
     template[:question] = pq.question
     template[:member_name] = pq.member_name
-    template[:internal_deadline] = pq.internal_deadline
-    template[:ao_name] = ao.name
+     template[:ao_name] = ao.name
     template[:dd_name] = dd.name
     template[:email] = dd.email
-
+    if pq.internal_deadline
+      template[:internal_deadline] = pq.internal_deadline.strftime('%d/%m/%Y %H:%M')
+    else
+      template[:internal_deadline] = 'No deadline set'
+    end
 
     PqMailer.notify_dd_email(template).deliver
 
