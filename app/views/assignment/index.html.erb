@@ -30,9 +30,9 @@
               <%= ao_pq.action_officer.name  %>
               (<%= ao_pq.action_officer.deputy_director.division.name %>)
               <% if ao_pq.accept %>
-                  <span class="label flag-pq-accepted">Accepted</span>
+                  <span class="label flag-accepted">Accepted</span>
               <% elsif ao_pq.reject %>
-                  <span class="label flag-pq-rejected">Rejected</span>
+                  <span class="label flag-rejected">Rejected</span>
                   <a data-toggle="collapse" data-target="#rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="btn btn-default btn-xs">
                     Display Reason <span class="caret"></span>
                   </a>
@@ -124,8 +124,8 @@
 
 <% else %>
     <div class="row">
-      <div class="col-md-6">
-        <h4>The question is accepted and a email has been sent with the instructions to send a draft answer, please contact Parliamentary branch if you have any questions</h4>
+      <div class="col-md-10">
+        <h4>The question has been accepted and an email has been sent to the accepting officer with drafting instructions, please contact Parliamentary branch if you have any questions</h4>
       </div>
     </div>
 <% end %>
