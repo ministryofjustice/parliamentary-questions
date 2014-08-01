@@ -33,7 +33,11 @@
               <i class='glyphicon glyphicon-search'></i>
             <% end %>
           <% end %>
-        <% end %>
+        <% else if current_user.is_finance_user? %>
+           <ul class="nav navbar-nav">
+             <li><%= link_to 'Sign out', destroy_user_session_path %></li>
+           </ul>
+      <% end %>
       </div>
     </div>
   </nav>

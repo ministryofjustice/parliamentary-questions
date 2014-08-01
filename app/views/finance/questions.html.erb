@@ -32,7 +32,6 @@
           <div class="col-md-6">
             <%= question.house_name %>: <%= question.member_name %><br/>
             Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %><br/>
-            <%= render partial: 'shared/question_assigned', locals: {question: question} %><br/>
             <input type="hidden" name="pq[<%= question.id %>][seen_by_finance]" value="true">
           </div>
         </li>
