@@ -197,7 +197,8 @@ i.fa-envelope
 .pq-header,
 .pq-question,
 .status-bar,
-.info-notice
+.info-notice,
+#pq-columns
 {margin-top:7px;margin-bottom:7px;}
 
 .pq-header
@@ -213,6 +214,9 @@ i.fa-envelope
 
 .info-notice
 {border-left:4px solid #d0021b;}
+
+.status-bar
+{line-height:32px;}
 
 .questions-list li label
 {font-size:16px;}
