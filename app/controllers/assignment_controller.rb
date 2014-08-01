@@ -21,7 +21,7 @@ class AssignmentController < ApplicationController
     end
 
     if response_action == 'reject'
-      flash[:notice] = 'The Question is rejected'
+      flash[:notice] = 'Thank you for responding, your message has been sent to the PQ team'
       @assignment_service.reject(@assignment, @response)
     end
 
