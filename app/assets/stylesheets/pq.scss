@@ -55,7 +55,7 @@ hr
 .flag-pod-cleared{background-color:#a1a8ff;}
 .flag-pod-query{background-color:#5461ff;}
 .flag-rejected{background-color:#d0021b;}
-.flag-transfer{background-color:#2b8cc4;}
+.flag-transferred-in{background-color:#7d7d7d;}
 .flag-transferred-out{background-color:#d53880;}
 .flag-unallocated{background-color:#f47738;}
 .flag-unassigned{background-color:#000000;}
@@ -74,7 +74,7 @@ a.btn-no-response{color:#fff}
 .flag-no-response,
 .flag-pod-query,
 .flag-rejected,
-.flag-transfer,
+.flag-transferred-in,
 .flag-transferred-out,
 .flag-unallocated,
 .flag-unassigned,
@@ -116,11 +116,14 @@ a.btn-no-response{color:#fff}
 .content a
 {line-height:32px;vertical-align:middle;}
 
+#global-header.with-proposition .header-wrapper .header-global
+{margin-right:39.5%;}
+
+#global-header.with-proposition .header-wrapper .header-proposition
+{width:217px;padding:8px 0px 8px 33px;}
+
 #build
 {display:inline-block;font-weight:bold;padding:3px 6px;}
-
-#proposition-name
-{/*margin-left:65%;*/}
 
 #wrapper
 {border-bottom:none;padding:0px 15px;}
@@ -205,7 +208,7 @@ i.fa-envelope
 
 .name-day,
 .flag-will-write,
-.flag-transferred-out
+.flag-transferred-in
 {font-size:14px;font-weight:normal;padding:3.5px 7px;text-align:center;vertical-align:4px;white-space:nowrap;}
 
 .info-notice
@@ -290,8 +293,8 @@ label
 .flag-no-response,
 .flag-pod-query,
 .flag-rejected,
-.flag-transfer,
-/*.flag-transferred-out,*/
+.flag-transferred-in,
+.flag-transferred-out,
 .flag-unallocated,
 .flag-unassigned,
 /*.flag-will-write,*/
