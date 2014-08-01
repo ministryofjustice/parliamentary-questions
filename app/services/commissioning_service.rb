@@ -44,7 +44,6 @@ class CommissioningService
     raise 'Action Officer is not selected' if assignment.action_officer_id.nil?
     raise 'Question is not selected' if assignment.pq_id.nil?
 
-    actionOfficersPq = ActionOfficersPq.create(action_officer_id: assignment.action_officer_id, pq_id: assignment.pq_id, accept: false, reject: false)
     ao = ActionOfficer.find(assignment.action_officer_id)
     pq = Pq.find_by(id: assignment.pq_id)
     dd = DeputyDirector.find_by(id: ao.deputy_director_id)
@@ -67,6 +66,5 @@ class CommissioningService
 
     PqMailer.notify_dd_email(template).deliver
 
-    return { assignment_id: actionOfficersPq.id}
   end
 end
