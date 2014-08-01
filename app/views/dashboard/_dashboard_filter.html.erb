@@ -17,7 +17,7 @@
 	   <%= link_to raw("Rejected <span class='badge'>#{Pq.rejected.count}</span>"), {:controller => 'dashboard', :action => 'by_status' , :qstatus => Progress.REJECTED} %>
     </li>
     <li id="db-filter-transferred" class="<%= 'active' if (params[:controller] == 'dashboard' && params[:action] == 'transferred') %>">
-	   <%= link_to raw("Transferred <span class='badge'>#{Pq.transferred.count}</span>") , {:controller => 'dashboard', :action => 'transferred'} %>
+	   <%= link_to raw("Transferred In <span class='badge'>#{Pq.transferred.count}</span>") , {:controller => 'dashboard', :action => 'transferred'} %>
     </li>
   </ul>
 </div>
