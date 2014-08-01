@@ -83,10 +83,10 @@ class ImportService
     )
 
     if pq.errors.empty?
-      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.error")
+      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
       yield ({question: q})
     else
-      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
+      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.error")
       yield ({question: q, error: pq.errors.full_messages})
     end
 
