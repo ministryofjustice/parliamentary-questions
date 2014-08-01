@@ -29,7 +29,8 @@
     <% if !question.internal_deadline.nil?  %>
         <p>
           <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
-          Internal deadline: <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
+          Internal deadline:<br />
+          <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
         </p>
     <% end %>
 <% end %>

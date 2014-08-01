@@ -1,77 +1,28 @@
-#global-header .header-wrapper {max-width:1112px;}
-
-.container
-{padding: 0 15px 15px 15px;}
-
-.content a
-{line-height:32px;vertical-align:middle;}
-
+/* = Colours ==================================================================== */
 #build
-{display:inline-block;color:#fff;background-color:#d73380;font-weight:bold;margin-left:0.5em;padding:3px 6px;}
-
-#proposition-name
-{margin-left:65%;}
-
-#wrapper
-{border-bottom:none;}
-
-h1
-{font-size:24px;font-weight:normal;display:inline;}
-
-h2,
-h3
-{display:inline;}
+{color:#fff;background-color:#d73380;}
 
 h2 .badge
-{vertical-align:middle;background-color:#000;}
-
-#status-filters h3
-{display:block;margin-bottom:15px;}
-
-/* = Sign in ==================================================================== */
-
-#new_user
-{margin: 15px;}
-
-#new_user input
-{display:block;margin:8px 0px;}
-
-#new_user input[type="checkbox"]
-{display:inline-block;margin:8px 10px 1em 0px;}
-
-#lbl-remember-me
-{display:inline;margin:8px 0px;}
-
-/* ============================================================================== */
-
-
-/* = Navigation ================================================================= */
+{background-color:#000;}
 
 .navbar
-{margin-left:15px;margin-right:15px;border-radius:0;background-color:#dee0e2;}
-
-#search_form
-{display:block;margin-left:50%;}
-
-#search_field
-{width:8em;border-radius:0;}
+{background-color:#dee0e2;}
 
 #search_button
-{margin-left:-4px;border-radius:0;width:34px;height:34px;color:#999;background-color:#fff;}
+{color:#999;background-color:#fff;}
 
 .glyphicon-search
 {color:#979797;}
 
-/* ============================================================================== */
+i.fa-exclamation-triangle,
+i.fa-times-circle
+{color:#df3034;}
 
-/* = Navigation Tabs ============================================================ */
+i.fa-envelope
+{color:#fff;}
 
-.nav-tabs
-{margin-bottom:20px;}
-
-/* ============================================================================== */
-
-/* Status Filters =============================================================== */
+i.fa-check-circle
+{color:#00823b;}
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a
 {color:#000;}
@@ -79,151 +30,40 @@ h2 .badge
 {background-color:#ffbf47;}
 
 #status-filters .badge
-{float:right;min-width:2.5em;background-color:#000;}
+{background-color:#000;}
 
 #status-filters .active .badge
 {color:#6f7781;background-color:#fff;}
 
-#db-filter-transferred, #db-filter-i-will-write
-{margin-top:32px;}
-
-/* ============================================================================== */
-
-/* = Dashboard Questions ======================================================== */
-
-.questions-list li
-{list-style:none;margin:15px 15px 15px 0px;}
-
 .name-day
-{background-color:#9b9b9b;color:#fff;border-radius:3px;box-sizing:border-box;display:inline;font-family: "nta",Arial,sans-serif;font-size:14px;font-weight:700;line-height:12px;list-style-image:none;list-style-position:outside;list-style-type:none;margin-left:12px;padding:3.5px 7px;text-align:center;vertical-align:6px;white-space:nowrap;}
-
-.info-notice
-{border-left:4px solid #d0021b;margin:15px;padding-top:0.1em;padding-right:0px;padding-bottom:0.1em;padding-left:1em;}
-
-.info-notice p
-{margin-top:2em;}
-
-.questions-list li label
-{font-size:16px;}
-
-.status-bar
-{margin:15px 0px;}
+{color:#fff;background-color:#9b9b9b;}
 
 hr
-{color:#bfc1c3;background-color:#bfc1c3;height:1px;margin:0;}
-
-/* ============================================================================== */
-
-/* = General ==================================================================== */
-
-i.fa-exclamation-triangle,
-i.fa-times-circle
-{color:#df3034;}
-
-i.fa-envelope
-{color:#fff;margin-left:4px;}
-
-i.fa-check-circle
-{color:#00823b;}
-
-.right
-{float:right;}
-
-label
-{display:block;font-weight:500;font-size:18px;}
-
-.date, .datetimepicker
-{width:12em;}
-
-.label-primary,
-.label-info,
-.label-warning
-{vertical-align:6px;margin-left:1em;padding:0.4em 0.6em;}
-
-a.btn-success
-{color:#fff;}
-
-#pages,
-/*.pq-header,*/
-.internal-deadline-form,
-.select2-container-multi .select2-choices li
-{width:100%;}
-
-.questions-list li p,
-.questions-list li label,
-.minister-dropdown,
-.trim-links-header,
-.datetimepicker
-{margin:13px 0px;}
-
-/* ============================================================================== */
-
-/* = PQ Details Page ============================================================ */
-
-.start-hidden
-{display:none;}
-
-#pq-details-header
-{line-height:62px;margin:0 15px 0 0;}
-
-#pq-details-title h2,
-#pq-details-title span.label,
-#qa-link a
-{vertical-align:middle;}
+{color:#bfc1c3;background-color:#bfc1c3;}
 
 #qa-link a
 {color:#4a8acd;}
 
-#progress-menu
-{z-index:1;padding-right:0px;}
+.btn-no-response{background-color:#f47738;}
+.flag-accepted{background-color:#28a197;}
+.flag-answered{background-color:#006435;}
+.flag-draft-pending{background-color:#85994b;}
+.flag-finance-unchecked{background-color:#f47738;}
+.flag-minister-cleared{background-color:#c1a87e;}
+.flag-ministerial-query{background-color:#b58840;}
+.flag-no-response{background-color:#f47738;}
+.flag-pod-cleared{background-color:#a1a8ff;}
+.flag-pod-query{background-color:#5461ff;}
+.flag-rejected{background-color:#d0021b;}
+.flag-transfer{background-color:#2b8cc4;}
+.flag-transferred-out{background-color:#d53880;}
+.flag-unallocated{background-color:#f47738;}
+.flag-unassigned{background-color:#000000;}
+.flag-will-write{background-color:#912b88;}
+.flag-with-minister{background-color:#82622e;}
+.flag-with-pod{background-color:#2e358b;}
 
-.nav-pills > li > a.progress-menu-item
-{border-top-right-radius:initial;border-bottom-right-radius:initial;}
-/*
-.nav-pills > li > a.progress-menu-item:hover
-{background-color:#fff;background-image:none;margin-right:0px;padding-right:0px;width: 99%;}
-*/
-.activeTab, .nav-pills > li > a.progress-menu-item:hover
-{background-image: url(image_path('progress-tab-bg.png'));background-repeat: repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
-
-.inactiveTab
-{border:none;background-image:none;}
-
-.progress-menu-form
-{border:1px solid #c2c2c2; padding:15px; margin-left:-1px;min-height:350px;}
-
-#progress-panel
-{margin:0px;padding:0px;}
-/*
-#progress-menu-answer-data
-{min-height:350px;}
-*/
-/* ============================================================================== */
-
-/* = Buttons ==================================================================== */
-.btn-commission
-{display:block;border-radius:0;color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-left-color:#00823b;border-bottom:2px solid #003518;margin:13px 0;}
-
-.btn-commission:hover,
-.btn-commission:focus,
-.btn-commission:active,
-.btn-commission.active,
-.open
-.dropdown-toggle.btn-success
-{color:#ffffff;background-color:#47a447;border-color:#398439;}
-
-.btn-save
-{display:block;border-radius:0;color:#fff;background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;border-bottom:2px solid #7f9a8b;margin:13px 0;}
-
-.btn-save:hover,
-.btn-save:focus,
-.btn-save:active,
-.btn-save.active
-{color:#ffffff;background-color:#7fc19c;border-color:#398439;}
-
-/* ============================================================================== */
-
-/* = Flags ====================================================================== */
+a.btn-no-response{color:#fff}
 
 .btn-no-response,
 .flag-accepted,
@@ -241,62 +81,239 @@ a.btn-success
 .flag-will-write,
 .flag-with-minister,
 .flag-with-pod
-{border-radius:6px;color:#fff;font-weight:normal;font-size:13px;padding:6px;}
+{color:#fff;}
 
 .flag-minister-cleared,
 .flag-pod-cleared
-{border-radius:6px;color:#000;font-weight:normal;font-size:13px;padding:6px;}
+{color:#000;}
 
-.btn-no-response{background-color:#f47738;}
-.flag-accepted{background-color:#28a197;}
-.flag-answered{background-color:#006435;}
-.flag-draft-pending{background-color:#85994b;}
-.flag-finance-unchecked{background-color:#b10e1e;}
-.flag-minister-cleared{background-color:#c1a87e;}
-.flag-ministerial-query{background-color:#b58840;}
-.flag-no-response{background-color:#f47738;}
-.flag-pod-cleared{background-color:#a1a8ff;}
-.flag-pod-query{background-color:#5461ff;}
-.flag-rejected{background-color:#d0021b;}
-.flag-transfer{background-color:#2b8cc4;}
-.flag-transferred-out{background-color:#7d7d7d;}
-.flag-unallocated{background-color:#f47738;}
-.flag-unassigned{background-color:#bd10e0;}
-.flag-will-write{background-color:#5f5f5f;}
-.flag-with-minister{background-color:#82622e;}
-.flag-with-pod{background-color:#2e358b;}
+.btn-commission
+{color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-left-color:#00823b;}
 
-a.btn-no-response{color:#fff}
+.btn-commission:hover,
+.btn-commission:focus,
+.btn-commission:active,
+.btn-commission.active,
+.open
+.dropdown-toggle.btn-success
+{color:#ffffff;background-color:#47a447;border-color:#398439;}
 
-.flag-will-write, .flag-transferred-out{margin:0px 12px;vertical-align:6px;}
+.btn-save
+{color:#fff;background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;}
+
+.btn-save:hover,
+.btn-save:focus,
+.btn-save:active,
+.btn-save.active
+{color:#ffffff;background-color:#7fc19c;border-color:#398439;}
+
+/* ============================================================================== */
+
+#global-header .header-wrapper,
+#wrapper
+{max-width:1024px;margin-left:auto;margin-right:auto;}
+
+.content a
+{line-height:32px;vertical-align:middle;}
+
+#build
+{display:inline-block;font-weight:bold;padding:3px 6px;}
+
+#proposition-name
+{/*margin-left:65%;*/}
+
+#wrapper
+{border-bottom:none;padding:0px 15px;}
+
+h1
+{font-size:24px;font-weight:normal;display:inline;}
+
+h2,
+h3
+{display:inline;}
+
+h2 .badge
+{vertical-align:middle;}
+
+#status-filters h3
+{display:block;}
+
+i.fa-envelope
+{margin-left:4px;}
+
+/* = Sign in ==================================================================== */
+
+#new_user
+{margin: 15px;}
+
+#new_user input
+{display:block;margin:8px 0px;}
+
+#new_user input[type="checkbox"]
+{display:inline-block;margin:8px 10px 1em 0px;}
+
+#lbl-remember-me
+{display:inline;margin:8px 0px;}
+
+/* ============================================================================== */
+
+/* = Navigation ================================================================= */
+
+/* new */
+.navbar
+{margin: 0 -15px 20px -15px;border-radius:0;}
+
+.navbar-right
+{margin-right:74px;}
+
+#search_field
+{width:8em;border-radius:0;margin-right:-4px;}
+
+#search_button
+{border-radius:0;width:34px;height:34px;}
+
+/* ============================================================================== */
+
+/* = Navigation Tabs ============================================================ */
+
+.nav-tabs
+{margin-bottom:15px;}
+
+/* ============================================================================== */
+
+/* Status Filters =============================================================== */
+
+#status-filters .badge
+{float:right;min-width:2.5em;}
+
+/* ============================================================================== */
+
+/* = Dashboard Questions ======================================================== */
+
+#finance-check-status,
+.pq-header,
+.pq-question,
+.status-bar,
+.info-notice
+{margin-top:7px;margin-bottom:7px;}
+
+.pq-header
+{vertical-align:middle;padding-top:5px;padding-bottom:5px;}
+
+.questions-list li
+{list-style:none;}
+
+.name-day,
+.flag-will-write,
+.flag-transferred-out
+{font-size:14px;font-weight:normal;padding:3.5px 7px;text-align:center;vertical-align:4px;white-space:nowrap;}
+
+.info-notice
+{border-left:4px solid #d0021b;}
+
+.questions-list li label
+{font-size:16px;}
+
+hr
+{height:1px;}
+
+/* ============================================================================== */
+
+/* = General ==================================================================== */
+
+.right
+{float:right;}
+
+label
+{display:block;font-weight:500;font-size:18px;}
+
+.date, .datetimepicker
+{width:12em;}
+
+#pages,
+.internal-deadline-form,
+.select2-container-multi .select2-choices li
+{width:100%;}
+
+/* ============================================================================== */
+
+/* = PQ Details Page ============================================================ */
+
+.start-hidden
+{display:none;}
+
+#pq-details-header
+{line-height: 62px;margin: 0 15px 0 0;}
+
+#pq-details-title h2,
+#pq-details-title span.label,
+#qa-link a
+{vertical-align: middle;}
+
+#progress-menu
+{z-index:1;padding-right:0px;}
+
+.nav-pills > li > a.progress-menu-item
+{border-top-right-radius:initial;border-bottom-right-radius:initial;}
+
+.activeTab, .nav-pills > li > a.progress-menu-item:hover
+{background-image: url(image_path('progress-tab-bg.png'));background-repeat: repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
+
+.inactiveTab
+{border:none;background-image:none;}
+
+.progress-menu-form
+{border:1px solid #c2c2c2; padding:15px; margin-left:-1px;min-height:350px;margin-bottom:15px;}
+
+#progress-panel
+{margin:0px;padding:0px;}
+
+/* ============================================================================== */
+
+/* = Buttons ==================================================================== */
+.btn-commission
+{display:block;border-radius:0;border-bottom:2px solid #003518;margin:13px 0;}
+
+.btn-save
+{display:block;border-radius:0;border-bottom:2px solid #7f9a8b;margin:13px 0;}
+
+/* ============================================================================== */
+
+/* = Flags ====================================================================== */
+
+.btn-no-response,
+.flag-accepted,
+.flag-answered,
+.flag-draft-pending,
+.flag-finance-unchecked,
+.flag-ministerial-query,
+.flag-no-response,
+.flag-pod-query,
+.flag-rejected,
+.flag-transfer,
+/*.flag-transferred-out,*/
+.flag-unallocated,
+.flag-unassigned,
+/*.flag-will-write,*/
+.flag-with-minister,
+.flag-with-pod
+{border-radius:6px;font-weight:normal;font-size:13px;padding:6px;}
+
+.flag-minister-cleared,
+.flag-pod-cleared
+{border-radius:6px;font-weight:normal;font-size:13px;padding:6px;}
 
 /* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
 
-.pq-question, .panel
-{padding:5px;margin:10px;}
-
-.question-allocation-list li
-{border:none;margin:3px 0px;padding:0px;}
-
-.allocation-info .btn
-{margin:13px 0px;}
-
 .select2-container .select2-choice abbr
 {top:5px!important;}
-
-a.btn-warning,
-.label-success
-{color:#000;padding:4px 6px;}
 
 /* ============================================================================== */
 
 .question-allocation-list
 {list-style: circle;}
-
-.accept-reject-form
-{margin: 20px 0;}
 
 .pq-inline-form
 {display:inline!important;}
@@ -353,6 +370,4 @@ input[type="file"]
 .table-cell-centered
 {text-align:center;}
 
-/* = Devise alerts ============================================================== */
-.alert-block{ color: #3A87AD; background-color: #D9EDF7; border-color: #BCE8F1; }
 /* ============================================================================== */
