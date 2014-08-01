@@ -1,30 +1,55 @@
-
-<h2><%= @ao.name %></h2>
-
-<h3>The Parliamentary Question (<%= @question.uin %>) has been assigned to you</h3>
-
-
 <%= render partial: 'shared/flash_messages' %>
-
-<div>
-    <span class="deadline">
-      Deadline to Accept/Reject:
-      <%= @question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @question.internal_deadline.nil? %>
-      <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @question.internal_deadline} %>
-    </span>
-    <div style="clear:both;">
-    </div>
-    <span>Question tabled by: <%= @question.member_name %></span>
-    In the <%= @question.house_name %>
-    <!-- -->
-    <div class="panel-indent" style="width: 66%;">
-        <%= @question.question %>
-    </div>
-
-    <%= render partial: 'shared/question_assigned', locals: {question: @question} %>
-
+<div class="row">
+  <h3><%= @ao.name %>, you have been allocated the Parliamentary Question <%= @question.uin %></h3>
 </div>
 
+<div class="row">
+  <blockquote class="pq-question col-md-12">
+    <%= @question.question %>
+  </blockquote>
+</div>
+<div class="row">
+<div>Asked by: <%= @question.member_name %> <%= @question.house_name %></div>
+</div>
+<div class="row">
+  <div>To be answered on behalf of: <%= @question.minister.name %></div>
+</div>
+<div class="row">
+  <div>Deadline to accept or reject this allocation: 2pm today</div>
+</div>
+
+<% if @question.action_officers_pq.size > 1 %>
+<div class="row">
+    <div class="question-allocation">
+      <p>This question has also been allocated to the following Action Officers, but only one may accept responsibility for answering:</p>
+
+      <ul class="question-allocation-list" data-pqid="<%= @question.id %>">
+        <% @question.action_officers_pq.each do |ao_pq|   %>
+            <% if !ao_pq.action_officer.nil? && ao_pq.action_officer_id!=@ao.id %>
+            <li>
+              <%= ao_pq.action_officer.name  %>
+              (<%= ao_pq.action_officer.deputy_director.division.name %>)
+              <% if ao_pq.accept %>
+                  <span class="label flag-pq-accepted">Accepted</span>
+              <% elsif ao_pq.reject %>
+                  <span class="label flag-pq-rejected">Rejected</span>
+                  <a data-toggle="collapse" data-target="#rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="btn btn-default btn-xs">
+                    Display Reason <span class="caret"></span>
+                  </a>
+                  <div id="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="collapse">
+                    <p><strong><%= ao_pq.reason_option %></strong></p>
+                    <p><%= ao_pq.reason %></p>
+                  </div>
+              <% else %>
+                  <span class="label flag-no-response">No response</span>
+              <% end %>
+              <% end %>
+        <% end %>
+        </li>
+      </ul>
+    </div>
+</div>
+<% end %>
 
 <% if !@question.is_in_progress?(Progress.accepted) %>
 
@@ -32,7 +57,7 @@
 <div class="accept-reject-form">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Would you accept responsibility for answering this question?</h3>
+        <h3 class="panel-title">Will you take responsibility for drafting an answer to this question?</h3>
       </div>
 
       <div class="panel-body">
