@@ -20,34 +20,38 @@
   </div>
 </div>
 
-<div class="status-bar col-md-12">
-  <% if !question.seen_by_finance  %>
-      <span class="label flag-finance-unchecked">Not checked by finance</span>
-  <% end %>
-  <span class="label flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
+<div class="row">
+  <div class="status-bar col-md-12">
+    <% if !question.seen_by_finance  %>
+        <span class="label flag-finance-unchecked">Not checked by finance</span>
+    <% end %>
+    <span class="label flag-<%= question.progress.classname %>"><%= question.progress.name %></span>
+  </div>
 </div>
 
 <% if [Progress.UNASSIGNED,Progress.NO_RESPONSE,Progress.REJECTED].include?(question.progress_id) %>
-<!-- if a question is unassigned, No response or rejected: loop through and show rejection reasons -->
-<%= render partial:'shared/rejected_reasons', locals: {question: question} %>
+  <!-- if a question is unassigned, No response or rejected: loop through and show rejection reasons -->
+  <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
 <% end %>
 
-<!-- start of 'sub column 1'-->
-<div class="col-md-6">
-  <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
-      <%= render partial: 'dashboard/pq_dashboard_column1_commissioned', locals: {question: question} %>
-  <% else %>
-      <%= render partial: 'dashboard/pq_dashboard_column1_uncommissioned', locals: {question: question} %>
-  <% end %>
-</div>
-<!-- end of column 1-->
+<div id="pq-columns" class="row">
+  <!-- start of 'sub column 1'-->
+  <div class="col-md-6">
+    <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
+        <%= render partial: 'dashboard/pq_dashboard_column1_commissioned', locals: {question: question} %>
+    <% else %>
+        <%= render partial: 'dashboard/pq_dashboard_column1_uncommissioned', locals: {question: question} %>
+    <% end %>
+  </div>
+  <!-- end of column 1-->
 
-<!--start of sub column 2 -->
-<div class="col-md-6">
-  <%= render partial: 'dashboard/pq_dashboard_column2', locals: {question: question} %>
-  <% if !question.preview_url.nil? %>
+  <!--start of sub column 2 -->
+  <div class="col-md-6">
+    <%= render partial: 'dashboard/pq_dashboard_column2', locals: {question: question} %>
+    <% if !question.preview_url.nil? %>
       <p>
         <a href="<%= question.preview_url %>">Question in Q&amp;A Tool</a>
       </p>
-  <% end %>
+    <% end %>
+  </div>
 </div>
