@@ -62,7 +62,7 @@ class CommissionController < ApplicationController
         flash.now[:error] = "Error in commissioning to #{assignment.action_officer.name}"
         return render :partial => 'shared/question_assigned', :locals => {question: @pq}
       else
-        result = comm_service.notify_dd(assignment)
+        comm_service.notify_dd(assignment)
       end
     end
   
