@@ -5,6 +5,9 @@
 # Learn more: http://github.com/javan/whenever
 
 
+# run on the root of the app to get the line that you have to put in the crontab
+# $ whenever
+
 every 1.day, :at => '7:00 am' do
   runner 'ImportWorker.perform_async'
 end
