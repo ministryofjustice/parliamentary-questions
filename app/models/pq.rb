@@ -31,6 +31,14 @@ class Pq < ActiveRecord::Base
     end
     return nil
   end
+  def ao_pq_accepted
+    action_officers_pq.each do |ao_pq|
+      if ao_pq.accept
+        return ao_pq
+      end
+    end
+    return nil
+  end
 
   def self.new_questions()
     monitor_new_questions

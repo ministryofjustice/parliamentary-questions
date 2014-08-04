@@ -29,14 +29,23 @@
 
 <p>Action Officer(s):</p>
 <div class="row">
-  <% question.action_officers_pq.each do |ao_pq| %>
-    <% if !ao_pq.reject && !ao_pq.action_officer.nil? %>
+  <% if question.ao_pq_accepted.nil? %>
+      <% question.action_officers_pq.each do |ao_pq| %>
+        <% if !ao_pq.reject && !ao_pq.action_officer.nil? %>
+          <div class="col-md-6">
+            <%= link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer) %>
+          </div>
+          <div class="col-md-6">
+            <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+          </div>
+        <% end %>
+      <% end %>
+   <% else %>
       <div class="col-md-6">
-        <%= link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer) %>
+        <%= link_to question.action_officer_accepted.name, action_officer_path(question.action_officer_accepted) %>
       </div>
       <div class="col-md-6">
-        <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+        <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: question.ao_pq_accepted, question: question} %>
       </div>
-    <% end %>
   <% end %>
 </div>
