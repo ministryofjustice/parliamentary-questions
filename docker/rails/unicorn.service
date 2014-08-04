@@ -18,7 +18,12 @@ seed)
 esac
 if [ -n "${IMPORT_URL}" ]; then
     echo "Running import from URL ${IMPORT_URL}"
-    curl -o /tmp/dbimport "${IMPORT_URL}" 2>>/rails/log/unicorn.log
+    if [ -n "${IMPORT_CREDS}" ]; then
+        IMPORT_PARAMS="--user ${IMPORT_CREDS}"
+    else
+        IMPORT_PARAMS=""
+    fi
+    curl -o /tmp/dbimport ${IMPORT_PARAMS} "${IMPORT_URL}" 2>>/rails/log/unicorn.log
     bundle exec rake db:import_transform[/tmp/dbimport] >>/rails/log/unicorn.log 2>&1
 fi
 
