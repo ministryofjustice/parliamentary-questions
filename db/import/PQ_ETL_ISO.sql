@@ -153,7 +153,7 @@ copy stageing
   "bob2",
   "Requested by Press"
 )
-from '/PQ Metadata fields.txt' CSV DELIMITER '~' HEADER encoding 'windows-1251';
+from STDIN CSV DELIMITER '~' HEADER encoding 'windows-1251';
 
 update stageing set "Deputy Director" = 'Not in Trim' where "Deputy Director" is null;
 update stageing set "Directorate" = 'Not in Trim' where "Directorate" is null;
