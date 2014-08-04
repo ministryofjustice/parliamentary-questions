@@ -21,7 +21,7 @@
         %>
             <td class="table-cell-centered">
               <% if count > 0 %>
-                  <%= link_to count  , {:action => 'press_desk_filter', press_desk_id: pd.id, progress_id: p.id} %>
+                  <%= link_to count  , {:action => 'filter_all', press_desk_id: pd.id, progress_id: p.id} %>
               <% else %>
                   0 <!--<span class="btn btn-xs btn-default btn-block">0</span> -->
               <% end %>

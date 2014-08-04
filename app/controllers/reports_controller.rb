@@ -35,7 +35,6 @@ class ReportsController < ApplicationController
     end
   end
 
-
   def ministers_filter
     minister_id = params[:minister_id]
     progress_id = params[:progress_id]
@@ -90,15 +89,46 @@ class ReportsController < ApplicationController
     @questions = pqs.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
 
     render action: 'press_desk_filter', press_desk_id: press_desk_id, progress_id: progress_id
+  end
 
+  def filter_all
+    minister_id = params[:minister_id]
+    press_desk_id = params[:press_desk_id]
+    progress_id = params[:progress_id]
+
+
+    aos = PressDesk.find(press_desk_id).action_officers.collect{|it| it.id} unless press_desk_id.blank?
+    if !minister_id.blank? || !press_desk_id.blank? || !progress_id.blank?
+      pqs = PQ_by_all(aos,minister_id,progress_id)
+      @questions_count = pqs.count
+      @questions = pqs.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+    end
+  render action: 'filter_all', press_desk_id: press_desk_id, progress_id: progress_id, minister_id: minister_id
   end
 
   def PQ_by_press_desk(aos)
-    Pq.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (?)', aos)
+    Pq.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
   end
 
   def PQ_by_minister(minister_id)
-    Pq.where('minister_id = ? OR policy_minister_id = ?', minister_id, minister_id)
+    Pq.where('minister_id = :m_id OR policy_minister_id = :m_id', m_id: minister_id)
+  end
+
+  def PQ_by_all(aos, minister_id, progress_id)
+
+    @Pqs = Pq
+
+    if !minister_id.blank?
+      @Pqs = @Pqs.where('minister_id = :m_id OR policy_minister_id = :m_id', m_id: minister_id)
+    end
+
+    if !aos.nil?
+      @Pqs = @Pqs.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
+    end
+    if !progress_id.blank?
+      @Pqs = @Pqs.where('progress_id = :p_id', p_id:progress_id)
+    end
+    @Pqs
   end
 
 
