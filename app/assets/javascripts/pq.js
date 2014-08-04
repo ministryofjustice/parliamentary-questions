@@ -20,10 +20,17 @@ $(document).ready(function () {
 	$(".form-commission")
 	.on("ajax:success", function(e, data, status, xhr){
 		var pqid = $(this).data('pqid');
+<<<<<<< .merge_file_YmCsPb
         var uin = $('#pq-frame-'+pqid+ ' span.uin').text();
         //it worked!
         //so - get the entire question and replace it with a flash success message
         $('#pq-frame-'+pqid).replaceWith('<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>'+uin +' commissioned successfully</div>');
+=======
+        var uin = $('#pq-frame-'+pqid+ ' h3').text();
+        //it worked!
+        //so - get the entire question and replace it with a flash success message
+        $('#pq-frame-'+pqid).replaceWith('<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>'+ uin +' commissioned successfully</div>');
+>>>>>>> .merge_file_5OY0bN
         //increment allocated pending
         incrementBadge('#db-filter-alloc-pend');
         //decrement Unallocated
