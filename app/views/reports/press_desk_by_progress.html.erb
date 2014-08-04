@@ -6,7 +6,7 @@
     <th>Progress</th>
     <% @pd.each do |pd| %>
         <th class="table-cell-centered">
-          <%= link_to pd.name  , {:action => 'press_desk_filter', press_desk_id: pd.id }%>
+          <%= link_to pd.name  , {:action => 'filter_all', press_desk_id: pd.id }%>
         </th>
     <% end %>
   </tr>
