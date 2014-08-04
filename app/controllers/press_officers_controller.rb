@@ -6,7 +6,7 @@ class PressOfficersController < ApplicationController
   # GET /press_officers
   # GET /press_officers.json
   def index
-    @press_officers = PressOfficer.all
+    @press_officers = PressOfficer.all.order('lower(name)')
   end
 
   # GET /press_officers/1

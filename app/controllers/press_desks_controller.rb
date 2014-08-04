@@ -5,7 +5,7 @@ class PressDesksController < ApplicationController
   # GET /press_desks
   # GET /press_desks.json
   def index
-    @press_desks = PressDesk.all
+    @press_desks = PressDesk.all.order('lower(name)')
   end
 
   # GET /press_desks/1
