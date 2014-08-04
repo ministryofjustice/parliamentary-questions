@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.page(params[:page]).per_page(15).order('email')
+    @users = User.all.order("lower(name)").page(params[:page]).per_page(15)
   end
 
   def edit

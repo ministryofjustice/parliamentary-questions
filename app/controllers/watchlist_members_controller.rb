@@ -5,7 +5,7 @@ class WatchlistMembersController < ApplicationController
   # GET /watchlist_members
   # GET /watchlist_members.json
   def index
-    @watchlist_members = WatchlistMember.all
+    @watchlist_members = WatchlistMember.all.order('lower(name)')
   end
 
   # GET /watchlist_members/1
