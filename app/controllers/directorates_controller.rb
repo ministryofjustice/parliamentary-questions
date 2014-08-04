@@ -5,7 +5,7 @@ class DirectoratesController < ApplicationController
   # GET /directorates
   # GET /directorates.json
   def index
-    @directorates = Directorate.all
+    @directorates = Directorate.all.order('lower(name)')
   end
 
   # GET /directorates/1

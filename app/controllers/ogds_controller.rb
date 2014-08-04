@@ -5,7 +5,7 @@ class OgdsController < ApplicationController
   # GET /ogds
   # GET /ogds.json
   def index
-    @ogds = Ogd.all
+    @ogds = Ogd.all.order('lower(name)')
   end
 
   # GET /ogds/1

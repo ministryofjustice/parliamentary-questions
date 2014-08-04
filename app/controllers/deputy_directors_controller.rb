@@ -6,7 +6,7 @@ class DeputyDirectorsController < ApplicationController
   # GET /deputy_directors
   # GET /deputy_directors.json
   def index
-    @deputy_directors = DeputyDirector.all
+    @deputy_directors = DeputyDirector.all.order('lower(name)')
   end
 
   # GET /deputy_directors/1
