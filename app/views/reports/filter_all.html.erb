@@ -45,7 +45,32 @@
           </div>
         </div>
     <% else %>
-        <%= render partial: 'questions_results', locals: {questions: @questions, questions_count: @questions_count} %>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p><%= pluralize(@questions_count,'Question') %> found</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <ul class="questions-list col-md-9">
+            <% @questions.each do |question| %>
+                <li id="pq-frame-<%= question.id %>" class="row">
+                  <%= render partial: 'dashboard/question_data', locals: {question: question} %>
+                </li>
+                <hr />
+            <% end %>
+          </ul>
+        </div>
     <% end %>
   </div>
 </div>
+<% if !@questions.nil? %>
+<div class="row">
+  <div class="col-md-12">
+    <div id='pages'>
+      <%= will_paginate @questions %>
+    </div>
+  </div>
+</div>
+<% end %>
