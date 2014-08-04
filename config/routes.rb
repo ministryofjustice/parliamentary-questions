@@ -105,6 +105,7 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'reports/ministers_filter' => 'reports#ministers_filter', via: [:get, :post]
   get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
   match 'reports/press_desk_filter' => 'reports#press_desk_filter', via: [:get, :post]
+  match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
 
 
