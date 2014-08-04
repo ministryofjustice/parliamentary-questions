@@ -7,7 +7,7 @@ class ActionOfficersController < ApplicationController
   # GET /action_officers
   # GET /action_officers.json
   def index
-    @action_officers = ActionOfficer.all
+    @action_officers = ActionOfficer.all.order(:name)
   end
 
   # GET /action_officers/1

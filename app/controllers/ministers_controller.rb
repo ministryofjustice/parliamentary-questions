@@ -5,7 +5,7 @@ class MinistersController < ApplicationController
   # GET /ministers
   # GET /ministers.json
   def index
-    @ministers = Minister.all
+    @ministers = Minister.all.order('lower(name)')
   end
 
   # GET /ministers/1

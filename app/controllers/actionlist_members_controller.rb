@@ -3,7 +3,7 @@ class ActionlistMembersController < ApplicationController
   before_action :set_actionlist_member, only: [:show, :edit, :update, :destroy]
 
   def index
-    @actionlist_members = ActionlistMember.all
+    @actionlist_members = ActionlistMember.all.order(:name.downcase)
   end
 
   def show

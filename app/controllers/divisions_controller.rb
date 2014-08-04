@@ -6,7 +6,7 @@ class DivisionsController < ApplicationController
   # GET /divisions
   # GET /divisions.json
   def index
-    @divisions = Division.all
+    @divisions = Division.all.order('lower(name)')
   end
 
   # GET /divisions/1
