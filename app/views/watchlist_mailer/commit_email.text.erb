@@ -1,10 +1,7 @@
-Hello, <%= @template_params[:name] %>
-============================================================================
-This are the questions allocated on <%= @template_params[:date] %>
- <%= url_for(controller: "watchlist_dashboard", action: "index", token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
+Please click the link below, or copy and paste into your browser, to see the PQs allocated by the Ministry of Justice today.
 
-============================================================================
+<%= url_for(controller: "watchlist_dashboard", action: "index", token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
 
-Please contact one of the PQ team should you have any questions.
+If you no longer wish to receive the daily emails, please contact the PQ Team (pqs@justice.gsi.gov.uk).
 
 <%= render 'shared/mailer/email_signature_plain' %>
