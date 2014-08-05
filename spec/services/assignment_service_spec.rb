@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe 'AssignmentService' do
-
+  let(:minister) {build(:minister)}
   let(:directorate) {create(:directorate, name: 'This Directorate', id: 1+rand(10))}
   let(:division) {create(:division,name: 'Division', directorate_id: directorate.id, id: 1+rand(10))}
   let(:deputy_director) { create(:deputy_director, name: 'dd name', division_id: division.id, id: 1+rand(10))}
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
   let(:action_officer2) { create(:action_officer, name: 'ao name 2', email: 'ao@ao.gov') }
 
-  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?') }
+  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?',minister:minister, house_name:'commons') }
   progress_seed
 
   before(:each) do

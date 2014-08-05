@@ -35,6 +35,10 @@ class CommissioningService
     template[:uin] = pq.uin
     template[:question] = pq.question
     template[:token] = token
+    template[:house] = pq.house_name
+    template[:member_name] = pq.member_name
+    template[:answer_by] = pq.minister.name
+    template[:house] = pq.house_name
 
     PqMailer.commit_email(template).deliver
 

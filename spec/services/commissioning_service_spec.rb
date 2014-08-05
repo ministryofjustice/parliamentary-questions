@@ -177,6 +177,5 @@ describe 'CommissioningService' do
 
     result.should eq('Deputy Director has no email')
 
-
   end
 end
