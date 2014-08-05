@@ -4,21 +4,19 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h2>Hello, <%= @template_params[:name] %> you have been allocated the following PQ </h2>
+    <h2><%= @template_params[:name] %>, you have been allocated the Parliamentary Question <%= @template_params[:uin] %> </h2>
     <div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;font-size: 110%;">
       <%= @template_params[:question] %>
     </div>
-
-    <h2 style="margin:10px 0;">
-      Please <%= link_to "Accept or reject this question", controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %>
+    <p>Asked by: <%= @template_params[:member_name] %> <%= @template_params[:house] %></p>
+    <h2>To respond, please click the link below before 2pm today.</h2>
+    <h2>
+      <%= link_to "Accept or reject this question", controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %>
     </h2>
-
-    <p>Please contact one of the PQ team if you have any questions.</p>
-
+    <p>If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.</p>
+    <p>If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
 
     <%= render 'shared/mailer/email_signature' %>
-
-    </div>
 
   </body>
 </html>
