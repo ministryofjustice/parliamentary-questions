@@ -4,12 +4,13 @@
   <input id="answer_submitted" class="form-control" name="pq[answer_submitted]" type="text" value="<%= @pq.answer_submitted.strftime('%d/%m/%Y %H:%M') unless @pq.answer_submitted.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
+
 <% if !@pq.answer_submitted.nil? && !@pq.date_for_answer.nil? %>
-    <% if @pq.answer_submitted < @pq.date_for_answer %>
-        <i class="fa fa-check-circle" style="color: #5cb85c"></i>  Answer submitted on time
-    <% elsif @pq.answer_submitted > @pq.date_for_answer %>
-        <i class="fa fa-thumbs-o-down"></i> Answer NOT submitted on time
-    <% end %>
+  <% if @pq.answer_submitted < @pq.date_for_answer %>
+    <i class="fa fa-check-circle" style="color: #5cb85c"></i>  Answer submitted on time
+  <% elsif @pq.answer_submitted > @pq.date_for_answer %>
+    <i class="fa fa-thumbs-o-down"></i> Answer NOT submitted on time
+  <% end %>
 <% end %>
 
 <div class="checkbox">
@@ -22,33 +23,32 @@
   <input id="pq_withdrawn" class="form-control" name="pq[pq_withdrawn]" type="text" value="<%= @pq.pq_withdrawn.strftime('%d/%m/%Y %H:%M') unless @pq.pq_withdrawn.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
+
 <div class="checkbox">
   <%= f.label(:holding_reply_flag) %>
   <%= f.check_box(:holding_reply_flag) %>
 </div>
 
-
 <% if @pq.i_will_write %>
-    <p>
-      <%= link_to raw("Create 'I will write' '#{@pq.uin}-IWW' <i class='fa fa-files-o'></i>"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {class: 'btn btn-success', title: 'Send a reminder email to do the draft'} %>
-    </p>
+  <p>
+    <%= link_to raw("Create 'I will write' '#{@pq.uin}-IWW' <i class='fa fa-files-o'></i>"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {class: 'btn btn-success', title: 'Send a reminder email to do the draft'} %>
+  </p>
 <% end %>
 
 <label>Final response information released</label>
 <%= f.select(:final_response_info_released, [
-        "",
-        "Comercial in confidence",
-        "Disproportionate cost",
-        "Full disclosure",
-        "Holding reply [named day PQ only]",
-        "I will write",
-        "Information not held centrally",
-        "Information not recorded",
-        "Partial disclosure",
-        "Partial Disproportionate cost",
-        "Referral"]) %>
-
-
+  "",
+  "Comercial in confidence",
+  "Disproportionate cost",
+  "Full disclosure",
+  "Holding reply [named day PQ only]",
+  "I will write",
+  "Information not held centrally",
+  "Information not recorded",
+  "Partial disclosure",
+  "Partial Disproportionate cost",
+  "Referral"
+]) %>
 
 <label>Progress (TODO: for testing)</label>
 <%= f.collection_select(:progress_id, @progress_list, :id, :name) %>

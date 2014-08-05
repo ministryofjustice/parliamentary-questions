@@ -88,7 +88,7 @@ a.btn-no-response{color:#fff}
 {color:#000;}
 
 .btn-commission
-{color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-left-color:#00823b;}
+{color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
 
 .btn-commission:hover,
 .btn-commission:focus,
@@ -106,6 +106,12 @@ a.btn-no-response{color:#fff}
 .btn-save:active,
 .btn-save.active
 {color:#ffffff;background-color:#7fc19c;border-color:#398439;}
+
+.trim-links-header
+{color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
+
+.trim-links-form:hover
+{color:#fff;}
 
 /* ============================================================================== */
 
@@ -212,8 +218,11 @@ i.fa-envelope
 .flag-transferred-in
 {font-size:14px;font-weight:normal;padding:3.5px 8px;text-align:center;vertical-align:4px;white-space:nowrap;}
 
+.name-day
+{margin-right:40px;}
+
 .info-notice
-{border-left:4px solid #d0021b;}
+{border-left:4px solid #d0021b;margin-left:15px;}
 
 .status-bar
 {line-height:32px;}
@@ -235,12 +244,15 @@ label
 {display:block;font-weight:500;font-size:18px;}
 
 .date, .datetimepicker
-{width:12em;}
+{width:12em; margin-bottom:15px;}
 
 #pages,
 .internal-deadline-form,
 .select2-container-multi .select2-choices li
 {width:100%;}
+
+select
+{margin-bottom:15px;}
 
 /* ============================================================================== */
 
@@ -326,7 +338,7 @@ label
 /* = TRIM links ================================================================= */
 
 .trim-links-header
-{position:relative;cursor:default;color:#288acd;border:none;}
+{position:relative;cursor:default;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
 
 .trim-links-form
 {width:250px;height:auto;margin:10px;vertical-align:middle;display:none;position:absolute;top:-12px;left:-12px;cursor:default;z-index:5;float:left;line-height:35px;}
@@ -335,7 +347,7 @@ input[type="file"]
 {line-height:10px;}
 
 .trim-links-form:hover
-{display:block;background-color:#fff;}
+{display:block;}
 
 .trim-links-cancel
 {float:left;height:35px;color:#288ACD;border:none;}
