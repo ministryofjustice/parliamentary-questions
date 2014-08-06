@@ -34,6 +34,9 @@ class ActionOfficerReminderController  < ApplicationController
     @template[:email] = @ao.emails
     @template[:uin] = @pq.uin
     @template[:question] = @pq.question
+    @template[:member_name] = @pq.member_name
+    @template[:house] = @pq.house_name
+
   end
 
 end
