@@ -1,42 +1,42 @@
-<h2>New PQ's today <span class="badge"><%= @questions.count %></span></h2>
 <%= render partial: 'shared/flash_messages' %>
+<h2>New PQ's today <span class="badge"><%= @questions.count %></span></h2>
+<hr />
 <% if @questions.count == 0 %>
   <p>There are not more questions to review</p>
 <% end %>
-
 <% if @questions.count > 0 %>
   <%= form_tag :controller => 'finance', :action => 'confirm' do  %>
-    <ul class="questions-list col-md-12">
+    <ul class="questions-list col-md-9">
       <% @questions.each do |question| %>
-        <li class="row">
+        <li>
           <div class="pq-header">
             <h3><%= question.uin %></h3>
             <% if question.question_type == 'NamedDay' %>
-              <span class="label label-primary" title="Named day">N</span>
+              <span class="label name-day" title="Named day">N</span>
             <% end %>
             <% if question.transferred  %>
-              <span class="label label-warning" title="Transferred">Transferred</span>
+              <span class="label flag-transferred-in" title="Transferred">T</span>
             <% end %>
           </div>
-
           <div class="pq-question">
             <%= question.question %>
           </div>
-
-          <div class="col-md-6">
-            <label>
-              <input name="pq[<%= question.id %>][finance_interest]" type="checkbox" value="true"/> Register Interest
-            </label>
+          <div class="row">
+            <div class="col-md-6">
+              <label>
+                <input name="pq[<%= question.id %>][finance_interest]" type="checkbox" value="true"/> Register interest
+              </label>
+            </div>
+            <div class="col-md-6">
+              <%= question.house_name %>: <%= question.member_name %><br/>
+              Date for answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %><br/>
+              <input type="hidden" name="pq[<%= question.id %>][seen_by_finance]" value="true">
+            </div>
           </div>
-
-          <div class="col-md-6">
-            <%= question.house_name %>: <%= question.member_name %><br/>
-            Date For Answer: <%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %><br/>
-            <input type="hidden" name="pq[<%= question.id %>][seen_by_finance]" value="true">
-          </div>
+          <hr />
         </li>
       <% end %>
+      <%= submit_tag 'Confirm Visibility of all PQs' , id: 'btn_finance_visibility' , class: 'button' %>
     </ul>
-    <%= submit_tag 'Confirm Visibility of all PQs' , class: 'button'%>
   <% end %>
 <% end %>
