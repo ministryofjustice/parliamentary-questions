@@ -16,7 +16,7 @@ else
 fi
 
 cp ${DOCKERFILE} .
-docker build -t ${TAG} .
+docker build -t ${TAG} --rm=false .
 
 if [ -z "$DOCKER_NOPUSH" ]; then
   echo "+ docker push ${TAG}"

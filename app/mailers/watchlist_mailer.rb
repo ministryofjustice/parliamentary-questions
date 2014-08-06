@@ -6,6 +6,6 @@ class WatchlistMailer < PQBaseMailer
     # email, name, token, entity
     date = Date.today.strftime('%d/%m/%Y')
     @template_params[:date] = date
-    mail(to: @template_params[:email], subject: "Parliamentary Questions allocated #{date}")
+    mail(to: @template_params[:email], subject: 'PQs | Allocated today')
   end
 end
