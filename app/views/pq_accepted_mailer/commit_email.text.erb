@@ -1,56 +1,33 @@
-You accepted the following PQ
+You have accepted responsibility for drafting an answer to <%= @template_params[:uin] %>
 
-============================================================================
+
+<============================================================================
 <%= @template_params[:question] %>.
 ============================================================================
 
-<% if !@template_params[:mpname].nil? %>
-    Minister: <%= @template_params[:mpname] %>
-<% end %>
-<% if !@template_params[:mpname].nil? %>
-    Policy Minister: <%= @template_params[:policy_mpname] %>
-<% end %>
 
+<div>
+
+<% if !@template_params[:member_name].nil? %>
+Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> <%= @template_params[:house_name] %> <% end %>
+<% end %>
+<% if !@template_params[:mpname].nil? %>
+To be answered by: <%= @template_params[:mpname] %>
+<% end %>
+<% if !@template_params[:internal_deadline].nil? %>
+Deadline to return your draft response <%= @template_params[:internal_deadline] %>
+<% end %>
 
 You should ensure the following people are included in your draft response:-
 
 <%= @template_params[:cc_list]  %>
 
-There are some links to guidance available from the intranet
+You will need to liaise with your relevant press officer before you send your draft response.
+
+For drafting templates and guidance on how to respond, please refer to the intranet by using the following link.
 	http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions
-	http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/parliament-questions-guidance-faqs.pdf
-	http://intranet.justice.gsi.gov.uk/global/forms/downloads/ministers-parliament/template-written-pqs.doc
-	http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/high-profile-pq.pdf
-	http://intranet.justice.gsi.gov.uk/global/forms/downloads/ministers-parliament/disproportionate-costs-calculator.xls
 
-
-If your PQ is to be answered by Simon Hughes MP, please ensure that the Draft Response is sent, alongside the usual copy list, to;
-
-	Christopher.Beal@justice.gsi.gov.uk
-	Nicola.Calderhead@justice.gsi.gov.uk
-	thomas.murphy@JUSTICE.gsi.gov.uk
-
-Some guidance points that you should be aware of:
-
-Please ensure that tables attached to or embedded in answers are in Word or Excel format
-
-	Follow up to 'I will write responses' - Please see revised guidance for IWW - Follow up responses to IWW PQ answers are dealt with slightly differently to routine PQ answers – please see the attached guidance and process map which details how these should be processed. An IWW follow-up response specific background note is also attached.
-
-	Guidance - Please familiarise yourself with the guidance below highlighting the details that should be provided in the email subject line when returning PQs. If colleagues in your team are processing responses, please ensure that this message is relayed.
-	
-	Amendments have been made to the return cc list (see section 4 below). When returning PQs to the full copy list, please include the following in the e-mail subject line:
-
-		Parliament's Unique Identifying Number (the 5 or 6 digit number that appears at the end of the question)
-	
-		Indicate the name of the MP / Peer
-
-		Give a very brief description of the subject matter (one or two words!)
-		Provide the name of the Press Officer involved (if applicable) 
-			e.g. RE: 123456 – Joe Blogs – Legal Aid (Press Officer - Rob Smith)
-
-Taking these steps will ensure that Press Office colleagues are able to identify what PQs relate to their portfolio areas. Likewise, providing PIN numbers also enables us to identify PQs easily.
-
-Please contact one of the PQ team should you have any questions.
+If you have further queries about drafting your response, please contact the PQ team pqs@justice.gsi.gov.uk
 
 
 <%= render 'shared/mailer/email_signature_plain' %>
