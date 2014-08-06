@@ -107,11 +107,16 @@ a.btn-no-response{color:#fff}
 .btn-save.active
 {color:#ffffff;background-color:#7fc19c;border-color:#398439;}
 
-.trim-links-header
+.trim-links-header,
+.trim-links-cancel
 {color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
 
-.trim-links-form:hover
-{color:#fff;}
+.trim-links-header:hover,
+.trim-links-cancel:hover
+{color: #fff;background-color:#47a447;border-top-color:#398439;border-right-color-value:#398439;border-bottom-color:#398439;border-left-color:#398439;}
+
+.file-choose-replace
+{color:#000;}
 
 /* ============================================================================== */
 
@@ -337,7 +342,7 @@ select
 
 /* = TRIM links ================================================================= */
 
-.trim-links-header
+.trim-links-header, .trim-links-header:hover
 {position:relative;cursor:default;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
 
 .trim-links-form
@@ -350,7 +355,7 @@ input[type="file"]
 {display:block;}
 
 .trim-links-cancel
-{float:left;height:35px;color:#288ACD;border:none;}
+{float:left;height:38px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
 
 .file-chooser
 {display:none!important;}
