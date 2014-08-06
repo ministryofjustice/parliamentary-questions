@@ -4,16 +4,18 @@
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
-<h2>URGENT, please accept or reject the following PQ, the link to do it should be in your inbox, contact the PQ team if you have any questions</h2>
+<h2><%= @template_params[:name] %>, you have missed the 2pm deadline</h2>
 
+<p>Please immediately accept or reject the Parliamentary Question <%= @template_params[:uin] %> </p>
 <div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;font-size: 110%;">
   <%= @template_params[:question] %>
 </div>
 
+<p>Asked by: <%= @template_params[:member_name] %> <%= @template_params[:house] %></p>
 
-<p>Please contact one of the PQ team should you have any questions.</p>
+<h2>The link to accept or reject will be in a previous email. Please search your email inbox for <%= @template_params[:uin] %></h2>
 
-
+<p>If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
 
 <%= render 'shared/mailer/email_signature' %>
 

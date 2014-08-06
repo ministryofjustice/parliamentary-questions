@@ -1,12 +1,15 @@
-URGENT, please accept or reject the following PQ, the link to do it should be in your inbox, contact the PQ team if you have any questions
+<%= @template_params[:name] %>, you have missed the 2pm deadline
 
+Please immediately accept or reject the Parliamentary Question <%= @template_params[:uin] %>
 
 ============================================================================
 <%= @template_params[:question] %>.
 ============================================================================
 
+Asked by: <%= @template_params[:member_name] %> <%= @template_params[:house] %>
 
-Please contact one of the PQ team should you have any questions.
+The link to accept or reject will be in a previous email. Please search your email inbox for <%= @template_params[:uin] %>
 
+If you have any questions, please contact the PQ team at pqs@justice.gsi.gov.uk
 
 <%= render 'shared/mailer/email_signature_plain' %>
