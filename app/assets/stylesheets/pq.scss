@@ -96,7 +96,7 @@ a.btn-no-response{color:#fff}
 .btn-commission.active,
 .open
 .dropdown-toggle.btn-success
-{color:#ffffff;background-color:#47a447;border-color:#398439;}
+{color:#fff;background-color:#47a447;border-color:#398439;}
 
 .btn-save
 {color:#fff;background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;}
@@ -105,7 +105,7 @@ a.btn-no-response{color:#fff}
 .btn-save:focus,
 .btn-save:active,
 .btn-save.active
-{color:#ffffff;background-color:#7fc19c;border-color:#398439;}
+{color:#fff;background-color:#7fc19c;border-color:#398439;}
 
 .trim-links-header,
 .trim-links-cancel
@@ -113,12 +113,14 @@ a.btn-no-response{color:#fff}
 
 .trim-links-header:hover,
 .trim-links-cancel:hover
-{color: #fff;background-color:#47a447;border-top-color:#398439;border-right-color-value:#398439;border-bottom-color:#398439;border-left-color:#398439;}
+{color:#fff;background-color:#47a447;border-top-color:#398439;border-right-color-value:#398439;border-bottom-color:#398439;border-left-color:#398439;}
 
 .file-choose-replace
 {color:#000;}
 
 /* ============================================================================== */
+
+/* = Template and shared ======================================================== */
 
 #global-header .header-wrapper,
 #wrapper
@@ -128,7 +130,7 @@ a.btn-no-response{color:#fff}
 {line-height:32px;vertical-align:middle;}
 
 #global-header.with-proposition .header-wrapper .header-global
-{margin-right:41.2%;}
+{margin-right:40%;}
 
 #global-header.with-proposition .header-wrapper .header-proposition
 {width:205px;height:48px;padding:11px 0px 0px 0px;}
@@ -142,6 +144,9 @@ a.btn-no-response{color:#fff}
 h1
 {font-size:24px;font-weight:normal;display:inline;margin-right:19px;}
 
+h2
+{font-size:24px;font-weight:bold;}
+
 h2,
 h3
 {display:inline;}
@@ -149,11 +154,38 @@ h3
 h2 .badge
 {vertical-align:middle;}
 
+h3
+{font-size:18px;font-weight:bold;}
+
 #status-filters h3
 {display:block;}
 
 i.fa-envelope
 {margin-left:4px;}
+
+.right
+{float:right;}
+
+label
+{display:block;font-weight:500;font-size:18px;}
+
+.date, .datetimepicker
+{width:12em;}
+
+#pages,
+.internal-deadline-form,
+.select2-container-multi .select2-choices li
+{width:100%;}
+
+h2,
+.date,
+.datetimepicker,
+.progress-menu-form,
+select,
+#btn_finance_visibility
+{margin-bottom:15px;}
+
+/* ============================================================================== */
 
 /* = Sign in ==================================================================== */
 
@@ -240,27 +272,6 @@ hr
 
 /* ============================================================================== */
 
-/* = General ==================================================================== */
-
-.right
-{float:right;}
-
-label
-{display:block;font-weight:500;font-size:18px;}
-
-.date, .datetimepicker
-{width:12em; margin-bottom:15px;}
-
-#pages,
-.internal-deadline-form,
-.select2-container-multi .select2-choices li
-{width:100%;}
-
-select
-{margin-bottom:15px;}
-
-/* ============================================================================== */
-
 /* = PQ Details Page ============================================================ */
 
 .start-hidden
@@ -287,7 +298,7 @@ select
 {border:none;background-image:none;}
 
 .progress-menu-form
-{border:1px solid #c2c2c2; padding:15px; margin-left:-1px;min-height:350px;margin-bottom:15px;}
+{border:1px solid #c2c2c2; padding:15px; margin-left:-1px;min-height:350px;}
 
 #progress-panel
 {margin:0px;padding:0px;}
@@ -295,6 +306,7 @@ select
 /* ============================================================================== */
 
 /* = Buttons ==================================================================== */
+
 .btn-commission
 {display:block;border-radius:0;border-bottom:2px solid #003518;margin:13px 0;}
 
