@@ -6,11 +6,11 @@ class PqMailer < PQBaseMailer
   	# email, name from AO
   	# uin, question from PQ
   	# url with the token
-    mail(to: @template_params[:email], subject: "[Parliamentary-Questions] #{@template_params[:uin]} | You have been allocated a question")
+    mail(to: @template_params[:email], subject: "#{@template_params[:uin]} | You have been allocated a PQ")
   end
   def notify_dd_email(template_params)
     @template_params = template_params
-    mail(to: @template_params[:email], subject: "[Parliamentary-Questions]: #{@template_params[:ao_name]} has been allocated question #{@template_params[:uin]}")
+    mail(to: @template_params[:email], subject: "#{@template_params[:uin]} | #{@template_params[:ao_name]} has been allocated a PQ")
   end
 
 end

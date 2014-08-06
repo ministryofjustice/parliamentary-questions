@@ -51,13 +51,11 @@ describe 'WatchlistReportService' do
     entity = {entity: "watchlist:#{watchlist_one.id}"}.to_query
     url = '/watchlist/dashboard'
 
-    mail.html_part.body.should include watchlist_one.name
     mail.html_part.body.should include url
     mail.html_part.body.should include token_param
     mail.html_part.body.should include entity
 
 
-    mail.text_part.body.should include watchlist_one.name
     mail.text_part.body.should include url
     mail.text_part.body.should include token_param
     mail.text_part.body.should include entity
@@ -72,13 +70,11 @@ describe 'WatchlistReportService' do
     entity = {entity: "watchlist:#{watchlist_two.id}"}.to_query
     url = '/watchlist/dashboard'
 
-    mail.html_part.body.should include watchlist_two.name
     mail.html_part.body.should include url
     mail.html_part.body.should include token_param
     mail.html_part.body.should include entity
 
 
-    mail.text_part.body.should include watchlist_two.name
     mail.text_part.body.should include url
     mail.text_part.body.should include token_param
     mail.text_part.body.should include entity

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'CommissioningService' do
-
+  let(:minister) {build(:minister)}
   let(:deputy_director) { create(:deputy_director, name: 'dd name', email: 'dd@dd.gov', id: 1+rand(10))}
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
-  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30' ) }
+  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons' ) }
 
   let(:deputy_director2) { create(:deputy_director, name: 'dd name', email: '', id: 1+rand(10))}
   let(:action_officer2) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director2.id) }
@@ -153,7 +153,7 @@ describe 'CommissioningService' do
     mail.html_part.body.should include pq.uin
     mail.html_part.body.should include pq.question
     mail.html_part.body.should include pq.member_name
-    mail.html_part.body.should include pq.internal_deadline.strftime('%d/%m/%Y %H:%M')
+    mail.html_part.body.should include pq.internal_deadline.strftime('%d/%m/%Y')
     mail.html_part.body.should include action_officer.name
     mail.html_part.body.should include deputy_director.name
 
@@ -161,7 +161,7 @@ describe 'CommissioningService' do
     mail.text_part.body.should include pq.uin
     mail.text_part.body.should include pq.question
     mail.text_part.body.should include pq.member_name
-    mail.text_part.body.should include pq.internal_deadline.strftime('%d/%m/%Y %H:%M')
+    mail.text_part.body.should include pq.internal_deadline.strftime('%d/%m/%Y')
     mail.text_part.body.should include action_officer.name
     mail.text_part.body.should include deputy_director.name
 
@@ -176,7 +176,6 @@ describe 'CommissioningService' do
     result = @comm_service.notify_dd(assignment)
 
     result.should eq('Deputy Director has no email')
-
 
   end
 end

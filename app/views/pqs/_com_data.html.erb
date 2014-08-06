@@ -66,22 +66,17 @@
           <% end %>
       <% end %>
   <% else %>
-  <p>Not allocated</p>
+    <p>Not allocated</p>
   <% end %>
 </div>
 
 <hr/>
 
-<p>
-  <label>Replying minister</label>
-  <%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
-</p>
+<label>Replying minister</label>
+<%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
 
-<p>
-  <label>Optional policy minister</label>
-  <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
-</p>
-
+<label>Optional policy minister</label>
+<%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
 
 <hr/>
 
@@ -93,7 +88,4 @@
     <input id="transfer_out_date" class="form-control" name="pq[transfer_out_date]" type="text" value="<%= @pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
   </div>
-
 </div>
-
-<hr/>

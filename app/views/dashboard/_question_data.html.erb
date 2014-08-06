@@ -48,10 +48,5 @@
   <!--start of sub column 2 -->
   <div class="col-md-6">
     <%= render partial: 'dashboard/pq_dashboard_column2', locals: {question: question} %>
-    <% if !question.preview_url.nil? %>
-      <p>
-        <a href="<%= question.preview_url %>">Question in Q&amp;A Tool</a>
-      </p>
-    <% end %>
   </div>
 </div>
