@@ -4,76 +4,44 @@
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
-<h2>You accepted the following PQ </h2>
+<h2>You have accepted responsibility for drafting an answer to <%= @template_params[:uin] %></h2>
 
 <div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;font-size: 110%;">
   <%= @template_params[:question] %>
 </div>
 
 <div>
-  <% if !@template_params[:mpname].nil? %>
-    <p>Minister: <strong><%= @template_params[:mpname] %></strong></p>
+
+  <% if !@template_params[:member_name].nil? %>
+      <p>Question asked by  <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> <%= @template_params[:house_name] %> <% end %> </p>
   <% end %>
   <% if !@template_params[:mpname].nil? %>
-     <p>Policy Minister: <strong><%= @template_params[:policy_mpname] %></strong></p>
+    <p>To be answered by: <%= @template_params[:mpname] %></p>
+
   <% end %>
+  <% if !@template_params[:internal_deadline].nil? %>
+    <p>Deadline to return your draft response <%= @template_params[:internal_deadline] %></p>
+  <% end %>
+
+  <p>Clicking on the link below will generate an email that copies in all the appropriate people. You <b><u>MUST</u></b> use this link to send your draft response.</p>
+
 </div>
 
-<h2>You can use this link to
-  <%= mail_to 'MOJParliamentaryBranch@cabinet-office.gsi.gov.uk', 'send a draft response', cc: @template_params[:cc_list], subject: "[Parliament-Questions] Draft for question #{@template_params[:uin]}" %>
-</h2>
+
+<p>
+  <%= mail_to 'pqs@justice.gsi.gov.uk', 'Send a draft response', cc: @template_params[:cc_list], subject: "[Parliament-Questions] Draft for question #{@template_params[:uin]}" %>
+</p>
+
+<p>You will need to liaise with your relevant press officer before you send your draft response.</p>
+
 <dl>
-  <dt>There are some links to guidance available from the intranet</dt>
+  <dt>For drafting templates and guidance on how to respond, please refer to the intranet by clicking the following link.</dt>
   <dd><a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions">PQ
-    Intranet page</a></dd>
+    Guidance</a></dd>
   <dd>
-    <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/parliament-questions-guidance-faqs.pdf">Guidance
-      FAQs</a></dd>
-  <dd><a href="http://intranet.justice.gsi.gov.uk/global/forms/downloads/ministers-parliament/template-written-pqs.doc">Response
-    template (Word doc)</a></dd>
-  <dd>
-    <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/high-profile-pq.pdf">High
-      profile criteria</a></dd>
-  <dd>
-    <a href="http://intranet.justice.gsi.gov.uk/global/forms/downloads/ministers-parliament/disproportionate-costs-calculator.xls">
-      Disproportionate costs calculator</a></dd>
-</dl>
-<p><strong>If your PQ is to be answered by Simon Hughes MP, please ensure that the Draft Response is sent, alongside the usual
-  copy list, to;</strong></p>
-<dl>
-  <dd><a href="mailto:Christopher.Beal@justice.gsi.gov.uk">Christopher.Beal@justice.gsi.gov.uk</a></dd>
-  <dd><a href="Nicola.Calderhead@justice.gsi.gov.uk">Nicola.Calderhead@justice.gsi.gov.uk</a></dd>
-  <dd><a href="thomas.murphy@JUSTICE.gsi.gov.uk">thomas.murphy@JUSTICE.gsi.gov.uk</a></dd>
 </dl>
 
-<p><strong>Some guidance points that you should be aware of:</strong></p>
-<ul style="list-style: none;">
-  <li style="padding: 10px 0 10px 0;"><span style="color: blue;">Please ensure that tables attached to or embedded in answers are in Word or Excel format</span><br/></li>
-  <li style="padding: 10px 0 10px 0;"><span style="color: blue;">Follow up to 'I will write responses'.</span><br/> Please see revised guidance for IWW - Follow up responses to IWW PQ
-    answers are dealt with slightly differently to routine PQ answers – please see the attached guidance and process map
-    which details how these should be processed. An IWW follow-up response specific background note is also attached.
-  </li>
-  <li style="padding: 10px 0 10px 0;"><span style="color: blue;">Guidance</span>.<br/> Please familiarise yourself with the guidance below highlighting the details that should be provided in
-    the email subject line when returning PQs. If colleagues in your team are processing responses, please ensure that
-    this message is relayed.
-  </li>
-  <li style="padding: 10px 0 10px 0;"><span style="color: blue;">Amendments have been made to the return cc list (see section 4 below). When returning PQs to the full copy list,
-    please include the following in the e-mail subject line:</span>
-    <ul>
-      <li>Parliament's Unique Identifying Number (the 5 or 6 digit number that appears at the end of the question)</li>
-      <li>Indicate the name of the MP / Peer</li>
-      <li>Give a very brief description of the subject matter (one or two words!)</li>
-      <li>Provide the name of the Press Officer involved (if applicable)</br>e.g. RE: 123456 – Joe Blogs – Legal Aid
-        (Press Officer - Rob Smith)
-      </li>
-    </ul>
-  </li>
-
-</ul>
-<p>Taking these steps will ensure that Press Office colleagues are able to identify what PQs relate to their portfolio
-  areas. Likewise, providing PIN numbers also enables us to identify PQs easily.</p>
-
-<p>Please contact one of the PQ team should you have any questions.</p>
+<p>If you have further queries about drafting your response, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
 
 
 <%= render 'shared/mailer/email_signature' %>

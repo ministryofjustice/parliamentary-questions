@@ -12,6 +12,9 @@ class PQAcceptedMailer < PQBaseMailer
     @template_params[:policy_mpname] = pq.policy_minister.name unless pq.policy_minister.nil?
     @template_params[:policy_mpemail] = pq.policy_minister.email unless pq.policy_minister.nil?
     @template_params[:press_email] = ao.press_desk.email_output unless ao.press_desk.nil?
+    @template_params[:member_name] = pq.member_name unless pq.member_name.nil?
+    @template_params[:house_name] = pq.house_name unless pq.house_name.nil?
+    @template_params[:internal_deadline] = "#{pq.internal_deadline.strftime('%d/%m/%Y') } - 10am " unless pq.internal_deadline.nil?
 
 
     mp_cc_list = [
@@ -34,6 +37,11 @@ class PQAcceptedMailer < PQBaseMailer
     # add the people from the Actionlist
     action_list_emails = ActionlistMember.where('deleted = false').collect{|it| it.email}
     cc_list.append(action_list_emails)
+
+    #TODO Get correct from TOM
+    if pq.finance_interest
+      cc_list.append('financePQ@wibble.com')
+    end
 
     @template_params[:cc_list] = cc_list.join(';')
 

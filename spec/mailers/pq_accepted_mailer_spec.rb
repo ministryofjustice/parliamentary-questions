@@ -31,9 +31,9 @@ describe 'PQAcceptedMailer' do
       mail.to.should include ao.email
     end
 
-    it 'should set the right cc with minister and policy minister' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'test1@tesk.uk;test2@tesk.uk'
+    it 'should set the right cc with minister ' do
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
+      expectedCC = 'test1@tesk.uk;'
 
       PQAcceptedMailer.commit_email(pq, ao).deliver
 
@@ -44,7 +44,7 @@ describe 'PQAcceptedMailer' do
 
     end
 
-    it 'should set the right cc with minister the right people if the minister is Simon Huges' do
+    it 'should set the right cc with minister the right people if the minister is Simon Hughes' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
       expectedCC = 'Christopher.Beal@justice.gsi.gov.uk;Nicola.Calderhead@justice.gsi.gov.uk;thomas.murphy@JUSTICE.gsi.gov.uk'
 
@@ -77,8 +77,8 @@ describe 'PQAcceptedMailer' do
     end
 
 
-    it 'should contain the name of the minister and the name of the policy minister' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+    it 'should contain the name of the minister' do
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
 
       PQAcceptedMailer.commit_email(pq, ao).deliver
 
@@ -87,12 +87,66 @@ describe 'PQAcceptedMailer' do
       mail.text_part.body.should include minister_1.name
       mail.html_part.body.should include minister_1.name
 
-      mail.text_part.body.should include minister_2.name
-      mail.html_part.body.should include minister_2.name
-
     end
 
+    it 'should contain the asking minister ' do
+      member_name =  'Jeremy Snodgrass'
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: member_name, house_name: 'HoL')
+
+      PQAcceptedMailer.commit_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should include member_name
+      mail.html_part.body.should include member_name
+
+    end
+    it 'should contain the house ' do
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+
+      PQAcceptedMailer.commit_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should include 'HoL'
+      mail.html_part.body.should include 'HoL'
 
 
+    end
+    it 'should add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question' do
+
+      create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
+      create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
+      create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
+
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
+      #TODO Get correct from TOM
+      expectedCC = 'test1@tesk.uk;test2@tesk.uk;;a1@a1.com;a2@a2.com;financePQ@wibble.com'
+
+      PQAcceptedMailer.commit_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should include expectedCC
+      mail.html_part.body.should include CGI::escape(expectedCC)
+
+    end
+    it 'should not add the Finance email to the CC list on the draft email link if Finance has not registered an interest in the question' do
+
+      create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
+      create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
+      create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
+
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: FALSE)
+      expectedCC = 'test1@tesk.uk;test2@tesk.uk;;a1@a1.com;a2@a2.com'
+
+      PQAcceptedMailer.commit_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should include expectedCC
+      mail.html_part.body.should include CGI::escape(expectedCC)
+
+    end
   end
 end
