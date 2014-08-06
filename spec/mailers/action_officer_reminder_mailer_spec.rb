@@ -6,6 +6,7 @@ describe 'ActionOfficerReminderMailer' do
   let(:minister_1) { create(:minister, name: 'Mr Name1 for Test') }
 
   before(:each) do
+    ActionMailer::Base.deliveries = []
     @pq = create(:Pq, uin: 'HL789', question: 'test question?', member_name:'Asking MP', minister_id: minister_1.id, house_name: 'House of Lords')
     @ao_pq = ActionOfficersPq.new(action_officer_id: ao.id, pq_id: @pq.id)
 
@@ -18,7 +19,7 @@ describe 'ActionOfficerReminderMailer' do
     @template[:house] = @pq.house_name
   end
 
-  describe 'draft reminder' do
+  describe 'Accept reminder' do
     describe 'deliver' do
       it 'should include house, member name and uin from PQ and AO name' do
         ActionOfficerReminderMailer.remind_accept_reject_email(@template).deliver
@@ -37,4 +38,16 @@ describe 'ActionOfficerReminderMailer' do
       end
     end
   end
+  describe 'draft reminder' do
+    describe 'deliver' do
+      it 'should have URGENT in the subject' do
+        PQAcceptedMailer.commit_email(@pq, ao,true).deliver
+
+        mail = ActionMailer::Base.deliveries.first
+        mail.to.should include ao.email
+        mail.subject.should include 'URGENT'
+      end
+    end
+  end
+
 end
