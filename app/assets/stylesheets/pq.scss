@@ -1,6 +1,45 @@
 /* = Colours ==================================================================== */
+
+#build,
+i.fa-envelope,
+.name-day,
+a.btn-no-response,
+.btn-no-response,
+.btn-commission,
+.btn-commission:hover,
+.btn-commission:focus,
+.btn-commission:active,
+.btn-commission.active,
+.btn-save,
+.btn-save:hover,
+.btn-save:focus,
+.btn-save:active,
+.btn-save.active,
+.open,
+.dropdown-toggle.btn-success,
+.flag-accepted,
+.flag-answered,
+.flag-draft-pending,
+.flag-finance-unchecked,
+.flag-ministerial-query,
+.flag-no-response,
+.flag-pod-query,
+.flag-rejected,
+.flag-transferred-in,
+.flag-transferred-out,
+.flag-unallocated,
+.flag-unassigned,
+.flag-will-write,
+.flag-with-minister,
+.flag-with-pod,
+.trim-links-header,
+.trim-links-cancel,
+.trim-links-header:hover,
+.trim-links-cancel:hover
+{color:#fff;}
+
 #build
-{color:#fff;background-color:#d73380;}
+{background-color:#d73380;}
 
 h2 .badge
 {background-color:#000;}
@@ -18,15 +57,17 @@ i.fa-exclamation-triangle,
 i.fa-times-circle
 {color:#df3034;}
 
-i.fa-envelope
-{color:#fff;}
-
 i.fa-check-circle
 {color:#00823b;}
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li > a
 {color:#000;}
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus
 {background-color:#ffbf47;}
 
 #status-filters .badge
@@ -36,7 +77,7 @@ i.fa-check-circle
 {color:#6f7781;background-color:#fff;}
 
 .name-day
-{color:#fff;background-color:#9b9b9b;}
+{background-color:#9b9b9b;}
 
 hr
 {color:#bfc1c3;background-color:#bfc1c3;}
@@ -63,57 +104,37 @@ hr
 .flag-with-minister{background-color:#82622e;}
 .flag-with-pod{background-color:#2e358b;}
 
-a.btn-no-response{color:#fff}
-
-.btn-no-response,
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-in,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-will-write,
-.flag-with-minister,
-.flag-with-pod
-{color:#fff;}
-
 .flag-minister-cleared,
 .flag-pod-cleared
 {color:#000;}
 
 .btn-commission
-{color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
+{background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
 
 .btn-commission:hover,
 .btn-commission:focus,
 .btn-commission:active,
 .btn-commission.active,
-.open
+.open,
 .dropdown-toggle.btn-success
-{color:#fff;background-color:#47a447;border-color:#398439;}
+{background-color:#47a447;border-color:#398439;}
 
 .btn-save
-{color:#fff;background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;}
+{background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;}
 
 .btn-save:hover,
 .btn-save:focus,
 .btn-save:active,
 .btn-save.active
-{color:#fff;background-color:#7fc19c;border-color:#398439;}
+{background-color:#7fc19c;border-color:#398439;}
 
 .trim-links-header,
 .trim-links-cancel
-{color:#fff;background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
+{background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
 
 .trim-links-header:hover,
 .trim-links-cancel:hover
-{color:#fff;background-color:#47a447;border-top-color:#398439;border-right-color-value:#398439;border-bottom-color:#398439;border-left-color:#398439;}
+{background-color:#47a447;border-top-color:#398439;border-right-color-value:#398439;border-bottom-color:#398439;border-left-color:#398439;}
 
 .file-choose-replace
 {color:#000;}
