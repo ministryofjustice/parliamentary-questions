@@ -53,3 +53,12 @@ For development you can create users with a rake task.
 # email, password, name
 rake "user:create[admin@admin.com, 123456789, admin]"
 ```
+
+# Data migration
+
+Run the rake task
+```
+# path to local import text file.
+# the file should be tilde(~) delimited, not tab
+rake db:import_transform['/users/yourname/path/to/filename.txt'] --trace
+```
