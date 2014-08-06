@@ -1,102 +1,105 @@
-<%= form_for(@pq, url: { controller:'transferred', action:'create'} ) do |f| %>
-  <% if @pq.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@pq.errors.count, "error") %> prohibited this pq from being saved:</h2>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(@pq, url: { controller:'transferred', action:'create'} ) do |f| %>
 
-      <ul>
-      <% @pq.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    Please enter the UIN for the transferred PQ<br>
-    <%= f.text_field :uin %>
-  </div>
-  <div class="field">
-      Please enter the text of the question for the transferred PQ<br>
-      <%= f.text_area :question, cols: 40, rows: 5 %>
-  </div>
-    <div>
-        Date for Answer
-        <div class='input-group date internal-dtp datetimepicker' id='pq_dateforanswer' data-date-format="DD/MM/YYYY HH:mm">
-
-          <input class="form-control pq_dateforanswer" id="pq_dateforanswer" name="pq[date_for_answer]" type="text" value="<%= @pq.date_for_answer.strftime('%d/%m/%Y %H:%M') unless @pq.date_for_answer.nil? %>">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                </span>
+      <% if @pq.errors.any? %>
+        <div id="error_explanation">
+          <h3><%= pluralize(@pq.errors.count, "error") %> prohibited this pq from being saved:</h3>
+          <ul>
+            <% @pq.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
         </div>
-    </div>
+      <% end %>
 
-    <div class="form-group">
-      House:
-      <div class="radio">
-        <label>
-          <%= f.radio_button :house_name, 'House Of Commons' %>
-          House Of Commons
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <%= f.radio_button :house_name, 'House Of Lords'%>
-          House of Lords
-        </label>
-      </div>
-    </div>
+      <label for="pq_uin">
+        Please enter the UIN for the transferred PQ<br />
+        <%= f.text_field :uin %>
+      </label>
 
-    <div class="field">
-      Name of Member<br>
-      <%= f.text_field :member_name %>
-    </div>
-    <div class="field">
-      Member Constituency<br>
-      <%= f.text_field :member_constituency %>
-    </div>
-    <div class="form-group">
-      Member has registered an interest in the question:
-      <div class="radio">
-        <label>
-          <%= f.radio_button :registered_interest, 'FALSE' %>
-          No
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <%= f.radio_button :registered_interest, 'TRUE'%>
-          Yes
-        </label>
-      </div>
-    </div>
+      <label for="pq_question">
+        Please enter the text of the question for the transferred PQ<br />
+        <%= f.text_area :question, cols: 40, rows: 5 %>
+      </label>
 
-    <div class="form-group">
-      Question Type:
-      <div class="radio">
-        <label>
-          <%= f.radio_button :question_type, 'Ordinary' %>
-          Ordinary
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <%= f.radio_button :question_type, 'NamedDay'%>
-          Named Day
-        </label>
-      </div>
-    </div>
+      <label for="pq_dateforanswer">Date for Answer<br />
+        <div class='input-group date internal-dtp datetimepicker' data-date-format="DD/MM/YYYY HH:mm">
+          <input id="pq_dateforanswer" class="form-control pq_dateforanswer" name="pq[date_for_answer]" type="text" value="<%= @pq.date_for_answer.strftime('%d/%m/%Y %H:%M') unless @pq.date_for_answer.nil? %>">
+          <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+        </div>
+      </label>
 
-    <div  class="form-group">
-      <label>Transferred in from</label>
-      <%= f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
-      <label for ="transfer_in_date">Date transferred in</label>
+      <div class="form-group">
+        <p>House:</p>
+        <div class="radio">
+          <label for="pq_house_name_house_of_commons">
+            <%= f.radio_button :house_name, 'House Of Commons' %>
+            House Of Commons
+          </label>
+        </div>
+        <div class="radio">
+          <label for="pq_house_name_house_of_lords">
+            <%= f.radio_button :house_name, 'House Of Lords'%>
+            House of Lords
+          </label>
+        </div>
+      </div>
+
+      <label for="pq_member_name">
+        Name of Member<br />
+        <%= f.text_field :member_name %>
+      </label>
+
+      <label for="pq_member_constituency">
+        Member Constituency<br />
+        <%= f.text_field :member_constituency %>
+      </label>
+
+      <div class="form-group">
+        Member has registered an interest in the question:
+        <div class="radio">
+          <label for="pq_registered_interest_false">
+            <%= f.radio_button :registered_interest, 'FALSE' %>
+            No
+          </label>
+        </div>
+        <div class="radio">
+          <label for="pq_registered_interest_true">
+            <%= f.radio_button :registered_interest, 'TRUE'%>
+            Yes
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <p>Question Type:</p>
+        <div class="radio">
+          <label for="pq_question_type_ordinary">
+            <%= f.radio_button :question_type, 'Ordinary' %>
+            Ordinary
+          </label>
+        </div>
+        <div class="radio">
+          <label for="pq_question_type_namedday">
+            <%= f.radio_button :question_type, 'NamedDay'%>
+            Named Day
+          </label>
+        </div>
+      </div>
+
+      <label for="pq_transfer_in_ogd_id">Transferred in from<br />
+        <%= f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
+      </label>
+
+      <label for="transfer_in_date">Date transferred in
       <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
         <input id="transfer_in_date" class="form-control" name="pq[transfer_in_date]" type="text" value="<%= @pq.transfer_in_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_in_date.nil? %>">
         <span class="input-group-addon glyphicon glyphicon-calendar"></span>
       </div>
+      </label>
 
-    </div>
-
-    <div class="actions">
-    <%= f.submit %>
+      <div class="actions"><%= f.submit %></div>
+    <% end %>
   </div>
-<% end %>
+</div>

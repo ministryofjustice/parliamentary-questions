@@ -188,7 +188,7 @@ i.fa-envelope
 {float:right;}
 
 label
-{display:block;font-weight:500;font-size:18px;}
+{display:block;font-weight:normal;}
 
 .date, .datetimepicker
 {width:12em;}
@@ -199,11 +199,23 @@ label
 {width:100%;}
 
 h2,
-.date,
-.datetimepicker,
+/*textarea,*/
+label,
+/*.date,*/
+/*.datetimepicker,*/
 .progress-menu-form,
+.pq-header,
+.pq-question,
+.status-bar,
+.info-notice,
 select,
-#btn_finance_visibility
+#btn_finance_visibility,
+#finance-check-status,
+#pq-columns,
+/*#pq_uin,*/
+/*#pq_member_name,*/
+/*#pq_member_constituency,*/
+.actions
 {margin-bottom:15px;}
 
 /* ============================================================================== */
@@ -256,14 +268,6 @@ select,
 /* ============================================================================== */
 
 /* = Dashboard Questions ======================================================== */
-
-#finance-check-status,
-.pq-header,
-.pq-question,
-.status-bar,
-.info-notice,
-#pq-columns
-{margin-top:7px;margin-bottom:7px;}
 
 .pq-header
 {vertical-align:middle;padding-top:5px;padding-bottom:5px;}
@@ -427,6 +431,13 @@ input[type="file"]
 
 #admin_task_list li
 {list-style:none;}
+
+/* ============================================================================== */
+
+/* = Create a transfer ========================================================== */
+
+#new_pq
+{padding:7px 15px;}
 
 /* ============================================================================== */
 
