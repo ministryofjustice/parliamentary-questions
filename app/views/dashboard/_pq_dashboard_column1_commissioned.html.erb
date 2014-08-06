@@ -10,6 +10,7 @@
   </div>
 <% end %>
 <br />
+
 <% if !question.policy_minister_id.nil? %>
   Policy minister:
   <div class="row">
@@ -19,33 +20,33 @@
     <div class="col-md-6">
       <% if question.policy_minister.email.blank? %>
           No contacts set
-        <!--<%= link_to "Add contact for #{question.policy_minister.name}", new_minister_contact_withid_path(question.policy_minister) %>-->
       <% else %>
-        <%= mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")    %>
+        <%= mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email") %>
       <% end %>
     </div>
   </div>
 <% end %>
+<br />
 
-<p>Action Officer(s):</p>
+Action Officer(s):
 <div class="row">
   <% if question.ao_pq_accepted.nil? %>
-      <% question.action_officers_pq.each do |ao_pq| %>
-        <% if !ao_pq.reject && !ao_pq.action_officer.nil? %>
-          <div class="col-md-6">
-            <%= link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer) %>
-          </div>
-          <div class="col-md-6">
-            <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
-          </div>
-        <% end %>
+    <% question.action_officers_pq.each do |ao_pq| %>
+      <% if !ao_pq.reject && !ao_pq.action_officer.nil? %>
+        <div class="col-md-6">
+          <%= link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer) %>
+        </div>
+        <div class="col-md-6">
+          <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question} %>
+        </div>
       <% end %>
-   <% else %>
-      <div class="col-md-6">
-        <%= link_to question.action_officer_accepted.name, action_officer_path(question.action_officer_accepted) %>
-      </div>
-      <div class="col-md-6">
-        <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: question.ao_pq_accepted, question: question} %>
-      </div>
+    <% end %>
+  <% else %>
+    <div class="col-md-6">
+      <%= link_to question.action_officer_accepted.name, action_officer_path(question.action_officer_accepted) %>
+    </div>
+    <div class="col-md-6">
+      <%= render partial: 'shared/ao_reminder_link', locals: {ao_pq: question.ao_pq_accepted, question: question} %>
+    </div>
   <% end %>
 </div>
