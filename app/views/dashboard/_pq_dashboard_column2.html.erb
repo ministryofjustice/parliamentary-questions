@@ -8,7 +8,7 @@
 <% if !question.date_for_answer.nil?  %>
   <p>
     Date For Answer:<br />
-    <%= question.date_for_answer.strftime('%d/%m/%Y') %>
+    <%= question.date_for_answer.strftime('%d/%m/%Y') %><%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer} %>
   </p>
 <% end %>
 
@@ -28,8 +28,8 @@
 <% else %>
   <% if !question.internal_deadline.nil?  %>
     <p>
-      <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %>
-      Internal deadline:<br />
+
+      Internal deadline:<%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %><br />
       <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
     </p>
   <% end %>
