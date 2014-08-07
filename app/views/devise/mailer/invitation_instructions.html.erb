@@ -1,9 +1,9 @@
-<p><%= I18n.t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %></p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;"><%= I18n.t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %></p>
 
-<p><%= link_to I18n.t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;"><%= link_to I18n.t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
 
-<p><%= I18n.t("devise.mailer.invitation_instructions.setup").html_safe %></p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;"><%= I18n.t("devise.mailer.invitation_instructions.setup").html_safe %></p>
 
-<p><%= I18n.t("devise.mailer.invitation_instructions.ignore").html_safe %> <%= mail_to 'pqs@justice.gsi.gov.uk', 'the PQ team' %></p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;"><%= I18n.t("devise.mailer.invitation_instructions.ignore").html_safe %> <%= mail_to 'pqs@justice.gsi.gov.uk', 'the PQ team' %></p>
 
 <%= render 'shared/mailer/email_signature' %>
