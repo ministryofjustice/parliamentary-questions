@@ -22,7 +22,7 @@ hr{color:#bfc1c3;}
 .flag-no-response {background-color:#f47738;}
 .flag-pod-cleared {background-color:#a1a8ff;}
 .flag-pod-query {background-color:#5461ff;}
-.flag-rejected, .info-notice {background-color:#d0021b;}
+.flag-rejected {background-color:#d0021b;}
 .flag-transferred-in {background-color:#7d7d7d;}
 .flag-transferred-out {background-color:#d53880;}
 .flag-unallocated {background-color:#f47738;}
@@ -55,6 +55,7 @@ h2 .badge, #status-filters .badge {background-color:#000;}
 
 .form-control {border-color:#bfc1c3;}
 .form-control:focus {border-color:#ffbf47;}
+.info-notice {border-left-color:#d0021b;}
 
 /* = Template and shared ======================================================== */
 
@@ -189,7 +190,7 @@ textarea
 {margin-right:40px;}
 
 .info-notice
-{border-width:4px;border-style:solid;margin-left:15px;}
+{border-left-width:4px;border-left-style:solid;margin-left:15px;}
 
 .status-bar
 {line-height:32px;}
@@ -325,10 +326,10 @@ input[type="file"]
 #admin_task_list li
 {list-style:none;}
 
-.form-control
+.form-control, .form-group select 
 {border-style:solid;border-radius:0px;width:auto;}
 
-.form-control:focus
+.form-control:focus, .form-group select:focus
 {border-width:3px;box-shadow:none;}
 
 /* = Create a transfer ========================================================== */
