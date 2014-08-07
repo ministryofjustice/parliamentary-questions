@@ -19,7 +19,7 @@
     </tr>
     <% @watchlist_members.each do |watchlist_member| %>
       <tr>
-        <td><%= watchlist_member.name %></td>
+        <td><%= link_to "#{watchlist_member.name}", watchlist_member_path(watchlist_member) %></td>
         <td><%= watchlist_member.email %></td>
         <td>
             <% if watchlist_member.deleted %>
@@ -28,7 +28,7 @@
               <i class="fa fa-check-circle"></i>Active
             <% end %>
         </td>
-        <td><%= link_to 'Show', watchlist_member, {class: 'btn btn-default' } %></td>
+
         <td><%= link_to 'Edit', edit_watchlist_member_path(watchlist_member), {class: 'btn btn-info', style: 'color:#ffffff;'} %></td>
       </tr>
     <% end %>

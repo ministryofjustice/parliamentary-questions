@@ -13,13 +13,13 @@
   <tbody>
     <% @directorates.each do |directorate| %>
       <tr>
-        <td><%= directorate.name %></td>
+        <td><%= link_to "#{directorate.name}", directorate_path(directorate) %></td>
       <td><% if directorate.deleted %>
             <i class="fa fa-times"></i>Inactive
           <% else %>
             <i class="fa fa-check-circle"></i>Active
           <% end %>
-        <td><%= link_to 'Show', directorate %></td>
+
         <td><%= link_to 'Edit', edit_directorate_path(directorate) %></td>
       </tr>
     <% end %>

@@ -14,7 +14,7 @@
   <tbody>
     <% @ogds.each do |ogd| %>
       <tr>
-        <td><%= ogd.name %></td>
+        <td><%= link_to "#{ogd.name}", ogd_path(ogd) %></td>
         <td><%= ogd.acronym %></td>
         <td>
           <% if ogd.deleted %>
@@ -23,7 +23,7 @@
               <i class="fa fa-check-circle"></i>Active
           <% end %>
         </td>
-        <td><%= link_to 'Show', ogd %></td>
+
         <td><%= link_to 'Edit', edit_ogd_path(ogd) %></td>
       </tr>
     <% end %>

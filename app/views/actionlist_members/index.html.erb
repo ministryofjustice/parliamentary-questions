@@ -14,7 +14,7 @@
     </tr>
     <% @actionlist_members.each do |actionlist_member| %>
       <tr>
-        <td><%= actionlist_member.name %></td>
+        <td><%= link_to "#{actionlist_member.name}", actionlist_member_path(actionlist_member) %></td>
         <td><%= actionlist_member.email %></td>
         <td>
             <% if actionlist_member.deleted %>
@@ -23,7 +23,7 @@
               <i class="fa fa-check-circle"></i>Active
             <% end %>
         </td>
-        <td><%= link_to 'Show', actionlist_member, {class: 'btn btn-default' } %></td>
+
         <td><%= link_to 'Edit', edit_actionlist_member_path(actionlist_member), {class: 'btn btn-info', style: 'color:#ffffff;'} %></td>
       </tr>
     <% end %>
