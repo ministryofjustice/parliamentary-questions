@@ -13,7 +13,7 @@
   <tbody>
     <% @ministers.each do |minister| %>
       <tr>
-        <td><%= minister.name %></td>
+        <td><%= link_to "#{minister.name}", minister_path(minister) %></td>
         <td><%= minister.title %></td>
         <td>
           <% minister.minister_contacts.each do |c| %>
@@ -26,7 +26,7 @@
           <i class="fa fa-check-circle"></i>Active
         <% end %>
 	    </td>
-        <td><%= link_to 'Show', minister %></td>
+
         <td><%= link_to 'Edit', edit_minister_path(minister) %></td>
       </tr>
     <% end %>

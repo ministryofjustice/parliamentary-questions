@@ -14,7 +14,7 @@
   <tbody>
     <% @press_desks.each do |press_desk| %>
       <tr>
-        <td><%= press_desk.name %></td>
+        <td><%= link_to "#{press_desk.name}", press_desk_path(press_desk) %></td>
         <td><%= press_desk.press_officers.count unless press_desk.press_officers.nil? %></td>
         <td>
           <% if press_desk.deleted %>
@@ -23,7 +23,7 @@
               <i class="fa fa-check-circle"></i>Active
             <% end %>
         </td>
-        <td><%= link_to 'Show', press_desk %></td>
+
         <td><%= link_to 'Edit', edit_press_desk_path(press_desk) %></td>
       </tr>
     <% end %>
