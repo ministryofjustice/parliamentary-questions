@@ -1,145 +1,60 @@
-/* = Colours ==================================================================== */
+/* = Colour definitions ==================================================================== */
 
-#build,
-i.fa-envelope,
-.name-day,
-a.btn-no-response,
-.btn-no-response,
-.btn-commission,
-.btn-commission:hover,
-.btn-commission:focus,
-.btn-commission:active,
-.btn-commission.active,
-.btn-save,
-.btn-save:hover,
-.btn-save:focus,
-.btn-save:active,
-.btn-save.active,
-.open,
-.dropdown-toggle.btn-success,
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-in,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-will-write,
-.flag-with-minister,
-.flag-with-pod,
-.trim-links-header,
-.trim-links-cancel,
-.trim-links-header:hover,
-.trim-links-cancel:hover
-{color:#fff;}
+#build, i.fa-envelope, .name-day, a.btn-no-response, .btn-no-response, .btn-commission, .btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .btn-save, .btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header, .trim-links-cancel, .trim-links-header:hover, .trim-links-cancel:hover {color:#fff;}
 
-#build
-{background-color:#d73380;}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared {color:#000;}
 
-h2 .badge
-{background-color:#000;}
+#search_button{color:#999;}
+.glyphicon-search{color:#979797;}
+i.fa-exclamation-triangle,i.fa-times-circle{color:#df3034;}
+i.fa-check-circle{color:#00823b;}
+#status-filters .active .badge{color:#6f7781;}
+#qa-link a{color:#4a8acd;}
+hr{color:#bfc1c3;}
 
-.navbar
-{background-color:#dee0e2;}
+.btn-no-response {background-color:#f47738;}
+.flag-accepted {background-color:#28a197;}
+.flag-answered {background-color:#006435;}
+.flag-draft-pending {background-color:#85994b;}
+.flag-finance-unchecked {background-color:#b10e1e;}
+.flag-minister-cleared {background-color:#c1a87e;}
+.flag-ministerial-query {background-color:#b58840;}
+.flag-no-response {background-color:#f47738;}
+.flag-pod-cleared {background-color:#a1a8ff;}
+.flag-pod-query {background-color:#5461ff;}
+.flag-rejected, .info-notice {background-color:#d0021b;}
+.flag-transferred-in {background-color:#7d7d7d;}
+.flag-transferred-out {background-color:#d53880;}
+.flag-unallocated {background-color:#f47738;}
+.flag-unassigned {background-color:#bd10e0;}
+.flag-will-write {background-color:#912b88;}
+.flag-with-minister {background-color:#82622e;}
+.flag-with-pod {background-color:#2e358b;}
+#search_button, #status-filters .active .badge {background-color:#fff;}
+hr {background-color:#bfc1c3;}
+#build {background-color:#d73380;}
+h2 .badge, #status-filters .badge {background-color:#000;}
+.navbar {background-color:#dee0e2;}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {background-color:#ffbf47;}
+.name-day {background-color:#9b9b9b;}
 
-#search_button
-{color:#999;background-color:#fff;}
+.btn-commission, .trim-links-header, .trim-links-cancel 
+{background-color:#00823b;border-color:#00823b #00823b #003518 #00823b;}
 
-.glyphicon-search
-{color:#979797;}
-
-i.fa-exclamation-triangle,
-i.fa-times-circle
-{color:#df3034;}
-
-i.fa-check-circle
-{color:#00823b;}
-
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li > a
-{color:#000;}
-
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus
-{background-color:#ffbf47;}
-
-#status-filters .badge
-{background-color:#000;}
-
-#status-filters .active .badge
-{color:#6f7781;background-color:#fff;}
-
-.name-day
-{background-color:#9b9b9b;}
-
-hr
-{color:#bfc1c3;background-color:#bfc1c3;}
-
-#qa-link a
-{color:#4a8acd;}
-
-.btn-no-response{background-color:#f47738;}
-.flag-accepted{background-color:#28a197;}
-.flag-answered{background-color:#006435;}
-.flag-draft-pending{background-color:#85994b;}
-.flag-finance-unchecked{background-color:#b10e1e;}
-.flag-minister-cleared{background-color:#c1a87e;}
-.flag-ministerial-query{background-color:#b58840;}
-.flag-no-response{background-color:#f47738;}
-.flag-pod-cleared{background-color:#a1a8ff;}
-.flag-pod-query{background-color:#5461ff;}
-.flag-rejected{background-color:#d0021b;}
-.flag-transferred-in{background-color:#7d7d7d;}
-.flag-transferred-out{background-color:#d53880;}
-.flag-unallocated{background-color:#f47738;}
-.flag-unassigned{background-color:#bd10e0;}
-.flag-will-write{background-color:#912b88;}
-.flag-with-minister{background-color:#82622e;}
-.flag-with-pod{background-color:#2e358b;}
-
-.flag-minister-cleared,
-.flag-pod-cleared
-{color:#000;}
-
-.btn-commission
-{background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
-
-.btn-commission:hover,
-.btn-commission:focus,
-.btn-commission:active,
-.btn-commission.active,
-.open,
-.dropdown-toggle.btn-success
+.btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .open, .dropdown-toggle.btn-success
 {background-color:#47a447;border-color:#398439;}
 
 .btn-save
 {background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;}
 
-.btn-save:hover,
-.btn-save:focus,
-.btn-save:active,
-.btn-save.active
+.btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active 
 {background-color:#7fc19c;border-color:#398439;}
 
-.trim-links-header,
-.trim-links-cancel
-{background-color:#00823b;border-top-color:#00823b;border-right-color:#00823b;border-bottom-color:#003518;border-left-color:#00823b;}
+.trim-links-header:hover, .trim-links-cancel:hover 
+{background-color:#47a447;border-color:#398439 #398439 #398439 #398439;}
 
-.trim-links-header:hover,
-.trim-links-cancel:hover
-{background-color:#47a447;border-top-color:#398439;border-right-color:#398439;border-bottom-color:#398439;border-left-color:#398439;}
-
-.file-choose-replace
-{color:#000;}
-
-/* ============================================================================== */
+.form-control {border-color:#bfc1c3;}
+.form-control:focus {border-color:#ffbf47;}
 
 /* = Template and shared ======================================================== */
 
@@ -168,6 +83,9 @@ h1
 h2
 {font-size:24px;font-weight:bold;}
 
+h3
+{font-size:18px;font-weight:bold;}
+
 h2,
 .pq-header h3
 {display:inline;}
@@ -175,13 +93,6 @@ h2,
 h2 .badge
 {vertical-align:middle;}
 
-h3
-{font-size:18px;font-weight:bold;}
-
-/*
-#status-filters h3
-{display:block;}
-*/
 i.fa-envelope
 {margin-left:4px;}
 
@@ -201,10 +112,9 @@ label
 
 h2,
 p,
-/*textarea,*/
-/*label,*/
+textarea,
+input[type="text"],
 .date,
-/*.datetimepicker,*/
 .progress-menu-form,
 .pq-header,
 .pq-question,
@@ -214,16 +124,14 @@ select,
 #btn_finance_visibility,
 #finance-check-status,
 #pq-columns,
-/*#pq_uin,*/
-/*#pq_member_name,*/
-/*#pq_member_constituency,*/
 .actions
 {margin-bottom:15px;}
 
 .table
 {margin-top:15px;}
 
-/* ============================================================================== */
+textarea
+{resize:none;}
 
 /* = Sign in ==================================================================== */
 
@@ -239,8 +147,6 @@ select,
 #lbl-remember-me
 {display:inline;margin:8px 0px;}
 
-/* ============================================================================== */
-
 /* = Navigation ================================================================= */
 
 /* new */
@@ -251,26 +157,20 @@ select,
 {margin-right:74px;}
 
 #search_field
-{width:130px;border-radius:0;margin-right:-4px;}
+{width:130px;border-radius:0;margin-right:-4px;margin-bottom:0px;}
 
 #search_button
 {border-radius:0;width:34px;height:34px;}
-
-/* ============================================================================== */
 
 /* = Navigation Tabs ============================================================ */
 
 .nav-tabs
 {margin-bottom:15px;}
 
-/* ============================================================================== */
-
 /* Status Filters =============================================================== */
 
 #status-filters .badge
 {float:right;min-width:2.5em;}
-
-/* ============================================================================== */
 
 /* = Dashboard Questions ======================================================== */
 
@@ -289,7 +189,7 @@ select,
 {margin-right:40px;}
 
 .info-notice
-{border-left:4px solid #d0021b;margin-left:15px;}
+{border-width:4px;border-style:solid;margin-left:15px;}
 
 .status-bar
 {line-height:32px;}
@@ -299,8 +199,6 @@ select,
 
 hr
 {height:1px;}
-
-/* ============================================================================== */
 
 /* = PQ Details Page ============================================================ */
 
@@ -333,8 +231,6 @@ hr
 #progress-panel
 {margin:0px;padding:0px;}
 
-/* ============================================================================== */
-
 /* = Buttons ==================================================================== */
 
 .btn-commission
@@ -342,8 +238,6 @@ hr
 
 .btn-save
 {display:block;border-radius:0;border-bottom:2px solid #7f9a8b;margin:13px 0;}
-
-/* ============================================================================== */
 
 /* = Flags ====================================================================== */
 
@@ -366,8 +260,6 @@ hr
 .flag-minister-cleared,
 .flag-pod-cleared
 {border-radius:6px;font-weight:normal;font-size:13px;padding:6px;}
-
-/* ============================================================================== */
 
 /* PQ Dashboard Page ============================================================ */
 
@@ -405,8 +297,6 @@ input[type="file"]
 .file-choose-replace
 {display:inline;float:left;line-height:35px;padding-left:10px;}
 
-/* ============================================================================== */
-
 /* = Pagination ================================================================= */
 
 #pages
@@ -427,8 +317,6 @@ input[type="file"]
 .pagination > li:last-child > span
 {border-radius:0;border-right:0;}
 
-/* ============================================================================== */
-
 /* = Administration ============================================================= */
 
 #admin_task_list
@@ -437,21 +325,23 @@ input[type="file"]
 #admin_task_list li
 {list-style:none;}
 
-/* ============================================================================== */
+.form-control
+{border-style:solid;border-radius:0px;width:auto;}
+
+.form-control:focus
+{border-width:3px;box-shadow:none;}
 
 /* = Create a transfer ========================================================== */
 
 #new_pq
 {padding:7px 15px;}
 
-/* ============================================================================== */
-
 /* = Reports ==================================================================== */
 
 .table-cell-centered
 {text-align:center;}
 
-/* ============================================================================== */
+/* = Footer ====================================================================== */
 
 #footer
 {margin-top:15px;}
