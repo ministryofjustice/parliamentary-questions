@@ -116,19 +116,20 @@ describe 'PQAcceptedMailer' do
     it 'should add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question' do
 
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
-      create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
-      create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
+
+      my_finance_email =  'financepq@wibble.com'
+      create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:TRUE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      create(:user, name:'Finance Guy2', roles:'FINANCE', is_active:FALSE, email:'financePQ2@wibble.com', password:'bloib2bloib2bloib2bloib2')
+
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
-      #TODO Get correct from TOM
-      expectedCC = 'test1@tesk.uk;test2@tesk.uk;;a1@a1.com;a2@a2.com;financePQ@wibble.com'
 
       PQAcceptedMailer.commit_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include expectedCC
-      mail.html_part.body.should include CGI::escape(expectedCC)
+      mail.text_part.body.should include my_finance_email
+      mail.html_part.body.should include CGI::escape(my_finance_email)
 
     end
     it 'should not add the Finance email to the CC list on the draft email link if Finance has not registered an interest in the question' do
@@ -136,17 +137,37 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
+      my_finance_email =  'financepq@wibble.com'
+      create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:TRUE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: FALSE)
-      expectedCC = 'test1@tesk.uk;test2@tesk.uk;;a1@a1.com;a2@a2.com'
 
       PQAcceptedMailer.commit_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include expectedCC
-      mail.html_part.body.should include CGI::escape(expectedCC)
+      mail.text_part.body.should_not include my_finance_email
+      mail.html_part.body.should_not include CGI::escape(my_finance_email)
 
     end
+    it 'should not add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question but is inactive' do
+
+      create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
+      create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
+      create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
+      my_finance_email =  'financepq@wibble.com'
+      create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:FALSE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
+
+      PQAcceptedMailer.commit_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should_not include my_finance_email
+      mail.html_part.body.should_not include CGI::escape(my_finance_email)
+
+    end
+
   end
 end

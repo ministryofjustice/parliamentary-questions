@@ -38,9 +38,10 @@ class PQAcceptedMailer < PQBaseMailer
     action_list_emails = ActionlistMember.where('deleted = false').collect{|it| it.email}
     cc_list.append(action_list_emails)
 
-    #TODO Get correct from TOM
+
     if pq.finance_interest
-      cc_list.append('financePQ@wibble.com')
+      finance_users_emails = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
+      cc_list.append(finance_users_emails)
     end
 
     @template_params[:cc_list] = cc_list.join(';')
