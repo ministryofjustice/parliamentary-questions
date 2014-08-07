@@ -15,7 +15,7 @@
   <tbody>
     <% @deputy_directors.each do |deputy_director| %>
       <tr>
-        <td><%= deputy_director.name %></td>
+        <td><%= link_to "#{deputy_director.name}", deputy_director_path(deputy_director) %></td>
         <td><%= deputy_director.email %></td>
         <td><%= deputy_director.division.name %></td>
       <td>
@@ -25,7 +25,7 @@
             <i class="fa fa-check-circle"></i>Active
           <% end %>
       </td>
-        <td><%= link_to 'Show', deputy_director %></td>
+
         <td><%= link_to 'Edit', edit_deputy_director_path(deputy_director) %></td>
       </tr>
     <% end %>
