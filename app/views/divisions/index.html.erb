@@ -14,7 +14,7 @@
   <tbody>
     <% @divisions.each do |division| %>
       <tr>
-        <td><%= division.name %></td>
+        <td><%= link_to "#{division.name}", division_path(division) %></td>
         <td><%= division.directorate.name %></td>
       <td><% if division.deleted %>
             <i class="fa fa-times"></i>Inactive
