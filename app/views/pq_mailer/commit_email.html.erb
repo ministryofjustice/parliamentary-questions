@@ -4,17 +4,18 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h2><%= @template_params[:name] %>, you have been allocated the Parliamentary Question <%= @template_params[:uin] %> </h2>
-    <div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;font-size: 110%;">
+    <h2 style="font-family: arial, sans-serif; font-size: 14pt;"><%= @template_params[:name] %>, you have been allocated the Parliamentary Question <%= @template_params[:uin] %> </h2>
+    <div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
       <%= @template_params[:question] %>
     </div>
-    <p>Asked by: <%= @template_params[:member_name] %> <%= @template_params[:house] %></p>
-    <h2>To respond, please click the link below before 2pm today.</h2>
-    <h2>
+    <p style="font-family: arial, sans-serif; font-size: 12pt;">Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
+    <h3 style="font-family: arial, sans-serif; font-size: 14pt; font-weight: bold;">
+      To respond, please click the link below before 2pm today.</h3>
+    <h2 style="font-family: arial, sans-serif; font-size: 14pt;">
       <%= link_to "Accept or reject this question", controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %>
     </h2>
-    <p>If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.</p>
-    <p>If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
+    <p style="font-family: arial, sans-serif; font-size: 12pt;">If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.</p>
+    <p style="font-family: arial, sans-serif; font-size: 12pt;">If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
 
     <%= render 'shared/mailer/email_signature' %>
 

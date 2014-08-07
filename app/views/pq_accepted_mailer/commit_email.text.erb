@@ -9,7 +9,7 @@ You have accepted responsibility for drafting an answer to <%= @template_params[
 <div>
 
 <% if !@template_params[:member_name].nil? %>
-Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> <%= @template_params[:house_name] %> <% end %>
+Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %>
 <% end %>
 <% if !@template_params[:mpname].nil? %>
 To be answered by: <%= @template_params[:mpname] %>

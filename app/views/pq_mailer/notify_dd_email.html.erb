@@ -4,16 +4,16 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-<h2><%= @template_params[:dd_name] %>, </h2>
-<p><%= @template_params[:ao_name] %> has been allocated the Parliamentary Question <%= @template_params[:uin]%></p>
-<div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;font-size: 110%;">
-  <%= @template_params[:question] %>
+<h2 style="font-family: arial, sans-serif; font-size: 14pt;"><%= @template_params[:dd_name] %>, </h2>
+<p style="font-family: arial, sans-serif; font-size: 14pt;"><%= @template_params[:ao_name] %> has been allocated the Parliamentary Question <%= @template_params[:uin]%></p>
+<div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+<%= @template_params[:question] %>
 </div>
-<p>Asked by: <%= @template_params[:member_name] %> <%= @template_params[:house] %></p>
-<p>To be answered by: <%= @template_params[:answer_by] %></p>
-<p>An Accept or Reject Response is expected from them by <strong>2pm today</strong>.</p>
-<p>The draft response to the question is expected by <%= @template_params[:internal_deadline] %> - 10am</p>
-<p>If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">To be answered by: <%= @template_params[:answer_by] %></p>
+<p style="font-family: arial, sans-serif; font-size: 14pt; font-weight: bold;">An Accept or Reject Response is expected from them by <strong>2pm today</strong>.</p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">The draft response to the question is expected by <%= @template_params[:internal_deadline] %> - 10am</p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
 
 <%= render 'shared/mailer/email_signature' %>
 
