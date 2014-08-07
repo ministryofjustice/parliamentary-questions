@@ -2,7 +2,7 @@
 ============================================================================
 <%= @template_params[:question] %>.
 ============================================================================
-Asked by: <%= @template_params[:member_name] %> <%= @template_params[:house] %>
+Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
 
 To accept or reject the question, please click the link below or cut and paste this url to a web browser before 2pm today.
  <%= url_for(controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
