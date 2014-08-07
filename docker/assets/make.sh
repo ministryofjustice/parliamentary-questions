@@ -18,9 +18,14 @@ fi
 cp ${DOCKERFILE} .
 docker build -t ${TAG} --force-rm=true .
 
+# Skip push if build generates an error
+[ "$?" -ne 0 ] && DOCKER_NOPUSH=true
+
 if [ -z "$DOCKER_NOPUSH" ]; then
   echo "+ docker push ${TAG}"
   docker push ${TAG}
+else
+  echo "Skipping push"
 fi
 
 if [ -z "$DOCKER_NORMI" ]; then
