@@ -1,0 +1,7 @@
+<% if !date_for_answer.nil? %>
+    <% from_time = DateTime.now.change ({:offset => 0}) %>
+    <% overdue = (from_time -  date_for_answer.to_datetime) > 0 %>
+    <% if overdue %>
+        <span class="date_for_answer-overdue"><i class="fa fa-exclamation-triangle"></i></span>
+    <% end %>
+<% end %>
