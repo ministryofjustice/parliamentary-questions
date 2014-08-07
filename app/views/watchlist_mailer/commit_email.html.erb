@@ -5,10 +5,10 @@
   </head>
   <body>
 
-    <p>Please click the link below to see the PQs allocated by the Ministry of Justice today.</p>
-    <p><%= link_to 'Allocated PQs', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %></p>
+    <p style="font-family: arial, sans-serif; font-size: 14pt; font-weight: bold;">Please click the link below to see the PQs allocated by the Ministry of Justice today.</p>
+    <p style="font-family: arial, sans-serif; font-size: 12pt;"><%= link_to 'Allocated PQs', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %></p>
 
-    <p>If you no longer wish to receive the daily emails, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
+    <p style="font-family: arial, sans-serif; font-size: 12pt;">If you no longer wish to receive the daily emails, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
 
     <%= render 'shared/mailer/email_signature' %>
 
