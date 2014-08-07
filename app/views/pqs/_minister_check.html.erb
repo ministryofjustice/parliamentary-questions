@@ -5,7 +5,7 @@
       <input id="sent_to_policy_minister" class="form-control" name="pq[sent_to_policy_minister]" type="text" value="<%= @pq.sent_to_policy_minister.strftime('%d/%m/%Y %H:%M') unless @pq.sent_to_policy_minister.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
     </div>
-
+    
     <div class="checkbox">
       <%= f.label(:policy_minister_query) %>
       <%= f.check_box(:policy_minister_query) %>

@@ -134,7 +134,7 @@ hr
 
 .trim-links-header:hover,
 .trim-links-cancel:hover
-{background-color:#47a447;border-top-color:#398439;border-right-color-value:#398439;border-bottom-color:#398439;border-left-color:#398439;}
+{background-color:#47a447;border-top-color:#398439;border-right-color:#398439;border-bottom-color:#398439;border-left-color:#398439;}
 
 .file-choose-replace
 {color:#000;}
@@ -169,7 +169,7 @@ h2
 {font-size:24px;font-weight:bold;}
 
 h2,
-h3
+.pq-header h3
 {display:inline;}
 
 h2 .badge
@@ -178,9 +178,10 @@ h2 .badge
 h3
 {font-size:18px;font-weight:bold;}
 
+/*
 #status-filters h3
 {display:block;}
-
+*/
 i.fa-envelope
 {margin-left:4px;}
 
@@ -199,9 +200,10 @@ label
 {width:100%;}
 
 h2,
+p,
 /*textarea,*/
-label,
-/*.date,*/
+/*label,*/
+.date,
 /*.datetimepicker,*/
 .progress-menu-form,
 .pq-header,
@@ -217,6 +219,14 @@ select,
 /*#pq_member_constituency,*/
 .actions
 {margin-bottom:15px;}
+
+/*
+.dashboard_trim_link
+{margin-top:15px;}
+*/
+
+.table
+{margin-top:15px;}
 
 /* ============================================================================== */
 
@@ -317,7 +327,7 @@ hr
 {border-top-right-radius:initial;border-bottom-right-radius:initial;}
 
 .activeTab, .nav-pills > li > a.progress-menu-item:hover
-{background-image: url(image_path('progress-tab-bg.png'));background-repeat: repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
+{background: url(image_path('progress-tab-bg.png')) repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
 
 .inactiveTab
 {border:none;background-image:none;}
@@ -447,3 +457,7 @@ input[type="file"]
 {text-align:center;}
 
 /* ============================================================================== */
+
+#footer
+{margin-top:15px;}
+

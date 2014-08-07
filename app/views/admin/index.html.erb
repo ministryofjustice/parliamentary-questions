@@ -1,19 +1,26 @@
-<h2>Admin</h2>
+<h2>Settings</h2>
 <hr />
 <div class="row">
-    <ul id="admin_task_list" class="col-md-12">
-        <li><%= link_to 'Create a transferred PQ', transferred_new_path %></li>
-        <li><%= link_to 'Action officers', action_officers_path %></li>
-        <li><%= link_to 'Watch list', watchlist_members_path %></li>
-        <li><%= link_to 'Action list', actionlist_members_path %></li>
-        <li><%= link_to 'Users', users_path %></li>
-        <li><%= link_to 'Ministers', ministers_path %></li>
-        <li><%= link_to 'Directorates', directorates_path %></li>
-        <li><%= link_to 'Divisions', divisions_path %></li>
-        <li><%= link_to 'Deputy directors', deputy_directors_path %></li>
-        <li><%= link_to 'Press desks', press_desks_path %></li>
-        <li><%= link_to 'Press Officers', press_officers_path %></li>
-        <li><%= link_to 'Other government departments', ogds_path %></li>
-        <li><%= link_to 'Export to CSV', export_path %></li>
-    </ul>
+    <div class="col-md-4">
+        <h3>Address books</h3>
+        <%= link_to 'Action officers', action_officers_path %><br />
+        <%= link_to 'Watch list', watchlist_members_path %><br />
+        <%= link_to 'Action list', actionlist_members_path %><br />
+        <%= link_to 'Ministers', ministers_path %><br />
+        <%= link_to 'Deputy directors', deputy_directors_path %><br />
+        <%= link_to 'Press Officers', press_officers_path %>
+    </div>
+    <div class="col-md-4">
+        <h3>Tasks</h3>
+        <%= link_to 'Create a transferred PQ', transferred_new_path %><br />
+        <%= link_to 'Export to CSV', export_path %>
+    </div>
+    <div class="col-md-4">
+        <h3>User admin</h3>
+        <%= link_to 'Users', users_path %><br />
+        <%= link_to 'Directorates', directorates_path %><br />
+        <%= link_to 'Divisions', divisions_path %><br />
+        <%= link_to 'Press desks', press_desks_path %><br />
+        <%= link_to 'Other government departments', ogds_path %>
+    </div>
 </div>

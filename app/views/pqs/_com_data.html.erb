@@ -1,70 +1,76 @@
 <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
 
 <div class="deadline_input">
-  <label for="pq_internal_deadline">
-    <%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %>
-    Internal deadline
-  </label>
-  <div class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
+  <label for="pq_internal_deadline"><%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline} %> Internal deadline</label>
+  <span class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
     <input id="pq_internal_deadline" class="form-control" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-  </div>
+  </span>
 </div>
 
 <hr/>
 
 <div class="question-allocation">
   <% if @pq.action_officers.size > 0 %>
-      <% @pq.action_officers_pq.each do |ao_pq| %>
-          <% if ao_pq.accept %>
-              <h5>Name of Action Officer</h5>
-              <p><%= link_to ao_pq.action_officer.name, edit_action_officer_path(ao_pq.action_officer) %></p>
+    <% @pq.action_officers_pq.each do |ao_pq| %>
+      <% if ao_pq.accept %>
+        <p>
+          Name of Action Officer<br />
+          <%= link_to ao_pq.action_officer.name, edit_action_officer_path(ao_pq.action_officer) %>
+        </p>
 
-              <h5>Email of Action Officer</h5>
-              <p><%= mail_to ao_pq.action_officer.email %></p>
+        <p>
+          Email of Action Officer<br />
+          <%= mail_to ao_pq.action_officer.email %>
+        </p>
 
-              <h5>Phone of Action Officer</h5>
-              <p><%= ao_pq.action_officer.phone %></p>
+        <p>
+          Phone of Action Officer<br />
+          <%= ao_pq.action_officer.phone %>
+        </p>
 
-              <h5>Division of Action Officer</h5>
-              <p><%= ao_pq.action_officer.deputy_director.division.name %></p>
+        <p>
+          Division of Action Officer<br />
+          <%= ao_pq.action_officer.deputy_director.division.name %>
+        </p>
 
-              <h5>Directorate of Action Officer</h5>
-              <p><%= ao_pq.action_officer.deputy_director.division.directorate.name %></p>
+        <p>
+          Directorate of Action Officer<br />
+          <%= ao_pq.action_officer.deputy_director.division.directorate.name %>
+        </p>
 
-              <h5>Deputy director</h5>
-              <p><%= ao_pq.action_officer.deputy_director.name %></p>
+        <p>
+          Deputy director<br />
+          <%= ao_pq.action_officer.deputy_director.name %>
+        </p>
 
-              <h5>Press Desk</h5>
-              <p><%= ao_pq.action_officer.press_desk.name %></p>
-              <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
-                  <p><%= mail_to po.name, po.email %></p>
-              <% end %>
+        <p>
+          Press Desk<br />
+          <%= ao_pq.action_officer.press_desk.name %>
+        </p>
 
-              <p>
-                <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>
-                <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Re-send acceptance email#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
-              </p>
+        <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
+          <p><%= mail_to po.name, po.email %></p>
+        <% end %>
 
-              <p>
-                <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
-              </p>
+        <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>&nbsp;
+        <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Re-send acceptance email#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
 
-          <% end %>
+        <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
 
-          <% if !ao_pq.accept && !ao_pq.reject %>
-              <div>
-                <p>
-                  <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
-                  <% reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : '' %>
-                  <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'} %>
-                </p>
-                <p>
-                  <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
-                </p>
-              </div>
-          <% end %>
       <% end %>
+
+      <% if !ao_pq.accept && !ao_pq.reject %>
+        <p>
+          <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
+          <% reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : '' %>
+          <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'} %>
+        </p>
+        <p>
+          <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
+        </p>
+      <% end %>
+    <% end %>
   <% else %>
     <p>Not allocated</p>
   <% end %>
@@ -72,20 +78,19 @@
 
 <hr/>
 
-<label>Replying minister</label>
+<label for="pq_minister_id">Replying minister</label>
 <%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
 
-<label>Optional policy minister</label>
+<label for="pq_policy_minister_id">Optional policy minister</label>
 <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
 
 <hr/>
 
-<div>
-  <label>Transfer out to</label>
-  <%= f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
-  <label for ="transfer_out_date">Date transferred out</label>
-  <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-    <input id="transfer_out_date" class="form-control" name="pq[transfer_out_date]" type="text" value="<%= @pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil? %>">
-    <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-  </div>
+<label for="pq_transfer_out_ogd_id">Transfer out to</label>
+<%= f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
+
+<label for="transfer_out_date">Date transferred out</label>
+<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  <input id="transfer_out_date" class="form-control" name="pq[transfer_out_date]" type="text" value="<%= @pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil? %>">
+  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
