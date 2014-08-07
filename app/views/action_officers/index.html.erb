@@ -1,40 +1,29 @@
-<h1>Listing Action Officers</h1>
+<h2>Action Officers</h2>
 
 <table class="table">
   <tr>
     <th>Name</th>
-    <th>Email</th>
-    <th>Phone</th>
     <th>Division</th>
     <th>Press desk</th>
     <th>Active/Inactive</th>
     <th></th>
-    <th></th>
   </tr>
 
-  <%  @action_officers.each do |action_officer| %>
+  <% @action_officers.each do |action_officer| %>
     <tr>
       <td><%= action_officer.name %></td>
-      <td>
-        <!--<%= mail_to action_officer.emails, raw("#{action_officer.email}<br>#{action_officer.group_email unless action_officer.group_email.blank?}") %>-->
-        <%= mail_to action_officer.email, action_officer.email %>
-        <%= mail_to action_officer.group_email, raw("<br>#{action_officer.group_email}") unless action_officer.group_email.blank? %>
-      </td>
-      <td><%=  action_officer.phone %></td>
       <td><%= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil? %></td>
       <td><%= action_officer.press_desk.name unless action_officer.press_desk.nil? %></td>
-      <td><% if action_officer.deleted %>
-            <i class="fa fa-times"></i>Inactive
-          <% else %>
-            <i class="fa fa-check-circle"></i>Active
-          <% end %>
-        </td>
-      <td><%= link_to 'Show', action_officer , {class: 'button'} %></td>
-      <td><%= link_to 'Edit', edit_action_officer_path(action_officer), {class: 'button'} %></td>
+      <td>
+        <% if action_officer.deleted %>
+          <i class="fa fa-times"></i> Inactive
+        <% else %>
+          <i class="fa fa-check-circle"></i> Active
+        <% end %>
+      </td>
+      <td><%= link_to 'Edit', edit_action_officer_path(action_officer) %></td>
     </tr>
   <% end %>
-
 </table>
-
-
 <%= link_to 'New Action officer', new_action_officer_path , {class: 'button'} %>
+

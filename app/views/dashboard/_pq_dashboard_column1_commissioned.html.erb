@@ -9,7 +9,7 @@
     </div>
   </div>
 <% end %>
-<br />
+
 
 <% if !question.policy_minister_id.nil? %>
   Policy minister:
@@ -19,14 +19,13 @@
     </div>
     <div class="col-md-6">
       <% if question.policy_minister.email.blank? %>
-          No contacts set
+        No contacts set
       <% else %>
         <%= mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email") %>
       <% end %>
     </div>
   </div>
 <% end %>
-<br />
 
 Action Officer(s):
 <div class="row">

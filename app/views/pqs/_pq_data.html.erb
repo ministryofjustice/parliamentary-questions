@@ -38,13 +38,13 @@
 </div>
 
 <label>Date Guidance Received</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="round_robin_guidance_received" class="form-control" name="pq[round_robin_guidance_received]" type="text" value="<%= @pq.round_robin_guidance_received.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_guidance_received.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-</div>
+</span>
 
 <label>Date Round Robin guidance sent to Action Officer</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="round_robin_date" class="form-control" name="pq[round_robin_date]" type="text" value="<%= @pq.round_robin_date.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_date.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-</div>
+</span>

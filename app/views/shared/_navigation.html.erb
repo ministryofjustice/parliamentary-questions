@@ -24,7 +24,7 @@
                   <li><%= link_to 'Filter Press Desk', reports_press_desk_filter_path %> </li>
                 </ul>
             </li>
-            <li><%= link_to 'Admin', admin_path %></li>
+            <li><%= link_to 'Settings', admin_path %></li>
             <li><%= link_to 'Sign out', destroy_user_session_path %></li>
           </ul>
           <%= form_tag(search_path, { :method => 'get', :id => 'search_form', :class => 'navbar-form navbar-right', :role => 'search'}) do %>
