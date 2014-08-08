@@ -13,9 +13,9 @@ DOCKERTAG="${DOCKERTAG:-$DEFAULT_DOCKERTAG}"
 tag()
 {
 	if [ -n "$2" ]; then
-  		TAG="${DOCKERREPO}/$1:$2"
+  		TAG="${DOCKER_PREFIX}${DOCKERREPO}/$1:$2"
 	else
-		TAG="${DOCKERREPO}/$1"
+		TAG="${DOCKER_PREFIX}${DOCKERREPO}/$1"
 	fi
         echo $TAG
 }
