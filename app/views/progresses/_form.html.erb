@@ -1,7 +1,7 @@
 <%= form_for(@progress) do |f| %>
   <% if @progress.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@progress.errors.count, "error") %> prohibited this progress from being saved:</h2>
+      <p><strong><%= pluralize(@progress.errors.count, "error") %> prohibited this progress from being saved:</strong></p>
 
       <ul>
       <% @progress.errors.full_messages.each do |msg| %>

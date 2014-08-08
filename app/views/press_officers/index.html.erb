@@ -1,38 +1,29 @@
-<h1>Listing press officers</h1>
-
+<h2>Listing Press Officers</h2>
+<hr />
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Email</th>
       <th>Press desk</th>
       <th>Active/Inactive</th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @press_officers.each do |press_officer| %>
       <tr>
         <td><%= link_to "#{press_officer.name}", press_officer_path(press_officer) %></td>
-        <td><%= press_officer.email %></td>
         <td><%= press_officer.press_desk.name %></td>
-      <td>
-        <% if press_officer.deleted %>
+        <td>
+          <% if press_officer.deleted %>
             <i class="fa fa-times"></i>Inactive
           <% else %>
             <i class="fa fa-check-circle"></i>Active
           <% end %>
-      </td>
-
-
+        </td>
         <td><%= link_to 'Edit', edit_press_officer_path(press_officer) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Press officer', new_press_officer_path %>
+<%= link_to raw('<i class="fa fa-plus"></i> Add Press officer'), new_press_officer_path, {class: 'btn btn-success'} %>

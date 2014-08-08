@@ -2,7 +2,7 @@
   <% if @deputy_director.errors.any? %>
     <div class="alert alert-danger">
     <!-- <div id="error_explanation"> -->
-      <p><%= pluralize(@deputy_director.errors.count, "error") %> prohibited this deputy_director from being saved:</p>
+      <p><strong><%= pluralize(@deputy_director.errors.count, "error") %> prohibited this deputy_director from being saved:</strong></p>
       <ul>
         <% @deputy_director.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -13,12 +13,12 @@
   <!-- <div class="field"> -->
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, {class: 'form-control'}  %>
+    <%= f.text_field :name, {class: 'form-control'} %>
   </div>
   <!-- <div class="field"> -->
   <div class="form-group">
     <%= f.label :email %>
-    <%= f.text_field :email, {class: 'form-control'}  %>
+    <%= f.text_field :email, {class: 'form-control'} %>
   </div>
   <!-- <div class="field"> -->
   <div class="form-group">

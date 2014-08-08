@@ -1,7 +1,7 @@
 <%= form_for(@ogd) do |f| %>
   <% if @ogd.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@ogd.errors.count, "error") %> prohibited this ogd from being saved:</h2>
+      <p><strong><%= pluralize(@ogd.errors.count, "error") %> prohibited this ogd from being saved:</strong></p>
 
       <ul>
       <% @ogd.errors.full_messages.each do |msg| %>
