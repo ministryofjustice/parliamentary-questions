@@ -1,20 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+  Name:
   <%= @watchlist_member.name %>
-</p>
 
-<p>
-  <strong>Email:</strong>
+  Email:
   <%= @watchlist_member.email %>
-</p>
 
 <p>
   <% if @watchlist_member.deleted %>
-      <i class="fa fa-times"></i>Inactive
+      <i class="fa fa-times"></i> Inactive
   <% else %>
-      <i class="fa fa-check-circle"></i>Active
+      <i class="fa fa-check-circle"></i> Active
   <% end %>
 </p>
 
