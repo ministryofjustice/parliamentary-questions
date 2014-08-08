@@ -19,8 +19,6 @@ class TransferredController < ApplicationController
     else
       flash[notice] = 'There was an error creating the transfer PQ.'
       render :new
-
-
     end
   end
 

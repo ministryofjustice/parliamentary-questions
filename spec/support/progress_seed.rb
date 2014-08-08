@@ -3,7 +3,6 @@ def progress_seed
   let!(:accepted) { create(:progress, name: Progress.ACCEPTED) }
   let!(:no_response) { create(:progress, name: Progress.NO_RESPONSE) }
   let!(:rejected) { create(:progress, name: Progress.REJECTED) }
-  let!(:transfer) { create(:progress, name: Progress.TRANSFER) }
   let!(:draft_pending) { create(:progress, name: Progress.DRAFT_PENDING) }
   let!(:with_pod) { create(:progress, name: Progress.WITH_POD) }
   let!(:pod_query) { create(:progress, name: Progress.POD_QUERY) }
