@@ -9,6 +9,17 @@ DOCKERFILE="docker/assets/Dockerfile"
 DOCKERREPO="${DOCKERREPO:-$DEFAULT_DOCKERREPO}"
 DOCKERTAG="${DOCKERTAG:-$DEFAULT_DOCKERTAG}"
 
+
+tag()
+{
+	if [ -n "$2" ]; then
+  		TAG="${DOCKERREPO}/$1:$2"
+	else
+		TAG="${DOCKERREPO}/$1"
+	fi
+        echo $TAG
+}
+
 output()
 {
 	echo "$(tput setaf 1)$1$(tput sgr 0)"
@@ -16,15 +27,8 @@ output()
 
 docker_build() 
 {
-	TAG=$1
-	VERSION=$2
+	TAG=$(tag $1 $2)
 	[ ! -d "docker" ] && output "Please run from git root" && exit 1
-
-	if [ -n "$1" ]; then
-  		TAG="${DOCKERREPO}/${DOCKERTAG}:$1"
-	else
-		TAG="${DOCKERREPO}/${DOCKERTAG}"
-	fi
 
 	cp ${DOCKERFILE} .
         output "+ docker build -t ${TAG} --force-rm=true ."
@@ -33,7 +37,7 @@ docker_build()
 
 docker_push()
 {
-	TAG=$1
+	TAG=$(tag $1)
 	# Skip push if build generates an error
 	[ "$?" -ne 0 ] && DOCKER_NOPUSH=true
 
@@ -43,7 +47,7 @@ docker_push()
 
 docker_rmi()
 {
-	TAG=$1
+	TAG=$(tag $1)
 	if [ -z "$DOCKER_NORMI" ]; then
   		output "+ docker rmi ${TAG}"
   		docker rmi ${TAG}
@@ -70,6 +74,10 @@ Commit:   $GIT_COMMIT
 
 EOT
 
+
+A=$(tag "123" "34")
+echo "got tag $A"
+exit
 # Generate a self contained bundle
 #cd build
 bundle --quiet \
