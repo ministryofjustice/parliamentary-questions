@@ -1,58 +1,51 @@
 <%= form_for(@minister) do |f| %>
   <% if @minister.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@minister.errors.count, "error") %> prohibited this minister from being saved:</h2>
-
+    <div class="alert alert-danger">
+    <!-- <div id="error_explanation"> -->
+      <p><%= pluralize(@minister.errors.count, "error") %> prohibited this minister from being saved:</p>
       <ul>
-      <% @minister.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @minister.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+  <!-- <div class="field"> -->
+  <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
-
+    <%= f.text_field :name, {class: 'form-control'} %>
     <!-- Disabled search controller (to search minister by Parliamentary API)-->
     <!-- link_to 'Search', {controller: 'members', action:'by_name', remote: true }, {id: 'search_member'} -->
   </div>
-
-
-  <div id="members_result">
-
-  </div>
-  <div class="field">
+  <!-- <div id="members_result">
+  </div> -->
+  <!-- <div class="field"> -->
+  <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, {class: 'form-control'} %>
   </div>
-
-    <%= f.fields_for :minister_contacts do |ff| %>
-        <br/>
-        <hr>
-        <div class="field">
-          <%= ff.label :name, 'Contact Description' %>
-          <%= ff.text_field :name %>
-        </div>
-        <div class="field">
-          <%= ff.label :email %>
-          <%= ff.text_field :email %>
-        </div>
-        <div class="field">
-          <%= ff.label :phone %>
-          <%= ff.text_field :phone %>
-        </div>
-        <div class="form-group">
-          <div class="checkbox">
-            <label>
-              <%= ff.check_box :deleted  %> Inactive
-            </label>
-          </div>
-        </div>
-    <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+  <%= f.fields_for :minister_contacts do |ff| %>
+  <!-- <div class="field"> -->
+  <div class="form-group">
+    <%= ff.label :name, 'Contact Description' %>
+    <%= ff.text_field :name, {class: 'form-control'} %>
   </div>
+  <!-- <div class="field"> -->
+  <div class="form-group">
+    <%= ff.label :email %>
+    <%= ff.text_field :email, {class: 'form-control'} %>
+  </div>
+  <!-- <div class="field"> -->
+  <div class="form-group">
+    <%= ff.label :phone %>
+    <%= ff.text_field :phone, {class: 'form-control'} %>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label><%= ff.check_box :deleted %>&nbsp;Inactive</label>
+    </div>
+  </div>
+<% end %>
+
+  <div class="actions"><%= f.submit 'Save' , {class: 'btn btn-success'} %></div>
 <% end %>

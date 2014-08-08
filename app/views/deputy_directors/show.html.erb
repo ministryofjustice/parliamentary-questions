@@ -1,25 +1,17 @@
+<h2>Deputy Director details</h2>
+<hr />
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @deputy_director.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @deputy_director.email %>
-</p>
-
-<p>
-  <strong>Division:</strong>
-  <%= @deputy_director.division.name %>
-</p>
-<div>  
+<p><strong>Name:</strong>&nbsp;<%= @deputy_director.name %></p>
+<p><strong>Email:</strong>&nbsp;<%= @deputy_director.email %></p>
+<p><strong>Division:</strong>&nbsp;<%= @deputy_director.division.name %></p>
+<p>  
   <% if @deputy_director.deleted %>
-      <i class="fa fa-times"></i>Inactive
+      <i class="fa fa-times"></i>&nbsp;Inactive
   <% else %>
-      <i class="fa fa-check-circle"></i>Active
+      <i class="fa fa-check-circle"></i>&nbsp;Active
   <% end %>
-</div>
+</p>
+<!-- 
 <%= link_to 'Edit', edit_deputy_director_path(@deputy_director) %> |
 <%= link_to 'Back', deputy_directors_path %>
+ -->

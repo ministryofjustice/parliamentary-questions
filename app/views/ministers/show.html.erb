@@ -1,46 +1,37 @@
+<h2>Minister details</h2>
+<hr />
 <p id="notice"><%= notice %></p>
+<p><strong>Name:</strong>&nbsp;<%= @minister.name %></p>
+<p><strong>Title:</strong>&nbsp;<%= @minister.title %></p>
+<p>
+  <% if @minister.deleted %>
+    <i class="fa fa-times"></i>&nbsp;Deleted
+  <% else %>
+    <i class="fa fa-check-circle"></i>&nbsp;Active
+  <% end %>
+</p>
+<h3>Contacts</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>email</th>
+      <th>phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @minister.minister_contacts.where(deleted: false).each do |c| %>
+      <tr>
+        <td><%= c.name %></td>
+        <td><%= c.email %></td>
+        <td><%= c.phone %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to raw('<i class="fa fa-plus"></i> Add new contact'), new_minister_contact_withid_path(@minister), {class: 'btn btn-success'} %>
 
-<div>
-  <strong>Name:</strong>
-  <%= @minister.name %>
-</div>
-
-<div>
-  <strong>Title:</strong>
-  <%= @minister.title %>
-</div>
-
-<div>
-    <strong>Contacts</strong> <%= link_to 'Add new contact', new_minister_contact_withid_path(@minister) %>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>email</th>
-                <th>phone</th>
-            </tr>
-        </thead>
-        <tbody>
-        <% @minister.minister_contacts.where(deleted: false).each do |c| %>
-            <tr>
-              <td><%= c.name %></td>
-              <td><%= c.email %></td>
-              <td><%= c.phone %></td>
-            </tr>
-        <% end %>
-        </tbody>
-    </table>
-
-
-
-</div>
-<div>
- <% if @minister.deleted %>
-   <i class="fa fa-times"></i>Deleted
- <% else %>
-   <i class="fa fa-check-circle"></i>Active
- <% end %>
-</div>
-
+<!-- 
 <%= link_to 'Edit', edit_minister_path(@minister) %> |
 <%= link_to 'Back', ministers_path %>
+ -->
