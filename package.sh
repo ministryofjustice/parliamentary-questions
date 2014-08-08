@@ -89,7 +89,7 @@ bundle exec rake assets:precompile RAILS_ENV=production
 
 # Build containers
 for i in  ${CONTAINERS[@]}; do
-  docker_build "${DOCKER_PREFIX}${i}" $APPVERSION
+  docker_build $i $APPVERSION
   RETCODE=$?
   if [ "$RETCODE" -ne 0 ]; then
      BUILD_FAILED=$RETCODE
@@ -103,7 +103,7 @@ done
 # Push containers only if all builds were successful and DOCKER_NOPUSH isn't specified
 if [ -z "$DOCKER_NOPUSH" ]; then
 	for i in  ${CONTAINERS[@]}; do
-		docker_push "${DOCKER_PREFIX}${i}"
+		docker_push $i
 	done
 else
 	output "Not pushing images"
@@ -111,7 +111,7 @@ fi
 
 if [ -z "$DOCKER_NORMI" ]; then
 	for i in  ${CONTAINERS[@]}; do
-		docker_rmi "${DOCKER_PREFIX}${i}"
+		docker_rmi $i
 	done
 else
 	output "Not removing images"
