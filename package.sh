@@ -40,7 +40,7 @@ docker_build()
 
 docker_push()
 {
-	TAG=$(tag $1)
+	TAG=$(tag $1 $2)
 	# Skip push if build generates an error
 	[ "$?" -ne 0 ] && DOCKER_NOPUSH=true
 
@@ -50,7 +50,7 @@ docker_push()
 
 docker_rmi()
 {
-	TAG=$(tag $1)
+	TAG=$(tag $1 $2)
 	if [ -z "$DOCKER_NORMI" ]; then
   		output "+ docker rmi ${TAG}"
   		docker rmi ${TAG}
@@ -106,7 +106,7 @@ done
 # Push containers only if all builds were successful and DOCKER_NOPUSH isn't specified
 if [ -z "$DOCKER_NOPUSH" ]; then
 	for i in  ${CONTAINERS[@]}; do
-		docker_push $i
+		docker_push $i $APPVERSION
 	done
 else
 	output "Not pushing images"
@@ -114,7 +114,7 @@ fi
 
 if [ -z "$DOCKER_NORMI" ]; then
 	for i in  ${CONTAINERS[@]}; do
-		docker_rmi $i
+		docker_rmi $i $APPVERSION
 	done
 else
 	output "Not removing images"
