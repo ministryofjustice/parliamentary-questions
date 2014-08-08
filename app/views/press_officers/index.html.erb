@@ -1,5 +1,6 @@
 <h2>Listing Press Officers</h2>
 <hr />
+<%= link_to raw('<i class="fa fa-plus"></i> Add Press officer'), new_press_officer_path, {class: 'btn btn-success'} %>
 <table class="table">
   <thead>
     <tr>
@@ -26,4 +27,3 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to raw('<i class="fa fa-plus"></i> Add Press officer'), new_press_officer_path, {class: 'btn btn-success'} %>
