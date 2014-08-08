@@ -35,17 +35,22 @@ docker_build()
         output "+ docker build -t ${TAG} --force-rm=true ."
         echo "BEGIN SECTION build-details"
 	docker build -t ${TAG} --force-rm=true .
-        echo "END SECTION build-details"
+        RETCODE=$?
+        echo "END SECTION"
+	return $RETCODE
 }
 
 docker_push()
 {
 	TAG=$(tag $1 $2)
 	# Skip push if build generates an error
-	[ "$?" -ne 0 ] && DOCKER_NOPUSH=true
 
 	output "+ docker push ${TAG}"
+        echo "BEGIN SECTION push-details"
 	docker push ${TAG}
+	RETCODE=$?
+        echo "END SECTION"
+	return $RETCODE
 }
 
 docker_rmi()
@@ -90,14 +95,16 @@ bundle --quiet \
 
 bundle exec rake assets:precompile RAILS_ENV=production
 
+JENKINS_RETCODE=0
+
 # Build containers
 for i in  ${CONTAINERS[@]}; do
   docker_build $i $APPVERSION
   RETCODE=$?
   if [ "$RETCODE" -ne 0 ]; then
-     BUILD_FAILED=$RETCODE
+     JENKINS_RETCODE=$RETCODE
      DOCKER_NOPUSH=true
-     output "Failed with code $BUILD_FAILED - skipping further builds and disabling push"
+     output "Failed $i build with code $RETCODE - skipping further builds and disabling push"
      break
   fi
 done
@@ -107,6 +114,10 @@ done
 if [ -z "$DOCKER_NOPUSH" ]; then
 	for i in  ${CONTAINERS[@]}; do
 		docker_push $i $APPVERSION
+  		if [ "$RETCODE" -ne 0 ]; then
+     			JENKINS_RETCODE=$RETCODE
+     			output "Failed $i push with code $RETCODE"
+		fi
 	done
 else
 	output "Not pushing images"
@@ -115,9 +126,11 @@ fi
 if [ -z "$DOCKER_NORMI" ]; then
 	for i in  ${CONTAINERS[@]}; do
 		docker_rmi $i $APPVERSION
+		RETCODE=$?
 	done
 else
 	output "Not removing images"
 fi
 
+exit $JENKINS_RETCODE
 
