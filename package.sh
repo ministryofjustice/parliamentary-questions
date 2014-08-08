@@ -5,7 +5,6 @@ CONTAINERS=(assets rails)
 DEFAULT_DOCKERREPO="docker.local:5000"
 DEFAULT_DOCKERTAG="assets"
 
-DOCKERFILE="docker/assets/Dockerfile"
 DOCKERREPO="${DOCKERREPO:-$DEFAULT_DOCKERREPO}"
 DOCKERTAG="${DOCKERTAG:-$DEFAULT_DOCKERTAG}"
 
@@ -30,9 +29,13 @@ docker_build()
 	TAG=$(tag $1 $2)
 	[ ! -d "docker" ] && output "Please run from git root" && exit 1
 
-	cp ${DOCKERFILE} .
+        rm -f .dockerignore
+	[ -f "docker/$1/.dockerignore" ] && cp "docker/$1/.dockerignore" .
+	cp "docker/$1/Dockerfile" .
         output "+ docker build -t ${TAG} --force-rm=true ."
+        echo "BEGIN SECTION build-details"
 	docker build -t ${TAG} --force-rm=true .
+        echo "END SECTION build-details"
 }
 
 docker_push()
