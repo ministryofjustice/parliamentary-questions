@@ -1,7 +1,7 @@
 <%= form_for(@division) do |f| %>
   <% if @division.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@division.errors.count, "error") %> prohibited this division from being saved:</h2>
+      <p><strong><%= pluralize(@division.errors.count, "error") %> prohibited this division from being saved:</strong></p>
 
       <ul>
       <% @division.errors.full_messages.each do |msg| %>

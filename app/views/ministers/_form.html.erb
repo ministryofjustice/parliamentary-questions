@@ -2,7 +2,7 @@
   <% if @minister.errors.any? %>
     <div class="alert alert-danger">
     <!-- <div id="error_explanation"> -->
-      <p><%= pluralize(@minister.errors.count, "error") %> prohibited this minister from being saved:</p>
+      <p><strong><%= pluralize(@minister.errors.count, "error") %> prohibited this minister from being saved:</strong></p>
       <ul>
         <% @minister.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>

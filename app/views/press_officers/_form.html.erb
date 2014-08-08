@@ -1,37 +1,34 @@
 <%= form_for(@press_officer) do |f| %>
   <% if @press_officer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@press_officer.errors.count, "error") %> prohibited this press_officer from being saved:</h2>
-
+    <div class="alert alert-danger">
+    <!-- <div id="error_explanation"> -->
+      <p><strong><%= pluralize(@press_officer.errors.count, "error") %> prohibited this press_officer from being saved:</strong></p>
       <ul>
-      <% @press_officer.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @press_officer.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <!-- <div class="field"> -->
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, {class: 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+  <!-- <div class="field"> -->
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, {class: 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :press_desk_id %><br>
+  <!-- <div class="field"> -->
+  <div class="form-group">
+    <%= f.label :press_desk_id %>
     <%= f.collection_select(:press_desk_id, @press_offices, :id, :name, :include_blank => "Please select") %>
   </div>
   <div class="form-group">
     <div class="checkbox">
-      <label>
-        <%= f.check_box :deleted  %> Inactive
-
-      </label>
-      </div>
+      <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+    </div>
   </div>
-    <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="actions"><%= f.submit 'Save', {class: 'btn btn-success'} %></div>
 <% end %>

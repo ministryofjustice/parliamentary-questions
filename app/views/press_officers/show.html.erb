@@ -1,20 +1,16 @@
+<h2>Press Officer details</h2>
+<hr />
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @press_officer.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @press_officer.email %>
-</p>
-<div>  
+<p><strong>Name:</strong>&nbsp;<%= @press_officer.name %></p>
+<p><strong>Email:</strong>&nbsp;<%= @press_officer.email %></p>
+<p>  
   <% if @press_officer.deleted %>
-      <i class="fa fa-times"></i>Inactive
+      <i class="fa fa-times"></i>&nbsp;Inactive
   <% else %>
-      <i class="fa fa-check-circle"></i>Active
+      <i class="fa fa-check-circle"></i>&nbsp;Active
   <% end %>
-</div>
+</p>
+<!-- 
 <%= link_to 'Edit', edit_press_officer_path(@press_officer) %> |
 <%= link_to 'Back', press_officers_path %>
+ -->

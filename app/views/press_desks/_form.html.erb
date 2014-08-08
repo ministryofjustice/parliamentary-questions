@@ -1,7 +1,7 @@
 <%= form_for(@press_desk) do |f| %>
   <% if @press_desk.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@press_desk.errors.count, "error") %> prohibited this press_desk from being saved:</h2>
+      <p><strong><%= pluralize(@press_desk.errors.count, "error") %> prohibited this press_desk from being saved:<strong></p>
 
       <ul>
       <% @press_desk.errors.full_messages.each do |msg| %>

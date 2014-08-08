@@ -1,7 +1,7 @@
 <%= form_for @watchlist_member do |f| %>
   <% if @watchlist_member.errors.any? %>
     <div class="alert  alert-danger">
-      <p><%= "#{pluralize(@watchlist_member.errors.count, "error")} prohibited this watchlist member from being saved:" %></p>
+      <p><strong><%= "#{pluralize(@watchlist_member.errors.count, "error")} prohibited this watchlist member from being saved:" %><strong></p>
       <ul>
         <% @watchlist_member.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>

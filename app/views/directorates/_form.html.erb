@@ -1,7 +1,7 @@
 <%= form_for(@directorate) do |f| %>
   <% if @directorate.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@directorate.errors.count, "error") %> prohibited this directorate from being saved:</h2>
+      <p><strong><%= pluralize(@directorate.errors.count, "error") %> prohibited this directorate from being saved:</strong></p>
 
       <ul>
       <% @directorate.errors.full_messages.each do |msg| %>
