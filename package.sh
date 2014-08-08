@@ -11,7 +11,7 @@ DOCKERTAG="${DOCKERTAG:-$DEFAULT_DOCKERTAG}"
 
 output()
 {
-	echo "$(tput setaf 1)$1(tput sgr 0)"
+	echo "$(tput setaf 1)$1$(tput sgr 0)"
 }
 
 docker_build() 
