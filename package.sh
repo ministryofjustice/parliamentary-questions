@@ -75,9 +75,6 @@ Commit:   $GIT_COMMIT
 EOT
 
 
-A=$(tag "123" "34")
-echo "got tag $A"
-exit
 # Generate a self contained bundle
 #cd build
 bundle --quiet \
