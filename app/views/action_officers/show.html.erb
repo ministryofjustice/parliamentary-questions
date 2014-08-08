@@ -1,43 +1,22 @@
+<h2>Action Officer details</h2>
+<hr />
 <p class="notice"> <%= notice %></p>
+<p><strong>Name:</strong>&nbsp;<%= @action_officer.name_with_div %></p>
+<p><strong>Email:</strong>&nbsp;<%= @action_officer.email %></p>
+<p><strong>Group email:</strong>&nbsp;<%= @action_officer.group_email %></p>
+<p><strong>Phone:</strong>&nbsp;<%= @action_officer.phone %></p>
+<p><strong>Deputy director:</strong>&nbsp;<%= @action_officer.deputy_director.name %></p>
+<p><strong>Division:</strong>&nbsp;<%= @action_officer.deputy_director.division.name %></p>
+<p><strong>Press desk:</strong>&nbsp;<%= @action_officer.press_desk.name %></p>
+<p>
+	<% if @action_officer.deleted %>
+		<i class="fa fa-times"></i>&nbsp;Inactive
+	<% else %>
+  		<i class="fa fa-check-circle"></i>&nbsp;Active
+	<% end %>
+</p>
 
-<h2>Action Officer</h2>
-
-<div>
-  <strong>Name:</strong>
-  <%= @action_officer.name_with_div %>
-
-</div>
-<div>
-  <strong>Email:</strong>
-  <%= @action_officer.email %>
-</div>
-<div>
-  <strong>Group email:</strong>
-  <%= @action_officer.group_email %>
-</div>
-<div>
-  <strong>Phone:</strong>
-  <%= @action_officer.phone %>
-</div>
-<div>
-  <strong>Deputy director:</strong>
-  <%= @action_officer.deputy_director.name %>
-</div>
-<div>
-  <strong>Division:</strong>
-  <%= @action_officer.deputy_director.division.name %>
-</div>
-<div>
-  <strong>Press desk:</strong>
-  <%= @action_officer.press_desk.name %>
-</div>
-<div>  <% if @action_officer.deleted %>
-      <i class="fa fa-times"></i>Inactive
-  <% else %>
-      <i class="fa fa-check-circle"></i>Active
-  <% end %>
-</div>
-
+<!-- 
 <%= link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'button'}  %>
-
 <%= link_to 'Back', action_officers_path , {class: 'button'}  %>
+-->

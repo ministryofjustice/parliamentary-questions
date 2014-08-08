@@ -1,38 +1,29 @@
-<h1>Ministers</h1>
-
+<h2>Ministers</h2>
+<hr />
+<%= link_to raw('<i class="fa fa-plus"></i> Add Minister'), new_minister_path, {class: 'btn btn-success'} %>
 <table class="table">
-      <tr>
+  <thead>
+    <tr>
       <th>Name</th>
       <th>Title</th>
-      <th>Email</th>
-      <th>Deleted</th>
+      <th>Active/Inactive</th>
       <th></th>
       <th></th>
     </tr>
-  
+  </thead>
   <tbody>
     <% @ministers.each do |minister| %>
       <tr>
         <td><%= link_to "#{minister.name}", minister_path(minister) %></td>
         <td><%= minister.title %></td>
-        <td>
-          <% minister.minister_contacts.each do |c| %>
-            <div><%= c.email %></div>
-          <% end %>
-        </td>
         <td><% if minister.deleted %>
           <i class="fa fa-times"></i>Deleted
-        <% else %>
-          <i class="fa fa-check-circle"></i>Active
-        <% end %>
-	    </td>
-
+          <% else %>
+            <i class="fa fa-check-circle"></i>Active
+          <% end %>
+        </td>
         <td><%= link_to 'Edit', edit_minister_path(minister) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Minister', new_minister_path %>

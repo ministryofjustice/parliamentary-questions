@@ -1,29 +1,30 @@
 <h2>Action Officers</h2>
-
 <table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Division</th>
-    <th>Press desk</th>
-    <th>Active/Inactive</th>
-    <th></th>
-  </tr>
-
-  <% @action_officers.each do |action_officer| %>
+  <thead>
     <tr>
-      <td><%= action_officer.name %></td>
-      <td><%= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil? %></td>
-      <td><%= action_officer.press_desk.name unless action_officer.press_desk.nil? %></td>
-      <td>
-        <% if action_officer.deleted %>
-          <i class="fa fa-times"></i> Inactive
-        <% else %>
-          <i class="fa fa-check-circle"></i> Active
-        <% end %>
-      </td>
-      <td><%= link_to 'Edit', edit_action_officer_path(action_officer) %></td>
+      <th>Name</th>
+      <th>Division</th>
+      <th>Press desk</th>
+      <th>Active/Inactive</th>
+      <th></th>
     </tr>
+  </thead>
+  <% @action_officers.each do |action_officer| %>
+    <tbody>
+      <tr>
+        <td><%= action_officer.name %></td>
+        <td><%= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil? %></td>
+        <td><%= action_officer.press_desk.name unless action_officer.press_desk.nil? %></td>
+        <td>
+          <% if action_officer.deleted %>
+            <i class="fa fa-times"></i> Inactive
+          <% else %>
+            <i class="fa fa-check-circle"></i> Active
+          <% end %>
+        </td>
+        <td><%= link_to 'Edit', edit_action_officer_path(action_officer) %></td>
+      </tr>
+    </tbody>
   <% end %>
 </table>
 <%= link_to 'New Action officer', new_action_officer_path , {class: 'button'} %>
-
