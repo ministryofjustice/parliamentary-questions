@@ -22,7 +22,6 @@ progresses = Progress.create([
   {name: Progress.NO_RESPONSE},
   {name: Progress.ACCEPTED},
   {name: Progress.REJECTED},
-  {name: Progress.TRANSFER},
   {name: Progress.DRAFT_PENDING},
   {name: Progress.WITH_POD},
   {name: Progress.POD_QUERY},

@@ -90,9 +90,6 @@ class Pq < ActiveRecord::Base
   def self.rejected
     by_status(Progress.REJECTED)
   end
-  def self.transfer
-    by_status(Progress.TRANSFER)
-  end
   def self.draft_pending
     by_status(Progress.DRAFT_PENDING)
   end
