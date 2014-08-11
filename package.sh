@@ -1,4 +1,71 @@
+#!/bin/bash
 
+CONTAINERS=(assets rails)
+
+DEFAULT_DOCKERREPO="docker.local:5000"
+DEFAULT_DOCKERTAG="assets"
+
+DOCKERREPO="${DOCKERREPO:-$DEFAULT_DOCKERREPO}"
+DOCKERTAG="${DOCKERTAG:-$DEFAULT_DOCKERTAG}"
+
+
+tag()
+{
+	if [ -n "$2" ]; then
+  		TAG="${DOCKER_PREFIX}${DOCKERREPO}/$1:$2"
+	else
+		TAG="${DOCKER_PREFIX}${DOCKERREPO}/$1"
+	fi
+        echo $TAG
+}
+
+output()
+{
+	echo "$(tput setaf 1)$1$(tput sgr 0)"
+}
+
+docker_build() 
+{
+	TAG=$(tag $1 $2)
+	[ ! -d "docker" ] && output "Please run from git root" && exit 1
+
+        rm -f .dockerignore
+	[ -f "docker/$1/.dockerignore" ] && cp "docker/$1/.dockerignore" .
+	cp "docker/$1/Dockerfile" .
+        output "+ docker build -t ${TAG} --force-rm=true ."
+        echo "BEGIN SECTION build-details"
+	docker build -t ${TAG} --force-rm=true .
+        RETCODE=$?
+        echo "END SECTION"
+	return $RETCODE
+}
+
+docker_push()
+{
+	TAG=$(tag $1 $2)
+	# Skip push if build generates an error
+
+	output "+ docker push ${TAG}"
+        echo "BEGIN SECTION push-details"
+	docker push ${TAG}
+	RETCODE=$?
+        echo "END SECTION"
+	return $RETCODE
+}
+
+docker_rmi()
+{
+	TAG=$(tag $1 $2)
+	if [ -z "$DOCKER_NORMI" ]; then
+  		output "+ docker rmi ${TAG}"
+  		docker rmi ${TAG}
+	fi
+}
+
+
+###
+###
+###
 if [ -n "$1" ]; then 
   export APPVERSION=`echo "$1" | sed -e "s/.*release\///g"`
 else
@@ -15,6 +82,7 @@ Commit:   $GIT_COMMIT
 
 EOT
 
+
 # Generate a self contained bundle
 #cd build
 bundle --quiet \
@@ -27,13 +95,42 @@ bundle --quiet \
 
 bundle exec rake assets:precompile RAILS_ENV=production
 
-# Notify hipchat in Jenkins
+JENKINS_RETCODE=0
 
-export DOCKERTAG="${DOCKER_PREFIX}assets"
-echo "Building Assets Container ($APPVERSION)"
-./docker/assets/make.sh $APPVERSION
+# Build containers
+for i in  ${CONTAINERS[@]}; do
+  docker_build $i $APPVERSION
+  RETCODE=$?
+  if [ "$RETCODE" -ne 0 ]; then
+     JENKINS_RETCODE=$RETCODE
+     DOCKER_NOPUSH=true
+     output "Failed $i build with code $RETCODE - skipping further builds and disabling push"
+     break
+  fi
+done
 
-export DOCKERTAG="${DOCKER_PREFIX}rails"
-echo "Building Rails Container ($APPVERSION)"
-./docker/rails/make.sh $APPVERSION
+
+# Push containers only if all builds were successful and DOCKER_NOPUSH isn't specified
+if [ -z "$DOCKER_NOPUSH" ]; then
+	for i in  ${CONTAINERS[@]}; do
+		docker_push $i $APPVERSION
+  		if [ "$RETCODE" -ne 0 ]; then
+     			JENKINS_RETCODE=$RETCODE
+     			output "Failed $i push with code $RETCODE"
+		fi
+	done
+else
+	output "Not pushing images"
+fi
+
+if [ -z "$DOCKER_NORMI" ]; then
+	for i in  ${CONTAINERS[@]}; do
+		docker_rmi $i $APPVERSION
+		RETCODE=$?
+	done
+else
+	output "Not removing images"
+fi
+
+exit $JENKINS_RETCODE
 
