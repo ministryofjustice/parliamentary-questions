@@ -374,6 +374,6 @@ where ao.name = s."Action Officer"
 		and aop2.pq_id = p2.id
 		and aop2.action_officer_id = ao2.id);
 
-  update pqs set progress_id = 13;
+  update pqs set progress_id = (select id from progresses where name='Answered');
 
   
