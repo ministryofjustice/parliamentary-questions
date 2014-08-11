@@ -1,14 +1,24 @@
 <% question.action_officers_pq.rejected.each do |r|  %>
     <% if !r.action_officer.nil? %>
         <div class="row">
-            <div id="pq-reject-reasons-<%= question.id %>" class="info-notice col-md-12">
-                <p id="pq-reject-reasons-header-<%= question.id %>">
-                    <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
-                    rejected at: 
-                    <%= r.updated_at.strftime('%I:%M%p  |  %m/%d/%Y') %>
-                </p>
-                <p><%= r.reason %></p>
-            </div>
+          <!--<%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of PQ #{question.uin}" %>-->
+          <!-- rejected at <%= r.updated_at.strftime('%I:%M%p  |  %m/%d/%Y') %> -->
+          <!--<a data-toggle="collapse" data-target="#rejection-<%= r.id %>-<%= r.action_officer.id %>" class="btn btn-default btn-xs">-->
+            <!--Display Reason <span class="caret"></span>-->
+          <!--</a>-->
+          <!--<div id="rejection-<%= r.id %>-<%= r.action_officer.id %>" class="collapse">-->
+            <!--<p><%= r.reason_option %> : <%= r.reason %></p>-->
+          <!--</div>-->
+
+          <div id="pq-reject-reasons-<%= question.id %>" class="info-notice col-md-12">
+            <p id="pq-reject-reasons-header-<%= question.id %>">
+              <%= mail_to r.action_officer.email, r.action_officer.name, subject: "Rejection of #{question.uin}" %>
+              rejected at:
+              <%= r.updated_at.strftime('%I:%M%p  |  %m/%d/%Y') %>
+            </p>
+            <p><%= r.reason_option %> : <%= r.reason %></p>
+          </div>
+
         </div>
     <% end %>
 <% end %>
