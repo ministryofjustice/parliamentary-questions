@@ -1,28 +1,27 @@
 <%= form_for(@press_desk) do |f| %>
   <% if @press_desk.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-danger">
+    <!-- <div id="error_explanation"> -->
       <p><strong><%= pluralize(@press_desk.errors.count, "error") %> prohibited this press_desk from being saved:<strong></p>
-
       <ul>
-      <% @press_desk.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @press_desk.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+  <!-- <div class="field"> -->
+    <%= f.label :name %>
+    <%= f.text_field :name, {class: 'form-control'} %>
   </div>
   <div class="form-group">
     <div class="checkbox">
-      <label>
-        <%= f.check_box :deleted  %> Inactive
-      </label>
-      </div>
+      <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+    </div>
   </div>
-    <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <!-- <div class="actions"> -->
+    <%= f.submit 'Save', {class: 'button'} %>
   </div>
 <% end %>
