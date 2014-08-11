@@ -1,17 +1,34 @@
 namespace :db do
 
   desc 'Imports data from a specified file and performs sql form a separate file. Data (*.txt) files MUST BE tilde (~) delimited'
-  task :import_transform, [:datafile] => :environment do |t, args|
-    args.with_defaults(datafile: 'localhost:somewhere')
-    datafile =  args[:datafile]
-    puts "Loading file: #{datafile}"
+  task :import_transform, [:datafile, :debug_output] => :environment do |t, args|
 
+    args.with_defaults(datafile: 'localhost:somewhere', debug_output: true)
+    datafile =  args[:datafile]
+    debug_output = args[:debug_output]
     connection = ActiveRecord::Base.connection
     rc = connection.raw_connection
-    puts 'Pre-populate Progresses'
+    puts 'Ensure all tables are truncated'
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE tokens RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE directorates RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE watchlist_members RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE progresses RESTART IDENTITY;")
-    Progress.create([
-                        {name: Progress.UNASSIGNED},
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE ministers RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE divisions RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE deputy_directors RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE trim_links RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE minister_contacts RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE import_logs RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE actionlist_members RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE pqs RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers_pqs RESTART IDENTITY;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE ogds RESTART IDENTITY;")
+
+    puts 'Pre-populate Progresses'
+    Progress.create([   {name: Progress.UNASSIGNED},
                         {name: Progress.NO_RESPONSE},
                         {name: Progress.ACCEPTED},
                         {name: Progress.REJECTED},
@@ -27,17 +44,17 @@ namespace :db do
 
     # - IMPORTANT: SEED DATA ONLY
     # - Data (*.txt) files MUST BE tilde (~) delimited
-
+    puts "Loading file: #{datafile}" if debug_output
     #  sql = File.open(sqlfile, "r:UTF-8", &:read)
     sql = File.read("db/import/PQ_ETL_ISO.sql")
 
     statements = sql.split(/;$/)
 
     statements.pop  # the last empty statement
-
+    puts "Executing #{statements.size} statements" unless debug_output==true
     ActiveRecord::Base.transaction do
       statements.each do |statement|
-        puts "Running: #{statement}\n"
+        puts "Running: #{statement}\n" if debug_output==true
         rc.exec(statement)
 
         if statement =~ /STDIN/
@@ -47,7 +64,7 @@ namespace :db do
           end
           rc.put_copy_end
         end
-        puts ' '
+        puts ' ' if debug_output==true
       end
     end
     connection = ActiveRecord::Base.connection
