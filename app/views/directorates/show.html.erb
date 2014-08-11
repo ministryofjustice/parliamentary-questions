@@ -1,14 +1,15 @@
+<h2>Directorate details</h2>
+<hr />
 <p id="notice"><%= notice %></p>
-
+<p><strong>Name:</strong>&nbsp;<%= @directorate.name %></p>
 <p>
-  <strong>Name:</strong>
-  <%= @directorate.name %>
+	<% if @directorate.deleted %>
+		<i class="fa fa-times"></i>&nbsp;Inactive
+	<% else %>
+		<i class="fa fa-check-circle"></i>&nbsp;Active
+	<% end %>
 </p>
-<div>  <% if @directorate.deleted %>
-      <i class="fa fa-times"></i>Inactive
-  <% else %>
-      <i class="fa fa-check-circle"></i>Active
-  <% end %>
-</div>
+<!-- 
 <%= link_to 'Edit', edit_directorate_path(@directorate) %> |
 <%= link_to 'Back', directorates_path %>
+ -->

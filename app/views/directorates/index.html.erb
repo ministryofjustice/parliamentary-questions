@@ -1,31 +1,27 @@
-<h1>Listing directorates</h1>
-
+<h2>Listing directorates</h2>
+<hr />
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Active/Inactive</th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @directorates.each do |directorate| %>
       <tr>
         <td><%= link_to "#{directorate.name}", directorate_path(directorate) %></td>
-      <td><% if directorate.deleted %>
-            <i class="fa fa-times"></i>Inactive
+        <td>
+          <% if directorate.deleted %>
+            <i class="fa fa-times"></i>&nbsp;Inactive
           <% else %>
-            <i class="fa fa-check-circle"></i>Active
+            <i class="fa fa-check-circle"></i>&nbsp;Active
           <% end %>
-
+        </td>
         <td><%= link_to 'Edit', edit_directorate_path(directorate) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Directorate', new_directorate_path %>
+<%= link_to 'New Directorate', new_directorate_path, {class: 'button'} %>
