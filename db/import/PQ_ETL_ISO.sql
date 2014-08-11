@@ -252,6 +252,7 @@ insert into pqs(
   question,
   created_at,
   updated_at,
+  seen_by_finance,
   finance_interest,
   uin,
   member_name,
@@ -279,7 +280,7 @@ insert into pqs(
   answering_minister_query,
   answering_minister_to_action_officer,
   answering_minister_returned_by_action_officer,
-resubmitted_to_answering_minister,
+  resubmitted_to_answering_minister,
   policy_minister_to_action_officer,
   policy_minister_returned_by_action_officer,
   cleared_by_answering_minister,
@@ -299,6 +300,7 @@ resubmitted_to_answering_minister,
 s."Full question",
 now(),
 to_date(s."Date Answered by Parliamentary Branch",'DD/MM/YYYY'),
+true,
 CASE WHEN s."Requested by Finance?" like 'Y%' THEN TRUE ELSE FALSE END,
 s."Parliaments Identifying Number",
 s."Author",
@@ -308,12 +310,12 @@ to_timestamp(s."Date Due Back to Parliamentary Branch",'DD/MM/YYYY at HH24:MI'),
 CASE WHEN position('Name' IN s."Type of Question") > 0 THEN 'NamedDay' ELSE 'Ordinary' END,
 (SELECT id from ministers where name = s."Minister Responsible for signing off Question"),
 (SELECT id from ministers where name = s."Name of Policy Minister"),
-13,
+12,
 to_timestamp(s."Date Returned to Parliamentary Branch",'DD/MM/YYYY at HH24:MI'),
 to_timestamp(s."I Will Write - response estimated date",'DD/MM/YYYY at HH24:MI'),
 to_timestamp(s."Holding Reply - date follow up response sent",'DD/MM/YYYY at HH24:MI'),
 to_timestamp(s."POD Clearance",'DD/MM/YYYY at HH24:MI'),
-CASE WHEN s."Date Transferred" is null THEN FALSE ELSE TRUE END,
+CASE WHEN s."Date transferred to MoJ" is null THEN FALSE ELSE TRUE END,
 CASE WHEN s."Round Robin" = 'No' THEN FALSE ELSE TRUE END,
 to_timestamp(s."Date RR Circulated to Action Officer",'DD/MM/YYYY at HH24:MI'),
 CASE WHEN s."I Will Write - response estimated date" is null THEN FALSE ELSE TRUE END,
@@ -376,4 +378,6 @@ where ao.name = s."Action Officer"
 
   update pqs set progress_id = (select id from progresses where name='Answered');
 
-  
+  UPDATE pqs SET progress_id = (select id from progresses where name='Transferred out') WHERE transfer_out_ogd_id IS NOT NULL;
+
+
