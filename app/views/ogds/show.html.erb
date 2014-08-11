@@ -1,20 +1,14 @@
+<h2>Government Department Details</h2>
+<hr />
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @ogd.name %>
-</p>
-
-<p>
-  <strong>Acronym:</strong>
-  <%= @ogd.acronym %>
-</p>
-<div>
-  <% if @ogd.deleted %>
-      <i class="fa fa-times"></i>Inactive
-  <% else %>
-      <i class="fa fa-check-circle"></i>Active
-  <% end %>
-</div>
+<strong>Name:</strong>&nbsp;<%= @ogd.name %><br />
+<strong>Acronym:</strong>&nbsp;<%= @ogd.acronym %><br />
+<% if @ogd.deleted %>
+	<i class="fa fa-times"></i>&nbsp;Inactive<br />
+<% else %>
+	<i class="fa fa-check-circle"></i>&nbsp;Active<br />
+<% end %>
+<!-- 
 <%= link_to 'Edit', edit_ogd_path(@ogd) %> |
 <%= link_to 'Back', ogds_path %>
+ -->
