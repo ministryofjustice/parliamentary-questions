@@ -1,5 +1,6 @@
-<h1>Listing divisions</h1>
-
+<h2>Listing divisions</h2>
+<hr />
+<%= link_to raw('<i class="fa fa-plus"></i> Add new Division'), new_division_path, {class: 'btn btn-success'} %>
 <table class="table">
   <thead>
     <tr>
@@ -7,27 +8,22 @@
       <th>Directorate</th>
       <th>Active/Inactive</th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @divisions.each do |division| %>
       <tr>
         <td><%= link_to "#{division.name}", division_path(division) %></td>
         <td><%= division.directorate.name %></td>
-      <td><% if division.deleted %>
-            <i class="fa fa-times"></i>Inactive
+        <td>
+          <% if division.deleted %>
+            <i class="fa fa-times"></i>&nbsp;Inactive
           <% else %>
-            <i class="fa fa-check-circle"></i>Active
+            <i class="fa fa-check-circle"></i>&nbsp;Active
           <% end %>
-        <td><%= link_to 'Show', division %></td>
+        </td>
         <td><%= link_to 'Edit', edit_division_path(division) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Division', new_division_path %>

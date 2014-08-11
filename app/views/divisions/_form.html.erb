@@ -1,33 +1,32 @@
 <%= form_for(@division) do |f| %>
   <% if @division.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-danger">
+    <!-- <div id="error_explanation"> -->
       <p><strong><%= pluralize(@division.errors.count, "error") %> prohibited this division from being saved:</strong></p>
-
       <ul>
-      <% @division.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @division.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+  <!-- <div class="field"> -->
+    <%= f.label :name %>
+    <%= f.text_field :name, {class: 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :directorate_id %><br>
-   <%= f.collection_select(:directorate_id, @directorates, :id, :name, :include_blank => "Please select") %>
+  <div class="form-group">
+  <!-- <div class="field"> -->
+    <%= f.label :directorate_id %>
+    <%= f.collection_select(:directorate_id, @directorates, :id, :name, :include_blank => "Please select") %>
   </div>
   <div class="form-group">
     <div class="checkbox">
-      <label>
-        <%= f.check_box :deleted  %> Inactive
-
-      </label>
-      </div>
+      <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <!-- <div class="actions"> -->
+  <div class="form-group">
+    <%= f.submit 'Save', {class: 'button'} %>
   </div>
 <% end %>
