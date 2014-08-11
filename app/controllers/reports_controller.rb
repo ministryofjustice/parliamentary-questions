@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
       aos = pd.action_officers.collect{|it| it.id}
       # calculate the counters
       @p.each do |p|
-        @counters[pd.id][p.id] = PQ_by_press_desk(aos).where('progress_id = ?', p.id).count
+        @counters[pd.id][p.id] = PQ_by_press_desk(aos).where('progress_id = ?', p.id).distinct.count
       end
     end
   end
@@ -121,9 +121,8 @@ class ReportsController < ApplicationController
     if !minister_id.blank?
       @Pqs = @Pqs.where('minister_id = :m_id OR policy_minister_id = :m_id', m_id: minister_id)
     end
-
     if !aos.nil?
-      @Pqs = @Pqs.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
+      @Pqs = @Pqs.joins(:action_officers_pq).distinct.where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
     end
     if !progress_id.blank?
       @Pqs = @Pqs.where('progress_id = :p_id', p_id:progress_id)
