@@ -1,8 +1,7 @@
-
-<h2>User Data</h2>
-
-<ul>
-    <li>Name: <%= @user.name %></li>
-    <li>Email: <%= @user.email %></li>
-    <li>Role: <%= @user.roles %></li>
-</ul>
+<h2>User Details</h2>
+<hr />
+<p><strong>Name:</strong>&nbsp;<%= @user.name %></p>
+<p><strong>Email:</strong>&nbsp;<%= @user.email %></p>
+<p><strong>Role:</strong>&nbsp;<%= @user.roles %></p>
+<p><strong>Last active:</strong>&nbsp;<%= time_ago_in_words(@user.last_sign_in_at) unless @user.last_sign_in_at.nil? %></p>
+<p><strong>Invited by:</strong>&nbsp;<%= @user.invited_by_user %></p>
