@@ -8,6 +8,22 @@ namespace :db do
 
     connection = ActiveRecord::Base.connection
     rc = connection.raw_connection
+    puts 'Pre-populate Progresses'
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE progresses RESTART IDENTITY;")
+    Progress.create([
+                        {name: Progress.UNASSIGNED},
+                        {name: Progress.NO_RESPONSE},
+                        {name: Progress.ACCEPTED},
+                        {name: Progress.REJECTED},
+                        {name: Progress.DRAFT_PENDING},
+                        {name: Progress.WITH_POD},
+                        {name: Progress.POD_QUERY},
+                        {name: Progress.POD_CLEARED},
+                        {name: Progress.WITH_MINISTER},
+                        {name: Progress.MINISTERIAL_QUERY},
+                        {name: Progress.MINISTER_CLEARED},
+                        {name: Progress.ANSWERED},
+                        {name: Progress.TRANSFERRED_OUT}])
 
     # - IMPORTANT: SEED DATA ONLY
     # - Data (*.txt) files MUST BE tilde (~) delimited
@@ -34,7 +50,6 @@ namespace :db do
         puts ' '
       end
     end
-
     connection = ActiveRecord::Base.connection
 
     puts 'Done'
