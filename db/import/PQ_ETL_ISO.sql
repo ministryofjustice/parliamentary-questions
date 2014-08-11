@@ -246,6 +246,7 @@ insert into ogds(name, deleted)
   where "Transfer to MoJ from other Government Department"  is not null
   and not exists (select name from ogds where name = "Transfer to MoJ from other Government Department");
 
+UPDATE ogds SET Acronym=Name;
 
 insert into pqs(
   tabled_date,
