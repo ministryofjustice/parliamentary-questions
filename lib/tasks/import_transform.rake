@@ -6,8 +6,8 @@ namespace :db do
     args.with_defaults(datafile: 'localhost:somewhere', debug_output: true)
     datafile =  args[:datafile]
     debug_output = args[:debug_output]
-    connection = ActiveRecord::Base.connection
-    rc = connection.raw_connection
+
+    # - IMPORTANT: SEED DATA ONLY
     puts 'Ensure all tables are truncated'
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE tokens RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
@@ -42,7 +42,8 @@ namespace :db do
                         {name: Progress.ANSWERED},
                         {name: Progress.TRANSFERRED_OUT}])
 
-    # - IMPORTANT: SEED DATA ONLY
+    connection = ActiveRecord::Base.connection
+    rc = connection.raw_connection
     # - Data (*.txt) files MUST BE tilde (~) delimited
     puts "Loading file: #{datafile}" if debug_output
     #  sql = File.open(sqlfile, "r:UTF-8", &:read)
