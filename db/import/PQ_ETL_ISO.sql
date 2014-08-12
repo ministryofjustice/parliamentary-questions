@@ -202,6 +202,7 @@ and stageingid = (select max(stageingid)
 												   )
 where deputy_director_id is null;
 
+UPDATE action_officers SET name=replace(name, ' (Action Officer)','');
 
 update deputy_directors set division_id = ( select max (dv.id) from divisions dv, stageing s
 where s."Division of Action Officer" = dv.name
