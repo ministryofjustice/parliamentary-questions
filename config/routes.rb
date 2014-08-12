@@ -26,7 +26,7 @@ ParliamentaryQuestions::Application.routes.draw do
 
   resources :action_officers
 
-  devise_for :users
+  devise_for :users, :controllers => { :invitations => 'users/invitations' }
 
   resources :users
 

@@ -8,6 +8,10 @@
 			<%= f.text_field field %>
 		</div>
 	<% end -%>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
 	<div class="form-group">
 		<%= f.submit t("devise.invitations.new.submit_button"), {class: 'button'} %>
 	</div>
