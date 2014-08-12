@@ -26,9 +26,9 @@ ParliamentaryQuestions::Application.routes.draw do
 
   resources :action_officers
 
-  devise_for :users, :controllers => { :invitations => 'users/invitations' }
-
+  devise_for :users , :controllers => { :invitations => 'users/invitations' }
   resources :users
+
 
   resources :pqs  
   resources :trim_links
