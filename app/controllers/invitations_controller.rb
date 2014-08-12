@@ -1,4 +1,4 @@
-class User::InvitationsController < DeviseController
+class InvitationsController < Devise::InvitationsController
 
   prepend_before_filter :authenticate_inviter!, :only => [:new, :create]
   prepend_before_filter :has_invitations_left?, :only => [:create]
@@ -14,13 +14,12 @@ class User::InvitationsController < DeviseController
 
   # POST /resource/invitation
   def create
-
     self.resource = invite_resource
-    puts '----------------------'
-    puts params
-    puts '----------------------'
-
     if resource.errors.empty?
+      resource.name = params[:user][:name]
+      resource.roles = params[:user][:roles]
+      resource.is_active = true
+      resource.save
       yield resource if block_given?
       set_flash_message :notice, :send_instructions, :email => self.resource.email if self.resource.invitation_sent_at
       respond_with resource, :location => after_invite_path_for(resource)
@@ -87,11 +86,11 @@ class User::InvitationsController < DeviseController
   end
 
   def invite_params
-    devise_parameter_sanitizer.sanitize(:invite)
+    devise_parameter_sanitizer.sanitize(:invite).permit(:email, :name)
   end
 
   def update_resource_params
-    devise_parameter_sanitizer.sanitize(:accept_invitation)
+    devise_parameter_sanitizer.sanitize(:accept_invitation).permit(:email, :name)
   end
   
 end
