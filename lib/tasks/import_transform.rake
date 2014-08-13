@@ -7,6 +7,11 @@ namespace :db do
     datafile =  args[:datafile]
     debug_output = args[:debug_output]
 
+    if !File.file?(datafile)
+      abort( "Aborting import : #{datafile} could not be loaded, check the filename!")
+    end
+
+
     # - IMPORTANT: SEED DATA ONLY
     puts 'Ensure all tables are truncated'
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE tokens RESTART IDENTITY;")
