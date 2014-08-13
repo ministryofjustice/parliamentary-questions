@@ -150,7 +150,12 @@ class Progress < ActiveRecord::Base
         Progress.MINISTER_CLEARED
     ]
   end
-
+  def self.closed_questions
+    [
+        Progress.ANSWERED,
+        Progress.TRANSFERRED_OUT
+    ]
+  end
   def self.visible
     [new_questions, in_progress_questions].flatten
   end

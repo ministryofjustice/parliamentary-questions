@@ -1,4 +1,4 @@
-<% if !date_for_answer.nil? %>
+<% if !date_for_answer.nil? && !progress_val==Progress.closed_questions %>
     <% from_time = DateTime.now.change ({:offset => 0}) %>
     <% overdue = (from_time -  date_for_answer.to_datetime) > 0 %>
     <% if overdue %>
