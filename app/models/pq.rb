@@ -117,11 +117,11 @@ class Pq < ActiveRecord::Base
 
 
   def self.transferred
-    joins(:progress).where('pqs.transferred = true AND progresses.name != ?', Progress.ANSWERED)
+    joins(:progress).where('pqs.transferred = true AND progresses.name NOT IN (?)', Progress.closed_questions)
   end
 
   def self.i_will_write_flag
-    joins(:progress).where('pqs.i_will_write = true AND progresses.name != ?', Progress.ANSWERED)
+    joins(:progress).where('pqs.i_will_write = true AND progresses.name NOT IN (?)', Progress.closed_questions)
   end
 
 

@@ -6,8 +6,13 @@ namespace :db do
     args.with_defaults(datafile: 'localhost:somewhere', debug_output: true)
     datafile =  args[:datafile]
     debug_output = args[:debug_output]
-    connection = ActiveRecord::Base.connection
-    rc = connection.raw_connection
+
+    if !File.file?(datafile)
+      abort( "Aborting import : #{datafile} could not be loaded, check the filename!")
+    end
+
+
+    # - IMPORTANT: SEED DATA ONLY
     puts 'Ensure all tables are truncated'
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE tokens RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
@@ -42,7 +47,8 @@ namespace :db do
                         {name: Progress.ANSWERED},
                         {name: Progress.TRANSFERRED_OUT}])
 
-    # - IMPORTANT: SEED DATA ONLY
+    connection = ActiveRecord::Base.connection
+    rc = connection.raw_connection
     # - Data (*.txt) files MUST BE tilde (~) delimited
     puts "Loading file: #{datafile}" if debug_output
     #  sql = File.open(sqlfile, "r:UTF-8", &:read)
@@ -53,8 +59,11 @@ namespace :db do
     statements.pop  # the last empty statement
     puts "Executing #{statements.size} statements" unless debug_output==true
     ActiveRecord::Base.transaction do
-      statements.each do |statement|
+        count=0
+        statements.each do |statement|
+        count+=1
         puts "Running: #{statement}\n" if debug_output==true
+        puts "Running statement: #{count}" unless debug_output==true
         rc.exec(statement)
 
         if statement =~ /STDIN/

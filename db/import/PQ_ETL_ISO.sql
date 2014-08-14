@@ -10,6 +10,7 @@ CREATE TABLE stageing
   "Creator" text,
   "Action Officer" text,
   "Title (Free Text Part)" text,
+  "(If appl - PS Respon) Date resubmitted to Minister" text,
   "Date Accepted by Action Officer" text,
   "Date Answered by Parliamentary Branch" text,
   "Date Correction Circulated to Action Officer" text,
@@ -69,13 +70,6 @@ CREATE TABLE stageing
   "Transfer to Other Government Department" text,
   "Type of Question" text,
   "Action Officer-Internet E-Mail Address" text,
-  "PQ Correction Received?" text,
-  "Requested by Press" text,
-  bob1 text,
-  bob2 text,
-  bob3 text,
-  bob4 text,
-  bob5 text,
   CONSTRAINT stageing_pkey PRIMARY KEY (stageingid)
 )
 WITH (
@@ -89,6 +83,7 @@ copy stageing
   "Creator",
   "Action Officer",
   "Title (Free Text Part)",
+  "(If appl - PS Respon) Date resubmitted to Minister",
   "Date Accepted by Action Officer",
   "Date Answered by Parliamentary Branch",
   "Date Correction Circulated to Action Officer",
@@ -147,11 +142,7 @@ copy stageing
   "Transfer to MoJ from other Government Department",
   "Transfer to Other Government Department",
   "Type of Question",
-  "Action Officer-Internet E-Mail Address",
-  "PQ Correction Received?",
-  "bob1",
-  "bob2",
-  "Requested by Press"
+  "Action Officer-Internet E-Mail Address"
 )
 from STDIN CSV DELIMITER '~' HEADER encoding 'windows-1251';
 
@@ -320,7 +311,7 @@ CASE WHEN s."Date transferred to MoJ" is null THEN FALSE ELSE TRUE END,
 CASE WHEN s."Round Robin" = 'No' THEN FALSE ELSE TRUE END,
 to_timestamp(s."Date RR Circulated to Action Officer",'DD/MM/YYYY at HH24:MI'),
 CASE WHEN s."I Will Write - response estimated date" is null THEN FALSE ELSE TRUE END,
-CASE WHEN s."PQ Correction Received?" = 'No' THEN FALSE ELSE TRUE END,
+CASE WHEN s."PQ Correction Received" = 'No' THEN FALSE ELSE TRUE END,
 to_timestamp(s."Date Correction Circulated to Action Officer",'DD/MM/YYYY at HH24:MI'),
 CASE WHEN s."POD Query?" like 'Y%' THEN TRUE ELSE FALSE END,
 to_timestamp(s."Date Sent to Policy Minister",'DD/MM/YYYY at HH24:MI'),
@@ -328,7 +319,7 @@ to_timestamp(s."Date Returned",'DD/MM/YYYY at HH24:MI'),
 to_timestamp(s."Date Sent to Minister",'DD/MM/YYYY at HH24:MI'),
 CASE WHEN s."Ministerial Query? (if applicable)" like 'Y%' THEN TRUE ELSE FALSE END,
 to_timestamp(s."Date sent back to AO (if applicable)",'DD/MM/YYYY at HH24:MI'),
- to_timestamp(s."Date returned by AO (if applicable)",'DD/MM/YYYY at HH24:MI'),
+to_timestamp(s."Date returned by AO (if applicable)",'DD/MM/YYYY at HH24:MI'),
 to_timestamp(s."Date resubmitted to Minister (if appl - PS Respon)",'DD/MM/YYYY at HH24:MI'),
 to_timestamp(s."If applicable Date sent back to AO",'DD/MM/YYYY at HH24:MI'),
 to_timestamp(s."If applicable Date returned by AO",'DD/MM/YYYY at HH24:MI'),
@@ -376,6 +367,8 @@ where ao.name = s."Action Officer"
 		and p2.uin= s."Parliaments Identifying Number"
 		and aop2.pq_id = p2.id
 		and aop2.action_officer_id = ao2.id);
+
+  UPDATE action_officers SET name=replace(name, ' (Action Officer)','');
 
   update pqs set progress_id = (select id from progresses where name='Answered');
 
