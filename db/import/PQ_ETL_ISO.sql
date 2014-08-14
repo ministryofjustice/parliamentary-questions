@@ -368,6 +368,8 @@ where ao.name = s."Action Officer"
 		and aop2.pq_id = p2.id
 		and aop2.action_officer_id = ao2.id);
 
+  UPDATE action_officers SET name=replace(name, ' (Action Officer)','');
+
   update pqs set progress_id = (select id from progresses where name='Answered');
 
   UPDATE pqs SET progress_id = (select id from progresses where name='Transferred out') WHERE transfer_out_ogd_id IS NOT NULL;
