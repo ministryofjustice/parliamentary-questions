@@ -1,17 +1,18 @@
 <h2>Deputy Director details</h2>
-<hr />
-<p id="notice"><%= notice %></p>
-<p><strong>Name:</strong>&nbsp;<%= @deputy_director.name %></p>
-<p><strong>Email:</strong>&nbsp;<%= @deputy_director.email %></p>
-<p><strong>Division:</strong>&nbsp;<%= @deputy_director.division.name %></p>
-<p>  
-  <% if @deputy_director.deleted %>
-      <i class="fa fa-times"></i>&nbsp;Inactive
-  <% else %>
+<div id="admin-deputy-details">
+	<p id="notice"><%= notice %>
+	<h4>Name</h4>
+	<%= @deputy_director.name %>
+	<h4>Email</h4>
+	<%= @deputy_director.email %>
+	<h4>Division</h4>
+	<%= @deputy_director.division.name %>
+	<h4>Status</h4>
+	<% if @deputy_director.deleted %>
+		<i class="fa fa-times"></i>&nbsp;Inactive
+  	<% else %>
       <i class="fa fa-check-circle"></i>&nbsp;Active
-  <% end %>
-</p>
-<!-- 
-<%= link_to 'Edit', edit_deputy_director_path(@deputy_director) %> |
-<%= link_to 'Back', deputy_directors_path %>
- -->
+  	<% end %>
+	<%= link_to 'Edit', edit_deputy_director_path(@deputy_director), {class: 'admin-link'} %>
+	<%= link_to 'Return to Deputy Directors', deputy_directors_path, {class: 'admin-link'} %>
+</div>

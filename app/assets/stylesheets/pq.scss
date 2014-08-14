@@ -87,8 +87,12 @@ h2
 h3
 {font-size:18px;font-weight:bold;}
 
-h2,
-.pq-header h3
+h4
+{color:#6f777b;}
+
+/*h2,*/
+.pq-header h3,
+#pq-details-title h2
 {display:inline;}
 
 h2 .badge
@@ -129,10 +133,25 @@ select,
 {margin-bottom:15px;}
 
 .table
-{margin-top:15px;}
+{clear:both;}
 
 textarea
 {resize:none;}
+
+.btn-primary
+{margin:7.5px 0px;background-color:#00823b;border-style:solid;border-color:#00823b #00823b #003518 #00823b;border-width:1px 1xp 2px 1px;border-radius:0px;}
+
+a.btn-primary
+{color:#fff;}
+
+.btn-secondary
+{margin:7.5px 0px;background-color:#dee0e2;border-style:solid;border-color:#dee0e2 #dee0e2 #b5babe #dee0e2;border-width:1px 1xp 2px 1px;border-radius:0px;}
+
+a.btn-secondary
+{color:#000;}
+
+.admin-link
+{display:block;margin:7.5px 0px;}
 
 /* = Sign in ==================================================================== */
 
@@ -318,17 +337,34 @@ input[type="file"]
 
 /* = Administration ============================================================= */
 
+#settings-home h3
+{border-bottom:2px solid #dee0e2;padding-bottom:7.5px;}
+
 #admin_task_list
 {padding:0px 15px;}
 
 #admin_task_list li
 {list-style:none;}
 
+/*
+#button-bar
+{display:block;width:100%;line-height:32px;margin-top:30px;border:1px solid #000;}
+
+#button-bar a
+{float:right;}
+*/
+
 .form-control, .form-group select 
 {border-style:solid;border-radius:0px;width:auto;}
 
 .form-control:focus, .form-group select:focus
 {border-width:3px;box-shadow:none;}
+
+.info-notice h3
+{margin-left:15px;}
+
+.info-notice li
+{list-style:none;}
 
 /* = Create a transfer ========================================================== */
 
@@ -343,5 +379,5 @@ input[type="file"]
 /* = Footer ====================================================================== */
 
 #footer
-{margin-top:15px;}
+{margin-top:100px;}
 

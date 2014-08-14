@@ -1,21 +1,20 @@
 <h2>Press Desk details</h2>
-<hr />
-<p id="notice"><%= notice %></p>
-<p><strong>Name:</strong>&nbsp;<%= @press_desk.name %></p>
-<p>  
-  <% if @press_desk.deleted %>
-    <i class="fa fa-times"></i>&nbsp;Inactive
-  <% else %>
-    <i class="fa fa-check-circle"></i>&nbsp;Active
-  <% end %>
-</p>
-<h3>Press officers</h3>
-<ul>
-  <% @press_desk.press_officers.each do |po|  %>
-    <li><%= link_to(po.name, { controller: 'press_officers', action: 'show', id: po.id } ) %></li>
+<div id="admin-pd-details">
+	<p id="notice"><%= notice %></p>
+	<h4>Name</h4>
+	<%= @press_desk.name %></p>
+	<h4>Status</h4>
+	<% if @press_desk.deleted %>
+		<i class="fa fa-times"></i>&nbsp;Inactive
+	<% else %>
+		<i class="fa fa-check-circle"></i>&nbsp;Active
 	<% end %>
-</ul>
-<!-- 
-<%= link_to 'Edit', edit_press_desk_path(@press_desk) %> |
-<%= link_to 'Back', press_desks_path %>
- -->
+	<h3>Press officers</h3>
+	<ul>
+  	<% @press_desk.press_officers.each do |po|  %>
+    	<li><%= link_to(po.name, { controller: 'press_officers', action: 'show', id: po.id } ) %></li>
+	<% end %>
+	</ul>
+	<%= link_to 'Edit', edit_press_desk_path(@press_desk), {class: 'admin-link'} %>
+	<%= link_to 'Return to Press Desks', press_desks_path, {class: 'admin-link'} %>
+</div>

@@ -1,15 +1,16 @@
 <h2>Actionlist member details</h2>
-<hr />
-<p id="notice"><%= notice %></p>
-<p><strong>Name:</strong>&nbsp;<%= @actionlist_member.name %></p>
-<p><strong>Email:</strong>&nbsp;<%= @actionlist_member.email %></p>
-<p>
+<div id="admin-al-details">
+	<p id="notice"><%= notice %></p>
+	<h4>Name</h4>
+	<%= @actionlist_member.name %>
+	<h4>Email</h4>
+	<%= @actionlist_member.email %>
+	<h4>Status</h4>
 	<% if @actionlist_member.deleted %>
 		<i class="fa fa-times"></i>&nbsp;Inactive
 	<% else %>
 		<i class="fa fa-check-circle"></i>&nbsp;Active
 	<% end %>
-</p>
-<!--
-<%= link_to 'Edit', edit_actionlist_member_path(@actionlist_member), {class: 'btn btn-info'} %>
- -->
+	<%= link_to 'Edit', edit_actionlist_member_path(@actionlist_member), {class: 'admin-link'} %>
+	<%= link_to 'Return to Actionlist members', actionlist_members_path, {class: 'admin-link'} %>
+</div>

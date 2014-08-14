@@ -1,14 +1,11 @@
 <h2><%= t "devise.invitations.new.header" %></h2>
-<hr />
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
 	<%= devise_error_messages! %>
 	<% resource.class.invite_key_fields.each do |field| -%>
 		<div class="form-group">
 			<%= f.label field %>
-			<%= f.text_field field %>
+			<%= f.text_field field, {class: 'form-control'} %>
 		</div>
 	<% end -%>
-	<div class="form-group">
-		<%= f.submit t("devise.invitations.new.submit_button"), {class: 'button'} %>
-	</div>
+	<%= f.submit t("devise.invitations.new.submit_button"), {class: 'btn btn-primary'} %>
 <% end %>

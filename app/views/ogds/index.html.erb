@@ -1,29 +1,34 @@
-<h2>Listing other Government Departments</h2>
-<hr />
-<%= link_to raw('<i class="fa fa-plus"></i> Add Government Department'), new_ogd_path, {class: 'btn btn-success'} %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Acronym</th>
-      <th>Active/inactive</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @ogds.each do |ogd| %>
+<h2>Other Government Departments</h2>
+<div id="admin-ministers-list">
+  <div class="row>">
+    <div class="col-md-2.5 pull-right">
+      <%= link_to ('Add Government Department'), new_ogd_path, {class: 'btn btn-secondary'} %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to "#{ogd.name}", ogd_path(ogd) %></td>
-        <td><%= ogd.acronym %></td>
-        <td>
-          <% if ogd.deleted %>
-              <i class="fa fa-times"></i>&nbsp;Inactive
-          <% else %>
-              <i class="fa fa-check-circle"></i>&nbsp;Active
-          <% end %>
-        </td>
-        <td><%= link_to 'Edit', edit_ogd_path(ogd) %></td>
+        <th>Name</th>
+        <th>Acronym</th>
+        <th>Status</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @ogds.each do |ogd| %>
+        <tr>
+          <td><%= link_to "#{ogd.name}", ogd_path(ogd) %></td>
+          <td><%= ogd.acronym %></td>
+          <td>
+            <% if ogd.deleted %>
+              <i class="fa fa-times"></i>&nbsp;Inactive
+            <% else %>
+              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_ogd_path(ogd) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

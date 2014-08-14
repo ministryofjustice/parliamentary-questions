@@ -1,33 +1,37 @@
 <%= render partial: "shared/flash_messages", flash: flash %>
-<h2>Listing Watchlist members</h2>
-<hr />
-<%= link_to raw('<i class="fa fa-plus"></i> Add watchlist member'), new_watchlist_member_path, {class: 'btn btn-success'} %>
-<%= link_to raw('Watchlist Preview'), {controller: 'watchlist_dashboard', action: 'preview'}, {class: 'btn btn-success'} %>
-<%= link_to raw('<i class="fa fa-envelope"></i> Send allocation info'), {controller: 'watchlist_send_emails', action: 'send_emails'}, {class: 'btn btn-success'} %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Active/Inactive</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <% @watchlist_members.each do |watchlist_member| %>
-    <tbody>
+<h2>Watchlist members</h2>
+<div id="admin-wm-list">
+  <div class="row>">
+    <div class="col-md-6.5 pull-right">
+      <%= link_to ('Send allocation info'), {controller: 'watchlist_send_emails', action: 'send_emails'}, {class: 'btn btn-primary'} %>&nbsp;
+      <%= link_to ('Add watchlist member'), new_watchlist_member_path, {class: 'btn btn-secondary'} %>&nbsp;
+      <%= link_to ('Watchlist Preview'), {controller: 'watchlist_dashboard', action: 'preview'}, {class: 'btn btn-secondary'} %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to "#{watchlist_member.name}", watchlist_member_path(watchlist_member) %></td>
-        <td><%= watchlist_member.email %></td>
-        <td>
-          <% if watchlist_member.deleted %>
-            <i class="fa fa-times"></i> Inactive
-          <% else %>
-            <i class="fa fa-check-circle"></i> Active
-          <% end %>
-        </td>
-        <td><%= link_to 'Edit', edit_watchlist_member_path(watchlist_member) %></td>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th></th>
       </tr>
-    </tbody>
-  <% end %>
-</table>
+    </thead>
+    <% @watchlist_members.each do |watchlist_member| %>
+      <tbody>
+        <tr>
+          <td><%= link_to "#{watchlist_member.name}", watchlist_member_path(watchlist_member) %></td>
+          <td><%= watchlist_member.email %></td>
+          <td>
+            <% if watchlist_member.deleted %>
+              <i class="fa fa-times"></i>&nbsp;Inactive
+            <% else %>
+              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_watchlist_member_path(watchlist_member) %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>

@@ -1,27 +1,23 @@
-<%= form_for(@press_desk) do |f| %>
-  <% if @press_desk.errors.any? %>
-    <div class="alert alert-danger">
-    <!-- <div id="error_explanation"> -->
-      <p><strong><%= pluralize(@press_desk.errors.count, "error") %> prohibited this press_desk from being saved:<strong></p>
-      <ul>
-        <% @press_desk.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div id="admin-pd-form">
+  <%= form_for(@press_desk) do |f| %>
+    <% if @press_desk.errors.any? %>
+      <div class="info-notice">
+        <h3><%= pluralize(@press_desk.errors.count, "error") %> prohibited this press_desk from being saved:<h3>
+        <ul>
+          <% @press_desk.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, {class: 'form-control'} %>
+      <p>
+        Status:
+        <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+      </p>
+      <%= f.submit 'Save', {class: 'btn btn-primary'} %>
     </div>
   <% end %>
-  <div class="form-group">
-  <!-- <div class="field"> -->
-    <%= f.label :name %>
-    <%= f.text_field :name, {class: 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <div class="checkbox">
-      <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
-    </div>
-  </div>
-  <div class="form-group">
-    <!-- <div class="actions"> -->
-    <%= f.submit 'Save', {class: 'button'} %>
-  </div>
-<% end %>
+</div>

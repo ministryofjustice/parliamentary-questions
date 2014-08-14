@@ -1,53 +1,33 @@
-<%= form_for @action_officer do |f| %>
-  <% if @action_officer.errors.any? %>
-    <div class="alert  alert-danger">
-      <p><strong><%= "#{pluralize(@action_officer.errors.count, "error")} prohibited this Action Officer from being saved:" %></strong></p>
-      <ul>
-        <% @action_officer.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div id="admin-ao-form">
+  <%= form_for @action_officer do |f| %>
+    <% if @action_officer.errors.any? %>
+      <div class="info-notice">
+        <h3><%= pluralize(@action_officer.errors.count, "error") %> prohibited this Action Officer from being saved:</h3>
+        <ul>
+          <% @action_officer.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, {class: 'form-control'} %>
+      <%= f.label :email %>
+      <%= f.text_field :email , {class: 'form-control'} %>
+      <%= f.label :group_email %>
+      <%= f.text_field :group_email , {class: 'form-control'} %>
+      <%= f.label :phone %>
+      <%= f.text_field :phone , {class: 'form-control'} %>
+      <%= f.label :deputy_director_id %>
+      <%= f.collection_select(:deputy_director_id, @deputy_directors, :id, :name, :include_blank => "Please select") %>
+      <%= f.label :press_desk_id %>
+      <%= f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select") %>
+      <p>
+        Status:
+        <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+      </p>
+      <%= f.submit 'Save', {class: 'btn btn-primary'} %>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, {class: 'form-control'} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.text_field :email , {class: 'form-control'} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :group_email %>
-    <%= f.text_field :group_email , {class: 'form-control'} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :phone %>
-    <%= f.text_field :phone , {class: 'form-control'} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :deputy_director_id %>
-    <%= f.collection_select(:deputy_director_id, @deputy_directors, :id, :name, :include_blank => "Please select") %>
-  </div>      
-
-  <div class="form-group">
-    <%= f.label :press_desk_id %>
-    <%= f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select") %>
-  </div>
-
-  <div class="form-group">
-    <div class="checkbox">
-      <label><%= f.check_box :deleted  %> Inactive</label>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit 'Save' , {class: 'button'} %>
-  </div>
-
-<% end %>
+</div>

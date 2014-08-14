@@ -1,22 +1,26 @@
 <h2>Action Officer details</h2>
-<hr />
-<p class="notice"><%= notice %></p>
-<p><strong>Name:</strong>&nbsp;<%= @action_officer.name_with_div %></p>
-<p><strong>Email:</strong>&nbsp;<%= @action_officer.email %></p>
-<p><strong>Group email:</strong>&nbsp;<%= @action_officer.group_email %></p>
-<p><strong>Phone:</strong>&nbsp;<%= @action_officer.phone %></p>
-<p><strong>Deputy director:</strong>&nbsp;<%= @action_officer.deputy_director.name %></p>
-<p><strong>Division:</strong>&nbsp;<%= @action_officer.deputy_director.division.name %></p>
-<p><strong>Press desk:</strong>&nbsp;<%= @action_officer.press_desk.name %></p>
-<p>
+<div id="admin-ao-details">
+	<p id="notice"><%= notice %></p>
+	<h4>Name</h4>
+	<%= @action_officer.name_with_div %>
+	<h4>Email</h4>
+	<%= @action_officer.email %>
+	<h4>Group email</h4>
+	<%= @action_officer.group_email %>
+	<h4>Phone</h4>
+	<%= @action_officer.phone %>
+	<h4>Deputy director</h4>
+	<%= @action_officer.deputy_director.name %>
+	<h4>Division</h4>
+	<%= @action_officer.deputy_director.division.name %>
+	<h4>Press desk</h4>
+	<%= @action_officer.press_desk.name %>
+	<h4>Status</h4>
 	<% if @action_officer.deleted %>
 		<i class="fa fa-times"></i>&nbsp;Inactive
 	<% else %>
-  		<i class="fa fa-check-circle"></i>&nbsp;Active
+		<i class="fa fa-check-circle"></i>&nbsp;Active
 	<% end %>
-</p>
-
-<!-- 
-<%= link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'button'}  %>
-<%= link_to 'Back', action_officers_path , {class: 'button'}  %>
--->
+	<%= link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'admin-link'} %>
+	<%= link_to 'Return to Action Officer list', action_officers_path, {class: 'admin-link'} %>
+</div>

@@ -1,29 +1,33 @@
 <%= render partial: "shared/flash_messages", flash: flash %>
-<h2>Listing Actionlist members</h2>
-<hr />
-<%= link_to raw('<i class="fa fa-plus"></i> Add Actionlist member'), new_actionlist_member_path, {class: 'btn btn-success'} %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Active/Inactive</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <% @actionlist_members.each do |actionlist_member| %>
-    <tbody>
-    <tr>
-        <td><%= link_to "#{actionlist_member.name}", actionlist_member_path(actionlist_member) %></td>
-        <td>
-          <% if actionlist_member.deleted %>
-            <i class="fa fa-times"></i> Inactive
-          <% else %>
-            <i class="fa fa-check-circle"></i> Active
-          <% end %>
-        </td>
-        <td><%= link_to 'Edit', edit_actionlist_member_path(actionlist_member) %></td>
+<h2>Actionlist members</h2>
+<div id="admin-al-list">
+  <div class="row>">
+    <div class="col-md-2.5 pull-right">
+      <%= link_to ('Add Actionlist member'), new_actionlist_member_path, {class: 'btn btn-secondary'} %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th></th>
       </tr>
-    </tbody>
-  <% end %>
-</table>
+    </thead>
+    <% @actionlist_members.each do |actionlist_member| %>
+      <tbody>
+        <tr>
+          <td><%= link_to "#{actionlist_member.name}", actionlist_member_path(actionlist_member) %></td>
+          <td>
+            <% if actionlist_member.deleted %>
+              <i class="fa fa-times"></i>&nbsp;Inactive
+            <% else %>
+              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_actionlist_member_path(actionlist_member) %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>

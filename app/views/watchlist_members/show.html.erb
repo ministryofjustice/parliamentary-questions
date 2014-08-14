@@ -1,16 +1,16 @@
 <h2>Watchlist member details</h2>
-<hr />
-<p id="notice"><%= notice %></p>
-<p><strong>Name:</strong>&nbsp;<%= @watchlist_member.name %></p>
-<p><strong>Email:</strong>&nbsp;<%= @watchlist_member.email %></p>
-<p>
+<div id="admin-wl-details">
+	<p id="notice"><%= notice %></p>
+	<h4>Name</h4>
+	<%= @watchlist_member.name %>
+	<h4>Email</h4>
+	<%= @watchlist_member.email %>
+	<h4>Status</h4>
 	<% if @watchlist_member.deleted %>
 		<i class="fa fa-times"></i>&nbsp;Inactive
 	<% else %>
-    	<i class="fa fa-check-circle"></i>&nbsp;Active
+   		<i class="fa fa-check-circle"></i>&nbsp;Active
 	<% end %>
-</p>
-<!-- 
-<%= link_to 'Edit', edit_watchlist_member_path(@watchlist_member), {class: 'btn btn-info', style: 'color:#ffffff;' } %>
-<%= link_to 'Back to watchlist', watchlist_members_path, {class: 'btn btn-warning', style: 'color:#ffffff;' } %>
- -->
+	<%= link_to 'Edit', edit_watchlist_member_path(@watchlist_member), {class: 'admin-link'} %>
+	<%= link_to 'Return to Watchlist members', watchlist_members_path, {class: 'admin-link'} %>
+</div>
