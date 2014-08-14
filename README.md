@@ -56,9 +56,11 @@ rake "user:create[admin@admin.com, 123456789, admin]"
 
 # Data migration
 
-Run the rake task
+The import_transform task takes two parameters:
+* the path to the file you want to import
+* optional boolean parameter to show the full script of the sql commands being run [default is true]
 ```
 # path to local import text file.
 # the file should be tilde(~) delimited, not tab
-rake db:import_transform['/users/yourname/path/to/filename.txt'] --trace
+rake db:import_transform['/users/yourname/path/to/filename.txt', false] --trace
 ```
