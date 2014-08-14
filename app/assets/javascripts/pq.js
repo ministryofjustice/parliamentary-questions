@@ -55,12 +55,12 @@ $(document).ready(function () {
         $( divToFill ).html(data);
     });
 
-    $('.internal-dtp').datetimepicker().on('change', function(e) {
+    $('.internal-dtp').datetimepicker().on('change', function() {
         $(this).siblings('input[type="submit"]').val("Update").show();
     });
 
     $('.internal-deadline-form')
-        .on("ajax:success", function(e, data, status, xhr){
+        .on("ajax:success", function(){
             var pqid = $(this).data('pqid');
             //get the div to refresh
             var divToUpdate = "btn-set-deadline-" + pqid;
