@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_filter :configure_permitted_parameters, if: :devise_controller?
 
   # Set the host/port that ActionMailer uses to generate urls to the 'Host'
   # header from the request. AKA what should be a sane default. Stupid Rails.
@@ -42,6 +43,12 @@ class ApplicationController < ActionController::Base
       format.html { render file: 'public/500.html', status: 500 }
       format.all  { render nothing: true, status: 500}
     end
+  end
+  protected
+
+  def configure_permitted_parameters
+    # Only add some parameters
+    devise_parameter_sanitizer.for(:invite).concat [:name, :roles]
   end
 
 end
