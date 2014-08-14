@@ -18,7 +18,7 @@ $(document).ready(function () {
 	});
 
 	$(".form-commission")
-	.on("ajax:success", function(e, data, status, xhr){
+	.on("ajax:success", function(e, data){
 		var pqid = $(this).data('pqid');
         var uin = $('#pq-frame-'+pqid+ ' h3').text();
         //it worked!
@@ -29,7 +29,7 @@ $(document).ready(function () {
         //decrement Unallocated
         decrementBadge('#db-filter-unalloc');
 
-	}).on("ajax:error", function(e, xhr, status, error) {
+	}).on("ajax:error", function(e, xhr) {
 		alert(xhr.responseText);
 	});
 
@@ -37,7 +37,7 @@ $(document).ready(function () {
         $(this).data('params', { name: $("#minister_name").val() });
     });
 
-    $('#search_member').bind('ajax:success', function(e, data, status, xhr){
+    $('#search_member').bind('ajax:success', function(e, data){
         $( "#members_result" ).replaceWith(data);
         $("#members_result_select").select2({width:'250px'});
         $('#members_result_select_link').bind('ajax:before', function() {
@@ -49,7 +49,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.answer-pq-link').on('ajax:success', function(e, data, status, xhr){
+    $('.answer-pq-link').on('ajax:success', function(e, data){
         var pq_id = $(this).data('id');
         var divToFill = "#answer-pq-" + pq_id;
         $( divToFill ).html(data);
@@ -72,7 +72,7 @@ $(document).ready(function () {
             //TODO how should ux handle error? Add it to the list, alert, flash, etc...
         });
 
-    $('.ao-reminder-link').on('ajax:success', function(e, data, status, xhr){
+    $('.ao-reminder-link').on('ajax:success', function(e, data){
         $(this).after(data);
     });
 
@@ -98,7 +98,7 @@ $(document).ready(function () {
         .on('click', '.file-choose-replace', function () {
             $(this).next('.file-chooser').click();
         })
-        .on('ajax:success', '.form-add-trim-link', function(e, data, status, xhr) {
+        .on('ajax:success', '.form-add-trim-link', function(e, data) {
             console.log('ajax:success');
             //get the pq_id
             var pqid = $(this).data('pqid');
@@ -108,7 +108,7 @@ $(document).ready(function () {
             //put the data returned into the div
             $divToFill.html(data);
         })
-        .on('ajax:error', '.form-add-trim-link', function(e, xhr, status, error) {
+        .on('ajax:error', '.form-add-trim-link', function(e, xhr) {
             console.log('ajax:fail');
             //get the pq_id
             var pqid = $(this).data('pqid');
