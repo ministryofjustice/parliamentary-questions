@@ -8,13 +8,13 @@
 <% if !question.date_for_answer.nil?  %>
   <p>
     Date For Answer:<br />
-    <%= question.date_for_answer.strftime('%d/%m/%Y') %><%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer} %>
+    <%= question.date_for_answer.strftime('%d/%m/%Y') %><%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %>
   </p>
 <% end %>
 
 <% if @dashboard_state == 'New'%>
   <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
-    <label for='datetimepicker-<%= question.id %>'> Internal deadline: <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %></label>
+    <label for='datetimepicker-<%= question.id %>'> Internal deadline: <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %></label>
     <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
       <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -26,7 +26,7 @@
   <% if !question.internal_deadline.nil?  %>
     <p>
 
-      Internal deadline:<%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline} %><br />
+      Internal deadline:<%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %><br />
       <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
     </p>
   <% end %>
