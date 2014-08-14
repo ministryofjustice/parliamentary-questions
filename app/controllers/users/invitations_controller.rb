@@ -20,15 +20,12 @@ class Users::InvitationsController < Devise::InvitationsController
   # this is called when accepting invitation
   # should return an instance of resource class
   def accept_resource
-    puts '======================================================='
-    puts ' My acceptance, talking ''bout... MY Acceptance!'
-    puts '======================================================='
-    puts update_resource_params
-    puts '======================================================='
     resource = resource_class.accept_invitation!(update_resource_params)
     resource
   end
-
+  def invite_params
+    params.require(:user).permit(:name, :email, :roles)
+  end
   def update_resource_params
     params.require(:user).permit(:password, :password_confirmation, :name, :email, :roles, :invitation_token)
   end
