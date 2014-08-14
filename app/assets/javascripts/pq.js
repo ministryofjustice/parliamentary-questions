@@ -41,8 +41,8 @@ $(document).ready(function () {
         $( "#members_result" ).replaceWith(data);
         $("#members_result_select").select2({width:'250px'});
         $('#members_result_select_link').bind('ajax:before', function() {
-            m_id = $("#members_result_select").val();
-            m_name = $("#members_result_select option:selected").data('name');
+            var m_id = $("#members_result_select").val();
+            var m_name = $("#members_result_select option:selected").data('name');
             $("#minister_member_id").val(m_id);
             $("#minister_name").val(m_name);
             return false;
@@ -83,7 +83,7 @@ $(document).ready(function () {
         })
         .on('click', '.trim-links-cancel', function (e) {
             e.stopPropagation();
-            var $par = $(this).parent('.trim-links-form').first().hide();
+            $(this).parent('.trim-links-form').first().hide();
         })
         .on('change', '.file-chooser', function () {
             var fileName = $(this).val();
@@ -135,23 +135,23 @@ $(document).ready(function () {
 
     /* PQ Details Page - Set intial opened tab */
     var pqStage = $("#pq_progress_id option:selected").val();
-    if(pqStage == 2 || pqStage == 4) {
+    if(pqStage === 2 || pqStage === 4) {
         $("#progress-menu-com").addClass("activeTab");
         $("#progress-menu-com-data").removeClass("start-hidden");
     }
-    else if (pqStage == 3 || pqStage == 6) {
+    else if (pqStage === 3 || pqStage === 6) {
         $("#progress-menu-sub").addClass("activeTab");
         $("#progress-menu-sub-data").removeClass("start-hidden");
     }
-    else if (pqStage == 7 || pqStage == 8 || pqStage == 9) {
+    else if (pqStage === 7 || pqStage === 8 || pqStage === 9) {
         $("#progress-menu-pod").addClass("activeTab");
         $("#progress-menu-pod-data").removeClass("start-hidden");
     }
-    else if (pqStage == 10 || pqStage == 11 || pqStage == 12) {
+    else if (pqStage === 10 || pqStage === 11 || pqStage === 12) {
         $("#progress-menu-min").addClass("activeTab");
         $("#progress-menu-min-data").removeClass("start-hidden");
     }
-    else if (pqStage == 13 || pqStage == 14) {
+    else if (pqStage === 13 || pqStage === 14) {
         $("#progress-menu-answer").addClass("activeTab");
         $("#progress-menu-answer-data").removeClass("start-hidden");
     }
@@ -161,7 +161,7 @@ $(document).ready(function () {
     }
 
     /* PQ Details Page - Set styling when tab clicked */
-    $("a").click(function(event) {
+    $("a").click(function() {
         var e="#"+$(this).attr("id");
         $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
         switch(e){
