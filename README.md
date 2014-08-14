@@ -2,7 +2,7 @@ parliamentary-questions
 =======================
 
 [![Build Status](https://travis-ci.org/ministryofjustice/parliamentary-questions.png?branch=master)](https://travis-ci.org/ministryofjustice/parliamentary-questions)
-
+[![Code Climate](https://codeclimate.com/github/ministryofjustice/parliamentary-questions/badges/gpa.svg)](https://codeclimate.com/github/ministryofjustice/parliamentary-questions)
 
 # Introduction
 Webapp to manage the workflow Parliamentary Questions
