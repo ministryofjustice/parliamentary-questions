@@ -23,44 +23,24 @@ class DirectoratesController < ApplicationController
   end
 
   # POST /directorates
-  # POST /directorates.json
   def create
-    @directorate = Directorate.new(directorate_params)
-
-    respond_to do |format|
+      @directorate = Directorate.new(directorate_params)
       if @directorate.save
-        format.html { redirect_to @directorate, notice: 'Directorate was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @directorate }
+        redirect_to @directorate, notice: 'Directorate was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @directorate.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /directorates/1
-  # PATCH/PUT /directorates/1.json
   def update
-    respond_to do |format|
       if @directorate.update(directorate_params)
-        format.html { redirect_to @directorate, notice: 'Directorate was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @directorate, notice: 'Directorate was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @directorate.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
-    end
   end
 
-  # DELETE /directorates/1
-  # DELETE /directorates/1.json
-  def destroy
-    @directorate.destroy
-    respond_to do |format|
-      format.html { redirect_to directorates_url }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -23,43 +23,23 @@ class OgdsController < ApplicationController
   end
 
   # POST /ogds
-  # POST /ogds.json
   def create
     @ogd = Ogd.new(ogd_params)
 
-    respond_to do |format|
       if @ogd.save
-        format.html { redirect_to @ogd, notice: 'OGD was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @ogd }
+        redirect_to @ogd, notice: 'OGD was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @ogd.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /ogds/1
-  # PATCH/PUT /ogds/1.json
   def update
-    respond_to do |format|
       if @ogd.update(ogd_params)
-        format.html { redirect_to @ogd, notice: 'Ogd was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @ogd, notice: 'Ogd was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @ogd.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
-    end
-  end
-
-  # DELETE /ogds/1
-  # DELETE /ogds/1.json
-  def destroy
-    @ogd.destroy
-    respond_to do |format|
-      format.html { redirect_to ogds_url }
-      format.json { head :no_content }
-    end
   end
 
   def find

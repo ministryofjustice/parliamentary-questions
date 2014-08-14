@@ -23,43 +23,23 @@ class PressDesksController < ApplicationController
   end
 
   # POST /press_desks
-  # POST /press_desks.json
   def create
     @press_desk = PressDesk.new(press_desk_params)
 
-    respond_to do |format|
       if @press_desk.save
-        format.html { redirect_to @press_desk, notice: 'Press desk was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @press_desk }
+        redirect_to @press_desk, notice: 'Press desk was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @press_desk.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /press_desks/1
-  # PATCH/PUT /press_desks/1.json
   def update
-    respond_to do |format|
       if @press_desk.update(press_desk_params)
-        format.html { redirect_to @press_desk, notice: 'Press desk was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @press_desk, notice: 'Press desk was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @press_desk.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
-    end
-  end
-
-  # DELETE /press_desks/1
-  # DELETE /press_desks/1.json
-  def destroy
-    @press_desk.destroy
-    respond_to do |format|
-      format.html { redirect_to press_desks_url }
-      format.json { head :no_content }
-    end
   end
 
   private
