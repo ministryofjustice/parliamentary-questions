@@ -22,27 +22,30 @@ class ApplicationController < ActionController::Base
   end
 
   def page_not_found
-    $statsd.increment("#{StatsHelper::PAGES_ERRORS}.404")
-    respond_to do |format|
-      format.html { render file: 'public/404.html', status: 404 }
-      format.all  { render nothing: true, status: 404 }
-    end
+    show_error_page_and_increment_statsd(404)
+    # $statsd.increment("#{StatsHelper::PAGES_ERRORS}.404")
+    # respond_to do |format|
+    #   format.html { render file: 'public/404.html', status: 404 }
+    #   format.all  { render nothing: true, status: 404 }
+    # end
   end
 
   def unauthorized
-    $statsd.increment("#{StatsHelper::PAGES_ERRORS}.401")
-    respond_to do |format|
-      format.html { render file: 'public/401.html', status: 401 }
-      format.all  { render nothing: true, status: 401 }
-    end
+    show_error_page_and_increment_statsd(401)
+    # $statsd.increment("#{StatsHelper::PAGES_ERRORS}.401")
+    # respond_to do |format|
+    #   format.html { render file: 'public/401.html', status: 401 }
+    #   format.all  { render nothing: true, status: 401 }
+    # end
   end
 
   def server_error
-    $statsd.increment("#{StatsHelper::PAGES_ERRORS}.500")
-    respond_to do |format|
-      format.html { render file: 'public/500.html', status: 500 }
-      format.all  { render nothing: true, status: 500}
-    end
+    show_error_page_and_increment_statsd(500)
+    # $statsd.increment("#{StatsHelper::PAGES_ERRORS}.500")
+    # respond_to do |format|
+    #   format.html { render file: 'public/500.html', status: 500 }
+    #   format.all  { render nothing: true, status: 500}
+    # end
   end
   protected
 
@@ -56,5 +59,11 @@ class ApplicationController < ActionController::Base
       u.permit(:name, :roles, :password, :password_confirmation, :invitation_token)
     end
   end
-
+  def show_error_page_and_increment_statsd(err_number)
+    $statsd.increment("#{StatsHelper::PAGES_ERRORS}.#{err_number}")
+    respond_to do |format|
+      format.html { render file: "public/#{err_number}", status: err_number }
+      format.all  { render nothing: true, status: err_number }
+    end
+  end
 end
