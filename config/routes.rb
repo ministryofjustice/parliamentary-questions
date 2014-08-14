@@ -26,9 +26,9 @@ ParliamentaryQuestions::Application.routes.draw do
 
   resources :action_officers
 
-  devise_for :users
-
+  devise_for :users , :controllers => { :invitations => 'users/invitations' }
   resources :users
+
 
   resources :pqs  
   resources :trim_links
@@ -102,11 +102,9 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
   get 'export' => 'export#index'
 
-  match 'reports/ministers_filter' => 'reports#ministers_filter', via: [:get, :post]
   get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
-  match 'reports/press_desk_filter' => 'reports#press_desk_filter', via: [:get, :post]
-  match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
+  match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
 
 
   # error pages with metric for production only
