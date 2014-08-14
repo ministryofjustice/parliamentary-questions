@@ -1,6 +1,6 @@
 /* = Colour definitions ==================================================================== */
 
-#build, i.fa-envelope, .name-day, a.btn-no-response, .btn-no-response, .btn-commission, .btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .btn-save, .btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active, a.btn.btn-success, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header, .trim-links-cancel, .trim-links-header:hover, .trim-links-cancel:hover {color:#fff;}
+#build, i.fa-envelope, .name-day, a.btn-no-response, .btn-no-response, .btn-commission, .btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .btn-save, .btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active, a.btn.btn-success, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, /*.trim-links-header,*/ /*.trim-links-cancel,*/ .trim-links-header:hover, .trim-links-cancel:hover {color:#fff;}
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared {color:#000;}
 
@@ -298,7 +298,7 @@ hr
 {position:relative;cursor:default;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
 
 .trim-links-form
-{width:250px;height:auto;margin:10px;vertical-align:middle;display:none;position:absolute;top:-12px;left:-12px;cursor:default;z-index:5;float:left;line-height:35px;}
+{width:250px;height:auto;vertical-align:middle;display:none;position:absolute;top:-9px;left:-12px;cursor:default;z-index:5;float:left;line-height:35px;}
 
 input[type="file"]
 {line-height:10px;}
@@ -307,13 +307,13 @@ input[type="file"]
 {display:block;}
 
 .trim-links-cancel
-{float:left;height:38px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
+{float:left;height:35px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
 
 .file-chooser
 {display:none!important;}
 
 .file-choose-replace
-{display:inline;float:left;line-height:35px;padding-left:10px;}
+{display:inline-block;line-height:35px;margin:10px;}
 
 /* = Pagination ================================================================= */
 
