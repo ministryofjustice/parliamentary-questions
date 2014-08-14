@@ -1,34 +1,27 @@
-<%= form_for(@deputy_director) do |f| %>
-  <% if @deputy_director.errors.any? %>
-    <div class="alert alert-danger">
-    <!-- <div id="error_explanation"> -->
-      <p><strong><%= pluralize(@deputy_director.errors.count, "error") %> prohibited this deputy_director from being saved:</strong></p>
-      <ul>
-        <% @deputy_director.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div id="admin-deputy-form">
+  <%= form_for(@deputy_director) do |f| %>
+    <% if @deputy_director.errors.any? %>
+      <div class="info-notice">
+        <h3><%= pluralize(@deputy_director.errors.count, "error") %> prohibited this deputy_director from being saved:</h3>
+        <ul>
+          <% @deputy_director.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, {class: 'form-control'} %>
+      <%= f.label :email %>
+      <%= f.text_field :email, {class: 'form-control'} %>
+      <%= f.label :division_id %>
+      <%= f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select") %>
+      <p>
+        Status:
+        <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+      </p>
+      <%= f.submit 'Save', {class: 'btn btn-primary'} %>
     </div>
   <% end %>
-  <!-- <div class="field"> -->
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, {class: 'form-control'} %>
-  </div>
-  <!-- <div class="field"> -->
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.text_field :email, {class: 'form-control'} %>
-  </div>
-  <!-- <div class="field"> -->
-  <div class="form-group">
-    <%= f.label :division_id %>
-    <%= f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select") %>
-  </div>
-  <div class="form-group">
-    <div class="checkbox">
-      <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
-    </div>
-  </div>
-  <div class="actions"><%= f.submit 'Save' , {class: 'btn btn-success'} %></div>
-<% end %>
+</div>

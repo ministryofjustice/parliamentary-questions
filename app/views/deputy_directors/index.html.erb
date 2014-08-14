@@ -1,30 +1,34 @@
-<h2>Listing Deputy Directors</h2>
-<hr />
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Division</th>
-      <th>Active/Inactive</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @deputy_directors.each do |deputy_director| %>
+<h2>Deputy Directors</h2>
+<div id="admin-deputy-list">
+  <div class="row>">
+    <div class="col-md-3.5 pull-right">
+      <%= link_to ('Add Deputy Director'), new_deputy_director_path, {class: 'btn btn-secondary'} %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to "#{deputy_director.name}", deputy_director_path(deputy_director) %></td>
-        <!-- <td><%= deputy_director.email %></td> -->
-        <td><%= deputy_director.division.name %></td>
-        <td>
-          <% if deputy_director.deleted %>
-            <i class="fa fa-times"></i>&nbsp;Inactive
-          <% else %>
-            <i class="fa fa-check-circle"></i>&nbsp;Active
-          <% end %>
-        </td>
-        <td><%= link_to 'Edit', edit_deputy_director_path(deputy_director) %></td>
+        <th>Name</th>
+        <th>Division</th>
+        <th>Status</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to raw('<i class="fa fa-plus"></i> Add Deputy Director'), new_deputy_director_path, {class: 'btn btn-success'} %>
+    </thead>
+    <tbody>
+      <% @deputy_directors.each do |deputy_director| %>
+        <tr>
+          <td><%= link_to "#{deputy_director.name}", deputy_director_path(deputy_director) %></td>
+          <td><%= deputy_director.division.name %></td>
+          <td>
+            <% if deputy_director.deleted %>
+              <i class="fa fa-times"></i>&nbsp;Inactive
+            <% else %>
+              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_deputy_director_path(deputy_director) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

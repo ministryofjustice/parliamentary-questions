@@ -1,29 +1,25 @@
-<%= form_for(@ogd) do |f| %>
-  <% if @ogd.errors.any? %>
-    <div class="alert alert-danger">
-    <!-- <div id="error_explanation"> -->
-      <p><strong><%= pluralize(@ogd.errors.count, "error") %> prohibited this ogd from being saved:</strong></p>
-      <ul>
-        <% @ogd.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div id="admin-ogd-form">
+  <%= form_for(@ogd) do |f| %>
+    <% if @ogd.errors.any? %>
+      <div class="info-notice">
+        <h3><%= pluralize(@ogd.errors.count, "error") %> prohibited this ogd from being saved:</h3>
+        <ul>
+          <% @ogd.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, {class: 'form-control'} %>
+      <%= f.label :acronym %>
+      <%= f.text_field :acronym, {class: 'form-control'} %>
+      <p>
+        Status:
+        <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+      </p>
+      <%= f.submit 'Save' , {class: 'btn btn-primary'} %>
     </div>
   <% end %>
-  <!-- <div class="field"> -->
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, {class: 'form-control'} %>
-  </div>
-  <!-- <div class="field"> -->
-  <div class="form-group">
-    <%= f.label :acronym %>
-    <%= f.text_field :acronym, {class: 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <div class="checkbox">
-      <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
-    </div>
-  </div>
-  <div class="actions"><%= f.submit 'Save' , {class: 'btn btn-success'} %></div>
-<% end %>
+</div>

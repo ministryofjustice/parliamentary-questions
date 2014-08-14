@@ -1,27 +1,32 @@
-<h2>Listing directorates</h2>
-<hr />
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Active/Inactive</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @directorates.each do |directorate| %>
+<h2>Directorates</h2>
+<div id="admin-directorate-list">
+  <div class="row>">
+    <div class="col-md-2.5 pull-right">
+      <%= link_to 'Add Directorate', new_directorate_path, {class: 'btn btn-secondary'} %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to "#{directorate.name}", directorate_path(directorate) %></td>
-        <td>
-          <% if directorate.deleted %>
-            <i class="fa fa-times"></i>&nbsp;Inactive
-          <% else %>
-            <i class="fa fa-check-circle"></i>&nbsp;Active
-          <% end %>
-        </td>
-        <td><%= link_to 'Edit', edit_directorate_path(directorate) %></td>
+        <th>Name</th>
+        <th>Status</th>
+        <th></th>
       </tr>
+    </thead>
+    <% @directorates.each do |directorate| %>
+      <tbody>
+        <tr>
+          <td><%= link_to "#{directorate.name}", directorate_path(directorate) %></td>
+          <td>
+            <% if directorate.deleted %>
+              <i class="fa fa-times"></i>&nbsp;Inactive
+            <% else %>
+              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_directorate_path(directorate) %></td>
+        </tr>
+      </tbody>
     <% end %>
-  </tbody>
-</table>
-<%= link_to 'New Directorate', new_directorate_path, {class: 'button'} %>
+  </table>
+</div>

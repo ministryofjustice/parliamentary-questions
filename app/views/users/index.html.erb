@@ -1,39 +1,38 @@
-<h2>Listing Users</h2>
-<hr />
 <%= render partial: "shared/flash_messages", flash: flash %>
-<%= link_to 'Invite new user', new_user_invitation_path, {class: 'button'} %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <!-- <th>Email</th> -->
-      <!-- <th>Role</th> -->
-      <th>Active</th>
-      <!-- <th>Invited by</th> -->
-      <!-- <th>Last active</th> -->
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+<h2>Users</h2>
+<div id="admin-ao-list">
+  <div class="row>">
+    <div class="col-md-2.5 pull-right">
+      <%= link_to 'Invite new user', new_user_invitation_path, {class: 'btn btn-secondary'} %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to "#{user.name}", user_path(user) %></td>
-        <!-- <td><%= user.email %></td> -->
-        <!-- <td><%= user.roles %></td> -->
-        <td>
-          <% if user.is_active %>
-            <i class="fa fa-check-circle text-success"></i>
-          <% else %>
-            <i class="fa fa-times text-danger"></i>
-          <% end %>
-        </td>
-        <!-- <td><%= user.invited_by_user %></td> -->
-        <!-- <td><%= time_ago_in_words(user.last_sign_in_at) unless user.last_sign_in_at.nil? %></td> -->
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<div class="pagination-row.bottom">
-  <div class="page-entries"><%= will_paginate @users %></div>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to "#{user.name}", user_path(user) %></td>
+          <td><%= link_to "#{user.roles}", user_path(user) %></td>
+          <td>
+            <% if user.is_active %>
+              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% else %>
+              <i class="fa fa-times"></i>&nbsp;Inactive
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="pagination-row.bottom">
+    <div class="page-entries"><%= will_paginate @users %></div>
+  </div>
 </div>

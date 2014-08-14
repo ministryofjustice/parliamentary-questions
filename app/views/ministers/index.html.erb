@@ -1,29 +1,34 @@
 <h2>Ministers</h2>
-<hr />
-<%= link_to raw('<i class="fa fa-plus"></i> Add Minister'), new_minister_path, {class: 'btn btn-success'} %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Title</th>
-      <th>Active/Inactive</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @ministers.each do |minister| %>
+<div id="admin-ministers-list">
+  <div class="row>">
+    <div class="col-md-2.5 pull-right">
+      <%= link_to ('Add Minister'), new_minister_path, {class: 'btn btn-secondary'} %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to "#{minister.name}", minister_path(minister) %></td>
-        <td><%= minister.title %></td>
-        <td><% if minister.deleted %>
-          <i class="fa fa-times"></i>Deleted
-          <% else %>
-            <i class="fa fa-check-circle"></i>Active
-          <% end %>
-        </td>
-        <td><%= link_to 'Edit', edit_minister_path(minister) %></td>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @ministers.each do |minister| %>
+        <tr>
+          <td><%= link_to "#{minister.name}", minister_path(minister) %></td>
+          <td><%= minister.title %></td>
+          <td>
+            <% if minister.deleted %>
+              <i class="fa fa-times"></i>&nbsp;Deleted
+            <% else %>
+              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_minister_path(minister) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
