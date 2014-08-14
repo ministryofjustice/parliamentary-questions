@@ -24,43 +24,22 @@ class MinistersController < ApplicationController
   end
 
   # POST /ministers
-  # POST /ministers.json
   def create
     @minister = Minister.new(minister_params)
-    # @minister.minister_contacts << MinisterContact.new(minister_params[:minister_contacts_attributes]['0'])
-    respond_to do |format|
       if @minister.save
-        format.html { redirect_to @minister, notice: 'Minister was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @minister }
+        redirect_to @minister, notice: 'Minister was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @minister.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /ministers/1
-  # PATCH/PUT /ministers/1.json
   def update
-    respond_to do |format|
       if @minister.update(minister_params)
-        format.html { redirect_to @minister, notice: 'Minister was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @minister, notice: 'Minister was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @minister.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
-    end
-  end
-
-  # DELETE /ministers/1
-  # DELETE /ministers/1.json
-  def destroy
-    @minister.destroy
-    respond_to do |format|
-      format.html { redirect_to ministers_url }
-      format.json { head :no_content }
-    end
   end
 
   private

@@ -23,43 +23,23 @@ class ProgressesController < ApplicationController
   end
 
   # POST /progresses
-  # POST /progresses.json
   def create
     @progress = Progress.new(progress_params)
 
-    respond_to do |format|
       if @progress.save
-        format.html { redirect_to @progress, notice: 'Progress was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @progress }
+        redirect_to @progress, notice: 'Progress was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @progress.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /progresses/1
-  # PATCH/PUT /progresses/1.json
   def update
-    respond_to do |format|
       if @progress.update(progress_params)
-        format.html { redirect_to @progress, notice: 'Progress was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @progress, notice: 'Progress was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @progress.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
-    end
-  end
-
-  # DELETE /progresses/1
-  # DELETE /progresses/1.json
-  def destroy
-    @progress.destroy
-    respond_to do |format|
-      format.html { redirect_to progresses_url }
-      format.json { head :no_content }
-    end
   end
 
   private

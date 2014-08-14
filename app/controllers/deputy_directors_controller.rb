@@ -24,44 +24,25 @@ class DeputyDirectorsController < ApplicationController
   end
 
   # POST /deputy_directors
-  # POST /deputy_directors.json
   def create
     @deputy_director = DeputyDirector.new(deputy_director_params)
 
-    respond_to do |format|
       if @deputy_director.save
-        format.html { redirect_to @deputy_director, notice: 'Deputy director was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @deputy_director }
+        redirect_to @deputy_director, notice: 'Deputy director was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @deputy_director.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /deputy_directors/1
-  # PATCH/PUT /deputy_directors/1.json
   def update
-    respond_to do |format|
       if @deputy_director.update(deputy_director_params)
-        format.html { redirect_to @deputy_director, notice: 'Deputy director was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @deputy_director, notice: 'Deputy director was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @deputy_director.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
-    end
   end
 
-  # DELETE /deputy_directors/1
-  # DELETE /deputy_directors/1.json
-  def destroy
-    @deputy_director.destroy
-    respond_to do |format|
-      format.html { redirect_to deputy_directors_url }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

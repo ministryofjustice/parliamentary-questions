@@ -24,43 +24,23 @@ class DivisionsController < ApplicationController
   end
 
   # POST /divisions
-  # POST /divisions.json
   def create
     @division = Division.new(division_params)
 
-    respond_to do |format|
       if @division.save
-        format.html { redirect_to @division, notice: 'Division was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @division }
+        redirect_to @division, notice: 'Division was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @division.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /divisions/1
-  # PATCH/PUT /divisions/1.json
   def update
-    respond_to do |format|
       if @division.update(division_params)
-        format.html { redirect_to @division, notice: 'Division was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @division, notice: 'Division was successfully updated.'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @division.errors, status: :unprocessable_entity }
+        render action: 'edit'
       end
-    end
-  end
-
-  # DELETE /divisions/1
-  # DELETE /divisions/1.json
-  def destroy
-    @division.destroy
-    respond_to do |format|
-      format.html { redirect_to divisions_url }
-      format.json { head :no_content }
-    end
   end
 
   private
