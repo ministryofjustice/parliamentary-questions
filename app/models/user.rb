@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :validate_on_invite => true
 
   validates :name, presence: true
+  validates :roles, presence: true
 
   after_initialize :set_defaults
 
