@@ -36,18 +36,19 @@
 
 <label>Final response information released</label>
 <%= f.select(:final_response_info_released, [
-  "",
-  "Comercial in confidence",
-  "Disproportionate cost",
-  "Full disclosure",
-  "Holding reply [named day PQ only]",
-  "I will write",
-  "Information not held centrally",
-  "Information not recorded",
-  "Partial disclosure",
-  "Partial Disproportionate cost",
-  "Referral"
-]) %>
+  ["Please select",""],
+  ["Commercial in confidence","Commercial in confidence"],
+  ["Disproportionate cost","Disproportionate cost"],
+  ["Full disclosure","Full disclosure"],
+  ["Holding reply [named day PQ only]","Holding reply [named day PQ only]"],
+  ["I will write","I will write"],
+  ["Information not held centrally","Information not held centrally"],
+  ["Information not recorded","Information not recorded"],
+  ["Partial disclosure","Partial disclosure"],
+  ["Partial Disproportionate cost","Partial Disproportionate cost"],
+  ["Referral","Referral"]
+]
+    ) %>
 
 <label>Progress (TODO: for testing)</label>
 <%= f.collection_select(:progress_id, @progress_list, :id, :name) %>

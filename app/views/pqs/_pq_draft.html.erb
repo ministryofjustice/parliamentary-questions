@@ -1,7 +1,7 @@
 <% if @pq.action_officers.size > 0 %>
   <% @pq.action_officers_pq.each do |ao_pq| %>
     <% if ao_pq.accept %>
-      <label for ="date_accepted_by_action_officer">Date PQ Accepted By Action Officer</label>
+      <label>Date PQ Accepted By Action Officer</label>
       <p><%= ao_pq.updated_at.strftime('%d/%m/%Y %H:%M') unless ao_pq.updated_at.nil? %></p>
     <% else %>
       <% ao_pq.action_officer_id %>

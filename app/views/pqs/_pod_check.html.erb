@@ -10,7 +10,7 @@
   <%= f.check_box(:pod_query_flag) %>
 </div>
 
-<label for="holding_reply">Date cleared by POD</label>
+<label for="pod_clearance">Date cleared by POD</label>
 <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="pod_clearance" class="form-control" name="pq[pod_clearance]" type="text" value="<%= @pq.pod_clearance.strftime('%d/%m/%Y %H:%M') unless @pq.pod_clearance.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
