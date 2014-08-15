@@ -30,7 +30,7 @@ $(document).ready(function () {
         decrementBadge('#db-filter-unalloc');
 
 	}).on("ajax:error", function(e, xhr) {
-		alert(xhr.responseText);
+		console.log(xhr.responseText);
 	});
 
     $('#search_member').bind('ajax:before', function() {
@@ -68,7 +68,7 @@ $(document).ready(function () {
             $('#'+divToUpdate).val("Updated").fadeOut(1000);
 
         }).on("ajax:error", function(e, xhr, status, error) {
-            alert(error);
+            console.log(error);
             //TODO how should ux handle error? Add it to the list, alert, flash, etc...
         });
 
