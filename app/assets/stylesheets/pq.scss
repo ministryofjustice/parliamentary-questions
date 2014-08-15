@@ -221,7 +221,7 @@ a.btn-secondary{}
 .name-day,
 .flag-will-write,
 .flag-transferred-in
-{font-size:14px;font-weight:normal;margin: 0 14px 0 0;padding:3.5px 8px;text-align:center;white-space:nowrap;}
+{font-size:14px;font-weight:normal;margin: 0 10px 0 0;padding:3.5px 8px;text-align:center;white-space:nowrap;}
 
 .info-notice {border-left-width:4px;border-left-style:solid;margin-left:15px;}
 
@@ -234,13 +234,12 @@ hr {height:1px;}
 /* = PQ Details Page ============================================================ */
 
 .start-hidden {display:none;}
+#pq-details-ref {padding:11px 0px;margin:0px;}
+#pq-details-ref h2 {padding:0px;margin:0px 10px 0px 0px;display:inline-block;vertical-align:middle;}
+#pq-details-progress {padding:13px 14px;}
+#pq-details-qa-link {display:block;}
 
-#pq-details-header {line-height: 62px;margin: 0 15px 0 0;}
-
-#pq-details-title h2,
-#pq-details-title span.label,
-#qa-link a
-{vertical-align: middle;}
+#qa-link a {vertical-align: middle;}
 
 #progress-menu {z-index:1;padding-right:0px;}
 
@@ -314,7 +313,7 @@ input[type="file"] {line-height:10px;}
 .pagination > li:last-child > span
 {border-radius:0;border-right:0;}
 
-/* = Administration ============================================================= */
+/* = Administration = */
 #settings-home h3 {border-bottom:2px solid #dee0e2;padding-bottom:7.5px;}
 
 #admin_task_list {padding:0px 15px;}
@@ -328,11 +327,11 @@ input[type="file"] {line-height:10px;}
 
 .admin-status {width:80px;}
 
-/* = Create a transfer ========================================================== */
+/* = Create a transfer = */
 #new_pq {padding:7px 15px;}
 
-/* = Reports ==================================================================== */
+/* = Reports = */
 .table-cell-centered {text-align:center;}
 
-/* = Footer ====================================================================== */
+/* = Footer = */
 #footer {margin-top:100px;}
