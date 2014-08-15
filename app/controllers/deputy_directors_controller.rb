@@ -6,7 +6,7 @@ class DeputyDirectorsController < ApplicationController
   # GET /deputy_directors
   # GET /deputy_directors.json
   def index
-    @deputy_directors = DeputyDirector.all.order('lower(name)')
+    @deputy_directors = DeputyDirector.all.joins(:division).order('lower(divisions.name)').order('lower(deputy_directors.name)')
   end
 
   # GET /deputy_directors/1
@@ -55,6 +55,6 @@ class DeputyDirectorsController < ApplicationController
       params.require(:deputy_director).permit(:name, :email, :deleted, :division_id)
     end
     def prepare_divisions
-      @divisions = Division.where(deleted: false).all
+      @divisions = Division.where(deleted: false).order('lower(name)')
     end
 end
