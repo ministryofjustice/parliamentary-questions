@@ -11,7 +11,7 @@ class ActionOfficer < ActiveRecord::Base
 	belongs_to :deputy_director
   belongs_to :press_desk
 
-  before_validation :strip_whitespace
+  before_validation WhitespaceValidator.new
   after_initialize :init
 
 
@@ -33,10 +33,5 @@ class ActionOfficer < ActiveRecord::Base
     else
       "#{name} (#{deputy_director.division.name})" 
     end
-  end
-
-  def strip_whitespace
-    self.name = self.name.strip unless self.name.nil?
-    self.email = self.email.strip unless self.email.nil?
   end
 end
