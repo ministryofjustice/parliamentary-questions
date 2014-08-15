@@ -26,7 +26,7 @@ class PqsController < ApplicationController
       @pq_progress_changer_service.update_progress(@pq)
       return redirect_to action:'show', id: @pq.uin
     end
-    render action: 'edit'
+    render action: 'show'
   end
 
   def assign_minister
