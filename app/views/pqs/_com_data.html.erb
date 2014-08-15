@@ -12,11 +12,16 @@
 
 <div class="question-allocation">
   <% if @pq.action_officers.size > 0 %>
-    <% @pq.action_officers_pq.each do |ao_pq| %>
+    <% @pq.action_officers_pq.order(updated_at: :desc).each do |ao_pq| %>
       <% if ao_pq.accept %>
         <p>
           Name of Action Officer<br />
           <%= link_to ao_pq.action_officer.name, edit_action_officer_path(ao_pq.action_officer) %>
+          <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>&nbsp;
+          <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
+        </p>
+        <p>
+          <%= link_to raw('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
         </p>
 
         <p>
@@ -53,21 +58,17 @@
           <p><%= mail_to po.name, po.email %></p>
         <% end %>
 
-        <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>&nbsp;
-        <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Re-send acceptance email#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
-
-        <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
-
       <% end %>
 
       <% if !ao_pq.accept && !ao_pq.reject %>
+        <br />
         <p>
           <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
           <% reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : '' %>
           <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'} %>
         </p>
         <p>
-          <%= link_to raw('Manually reject the question'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
+          <%= link_to raw('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
         </p>
       <% end %>
     <% end %>
