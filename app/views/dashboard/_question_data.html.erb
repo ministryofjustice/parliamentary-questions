@@ -1,6 +1,6 @@
-<div class="row">
-  <div class="pq-header col-md-12">
-    <h3><%= question.uin %></h3>
+<div class="pq-header row">
+  <h3><%= question.uin %></h3>
+  <div class="pq-header-flags">
     <% if question.question_type == 'NamedDay' %>
       <span class="label name-day" title="Named day">N</span>
     <% end %>
@@ -10,8 +10,8 @@
     <% if question.i_will_write %>
       <span class="label flag-will-write" title="I will write">IWW</span>
     <% end %>
-    <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'right' ) %>
   </div>
+  <%= link_to('PQ Details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'pq-header-links right' ) %>
 </div>
 
 <div class="row">
