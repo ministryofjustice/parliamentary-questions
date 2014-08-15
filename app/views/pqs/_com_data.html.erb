@@ -53,7 +53,7 @@
         </p>
 
         <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
-          <p><%= mail_to po.name, po.email %></p>
+          <p><%= mail_to po.email, po.name  %></p>
         <% end %>
 
       <% end %>
