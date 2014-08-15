@@ -1,5 +1,3 @@
-<%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
-
 <div class="deadline_input">
   <label for="pq_internal_deadline">Internal deadline<%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress} %></label>
   <span class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
@@ -75,6 +73,7 @@
   <% else %>
     <p>Not allocated</p>
   <% end %>
+  <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
 </div>
 
 <hr/>
