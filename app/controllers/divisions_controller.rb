@@ -6,7 +6,7 @@ class DivisionsController < ApplicationController
   # GET /divisions
   # GET /divisions.json
   def index
-    @divisions = Division.all.order('lower(name)')
+    @divisions = Division.all.joins(:directorate).order('lower(directorates.name)').order('lower(divisions.name)')
   end
 
   # GET /divisions/1
@@ -54,6 +54,6 @@ class DivisionsController < ApplicationController
       params.require(:division).permit(:name, :deleted, :directorate_id)
     end
     def prepare_directorates
-      @directorates = Directorate.where(deleted: false).all
+      @directorates = Directorate.where(deleted: false).order('lower(name)')
     end
 end
