@@ -1,24 +1,29 @@
 <div id="pq-details-header" class="row">
-  <div id="pq-details-title" class="col-md-9">
+  <div id="pq-details-ref" class="col-md-3">
     <h2><%= @pq.uin %></h2>
     <% if @pq.question_type == 'NamedDay' %>
-        <span class="label name-day" title="Named day">N</span>
+      <span class="label name-day" title="Named day">N</span>
     <% end %>
-    <% if @pq.transferred  %>
-        <span class="label flag-transferred-in" title="Transferred">T</span>
+    <% if @pq.transferred %>
+      <span class="label flag-transferred-in" title="Transferred">T</span>
     <% end %>
     <% if @pq.i_will_write %>
-        <span class="label flag-will-write" title="I will write">IWW</span>
+      <span class="label flag-will-write" title="I will write">IWW</span>
     <% end %>
+  </div>
+  <div id="pq-details-progress" class="col-md-6">
     <span class="label flag-<%= @pq.progress.classname %>"><%= @pq.progress.name %></span>
   </div>
-  <div id="trim-links" class="col-md-3">
-    <div id='trim_area_<%= @pq.id %>'>
-      <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
-      <br />
-      <% if !@pq.preview_url.nil? %>
-        <a href="<%= @pq.preview_url %>"><i class="fa fa-eye"></i> View PQ in Q&amp;A Tool</a>
-      <% end %>
-    </div>
+  <div id='trim_area_<%= @pq.id %>' class="col-md-3">
+    <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
   </div>
 </div>
+<div id="pq-details-qa-link" class="row">
+  <div class="col-md-9"></div>
+  <div class="col-md-3 pull-right">
+    <% if !@pq.preview_url.nil? %>
+      <a href="<%= @pq.preview_url %>">View PQ in Q&amp;A Tool</a>
+    <% end %>
+  </div>
+<div>
+<br />
