@@ -17,7 +17,34 @@ class IWillWriteController < ApplicationController
     @pq = pq_to_dup.dup
     @pq.uin = uin_iww
     @pq.progress_id = Progress.draft_pending.id
-
+    @pq.draft_answer_received = nil
+    @pq.pq_correction_received = nil
+    @pq.correction_circulated_to_action_officer = nil
+    @pq.pod_query = nil
+    @pq.pod_query_flag = FALSE
+    @pq.pod_clearance = nil
+    @pq.sent_to_policy_minister                              = nil
+    @pq.policy_minister_query                                = nil
+    @pq.policy_minister_to_action_officer                    = nil
+    @pq.policy_minister_returned_by_action_officer           = nil
+    @pq.resubmitted_to_policy_minister                       = nil
+    @pq.cleared_by_policy_minister                           = nil
+    @pq.sent_to_answering_minister                           = nil
+    @pq.answering_minister_query                             = nil
+    @pq.answering_minister_to_action_officer                 = nil
+    @pq.answering_minister_returned_by_action_officer        = nil
+    @pq.resubmitted_to_answering_minister                    = nil
+    @pq.cleared_by_answering_minister                        = nil
+    @pq.answer_submitted                                     = nil
+    @pq.library_deposit                                      = nil
+    @pq.pq_withdrawn                                         = nil
+    @pq.holding_reply_flag                                   = nil
+    @pq.final_response_info_released                         = nil
+    @pq.round_robin_guidance_received                        = nil
+    @pq.transfer_out_ogd_id                                  = nil
+    @pq.transfer_out_date                                    = nil
+    @pq.transfer_in_ogd_id                                   = nil
+    @pq.transfer_in_date                                     = nil
 
     if @pq.save
       # duplicate commissioning data
