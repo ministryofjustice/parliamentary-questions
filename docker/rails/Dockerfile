@@ -20,3 +20,5 @@ ADD docker/rails/logstash-forwarder.sh /etc/logstash-forwarder.sh
 # install service files for runit
 ADD docker/rails/unicorn.service /etc/service/unicorn/run
 
+RUN echo $GIT_COMMIT > /etc/container_environment/APP_GIT_COMMIT
+
