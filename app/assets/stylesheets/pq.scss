@@ -121,6 +121,67 @@ label
 .select2-container-multi .select2-choices li
 {width:100%;}
 
+.block-label
+{
+  display: block;
+  float: none;
+  clear: left;
+  position: relative;
+  background-color: #dee0e2;
+  background-image: none;
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-position: 0% 0%;
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-size: auto auto;
+  border-top-width: 1px;
+  border-right-width-value: 1px;
+  border-bottom-width: 1px;
+  border-left-width-value: 1px;
+  border-top-style: solid;
+  border-right-style-value: solid;
+  border-bottom-style: solid;
+  border-left-style-value: solid;
+  border-top-color: #dee0e2;
+  border-right-color-value: #dee0e2;
+  border-bottom-color: #dee0e2;
+  border-left-color-value: #dee0e2;
+  border-image-source: none;
+  border-image-slice: 100% 100% 100% 100%;
+  border-image-width: 1 1 1 1;
+  border-image-outset: 0 0 0 0;
+  border-image-repeat: stretch stretch;
+  padding-top: 18px;
+  padding-right: 30px;
+  padding-bottom: 15px;
+  padding-left: 45px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.block-label
+{
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.block-label:hover
+{
+  border-top-color: #0b0c0c;
+  border-right-color-value: #0b0c0c;
+  border-bottom-color: #0b0c0c;
+  border-left-color-value: #0b0c0c;
+}
+
+.inline .block-label
+{
+  clear: none;
+  margin-right: 15px;
+}
+
 /* = Element spacing ============================================================ */
 
 label {margin-top:7.5px;}
@@ -168,6 +229,7 @@ textarea {resize:none;}
 .btn-secondary
 {color:#000;background-color:#dee0e2;border-color:#dee0e2 #dee0e2 #b5babe #dee0e2;}
 
+a.btn-primary{color:#fff;}
 a.btn-secondary{}
 
 .admin-link{display:block;margin:7.5px 0px;}
