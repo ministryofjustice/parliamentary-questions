@@ -15,15 +15,17 @@
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
 
-<div class="checkbox">
-  <%= f.label(:i_will_write) %>
-  <%= f.check_box(:i_will_write) %>
-</div>
 
-<div class="checkbox">
-  PQ Correction received
+<label for="i_will_write">
+  <%= f.check_box(:i_will_write) %>
+  I will write
+</label>
+
+<label>
   <%= f.check_box(:pq_correction_received) %>
-</div>
+  PQ Correction received
+</label>
+
 
 <label for="correction_circulated">Date correction circulated to Action Officer</label>
 <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">

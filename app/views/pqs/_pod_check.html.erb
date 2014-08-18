@@ -5,10 +5,10 @@
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
 
-<div class="checkbox">
-  POD Query
-  <%= f.check_box(:pod_query_flag) %>
-</div>
+<label>
+	<%= f.check_box(:pod_query_flag) %>
+	POD Query
+</label>
 
 <label for="pod_clearance">Date cleared by POD</label>
 <div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">

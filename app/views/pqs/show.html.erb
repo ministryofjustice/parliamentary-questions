@@ -3,15 +3,16 @@
     <%= render partial: "shared/flash_messages", flash: flash %>
   </div>
 </div>
+
 <% if @pq.errors.any? %>
-    <div class="info-notice">
-      <h3><%= pluralize(@pq.errors.count, "error") %> prohibited this PQ from being saved:</h3>
-      <ul>
-        <% @pq.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+  <div class="info-notice">
+    <h3><%= pluralize(@pq.errors.count, "error") %> prohibited this PQ from being saved:</h3>
+    <ul>
+      <% @pq.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <%= render 'pq_header' %>
