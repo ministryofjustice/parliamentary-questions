@@ -295,6 +295,7 @@ hr {height:1px;}
 
 /* = PQ Details Page ============================================================ */
 
+#pq-detail-area {margin-top:15px;} 
 .start-hidden {display:none;}
 #pq-details-ref {padding:11px 0px;margin:0px;}
 #pq-details-ref h2 {padding:0px;margin:0px 10px 0px 0px;display:inline-block;vertical-align:middle;}
@@ -303,16 +304,18 @@ hr {height:1px;}
 
 #qa-link a {vertical-align: middle;}
 
-#progress-menu {z-index:1;padding-right:0px;}
-
-.nav-pills > li > a.progress-menu-item {border-top-right-radius:initial;border-bottom-right-radius:initial;}
-
-.activeTab, .nav-pills > li > a.progress-menu-item:hover {background: url(image_path('progress-tab-bg.png')) repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;}
-
-.inactiveTab {border:none;background-image:none;}
-
 .progress-menu-form {border:1px solid #c2c2c2; padding:15px; margin-left:-1px;min-height:350px;}
 #progress-panel {margin:0px;padding:0px;}
+
+#progress-menu {z-index:1;padding-right:0px;}
+#progress-menu ul li progress-menu-item {margin-left:10px;width:208px;}
+#progress-menu ul li a.progress-menu-item{border-radius:6px 0px 0px 6px;border-color:#000;}
+#progress-menu ul li a.progress-menu-item:hover {margin-left:10px;width:207px;background-color:#fff;}
+
+#progress-menu ul li a.progress-menu-item.activeTab {background: url(image_path('progress-tab-bg.png')) repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;margin-left:10px;}
+
+#progress-menu ul li a.progress-menu-item.activeTab:hover {margin-left:10px;width:216px;}
+#progress-menu ul li progress-menu-item.inactiveTab:hover {margin-left:10px;width:208px;}
 
 /* = Buttons ==================================================================== */
 
