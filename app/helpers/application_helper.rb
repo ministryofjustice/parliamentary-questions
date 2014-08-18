@@ -19,4 +19,13 @@ module ApplicationHelper
     ENV['APPVERSION']
   end
 
+  def build_time
+    ENV['APP_BUILD_TIME'] || 'unknown'
+  end
+
+  def commit_id
+    ENV['APP_COMMIT_ID'] || 'unknown'
+  end
+
+
 end
