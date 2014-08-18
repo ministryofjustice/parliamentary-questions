@@ -10,6 +10,7 @@
       		<%= f.label(:roles, 'Role') %>
       		<%= f.select(:roles, [ User.ROLE_PQ_USER, User.ROLE_FINANCE ]) %>
 			<%= f.submit t("devise.invitations.new.submit_button"), {class: 'btn btn-primary'} %>
+			<%= link_to 'Return to Users', users_path, {class: 'admin-link'} %>
 		</div>
 	<% end -%>
 <% end %>
