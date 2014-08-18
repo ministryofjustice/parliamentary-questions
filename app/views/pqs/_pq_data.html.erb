@@ -1,49 +1,48 @@
-
 <h4>UIN</h4>
-<p><%= @pq.uin %></p>
+<%= @pq.uin %>
 
 <h4>House</h4>
-<p><%= @pq.house_name %></p>
+<%= @pq.house_name %>
 
 <h4>Date for answer back to Parliament</h4>
-<p><%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %><%= render partial: 'shared/answer_time', locals: {date_for_answer: @pq.date_for_answer, progress_val: @pq.progress} %></p>
+<%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %><%= render partial: 'shared/answer_time', locals: {date_for_answer: @pq.date_for_answer, progress_val: @pq.progress} %>
 
 <h4>Tabling Member</h4>
-<p><%= @pq.member_name %></p>
+<%= @pq.member_name %>
 
 <h4>Question type</h4>
-<p><%= @pq.question_type %></p>
+<%= @pq.question_type %>
 
 <h4>Question tabled date</h4>
-<p><%= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil? %></p>
+<%= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil? %>
 
 <% if @pq.registered_interest %>
     <p>* Member has registered an interest in the Question.</p>
 <% end %>
 
-
 <% if @pq.transfer_in_ogd_id %>
     <p>Transferred in from <%= @pq.transfer_in_ogd.name %><%= ' on ' + @pq.transfer_in_date.strftime('%d/%m/%Y')  unless @pq.transfer_in_date.nil? %></p>
 <% end %>
-<hr/>
+
+<hr />
 
 <h4>Question</h4>
-<p><%= @pq.question %></p>
+<%= @pq.question %>
 
-<hr/>
+<hr />
 
 <div class="checkbox">
   <%= f.label(:round_robin) %>
   <%= f.check_box(:round_robin) %>
 </div>
 
-<label>Date Guidance Received</label>
+<label for="round_robin_guidance_received">Date Guidance Received</label>
 <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="round_robin_guidance_received" class="form-control" name="pq[round_robin_guidance_received]" type="text" value="<%= @pq.round_robin_guidance_received.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_guidance_received.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </span>
 
-<label>Date Round Robin guidance sent to Action Officer</label>
+<label for="round_robin_date">Date Round Robin guidance sent to Action Officer</label>
 <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="round_robin_date" class="form-control" name="pq[round_robin_date]" type="text" value="<%= @pq.round_robin_date.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_date.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
