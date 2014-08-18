@@ -61,7 +61,7 @@
       <% if !ao_pq.accept && !ao_pq.reject %>
         <br />
         <p>
-          <%= mail_to ao_pq.action_officer.email, ao_pq.action_officer.name %>
+          <%= link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer) %>
           <% reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : '' %>
           <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'} %>
         </p>

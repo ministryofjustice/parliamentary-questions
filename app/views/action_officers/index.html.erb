@@ -18,7 +18,7 @@
     <% @action_officers.each do |action_officer| %>
       <tbody>
         <tr>
-          <td><%= action_officer.name %></td>
+          <td><%= link_to "#{action_officer.name}", action_officer_path(action_officer) %></td>
           <td><%= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil? %></td>
           <td><%= action_officer.press_desk.name unless action_officer.press_desk.nil? %></td>
           <td>
