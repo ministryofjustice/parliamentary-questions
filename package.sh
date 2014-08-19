@@ -72,6 +72,7 @@ create_app_envvar()
 ###
 ###
 ###
+env
 if [ -n "$1" ]; then 
   export APPVERSION=`echo "$1" | sed -e "s/.*release\///g"`
 else
