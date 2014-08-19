@@ -197,13 +197,16 @@ select,
 #finance-check-status,
 #pq-columns,
 .actions
+
 {margin-bottom:7.5px;}
 
 .pq-question,
 .info-notice,
 .status-bar,
 .minister-dropdown,
-.multi-select-action-officers
+.multi-select-action-officers,
+.dashboard_trim_link,
+.internal-deadline-form
 {margin:7.5px 0px;}
 
 /* ============================================================================= */
@@ -356,7 +359,7 @@ hr {height:1px;}
 input[type="file"] {line-height:10px;}
 
 .trim-links-form:hover {display:block;}
-.trim-links-cancel {float:left;height:35px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
+.trim-links-cancel {float:left;height:36px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
 
 .file-chooser {display:none!important;}
 .file-choose-replace {display:inline-block;line-height:35px;margin:10px;}
