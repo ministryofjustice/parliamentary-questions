@@ -1,13 +1,13 @@
 module Deployment
   def info
-    { version_number: version_number, build_time: build_date, commit_id: commit_id, build_tag: build_tag }
+    { version_number: version_number, build_date: build_date, commit_id: commit_id, build_tag: build_tag }
   end
 
   def version_number
     ENV['APPVERSION']
   end
 
-  def build_time
+  def build_date
     ENV['APP_BUILD_DATE'] || 'unknown'
   end
 
