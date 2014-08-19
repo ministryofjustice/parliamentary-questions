@@ -17,6 +17,7 @@ class IWillWriteController < ApplicationController
     @pq = pq_to_dup.dup
     @pq.uin = uin_iww
     @pq.progress_id = Progress.draft_pending.id
+    @pq.question_type = "Follow-up IWW"
     @pq.draft_answer_received = nil
     @pq.pq_correction_received = nil
     @pq.correction_circulated_to_action_officer = nil
