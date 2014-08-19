@@ -72,7 +72,6 @@ create_app_envvar()
 ###
 ###
 ###
-env
 if [ -n "$1" ]; then 
   export APPVERSION=`echo "$1" | sed -e "s/.*release\///g"`
 else
@@ -97,7 +96,6 @@ create_app_envvar APP_BUILD_VERSION "$APPVERSION"
 create_app_envvar APP_BUILD_DATE    "$DATE"
 create_app_envvar APP_BUILD_TAG     "$BUILD_TAG"
 create_app_envvar APP_GIT_COMMIT    "$GIT_COMMIT"
-create_app_envvar APP_GIT_AUTHOR    "$GIT_AUTHOR"
 
 # Generate a self contained bundle
 #cd build
