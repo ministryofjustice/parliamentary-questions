@@ -19,4 +19,7 @@ ADD docker/assets/logstash-forwarder.sh /etc/logstash-forwarder.sh
 # install service files for runit
 ADD docker/assets/nginx.service /etc/service/nginx/run
 
+# The way this base image handles envvars is pretty strange
+COPY docker/app_env_vars /etc/container_environment/
+
 EXPOSE 80 
