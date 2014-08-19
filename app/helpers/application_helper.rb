@@ -13,19 +13,4 @@ module ApplicationHelper
         flash_type.to_s
     end
   end
-
-
-  def version_number
-    ENV['APPVERSION']
-  end
-
-  def build_time
-    ENV['APP_BUILD_TIME'] || 'unknown'
-  end
-
-  def commit_id
-    ENV['APP_COMMIT_ID'] || 'unknown'
-  end
-
-
 end
