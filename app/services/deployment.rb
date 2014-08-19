@@ -1,6 +1,6 @@
 module Deployment
   def info
-    { version_number: version_number, build_time: build_time, commit_id: commit_id }
+    { version_number: version_number, build_time: build_date, commit_id: commit_id, build_tag: build_tag }
   end
 
   def version_number
@@ -8,11 +8,15 @@ module Deployment
   end
 
   def build_time
-    ENV['APP_BUILD_TIME'] || 'unknown'
+    ENV['APP_BUILD_DATE'] || 'unknown'
   end
 
   def commit_id
-    ENV['APP_COMMIT_ID'] || 'unknown'
+    ENV['APP_GIT_COMMIT'] || 'unknown'
+  end
+
+  def build_tag
+    ENV['APP_BUILD_TAG'] || 'unknown'
   end
 
   extend self
