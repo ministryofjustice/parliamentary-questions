@@ -65,6 +65,7 @@ docker_rmi()
 
 create_app_envvar()
 {
+  mkdir -p ./docker/app_env_vars
   echo "$2" > ./docker/app_env_vars/$1  
 }
 
