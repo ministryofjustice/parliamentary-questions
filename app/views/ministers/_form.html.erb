@@ -23,10 +23,15 @@
         <%= ff.label :phone %>
         <%= ff.text_field :phone, {class: 'form-control'} %>
         <p>
-          Status:
+          Contact status:
           <label><%= ff.check_box :deleted %>&nbsp;Inactive</label>
         </p>
       <% end %>
+      <p>
+        Minister status:
+        <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
+      </p>
       <%= f.submit 'Save' , {class: 'btn btn-primary'} %>
+      </div>
   <% end %>
 </div>
