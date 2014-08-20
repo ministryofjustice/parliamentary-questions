@@ -2,6 +2,7 @@
 
 .row{margin-right:0px;margin-left:0px;}
 p{margin:0px;}
+body {font-size:19px;}
 
 /* = Colour definitions ==================================================================== */
 
@@ -96,7 +97,7 @@ h3
 {font-size:18px;font-weight:bold;}
 
 h4
-{color:#6f777b;}
+{color:#6f777b;font-size:19px;font-weight:normal;}
 
 .pq-header h3,
 .pq-header-flags,
@@ -111,7 +112,10 @@ i.fa-envelope
 {float:right;}
 
 label
-{display:block;font-weight:normal;}
+{display:block;font-weight:normal;clear:both;}
+
+select
+{display:block;}
 
 .date, .datetimepicker
 {width:12em;}
@@ -121,95 +125,108 @@ label
 .select2-container-multi .select2-choices li
 {width:100%;}
 
-.block-label
-{
-  display: block;
-  float: none;
-  clear: left;
-  position: relative;
-  background-color: #dee0e2;
-  background-image: none;
-  background-repeat: repeat;
-  background-attachment: scroll;
-  background-position: 0% 0%;
-  background-clip: border-box;
-  background-origin: padding-box;
-  background-size: auto auto;
-  border-top-width: 1px;
-  border-right-width-value: 1px;
-  border-bottom-width: 1px;
-  border-left-width-value: 1px;
-  border-top-style: solid;
-  border-right-style-value: solid;
-  border-bottom-style: solid;
-  border-left-style-value: solid;
-  border-top-color: #dee0e2;
-  border-right-color-value: #dee0e2;
-  border-bottom-color: #dee0e2;
-  border-left-color-value: #dee0e2;
-  border-image-source: none;
-  border-image-slice: 100% 100% 100% 100%;
-  border-image-width: 1 1 1 1;
-  border-image-outset: 0 0 0 0;
-  border-image-repeat: stretch stretch;
-  padding-top: 18px;
-  padding-right: 30px;
-  padding-bottom: 15px;
-  padding-left: 45px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
+#progress-panel input.btn.btn-save
+{clear:both;margin-top:30px;}
 
-.block-label
-{
-  float: left;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
+.internal-dtp
+{margin:6px 0px 20px 0px;}
 
-.block-label:hover
-{
-  border-top-color: #0b0c0c;
-  border-right-color-value: #0b0c0c;
-  border-bottom-color: #0b0c0c;
-  border-left-color-value: #0b0c0c;
-}
-
-.inline .block-label
-{
-  clear: none;
-  margin-right: 15px;
-}
+.internal-deadline
+{font-size:16px;}
 
 /* = Element spacing ============================================================ */
 
-label {margin-top:7.5px;}
+.form-group
+{margin-bottom:25px;}
 
-h2,
-textarea,
-input[type="text"],
-.date,
-.progress-menu-form,
-.pq-header,
-select,
-#btn_finance_visibility,
-#finance-check-status,
-#pq-columns,
-.actions
+#pq-columns h4
+{margin:0px;padding:0px;}
 
-{margin-bottom:7.5px;}
+#pq-columns .date.datetimepicker,
+#pq-columns p,
+#pq-columns hr,
+#pq-columns select
+{margin:0px 0px 20px 0px;}
 
-.pq-question,
-.info-notice,
-.status-bar,
-.minister-dropdown,
-.multi-select-action-officers,
-.dashboard_trim_link,
-.internal-deadline-form
-{margin:7.5px 0px;}
+#pq-columns label
+{margin-bottom:0px;}
+
+#pq-columns label.block-label
+{margin:0px 0px 20px 0px;}
+/*
+#pq-columns .trim-links-header
+{margin:20px 0px 20px 0px;}
+*/
+
+#pq-columns .dashboard_trim_link
+{margin:20px 0px 35px 0px;}
+
+.allocation-info input.btn.btn-commission
+{margin:30px 0px 30px 0px;}
+
+#progress-panel h4
+{margin:0px;}
+
+#progress-panel .date.datetimepicker,
+#progress-panel p,
+#progress-panel select,
+#progress-panel hr
+{margin:0px 0px 20px 0px;}
+
+#progress-panel label
+{margin-bottom:0px;}
+
+#progress-panel label.block-label
+{margin:0px 0px 20px 0px;}
+
+.txt-element
+{display:block;margin:0px 0px 20px 0px;}
 
 /* ============================================================================= */
+
+/* = Radio / checkbox styling ============================================================ */
+
+.block-label {
+  display:block;
+  float: none;
+  clear: left;
+  position: relative;
+  background: #dee0e2;
+  border: 1px solid #dee0e2;
+  padding: 18px 30px 15px 45px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer; }
+  @media (min-width: 641px) {
+    .block-label {
+      float: left;
+      margin-top: 5px;
+      margin-bottom: 5px;
+       } }
+
+.block-label:hover {
+  border-color: #0b0c0c; }
+
+.block-label input {
+  position: absolute;
+  top: 18px;
+  left: 15px;
+  cursor: pointer; }
+
+.inline .block-label {
+  clear: none;
+  margin-right: 15px; }
+
+.js-enabled .add-focus {
+  outline: 3px solid #ffbf47; }
+
+.js-enabled .block-label input:focus {
+  outline: none; }
+
+.js-enabled .selected {
+  background: #fff;
+  border-color: #0b0c0c; }
+/* ================================================================================== */
 
 .table {clear:both;}
 textarea {resize:none;}
@@ -219,8 +236,9 @@ textarea {resize:none;}
 {
 	margin:7.5px 0px;
 	border-radius:0px;
-	border-width:1px 1xp 4px 1px;
+	border-width:1px 1xp 2px 1px;
 	border-style:solid;
+
 }
 
 .btn-primary
@@ -267,32 +285,40 @@ a.btn-secondary{}
 
 /* = Navigation Tabs ============================================================ */
 
-.nav-tabs{margin-bottom:15px;}
+.nav-tabs{margin-bottom:20px;}
 
 /* Status Filters =============================================================== */
 
-#status-filters h3{margin-top:0px;}
+#status-filters h3{margin:0px 0px 10px 0px;}
 #status-filters .badge{float:right;min-width:2.5em;}
 
 /* = Dashboard Questions ======================================================== */
 
-.pq-header {line-height:27px;}
+.questions-list {padding:0px;}
+.questions-list li {list-style:none;border-bottom:2px solid #bfc1c3;padding:30px 0px 35px 0px;}
+li.select2-search-field {border-bottom:none;}
+
+.pq-header {line-height:27px;margin-bottom:20px;}
 .pq-header h3 {margin:0px 14px 0px 0px;padding:0px;vertical-align:middle;}
 .pq-header-flags {margin-right:26px;}
-
-.questions-list {padding:0px;}
-.questions-list li {list-style:none;}
 
 .name-day,
 .flag-will-write,
 .flag-transferred-in
 {font-size:14px;font-weight:normal;margin: 0 10px 0 0;padding:3.5px 8px;text-align:center;white-space:nowrap;}
 
-.info-notice {border-left-width:4px;border-left-style:solid;margin-left:15px;}
+.pq-question{margin-bottom:30px;padding:0px;}
 
-.status-bar {line-height:32px;}
+.info-notice {border-left-width:4px;border-left-style:solid;margin-left:15px;margin-bottom:20px;}
 
-.questions-list li label {font-size:16px;}
+.status-bar {line-height:32px;margin-bottom:30px;padding:0px;}
+
+#pq-columns .col-md-7 {padding-left:0px;}
+
+/*.questions-list li label {font-size:16px;}*/
+
+#commissioned .col-md-6
+{padding-left:0px;margin:0px 0px 25px 0px;}
 
 hr {height:1px;}
 
@@ -319,6 +345,7 @@ hr {height:1px;}
 
 #progress-menu ul li a.progress-menu-item.activeTab:hover {margin-left:10px;width:216px;}
 #progress-menu ul li progress-menu-item.inactiveTab:hover {margin-left:10px;width:208px;}
+#progress-panel .button {clear:both;display:block;}
 
 /* = Buttons ==================================================================== */
 
@@ -348,13 +375,14 @@ hr {height:1px;}
 {border-radius:6px;font-weight:normal;font-size:13px;padding:6px;}
 
 /* PQ Dashboard Page ============================================================ */
+
 .select2-container .select2-choice abbr {top:5px!important;}
 .question-allocation-list {list-style: circle;}
 .pq-inline-form {display:inline!important;}
 
 /* = TRIM links ================================================================= */
 .trim-links-header, .trim-links-header:hover {position:relative;cursor:default;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
-.trim-links-form {width:250px;height:auto;vertical-align:middle;display:none;position:absolute;top:-9px;left:-12px;cursor:default;z-index:5;float:left;line-height:35px;}
+.trim-links-form {width:250px;/*height:auto;*/vertical-align:middle;display:none;position:absolute;top:-9px;left:-12px;cursor:default;z-index:5;/*float:left*/;line-height:35px;}
 
 input[type="file"] {line-height:10px;}
 
@@ -365,7 +393,7 @@ input[type="file"] {line-height:10px;}
 .file-choose-replace {display:inline-block;line-height:35px;margin:10px;}
 
 /* = Pagination ================================================================= */
-#pages {clear:both;display:block;width:100%;text-align:center;margin:13px 0;}
+#pages {clear:both;display:block;width:100%;text-align:center;margin:50px 0px 0px 0px;}
 
 .pagination {margin-top:0;margin-bottom:0;}
 
