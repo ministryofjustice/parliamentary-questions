@@ -53,7 +53,7 @@
         </p>
 
         <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
-          <%= link_to po.name, press_officer_path(po) %>
+          <p><%= link_to po.name, press_officer_path(po) %></p>
         <% end %>
 
       <% end %>
