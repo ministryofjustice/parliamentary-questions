@@ -1,6 +1,6 @@
 class Pq < ActiveRecord::Base
 	validates :uin , presence: true, uniqueness:true
-	#validates :raising_member_id, presence:true
+	validates :raising_member_id, presence:true
 	validates :question, presence:true
 
   has_many :trim_links
