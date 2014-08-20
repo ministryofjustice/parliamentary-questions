@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'nokogiri'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.0'
 gem 'rails_config'
 
 # Use postgresql as the database for Active Record
@@ -60,7 +60,7 @@ gem 'statsd-ruby'
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'byebug', group: [:development, :test]
 
 
 gem 'httpclient'
