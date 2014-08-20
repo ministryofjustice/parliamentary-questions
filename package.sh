@@ -63,6 +63,12 @@ docker_rmi()
 }
 
 
+create_app_envvar()
+{
+  mkdir -p ./docker/app_env_vars
+  echo "$2" > ./docker/app_env_vars/$1  
+}
+
 ###
 ###
 ###
@@ -82,6 +88,14 @@ Commit:   $GIT_COMMIT
 
 EOT
 
+###
+### Setup application envvars for docker
+###
+rm -f ./docker/app_env_vars/*
+create_app_envvar APP_BUILD_VERSION "$APPVERSION"
+create_app_envvar APP_BUILD_DATE    "$DATE"
+create_app_envvar APP_BUILD_TAG     "$BUILD_TAG"
+create_app_envvar APP_GIT_COMMIT    "$GIT_COMMIT"
 
 # Generate a self contained bundle
 #cd build
