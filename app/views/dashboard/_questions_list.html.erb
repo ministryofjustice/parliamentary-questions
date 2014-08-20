@@ -3,7 +3,6 @@
     <li id="pq-frame-<%= question.id %>" class="row">
       <%= render partial: 'dashboard/question_data', locals: {question: question} %>
     </li>
-    <hr />
   <% end %>
   <div id='pages'>
     <%= will_paginate @questions %>
