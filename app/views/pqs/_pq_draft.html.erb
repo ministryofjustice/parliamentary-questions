@@ -10,25 +10,24 @@
 <% end %>
 
 <label for="draft_answer_received">Date PQ Returned by Action Officer</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="draft_answer_received" class="form-control" name="pq[draft_answer_received]" type="text" value="<%= @pq.draft_answer_received.strftime('%d/%m/%Y %H:%M') unless @pq.draft_answer_received.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-</div>
+</span>
 
 
-<label for="i_will_write">
+<label for="pq_i_will_write" class="block-label">
   <%= f.check_box(:i_will_write) %>
   I will write
 </label>
 
-<label>
+<label for="pq_pq_correction_received" class="block-label">
   <%= f.check_box(:pq_correction_received) %>
   PQ Correction received
 </label>
 
-
 <label for="correction_circulated">Date correction circulated to Action Officer</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="correction_circulated" class="form-control" name="pq[correction_circulated_to_action_officer]" type="text" value="<%= @pq.correction_circulated_to_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.correction_circulated_to_action_officer.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-</div>
+</span>
