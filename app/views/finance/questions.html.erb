@@ -33,10 +33,11 @@
               <input type="hidden" name="pq[<%= question.id %>][seen_by_finance]" value="true">
             </div>
           </div>
-          <hr />
         </li>
       <% end %>
-      <%= submit_tag 'Confirm Visibility of all PQs' , id: 'btn_finance_visibility' , class: 'button' %>
     </ul>
+    <div id="confirmation_button_bar" class="col-md-9">
+      <%= submit_tag 'Confirm Visibility of all PQs' , id: 'btn_finance_visibility' , class: 'button' %>
+    </div>
   <% end %>
 <% end %>

@@ -4,7 +4,7 @@
 <% end %>
 
 <% if !question.date_for_answer.nil?  %>
-  <h4>Date For Answer</h4>
+  <h4>Date for answer</h4>
   <span class="txt-element"><%= question.date_for_answer.strftime('%d/%m/%Y') %><%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %></span>
 <% end %>
 
@@ -12,11 +12,11 @@
   <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
     <label for='datetimepicker-<%= question.id %>'>
       <h4>Internal deadline</h4>
-      <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
     </label>
     <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
       <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+      <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
     </div>
     <%= f.submit 'Update', :class => 'btn btn-success btn-xs start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
 <% end %>
@@ -24,8 +24,10 @@
 <% else %>
   <% if !question.internal_deadline.nil?  %>
       <h4>Internal deadline</h4>
-      <span class="txt-element"><%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %></span>
-      <span class="txt-element"><%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %></span>
+      <span class="txt-element">
+        <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
+        <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
+      </span>
   <% end %>
 <% end %>
 <!-- round robin placeholder -->

@@ -6,6 +6,19 @@ body {font-size:19px;}
 
 /* = Colour definitions ==================================================================== */
 
+/* = Flash Messages = */
+
+.alert {border-radius:0px;border-left-width:4px;border-left-style:solid;margin:20px 15px;}
+.alert.alert {border-left-color:#d0021b;}
+.alert.danger {}
+.alert.notice  {border-left-color:#bfc1c3;}
+.alert.success {border-left-color:#dee0e2;}
+.alert.warning {}
+button.close {float:none;margin-left:1em;color:#000;}
+
+/* ================== */
+
+
 #build, i.fa-envelope, .name-day, a.btn-no-response, .btn-no-response, .btn-commission, .btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .btn-save, .btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active, a.btn.btn-success, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header:hover, .trim-links-cancel:hover {color:#fff;}
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared {color:#000;}
@@ -33,7 +46,7 @@ hr{color:#bfc1c3;}
 .flag-transferred-out {background-color:#d53880;}
 .flag-unallocated {background-color:#f47738;}
 .flag-unassigned {background-color:#bd10e0;}
-.flag-will-write {background-color:#912b88;}
+.flag-will-write {background-color:#5f5f5f;}
 .flag-with-minister {background-color:#82622e;}
 .flag-with-pod {background-color:#2e358b;}
 #search_button, #status-filters .active .badge {background-color:#fff;}
@@ -65,18 +78,18 @@ h2 .badge, #status-filters .badge {background-color:#000;}
 
 /* = Template and shared ======================================================== */
 
-#global-header .header-wrapper,
+.header-wrapper,
 #wrapper
 {max-width:1024px;margin-left:auto;margin-right:auto;}
 
-.content a
-{line-height:32px;vertical-align:middle;}
-
-#global-header.with-proposition .header-wrapper .header-global
-{margin-right:40%;}
+.header-global
+{margin-right:40.5%;}
 
 #global-header.with-proposition .header-wrapper .header-proposition
-{width:205px;height:48px;padding:11px 0px 0px 0px;}
+{display:inline-block;float:none;width:241px;height:48px;}
+
+.content a
+{line-height:32px;vertical-align:middle;}
 
 #build
 {display:inline-block;font-size:14px;font-weight:900;letter-spacing:2px;padding:2px 5px;}
@@ -94,7 +107,7 @@ h2 .badge
 {vertical-align:middle;}
 
 h3
-{font-size:18px;font-weight:bold;}
+{font-size:19px;font-weight:bold;}
 
 h4
 {color:#6f777b;font-size:19px;font-weight:normal;}
@@ -105,7 +118,7 @@ h4
 #pq-details-title h2
 {display:inline-block;}
 
-i.fa-envelope
+i.fa-envelope, i.fa-exclamation-triangle
 {margin-left:4px;}
 
 .right
@@ -118,7 +131,7 @@ select
 {display:block;}
 
 .date, .datetimepicker
-{width:12em;}
+{width:13em;}
 
 #pages,
 .internal-deadline-form,
@@ -132,7 +145,7 @@ select
 {margin:6px 0px 20px 0px;}
 
 .internal-deadline
-{font-size:16px;}
+{font-size:19px;}
 
 /* = Element spacing ============================================================ */
 
@@ -153,10 +166,6 @@ select
 
 #pq-columns label.block-label
 {margin:0px 0px 20px 0px;}
-/*
-#pq-columns .trim-links-header
-{margin:20px 0px 20px 0px;}
-*/
 
 #pq-columns .dashboard_trim_link
 {margin:20px 0px 35px 0px;}
@@ -182,6 +191,12 @@ select
 .txt-element
 {display:block;margin:0px 0px 20px 0px;}
 
+#confirmation_button_bar
+{padding-left:0px;}
+
+#btn_finance_visibility
+{margin-top:30px;}
+
 /* ============================================================================= */
 
 /* = Radio / checkbox styling ============================================================ */
@@ -204,42 +219,35 @@ select
       margin-bottom: 5px;
        } }
 
-.block-label:hover {
-  border-color: #0b0c0c; }
+.block-label:hover
+{border-color: #0b0c0c;}
 
-.block-label input {
-  position: absolute;
-  top: 18px;
-  left: 15px;
-  cursor: pointer; }
+.block-label input
+{position: absolute; top: 18px; left: 15px; cursor: pointer;}
 
-.inline .block-label {
-  clear: none;
-  margin-right: 15px; }
+.inline .block-label
+{clear: none; margin-right: 15px;}
 
-.js-enabled .add-focus {
-  outline: 3px solid #ffbf47; }
+.js-enabled .add-focus
+{outline: 3px solid #ffbf47;}
 
-.js-enabled .block-label input:focus {
-  outline: none; }
+.js-enabled .block-label input:focus
+{outline: none;}
 
-.js-enabled .selected {
-  background: #fff;
-  border-color: #0b0c0c; }
+.js-enabled .selected
+{background: #fff; border-color: #0b0c0c;}
+
 /* ================================================================================== */
 
-.table {clear:both;}
-textarea {resize:none;}
+.table
+{clear:both;}
+
+textarea
+{resize:none;}
 
 .btn-primary,
 .btn-secondary
-{
-	margin:7.5px 0px;
-	border-radius:0px;
-	border-width:1px 1xp 2px 1px;
-	border-style:solid;
-
-}
+{margin:7.5px 0px; border-radius:0px; border-width:1px 1xp 2px 1px; border-style:solid;}
 
 .btn-primary
 {color:#fff;background-color:#00823b;border-color:#00823b #00823b #003518 #00823b;}
@@ -266,8 +274,10 @@ a.btn-secondary{}
 #new_user input[type="checkbox"]
 {display:inline-block;margin:8px 10px 1em 0px;}
 
+/*
 #lbl-remember-me
 {display:inline;margin:8px 0px;}
+*/
 
 /* = Navigation ================================================================= */
 
