@@ -78,18 +78,18 @@ h2 .badge, #status-filters .badge {background-color:#000;}
 
 /* = Template and shared ======================================================== */
 
-#global-header .header-wrapper,
+.header-wrapper,
 #wrapper
 {max-width:1024px;margin-left:auto;margin-right:auto;}
 
-.content a
-{line-height:32px;vertical-align:middle;}
-
-#global-header.with-proposition .header-wrapper .header-global
-{margin-right:40%;}
+.header-global
+{margin-right:40.5%;}
 
 #global-header.with-proposition .header-wrapper .header-proposition
-{width:205px;height:48px;padding:11px 0px 0px 0px;}
+{display:inline-block;float:none;width:241px;height:48px;}
+
+.content a
+{line-height:32px;vertical-align:middle;}
 
 #build
 {display:inline-block;font-size:14px;font-weight:900;letter-spacing:2px;padding:2px 5px;}
@@ -107,7 +107,7 @@ h2 .badge
 {vertical-align:middle;}
 
 h3
-{font-size:18px;font-weight:bold;}
+{font-size:19px;font-weight:bold;}
 
 h4
 {color:#6f777b;font-size:19px;font-weight:normal;}
@@ -166,10 +166,6 @@ select
 
 #pq-columns label.block-label
 {margin:0px 0px 20px 0px;}
-/*
-#pq-columns .trim-links-header
-{margin:20px 0px 20px 0px;}
-*/
 
 #pq-columns .dashboard_trim_link
 {margin:20px 0px 35px 0px;}
@@ -223,42 +219,35 @@ select
       margin-bottom: 5px;
        } }
 
-.block-label:hover {
-  border-color: #0b0c0c; }
+.block-label:hover
+{border-color: #0b0c0c;}
 
-.block-label input {
-  position: absolute;
-  top: 18px;
-  left: 15px;
-  cursor: pointer; }
+.block-label input
+{position: absolute; top: 18px; left: 15px; cursor: pointer;}
 
-.inline .block-label {
-  clear: none;
-  margin-right: 15px; }
+.inline .block-label
+{clear: none; margin-right: 15px;}
 
-.js-enabled .add-focus {
-  outline: 3px solid #ffbf47; }
+.js-enabled .add-focus
+{outline: 3px solid #ffbf47;}
 
-.js-enabled .block-label input:focus {
-  outline: none; }
+.js-enabled .block-label input:focus
+{outline: none;}
 
-.js-enabled .selected {
-  background: #fff;
-  border-color: #0b0c0c; }
+.js-enabled .selected
+{background: #fff; border-color: #0b0c0c;}
+
 /* ================================================================================== */
 
-.table {clear:both;}
-textarea {resize:none;}
+.table
+{clear:both;}
+
+textarea
+{resize:none;}
 
 .btn-primary,
 .btn-secondary
-{
-	margin:7.5px 0px;
-	border-radius:0px;
-	border-width:1px 1xp 2px 1px;
-	border-style:solid;
-
-}
+{margin:7.5px 0px; border-radius:0px; border-width:1px 1xp 2px 1px; border-style:solid;}
 
 .btn-primary
 {color:#fff;background-color:#00823b;border-color:#00823b #00823b #003518 #00823b;}
