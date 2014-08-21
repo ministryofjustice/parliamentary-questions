@@ -12,7 +12,7 @@ module ParliamentaryQuestions
     # Application Title (Populates <title>)
     config.app_title = 'Parliamentary Questions'
     # Proposition Title (Populates proposition header)
-    config.proposition_title = 'PQ Tool'
+    config.proposition_title = 'PQ Tracker'
     # Current Phase (Sets the current phase and the colour of phase tags)
     # Presumed values: alpha, beta, live
     config.phase = 'alpha'
