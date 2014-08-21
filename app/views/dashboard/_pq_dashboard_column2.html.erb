@@ -24,8 +24,10 @@
 <% else %>
   <% if !question.internal_deadline.nil?  %>
       <h4>Internal deadline</h4>
-      <span class="txt-element"><%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %></span>
-      <span class="txt-element"><%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %></span>
+      <span class="txt-element">
+        <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
+        <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
+      </span>
   <% end %>
 <% end %>
 <!-- round robin placeholder -->
