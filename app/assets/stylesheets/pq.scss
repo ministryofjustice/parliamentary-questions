@@ -6,6 +6,19 @@ body {font-size:19px;}
 
 /* = Colour definitions ==================================================================== */
 
+/* = Flash Messages = */
+
+.alert {border-radius:0px;border-left-width:4px;border-left-style:solid;margin:20px 15px;}
+.alert.alert {border-left-color:#d0021b;}
+.alert.danger {}
+.alert.notice  {border-left-color:#bfc1c3;}
+.alert.success {border-left-color:#dee0e2;}
+.alert.warning {}
+button.close {float:none;margin-left:1em;color:#000;}
+
+/* ================== */
+
+
 #build, i.fa-envelope, .name-day, a.btn-no-response, .btn-no-response, .btn-commission, .btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .btn-save, .btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active, a.btn.btn-success, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header:hover, .trim-links-cancel:hover {color:#fff;}
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared {color:#000;}
@@ -33,7 +46,7 @@ hr{color:#bfc1c3;}
 .flag-transferred-out {background-color:#d53880;}
 .flag-unallocated {background-color:#f47738;}
 .flag-unassigned {background-color:#bd10e0;}
-.flag-will-write {background-color:#912b88;}
+.flag-will-write {background-color:#5f5f5f;}
 .flag-with-minister {background-color:#82622e;}
 .flag-with-pod {background-color:#2e358b;}
 #search_button, #status-filters .active .badge {background-color:#fff;}
@@ -182,6 +195,9 @@ select
 .txt-element
 {display:block;margin:0px 0px 20px 0px;}
 
+#btn_finance_visibility
+{margin-top:30px;}
+
 /* ============================================================================= */
 
 /* = Radio / checkbox styling ============================================================ */
@@ -266,8 +282,10 @@ a.btn-secondary{}
 #new_user input[type="checkbox"]
 {display:inline-block;margin:8px 10px 1em 0px;}
 
+/*
 #lbl-remember-me
 {display:inline;margin:8px 0px;}
+*/
 
 /* = Navigation ================================================================= */
 
