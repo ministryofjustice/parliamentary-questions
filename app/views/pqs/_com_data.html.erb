@@ -3,7 +3,7 @@
   <span class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
     <input id="pq_internal_deadline" class="form-control" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-  </span>
+  </span>  
 </div>
 
 <hr/>
@@ -90,7 +90,8 @@
 <%= f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
 
 <label for="transfer_out_date">Date transferred out</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="transfer_out_date" class="form-control" name="pq[transfer_out_date]" type="text" value="<%= @pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-</div>
+</span>
+

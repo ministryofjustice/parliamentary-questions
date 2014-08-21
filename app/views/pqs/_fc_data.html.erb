@@ -1,17 +1,15 @@
 <% if @pq.seen_by_finance %>
-
-<p><i class="fa fa-check-circle"></i> PQ viewed</p>
-
+	<p><i class="fa fa-check-circle"></i> PQ viewed</p>
 <% else %>
 	<p><i class="fa fa-times-circle"></i> PQ not viewed</p>
 <% end %>
 
-<div class="checkbox">
-    <%= f.label(:seen_by_finance) %>
-    <%= f.check_box(:seen_by_finance) %>
-</div>
+<label for="pq_seen_by_finance" class="block-label">
+	<%= f.check_box(:seen_by_finance) %>
+    Seen by finance
+</label>
 
-<div class="checkbox">
-	<%= f.label(:finance_interest, 'Interest in PQ') %>
+<label for="pq_finance_interest" class="block-label">
 	<%= f.check_box(:finance_interest) %>
-</div>
+	Interest in PQ
+</label>

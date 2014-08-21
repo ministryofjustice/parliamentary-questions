@@ -13,6 +13,7 @@ $(document).ready(function () {
     $('#allocation_response_response_action_accept').click(function (){
 		$('#reason-textarea').addClass('hide');
 	});
+
 	$('#allocation_response_response_action_reject').click(function (){
 		$('#reason-textarea').removeClass('hide');
 	});
@@ -125,6 +126,7 @@ $(document).ready(function () {
         $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
         $('#comm-details-' + pqid).toggleClass('start-hidden');
     });
+
     $('.progress-menu-item').on('click',function() {
         //hide all progress-menu-data items
         $('.progress-menu-data').hide();
@@ -188,6 +190,35 @@ $(document).ready(function () {
             break;
         }
     });
+
+    // Checkbox and radio button CSS state changes
+    $(".block-label").each(function() {
+
+        // Add focus
+        $(".block-label input").focus(function() {
+            $("label[for='" + this.id + "']").addClass("add-focus");
+        }).blur(function() {
+            $("label").removeClass("add-focus");
+        });
+
+        // Add selected class
+        $('input:checked').parent().addClass('selected');
+
+    });
+
+    // Add/remove selected class
+    $('.block-label').find('input[type=radio], input[type=checkbox]').click(function() {
+        $('input:not(:checked)').parent().removeClass('selected');
+        $('input:checked').parent().addClass('selected');
+        $('.toggle-content').hide();
+        var target = $('input:checked').parent().attr('data-target');
+        $('#'+target).show();
+    });
+
+    // For pre-checked inputs, show toggled content
+    var target = $('input:checked').parent().attr('data-target');
+    $('#'+target).show();
+
 
 });
 

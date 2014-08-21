@@ -1,8 +1,8 @@
 <label for="answer_submitted">Date answer submitted</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="answer_submitted" class="form-control" name="pq[answer_submitted]" type="text" value="<%= @pq.answer_submitted.strftime('%d/%m/%Y %H:%M') unless @pq.answer_submitted.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-</div>
+</span>
 
 <% if !@pq.answer_submitted.nil? && !@pq.date_for_answer.nil? %>
   <% if @pq.answer_submitted < @pq.date_for_answer %>
@@ -12,30 +12,29 @@
   <% end %>
 <% end %>
 
-<div class="checkbox">
-  <%= f.label(:library_deposit) %>
+<label for="pq_library_deposit" class="block-label">
   <%= f.check_box(:library_deposit) %>
-</div>
+  Library deposit
+</label>
 
 <label for="pq_withdrawn">Date PQ withdrawn</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="pq_withdrawn" class="form-control" name="pq[pq_withdrawn]" type="text" value="<%= @pq.pq_withdrawn.strftime('%d/%m/%Y %H:%M') unless @pq.pq_withdrawn.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-</div>
+</span>
 
-<div class="checkbox">
-  <%= f.label(:holding_reply_flag) %>
+<label for="pq_holding_reply_flag" class="block-label">
   <%= f.check_box(:holding_reply_flag) %>
-</div>
+  Holding reply flag
+</label>
 
 <% if @pq.i_will_write %>
-  <p>
-    <%= link_to raw("Create 'I will write' '#{@pq.uin}-IWW' <i class='fa fa-files-o'></i>"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {class: 'btn btn-success', title: 'Send a reminder email to do the draft'} %>
-  </p>
+  <%= link_to raw("Create 'I will write' '#{@pq.uin}-IWW' <i class='fa fa-files-o'></i>"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'btn btn-success', title: 'Send a reminder email to do the draft'} %>
 <% end %>
 
 <label>Final response information released</label>
-<%= f.select(:final_response_info_released, [
+<%= f.select(:final_response_info_released, 
+  [
   ["Please select",""],
   ["Commercial in confidence","Commercial in confidence"],
   ["Disproportionate cost","Disproportionate cost"],
@@ -47,9 +46,8 @@
   ["Partial disclosure","Partial disclosure"],
   ["Partial Disproportionate cost","Partial Disproportionate cost"],
   ["Referral","Referral"]
-]
-    ) %>
+  ]
+) %>
 
 <label>Progress (TODO: for testing)</label>
 <%= f.collection_select(:progress_id, @progress_list, :id, :name) %>
-
