@@ -25,7 +25,7 @@
         </div>
 
         House:
-        <label for="pq_house_name_house_of_commons"><%= f.radio_button :house_name, 'House Of Commons' %> House Of Commons</label>
+        <label for="pq_house_name_house_of_commons"><%= f.radio_button :house_name, 'House Of Commons' %> House of Commons</label>
         <label for="pq_house_name_house_of_lords"><%= f.radio_button :house_name, 'House Of Lords' %> House of Lords</label>
 
         <label for="pq_member_name">Name of member</label>
@@ -40,7 +40,7 @@
 
         Question type:
         <label for="pq_question_type_ordinary"><%= f.radio_button :question_type, 'Ordinary' %> Ordinary</label>
-        <label for="pq_question_type_namedday"><%= f.radio_button :question_type, 'NamedDay'%> Named Day</label>
+        <label for="pq_question_type_namedday"><%= f.radio_button :question_type, 'NamedDay'%> Named day</label>
 
         <label for="pq_transfer_in_ogd_id">Transferred in from</label>
         <%= f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department") %>
