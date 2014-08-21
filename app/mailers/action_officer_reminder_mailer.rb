@@ -7,7 +7,7 @@ class ActionOfficerReminderMailer < PQBaseMailer
     #template[:email] = ao.email
     #template[:uin] = pq.uin
     #template[:question] = pq.question
-    mail(to: @template_params[:email], subject: "#{@template_params[:uin]} | URGENT: you need to accept or reject this PQ")
+    mail(to: @template_params[:email], subject: "URGENT: you need to accept or reject PQ #{@template_params[:uin]}")
   end
 
 end
