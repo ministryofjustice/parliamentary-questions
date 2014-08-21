@@ -1,7 +1,6 @@
 <% flash.each do |type, message| %>
 	<div class="alert <%= flash_class_for(type) %> fade in">
-		<button class="close" data-dismiss="alert">×</button>
-		<%= message %>
+		<%= message %><button class="close" data-dismiss="alert">×</button>
 	</div>
 <% end %>
 
