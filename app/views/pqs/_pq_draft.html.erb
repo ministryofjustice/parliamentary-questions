@@ -1,7 +1,7 @@
 <% if @pq.action_officers.size > 0 %>
   <% @pq.action_officers_pq.each do |ao_pq| %>
     <% if ao_pq.accept %>
-      <label>Date PQ Accepted By Action Officer</label>
+      <label>Date PQ accepted by action officer</label>
       <p><%= ao_pq.updated_at.strftime('%d/%m/%Y %H:%M') unless ao_pq.updated_at.nil? %></p>
     <% else %>
       <% ao_pq.action_officer_id %>
@@ -9,7 +9,7 @@
   <% end %>
 <% end %>
 
-<label for="draft_answer_received">Date PQ Returned by Action Officer</label>
+<label for="draft_answer_received">Date PQ returned by action officer</label>
 <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="draft_answer_received" class="form-control" name="pq[draft_answer_received]" type="text" value="<%= @pq.draft_answer_received.strftime('%d/%m/%Y %H:%M') unless @pq.draft_answer_received.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -23,10 +23,10 @@
 
 <label for="pq_pq_correction_received" class="block-label">
   <%= f.check_box(:pq_correction_received) %>
-  PQ Correction received
+  PQ correction received
 </label>
 
-<label for="correction_circulated">Date correction circulated to Action Officer</label>
+<label for="correction_circulated">Date correction circulated to action officer</label>
 <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
   <input id="correction_circulated" class="form-control" name="pq[correction_circulated_to_action_officer]" type="text" value="<%= @pq.correction_circulated_to_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.correction_circulated_to_action_officer.nil? %>">
   <span class="input-group-addon glyphicon glyphicon-calendar"></span>
