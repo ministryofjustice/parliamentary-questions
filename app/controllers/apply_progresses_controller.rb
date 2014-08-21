@@ -10,11 +10,15 @@ class ApplyProgressesController < ApplicationController
     pqs.each do |q|
       original_status = q.progress.name
       q.progress = Progress.draft_pending
+
       puts q.uin + 'interim Progress: ' + q.progress.name
 
       #@pq_progress_changer_service.update_progress(q)
       update_progress(q)
 
+      if q.progress.name == 'Draft Pending'
+        q.save!
+      end
       puts q.uin + 'Original Progress: ' + original_status + ' new status:' + q.progress.name
       count_changes = count_changes + 1 if original_status != q.progress.name
 
@@ -43,18 +47,21 @@ class ApplyProgressesController < ApplicationController
     def with_pod_filter(pq)
       if !pq.draft_answer_received.nil?
         update_pq(pq, Progress.with_pod)
+        return
       end
     end
 
     def pod_query_filter(pq)
       if pq.pod_query_flag
         update_pq(pq, Progress.pod_query)
+        return
       end
     end
 
     def pod_clearance_filter(pq)
       if !pq.pod_clearance.nil?
         update_pq(pq, Progress.pod_cleared)
+        return
       end
     end
 
@@ -113,12 +120,18 @@ class ApplyProgressesController < ApplicationController
 
     def answered_filter(pq)
 
+
+
+
+
       if !pq.pq_withdrawn.nil?
+        puts "uin: #{pq.uin} Is Withdrawn: #{pq.pq_withdrawn if !pq.pq_withdrawn.nil?}"
         update_pq(pq, Progress.answered)
         return
       end
 
       if !pq.answer_submitted.nil?
+        puts "uin: #{pq.uin} IS Submitted: #{pq.answer_submitted if !pq.answer_submitted.nil?}"
         update_pq(pq, Progress.answered)
         return
       end
@@ -136,6 +149,7 @@ class ApplyProgressesController < ApplicationController
       #pq.update!(progress_id: progress.id)
       pq.progress = progress
       pq.save!
+
     end
 
 end
