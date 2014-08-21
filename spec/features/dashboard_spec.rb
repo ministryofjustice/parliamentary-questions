@@ -13,7 +13,7 @@ feature 'Visit the dashboard an show the questions for the day' do
     context 'view' do
       scenario "can view the questions tabled for today" do
         visit '/dashboard'
-        expect(page).to have_content('PQ Tool')
+        expect(page).to have_content('PQ Tracker')
       end
     end
 

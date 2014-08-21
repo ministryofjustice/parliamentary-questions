@@ -14,7 +14,7 @@
       <% if ao_pq.accept %>
         <p>
           Name of Action Officer<br />
-          <%= link_to ao_pq.action_officer.name, edit_action_officer_path(ao_pq.action_officer) %>
+          <%= link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer) %>
           <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>&nbsp;
           <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
         </p>
