@@ -6,25 +6,33 @@ class ApplyProgressesController < ApplicationController
     count_changes = 0
 
     pqs = Pq.all
+    @results = Array.new
 
     pqs.each do |q|
-      original_status = q.progress.name
-      q.progress = Progress.draft_pending
 
-      puts q.uin + 'interim Progress: ' + q.progress.name
+      begin
+        original_status = q.progress.name
+        q.progress = Progress.draft_pending
 
-      #@pq_progress_changer_service.update_progress(q)
-      update_progress(q)
+        @results << "#{q.uin} "
+        @results << "Interim Progress: #{q.progress.name}"
 
-      if q.progress.name == 'Draft Pending'
-        q.save!
+        #@pq_progress_changer_service.update_progress(q)
+        update_progress(q)
+
+        if q.progress.name == 'Draft Pending'
+          q.save!
+        end
+        @results << 'Original Progress: ' + original_status + ' || new status:' + q.progress.name
+        count_changes = count_changes + 1 if original_status != q.progress.name
+      rescue => e
+        @results << "Error : #{e.message}"
       end
-      puts q.uin + 'Original Progress: ' + original_status + ' new status:' + q.progress.name
-      count_changes = count_changes + 1 if original_status != q.progress.name
 
+      @results << '-------------------------'
 
     end
-
+    @results
   end
 
   # def load_service(pq_progress_changer_service = PQProgressChangerService.new)
