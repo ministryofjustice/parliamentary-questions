@@ -1,4 +1,4 @@
-<h2>User Details</h2>
+<h2>User details</h2>
 <div id="admin-user-details">
 	<h4>Name</h4>
 	<%= @user.name %></p>
@@ -11,5 +11,5 @@
 	<h4>Invited by</h4>
 	<%= @user.invited_by_user %>
 	<%= link_to 'Edit', edit_user_path(@user), {class: 'admin-link'} %>
-	<%= link_to 'Return to Users', users_path, {class: 'admin-link'} %>
+	<%= link_to 'Return to user list', users_path, {class: 'admin-link'} %>
 </div>
