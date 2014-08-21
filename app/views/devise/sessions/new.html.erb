@@ -1,17 +1,20 @@
 
 <%= render partial: "shared/flash_messages", flash: flash %>
-
 <h2>Sign in</h2>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <%= devise_error_messages! %>
-	<%= f.label :email %>
-	<%= f.email_field :email, autofocus: true %>
-
-  	<%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "off" %>
-	<% if devise_mapping.rememberable? -%>
-    	<%= f.check_box :remember_me, {id: 'chk-remember-me'} %> <%= f.label :remember_me, {id: 'lbl-remember-me'} %>
-  	<% end -%>
-  	<%= f.submit "Sign in" %>
+	<fieldset>
+    	<%= devise_error_messages! %>
+    	<label for="user_email">Email</label>
+		<%= f.email_field :email, class: 'form-control', autofocus: true %>
+		<label for="">Password</label>
+    	<%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
+		<% if devise_mapping.rememberable? -%>
+			<label for="user_password" class="block-label">
+    			<%= f.check_box :remember_me, {id: 'chk-remember-me'} %>
+    			Remember me
+    		</label>
+  		<% end -%>
+  	</fieldset>
+  	<%= f.submit "Sign in", :class => 'button' %>
+  	<%= render "devise/shared/links" %>
 <% end %>
-<%= render "devise/shared/links" %>
