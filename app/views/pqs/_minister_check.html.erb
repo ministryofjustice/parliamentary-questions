@@ -1,6 +1,6 @@
 <div id="answeringminister">
 
-  <label for="sent_to_answering_minister">Date sent to Answering Minister</label>
+  <label for="sent_to_answering_minister">Date sent to answering minister</label>
   <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
     <input id="sent_to_answering_minister" class="form-control" name="pq[sent_to_answering_minister]" type="text" value="<%= @pq.sent_to_answering_minister.strftime('%d/%m/%Y %H:%M') unless @pq.sent_to_answering_minister.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -8,28 +8,28 @@
   
   <label for="pq_answering_minister_query" class="block-label">
     <%= f.check_box(:answering_minister_query) %>
-    Answering Minister query
+    Answering minister query
   </label>
 
-  <label for="answering_minister_to_action_officer">Date sent back to Action Officer</label>
+  <label for="answering_minister_to_action_officer">Date sent back to action officer</label>
   <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
     <input id="answering_minister_to_action_officer" class="form-control" name="pq[answering_minister_to_action_officer]" type="text" value="<%= @pq.answering_minister_to_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.answering_minister_to_action_officer.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
   </span>
 
-  <label for="answering_minister_returned_by_action_officer">Date returned by Action Officer</label>
+  <label for="answering_minister_returned_by_action_officer">Date returned by action officer</label>
   <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
     <input id="answering_minister_returned_by_action_officer" class="form-control" name="pq[answering_minister_returned_by_action_officer]" type="text" value="<%= @pq.answering_minister_returned_by_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.answering_minister_returned_by_action_officer.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
   </span>
   
-  <label for="resubmitted_to_answering_minister">Resubmitted to Minister</label>
+  <label for="resubmitted_to_answering_minister">Resubmitted to minister</label>
   <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
     <input id="resubmitted_to_answering_minister" class="form-control" name="pq[resubmitted_to_answering_minister]" type="text" value="<%= @pq.resubmitted_to_answering_minister.strftime('%d/%m/%Y %H:%M') unless @pq.resubmitted_to_answering_minister.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
   </span>
 
-  <label for="cleared_by_answering_minister">Date Cleared by Answering Minister</label>
+  <label for="cleared_by_answering_minister">Date cleared by answering minister</label>
   <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
     <input id="cleared_by_answering_minister" class="form-control" name="pq[cleared_by_answering_minister]" type="text" value="<%= @pq.cleared_by_answering_minister.strftime('%d/%m/%Y %H:%M') unless @pq.cleared_by_answering_minister.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -39,7 +39,7 @@
 <% if @pq.policy_minister_id %>
   <hr />
   <div id="policyminister">
-    <label for="sent_to_policy_minister">Sent to Policy Minister</label>
+    <label for="sent_to_policy_minister">Sent to policy minister</label>
     <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
       <input id="sent_to_policy_minister" class="form-control" name="pq[sent_to_policy_minister]" type="text" value="<%= @pq.sent_to_policy_minister.strftime('%d/%m/%Y %H:%M') unless @pq.sent_to_policy_minister.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -47,28 +47,28 @@
 
     <label for="pq_policy_minister_query" class="block-label">
       <%= f.check_box(:policy_minister_query) %>
-      Policy Minister query
+      Policy minister query
     </label>
 
-    <label for="policy_minister_to_action_officer">Date sent back to Action Officer</label>
+    <label for="policy_minister_to_action_officer">Date sent back to action officer</label>
     <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
       <input id="policy_minister_to_action_officer" class="form-control" name="pq[policy_minister_to_action_officer]" type="text" value="<%= @pq.policy_minister_to_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.policy_minister_to_action_officer.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
     </span>
 
-    <label for="policy_minister_returned_by_action_officer">Date Returned by Action Officer</label>
+    <label for="policy_minister_returned_by_action_officer">Date returned by action officer</label>
     <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
       <input id="policy_minister_returned_by_action_officer" class="form-control" name="pq[policy_minister_returned_by_action_officer]" type="text" value="<%= @pq.policy_minister_returned_by_action_officer.strftime('%d/%m/%Y %H:%M') unless @pq.policy_minister_returned_by_action_officer.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
     </span>
 
-    <label for="resubmitted_to_policy_minister">Date resubmitted to Minister</label>
+    <label for="resubmitted_to_policy_minister">Date resubmitted to minister</label>
     <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
       <input id="resubmitted_to_policy_minister" class="form-control" name="pq[resubmitted_to_policy_minister]" type="text" value="<%= @pq.resubmitted_to_policy_minister.strftime('%d/%m/%Y %H:%M') unless @pq.resubmitted_to_policy_minister.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
     </span>
 
-    <label for="cleared_by_policy_minister">Date Cleared by Policy Minister</label>
+    <label for="cleared_by_policy_minister">Date Cleared by policy minister</label>
     <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
       <input id="cleared_by_policy_minister" class="form-control" name="pq[cleared_by_policy_minister]" type="text" value="<%= @pq.cleared_by_policy_minister.strftime('%d/%m/%Y %H:%M') unless @pq.cleared_by_policy_minister.nil? %>">
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
