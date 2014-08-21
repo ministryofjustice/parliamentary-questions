@@ -6,21 +6,21 @@
 <%= form_for [question, ActionOfficersPq.new], :remote => true, :authenticity_token => true, :html => { :id => "form-commission#{question.id}", :class => 'form-commission', :data => {:pqid => "#{question.id}" }}, :url => {:controller => 'commission', :action => "assign", :id => question.id } do |f| %>
   <div id="answering-minister-form-<%= question.id %>" class="minister-dropdown">
     <div class="form-group">
-      <label for="minister_id">Assign Answering Minister</label>
+      <label for="minister_id">Assign answering minister</label>
       <%= select_tag 'minister_id', content_tag(:option,'Select',:value=>'') + options_from_collection_for_select(Minister.all_active, 'id', 'name', question.minister_id ), class: 'single-select-dropdown', disabled: disable  %>
     </div>
   </div>
 
   <div id="policy-minister-form-<%= question.id %>" class="minister-dropdown">
     <div class="form-group">
-      <label for="minister_id">Assign Policy Minister</label>
+      <label for="minister_id">Assign policy minister</label>
       <%= select_tag 'policy_minister_id', content_tag(:option,'Select',:value=>'') + options_from_collection_for_select(Minister.all_active, 'id', 'name', question.policy_minister_id ), class: 'single-select-dropdown', disabled: disable %>
     </div>
   </div>
 
   <div class="allocation-info">
     <div id="comm-form-container-<%= question.id%>">
-      <label>Assign Action Officer(s)</label>
+      <label>Assign action officer(s)</label>
       <%= collection_select(:action_officers_pq, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers', :id => "action_officers_pq_action_officer_id-#{question.id}", :disabled => disable }) %>
       <%= f.hidden_field(:pq_id , :value => question.id, :id=>"pq_id-actoff-#{question.id}") %><br />
       <%= f.submit 'Commission', :class => 'btn btn-commission', :disabled => disable %>
