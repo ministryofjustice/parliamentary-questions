@@ -29,7 +29,7 @@
 </label>
 
 <% if @pq.i_will_write %>
-  <%= link_to raw("Create 'I will write' '#{@pq.uin}-IWW' <i class='fa fa-files-o'></i>"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'btn btn-success', title: 'Send a reminder email to do the draft'} %>
+  <%= link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button', title: 'Send a reminder email to do the draft'} %>
 <% end %>
 
 <label>Final response information released</label>

@@ -1,116 +1,134 @@
 /* = Reset ================================================================================= */
 
-.row{margin-right:0px;margin-left:0px;}
-p{margin:0px;}
-body {font-size:19px;}
+.row {margin-right: 0px; margin-left: 0px;}
+p {margin: 0px;}
+body {font-size: 19px;}
 
 /* = Colour definitions ==================================================================== */
 
+h4 {color: #6f777b;}
+
 /* = Flash Messages = */
 
-.alert {border-radius:0px;border-left-width:4px;border-left-style:solid;margin:20px 15px;}
+.alert
+{border-radius:0px;border-width:0px 0px 0px 4px;border-style:none none none solid;margin:20px 15px;background-color:#fff;color:#000;}
 .alert.alert {border-left-color:#d0021b;}
 .alert.danger {}
 .alert.notice  {border-left-color:#bfc1c3;}
 .alert.success {border-left-color:#dee0e2;}
 .alert.warning {}
-button.close {float:none;margin-left:1em;color:#000;}
+.alert.alert-success {border-left-color:#85994b;}
+button.close {float:none;margin:0em 1em;color:#000;}
 
 /* ================== */
 
+#build,
+i.fa-envelope,
+.name-day, 
+.open, 
+.dropdown-toggle.btn-success, 
+.flag-accepted, 
+.flag-answered, 
+.flag-draft-pending, 
+.flag-finance-unchecked, 
+.flag-ministerial-query, 
+.flag-no-response, 
+.flag-pod-query, 
+.flag-rejected, 
+.flag-transferred-in, 
+.flag-transferred-out, 
+.flag-unallocated, 
+.flag-unassigned, 
+.flag-will-write, 
+.flag-with-minister, 
+.flag-with-pod, 
+.trim-links-header:hover, 
+.trim-links-cancel:hover
+{color: #fff;}
 
-#build, i.fa-envelope, .name-day, a.btn-no-response, .btn-no-response, .btn-commission, .btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .btn-save, .btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active, a.btn.btn-success, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header:hover, .trim-links-cancel:hover {color:#fff;}
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li > a, 
+.file-choose-replace, 
+.flag-minister-cleared, 
+.flag-pod-cleared
+{color: #000;}
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared {color:#000;}
+#search_button {color: #999;}
 
-#search_button{color:#999;}
-.glyphicon-search{color:#979797;}
-i.fa-exclamation-triangle,i.fa-times-circle{color:#df3034;}
-i.fa-check-circle{color:#00823b;}
-#status-filters .active .badge{color:#6f7781;}
-#qa-link a{color:#4a8acd;}
-hr{color:#bfc1c3;}
+.glyphicon-search {color: #979797;}
 
-.btn-no-response {background-color:#f47738;}
-.flag-accepted {background-color:#28a197;}
-.flag-answered {background-color:#006435;}
-.flag-draft-pending {background-color:#85994b;}
-.flag-finance-unchecked {background-color:#b10e1e;}
-.flag-minister-cleared {background-color:#c1a87e;}
-.flag-ministerial-query {background-color:#b58840;}
-.flag-no-response {background-color:#f47738;}
-.flag-pod-cleared {background-color:#a1a8ff;}
-.flag-pod-query {background-color:#5461ff;}
-.flag-rejected {background-color:#d0021b;}
-.flag-transferred-in {background-color:#7d7d7d;}
-.flag-transferred-out {background-color:#d53880;}
-.flag-unallocated {background-color:#f47738;}
-.flag-unassigned {background-color:#bd10e0;}
-.flag-will-write {background-color:#5f5f5f;}
-.flag-with-minister {background-color:#82622e;}
-.flag-with-pod {background-color:#2e358b;}
-#search_button, #status-filters .active .badge {background-color:#fff;}
-hr {background-color:#bfc1c3;}
-#build {background-color:#d73380;}
-h2 .badge, #status-filters .badge {background-color:#000;}
-.navbar {background-color:#dee0e2;}
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {background-color:#ffbf47;}
-.name-day {background-color:#9b9b9b;}
+.questions-list li {border-color: #bfc1c3;}
 
-.btn-commission, .trim-links-header, .trim-links-cancel 
-{background-color:#00823b;border-color:#00823b #00823b #003518 #00823b;}
+i.fa-exclamation-triangle, i.fa-times-circle {color:#df3034;}
 
-.btn-commission:hover, .btn-commission:focus, .btn-commission:active, .btn-commission.active, .open, .dropdown-toggle.btn-success
-{background-color:#47a447;border-color:#398439;}
+i.fa-check-circle {color:#00823b;}
 
-.btn-save
-{background-color:#7fc19c;border-top-color:#7fc19c;border-right-color:#7fc19c;border-left-color:#7fc19c;}
+#status-filters .active .badge {color: #6f7781;}
 
-.btn-save:hover, .btn-save:focus, .btn-save:active, .btn-save.active 
-{background-color:#7fc19c;border-color:#398439;}
+#qa-link a {color: #4a8acd;}
 
-.trim-links-header:hover, .trim-links-cancel:hover 
-{background-color:#47a447;border-color:#398439 #398439 #398439 #398439;}
+hr {color: #bfc1c3;}
 
-.form-control {border-color:#bfc1c3;}
-.form-control:focus {border-color:#ffbf47;}
-.info-notice {border-left-color:#d0021b;}
+.block-label {background: #dee0e2; border-color: #dee0e2;}
+.block-label:hover {border-color: #0b0c0c;}
+.js-enabled .add-focus {outline-color: #ffbf47;}
+.js-enabled .selected {background: #fff; border-color: #0b0c0c;}
+
+.flag-accepted {background-color: #28a197;}
+.flag-answered {background-color: #006435;}
+.flag-draft-pending {background-color: #85994b;}
+.flag-finance-unchecked {background-color: #b10e1e;}
+.flag-minister-cleared {background-color: #c1a87e;}
+.flag-ministerial-query {background-color: #b58840;}
+.flag-no-response {background-color: #f47738;}
+.flag-pod-cleared {background-color: #a1a8ff;}
+.flag-pod-query {background-color: #5461ff;}
+.flag-rejected {background-color: #d0021b;}
+.flag-transferred-in {background-color: #7d7d7d;}
+.flag-transferred-out {background-color: #d53880;}
+.flag-unallocated {background-color: #f47738;}
+.flag-unassigned {background-color: #bd10e0;}
+.flag-will-write {background-color: #5f5f5f;}
+.flag-with-minister {background-color: #82622e;}
+.flag-with-pod {background-color: #2e358b;}
+
+#search_button, #status-filters .active .badge {background-color: #fff;}
+
+#build {background-color: #d73380;}
+
+h2 .badge, #status-filters .badge {background-color: #000;}
+.navbar {background-color: #dee0e2;}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {background-color: #ffbf47;}
+
+.name-day {background-color: #9b9b9b;}
+
+.progress-menu-form {border-color: #c2c2c2;}
+#progress-menu ul li a.progress-menu-item {border-color: #000;}
+#progress-menu ul li a.progress-menu-item:hover {background-color: #fff;}
+
+#settings-home h3 {border-bottom-color: #dee0e2;}
+
+.trim-links-header:hover, .trim-links-cancel:hover {background-color: #47a447; border-color: #398439 #398439 #398439 #398439;}
+
+.form-control {border-color: #bfc1c3;}
+.form-control:focus {border-color: #ffbf47;}
+.info-notice {border-left-color: #d0021b;}
 
 /* = Template and shared ======================================================== */
 
-.header-wrapper,
-#wrapper
-{max-width:1024px;margin-left:auto;margin-right:auto;}
+.header-wrapper, #wrapper {max-width: 1024px; margin-left: auto; margin-right: auto;}
+.header-global {margin-right: 40.5%;}
+#global-header.with-proposition .header-wrapper .header-proposition {display: inline-block; float:none; width: 241px; height: 48px;}
+.content a {line-height: 32px; vertical-align: middle;}
+#build {display: inline-block; font-size: 14px; font-weight: 900; letter-spacing: 2px; padding: 2px 5px;}
+#wrapper {border-bottom: none; padding: 0px 15px;}
 
-.header-global
-{margin-right:40.5%;}
-
-#global-header.with-proposition .header-wrapper .header-proposition
-{display:inline-block;float:none;width:241px;height:48px;}
-
-.content a
-{line-height:32px;vertical-align:middle;}
-
-#build
-{display:inline-block;font-size:14px;font-weight:900;letter-spacing:2px;padding:2px 5px;}
-
-#wrapper
-{border-bottom:none;padding:0px 15px;}
-
-h1
-{font-size:24px;font-weight:normal;display:inline;margin-right:19px;}
-
-h2
-{font-size:24px;font-weight:bold;}
-
-h2 .badge
-{vertical-align:middle;}
-
-h3
-{font-size:19px;font-weight:bold;}
-
-h4
-{color:#6f777b;font-size:19px;font-weight:normal;}
+h1 {font-size: 24px; font-weight: normal; display: inline; margin-right: 19px;}
+h2 {font-size: 24px; font-weight: bold;}
+h2 .badge {vertical-align: middle;}
+h3 {font-size: 19px; font-weight: bold;}
+h4 {font-size: 19px; font-weight: normal;}
 
 .pq-header h3,
 .pq-header-flags,
@@ -118,34 +136,14 @@ h4
 #pq-details-title h2
 {display:inline-block;}
 
-i.fa-envelope, i.fa-exclamation-triangle
-{margin-left:4px;}
-
-.right
-{float:right;}
-
-label
-{display:block;font-weight:normal;clear:both;}
-
-select
-{display:block;}
-
-.date, .datetimepicker
-{width:13em;}
-
-#pages,
-.internal-deadline-form,
-.select2-container-multi .select2-choices li
-{width:100%;}
-
-#progress-panel input.btn.btn-save
-{clear:both;margin-top:30px;}
-
-.internal-dtp
-{margin:6px 0px 20px 0px;}
-
-.internal-deadline
-{font-size:19px;}
+i.fa-envelope, i.fa-exclamation-triangle {margin-left: 4px;}
+.right {float: right;}
+label {display: block; font-weight: normal; clear: both;}
+select {display: block;}
+.date, .datetimepicker {width: 13em;}
+#pages, .internal-deadline-form, .select2-container-multi .select2-choices li {width: 100%;}
+.internal-dtp {margin: 6px 0px 20px 0px;}
+.internal-deadline {font-size: 19px;}
 
 /* = Element spacing ============================================================ */
 
@@ -170,7 +168,10 @@ select
 #pq-columns .dashboard_trim_link
 {margin:20px 0px 35px 0px;}
 
-.allocation-info input.btn.btn-commission
+.select2-search-choice div
+{line-height:1em;}
+
+.allocation-info .button
 {margin:30px 0px 30px 0px;}
 
 #progress-panel h4
@@ -194,143 +195,56 @@ select
 #confirmation_button_bar
 {padding-left:0px;}
 
-#btn_finance_visibility
-{margin-top:30px;}
+/* = Radio / checkbox styling ==================================================== */
 
-/* ============================================================================= */
+.block-label {display:block; float: none; clear: left; position: relative; border-width: 1px; border-style: solid; padding: 18px 30px 15px 45px; margin-top: 10px; margin-bottom: 10px; cursor: pointer;}
+@media (min-width: 641px) {.block-label {float: left; margin-top: 5px; margin-bottom: 5px;} }
+.block-label input {position: absolute; top: 18px; left: 15px; cursor: pointer;}
+.inline .block-label {clear: none; margin-right: 15px;}
+.js-enabled .add-focus {outline-width: 3px; outline-style: solid;}
+.js-enabled .block-label input:focus {outline: none;}
 
-/* = Radio / checkbox styling ============================================================ */
-
-.block-label {
-  display:block;
-  float: none;
-  clear: left;
-  position: relative;
-  background: #dee0e2;
-  border: 1px solid #dee0e2;
-  padding: 18px 30px 15px 45px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  cursor: pointer; }
-  @media (min-width: 641px) {
-    .block-label {
-      float: left;
-      margin-top: 5px;
-      margin-bottom: 5px;
-       } }
-
-.block-label:hover
-{border-color: #0b0c0c;}
-
-.block-label input
-{position: absolute; top: 18px; left: 15px; cursor: pointer;}
-
-.inline .block-label
-{clear: none; margin-right: 15px;}
-
-.js-enabled .add-focus
-{outline: 3px solid #ffbf47;}
-
-.js-enabled .block-label input:focus
-{outline: none;}
-
-.js-enabled .selected
-{background: #fff; border-color: #0b0c0c;}
-
-/* ================================================================================== */
-
-.table
-{clear:both;}
-
-textarea
-{resize:none;}
-
-.btn-primary,
-.btn-secondary
-{margin:7.5px 0px; border-radius:0px; border-width:1px 1xp 2px 1px; border-style:solid;}
-
-.btn-primary
-{color:#fff;background-color:#00823b;border-color:#00823b #00823b #003518 #00823b;}
-
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active
-{color:#fff;background-color:#47a447;border-color:#398439;}
-
-.btn-secondary
-{color:#000;background-color:#dee0e2;border-color:#dee0e2 #dee0e2 #b5babe #dee0e2;}
-
-a.btn-primary{color:#fff;}
-a.btn-secondary{}
-
-.admin-link{display:block;margin:7.5px 0px;}
+.table {clear: both;}
+textarea {resize: none;}
+.admin-link {display: block; margin: 7.5px 0px;}
 
 /* = Sign in ==================================================================== */
 
-#new_user
-{margin: 15px;}
-
-#new_user input
-{display:block;margin:8px 0px;}
-
-#new_user input[type="checkbox"]
-{display:inline-block;margin:8px 10px 1em 0px;}
-
-/*
-#lbl-remember-me
-{display:inline;margin:8px 0px;}
-*/
+#new_user {margin: 15px;}
+#new_user input {display: block; margin: 8px 0px;}
+#new_user input[type="checkbox"] {display: inline-block; margin: 8px 10px 1em 0px;}
 
 /* = Navigation ================================================================= */
 
-.navbar
-{margin:0px -15px 20px -15px;border-radius:0px;}
-
-.navbar-right
-{margin-right:74px;}
-
-#search_field
-{width:130px;border-radius:0;margin-right:-4px;margin-bottom:0px;}
-
-#search_button
-{border-radius:0;width:34px;height:34px;}
+.navbar {margin: 0px -15px 20px -15px; border-radius: 0px;}
+.navbar-right {margin-right: 74px;}
+#search_field {width: 130px; border-radius: 0px; margin-right: -4px; margin-bottom: 0px;}
+#search_button {border-radius: 0px;width: 34px; height: 34px;}
 
 /* = Navigation Tabs ============================================================ */
 
-.nav-tabs{margin-bottom:20px;}
+.nav-tabs {margin-bottom: 20px;}
 
 /* Status Filters =============================================================== */
 
-#status-filters h3{margin:0px 0px 10px 0px;}
-#status-filters .badge{float:right;min-width:2.5em;}
+#status-filters h3 {margin: 0px 0px 10px 0px;}
+#status-filters .badge {float: right; min-width: 2.5em;}
 
 /* = Dashboard Questions ======================================================== */
 
-.questions-list {padding:0px 45px 0px 0px;}
-.questions-list li {list-style:none;border-bottom:2px solid #bfc1c3;padding:30px 0px 35px 0px;}
-li.select2-search-field {border-bottom:none;}
-
-.pq-header {line-height:27px;margin-bottom:20px;}
-.pq-header h3 {margin:0px 14px 0px 0px;padding:0px;vertical-align:middle;}
-.pq-header-flags {margin-right:26px;}
-
-.name-day,
-.flag-will-write,
-.flag-transferred-in
-{font-size:14px;font-weight:normal;margin: 0 10px 0 0;padding:3.5px 8px;text-align:center;white-space:nowrap;}
-
-.pq-question{margin-bottom:30px;padding:0px;}
-
-.info-notice {border-left-width:4px;border-left-style:solid;margin-left:15px;margin-bottom:20px;}
-
-.status-bar {line-height:32px;margin-bottom:30px;padding:0px;}
-
-#pq-columns .col-md-7 {padding-left:0px;}
-
-/*.questions-list li label {font-size:16px;}*/
-
-#commissioned .col-md-6
-{padding-left:0px;margin:0px 0px 25px 0px;}
-
-hr {height:1px;}
+.questions-list {padding: 0px 45px 0px 0px;}
+.questions-list li {list-style: none; border-bottom-width: 2px; border-bottom-style: solid; padding: 30px 0px 35px 0px;}
+li.select2-search-field {border-bottom: none;}
+.pq-header {line-height: 27px; margin-bottom: 20px;}
+.pq-header h3 {margin: 0px 14px 0px 0px; padding: 0px; vertical-align: middle;}
+.pq-header-flags {margin-right: 26px;}
+.name-day, .flag-will-write, .flag-transferred-in {font-size: 14px; font-weight: normal; margin: 0px 10px 0px 0px; padding: 3.5px 8px; text-align: center; white-space: nowrap;}
+.pq-question {margin-bottom: 30px; padding: 0px;}
+.info-notice {border-left-width: 4px; border-left-style: solid; margin-left: 15px; margin-bottom: 20px;}
+.status-bar {line-height: 32px; margin-bottom: 30px; padding: 0px;}
+#pq-columns .col-md-7 {padding-left: 0px;}
+#commissioned .col-md-6 {padding-left: 0px; margin:0px 0px 25px 0px;}
+hr {height: 1px;}
 
 /* = PQ Details Page ============================================================ */
 
@@ -340,106 +254,65 @@ hr {height:1px;}
 #pq-details-ref h2 {padding:0px;margin:0px 10px 0px 0px;display:inline-block;vertical-align:middle;}
 #pq-details-progress {padding:13px 14px;}
 #pq-details-qa-link {display:block;}
-
 #qa-link a {vertical-align: middle;}
-
-.progress-menu-form {border:1px solid #c2c2c2; padding:15px; margin-left:-1px;min-height:350px;}
-#progress-panel {margin:0px;padding:0px;}
-
+.progress-menu-form {border-width: 1px; border-style: solid; padding: 15px; margin-left: -1px; min-height: 350px;}
+#progress-panel {margin: 0px; padding: 0px;}
 #progress-menu {z-index:1;padding-right:0px;}
 #progress-menu ul li progress-menu-item {margin-left:10px;width:208px;}
-#progress-menu ul li a.progress-menu-item{border-radius:6px 0px 0px 6px;border-color:#000;}
-#progress-menu ul li a.progress-menu-item:hover {margin-left:10px;width:207px;background-color:#fff;}
-
+#progress-menu ul li a.progress-menu-item{border-radius: 6px 0px 0px 6px;}
+#progress-menu ul li a.progress-menu-item:hover {margin-left: 10px; width: 207px;}
 #progress-menu ul li a.progress-menu-item.activeTab {background: url(image_path('progress-tab-bg.png')) repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;margin-left:10px;}
-
-#progress-menu ul li a.progress-menu-item.activeTab:hover {margin-left:10px;width:216px;}
-#progress-menu ul li progress-menu-item.inactiveTab:hover {margin-left:10px;width:208px;}
-#progress-panel .button {clear:both;display:block;}
-
-#create_iww {clear:both;display:block;width:280px;margin-bottom:20px;}
-
-/* = Buttons ==================================================================== */
-
-.btn-commission {display:block;border-radius:0;border-bottom:2px solid #003518;margin:13px 0;}
-.btn-save{display:block;border-radius:0;border-bottom:2px solid #7f9a8b;margin:13px 0;}
+#progress-menu ul li a.progress-menu-item.activeTab:hover {margin-left: 10px; width: 216px;}
+#progress-menu ul li progress-menu-item.inactiveTab:hover {margin-left: 10px; width: 208px;}
+#progress-panel .button {clear: both;}
+#progress-panel #save {display: block;}
+#create_iww {clear: both; display:block; width: 280px; margin-bottom: 20px;}
 
 /* = Flags ====================================================================== */
 
-.btn-no-response,
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-with-minister,
-.flag-with-pod
-{border-radius:6px;font-weight:normal;font-size:13px;padding:6px;}
-
-.flag-minister-cleared,
-.flag-pod-cleared
-{border-radius:6px;font-weight:normal;font-size:13px;padding:6px;}
+.flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
+.flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
 
 /* PQ Dashboard Page ============================================================ */
 
-.select2-container .select2-choice abbr {top:5px!important;}
+.select2-container .select2-choice abbr {top: 5px!important;}
 .question-allocation-list {list-style: circle;}
-.pq-inline-form {display:inline!important;}
+.pq-inline-form {display: inline!important;}
 
 /* = TRIM links ================================================================= */
+
 .trim-links-header, .trim-links-header:hover {position:relative;cursor:default;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
-.trim-links-form {width:250px;/*height:auto;*/vertical-align:middle;display:none;position:absolute;top:-9px;left:-12px;cursor:default;z-index:5;/*float:left*/;line-height:35px;}
-
+.trim-links-form {width:250px;vertical-align:middle;display:none;position:absolute;top:-9px;left:-12px;cursor:default;z-index:5;line-height:35px;}
 input[type="file"] {line-height:10px;}
-
 .trim-links-form:hover {display:block;}
 .trim-links-cancel {float:left;height:36px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
-
 .file-chooser {display:none!important;}
 .file-choose-replace {display:inline-block;line-height:35px;margin:10px;}
 
 /* = Pagination ================================================================= */
-#pages {clear:both;display:block;width:100%;text-align:center;margin:50px 0px 0px 0px;}
 
-.pagination {margin-top:0;margin-bottom:0;}
-
-.pagination > li > a,
-.pagination > li > span
-{border-top:0;border-bottom:none;}
-
-.pagination > li:first-child > a,
-.pagination > li:first-child > span
-{border-radius:0;border-left:0;border-right:0;}
-
-.pagination > li:last-child > a,
-.pagination > li:last-child > span
-{border-radius:0;border-right:0;}
+#pages {clear: both; display: block; width: 100%; text-align: center; margin: 50px 0px 0px 0px;}
+.pagination {margin-top: 0px; margin-bottom: 0px;}
+.pagination > li > a, .pagination > li > span {border-top: 0px; border-bottom: none;}
+.pagination > li:first-child > a, .pagination > li:first-child > span {border-radius: 0px; border-left: 0px; border-right: 0px;}
+.pagination > li:last-child > a, .pagination > li:last-child > span {border-radius: 0px; border-right: 0px;}
 
 /* = Administration ============================================================ */
-#settings-home h3 {border-bottom:2px solid #dee0e2;padding-bottom:7.5px;}
 
-#admin_task_list {padding:0px 15px;}
-#admin_task_list li {list-style:none;}
-
-.form-control, .form-group select {border-style:solid;border-radius:0px;width:auto;}
-.form-control:focus, .form-group select:focus {border-width:3px;box-shadow:none;}
-
-.info-notice h3 {margin-left:15px;}
-.info-notice li {list-style:none;}
-
-.admin-status {width:90px;}
+#settings-home h3 {border-bottom-width: 2px; border-bottom-style: solid; padding-bottom: 7.5px;}
+#admin_task_list {padding: 0px 15px;}
+#admin_task_list li {list-style: none;}
+.form-control, .form-group select {border-style: solid; border-radius: 0px; width: auto;}
+.form-control:focus, .form-group select:focus {border-width: 3px; box-shadow: none;}
+.info-notice h3 {margin-left: 15px;}
+.info-notice li {list-style: none;}
+.admin-status {width: 90px;}
 
 /* = Create a transfer ============================================================ */
-#new_pq {padding:7px 15px;}
+#new_pq {padding: 7px 15px;}
 
 /* = Reports ============================================================ */
-.table-cell-centered {text-align:center;}
+.table-cell-centered {text-align: center;}
 
 /* = Footer ============================================================ */
-#footer {margin-top:100px;}
+#footer {margin-top: 100px;}

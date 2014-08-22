@@ -13,48 +13,48 @@
     <% @pq.action_officers_pq.order(updated_at: :desc).each do |ao_pq| %>
       <% if ao_pq.accept %>
         <p>
-          Name of Action Officer<br />
+          <h4>Name of Action Officer</h4>
           <%= link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer) %>
           <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>&nbsp;
           <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
         </p>
+
         <p>
-          <%= link_to raw('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
+          <%= link_to ('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button', title: 'Reject the question manually'} %>
         </p>
 
         <p>
-          Email of Action Officer<br />
+          <h4>Email of Action Officer</h4>
           <%= mail_to ao_pq.action_officer.email %>
         </p>
 
         <p>
-          Phone of Action Officer<br />
+          <h4>Phone of Action Officer</h4>
           <%= ao_pq.action_officer.phone %>
         </p>
 
         <p>
-          Division of Action Officer<br />
+          <h4>Division of Action Officer</h4>
           <%= ao_pq.action_officer.deputy_director.division.name %>
         </p>
 
         <p>
-          Directorate of Action Officer<br />
+          <h4>Directorate of Action Officer</h4>
           <%= ao_pq.action_officer.deputy_director.division.directorate.name %>
         </p>
 
         <p>
-          Deputy director<br />
+          <h4>Deputy director</h4>
           <%= ao_pq.action_officer.deputy_director.name %>
         </p>
 
         <p>
-          Press Desk<br />
-          <%= ao_pq.action_officer.press_desk.name %>
+          <h4>Press Desk</h4>
+          <%= ao_pq.action_officer.press_desk.name %><br>
+          <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
+            <%= link_to po.name, press_officer_path(po) %><br />
+          <% end %>
         </p>
-
-        <% ao_pq.action_officer.press_desk.press_officers.each do |po| %>
-          <p><%= link_to po.name, press_officer_path(po) %></p>
-        <% end %>
 
       <% end %>
 
@@ -66,7 +66,7 @@
           <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'} %>
         </p>
         <p>
-          <%= link_to raw('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'btn btn-no-response manual-reject-link', title: 'Reject the question manually'} %>
+          <%= link_to raw('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button manual-reject-link', title: 'Reject the question manually'} %>
         </p>
       <% end %>
     <% end %>

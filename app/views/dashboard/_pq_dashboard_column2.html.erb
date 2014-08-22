@@ -18,7 +18,7 @@
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
       <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
     </div>
-    <%= f.submit 'Update', :class => 'btn btn-success btn-xs start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
+    <%= f.submit 'Update', :class => 'button start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
 <% end %>
 
 <% else %>
