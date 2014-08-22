@@ -118,10 +118,6 @@ describe 'CommissioningService' do
 
   end
 
-
-
-
-
   it 'should raise an error if the action_officer.id is null' do
     assignment = ActionOfficersPq.new(pq_id: pq.id)
     expect {
@@ -135,7 +131,6 @@ describe 'CommissioningService' do
       @comm_service.send(assignment)
     }.to raise_error 'Question is not selected'
   end
-
 
   it 'should send an email to the deputy director the right data' do
 
@@ -177,5 +172,18 @@ describe 'CommissioningService' do
 
     result.should eq('Deputy Director has no email')
 
+  end
+
+  it 'should include "No deadline set" in email to DD if not set' do
+
+    new_pq = Pq.create(uin: 'HL999', question: 'test question?', raising_member_id: 0, member_name: 'Henry Higgins', internal_deadline: nil, minister:minister, house_name:'commons' )
+
+    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: new_pq.id)
+
+    result = @comm_service.notify_dd(assignment)
+
+    mail = ActionMailer::Base.deliveries.first
+
+    mail.html_part.body.should include 'No deadline set'
   end
 end
