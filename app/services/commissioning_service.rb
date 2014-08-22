@@ -23,8 +23,8 @@ class CommissioningService
     path = '/assignment/' + pq.uin.encode
     entity = "assignment:#{actionOfficersPq.id}"
 
-    tomorrow_midnight = DateTime.now.midnight.change({:offset => 0}) + 1.days
-    token = @tokenService.generate_token(path, entity, tomorrow_midnight)
+    token_expires = DateTime.now.midnight.change({:offset => 0}) + 3.days
+    token = @tokenService.generate_token(path, entity, token_expires)
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
