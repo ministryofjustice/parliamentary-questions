@@ -8,7 +8,7 @@ class ManualRejectCommissionController < ApplicationController
       return redirect_to({controller: 'dashboard', action: 'index'}, {notice: 'Commission data not found'})
     end
 
-    response = AllocationResponse.new(reason_option: 'Other Reason', reason: "This question is rejected manually by #{current_user.email}")
+    response = AllocationResponse.new(reason_option: 'Other Reason', reason: "This question was rejected manually by #{current_user.email}")
     @assignment_service.reject(ao_pq, response)
 
     pq = Pq.find(ao_pq.pq_id)
