@@ -42,9 +42,18 @@ class ActionOfficersController < ApplicationController
 
   # PATCH/PUT /action_officers/1
   def update
+    begin
     if @action_officer.update(action_officer_params)
       redirect_to @action_officer, notice: 'Action officer was successfully updated.'
     else
+      render action: 'edit'
+    end
+    rescue => err
+      if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
+        @action_officer.errors[:base] << "This email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
+      else
+        @action_officer.errors[:base] << err
+      end
       render action: 'edit'
     end
   end
