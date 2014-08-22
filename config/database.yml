@@ -16,9 +16,9 @@ test:
 
 production:
   adapter: postgresql
-  host: <%= ENV['PQ_DB_HOST'] %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   encoding: unicode
-  username: <%= ENV['PQ_DB_USERNAME'] %>
-  password: <%= ENV['PQ_DB_PASSWORD'] %>
-  database: parliamentary-questions
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  database: <%= ENV['DB_NAME'] || 'parliamentary-questions' %>
   pool: 15
