@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
 
 
   def press_desk_by_progress
-    @p = Progress.all
+    @p = Progress.where("name != 'Unassigned'")
     @pd = PressDesk.where(deleted: false)
 
     # auto-vivifying Hash (http://trevoke.net/blog/2009/11/06/auto-vivifying-hashes-in-ruby/)

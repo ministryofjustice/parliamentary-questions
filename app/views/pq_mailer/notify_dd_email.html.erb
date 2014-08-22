@@ -11,9 +11,9 @@
 </div>
 <p style="font-family: arial, sans-serif; font-size: 12pt;">Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
 <p style="font-family: arial, sans-serif; font-size: 12pt;">To be answered by: <%= @template_params[:answer_by] %></p>
-<p style="font-family: arial, sans-serif; font-size: 14pt; font-weight: bold;">An Accept or Reject Response is expected from them by <strong>2pm today</strong>.</p>
-<p style="font-family: arial, sans-serif; font-size: 12pt;">The draft response to the question is expected by <%= @template_params[:internal_deadline] %> - 10am</p>
-<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">Contact the PQ Team</a></p>
+<p style="font-family: arial, sans-serif; font-size: 14pt; font-weight: bold;">An accept or reject response is expected from them before <strong>2pm today</strong>.</p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">The draft response to the question is expected before <%= @template_params[:internal_deadline] %> - 10am</p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have any questions, please <a href="mailto:pqs@justice.gsi.gov.uk">contact the PQ Team</a></p>
 
 <%= render 'shared/mailer/email_signature' %>
 

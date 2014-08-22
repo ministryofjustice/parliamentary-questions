@@ -12,7 +12,7 @@ You have accepted responsibility for drafting an answer to <%= @template_params[
 Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %>
 <% end %>
 <% if !@template_params[:mpname].nil? %>
-To be answered by: <%= @template_params[:mpname] %>
+To be answered by <%= @template_params[:mpname] %>
 <% end %>
 <% if !@template_params[:internal_deadline].nil? %>
 Deadline to return your draft response <%= @template_params[:internal_deadline] %>
@@ -22,7 +22,7 @@ You should ensure the following people are included in your draft response:-
 
 <%= @template_params[:cc_list]  %>
 
-You will need to liaise with your relevant press officer before you send your draft response.
+You need to liaise with your relevant press officer before you send your draft response.
 
 For drafting templates and guidance on how to respond, please refer to the intranet by using the following link.
 	http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions
