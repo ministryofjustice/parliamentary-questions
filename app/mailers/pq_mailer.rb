@@ -1,7 +1,6 @@
 class PqMailer < PQBaseMailer
   default from: Settings.mail_from
   def commit_email(template_params)
-
   	@template_params = template_params
   	# email, name from AO
   	# uin, question from PQ
