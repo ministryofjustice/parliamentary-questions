@@ -35,13 +35,11 @@ class ActionOfficersController < ApplicationController
     if @action_officer.save
       flash[:notice] = 'Action officer was successfully created.'
       redirect_to action_officers_path
-      puts '============1============'
       return
     end
     rescue => err
       @action_officer.errors[:base] << handle_db_error(err)
     end
-    puts '============2=========='
     render action: 'new'
   end
 
