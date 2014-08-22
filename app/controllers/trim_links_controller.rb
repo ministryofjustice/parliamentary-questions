@@ -28,7 +28,7 @@ class TrimLinksController < ApplicationController
   def show
     @upload = TrimLink.find(params[:id])
     @data = @upload.data
-    send_data(@data, :type => 'application/octect-stream', :filename => @upload.filename, :disposition => 'download')
+    send_data(@data, :type => 'application/octet-stream', :filename => @upload.filename, :disposition => 'download')
   end
 
   private

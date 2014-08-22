@@ -29,22 +29,11 @@ class ActionOfficersController < ApplicationController
 
   # POST /action_officers
   def create
+    begin
     @action_officer = ActionOfficer.new(action_officer_params)
     @action_officer[:deleted] = false
     if @action_officer.save
       redirect_to @action_officer, notice: 'Action officer was successfully created.'
-    else
-      render action: 'new'
-    end
-  end
-
-  # PATCH/PUT /action_officers/1
-  def update
-    begin
-    if @action_officer.update(action_officer_params)
-      redirect_to @action_officer, notice: 'Action officer was successfully updated.'
-    else
-      render action: 'edit'
     end
     rescue => err
       if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
@@ -52,8 +41,24 @@ class ActionOfficersController < ApplicationController
       else
         @action_officer.errors[:base] << err
       end
-      render action: 'edit'
     end
+    render action: 'new'
+  end
+
+  # PATCH/PUT /action_officers/1
+  def update
+    begin
+    if @action_officer.update(action_officer_params)
+      redirect_to @action_officer, notice: 'Action officer was successfully updated.'
+    end
+    rescue => err
+      if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
+        @action_officer.errors[:base] << "An action officer with this email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
+      else
+        @action_officer.errors[:base] << err
+      end
+    end
+    render action: 'edit'
   end
 
   # DELETE /action_officers/1
