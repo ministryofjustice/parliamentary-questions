@@ -50,7 +50,7 @@ class ActionOfficersController < ApplicationController
     end
     rescue => err
       if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
-        @action_officer.errors[:base] << "This email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
+        @action_officer.errors[:base] << "An action officer with this email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
       else
         @action_officer.errors[:base] << err
       end
