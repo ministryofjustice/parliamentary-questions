@@ -39,11 +39,7 @@ class ActionOfficersController < ApplicationController
       return
     end
     rescue => err
-      if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
-        @action_officer.errors[:base] << "An action officer with this email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
-      else
-        @action_officer.errors[:base] << err
-      end
+      @action_officer.errors[:base] << handle_db_error(err)
     end
     puts '============2=========='
     render action: 'new'
@@ -57,11 +53,7 @@ class ActionOfficersController < ApplicationController
       return
     end
     rescue => err
-      if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
-        @action_officer.errors[:base] << "An action officer with this email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
-      else
-        @action_officer.errors[:base] << err
-      end
+      @action_officer.errors[:base] << handle_db_error(err)
     end
     render action: 'edit'
   end
@@ -73,14 +65,21 @@ class ActionOfficersController < ApplicationController
   end
 
 private
-    def set_action_officer
-      @action_officer = ActionOfficer.find(params[:id])
+  def set_action_officer
+    @action_officer = ActionOfficer.find(params[:id])
+  end
+  def action_officer_params
+    params.require(:action_officer).permit(:name, :email, :group_email, :phone, :deleted, :deputy_director_id, :press_desk_id)
+  end
+  def prepare_dropdowns
+    @deputy_directors = DeputyDirector.where(deleted: false).all
+    @press_desks = PressDesk.where(deleted: false).all
+  end
+  def handle_db_error(err)
+    if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
+      "An action officer with this email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
+    else
+      err
     end
-    def action_officer_params
-      params.require(:action_officer).permit(:name, :email, :group_email, :phone, :deleted, :deputy_director_id, :press_desk_id)
-    end
-    def prepare_dropdowns
-      @deputy_directors = DeputyDirector.where(deleted: false).all
-      @press_desks = PressDesk.where(deleted: false).all
-    end
+  end
 end
