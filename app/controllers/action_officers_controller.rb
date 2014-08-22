@@ -5,13 +5,11 @@ class ActionOfficersController < ApplicationController
 
 
   # GET /action_officers
-  # GET /action_officers.json
   def index
     @action_officers = ActionOfficer.all.joins(:deputy_director => :division).order('lower(divisions.name)').order('lower(action_officers.name)')
   end
 
   # GET /action_officers/1
-  # GET /action_officers/1.json
   def show
   end
 
