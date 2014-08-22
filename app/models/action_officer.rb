@@ -1,5 +1,5 @@
 class ActionOfficer < ActiveRecord::Base
-  validates :email, uniqueness: true, on: :create
+  # validates :email, uniqueness: true, on: :create
   validates_format_of :email,:with => Devise::email_regexp
   validates_format_of :group_email,:with => Devise::email_regexp, :allow_blank =>true
   validates :deputy_director_id, presence: true

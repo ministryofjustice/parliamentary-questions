@@ -39,8 +39,8 @@ describe 'CommissioningService' do
     token.id.should_not be nil
     token.token_digest.should_not be nil
 
-    tomorrow_midnight = DateTime.now.midnight.change({:offset => 0}) + 1.days
-    token.expire.should eq(tomorrow_midnight)
+    token_expires = DateTime.now.midnight.change({:offset => 0}) + 3.days
+    token.expire.should eq(token_expires)
 
   end
 

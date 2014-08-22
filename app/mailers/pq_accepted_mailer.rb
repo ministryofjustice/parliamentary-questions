@@ -47,9 +47,9 @@ class PQAcceptedMailer < PQBaseMailer
     @template_params[:cc_list] = cc_list.join(';')
 
     if urgent
-      subject = "[Parliamentary-Questions] #{@template_params[:uin]} | URGENT : please send your draft response"
+      subject = "URGENT : please send your draft response for PQ #{@template_params[:uin]}"
     else
-      subject = "[Parliamentary-Questions] #{@template_params[:uin]} | You have accepted the question"
+      subject = "You have accepted PQ #{@template_params[:uin]}"
     end
 
     # email, name from AO
