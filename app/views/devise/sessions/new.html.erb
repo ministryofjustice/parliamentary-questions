@@ -3,18 +3,28 @@
 <h2>Sign in</h2>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 	<fieldset>
-    	<%= devise_error_messages! %>
-    	<label for="user_email">Email</label>
-		<%= f.email_field :email, class: 'form-control', autofocus: true %>
-		<label for="">Password</label>
+    <%= devise_error_messages! %>
+    <div class="form-group">
+    	<label for="user_email" class="form-label">Email</label>
+		  <%= f.email_field :email, class: 'form-control', autofocus: true %>
+    </div>
+
+    <div class="form-group">
+  		<label for="user_password" class="form-label">Password</label>
     	<%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
-		<% if devise_mapping.rememberable? -%>
-			<label for="user_password" class="block-label">
+    </div>
+
+    <div class="form-group">
+  		<% if devise_mapping.rememberable? -%>
+	   		<label for="chk-remember-me" class="block-label">
     			<%= f.check_box :remember_me, {id: 'chk-remember-me'} %>
     			Remember me
     		</label>
   		<% end -%>
-  	</fieldset>
-  	<%= f.submit "Sign in", :class => 'button' %>
-  	<%= render "devise/shared/links" %>
+    </div>
+  </fieldset>
+  <div class="form-group">
+    <%= f.submit "Sign in", :id => 'sign_in', :class => 'button' %>
+    <%= render "devise/shared/links" %>
+  </div>
 <% end %>
