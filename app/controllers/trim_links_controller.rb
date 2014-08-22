@@ -13,19 +13,16 @@ class TrimLinksController < ApplicationController
       if accepted_formats.include? File.extname(filename)
         data = uploaded_io.read
         size = data.size
-
         @trim_link = TrimLink.new(:data => data, :filename => filename, :size => size, :pq_id => trim_link_params[:pq_id])
         if @trim_link.save
           flash.now[:success] = 'Trim link was successfully created.'
-          return render :partial => 'shared/trim_links', :locals => {question: @pq}
         else
           flash.now[:error] = "Could not add Trim link. #{@trim_link.errors}"
-          return render :partial => 'shared/trim_links', :locals => {question: @pq}
         end
       else
         flash.now[:error] = 'Could not add Trim link. File must be tr5'
-        return render :partial => 'shared/trim_links', :locals => {question: @pq}
       end
+      return render :partial => 'shared/trim_links', :locals => {question: @pq}
     end
   end
 
