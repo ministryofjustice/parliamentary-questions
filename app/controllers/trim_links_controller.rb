@@ -6,7 +6,6 @@ class TrimLinksController < ApplicationController
     @pq = Pq.find(trim_link_params[:pq_id])
     if trim_link_params[:file_data].nil?
       flash[:error] = 'Please select a trim file (.tr5) before trying to add'
-      return render :partial => 'shared/trim_links', :locals => {question: @pq}
     else
       uploaded_io = trim_link_params[:file_data]
       filename = uploaded_io.original_filename
@@ -22,8 +21,8 @@ class TrimLinksController < ApplicationController
       else
         flash.now[:error] = 'Could not add Trim link. File must be tr5'
       end
-      return render :partial => 'shared/trim_links', :locals => {question: @pq}
     end
+    return render :partial => 'shared/trim_links', :locals => {question: @pq}
   end
 
   def show
