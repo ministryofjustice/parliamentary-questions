@@ -33,7 +33,10 @@ class ActionOfficersController < ApplicationController
     @action_officer = ActionOfficer.new(action_officer_params)
     @action_officer[:deleted] = false
     if @action_officer.save
-      redirect_to @action_officer, notice: 'Action officer was successfully created.'
+      flash[:notice] = 'Action officer was successfully created.'
+      redirect_to action_officers_path
+      puts '============1============'
+      return
     end
     rescue => err
       if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
@@ -42,6 +45,7 @@ class ActionOfficersController < ApplicationController
         @action_officer.errors[:base] << err
       end
     end
+    puts '============2=========='
     render action: 'new'
   end
 
@@ -50,6 +54,7 @@ class ActionOfficersController < ApplicationController
     begin
     if @action_officer.update(action_officer_params)
       redirect_to @action_officer, notice: 'Action officer was successfully updated.'
+      return
     end
     rescue => err
       if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
