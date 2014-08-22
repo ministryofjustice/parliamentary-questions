@@ -14,7 +14,7 @@
                         <span class="label flag-pq-accepted">Accepted</span>
                     <% elsif ao_pq.reject %>
                         <span class="label flag-pq-rejected">Rejected</span>
-                        <a data-toggle="collapse" data-target="#rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="btn btn-default btn-xs">
+                        <a data-toggle="collapse" data-target="#rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="button">
                             Display Reason <span class="caret"></span>
                         </a>
                         <div id="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="collapse">

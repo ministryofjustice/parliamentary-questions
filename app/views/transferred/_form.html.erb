@@ -50,6 +50,6 @@
           <input id="transfer_in_date" class="form-control" name="pq[transfer_in_date]" type="text" value="<%= @pq.transfer_in_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_in_date.nil? %>">
           <span class="input-group-addon glyphicon glyphicon-calendar"></span>
         </div>
-        <%= f.submit 'Create PQ', :class => 'btn btn-primary' %>
+        <%= f.submit 'Create PQ', :class => 'button' %>
       </div>
     <% end %>
