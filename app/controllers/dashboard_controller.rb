@@ -13,18 +13,18 @@ class DashboardController < ApplicationController
 
 
   def index
-    @questions = Pq.new_questions.paginate(:page => params[:page], :per_page => @@per_page).order(:date_for_answer).order(:internal_deadline).order(:updated_at).load
+    @questions = paginate_collection(Pq.new_questions)
   end
 
   def in_progress
-    @questions = Pq.in_progress.paginate(:page => params[:page], :per_page => @@per_page).order(:date_for_answer).order(:internal_deadline).order(:updated_at).load
+    @questions = paginate_collection(Pq.in_progress)
   end
 
   def search
   end
 
   def by_status
-    @questions = Pq.by_status(params[:qstatus]).paginate(:page => params[:page], :per_page => @@per_page).order(:date_for_answer).order(:internal_deadline).order(:updated_at).load
+    @questions = paginate_collection(Pq.by_status(params[:qstatus]))
   end
 
   def in_progress_by_status
@@ -32,12 +32,12 @@ class DashboardController < ApplicationController
   end
 
   def transferred
-    @questions = Pq.transferred.paginate(:page => params[:page], :per_page => @@per_page).order(:date_for_answer).order(:internal_deadline).order(:updated_at).load
+    @questions = paginate_collection(Pq.transferred)
     render 'by_status'
   end
 
   def i_will_write
-    @questions = Pq.i_will_write_flag.paginate(:page => params[:page], :per_page => @@per_page).order(:date_for_answer).order(:internal_deadline).order(:updated_at).load
+    @questions = paginate_collection(Pq.i_will_write_flag)
     render 'in_progress_by_status'
   end
 
@@ -49,5 +49,9 @@ class DashboardController < ApplicationController
   end
   def set_state_to_new
     @dashboard_state = NEW
+  end
+
+  def paginate_collection(pqs)
+    pqs.paginate(:page => params[:page], :per_page => @@per_page).order(:date_for_answer).order(:internal_deadline).order(:updated_at).load
   end
 end
