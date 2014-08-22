@@ -28,18 +28,18 @@ class CommissioningService
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
-    template = Hash.new
-    template[:name] = ao.name
-    template[:entity] = entity
-    template[:email] = ao.email
-    template[:uin] = pq.uin
-    template[:question] = pq.question
-    template[:token] = token
-    template[:house] = pq.house_name
-    template[:member_name] = pq.member_name
-    template[:answer_by] = pq.minister.name
-    template[:house] = pq.house_name
-
+    template = {
+      :name => ao.name,
+      :entity => entity,
+      :email => ao.email,
+      :uin => pq.uin,
+      :question => pq.question,
+      :token => token,
+      :house => pq.house_name,
+      :member_name => pq.member_name,
+      :answer_by => pq.minister.name,
+      :house => pq.house_name
+    }
     PqMailer.commit_email(template).deliver
 
     return {token: token, assignment_id: actionOfficersPq.id}
@@ -54,19 +54,20 @@ class CommissioningService
 
     return 'Deputy Director has no email' if dd.email.blank?
 
-    template = Hash.new
-    template[:uin] = pq.uin
-    template[:question] = pq.question
-    template[:member_name] = pq.member_name
-    template[:ao_name] = ao.name
-    template[:dd_name] = dd.name
-    template[:email] = dd.email
-    template[:answer_by] = pq.minister.name
-    template[:house] = pq.house_name
+    template = {
+      :uin => pq.uin,
+      :question => pq.question,
+      :member_name => pq.member_name,
+      :ao_name => ao.name,
+      :dd_name => dd.name,
+      :email => dd.email,
+      :answer_by => pq.minister.name,
+      :house => pq.house_name,
+      :internal_deadline => 'No deadline set'
+    }
+
     if pq.internal_deadline
       template[:internal_deadline] = pq.internal_deadline.strftime('%d/%m/%Y')
-    else
-      template[:internal_deadline] = 'No deadline set'
     end
 
     PqMailer.notify_dd_email(template).deliver
