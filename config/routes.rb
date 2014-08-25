@@ -78,8 +78,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'import/questions_no_log' => 'import#questions_no_log'
   get 'import/questions_async' => 'import#questions_async'
 
-  get 'apply_progresses/apply_all' => 'apply_progresses#apply_all'
-
   get 'import/logs' => 'import#logs'
 
   get 'finance/questions' => 'finance#questions'
