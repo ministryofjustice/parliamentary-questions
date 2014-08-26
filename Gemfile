@@ -83,6 +83,8 @@ gem 'sidekiq'
 # Cron jobs in ruby
 gem 'whenever', :require => false
 
+# Logstasher for easier integration with logstash
+gem 'logstasher'
 
 
 group :test, :development do
