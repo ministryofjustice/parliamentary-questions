@@ -150,6 +150,10 @@ GEM
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    logstash-event (1.1.5)
+    logstasher (0.6.0)
+      logstash-event (~> 1.1.0)
+      request_store
     lumberjack (1.0.9)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -204,6 +208,7 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     remotipart (1.2.1)
+    request_store (1.1.0)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -321,6 +326,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
+  logstasher
   moj_template (= 0.11.1)
   momentjs-rails (~> 2.5.0)
   nokogiri
