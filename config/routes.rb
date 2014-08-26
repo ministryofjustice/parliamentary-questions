@@ -38,6 +38,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'admin' => 'admin#index'
 
   get 'commission/:id' => 'commission#commission'
+  get 'commission_complete/:id' => 'commission#complete'
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
   post 'assign/:id' => 'commission#assign'
   get 'answering/:id' => 'answering#index'
