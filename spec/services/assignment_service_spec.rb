@@ -109,6 +109,31 @@ describe 'AssignmentService' do
       pq = Pq.find(assignment.pq_id)
       pq.at_acceptance_directorate_id.should eq(directorate.id)
     end
+    it 'should set the directorate on acceptance and not change if AO moves' do
+      # setup a valid assignment
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+
+      @assignment_service.accept(assignment)
+
+      assignment = ActionOfficersPq.find(assignment_id)
+
+      pq = Pq.find(assignment.pq_id)
+      pq.at_acceptance_directorate_id.should eq(directorate.id)
+
+      new_dir = create(:directorate, name: 'New Directorate', id:  Directorate.maximum(:id).next)
+      new_div = create(:division,name: 'New Division', directorate_id: new_dir.id, id:  Division.maximum(:id).next)
+      new_dd = create(:deputy_director, name: 'dd name', division_id: new_div.id, id:   DeputyDirector.maximum(:id).next)
+
+      action_officer.deputy_director_id = new_dd.id
+      action_officer.save
+      pq.at_acceptance_directorate_id.should eql(directorate.id)
+      assignment.action_officer.deputy_director_id.should eql(new_dd.id)
+      pq.at_acceptance_directorate_id.should_not eql(new_dd.id)
+    end
 
     it 'should not crash id division is nil' do
       # setup a valid assignment
