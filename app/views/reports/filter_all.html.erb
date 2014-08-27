@@ -1,76 +1,44 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2>PQ filter</h2>
-    <%= render partial: 'shared/flash_messages' %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-    <div class="panel-body">
-      <div class="row">
-        <div class="col-md-6">
-          <%= form_tag({controller: 'reports', action: 'filter_all'}, {:method => :get}) do %>
-
-              <div class="form-group">
-                <label for="minister_id">Minister</label>
-                <%= select_tag 'minister_id', content_tag(:option,'Select a minister',:value=>'') + options_from_collection_for_select(Minister.all_active, 'id', 'name', params[:minister_id] ) %>
-              </div>
-              <div class="form-group">
-                <label for="press_desk_id">Press Desk</label>
-                <%= select_tag 'press_desk_id', content_tag(:option,'Select a press desk',:value=>'') + options_from_collection_for_select(PressDesk.where(deleted: false), 'id', 'name', params[:press_desk_id] ) %>
-              </div>
-              <div class="form-group">
-                <label for="progress_id">Status</label>
-                <%= select_tag 'progress_id', content_tag(:option,'Select a progress',:value=>'') + options_from_collection_for_select(Progress.all, 'id', 'name', params[:progress_id] ) %>
-              </div>
-              <div class="form-group">
-                <%= submit_tag 'Report' , class: 'button'%>
-              </div>
-              <div class="@form_group">
-                <%= link_to 'Reset', reports_filter_all_path, class: 'button' %>
-              </div>
-          <% end %>
-        </div>
-      </div>
-      </div>
-  </div>
-  <div class="col-md-8">
+<h2>PQ filter</h2>
+<%= render partial: 'shared/flash_messages' %>
+<div id="report-filter" class="row">
+  <div class="col-md-9">
     <% if @questions.nil? %>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-6">
-            Please select a filter option
-            </div>
-          </div>
-        </div>
+      <h3>Please select a filter option</h3>
     <% else %>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-6">
-              <p><%= pluralize(@questions_count,'Question') %> found</p>
-            </div>
-          </div>
+      <h3><%= pluralize(@questions_count,'Question') %> found</h3>
+      <ul class="questions-list">
+        <% @questions.each do |question| %>
+          <li id="pq-frame-<%= question.id %>">
+            <%= render partial: 'dashboard/question_data', locals: {question: question} %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <%= form_tag({controller: 'reports', action: 'filter_all'}, {:method => :get}) do %>
+      <fieldset>
+        <div class="form-group">
+          <label for="minister_id" class="form-label">Minister</label>
+          <%= select_tag 'minister_id', content_tag(:option,'Select a minister',:value=>'') + options_from_collection_for_select(Minister.all_active, 'id', 'name', params[:minister_id] ) %>
         </div>
-        <div class="row">
-          <ul class="questions-list col-md-9">
-            <% @questions.each do |question| %>
-                <li id="pq-frame-<%= question.id %>" class="row">
-                  <%= render partial: 'dashboard/question_data', locals: {question: question} %>
-                </li>
-                <hr />
-            <% end %>
-          </ul>
+        <div class="form-group">
+          <label for="press_desk_id" class="form-label">Press Desk</label>
+          <%= select_tag 'press_desk_id', content_tag(:option,'Select a press desk',:value=>'') + options_from_collection_for_select(PressDesk.where(deleted: false), 'id', 'name', params[:press_desk_id] ) %>
         </div>
+        <div class="form-group">
+          <label for="progress_id" class="form-label">Status</label>
+          <%= select_tag 'progress_id', content_tag(:option,'Select a progress',:value=>'') + options_from_collection_for_select(Progress.all, 'id', 'name', params[:progress_id] ) %>
+        </div>
+        <div class="form-group">
+          <%= submit_tag 'Report' , class: 'button'%>&nbsp;<%= link_to 'Reset', reports_filter_all_path, class: 'button-secondary' %>
+        </div>
+      </fieldset>
     <% end %>
   </div>
 </div>
 <% if !@questions.nil? %>
-<div class="row">
-  <div class="col-md-12">
-    <div id='pages'>
-      <%= will_paginate @questions %>
-    </div>
+  <div id='pages'>
+    <%= will_paginate @questions %>
   </div>
-</div>
 <% end %>
