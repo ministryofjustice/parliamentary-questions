@@ -1,21 +1,23 @@
 <%= render partial: 'shared/flash_messages' %>
 <div class="row">
-  <h3><%= @ao.name %>, you have been allocated the Parliamentary Question <%= @question.uin %></h3>
+  <h3><%= @ao.name %>,
+    <span class="br">You have been allocated the Parliamentary Question <%= @question.uin %></span>
+  </h3>
 </div>
 
-<div class="row">
+<div class="row row-spacer">
   <blockquote class="pq-question col-md-12">
     <%= @question.question %>
   </blockquote>
 </div>
 <div class="row">
-<div>Asked by: <%= @question.member_name %> <%= @question.house_name %></div>
+<div>Question asked by <%= @question.member_name %> <%= @question.house_name %></div>
 </div>
 <div class="row">
-  <div>To be answered on behalf of: <%= @question.minister.name %></div>
+  <div>To be answered on behalf of <%= @question.minister.name %></div>
 </div>
-<div class="row">
-  <div>Deadline to accept or reject this allocation: 2pm today</div>
+<div class="row row-spacer">
+  <p class="strong">Deadline to accept or reject this allocation is 2pm today</p>
 </div>
 
 <% if @question.action_officers_pq.size > 1 %>
@@ -27,25 +29,27 @@
         <% @question.action_officers_pq.each do |ao_pq|   %>
             <% if !ao_pq.action_officer.nil? && ao_pq.action_officer_id!=@ao.id %>
             <li>
-              <%= ao_pq.action_officer.name  %>
-              (<%= ao_pq.action_officer.deputy_director.division.name %>)
-              <% if ao_pq.accept %>
-                  <span class="label flag-accepted">Accepted</span>
-              <% elsif ao_pq.reject %>
-                  <span class="label flag-rejected">Rejected</span>
-                  <a data-toggle="collapse" data-target="#rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="button">
-                    Display Reason <span class="caret"></span>
-                  </a>
-                  <div id="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="collapse">
-                    <p><strong><%= ao_pq.reason_option %></strong></p>
-                    <p><%= ao_pq.reason %></p>
-                  </div>
+              <details class="details-reveal">
+                <summary aria-controls="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>">
+                  <span class="link closed"><%= ao_pq.action_officer.name  %>
+                  (<%= ao_pq.action_officer.deputy_director.division.name %>)
+                  </span>
+                  <% if ao_pq.accept %>
+                    <span class="label flag-accepted">Accepted</span>
+                  <% elsif ao_pq.reject %>
+                    <span class="label flag-rejected">Rejected</span>
+                </summary>
+                <div id="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="panel-indent reveal closed">
+                  <p class="strong"><%= ao_pq.reason_option %></p>
+                  <p><%= ao_pq.reason %></p>
+                </div>
+              </details>
               <% else %>
                   <span class="label flag-no-response">No response</span>
               <% end %>
               <% end %>
-        <% end %>
-        </li>
+            <% end %>
+            </li>
       </ul>
     </div>
 </div>
@@ -66,19 +70,17 @@
                 <%= hidden_field_tag 'token', params[:token] %>
                 <%= hidden_field_tag 'entity', params[:entity] %>
 
-                <div class="form-group">
-                  <div class="radio">
-                    <label>
+                <div class="form-group inline">
+
+                    <label class="block-label">
                       <%= f.radio_button :response_action, 'accept' %>
                       Accept
                     </label>
-                  </div>
-                  <div class="radio">
-                     <label>
+                    
+                     <label class="block-label">
                       <%= f.radio_button :response_action, 'reject'%>
                       Reject
                     </label>
-                  </div>
 
                 </div>
 
@@ -105,7 +107,7 @@
 
                   <div class="form-group">
                     <%= f.label :reason, 'Please explain why you reject the question, or if you are not the right person or department, please tell us who we should contact' %>
-                    <%= f.text_area  :reason,  class: 'form-control'%>
+                    <%= f.text_area  :reason,  class: 'form-control', rows: '10' %>
                   </div>
                 </div>
 
@@ -129,7 +131,3 @@
       </div>
     </div>
 <% end %>
-
-
-
-
