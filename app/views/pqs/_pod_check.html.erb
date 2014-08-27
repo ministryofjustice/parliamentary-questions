@@ -1,9 +1,6 @@
 <div class="form-group">
 	<label for="pod_waiting" class="form-label">Date sent to POD</label>
-	<span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-		<input id="pod_waiting" class="form-control" name="pq[pod_waiting]" type="text" value="<%= @pq.pod_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.pod_waiting.nil? %>">
-  		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
-	</span>
+	<%= @pq.pod_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.pod_waiting.nil? %>
 </div>
 <div class="form-group">
 	<label for="pq_pod_query_flag" class="block-label">

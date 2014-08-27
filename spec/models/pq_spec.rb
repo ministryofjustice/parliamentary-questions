@@ -3,6 +3,21 @@ require 'spec_helper'
 describe Pq do
 	let(:newQ) {build(:Pq)}
 
+  it 'should set pod_waiting when users set draft_answer_received' do
+    expect(newQ).to receive(:set_pod_waiting)
+    newQ.update(draft_answer_received: Date.new(2014,9,4))
+    newQ.save
+  end
+
+  it '#set_pod_waiting should work as expected' do
+    expect(newQ.draft_answer_received).to be_nil
+    expect(newQ.pod_waiting).to be_nil
+    dar = Date.new(2014,9,4)
+    newQ.draft_answer_received = dar
+    newQ.set_pod_waiting
+    expect(newQ.pod_waiting).to eq(dar)
+  end
+  
 	describe 'validation' do
 
 		it 'should pass onfactory build' do
@@ -34,11 +49,6 @@ describe Pq do
 			newQ.finance_interest=true
 			expect(newQ).to be_valid
 			newQ.finance_interest=false
-			expect(newQ).to be_valid
-		end
-		xit 'should allow an Action Officer to be assigned' do
-			# TODO Define proper links to Action Officer many-to-many tables
-			#newQ.action_officer_email='test@account.com'
 			expect(newQ).to be_valid
 		end
 	end
