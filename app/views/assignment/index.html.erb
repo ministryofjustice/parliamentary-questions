@@ -5,7 +5,7 @@
   </h3>
 </div>
 
-<div class="row">
+<div class="row row-spacer">
   <blockquote class="pq-question col-md-12">
     <%= @question.question %>
   </blockquote>
@@ -70,19 +70,17 @@
                 <%= hidden_field_tag 'token', params[:token] %>
                 <%= hidden_field_tag 'entity', params[:entity] %>
 
-                <div class="form-group">
-                  <div class="radio">
-                    <label>
+                <div class="form-group inline">
+
+                    <label class="block-label">
                       <%= f.radio_button :response_action, 'accept' %>
                       Accept
                     </label>
-                  </div>
-                  <div class="radio">
-                     <label>
+                    
+                     <label class="block-label">
                       <%= f.radio_button :response_action, 'reject'%>
                       Reject
                     </label>
-                  </div>
 
                 </div>
 
