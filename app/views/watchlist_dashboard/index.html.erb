@@ -1,5 +1,4 @@
 <h2>Questions Allocated <%= Date.today.strftime('%d/%m/%Y') %></h2>
-<hr />
 <h3 class="section">Allocated Today <span class="badge"><%= @questions.count %></span></h3>
 <ul class="questions-list">
   <% @questions.each do |question| %>
