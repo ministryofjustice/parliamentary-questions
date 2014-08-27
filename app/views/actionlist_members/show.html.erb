@@ -2,15 +2,15 @@
 <div id="admin-al-details">
 	<p id="notice"><%= notice %></p>
 	<h4>Name</h4>
-	<%= @actionlist_member.name %>
+    <p class="text"><%= @actionlist_member.name %></p>
 	<h4>Email</h4>
-	<%= @actionlist_member.email %>
+    <p class="text"><%= @actionlist_member.email %></p>
 	<h4>Status</h4>
 	<% if @actionlist_member.deleted %>
-		<i class="fa fa-times"></i>&nbsp;Inactive
+      <p class="text"><i class="fa fa-times"></i>&nbsp;Inactive</p>
 	<% else %>
-		<i class="fa fa-check-circle"></i>&nbsp;Active
+      <p class="text"><i class="fa fa-check-circle"></i>&nbsp;Active</p>
 	<% end %>
 	<%= link_to 'Edit', edit_actionlist_member_path(@actionlist_member), {class: 'admin-link'} %>
-	<%= link_to 'Return to actionlist member list', actionlist_members_path, {class: 'admin-link'} %>
+	<%= link_to 'Return to Actionlist member list', actionlist_members_path, {class: 'admin-link'} %>
 </div>

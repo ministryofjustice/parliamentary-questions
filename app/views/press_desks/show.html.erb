@@ -1,13 +1,13 @@
-<h2>Press desk details</h2>
+<h2>Press Desk details</h2>
 <div id="admin-pd-details">
 	<p id="notice"><%= notice %></p>
 	<h4>Name</h4>
-	<%= @press_desk.name %></p>
+	<p class="text"><%= @press_desk.name %></p>
 	<h4>Status</h4>
 	<% if @press_desk.deleted %>
-		<i class="fa fa-times"></i>&nbsp;Inactive
+		<p class="text"><i class="fa fa-times"></i>&nbsp;Inactive</p>
 	<% else %>
-		<i class="fa fa-check-circle"></i>&nbsp;Active
+		<p class="text"><i class="fa fa-check-circle"></i>&nbsp;Active</p>
 	<% end %>
 	<h3>Press officers</h3>
 	<ul>
@@ -16,5 +16,5 @@
 	<% end %>
 	</ul>
 	<%= link_to 'Edit', edit_press_desk_path(@press_desk), {class: 'admin-link'} %>
-	<%= link_to 'Return to press desk list', press_desks_path, {class: 'admin-link'} %>
+	<%= link_to 'Return to Press Desk list', press_desks_path, {class: 'admin-link'} %>
 </div>

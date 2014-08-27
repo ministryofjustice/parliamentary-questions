@@ -1,36 +1,34 @@
-<% if !question.house_name.nil?  %>
-  <h4><%= question.house_name %></h4>
-  <span class="txt-element"><%= question.member_name %></span>
-<% end %>
-
-<% if !question.date_for_answer.nil?  %>
-  <h4>Date for answer</h4>
-  <span class="txt-element"><%= question.date_for_answer.strftime('%d/%m/%Y') %><%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %></span>
-<% end %>
-
-<% if @dashboard_state == 'New'%>
-  <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
-    <label for='datetimepicker-<%= question.id %>'>
+<div class="dashboard-column-2">
+  <% if !question.house_name.nil?  %>
+    <h4><%= question.house_name %></h4>
+    <p class="text"><%= question.member_name %></p>
+  <% end %>
+  <% if !question.date_for_answer.nil?  %>
+    <h4>Date for answer</h4>
+    <p class="text"><%= question.date_for_answer.strftime('%d/%m/%Y') %><%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %></p>
+  <% end %>
+  <% if @dashboard_state == 'New'%>
+    <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
+      <label for='datetimepicker-<%= question.id %>'>
+        <h4>Internal deadline</h4>
+      </label>
+      <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
+        <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
+        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+        <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
+      </div>
+      <%= f.submit 'Update', :class => 'button start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
+    <% end %>
+  <% else %>
+    <% if !question.internal_deadline.nil?  %>
       <h4>Internal deadline</h4>
-    </label>
-    <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
-      <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
-      <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-      <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
-    </div>
-    <%= f.submit 'Update', :class => 'button start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
-<% end %>
-
-<% else %>
-  <% if !question.internal_deadline.nil?  %>
-      <h4>Internal deadline</h4>
-      <span class="txt-element">
+      <p class="text">
         <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
         <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
-      </span>
+      </p>
+    <% end %>
   <% end %>
-<% end %>
-<!-- round robin placeholder -->
-<div id='trim_area_<%= question.id %>'>
-  <%= render partial: 'shared/trim_links', locals: {question: question} %>
+  <div id='trim_area_<%= question.id %>'>
+    <%= render partial: 'shared/trim_links', locals: {question: question} %>
+  </div>
 </div>
