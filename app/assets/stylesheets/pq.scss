@@ -249,6 +249,8 @@ input[type="file"] {line-height:10px;}
 
 /* = Reports ============================================================ */
 .table-cell-centered {text-align: center;}
+#minister-report td, #pressdesk-report td {padding-top:10px;padding-bottom:13px;}
+#report-filter .button {margin-right: 25%;}
 
 /* = Footer ============================================================ */
 #footer {margin-top: 100px;}
