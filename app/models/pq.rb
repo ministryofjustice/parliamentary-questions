@@ -1,4 +1,7 @@
 class Pq < ActiveRecord::Base
+
+  before_update :set_pod_waiting
+
 	validates :uin , presence: true, uniqueness:true
 	validates :raising_member_id, presence:true
 	validates :question, presence:true
@@ -124,6 +127,11 @@ class Pq < ActiveRecord::Base
     joins(:progress).where('pqs.i_will_write = true AND progresses.name NOT IN (?)', Progress.closed_questions)
   end
 
+  def set_pod_waiting
+    if self.draft_answer_received_changed?
+      self.pod_waiting = draft_answer_received
+    end
+  end
 
   private
 
