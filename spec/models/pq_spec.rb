@@ -17,7 +17,7 @@ describe Pq do
     newQ.set_pod_waiting
     expect(newQ.pod_waiting).to eq(dar)
   end
-  
+
 	describe 'validation' do
 
 		it 'should pass onfactory build' do
