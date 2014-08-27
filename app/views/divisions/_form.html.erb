@@ -10,16 +10,25 @@
         </ul>
       </div>
     <% end %>
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, {class: 'form-control'} %>
-      <%= f.label :directorate_id %>
-      <%= f.collection_select(:directorate_id, @directorates, :id, :name, :include_blank => "Please select") %>
-      <p>
-        Status:
-        <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
-      </p>
-      <%= f.submit 'Save', {class: 'button'} %>
-    </div>
+    <fieldset>
+      <div class="form-group">
+        <label for="division_name" class="form-label">Name</label>
+        <%= f.text_field :name, {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <label for="division_directorate_id" class="form-label">Directorate</label>
+        <%= f.collection_select(:directorate_id, @directorates, :id, :name, :include_blank => "Please select") %>
+      </div>
+      <div class="form-group">
+        <p class="text">Status</p>
+        <label for="division_deleted" class="block-label">
+          <%= f.check_box :deleted %>
+          Inactive
+        </label>
+      </div>
+      <div class="form-group">
+        <%= f.submit 'Save', {class: 'button'} %>
+      </div>
+    </fieldset>
   <% end %>
 </div>

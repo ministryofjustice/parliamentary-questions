@@ -10,18 +10,28 @@
         </ul>
       </div>
     <% end %>
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, {class: 'form-control'} %>
-      <%= f.label :email %>
-      <%= f.text_field :email, {class: 'form-control'} %>
-      <%= f.label :division_id %>
-      <%= f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select") %>
-      <p>
-        Status:
-        <label><%= f.check_box :deleted %>&nbsp;Inactive</label>
-      </p>
-      <%= f.submit 'Save', {class: 'button'} %>
-    </div>
+    <fieldset>
+      <div class="form-group">
+        <label for="deputy_director_name" class="form-label">Name</label>
+        <%= f.text_field :name, {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <label for="deputy_director_email" class="form-label">Email</label>
+        <%= f.text_field :email, {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <label for="deputy_director_division_id" class="form-label">Division</label>
+        <%= f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select") %>
+      </div>
+      <div class="form-group">
+        <p class="text">Status</p>
+        <label for="deputy_director_deleted" class="block-label">
+          <%= f.check_box :deleted %>Inactive
+        </label>
+      </div>
+      <div class="form-group">
+        <%= f.submit 'Save', {class: 'button'} %>
+      </div>
+    </fieldset>
   <% end %>
 </div>
