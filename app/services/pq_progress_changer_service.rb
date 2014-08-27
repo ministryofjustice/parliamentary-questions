@@ -91,18 +91,11 @@ class PQProgressChangerService
       return
     end
 
-    # does not have policy minister
-    if pq.policy_minister.nil?
-      if !pq.cleared_by_answering_minister.nil?
-        update_pq(pq, Progress.minister_cleared)
-        return
-      end
-    end
-
-    # has policy minister
-    if !pq.cleared_by_answering_minister.nil? && !pq.cleared_by_policy_minister.nil?
-      update_pq(pq, Progress.minister_cleared)
-      return
+    # does not have policy minister & cleared by minister
+    # Or has been cleared policy minister and not cleared by answering minister
+    if pq_approved_by_minister_and_no_pol_minister(pq) || pq_approved_by_policy_minister(pq)
+          update_pq(pq, Progress.minister_cleared)
+          return
     end
   end
 
@@ -136,5 +129,12 @@ class PQProgressChangerService
     pq.update(progress_id: progress.id)
   end
 
-
+  # PQ has no Policy minister and has been approved by Answering minister
+  def pq_approved_by_minister_and_no_pol_minister(pq)
+    pq.policy_minister.nil? && !pq.cleared_by_answering_minister.nil?
+  end
+  # PQ has been cleared by the policy minister and not been cleared by Answering minister
+  def pq_approved_by_policy_minister(pq)
+    !pq.cleared_by_answering_minister.nil? && !pq.cleared_by_policy_minister.nil?
+  end
 end

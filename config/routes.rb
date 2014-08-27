@@ -38,6 +38,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'admin' => 'admin#index'
 
   get 'commission/:id' => 'commission#commission'
+  get 'commission_complete/:id' => 'commission#complete'
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
   post 'assign/:id' => 'commission#assign'
   get 'answering/:id' => 'answering#index'
@@ -77,8 +78,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'import/questions_no_log' => 'import#questions_no_log'
   get 'import/questions_no_log' => 'import#questions_no_log'
   get 'import/questions_async' => 'import#questions_async'
-
-  get 'apply_progresses/apply_all' => 'apply_progresses#apply_all'
 
   get 'import/logs' => 'import#logs'
 
