@@ -53,6 +53,11 @@ class CommissionController < ApplicationController
     render :partial => "shared/question_assigned", :locals => {question: @pq}
   end    
 
+  def complete
+    @pq = Pq.find_by(uin: params[:id])
+    render :partial => 'shared/commissioned', :locals => {uin: @pq}
+  end
+
   private
     def assign_one_action_officer(pq_id, ao_id)
       assignment = ActionOfficersPq.new(pq_id: pq_id, action_officer_id: ao_id)

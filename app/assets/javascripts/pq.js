@@ -19,12 +19,13 @@ $(document).ready(function () {
 	});
 
 	$(".form-commission")
-	.on("ajax:success", function(e, data){
+	.on("ajax:success", function(){
 		var pqid = $(this).data('pqid');
         var uin = $('#pq-frame-'+pqid+ ' h3').text();
         //it worked!
         //so - get the entire question and replace it with a flash success message
-        $('#pq-frame-'+pqid).replaceWith('<div class="alert alert-success fade in">'+ uin +' commissioned successfully<button class="close" data-dismiss="alert">×</button></div>');
+        $.get("/commission_complete/"+ uin, function(data){
+            $('#pq-frame-'+pqid).html(data); }, "html");
         //increment allocated pending
         incrementBadge('#db-filter-alloc-pend');
         //decrement Unallocated

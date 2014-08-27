@@ -109,6 +109,12 @@ bundle --quiet \
 
 bundle exec rake assets:precompile RAILS_ENV=production
 
+# Once the assets have been built add a ping to the assets server
+cat <<EOT >public/assets/ping.json
+{"version_number":"$APPVERSION","build_date":"$DATE","commit_id":"$GIT_COMMIT","build_tag":"$BUILD_TAG"}
+EOT
+
+
 JENKINS_RETCODE=0
 
 # Build containers
