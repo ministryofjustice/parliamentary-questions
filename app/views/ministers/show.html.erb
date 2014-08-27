@@ -2,19 +2,19 @@
 <div id="admin-ministers-details">
   <p id="notice"><%= notice %></p>
   <h4>Name</h4>
-  <%= @minister.name %>
+  <p class="text"><%= @minister.name %></p>
   <h4>Title</h4>
-  <%= @minister.title %>
+  <p class="text"><%= @minister.title %></p>
   <h4>Status</h4>
   <% if @minister.deleted %>
-    <i class="fa fa-times"></i>&nbsp;Deleted
+      <p class="text"><i class="fa fa-times"></i>&nbsp;Deleted</p>
   <% else %>
-    <i class="fa fa-check-circle"></i>&nbsp;Active
+      <p class="text"><i class="fa fa-check-circle"></i>&nbsp;Active</p>
   <% end %>
   <h3>Contacts</h3>
   <div class="row>">
     <div class="col-md-2.5 pull-right">
-      <%= link_to raw('Add new contact'), new_minister_contact_withid_path(@minister), {class: 'button-secondary'} %>
+      <%= link_to ('Add new contact'), new_minister_contact_withid_path(@minister), {class: 'button-secondary'} %>
     </div>
   </div>
   <table class="table">
@@ -35,5 +35,5 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to 'Return to minister list', ministers_path, {class: 'admin-link'} %>
+  <%= link_to 'Return to the Minister list', ministers_path, {class: 'admin-link'} %>
 </div>

@@ -31,37 +31,30 @@
   </div>
 
   <div id="progress-panel" class="col-md-9">
-
     <%= form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f| %>
-
-      <div id="progress-menu-pq-data" class="progress-menu-data start-hidden">
-        <%= render partial:'pq_data', locals: {f: f} %>
-      </div>
-
-      <div id="progress-menu-fc-data" class="progress-menu-data start-hidden">
-        <%= render partial:'fc_data', locals: {f: f} %>
-      </div>
-
-      <div id="progress-menu-com-data" class="progress-menu-data start-hidden">
-        <%= render  partial:'com_data', locals: {f: f} %>
-      </div>
-
-      <div id="progress-menu-sub-data" class="progress-menu-data start-hidden">
-        <%= render  partial:'pq_draft', locals: {f: f} %>
-      </div>
-
-      <div id="progress-menu-pod-data" class="progress-menu-data start-hidden" >
-        <%= render partial:'pod_check', locals: {f: f} %>
-      </div>
-
-      <div id="progress-menu-min-data" class="progress-menu-data start-hidden" >
-        <%= render partial:'minister_check', locals: {f: f} %>
-      </div>
-
-      <div id="progress-menu-answer-data" class="progress-menu-data start-hidden">
-        <%= render partial:'answer', locals: {f: f} %>
-      </div>
-
+      <fieldset>
+        <div id="progress-menu-pq-data" class="progress-menu-data start-hidden">
+          <%= render partial:'pq_data', locals: {f: f} %>
+        </div>
+        <div id="progress-menu-fc-data" class="progress-menu-data start-hidden">
+          <%= render partial:'fc_data', locals: {f: f} %>
+        </div>
+        <div id="progress-menu-com-data" class="progress-menu-data start-hidden">
+          <%= render  partial:'com_data', locals: {f: f} %>
+        </div>
+        <div id="progress-menu-sub-data" class="progress-menu-data start-hidden">
+          <%= render  partial:'pq_draft', locals: {f: f} %>
+        </div>
+        <div id="progress-menu-pod-data" class="progress-menu-data start-hidden" >
+          <%= render partial:'pod_check', locals: {f: f} %>
+        </div>
+        <div id="progress-menu-min-data" class="progress-menu-data start-hidden" >
+          <%= render partial:'minister_check', locals: {f: f} %>
+        </div>
+        <div id="progress-menu-answer-data" class="progress-menu-data start-hidden">
+          <%= render partial:'answer', locals: {f: f} %>
+        </div>
+      </fieldset>
       <%= f.submit 'Save', :id => 'save', :class => 'button' %>
     <% end %>
   </div>

@@ -2,14 +2,14 @@
 <div id="admin-ogd-details">
 	<p id="notice"><%= notice %></p>
 	<h4>Name</h4>
-	<%= @ogd.name %>
+	<p class="text"><%= @ogd.name %></p>
 	<h4>Acronym</h4>
-	<%= @ogd.acronym %>
+	<p class="text"><%= @ogd.acronym %></p>
 	<h4>Status</h4>
 	<% if @ogd.deleted %>
-		<i class="fa fa-times"></i>&nbsp;Inactive
+		<p class="text"><i class="fa fa-times"></i>&nbsp;Inactive</p>
 	<% else %>
-		<i class="fa fa-check-circle"></i>&nbsp;Active
+		<p class="text"><i class="fa fa-check-circle"></i>&nbsp;Active</p>
 	<% end %>
 	<%= link_to 'Edit', edit_ogd_path(@ogd), {class: 'admin-link'} %>
 	<%= link_to 'Return to other government department list', ogds_path, {class: 'admin-link'} %>

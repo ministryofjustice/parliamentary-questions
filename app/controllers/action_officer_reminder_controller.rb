@@ -7,7 +7,7 @@ class ActionOfficerReminderController  < ApplicationController
 
     @ao_pq.increment(:reminder_accept).save()
 
-    flash[:notice] = "A reminder email has been sent to #{@ao.emails}"
+    flash[:reminder] = "reminder sent"
     render partial: 'shared/flash_messages'
   end
 
@@ -16,7 +16,7 @@ class ActionOfficerReminderController  < ApplicationController
 
     @ao_pq.increment(:reminder_draft).save()
 
-    flash[:notice] = "A reminder to send the draft has been sent to #{@ao.emails}"
+    flash[:reminder] = "reminder send"
     render partial: 'shared/flash_messages'
   end
 

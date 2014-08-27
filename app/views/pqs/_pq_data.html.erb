@@ -1,52 +1,48 @@
-
 <h4>UIN</h4>
-<span class="txt-element"><%= @pq.uin %></span>
-
+<p class="text"><%= @pq.uin %></p>
 <h4>House</h4>
-<span class="txt-element"><%= @pq.house_name %></span>
-
+<p class="text"><%= @pq.house_name %></p>
 <h4>Date for answer back to Parliament</h4>
-<span class="txt-element"><%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %><%= render partial: 'shared/answer_time', locals: {date_for_answer: @pq.date_for_answer, progress_val: @pq.progress} %></span>
-
+<p class="text">
+	<%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %><%= render partial: 'shared/answer_time', locals: {date_for_answer: @pq.date_for_answer, progress_val: @pq.progress} %>
+</p>
 <h4>Tabling member</h4>
-<span class="txt-element"><%= @pq.member_name %></span>
-
+<p class="text"><%= @pq.member_name %></p>
 <h4>Question type</h4>
-<span class="txt-element"><%= @pq.question_type %></span>
-
+<p class="text"><%= @pq.question_type %></p>
 <h4>Question tabled date</h4>
-<span class="txt-element"><%= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil? %></span>
-
+<p class="text"><%= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil? %></p>
 <% if @pq.registered_interest %>
-    <p>* Member has registered an interest in the Question.</p>
+    <p class="text">
+    	* Member has registered an interest in the Question.
+    </p>
 <% end %>
-
 <% if @pq.transfer_in_ogd_id %>
-    <p>Transferred in from <%= @pq.transfer_in_ogd.name %><%= ' on ' + @pq.transfer_in_date.strftime('%d/%m/%Y')  unless @pq.transfer_in_date.nil? %></p>
+    <p class="text">
+    	Transferred in from <%= @pq.transfer_in_ogd.name %><%= ' on ' + @pq.transfer_in_date.strftime('%d/%m/%Y')  unless @pq.transfer_in_date.nil? %>
+    </p>
 <% end %>
-
 <hr />
-
 <h4>Question</h4>
-<span class="txt-element"><%= @pq.question %></span>
-
+<p class="text"><%= @pq.question %></p>
 <hr />
-
-<label for="pq_round_robin" class="block-label">
-  <%= f.check_box(:round_robin) %>
-  Round robin
-</label>
-
-<label for="round_robin_guidance_received">Date guidance received</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-	<input id="round_robin_guidance_received" class="form-control" name="pq[round_robin_guidance_received]" type="text" value="<%= @pq.round_robin_guidance_received.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_guidance_received.nil? %>">
-  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+<div class="form-group">
+	<label for="pq_round_robin" class="block-label">
+  	<%= f.check_box(:round_robin) %>
+  	Round robin
+	</label>
 </div>
-
-
-<label for="round_robin_date">Date round robin guidance sent to action officer</label>
-<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
-  <input id="round_robin_date" class="form-control" name="pq[round_robin_date]" type="text" value="<%= @pq.round_robin_date.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_date.nil? %>">
-  <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+<div class="form-group">
+	<label for="round_robin_guidance_received" class="form-label">Date guidance received</label>
+	<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+		<input id="round_robin_guidance_received" class="form-control" name="pq[round_robin_guidance_received]" type="text" value="<%= @pq.round_robin_guidance_received.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_guidance_received.nil? %>">
+  		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+	</div>
 </div>
-
+<div class="form-group">
+	<label for="round_robin_date" class="form-label">Date round robin guidance sent to action officer</label>
+	<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
+  		<input id="round_robin_date" class="form-control" name="pq[round_robin_date]" type="text" value="<%= @pq.round_robin_date.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_date.nil? %>">
+  		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+	</div>
+</div>

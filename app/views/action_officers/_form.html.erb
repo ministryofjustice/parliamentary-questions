@@ -11,17 +11,17 @@
       </div>
     <% end %>
     <div class="form-group">
-      <%= f.label :name %>
+      <label for="" class="form-label">Name</label>
       <%= f.text_field :name, {class: 'form-control'} %>
-      <%= f.label :email %>
+      <label for="" class="form-label">Email</label>
       <%= f.text_field :email , {class: 'form-control'} %>
-      <%= f.label :group_email %>
+      <label for="" class="form-label">Group email</label>
       <%= f.text_field :group_email , {class: 'form-control'} %>
-      <%= f.label :phone %>
+      <label for="" class="form-label">Phone</label>
       <%= f.text_field :phone , {class: 'form-control'} %>
-      <%= f.label :deputy_director_id %>
+      <label for="" class="form-label">Deputy Director</label>
       <%= f.collection_select(:deputy_director_id, @deputy_directors, :id, :name, :include_blank => "Please select") %>
-      <%= f.label :press_desk_id %>
+      <label for="" class="form-label">Press Desk</label>
       <%= f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select") %>
       <p>
         Status:
