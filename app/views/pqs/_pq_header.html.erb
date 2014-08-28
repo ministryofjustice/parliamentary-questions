@@ -12,7 +12,7 @@
     <% end %>
     <span id="pq-details-progress" class="label flag-<%= @pq.progress.classname %>"><%= @pq.progress.name %></span>
   </div>
-  <div id='trim_area_<%= @pq.id %>' class="col-md-3">
+  <div id='trim_area_<%= @pq.id %>' class="col-md-3 trim_area trim_area_header">
     <%= render partial: 'shared/trim_links', locals: {question: @pq} %>
   </div>
 </div>

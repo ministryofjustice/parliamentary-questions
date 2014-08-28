@@ -101,6 +101,7 @@ button.close {float: none; margin: 0.5em; color: #000;}
 
 i.fa-envelope, i.fa-exclamation-triangle {margin-left: 4px;}
 .right {float: right;}
+.strong {font-weight: 700;}
 label {display: block; font-weight: normal; clear: both;}
 select {display: block;}
 .date, .datetimepicker {width: 13em;}
@@ -112,10 +113,6 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 
 /* = Element spacing ============================================================ */
 
-#pq-columns label {margin: 0px;}
-#pq-columns label.block-label {margin: 0px 0px 20px 0px;}
-#pq-columns .dashboard_trim_link {margin: 20px 0px 35px 0px;}
-
 .dashboard-column1-uncommissioned .form-group {margin-bottom: 20px;}
 .dashboard-column1-commissioned .col-md-6 {padding-left: 0px; margin:0px 0px 10px 0px;}
 .dashboard-column1-uncommissioned .single-select-dropdown, .dashboard-column1-commissioned .single-select-dropdown {font-size: 19px;}
@@ -124,33 +121,19 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 .select2-search-choice div {line-height: 1em;}
 .allocation-info .button {margin: 30px 0px 0px 0px;}
 
-#progress-panel .text, #progress-panel select, #progress-panel hr, #progress-panel a, #progress-panel label.block-label, #progress-panel .form-group {margin: 0px 0px 20px 0px;}
-#progress-panel label {margin-bottom: 0px;}
-#confirmation_button_bar {padding-left: 0px;}
-
-.pq-header h3, .pq-header-flags, .pq-header-links, #pq-details-title h2 {display: inline-block;}
-i.fa-envelope, i.fa-exclamation-triangle {margin-left: 4px;}
-
-.strong{font-weight: 700;}
-.right{float: right;}
-
-label {display: block; font-weight: normal; clear: both;}
-select {display: block;}
-.date, .datetimepicker {width: 13em;}
-
-#pages, .internal-deadline-form, .select2-container-multi .select2-choices li {width: 100%;}
-#progress-panel input.btn.btn-save {clear: both; margin-top: 30px;}
-
-.internal-dtp {margin: 6px 0px 20px 0px;}
-.internal-deadline {font-size: 19px;}
-
-/* = Element spacing ============================================================ */
+#progress-panel .date.datetimepicker, 
+#progress-panel p, 
+#progress-panel .text, 
+#progress-panel select, 
+#progress-panel hr, 
+#progress-panel a, 
+#progress-panel label.block-label, 
+#progress-panel .form-group 
+{margin: 0px 0px 20px 0px;}
 
 .form-group {margin-bottom: 25px;}
 
 #pq-columns .date.datetimepicker, #pq-columns p, #pq-columns hr, #pq-columns select, #pq-columns label.block-label {margin: 0px 0px 20px 0px;}
-#progress-panel .date.datetimepicker, #progress-panel p, #progress-panel select, #progress-panel hr, #progress-panel label.block-label {margin: 0px 0px 20px 0px;}
-
 #pq-columns label, #progress-panel label {margin-bottom: 0px;}
 #pq-columns .dashboard_trim_link {margin: 20px 0px 35px 0px;}
 
@@ -222,7 +205,14 @@ textarea {
 .js-enabled .add-focus {outline-width: 3px; outline-style: solid;}
 .js-enabled .block-label input:focus {outline: none;}
 .table {clear: both;}
-/*textarea {resize: none;}*/
+
+textarea {
+  resize:none;
+  &.form-control{
+    width:100%;
+  }
+}
+
 .admin-link {display: block; margin: 7.5px 0px;}
 
 /* = Navigation ================================================================= */
@@ -285,29 +275,12 @@ hr {height: 1px;}
 
 /* = Flags ====================================================================== */
 
-.btn-no-response,
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-with-minister,
-.flag-with-pod
-{border-radius:6px;font-weight:normal;font-size:13px;padding:6px; display:inline-block;}
-
-.flag-minister-cleared,
-.flag-pod-cleared
-{border-radius:6px;font-weight:normal;font-size:13px;padding:6px;}
+.flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
+.flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
 
 /* PQ Dashboard Page ============================================================ */
 
-.select2-container .select2-choice abbr {top:5px!important;}
+.select2-container .select2-choice abbr {top: 5px!important;}
 .question-allocation-list {
   list-style: none;
   margin-bottom:1em;
@@ -321,7 +294,8 @@ hr {height: 1px;}
     }
   }
 }
-.pq-inline-form {display:inline!important;}
+
+.pq-inline-form {display: inline!important;}
 
 /* = TRIM links ================================================================= */
 
@@ -363,8 +337,7 @@ input[type="file"] {line-height:10px;}
 #report-filter .button {margin-right: 25%;}
 
 /* = Footer ============================================================ */
-#footer {margin-top:100px;}
-
+#footer {margin-top: 100px;}
 /* ============================================================ */
 /* = Misc.                                                      */
 /* ============================================================ */
