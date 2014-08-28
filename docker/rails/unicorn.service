@@ -30,6 +30,13 @@ fi
 # Increment restart metric
 echo "restart.rails:1|s" | nc.traditional -w 1 -u 127.0.0.1 8125
 
+if ( [ -z "$APP_MASTER_SERVER" ] || [ "$APP_HOST" == "$APP_MASTER_SERVER" ] ); then
+  # We want to run scheduling only on the master. For single box environments
+  # APP_MASTER_SERVER will not be set so run all the time
+  echo "Master server: Running whenever"   >>/rails/log/unicorn.log
+  bundle exec whenever --update-crontab    >>/rails/log/unicorn.log 2>&1
+fi
+
 echo "Starting unicorn"           >>/rails/log/unicorn.log
 exec bundle exec unicorn -p 80    >>/rails/log/unicorn.log 2>&1
 
