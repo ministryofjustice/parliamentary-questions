@@ -26,8 +26,8 @@
           <span class="input-group-addon glyphicon glyphicon-calendar"></span>
         </div>
       </div>
-      <div class="form-group">
-        <p class="text">House</p>
+      <p class="text">House</p>
+      <div class="form-group inline">
         <label for="pq_house_name_house_of_commons" class="block-label"><%= f.radio_button :house_name, 'House Of Commons' %> House of Commons</label>
         <label for="pq_house_name_house_of_lords" class="block-label"><%= f.radio_button :house_name, 'House Of Lords' %> House of Lords</label>
       </div>
@@ -39,13 +39,13 @@
         <label for="pq_member_constituency" class="form-label">Member constituency</label>
         <%= f.text_field :member_constituency, class:'form-control' %>
       </div>
-      <div class="form-group">
-        <p class="text">Member has registered an interest in the question</p>
+      <p class="text">Member has registered an interest in the question</p>
+      <div class="form-group inline">
         <label for="pq_registered_interest_false" class="inline block-label"><%= f.radio_button :registered_interest, 'FALSE' %> No</label>
         <label for="pq_registered_interest_true" class="inline block-label"><%= f.radio_button :registered_interest, 'TRUE'%> Yes</label>
       </div>
-      <div class="form-group">
-        <p class="text">Question type</p>
+      <p class="text">Question type</p>
+      <div class="form-group inline">
         <label for="pq_question_type_ordinary" class="block-label"><%= f.radio_button :question_type, 'Ordinary' %> Ordinary</label>
         <label for="pq_question_type_namedday" class="block-label"><%= f.radio_button :question_type, 'NamedDay'%> Named day</label>
       </div>
