@@ -12,6 +12,9 @@
 #  runner 'ImportWorker.perform_async'
 #end
 
+set :output, 'log/schedule.log'
+job_type :runner,  "cd :path && bundle exec rails runner -e :environment ':task' :output"
+
 every 10.minutes  do
-  runner 'ImportWorker.perform_async'
+  runner 'ImportWorker.new.perform'
 end
