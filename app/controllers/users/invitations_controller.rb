@@ -7,13 +7,7 @@ class Users::InvitationsController < Devise::InvitationsController
     # we don't need this to override the function of inviting
     # but it is necessary to allow the use of our views
     resource_class.invite!(invite_params, current_inviter) do |u|
-
-      puts '======================================================='
-      puts ' My code, talking ''bout... MY CODE!'
-      puts '======================================================='
-      puts invite_params
-      puts '======================================================='
-
+      logger.info "Sending invite #{invite_params.inspect}"
     end
   end
 
