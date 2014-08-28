@@ -148,7 +148,12 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 .js-enabled .add-focus {outline-width: 3px; outline-style: solid;}
 .js-enabled .block-label input:focus {outline: none;}
 .table {clear: both;}
-textarea {resize: none;}
+textarea {
+  resize:none;
+  &.form-control{
+    width:100%;
+  }
+}
 .admin-link {display: block; margin: 7.5px 0px;}
 
 /* = Sign in ==================================================================== */
