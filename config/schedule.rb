@@ -8,7 +8,10 @@
 # run on the root of the app to get the line that you have to put in the crontab
 # $ whenever
 
-every 1.day, :at => '7:00 am' do
+#every 1.day, :at => '7:00 am' do
+#  runner 'ImportWorker.perform_async'
+#end
+
+every 10.minutes  do
   runner 'ImportWorker.perform_async'
 end
-
