@@ -5,20 +5,18 @@
 <% end %>
 
 <% if question.trim_links.count==0 %>
-    <div class="trim_area">
-      <div id="trim-links-header-<%= question.id %>" class="button-secondary trim-links-header">
-          Add TRIM file
-          <div id="trim-links-form-<%= question.id %>" class="trim-links-form">
-              <div class='button-secondary trim-links-cancel'>
-                  Cancel TRIM file
-              </div>
-              <%= form_for TrimLink.new(:pq_id => question.id), :remote => true, :authenticity_token => true, :html=> {:multipart=>true, :id=>"new_trim_link_form_#{question.id}" ,:class=>'pq-inline-form, form-add-trim-link', :data => {:pqid => "#{question.id}" }} do |f| %>
-                  <span class="file-choose-replace">Choose file</span>
-                  <%= f.file_field :file_data, :class=>'pq-inline-form file-chooser', :id=>"file_data-#{question.id}" %>
-                  <%= f.hidden_field(:pq_id , :value => question.id , :id=>"pq_id-trimlink-#{question.id}") %>
-                  <%= f.submit 'Add', :class=>'button', :style=>'display:none;' %>
-              <% end %>
-          </div>
-      </div>
+    <div id="trim-links-header-<%= question.id %>" class="button-secondary trim-links-header">
+        Add TRIM file
+        <div id="trim-links-form-<%= question.id %>" class="trim-links-form">
+            <div class='button-secondary trim-links-cancel'>
+                Cancel TRIM file
+            </div>
+            <%= form_for TrimLink.new(:pq_id => question.id), :remote => true, :authenticity_token => true, :html=> {:multipart=>true, :id=>"new_trim_link_form_#{question.id}" ,:class=>'pq-inline-form, form-add-trim-link', :data => {:pqid => "#{question.id}" }} do |f| %>
+                <span class="file-choose-replace">Choose file</span>
+                <%= f.file_field :file_data, :class=>'pq-inline-form file-chooser', :id=>"file_data-#{question.id}" %>
+                <%= f.hidden_field(:pq_id , :value => question.id , :id=>"pq_id-trimlink-#{question.id}") %>
+                <%= f.submit 'Add', :class=>'button', :style=>'display:none;' %>
+            <% end %>
+        </div>
     </div>
 <% end %>
