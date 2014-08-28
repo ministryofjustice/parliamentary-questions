@@ -1,9 +1,7 @@
 <%= render partial: "shared/flash_messages", flash: flash %>
 <% if question.action_officers_pq.size > 0 %>
-
     <div class="question-allocation">
-        <p>Allocation:</p>
-
+        <h4>Allocation:</h4>
         <ul class="question-allocation-list" data-pqid="<%= question.id %>">
             <% question.action_officers_pq.each do |ao_pq|   %>
                 <li>
