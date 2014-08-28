@@ -1,11 +1,14 @@
-<%= @template_params[:ao_name] %>, you have been allocated the the Parliamentary Question <%= @template_params[:uin] %>
+<%= @template_params[:ao_name] %>,
+You have been allocated the the Parliamentary Question <%= @template_params[:uin] %>
 ============================================================================
 <%= @template_params[:question] %>.
 ============================================================================
 Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
 
-To accept or reject the question, please click the link below or cut and paste this url to a web browser before 2pm today.
+You need to accept or reject the question, by clicking the link below or cutting and pasting this url into a web browser, before 2pm today.
  <%= url_for(controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
+
+If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.
 
 If you have any questions, please contact the PQ team at pqs@justice.gsi.gov.uk
 
