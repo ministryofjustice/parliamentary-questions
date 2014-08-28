@@ -1,6 +1,11 @@
 /* = Reset ================================================================================= */
 
-.row {margin-right: 0px; margin-left: 0px;}
+.row{
+    margin:0px;
+  &.row-spacer{
+    margin:15px 0;
+  }
+}
 p {margin: 0px;}
 body {font-size: 19px;}
 
@@ -176,7 +181,10 @@ li.select2-search-field {border-bottom: none;}
 .pq-header h3 {margin: 0px 14px 0px 0px; padding: 0px; vertical-align: middle;}
 .pq-header-flags {margin-right: 26px;}
 .name-day, .flag-will-write, .flag-transferred-in {font-size: 14px; font-weight: normal; margin: 0px 10px 0px 0px; padding: 3.5px 8px; text-align: center; white-space: nowrap;}
-.pq-question {margin-bottom: 26px; padding: 0px;}
+.pq-question {
+  margin: .5em 0 .5em;
+  padding: .5em 0 .5em .5em;
+}
 .info-notice {border-left-width: 4px; border-left-style: solid; margin-left: 15px; margin-bottom: 20px;}
 .status-bar {line-height: 32px; margin-bottom: 26px; padding: 0px;}
 #pq-columns .col-md-7 {padding-left: 0px;}
@@ -212,7 +220,19 @@ hr {height: 1px;}
 /* PQ Dashboard Page ============================================================ */
 
 .select2-container .select2-choice abbr {top: 5px!important;}
-.question-allocation-list {list-style: circle;}
+.question-allocation-list {
+  list-style: none;
+  margin-bottom:1em;
+  li {
+    margin:.8em 0;
+    &:first-child{
+      margin-top:0;
+    }
+    &:last-child{
+      margin-bottom:0;
+    }
+  }
+}
 .pq-inline-form {display: inline!important;}
 
 /* = TRIM links ================================================================= */
@@ -254,3 +274,59 @@ input[type="file"] {line-height:10px;}
 
 /* = Footer ============================================================ */
 #footer {margin-top: 100px;}
+/* ============================================================ */
+/* = Misc.                                                      */
+/* ============================================================ */
+.reveal{
+  border-left:5px solid #eee;
+  padding-left:.5em;
+  margin-top:.5em;
+  p{
+    &:first-child{
+      padding-top:.5em;
+    }
+    &:last-child{
+      padding-bottom:.5em;
+    }
+  }
+  &.closed{
+    display:none;
+  }
+  &.opened{
+    display:block;
+  }
+}
+.br{
+  display:block;
+}
+details{
+  summary{
+    span.link{
+      color:#005ea5;
+      text-decoration:underline;
+      cursor:pointer;
+      margin-right:.5em;
+      position:relative;
+      &.closed{
+        &:before{
+          content:'► ';
+          position:absolute;
+          left: -1.25em;
+        }
+      }
+      &.opened{
+        &:before{
+          content:'▼ ';
+        }
+      }
+    }
+  }
+}
+.form-group.inline{
+  .block-label{
+    margin: .5em .5em 0 0;
+    &:last-child{
+      margin-right:0;
+    }
+  }
+}
