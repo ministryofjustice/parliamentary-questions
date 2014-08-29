@@ -22,9 +22,9 @@
     		</label>
   		<% end -%>
     </div>
+    <div class="form-group">
+      <%= f.submit "Sign in", :id => 'sign_in', :class => 'button' %>
+      <%= render "devise/shared/links" %>
+    </div>
   </fieldset>
-  <div class="form-group">
-    <%= f.submit "Sign in", :id => 'sign_in', :class => 'button' %>
-    <%= render "devise/shared/links" %>
-  </div>
 <% end %>
