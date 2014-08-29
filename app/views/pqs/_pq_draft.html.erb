@@ -17,13 +17,13 @@
 </div>
 <div class="form-group">
   <label for="pq_i_will_write" class="block-label">
-    <%= f.check_box(:i_will_write) %>
+    <%= f.check_box(:i_will_write, include_hidden: false) %>
     I will write
   </label>
 </div>
 <div class="form-group">
   <label for="pq_pq_correction_received" class="block-label">
-    <%= f.check_box(:pq_correction_received) %>
+    <%= f.check_box(:pq_correction_received, include_hidden: false) %>
     PQ correction received
   </label>
 </div>
