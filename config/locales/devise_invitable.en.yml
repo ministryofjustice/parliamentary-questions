@@ -15,7 +15,7 @@ en:
     mailer:
       invitation_instructions:
         subject: 'Invitation instructions'
-        someone_invited_you: 'You have been invited to use the online PQ Tracker.'
-        accept: 'Accept the invitation'
-        setup: "Your account won't be created until you click the link above and set a password."
-        ignore: "If you don't want to accept the invitation, please contact"
+        someone_invited_you: 'You have been invited to use the PQ Tracker.'
+        accept: 'accept the invitation'
+        setup: "You will need to create your own password as part of your account setup."
+        ignore: "If you don't want to accept the invitation"

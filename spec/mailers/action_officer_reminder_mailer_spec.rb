@@ -11,7 +11,7 @@ describe 'ActionOfficerReminderMailer' do
     @ao_pq = ActionOfficersPq.new(action_officer_id: ao.id, pq_id: @pq.id)
 
     @template = Hash.new
-    @template[:name] = ao.name
+    @template[:ao_name] = ao.name
     @template[:email] = ao.emails
     @template[:uin] = @pq.uin
     @template[:question] = @pq.question
@@ -22,7 +22,7 @@ describe 'ActionOfficerReminderMailer' do
   describe 'Accept reminder' do
     describe 'deliver' do
       it 'should include house, member name and uin from PQ and AO name' do
-        PqMailer.remind_accept_reject_email(@template).deliver
+        PqMailer.acceptance_reminder_email(@template).deliver
 
         mail = ActionMailer::Base.deliveries.first
 

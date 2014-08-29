@@ -1,19 +1,19 @@
 <%= @template_params[:dd_name] %>
 
-<%= @template_params[:ao_name] %> has been allocated the Parliamentary Question <%= @template_params[:uin]%>
-
+<%= @template_params[:ao_name] %> has been allocated the PQ <%= @template_params[:uin]%>
+============================================================================
 <%= @template_params[:question] %>
+============================================================================
 
 Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
+To be answered by: <%= @template_params[:answer_by] %>
 
 ============================================================================
-
-An Accept or Reject Response is expected from them before 2pm today.
+An Accept or Reject Response is required from them before 2pm today.
 
 The draft response to the question is required before <%= @template_params[:internal_deadline] %> - 10am
-
 ============================================================================
 
-If you have any questions, please contact the PQ Team (pqs@justice.gsi.gov.uk).
+If you have any questions, please contact the PQ Team (<%= Settings.mail_reply_to %>).
 
 <%= render 'shared/mailer/email_signature_plain' %>
