@@ -4,40 +4,37 @@
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
-<h2  style="font-family: arial, sans-serif; font-size: 14pt;">You have accepted responsibility for drafting an answer to <%= @template_params[:uin] %></h2>
+<div style="font-family: arial, sans-serif; font-size: 12pt;"><%= @template_params[:ao_name] %>,</div>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">You have accepted responsibility for drafting an answer to PQ <strong><%= @template_params[:uin] %></strong></p>
 
-<div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:2px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+<div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
   <%= @template_params[:question] %>
 </div>
 
 <div>
-
+  <p style="font-family: arial, sans-serif; font-size: 12pt;">
   <% if !@template_params[:member_name].nil? %>
-      <p style="font-family: arial, sans-serif; font-size: 12pt;">Question asked by  <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %> </p>
+      <div>Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></div>
   <% end %>
   <% if !@template_params[:mpname].nil? %>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;">To be answered by <%= @template_params[:mpname] %></p>
-
+    <div>To be answered by <%= @template_params[:mpname] %></div>
   <% end %>
+  </p>
   <% if !@template_params[:internal_deadline].nil? %>
-    <p style="font-family: arial, sans-serif; font-size: 12pt; font-weight: bold;">Deadline to return your draft response is <%= @template_params[:internal_deadline] %></p>
+    <p style="font-family: arial, sans-serif; font-size: 12pt; font-weight: bold;">Deadline to return your draft response is <strong><%= @template_params[:internal_deadline] %></strong></p>
   <% end %>
 </div>
-<div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+<div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
 
-  <p style="font-family: arial, sans-serif; font-size: 12pt;">Clicking on the link below will generate an email that copies in all the appropriate people. You <b><u>MUST</u></b> use this link to send your draft response.</p>
+  <p style="font-family: arial, sans-serif; font-size: 12pt;">You <span style="font-weight: bold;text-decoration: underline">MUST</span> use this <%= mail_to Settings.mail_reply_to, 'draft response', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | URGENT: please send your draft response" %> to ensure that all relevant people are cc’d.</p>
 
-<p style="font-family: arial, sans-serif; font-size: 12pt;">
-  <%= mail_to 'pqs@justice.gsi.gov.uk', 'Send a draft response', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | URGENT: please send your draft response" %>
-</p>
 </div>
-<p style="font-family: arial, sans-serif; font-size: 12pt;">You need to liaise with your relevant press officer before you send your draft response.</p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">
+    You need to liaise with your relevant <%= mail_to 'press officer',  @template_params[:press_email] %> before you send your draft response.  For drafting templates and guidance on how to respond, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ Guidance</a>
+</p>
 
-<p style="font-family: arial, sans-serif; font-size: 12pt;">For drafting templates and guidance on how to respond, please refer to the intranet by clicking the following link.</p>
-<p style="font-family: arial, sans-serif; font-size: 12pt;"><a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ Guidance</a></p>
 
-
-<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have further queries about drafting your response, please <a href="mailto:pqs@justice.gsi.gov.uk">contact the PQ Team</a></p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have further queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a></p>
 
 
 <%= render 'shared/mailer/email_signature' %>

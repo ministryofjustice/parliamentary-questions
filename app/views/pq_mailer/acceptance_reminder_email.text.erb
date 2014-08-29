@@ -1,6 +1,8 @@
-<%= @template_params[:name] %>, you have missed the 2pm deadline
+<%= @template_params[:ao_name] %>,
 
-Please immediately accept or reject the Parliamentary Question <%= @template_params[:uin] %>
+You have missed the 2pm deadline.
+
+Please immediately accept or reject the PQ <%= @template_params[:uin] %>
 
 ============================================================================
 <%= @template_params[:question] %>.
@@ -10,6 +12,6 @@ Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>
 
 The link to accept or reject will be in a previous email. Please search your email inbox for <%= @template_params[:uin] %>
 
-If you have any questions, please contact the PQ team at pqs@justice.gsi.gov.uk
+If you have any questions please contact the PQ team at <%= Settings.mail_reply_to %>
 
 <%= render 'shared/mailer/email_signature_plain' %>
