@@ -11,15 +11,16 @@
 #     $ export REDIS_URL=redis://my_redis_server:6379
 #
 class ImportWorker
-  include Sidekiq::Worker
-
 
   def initialize
     @import_service = ImportServiceWithDatabaseLock.new
   end
 
   def perform
+    Rails.logger.info { "Import: starting scheduled import" }
     @import_service.questions()
+    Rails.logger.info { "Import: completed scheduled import" }
+  
   end
 
 end
