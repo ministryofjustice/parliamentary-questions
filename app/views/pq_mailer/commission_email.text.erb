@@ -1,5 +1,5 @@
 <%= @template_params[:ao_name] %>,
-You have been allocated the the Parliamentary Question <%= @template_params[:uin] %>
+You have been allocated the the PQ <%= @template_params[:uin] %>
 ============================================================================
 <%= @template_params[:question] %>.
 ============================================================================
@@ -10,6 +10,6 @@ You need to accept or reject the question, by clicking the link below or cutting
 
 If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.
 
-If you have any questions, please contact the PQ team at pqs@justice.gsi.gov.uk
+If you have any questions, please contact the PQ team at <%= Settings.mail_reply_to %>
 
 <%= render 'shared/mailer/email_signature_plain' %>

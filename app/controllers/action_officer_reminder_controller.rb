@@ -3,7 +3,7 @@ class ActionOfficerReminderController  < ApplicationController
   before_action :set_data
 
   def accept_reject
-    PqMailer.remind_accept_reject_email(@template).deliver
+    PqMailer.acceptance_reminder_email(@template).deliver
 
     @ao_pq.increment(:reminder_accept).save()
 
@@ -30,7 +30,7 @@ class ActionOfficerReminderController  < ApplicationController
     @ao = ActionOfficer.find(@ao_pq.action_officer_id)
 
     @template = Hash.new
-    @template[:name] = @ao.name
+    @template[:ao_name] = @ao.name
     @template[:email] = @ao.emails
     @template[:uin] = @pq.uin
     @template[:question] = @pq.question

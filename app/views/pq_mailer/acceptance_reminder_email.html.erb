@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<div style="font-family: arial, sans-serif; font-size: 12pt;"><%= @template_params[:ao_name] %>,</div>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">you have missed the 2pm deadline.</p>
+
+<p style="font-family: arial, sans-serif; font-size: 12pt;">Please <strong>immediately</strong> accept or reject the PQ <strong><%= @template_params[:uin] %></strong></p>
+<div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+  <%= @template_params[:question] %>
+</div>
+
+<p style="font-family: arial, sans-serif; font-size: 12pt;">Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
+
+<div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+  <p style="font-family: arial, sans-serif; font-size: 12pt;">The link to accept or reject will be in a previous email. <strong>Please search your email inbox for <%= @template_params[:uin] %></strong></p>
+</div>
+
+<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have any questions <a href="mailto:<%= Settings.mail_reply_to %>">Contact the PQ Team</a></p>
+
+<%= render 'shared/mailer/email_signature' %>
+
+</body>
+</html>

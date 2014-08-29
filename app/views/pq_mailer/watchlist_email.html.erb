@@ -4,11 +4,10 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-  <div style="padding-left:0.5em;margin-left:10px;border-left:2px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
-    <p style="font-family: arial, sans-serif; font-size: 14pt; font-weight: bold;">Please click the link below to see the PQs allocated by the Ministry of Justice today.</p>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;"><%= link_to 'Allocated PQs', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %></p>
-  </div>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;">If you no longer wish to receive the daily emails, please <a href="mailto:pqs@justice.gsi.gov.uk">contact the PQ Team</a></p>
+
+    <p style="font-family: arial, sans-serif; font-size: 12pt;">These are the <%= link_to 'PQs Allocated today', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> by the Ministry of Justice, Parliamentary Branch.</p>
+
+    <p style="font-family: arial, sans-serif; font-size: 12pt;">If you no longer wish to receive these daily emails <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a></p>
 
     <%= render 'shared/mailer/email_signature' %>
 
