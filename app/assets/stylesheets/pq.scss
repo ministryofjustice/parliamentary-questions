@@ -107,9 +107,9 @@ select {display: block;}
 .date, .datetimepicker {width: 13em;}
 #pages, .internal-deadline-form, .select2-container-multi .select2-choices li {width: 100%;}
 .internal-dtp {margin: 6px 0px 20px 0px;}
-.internal-deadline {font-size: 19px;}
 a.button:hover, a.button-secondary:hover {text-decoration: none;}
 .inline {display: inline-block;}
+.form-control {font-size: 19px;}
 
 /* = Element spacing ============================================================ */
 
@@ -117,7 +117,6 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 
 .dashboard-column1-uncommissioned .form-group {margin-bottom: 20px;}
 .dashboard-column1-commissioned .col-md-6 {padding-left: 0px; margin:0px 0px 10px 0px;}
-.dashboard-column1-uncommissioned .single-select-dropdown, .dashboard-column1-commissioned .single-select-dropdown {font-size: 19px;}
 .dashboard-column-2 .text {display: block; margin: 0px 0px 6px 0px;}
 
 .select2-search-choice div {line-height: 1em;}
@@ -130,9 +129,7 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 #progress-panel hr, 
 #progress-panel a, 
 #progress-panel label.block-label, 
-#progress-panel .form-group 
-{margin: 0px 0px 20px 0px;}
-
+#progress-panel .form-group,
 #pq-columns .date.datetimepicker,
 #pq-columns p, 
 #pq-columns select, 
@@ -142,8 +139,6 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 
 #pq-columns label, #progress-panel label {margin-bottom: 0px;}
 #pq-columns .dashboard_trim_link {margin: 20px 0px 35px 0px;}
-
-/*.allocation-info input.btn.btn-commission {margin: 30px 0px 30px 0px;}*/
 
 #confirmation_button_bar {padding-left: 0px;}
 #btn_finance_visibility {margin-top: 30px;}
@@ -202,10 +197,7 @@ li.select2-search-field {border-bottom: none;}
 .pq-header h3 {margin: 0px 14px 0px 0px; padding: 0px; vertical-align: middle;}
 .pq-header-flags {margin-right: 26px;}
 .name-day, .flag-will-write, .flag-transferred-in {font-size: 14px; font-weight: normal; margin: 0px 10px 0px 0px; padding: 3.5px 8px; text-align: center; white-space: nowrap;}
-.pq-question {
-  margin: .5em 0 .5em;
-  padding: .5em 0 .5em .5em;
-}
+.pq-question {margin: .5em 0 .5em; padding: .5em 0 .5em .5em;}
 .info-notice {border-left-width: 4px; border-left-style: solid; margin-left: 15px; margin-bottom: 20px;}
 .status-bar {line-height: 32px; margin-bottom: 26px; padding: 0px;}
 #pq-columns .col-md-7 {padding-left: 0px;}
@@ -224,7 +216,7 @@ hr {height: 1px;}
 .progress-menu-form {border-width: 1px; border-style: solid; padding: 15px; margin-left: -1px; min-height: 350px;}
 #progress-panel {margin: 0px; padding: 0px;}
 #progress-menu {z-index:1;padding-right:0px;}
-#progress-menu ul li progress-menu-item {/*margin-left:10px;*/width: 208px;}
+#progress-menu ul li progress-menu-item {width: 208px;}
 #progress-menu ul li a.progress-menu-item{border-radius: 6px 0px 0px 6px;}
 #progress-menu ul li a.progress-menu-item:hover {margin-left: 10px; width: 207px;}
 #progress-menu ul li a.progress-menu-item.activeTab {background: url(image_path('progress-tab-bg.png')) repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;margin-left:10px;}
@@ -286,10 +278,6 @@ input[type="file"] {line-height:10px;}
 .info-notice h3 {margin-left: 15px;}
 .info-notice li {list-style: none;}
 .admin-status {width: 90px;}
-
-/* = Create a transfer ============================================================ */
-
-/*#new_pq {padding: 7px 15px;}*/
 
 /* = Reports ============================================================ */
 
