@@ -357,3 +357,7 @@ details{
     }
   }
 }
+
+@media print {
+  .trim_area, .button, .button-secondary {display: none;}
+  }
