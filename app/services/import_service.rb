@@ -1,15 +1,16 @@
 class ImportService
 
-	def initialize(questionsService = QuestionsService.new)
-    	@questionsService = questionsService
-      @progress_unallocated = Progress.unassigned
+  def initialize(questionsService = QuestionsService.new)
+    @questionsService = questionsService
+    @progress_unallocated = Progress.unassigned
   end
 
-	def questions_with_callback(args = { dateFrom: Date.today} , &block)
+  def questions_with_callback(args = { dateFrom: Date.today} , &block)
     t_start = Time.now
 
     questions = @questionsService.questions(args)
 
+    Rails.logger.info { "Import: obtained #{questions.count} from API" }
     questions.each do |q|
       import_one_question(q, &block)
     end
