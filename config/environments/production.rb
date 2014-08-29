@@ -93,7 +93,8 @@ ParliamentaryQuestions::Application.configure do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
 
     ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'http'}
-    ActionMailer::Base.default :from => 'pqs@justice.gsi.gov.uk'
+    ActionMailer::Base.default :from => Settings.mail_from
+    ActionMailer::Base.default :reply_to => Settings.mail_reply_to
     ActionMailer::Base.smtp_settings = {
         address: ENV['SMTP_HOSTNAME'] || 'localhost',
         port: ENV['SMTP_PORT'] || 587,
