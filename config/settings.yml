@@ -2,6 +2,6 @@ pq_rest_api:
   url: <%= ENV['PQ_REST_API_URL'] %>
   username: <%= ENV['PQ_REST_API_USERNAME'] %>
   password: <%= ENV['PQ_REST_API_PASSWORD'] %>
-mail_from: Parlimet Q <no-reply@trackparliamentaryquestions.service.gov.uk>
+mail_from: MoJ PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>
 mail_reply_to: pqs@justice.gsi.gov.uk
 members_api_url: http://data.parliament.uk

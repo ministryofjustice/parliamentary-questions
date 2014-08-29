@@ -3,7 +3,7 @@ class ActionOfficerReminderController  < ApplicationController
   before_action :set_data
 
   def accept_reject
-    ActionOfficerReminderMailer.remind_accept_reject_email(@template).deliver
+    PqMailer.remind_accept_reject_email(@template).deliver
 
     @ao_pq.increment(:reminder_accept).save()
 
@@ -12,7 +12,7 @@ class ActionOfficerReminderController  < ApplicationController
   end
 
   def send_draft
-    PQAcceptedMailer.commit_email(@pq, @ao, true).deliver
+    PqMailer.acceptance_email(@pq, @ao, true).deliver
 
     @ao_pq.increment(:reminder_draft).save()
 

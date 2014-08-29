@@ -13,7 +13,7 @@ class AssignmentService
     pro = Progress.accepted
     pq.update progress_id: pro.id, at_acceptance_directorate_id: dir, at_acceptance_division_id: div
 
-    PQAcceptedMailer.commit_email(pq, ao).deliver
+    PqMailer.acceptance_email(pq, ao).deliver
   end
 
 

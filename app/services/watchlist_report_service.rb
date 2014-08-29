@@ -29,7 +29,7 @@ class WatchlistReportService
     template[:email] = member.email
     template[:token] = token
 
-    WatchlistMailer.commit_email(template).deliver
+    PqMailer.watchlist_email(template).deliver
     return token
   end
 end

@@ -35,7 +35,7 @@ class CommissioningService
                       :token => token
                     })
 
-    PqMailer.commit_email(template).deliver
+    PqMailer.commission_email(template).deliver
 
     return {token: token, assignment_id: actionOfficersPq.id}
   end
