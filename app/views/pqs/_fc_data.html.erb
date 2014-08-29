@@ -5,13 +5,13 @@
 <% end %>
 <div class="form-group">
 	<label for="pq_seen_by_finance" class="block-label">
-		<%= f.check_box(:seen_by_finance) %>
+		<%= f.check_box(:seen_by_finance, include_hidden: false) %>
     	Seen by finance
 	</label>
 </div>
 <div class="form-group">
 	<label for="pq_finance_interest" class="block-label">
-		<%= f.check_box(:finance_interest) %>
+		<%= f.check_box(:finance_interest, include_hidden: false) %>
 		Interest in PQ
 	</label>
 </div>
