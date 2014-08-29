@@ -22,7 +22,7 @@ describe 'PQAcceptedMailer' do
     it 'should set question and the email' do
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
       mail.html_part.body.should include pq.question
@@ -35,7 +35,7 @@ describe 'PQAcceptedMailer' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
       expectedCC = 'test1@tesk.uk;'
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -48,7 +48,7 @@ describe 'PQAcceptedMailer' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
       expectedCC = 'Christopher.Beal@justice.gsi.gov.uk;Nicola.Calderhead@justice.gsi.gov.uk;thomas.murphy@JUSTICE.gsi.gov.uk'
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -67,7 +67,7 @@ describe 'PQAcceptedMailer' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'test1@tesk.uk;test2@tesk.uk;;a1@a1.com;a2@a2.com'
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -80,7 +80,7 @@ describe 'PQAcceptedMailer' do
     it 'should contain the name of the minister' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -93,7 +93,7 @@ describe 'PQAcceptedMailer' do
       member_name =  'Jeremy Snodgrass'
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: member_name, house_name: 'HoL')
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -104,7 +104,7 @@ describe 'PQAcceptedMailer' do
     it 'should contain the house ' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -124,7 +124,7 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -142,7 +142,7 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: FALSE)
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -160,7 +160,7 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
 
-      PQAcceptedMailer.commit_email(pq, ao).deliver
+      PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
 

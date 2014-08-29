@@ -22,7 +22,7 @@ describe 'ActionOfficerReminderMailer' do
   describe 'Accept reminder' do
     describe 'deliver' do
       it 'should include house, member name and uin from PQ and AO name' do
-        ActionOfficerReminderMailer.remind_accept_reject_email(@template).deliver
+        PqMailer.remind_accept_reject_email(@template).deliver
 
         mail = ActionMailer::Base.deliveries.first
 
@@ -41,7 +41,7 @@ describe 'ActionOfficerReminderMailer' do
   describe 'draft reminder' do
     describe 'deliver' do
       it 'should have URGENT in the subject' do
-        PQAcceptedMailer.commit_email(@pq, ao,true).deliver
+        PqMailer.acceptance_email(@pq, ao,true).deliver
 
         mail = ActionMailer::Base.deliveries.first
         mail.to.should include ao.email
