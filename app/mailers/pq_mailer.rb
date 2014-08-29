@@ -17,7 +17,7 @@ class PqMailer < PQBaseMailer
   def acceptance_email(pq, ao, urgent = false)
 
     @template_params = Hash.new
-    @template_params[:name] = ao.name
+    @template_params[:ao_name] = ao.name
     @template_params[:email] = ao.emails
     @template_params[:uin] = pq.uin
     @template_params[:question] = pq.question
@@ -71,10 +71,9 @@ class PqMailer < PQBaseMailer
     mail(to: @template_params[:email], subject: subject)
   end
 
-  def remind_accept_reject_email(template_params)
+  def acceptance_reminder_email(template_params)
     @template_params = template_params
-
-    #template[:name] = ao.name
+    #template[:ao_name] = ao.name
     #template[:email] = ao.email
     #template[:uin] = pq.uin
     #template[:question] = pq.question
