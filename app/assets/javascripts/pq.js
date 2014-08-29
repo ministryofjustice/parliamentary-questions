@@ -1,56 +1,54 @@
 var PQ = PQ || {};
 
 PQ.trimFileUpload = function() {
-	$('.trim_area').each(function(i, area){
+	$('.trim-links-form').each(function(i, area){
 		var container = $(area),
-			header = container.find('.trim-links-header'),
-			cancel = container.find('.trim-links-cancel'),
-			form_links = container.find('.trim-links-form'),
-			chooser = container.find('.file-chooser'),
-			replace = container.find('.file-choose-replace'),
-			form_add = container.find('.form-add-trim-link'),
-			pqid = form_add.data('pqid'),
-			divToFill = $('#trim_area_' + pqid);
+			filename = container.find('.tr5-filename'),
+			actions = container.find('.tr5-actions')
+			form = container.find('form'),
+			choose_button = container.find('.button-choose'),
+			file_field = form.find('.trim-file-chooser'),
+			cancel_button = form.find('.button-cancel');
 
-		header.on('click', function () {
-			form_links.show();
+		cancel_button.on('click', function (e) {
+			form.trigger('reset');
+			file_field.trigger('change');
 		});
 
-		cancel.on('click', function (e) {
-				e.stopPropagation();
-				form_links.first().hide();
+		file_field.on('change', function () {
+			var chosen = file_field.val();
+			if(chosen){
+					choose_button.hide();
+					filename.show();
+					actions.show();
+			} else {
+				choose_button.show();
+				actions.hide();
+				filename.hide();
+			}
 		});
 
-		chooser.on('change', function () {
-				var fileName = chooser.val();
-				if (fileName.length > 0) {
-						$(this).siblings('input:submit').show();
-						$(this).prev(chooser).text('Selected');
-				} else {
-						$(this).siblings('input:submit').hide();
-						$(this).prev(chooser).text('Choose file');
-				}
-		});
-
-		replace.on('click', function () {
-				replace.next(chooser).click();
+		choose_button.on('click', function () {
+			file_field.click();
 		})
 
-		form_add
+		form
 			.on('ajax:success', function(e, data) {
 					//put the data returned into the div
-					divToFill.html(data);
+				// divToFill.html(data);
+				console.log(data);
 			})
-			.on('ajax:error', function(e, xhr) {
+			.on('ajax:error', function(e, response) {
 					// console.log('set html of', $divToFill.attr('id'), 'to', xhr.responseText);
-					divToFill.html(xhr.responseText);
+				console.log(response);
+				//divToFill.html(response.responseText);
 			});
 
  	});
 }
 PQ.toggleSiblingContent = function(){
-	$('details').each(function(){
-		var root = $(this),
+	$('details').each(function(i, el){
+		var root = $(el),
 			summary = root.find('span.link'),
 			content = root.find('.reveal');
 
