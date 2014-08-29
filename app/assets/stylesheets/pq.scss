@@ -185,8 +185,14 @@ textarea {resize:none; &.form-control {width: 100%;}}
 
 /* Status Filters =============================================================== */
 
-#status-filters h3 {margin: 0px 0px 10px 0px;}
-#status-filters .badge {float: right; min-width: 2.5em;}
+#status-filters {
+  h3 {
+    margin: 0px 0px 10px 0px;
+  }
+  .badge {
+    float: right; min-width: 2.5em;
+  }
+}
 
 /* = Dashboard Questions ======================================================== */
 
@@ -213,15 +219,47 @@ hr {height: 1px;}
 #pq-details-qa-link {display: block;}
 #qa-link a {vertical-align: middle;}
 
-.progress-menu-form {border-width: 1px; border-style: solid; padding: 15px; margin-left: -1px; min-height: 350px;}
-#progress-panel {margin: 0px; padding: 0px;}
-#progress-menu {z-index:1;padding-right:0px;}
-#progress-menu ul li progress-menu-item {width: 208px;}
-#progress-menu ul li a.progress-menu-item{border-radius: 6px 0px 0px 6px;}
-#progress-menu ul li a.progress-menu-item:hover {margin-left: 10px; width: 207px;}
-#progress-menu ul li a.progress-menu-item.activeTab {background: url(image_path('progress-tab-bg.png')) repeat-x;border-top:1px solid #c2c2c2;border-bottom:1px solid #c2c2c2;border-left:1px solid #c2c2c2;margin-left:10px;}
-#progress-menu ul li a.progress-menu-item.activeTab:hover {margin-left: 10px; width: 216px;}
-#progress-menu ul li progress-menu-item.inactiveTab:hover {margin-left: 10px; width: 208px;}
+.progress-menu-form {
+  border-width: 1px;
+  border-style: solid;
+  padding: 15px;
+  margin-left: -1px;
+  min-height: 350px;
+}
+
+#progress-panel {
+  margin: 0px;
+  padding: 0px;
+}
+
+#progress-menu {
+  z-index:1;
+  padding-right:0px;
+  ul li {
+    a.progress-menu-item {
+      width: 216px;
+      border-radius: 6px 0px 0px 6px;
+      .inactiveTab:hover {
+        margin-left: 10px;
+        width: 208px;
+      }
+    }
+    a.progress-menu-item:hover {
+      margin-left: 10px; width: 207px;
+    }
+    a.progress-menu-item.activeTab {
+      background: url(image_path('progress-tab-bg.png')) repeat-x;
+      border-top:1px solid #c2c2c2;
+      border-bottom:1px solid #c2c2c2;
+      border-left:1px solid #c2c2c2;
+      margin-left:10px;
+    }
+    a.progress-menu-item.activeTab:hover {
+      margin-left: 10px; width: 216px;
+    }
+  }
+}
+
 #progress-panel .button {clear: both;}
 #progress-panel #save {display: block; margin-top: 50px;}
 #create_iww {clear: both; display:block; width: 280px; margin-bottom: 20px;}
