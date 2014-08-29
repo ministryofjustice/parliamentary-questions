@@ -224,9 +224,17 @@ table {
   a:visited {
     text-decoration: underline;
   }
+
+  a[href]:after {
+    content: "";
+  }
+
+/*
   a[href]:after {
     content: " (" attr(href) ")";
   }
+*/
+
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
