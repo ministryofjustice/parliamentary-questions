@@ -6,7 +6,7 @@ class TrimLinksController < ApplicationController
     @pq = Pq.find(trim_link_params[:pq_id])
     result = {
         :message => '',
-        :status => 'Failure',
+        :status => 'failure',
         :link => ''
     }
     if trim_link_params[:file_data].nil?
@@ -21,7 +21,7 @@ class TrimLinksController < ApplicationController
         if @trim_link.save
           # flash.now[:success] = 'Trim link was successfully created.'
           result[:message]='Trim link was successfully created.'
-          result[:status]='Success'
+          result[:status]='success'
           result[:link]=url_for trim_link_path(@trim_link)
         else
           # flash.now[:error] = "Could not add Trim link. #{@trim_link.errors}"
@@ -43,7 +43,7 @@ class TrimLinksController < ApplicationController
   def show
     @upload = TrimLink.find(params[:id])
     @data = @upload.data
-    send_data(@data, :type => 'application/octet-stream', :filename => @upload.filename, :disposition => 'download')
+    send_data(@data, :type => 'application/json', :filename => @upload.filename, :disposition => 'download')
   end
 
   private

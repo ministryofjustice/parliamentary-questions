@@ -3,12 +3,30 @@ var PQ = PQ || {};
 PQ.trimFileUpload = function() {
 	$('.trim-links-form').each(function(i, area){
 		var container = $(area),
-			filename = container.find('.tr5-filename'),
-			actions = container.find('.tr5-actions')
-			form = container.find('form'),
+			message_container = container.find('.tr5-message'),
+			message_icon = message_container.find('.fa'),
+			upload_message = message_icon.siblings('.message'),
+			actions = container.find('.tr5-actions'),
 			choose_button = container.find('.button-choose'),
+			form = container.find('form'),
 			file_field = form.find('.trim-file-chooser'),
-			cancel_button = form.find('.button-cancel');
+			cancel_button = form.find('.button-cancel'),
+			status_messages = {
+				selected : {
+					message : 'File selected',
+					classname : 'fa fa-check-circle'
+				},
+				uploading : {
+					message : 'Uploading',
+					classname : 'fa fa-spin fa-circle-o-notch'
+				},
+				success : {
+					classname : 'fa fa-check-circle'
+				},
+				failure : {
+					classname : 'fd fa-warning'
+				}
+			};
 
 		cancel_button.on('click', function (e) {
 			form.trigger('reset');
@@ -17,14 +35,16 @@ PQ.trimFileUpload = function() {
 
 		file_field.on('change', function () {
 			var chosen = file_field.val();
-			if(chosen){
-					choose_button.hide();
-					filename.show();
-					actions.show();
+			if(chosen) {
+				choose_button.hide();
+				message_icon[0].className = status_messages.selected.classname;
+				upload_message.text(status_messages.selected.message);
+				message_container.show();
+				actions.show();
 			} else {
 				choose_button.show();
 				actions.hide();
-				filename.hide();
+				message_container.hide();
 			}
 		});
 
@@ -33,15 +53,33 @@ PQ.trimFileUpload = function() {
 		})
 
 		form
-			.on('ajax:success', function(e, data) {
-					//put the data returned into the div
-				// divToFill.html(data);
-				console.log(data);
-			})
 			.on('ajax:error', function(e, response) {
-					// console.log('set html of', $divToFill.attr('id'), 'to', xhr.responseText);
-				console.log(response);
-				//divToFill.html(response.responseText);
+				var json = JSON.parse(response.responseText);
+
+				message_icon.addClass(status_messages[json.status].classname);
+				upload_message.text(json.message);
+
+				actions
+					.hide()
+					.after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+				message_container.show();
+			})
+			.on('ajax:success', function(e, response) {
+				var json = JSON.parse(response.responseText),
+					success = json.status === 'success';
+
+				message_icon.addClass(status_messages[json.status].classname);
+				upload_message.text(json.message);
+
+				if(success) {
+					actions
+						.hide()
+						.after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+				} else {
+
+				}
+
+				message_container.show();
 			});
 
  	});
