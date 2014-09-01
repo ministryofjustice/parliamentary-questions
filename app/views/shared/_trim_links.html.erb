@@ -6,7 +6,8 @@
       controller: 'trim_links',
       action: 'show',
       id: trim.id},
-      {title: 'Open the trim link'}) %>
+      {title: 'Open the trim link',
+        rel: 'external'}) %>
   </div>
 <% end %>
 
@@ -14,8 +15,9 @@
   <div id="trim-links-form-<%= question.id %>" class="trim-links-form">
 
     <button class="button button-choose">Choose Trim file</button>
-    <span class="tr5-filename"><i class="fa fa-check-circle"></i> File selected</span>
-
+    <div class="tr5-message">
+      <i class="fa"></i><span class="message"></span>
+    </div>
     <div class="inline tr5-actions toggle-content" style="overflow:hidden;">
       <%= form_for TrimLink.new(:pq_id => question.id),
         :remote => true,
