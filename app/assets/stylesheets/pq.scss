@@ -128,13 +128,13 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 #progress-panel select, 
 #progress-panel hr, 
 #progress-panel a, 
-#progress-panel label.block-label, 
+#progress-panel label.block-label,
 #progress-panel .form-group,
 #pq-columns .date.datetimepicker,
 #pq-columns p, 
 #pq-columns select, 
-#pq-columns hr, 
-#pq-columns label.block-label 
+#pq-columns hr,
+#pq-columns label.block-label
 {margin: 0px 0px 20px 0px;}
 
 #pq-columns label, #progress-panel label {margin-bottom: 0px;}
@@ -260,8 +260,7 @@ hr {height: 1px;}
   }
 }
 
-#progress-panel .button {clear: both;}
-#progress-panel #save {display: block; margin-top: 50px;}
+#progress-panel #save {margin-top: 30px;}
 #create_iww {clear: both; display:block; width: 280px; margin-bottom: 20px;}
 
 /* = Flags ====================================================================== */
