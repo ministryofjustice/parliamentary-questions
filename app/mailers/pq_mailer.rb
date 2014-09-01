@@ -3,6 +3,7 @@ class PqMailer < PQBaseMailer
 
   def commission_email(template_params)
   	@template_params = template_params
+
   	# email, name from AO
   	# uin, question from PQ
   	# url with the token
