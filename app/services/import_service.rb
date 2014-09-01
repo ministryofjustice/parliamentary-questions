@@ -66,6 +66,13 @@ class ImportService
     pq = Pq.find_or_initialize_by(uin: q['Uin'])
     progress_id = pq.progress_id || @progress_unallocated.id
     transferred = pq.transferred || false
+
+    date_for_answer = pq.date_for_answer
+
+    if date_for_answer.nil?
+       date_for_answer = q['DateForAnswer']
+    end
+
     pq.update(
         uin: q['Uin'],
         raising_member_id: q['TablingMember']['MemberId'],
@@ -74,7 +81,7 @@ class ImportService
         member_name: q['TablingMember']['MemberName'],
         member_constituency: q['TablingMember']['Constituency'],
         house_name: q['House']['HouseName'],
-        date_for_answer: q['DateForAnswer'],
+        date_for_answer: date_for_answer,
         registered_interest: q['RegisteredInterest'],
         question_type: q['QuestionType'],
         preview_url: q['Url'],
@@ -82,6 +89,8 @@ class ImportService
         transferred: transferred,
         progress_id: progress_id
     )
+
+    # date_for_answer: q['DateForAnswer']
 
     if pq.errors.empty?
       $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")

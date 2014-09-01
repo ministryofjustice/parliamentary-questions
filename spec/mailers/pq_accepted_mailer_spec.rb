@@ -8,7 +8,7 @@ describe 'PQAcceptedMailer' do
   let(:minister_1) { create(:minister, name: 'Mr Name1 for Test') }
   let(:minister_2) { create(:minister, name: 'Mr Name2 for Test') }
   let(:minister_simon) { create(:minister, name: 'Simon Hughes') }
-
+  let(:dd) {create(:deputy_director, name: 'Deputy Director', email:'dep@dep.gov')}
 
   progress_seed
 
@@ -166,6 +166,35 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should_not include my_finance_email
       mail.html_part.body.should_not include CGI::escape(my_finance_email)
+
+    end
+
+    it 'should add the deputy director of the AO to the CC on the draft email link' do
+
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      expectedCC = 'dep@dep.gov'
+      ao.deputy_director = dd
+
+      PqMailer.acceptance_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should include expectedCC
+      mail.html_part.body.should include CGI::escape(expectedCC)
+
+    end
+
+    it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
+
+      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      expectedCC = 'dep@dep.gov'
+
+      PqMailer.acceptance_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should_not include expectedCC
+      mail.html_part.body.should_not include CGI::escape(expectedCC)
 
     end
 
