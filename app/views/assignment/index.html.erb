@@ -1,6 +1,6 @@
 <%= render partial: 'shared/flash_messages' %>
 <div class="row">
-  <h3><%= @ao.name %>,
+  <h3><%= @ao.name %>,<br/>
     <span class="br">You have been allocated the Parliamentary Question <%= @question.uin %></span>
   </h3>
 </div>
@@ -11,10 +11,10 @@
   </blockquote>
 </div>
 <div class="row">
-<div>Question asked by <%= @question.member_name %> <%= @question.house_name %></div>
+<div>Question asked by <%= @question.member_name %> <%= @question.house_name %>.</div>
 </div>
 <div class="row">
-  <div>To be answered on behalf of <%= @question.minister.name %></div>
+  <div>To be answered on behalf of <%= @question.minister.name %>.</div>
 </div>
 <div class="row row-spacer">
   <p class="strong">Deadline to accept or reject this allocation is 2pm today</p>
@@ -23,7 +23,7 @@
 <% if @question.action_officers_pq.size > 1 %>
 <div class="row">
     <div class="question-allocation">
-      <p>This question has also been allocated to the following Action Officers, but only one may accept responsibility for answering:</p>
+      <p>This question has also been allocated to the following action officers, but only one may accept responsibility for answering:</p>
 
       <ul class="question-allocation-list" data-pqid="<%= @question.id %>">
         <% @question.action_officers_pq.each do |ao_pq|   %>
