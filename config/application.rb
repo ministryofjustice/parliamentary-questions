@@ -15,7 +15,7 @@ module ParliamentaryQuestions
     config.proposition_title = 'PQ Tracker'
     # Current Phase (Sets the current phase and the colour of phase tags)
     # Presumed values: alpha, beta, live
-    config.phase = 'alpha'
+    config.phase = 'beta'
 # Product Type (Adds class to body based on service type)
 # Presumed values: information, service
     config.product_type = 'service'
