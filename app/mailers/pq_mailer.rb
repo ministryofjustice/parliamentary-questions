@@ -52,6 +52,12 @@ class PqMailer < PQBaseMailer
     action_list_emails = ActionlistMember.where('deleted = false').collect{|it| it.email}
     cc_list.append(action_list_emails)
 
+    #add the Deputy director of the AO if they exist and have a mail.
+    if !ao.deputy_director.nil?
+      if !ao.deputy_director.email.nil?
+       cc_list.append(ao.deputy_director.email)
+      end
+    end
 
     if pq.finance_interest
       finance_users_emails = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
