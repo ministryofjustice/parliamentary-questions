@@ -198,6 +198,24 @@ describe 'ImportService' do
 
     end
 
+    it 'should not overwrite the question date_for_answer' do
+      # First call
+      import_result = @import_service.questions()
+      import_result[:questions].size.should eq(2)
+
+      question_one = Pq.find_by(uin: 'HL784845')
+      question_one.should_not be_nil
+
+      question_one.date_for_answer = DateTime.new(2012, 8, 29,  0,  0,  0)
+      question_one.save()
+
+      # Second call, should have the deadline saved, not the default one
+      import_result = @import_service.questions()
+      question_one = Pq.find_by(uin: 'HL784845')
+      question_one.should_not be_nil
+      question_one.date_for_answer.strftime("%Y-%m-%d %H:%M").should eql("2012-08-29 00:00")
+
+    end
 
   end
 end
