@@ -15,28 +15,28 @@
                 <ul class="question-allocation-list" data-pqid="<%= question.id %>">
                     <% question.action_officers_pq.each do |ao_pq|   %>
                         <li>
-                        <% if !ao_pq.action_officer.nil? %>
-                            <% if ao_pq.accept %>
-                                <%= ao_pq.action_officer.name  %>&nbsp;(<%= ao_pq.action_officer.deputy_director.division.name %>)
-                                <span class="label flag-accepted">Accepted</span>
-                            <% elsif ao_pq.reject %>
-                                <details class="details-reveal">
-                                    <summary aria-controls="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>">
-                                        <span class="link closed">
-                                            <%= ao_pq.action_officer.name  %>&nbsp;(<%= ao_pq.action_officer.deputy_director.division.name %>)
-                                        </span>
-                                        <span class="label flag-rejected">Rejected</span>
-                                    </summary>
-                                    <div id="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="panel-indent reveal closed">
-                                        <p class="strong"><%= ao_pq.reason_option %></p>
-                                        <p><%= ao_pq.reason %></p>
-                                    </div>
-                                </details>
-                            <% else %>
-                                <%= ao_pq.action_officer.name  %>&nbsp;(<%= ao_pq.action_officer.deputy_director.division.name %>)
-                                <span class="label flag-no-response">No response</span>
-                            <% end %>
-                        </li>    
+                            <% if !ao_pq.action_officer.nil? %>
+                                <% if ao_pq.accept %>
+                                    <span class="no-indent"><%= ao_pq.action_officer.name  %>&nbsp;(<%= ao_pq.action_officer.deputy_director.division.name %>)
+                                    <span class="label flag-accepted">Accepted</span></span>
+                                <% elsif ao_pq.reject %>
+                                    <details class="details-reveal">
+                                        <summary aria-controls="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>">
+                                            <span class="link closed">
+                                                <%= ao_pq.action_officer.name  %>&nbsp;(<%= ao_pq.action_officer.deputy_director.division.name %>)
+                                            </span>
+                                            <span class="label flag-rejected">Rejected</span>
+                                        </summary>
+                                        <div id="rejection-<%= ao_pq.id %>-<%= ao_pq.action_officer.id %>" class="panel-indent reveal closed">
+                                            <p class="strong"><%= ao_pq.reason_option %></p>
+                                            <p><%= ao_pq.reason %></p>
+                                        </div>
+                                    </details>
+                                <% else %>
+                                    <span class="no-indent"><%= ao_pq.action_officer.name  %>&nbsp;(<%= ao_pq.action_officer.deputy_director.division.name %>)
+                                    <span class="label flag-no-response">No response</span></span>
+                                <% end %>
+                            </li>    
                         <% end %>
                     <% end %>
                 </ul>
