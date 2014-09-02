@@ -30,7 +30,7 @@ class CommissioningService
 
     template = build_template_hash(pq,ao)
     template.merge!({
-                      :email => ao.email,
+                      :email => ao.emails,
                       :entity => entity,
                       :token => token
                     })
