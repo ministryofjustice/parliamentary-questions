@@ -34,7 +34,7 @@ if ( [ -z "$APP_MASTER_SERVER" ] || [ "$APP_HOST" == "$APP_MASTER_SERVER" ] ); t
 
 
     echo "Master server: Running whenever"   >>/rails/log/unicorn.log
-    bundle exec whenever --update-crontab    >>/rails/log/unicorn.log 2>&1
+    bundle exec whenever --update-crontab --anotherparam   >>/rails/log/unicorn.log 2>&1
 
 else
     echo "Slave server: skipping DB and cron configuration"   >>/rails/log/unicorn.log

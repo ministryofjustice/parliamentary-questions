@@ -19,3 +19,8 @@ job_type :runner,  "cd :path && bundle exec rails runner -e :environment ':task'
 every 1.day, :at => '4:00 am' do
   runner 'ImportWorker.new.perform'
 end
+
+# every 10.minutes  do
+every 1.day, :at => '6:00 am' do
+  runner 'ImportWorker.new.perform'
+end
