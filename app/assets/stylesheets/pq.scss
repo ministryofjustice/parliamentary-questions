@@ -62,9 +62,6 @@ h4 {color: #6f777b;}
 #progress-menu ul li a.progress-menu-item:hover {background-color: #fff;}
 
 #settings-home h3 {border-bottom-color: #dee0e2;}
-
-.trim-links-header:hover, .trim-links-cancel:hover {background-color: #47a447; border-color: #398439 #398439 #398439 #398439;}
-
 .form-control {border-color: #bfc1c3;}
 .form-control:focus {border-color: #ffbf47;}
 
@@ -106,10 +103,14 @@ label {display: block; font-weight: normal; clear: both;}
 select {display: block;}
 .date, .datetimepicker {width: 13em;}
 #pages, .internal-deadline-form, .select2-container-multi .select2-choices li {width: 100%;}
-.internal-dtp {margin: 6px 0px 20px 0px;}
+
+.internal-dtp {margin: 6px 0px 11px;}
+.internal-deadline {font-size: 19px;}
+
 a.button:hover, a.button-secondary:hover {text-decoration: none;}
 .inline {display: inline-block;}
 .form-control {font-size: 19px;}
+.no-indent{margin-left: -2.1em;}
 
 /* = Element spacing ============================================================ */
 
@@ -122,23 +123,22 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 .select2-search-choice div {line-height: 1em;}
 .allocation-info .button {margin: 30px 0px 0px 0px;}
 
-#progress-panel .date.datetimepicker, 
-#progress-panel p, 
-#progress-panel .text, 
-#progress-panel select, 
-#progress-panel hr, 
-#progress-panel a, 
+#progress-panel .date.datetimepicker,
+#progress-panel p,
+#progress-panel .text,
+#progress-panel select,
+#progress-panel hr,
+#progress-panel a,
 #progress-panel label.block-label,
 #progress-panel .form-group,
 #pq-columns .date.datetimepicker,
-#pq-columns p, 
-#pq-columns select, 
+#pq-columns p,
+#pq-columns select,
 #pq-columns hr,
 #pq-columns label.block-label
 {margin: 0px 0px 20px 0px;}
 
 #pq-columns label, #progress-panel label {margin-bottom: 0px;}
-#pq-columns .dashboard_trim_link {margin: 20px 0px 35px 0px;}
 
 #confirmation_button_bar {padding-left: 0px;}
 #btn_finance_visibility {margin-top: 30px;}
@@ -280,13 +280,31 @@ hr {height: 1px;}
 
 /* = TRIM links ================================================================= */
 
-.trim-links-header, .trim-links-header:hover {position:relative;cursor:default;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
-.trim-links-form {width:250px;vertical-align:middle;display:none;position:absolute;top:-9px;left:-12px;cursor:default;z-index:5;line-height:35px;}
-input[type="file"] {line-height:10px;}
-.trim-links-form:hover {display:block;}
-.trim-links-cancel {float:left;height:36px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
-.file-chooser {display:none!important;}
-.file-choose-replace {display:inline-block;line-height:35px;margin:10px;}
+.trim-links-form {
+  input[type="file"] {
+    display:none !important;
+  }
+  .button-upload,
+  .button-cancel{
+    float:left;
+    margin: .5em .5em 0 0;
+  }
+}
+
+.button-cancel {
+  margin-right:0;
+}
+.trim-links-form{
+  margin:.3em 0 0;
+}
+.file-chooser {}
+.file-choose-replace {}
+.tr5-message{
+  display:none;
+}
+.toggle-content{
+  display:none;
+}
 
 /* = Pagination ================================================================= */
 
@@ -345,7 +363,7 @@ details{
   summary{
     span.link{
       color:#005ea5;
-      text-decoration:underline;
+      // text-decoration:underline;
       cursor:pointer;
       margin-right:.5em;
       position:relative;

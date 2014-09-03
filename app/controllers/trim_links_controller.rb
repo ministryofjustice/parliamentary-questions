@@ -4,6 +4,11 @@ class TrimLinksController < ApplicationController
   def create
     accepted_formats = [".tr5"]
     @pq = Pq.find(trim_link_params[:pq_id])
+    result = {
+        :message => '',
+        :status => 'failure',
+        :link => ''
+    }
     if trim_link_params[:file_data].nil?
       flash[:error] = 'Please select a trim file (.tr5) before trying to add'
     else
@@ -14,21 +19,31 @@ class TrimLinksController < ApplicationController
         size = data.size
         @trim_link = TrimLink.new(:data => data, :filename => filename, :size => size, :pq_id => trim_link_params[:pq_id])
         if @trim_link.save
-          flash.now[:success] = 'Trim link was successfully created.'
+          # flash.now[:success] = 'Trim link was successfully created.'
+          result[:message]='Trim link was successfully created.'
+          result[:status]='success'
+          result[:link]=url_for trim_link_path(@trim_link)
         else
-          flash.now[:error] = "Could not add Trim link. #{@trim_link.errors}"
+          # flash.now[:error] = "Could not add Trim link. #{@trim_link.errors}"
+          result[:message]="Could not add Trim link. #{@trim_link.errors}"
         end
       else
-        flash.now[:error] = 'Could not add Trim link. File must be tr5'
+        # flash.now[:error] = 'Could not add Trim link. File must be tr5'
+        result[:message]='Could not add Trim link. File must be tr5'
       end
     end
-    return render :partial => 'shared/trim_links', :locals => {question: @pq}
+    # respond_to do |format|
+    #   format.html  { return render :partial => 'shared/trim_links', :locals => {question: @pq}}
+    #   format.json  { return render :json => result.as_json }
+    # end
+    #return render :partial => 'shared/trim_links', :locals => {question: @pq}
+    return render json: result.as_json
   end
 
   def show
     @upload = TrimLink.find(params[:id])
     @data = @upload.data
-    send_data(@data, :type => 'application/octet-stream', :filename => @upload.filename, :disposition => 'download')
+    send_data(@data, :type => 'application/json', :filename => @upload.filename, :disposition => 'download')
   end
 
   private
