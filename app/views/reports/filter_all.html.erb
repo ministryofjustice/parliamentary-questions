@@ -38,7 +38,7 @@
   </div>
 </div>
 <% if !@questions.nil? %>
-  <div id='pages'>
-    <%= will_paginate @questions %>
-  </div>
+<div id="pages" class="row">
+  <%= will_paginate @questions, {class: 'col-md-9'} %>
+</div>
 <% end %>

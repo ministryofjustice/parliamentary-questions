@@ -32,7 +32,7 @@
   <%= render partial:'shared/rejected_reasons', locals: {question: question} %>
 <% end %>
 
-<div id="pq-columns" class="row">
+<div class="pq-columns row">
   <!-- start of 'sub column 1'-->
   <div class="col-md-7">
     <% if question.action_officers_pq.size > 0 && question.action_officers_pq.rejected.size!=question.action_officers_pq.size %>
