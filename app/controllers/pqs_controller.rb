@@ -1,6 +1,6 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister, :set_internal_deadline]
+  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister, :set_internal_deadline, :set_date_for_answer]
   before_action :prepare_ministers
   before_action :prepare_progresses
   before_action :prepare_ogds
@@ -49,6 +49,15 @@ class PqsController < ApplicationController
     raise 'Error saving minister'
   end
 
+  def set_date_for_answer
+    @pq.date_for_answer = update_date_for_answer_params[:date_for_answer]
+    if @pq.save
+      return render :nothing=>true
+    end
+
+    raise 'Error saving date for answer'
+  end
+
   def set_internal_deadline
     @pq.internal_deadline = update_deadline_params[:internal_deadline]
     if @pq.save
@@ -59,7 +68,7 @@ class PqsController < ApplicationController
   end
 
 
-private
+  private
   def set_pq
     @pq = Pq.find_by(uin: params[:id])
   end
@@ -110,7 +119,8 @@ private
         :transfer_out_ogd_id,
         :transfer_out_date,
         :transfer_in_ogd_id,
-        :transfer_in_date
+        :transfer_in_date,
+        :date_for_answer
     )
   end
   def prepare_ministers
@@ -134,5 +144,8 @@ private
   end
   def update_deadline_params
     params.require(:pq).permit(:internal_deadline)
+  end
+  def update_date_for_answer_params
+    params.require(:pq).permit(:date_for_answer)
   end
 end
