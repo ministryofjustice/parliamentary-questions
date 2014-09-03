@@ -99,9 +99,13 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'send_draft_reminder/:id' => 'action_officer_reminder#send_draft'
 
   patch 'set_internal_deadline/:id' => 'pqs#set_internal_deadline'
+  patch 'set_date_for_answer/:id' => 'pqs#set_date_for_answer'
 
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
   get 'export' => 'export#index'
+
+  match 'export_pod/pq_pod.csv' => 'export_pod#csv', via: [:get, :post]
+  get 'export_pod' => 'export_pod#index'
 
   get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'

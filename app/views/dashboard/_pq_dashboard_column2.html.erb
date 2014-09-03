@@ -3,10 +3,28 @@
     <h4><%= question.house_name %></h4>
     <p class="text"><%= question.member_name %></p>
   <% end %>
-  <% if !question.date_for_answer.nil?  %>
-    <h4>Date for answer</h4>
-    <p class="text"><%= question.date_for_answer.strftime('%d/%m/%Y') %><%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %></p>
+  <% if @dashboard_state == 'New'%>
+      <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "date-for-answer-form#{question.id}", :class => 'date-for-answer-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_date_for_answer", :id => question.uin} do |f| %>
+          <label for='datetimepicker-<%= question.id %>'>
+            <h4>Date for answer</h4>
+          </label>
+          <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY">
+            <input id="pq_date_for_answer-<%= question.id %>" class="form-control date-for-answer" name="pq[date_for_answer]" type="text" value="<%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>">
+            <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+            <%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %>
+          </div>
+          <%= f.submit 'Update', :class => 'button start-hidden',  :id => "btn-set-date-for-answer-#{question.id}" %>
+      <% end %>
+  <% else %>
+
+      <% if !question.date_for_answer.nil?  %>
+        <h4>Date for answer</h4>
+        <p class="text">
+          <%= question.date_for_answer.strftime('%d/%m/%Y') %>
+          <%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %></p>
+      <% end %>
   <% end %>
+
   <% if @dashboard_state == 'New'%>
     <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
       <label for="pq_internal_deadline-<%= question.id %>">Internal deadline</label>
