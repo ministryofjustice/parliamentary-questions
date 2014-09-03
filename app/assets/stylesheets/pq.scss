@@ -92,6 +92,10 @@ h4 {font-size: 19px; font-weight: normal; margin-bottom: 0px; padding: 0px;}
 .alert.alert-success {border-left-color: #85994b;}
 button.close {float: none; margin: 0.5em; color: #000;}
 
+/* = Flags = */
+.flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
+.flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
+
 .form-group {clear: both; margin: 0px 0px 20px 0px;}
 .form-group label {margin-bottom: 0px;}
 .form-group label.block-label {margin: 0px 0px 20px 0px;}
@@ -206,63 +210,33 @@ hr {height: 1px;}
 
 /* = PQ Details Page ============================================================ */
 
-#pq-detail-area {margin: 15px 0px 0px 0px;}
-.start-hidden {display: none;}
-#pq-details-ref {padding: 11px 0px; margin: 0px;}
-#pq-details-ref h2 {padding: 0px; margin: 0px 10px 0px 0px; display: inline-block; vertical-align: middle;}
-#pq-details-progress {margin-left: 26px;}
-#pq-details-header .dashboard_trim_link a {display: block; margin-top: 12px;}
-#pq-details-qa-link {display: block;}
-#qa-link a {vertical-align: middle;}
-
-.progress-menu-form {
-  border-width: 1px;
-  border-style: solid;
-  padding: 15px;
-  margin-left: -1px;
-  min-height: 350px;
-}
-
-#progress-panel {
-  margin: 0px;
-  padding: 0px;
-}
-
-#progress-menu {
-  z-index:1;
-  padding-right:0px;
-  ul li {
-    a.progress-menu-item {
-      width: 216px;
-      border-radius: 6px 0px 0px 6px;
-      .inactiveTab:hover {
-        margin-left: 10px;
-        width: 208px;
-      }
-    }
-    a.progress-menu-item:hover {
-      margin-left: 10px; width: 207px;
-    }
-    a.progress-menu-item.activeTab {
-      background: url(image_path('progress-tab-bg.png')) repeat-x;
-      border-top:1px solid #c2c2c2;
-      border-bottom:1px solid #c2c2c2;
-      border-left:1px solid #c2c2c2;
-      margin-left:10px;
-    }
-    a.progress-menu-item.activeTab:hover {
-      margin-left: 10px; width: 216px;
-    }
+#pq-details-header {
+  #pq-details-ref {padding: 11px 0px; margin: 0px;
+    h2 {padding: 0px; margin: 0px 10px 0px 0px; display: inline-block; vertical-align: middle;}
+    #pq-details-progress {margin-left: 26px;}
   }
 }
 
-#progress-panel #save {margin-top: 30px;}
-#create_iww {clear: both; display:block; width: 280px; margin-bottom: 20px;}
+#pq-details-qa-link {display: block;}
 
-/* = Flags ====================================================================== */
-
-.flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
-.flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
+#pq-detail-area {margin: 15px 0px 0px 0px;
+  #progress-menu {z-index:1; padding-right:0px;
+    ul li {
+      a.progress-menu-item {width: 216px; border-radius: 6px 0px 0px 6px;
+        .inactiveTab:hover {margin-left: 10px;width: 208px;}
+      }
+      a.progress-menu-item:hover {margin-left: 10px; width: 207px;}
+      a.progress-menu-item.activeTab {background: url(image_path('progress-tab-bg.png')) repeat-x; border-top: 1px solid #c2c2c2; border-bottom: 1px solid #c2c2c2; border-left: 1px solid #c2c2c2; margin-left: 10px;}
+      a.progress-menu-item.activeTab:hover {margin-left: 10px; width: 216px;}
+    }
+  }
+  #progress-panel {margin: 0px; padding: 0px;
+    .progress-menu-form {border-width: 1px; border-style: solid; padding: 15px; margin-left: -1px; min-height: 350px;}
+    #create_iww {clear: both; display:block; width: 280px; margin-bottom: 20px;}
+    .start-hidden {display: none;}
+    #save {margin-top: 30px;}
+  }
+}
 
 /* PQ Dashboard Page ============================================================ */
 
