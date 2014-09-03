@@ -104,6 +104,9 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
   get 'export' => 'export#index'
 
+  match 'export_spad/pq_spad.csv' => 'export_spad#csv', via: [:get, :post]
+  get 'export_spad' => 'export_spad#index'
+
   get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
   match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
