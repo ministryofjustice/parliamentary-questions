@@ -4,7 +4,8 @@
       <%= render partial: 'dashboard/question_data', locals: {question: question} %>
     </li>
   <% end %>
-  <div id='pages'>
-    <%= will_paginate @questions %>
-  </div>
 </ul>
+<div id="pages" class="row">
+	<%= will_paginate @questions, {class: 'col-md-9'} %>
+</div>
+
