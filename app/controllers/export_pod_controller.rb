@@ -1,4 +1,4 @@
-class ExportSpadController < ApplicationController
+class ExportPodController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
 
