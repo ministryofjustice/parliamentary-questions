@@ -1,56 +1,92 @@
 var PQ = PQ || {};
 
 PQ.trimFileUpload = function() {
-	$('.trim_area').each(function(i, area){
+	$('.trim-links-form').each(function(i, area){
 		var container = $(area),
-			header = container.find('.trim-links-header'),
-			cancel = container.find('.trim-links-cancel'),
-			form_links = container.find('.trim-links-form'),
-			chooser = container.find('.file-chooser'),
-			replace = container.find('.file-choose-replace'),
-			form_add = container.find('.form-add-trim-link'),
-			pqid = form_add.data('pqid'),
-			divToFill = $('#trim_area_' + pqid);
-
-		header.on('click', function () {
-			form_links.show();
-		});
-
-		cancel.on('click', function (e) {
-				e.stopPropagation();
-				form_links.first().hide();
-		});
-
-		chooser.on('change', function () {
-				var fileName = chooser.val();
-				if (fileName.length > 0) {
-						$(this).siblings('input:submit').show();
-						$(this).prev(chooser).text('Selected');
-				} else {
-						$(this).siblings('input:submit').hide();
-						$(this).prev(chooser).text('Choose file');
+			message_container = container.find('.tr5-message'),
+			message_icon = message_container.find('.fa'),
+			upload_message = message_icon.siblings('.message'),
+			actions = container.find('.tr5-actions'),
+			choose_button = container.find('.button-choose'),
+			form = container.find('form'),
+			file_field = form.find('.trim-file-chooser'),
+			cancel_button = form.find('.button-cancel'),
+			status_messages = {
+				selected : {
+					message : 'File selected',
+					classname : 'fa fa-check-circle'
+				},
+				uploading : {
+					message : 'Uploading',
+					classname : 'fa fa-spin fa-circle-o-notch'
+				},
+				success : {
+					classname : 'fa fa-check-circle'
+				},
+				failure : {
+					classname : 'fd fa-warning'
 				}
+			};
+
+		cancel_button.on('click', function (e) {
+			form.trigger('reset');
+			file_field.trigger('change');
 		});
 
-		replace.on('click', function () {
-				replace.next(chooser).click();
+		file_field.on('change', function () {
+			var chosen = file_field.val();
+			if(chosen) {
+				choose_button.hide();
+				message_icon[0].className = status_messages.selected.classname;
+				upload_message.text(status_messages.selected.message);
+				message_container.show();
+				actions.show();
+			} else {
+				choose_button.show();
+				actions.hide();
+				message_container.hide();
+			}
+		});
+
+		choose_button.on('click', function () {
+			file_field.click();
 		})
 
-		form_add
-			.on('ajax:success', function(e, data) {
-					//put the data returned into the div
-					divToFill.html(data);
+		form
+			.on('ajax:error', function(e, response) {
+				var json = JSON.parse(response.responseText);
+
+				message_icon.addClass(status_messages[json.status].classname);
+				upload_message.text(json.message);
+
+				actions
+					.hide()
+					.after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+				message_container.show();
 			})
-			.on('ajax:error', function(e, xhr) {
-					// console.log('set html of', $divToFill.attr('id'), 'to', xhr.responseText);
-					divToFill.html(xhr.responseText);
+			.on('ajax:success', function(e, response) {
+				var json = JSON.parse(response.responseText),
+					success = json.status === 'success';
+
+				message_icon.addClass(status_messages[json.status].classname);
+				upload_message.text(json.message);
+
+				if(success) {
+					actions
+						.hide()
+						.after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+				} else {
+
+				}
+
+				message_container.show();
 			});
 
  	});
 }
 PQ.toggleSiblingContent = function(){
-	$('details').each(function(){
-		var root = $(this),
+	$('details').each(function(i, el){
+		var root = $(el),
 			summary = root.find('span.link'),
 			content = root.find('.reveal');
 

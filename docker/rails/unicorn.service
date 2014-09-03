@@ -4,7 +4,7 @@ echo "rails startup"              >>/rails/log/unicorn.log
 
 # We want to run scheduling and db tasks only on the master. For single box environments
 # APP_MASTER_SERVER will not be set so run all the time
-if ( [ -z "$APP_MASTER_SERVER" ] || [ "$APP_HOST" == "$APP_MASTER_SERVER" ] ); then
+if [ -z "$APP_MASTER_SERVER" -o "$APPHOST" == "$APP_MASTER_SERVER" ]; then
 
     case ${DOCKER_STATE} in
     migrate)
