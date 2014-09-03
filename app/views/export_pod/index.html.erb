@@ -1,8 +1,8 @@
 <div id="csv-export">
-  <h2>Export SPAD PQs to CSV</h2>
+  <h2>POD Export PQs to CSV</h2>
   <%= render partial: 'shared/flash_messages' %>
   <h3>Select the range of dates to do the export</h3>
-  <%= form_tag controller: 'export_spad', action: 'csv' do %>
+  <%= form_tag controller: 'export_pod', action: 'csv' do %>
     <fieldset>
       <div class="form-group">
         <label for="date_from" class="form-label">Date from</label>
