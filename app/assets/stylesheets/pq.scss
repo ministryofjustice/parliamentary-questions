@@ -62,11 +62,9 @@ h4 {color: #6f777b;}
 #progress-menu ul li a.progress-menu-item:hover {background-color: #fff;}
 
 #settings-home h3 {border-bottom-color: #dee0e2;}
-
-.trim-links-header:hover, .trim-links-cancel:hover {background-color: #47a447; border-color: #398439 #398439 #398439 #398439;}
-
 .form-control {border-color: #bfc1c3;}
 .form-control:focus {border-color: #ffbf47;}
+
 .info-notice {border-left-color: #d0021b;}
 
 /* = Template and shared ======================================================== */
@@ -84,13 +82,7 @@ h2 {font-size: 24px; font-weight: bold;}
 h2 .badge {vertical-align: middle;}
 h3 {font-size: 19px; font-weight: bold;}
 h4 {font-size: 19px; font-weight: normal; margin-bottom: 0px; padding: 0px;}
-
-.pq-header {
-  h3,
-  .pq-header-flags,
-  .pq-header-links
-  {display: inline-block;}
-}
+.pq-header h3, .pq-header-flags, .pq-header-links, #pq-details-title h2 {display: inline-block;}
 
 .alert {border-radius: 0px; border-width: 0px 0px 0px 4px;border-style: none none none solid; margin: 20px 15px; background-color: #fff; color: #000;}
 .alert.alert {border-left-color: #d0021b;}
@@ -111,27 +103,14 @@ label {display: block; font-weight: normal; clear: both;}
 select {display: block;}
 .date, .datetimepicker {width: 13em;}
 #pages, .internal-deadline-form, .select2-container-multi .select2-choices li {width: 100%;}
-.internal-dtp {margin: 6px 0px 20px 0px;}
+
+.internal-dtp {margin: 6px 0px 11px;}
+.internal-deadline {font-size: 19px;}
+
 a.button:hover, a.button-secondary:hover {text-decoration: none;}
 .inline {display: inline-block;}
 .form-control {font-size: 19px;}
 .no-indent{margin-left: -2.1em;}
-
-/* = Flags = */
-
-.flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
-.flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
-
-/* = Radio / checkbox styling = */
-
-.block-label {display:block; float: none; clear: left; position: relative; border-width: 1px; border-style: solid; padding: 18px 30px 15px 45px; margin-top: 10px; margin-bottom: 10px; cursor: pointer;}
-@media (min-width: 641px) {.block-label {float: left; margin-top: 5px; margin-bottom: 5px;} }
-.block-label:hover {border-color: #0b0c0c;}
-.block-label input {position: absolute; top: 18px; left: 15px; cursor: pointer;}
-.inline .block-label {clear: none; margin-right: 15px;}
-.js-enabled .add-focus {outline: 3px solid #ffbf47;}
-.js-enabled .block-label input:focus {outline: none;}
-.js-enabled .selected {background: #fff; border-color: #0b0c0c;}
 
 /* = Element spacing ============================================================ */
 
@@ -144,26 +123,36 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 .select2-search-choice div {line-height: 1em;}
 .allocation-info .button {margin: 30px 0px 0px 0px;}
 
-#progress-panel .date.datetimepicker, 
-#progress-panel p, 
-#progress-panel .text, 
-#progress-panel select, 
-#progress-panel hr, 
-#progress-panel a, 
+#progress-panel .date.datetimepicker,
+#progress-panel p,
+#progress-panel .text,
+#progress-panel select,
+#progress-panel hr,
+#progress-panel a,
 #progress-panel label.block-label,
 #progress-panel .form-group,
-.pq-columns .date.datetimepicker,
-.pq-columns p, 
-.pq-columns select, 
-.pq-columns hr,
-.pq-columns label.block-label
+#pq-columns .date.datetimepicker,
+#pq-columns p,
+#pq-columns select,
+#pq-columns hr,
+#pq-columns label.block-label
 {margin: 0px 0px 20px 0px;}
 
-.pq-columns label, #progress-panel label {margin-bottom: 0px;}
-.pq-columns .dashboard_trim_link {margin: 20px 0px 35px 0px;}
+#pq-columns label, #progress-panel label {margin-bottom: 0px;}
 
 #confirmation_button_bar {padding-left: 0px;}
 #btn_finance_visibility {margin-top: 30px;}
+
+/* = Radio / checkbox styling =================================================== */
+
+.block-label {display:block; float: none; clear: left; position: relative; border-width: 1px; border-style: solid; padding: 18px 30px 15px 45px; margin-top: 10px; margin-bottom: 10px; cursor: pointer;}
+@media (min-width: 641px) {.block-label {float: left; margin-top: 5px; margin-bottom: 5px;} }
+.block-label:hover {border-color: #0b0c0c;}
+.block-label input {position: absolute; top: 18px; left: 15px; cursor: pointer;}
+.inline .block-label {clear: none; margin-right: 15px;}
+.js-enabled .add-focus {outline: 3px solid #ffbf47;}
+.js-enabled .block-label input:focus {outline: none;}
+.js-enabled .selected {background: #fff; border-color: #0b0c0c;}
 
 .table{clear: both;}
 textarea {resize:none; &.form-control {width: 100%;}}
@@ -198,7 +187,7 @@ textarea {resize:none; &.form-control {width: 100%;}}
 
 /* = Dashboard Questions ======================================================== */
 
-.questions-list {margin-bottom: 50px; padding: 0px 45px 0px 0px;}
+.questions-list {padding: 0px 45px 0px 0px;}
 .questions-list li {list-style: none; border-bottom-width: 2px; border-bottom-style: solid; padding: 30px 0px 30px 0px;}
 li.select2-search-field {border-bottom: none;}
 .pq-header {line-height: 27px; margin-bottom: 20px;}
@@ -208,7 +197,7 @@ li.select2-search-field {border-bottom: none;}
 .pq-question {margin: .5em 0 .5em; padding: .5em 0 .5em .5em;}
 .info-notice {border-left-width: 4px; border-left-style: solid; margin-left: 15px; margin-bottom: 20px;}
 .status-bar {line-height: 32px; margin-bottom: 26px; padding: 0px;}
-.pq-columns .col-md-7 {padding-left: 0px;}
+#pq-columns .col-md-7 {padding-left: 0px;}
 hr {height: 1px;}
 
 /* = PQ Details Page ============================================================ */
@@ -265,7 +254,10 @@ hr {height: 1px;}
 #progress-panel #save {margin-top: 30px;}
 #create_iww {clear: both; display:block; width: 280px; margin-bottom: 20px;}
 
+/* = Flags ====================================================================== */
 
+.flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
+.flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
 
 /* PQ Dashboard Page ============================================================ */
 
@@ -288,17 +280,35 @@ hr {height: 1px;}
 
 /* = TRIM links ================================================================= */
 
-.trim-links-header, .trim-links-header:hover {position:relative;cursor:default;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
-.trim-links-form {width:250px;vertical-align:middle;display:none;position:absolute;top:-9px;left:-12px;cursor:default;z-index:5;line-height:35px;}
-input[type="file"] {line-height:10px;}
-.trim-links-form:hover {display:block;}
-.trim-links-cancel {float:left;height:36px;border-radius:0px;border-bottom-width:2px;border-bottom-style:solid;}
-.file-chooser {display:none!important;}
-.file-choose-replace {display:inline-block;line-height:35px;margin:10px;}
+.trim-links-form {
+  input[type="file"] {
+    display:none !important;
+  }
+  .button-upload,
+  .button-cancel{
+    float:left;
+    margin: .5em .5em 0 0;
+  }
+}
+
+.button-cancel {
+  margin-right:0;
+}
+.trim-links-form{
+  margin:.3em 0 0;
+}
+.file-chooser {}
+.file-choose-replace {}
+.tr5-message{
+  display:none;
+}
+.toggle-content{
+  display:none;
+}
 
 /* = Pagination ================================================================= */
 
-#pages {clear: both; padding: 0px 15%;}
+#pages {clear: both; display: block; width: 100%; text-align: center; margin: 50px 0px 0px 0px;}
 .pagination {margin-top: 0px; margin-bottom: 0px;}
 .pagination > li > a, .pagination > li > span {border-top: 0px; border-bottom: none;}
 .pagination > li:first-child > a, .pagination > li:first-child > span {border-radius: 0px; border-left: 0px; border-right: 0px;}
@@ -353,7 +363,7 @@ details{
   summary{
     span.link{
       color:#005ea5;
-      text-decoration:underline;
+      // text-decoration:underline;
       cursor:pointer;
       margin-right:.5em;
       position:relative;
