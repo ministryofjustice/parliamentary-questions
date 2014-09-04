@@ -2,6 +2,10 @@ Please click the link below, or copy and paste into your browser, to see the PQs
 
 <%= url_for(controller: "watchlist_dashboard", action: "index", token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
 
+This email is valid for today only.
+
+You will receive an email each day to view PQs allocated on that day.
+
 If you no longer wish to receive the daily emails contact the PQ Team (<%= Settings.mail_reply_to %>).
 
 <%= render 'shared/mailer/email_signature_plain' %>
