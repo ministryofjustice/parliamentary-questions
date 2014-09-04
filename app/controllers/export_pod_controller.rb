@@ -9,7 +9,7 @@ class ExportPodController < ApplicationController
   def csv
     date_to = DateTime.parse(params[:date_to])
     date_from = DateTime.parse(params[:date_from])
-    pqs = Pq.where('created_at >= ? AND updated_at <= ? AND draft_answer_received is not null AND pod_clearance is null', date_from, date_to).order(:date_for_answer)
+    pqs = Pq.where('created_at >= ? AND updated_at <= ? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null', date_from, date_to).order(:date_for_answer)
     send_data to_csv(pqs)
   end
 
