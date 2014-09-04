@@ -44,6 +44,10 @@ describe 'WatchlistReportService' do
   it 'should send an email with the right data' do
     pqtest_mail ='pqtest@digital.justice.gov.uk'
 
+
+    testid = "watchlist-" + DateTime.now.to_s
+
+    @report_service.stub(:entity) { testid }
     result = @report_service.send()
 
     # first email for the first member
@@ -51,7 +55,7 @@ describe 'WatchlistReportService' do
     #sentToken = result[watchlist_one.id]
     sentToken = result[pqtest_mail]
     token_param = {token: sentToken}.to_query
-    entity = {entity: entity = "watchlist-" + DateTime.now.to_s}.to_query
+    entity = {entity: entity = testid }.to_query
     url = '/watchlist/dashboard'
 
     mail.html_part.body.should include url
@@ -67,14 +71,16 @@ describe 'WatchlistReportService' do
 
   end
   it 'should add the people from the Watchlist to the CC' do
+    testid = "watchlist-" + DateTime.now.to_s
 
+    @report_service.stub(:entity) { testid }
     result = @report_service.send()
 
     # first email for the first member
     mail = ActionMailer::Base.deliveries.first
     sentToken = result[watchlist_one.id]
     token_param = {token: sentToken}.to_query
-    entity = {entity: entity = "watchlist-" + DateTime.now.to_s}.to_query
+    entity = {entity: entity = testid }.to_query
     url = '/watchlist/dashboard'
 
     mail.cc.should include watchlist_one.email

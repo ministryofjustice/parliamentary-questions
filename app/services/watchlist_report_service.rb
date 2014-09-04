@@ -5,10 +5,13 @@ class WatchlistReportService
   end
 
 
+  def entity
+    "watchlist-" + DateTime.now.to_s
+  end
+
   def send
 
     path = '/watchlist/dashboard'
-    entity = "watchlist-" + DateTime.now.to_s
     end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
     token = @tokenService.generate_token(path, entity, end_of_day)
 
