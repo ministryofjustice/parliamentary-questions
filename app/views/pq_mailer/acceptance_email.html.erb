@@ -26,7 +26,7 @@
 </div>
 <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
 
-  <p style="font-family: arial, sans-serif; font-size: 12pt;">You <span style="font-weight: bold;text-decoration: underline">MUST</span> use this <%= mail_to Settings.mail_reply_to, 'draft response', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | URGENT: please send your draft response" %> to ensure that all relevant people are cc’d.</p>
+  <p style="font-family: arial, sans-serif; font-size: 12pt;">You <span style="font-weight: bold;text-decoration: underline">MUST</span> use this <%= mail_to Settings.mail_reply_to, 'draft response', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to ensure that all relevant people are cc’d.</p>
 
 </div>
 <p style="font-family: arial, sans-serif; font-size: 12pt;">
