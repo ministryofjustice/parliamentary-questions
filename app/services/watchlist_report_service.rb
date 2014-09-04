@@ -6,34 +6,31 @@ class WatchlistReportService
 
 
   def send
-    result = Hash.new
-    watchlist_members = WatchlistMember.where(deleted: false).load
-    Rails.logger.info { "Watchlist: Starting to send watchlist allocation emails (total #{watchlist_members.count})" }
-    watchlist_members.each_with_index do |member, index|
-      token = send_one(index + 1, member)
-      result[member.id] = token
-    end
-    Rails.logger.info { "Watchlist: Completed sending watchlist allocation emails" }
-    result
-  end
 
-
-  def send_one(index, member)
     path = '/watchlist/dashboard'
-    entity = "watchlist:#{member.id}"
-    end_of_day = DateTime.now.end_of_day.change({:offset => 0})
+    entity = "watchlist-" + DateTime.now.to_s
+    end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
     token = @tokenService.generate_token(path, entity, end_of_day)
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"
 
     template = Hash.new
-    template[:name] = member.name
+    template[:name] = 'Watchlist'
     template[:entity] = entity
-    template[:email] = member.email
+    template[:email] = 'pqtest@digital.justice.gov.uk'
     template[:token] = token
 
-    Rails.logger.info { "Watchlist: [#{index}] email to #{template[:email]} (name #{template[:name]})" }
+    watchlist_cc = ''
+    watchlist_members = WatchlistMember.where(deleted: false).load
+    watchlist_members.each do |member|
+      watchlist_cc = watchlist_cc + member.email + ';'
+    end
+    template[:cc] = watchlist_cc
+
+    Rails.logger.info { "Watchlist  email to #{template[:email]} (name #{template[:name]}) [CCd to #{template[:cc]}]" }
     PqMailer.watchlist_email(template).deliver
     return token
+
   end
+
 end
