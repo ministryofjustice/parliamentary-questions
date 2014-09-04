@@ -7,30 +7,21 @@ body {font-size: 19px;}
 /* = Colour definitions ==================================================================== */
 
 #build, i.fa-envelope, .name-day, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header:hover, .trim-links-cancel:hover {color: #fff;}
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared {color: #000;}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close {color: #000;}
+
+#search_button {color: #999;}
+.glyphicon-search {color: #979797;}
+i.fa-exclamation-triangle, i.fa-times-circle {color:#df3034;}
+i.fa-check-circle {color:#00823b;}
+#status-filters .active .badge {color: #6f7781;}
+#qa-link a {color: #4a8acd;}
+hr {color: #bfc1c3;}
+h4 {color: #6f777b;}
 
 #build {background-color: #f47738;}
 
-#search_button {color: #999;}
-#search_button, #status-filters .active .badge {background-color: #fff;}
-
-.glyphicon-search {color: #979797;}
-.questions-list li {border-color: #bfc1c3;}
-
-i.fa-exclamation-triangle, i.fa-times-circle {color:#df3034;}
-i.fa-check-circle {color:#00823b;}
-
-#status-filters .active .badge {color: #6f7781;}
-
-#qa-link a {color: #4a8acd;}
-
-hr {color: #bfc1c3;}
-
-.block-label {background: #dee0e2; border-color: #dee0e2;}
-.block-label:hover {border-color: #0b0c0c;}
-.js-enabled .add-focus {outline-color: #ffbf47;}
-.js-enabled .selected {background: #fff; border-color: #0b0c0c;}
-
+#search_button, #status-filters .active .badge, .js-enabled .selected, #progress-menu ul li a.progress-menu-item:hover, .js-enabled .selected, .alert {background-color: #fff;}
+.block-label {background: #dee0e2;}
 .flag-accepted {background-color: #28a197;}
 .flag-answered {background-color: #006435;}
 .flag-draft-pending {background-color: #85994b;}
@@ -48,24 +39,27 @@ hr {color: #bfc1c3;}
 .flag-will-write {background-color: #5f5f5f;}
 .flag-with-minister {background-color: #82622e;}
 .flag-with-pod {background-color: #2e358b;}
-
 h2 .badge, #status-filters .badge {background-color: #000;}
-h4 {color: #6f777b;}
-
 .navbar {background-color: #dee0e2;}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {background-color: #ffbf47;}
-
 .name-day {background-color: #9b9b9b;}
 
-.progress-menu-form {border-color: #c2c2c2;}
 #progress-menu ul li a.progress-menu-item {border-color: #000;}
-#progress-menu ul li a.progress-menu-item:hover {background-color: #fff;}
-
-#settings-home h3 {border-bottom-color: #dee0e2;}
-.form-control {border-color: #bfc1c3;}
+.block-label:hover, .js-enabled .selected {border-color: #0b0c0c;}
+.questions-list li, .form-control {border-color: #bfc1c3;}
+.progress-menu-form {border-color: #c2c2c2;}
+.block-label {border-color: #dee0e2;}
 .form-control:focus {border-color: #ffbf47;}
 
-.info-notice {border-left-color: #d0021b;}
+#settings-home h3 {border-bottom-color: #dee0e2;}
+
+.alert.alert-success {border-left-color: #85994b;}
+.alert.notice  {border-left-color: #bfc1c3;}
+.info-notice, .alert.alert {border-left-color: #d0021b;}
+.alert.success {border-left-color: #dee0e2;}
+
+.js-enabled .add-focus {outline-color: #ffbf47;}
+.js-enabled .add-focus {outline: 3px solid #ffbf47;}
 
 /* = Template and shared ======================================================== */
 
@@ -84,21 +78,29 @@ h3 {font-size: 19px; font-weight: bold;}
 h4 {font-size: 19px; font-weight: normal; margin-bottom: 0px; padding: 0px;}
 .pq-header h3, .pq-header-flags, .pq-header-links, #pq-details-title h2 {display: inline-block;}
 
-.alert {border-radius: 0px; border-width: 0px 0px 0px 4px;border-style: none none none solid; margin: 20px 15px; background-color: #fff; color: #000;}
-.alert.alert {border-left-color: #d0021b;}
-.alert.notice  {border-left-color: #bfc1c3;}
-.alert.success {border-left-color: #dee0e2;}
+.alert {border-radius: 0px; border-width: 0px 0px 0px 4px;border-style: none none none solid; margin: 20px 15px;}
 .alert.reminder {border-width: 0px; border-style: none; margin: 0px; padding: 0px;}
-.alert.alert-success {border-left-color: #85994b;}
-button.close {float: none; margin: 0.5em; color: #000;}
+button.close {float: none; margin: 0.5em;}
+
+hr {height: 1px;}
 
 /* = Flags = */
 .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
 .flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
 
-.form-group {clear: both; margin: 0px 0px 20px 0px;}
-.form-group label {margin-bottom: 0px;}
-.form-group label.block-label {margin: 0px 0px 20px 0px;}
+.name-day, .flag-will-write, .flag-transferred-in {font-size: 14px; font-weight: normal; margin: 0px 10px 0px 0px; padding: 3.5px 8px; text-align: center; white-space: nowrap;}
+/* ======== */
+
+.form-group {
+  clear: both;
+  margin: 0px 0px 20px 0px;
+  label {
+    margin-bottom: 0px;
+    .block-label {margin: 0px 0px 20px 0px;}
+  }
+}
+
+.info-notice {border-left-width: 4px; border-left-style: solid; margin-left: 15px; margin-bottom: 20px;}
 
 i.fa-envelope, i.fa-exclamation-triangle {margin-left: 4px;}
 .right {float: right;}
@@ -108,7 +110,6 @@ select {display: block;}
 .date, .datetimepicker {width: 13em;}
 #pages, .internal-deadline-form, .select2-container-multi .select2-choices li {width: 100%;}
 
-.internal-dtp {margin: 6px 0px 11px;}
 .internal-deadline {font-size: 19px;}
 
 a.button:hover, a.button-secondary:hover {text-decoration: none;}
@@ -151,12 +152,12 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 
 .block-label {display:block; float: none; clear: left; position: relative; border-width: 1px; border-style: solid; padding: 18px 30px 15px 45px; margin-top: 10px; margin-bottom: 10px; cursor: pointer;}
 @media (min-width: 641px) {.block-label {float: left; margin-top: 5px; margin-bottom: 5px;} }
-.block-label:hover {border-color: #0b0c0c;}
+
 .block-label input {position: absolute; top: 18px; left: 15px; cursor: pointer;}
 .inline .block-label {clear: none; margin-right: 15px;}
-.js-enabled .add-focus {outline: 3px solid #ffbf47;}
+
 .js-enabled .block-label input:focus {outline: none;}
-.js-enabled .selected {background: #fff; border-color: #0b0c0c;}
+
 
 .table{clear: both;}
 textarea {resize:none; &.form-control {width: 100%;}}
@@ -177,7 +178,7 @@ textarea {resize:none; &.form-control {width: 100%;}}
   #search_button {border-radius: 0px;width: 34px; height: 34px;}
 }
 
-/* = Navigation Tabs ============================================================ */
+/* = New / In Progress Tabs ===================================================== */
 
 .nav-tabs {margin-bottom: 20px;}
 
@@ -194,19 +195,50 @@ textarea {resize:none; &.form-control {width: 100%;}}
 
 /* = Dashboard Questions ======================================================== */
 
-.questions-list {padding: 0px 45px 0px 0px;}
-.questions-list li {list-style: none; border-bottom-width: 2px; border-bottom-style: solid; padding: 30px 0px 30px 0px;}
+.questions-list {padding: 0px 45px 20px 0px;
+  li {list-style: none; border-bottom-width: 2px; border-bottom-style: solid; padding: 30px 0px 30px 0px;}
+  .pq-header {line-height: 27px; margin-bottom: 20px;
+    h3 {margin: 0px 14px 0px 0px; padding: 0px; vertical-align: middle;}
+    .pq-header-flags {margin-right: 26px;}
+  }
+  .pq-question {margin: .5em 0 .5em; padding: .5em 0 .5em .5em;}
+  .status-bar {line-height: 32px; margin-bottom: 26px; padding: 0px;}
+  .pq-columns {
+    .col-md-7 {padding-left: 0px;}
+    .dashboard-column-2 {
+      .internal-deadline-form {
+        margin-bottom: 20px;
+        label {margin-bottom: 0px;}
+        .internal-dtp {margin: 0px 0px 10px 0px;}
+      }
+      .trim_area.trim_area_dashboard{
+        .trim-links-form {
+          .inline.tr5-actions.toggle-content{
+            .pq-inline-form {display: inline!important;}
+          }
+        }
+      }
+    }
+  }
+}
+
+.select2-container .select2-choice abbr {top: 5px!important;}
+
 li.select2-search-field {border-bottom: none;}
-.pq-header {line-height: 27px; margin-bottom: 20px;}
-.pq-header h3 {margin: 0px 14px 0px 0px; padding: 0px; vertical-align: middle;}
-.pq-header-flags {margin-right: 26px;}
-.name-day, .flag-will-write, .flag-transferred-in {font-size: 14px; font-weight: normal; margin: 0px 10px 0px 0px; padding: 3.5px 8px; text-align: center; white-space: nowrap;}
-.pq-question {margin: .5em 0 .5em; padding: .5em 0 .5em .5em;}
-.info-notice {border-left-width: 4px; border-left-style: solid; margin-left: 15px; margin-bottom: 20px;}
-.status-bar {line-height: 32px; margin-bottom: 26px; padding: 0px;}
-.internal-deadline-form{margin-bottom: 20px;}
-#pq-columns .col-md-7 {padding-left: 0px;}
-hr {height: 1px;}
+
+.question-allocation-list {
+  list-style: none;
+  margin-bottom:1em;
+  li {
+    margin:.8em 0;
+    &:first-child{
+      margin-top:0;
+    }
+    &:last-child{
+      margin-bottom:0;
+    }
+  }
+}
 
 /* = PQ Details Page ============================================================ */
 
@@ -238,25 +270,6 @@ hr {height: 1px;}
   }
 }
 
-/* PQ Dashboard Page ============================================================ */
-
-.select2-container .select2-choice abbr {top: 5px!important;}
-.question-allocation-list {
-  list-style: none;
-  margin-bottom:1em;
-  li {
-    margin:.8em 0;
-    &:first-child{
-      margin-top:0;
-    }
-    &:last-child{
-      margin-bottom:0;
-    }
-  }
-}
-
-.pq-inline-form {display: inline!important;}
-
 /* = TRIM links ================================================================= */
 
 .trim-links-form {
@@ -287,8 +300,7 @@ hr {height: 1px;}
 
 /* = Pagination ================================================================= */
 
-#pages {clear: both; display: block; width: 100%; text-align: center; margin: 50px 0px 0px 0px;}
-.pagination {margin-top: 0px; margin-bottom: 0px;}
+#pages {clear: both; display: block; width: 100%; margin: 0px 15%;}
 .pagination > li > a, .pagination > li > span {border-top: 0px; border-bottom: none;}
 .pagination > li:first-child > a, .pagination > li:first-child > span {border-radius: 0px; border-left: 0px; border-right: 0px;}
 .pagination > li:last-child > a, .pagination > li:last-child > span {border-radius: 0px; border-right: 0px;}
