@@ -119,9 +119,7 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 
 /* = Element spacing ============================================================ */
 
-.form-group {margin-bottom: 25px;}
-
-.dashboard-column1-uncommissioned .form-group {margin-bottom: 20px;}
+.dashboard-column1-uncommissioned {margin-bottom: 20px;}
 .dashboard-column1-commissioned .col-md-6 {padding-left: 0px; margin:0px 0px 10px 0px;}
 .dashboard-column-2 .text {display: block; margin: 0px 0px 6px 0px;}
 
@@ -135,7 +133,6 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 #progress-panel hr,
 #progress-panel a,
 #progress-panel label.block-label,
-#progress-panel .form-group,
 #pq-columns .date.datetimepicker,
 #pq-columns p,
 #pq-columns select,
@@ -320,7 +317,26 @@ li.select2-search-field {border-bottom: none;}
 
 .table-cell-centered {text-align: center;}
 #minister-report td, #pressdesk-report td {padding-top:10px;padding-bottom:13px;}
-#report-filter .button {margin-right: 25%;}
+
+#report-filter {
+  .col-md-3 {
+    select{
+      width: 200px;
+      white-space: pre-wrap; /* css-3 */
+      white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+      white-space: -pre-wrap; /* Opera 4-6 */
+      white-space: -o-pre-wrap; /* Opera 7 */
+      word-wrap: break-word; /* Internet Explorer 5.5+ */
+      text-overflow:ellipsis;
+
+      option {
+      }
+    }
+  }
+  .button {
+    margin-right: 25%;
+  }
+}
 
 /* = Footer ============================================================ */
 #footer {margin-top: 100px;}
