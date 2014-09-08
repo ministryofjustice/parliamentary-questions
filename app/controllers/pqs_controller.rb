@@ -51,6 +51,19 @@ class PqsController < ApplicationController
 
   def set_date_for_answer
     @pq.date_for_answer = update_date_for_answer_params[:date_for_answer]
+
+    if @pq.date_for_answer.nil?
+      @pq.date_for_answer_has_passed = FALSE
+      @pq.days_from_date_for_answer = 0
+    else
+      @pq.date_for_answer_has_passed = @pq.date_for_answer < Date.today
+      @pq.days_from_date_for_answer = (@pq.date_for_answer - Date.today).abs
+    end
+
+    puts @pq.date_for_answer
+    puts @pq.date_for_answer_has_passed
+    puts @pq.days_from_date_for_answer
+
     if @pq.save
       return render :nothing=>true
     end
