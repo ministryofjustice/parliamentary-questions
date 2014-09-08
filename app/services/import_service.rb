@@ -16,6 +16,7 @@ class ImportService
     end
 
     move_questions_from_accepted_to_draft_pending
+    update_date_for_answer_relatives
 
     # log the time in statsd
     elapsed_seconds = Time.now - t_start
@@ -90,8 +91,6 @@ class ImportService
         progress_id: progress_id
     )
 
-    # date_for_answer: q['DateForAnswer']
-
     if pq.errors.empty?
       $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
       yield ({question: q})
@@ -116,6 +115,26 @@ class ImportService
 
     Rails.logger.info "Import process, moved #{number_of_questions_moved} questions from Allocated Accepted"
     number_of_questions_moved
+  end
+
+  def update_date_for_answer_relatives
+    number_of_pqs_date_for_answer_relative_updates = 0
+    pqs = Pq.all
+    pqs.each do |this_pq|
+      pq = Pq.find(this_pq.id)
+      if pq.date_for_answer.nil?
+        pq.date_for_answer_has_passed = FALSE
+        pq.days_from_date_for_answer = 0
+      else
+        pq.date_for_answer_has_passed = pq.date_for_answer < Date.today
+        pq.days_from_date_for_answer = (pq.date_for_answer - Date.today).abs
+      end
+      pq.save
+      number_of_pqs_date_for_answer_relative_updates +=1
+    end
+
+    Rails.logger.info "Import process, updated #{number_of_pqs_date_for_answer_relative_updates} questions with date_for_answer_relatives"
+    number_of_pqs_date_for_answer_relative_updates
   end
 
 end	
