@@ -28,7 +28,7 @@
   <% if @dashboard_state == 'New'%>
     <%= form_for question, :remote => true, :authenticity_token => true, :html => { :id => "internal-deadline-form#{question.id}", :class => 'internal-deadline-form', :data => {:pqid => "#{question.id}"}}, :url => {:controller => 'pqs', :action => "set_internal_deadline", :id => question.uin} do |f| %>
       <label for="pq_internal_deadline-<%= question.id %>">Internal deadline</label>
-      <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
+      <div id='datetimepicker-int-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
         <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
         <span class="input-group-addon glyphicon glyphicon-calendar"></span>
         <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
