@@ -98,6 +98,7 @@ PQ.toggleSiblingContent = function(){
 }
 
 $(document).ready(function () {
+
 	$('.datetimepicker').datetimepicker();
 
     $('.dateonlypicker').datetimepicker({
