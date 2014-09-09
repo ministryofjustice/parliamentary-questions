@@ -7,10 +7,10 @@ class Pq < ActiveRecord::Base
 	validates :question, presence:true
 
   has_many :trim_links
-    has_many :action_officers_pq
-    has_many :action_officers, :through => :action_officers_pq
-    belongs_to :minister #no link seems to be needed for policy_minister_id!?
-    belongs_to :policy_minister, :class_name=>'Minister', :foreign_key=>'policy_minister_id'
+  has_many :action_officers_pq
+  has_many :action_officers, :through => :action_officers_pq
+  belongs_to :minister #no link seems to be needed for policy_minister_id!?
+  belongs_to :policy_minister, :class_name=>'Minister', :foreign_key=>'policy_minister_id'
  	#validates :finance_interest, :inclusion => {:in => [true, false]}, if: :seen_by_finance
   belongs_to :progress
   belongs_to :transfer_out_ogd, :class_name=>'Ogd', :foreign_key => 'transfer_out_ogd_id'

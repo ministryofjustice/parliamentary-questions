@@ -1,0 +1,9 @@
+<%= render partial: 'shared/flash_messages' %>
+<h3><%= @question.uin %></h3>
+<% if @assignment.reject %>
+    You rejected this PQ on <%= @assignment.updated_at.strftime('%d/%m/%Y at %H:%M') %> stating: <%= @assignment.reason_option %> - <%= @assignment.reason %>
+<% elsif @question.action_officers_pq.accepted.first.action_officer_id == @assignment.action_officer_id %>
+    You accepted this PQ on <%= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y at %H:%M') %>
+<% else %>
+    <%= @question.action_officers_pq.accepted.first.action_officer.name %> accepted this PQ on <%= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y at %H:%M') %>
+<% end %>
