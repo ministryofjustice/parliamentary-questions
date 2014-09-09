@@ -9,19 +9,18 @@ class ExportController < ApplicationController
   end
   
   def csv
-    pqs = get_pqs(DateTime.parse(params[:date_to]), DateTime.parse(params[:date_from]), 'created_at >= ? AND updated_at <= ?')
+    pqs = get_pqs('created_at >=? AND updated_at <=?')
     send_data to_csv(pqs.order(:uin))
   end
 
   def csv_for_pod
-    pqs = get_pqs(DateTime.parse(params[:date_to]), DateTime.parse(params[:date_from]), 'created_at >= ? AND updated_at <= ? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
+    pqs = get_pqs('created_at >= ? AND updated_at <= ? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
     send_data to_csv(pqs.order(:date_for_answer))
   end
 
   private
-
-  def get_pqs(date_to, date_from, sql)
-    Pq.where(sql, date_from, date_to)
+  def get_pqs(sql)
+    Pq.where(sql, DateTime.parse(params[:date_from]), DateTime.parse(params[:date_to]))
   end
 
   def to_csv(pqs)
@@ -64,11 +63,11 @@ class ExportController < ApplicationController
   end
 
   def pq_data_to_hash(pq,ao)
-    ao_name = ao.nil? ? '' : ao.name
-    ao_email = ao.nil? ? '' : ao.email
-    division = pq.at_acceptance_division_id.nil? ? '' : Division.find(pq.at_acceptance_division_id).name
-    directorate = pq.at_acceptance_directorate_id.nil? ? '' : Directorate.find(pq.at_acceptance_directorate_id).name
-    minister_name = pq.minister.nil? ? '' : pq.minister.name
+    ao_name = get_ao_name(ao)
+    ao_email = get_ao_email(ao)
+    division = get_original_division(pq)
+    directorate = get_original_directorate(pq)
+    minister_name = get_minister(pq)
     [
         pq.member_name,           # 'MP',
         '',                       # 'Record Number',
@@ -100,7 +99,21 @@ class ExportController < ApplicationController
         ao_email,                    # 'AO Email'
     ]
   end
-
+  def get_original_division(pq)
+    pq.at_acceptance_division_id.nil? ? '' : Division.find(pq.at_acceptance_division_id).name
+  end
+  def get_original_directorate(pq)
+    pq.at_acceptance_directorate_id.nil? ? '' : Directorate.find(pq.at_acceptance_directorate_id).name
+  end
+  def get_minister(pq)
+    pq.minister.nil? ? '' : pq.minister.name
+  end
+  def get_ao_name(ao)
+    ao.nil? ? '' : ao.name
+  end
+  def get_ao_email(ao)
+    ao.nil? ? '' : ao.email
+  end
   def format(datetime)
     datetime_format = '%d/%m/%Y %H:%M'
     if datetime.nil?
@@ -108,5 +121,4 @@ class ExportController < ApplicationController
     end
     datetime.strftime(datetime_format)
   end
-
 end
