@@ -35,7 +35,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'trim_links/new/:id' => 'trim_links#new'
 
-
   get 'admin' => 'admin#index'
 
   get 'commission/:id' => 'commission#commission'

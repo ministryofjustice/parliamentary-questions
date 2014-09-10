@@ -11,7 +11,11 @@
       <tr>
         <th>Name</th>
         <th>Role</th>
+<<<<<<< HEAD
         <th class="admin-status">Last Sign in</th>
+=======
+        <th class="admin-status">Status</th>
+>>>>>>> parent of f9ca0b3... Added Delete (and Fadeout) for Trim Links. Re-introduced 'Last used' on User List.
         <th></th>
       </tr>
     </thead>
@@ -20,12 +24,13 @@
         <tr>
           <td><%= link_to "#{user.name}", user_path(user) %></td>
           <td><%= link_to "#{user.roles}", user_path(user) %></td>
-<!--          <td>
+          <td>
             <% if user.is_active %>
               <i class="fa fa-check-circle"></i>&nbsp;Active
             <% else %>
               <i class="fa fa-times"></i>&nbsp;Inactive
             <% end %>
+<<<<<<< HEAD
           </td>-->
           <td>
             <% if user.current_sign_in_at.nil? %>
@@ -34,6 +39,8 @@
                 <%= time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil? %>
             <% end %>
 
+=======
+>>>>>>> parent of f9ca0b3... Added Delete (and Fadeout) for Trim Links. Re-introduced 'Last used' on User List.
           </td>
           <td><%= link_to 'Edit', edit_user_path(user) %></td>
         </tr>
