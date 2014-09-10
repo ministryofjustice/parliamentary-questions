@@ -75,9 +75,9 @@ class PqMailer < PQBaseMailer
       :uin => pq.uin,
       :question => pq.question,
       :mpname => get_minister_detail(pq,'name') ,
-      :mpemail => get_minister_detail(pq,'email'),
+      :mpemail => get_minister_email(pq.minister),
       :policy_mpname => get_policy_minister_detail(pq, 'name'),
-      :policy_mpemail => get_policy_minister_detail(pq, 'email'),
+      :policy_mpemail => get_minister_email(pq.policy_minister),
       :press_email => ao.press_desk.nil? ? '' : ao.press_desk.email_output,
       :member_name => get_pq_details(pq,'member_name'),
       :house_name => get_pq_details(pq,'house_name'),
@@ -85,17 +85,22 @@ class PqMailer < PQBaseMailer
     }
   end
 
+  def get_minister_email(minister)
+    minister.nil? ? '' : minister.email
+  end
   def get_minister_detail(pq, field)
     if !pq.minister.nil?
       return pq.minister[field]
+    else
+      return ''
     end
-    ''
   end
   def get_policy_minister_detail(pq, field)
     if !pq.policy_minister.nil?
       return pq.policy_minister[field]
+    else
+      return ''
     end
-    ''
   end
   def get_pq_details(pq, field)
     pq[field].nil? ? '' : pq[field]
