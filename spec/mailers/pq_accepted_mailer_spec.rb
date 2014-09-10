@@ -7,7 +7,7 @@ describe 'PQAcceptedMailer' do
   let(:ao) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
   let(:minister_1) { create(:minister, name: 'Mr Name1 for Test') }
   let(:minister_2) { create(:minister, name: 'Mr Name2 for Test') }
-  let(:minister_simon) { create(:minister, name: 'Simon Hughes') }
+  let(:minister_simon) { create(:minister, name: 'Simon Hughes (MP)') }
   let(:dd) {create(:deputy_director, name: 'Deputy Director', email:'dep@dep.gov')}
 
   progress_seed
@@ -33,7 +33,7 @@ describe 'PQAcceptedMailer' do
 
     it 'should set the right cc with minister ' do
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
-      expectedCC = 'test1@tesk.uk;'
+      expectedCC = 'test1@tesk.uk'
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -65,7 +65,7 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'test1@tesk.uk;test2@tesk.uk;;a1@a1.com;a2@a2.com'
+      expectedCC = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
 
       PqMailer.acceptance_email(pq, ao).deliver
 
