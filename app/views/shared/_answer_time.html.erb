@@ -1,5 +1,6 @@
 <% if !date_for_answer.nil? && !Progress.closed_questions.include?(progress_val.name) %>
     <% from_time = DateTime.now.change ({:offset => 0}) %>
+    <% from_time = from_time.beginning_of_day()  %>
     <% overdue = (from_time -  date_for_answer.to_datetime) > 0 %>
     <% if overdue %>
         <span class="date_for_answer-overdue"><i class="fa fa-exclamation-triangle"></i></span>
