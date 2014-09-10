@@ -74,17 +74,32 @@ class PqMailer < PQBaseMailer
       :email => ao.emails,
       :uin => pq.uin,
       :question => pq.question,
-      :mpname => pq.minister.nil? ? '' : pq.minister.name ,
-      :mpemail => pq.minister.nil? ? '' : pq.minister.email,
-      :policy_mpname => pq.policy_minister.nil? ? '' :  pq.policy_minister.name,
-      :policy_mpemail => pq.policy_minister.nil? ? '' :  pq.policy_minister.email,
+      :mpname => get_minister_detail(pq,'name') ,
+      :mpemail => get_minister_detail(pq,'email'),
+      :policy_mpname => get_policy_minister_detail(pq, 'name'),
+      :policy_mpemail => get_policy_minister_detail(pq, 'email'),
       :press_email => ao.press_desk.nil? ? '' : ao.press_desk.email_output,
-      :member_name => pq.member_name.nil? ? '' : pq.member_name,
-      :house_name => pq.house_name.nil? ? '' : pq.house_name,
+      :member_name => get_pq_details(pq,'member_name'),
+      :house_name => get_pq_details(pq,'house_name'),
       :internal_deadline => pq.internal_deadline.nil? ? '' : "#{pq.internal_deadline.strftime('%d/%m/%Y') } - 10am "
     }
   end
 
+  def get_minister_detail(pq, field)
+    if !pq.minister.nil?
+      return pq.minister[field]
+    end
+    ''
+  end
+  def get_policy_minister_detail(pq, field)
+    if !pq.policy_minister.nil?
+      return pq.policy_minister[field]
+    end
+    ''
+  end
+  def get_pq_details(pq, field)
+    pq[field].nil? ? '' : pq[field]
+  end
   def get_mp_office_email(pq, mp_name)
     # add the mp_cc_list if the minister is 'Simon Hughes'
     if !pq.minister.nil? && pq.minister.name == mp_name
