@@ -11,7 +11,7 @@
       <tr>
         <th>Name</th>
         <th>Role</th>
-        <th class="admin-status">Last active</th>
+        <th class="admin-status">Last Sign in</th>
         <th></th>
       </tr>
     </thead>
@@ -28,10 +28,10 @@
             <% end %>
           </td>-->
           <td>
-            <% if user.last_sign_in_at.nil? %>
+            <% if user.current_sign_in_at.nil? %>
                 Never Active
             <% else %>
-                <%= time_ago_in_words(user.last_sign_in_at) unless user.last_sign_in_at.nil? %>
+                <%= time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil? %>
             <% end %>
 
           </td>
