@@ -12,17 +12,20 @@
 </div>
 
 <div>
-  <p style="font-family: arial, sans-serif; font-size: 12pt;">
+  <p>
   <% if !@template_params[:member_name].nil? %>
-      <div>Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></div>
+    <div style="font-family: arial, sans-serif; font-size: 12pt;">Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></div>
   <% end %>
   <% if !@template_params[:mpname].nil? %>
-    <div>To be answered by <%= @template_params[:mpname] %></div>
+    <div style="font-family: arial, sans-serif; font-size: 12pt;">To be answered by <%= @template_params[:mpname] %></div>
   <% end %>
-  </p>
+  <% if !@template_params[:date_to_parliament].empty? %>
+    <div style="font-family: arial, sans-serif; font-size: 12pt;">Due back to Parliament by <%= @template_params[:date_to_parliament] %></div>
+  <% end %>
   <% if !@template_params[:internal_deadline].nil? %>
     <p style="font-family: arial, sans-serif; font-size: 12pt; font-weight: bold;">Deadline to return your draft response is <strong><%= @template_params[:internal_deadline] %></strong></p>
   <% end %>
+  </p>
 </div>
 <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
 
@@ -30,7 +33,7 @@
 
 </div>
 <p style="font-family: arial, sans-serif; font-size: 12pt;">
-    You need to liaise with your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For drafting templates and guidance on how to respond, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ Guidance</a>
+    You need to liaise with your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> <% "and #{ mail_to @template_params[:finance_users_emails], 'finance'}" if !@template_params[:finance_users_emails].empty? %> before you send your draft response.  For drafting templates and guidance on how to respond, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ Guidance</a>
 </p>
 
 

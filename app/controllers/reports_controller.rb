@@ -55,7 +55,7 @@ class ReportsController < ApplicationController
   end
 
   def PQ_by_minister(minister_id)
-    Pq.where('minister_id = :m_id OR policy_minister_id = :m_id', m_id: minister_id)
+    Pq.where('minister_id = :m_id', m_id: minister_id)
   end
 
   def PQ_by_all(aos, minister_id, progress_id)
@@ -63,7 +63,7 @@ class ReportsController < ApplicationController
     @Pqs = Pq
 
     if !minister_id.blank?
-      @Pqs = @Pqs.where('minister_id = :m_id OR policy_minister_id = :m_id', m_id: minister_id)
+      @Pqs = @Pqs.where('minister_id = :m_id', m_id: minister_id)
     end
     if !aos.nil?
       @Pqs = @Pqs.joins(:action_officers_pq).distinct.where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)

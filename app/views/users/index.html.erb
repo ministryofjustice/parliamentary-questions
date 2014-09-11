@@ -20,20 +20,12 @@
         <tr>
           <td><%= link_to "#{user.name}", user_path(user) %></td>
           <td><%= link_to "#{user.roles}", user_path(user) %></td>
-<!--          <td>
-            <% if user.is_active %>
-              <i class="fa fa-check-circle"></i>&nbsp;Active
-            <% else %>
-              <i class="fa fa-times"></i>&nbsp;Inactive
-            <% end %>
-          </td>-->
           <td>
             <% if user.current_sign_in_at.nil? %>
-                Never Active
+                never active
             <% else %>
                 <%= time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil? %>
             <% end %>
-
           </td>
           <td><%= link_to 'Edit', edit_user_path(user) %></td>
         </tr>
