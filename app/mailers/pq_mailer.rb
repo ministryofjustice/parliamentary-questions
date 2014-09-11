@@ -19,6 +19,9 @@ class PqMailer < PQBaseMailer
 
     @template_params = build_primary_hash(pq, ao)
 
+    @template_params[:date_to_parliament] = pq.date_for_answer.nil? ? '' : pq.date_for_answer.strftime('%d/%m/%Y')
+
+    # start compiling cc list
     cc_list = [
         @template_params[:mpemail],
         @template_params[:policy_mpemail],
@@ -122,7 +125,7 @@ class PqMailer < PQBaseMailer
   end
   def finance_users_emails(pq)
     result = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
-    return !pq.finance_interest ? result : ''
+    return pq.finance_interest ? result : ''
   end
   def get_dd_email(ao)
     if !ao.deputy_director.nil?
