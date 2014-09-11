@@ -19,6 +19,9 @@ class PqMailer < PQBaseMailer
 
     @template_params = build_primary_hash(pq, ao)
 
+    @template_params[:date_to_parliament] = pq.date_for_answer.nil? ? '' : pq.date_for_answer.strftime('%d/%m/%Y')
+
+    # start compiling cc list
     cc_list = [
         @template_params[:mpemail],
         @template_params[:policy_mpemail],
@@ -34,8 +37,10 @@ class PqMailer < PQBaseMailer
     cc_list.append(get_dd_email(ao))
 
     # get the finance emails
-    cc_list.append(finance_users_emails) if pq.finance_interest
+    @template_params[:finance_users_emails] = finance_users_emails(pq)
+    cc_list.append(@template_params[:finance_users_emails]) if !@template_params[:finance_users_emails].empty?
 
+    # merge cc_list and remove blanks
     @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
 
     if urgent
@@ -118,8 +123,9 @@ class PqMailer < PQBaseMailer
   def get_action_list_mails
     ActionlistMember.where('deleted = false').collect{|it| it.email}
   end
-  def finance_users_emails
-    User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
+  def finance_users_emails(pq)
+    result = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
+    return pq.finance_interest ? result : ''
   end
   def get_dd_email(ao)
     if !ao.deputy_director.nil?
