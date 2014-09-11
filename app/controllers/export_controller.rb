@@ -14,7 +14,7 @@ class ExportController < ApplicationController
   end
 
   def csv_for_pod
-    pqs = get_pqs('created_at >= ? AND updated_at <= ? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
+    pqs = get_pqs('created_at >=? AND updated_at <=? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
     send_data to_csv(pqs.order(:date_for_answer))
   end
 
