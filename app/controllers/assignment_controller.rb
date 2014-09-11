@@ -4,6 +4,16 @@ class AssignmentController < ApplicationController
   before_action :load_service
 
   def index
+    #todo Check for existing assignment and redirect if the current user has already responded
+    # puts '====================='
+    # puts "@assignment=#{@assignment.inspect}"
+    # puts '====================='
+    @question = Pq.find_by(uin: params[:uin])
+    if @question.action_officers_pq.accepted.size>0 || @assignment.reject
+      # puts 'redirect to confirm'
+      # puts '====================='
+      return render 'confirmation'
+    end
     @response = AllocationResponse.new()
   end
 
@@ -16,17 +26,17 @@ class AssignmentController < ApplicationController
 
     response_action = @response.response_action
     if response_action == 'accept'
-      flash[:notice] = 'Thank you for accepting, you have been sent a guidance email'
+      # flash[:success] = 'Thank you for accepting, you have been sent a guidance email'
       @assignment_service.accept(@assignment)
     end
 
     if response_action == 'reject'
-      flash[:notice] = 'Thank you for responding, your message has been sent to the PQ team'
+      # flash[:notice] = 'Thank you for responding, your message has been sent to the PQ team'
       @assignment_service.reject(@assignment, @response)
     end
 
     @question = Pq.find_by(uin: params[:uin])
-    render 'index'
+    render 'confirmation'
   end
 
   private

@@ -1,7 +1,5 @@
 class TrimLinksController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  # before_action :set_trim_link, only: [:show, :destroy]
-
 
   def create
     accepted_formats = [".tr5"]
@@ -13,7 +11,6 @@ class TrimLinksController < ApplicationController
     }
     if trim_link_params[:file_data].nil?
       flash[:error] = 'Please select a trim file (.tr5) before trying to add'
-
     else
       uploaded_io = trim_link_params[:file_data]
       filename = uploaded_io.original_filename
@@ -47,30 +44,6 @@ class TrimLinksController < ApplicationController
     @upload = TrimLink.find(params[:id])
     @data = @upload.data
     send_data(@data, :type => 'application/json', :filename => @upload.filename, :disposition => 'download')
-  end
-
-  def destroy
-    result = {
-        :message => '',
-        :status => 'failure',
-        :link => ''
-    }
-
-    @trim_link = TrimLink.find(params[:id])
-    my_pq = @trim_link.pq
-
-
-    if @trim_link.delete
-      result[:message]='Trim link Deleted.'
-      result[:status]='success'
-    else
-      result[:message]='Trim link Delete Failed please contact support.'
-    end
-
-    return render json: result.as_json
-  end
-  def set_trim_link
-    @trim_link = TrimLink.find(params[:id])
   end
 
   private

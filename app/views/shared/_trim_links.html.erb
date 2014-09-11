@@ -1,25 +1,14 @@
 <%= render partial: "shared/flash_messages", flash: flash %>
 
-
 <% question.trim_links.each do |trim| %>
   <div id='trim_links_<%= trim.id %>' class='dashboard_trim_link'>
-
     <%= link_to('Open trim link', {
       controller: 'trim_links',
       action: 'show',
       id: trim.id},
       {title: 'Open the trim link',
         rel: 'external'}) %>
-
-    <div id='delete_trim_links<%= trim.id %>' class='dashboard_delete_trim_link'>
-
-        <%= form_for trim, :remote => true, :authenticity_token => true, :html => { :id => "delete-trim-form#{trim.id}", :class => 'delete-trim-form', :data => {:trimid => "#{trim.id}"}}, :url => {:controller => 'trim_links', :action => "destroy", :id => trim.id} do |f| %>
-
-                <%= button_to "delete",trim, :method=>:delete,  :class=>:dashboard_delete_trim_link%>
-        <% end %>
-    </div>
   </div>
-
 <% end %>
 
 <% if question.trim_links.empty? %>

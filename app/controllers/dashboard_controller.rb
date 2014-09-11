@@ -52,6 +52,6 @@ class DashboardController < ApplicationController
   end
 
   def paginate_collection(pqs)
-    pqs.paginate(:page => params[:page], :per_page => @@per_page).order(:date_for_answer_has_passed).order(:days_from_date_for_answer).order(:progress_id).order(:updated_at).load
+    pqs.paginate(:page => params[:page], :per_page => @@per_page).order("date_for_answer_has_passed asc, days_from_date_for_answer asc, progress_id desc, updated_at asc").load
   end
 end
