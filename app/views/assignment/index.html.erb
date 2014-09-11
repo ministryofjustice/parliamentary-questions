@@ -1,8 +1,7 @@
 <%= render partial: 'shared/flash_messages' %>
 <div class="row">
-  <h3><%= @ao.name %>,<br/>
-    <span class="br">You have been allocated the Parliamentary Question <%= @question.uin %></span>
-  </h3>
+  <h3><%= @ao.name %>,</h3>
+  <p>You have been allocated the PQ <strong><%= @question.uin %></strong></p>
 </div>
 
 <div class="row row-spacer">
@@ -17,13 +16,13 @@
   <div>To be answered on behalf of <%= @question.minister.name %>.</div>
 </div>
 <div class="row row-spacer">
-  <p class="strong">Deadline to accept or reject this allocation is 2pm today</p>
+  <p class="strong">The deadline to accept or reject this allocation is 2pm today</p>
 </div>
 
 <% if @question.action_officers_pq.size > 1 %>
 <div class="row">
     <div class="question-allocation">
-      <p>This question has also been allocated to the following action officers, but only one may accept responsibility for answering:</p>
+      <p>This question has also been allocated to the following action officers, but only one person may accept responsibility.</p>
 
       <ul class="question-allocation-list" data-pqid="<%= @question.id %>">
         <% @question.action_officers_pq.each do |ao_pq|   %>
@@ -56,7 +55,7 @@
 <% end %>
 
 <% if !@question.is_in_progress?(Progress.accepted) %>
-
+<p>If you have any queries please <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a></p>
 <div class="accept-reject-form">
     <div class="panel panel-default">
       <div class="panel-heading">

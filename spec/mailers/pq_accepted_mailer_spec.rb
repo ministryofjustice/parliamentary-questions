@@ -168,7 +168,26 @@ describe 'PQAcceptedMailer' do
       mail.html_part.body.should_not include CGI::escape(my_finance_email)
 
     end
+    it 'should show the date for answer if set' do
+      pq = create(:Pq, uin: 'HL789', date_for_answer: Date.new(2014,9,4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
+      PqMailer.acceptance_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should include '04/09/2014'
+      mail.html_part.body.should include '04/09/2014'
+    end
+    it 'should not show the date for answer block if not set' do
+      pq = create(:Pq, uin: 'HL789', date_for_answer: nil, question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+
+      PqMailer.acceptance_email(pq, ao).deliver
+
+      mail = ActionMailer::Base.deliveries.first
+
+      mail.text_part.body.should_not include 'Due back to Parliament by '
+      mail.html_part.body.should_not include 'Due back to Parliament by '
+    end
     it 'should add the deputy director of the AO to the CC on the draft email link' do
 
       pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
