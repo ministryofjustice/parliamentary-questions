@@ -43,6 +43,7 @@ h2 .badge, #status-filters .badge {background-color: #000;}
 .navbar {background-color: #dee0e2;}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {background-color: #ffbf47;}
 .name-day {background-color: #9b9b9b;}
+.alert-ie6 {background-color: #e9f9f8;}
 
 #progress-menu ul li a.progress-menu-item {border-color: #000;}
 .block-label:hover, .js-enabled .selected {border-color: #0b0c0c;}
@@ -77,8 +78,6 @@ h2 .badge {vertical-align: middle;}
 h3 {font-size: 19px; font-weight: bold;}
 h4 {font-size: 19px; font-weight: normal; margin-bottom: 0px; padding: 0px;}
 .pq-header h3, .pq-header-flags, .pq-header-links, #pq-details-title h2 {display: inline-block;}
-
-#ie-message {width: 1024px; margin: 10px auto; padding: 10px;border: 3px solid #f00;}
 
 .alert {border-radius: 0px; border-width: 0px 0px 0px 4px;border-style: none none none solid; margin: 20px 15px;}
 .alert.reminder {border-width: 0px; border-style: none; margin: 0px; padding: 0px;}
