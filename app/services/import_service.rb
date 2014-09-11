@@ -33,17 +33,19 @@ class ImportService
     questions_processed = Array.new
     errors = Array.new
 
-
-
     questions_with_callback(args) { |result|
-        if !result[:error].nil?
-          errors.push({ message: result[:error], question: result[:question] })
-        else
-          questions_processed.push(result[:question])
-        end
+      process_result(result, questions_processed, errors)
     }
 
     {questions: questions_processed, errors: errors}
+  end
+
+  def process_result(result, q_p, err)
+    if !result[:error].nil?
+      err.push({ message: result[:error], question: result[:question] })
+    else
+      q_p.push(result[:question])
+    end
   end
 
   def questions_by_uin(uin)
@@ -51,28 +53,19 @@ class ImportService
     errors = Array.new
 
     questions_by_uin_with_callback(uin) { |result|
-      if !result[:error].nil?
-        errors.push({ message: result[:error], question: result[:question] })
-      else
-        questions_processed.push(result[:question])
-      end
+      process_result(result, questions_processed, errors)
     }
     {questions: questions_processed, errors: errors}
   end
 
 
   protected
-
   def import_one_question(q, &block)
     pq = Pq.find_or_initialize_by(uin: q['Uin'])
-    progress_id = pq.progress_id || @progress_unallocated.id
-    transferred = pq.transferred || false
 
-    date_for_answer = pq.date_for_answer
-
-    if date_for_answer.nil?
-       date_for_answer = q['DateForAnswer']
-    end
+    progress_id = get_progress_id(pq)
+    transferred = get_transfer(pq)
+    date_for_answer = get_date_for_answer(pq, q['DateForAnswer'])
 
     pq.update(
         uin: q['Uin'],
@@ -98,7 +91,25 @@ class ImportService
       $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.error")
       yield ({question: q, error: pq.errors.full_messages})
     end
+  end
 
+  def get_progress_id(pq)
+    pq.progress_id || @progress_unallocated.id
+  end
+
+  def get_transfer(pq)
+    pq.transferred || false
+  end
+
+  def get_date_for_answer(pq, incoming_date)
+
+    date_for_answer = pq.date_for_answer
+
+    if date_for_answer.nil?
+      date_for_answer = incoming_date
+    end
+
+    date_for_answer
   end
 
   def move_questions_from_accepted_to_draft_pending
