@@ -1,9 +1,15 @@
 <%= render partial: 'shared/flash_messages' %>
-<h3><%= @question.uin %></h3>
 <% if @assignment.reject %>
-    You rejected this PQ on <%= @assignment.updated_at.strftime('%d/%m/%Y at %H:%M') %> stating: <%= @assignment.reason_option %> - <%= @assignment.reason %>
+    <h3>Thank you for your response.</h3>
+    You rejected PQ <strong><%= @question.uin %></strong> on <strong><%= @assignment.updated_at.strftime('%d/%m/%Y at %H:%M') %></strong> stating:</br>
+    <div><strong><%= @assignment.reason_option %> - <%= @assignment.reason %></strong></div>
+    <p>Your message has been sent to the PQ team. You dont need to take any further action.</p>
 <% elsif @question.action_officers_pq.accepted.first.action_officer_id == @assignment.action_officer_id %>
-    You accepted this PQ on <%= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y at %H:%M') %>
+    <h3>Thank you for your response.</h3>
+    You accepted PQ <strong><%= @question.uin %></strong> on <strong><%= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y at %H:%M') %></strong>
+    <p>You will receive a further email which explains how and when to return your draft your response as well as a link to PQ guidance on the intranet.</p>
 <% else %>
-    <%= @question.action_officers_pq.accepted.first.action_officer.name %> accepted this PQ on <%= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y at %H:%M') %>
+    <h3>This PQ has been accepted</h3>
+    <%= @question.action_officers_pq.accepted.first.action_officer.name %> accepted PQ <strong><%= @question.uin %></strong> on <strong><%= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y at %H:%M') %></strong>
 <% end %>
+<p>If you have any queries please <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a></p>
