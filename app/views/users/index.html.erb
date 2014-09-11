@@ -11,7 +11,7 @@
       <tr>
         <th>Name</th>
         <th>Role</th>
-        <th class="admin-status">Status</th>
+        <th class="admin-status">Last Sign in</th>
         <th></th>
       </tr>
     </thead>
@@ -21,10 +21,10 @@
           <td><%= link_to "#{user.name}", user_path(user) %></td>
           <td><%= link_to "#{user.roles}", user_path(user) %></td>
           <td>
-            <% if user.is_active %>
-              <i class="fa fa-check-circle"></i>&nbsp;Active
+            <% if user.current_sign_in_at.nil? %>
+                never active
             <% else %>
-              <i class="fa fa-times"></i>&nbsp;Inactive
+                <%= time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil? %>
             <% end %>
           </td>
           <td><%= link_to 'Edit', edit_user_path(user) %></td>
