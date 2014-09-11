@@ -12,20 +12,20 @@
 </div>
 
 <div>
-  <p style="font-family: arial, sans-serif; font-size: 12pt;">
+  <p>
   <% if !@template_params[:member_name].nil? %>
-      <div>Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></div>
+    <div style="font-family: arial, sans-serif; font-size: 12pt;">Question asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></div>
   <% end %>
   <% if !@template_params[:mpname].nil? %>
-    <div>To be answered by <%= @template_params[:mpname] %></div>
+    <div style="font-family: arial, sans-serif; font-size: 12pt;">To be answered by <%= @template_params[:mpname] %></div>
   <% end %>
   <% if !@template_params[:date_to_parliament].empty? %>
-    <div>Due back to Parliament by <%= @template_params[:date_to_parliament] %></div>
+    <div style="font-family: arial, sans-serif; font-size: 12pt;">Due back to Parliament by <%= @template_params[:date_to_parliament] %></div>
   <% end %>
-  </p>
   <% if !@template_params[:internal_deadline].nil? %>
     <p style="font-family: arial, sans-serif; font-size: 12pt; font-weight: bold;">Deadline to return your draft response is <strong><%= @template_params[:internal_deadline] %></strong></p>
   <% end %>
+  </p>
 </div>
 <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
 
