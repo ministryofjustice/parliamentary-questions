@@ -122,7 +122,7 @@ class PqMailer < PQBaseMailer
   end
   def finance_users_emails(pq)
     result = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
-    return !pq.finance_interest ? result : ''
+    return pq.finance_interest ? result : ''
   end
   def get_dd_email(ao)
     if !ao.deputy_director.nil?
