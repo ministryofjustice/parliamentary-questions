@@ -28,7 +28,7 @@ PQ.trimFileUpload = function() {
 				}
 			};
 
-		cancel_button.on('click', function (e) {
+		cancel_button.on('click', function () {
 			form.trigger('reset');
 			file_field.trigger('change');
 		});
@@ -78,12 +78,11 @@ PQ.trimFileUpload = function() {
 				} else {
 
 				}
-
 				message_container.show();
-			});
+            });
 
- 	});
-}
+    });
+};
 PQ.toggleSiblingContent = function(){
 	$('details').each(function(i, el){
 		var root = $(el),
@@ -95,7 +94,7 @@ PQ.toggleSiblingContent = function(){
 			summary.toggleClass('opened');
 		});
 	});
-}
+};
 
 $(document).ready(function () {
 
@@ -118,17 +117,16 @@ $(document).ready(function () {
 	});
 
 	$(".form-commission")
-		.on("ajax:success", function(e, data){
-			var pqid = $(this).data('pqid');
-	        var uin = $('#pq-frame-'+pqid+ ' h3').text();
-	        //it worked!
-	        //so - get the entire question and replace it with a flash success message
-	        $('#pq-frame-'+pqid).replaceWith('<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>'+ uin +' commissioned successfully</div>');
-	        //increment allocated pending
-	        incrementBadge('#db-filter-alloc-pend');
-	        //decrement Unallocated
-	        decrementBadge('#db-filter-unalloc');
-
+		.on("ajax:success", function(data){
+            var pqid = $(this).data('pqid');
+            var uin = $('#pq-frame-'+pqid+ ' h3').text();
+            //it worked!
+            //so - get the entire question and replace it with a flash success message
+            $('#pq-frame-'+pqid).replaceWith('<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>'+ uin +' commissioned successfully</div>');
+            //increment allocated pending
+            incrementBadge('#db-filter-alloc-pend');
+            //decrement Unallocated
+            decrementBadge('#db-filter-unalloc');
 		}).on("ajax:error", function(e, xhr) {
 			console.log(xhr.responseText);
 		});
