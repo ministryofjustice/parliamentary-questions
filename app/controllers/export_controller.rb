@@ -9,18 +9,18 @@ class ExportController < ApplicationController
   end
   
   def csv
-    pqs = get_pqs('created_at >=? AND updated_at <=?')
+    pqs = get_pqs('transfer_out_ogd_id is null AND created_at >=? AND updated_at <=?')
     send_data to_csv(pqs.order(:uin))
   end
 
   def csv_for_pod
-    pqs = get_pqs('created_at >= ? AND updated_at <= ? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
+    pqs = get_pqs('created_at >=? AND updated_at <=? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
     send_data to_csv(pqs.order(:date_for_answer))
   end
 
   private
   def get_pqs(sql)
-    Pq.where(sql, DateTime.parse(params[:date_from]), DateTime.parse(params[:date_to]))
+    Pq.where(sql, DateTime.parse(params[:date_from])+1.day-1.minutes, DateTime.parse(params[:date_to])+1.day-1.minute)
   end
 
   def to_csv(pqs)
