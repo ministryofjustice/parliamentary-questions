@@ -30,7 +30,8 @@ class ImportServiceWithDatabaseLock
 
     elapsed_seconds = Time.now - t_start
 
-    create_import_log('FINISH', "#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported}, Errors  #{errors_count}")
+    msg="#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported}, Errors  #{errors_count}"
+    create_import_log('FINISH', msg)
 
     {msg: msg, log_type: 'FINISH'}
 
