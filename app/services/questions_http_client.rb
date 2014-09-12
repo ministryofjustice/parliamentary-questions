@@ -13,7 +13,12 @@ class QuestionsHttpClient
   def questions(options = {})
     endpoint = URI::join(@base_url, '/api/qais/questions')
     response = @client.get(endpoint, options)
-    response.content
+    if response.status_code==200
+      response.content
+    else
+      Rails.logger.info "Import API call returned #{response.status_code}"
+      raise 'API response non-valid'
+    end
   end
 
   def question(uin)
