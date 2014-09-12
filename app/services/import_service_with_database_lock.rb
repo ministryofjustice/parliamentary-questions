@@ -17,13 +17,15 @@ class ImportServiceWithDatabaseLock
     create_import_log('START',"#{runner}: start running the import, #{t_start}")
 
     @importService.questions_with_callback(args) { |result|
+      msg="#{runner}: #{result[:error]} ::: #{result[:question]}"
       if !result[:error].nil?
         errors_count += 1
-        create_import_log('ERROR', "#{runner}: #{result[:error]} ::: #{result[:question]}")
+        text = 'ERROR'
       else
         questions_imported += 1
-        create_import_log('SUCCESS', "#{runner}: #{result[:error]} ::: #{result[:question]}")
+        text = 'SUCCESS'
       end
+      create_import_log(text, msg)
     }
 
     delete_old_logs
