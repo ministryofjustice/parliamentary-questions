@@ -14,15 +14,15 @@ class ImportServiceWithDatabaseLock
 
     t_start = Time.now
 
-    ImportLog.create(log_type: 'START', msg: "#{runner}: start running the import, #{t_start}")
+    create_import_log('START',"#{runner}: start running the import, #{t_start}")
 
     @importService.questions_with_callback(args) { |result|
       if !result[:error].nil?
         errors_count += 1
-        ImportLog.create(log_type: 'ERROR', msg: "#{runner}: #{result[:error]} ::: #{result[:question]}")
+        create_import_log('ERROR', "#{runner}: #{result[:error]} ::: #{result[:question]}")
       else
         questions_imported += 1
-        ImportLog.create(log_type: 'SUCCESS', msg: "#{runner}: #{result[:error]} ::: #{result[:question]}")
+        create_import_log('SUCCESS', "#{runner}: #{result[:error]} ::: #{result[:question]}")
       end
     }
 
@@ -30,11 +30,14 @@ class ImportServiceWithDatabaseLock
 
     elapsed_seconds = Time.now - t_start
 
-    msg = "#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported}, Errors  #{errors_count}"
-    ImportLog.create(log_type: 'FINISH', msg: msg)
+    create_import_log('FINISH', "#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported}, Errors  #{errors_count}")
 
     {msg: msg, log_type: 'FINISH'}
 
+  end
+
+  def create_import_log(text, msg)
+    ImportLog.create(log_type: text, msg: msg)
   end
 
 
