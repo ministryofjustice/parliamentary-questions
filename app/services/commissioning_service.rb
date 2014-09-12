@@ -8,20 +8,16 @@ class CommissioningService
     raise 'Action Officer is not selected' if assignment.action_officer_id.nil?
     raise 'Question is not selected' if assignment.pq_id.nil?
 
-    actionOfficersPq = ActionOfficersPq.create(action_officer_id: assignment.action_officer_id, pq_id: assignment.pq_id, accept: false, reject: false)
-    ao = ActionOfficer.find(assignment.action_officer_id)
-    pq = Pq.find_by(id: assignment.pq_id)
+    action_officers_pq = ActionOfficersPq.create(action_officer_id: assignment.action_officer_id, pq_id: assignment.pq_id, accept: false, reject: false)
+    ao = get_action_officer(assignment)
+    pq = get_pq_by(assignment)
 
 
     # no accepted/rejected -> change the state to allocated_pending
-    if !(pq.is_in_progress?(Progress.accepted) || pq.is_in_progress?(Progress.rejected) )
-      pro = Progress.no_response
-      pq.update progress_id: pro.id
-    end
+    update_pq_progress(pq)
 
-
-    path = '/assignment/' + pq.uin.encode
-    entity = "assignment:#{actionOfficersPq.id}"
+    path = "/assignment/#{pq.uin.encode}"
+    entity = "assignment:#{action_officers_pq.id}"
 
     token_expires = DateTime.now.midnight.change({:offset => 0}) + 3.days
     token = @tokenService.generate_token(path, entity, token_expires)
@@ -37,14 +33,15 @@ class CommissioningService
 
     PqMailer.commission_email(template).deliver
 
-    return {token: token, assignment_id: actionOfficersPq.id}
+    return {token: token, assignment_id: action_officers_pq.id}
   end
+
   def notify_dd(assignment)
     raise 'Action Officer is not selected' if assignment.action_officer_id.nil?
     raise 'Question is not selected' if assignment.pq_id.nil?
 
-    ao = ActionOfficer.find(assignment.action_officer_id)
-    pq = Pq.find_by(id: assignment.pq_id)
+    ao = get_action_officer(assignment)
+    pq = get_pq_by(assignment)
     dd = DeputyDirector.find_by(id: ao.deputy_director_id)
 
     return 'Deputy Director has no email' if dd.email.blank?
@@ -73,5 +70,17 @@ class CommissioningService
         :house => pq.house_name,
         :answer_by => pq.minister.name
     }
+  end
+  def update_pq_progress(pq)
+    if !(pq.is_in_progress?(Progress.accepted) || pq.is_in_progress?(Progress.rejected))
+      pro = Progress.no_response
+      pq.update progress_id: pro.id
+    end
+  end
+  def get_pq_by(assignment)
+    Pq.find_by(id: assignment.pq_id)
+  end
+  def get_action_officer(assignment)
+    ActionOfficer.find(assignment.action_officer_id)
   end
 end
