@@ -54,10 +54,10 @@ h2 .badge, #status-filters .badge {background-color: #000;}
 
 #settings-home h3 {border-bottom-color: #dee0e2;}
 
-.alert.alert-success {border-left-color: #85994b;}
-.alert.notice  {border-left-color: #bfc1c3;}
-.info-notice, .alert.alert {border-left-color: #d0021b;}
-.alert.success {border-left-color: #dee0e2;}
+.alert-success {border-left-color: #85994b;}
+.notice  {border-left-color: #bfc1c3;}
+.info-notice {border-left-color: #d0021b;}
+.success {border-left-color: #dee0e2;}
 
 .js-enabled .add-focus {outline-color: #ffbf47;}
 .js-enabled .add-focus {outline: 3px solid #ffbf47;}
