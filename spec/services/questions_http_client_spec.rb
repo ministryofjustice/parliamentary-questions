@@ -24,8 +24,9 @@ describe 'QuestionsHttpClient' do
     expect{@http_client.questions('dateFrom' => 'Force error')}.to raise_error('API connection timed-out')
   end
 
+
   it 'should return a timeout error if the API takes to long to respond' do
-    # connect to http_client as usual from before(:each) with default timeout
+    # connect to http_client as usual using before(:each) with default timeout
     # set ridiculously short timeout
     @http_client.set_receive_timeout(0.000001)
     expect{@http_client.questions('dateFrom' => '2000-01-01')}.to raise_error('API response timed-out')
