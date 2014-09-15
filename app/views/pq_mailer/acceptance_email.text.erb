@@ -27,9 +27,7 @@ You MUST use the email list below to ensure that all relevant people are cc’d.
 
 <%= @template_params[:cc_list]  %>
 
-You need to liaise with your relevant press officer (<%=@template_params[:press_email] %>) <%= "and finance (#{ @template_params[:finance_users_emails]})" if !@template_params[:finance_users_emails].empty?  %> before you send your draft response.
-
-For drafting templates and guidance on how to respond, please refer to the intranet by using the following link.
+You will need to liaise with <%= "finance (#{ @template_params[:finance_users_emails]}) and" if !@template_params[:finance_users_emails].empty?  %> your relevant press officer (<%=@template_params[:press_email] %>) before you send your draft response. For drafting templates and guidance on how to respond, please refer to the intranet PQ guidance by using the following link.
 	http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm
 
 If you have further queries about drafting your response, please contact the PQ team <%= Settings.mail_reply_to %>
