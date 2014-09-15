@@ -16,6 +16,12 @@ describe 'QuestionsHttpClient' do
     mail.subject.should eql('API import failed')
     mail.html_part.body.should include 'It returned status code'
   end
+
+  xit 'should return a timeout error if the API is unavailable' do
+    @http_client = QuestionsHttpClient.new('http://0.0.0.0:4000',nil,nil)
+    expect{@http_client.questions('dateFrom' => 'Force error')}.to raise_error('API connection timed-out')
+  end
+
   # Mark as a pending because it need the credentials for the API to pass on Travis
   xit 'should get an xml response from the PQ API' do
     questions_xml = @http_client.questions('dateFrom' => '2014-04-17')
@@ -36,7 +42,7 @@ describe 'QuestionsHttpClient' do
               <MinisterId>1413</MinisterId>
             </Answer>'
 
-    result = @http_client.answer("183366", body)
+    result = @http_client.answer('183366', body)
     result[:content].should include('<AnswerResponse')
   end
 
