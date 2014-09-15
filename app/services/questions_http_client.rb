@@ -7,7 +7,8 @@ class QuestionsHttpClient
 
     @client = HTTPClient.new
     @client.set_auth(@base_url, @username, @password)
-
+    @client.connect_timeout = Settings.http_client_timeout
+    @client.receive_timeout = Settings.http_client_timeout
   end
 
   def questions(options = {})
@@ -17,7 +18,7 @@ class QuestionsHttpClient
       response.content
     else
       Rails.logger.info "Import API call returned #{response.status_code}"
-      $statsd.increment "#{StatsHelper::IMPORT_ERROR}.error"
+      $statsd.increment "#{StatsHelper::IMPORT_ERROR}"
       email_params={
           code: response.status_code,
           time: Time.now
