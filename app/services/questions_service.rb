@@ -26,14 +26,15 @@ class QuestionsService
 
     format = "%Y-%m-%dT%H:%M:%S"
     options = {}
-    options["dateFrom"] = args[:dateFrom].strftime(format)
-    options["dateTo"] = args[:dateTo].strftime(format) if args[:dateTo].present?
-    options["status"] = args[:status] if args[:status].present?
-
-    response = @http_client.questions(options)
-
-    result = parse_questions_xml(response)
-
+    options['dateFrom'] = args[:dateFrom].strftime(format)
+    options['dateTo'] = args[:dateTo].strftime(format) if args[:dateTo].present?
+    options['status'] = args[:status] if args[:status].present?
+    begin
+      response = @http_client.questions(options)
+      result = parse_questions_xml(response)
+    rescue
+      result = ''
+    end
     # log the time in statsd
     elapsed_seconds = Time.now - t_start
     $statsd.timing("#{StatsHelper::IMPORT}.qa.response_time", elapsed_seconds * 1000)
