@@ -33,15 +33,15 @@
 
 </div>
 <p style="font-family: arial, sans-serif; font-size: 12pt;">
-    You need to liaise with your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> <% "and #{ mail_to @template_params[:finance_users_emails], 'finance'}" if !@template_params[:finance_users_emails].empty? %> before you send your draft response.  For drafting templates and guidance on how to respond, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ Guidance</a>
+    You need to liaise with your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> <%= raw("and #{ mail_to(@template_params[:finance_users_emails], 'finance')}") if !@template_params[:finance_users_emails].empty? %> before you send your draft response.  For drafting templates and guidance on how to respond, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ Guidance</a>
 </p>
-
 
 <p style="font-family: arial, sans-serif; font-size: 12pt;">If you have further queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a></p>
 
 
 <%= render 'shared/mailer/email_signature' %>
 
+<%= "stuff" %>
 
 </body>
 </html>

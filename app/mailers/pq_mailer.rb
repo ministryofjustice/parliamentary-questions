@@ -39,7 +39,6 @@ class PqMailer < PQBaseMailer
     # get the finance emails
     @template_params[:finance_users_emails] = finance_users_emails(pq)
     cc_list.append(@template_params[:finance_users_emails]) if !@template_params[:finance_users_emails].empty?
-
     # merge cc_list and remove blanks
     @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
 
@@ -125,7 +124,7 @@ class PqMailer < PQBaseMailer
   end
   def finance_users_emails(pq)
     result = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
-    return pq.finance_interest ? result : ''
+    return pq.finance_interest ? result.reject(&:blank?).join(';') : ''
   end
   def get_dd_email(ao)
     if !ao.deputy_director.nil?
