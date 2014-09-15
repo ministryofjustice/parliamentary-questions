@@ -9,7 +9,13 @@ describe 'QuestionsHttpClient' do
   it 'should generate an error if the content is not valid xml' do
     expect{@http_client.questions('dateFrom' => 'Force error')}.to raise_error('API response non-valid')
   end
-
+  it 'should send an email if the API call fails' do
+    ActionMailer::Base.deliveries = []
+    expect{@http_client.questions('dateFrom' => 'Force error')}.to raise_error('API response non-valid')
+    mail = ActionMailer::Base.deliveries.first
+    mail.subject.should eql('API import failed')
+    mail.html_part.body.should include 'It returned status code'
+  end
   # Mark as a pending because it need the credentials for the API to pass on Travis
   xit 'should get an xml response from the PQ API' do
     questions_xml = @http_client.questions('dateFrom' => '2014-04-17')
@@ -20,7 +26,6 @@ describe 'QuestionsHttpClient' do
     questions_xml = @http_client.question('157551')
     questions_xml.should include('<Uin>157551</Uin>')
   end
-
 
   xit 'should get a question in xml response from the PQ API' do
 
@@ -35,7 +40,6 @@ describe 'QuestionsHttpClient' do
     result[:content].should include('<AnswerResponse')
   end
 
-
   xit 'should submit the answer using the question_service' do
 
     service = QuestionsService.new(@http_client)
@@ -43,6 +47,5 @@ describe 'QuestionsHttpClient' do
     result.should_not be nil
     puts result
   end
-
 
 end
