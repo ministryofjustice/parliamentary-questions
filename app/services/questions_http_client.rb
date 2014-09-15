@@ -13,18 +13,24 @@ class QuestionsHttpClient
 
   def questions(options = {})
     endpoint = URI::join(@base_url, '/api/qais/questions')
-    response = @client.get(endpoint, options)
-    if response.status_code==200
-      response.content
-    else
-      Rails.logger.info "Import API call returned #{response.status_code}"
-      $statsd.increment "#{StatsHelper::IMPORT_ERROR}"
-      email_params={
-          code: response.status_code,
-          time: Time.now
-      }
-      PqMailer.import_fail_email(email_params).deliver
-      raise 'API response non-valid'
+    begin
+      response = @client.get(endpoint, options)
+      if response.status_code==200
+        response.content
+      else
+        rails_logger "Import API call returned #{response.status_code}"
+        email_params={
+            code: response.status_code,
+            time: Time.now
+        }
+        PqMailer.import_fail_email(email_params).deliver
+        raise 'API response non-valid'
+      end
+    rescue HTTPClient::ConnectTimeoutError
+      rails_logger "Connecting to API timed out after #{Settings.http_client_timeout}"
+
+    rescue HTTPClient::ReceiveTimeoutError
+      rails_logger "Receiving from API timed out after #{Settings.http_client_timeout}"
     end
   end
 
@@ -38,5 +44,11 @@ class QuestionsHttpClient
     endpoint = URI::join(@base_url, "/api/qais/answers/#{uin}")
     response = @client.put(endpoint, body)
     {content: response.content, status: response.status}
+  end
+
+  private
+  def rails_logger(msg)
+    Rails.logger.info msg
+    $statsd.increment "#{StatsHelper::IMPORT_ERROR}"
   end
 end
