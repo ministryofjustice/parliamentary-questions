@@ -34,6 +34,7 @@ class QuestionsService
       result = parse_questions_xml(response)
     rescue
       result = ''
+      #TODO return data to view, logs, ignore?
     end
     # log the time in statsd
     elapsed_seconds = Time.now - t_start
