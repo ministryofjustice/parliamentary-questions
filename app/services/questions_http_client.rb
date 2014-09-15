@@ -28,7 +28,7 @@ class QuestionsHttpClient
     rescue HTTPClient::ConnectTimeoutError
       rails_log_and_raise_error "Connecting to API timed out after #{Settings.http_client_timeout}", 'API connection timed-out'
     rescue HTTPClient::ReceiveTimeoutError
-      rails_log_and_raise_error "Receiving from API timed out after #{Settings.http_client_timeout}", 'API response non-valid'
+      rails_log_and_raise_error "Receiving from API timed out after #{Settings.http_client_timeout}", 'API response timed-out'
     end
   end
 
@@ -43,7 +43,12 @@ class QuestionsHttpClient
     response = @client.put(endpoint, body)
     {content: response.content, status: response.status}
   end
-
+  def set_connect_timeout(sec)
+    @client.connect_timeout = sec
+  end
+  def set_receive_timeout(sec)
+    @client.receive_timeout = sec
+  end
   private
   def rails_log_and_raise_error(log_msg, error_msg)
     Rails.logger.info log_msg

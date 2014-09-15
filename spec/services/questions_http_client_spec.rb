@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'QuestionsHttpClient' do
 
   before(:each) do
+    Settings.http_client_timeout = 20
     @http_client = QuestionsHttpClient.new
   end
 
@@ -17,9 +18,17 @@ describe 'QuestionsHttpClient' do
     mail.html_part.body.should include 'It returned status code'
   end
 
-  xit 'should return a timeout error if the API is unavailable' do
-    @http_client = QuestionsHttpClient.new('http://0.0.0.0:4000',nil,nil)
+  it 'should return a timeout error if the API is unavailable' do
+    Settings.http_client_timeout = 2
+    @http_client = QuestionsHttpClient.new('http://mock-pq-api.herokuapp.com:8999',nil,nil)
     expect{@http_client.questions('dateFrom' => 'Force error')}.to raise_error('API connection timed-out')
+  end
+
+  it 'should return a timeout error if the API takes to long to respond' do
+    # connect to http_client as usual from before(:each) with default timeout
+    # set ridiculously short timeout
+    @http_client.set_receive_timeout(0.000001)
+    expect{@http_client.questions('dateFrom' => '2000-01-01')}.to raise_error('API response timed-out')
   end
 
   # Mark as a pending because it need the credentials for the API to pass on Travis
