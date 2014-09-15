@@ -18,19 +18,17 @@ class QuestionsHttpClient
       if response.status_code==200
         response.content
       else
-        rails_log_error "Import API call returned #{response.status_code}"
         email_params={
             code: response.status_code,
             time: Time.now
         }
         PqMailer.import_fail_email(email_params).deliver
-        raise 'API response non-valid'
+        rails_log_and_raise_error "Import API call returned #{response.status_code}", 'API response non-valid'
       end
     rescue HTTPClient::ConnectTimeoutError
-      rails_log_error "Connecting to API timed out after #{Settings.http_client_timeout}"
-
+      rails_log_and_raise_error "Connecting to API timed out after #{Settings.http_client_timeout}", 'API connection timed-out'
     rescue HTTPClient::ReceiveTimeoutError
-      rails_log_error "Receiving from API timed out after #{Settings.http_client_timeout}"
+      rails_log_and_raise_error "Receiving from API timed out after #{Settings.http_client_timeout}", 'API response non-valid'
     end
   end
 
@@ -47,8 +45,9 @@ class QuestionsHttpClient
   end
 
   private
-  def rails_log_error(msg)
-    Rails.logger.info msg
+  def rails_log_and_raise_error(log_msg, error_msg)
+    Rails.logger.info log_msg
     $statsd.increment "#{StatsHelper::IMPORT_ERROR}"
+    raise error_msg
   end
 end
