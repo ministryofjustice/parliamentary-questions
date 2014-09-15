@@ -17,6 +17,12 @@ class QuestionsHttpClient
       response.content
     else
       Rails.logger.info "Import API call returned #{response.status_code}"
+      $statsd.increment "#{StatsHelper::IMPORT_ERROR}.error"
+      email_params={
+          code: response.status_code,
+          time: Time.now
+      }
+      PqMailer.import_fail_email(email_params).deliver
       raise 'API response non-valid'
     end
   end
