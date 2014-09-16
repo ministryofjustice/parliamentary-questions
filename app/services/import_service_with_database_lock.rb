@@ -90,9 +90,9 @@ class ImportServiceWithDatabaseLock
     end
 
     # # There is a problem with the lock logic - hacking it in here temporarily
-    # Rails.logger.info { "Import: unable to obtain lock - continuing anyway" }
-    # return true
-    return false
+    Rails.logger.info { "Import: unable to obtain lock - continuing anyway" }
+    return true
+    # return false
   end
 
 
