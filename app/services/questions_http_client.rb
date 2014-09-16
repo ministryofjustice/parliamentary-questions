@@ -14,6 +14,7 @@ class QuestionsHttpClient
   def questions(options = {})
     endpoint = URI::join(@base_url, '/api/qais/questions')
     begin
+      Rails.logger.info { "Import: requesting questions from #{endpoint} with options #{options.inspect}"}
       response = @client.get(endpoint, options)
       if response.status_code==200
         response.content
