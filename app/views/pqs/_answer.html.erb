@@ -5,10 +5,13 @@
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
   </span>
 </div>
+
+<% @answer_target = DateTime.parse(@pq.date_for_answer.to_s).change({ hour: 18, min: 0, sec: 0 })  %>
+
 <% if !@pq.answer_submitted.nil? && !@pq.date_for_answer.nil? %>
-  <% if @pq.answer_submitted < @pq.date_for_answer %>
+  <% if @pq.answer_submitted <= @answer_target  %>
     <p class="text"><i class="fa fa-check-circle"></i>  Answer submitted on time</p>
-  <% elsif @pq.answer_submitted > @pq.date_for_answer %>
+  <% elsif @pq.answer_submitted > @answer_target  %>
     <p class="text"><i class="fa fa-thumbs-o-down"></i> Answer NOT submitted on time</p>
   <% end %>
 <% end %>
