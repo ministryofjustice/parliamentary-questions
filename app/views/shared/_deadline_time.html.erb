@@ -1,7 +1,7 @@
 <% if !internal_deadline.nil? && !Progress.closed_questions.include?(progress_val.name) %>
 	<% from_time = DateTime.now.change ({:offset => 0}) %>
     <% overdue = (from_time -  internal_deadline.to_datetime) > 0 %>
-    <% if overdue %>
+    <% if overdue && draft_reply.blank? %>
         <span class="deadline-overdue"><i class="fa fa-exclamation-triangle"></i></span>
     <% end %>
 <% end %>

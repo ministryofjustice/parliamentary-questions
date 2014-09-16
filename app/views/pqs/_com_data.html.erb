@@ -1,6 +1,6 @@
 <div class="deadline_input form-group">
   <label for="pq_internal_deadline" class="form-label">
-    Internal deadline<%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress} %>
+    Internal deadline<%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received } %>
   </label>
   <span class='input-group date datetimepicker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
     <input id="pq_internal_deadline" class="form-control" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
