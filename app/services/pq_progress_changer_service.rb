@@ -6,7 +6,15 @@ class PQProgressChangerService
     @progress_onwards = TRUE
 
 
-    #  initial state 'Draft Pending' (done by the import process)
+    commissioned_filter(pq) if @progress_onwards
+    puts "commissioned_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
+    rejected_filter(pq) if @progress_onwards
+    puts "rejected_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
+
+    accepted_filter(pq) if @progress_onwards
+        puts "accepted_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
+    draft_pending_filter(pq) if @progress_onwards
+        puts "draft_pending_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     with_pod_filter(pq) if @progress_onwards
         puts "with_pod_filter ?         : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     pod_query_filter(pq) if @progress_onwards
@@ -28,6 +36,37 @@ class PQProgressChangerService
 
   end
 
+
+  def commissioned_filter(pq)
+    if pq.is_commissioned
+      @new_progress = Progress.no_response
+    end
+  end
+  def rejected_filter(pq)
+    if pq.is_rejected
+      @new_progress = Progress.rejected
+    end
+  end
+
+  def accepted_filter(pq)
+    if !pq.action_officer_accepted.nil?
+      @new_progress = Progress.accepted
+    else
+      @progress_onwards = FALSE
+    end
+  end
+  def draft_pending_filter(pq)
+    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
+
+    if !pq.action_officer_accepted.nil?
+      if pq.ao_pq_accepted.updated_at < beginning_of_day
+        @new_progress = Progress.draft_pending
+      end
+    else
+      @progress_onwards = FALSE
+    end
+
+  end
   def with_pod_filter(pq)
     if !pq.draft_answer_received.nil?
       @new_progress =  Progress.with_pod
@@ -131,6 +170,7 @@ class PQProgressChangerService
   end
 
   def transferred_out(pq)
+    puts "Transfered Out OGD id" + pq.transfer_out_ogd_id.to_s + " Transfered Out Date" + pq.transfer_out_date.to_s
     if !pq.transfer_out_ogd_id.nil? && !pq.transfer_out_date.nil?
       @new_progress =  Progress.transferred_out
       return
