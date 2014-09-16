@@ -92,12 +92,10 @@ class ImportService
       status ||= 'unchanged'
     end
 
-    puts "PQ-ERRORS #{pq.errors.full_messages}"
-    if pq.errors.empty?
-      yield ({question: q, status: status})
     else
-      yield ({question: q, status: status, error: pq.errors.full_messages})
+      status ||= 'changed'
     end
+    yield ({question: q, status: status, error: pq.errors.full_messages})
   end
 
   def get_progress_id(pq)
