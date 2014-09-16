@@ -16,7 +16,7 @@ class ImportServiceWithDatabaseLock
 
     create_import_log('START',"#{runner}: start running the import, #{t_start}")
 
-    questions_by_state = {  'new' => 0, 'changed' => 0 }
+    questions_by_state = {  'new' => 0, 'changed' => 0, 'unchanged' => 0 }
 
     @importService.questions_with_callback(args) { |result|
       msg="#{runner}: #{result[:error]} ::: #{result[:question]}"
