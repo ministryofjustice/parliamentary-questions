@@ -67,6 +67,8 @@ class ImportService
     transferred = get_transfer(pq)
     date_for_answer = get_date_for_answer(pq, q['DateForAnswer'])
 
+    status = 'new' if pq.new_record?
+
     pq.update(
         uin: q['Uin'],
         raising_member_id: q['TablingMember']['MemberId'],
@@ -84,12 +86,17 @@ class ImportService
         progress_id: progress_id
     )
 
-    if pq.errors.empty?
-      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
-      yield ({question: q})
+    if pq.changed?
+      status ||= 'changed'
     else
-      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.error")
-      yield ({question: q, error: pq.errors.full_messages})
+      status ||= 'unchanged'
+    end
+
+    puts "PQ-ERRORS #{pq.errors.full_messages}"
+    if pq.errors.empty?
+      yield ({question: q, status: status})
+    else
+      yield ({question: q, status: status, error: pq.errors.full_messages})
     end
   end
 
