@@ -155,6 +155,8 @@ $(document).ready(function () {
 
     $('.internal-dtp').datetimepicker().on('change', function() {
         $(this).siblings('input[type="submit"]').val("Update").show();
+    }).on('dp.show', function() {
+        $(this).siblings('input[type="submit"]').val("Update").show();
     });
 
     $('.internal-deadline-form')
