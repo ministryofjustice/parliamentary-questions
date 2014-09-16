@@ -62,6 +62,26 @@ class Pq < ActiveRecord::Base
     end
     return nil
   end
+  def is_rejected
+    if action_officers_pq.count > 0 &&  ao_pq_accepted.nil?
+      #Check rejects
+      action_officers_pq.each do |ao_pq|
+        if ao_pq.reject
+          return true
+        end
+      end
+    end
+    return false
+  end
+  def is_commissioned
+    puts "PQ Is commissioned? AO PQ Count:" + action_officers_pq.count.to_s + " AO Accepted: " +action_officer_accepted.to_s
+    if action_officers_pq.count > 0 && action_officer_accepted.nil? && !is_rejected
+      return true
+    else
+      return false
+    end
+  end
+
 
   def self.new_questions()
     monitor_new_questions
