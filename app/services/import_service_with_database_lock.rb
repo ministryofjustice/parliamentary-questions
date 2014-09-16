@@ -21,7 +21,7 @@ class ImportServiceWithDatabaseLock
     @importService.questions_with_callback(args) { |result|
       msg="#{runner}: #{result[:error]} ::: #{result[:question]}"
 
-      if result[:error].nil?
+      if result[:error].empty?
         $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.#{result[:status]}")
 
         $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
