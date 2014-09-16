@@ -86,12 +86,8 @@ class ImportService
         progress_id: progress_id
     )
 
-    if pq.changed?
-      status ||= 'changed'
-    else
+    if pq.previous_changes.empty?
       status ||= 'unchanged'
-    end
-
     else
       status ||= 'changed'
     end
