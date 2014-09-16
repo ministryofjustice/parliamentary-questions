@@ -20,5 +20,6 @@ module StatsHelper
 
   IMPORT = "questions.import"
   PROGRESS = "questions.progress"
+  IMPORT_ERROR = 'questions.import.fail'
 
 end
