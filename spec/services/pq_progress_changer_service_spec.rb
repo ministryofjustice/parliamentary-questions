@@ -23,17 +23,17 @@ describe 'PQProgressChangerService' do
       pq.progress.name.should eq(Progress.WITH_POD)
     end
 
-    # it 'should NOT move the question to POD_WAITING if the progress is not DRAFT_PENDING' do
-    #   uin = 'TEST1'
-    #   pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.accepted.id)
-    #
-    #   pq.update(draft_answer_received: DateTime.now)
-    #
-    #   @pq_progress_changer_service.update_progress(pq)
-    #
-    #   pq = Pq.find_by(uin: uin)
-    #   pq.progress.name.should eq(Progress.ACCEPTED)
-    # end
+    it 'should NOT move the question to POD_WAITING if the progress is not DRAFT_PENDING' do
+      uin = 'TEST1'
+      pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.accepted.id)
+    
+      pq.update(draft_answer_received: DateTime.now)
+
+      @pq_progress_changer_service.update_progress(pq)
+
+      pq = Pq.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.ACCEPTED)
+    end
   end
 
 
