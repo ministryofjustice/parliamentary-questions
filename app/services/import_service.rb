@@ -41,10 +41,10 @@ class ImportService
   end
 
   def process_result(result, q_p, err)
-    if !result[:error].nil?
-      err.push({ message: result[:error], question: result[:question] })
-    else
+    if result[:error].empty?
       q_p.push(result[:question])
+    else
+      err.push({ message: result[:error], question: result[:question] })
     end
   end
 
