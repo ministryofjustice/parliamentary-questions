@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @p = Progress.where(name: Progress.in_progress_questions)
     @m = Minister.where(deleted: false)
 
-    @counters = Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+    @counters = build_hash
 
     @m.each do |m|
       # calculate the counters
@@ -22,8 +22,7 @@ class ReportsController < ApplicationController
     @p = Progress.where("name != 'Unassigned'")
     @pd = PressDesk.where(deleted: false)
 
-    # auto-vivifying Hash (http://trevoke.net/blog/2009/11/06/auto-vivifying-hashes-in-ruby/)
-    @counters = Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+    @counters = build_hash
 
     @pd.each do |pd|
       # collect Action Officers Ids
@@ -74,6 +73,10 @@ class ReportsController < ApplicationController
   end
 
   private
+  def build_hash
+    # auto-vivifying Hash (http://trevoke.net/blog/2009/11/06/auto-vivifying-hashes-in-ruby/)
+    Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+  end
   def get_actionofficer_ids_by_press_desk(pd_id)
     PressDesk.find(press_desk_id).action_officers.collect{|it| it.id}
   end
