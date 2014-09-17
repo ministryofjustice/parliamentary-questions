@@ -2,7 +2,7 @@
 <p class="text"><%= @pq.pod_waiting.strftime('%d/%m/%Y %H:%M') unless @pq.pod_waiting.nil? %></p>
 <div class="form-group">
 	<label for="pq_pod_query_flag" class="block-label">
-		<%= f.check_box(:pod_query_flag, include_hidden: false) %>
+		<%= f.check_box(:pod_query_flag) %>
 		POD query
 	</label>
 </div>
