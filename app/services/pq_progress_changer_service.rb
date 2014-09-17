@@ -7,31 +7,18 @@ class PQProgressChangerService
 
 
     commissioned_filter(pq) if @progress_onwards
-    puts "commissioned_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     rejected_filter(pq) if @progress_onwards
-    puts "rejected_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
-
     accepted_filter(pq) if @progress_onwards
-        puts "accepted_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     draft_pending_filter(pq) if @progress_onwards
-        puts "draft_pending_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     with_pod_filter(pq) if @progress_onwards
-        puts "with_pod_filter ?         : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     pod_query_filter(pq) if @progress_onwards
-        puts "pod_query_filter ?        : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     pod_clearance_filter(pq) if @progress_onwards
-        puts "pod_clearance_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     with_minister_filter(pq) if @progress_onwards
-        puts "with_minister_filter ?    : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     minister_query_filter(pq) if @progress_onwards
-        puts "minister_query_filter ?   : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     minister_cleared_filter(pq) if @progress_onwards
-        puts "minister_cleared_filter ? : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     answered_filter(pq) if @progress_onwards
-        puts "answered_filter ?         : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
     transferred_out(pq) # Always check transferred out.
-        puts "transferred_out ?         : " + @new_progress.name + "  Onwards? " + @progress_onwards.to_s
-
+    
     update_pq(pq, @new_progress)
 
   end
