@@ -14,27 +14,43 @@ class ImportServiceWithDatabaseLock
 
     t_start = Time.now
 
-    ImportLog.create(log_type: 'START', msg: "#{runner}: start running the import, #{t_start}")
+    create_import_log('START',"#{runner}: start running the import, #{t_start}")
+
+    questions_by_state = {  'new' => 0, 'changed' => 0, 'unchanged' => 0 }
 
     @importService.questions_with_callback(args) { |result|
-      if !result[:error].nil?
-        errors_count += 1
-        ImportLog.create(log_type: 'ERROR', msg: "#{runner}: #{result[:error]} ::: #{result[:question]}")
-      else
+      msg="#{runner}: #{result[:error]} ::: #{result[:question]}"
+
+      if result[:error].empty?
+        $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.#{result[:status]}")
+
+        $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
+        questions_by_state[result[:status]] += 1
         questions_imported += 1
-        ImportLog.create(log_type: 'SUCCESS', msg: "#{runner}: #{result[:error]} ::: #{result[:question]}")
+        text = 'SUCCESS'
+      else
+        $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.error")
+        errors_count += 1
+        text = 'ERROR'
       end
+      create_import_log(text, msg)
     }
 
     delete_old_logs
 
     elapsed_seconds = Time.now - t_start
 
-    msg = "#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported}, Errors  #{errors_count}"
-    ImportLog.create(log_type: 'FINISH', msg: msg)
+    breakdown = "[new=#{questions_by_state['new']},changed=#{questions_by_state['changed']}]"
+    msg="#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported} #{breakdown}, Errors  #{errors_count}"
+    Rails.logger.info { "Importing  #{msg}" }
+    create_import_log('FINISH', msg)
 
     {msg: msg, log_type: 'FINISH'}
 
+  end
+
+  def create_import_log(text, msg)
+    ImportLog.create(log_type: text, msg: msg)
   end
 
 
@@ -74,7 +90,7 @@ class ImportServiceWithDatabaseLock
     end
 
     # # There is a problem with the lock logic - hacking it in here temporarily
-    # Rails.logger.info { "Import: unable to obtain lock - continuing anyway" }
+    Rails.logger.info { "Import: unable to obtain lock - continuing anyway" }
     # return true
     return false
   end

@@ -72,6 +72,14 @@ class PqMailer < PQBaseMailer
     mail(to: @template_params[:email], cc: @template_params[:cc], subject: 'PQs allocated today')
   end
 
+  def import_fail_email(params)
+    # expects:
+    # time
+    # code
+    @params = params
+    mail(to: Settings.mail_tech_support, subject: 'API import failed')
+  end
+
   private
   def build_primary_hash(pq,ao)
     {
@@ -125,7 +133,7 @@ class PqMailer < PQBaseMailer
   end
   def finance_users_emails(pq)
     result = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
-    return pq.finance_interest ? result : ''
+    return pq.finance_interest ? result.reject(&:blank?).join(';') : ''
   end
   def get_dd_email(ao)
     if !ao.deputy_director.nil?

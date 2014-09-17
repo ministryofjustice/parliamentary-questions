@@ -22,22 +22,20 @@ class QuestionsService
   #         "Holding"
   #         "ScanningForVirus"
   def questions(args = { dateFrom: Date.today} )
-    t_start = Time.now
-
-    format = "%Y-%m-%dT%H:%M:%S"
-    options = {}
-    options["dateFrom"] = args[:dateFrom].strftime(format)
-    options["dateTo"] = args[:dateTo].strftime(format) if args[:dateTo].present?
-    options["status"] = args[:status] if args[:status].present?
-
-    response = @http_client.questions(options)
-
-    result = parse_questions_xml(response)
-
-    # log the time in statsd
-    elapsed_seconds = Time.now - t_start
-    $statsd.timing("#{StatsHelper::IMPORT}.qa.response_time", elapsed_seconds * 1000)
-
+    result = ''
+    $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
+      format = "%Y-%m-%dT%H:%M:%S"
+      options = {}
+      options['dateFrom'] = args[:dateFrom].strftime(format)
+      options['dateTo'] = args[:dateTo].strftime(format) if args[:dateTo].present?
+      options['status'] = args[:status] if args[:status].present?
+      begin
+        response = @http_client.questions(options)
+        result = parse_questions_xml(response)
+      rescue
+        #TODO return data to view, logs, ignore?
+      end
+    end
     return result
   end
 

@@ -12,7 +12,6 @@ class CommissioningService
     ao = get_action_officer(assignment)
     pq = get_pq_by(assignment)
 
-
     # no accepted/rejected -> change the state to allocated_pending
     update_pq_progress(pq)
 

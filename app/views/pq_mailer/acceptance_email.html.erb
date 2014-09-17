@@ -29,19 +29,20 @@
 </div>
 <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
 
-  <p style="font-family: arial, sans-serif; font-size: 12pt;">You <span style="font-weight: bold;text-decoration: underline">MUST</span> use this <%= mail_to Settings.mail_reply_to, 'draft response', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to ensure that all relevant people are cc’d.</p>
+  <p style="font-family: arial, sans-serif; font-size: 12pt;">You <span style="font-weight: bold;text-decoration: underline">MUST</span> use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.  All relevant people will be cc’d in automatically. Feel free to add to this list if needed.
+  </p>
 
 </div>
 <p style="font-family: arial, sans-serif; font-size: 12pt;">
-    You need to liaise with your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> <% "and #{ mail_to @template_params[:finance_users_emails], 'finance'}" if !@template_params[:finance_users_emails].empty? %> before you send your draft response.  For drafting templates and guidance on how to respond, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ Guidance</a>
+    You will need to liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For drafting templates and guidance on how to respond, refer to the intranet <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>
 </p>
 
-
-<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have further queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a></p>
+<p style="font-family: arial, sans-serif; font-size: 12pt;">If you have further queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a></p>
 
 
 <%= render 'shared/mailer/email_signature' %>
 
+<%= "stuff" %>
 
 </body>
 </html>
