@@ -31,7 +31,7 @@
       <div id='datetimepicker-int-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
         <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline" name="pq[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
         <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-        <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
+        <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received } %>
       </div>
       <%= f.submit 'Update', :class => 'button start-hidden',  :id => "btn-set-deadline-#{question.id}" %>
     <% end %>
@@ -40,7 +40,7 @@
       <h4>Internal deadline</h4>
       <p class="text">
         <%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %>
-        <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress} %>
+        <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received } %>
       </p>
     <% end %>
   <% end %>

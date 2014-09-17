@@ -41,10 +41,10 @@ class ImportService
   end
 
   def process_result(result, q_p, err)
-    if !result[:error].nil?
-      err.push({ message: result[:error], question: result[:question] })
-    else
+    if result[:error].empty?
       q_p.push(result[:question])
+    else
+      err.push({ message: result[:error], question: result[:question] })
     end
   end
 
@@ -67,6 +67,8 @@ class ImportService
     transferred = get_transfer(pq)
     date_for_answer = get_date_for_answer(pq, q['DateForAnswer'])
 
+    status = 'new' if pq.new_record?
+
     pq.update(
         uin: q['Uin'],
         raising_member_id: q['TablingMember']['MemberId'],
@@ -84,13 +86,12 @@ class ImportService
         progress_id: progress_id
     )
 
-    if pq.errors.empty?
-      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.success")
-      yield ({question: q})
+    if pq.previous_changes.empty?
+      status ||= 'unchanged'
     else
-      $statsd.increment("#{StatsHelper::IMPORT}.number_questions_imported.error")
-      yield ({question: q, error: pq.errors.full_messages})
+      status ||= 'changed'
     end
+    yield ({question: q, status: status, error: pq.errors.full_messages})
   end
 
   def get_progress_id(pq)

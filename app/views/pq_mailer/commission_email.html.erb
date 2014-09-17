@@ -10,7 +10,7 @@
     <div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
       <%= @template_params[:question] %>
     </div>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;">Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
+    <p style="font-family: arial, sans-serif; font-size: 12pt;">Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
     <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
         <div style="font-family: arial, sans-serif; font-size: 12pt;">
           You need to <%= link_to "accept or reject this question", controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> <strong>before 2pm today</strong>.
