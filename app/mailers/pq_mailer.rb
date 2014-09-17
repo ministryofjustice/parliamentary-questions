@@ -38,7 +38,8 @@ class PqMailer < PQBaseMailer
 
     # get the finance emails
     @template_params[:finance_users_emails] = finance_users_emails(pq)
-    cc_list.append(@template_params[:finance_users_emails]) if !@template_params[:finance_users_emails].empty?
+    cc_list.append(@template_params[:finance_users_emails])
+
     # merge cc_list and remove blanks
     @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
 

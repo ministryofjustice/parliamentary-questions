@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @p = Progress.where(name: Progress.in_progress_questions)
     @m = Minister.where(deleted: false)
 
-    @counters = Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+    @counters = build_hash
 
     @m.each do |m|
       # calculate the counters
@@ -22,12 +22,11 @@ class ReportsController < ApplicationController
     @p = Progress.where("name != 'Unassigned'")
     @pd = PressDesk.where(deleted: false)
 
-    # auto-vivifying Hash (http://trevoke.net/blog/2009/11/06/auto-vivifying-hashes-in-ruby/)
-    @counters = Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+    @counters = build_hash
 
     @pd.each do |pd|
       # collect Action Officers Ids
-      aos = pd.action_officers.collect{|it| it.id}
+      aos = get_actionofficer_ids_by_press_desk(pd.id)
       # calculate the counters
       @p.each do |p|
         @counters[pd.id][p.id] = PQ_by_press_desk(aos).where('progress_id = ?', p.id).distinct.count
@@ -40,14 +39,13 @@ class ReportsController < ApplicationController
     press_desk_id = params[:press_desk_id]
     progress_id = params[:progress_id]
 
-
-    aos = PressDesk.find(press_desk_id).action_officers.collect{|it| it.id} unless press_desk_id.blank?
+    aos = get_actionofficer_ids_by_press_desk(press_desk_id) unless press_desk_id.blank?
     if !minister_id.blank? || !press_desk_id.blank? || !progress_id.blank?
       pqs = PQ_by_all(aos,minister_id,progress_id)
       @questions_count = pqs.count
       @questions = pqs.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
     end
-  render action: 'filter_all', press_desk_id: press_desk_id, progress_id: progress_id, minister_id: minister_id
+    render action: 'filter_all', press_desk_id: press_desk_id, progress_id: progress_id, minister_id: minister_id
   end
 
   def PQ_by_press_desk(aos)
@@ -74,5 +72,13 @@ class ReportsController < ApplicationController
     @Pqs
   end
 
+  private
+  def build_hash
+    # auto-vivifying Hash (http://trevoke.net/blog/2009/11/06/auto-vivifying-hashes-in-ruby/)
+    Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
+  end
+  def get_actionofficer_ids_by_press_desk(pd_id)
+    PressDesk.find(press_desk_id).action_officers.collect{|it| it.id}
+  end
 
 end
