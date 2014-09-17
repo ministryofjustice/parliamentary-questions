@@ -74,7 +74,6 @@ class Pq < ActiveRecord::Base
     return false
   end
   def is_commissioned
-    puts "PQ Is commissioned? AO PQ Count:" + action_officers_pq.count.to_s + " AO Accepted: " +action_officer_accepted.to_s
     if action_officers_pq.count > 0 && action_officer_accepted.nil? && !is_rejected
       return true
     else

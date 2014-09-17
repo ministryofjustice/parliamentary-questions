@@ -170,7 +170,6 @@ class PQProgressChangerService
   end
 
   def transferred_out(pq)
-    puts "Transfered Out OGD id" + pq.transfer_out_ogd_id.to_s + " Transfered Out Date" + pq.transfer_out_date.to_s
     if !pq.transfer_out_ogd_id.nil? && !pq.transfer_out_date.nil?
       @new_progress =  Progress.transferred_out
       return

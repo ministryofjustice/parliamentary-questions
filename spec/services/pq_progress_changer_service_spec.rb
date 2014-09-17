@@ -512,7 +512,7 @@ describe 'PQProgressChangerService' do
     it 'should not move the question from MINISTER_CLEARED to ANSWERED if pq_withdrawn or answer_submitted not set ' do
       uin = 'TEST1'
       pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',
-                  progress_id: Progress.minister_cleared.id, policy_minister_id: minister_1.id)
+                  progress_id: Progress.pod_query.id, policy_minister_id: minister_1.id)
 
       assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
 
@@ -526,12 +526,13 @@ describe 'PQProgressChangerService' do
                 sent_to_policy_minister: DateTime.now,
                 answering_minister_query: true,
                 cleared_by_policy_minister: DateTime.now,
-                cleared_by_answering_minister: DateTime.now)
+                cleared_by_answering_minister: DateTime.now,
+                progress_id: Progress.minister_cleared.id)
 
       @pq_progress_changer_service.update_progress(pq)
 
-      x = Pq.find_by(uin: uin)
-      x.progress.name.should eq(Progress.MINISTER_CLEARED)
+      pq = Pq.find_by(uin: uin)
+      pq.progress.name.should eq(Progress.MINISTER_CLEARED)
 
     end
 
