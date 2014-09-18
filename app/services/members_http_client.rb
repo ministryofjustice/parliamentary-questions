@@ -17,22 +17,6 @@ class MembersHttpClient
   end
 
   def members(name)
-    parse_members_xml(members_xml(name))
+    XmlParse.get_xml_data(members_xml(name),'Members')
   end
-
-
-  def parse_members_xml(response)
-    xml  = Nokogiri::XML(response)
-    xml.remove_namespaces! # easy to parse if we are only using one namespace
-    member_xml = xml.xpath('//Member')
-
-    members = Array.new
-
-    member_xml.each do |q|
-      item = Hash.from_xml(q.to_xml)
-      members.push(item["Member"])
-    end
-    members
-  end
-
 end
