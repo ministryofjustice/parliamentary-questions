@@ -53,16 +53,12 @@ class PqsController < ApplicationController
     @pq.date_for_answer = update_date_for_answer_params[:date_for_answer]
 
     if @pq.date_for_answer.nil?
-      @pq.date_for_answer_has_passed = FALSE
-      @pq.days_from_date_for_answer = 0
+      @pq.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
+      @pq.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
     else
       @pq.date_for_answer_has_passed = @pq.date_for_answer < Date.today
       @pq.days_from_date_for_answer = (@pq.date_for_answer - Date.today).abs
     end
-
-    puts @pq.date_for_answer
-    puts @pq.date_for_answer_has_passed
-    puts @pq.days_from_date_for_answer
 
     if @pq.save
       return render :nothing=>true
