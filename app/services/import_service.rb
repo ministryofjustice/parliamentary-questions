@@ -136,8 +136,7 @@ class ImportService
   def update_date_for_answer_relatives
     number_of_pqs_date_for_answer_relative_updates = 0
     pqs = Pq.all
-    pqs.each do |this_pq|
-      pq = Pq.find(this_pq.id)
+    pqs.each do |pq|
       if pq.date_for_answer.nil?
         pq.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
         pq.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
