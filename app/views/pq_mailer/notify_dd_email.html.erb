@@ -10,10 +10,12 @@
 <div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
 <%= @template_params[:question] %>
 </div>
-<p style="font-family: arial, sans-serif; font-size: 12pt;">
-    <div>Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</div>
-    <div>To be answered by: <%= @template_params[:answer_by] %></div>
-</p>
+<div>
+    <p>
+        <div style="font-family: arial, sans-serif; font-size: 12pt;">Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</div>
+        <div style="font-family: arial, sans-serif; font-size: 12pt;">To be answered by: <%= @template_params[:answer_by] %></div>
+    </p>
+</div>
 <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
   <div style="font-family: arial, sans-serif; font-size: 12pt;">An accept or reject response is required from them <strong>before 2pm today</strong>.</div>
 </div>
