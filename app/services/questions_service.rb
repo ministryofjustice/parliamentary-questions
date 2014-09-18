@@ -31,9 +31,9 @@ class QuestionsService
       options['status'] = args[:status] if args[:status].present?
       begin
         response = @http_client.questions(options)
-        result = parse_questions_xml(response)
-      rescue
-        #TODO return data to view, logs, ignore?
+        result = XmlParse.get_xml_data(response,'Question')
+      rescue => e
+        puts "e=#{e.inspect}"
       end
     end
     return result
@@ -41,7 +41,7 @@ class QuestionsService
 
   def questions_by_uin(uin)
     response = @http_client.question(uin)
-    questions = parse_questions_xml(response)
+    questions = XmlParse.get_xml_data(response,'Question')
     questions.first
   end
 
@@ -74,21 +74,6 @@ class QuestionsService
 
 
   protected
-
-  def parse_questions_xml(response)
-    xml  = Nokogiri::XML(response)
-    xml.remove_namespaces! # easy to parse if we are only using one namespace
-    questions_xml = xml.xpath('//Question')
-
-    questions = Array.new
-
-    questions_xml.each do |q|
-      item = Hash.from_xml(q.to_xml)
-      questions.push(item["Question"])
-    end
-    questions
-  end
-
 
   def parse_answer_xml(response)
     xml  = Nokogiri::XML(response)
