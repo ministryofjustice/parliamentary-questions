@@ -18,28 +18,21 @@ class CommissionController < ApplicationController
     @pq = Pq.find(pq_id)
     comm = params[:action_officers_pq][:action_officer_id]
 
-    if params[:minister_id].nil? || params[:minister_id].empty?
-      return render text: 'Please select at least the answering minister', status: :bad_request
-    end
+    return render text: 'Please select at least the answering minister', status: :bad_request if invalid_ministers
 
     @pq.minister_id = params[:minister_id]
     @pq.policy_minister_id = params[:policy_minister_id]
 
-    if !@pq.save
-      return render text: 'Error saving minister', status: :bad_request
-    end
+    return render text: 'Error saving minister', status: :bad_request if !@pq.save
 
-    if comm.size==1 && comm.first.empty?
-      return render text: 'Please select at least one Action Officer', status: :bad_request
-    end
-    
+    return render text: 'Please select at least one Action Officer', status: :bad_request if commission_invalid(comm)
+
     comm.each do |ao_id| 
       if !ao_id.empty? 
-        result = assign_one_action_officer(pq_id, ao_id)
         begin
+          result = assign_one_action_officer(pq_id, ao_id)
           if result.nil?
-            flash.now[:error] = "Error in commissioning to #{assignment.action_officer.name}"
-            return render :partial => 'shared/question_assigned', :locals => {question: @pq}
+            raise "Error in commissioning to #{assignment.action_officer.name}"
           end
         rescue => e
           flash.now[:error] = "#{e}"
@@ -47,11 +40,9 @@ class CommissionController < ApplicationController
         end              
       end
     end
-    
-    #flash[:success] = "Successfully allocated #{@pq.uin}"
-    #return redirect_to controller: 'pqs', action: 'show', id: @pq.uin 
-    render :partial => "shared/question_assigned", :locals => {question: @pq}
-  end    
+    render :partial => 'shared/question_assigned', :locals => {question: @pq}
+  end
+
 
   def complete
     @pq = Pq.find_by(uin: params[:id])
@@ -75,4 +66,14 @@ class CommissionController < ApplicationController
       # TODO: Check the permit again
       # params.require(:action_officers_pq).permit(:action_officer_id, :pq_id)
     end
+
+# methods for assign
+
+  def commission_invalid(comm)
+    comm.size==1 && comm.first.empty?
+  end
+
+  def invalid_ministers
+    params[:minister_id].nil? || params[:minister_id].empty?
+  end
 end
