@@ -6,9 +6,9 @@
   </span>
 </div>
 
-<% @answer_target = DateTime.parse(@pq.date_for_answer.to_s).change({ hour: 18, min: 0, sec: 0 })  %>
-
 <% if !@pq.answer_submitted.nil? && !@pq.date_for_answer.nil? %>
+  <% @answer_target = DateTime.parse(@pq.date_for_answer.to_s).change({ hour: 18, min: 0, sec: 0 })  %>
+
   <% if @pq.answer_submitted <= @answer_target  %>
     <p class="text"><i class="fa fa-check-circle"></i>  Answer submitted on time</p>
   <% elsif @pq.answer_submitted > @answer_target  %>
