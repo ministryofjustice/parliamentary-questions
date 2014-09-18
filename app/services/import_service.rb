@@ -63,10 +63,6 @@ class ImportService
   def import_one_question(q, &block)
     pq = Pq.find_or_initialize_by(uin: q['Uin'])
 
-    progress_id = get_progress_id(pq)
-    transferred = get_transfer(pq)
-    date_for_answer = get_date_for_answer(pq, q['DateForAnswer'])
-
     status = 'new' if pq.new_record?
 
     pq.update(
@@ -77,25 +73,25 @@ class ImportService
         member_name: q['TablingMember']['MemberName'],
         member_constituency: q['TablingMember']['Constituency'],
         house_name: q['House']['HouseName'],
-        date_for_answer: date_for_answer,
+        date_for_answer: get_date_for_answer(pq, q['DateForAnswer']),
         registered_interest: q['RegisteredInterest'],
         question_type: q['QuestionType'],
         preview_url: q['Url'],
         question_status: q['QuestionStatus'],
-        transferred: transferred,
-        progress_id: progress_id
+        transferred: get_transfer(pq),
+        progress_id: get_progress_id(pq)
     )
 
-    status = get_changed(status, pq)
+    status ||= get_changed(pq)
 
     yield ({question: q, status: status, error: pq.errors.full_messages})
   end
 
-  def get_changed(cur_status, pq)
+  def get_changed(pq)
     if pq.previous_changes.empty?
-      cur_status ||= 'unchanged'
+      'unchanged'
     else
-      cur_status ||= 'changed'
+      'changed'
     end
   end
 
