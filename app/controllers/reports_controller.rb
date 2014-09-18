@@ -78,7 +78,7 @@ class ReportsController < ApplicationController
     Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
   end
   def get_actionofficer_ids_by_press_desk(pd_id)
-    PressDesk.find(press_desk_id).action_officers.collect{|it| it.id}
+    PressDesk.find(pd_id).action_officers.collect{|it| it.id}
   end
 
 end
