@@ -21,6 +21,11 @@ describe ActionOfficer do
     expect(officer.emails).to eql('action.officer@email.com;group.email@email.com')
   end
 
+  it 'should strip whitespace from emails' do
+    officer.update(email:' action.officer@new.email.com')
+    expect(officer.email).to eql('action.officer@new.email.com')
+
+  end
   describe "associations" do
      
     it "should have a deputy director attribute" do

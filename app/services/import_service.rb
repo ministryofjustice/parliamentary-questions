@@ -63,10 +63,6 @@ class ImportService
   def import_one_question(q, &block)
     pq = Pq.find_or_initialize_by(uin: q['Uin'])
 
-    progress_id = get_progress_id(pq)
-    transferred = get_transfer(pq)
-    date_for_answer = get_date_for_answer(pq, q['DateForAnswer'])
-
     status = 'new' if pq.new_record?
 
     pq.update(
@@ -77,21 +73,26 @@ class ImportService
         member_name: q['TablingMember']['MemberName'],
         member_constituency: q['TablingMember']['Constituency'],
         house_name: q['House']['HouseName'],
-        date_for_answer: date_for_answer,
+        date_for_answer: get_date_for_answer(pq, q['DateForAnswer']),
         registered_interest: q['RegisteredInterest'],
         question_type: q['QuestionType'],
         preview_url: q['Url'],
         question_status: q['QuestionStatus'],
-        transferred: transferred,
-        progress_id: progress_id
+        transferred: get_transfer(pq),
+        progress_id: get_progress_id(pq)
     )
 
-    if pq.previous_changes.empty?
-      status ||= 'unchanged'
-    else
-      status ||= 'changed'
-    end
+    status ||= get_changed(pq)
+
     yield ({question: q, status: status, error: pq.errors.full_messages})
+  end
+
+  def get_changed(pq)
+    if pq.previous_changes.empty?
+      'unchanged'
+    else
+      'changed'
+    end
   end
 
   def get_progress_id(pq)
@@ -112,16 +113,19 @@ class ImportService
 
     date_for_answer
   end
+  
+  def get_pqs_to_move
+    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
+    Pq.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
+  end
 
   def move_questions_from_accepted_to_draft_pending
-    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
     progress_id = Progress.draft_pending.id
-
     number_of_questions_moved = 0
-    pqs = Pq.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
+
+    pqs = get_pqs_to_move
     pqs.each do |pq_relation|
-      pq = Pq.find(pq_relation.id)
-      pq.update(progress_id: progress_id )
+      pq_relation.update(progress_id: progress_id )
       number_of_questions_moved +=1
     end
 
@@ -132,11 +136,10 @@ class ImportService
   def update_date_for_answer_relatives
     number_of_pqs_date_for_answer_relative_updates = 0
     pqs = Pq.all
-    pqs.each do |this_pq|
-      pq = Pq.find(this_pq.id)
+    pqs.each do |pq|
       if pq.date_for_answer.nil?
-        pq.date_for_answer_has_passed = FALSE
-        pq.days_from_date_for_answer = 0
+        pq.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
+        pq.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
       else
         pq.date_for_answer_has_passed = pq.date_for_answer < Date.today
         pq.days_from_date_for_answer = (pq.date_for_answer - Date.today).abs
@@ -148,5 +151,4 @@ class ImportService
     Rails.logger.info "Import process, updated #{number_of_pqs_date_for_answer_relative_updates} questions with date_for_answer_relatives"
     number_of_pqs_date_for_answer_relative_updates
   end
-
 end	

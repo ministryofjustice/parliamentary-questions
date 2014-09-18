@@ -63,40 +63,35 @@ class ExportController < ApplicationController
   end
 
   def pq_data_to_hash(pq,ao)
-    ao_name = get_ao_name(ao)
-    ao_email = get_ao_email(ao)
-    division = get_original_division(pq)
-    directorate = get_original_directorate(pq)
-    minister_name = get_minister(pq)
-    [
-        pq.member_name,           # 'MP',
-        '',                       # 'Record Number',
-        ao_name,                  # 'Action Officer',
-        format(pq.answer_submitted),         # 'Date response answered by Parly (dept)',
-        format(pq.internal_deadline),        # 'Draft due to Parly Branch',
-        format(pq.tabled_date),              # 'Date First Appeared in Parliament',
-        format(pq.date_for_answer),          # 'Date Due in Parliament',
-        format(pq.resubmitted_to_answering_minister),             # 'Date resubmitted to Minister (if appliable)',
-        format(pq.answering_minister_returned_by_action_officer), # 'Date returned by AO (if applicable)',
-        format(pq.draft_answer_received),                         # 'Date Draft Returned to PB',
-        format(pq.answering_minister_to_action_officer),          # 'Date sent back to AO (if applicable)',
-        format(pq.sent_to_answering_minister),                    # 'Date delivered to Minister',
-        format(pq.cleared_by_answering_minister),                 # 'Returned signed from Minister',
-        directorate,                 # 'Directorate',
-        division,                    # 'Division',
-        pq.answer,                   # 'Final Response',
-        pq.question,                 # 'Full_PQ_subject',
-        '',                          # 'Delay Reason',
-        minister_name,               # 'Minister',
-        pq.answering_minister_query, # 'Ministerial Query? (if applicable)',
-        pq.uin,                      # 'PIN',
-        format(pq.pod_clearance),    # '"Date/time of POD clearance"',
-        pq.pod_query_flag,           # 'PODquery',
-        pq.finance_interest,         # 'Requested by finance',
-        '',                          # 'Requested by HR',
-        '',                          # 'Requested by Press',
-        pq.question_type,            # 'Type of Question',
-        ao_email,                    # 'AO Email'
+    pq_dates = format_pq_dates(pq)
+    [ pq.member_name,               # 'MP',
+      '',                           # 'Record Number',
+      get_ao_name(ao),              # 'Action Officer',
+      pq_dates[:as],                # 'Date response answered by Parly (dept)',
+      pq_dates[:id],                # 'Draft due to Parly Branch',
+      pq_dates[:td],                # 'Date First Appeared in Parliament',
+      pq_dates[:dfa],               # 'Date Due in Parliament',
+      pq_dates[:rtam],              # 'Date resubmitted to Minister (if appliable)',
+      pq_dates[:amrbao],            # 'Date returned by AO (if applicable)',
+      pq_dates[:dar],               # 'Date Draft Returned to PB',
+      pq_dates[:amtao],             # 'Date sent back to AO (if applicable)',
+      pq_dates[:stam],              # 'Date delivered to Minister',
+      pq_dates[:cbam],              # 'Returned signed from Minister',
+      get_original_directorate(pq), # 'Directorate',
+      get_original_division(pq),    # 'Division',
+      pq.answer,                    # 'Final Response',
+      pq.question,                  # 'Full_PQ_subject',
+      '',                           # 'Delay Reason',
+      get_minister(pq),             # 'Minister',
+      pq.answering_minister_query,  # 'Ministerial Query? (if applicable)',
+      pq.uin,                       # 'PIN',
+      pq_dates[:pc],                # '"Date/time of POD clearance"',
+      pq.pod_query_flag,            # 'PODquery',
+      pq.finance_interest,          # 'Requested by finance',
+      '',                           # 'Requested by HR',
+      '',                           # 'Requested by Press',
+      pq.question_type,             # 'Type of Question',
+      get_ao_email(ao)              # 'AO Email'
     ]
   end
   def get_original_division(pq)
@@ -120,5 +115,21 @@ class ExportController < ApplicationController
       return ''
     end
     datetime.strftime(datetime_format)
+  end
+
+  def format_pq_dates(pq)
+    [
+        as: format(pq.answer_submitted),         # 'Date response answered by Parly (dept)',
+        id: format(pq.internal_deadline),        # 'Draft due to Parly Branch',
+        td: format(pq.tabled_date),              # 'Date First Appeared in Parliament',
+        dfa: format(pq.date_for_answer),          # 'Date Due in Parliament',
+        rtam: format(pq.resubmitted_to_answering_minister),             # 'Date resubmitted to Minister (if appliable)',
+        amrbao: format(pq.answering_minister_returned_by_action_officer), # 'Date returned by AO (if applicable)',
+        dar: format(pq.draft_answer_received),                         # 'Date Draft Returned to PB',
+        amtao: format(pq.answering_minister_to_action_officer),          # 'Date sent back to AO (if applicable)',
+        stam: format(pq.sent_to_answering_minister),                    # 'Date delivered to Minister',
+        cbam: format(pq.cleared_by_answering_minister),                 # 'Returned signed from Minister',
+        pc: format(pq.pod_clearance),     # '"Date/time of POD clearance"',
+    ]
   end
 end

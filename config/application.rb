@@ -26,9 +26,8 @@ module ParliamentaryQuestions
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/scrapers)
-    config.autoload_paths << Rails.root.join('lib')
 
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     config.active_record.schema_format = :sql
 

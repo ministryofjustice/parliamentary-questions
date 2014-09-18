@@ -2,8 +2,6 @@ class TrimLinksController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def create
-    accepted_formats = [".tr5"]
-    @pq = Pq.find(trim_link_params[:pq_id])
     result = {
         :message => '',
         :status => 'failure',
@@ -14,29 +12,22 @@ class TrimLinksController < ApplicationController
     else
       uploaded_io = trim_link_params[:file_data]
       filename = uploaded_io.original_filename
-      if accepted_formats.include? File.extname(filename)
+      if ['.tr5'].include? File.extname(filename)
         data = uploaded_io.read
-        size = data.size
-        @trim_link = TrimLink.new(:data => data, :filename => filename, :size => size, :pq_id => trim_link_params[:pq_id])
+        @trim_link = TrimLink.new(:data => data, :filename => filename, :size => data.size, :pq_id => trim_link_params[:pq_id])
         if @trim_link.save
-          # flash.now[:success] = 'Trim link was successfully created.'
-          result[:message]='Trim link was successfully created.'
-          result[:status]='success'
-          result[:link]=url_for trim_link_path(@trim_link)
+          result = {
+              :message => 'Trim link was successfully created.',
+              :status => 'success',
+              :link => "#{url_for trim_link_path(@trim_link)}"
+          }
         else
-          # flash.now[:error] = "Could not add Trim link. #{@trim_link.errors}"
           result[:message]="Could not add Trim link. #{@trim_link.errors}"
         end
       else
-        # flash.now[:error] = 'Could not add Trim link. File must be tr5'
         result[:message]='Could not add Trim link. File must be tr5'
       end
     end
-    # respond_to do |format|
-    #   format.html  { return render :partial => 'shared/trim_links', :locals => {question: @pq}}
-    #   format.json  { return render :json => result.as_json }
-    # end
-    #return render :partial => 'shared/trim_links', :locals => {question: @pq}
     return render json: result.as_json
   end
 
@@ -51,4 +42,5 @@ class TrimLinksController < ApplicationController
     def trim_link_params
       params.require(:trim_link).permit(:file_data, :pq_id)
     end
+
 end
