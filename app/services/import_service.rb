@@ -86,12 +86,17 @@ class ImportService
         progress_id: progress_id
     )
 
-    if pq.previous_changes.empty?
-      status ||= 'unchanged'
-    else
-      status ||= 'changed'
-    end
+    status = get_changed(status, pq)
+
     yield ({question: q, status: status, error: pq.errors.full_messages})
+  end
+
+  def get_changed(cur_status, pq)
+    if pq.previous_changes.empty?
+      cur_status ||= 'unchanged'
+    else
+      cur_status ||= 'changed'
+    end
   end
 
   def get_progress_id(pq)
