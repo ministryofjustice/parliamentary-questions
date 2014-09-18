@@ -113,16 +113,19 @@ class ImportService
 
     date_for_answer
   end
+  
+  def get_pqs_to_move
+    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
+    Pq.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
+  end
 
   def move_questions_from_accepted_to_draft_pending
-    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
     progress_id = Progress.draft_pending.id
-
     number_of_questions_moved = 0
-    pqs = Pq.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
+
+    pqs = get_pqs_to_move
     pqs.each do |pq_relation|
-      pq = Pq.find(pq_relation.id)
-      pq.update(progress_id: progress_id )
+      pq_relation.update(progress_id: progress_id )
       number_of_questions_moved +=1
     end
 
