@@ -27,17 +27,14 @@ class CommissionController < ApplicationController
 
     return render text: 'Please select at least one Action Officer', status: :bad_request if commission_invalid(comm)
 
-    comm.each do |ao_id| 
-      if !ao_id.empty? 
-        begin
-          result = assign_one_action_officer(pq_id, ao_id)
-          if result.nil?
-            raise "Error in commissioning to #{assignment.action_officer.name}"
-          end
-        rescue => e
-          flash.now[:error] = "#{e}"
-          return render :partial => 'shared/question_assigned', :locals => {question: @pq}
-        end              
+    get_non_empty_commissions(comm).each do |ao_id|
+      begin
+        if assign_one_action_officer(pq_id, ao_id).nil?
+          raise "Error in commissioning to #{assignment.action_officer.name}"
+        end
+      rescue => e
+        flash.now[:error] = "#{e}"
+        return render :partial => 'shared/question_assigned', :locals => {question: @pq}
       end
     end
     render :partial => 'shared/question_assigned', :locals => {question: @pq}
@@ -75,5 +72,9 @@ class CommissionController < ApplicationController
 
   def invalid_ministers
     params[:minister_id].nil? || params[:minister_id].empty?
+  end
+
+  def get_non_empty_commissions(comm)
+    comm.reject!(&:blank?)
   end
 end
