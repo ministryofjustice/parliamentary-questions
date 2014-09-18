@@ -34,7 +34,7 @@ class CommissionController < ApplicationController
         end
       rescue => e
         flash.now[:error] = "#{e}"
-        return render :partial => 'shared/question_assigned', :locals => {question: @pq}
+        break
       end
     end
     render :partial => 'shared/question_assigned', :locals => {question: @pq}
