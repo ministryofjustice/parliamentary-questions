@@ -3,7 +3,7 @@ class Pq < ActiveRecord::Base
   before_update :set_pod_waiting
 
 	validates :uin , presence: true, uniqueness:true
-	validates :raising_member_id, presence:true
+  validates :raising_member_id, presence:true
 	validates :question, presence:true
 
   has_many :trim_links
@@ -17,9 +17,14 @@ class Pq < ActiveRecord::Base
   belongs_to :transfer_in_ogd, :class_name=>'Ogd', :foreign_key => 'transfer_in_ogd_id'
 
   after_initialize :init
+  before_validation :strip_uin_whitespace
 
   def init
     self.seen_by_finance ||= false           #will set the default value only if it's nil
+  end
+
+  def strip_uin_whitespace
+    self.uin = uin.strip.gsub(/\s/,'') if !uin.nil?
   end
 
   def is_in_progress?(pro)
