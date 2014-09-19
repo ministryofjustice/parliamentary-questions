@@ -7,12 +7,10 @@ class SearchController  < ApplicationController
     end
 
     uin = params[:search]
-    # pq = Pq.find_by(uin: uin)
-    pq = Pq.where("lower(uin) = :p", p: uin.downcase)
-    puts 'argh'
-    # "lower(name) = ?", name.downcase]
 
-    if pq.nil?
+    pq = Pq.where("lower(uin) = :p", p: uin.downcase)
+
+    if pq.nil? || pq.size==0
       flash[:notice] = "The Question with UIN '#{uin}' not found"
       return redirect_to controller: 'dashboard', action: 'index'
     end
