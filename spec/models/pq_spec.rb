@@ -42,7 +42,19 @@ describe Pq do
 			expect(newQ).to be_valid
 			newQ.finance_interest=false
 			expect(newQ).to be_valid
-		end
+    end
+    it 'should strip any whitespace from uins' do
+      newQ.update(uin: ' hl1234' )
+      expect(newQ).to be_valid
+      expect(newQ.uin).to eql('hl1234')
+      newQ.update(uin: 'hl1234 ' )
+      expect(newQ).to be_valid
+      expect(newQ.uin).to eql('hl1234')
+      newQ.update(uin: ' hl1 234' )
+      expect(newQ).to be_valid
+      expect(newQ.uin).to eql('hl1234')
+    end
+
 	end
 	describe 'item' do
 		it 'should allow finance interest to be set' do
