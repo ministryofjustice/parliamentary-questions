@@ -18,7 +18,7 @@
         <label class="form-label">Assign action officer(s)</label>
         <%= collection_select(:action_officers_pq, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers form-control', :id => "action_officers_pq_action_officer_id-#{question.id}", :disabled => disable }) %>
         <%= f.hidden_field(:pq_id , :value => question.id, :id=>"pq_id-actoff-#{question.id}") %><br />
-        <%= f.submit 'Commission', :class => 'button', :disabled => disable %>
+        <%= f.submit 'Commission', :class => 'button', :disabled => disable, data: { disable_with: 'Commissioning...' } %>
       </div>
     </fieldset>
   <% end %>
