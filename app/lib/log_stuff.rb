@@ -1,7 +1,5 @@
 require 'thread'
 
-puts "Boom"
-
 class LogStuff
 
   NAMESPACE = :log
