@@ -30,7 +30,7 @@ class WatchlistReportService
     end
     template[:cc] = watchlist_cc
 
-    Rails.logger.info { "Watchlist  email to #{template[:email]} (name #{template[:name]}) [CCd to #{template[:cc]}]" }
+    LogStuff.info { "Watchlist  email to #{template[:email]} (name #{template[:name]}) [CCd to #{template[:cc]}]" }
     PqMailer.watchlist_email(template).deliver
     return token
 

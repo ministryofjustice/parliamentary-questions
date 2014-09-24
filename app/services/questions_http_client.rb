@@ -14,7 +14,7 @@ class QuestionsHttpClient
   def questions(options = {})
     endpoint = URI::join(@base_url, '/api/qais/questions')
     begin
-      Rails.logger.info { "Import: requesting questions from #{endpoint} with options #{options.inspect}"}
+      LogStuff.info { "Import: requesting questions from #{endpoint} with options #{options.inspect}"}
       response = @client.get(endpoint, options)
       if response.status_code==200
         response.content
@@ -57,7 +57,7 @@ class QuestionsHttpClient
   end
   private
   def rails_log_and_raise_error(log_msg, error_msg)
-    Rails.logger.info log_msg
+    LogStuff.info log_msg
     $statsd.increment "#{StatsHelper::IMPORT_ERROR}"
     raise error_msg
   end
