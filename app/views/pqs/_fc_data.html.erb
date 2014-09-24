@@ -3,11 +3,7 @@
 <% else %>
 	<p class="text"><i class="fa fa-times-circle"></i> PQ not viewed</p>
 <% end %>
-<div class="form-group">
-	<label for="pq_seen_by_finance" class="block-label">
-		<%= f.check_box(:seen_by_finance) %>
-    	Seen by finance
-	</label>
-</div>
 
-<%= f.gds_check_box(:finance_interest) %>
+<%= f.check_box_gds :seen_by_finance %>
+
+<%= f.check_box_gds :finance_interest %>

@@ -15,12 +15,9 @@
     <p class="text"><i class="fa fa-thumbs-o-down"></i> Answer NOT submitted on time</p>
   <% end %>
 <% end %>
-<div class="form-group">
-  <label for="pq_library_deposit" class="block-label">
-    <%= f.check_box(:library_deposit) %>
-    Library deposit
-  </label>
-</div>
+
+<%= f.check_box_gds :library_deposit %>
+
 <div class="form-group">
   <label for="pq_withdrawn" class="form-label">Date PQ withdrawn</label>
   <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
@@ -28,14 +25,11 @@
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
   </span>
 </div>
-<div class="form-group">
-  <label for="pq_holding_reply_flag" class="block-label">
-    <%= f.check_box(:holding_reply_flag) %>
-    Holding reply flag
-  </label>
-</div>
+
+<%= f.check_box_gds :holding_reply_flag %>
+
 <% if @pq.i_will_write %>
-  <%= link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button', title: 'Send a reminder email to do the draft'} %>
+  <%= link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button', title: 'Create an ''I will write'' follow up'} %>
 <% end %>
 <div class="form-group">
   <label for="pq_final_response_info_released" class="form-label">Final response information released</label>
