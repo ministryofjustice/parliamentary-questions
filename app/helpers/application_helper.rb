@@ -6,21 +6,19 @@ module ApplicationHelper
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Helpers::CaptureHelper
     include ActionView::Helpers::AssetTagHelper
-    def gds_check_box(attribute_name, *args)
-      @template.content_tag 'div', class:'form-group wibble' do
 
-
-        @template.content_tag 'label', 'text', class: 'wibblelabel', for: 'a_control' do end
-
-
-        @template.content_tag 'label', class: 'block-label selected', for: "#{@object_name}[#{attribute_name}]" do
-          # options = args.extract_options!
-          # options[:include_hidden] = false
-          # args << options
-          @template.hidden_field_tag @object_name, attribute_name , value: '0'
-          check_box_tag("#{@object_name}[#{attribute_name}]") + @object.class.human_attribute_name(attribute_name)
-        end
-      end
+    def check_box_gds(attribute_name, *args)
+      checked = 'checked="checked"' if @template.check_box(@object_name, attribute_name).include? 'checked="checked"'
+      html = <<-HTML
+      <div class="form-group">
+        <input type="hidden" name="#{@object_name}[#{attribute_name}]" value=0 />
+      	<label for="#{@object_name}_#{attribute_name}" class="block-label">
+         <input id="#{@object_name}_#{attribute_name}" name="#{@object_name}[#{attribute_name}]" type="checkbox" value="1" #{checked}/>
+          #{@object.class.human_attribute_name(attribute_name)}
+      	</label>
+      </div>
+      HTML
+      html.html_safe
     end
   end
 
