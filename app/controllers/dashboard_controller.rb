@@ -13,7 +13,12 @@ class DashboardController < ApplicationController
 
 
   def index
-    @questions = paginate_collection(Pq.new_questions)
+    LogStuff.metadata(:request_id => request.env['action_dispatch.request_id']) do
+      LogStuff.tag(:dashboard) do
+        LogStuff.info { "Showing dashboard" }
+        @questions = paginate_collection(Pq.new_questions)
+      end
+    end
   end
 
   def in_progress
