@@ -42,7 +42,7 @@ class ImportServiceWithDatabaseLock
 
     breakdown = "[new=#{questions_by_state['new']},changed=#{questions_by_state['changed']}]"
     msg="#{runner}: [#{elapsed_seconds} seconds] Questions imported #{questions_imported} #{breakdown}, Errors  #{errors_count}"
-    Rails.logger.info { "Importing  #{msg}" }
+    LogStuff.info { "Importing  #{msg}" }
     create_import_log('FINISH', msg)
 
     {msg: msg, log_type: 'FINISH'}
@@ -90,7 +90,7 @@ class ImportServiceWithDatabaseLock
     end
 
     # # There is a problem with the lock logic - hacking it in here temporarily
-    Rails.logger.info { "Import: unable to obtain lock - continuing anyway" }
+    LogStuff.info { "Import: unable to obtain lock - continuing anyway" }
     # return true
     return false
   end

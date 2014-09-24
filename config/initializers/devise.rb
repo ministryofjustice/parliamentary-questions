@@ -313,12 +313,12 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
   Warden::Manager.after_authentication do |user,auth,opts|
-    Rails.logger.info "AUTH-LOG-IN: user #{user.email}, log in"
+    LogStuff.info "AUTH-LOG-IN: user #{user.email}, log in"
     $statsd.increment 'login'
   end
 
   Warden::Manager.before_logout do |user,auth,opts|
-    Rails.logger.info "AUTH-LOG-OUT: user #{user.email}, log out"
+    LogStuff.info "AUTH-LOG-OUT: user #{user.email}, log out"
   end
 
 end
