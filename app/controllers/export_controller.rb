@@ -118,7 +118,7 @@ class ExportController < ApplicationController
   end
 
   def format_pq_dates(pq)
-    [
+    {
         as: format(pq.answer_submitted),         # 'Date response answered by Parly (dept)',
         id: format(pq.internal_deadline),        # 'Draft due to Parly Branch',
         td: format(pq.tabled_date),              # 'Date First Appeared in Parliament',
@@ -130,6 +130,6 @@ class ExportController < ApplicationController
         stam: format(pq.sent_to_answering_minister),                    # 'Date delivered to Minister',
         cbam: format(pq.cleared_by_answering_minister),                 # 'Returned signed from Minister',
         pc: format(pq.pod_clearance),     # '"Date/time of POD clearance"',
-    ]
+    }
   end
 end
