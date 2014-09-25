@@ -3,7 +3,7 @@
 <div id="admin-wm-list">
   <div class="row>">
     <div class="col-md-6.5 pull-right">
-      <%= link_to ('Send allocation info'), {controller: 'watchlist_send_emails', action: 'send_emails'}, {class: 'button'} %>&nbsp;
+      <%= link_to ('Send allocation info'), {controller: 'watchlist_send_emails', action: 'send_emails'}, {class: 'button', :onclick=> "ga('send', 'event', 'settings', 'watchlist', 'send allocation info');" }%>&nbsp;
       <%= link_to ('Add watchlist member'), new_watchlist_member_path, {class: 'button-secondary'} %>&nbsp;
       <%= link_to ('Watchlist preview'), {controller: 'watchlist_dashboard', action: 'preview'}, {class: 'button-secondary'} %>
     </div>
