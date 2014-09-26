@@ -28,7 +28,7 @@ cat <<EOT
       }
     },
     {
-      "paths": [ "/rails/log/logstash_production.log" ],
+      "paths": [ "/rails/log/logstash_production.json" ],
       "fields": {
         "format": "json",
         "project": "$PROJECT",
