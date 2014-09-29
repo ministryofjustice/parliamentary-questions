@@ -10,7 +10,7 @@ class ImportService
 
     questions = @questionsService.questions(args)
 
-    Rails.logger.info { "Import: obtained #{questions.count} from API" }
+    LogStuff.info { "Import: obtained #{questions.count} from API" }
     questions.each do |q|
       import_one_question(q, &block)
     end
@@ -129,7 +129,7 @@ class ImportService
       number_of_questions_moved +=1
     end
 
-    Rails.logger.info "Import process, moved #{number_of_questions_moved} questions from Allocated Accepted"
+    LogStuff.info "Import process, moved #{number_of_questions_moved} questions from Allocated Accepted"
     number_of_questions_moved
   end
 
@@ -148,7 +148,7 @@ class ImportService
       number_of_pqs_date_for_answer_relative_updates +=1
     end
 
-    Rails.logger.info "Import process, updated #{number_of_pqs_date_for_answer_relative_updates} questions with date_for_answer_relatives"
+    LogStuff.info "Import process, updated #{number_of_pqs_date_for_answer_relative_updates} questions with date_for_answer_relatives"
     number_of_pqs_date_for_answer_relative_updates
   end
 end	

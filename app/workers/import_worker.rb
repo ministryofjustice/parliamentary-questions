@@ -17,10 +17,12 @@ class ImportWorker
   end
 
   def perform
-    Rails.logger.info { "Import: starting scheduled import" }
-    @import_service.questions(dateFrom: Date.yesterday)
-    Rails.logger.info { "Import: completed scheduled import" }
-  
+    LogStuff.tag(:import) do
+      LogStuff.info { "Import: starting scheduled import" }
+      @import_service.questions(dateFrom: Date.yesterday)
+      LogStuff.info { "Import: completed scheduled import" }
+    end
+
   end
 
 end

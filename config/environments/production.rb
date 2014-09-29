@@ -51,12 +51,6 @@ ParliamentaryQuestions::Application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Logstasher configuration
-  config.logstasher.enabled = true
-  config.logstasher.suppress_app_log = false
-  # This line is optional, it allows you to set a custom value for the @source field of the log event
-  # config.logstasher.source = 'your.arbitrary.source'
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   if ENV['ASSET_HOST']
     config.action_controller.asset_host = ENV['ASSET_HOST']
