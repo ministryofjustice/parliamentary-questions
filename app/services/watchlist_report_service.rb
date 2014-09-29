@@ -2,11 +2,15 @@ class WatchlistReportService
 
   def initialize(tokenService = TokenService.new)
     @tokenService = tokenService
+    @@timestamp = DateTime.now.to_s
   end
 
+  def timestamp
+    @@timestamp
+  end
 
   def entity
-    "watchlist-" + DateTime.now.to_s
+    "watchlist-" + @@timestamp
   end
 
   def send
