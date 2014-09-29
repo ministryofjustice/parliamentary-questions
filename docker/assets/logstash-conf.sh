@@ -3,26 +3,19 @@ cat <<EOT
 
   input {
     file {
-      path => "/rails/log/unicorn.log"
-      type => "rails"
+      path  => "/var/log/nginx/error.log"
+      type  => "assets"
       add_field => [ "project",   "$PROJECT" ]
-      add_field => [ "appserver", "rails" ]
+      add_field => [ "appserver", "assets" ]
       add_field => [ "version",   "$APPVERSION" ]
       add_field => [ "env",       "$ENV" ]
     }
     file {
-      path => "/rails/log/production.log"
-      type => "rails"
+      path  => "/var/log/nginx/access.json"
+      type  => "assets"
+      codec => "json"
       add_field => [ "project",   "$PROJECT" ]
-      add_field => [ "appserver", "rails" ]
-      add_field => [ "version",   "$APPVERSION" ]
-      add_field => [ "env",       "$ENV" ]
-    }
-    file {
-      path => "/rails/log/logstash_production.json"
-      type => "rails"
-      add_field => [ "project",   "$PROJECT" ]
-      add_field => [ "appserver", "rails" ]
+      add_field => [ "appserver", "assets" ]
       add_field => [ "version",   "$APPVERSION" ]
       add_field => [ "env",       "$ENV" ]
       add_field => [ "format",    "json" ]
