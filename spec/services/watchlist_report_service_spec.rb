@@ -17,7 +17,8 @@ describe 'WatchlistReportService' do
     @report_service.send()
 
     # first watchlist member
-    token = Token.where(entity: "watchlist-" + DateTime.now.to_s, path: '/watchlist/dashboard').first
+    token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
+
     token.should_not be nil
     token.id.should_not be nil
     token.token_digest.should_not be nil
@@ -27,7 +28,7 @@ describe 'WatchlistReportService' do
 
 
     # second watchlist member
-    token = Token.where(entity: "watchlist-" + DateTime.now.to_s, path: '/watchlist/dashboard').first
+    token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
     token.should_not be nil
     token.id.should_not be nil
     token.token_digest.should_not be nil
