@@ -17,8 +17,8 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li></li>
-                  <li><%= link_to 'Minister report', reports_ministers_by_progress_path %> </li>
-                  <li><%= link_to 'Press desk report', reports_press_desk_by_progress_path %> </li>
+                  <li><%= link_to 'Minister report', reports_ministers_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Minister Report')" %> </li>
+                  <li><%= link_to 'Press desk report', reports_press_desk_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Press Desk Report')" %> </li>
                   <li><%= link_to 'PQ filter', reports_filter_all_path %> </li>
                 </ul>
             </li>

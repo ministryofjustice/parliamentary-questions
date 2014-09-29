@@ -20,7 +20,7 @@
       </div>
     </fieldset>
     <div class="form-group">
-      <%= submit_tag 'Download CSV' , class: 'button'%>
+      <%= submit_tag 'Download CSV' , class: 'button' , :onclick=> "ga('send', 'event', 'tasks', 'download', 'pq csv');" %>
     </div>
   <% end %>
 </div>
