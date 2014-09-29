@@ -31,7 +31,7 @@
           <%= select_tag 'progress_id', content_tag(:option,'Select a progress',:value=>'') + options_from_collection_for_select(Progress.all, 'id', 'name', params[:progress_id] ) %>
         </div>
         <div class="form-group">
-          <%= submit_tag 'Report' , class: 'button'%>&nbsp;<%= link_to 'Reset', reports_filter_all_path, class: 'button-secondary' %>
+          <%= submit_tag 'Report' , class: 'button' , :onclick=> "ga('send', 'event', 'reports', 'view', 'pq filter')" %>&nbsp;<%= link_to 'Reset', reports_filter_all_path, class: 'button-secondary' %>
         </div>
       </fieldset>
     <% end %>
