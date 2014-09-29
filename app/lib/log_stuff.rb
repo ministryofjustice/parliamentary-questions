@@ -37,7 +37,7 @@ class LogStuff
 
       event = LogStash::Event.new('@source' => LogStasher.source,
                                   '@severity' => severity,
-                                  '@message' => msg,
+                                  'message' => msg,
                                   '@tags' => get_thread_current(:current_tags),
                                   '@fields' => get_thread_current(:current_fields)
                                   )
