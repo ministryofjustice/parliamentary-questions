@@ -14,7 +14,7 @@ CMD ["/sbin/my_init"]
 ADD docker/assets/nginx.conf /etc/nginx/nginx.conf
 ADD public /srv/http
 
-ADD docker/assets/logstash-forwarder.sh /etc/logstash-forwarder.sh
+ADD docker/assets/logstash-conf.sh /etc/logstash-conf.sh
 
 # install service files for runit
 ADD docker/assets/nginx.service /etc/service/nginx/run
