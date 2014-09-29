@@ -43,7 +43,7 @@ class LogStuff
                                   )
       LogStasher.logger << event.to_json + "\n"
     else
-      Rails.logger.log(severity, message, progname, &block)
+      Rails.logger.send(severity, message, progname, &block)
     end
   end
 
