@@ -19,9 +19,8 @@ cat <<EOT
       add_field => [ "env",       "$ENV" ]
     }
     file {
-      path  => "/rails/log/logstash_production.json"
-      type  => "rails"
-      codec => "json"
+      path => "/rails/log/logstash_production.json"
+      type => "rails"
       add_field => [ "project",   "$PROJECT" ]
       add_field => [ "appserver", "rails" ]
       add_field => [ "version",   "$APPVERSION" ]
