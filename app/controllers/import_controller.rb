@@ -43,7 +43,7 @@ class ImportController < ApplicationController
 
 
   def logs
-    @logs = ImportLog.all
+    @logs = ImportLog.all.order('id')
     render :partial => 'import_log'
   end
 
