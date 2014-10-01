@@ -54,7 +54,7 @@ describe 'AssignmentService' do
 
       expect(assignment.versions.size).to eql(2) # Create and update
       update = assignment.versions.last
-      expect(update.whodunnit).to eql('ao name 1')
+      expect(update.whodunnit).to eql('AO:ao name 1')
     end
 
     it 'should sent an email with the accept data' do
@@ -218,7 +218,7 @@ describe 'AssignmentService' do
 
       expect(assignment.versions.size).to eql(2) # Create and update
       update = assignment.versions.last
-      expect(update.whodunnit).to eql('ao name 1')
+      expect(update.whodunnit).to eql('AO:ao name 1')
     end
 
     it 'should set the progress to rejected' do
