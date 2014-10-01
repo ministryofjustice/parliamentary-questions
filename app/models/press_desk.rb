@@ -1,4 +1,5 @@
 class PressDesk < ActiveRecord::Base
+  has_paper_trail
 	validates :name, uniqueness: true, presence: true
 	has_many :action_officers
 	has_many :press_officers

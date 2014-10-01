@@ -1,4 +1,5 @@
 class Progress < ActiveRecord::Base
+  has_paper_trail
   has_many :pqs
 
 
