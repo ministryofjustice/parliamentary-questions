@@ -6,7 +6,7 @@ class AssignmentService
     ao = ActionOfficer.find(assignment.action_officer_id)
     pq = Pq.find_by(id: assignment.pq_id)
 
-    changed_by = "#{ao.name}"
+    changed_by = "AO:#{ao.name}"
 
     assignment.whodunnit(changed_by) do
       assignment.update_attributes(accept: true, reject: false)
@@ -30,7 +30,7 @@ class AssignmentService
     ao = ActionOfficer.find(assignment.action_officer_id)
     pq = Pq.find_by(id: assignment.pq_id)
 
-    changed_by = "#{ao.name}"
+    changed_by = "AO:#{ao.name}"
 
     assignment.whodunnit(changed_by) do
       assignment.update_attributes(accept: false, reject: true, reason_option: response.reason_option, reason: response.reason)
