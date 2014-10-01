@@ -1,4 +1,5 @@
 class DeputyDirector < ActiveRecord::Base
+  has_paper_trail
 	validates :division_id, presence: true
 
 	has_many :action_officers
