@@ -27,6 +27,11 @@ class Pq < ActiveRecord::Base
     self.uin = uin.strip.gsub(/\s/,'') if !uin.nil?
   end
 
+  def commissioned?
+    action_officers_pq.size > 0 &&
+        action_officers_pq.rejected.size != action_officers_pq.size
+  end
+
   def is_in_progress?(pro)
     progress_id == pro.id
   end
