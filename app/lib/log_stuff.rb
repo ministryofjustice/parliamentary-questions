@@ -59,7 +59,7 @@ class LogStuff
 
   def self.tag(*tags, &block)
     original_tags = get_thread_current(:current_tags)
-    current_tags = get_thread_current(:current_tags) + tags.flatten
+    current_tags = original_tags.dup + tags.flatten
     set_thread_current(:current_tags, current_tags)
     yield
     set_thread_current(:current_tags, original_tags)
