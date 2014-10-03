@@ -8,6 +8,10 @@ describe CommissionForm, type: :model do
       form.valid?
     end
 
+    context 'when pq_id is missing' do
+      it { should include('Please provide question id to commission')}
+    end
+
     context 'when minister_id is missing' do
       it { should include('Please select answering minister')}
     end
@@ -30,7 +34,7 @@ describe CommissionForm, type: :model do
     end
 
     context 'when all required fields are provided' do
-      let(:form) { build(:commission_form, minister_id: 1, action_officer_id: [1], date_for_answer: '20/10/2014', internal_deadline: '14/10/2014')}
+      let(:form) { build(:commission_form, pq_id: 1, minister_id: 1, action_officer_id: [1], date_for_answer: '20/10/2014', internal_deadline: '14/10/2014')}
       it { should be_empty }
     end
   end
