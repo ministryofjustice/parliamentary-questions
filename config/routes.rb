@@ -40,7 +40,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'commission/:id' => 'commission#commission'
   get 'commission_complete/:id' => 'commission#complete'
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
-  post 'assign/:id' => 'commission#assign'
+  post 'dashboard_commission' => 'commission#dashboard_commission', as: :dashboard_commission
   get 'answering/:id' => 'answering#index'
   post 'answering/:id' => 'answering#answer'
 
