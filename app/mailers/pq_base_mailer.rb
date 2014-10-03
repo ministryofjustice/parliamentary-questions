@@ -10,7 +10,7 @@ class PQBaseMailer < ActionMailer::Base
       # Re-open the message object and wrap the deliver method since that is when the actual error is thrown.
       def deliver
         $statsd.time(StatsHelper::MAIL_TIMING) do 
-          LogStuff.tag(:mail) do 
+          LogStuff.tag(:mail) do
             begin
               LogStuff.info "Sending mail with subject '#{self[:subject]}'"
               super
