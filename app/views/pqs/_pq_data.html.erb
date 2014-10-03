@@ -2,10 +2,13 @@
 <p class="text"><%= @pq.uin %></p>
 <h4>House</h4>
 <p class="text"><%= @pq.house_name %></p>
-<h4>Date for answer back to Parliament</h4>
-<p class="text">
-	<%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %><%= render partial: 'shared/answer_time', locals: {date_for_answer: @pq.date_for_answer, progress_val: @pq.progress} %>
-</p>
+<div class="form-group">
+    <label for="date_for_answer" class="form-label">Date for answer back to Parliament</label>
+	<span class="input-group date dateonlypicker" data-date-format="DD/MM/YYYY">
+		<input id="date_for_answer" class="form-control" name="pq[date_for_answer]" type="text" value="<%= @pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil? %>">
+		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+	</span>
+</div>
 <h4>Tabling member</h4>
 <p class="text"><%= @pq.member_name %></p>
 <h4>Question type</h4>

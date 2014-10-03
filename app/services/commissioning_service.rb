@@ -30,7 +30,9 @@ class CommissioningService
                       :token => token
                     })
 
-    PqMailer.commission_email(template).deliver
+    LogStuff.tag(:mailer_commission) do
+      PqMailer.commission_email(template).deliver
+    end
 
     return {token: token, assignment_id: action_officers_pq.id}
   end
@@ -55,7 +57,9 @@ class CommissioningService
       template[:internal_deadline] = pq.internal_deadline.strftime('%d/%m/%Y')
     end
 
-    PqMailer.notify_dd_email(template).deliver
+    LogStuff.tag(:mail_notify) do
+      PqMailer.notify_dd_email(template).deliver
+    end
 
   end
 
