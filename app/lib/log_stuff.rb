@@ -27,31 +27,50 @@ class LogStuff
   end
 
 
-  def self.log(severity = 'info', message = nil, progname = nil, &block)
+  def self.log(severity = 'info', *args, &block)
 
+    return unless block_given?
+
+    # Ignore if we are not logging this severity
     if self.use_logstasher?
       return unless LogStasher.logger.send("#{severity}?")
+    else
+      return unless Rails.logger.send("#{severity}?")
+    end
 
-      msg = message
-      msg = yield if msg.nil? && block_given?
+    local_fields = {}
+    local_tags   = Set.new
+    args.each do |arg|
+      case arg
+        when Hash
+          local_fields.merge!(arg)
+        when Symbol
+          local_tags.add(arg)
+        when Array
+          local_tags.merge(arg)
+      end
+    end
+
+    if self.use_logstasher?
+      msg = yield
 
       event = LogStash::Event.new('@source' => LogStasher.source,
                                   '@severity' => severity,
                                   'message' => msg,
-                                  '@tags' => get_thread_current(:current_tags),
-                                  '@fields' => get_thread_current(:current_fields)
+                                  '@tags' => get_thread_current(:current_tags).merge(local_tags),
+                                  '@fields' => get_thread_current(:current_fields).merge(local_fields)
                                   )
       LogStasher.logger << event.to_json + "\n"
     else
-      Rails.logger.send(severity, message, progname, &block)
+      Rails.logger.send(severity, &block)
     end
   end
 
 
   %w( fatal error warn info debug ).each do |severity|
     eval <<-EOM, nil, __FILE__, __LINE__ + 1
-      def self.#{severity}(msg = nil, progname = nil, &block)
-        self.log(:#{severity}, msg, progname, &block )
+      def self.#{severity}(*args, &block)
+        self.log(:#{severity}, *args, &block )
       end
     EOM
   end
@@ -79,3 +98,5 @@ class LogStuff
   end
 
 end
+
+
