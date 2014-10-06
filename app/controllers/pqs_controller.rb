@@ -1,6 +1,6 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister, :set_internal_deadline, :set_date_for_answer]
+  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister]
   before_action :prepare_ministers
   before_action :prepare_progresses
   before_action :prepare_ogds
@@ -48,34 +48,6 @@ class PqsController < ApplicationController
 
     raise 'Error saving minister'
   end
-
-  def set_date_for_answer
-    @pq.date_for_answer = update_date_for_answer_params[:date_for_answer]
-
-    if @pq.date_for_answer.nil?
-      @pq.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
-      @pq.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
-    else
-      @pq.date_for_answer_has_passed = @pq.date_for_answer < Date.today
-      @pq.days_from_date_for_answer = (@pq.date_for_answer - Date.today).abs
-    end
-
-    if @pq.save
-      return render :nothing=>true
-    end
-
-    raise 'Error saving date for answer'
-  end
-
-  def set_internal_deadline
-    @pq.internal_deadline = update_deadline_params[:internal_deadline]
-    if @pq.save
-      return render :nothing=>true
-    end
-
-    raise 'Error saving internal deadline'
-  end
-
 
   private
   def set_pq
