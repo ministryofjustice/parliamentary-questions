@@ -96,6 +96,24 @@ PQ.toggleSiblingContent = function(){
 	});
 };
 
+PQ.setCommissionButtonStatus = function(form) {
+    var enable = true;
+    var button = form.find('.commission-button');
+
+    form.find('select.required-for-commission,input.required-for-commission').each(function() {
+        var value = $(this).val();
+        var filled = (value !== "" && value !== null);
+
+        enable = enable && filled;
+    });
+
+    if (enable === true) {
+        button.removeAttr('disabled');
+    } else {
+        button.attr('disabled', 'disabled');
+    }
+}
+
 $(document).ready(function () {
 
 	$('.datetimepicker').datetimepicker();
@@ -116,6 +134,9 @@ $(document).ready(function () {
 		$('#reason-textarea').removeClass('hide');
 	});
 
+    $('.form-commission').each(function() {
+        PQ.setCommissionButtonStatus($(this));
+    });
 	$(".form-commission")
 		.on("ajax:success", function(data){
             var pqid = $(this).data('pqid');
@@ -129,7 +150,9 @@ $(document).ready(function () {
             decrementBadge('#db-filter-unalloc');
 		}).on("ajax:error", function(e, xhr) {
 			console.log(xhr.responseText);
-		});
+		}).on('change', function(e) {
+            PQ.setCommissionButtonStatus($(e.currentTarget));
+        });
 
     $('#search_member').bind('ajax:before', function() {
         $(this).data('params', { name: $("#minister_name").val() });
