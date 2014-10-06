@@ -98,9 +98,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'send_accept_reject_reminder/:id' => 'action_officer_reminder#accept_reject'
   get 'send_draft_reminder/:id' => 'action_officer_reminder#send_draft'
 
-  patch 'set_internal_deadline/:id' => 'pqs#set_internal_deadline'
-  patch 'set_date_for_answer/:id' => 'pqs#set_date_for_answer'
-
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
   get 'export' => 'export#index'
 
