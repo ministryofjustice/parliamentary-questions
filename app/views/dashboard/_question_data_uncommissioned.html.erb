@@ -12,7 +12,7 @@
                 <fieldset>
                     <div id="answering-minister-form-<%= question.id %>" class="minister-dropdown form-group">
                         <label for="minister_id" class="form-label">Assign answering minister</label>
-                        <%= select_tag 'commission_form[minister_id]', content_tag(:option, 'Select', :value => '') + options_from_collection_for_select(Minister.all_active, 'id', 'name', question.minister_id), class: 'single-select-dropdown form-control', disabled: disabled %>
+                        <%= select_tag 'commission_form[minister_id]', content_tag(:option, 'Select', :value => '') + options_from_collection_for_select(Minister.all_active, 'id', 'name', question.minister_id), class: 'single-select-dropdown form-control required-for-commission', disabled: disabled %>
                     </div>
 
                     <div id="policy-minister-form-<%= question.id %>" class="minister-dropdown form-group">
@@ -22,12 +22,12 @@
 
                     <div id="comm-form-container-<%= question.id %>" class="allocation-info form-group">
                         <label class="form-label">Assign action officer(s)</label>
-                        <%= collection_select(:commission_form, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers form-control', :id => "action_officers_pq_action_officer_id-#{question.id}", :disabled => disabled}) %>
+                        <%= collection_select(:commission_form, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers form-control required-for-commission', :id => "action_officers_pq_action_officer_id-#{question.id}", :disabled => disabled}) %>
                     </div>
 
                     <div class="form-group">
                         <%= f.hidden_field(:pq_id , :value => question.id) %><br />
-                        <%= f.submit 'Commission', :class => 'button', :disabled => disabled, data: {disable_with: 'Commissioning...'} %>
+                        <%= f.submit 'Commission', :class => 'button commission-button', :disabled => disabled, data: {disable_with: 'Commissioning...'} %>
                     </div>
                 </fieldset>
             </div>
@@ -48,7 +48,7 @@
                         <label for='datetimepicker-<%= question.id %>'><h4>Date for answer</h4></label>
 
                         <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY">
-                            <input id="pq_date_for_answer-<%= question.id %>" class="form-control date-for-answer" name="commission_form[date_for_answer]" type="text" value="<%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>">
+                            <input id="pq_date_for_answer-<%= question.id %>" class="form-control date-for-answer required-for-commission" name="commission_form[date_for_answer]" type="text" value="<%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>">
                             <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                             <%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %>
                         </div>
@@ -58,7 +58,7 @@
                         <label for="pq_internal_deadline-<%= question.id %>"><h4>Internal deadline</h4></label>
 
                         <div id='datetimepicker-int-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
-                            <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline" name="commission_form[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
+                            <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline required-for-commission" name="commission_form[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
                             <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                             <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received} %>
                         </div>
