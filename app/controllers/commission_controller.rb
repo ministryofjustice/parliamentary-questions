@@ -9,6 +9,8 @@ class CommissionController < ApplicationController
       pq = Pq.find(form.pq_id)
       pq.minister_id = form.minister_id
       pq.policy_minister_id = form.policy_minister_id
+      pq.date_for_answer = form.date_for_answer
+      pq.internal_deadline = form.internal_deadline
       pq.save
 
       begin
