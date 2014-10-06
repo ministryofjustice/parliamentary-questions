@@ -1,19 +1,6 @@
 class CommissionController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
-  # Fixme where is this being used and how (as a GET)?
-  def commission
-    @pq = Pq.find_by(uin: params[:id])
-    if @pq.nil?
-      flash[:notice] = 'Question not found'
-      redirect_to action: 'index'
-    else
-      @aap = ActionOfficersPq.new
-      @aap.pq_id = @pq.id
-      @aap
-    end
-  end
-
   # Fixme this should be just 'commision', but same action already exists
   def dashboard_commission
     form = CommissionForm.new(commission_form_params)
