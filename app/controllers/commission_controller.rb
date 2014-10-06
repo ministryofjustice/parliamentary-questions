@@ -1,8 +1,7 @@
 class CommissionController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
-  # Fixme this should be just 'commision', but same action already exists
-  def dashboard_commission
+  def commission
     form = CommissionForm.new(commission_form_params)
     if form.valid?
       # Fixme this all should be 1 transaction (or something like that)
