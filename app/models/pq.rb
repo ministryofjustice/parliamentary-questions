@@ -33,6 +33,11 @@ class Pq < ActiveRecord::Base
         action_officers_pq.rejected.size != action_officers_pq.size
   end
 
+  # Fixme I'm not sure if this is valid assumption, has to be checked
+  def answered?
+    !preview_url.nil?
+  end
+
   def is_in_progress?(pro)
     progress_id == pro.id
   end
