@@ -1,7 +1,7 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
   before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister]
-  before_action :prepare_ministers
+
   before_action :prepare_progresses
   before_action :prepare_ogds
   before_action :load_service
@@ -16,6 +16,8 @@ class PqsController < ApplicationController
       flash[:notice] = 'Question not found'
       redirect_to action: 'index'
     end
+
+    prepare_ministers(@pq)
     @pq
   end
 
@@ -26,6 +28,8 @@ class PqsController < ApplicationController
       @pq_progress_changer_service.update_progress(@pq)
       return redirect_to action:'show', id: @pq.uin
     end
+
+    prepare_ministers(@pq)
     render action: 'show'
   end
 
@@ -104,9 +108,22 @@ class PqsController < ApplicationController
         :date_for_answer
     )
   end
-  def prepare_ministers
-    @minister_list = Minister.where(deleted: false).all
+
+  def prepare_ministers(pq)
+    all_active = Minister.all_active
+
+    @minister_list = prepend_minister_unless_included(all_active, pq.minister)
+    @policy_minister_list = prepend_minister_unless_included(all_active, pq.policy_minister)
   end
+
+  def prepend_minister_unless_included(list, minister)
+    unless minister.nil? || list.include?(minister)
+      [minister] + list
+    else
+      list
+    end
+  end
+
   def assignment_params
     # TODO: Check the permit again
     # params.require(:action_officers_pq).permit(:action_officer_id, :pq_id)
