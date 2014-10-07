@@ -35,6 +35,7 @@ class PqsController < ApplicationController
     render action: 'show'
   end
 
+  # Fixme is this still needed? There seem to be GET/PATCH routes for this one action, same for the route
   def assign_minister
     @pq.policy_minister_id = uppm_params[:policy_minister_id]
 
@@ -45,6 +46,7 @@ class PqsController < ApplicationController
     raise 'Error saving minister'
   end
 
+  # Fixme is this still needed? There seem to be GET/PATCH routes for this one action, same for the route
   def assign_answering_minister
     @pq.minister_id = answering_minister_params[:minister_id]
 
@@ -119,11 +121,11 @@ class PqsController < ApplicationController
   end
 
   def minister_warning?
-    !@pq.minister.nil? && @pq.minister.deleted?
+    !@pq.answered? && !@pq.minister.nil? && @pq.minister.deleted?
   end
 
   def policy_minister_warning?
-    !@pq.policy_minister.nil? && @pq.policy_minister.deleted?
+    !@pq.answered? && !@pq.policy_minister.nil? && @pq.policy_minister.deleted?
   end
 
   def prepend_minister_unless_included(list, minister)
