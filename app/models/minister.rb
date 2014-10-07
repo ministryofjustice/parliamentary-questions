@@ -12,12 +12,14 @@ class Minister < ActiveRecord::Base
     minister_contacts.where(deleted: false).pluck('email').join(';')
   end
 
-  def strip_whitespace
-    self.name = self.name.strip unless self.name.nil?
-  end
-
   def self.all_active
     Minister.where(deleted: false).all
+  end
+
+  private
+
+  def strip_whitespace
+    self.name = self.name.strip unless self.name.nil?
   end
 
 end

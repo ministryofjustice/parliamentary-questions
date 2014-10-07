@@ -2,9 +2,13 @@
 
 FactoryGirl.define do
   factory :minister_contact do
-    name "contact name"
-    email "mail.mail.com"
-    phone ""
+    name { Faker::Lorem.word }
+    email { Faker::Internet.email }
+    phone { Faker::PhoneNumber.phone_number }
     deleted false
+
+    factory :deleted_minister_contact do
+      deleted true
+    end
   end
 end
