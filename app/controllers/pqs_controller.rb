@@ -6,6 +6,8 @@ class PqsController < ApplicationController
   before_action :prepare_ogds
   before_action :load_service
 
+  helper_method :minister_warning?, :policy_minister_warning?
+
   def index
     redirect_to controller: 'dashboard'
   end
@@ -114,6 +116,14 @@ class PqsController < ApplicationController
 
     @minister_list = prepend_minister_unless_included(all_active, pq.minister)
     @policy_minister_list = prepend_minister_unless_included(all_active, pq.policy_minister)
+  end
+
+  def minister_warning?
+    !@pq.minister.nil? && @pq.minister.deleted?
+  end
+
+  def policy_minister_warning?
+    !@pq.policy_minister.nil? && @pq.policy_minister.deleted?
   end
 
   def prepend_minister_unless_included(list, minister)
