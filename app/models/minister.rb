@@ -12,8 +12,13 @@ class Minister < ActiveRecord::Base
     minister_contacts.where(deleted: false).pluck('email').join(';')
   end
 
+  # ToDo this should probably be in a decorator / presenter
+  def name_with_inactive_status
+    self.name + (self.deleted ? ' - inactive' : '')
+  end
+
   def self.all_active
-    Minister.where(deleted: false).all
+    Minister.where(deleted: false)
   end
 
   private

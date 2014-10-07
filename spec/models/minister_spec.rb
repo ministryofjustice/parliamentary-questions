@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Minister do
-  subject { create(:minister) }
+  subject(:minister) { create(:minister) }
 
   it { should have_many(:pqs) }
   it { should have_many(:minister_contacts) }
@@ -20,6 +20,23 @@ describe Minister do
 
     it 'returns active minister contacts emails joined with ;' do
       expect(subject.email).to eql("#{minister_contact1.email};#{minister_contact2.email}")
+    end
+  end
+
+  describe '#name_with_inactive_status' do
+    subject { minister.name_with_inactive_status }
+
+    context 'for active minister' do
+      it 'should be the same as name' do
+        is_expected.to eql(minister.name)
+      end
+    end
+
+    context 'for deleted minister' do
+      let(:minister) { create(:deleted_minister)}
+      it 'should have the inactive suffix' do
+        is_expected.to eql(minister.name + ' - inactive')
+      end
     end
   end
 
