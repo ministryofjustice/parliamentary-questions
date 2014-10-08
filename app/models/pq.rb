@@ -34,8 +34,12 @@ class Pq < ActiveRecord::Base
   end
 
   # Fixme I'm not sure if this is valid assumption, has to be checked
-  def answered?
-    !preview_url.nil?
+  def closed?
+    unless progress.nil?
+      Progress.closed_questions.include?(progress.name)
+    else
+      false
+    end
   end
 
   def is_in_progress?(pro)
