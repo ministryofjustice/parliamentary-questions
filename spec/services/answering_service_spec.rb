@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'AnsweringService' do
-  progress_seed
   let!(:minister1) { create(:minister, member_id: 1) }
 
   before(:each) do
