@@ -718,10 +718,6 @@ describe 'PQProgressChangerService' do
 
 
 #      pq = Pq.find_by(uin: uin)
-
-
-
-      puts "?Draft Pending? " + pq.progress.name.to_s
       pq.progress.name.should eq(Progress.DRAFT_PENDING)
 
     end
