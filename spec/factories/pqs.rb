@@ -11,7 +11,7 @@ FactoryGirl.define do
     answer nil
 
     factory :answered_pq do
-      progress Progress.find_by(name: Progress.ANSWERED)
+      progress { Progress.find_by(name: Progress.ANSWERED) }
     end
   end
 end
