@@ -11,7 +11,7 @@ FactoryGirl.define do
     answer nil
 
     factory :answered_pq do
-      preview_url Faker::Internet.url
+      progress Progress.find_by(name: Progress.ANSWERED)
     end
   end
 end

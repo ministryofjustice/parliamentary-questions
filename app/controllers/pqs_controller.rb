@@ -121,11 +121,11 @@ class PqsController < ApplicationController
   end
 
   def minister_warning?
-    !@pq.answered? && !@pq.minister.nil? && @pq.minister.deleted?
+    !@pq.closed? && !@pq.minister.nil? && @pq.minister.deleted?
   end
 
   def policy_minister_warning?
-    !@pq.answered? && !@pq.policy_minister.nil? && @pq.policy_minister.deleted?
+    !@pq.closed? && !@pq.policy_minister.nil? && @pq.policy_minister.deleted?
   end
 
   def prepend_minister_unless_included(list, minister)

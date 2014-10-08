@@ -29,8 +29,8 @@ describe Pq do
     end
   end
 
-  describe '#answered?' do
-    subject { pq.answered? }
+  describe '#closed?' do
+    subject { pq.closed? }
 
     context 'for unanswered question' do
       let(:pq) { create(:Pq) }
