@@ -89,12 +89,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'i_will_write/create' => 'i_will_write#create'
 
-  get 'assign_minister/:id' => 'pqs#assign_minister'
-  patch 'assign_minister/:id' => 'pqs#assign_minister'
-
-  get 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
-  patch 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
-
   get 'send_accept_reject_reminder/:id' => 'action_officer_reminder#accept_reject'
   get 'send_draft_reminder/:id' => 'action_officer_reminder#send_draft'
 

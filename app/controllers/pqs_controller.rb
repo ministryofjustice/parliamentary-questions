@@ -35,28 +35,6 @@ class PqsController < ApplicationController
     render action: 'show'
   end
 
-  # Fixme is this still needed? There seem to be GET/PATCH routes for this one action, same for the route
-  def assign_minister
-    @pq.policy_minister_id = uppm_params[:policy_minister_id]
-
-    if @pq.save
-      return render :nothing =>  true
-    end
-
-    raise 'Error saving minister'
-  end
-
-  # Fixme is this still needed? There seem to be GET/PATCH routes for this one action, same for the route
-  def assign_answering_minister
-    @pq.minister_id = answering_minister_params[:minister_id]
-
-    if @pq.save
-      return render :nothing =>  true
-    end
-
-    raise 'Error saving minister'
-  end
-
   private
   def set_pq
     @pq = Pq.find_by(uin: params[:id])
