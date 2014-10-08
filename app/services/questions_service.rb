@@ -27,7 +27,7 @@ class QuestionsService
       format = "%Y-%m-%dT%H:%M:%S"
       options = {}
       options['dateFrom'] = args[:dateFrom].strftime(format)
-      options['dateTo'] = args[:dateTo].strftime(format) if args[:dateTo].present?
+      options['dateTo'] = args[:dateTo].end_of_day.strftime(format) if args[:dateTo].present?
       options['status'] = args[:status] if args[:status].present?
       begin
         response = @http_client.questions(options)
