@@ -54,7 +54,7 @@ describe 'QuestionsService' do
       day_plus_one = day + 1
       expect(@http_client).to receive(:questions).with({
                                                            "dateFrom"=>"2014-02-01T00:00:00",
-                                                           "dateTo"=>"2014-02-02T00:00:00",
+                                                           "dateTo"=>"2014-02-02T23:59:59",
                                                        })
 
       @questions_service.questions(dateFrom: day, dateTo: day_plus_one)
@@ -65,7 +65,7 @@ describe 'QuestionsService' do
       day_plus_one = day + 1
       expect(@http_client).to receive(:questions).with({
                                                            "dateFrom"=>"2014-02-01T00:00:00",
-                                                           "dateTo"=>"2014-02-02T00:00:00",
+                                                           "dateTo"=>"2014-02-02T23:59:59",
                                                            "status"=>"Tabled"
                                                        })
 
