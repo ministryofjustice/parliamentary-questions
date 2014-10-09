@@ -14,7 +14,7 @@ class Minister < ActiveRecord::Base
 
   # ToDo this should probably be in a decorator / presenter
   def name_with_inactive_status
-    self.name + (self.deleted ? ' - inactive' : '')
+    self.name + (self.deleted ? ' - Inactive' : '')
   end
 
   def self.all_active

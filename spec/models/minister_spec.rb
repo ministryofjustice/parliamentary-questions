@@ -35,7 +35,7 @@ describe Minister do
     context 'for deleted minister' do
       let(:minister) { create(:deleted_minister)}
       it 'should have the inactive suffix' do
-        is_expected.to eql(minister.name + ' - inactive')
+        is_expected.to eql(minister.name + ' - Inactive')
       end
     end
   end
