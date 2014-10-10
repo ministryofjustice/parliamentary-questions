@@ -122,6 +122,8 @@ $(document).ready(function () {
         pickTime: false
     });
 
+    $('.minister-select').ministerSelect();
+
 	$(".multi-select-action-officers").select2({width:'250px'});
 
     $(".single-select-dropdown").select2({width:'250px', allowClear: true});
