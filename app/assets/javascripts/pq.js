@@ -122,7 +122,7 @@ $(document).ready(function () {
         pickTime: false
     });
 
-    $('.minister-select').ministerSelect();
+    $('.minister-select').ministerSelect({inputClass: 'minister-select-input form-control'});
 
 	$(".multi-select-action-officers").select2({width:'250px'});
 
