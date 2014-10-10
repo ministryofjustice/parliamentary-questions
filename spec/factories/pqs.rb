@@ -9,5 +9,9 @@ FactoryGirl.define do
     response_due "2014-05-08 13:45:31"
     question "MyString"
     answer nil
+
+    factory :answered_pq do
+      progress { Progress.find_by(name: Progress.ANSWERED) }
+    end
   end
 end

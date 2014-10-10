@@ -2,44 +2,32 @@ class CommissionController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def commission
-    @pq = Pq.find_by(uin: params[:id])
-    if @pq.nil?
-      flash[:notice] = 'Question not found'
-      redirect_to action: 'index'
-    else
-      @aap = ActionOfficersPq.new
-      @aap.pq_id = @pq.id
-      @aap
-    end
-  end
+    form = CommissionForm.new(commission_form_params)
+    if form.valid?
+      # Fixme this all should be 1 transaction (or something like that)
 
-  def assign
-    pq_id = params[:action_officers_pq][:pq_id]
-    @pq = Pq.find(pq_id)
-    comm = params[:action_officers_pq][:action_officer_id]
+      pq = Pq.find(form.pq_id)
+      pq.minister_id = form.minister_id
+      pq.policy_minister_id = form.policy_minister_id
+      pq.date_for_answer = form.date_for_answer
+      pq.internal_deadline = form.internal_deadline
+      pq.save
 
-    return render text: 'Please select at least the answering minister', status: :bad_request if invalid_ministers
-
-    @pq.minister_id = params[:minister_id]
-    @pq.policy_minister_id = params[:policy_minister_id]
-
-    return render text: 'Error saving minister', status: :bad_request if !@pq.save
-
-    return render text: 'Please select at least one Action Officer', status: :bad_request if commission_invalid(comm)
-
-    get_non_empty_commissions(comm).each do |ao_id|
       begin
-        if assign_one_action_officer(pq_id, ao_id).nil?
-          raise "Error in commissioning to #{assignment.action_officer.name}"
+        form.action_officer_id.each do |action_officer_id|
+          assign_one_action_officer(pq.id, action_officer_id)
         end
-      rescue => e
-        flash.now[:error] = "#{e}"
-        break
-      end
-    end
-    render :partial => 'shared/question_assigned', :locals => {question: @pq}
-  end
 
+        render :partial => 'shared/question_assigned', :locals => {question: pq}
+      rescue Exception => e
+        # ToDo there's a follow up story to display error messages
+        render text: "Error when commissioning: #{e}", status: 400
+      end
+    else
+      # ToDo there's a follow up story to display error messages
+      render text: form.errors.values.flatten.join('\n'), status: 422
+    end
+  end
 
   def complete
     @pq = Pq.find_by(uin: params[:id])
@@ -47,34 +35,21 @@ class CommissionController < ApplicationController
   end
 
   private
-    def assign_one_action_officer(pq_id, ao_id)
-      assignment = ActionOfficersPq.new(pq_id: pq_id, action_officer_id: ao_id)
-      comm_service = CommissioningService.new
-      result = comm_service.send(assignment)
-      if result.nil?
-        flash.now[:error] = "Error in commissioning to #{assignment.action_officer.name}"
-        return render :partial => 'shared/question_assigned', :locals => {question: @pq}
-      else
-        comm_service.notify_dd(assignment)
-      end
-    end
-  
-    def assignment_params
-      # TODO: Check the permit again
-      # params.require(:action_officers_pq).permit(:action_officer_id, :pq_id)
-    end
 
-# methods for assign
-
-  def commission_invalid(comm)
-    comm.size==1 && comm.first.empty?
+  def assign_one_action_officer(pq_id, ao_id)
+    assignment = ActionOfficersPq.new(pq_id: pq_id, action_officer_id: ao_id)
+    comm_service = CommissioningService.new
+    result = comm_service.send(assignment)
+    if result.nil?
+      flash.now[:error] = "Error in commissioning to #{assignment.action_officer.name}"
+      return render :partial => 'shared/question_assigned', :locals => {question: @pq}
+    else
+      comm_service.notify_dd(assignment)
+    end
   end
 
-  def invalid_ministers
-    params[:minister_id].nil? || params[:minister_id].empty?
-  end
-
-  def get_non_empty_commissions(comm)
-    comm.reject!(&:blank?)
+  def commission_form_params
+    params.require(:commission_form).permit(
+        :pq_id, :minister_id, :policy_minister_id, {action_officer_id: []}, :date_for_answer, :internal_deadline)
   end
 end

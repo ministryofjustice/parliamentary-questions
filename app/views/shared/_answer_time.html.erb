@@ -3,6 +3,6 @@
     <% from_time = from_time.beginning_of_day()  %>
     <% overdue = (from_time -  date_for_answer.to_datetime) > 0 %>
     <% if overdue %>
-        <span class="date_for_answer-overdue"><i class="fa fa-exclamation-triangle"></i></span>
+        <%= render 'shared/warning_icon' %>
     <% end %>
 <% end %>

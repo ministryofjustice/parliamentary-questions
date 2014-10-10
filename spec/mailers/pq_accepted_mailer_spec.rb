@@ -10,8 +10,6 @@ describe 'PQAcceptedMailer' do
   let(:minister_simon) { create(:minister, name: 'Simon Hughes (MP)') }
   let(:dd) {create(:deputy_director, name: 'Deputy Director', email:'dep@dep.gov')}
 
-  progress_seed
-
   before(:each) do
     ActionMailer::Base.deliveries = []
     minister_1.minister_contacts << contact1

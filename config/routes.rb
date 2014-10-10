@@ -40,7 +40,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'commission/:id' => 'commission#commission'
   get 'commission_complete/:id' => 'commission#complete'
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
-  post 'assign/:id' => 'commission#assign'
+  post 'commission' => 'commission#commission', as: :commission
   get 'answering/:id' => 'answering#index'
   post 'answering/:id' => 'answering#answer'
 
@@ -89,17 +89,8 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'i_will_write/create' => 'i_will_write#create'
 
-  get 'assign_minister/:id' => 'pqs#assign_minister'
-  patch 'assign_minister/:id' => 'pqs#assign_minister'
-
-  get 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
-  patch 'assign_answering_minister/:id' => 'pqs#assign_answering_minister'
-
   get 'send_accept_reject_reminder/:id' => 'action_officer_reminder#accept_reject'
   get 'send_draft_reminder/:id' => 'action_officer_reminder#send_draft'
-
-  patch 'set_internal_deadline/:id' => 'pqs#set_internal_deadline'
-  patch 'set_date_for_answer/:id' => 'pqs#set_date_for_answer'
 
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
   get 'export' => 'export#index'

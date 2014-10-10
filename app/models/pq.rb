@@ -20,6 +20,7 @@ class Pq < ActiveRecord::Base
 
   after_initialize :init
   before_validation :strip_uin_whitespace
+  before_update :process_date_for_answer
 
   def init
     self.seen_by_finance ||= false           #will set the default value only if it's nil
@@ -27,6 +28,20 @@ class Pq < ActiveRecord::Base
 
   def strip_uin_whitespace
     self.uin = uin.strip.gsub(/\s/,'') if !uin.nil?
+  end
+
+  def commissioned?
+    action_officers_pq.size > 0 &&
+        action_officers_pq.rejected.size != action_officers_pq.size
+  end
+
+  # Fixme I'm not sure if this is valid assumption, has to be checked
+  def closed?
+    unless progress.nil?
+      Progress.closed_questions.include?(progress.name)
+    else
+      false
+    end
   end
 
   def is_in_progress?(pro)
@@ -141,6 +156,16 @@ class Pq < ActiveRecord::Base
   end
 
   private
+
+  def process_date_for_answer
+    if self.date_for_answer.nil?
+      self.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
+      self.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
+    else
+      self.date_for_answer_has_passed = self.date_for_answer < Date.today
+      self.days_from_date_for_answer = (self.date_for_answer - Date.today).abs
+    end
+  end
 
   def self.by_status_internal(status)
     joins(:progress).where(progresses: {name: status})
