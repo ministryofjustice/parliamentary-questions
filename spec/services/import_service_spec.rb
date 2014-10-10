@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe 'ImportService' do
-  progress_seed
-
   before(:each) do
     @http_client = double('QuestionsHttpClient')
     allow(@http_client).to receive(:questions) { import_questions_for_today }

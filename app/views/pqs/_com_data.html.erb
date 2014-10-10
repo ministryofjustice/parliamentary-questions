@@ -1,4 +1,4 @@
-<div class="deadline_input form-group">
+    <div class="deadline_input form-group">
   <label for="pq_internal_deadline" class="form-label">
     Internal deadline<%= render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received } %>
   </label>
@@ -52,11 +52,17 @@
 <hr/>
 <div class="form-group">
   <label for="pq_minister_id" class="form-label">Replying minister</label>
-  <%= f.collection_select(:minister_id, @minister_list, :id, :name, :include_blank => "Please select") %>
+  <%= f.collection_select(:minister_id, @minister_list, :id, :name_with_inactive_status, :include_blank => "Please select") %>
+  <% if minister_warning? %>
+    <%= render('shared/warning_icon')  %>
+  <% end %>
 </div>
 <div class="form-group">
   <label for="pq_policy_minister_id" class="form-label">Optional policy minister</label>
-  <%= f.collection_select(:policy_minister_id, @minister_list, :id, :name, :include_blank => "Only select if needed") %>
+  <%= f.collection_select(:policy_minister_id, @policy_minister_list, :id, :name_with_inactive_status, :include_blank => "Only select if needed") %>
+  <% if policy_minister_warning? %>
+    <%= render('shared/warning_icon')  %>
+  <% end %>
 </div>
 <hr/>
 <div class="form-group">

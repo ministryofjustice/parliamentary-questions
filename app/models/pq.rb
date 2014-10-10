@@ -33,6 +33,15 @@ class Pq < ActiveRecord::Base
         action_officers_pq.rejected.size != action_officers_pq.size
   end
 
+  # Fixme I'm not sure if this is valid assumption, has to be checked
+  def closed?
+    unless progress.nil?
+      Progress.closed_questions.include?(progress.name)
+    else
+      false
+    end
+  end
+
   def is_in_progress?(pro)
     progress_id == pro.id
   end
