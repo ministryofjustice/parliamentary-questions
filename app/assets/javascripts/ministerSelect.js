@@ -1,10 +1,15 @@
 //= require jquery.autocomplete
 
 (function ($) {
-    $.fn.ministerSelect = function () {
+
+    $.fn.ministerSelect = function (options) {
+        var settings = $.extend({
+            inputClass: 'minister-select-input'
+        }, options);
+
         return this.each(function () {
             var dropdown = $(this);
-            var input = $('<input type="text" value="" class="minister-select-input" />');
+            var input = $('<input type="text" value="" class="' + settings['inputClass'] + '" />');
             var lookup = [];
 
             dropdown.find('option').each(function () {
