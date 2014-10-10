@@ -2,8 +2,12 @@
 
 FactoryGirl.define do
   factory :minister do
-    name "firstname"
-    title "MP"
+    name { Faker::Name.name }
+    title { Faker::Name.title }
     deleted false
+
+    factory :deleted_minister do
+      deleted true
+    end
   end
 end

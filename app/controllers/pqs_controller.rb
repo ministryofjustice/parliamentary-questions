@@ -1,10 +1,12 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister, :set_internal_deadline, :set_date_for_answer]
-  before_action :prepare_ministers
+  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister]
+
   before_action :prepare_progresses
   before_action :prepare_ogds
   before_action :load_service
+
+  helper_method :minister_warning?, :policy_minister_warning?
 
   def index
     redirect_to controller: 'dashboard'
@@ -16,6 +18,8 @@ class PqsController < ApplicationController
       flash[:notice] = 'Question not found'
       redirect_to action: 'index'
     end
+
+    prepare_ministers(@pq)
     @pq
   end
 
@@ -26,56 +30,10 @@ class PqsController < ApplicationController
       @pq_progress_changer_service.update_progress(@pq)
       return redirect_to action:'show', id: @pq.uin
     end
+
+    prepare_ministers(@pq)
     render action: 'show'
   end
-
-  def assign_minister
-    @pq.policy_minister_id = uppm_params[:policy_minister_id]
-
-    if @pq.save
-      return render :nothing =>  true
-    end
-
-    raise 'Error saving minister'
-  end
-
-  def assign_answering_minister
-    @pq.minister_id = answering_minister_params[:minister_id]
-
-    if @pq.save
-      return render :nothing =>  true
-    end
-
-    raise 'Error saving minister'
-  end
-
-  def set_date_for_answer
-    @pq.date_for_answer = update_date_for_answer_params[:date_for_answer]
-
-    if @pq.date_for_answer.nil?
-      @pq.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
-      @pq.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
-    else
-      @pq.date_for_answer_has_passed = @pq.date_for_answer < Date.today
-      @pq.days_from_date_for_answer = (@pq.date_for_answer - Date.today).abs
-    end
-
-    if @pq.save
-      return render :nothing=>true
-    end
-
-    raise 'Error saving date for answer'
-  end
-
-  def set_internal_deadline
-    @pq.internal_deadline = update_deadline_params[:internal_deadline]
-    if @pq.save
-      return render :nothing=>true
-    end
-
-    raise 'Error saving internal deadline'
-  end
-
 
   private
   def set_pq
@@ -132,9 +90,30 @@ class PqsController < ApplicationController
         :date_for_answer
     )
   end
-  def prepare_ministers
-    @minister_list = Minister.where(deleted: false).all
+
+  def prepare_ministers(pq)
+    all_active = Minister.all_active
+
+    @minister_list = prepend_minister_unless_included(all_active, pq.minister)
+    @policy_minister_list = prepend_minister_unless_included(all_active, pq.policy_minister)
   end
+
+  def minister_warning?
+    !@pq.closed? && !@pq.minister.nil? && @pq.minister.deleted?
+  end
+
+  def policy_minister_warning?
+    !@pq.closed? && !@pq.policy_minister.nil? && @pq.policy_minister.deleted?
+  end
+
+  def prepend_minister_unless_included(list, minister)
+    unless minister.nil? || list.include?(minister)
+      [minister] + list
+    else
+      list
+    end
+  end
+
   def assignment_params
     # TODO: Check the permit again
     # params.require(:action_officers_pq).permit(:action_officer_id, :pq_id)

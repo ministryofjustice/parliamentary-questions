@@ -29,12 +29,9 @@
 <h4>Question</h4>
 <p class="text"><%= @pq.question %></p>
 <hr />
-<div class="form-group">
-	<label for="pq_round_robin" class="block-label">
-  	<%= f.check_box(:round_robin) %>
-  	Round robin
-	</label>
-</div>
+
+<%= f.check_box_gds(:round_robin) %>
+
 <div class="form-group">
 	<label for="round_robin_guidance_received" class="form-label">Date guidance received</label>
 	<div class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">

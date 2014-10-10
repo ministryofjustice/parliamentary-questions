@@ -6,12 +6,8 @@
       <span class="input-group-addon glyphicon glyphicon-calendar"></span>
     </span>
   </div>
-  <div class="form-group">
-    <label for="pq_answering_minister_query" class="block-label">
-      <%= f.check_box(:answering_minister_query) %>
-      Answering minister query
-    </label>
-  </div>
+  <%= f.check_box_gds :answering_minister_query %>
+
   <div class="form-group">
     <label for="answering_minister_to_action_officer" class="form-label">Date sent back to action officer</label>
     <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">
@@ -52,12 +48,9 @@
         <span class="input-group-addon glyphicon glyphicon-calendar"></span>
       </span>
     </div>
-    <div class="form-group">
-      <label for="pq_policy_minister_query" class="block-label">
-        <%= f.check_box(:policy_minister_query) %>
-        Policy minister query
-      </label>
-    </div>
+
+    <%= f.check_box_gds :policy_minister_query %>
+
     <div class="form-group">
       <label for="policy_minister_to_action_officer" class="form-label">Date sent back to action officer</label>
       <span class="input-group date datetimepicker" data-date-format="DD/MM/YYYY HH:mm">

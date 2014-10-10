@@ -54,6 +54,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.clean
     DatabaseCleaner.strategy = :transaction
+
+    progress_seed
   end
 
 end

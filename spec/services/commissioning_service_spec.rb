@@ -9,9 +9,6 @@ describe 'CommissioningService' do
   let(:deputy_director2) { create(:deputy_director, name: 'dd name', email: '', id: 1+rand(10))}
   let(:action_officer2) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director2.id) }
 
-  progress_seed
-
-
   before(:each) do
     @comm_service = CommissioningService.new
     ActionMailer::Base.deliveries = []
