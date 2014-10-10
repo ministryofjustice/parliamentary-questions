@@ -9,7 +9,6 @@ describe 'AssignmentService' do
   let(:action_officer2) { create(:action_officer, name: 'ao name 2', email: 'ao@ao.gov') }
 
   let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?',minister:minister, house_name:'commons') }
-  progress_seed
 
   before(:each) do
     @assignment_service = AssignmentService.new

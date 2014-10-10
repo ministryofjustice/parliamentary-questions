@@ -29,6 +29,20 @@ describe Pq do
     end
   end
 
+  describe '#closed?' do
+    subject { pq.closed? }
+
+    context 'for unanswered question' do
+      let(:pq) { create(:Pq) }
+      it { should be false }
+    end
+
+    context 'for answered question' do
+      let(:pq) { create(:answered_pq) }
+      it { should be true }
+    end
+  end
+
   it 'should set pod_waiting when users set draft_answer_received' do
     expect(newQ).to receive(:set_pod_waiting)
     newQ.update(draft_answer_received: Date.new(2014,9,4))

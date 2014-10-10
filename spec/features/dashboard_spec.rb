@@ -2,7 +2,6 @@ require 'spec_helper'
 
 feature 'Visit the dashboard an show the questions for the day' do
   let(:user) { create(:user, name: 'admin', email:'admin@admin.com', password: 'password123') }
-  progress_seed
 
   context 'as pq user' do
     before do
