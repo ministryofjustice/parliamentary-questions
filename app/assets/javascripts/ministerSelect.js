@@ -32,13 +32,13 @@
 
             // when the input changes, the relevant select option has to be chosen
             $input.on('change', function () {
-                var text = $(this).val(),
-                    options = $select.find('option').filter(function () {
-                        return $(this).text().toLowerCase().indexOf(text.toLowerCase()) !== -1;
+                var textToCompare = $(this).val().toLowerCase(),
+                    matching_options = $.grep(lookup, function(suggestion) {
+                        return suggestion.toLowerCase().indexOf(textToCompare) !== -1
                     });
 
-                if (options.length == 1) {
-                    var $option = $(options[0]);
+                if (matching_options.length == 1) {
+                    var $option = $select.find('option:contains("' + matching_options[0] + '")').first();
 
                     $select.val($option.val());
                     $input.val($option.text());
