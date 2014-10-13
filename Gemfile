@@ -101,7 +101,6 @@ group :test, :development do
   gem 'wirb'
   gem 'capybara'
   gem 'capybara-email'
-  #gem 'capybara-webkit'
   gem 'headless'
   gem 'launchy'
   gem 'shoulda-matchers'
@@ -109,7 +108,6 @@ group :test, :development do
   gem 'letter_opener'
   gem 'faker'
   gem 'annotate', '~> 2.6.3'
-  # gem 'webmock'
 end
 
 
