@@ -119,5 +119,5 @@ gem 'html2haml'
 
 
 # MoJ front-end gems
-gem 'govuk_frontend_toolkit', '1.1.0'
+gem 'govuk_frontend_toolkit', '~> 1.7.0'
 gem 'moj_template', '0.11.1'
