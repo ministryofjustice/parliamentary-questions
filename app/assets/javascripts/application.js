@@ -13,6 +13,7 @@
 //= require moment
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require kendo.custom.min
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require select2
