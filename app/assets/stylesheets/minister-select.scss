@@ -1,10 +1,12 @@
+@import 'colours';
+
 input.minister-select-input {
   width: 248px;
 }
 
 .autocomplete-suggestions {
-  border: 1px solid #bfc1c3;
-  background: #fff;
+  border: 1px solid $grey-2;
+  background: $white;
   overflow: auto;
 }
 
@@ -15,8 +17,8 @@ input.minister-select-input {
 }
 
 .autocomplete-selected {
-  background: #ffbf47;
-  color: #fff;
+  background: $yellow;
+  color: $white;
 }
 
 .autocomplete-suggestions strong {
@@ -30,5 +32,5 @@ input.minister-select-input {
 
 .autocomplete-group strong {
   display: block;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid $black;
 }
