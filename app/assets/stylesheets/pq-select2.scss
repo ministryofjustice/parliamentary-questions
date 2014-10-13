@@ -7,6 +7,11 @@
   border-color: $yellow;
 }
 
+/*
+ These are all the rules as taken from select2 + select2-bootstrap and overridden. They are on purpose
+ kept separately and not optimised, so the origin can be tracked.
+*/
+
 .select2-container .select2-choice {
   @include reset-border-radius;
 }
