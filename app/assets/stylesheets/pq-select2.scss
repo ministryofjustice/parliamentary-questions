@@ -1,0 +1,81 @@
+@import 'colours';
+
+@mixin reset-border-radius {
+  border-radius: 0;
+}
+@mixin set-border-color {
+  border-color: $yellow;
+}
+
+/*
+ These are all the rules as taken from select2 + select2-bootstrap and overridden. They are on purpose
+ kept separately and not optimised, so the origin can be tracked.
+*/
+
+.select2-container .select2-choice {
+  @include reset-border-radius;
+}
+
+.select2-drop {
+  @include reset-border-radius;
+}
+
+.select2-drop.select2-drop-above {
+  @include reset-border-radius;
+}
+
+.select2-drop-active {
+  @include set-border-color;
+}
+
+.select2-drop.select2-drop-above.select2-drop-active {
+  @include set-border-color;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  @include reset-border-radius;
+}
+
+html[dir="rtl"] .select2-container .select2-choice .select2-arrow {
+  @include reset-border-radius;
+}
+
+.select2-container-active .select2-choice,
+.select2-container-active .select2-choices {
+  @include set-border-color;
+}
+
+.select2-dropdown-open.select2-drop-above .select2-choice,
+.select2-dropdown-open.select2-drop-above .select2-choices {
+  @include set-border-color;
+}
+
+.select2-results .select2-highlighted {
+  background: $yellow;
+  color: $black;
+}
+
+.select2-container-multi.select2-container-active .select2-choices {
+  @include set-border-color;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  @include reset-border-radius;
+}
+
+.form-control .select2-choice {
+  @include reset-border-radius;
+}
+.form-control .select2-choice .select2-arrow {
+  @include reset-border-radius;
+}
+.form-control.select2-container.select2-dropdown-open {
+  @include set-border-color;
+  @include reset-border-radius;
+}
+.form-control .select2-container.select2-dropdown-open .select2-choices {
+  @include reset-border-radius;
+}
+.form-control.select2-container .select2-choices {
+  @include reset-border-radius;
+}
