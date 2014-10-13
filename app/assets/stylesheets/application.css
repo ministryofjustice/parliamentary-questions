@@ -13,6 +13,7 @@
  *= require font-awesome
  *= require select2
  *= require select2-bootstrap
- *= require pq
  *= require minister-select
+ *= require pq-select2
+ *= require pq
  */
