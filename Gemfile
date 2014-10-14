@@ -87,6 +87,12 @@ gem 'whenever', :require => false
 gem 'logstasher'
 
 
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
+end
+
 group :test, :development do
   gem 'annotate', '~> 2.6.3'
   gem 'better_errors'
