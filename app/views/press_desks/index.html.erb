@@ -1,7 +1,7 @@
 <h2>Press desks</h2>
 <div id="admin-pd-list">
   <div class="row>">
-    <div class="col-md-3.5 pull-right">
+    <div id="admin-button-bar" class="col-md-3.5 pull-right">
       <%= link_to ('Add press desk'), new_press_desk_path, {class: 'button-secondary'} %>
     </div>
   </div>
@@ -10,7 +10,7 @@
       <tr>
         <th>Name</th>
         <th>Press Officers</th>
-        <th class="admin-status">Status</th>
+        <th id="admin-status">Status</th>
         <th></th>
       </tr>
     </thead>
