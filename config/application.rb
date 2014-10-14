@@ -3,6 +3,10 @@ require File.expand_path('../boot', __FILE__)
 require 'csv'
 require 'rails/all'
 
+# This require is necessary to avoid a class error in logstasher.
+# This is fixed in HEAD but not currently released in 0.6.1
+require 'action_mailer/log_subscriber'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
@@ -47,7 +51,7 @@ module ParliamentaryQuestions
     # Custom Logging
     config.log_level = :info
     config.logstasher.enabled = true
-    config.logstasher.suppress_app_log = false
+    config.logstasher.suppress_app_log = true
     config.logstasher.log_level = Logger::INFO
     config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
     # This line is optional, it allows you to set a custom value for the @source field of the log event
