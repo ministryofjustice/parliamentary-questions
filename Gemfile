@@ -93,6 +93,7 @@ group :test, :development do
   gem 'binding_of_caller'
   gem 'capybara'
   gem 'capybara-email'
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
@@ -105,6 +106,7 @@ group :test, :development do
   gem 'letter_opener'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'site_prism'
   gem 'timecop'
   gem 'wirb'
   gem 'wirble'
