@@ -112,7 +112,7 @@ group :test, :development do
   # gem 'webmock'
 end
 
-
+gem 'codeclimate-test-reporter', group: :test, require: nil
 
 gem 'haml-rails'
 gem 'html2haml'
