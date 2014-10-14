@@ -3,6 +3,10 @@ require File.expand_path('../boot', __FILE__)
 require 'csv'
 require 'rails/all'
 
+# This require is necessary to avoid a class error in logstasher.
+# This is fixed in HEAD but not currently released in 0.6.1
+require 'action_mailer/log_subscriber'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
