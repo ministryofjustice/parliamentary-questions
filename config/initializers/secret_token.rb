@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-ParliamentaryQuestions::Application.config.secret_key_base = 'aba1381f4540b18f208c27320b73ef7f48fdc460aa99ad82def4b349ec0e4992241ecfb13a3faddce61ad15292760d51609bf66eda01729f578bfd75a59234b4'
+ParliamentaryQuestions::Application.config.secret_key_base = ENV.fetch('DEVISE_SECRET')
