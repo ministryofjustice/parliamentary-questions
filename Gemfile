@@ -88,32 +88,26 @@ gem 'logstasher'
 
 
 group :development do
+  gem 'annotate', '~> 2.6.3'
+  gem 'better_errors'
+  gem 'hirb'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
 end
 
 group :test, :development do
-  gem 'annotate', '~> 2.6.3'
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'capybara'
   gem 'capybara-email'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'guard-rspec'
-  gem 'guard'
-  gem 'guard-livereload'
-  gem 'headless'
-  gem 'hirb'
   gem 'launchy'
   gem 'letter_opener'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'site_prism'
-  gem 'timecop'
   gem 'wirb'
   gem 'wirble'
 end
