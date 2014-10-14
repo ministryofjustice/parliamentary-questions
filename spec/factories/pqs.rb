@@ -10,6 +10,12 @@ FactoryGirl.define do
     question "MyString"
     answer nil
 
+    factory :checked_by_finance_pq do
+      progress { Progress.find_by(name: Progress.UNASSIGNED) }
+      seen_by_finance true
+      finance_interest false
+    end
+
     factory :answered_pq do
       progress { Progress.find_by(name: Progress.ANSWERED) }
     end

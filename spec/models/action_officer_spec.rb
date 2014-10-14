@@ -16,9 +16,9 @@ describe ActionOfficer do
   end
 
   it 'should have return concatenated emails if group_email is set' do
-    expect(officer.emails).to eql('action.officer@email.com')
+    current_email = officer.emails
     officer.group_email = 'group.email@email.com'
-    expect(officer.emails).to eql('action.officer@email.com;group.email@email.com')
+    expect(officer.emails).to eql("#{current_email};group.email@email.com")
   end
 
   it 'should strip whitespace from emails' do
