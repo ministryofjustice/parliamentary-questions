@@ -110,6 +110,7 @@ group :test, :development do
   gem 'faker'
   gem 'annotate', '~> 2.6.3'
   # gem 'webmock'
+  gem 'brakeman'
 end
 
 
