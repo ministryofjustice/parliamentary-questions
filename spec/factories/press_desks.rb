@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :press_desk do
-    name "Press desk one"
+    name { Faker::Lorem.sentence(2) }
   end
 end

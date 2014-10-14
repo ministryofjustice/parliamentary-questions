@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :action_officer do
-    name "action officer 1"
-    email "action.officer@email.com"
+    name { Faker::Name.name }
+    email { Faker::Internet.safe_email }
     deputy_director
-    press_desk_id 1
+    press_desk
   end
 end

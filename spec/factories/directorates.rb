@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :directorate do
-    name "MyString"
-    
+    name { Faker::Company.name }
   end
 end
