@@ -2,7 +2,7 @@
 <h2>Actionlist members</h2>
 <div id="admin-al-list">
   <div class="row>">
-    <div class="col-md-2.5 pull-right">
+    <div id="admin-button-bar" class="col-md-2.5 pull-right">
       <%= link_to ('Add actionlist member'), new_actionlist_member_path, {class: 'button-secondary'} %>
     </div>
   </div>
@@ -10,7 +10,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th class="admin-status">Status</th>
+        <th id="admin-status">Status</th>
         <th></th>
       </tr>
     </thead>

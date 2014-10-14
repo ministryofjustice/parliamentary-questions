@@ -1,8 +1,8 @@
 <%= render partial: "shared/flash_messages", flash: flash %>
 <h2>Action officers</h2>
 <div id="admin-ao-list">
-  <div class="row>">
-    <div class="col-md-2.5 pull-right">
+  <div class="row">
+    <div id="admin-button-bar" class="col-md-2.5 pull-right">
       <%= link_to ('Add Action Officer'), new_action_officer_path, {class: 'button-secondary'} %>
     </div>
   </div>
@@ -12,7 +12,7 @@
         <th>Name</th>
         <th>Division</th>
         <th>Press desk</th>
-        <th class="admin-status">Status</th>
+        <th id="admin-status">Status</th>
         <th></th>
       </tr>
     </thead>
