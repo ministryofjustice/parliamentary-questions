@@ -3,7 +3,6 @@ env:
   global:
     - PQ_REST_API_URL=https://api.wqatest.parliament.uk
     - CODECLIMATE_REPO_TOKEN=08183fa3b285d981f273ace1c809c402810db3221b1060023a6db8633ac5b8cb
-    - DEVISE_SECRET=placeholderaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 rvm:
   - 2.0.0
 before_install:
