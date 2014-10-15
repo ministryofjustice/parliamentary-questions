@@ -8,3 +8,6 @@ ParliamentaryQuestions::Application.load_tasks
 # Disable the requirement for pg_dump on production
 Rake::Task["db:structure:dump"].clear if Rails.env.production?
 
+task :default do
+  Brakeman.run :app_path => ".", :print_report => true
+end
