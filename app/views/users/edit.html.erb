@@ -1,19 +1,27 @@
 <h2>Edit user: <%= @user.name %></h2>
 <div id="admin-user-form">
-  <%= form_for @user do |f| %>
-    <div class="form-group">
-      <%= f.label(:name, "Name:") %>
-      <%= f.text_field :name, {class: 'form-control'} %>
-      <%= f.label(:name, "Email:") %>
-      <%= f.text_field :email, {class: 'form-control'} %>
-      <%= f.label(:roles, "Role:") %>
-      <%= f.select(:roles, [ User.ROLE_PQ_USER, User.ROLE_FINANCE ]) %>
-      <p>
-        Status:
-        <label><%= f.check_box :is_active  %>&nbsp;Active</label>
-      </p>
-      <%= f.submit 'Save', {class: 'button'} %>
-    </div>
-  <% end %>
+    <%= form_for @user do |f| %>
+        <div class="form-group">
+            <%= f.label(:name, "Name:") %>
+            <%= f.text_field :name, {class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+            <%= f.label(:name, "Email:") %>
+            <%= f.text_field :email, {class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+            <%= f.label(:roles, "Role:") %>
+            <%= f.select(:roles, [ User.ROLE_PQ_USER, User.ROLE_FINANCE ]) %>
+        </div>
+        <p>Status:</p>
+        <div class="form-group">
+            <label for="user_is_active" class="block-label">
+              <%= f.check_box :is_active  %>&nbsp;Active
+            </label>
+        </div>
+        <div class="form-group">
+            <%= f.submit 'Save', :id => 'save', :class => 'button' %>
+        </div>
+    <% end %>
 </div>
 <%= link_to 'Return to user list', users_path, {class: 'admin-link'} %>
