@@ -91,6 +91,7 @@ group :development do
   gem 'annotate', '~> 2.6.3'
   gem 'better_errors'
   gem 'hirb'
+  gem 'pry-rails'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
