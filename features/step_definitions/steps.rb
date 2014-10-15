@@ -1,4 +1,4 @@
-Given(/^I there is a (.*) question$/) do |factory_type|
+Given(/^There is a (.*) question$/) do |factory_type|
   factory_name = "#{factory_type.downcase.gsub(' ', '_')}_pq".to_sym
   @pq = FactoryGirl.create(factory_name)
 end
