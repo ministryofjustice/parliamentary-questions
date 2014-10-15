@@ -57,8 +57,10 @@
         <div id="progress-menu-answer-data" class="progress-menu-data start-hidden">
           <%= render partial:'answer', locals: {f: f} %>
         </div>
+        <div class="form-group">
+            <%= f.submit 'Save', :id => 'save', :class => 'button' %>
+        </div>
       </fieldset>
-      <%= f.submit 'Save', :id => 'save', :class => 'button' %>
     <% end %>
   </div>
 </div>

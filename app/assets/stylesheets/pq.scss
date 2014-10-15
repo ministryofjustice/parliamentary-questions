@@ -1,4 +1,4 @@
-/* = Reset ================================================================================= */
+// = Reset =================================================================================
 
 .row {
   margin:0px;
@@ -7,11 +7,11 @@
   }
 }
 
-p {margin: 0px;}
+p { margin: 0px; }
 
-body {font-size: 19px;}
+body { font-size: 19px; }
 
-/* = Colour definitions ==================================================================== */
+// = Colour definitions ====================================================================
 
 #build, i.fa-envelope, .name-day, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header:hover, .trim-links-cancel:hover {color: #fff;}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close {color: #000;}
@@ -69,15 +69,41 @@ h2 .badge, #status-filters .badge {background-color: #000;}
 .js-enabled .add-focus {outline-color: #ffbf47;}
 .js-enabled .add-focus {outline: 3px solid #ffbf47;}
 
-/* = Template and shared ======================================================== */
+// = Template and shared ========================================================
 
-.header-wrapper, #wrapper {max-width: 1024px; margin-left: auto; margin-right: auto;}
-.header-global {margin-right: 40.5%;}
+.header-wrapper,
+#wrapper {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-#global-header.with-proposition .header-wrapper .header-proposition {display: inline-block; float:none; width: 241px; height: 48px;}
-.content a {line-height: 32px; vertical-align: middle;}
-#build {display: inline-block; font-size: 14px; font-weight: 900; letter-spacing: 2px; padding: 2px 5px;}
-#wrapper {border-bottom: none; padding: 0px 15px;}
+.header-global { margin-right: 40.5%; }
+
+#global-header.with-proposition .header-wrapper .header-proposition {
+  display: inline-block;
+  float:none;
+  width: 241px;
+  height: 48px;
+}
+
+.content a {
+  line-height: 32px;
+  vertical-align: middle;
+}
+
+#build {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  padding: 2px 5px;
+}
+
+#wrapper {
+  border-bottom: none;
+  padding: 0px 15px;
+}
 
 h1 {font-size: 24px; font-weight: normal; display: inline; margin-right: 19px;}
 h2 {font-size: 24px; font-weight: bold;}
@@ -93,29 +119,66 @@ button.close {float: none; margin: 0.5em;}
 
 hr {height: 1px;}
 
-/* = Flags = */
-.flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-with-minister, .flag-with-pod {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
-.flag-minister-cleared, .flag-pod-cleared {border-radius: 6px; font-weight: normal; font-size: 13px; padding: 6px;}
+// = Flags ======================================================================
 
-.name-day, .flag-will-write, .flag-transferred-in {font-size: 14px; font-weight: normal; margin: 0px 10px 0px 0px; padding: 3.5px 8px; text-align: center; white-space: nowrap;}
-/* ======== */
+.flag-accepted,
+.flag-answered,
+.flag-draft-pending,
+.flag-finance-unchecked,
+.flag-ministerial-query,
+.flag-no-response,
+.flag-pod-query,
+.flag-rejected,
+.flag-transferred-out,
+.flag-unallocated,
+.flag-unassigned,
+.flag-with-minister,
+.flag-with-pod {
+  border-radius: 6px;
+  font-weight: normal;
+  font-size: 13px;
+  padding: 6px;
+}
+
+.flag-minister-cleared,
+.flag-pod-cleared {
+  border-radius: 6px;
+  font-weight: normal;
+  font-size: 13px;
+  padding: 6px;
+}
+
+.name-day,
+.flag-will-write,
+.flag-transferred-in {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0px 10px 0px 0px;
+  padding: 3.5px 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+// ==============================================================================
 
 .form-group {
   clear: both;
   margin: 0px 0px 20px 0px;
-  label {
-    margin-bottom: 0px;
-    .block-label {margin: 0px 0px 20px 0px;}
-  }
+  .block-label { margin: 0px 0px 20px 0px; }
 }
 
-.info-notice {border-left-width: 4px; border-left-style: solid; margin-bottom: 20px;}
+.info-notice {
+  border-left-width: 4px;
+  border-left-style: solid;
+  margin-bottom: 20px;
+}
 
-i.fa-envelope, i.fa-exclamation-triangle {margin-left: 4px;}
+i.fa-envelope,
+i.fa-exclamation-triangle { margin-left: 4px; }
 
-.right {float: right;}
+.right { float: right; }
 
-.strong {font-weight: 700;}
+.strong { font-weight: 700; }
 
 label {
   display: block;
@@ -123,25 +186,28 @@ label {
   clear: both;
 }
 
-.date, .datetimepicker {width: 13em;}
+.date,
+.datetimepicker { width: 13em; }
 
 #pages,
 .internal-deadline-form,
-.select2-container-multi .select2-choices li {width: 100%;}
+.select2-container-multi .select2-choices li { width: 100%; }
 
-.internal-deadline {font-size: 19px;}
+.internal-deadline { font-size: 19px; }
 
-a.button:hover, a.button-secondary:hover {text-decoration: none;}
+a.button:hover,
+a.button-secondary:hover { text-decoration: none; }
 
-.inline {display: inline-block;}
+.inline { display: inline-block; }
 
-.form-control {font-size: 19px;}
+.form-control { font-size: 19px; }
 
-.no-indent{margin-left: -2.1em;}
+.no-indent { margin-left: -2.1em; }
 
-/* = Element spacing ============================================================ */
+// = Element spacing ============================================================
 
-.dashboard-column1-uncommissioned {margin-bottom: 20px;}
+.dashboard-column1-uncommissioned { margin-bottom: 20px; }
+
 .dashboard-column1-commissioned .col-md-6 {
   padding-left: 0px;
   margin: 0px 0px 10px 0px;
@@ -152,9 +218,9 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
   margin: 0px 0px 6px 0px;
 }
 
-.select2-search-choice div {line-height: 1em;}
+.select2-search-choice div { line-height: 1em; }
 
-.allocation-info .button {margin: 30px 0px 0px 0px;}
+.allocation-info .button { margin: 30px 0px 0px 0px; }
 
 #progress-panel .date.datetimepicker,
 #progress-panel p,
@@ -168,18 +234,17 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 #pq-columns select,
 #pq-columns hr,
 #pq-columns label.block-label
-{margin: 0px 0px 20px 0px;}
+{ margin: 0px 0px 20px 0px; }
 
-#pq-columns label, #progress-panel label {margin-bottom: 0px;}
+#pq-columns label, #progress-panel label { margin-bottom: 0px; }
 
-#confirmation_button_bar {padding-left: 0px;}
-#btn_finance_visibility {margin-top: 30px;}
+#confirmation_button_bar { padding-left: 0px; }
+#btn_finance_visibility { margin-top: 30px; }
 
-
-/* = Radio / checkbox styling =================================================== */
+// = Radio / checkbox styling ===================================================
 
 .block-label {
-  display:block;
+  display: block;
   float: none;
   clear: left;
   position: relative;
@@ -213,6 +278,8 @@ a.button:hover, a.button-secondary:hover {text-decoration: none;}
 
 .js-enabled .block-label input:focus {outline: none;}
 
+// ==============================================================================
+
 textarea {
   resize:none;
   &.form-control {width: 100%;}
@@ -223,11 +290,11 @@ textarea {
   margin: 7.5px 0px;
 }
 
-/* = Sign in ==================================================================== */
+// = Sign in ====================================================================
 
 #sign_in {margin: 30px 0px;}
 
-/* = Navigation ================================================================= */
+// = Navigation =================================================================
 
 .navbar {
   margin: 0px -15px 20px -15px;
@@ -341,11 +408,11 @@ li.select2-search-field {border-bottom: none;}
       display: inline-block;
       vertical-align: middle;
     }
-    #pq-details-progress {margin-left: 26px;}
+    #pq-details-progress { margin-left: 26px; }
   }
 }
 
-#pq-details-qa-link {display: block;}
+#pq-details-qa-link { display: block; }
 
 #pq-detail-area {
   margin: 15px 0px 0px 0px;
@@ -369,7 +436,7 @@ li.select2-search-field {border-bottom: none;}
         border-bottom: 1px solid #c2c2c2;
         border-left: 1px solid #c2c2c2;
       }
-      a.progress-menu-item.activeTab:hover {margin-left: 0px;}
+      a.progress-menu-item.activeTab:hover { margin-left: 0px; }
     }
   }
   #progress-panel {
@@ -388,8 +455,8 @@ li.select2-search-field {border-bottom: none;}
       width: 280px;
       margin-bottom: 20px;
     }
-    .start-hidden {display: none;}
-    #save {margin-top: 30px;}
+    .start-hidden { display: none; }
+    //#save {margin-top: 30px;}
   }
 }
 
@@ -406,13 +473,13 @@ li.select2-search-field {border-bottom: none;}
   }
 }
 
-.button-cancel {margin-right: 0;}
+.button-cancel { margin-right: 0; }
 
-.trim-links-form{margin: .3em 0 0;}
+.trim-links-form { margin: .3em 0 0; }
 
-.tr5-message{display: none;}
+.tr5-message{ display: none; }
 
-.toggle-content{display: none;}
+.toggle-content{ display: none; }
 
 /* = Pagination ================================================================= */
 
@@ -477,15 +544,15 @@ li.select2-search-field {border-bottom: none;}
   box-shadow: none;
 }
 
-.info-notice h3 {margin-left: 15px;}
+.info-notice h3 { margin-left: 15px; }
 
-.info-notice li {list-style: none;}
+.info-notice li { list-style: none; }
 
-#admin-status {width: 100px;}
+#admin-status { width: 100px; }
 
 /* = Reports ============================================================ */
 
-.table-cell-centered {text-align: center;}
+.table-cell-centered { text-align: center; }
 
 #minister-report td,
 #pressdesk-report td {
@@ -507,7 +574,7 @@ li.select2-search-field {border-bottom: none;}
       option {}
     }
   }
-  .button {margin-right: 25%;}
+  .button { margin-right: 25%; }
 }
 
 /* = Footer ============================================================ */
