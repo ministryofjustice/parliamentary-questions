@@ -3,8 +3,6 @@
     <% if ao_pq.accept %>
       <h4>Date PQ accepted by action officer</h4>
       <p class="text"><%= ao_pq.updated_at.strftime('%d/%m/%Y %H:%M') unless ao_pq.updated_at.nil? %></p>
-    <% else %>
-      <p class="text"><% ao_pq.action_officer_id %><p>
     <% end %>
   <% end %>
 <% end %>
