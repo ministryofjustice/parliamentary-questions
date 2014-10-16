@@ -7,7 +7,7 @@
   }
 }
 
-p { margin: 0px; }
+p { margin: 0px 0px 6px 0px; }
 
 body {
   font-size: 19px;
@@ -67,8 +67,7 @@ h2 .badge, #status-filters .badge {background-color: #000;}
 .alert-success,
 .success { border-left-color: #85994b; }
 
-.notice  { border-left-color: #bfc1c3; }
-
+.notice,
 .info-notice { border-left-color: #d0021b; }
 
 .js-enabled .add-focus { outline-color: #ffbf47; }
@@ -170,38 +169,28 @@ hr { height: 1px; }
 .flag-answered,
 .flag-draft-pending,
 .flag-finance-unchecked,
+.flag-minister-cleared,
 .flag-ministerial-query,
 .flag-no-response,
+.flag-pod-cleared
 .flag-pod-query,
 .flag-rejected,
+.flag-transferred-in,
 .flag-transferred-out,
 .flag-unallocated,
 .flag-unassigned,
-.flag-with-minister,
-.flag-with-pod {
-  border-radius: 6px;
-  font-weight: normal;
-  font-size: 13px;
-  padding: 6px;
-}
-
-.flag-minister-cleared,
-.flag-pod-cleared {
-  border-radius: 6px;
-  font-weight: normal;
-  font-size: 13px;
-  padding: 6px;
-}
-
-.name-day,
 .flag-will-write,
-.flag-transferred-in {
-  font-size: 14px;
+.flag-with-minister,
+.flag-with-pod,
+.name-day,
+ {
+  border-radius: 6px;
   font-weight: normal;
-  margin: 0px 10px 0px 0px;
+  font-size: 14px;
   padding: 3.5px 8px;
   text-align: center;
   white-space: nowrap;
+  margin: 0px 10px 0px 0px;
 }
 
 // ==============================================================================
