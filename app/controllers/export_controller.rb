@@ -9,12 +9,12 @@ class ExportController < ApplicationController
   end
   
   def csv
-    pqs = get_pqs('transfer_out_ogd_id is null AND created_at >=? AND updated_at <=?')
+    pqs = get_pqs('transfer_out_ogd_id is null AND (answer_submitted >=? OR answer_submitted is null) AND tabled_date <=?')
     send_data to_csv(pqs.order(:uin))
   end
 
   def csv_for_pod
-    pqs = get_pqs('created_at >=? AND updated_at <=? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
+    pqs = get_pqs('tabled_date >=? AND tabled_date <=? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
     send_data to_csv(pqs.order(:date_for_answer))
   end
 
@@ -33,7 +33,7 @@ class ExportController < ApplicationController
           'Draft due to Parly Branch',
           'Date First Appeared in Parliament',
           'Date Due in Parliament',
-          'Date resubmitted to Minister (if appliable)',
+          'Date resubmitted to Minister (if applicable)',
           'Date returned by AO (if applicable)',
           'Date Draft Returned to PB',
           'Date sent back to AO (if applicable)',
