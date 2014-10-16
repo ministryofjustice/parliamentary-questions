@@ -1,9 +1,8 @@
 <% flash.each do |type, message| %>
     <% if !message.blank? %>
-	<div class="alert <%= flash_class_for(type) %> fade in">
-		<%= message %>&nbsp;<button class="close" data-dismiss="alert">×</button>
-	</div>
+	    <div class="alert <%= flash_class_for(type) %> fade in">
+		    <%= message %> <button class="close" data-dismiss="alert">x</button>
+	    </div>
     <% end %>
 <% end %>
-
 <% flash.clear %>

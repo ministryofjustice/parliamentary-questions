@@ -145,7 +145,7 @@ $(document).ready(function () {
             var uin = $('#pq-frame-'+pqid+ ' h3').text();
             //it worked!
             //so - get the entire question and replace it with a flash success message
-            $('#pq-frame-'+pqid).replaceWith('<div class="alert alert-success fade in"><button class="close" data-dismiss="alert">×</button>'+ uin +' commissioned successfully</div>');
+            $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
             //increment allocated pending
             incrementBadge('#db-filter-alloc-pend');
             //decrement Unallocated

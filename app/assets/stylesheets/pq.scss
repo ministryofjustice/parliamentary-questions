@@ -61,13 +61,15 @@ h2 .badge, #status-filters .badge {background-color: #000;}
 
 #settings-home h3 {border-bottom-color: #dee0e2;}
 
-.alert-success {border-left-color: #85994b;}
-.notice  {border-left-color: #bfc1c3;}
-.info-notice {border-left-color: #d0021b;}
-.success {border-left-color: #dee0e2;}
+.alert-success,
+.success { border-left-color: #85994b; }
 
-.js-enabled .add-focus {outline-color: #ffbf47;}
-.js-enabled .add-focus {outline: 3px solid #ffbf47;}
+.notice  { border-left-color: #bfc1c3; }
+
+.info-notice { border-left-color: #d0021b; }
+
+.js-enabled .add-focus { outline-color: #ffbf47; }
+.js-enabled .add-focus { outline: 3px solid #ffbf47; }
 
 // = Template and shared ========================================================
 
