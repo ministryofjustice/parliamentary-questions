@@ -1,13 +1,11 @@
 <div id="admin-wl-form">
     <%= form_for @watchlist_member do |f| %>
         <% if @watchlist_member.errors.any? %>
-            <div class="info-notice">
-                <h3><%= pluralize(@watchlist_member.errors.count, "error") %> prohibited this watchlist member from being saved:</h3>
-                <ul>
-                    <% @watchlist_member.errors.full_messages.each do |msg| %>
-                        <li><%= msg %></li>
-                    <% end %>
-                </ul>
+            <div class="alert notice">
+                <%= pluralize(@watchlist_member.errors.count, "error") %> prohibited this watchlist member from being saved:<br />
+                <% @watchlist_member.errors.full_messages.each do |msg| %>
+                    <%= msg %><br />
+                <% end %>
             </div>
         <% end %>
         <fieldset>

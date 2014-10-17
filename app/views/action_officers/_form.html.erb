@@ -1,48 +1,46 @@
 <div id="admin-ao-form">
   <%= form_for @action_officer do |f| %>
-    <% if @action_officer.errors.any? %>
-      <div class="info-notice">
-        <h3><%= pluralize(@action_officer.errors.count, "error") %> prohibited this Action Officer from being saved:</h3>
-        <ul>
-          <% @action_officer.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+      <% if @action_officer.errors.any? %>
+          <div class="alert notice">
+            <%= pluralize(@action_officer.errors.count, "error") %> prohibited this Action Officer from being saved:<br />
+            <% @action_officer.errors.full_messages.each do |msg| %>
+                <%= msg %><br />
+            <% end %>
+          </div>
+      <% end %>
+      <fieldset>
+        <div class="form-group">
+          <label for="action_officer_name" class="form-label">Name</label>
+          <%= f.text_field :name, {class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+          <label for="action_officer_email" class="form-label">Email</label>
+          <%= f.text_field :email , {class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+          <label for="action_officer_group_email" class="form-label">Group email</label>
+          <%= f.text_field :group_email , {class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+          <label for="action_officer_phone" class="form-label">Phone</label>
+          <%= f.text_field :phone , {class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+          <label for="action_officer_deputy_director_id" class="form-label">Deputy Director</label>
+          <%= f.collection_select(:deputy_director_id, @deputy_directors, :id, :name, :include_blank => "Please select") %>
+        </div>
+        <div class="form-group">
+          <label for="action_officer_press_desk_id" class="form-label">Press Desk</label>
+          <%= f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select") %>
+        </div>
+        <p class="text">Status</p>
+        <div class="form-group">
+          <label for="action_officer_deleted" class="block-label"><%= f.check_box :deleted %>Inactive</label>
+        </div>
+        <div class="form-group">
+          <%= f.submit 'Save', :id => 'save', :class => 'button' %>
+        </div>
       </div>
-    <% end %>
-    <fieldset>
-      <div class="form-group">
-        <label for="action_officer_name" class="form-label">Name</label>
-        <%= f.text_field :name, {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <label for="action_officer_email" class="form-label">Email</label>
-        <%= f.text_field :email , {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <label for="action_officer_group_email" class="form-label">Group email</label>
-        <%= f.text_field :group_email , {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <label for="action_officer_phone" class="form-label">Phone</label>
-        <%= f.text_field :phone , {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <label for="action_officer_deputy_director_id" class="form-label">Deputy Director</label>
-        <%= f.collection_select(:deputy_director_id, @deputy_directors, :id, :name, :include_blank => "Please select") %>
-      </div>
-      <div class="form-group">
-        <label for="action_officer_press_desk_id" class="form-label">Press Desk</label>
-        <%= f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select") %>
-      </div>
-      <p class="text">Status</p>
-      <div class="form-group">
-        <label for="action_officer_deleted" class="block-label"><%= f.check_box :deleted %>Inactive</label>
-      </div>
-      <div class="form-group">
-        <%= f.submit 'Save', :id => 'save', :class => 'button' %>
-      </div>
-    </div>
-    </fieldset>
+      </fieldset>
   <% end %>
-</div>
+  </div>

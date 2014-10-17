@@ -1,7 +1,7 @@
 // = Reset =================================================================================
 
 .row {
-  margin:0px;
+  margin: 0px;
   &.row-spacer{
     margin: 15px 0;
   }
@@ -16,44 +16,88 @@ body {
 
 // = Colour definitions ====================================================================
 
-#build, i.fa-envelope, .name-day, .open, .dropdown-toggle.btn-success, .flag-accepted, .flag-answered, .flag-draft-pending, .flag-finance-unchecked, .flag-ministerial-query, .flag-no-response, .flag-pod-query, .flag-rejected, .flag-transferred-in, .flag-transferred-out, .flag-unallocated, .flag-unassigned, .flag-will-write, .flag-with-minister, .flag-with-pod, .trim-links-header:hover, .trim-links-cancel:hover {color: #fff;}
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close {color: #000;}
+#build,
+i.fa-envelope,
+.name-day,
+.open,
+.dropdown-toggle.btn-success,
+.flag-accepted,
+.flag-answered,
+.flag-draft-pending,
+.flag-finance-unchecked,
+.flag-ministerial-query,
+.flag-no-response,
+.flag-pod-query,
+.flag-rejected,
+.flag-transferred-in,
+.flag-transferred-out,
+.flag-unallocated,
+.flag-unassigned,
+.flag-will-write,
+.flag-with-minister,
+.flag-with-pod,
+.trim-links-header:hover,
+.trim-links-cancel:hover { color: #fff; }
 
-#search_button {color: #999;}
-.glyphicon-search {color: #979797;}
-i.fa-exclamation-triangle, i.fa-times-circle {color:#df3034;}
-i.fa-check-circle {color:#00823b;}
-#status-filters .active .badge {color: #6f7781;}
-#qa-link a {color: #4a8acd;}
-hr {color: #bfc1c3;}
-h4 {color: #6f777b;}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li > a,
+.file-choose-replace,
+.flag-minister-cleared,
+.flag-pod-cleared,
+.alert,
+button.close { color: #000; }
 
-#build {background-color: #f47738;}
+#search_button { color: #999; }
+.glyphicon-search { color: #979797; }
 
-#search_button, #status-filters .active .badge, .js-enabled .selected, #progress-menu ul li a.progress-menu-item:hover, .js-enabled .selected, .alert {background-color: #fff;}
-.block-label {background: #dee0e2;}
-.flag-accepted {background-color: #28a197;}
-.flag-answered {background-color: #006435;}
-.flag-draft-pending {background-color: #85994b;}
-.flag-finance-unchecked {background-color: #b10e1e;}
-.flag-minister-cleared {background-color: #c1a87e;}
-.flag-ministerial-query {background-color: #b58840;}
-.flag-no-response {background-color: #f47738;}
-.flag-pod-cleared {background-color: #a1a8ff;}
-.flag-pod-query {background-color: #5461ff;}
-.flag-rejected {background-color: #d0021b;}
-.flag-transferred-in {background-color: #7d7d7d;}
-.flag-transferred-out {background-color: #d53880;}
-.flag-unallocated {background-color: #f47738;}
-.flag-unassigned {background-color: #bd10e0;}
-.flag-will-write {background-color: #5f5f5f;}
-.flag-with-minister {background-color: #82622e;}
-.flag-with-pod {background-color: #2e358b;}
-h2 .badge, #status-filters .badge {background-color: #000;}
-.navbar {background-color: #dee0e2;}
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {background-color: #ffbf47;}
-.name-day {background-color: #9b9b9b;}
-.alert-ie6 {background-color: #e9f9f8;}
+i.fa-exclamation-triangle,
+i.fa-times-circle { color: #df3034; }
+
+i.fa-check-circle { color: #00823b; }
+#status-filters .active .badge { color: #6f7781; }
+#qa-link a { color: #4a8acd; }
+hr { color: #bfc1c3; }
+h4 { color: #6f777b; }
+
+#build { background-color: #f47738; }
+
+#search_button,
+#status-filters .active .badge,
+.js-enabled .selected,
+#progress-menu ul li a.progress-menu-item:hover,
+.js-enabled .selected, .alert { background-color: #fff; }
+
+.block-label { background: #dee0e2; }
+.flag-accepted { background-color: #28a197; }
+.flag-answered { background-color: #006435; }
+.flag-draft-pending { background-color: #85994b; }
+.flag-finance-unchecked { background-color: #b10e1e; }
+.flag-minister-cleared { background-color: #c1a87e; }
+.flag-ministerial-query { background-color: #b58840; }
+.flag-no-response { background-color: #f47738; }
+.flag-pod-cleared { background-color: #a1a8ff; }
+.flag-pod-query { background-color: #5461ff; }
+.flag-rejected { background-color: #d0021b; }
+.flag-transferred-in { background-color: #7d7d7d; }
+.flag-transferred-out { background-color: #d53880; }
+.flag-unallocated { background-color: #f47738; }
+.flag-unassigned { background-color: #bd10e0; }
+.flag-will-write { background-color: #5f5f5f; }
+.flag-with-minister { background-color: #82622e; }
+.flag-with-pod { background-color: #2e358b; }
+
+h2 .badge,
+#status-filters .badge { background-color: #000; }
+
+.navbar { background-color: #dee0e2; }
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus { background-color: #ffbf47; }
+
+.name-day { background-color: #9b9b9b; }
+.alert-ie6 { background-color: #e9f9f8; }
 
 #progress-menu ul li a.progress-menu-item { border-color: #000; }
 .block-label:hover, .js-enabled .selected { border-color: #0b0c0c; }
@@ -204,7 +248,12 @@ hr { height: 1px; }
 .info-notice {
   border-left-width: 4px;
   border-left-style: solid;
-  margin-bottom: 20px;
+  margin: 0px 0px 20px 16px;
+  padding:16px;
+  ul {
+    list-style-type: none;
+    li { margin-left: -41px; }
+  }
 }
 
 i.fa-envelope,
@@ -311,13 +360,13 @@ a.button-secondary:hover { text-decoration: none; }
   margin-right: 15px;
 }
 
-.js-enabled .block-label input:focus {outline: none;}
+.js-enabled .block-label input:focus { outline: none; }
 
 // ==============================================================================
 
 textarea {
   resize:none;
-  &.form-control {width: 100%;}
+  &.form-control { width: 100%; }
 }
 
 .admin-link {
@@ -327,15 +376,15 @@ textarea {
 
 // = Sign in ====================================================================
 
-#sign_in {margin: 30px 0px;}
+#sign_in { margin: 30px 0px; }
 
 // = Navigation =================================================================
 
 .navbar {
   margin: 0px -15px 20px -15px;
   border-radius: 0px;
-  #settings {margin-right: 65px;}
-  .navbar-right {margin-right: 74px;}
+  #settings { margin-right: 65px; }
+  .navbar-right { margin-right: 74px; }
   #search_field {
     width: 142px;
     border-radius: 0px;
@@ -351,16 +400,16 @@ textarea {
 
 /* = New / In Progress Tabs ===================================================== */
 
-.nav-tabs {margin-bottom: 20px;}
+.nav-tabs { margin-bottom: 20px; }
 
 /* Status Filters =============================================================== */
 
 #status-filters {
-  h3 {
-    margin: 0px 0px 10px 0px;
-  }
+  h3 { margin: 0px 0px 10px 0px; }
   .badge {
-    float: right; min-width: 2.5em; margin-top: .4em;
+    float: right;
+    min-width: 2.5em;
+    margin-top: .4em;
   }
 }
 
@@ -382,7 +431,7 @@ textarea {
       padding: 0px;
       vertical-align: middle;
     }
-    .pq-header-flags {margin-right: 26px;}
+    .pq-header-flags { margin-right: 26px; }
   }
   .pq-question {
     margin: .5em 0 .5em;
@@ -394,18 +443,18 @@ textarea {
     padding: 0px;
   }
   .pq-columns {
-    .col-md-7 {padding-left: 0px;}
+    .col-md-7 { padding-left: 0px; }
     .dashboard-column-2 {
       .internal-deadline-form,
       .date-for-answer-form {
         margin-bottom: 20px;
-        label {margin-bottom: 0px;}
-        .internal-dtp {margin: 0px 0px 10px 0px;}
+        label { margin-bottom: 0px; }
+        .internal-dtp { margin: 0px 0px 10px 0px; }
       }
       .trim_area.trim_area_dashboard{
         .trim-links-form {
           .inline.tr5-actions.toggle-content{
-            .pq-inline-form {display: inline!important;}
+            .pq-inline-form { display: inline!important; }
           }
         }
       }
@@ -563,7 +612,7 @@ li.select2-search-field {border-bottom: none;}
   padding-left: 0px;
 }
 
-#admin-button-bar {margin-bottom: 10px;}
+#admin-button-bar { margin-bottom: 10px; }
 
 .form-control,
 .form-group select {
@@ -578,13 +627,9 @@ li.select2-search-field {border-bottom: none;}
   box-shadow: none;
 }
 
-.info-notice h3 { margin-left: 15px; }
-
-.info-notice li { list-style: none; }
-
 #admin-status { width: 100px; }
 
-/* = Reports ============================================================ */
+// = Reports ============================================================
 
 .table-cell-centered { text-align: center; }
 
@@ -595,7 +640,7 @@ li.select2-search-field {border-bottom: none;}
 }
 
 #report-filter {
-  .col-md-9 {padding: 0px;}
+  .col-md-9 { padding: 0px; }
   .col-md-3 {
     select{
       width: 200px;
@@ -611,29 +656,31 @@ li.select2-search-field {border-bottom: none;}
   .button { margin-right: 25%; }
 }
 
-/* = Footer ============================================================ */
-#footer {margin-top: 100px;}
+// = Footer ============================================================
+
+#footer { margin-top: 100px; }
 
 /* ============================================================ */
 /* = Misc.                                                      */
 /* ============================================================ */
+
 .reveal{
   border-left: 5px solid #eee;
   padding-left: .5em;
   margin-top: .5em;
   p{
-    &:first-child{padding-top: .5em;}
-    &:last-child{padding-bottom: .5em;}
+    &:first-child{ padding-top: .5em; }
+    &:last-child{ padding-bottom: .5em; }
   }
-  &.closed{display: none;}
-  &.opened{display: block;}
+  &.closed{ display: none; }
+  &.opened{ display: block; }
 }
 
-.br{display: block;}
+.br{ display: block; }
 
-.space-before {margin-top: 15px;}
+.space-before { margin-top: 15px; }
 
-.space-before-20 {margin-top: 20px;}
+.space-before-20 { margin-top: 20px; }
 
 details{
   summary{
@@ -661,10 +708,10 @@ details{
 .form-group.inline {
   .block-label {
     margin: .5em .5em 0 0;
-    &:last-child {margin-right:0;}
+    &:last-child { margin-right: 0; }
   }
 }
 
 @media print {
-  .trim_area, .button, .button-secondary {display: none;}
+  .trim_area, .button, .button-secondary { display: none; }
 }

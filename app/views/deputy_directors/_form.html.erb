@@ -1,37 +1,35 @@
 <div id="admin-deputy-form">
-  <%= form_for(@deputy_director) do |f| %>
-    <% if @deputy_director.errors.any? %>
-      <div class="info-notice">
-        <h3><%= pluralize(@deputy_director.errors.count, "error") %> prohibited this deputy_director from being saved:</h3>
-        <ul>
-          <% @deputy_director.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
+    <%= form_for(@deputy_director) do |f| %>
+        <% if @deputy_director.errors.any? %>
+            <div class="alert notice">
+                <%= pluralize(@deputy_director.errors.count, "error") %> prohibited this deputy_director from being saved:<br />
+                <% @deputy_director.errors.full_messages.each do |msg| %>
+                    <%= msg %><br />
+                <% end %>
+            </div>
+        <% end %>
+        <fieldset>
+            <div class="form-group">
+                <label for="deputy_director_name" class="form-label">Name</label>
+                <%= f.text_field :name, {class: 'form-control'} %>
+            </div>
+            <div class="form-group">
+                <label for="deputy_director_email" class="form-label">Email</label>
+                <%= f.text_field :email, {class: 'form-control'} %>
+            </div>
+            <div class="form-group">
+                <label for="deputy_director_division_id" class="form-label">Division</label>
+                <%= f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select") %>
+            </div>
+            <div class="form-group">
+                <p class="text">Status</p>
+                <label for="deputy_director_deleted" class="block-label">
+                    <%= f.check_box :deleted %>Inactive
+                </label>
+            </div>
+            <div class="form-group">
+                <%= f.submit 'Save', :id => 'save', :class => 'button' %>
+            </div>
+        </fieldset>
     <% end %>
-    <fieldset>
-      <div class="form-group">
-        <label for="deputy_director_name" class="form-label">Name</label>
-        <%= f.text_field :name, {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <label for="deputy_director_email" class="form-label">Email</label>
-        <%= f.text_field :email, {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <label for="deputy_director_division_id" class="form-label">Division</label>
-        <%= f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select") %>
-      </div>
-      <div class="form-group">
-        <p class="text">Status</p>
-        <label for="deputy_director_deleted" class="block-label">
-          <%= f.check_box :deleted %>Inactive
-        </label>
-      </div>
-      <div class="form-group">
-        <%= f.submit 'Save', :id => 'save', :class => 'button' %>
-      </div>
-    </fieldset>
-  <% end %>
 </div>
