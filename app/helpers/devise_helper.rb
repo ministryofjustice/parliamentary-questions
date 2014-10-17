@@ -15,7 +15,7 @@ module DeviseHelper
 
     html = <<-HTML
     <div class="info-notice">
-      <h3>#{sentence}</h3>
+      #{sentence}<br />
       <ul>#{messages}</ul>
     </div>
     HTML

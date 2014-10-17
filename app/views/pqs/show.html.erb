@@ -1,21 +1,19 @@
 <div class="row">
-  <div class="col-md-12">
-    <%= render partial: "shared/flash_messages", flash: flash %>
-  </div>
+    <div class="col-md-12">
+        <%= render partial: "shared/flash_messages", flash: flash %>
+    </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <% if @pq.errors.any? %>
-      <div class="info-notice">
-        <h3><%= pluralize(@pq.errors.count, "error") %> prohibited this PQ from being saved:</h3>
-        <ul>
-          <% @pq.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
+    <div class="col-md-12">
+        <% if @pq.errors.any? %>
+            <div class="alert notice">
+                <%= pluralize(@pq.errors.count, "error") %> prohibited this PQ from being saved:<br />
+                <% @pq.errors.full_messages.each do |msg| %>
+                    <%= msg %><br />
+                <% end %>
+            </div>
+        <% end %>
+    </div>
 </div>
 
 <%= render 'pq_header' %>

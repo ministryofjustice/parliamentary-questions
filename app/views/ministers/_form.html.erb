@@ -1,53 +1,51 @@
 <div id="admin-minister-form">
-  <%= form_for(@minister) do |f| %>
-    <% if @minister.errors.any? %>
-      <div class="info-notice">
-        <h3><%= pluralize(@minister.errors.count, "error") %> prohibited this Minister from being saved:</h3>
-        <ul>
-          <% @minister.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
+    <%= form_for(@minister) do |f| %>
+        <% if @minister.errors.any? %>
+            <div class="alert notice">
+                <%= pluralize(@minister.errors.count, "error") %> prohibited this Minister from being saved:<br />
+                <% @minister.errors.full_messages.each do |msg| %>
+                    <%= msg %><br />
+                <% end %>
+            </div>
+        <% end %>
+        <fieldset>
+            <div class="form-group">
+                <label for="minister_name" class="form-label">Name</label>
+                <%= f.text_field :name, {class: 'form-control'} %>
+            </div>
+            <div class="form-group">
+                <label for="minister_title" class="form-label">Title</label>
+                <%= f.text_field :title, {class: 'form-control'} %>
+            </div>
+            <%= f.fields_for :minister_contacts do |ff| %>
+                <div class="form-group">
+                    <label for="minister_minister_contacts_attributes_0_name" class="form-label">Contact description</label>
+                    <%= ff.text_field :name, {class: 'form-control'} %>
+                </div>
+                <div class="form-group">
+                    <label for="minister_minister_contacts_attributes_0_email" class="form-label">Email</label>
+                    <%= ff.text_field :email, {class: 'form-control'} %>
+                </div>
+                <div class="form-group">
+                    <label for="minister_minister_contacts_attributes_0_phone" class="form-label">Phone</label>
+                    <%= ff.text_field :phone, {class: 'form-control'} %>
+                </div>
+                <div class="form-group">
+                    <p class="text">Contact status</p>
+                    <label for="minister_minister_contacts_attributes_0_deleted" class="block-label">
+                        <%= ff.check_box :deleted %>Inactive
+                    </label>
+                </div>
+            <% end %>
+            <div class="form-group">
+                <p class="text" style="">Minister status</p>
+                <label for="minister_deleted" class="block-label">
+                    <%= f.check_box :deleted %>&nbsp;Inactive
+                </label>
+            </div>
+            <div class="form-group">
+                <%= f.submit 'Save', :id => 'save', :class => 'button' %>
+            </div>
+        </fieldset>
     <% end %>
-    <fieldset>
-      <div class="form-group">
-        <label for="minister_name" class="form-label">Name</label>
-        <%= f.text_field :name, {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <label for="minister_title" class="form-label">Title</label>
-        <%= f.text_field :title, {class: 'form-control'} %>
-      </div>
-      <%= f.fields_for :minister_contacts do |ff| %>
-        <div class="form-group">
-          <label for="minister_minister_contacts_attributes_0_name" class="form-label">Contact description</label>
-          <%= ff.text_field :name, {class: 'form-control'} %>
-        </div>
-        <div class="form-group">
-          <label for="minister_minister_contacts_attributes_0_email" class="form-label">Email</label>
-          <%= ff.text_field :email, {class: 'form-control'} %>
-        </div>
-        <div class="form-group">
-          <label for="minister_minister_contacts_attributes_0_phone" class="form-label">Phone</label>
-          <%= ff.text_field :phone, {class: 'form-control'} %>
-        </div>
-        <div class="form-group">
-          <p class="text">Contact status</p>
-          <label for="minister_minister_contacts_attributes_0_deleted" class="block-label">
-            <%= ff.check_box :deleted %>Inactive
-          </label>
-        </div>
-      <% end %>
-      <div class="form-group">
-        <p class="text" style="">Minister status</p>
-        <label for="minister_deleted" class="block-label">
-          <%= f.check_box :deleted %>&nbsp;Inactive
-        </label>
-      </div>
-      <div class="form-group">
-        <%= f.submit 'Save', :id => 'save', :class => 'button' %>
-      </div>
-    </fieldset>
-  <% end %>
 </div>
