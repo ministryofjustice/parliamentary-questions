@@ -4,8 +4,14 @@
 <% @questions.each do |question| %>
     <h3><%= question.uin %></h3>
     <p class="text"><%= question.question %></p>
-    <h4>Date For Answer</h4>
-    <p class="text"><%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %></p>
+    <% unless question.date_for_answer.nil? %>
+        <h4>Date For Answer</h4>
+        <p class="text"><%= question.date_for_answer.strftime('%d/%m/%Y') %></p>
+    <% end %>
+    <% unless question.internal_deadline.nil? %>
+        <h4>Internal deadline</h4>
+        <p class="text"><%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') %></p>
+    <% end %>
     <h4><%= question.house_name %></h4>
     <p class="text"><%= question.member_name %></p>
     <div class="allocation-info">
