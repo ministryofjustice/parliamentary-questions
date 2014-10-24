@@ -1,6 +1,6 @@
 <div>
 <h2>Questions Allocated <%= Date.today.strftime('%d/%m/%Y') %></h2>
-<h3 class="section">Allocated Today <span class="badge"><%= @questions.count %></span></h3>
+<h3 class="section">Allocated Today <span class="badge"><%= @questions.length %></span></h3>
 <% @questions.each do |question| %>
     <h3><%= question.uin %></h3>
     <p class="text"><%= question.question %></p>
