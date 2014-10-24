@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :division do
-    name "MyString"
-    directorate_id 1
+    name { Faker::Commerce.department(1) }
+    directorate
   end
 end

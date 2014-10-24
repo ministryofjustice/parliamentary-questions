@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :deputy_director do
-    name "MyString"
-    email "MyString"
-    division_id 1
+    name { Faker::Name.name }
+    email { Faker::Internet.safe_email }
+    division
   end
 end

@@ -7,7 +7,7 @@ development:
   pool: 10
 
 
-test:
+test: &test
   adapter: postgresql
   encoding: unicode
   database: parliamentary-questions_test
@@ -22,3 +22,6 @@ production:
   password: <%= ENV['DB_PASSWORD'] %>
   database: <%= ENV['DB_NAME'] || 'parliamentary-questions' %>
   pool: 15
+
+cucumber:
+  <<: *test
