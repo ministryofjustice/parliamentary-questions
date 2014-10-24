@@ -87,30 +87,31 @@ gem 'whenever', :require => false
 gem 'logstasher'
 
 
-group :test, :development do
-  gem 'rspec-rails'
-  gem 'database_cleaner'
+group :development do
+  gem 'annotate', '~> 2.6.3'
   gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'factory_girl_rails'
-  gem 'guard-rspec'
-  gem 'guard'
-  gem 'guard-livereload'
+  gem 'brakeman'
   gem 'hirb'
-  gem 'wirble'
-  gem 'wirb'
+  gem 'pry-rails'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
+end
+
+group :test, :development do
   gem 'capybara'
   gem 'capybara-email'
-  #gem 'capybara-webkit'
-  gem 'headless'
-  gem 'launchy'
-  gem 'shoulda-matchers'
-  gem 'timecop'
-  gem 'letter_opener'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
   gem 'faker'
-  gem 'annotate', '~> 2.6.3'
-  # gem 'webmock'
-  gem 'brakeman'
+  gem 'launchy'
+  gem 'letter_opener'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers', require: false
+  gem 'site_prism'
+  gem 'wirb'
+  gem 'wirble'
 end
 
 gem 'codeclimate-test-reporter', group: :test, require: nil

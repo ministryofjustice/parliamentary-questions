@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :press_officer do
-    name "Press Officer One"
-    email "po.one@press.office.com"
-    press_desk_id "1"
+    name { Faker::Name.name }
+    email { Faker::Internet.safe_email }
+    press_desk
   end
 end
