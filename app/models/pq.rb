@@ -33,6 +33,18 @@ class Pq < ActiveRecord::Base
         action_officers_pq.rejected.size != action_officers_pq.size
   end
 
+  def rejected?
+    if action_officers_pq.count > 0 &&  ao_pq_accepted.nil?
+      #Check rejects
+      action_officers_pq.each do |ao_pq|
+        if ao_pq.reject
+          return true
+        end
+      end
+    end
+    return false
+  end
+
   # Fixme I'm not sure if this is valid assumption, has to be checked
   def closed?
     unless progress.nil?
@@ -62,25 +74,6 @@ class Pq < ActiveRecord::Base
     end
     return nil
   end
-  def is_rejected
-    if action_officers_pq.count > 0 &&  ao_pq_accepted.nil?
-      #Check rejects
-      action_officers_pq.each do |ao_pq|
-        if ao_pq.reject
-          return true
-        end
-      end
-    end
-    return false
-  end
-  def is_commissioned
-    if action_officers_pq.count > 0 && action_officer_accepted.nil? && !is_rejected
-      return true
-    else
-      return false
-    end
-  end
-
 
   def self.new_questions()
     monitor_new_questions

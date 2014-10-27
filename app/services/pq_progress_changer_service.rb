@@ -25,12 +25,12 @@ class PQProgressChangerService
 
 
   def commissioned_filter(pq)
-    if pq.is_commissioned
+    if pq.commissioned?
       @new_progress = Progress.no_response
     end
   end
   def rejected_filter(pq)
-    if pq.is_rejected
+    if pq.rejected?
       @new_progress = Progress.rejected
     end
   end
