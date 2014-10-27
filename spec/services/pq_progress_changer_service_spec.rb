@@ -105,6 +105,7 @@ describe PQProgressChangerService do
       expect(pq.progress.name).not_to eql(Progress.WITH_MINISTER)
     end
 
+    # Fixme this test should really either not exist or test all possible start progresses
     it 'should NOT move the question to WITH_MINISTER if the progress is not POD_CLEARED' do
       pq = create(:draft_pending_pq)
 
@@ -148,6 +149,7 @@ describe PQProgressChangerService do
       expect(pq.progress.name).to eql(Progress.MINISTERIAL_QUERY)
     end
 
+    # Fixme this test should really either not exist or test all possible start progresses
     it 'should NOT move the question to MINISTER_QUERY if the progress is not WITH_MINISTER' do
       pq = create(:with_pod_pq)
 
@@ -210,6 +212,7 @@ describe PQProgressChangerService do
       expect(pq.progress.name).not_to eql(Progress.MINISTER_CLEARED)
     end
 
+    # Fixme this test should really either not exist or test all possible start progresses
     it 'should NOT move the question to MINISTER_CLEARED if the progress is not MINISTER_QUERY or MINISTER_WAITING' do
       pq = create(:pod_cleared_pq)
 
@@ -225,57 +228,26 @@ describe PQProgressChangerService do
   #  *Remove from dashboard - if - 'answer_submitted || pq_withdrawn’ is completed
   describe 'Answered (remove from dashboard)' do
     it 'should move the question from MINISTER_CLEARED to ANSWERED if answer_submitted completed' do
-      uin = 'TEST1'
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',
-                  progress_id: Progress.minister_cleared.id, policy_minister_id: minister_1.id)
+      pq = create(:minister_cleared_pq)
 
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      pq.update(answer_submitted: Time.now)
 
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
+      pq_progress_changer_service.update_progress(pq)
 
-      pq.update(draft_answer_received: DateTime.now,
-                pod_query_flag: true,
-                pod_clearance: DateTime.now,
-                sent_to_answering_minister: DateTime.now,
-                sent_to_policy_minister: DateTime.now,
-                answering_minister_query: true,
-                cleared_by_answering_minister: DateTime.now,
-                cleared_by_policy_minister: DateTime.now,
-                answer_submitted: DateTime.now)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.ANSWERED)
+      expect(pq.progress.name).to eql(Progress.ANSWERED)
     end
 
     it 'should move the question from MINISTER_CLEARED to ANSWERED if pq_withdrawn set' do
-      uin = 'TEST1'
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',
-                  progress_id: Progress.minister_cleared.id, policy_minister_id: minister_1.id)
+      pq = create(:minister_cleared_pq)
 
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      pq.update(pq_withdrawn: Time.now)
 
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
+      pq_progress_changer_service.update_progress(pq)
 
-      pq.update(draft_answer_received: DateTime.now,
-                pod_query_flag: true,
-                pod_clearance: DateTime.now,
-                sent_to_answering_minister: DateTime.now,
-                sent_to_policy_minister: DateTime.now,
-                answering_minister_query: true,
-                cleared_by_answering_minister: DateTime.now,
-                cleared_by_policy_minister: DateTime.now,
-                pq_withdrawn: DateTime.now)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.ANSWERED)
+      expect(pq.progress.name).to eql(Progress.ANSWERED)
     end
 
+    # Fixme this test doesn't seem to test any functionality from the progress changes
     it 'should not move the question from MINISTER_CLEARED to ANSWERED if pq_withdrawn or answer_submitted not set ' do
       uin = 'TEST1'
       pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',
@@ -303,71 +275,49 @@ describe PQProgressChangerService do
 
     end
 
-
+    # Fixme this test should really either not exist or test all possible start progresses
     it 'should NOT move the question to ANSWERED if the progress is not MINISTER_CLEARED' do
-      uin = 'TEST1'
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',
-                  progress_id: Progress.minister_cleared.id, policy_minister_id: minister_1.id)
+      pq = create(:minister_query_pq)
 
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      pq.update(answer_submitted: Time.now)
 
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
+      pq_progress_changer_service.update_progress(pq)
 
-      pq.update(draft_answer_received: DateTime.now,
-                pod_query_flag: true,
-                pod_clearance: DateTime.now,
-                sent_to_answering_minister: DateTime.now,
-                answering_minister_query: true,
-                answer_submitted: DateTime.now)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.POD_CLEARED)
+      expect(pq.progress.name).not_to eql(Progress.ANSWERED)
     end
   end
 
 
   describe 'From DRAFT_PENDING to ANSWERED' do
     it 'should move the question from DRAFT_PENDING to ANSWERED if all the data necessary is set' do
-      uin = 'TEST1'
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',
-                  progress_id: Progress.draft_pending.id)
+      pq = create(:draft_pending_pq)
 
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
-
-      pq.update(draft_answer_received: DateTime.now,
+      pq.update(draft_answer_received: Time.now,
                 pod_query_flag: true,
-                pod_clearance: DateTime.now,
-                sent_to_answering_minister: DateTime.now,
+                pod_clearance: Time.now,
+                sent_to_answering_minister: Time.now,
                 answering_minister_query: true,
-                cleared_by_answering_minister: DateTime.now,
-                answer_submitted: DateTime.now)
+                cleared_by_answering_minister: Time.now,
+                answer_submitted: Time.now)
 
+      pq_progress_changer_service.update_progress(pq)
 
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.ANSWERED)
+      expect(pq.progress.name).to eql(Progress.ANSWERED)
     end
   end
 
 
   describe 'TRANSFERRED_OUT' do
+    # Fixme should this test all possible initial statuses?
     it 'should move from any other status when relevant data is set' do
-      uin = 'TEST1'
-      pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
-      pq.update(transfer_out_ogd_id: DateTime.now,
-                transfer_out_date: DateTime.now)
+      pq = create(:draft_pending_pq)
 
-      @pq_progress_changer_service.update_progress(pq)
+      pq.update(transfer_out_ogd_id: Time.now,
+                transfer_out_date: Time.now)
 
-      pq = Pq.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.TRANSFERRED_OUT)
+      pq_progress_changer_service.update_progress(pq)
+
+      expect(pq.progress.name).to eql(Progress.TRANSFERRED_OUT)
     end
   end
 
