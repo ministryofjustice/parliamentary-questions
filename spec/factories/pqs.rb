@@ -60,6 +60,10 @@ FactoryGirl.define do
                   progress { Progress.find_by(name: Progress.MINISTERIAL_QUERY) }
                   answering_minister_query true
                 end
+
+                factory :minister_cleared_pq do
+                  cleared_by_answering_minister { Time.now }
+                end
               end
             end
           end
