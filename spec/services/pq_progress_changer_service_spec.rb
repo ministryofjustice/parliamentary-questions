@@ -323,121 +323,46 @@ describe PQProgressChangerService do
 
   describe 'COMMISSIONED' do
     it 'should move from any other status when relevant data is set' do
-      @comm_service = CommissioningService.new
-      ActionMailer::Base.deliveries = []
+      pq = create(:draft_pending_pq)
 
-      uin = 'TEST1'
-      #pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',  progress_id: Progress.draft_pending.id )
+      pq.action_officers_pq.first.update(accept: nil)
 
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      pq_progress_changer_service.update_progress(pq)
 
-      result = @comm_service.send(assignment)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-
-      pq.progress.name.should eq(Progress.NO_RESPONSE)
+      expect(pq.progress.name).to eql(Progress.NO_RESPONSE)
     end
 
     it 'should not move to Commissioned if accepted' do
-      @assignment_service = AssignmentService.new
-      @comm_service = CommissioningService.new
-      ActionMailer::Base.deliveries = []
+      pq = create(:draft_pending_pq)
 
-      uin = 'TEST1'
-      #pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',  progress_id: Progress.draft_pending.id )
+      pq.action_officers_pq.first.update(updated_at: Time.now)
 
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      pq_progress_changer_service.update_progress(pq)
 
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-
-      pq.progress.name.should_not eq(Progress.NO_RESPONSE)
-      pq.progress.name.should eq(Progress.ACCEPTED)
-
+      expect(pq.progress.name).to eql(Progress.ACCEPTED)
     end
   end
 
   describe 'REJECTED' do
     it 'should move to Rejected if all the relevant data is present' do
-      @assignment_service = AssignmentService.new
-      @comm_service = CommissioningService.new
-      ActionMailer::Base.deliveries = []
+      pq = create(:draft_pending_pq)
 
-      uin = 'TEST1'
-      #pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',  progress_id: Progress.draft_pending.id )
+      pq.action_officers_pq.first.update(accept: false, reject: true, reason: 'Some reason', reason_option: 'Some option')
 
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      pq_progress_changer_service.update_progress(pq)
 
-      result = @comm_service.send(assignment)
-
-      response = double('response')
-      allow(response).to receive(:reason) { 'Some reason' }
-      allow(response).to receive(:reason_option) { 'reason option' }
-      @assignment_service.reject(assignment, response)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-
-      pq.progress.name.should_not eq(Progress.NO_RESPONSE)
-      pq.progress.name.should eq(Progress.REJECTED)
-    end
-  end
-  describe 'ACCEPTED' do
-    it 'should move to accepted' do
-      @assignment_service = AssignmentService.new
-      @comm_service = CommissioningService.new
-      ActionMailer::Base.deliveries = []
-
-      uin = 'TEST1'
-      #pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',  progress_id: Progress.draft_pending.id )
-
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-
-      pq.progress.name.should eq(Progress.ACCEPTED)
-
+      expect(pq.progress.name).to eql(Progress.REJECTED)
     end
   end
   describe 'DRAFT_PENDING' do
     it 'should move to draft pending when the accepted date is before the beginning of today' do
-      @assignment_service = AssignmentService.new
-      @comm_service = CommissioningService.new
-      ActionMailer::Base.deliveries = []
+      pq = create(:accepted_pq)
 
-      uin = 'Garblearblefarble'
-      #pq = create(:Pq, uin: uin, question: 'test question?', progress_id: Progress.draft_pending.id)
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',  progress_id: Progress.draft_pending.id )
-      yesterday = DateTime.now - 1.day
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id, accept: true, reject: false, updated_at: yesterday)
+      pq.action_officers_pq.first.update(updated_at: 1.day.ago)
 
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
-      assignment.update(updated_at: yesterday)
+      pq_progress_changer_service.update_progress(pq)
 
-      @pq_progress_changer_service.update_progress(pq)
-
-
-#      pq = Pq.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.DRAFT_PENDING)
-
+      expect(pq.progress.name).to eql(Progress.DRAFT_PENDING)
     end
-
   end
 end
