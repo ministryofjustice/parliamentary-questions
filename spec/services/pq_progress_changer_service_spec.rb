@@ -71,253 +71,168 @@ describe PQProgressChangerService do
         it { is_expected.not_to eql(Progress.POD_CLEARED) }
       end
     end
-  end
 
-  describe 'WITH MINISTER' do
-    it 'should move the question from POD_CLEARED to WITH_MINISTER if sent_to_answering_minister completed and there is no policy minister' do
-      pq = create(:pod_cleared_pq)
+    describe 'when sent_to_answering_minister set' do
+      before do
+        pq.update(sent_to_answering_minister: DateTime.now)
+      end
 
-      pq.update(sent_to_answering_minister: DateTime.now)
+      context 'for POD_CLEARED question and no policy minister set' do
+        let(:pq) { create(:pod_cleared_pq) }
+        it { is_expected.to eql(Progress.WITH_MINISTER) }
+      end
 
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.WITH_MINISTER)
+      context 'for POD_CLEARED question and policy minister set' do
+        let(:pq) { create(:pod_cleared_pq, policy_minister: policy_minister) }
+        it { is_expected.not_to eql(Progress.WITH_MINISTER) }
+      end
     end
 
-    it 'should move the question from POD_CLEARED to WITH_MINISTER if sent_to_answering_minister and sent_to_policy_minister is completed when policy minister is set' do
-      # Fixme having policy_minister assigned doesn't change anything, the progress gets changed anyway (it only checks the dates)
-      pq = create(:pod_cleared_pq, policy_minister: policy_minister)
+    describe 'when sent_to_answering_minister and sent_to_policy_minister are set' do
+      before do
+        pq.update(sent_to_answering_minister: DateTime.now, sent_to_policy_minister: DateTime.now)
+      end
 
-      pq.update(sent_to_answering_minister: DateTime.now, sent_to_policy_minister: DateTime.now)
+      context 'for POD_CLEARED question and policy minister set' do
+        let(:pq) { create(:pod_cleared_pq, policy_minister: policy_minister) }
+        it { is_expected.to eql(Progress.WITH_MINISTER) }
+      end
 
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.WITH_MINISTER)
+      context 'for question which is not POD_CLEARED' do
+        let(:pq) { create(:draft_pending_pq) }
+        it { is_expected.not_to eql(Progress.WITH_MINISTER) }
+      end
     end
 
-    it 'should NOT move the question from POD_CLEARED to WITH_MINISTER if sent_to_answering_minister completed and sent_to_policy_minister is NOT completed when policy minister is set' do
-      pq = create(:pod_cleared_pq, policy_minister: policy_minister)
+    describe 'when answering_minister_query is set to true' do
+      before do
+        pq.update(answering_minister_query: true)
+      end
 
-      pq.update(sent_to_answering_minister: DateTime.now)
+      context 'for WITH_MINISTER question and no policy minister' do
+        let(:pq) { pq = create(:with_minister_pq) }
+        it { is_expected.to eql(Progress.MINISTERIAL_QUERY) }
+      end
 
-      pq_progress_changer_service.update_progress(pq)
+      context 'for WITH_MINISTER question and policy minister set' do
+        let(:pq) { create(:with_minister_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now ) }
+        it { is_expected.to eql(Progress.MINISTERIAL_QUERY) }
+      end
 
-      expect(pq.progress.name).not_to eql(Progress.WITH_MINISTER)
+      context 'for question which is not WITH_MINISTER' do
+        let(:pq) { create(:with_pod_pq) }
+        it { is_expected.not_to eql(Progress.MINISTERIAL_QUERY) }
+      end
     end
 
-    # Fixme this test should really either not exist or test all possible start progresses
-    it 'should NOT move the question to WITH_MINISTER if the progress is not POD_CLEARED' do
-      pq = create(:draft_pending_pq)
+    describe 'when policy_minister_query is set to true' do
+      before do
+        pq.update(policy_minister_query: true)
+      end
 
-      pq.update(sent_to_answering_minister: DateTime.now, sent_to_policy_minister: DateTime.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).not_to eql(Progress.WITH_MINISTER)
-    end
-  end
-
-
-  describe 'Minister Query' do
-    it 'should move the question from WITH_MINISTER to MINISTER_QUERY if answering_minister_query true and there is no policy minister' do
-      pq = create(:with_minister_pq)
-
-      pq.update(answering_minister_query: true)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.MINISTERIAL_QUERY)
+      context 'for WITH_MINISTER question and policy minister set' do
+        let(:pq) { create(:with_minister_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now ) }
+        it { is_expected.to eql(Progress.MINISTERIAL_QUERY) }
+      end
     end
 
-    it 'should move the question from WITH_MINISTER to MINISTER_QUERY if policy_minister_query true when policy minister is set' do
-      pq = create(:with_minister_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now )
+    describe 'when cleared_by_answering_minister is set' do
+      before do
+        pq.update(cleared_by_answering_minister: Time.now)
+      end
 
-      pq.update(policy_minister_query: true)
+      context 'for MINISTER_QUERY question with no policy minister' do
+        let(:pq) { create(:minister_query_pq) }
+        it { is_expected.to eql(Progress.MINISTER_CLEARED) }
+      end
 
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.MINISTERIAL_QUERY)
+      context 'for WITH_MINISTER question with no policy minister' do
+        let(:pq) { create(:with_minister_pq) }
+        it { is_expected.to eql(Progress.MINISTER_CLEARED) }
+      end
+      
+      context 'for MINISTER_QUERY question with policy minister' do
+        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }    
+        it { is_expected.not_to eql(Progress.MINISTER_CLEARED) }
+      end
     end
 
-    it 'should move the question from WITH_MINISTER to MINISTER_QUERY if answering_minister_query true when policy minister is set' do
-      pq = create(:with_minister_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now )
+    describe 'when cleared_by_answering_minister and cleared_by_policy_minister are set' do
+      before do
+        pq.update(cleared_by_answering_minister: Time.now, cleared_by_policy_minister: Time.now)
+      end
 
-      pq.update(answering_minister_query: true)
+      context 'for MINISTER_QUERY question and policy minister set' do
+        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
+        it { is_expected.to eql(Progress.MINISTER_CLEARED) }
+      end
+      
+      context 'for WITH_MINISTER question and policy minister set' do
+        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }    
+        it { is_expected.to eql(Progress.MINISTER_CLEARED) }
+      end
 
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.MINISTERIAL_QUERY)
+      context 'for question which is not (WITH_MINISTER or MINISTER_QUERY)' do
+        let(:pq) { create(:pod_cleared_pq) }    
+        it { is_expected.not_to eql(Progress.MINISTER_CLEARED) }
+      end
     end
 
-    # Fixme this test should really either not exist or test all possible start progresses
-    it 'should NOT move the question to MINISTER_QUERY if the progress is not WITH_MINISTER' do
-      pq = create(:with_pod_pq)
+    describe 'when answer_submitted is set' do
+      before do
+        pq.update(answer_submitted: Time.now)
+      end
 
-      pq.update(answering_minister_query: true)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).not_to eql(Progress.MINISTERIAL_QUERY)
-    end
-  end
-
-  describe 'Minister Cleared' do
-    it 'should move the question from MINISTER_QUERY to MINISTER_CLEARED if cleared_by_answering_minister completed and there is no policy minister' do
-      pq = create(:minister_query_pq)
-
-      pq.update(cleared_by_answering_minister: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.MINISTER_CLEARED)
+      context 'for MINISTER_CLEARED question' do
+        let(:pq) { create(:minister_cleared_pq) }    
+        it { is_expected.to eql(Progress.ANSWERED) }
+      end
+      
+      context 'for question other than MINISTER_CLEARED' do
+        let(:pq) { create(:minister_query_pq) }    
+        it { is_expected.not_to eql(Progress.ANSWERED) }
+      end 
     end
 
-    it 'should move the question from WITH_MINISTER to MINISTER_CLEARED if cleared_by_answering_minister completed and there is no policy minister' do
-      pq = create(:with_minister_pq)
+    describe 'when pq_withdrawn is set' do
+      before do
+        pq.update(pq_withdrawn: Time.now)
+      end
 
-      pq.update(cleared_by_answering_minister: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.MINISTER_CLEARED)
+      context 'for MINISTER_CLEARED question' do
+        let(:pq) { create(:minister_cleared_pq) }    
+        it { is_expected.to eql(Progress.ANSWERED) }
+      end
     end
 
-    it 'should move the question from MINISTER_QUERY to MINISTER_CLEARED if cleared_by_answering_minister and cleared_by_policy_minister is completed when policy minister is set' do
-      pq = create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now)
+    describe 'when all required fields for a question to be answered are set' do
+      before do
+        pq.update(draft_answer_received: Time.now,
+                  pod_query_flag: true,
+                  pod_clearance: Time.now,
+                  sent_to_answering_minister: Time.now,
+                  answering_minister_query: true,
+                  cleared_by_answering_minister: Time.now,
+                  answer_submitted: Time.now)
+      end
 
-      pq.update(cleared_by_answering_minister: Time.now, cleared_by_policy_minister: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.MINISTER_CLEARED)
+      context 'for DRAFT_PENDING question' do
+        let(:pq) { create(:draft_pending_pq) }
+        it { is_expected.to eql(Progress.ANSWERED) }
+      end
     end
 
-    it 'should move the question from WITH_MINISTER to MINISTER_CLEARED if cleared_by_answering_minister and cleared_by_policy_minister is completed when policy minister is set' do
-      pq = create(:with_minister_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now)
+    describe 'when transfer_out_ogd_id and transfer_out_ogd_id are set' do
+      before do
+        pq.update(transfer_out_ogd_id: Time.now,
+                  transfer_out_date: Time.now)
 
-      pq.update(cleared_by_answering_minister: Time.now, cleared_by_policy_minister: Time.now)
+      end
 
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.MINISTER_CLEARED)
-    end
-
-    it 'should NOT move the question from MINISTER_QUERY to MINISTER_CLEARED if cleared_by_answering_minister completed and cleared_by_policy_minister is NOT completed when policy minister is set' do
-      pq = create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now)
-
-      pq.update(cleared_by_answering_minister: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).not_to eql(Progress.MINISTER_CLEARED)
-    end
-
-    # Fixme this test should really either not exist or test all possible start progresses
-    it 'should NOT move the question to MINISTER_CLEARED if the progress is not MINISTER_QUERY or MINISTER_WAITING' do
-      pq = create(:pod_cleared_pq)
-
-      pq.update(cleared_by_policy_minister: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).not_to eql(Progress.MINISTER_CLEARED)
-    end
-  end
-
-
-  #  *Remove from dashboard - if - 'answer_submitted || pq_withdrawn’ is completed
-  describe 'Answered (remove from dashboard)' do
-    it 'should move the question from MINISTER_CLEARED to ANSWERED if answer_submitted completed' do
-      pq = create(:minister_cleared_pq)
-
-      pq.update(answer_submitted: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.ANSWERED)
-    end
-
-    it 'should move the question from MINISTER_CLEARED to ANSWERED if pq_withdrawn set' do
-      pq = create(:minister_cleared_pq)
-
-      pq.update(pq_withdrawn: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.ANSWERED)
-    end
-
-    # Fixme this test doesn't seem to test any functionality from the progress changes
-    it 'should not move the question from MINISTER_CLEARED to ANSWERED if pq_withdrawn or answer_submitted not set ' do
-      uin = 'TEST1'
-      pq = create(:Pq, uin: uin, question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons',
-                  progress_id: Progress.pod_query.id, policy_minister_id: minister_1.id)
-
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-      result = @comm_service.send(assignment)
-      @assignment_service.accept(assignment)
-
-      pq.update(draft_answer_received: DateTime.now,
-                pod_query_flag: true,
-                pod_clearance: DateTime.now,
-                sent_to_answering_minister: DateTime.now,
-                sent_to_policy_minister: DateTime.now,
-                answering_minister_query: true,
-                cleared_by_policy_minister: DateTime.now,
-                cleared_by_answering_minister: DateTime.now,
-                progress_id: Progress.minister_cleared.id)
-
-      @pq_progress_changer_service.update_progress(pq)
-
-      pq = Pq.find_by(uin: uin)
-      pq.progress.name.should eq(Progress.MINISTER_CLEARED)
-
-    end
-
-    # Fixme this test should really either not exist or test all possible start progresses
-    it 'should NOT move the question to ANSWERED if the progress is not MINISTER_CLEARED' do
-      pq = create(:minister_query_pq)
-
-      pq.update(answer_submitted: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).not_to eql(Progress.ANSWERED)
-    end
-  end
-
-
-  describe 'From DRAFT_PENDING to ANSWERED' do
-    it 'should move the question from DRAFT_PENDING to ANSWERED if all the data necessary is set' do
-      pq = create(:draft_pending_pq)
-
-      pq.update(draft_answer_received: Time.now,
-                pod_query_flag: true,
-                pod_clearance: Time.now,
-                sent_to_answering_minister: Time.now,
-                answering_minister_query: true,
-                cleared_by_answering_minister: Time.now,
-                answer_submitted: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.ANSWERED)
-    end
-  end
-
-
-  describe 'TRANSFERRED_OUT' do
-    # Fixme should this test all possible initial statuses?
-    it 'should move from any other status when relevant data is set' do
-      pq = create(:draft_pending_pq)
-
-      pq.update(transfer_out_ogd_id: Time.now,
-                transfer_out_date: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.TRANSFERRED_OUT)
+      context 'for any question type' do
+        let(:pq) { create(:draft_pending_pq) }
+        it { is_expected.to eql(Progress.TRANSFERRED_OUT) }
+      end
     end
   end
 
