@@ -234,50 +234,41 @@ describe PQProgressChangerService do
         it { is_expected.to eql(Progress.TRANSFERRED_OUT) }
       end
     end
-  end
 
-  describe 'COMMISSIONED' do
-    it 'should move from any other status when relevant data is set' do
-      pq = create(:draft_pending_pq)
+    describe 'when action officer accept status changes' do
+      before do
+        pq.action_officers_pq.first.update(accept: nil)
+      end
 
-      pq.action_officers_pq.first.update(accept: nil)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.NO_RESPONSE)
+      let(:pq) { create(:draft_pending_pq) }
+      it { is_expected.to eql(Progress.NO_RESPONSE) }
     end
 
-    it 'should not move to Commissioned if accepted' do
-      pq = create(:draft_pending_pq)
+    describe 'when action officer acceptance date changes' do
+      before do
+        pq.action_officers_pq.first.update(updated_at: Time.now)
+      end
 
-      pq.action_officers_pq.first.update(updated_at: Time.now)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.ACCEPTED)
+      let(:pq) { create(:draft_pending_pq) }
+      it { is_expected.to eql(Progress.ACCEPTED) }
     end
-  end
 
-  describe 'REJECTED' do
-    it 'should move to Rejected if all the relevant data is present' do
-      pq = create(:draft_pending_pq)
-
-      pq.action_officers_pq.first.update(accept: false, reject: true, reason: 'Some reason', reason_option: 'Some option')
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.REJECTED)
+    describe 'when action officer is set to rejected' do
+      before do
+        pq.action_officers_pq.first.update(accept: false, reject: true, reason: 'Some reason', reason_option: 'Some option')
+      end
+      
+      let(:pq) { create(:draft_pending_pq) }
+      it { is_expected.to eql(Progress.REJECTED) }
     end
-  end
-  describe 'DRAFT_PENDING' do
-    it 'should move to draft pending when the accepted date is before the beginning of today' do
-      pq = create(:accepted_pq)
 
-      pq.action_officers_pq.first.update(updated_at: 1.day.ago)
-
-      pq_progress_changer_service.update_progress(pq)
-
-      expect(pq.progress.name).to eql(Progress.DRAFT_PENDING)
+    describe 'next day after action officer accepted the question' do
+      before do
+        pq.action_officers_pq.first.update(updated_at: 1.day.ago)
+      end
+      
+      let(:pq) { create(:accepted_pq) }
+      it { is_expected.to eql(Progress.DRAFT_PENDING) }
     end
   end
 end
