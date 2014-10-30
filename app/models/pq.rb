@@ -20,6 +20,8 @@ class Pq < ActiveRecord::Base
   before_validation :strip_uin_whitespace
   before_update :process_date_for_answer
 
+  scope :allocated_since, ->(since) { joins(:action_officers_pq).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
+
   def init
     self.seen_by_finance ||= false           #will set the default value only if it's nil
   end

@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for='datetimepicker-<%= question.id %>'><h4>Date for answer</h4></label>
 
-                        <div id='datetimepicker-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY">
+                        <div id='datetimepicker-<%= question.id %>' class='input-group date-for-answer-picker date internal-dtp' data-date-format="DD/MM/YYYY">
                             <input id="pq_date_for_answer-<%= question.id %>" class="form-control date-for-answer required-for-commission" name="commission_form[date_for_answer]" type="text" value="<%= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil? %>">
                             <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                             <%= render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress} %>
@@ -57,7 +57,7 @@
                     <div class="form-group">
                         <label for="pq_internal_deadline-<%= question.id %>"><h4>Internal deadline</h4></label>
 
-                        <div id='datetimepicker-int-<%= question.id %>' class='input-group date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
+                        <div id='datetimepicker-int-<%= question.id %>' class='input-group internal-deadline-picker date internal-dtp' data-date-format="DD/MM/YYYY HH:mm">
                             <input id="pq_internal_deadline-<%= question.id %>" class="form-control internal-deadline required-for-commission" name="commission_form[internal_deadline]" type="text" value="<%= question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil? %>">
                             <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                             <%= render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received} %>
