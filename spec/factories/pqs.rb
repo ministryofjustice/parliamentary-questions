@@ -17,11 +17,21 @@ FactoryGirl.define do
 
 
       factory :not_responded_pq do
-        progress { Progress.find_by(name: Progress.NO_RESPONSE) }
+        # allow override action_officer and the dates of allocation
+        ignore do
+          action_officer { create(:action_officer) }
+          action_officer_allocated_at { Time.now }
+        end
 
+        progress { Progress.find_by(name: Progress.NO_RESPONSE) }
         minister
-        after(:create) do |pq, _|
-          pq.action_officers << create(:action_officer)
+
+        after(:create) do |pq, evaluator|
+          create(:action_officers_pq,
+                 pq: pq,
+                 action_officer: evaluator.action_officer,
+                 created_at: evaluator.action_officer_allocated_at,
+                 updated_at: evaluator.action_officer_allocated_at)
         end
       end
     end
