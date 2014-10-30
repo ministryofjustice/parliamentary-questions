@@ -3,6 +3,23 @@ require 'spec_helper'
 describe Pq do
 	let(:newQ) {build(:Pq)}
 
+  describe 'allocated_since' do
+    let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days)}
+    let!(:new_pq1) { create(:not_responded_pq, uin: '20001', action_officer_allocated_at: Time.now + 3.hours)}
+    let!(:new_pq2) { create(:not_responded_pq, uin: 'HL01',  action_officer_allocated_at: Time.now + 5.hours)}
+    let!(:new_pq3) { create(:not_responded_pq, uin: '15000', action_officer_allocated_at: Time.now + 5.hours)}
+
+    subject { Pq.allocated_since(Time.now) }
+
+    it 'returns questions allocated from given time' do
+      expect(subject.length).to be(3)
+    end
+
+    it 'returns questions ordered by uin' do
+      expect(subject.map(&:uin)).to eql(%w(15000 20001 HL01))
+    end
+  end
+
   describe '#commissioned?' do
     subject(:pq) { create(:Pq)}
     subject { pq.commissioned? }

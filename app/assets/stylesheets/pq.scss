@@ -273,7 +273,6 @@ label {
 .datetimepicker { width: 13em; }
 
 #pages,
-.internal-deadline-form,
 .select2-container-multi .select2-choices li { width: 100%; }
 
 .internal-deadline { font-size: 19px; }
@@ -445,12 +444,6 @@ textarea {
   .pq-columns {
     .col-md-7 { padding-left: 0px; }
     .dashboard-column-2 {
-      .internal-deadline-form,
-      .date-for-answer-form {
-        margin-bottom: 20px;
-        label { margin-bottom: 0px; }
-        .internal-dtp { margin: 0px 0px 10px 0px; }
-      }
       .trim_area.trim_area_dashboard{
         .trim-links-form {
           .inline.tr5-actions.toggle-content{
