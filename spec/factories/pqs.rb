@@ -15,16 +15,16 @@ FactoryGirl.define do
       seen_by_finance true
       finance_interest false
 
-
       factory :not_responded_pq do
-        # allow override action_officer and the dates of allocation
+        progress { Progress.find_by(name: Progress.NO_RESPONSE) }
+        internal_deadline { Faker::Date.forward(14) }
+        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
+        minister
+
         ignore do
           action_officer { create(:action_officer) }
           action_officer_allocated_at { Time.now }
         end
-
-        progress { Progress.find_by(name: Progress.NO_RESPONSE) }
-        minister
 
         after(:create) do |pq, evaluator|
           create(:action_officers_pq,
@@ -32,6 +32,50 @@ FactoryGirl.define do
                  action_officer: evaluator.action_officer,
                  created_at: evaluator.action_officer_allocated_at,
                  updated_at: evaluator.action_officer_allocated_at)
+        end
+      end
+
+      factory :accepted_pq do
+        progress { Progress.find_by(name: Progress.ACCEPTED) }
+        internal_deadline { Faker::Date.forward(14) }
+        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
+        minister
+
+        after(:create) do |pq, _|
+          pq.action_officers_pq = [create(:accepted_action_officers_pq, pq: pq)]
+        end
+
+        factory :draft_pending_pq do
+          progress { Progress.find_by(name: Progress.DRAFT_PENDING) }
+        end
+
+        factory :with_pod_pq do
+          progress { Progress.find_by(name: Progress.WITH_POD) }
+          draft_answer_received { Time.now }
+
+          factory :pod_query_pq do
+            progress { Progress.find_by(name: Progress.POD_QUERY) }
+            pod_query_flag true
+
+            factory :pod_cleared_pq do
+              progress { Progress.find_by(name: Progress.POD_CLEARED) }
+              pod_clearance { Time.now }
+
+              factory :with_minister_pq do
+                progress { Progress.find_by(name: Progress.WITH_MINISTER) }
+                sent_to_answering_minister { Time.now }
+
+                factory :minister_query_pq do
+                  progress { Progress.find_by(name: Progress.MINISTERIAL_QUERY) }
+                  answering_minister_query true
+                end
+
+                factory :minister_cleared_pq do
+                  cleared_by_answering_minister { Time.now }
+                end
+              end
+            end
+          end
         end
       end
     end
