@@ -178,38 +178,31 @@ $(document).ready(function () {
         $( divToFill ).html(data);
     });
 
-    $('.internal-dtp').datetimepicker().on('change', function() {
-        $(this).siblings('input[type="submit"]').val("Update").show();
-    }).on('dp.show', function() {
-        $(this).siblings('input[type="submit"]').val("Update").show();
+
+    $('.date-for-answer-picker').datetimepicker({pickTime: false})
+
+    $('.internal-deadline-picker').each(function() {
+        // indicate that the field was empty on load (so the picker can react accordingly on first open)
+        var empty = ($(this).find('input').val() === '');
+        $(this).data('empty', empty);
+    }).datetimepicker().on("dp.show",function () {
+        // when the field was empty on load, pre-select 10:00 as time
+        var picker = $(this).data('DateTimePicker'),
+            empty = $(this).data('empty') || false,
+            date;
+
+        if (empty === true) {
+            date = picker.getDate();
+            date.hour(10);
+            date.minute(0);
+            picker.setDate(date);
+        }
+
+        $(this).removeData('empty');
+    }).on('change', function() {
+        // remove the empty indicator if the field was changed manually
+        $(this).removeData('empty');
     });
-
-    $('.internal-deadline-form')
-        .on("ajax:success", function(){
-            var pqid = $(this).data('pqid');
-            //get the div to refresh
-            var divToUpdate = "btn-set-deadline-" + pqid;
-            //put the dat returned into the div
-            $('#'+divToUpdate).val("Updated").fadeOut(1000);
-
-        }).on("ajax:error", function(e, xhr, status, error) {
-            console.log(error);
-            //TODO how should ux handle error? Add it to the list, alert, flash, etc...
-        });
-
-
-    $('.date-for-answer-form')
-        .on("ajax:success", function(){
-            var pqid = $(this).data('pqid');
-            //get the div to refresh
-            var divToUpdate = "btn-set-date-for-answer-" + pqid;
-            //put the dat returned into the div
-            $('#'+divToUpdate).val("Updated").fadeOut(1000);
-
-        }).on("ajax:error", function(e, xhr, status, error) {
-            console.log(error);
-            //TODO how should ux handle error? Add it to the list, alert, flash, etc...
-        });
 
     $('.ao-reminder-link').on('ajax:success', function(e, data){
         $(this).after(data);
