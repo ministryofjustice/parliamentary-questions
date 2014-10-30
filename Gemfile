@@ -92,7 +92,6 @@ group :development do
   gem 'better_errors'
   gem 'brakeman'
   gem 'hirb'
-  gem 'pry-rails'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
@@ -107,6 +106,7 @@ group :test, :development do
   gem 'faker'
   gem 'launchy'
   gem 'letter_opener'
+  gem 'pry-rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'site_prism'
