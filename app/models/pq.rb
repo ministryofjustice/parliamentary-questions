@@ -35,6 +35,18 @@ class Pq < ActiveRecord::Base
         action_officers_pq.rejected.size != action_officers_pq.size
   end
 
+  def rejected?
+    if action_officers_pq.count > 0 &&  ao_pq_accepted.nil?
+      #Check rejects
+      action_officers_pq.each do |ao_pq|
+        if ao_pq.reject
+          return true
+        end
+      end
+    end
+    return false
+  end
+
   # Fixme I'm not sure if this is valid assumption, has to be checked
   def closed?
     unless progress.nil?
