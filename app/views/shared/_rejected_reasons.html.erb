@@ -3,7 +3,7 @@
     <div class="row">
       <div id="pq-reject-reasons-<%= r.id %>" class="info-notice col-md-12">
         <p id="pq-reject-reasons-header-<%= r.id %>"  class="text">
-          <%= link_to r.action_officer.name, action_officer_path(r.action_officer) %> rejected at: <%= r.updated_at.strftime('%I:%M%p | %m/%d/%Y') %><br />
+          <%= link_to r.action_officer.name, action_officer_path(r.action_officer) %> rejected at: <%= r.updated_at.strftime('%d/%m/%Y %H:%M') %><br />
           <%= r.reason_option %> : <%= r.reason %>
         </p>
       </div>
