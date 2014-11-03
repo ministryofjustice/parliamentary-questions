@@ -1,2 +1,1 @@
-# binding.pry
-PaperTrail.enabled = (ENV['PAPER_TRAIL_ENABLED'] && ENV['PAPER_TRAIL_ENABLED'] == 'false') || true
+PaperTrail.enabled = ['1', 'true'].include?(ENV['PAPER_TRAIL_ENABLED'])
