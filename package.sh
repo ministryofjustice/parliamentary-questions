@@ -107,6 +107,12 @@ bundle --quiet \
        --without build
 
 
+# Add sample envvars if present
+if [ -f ".env.sample" ]; then
+  set -a
+  . .env.sample
+  set +a
+fi
 rm -rf bin
 bundle exec rake rails:update:bin
 bundle exec rake assets:precompile RAILS_ENV=production
