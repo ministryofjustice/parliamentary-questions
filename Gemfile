@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# auditing
+gem 'paper_trail', '~> 3.0.5'
+
 # XML parsing
 gem 'nokogiri'
 

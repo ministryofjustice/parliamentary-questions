@@ -35,6 +35,26 @@ describe 'AssignmentService' do
 
     end
 
+    it 'should create an audit event storing the action officer name' do
+      # setup a valid assignment
+      PaperTrail.enabled=true
+
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+
+
+      @assignment_service.accept(assignment)
+
+      # assignment = ActionOfficersPq.find(assignment_id)
+
+      expect(assignment.versions.size).to eql(2) # Create and update
+      update = assignment.versions.last
+      expect(update.whodunnit).to eql('AO:ao name 1')
+    end
+
     it 'should sent an email with the accept data' do
 
       # setup a valid assignment
@@ -161,6 +181,28 @@ describe 'AssignmentService' do
 
     end
 
+    it 'should create an audit event storing the action officer name' do
+      # setup a valid assignment
+      PaperTrail.enabled=true
+
+      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+      result = @comm_service.send(assignment)
+      assignment_id = result[:assignment_id]
+      assignment = ActionOfficersPq.find(assignment_id)
+      assignment.should_not be nil
+
+      response = double('response')
+      allow(response).to receive(:reason) { 'Some reason' }
+      allow(response).to receive(:reason_option) { 'reason option' }
+      @assignment_service.reject(assignment, response)
+
+      # assignment = ActionOfficersPq.find(assignment_id)
+
+      expect(assignment.versions.size).to eql(2) # Create and update
+      update = assignment.versions.last
+      expect(update.whodunnit).to eql('AO:ao name 1')
+    end
+
     it 'should set the progress to rejected' do
       #pq.action_officers_pq.clear()
       # setup a valid assignment
@@ -239,7 +281,6 @@ describe 'AssignmentService' do
       pq.progress.name.should  eq(Progress.REJECTED)
 
     end
-
 
     it 'should only set the progress to rejected when all action officers reject' do
       #set up the pq with three assignments

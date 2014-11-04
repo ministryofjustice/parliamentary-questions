@@ -19,6 +19,7 @@ class ImportWorker
   def perform
     LogStuff.tag(:import) do
       LogStuff.info { "Import: starting scheduled import" }
+      PaperTrail.whodunnit = 'SideKiq'
       @import_service.questions(dateFrom: Date.yesterday)
       LogStuff.info { "Import: completed scheduled import" }
     end

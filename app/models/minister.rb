@@ -1,5 +1,5 @@
 class Minister < ActiveRecord::Base
-
+  has_paper_trail
   before_validation :strip_whitespace
 
   has_many :pqs
