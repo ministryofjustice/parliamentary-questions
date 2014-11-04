@@ -1,5 +1,7 @@
 class Pq < ActiveRecord::Base
 
+  has_paper_trail
+
   before_update :set_pod_waiting
 
 	validates :uin , presence: true, uniqueness:true

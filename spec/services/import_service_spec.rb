@@ -26,6 +26,15 @@ describe 'ImportService' do
 
 
   describe '#today_questions' do
+
+    it 'should not fail if 0 questions returned' do
+      allow(@http_client).to receive(:questions) { empty_questions_for_today }
+
+      import_result = @import_service.questions()
+      import_result[:questions].size.should eq(0)
+
+    end
+
     it 'should store today questions into the data model' do
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
@@ -115,6 +124,19 @@ describe 'ImportService' do
       question_new = Pq.find_by(uin: 'HL5151')
       question_new.should_not be_nil
       question_new.question.should eql('New question in the api')
+
+    end
+
+    it 'should store audit events by name when importing' do
+      PaperTrail.enabled = true
+      PaperTrail.whodunnit = 'TestRunner'
+      import_result = @import_service.questions()
+      import_result[:questions].size.should eq(2)
+
+      question_one = Pq.find_by(uin: 'HL784845')
+      update = question_one.versions.last
+      expect(question_one.versions.size).to eql(2) # Create and update
+      expect(update.whodunnit).to eql('TestRunner')
 
     end
 

@@ -2,6 +2,10 @@ def sample_questions
   File.open('spec/fixtures/questions.xml')
 end
 
+def empty_questions_for_today
+  File.open('spec/fixtures/empty_questions_for_today.xml')
+  end
+
 def import_questions_for_today
   File.open('spec/fixtures/import_questions_for_today.xml')
 end
