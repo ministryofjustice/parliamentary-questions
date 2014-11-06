@@ -1,13 +1,6 @@
 class ExportController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
-
-  def index
-  end
-
-  def index_for_pod
-  end
-  
   def csv
     pqs = get_pqs('transfer_out_ogd_id is null AND (answer_submitted >=? OR answer_submitted is null) AND tabled_date <=?')
     send_data to_csv(pqs.order(:uin))
@@ -18,7 +11,8 @@ class ExportController < ApplicationController
     send_data to_csv(pqs.order(:date_for_answer))
   end
 
-  private
+private
+
   def get_pqs(sql)
     Pq.where(sql, DateTime.parse(params[:date_from])+1.day-1.minutes, DateTime.parse(params[:date_to])+1.day-1.minute)
   end
@@ -94,21 +88,27 @@ class ExportController < ApplicationController
       get_ao_email(ao)              # 'AO Email'
     ]
   end
+
   def get_original_division(pq)
     pq.at_acceptance_division_id.nil? ? '' : Division.find(pq.at_acceptance_division_id).name
   end
+
   def get_original_directorate(pq)
     pq.at_acceptance_directorate_id.nil? ? '' : Directorate.find(pq.at_acceptance_directorate_id).name
   end
+
   def get_minister(pq)
     pq.minister.nil? ? '' : pq.minister.name
   end
+
   def get_ao_name(ao)
     ao.nil? ? '' : ao.name
   end
+
   def get_ao_email(ao)
     ao.nil? ? '' : ao.email
   end
+
   def format(datetime)
     datetime_format = '%d/%m/%Y %H:%M'
     if datetime.nil?

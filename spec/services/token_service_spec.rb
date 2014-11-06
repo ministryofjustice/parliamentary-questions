@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 describe 'TokenService' do
-
   before(:each) do
     @token_service = TokenService.new()
   end
 
   describe '#generate_token' do
     it 'should generate a token and store the token digest in the database' do
-      # Wed, 20 Jan 2026 10:00:00 +0000
       expire_on = DateTime.new(2026, 01, 20, 10, 0, 0)
       token_to_send = @token_service.generate_token('/path/one', 'entity_one', expire_on)
 
@@ -20,19 +18,16 @@ describe 'TokenService' do
       token_entry.expire.strftime("%Y-%m-%d %H:%M:%S").should eql(expire_on.strftime("%Y-%m-%d %H:%M:%S"))
       token_entry.token_digest.should_not be nil
       token_entry.entity.should eq('entity_one')
-
     end
 
     it 'should store only one token for the same path and entity' do
       expire_on = DateTime.new(2026, 01, 20, 10, 0, 0)
 
       @token_service.generate_token('/path/one', 'entity_one', expire_on)
-      # call the service twice
       @token_service.generate_token('/path/one', 'entity_one', expire_on)
 
       tokens = Token.where(path: '/path/one',  entity: 'entity_one')
 
-      # only one token in the database
       tokens.size.should eq(1)
     end
 
@@ -97,9 +92,7 @@ describe 'TokenService' do
 
       invalid.should eq(false)
       valid.should eq(true)
-
     end
-
   end
 
   describe '#delete_expired' do
@@ -116,13 +109,9 @@ describe 'TokenService' do
       tokens = Token.where(entity: 'entity_one')
       tokens.size.should eq(3)
 
-
       @token_service.delete_expired
       tokens = Token.where(entity: 'entity_one')
       tokens.size.should eq(1)
-
     end
-
   end
-
-  end
+end

@@ -1,8 +1,5 @@
 class AssignmentService
-
   def accept(assignment)
-
-
     ao = ActionOfficer.find(assignment.action_officer_id)
     pq = Pq.find_by(id: assignment.pq_id)
 
@@ -11,7 +8,6 @@ class AssignmentService
     assignment.whodunnit(changed_by) do
       assignment.update_attributes(accept: true, reject: false)
     end
-
 
     div = get_dep_director_for_ao(ao)
     dir = get_directorate_for_ao(ao)
@@ -24,9 +20,7 @@ class AssignmentService
     PqMailer.acceptance_email(pq, ao).deliver
   end
 
-
   def reject(assignment, response)
-
     ao = ActionOfficer.find(assignment.action_officer_id)
     pq = Pq.find_by(id: assignment.pq_id)
 
@@ -48,10 +42,12 @@ class AssignmentService
     end
   end
 
-  private
+private
+
   def get_dep_director_for_ao(ao)
     ao.deputy_director.division.id if ao.deputy_director && ao.deputy_director.division
   end
+
   def get_directorate_for_ao(ao)
     ao.deputy_director.division.directorate.id if ao.deputy_director && ao.deputy_director.division && ao.deputy_director.division.directorate
   end

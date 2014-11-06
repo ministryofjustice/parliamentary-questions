@@ -1,5 +1,6 @@
 class TrimLink < ActiveRecord::Base
   has_paper_trail
+
 	validates :data, presence: true
 	validates :pq_id, presence: true
 

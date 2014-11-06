@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'AnsweringService' do
   let!(:minister1) { create(:minister, member_id: 1) }
+  let(:uin) { '183366' }
 
   before(:each) do
     @http_client = double('QuestionsHttpClient')
@@ -13,11 +14,8 @@ describe 'AnsweringService' do
     @import_service = ImportService.new(@questions_service)
   end
 
-
   describe '#answer' do
     it 'should insert the answer url in the pq' do
-      uin = '183366'
-      # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
       pq = Pq.find_by(uin: uin)
@@ -27,12 +25,9 @@ describe 'AnsweringService' do
 
       pq = Pq.find_by(uin: uin)
       pq.preview_url.should eq('https://wqatest.parliament.uk/Questions/Details/36527')
-
     end
 
     it 'should raise an exception if the minister is nil' do
-      uin = '183366'
-      # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
       pq = Pq.find_by(uin: uin)
@@ -40,13 +35,9 @@ describe 'AnsweringService' do
       expect {
         @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
       }.to raise_error 'Replying minister is not selected for the question'
-
     end
 
-
     it 'should raise an exception if the member id is nil' do
-      uin = '183366'
-      # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
       pq = Pq.find_by(uin: uin)
@@ -56,15 +47,12 @@ describe 'AnsweringService' do
       expect {
         @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
       }.to raise_error 'Replying minister has not member id, please update the member id of the minister'
-
     end
 
 
     it 'should raise an exception you have a error in questions_service' do
       allow(@http_client).to receive(:answer) { {content: sample_answer_error, status: 403} }
 
-      uin = '183366'
-      # import the question to answer into the database
       @import_service.questions_by_uin(uin)
 
       pq = Pq.find_by(uin: uin)
@@ -73,10 +61,6 @@ describe 'AnsweringService' do
       expect {
         @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
       }.to raise_error 'Validation failed on the request.'
-
     end
-
-
   end
 end
-

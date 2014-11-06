@@ -1,5 +1,4 @@
 class MembersHttpClient
-
   def initialize(base_url = Settings.members_api_url)
     @base_url = base_url
     @client = HTTPClient.new
@@ -7,9 +6,6 @@ class MembersHttpClient
 
   def members_xml(name)
     param = URI.escape("name*#{name}")
-
-    # Example
-    # http://data.parliament.uk/membersdataplatform/services/mnis/members/query/name*Diane%20Abbott
     endpoint = URI::join(@base_url, "/membersdataplatform/services/mnis/members/query/#{param}/")
 
     response = @client.get(endpoint)

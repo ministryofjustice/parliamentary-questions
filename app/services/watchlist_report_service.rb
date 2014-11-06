@@ -1,5 +1,4 @@
 class WatchlistReportService
-
   def initialize(tokenService = TokenService.new)
     @tokenService = tokenService
     @@timestamp = DateTime.now.to_s
@@ -14,7 +13,6 @@ class WatchlistReportService
   end
 
   def send
-
     path = '/watchlist/dashboard'
     end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
     token = @tokenService.generate_token(path, entity, end_of_day)
@@ -38,8 +36,6 @@ class WatchlistReportService
       LogStuff.info { "Watchlist  email to #{template[:email]} (name #{template[:name]}) [CCd to #{template[:cc]}]" }
       PqMailer.watchlist_email(template).deliver
     end
-    return token
-
+    token
   end
-
 end

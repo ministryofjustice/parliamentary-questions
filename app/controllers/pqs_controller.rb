@@ -29,7 +29,8 @@ class PqsController < ApplicationController
     render action: 'show'
   end
 
-  private
+private
+
   def set_pq
     @pq = Pq.find_by(uin: params[:id])
   end
@@ -85,25 +86,26 @@ class PqsController < ApplicationController
     )
   end
 
-  def assignment_params
-    # TODO: Check the permit again
-    # params.require(:action_officers_pq).permit(:action_officer_id, :pq_id)
-  end
   def prepare_progresses
     @progress_list = Progress.all
   end
+
   def prepare_ogds
     @ogd_list = Ogd.all
   end
+
   def uppm_params
     params.require(:pq).permit(:policy_minister_id)
   end
+
   def answering_minister_params
     params.require(:pq).permit(:minister_id)
   end
+
   def update_deadline_params
     params.require(:pq).permit(:internal_deadline)
   end
+
   def update_date_for_answer_params
     params.require(:pq).permit(:date_for_answer)
   end

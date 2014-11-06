@@ -41,18 +41,18 @@ class ImportController < ApplicationController
     render :partial => 'questions_import'
   end
 
-
   def logs
     @logs = ImportLog.all.order('id')
     render :partial => 'import_log'
   end
 
+protected
 
-  protected
   def set_date_params
     @dateTo = DateTime.parse(params[:dateTo])
     @dateFrom = DateTime.parse(params[:dateFrom])
   end
+
   def load_service(importService = ImportServiceWithDatabaseLock.new)
     @importService ||= importService
   end

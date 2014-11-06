@@ -1,16 +1,12 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-
-  # this filters reflect the state of the 'New' or 'In Progress' tab
   before_action :set_state_to_new, only: [:index, :by_status, :transferred]
   before_action :set_state_to_in_progress, only: [:in_progress, :in_progress_by_status, :i_will_write]
 
   IN_PROGRESS = 'In progress'
   NEW = 'New'
 
-  # TODO define the number of question per page
   @@per_page = 5
-
 
   def index
     LogStuff.metadata(:request_id => request.env['action_dispatch.request_id']) do
@@ -46,12 +42,12 @@ class DashboardController < ApplicationController
     render 'in_progress_by_status'
   end
 
-
-  private
+private
 
   def set_state_to_in_progress
     @dashboard_state = IN_PROGRESS
   end
+  
   def set_state_to_new
     @dashboard_state = NEW
   end

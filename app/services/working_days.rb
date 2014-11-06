@@ -1,20 +1,18 @@
 require 'date'
-class WorkingDays
 
-  def self.days_after(d,v)
+class WorkingDays
+  def self.days_after(d, v)
     result = d + v.days
     loop do
-      break if !is_weekend(result)
+      break unless weekend?(result)
       result += 1
     end
     result
   end
-  
-  private
 
-  def self.is_weekend(value)
-    result = false
-    result = true if value.saturday? || value.sunday?
-    result
+private
+
+  def self.weekend?(day)
+    day.saturday? || day.sunday?
   end
 end

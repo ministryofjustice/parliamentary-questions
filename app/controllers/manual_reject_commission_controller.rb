@@ -15,10 +15,9 @@ class ManualRejectCommissionController < ApplicationController
     redirect_to({controller: 'pqs', action: 'show', id: pq.uin }, {notice: "#{pq.uin} manually rejected, check if you have to do the commissioning again"})
   end
 
-  private
+private
 
   def load_service(service = AssignmentService.new)
     @assignment_service ||= service
   end
-
 end

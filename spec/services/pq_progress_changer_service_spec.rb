@@ -20,7 +20,6 @@ describe PQProgressChangerService do
   describe '#update_progress' do
     subject do
       pq_progress_changer_service.update_progress(pq)
-      # return new progress name, so it can be easily asserted
       pq.progress.name
     end
 
@@ -150,9 +149,9 @@ describe PQProgressChangerService do
         let(:pq) { create(:with_minister_pq) }
         it { is_expected.to eql(Progress.MINISTER_CLEARED) }
       end
-      
+
       context 'for MINISTER_QUERY question with policy minister' do
-        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }    
+        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
         it { is_expected.not_to eql(Progress.MINISTER_CLEARED) }
       end
     end
@@ -166,14 +165,14 @@ describe PQProgressChangerService do
         let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
         it { is_expected.to eql(Progress.MINISTER_CLEARED) }
       end
-      
+
       context 'for WITH_MINISTER question and policy minister set' do
-        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }    
+        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
         it { is_expected.to eql(Progress.MINISTER_CLEARED) }
       end
 
       context 'for question which is not (WITH_MINISTER or MINISTER_QUERY)' do
-        let(:pq) { create(:pod_cleared_pq) }    
+        let(:pq) { create(:pod_cleared_pq) }
         it { is_expected.not_to eql(Progress.MINISTER_CLEARED) }
       end
     end
@@ -184,14 +183,14 @@ describe PQProgressChangerService do
       end
 
       context 'for MINISTER_CLEARED question' do
-        let(:pq) { create(:minister_cleared_pq) }    
+        let(:pq) { create(:minister_cleared_pq) }
         it { is_expected.to eql(Progress.ANSWERED) }
       end
-      
+
       context 'for question other than MINISTER_CLEARED' do
-        let(:pq) { create(:minister_query_pq) }    
+        let(:pq) { create(:minister_query_pq) }
         it { is_expected.not_to eql(Progress.ANSWERED) }
-      end 
+      end
     end
 
     describe 'when pq_withdrawn is set' do
@@ -200,7 +199,7 @@ describe PQProgressChangerService do
       end
 
       context 'for MINISTER_CLEARED question' do
-        let(:pq) { create(:minister_cleared_pq) }    
+        let(:pq) { create(:minister_cleared_pq) }
         it { is_expected.to eql(Progress.ANSWERED) }
       end
     end
@@ -257,7 +256,7 @@ describe PQProgressChangerService do
       before do
         pq.action_officers_pq.first.update(accept: false, reject: true, reason: 'Some reason', reason_option: 'Some option')
       end
-      
+
       let(:pq) { create(:draft_pending_pq) }
       it { is_expected.to eql(Progress.REJECTED) }
     end
@@ -266,7 +265,7 @@ describe PQProgressChangerService do
       before do
         pq.action_officers_pq.first.update(updated_at: 1.day.ago)
       end
-      
+
       let(:pq) { create(:accepted_pq) }
       it { is_expected.to eql(Progress.DRAFT_PENDING) }
     end

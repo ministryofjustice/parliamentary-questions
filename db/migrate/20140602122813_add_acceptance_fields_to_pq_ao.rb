@@ -4,7 +4,7 @@ class AddAcceptanceFieldsToPqAo < ActiveRecord::Migration
     		t.boolean :accept
         t.boolean :reject
         t.boolean :transfer
-        t.string :note  		
+        t.string :note
       end
     end
 end
