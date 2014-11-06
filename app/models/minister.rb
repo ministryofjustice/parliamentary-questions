@@ -17,8 +17,11 @@ class Minister < ActiveRecord::Base
     self.name + (self.deleted ? ' - Inactive' : '')
   end
 
-  def self.all_active
-    Minister.where(deleted: false)
+  def self.active(minister = nil)
+    table = Minister.arel_table
+    arel = table[:deleted].eq(false)
+    arel = arel.or(table[:id].eq(minister.id)) if minister
+    where(arel)
   end
 
   private

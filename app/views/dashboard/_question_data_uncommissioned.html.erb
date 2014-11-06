@@ -10,15 +10,7 @@
                 <% disabled = !question.seen_by_finance %>
 
                 <fieldset>
-                    <div id="answering-minister-form-<%= question.id %>" class="minister-dropdown form-group">
-                        <label for="minister_id" class="form-label">Assign answering minister</label>
-                        <%= select_tag 'commission_form[minister_id]', content_tag(:option, 'Select', :value => '') + options_from_collection_for_select(Minister.all_active, 'id', 'name', question.minister_id), class: 'single-select-dropdown form-control required-for-commission', disabled: disabled %>
-                    </div>
-
-                    <div id="policy-minister-form-<%= question.id %>" class="minister-dropdown form-group">
-                        <label for="minister_id" class="form-label">Assign policy minister</label>
-                        <%= select_tag 'commission_form[policy_minister_id]', content_tag(:option, 'Select', :value => '') + options_from_collection_for_select(Minister.all_active, 'id', 'name', question.policy_minister_id), class: 'single-select-dropdown form-control', disabled: disabled %>
-                    </div>
+                    <%= render partial: 'shared/minister_selection', locals: {question: @pq, form: f} %>
 
                     <div id="comm-form-container-<%= question.id %>" class="allocation-info form-group">
                         <label class="form-label">Assign action officer(s)</label>

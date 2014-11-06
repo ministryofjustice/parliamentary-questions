@@ -40,16 +40,22 @@ describe Minister do
     end
   end
 
-  describe '::all_active' do
-    let!(:minister) { create(:minister) }
-    let!(:deleted_minister) { create(:deleted_minister) }
-    subject { Minister.all_active }
+  describe '.active' do
+    let(:minister) { create(:minister) }
+    let(:deleted_minister) { create(:deleted_minister) }
 
     it 'returns only active ministers' do
-      expect(subject).to include(minister)
+      subject = Minister.active
+      expect(subject).to eq [minister]
     end
-    it 'includes all active ministers' do
-      expect(subject.size).to eql(1)
+
+    context 'when explicitly including a minister' do
+      let(:selected_minister) { create(:deleted_minister) }
+
+      it 'is included' do
+        subject = Minister.active(selected_minister)
+        expect(subject).to eq [selected_minister, minister]
+      end
     end
   end
 end
