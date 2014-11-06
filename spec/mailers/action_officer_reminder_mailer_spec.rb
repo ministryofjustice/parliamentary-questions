@@ -7,7 +7,7 @@ describe 'ActionOfficerReminderMailer' do
 
   before(:each) do
     ActionMailer::Base.deliveries = []
-    @pq = create(:Pq, uin: 'HL789', question: 'test question?', member_name:'Asking MP', minister_id: minister_1.id, house_name: 'House of Lords')
+    @pq = create(:pq, uin: 'HL789', question: 'test question?', member_name:'Asking MP', minister_id: minister_1.id, house_name: 'House of Lords')
     @ao_pq = ActionOfficersPq.new(action_officer_id: ao.id, pq_id: @pq.id)
 
     @template = Hash.new
