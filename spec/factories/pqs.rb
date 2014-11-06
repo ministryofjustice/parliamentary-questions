@@ -1,7 +1,5 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :Pq do
+  factory :pq do
     uin { Faker::Lorem.characters(10) }
     house_id 1
     raising_member_id 1
