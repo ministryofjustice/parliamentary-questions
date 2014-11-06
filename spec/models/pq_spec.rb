@@ -46,19 +46,29 @@ describe Pq do
     end
   end
 
-  describe '#closed?' do
-    subject { pq.closed? }
+	describe '#closed?' do
+		it 'is closed when answered' do
+			subject = build(:answered_pq)
+			expect(subject.closed?).to be true
+		end
 
-    context 'for unanswered question' do
-      let(:pq) { create(:Pq) }
-      it { should be false }
-    end
+		it 'is not closed when unanswered' do
+			subject = build(:Pq)
+			expect(subject.closed?).to be false
+		end
+	end
 
-    context 'for answered question' do
-      let(:pq) { create(:answered_pq) }
-      it { should be true }
-    end
-  end
+	describe '#open?' do
+		it 'open when unanswered' do
+			subject = build(:Pq)
+		  expect(subject.open?).to be true
+		end
+
+		it 'not open when answered' do
+		  subject = build(:answered_pq)
+			expect(subject.open?).to be false
+		end
+	end
 
   it 'should set pod_waiting when users set draft_answer_received' do
     expect(newQ).to receive(:set_pod_waiting)
@@ -124,7 +134,7 @@ describe Pq do
 	describe "associations" do
 		it 'should allow minister to be set' do
 			@minister = newQ.should respond_to(:minister)
-		end		
+		end
 		it 'should allow policy minister to be set' do
 			@pminister = newQ.should respond_to(:policy_minister)
 		end

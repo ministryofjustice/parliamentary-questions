@@ -52,6 +52,8 @@ RSpec.configure do |config|
     c.syntax = [:should, :expect]
   end
 
+  config.infer_spec_type_from_file_location!
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.clean

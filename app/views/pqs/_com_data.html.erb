@@ -5,7 +5,7 @@
   <span class='input-group date internal-deadline-picker' id='datetimepicker1' data-date-format="DD/MM/YYYY HH:mm">
     <input id="pq_internal_deadline" class="form-control" name="pq[internal_deadline]" type="text" value="<%= @pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil? %>">
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-  </span>  
+  </span>
 </div>
 <hr/>
 <div class="question-allocation">
@@ -50,20 +50,8 @@
   <%= render partial:'shared/rejected_reasons', locals: {question: @pq} %>
 </div>
 <hr/>
-<div class="form-group">
-  <label for="pq_minister_id" class="form-label">Replying minister</label>
-  <%= f.collection_select(:minister_id, @minister_list, :id, :name_with_inactive_status, { :include_blank => ''}, { class: 'minister-select' } ) %>
-  <% if minister_warning? %>
-    <%= render('shared/warning_icon')  %>
-  <% end %>
-</div>
-<div class="form-group">
-  <label for="pq_policy_minister_id" class="form-label">Optional policy minister</label>
-  <%= f.collection_select(:policy_minister_id, @policy_minister_list, :id, :name_with_inactive_status, { :include_blank => ''}, { class: 'minister-select' }) %>
-  <% if policy_minister_warning? %>
-    <%= render('shared/warning_icon')  %>
-  <% end %>
-</div>
+<%= render partial: 'shared/minister_selection', locals: {question: @pq, form: f} %>
+
 <hr/>
 <div class="form-group">
   <label for="pq_transfer_out_ogd_id" class="form-label">Transfer out to</label>
@@ -76,4 +64,3 @@
     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
   </span>
 </div>
-
