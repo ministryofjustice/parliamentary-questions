@@ -9,6 +9,12 @@ describe Pq do
 		it { is_expected.to have_many :trim_links }
 	end
 
+	describe "associations" do
+		it { is_expected.to belong_to :minister }
+		it { is_expected.to belong_to :policy_minister }
+		it { is_expected.to have_many :trim_links }
+	end
+
   describe 'allocated_since' do
     let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days)}
     let!(:new_pq1) { create(:not_responded_pq, uin: '20001', action_officer_allocated_at: Time.now + 3.hours)}
