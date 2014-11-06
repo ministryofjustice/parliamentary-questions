@@ -1,7 +1,7 @@
 module XmlParse
   def get_xml_data(response,field_name)
     xml  = Nokogiri::XML(response)
-    xml.remove_namespaces! # easy to parse if we are only using one namespace
+    xml.remove_namespaces!
     matches= xml.xpath("//#{field_name}")
 
     output_array = Array.new

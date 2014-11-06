@@ -1,11 +1,9 @@
 class ImportServiceWithDatabaseLock
-
   def initialize(importService = ImportService.new, time_threshold = 60.minutes)
     @time_threshold = time_threshold
     @importService = importService
     @progress_unallocated = Progress.unassigned
   end
-
 
   def questions_no_lock(args = { dateFrom: Date.today} )
     questions_imported = 0
@@ -46,21 +44,13 @@ class ImportServiceWithDatabaseLock
     create_import_log('FINISH', msg)
 
     {msg: msg, log_type: 'FINISH'}
-
   end
 
   def create_import_log(text, msg)
     ImportLog.create(log_type: text, msg: msg)
   end
 
-
   def questions(args = { dateFrom: Date.today} )
-    # Warning: This is a naive implementation of a lock using the database, to prevent that a human
-    # or a cron job with enough space between runs (for example 5 or 10 minutes)
-    # could run the method multiple times.
-    # It could happen that this method run concurrently if the rate of the calls is high, because
-    # we are not using row or table locking in the database to do a 'compare-and-set' logic
-
     if !naive_lock_acquire
       return  {msg: 'other process is running or not enough time since the last process run', log_type: 'SKIP_RUN'}
     end
@@ -68,16 +58,12 @@ class ImportServiceWithDatabaseLock
     questions_no_lock(args)
   end
 
-
-  # just a delegate
   def questions_by_uin(uin)
     @importService.questions_by_uin(uin)
   end
 
-  protected
+protected
 
-  # Naive lock implementation (non atomic compare-and-set)
-  # true if the lock could be acquired
   def naive_lock_acquire
     lastLog = ImportLog.order("created_at").last
     if lastLog.nil?
@@ -89,15 +75,11 @@ class ImportServiceWithDatabaseLock
       return  true
     end
 
-    # # There is a problem with the lock logic - hacking it in here temporarily
     LogStuff.info { "Import: unable to obtain lock - continuing anyway" }
-    # return true
     return false
   end
-
 
   def delete_old_logs
     ImportLog.where('created_at < ?', DateTime.now - 4.days).delete_all
   end
-
 end

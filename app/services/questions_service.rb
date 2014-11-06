@@ -4,23 +4,6 @@ class QuestionsService
     @http_client = http_client
   end
 
-  # valid args
-  # :dateFrom  YYYY-MM-DDTHH:mm:ss
-  # :dateTo    YYYY-MM-DDTHH:mm:ss
-  # :status
-  #         "Tabled",
-  #         "Withdrawn"
-  #         "WithdrawnWithoutNotice"
-  #         "AnswerNotExpected"
-  #         "Incomplete"
-  #         "PendingCorrectionReview"
-  #         "PendingAnswerReview"
-  #         "ReturnedVirus"
-  #         "ReturnedCorrection"
-  #         "ReturnedAnswer"
-  #         "Answered"
-  #         "Holding"
-  #         "ScanningForVirus"
   def questions(args = { dateFrom: Date.today} )
     result = ''
     $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
@@ -36,7 +19,7 @@ class QuestionsService
         puts "e=#{e.inspect}"
       end
     end
-    return result
+    result
   end
 
   def questions_by_uin(uin)
@@ -44,7 +27,6 @@ class QuestionsService
     questions = XmlParse.get_xml_data(response,'Question')
     questions.first
   end
-
 
   def answer(args)
     uin = args[:uin]
@@ -72,8 +54,7 @@ class QuestionsService
     {preview_url: preview_url }
   end
 
-
-  protected
+protected
 
   def parse_answer_xml(response)
     xml  = Nokogiri::XML(response)
@@ -86,5 +67,4 @@ class QuestionsService
     xml.remove_namespaces!
     xml.xpath('/Error/Message').text
   end
-
 end

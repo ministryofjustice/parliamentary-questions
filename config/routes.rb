@@ -29,8 +29,7 @@ ParliamentaryQuestions::Application.routes.draw do
   devise_for :users , :controllers => { :invitations => 'users/invitations' }
   resources :users
 
-
-  resources :pqs  
+  resources :pqs
   resources :trim_links
 
   get 'trim_links/new/:id' => 'trim_links#new'
@@ -61,7 +60,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'dashboard/in_progress_by_status/:qstatus' => 'dashboard#in_progress_by_status'
   get 'dashboard/transferred' => 'dashboard#transferred'
   get 'dashboard/i_will_write' => 'dashboard#i_will_write'
-  
+
   get 'assignment/:uin' => 'assignment#index'
   post 'assignment/:uin' => 'assignment#action'
 
@@ -102,8 +101,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
   match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
 
-
-  # error pages with metric for production only
   if Rails.env.production?
     get '401', :to => 'application#unauthorized'
     get '404', :to => 'application#page_not_found'

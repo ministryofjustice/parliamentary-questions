@@ -16,14 +16,8 @@ class MinisterContactsController < ApplicationController
       end
   end
 
-  def show
-  end
+private
 
-  def update
-  end
-
-  private
-  # Use callbacks to share common setup or constraints between actions.
   def set_minister
     if params[:id].nil?
       @minister = Minister.find(params[:minister_contact][:minister_id])
@@ -32,7 +26,6 @@ class MinisterContactsController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def minister_contacts_params
     params.require(:minister_contact).permit(:name, :email, :phone, :deleted, :minister_id)
   end

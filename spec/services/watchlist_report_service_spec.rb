@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'WatchlistReportService' do
 
-
   let!(:watchlist_one) { create(:watchlist_member, name: 'member 1', email: 'm1@ao.gov',  deleted: false) }
   let!(:watchlist_two) { create(:watchlist_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:watchlist_deleted) { create(:watchlist_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
@@ -13,10 +12,8 @@ describe 'WatchlistReportService' do
   end
 
   it 'should have generated a valid token' do
-
     @report_service.send()
 
-    # first watchlist member
     token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
 
     token.should_not be nil
@@ -26,8 +23,6 @@ describe 'WatchlistReportService' do
     end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
     token.expire.should eq(end_of_day)
 
-
-    # second watchlist member
     token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
     token.should_not be nil
     token.id.should_not be nil
@@ -36,8 +31,6 @@ describe 'WatchlistReportService' do
     end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
     token.expire.should eq(end_of_day)
 
-
-    # the token is not send to deleted Watchlist members
     token = Token.where(entity: "watchlist:#{watchlist_deleted.id}", path: '/watchlist/dashboard').first
     token.should be nil
   end
@@ -45,15 +38,13 @@ describe 'WatchlistReportService' do
   it 'should send an email with the right data' do
     pqtest_mail ='pqtest@digital.justice.gov.uk'
 
-
     testid = "watchlist-" + DateTime.now.to_s
 
     @report_service.stub(:entity) { testid }
     result = @report_service.send()
 
-    # first email for the first member
     mail = ActionMailer::Base.deliveries.first
-    #sentToken = result[watchlist_one.id]
+
     sentToken = result[pqtest_mail]
     token_param = {token: sentToken}.to_query
     entity = {entity: entity = testid }.to_query
@@ -71,13 +62,13 @@ describe 'WatchlistReportService' do
     mail.to.should include pqtest_mail
 
   end
+
   it 'should add the people from the Watchlist to the CC' do
     testid = "watchlist-" + DateTime.now.to_s
 
     @report_service.stub(:entity) { testid }
     result = @report_service.send()
 
-    # first email for the first member
     mail = ActionMailer::Base.deliveries.first
     sentToken = result[watchlist_one.id]
     token_param = {token: sentToken}.to_query
@@ -86,10 +77,5 @@ describe 'WatchlistReportService' do
 
     mail.cc.should include watchlist_one.email
     mail.cc.should include watchlist_two.email
-
-
-
   end
-
-
 end

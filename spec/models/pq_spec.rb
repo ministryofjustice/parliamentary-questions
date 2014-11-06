@@ -3,6 +3,12 @@ require 'spec_helper'
 describe Pq do
 	let(:newQ) {build(:pq)}
 
+	describe "associations" do
+		it { is_expected.to belong_to :minister }
+		it { is_expected.to belong_to :policy_minister }
+		it { is_expected.to have_many :trim_links }
+	end
+
   describe 'allocated_since' do
     let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days)}
     let!(:new_pq1) { create(:not_responded_pq, uin: '20001', action_officer_allocated_at: Time.now + 3.hours)}
@@ -86,7 +92,6 @@ describe Pq do
   end
 
 	describe 'validation' do
-
 		it 'should pass onfactory build' do
 			expect(newQ).to be_valid
 		end
@@ -121,25 +126,14 @@ describe Pq do
       expect(newQ).to be_valid
       expect(newQ.uin).to eql('hl1234')
     end
-
 	end
+
 	describe 'item' do
 		it 'should allow finance interest to be set' do
 			newQ.finance_interest=true
 			expect(newQ).to be_valid
 			newQ.finance_interest=false
 			expect(newQ).to be_valid
-		end
-	end
-	describe "associations" do
-		it 'should allow minister to be set' do
-			@minister = newQ.should respond_to(:minister)
-		end
-		it 'should allow policy minister to be set' do
-			@pminister = newQ.should respond_to(:policy_minister)
-		end
-		it 'should have a collection of trim links' do
-			@trim = newQ.should respond_to(:trim_links)
 		end
 	end
 end

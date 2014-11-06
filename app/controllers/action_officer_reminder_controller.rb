@@ -24,8 +24,7 @@ class ActionOfficerReminderController  < ApplicationController
     render partial: 'shared/flash_messages'
   end
 
-
-  private
+private
 
   def set_data
     id = params[:id]
@@ -40,7 +39,5 @@ class ActionOfficerReminderController  < ApplicationController
     @template[:question] = @pq.question
     @template[:member_name] = @pq.member_name
     @template[:house] = @pq.house_name
-
   end
-
 end

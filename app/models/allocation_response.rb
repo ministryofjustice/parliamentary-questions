@@ -23,5 +23,4 @@ class AllocationResponse
   def rejected?
     response_action == 'reject'
   end
-
 end

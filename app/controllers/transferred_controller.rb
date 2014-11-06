@@ -22,7 +22,7 @@ class TransferredController < ApplicationController
     end
   end
 
-  private
+private
 
   def pq_params
     params.require(:pq).permit(:uin,
@@ -40,5 +40,4 @@ class TransferredController < ApplicationController
   def prepare_ogds
     @ogd_list = Ogd.all
   end
-
 end

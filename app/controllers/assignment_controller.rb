@@ -4,14 +4,8 @@ class AssignmentController < ApplicationController
   before_action :load_service
 
   def index
-    #todo Check for existing assignment and redirect if the current user has already responded
-    # puts '====================='
-    # puts "@assignment=#{@assignment.inspect}"
-    # puts '====================='
     @question = Pq.find_by(uin: params[:uin])
     if @question.action_officers_pq.accepted.size>0 || @assignment.reject
-      # puts 'redirect to confirm'
-      # puts '====================='
       return render 'confirmation'
     end
     @response = AllocationResponse.new()
@@ -26,12 +20,10 @@ class AssignmentController < ApplicationController
 
     response_action = @response.response_action
     if response_action == 'accept'
-      # flash[:success] = 'Thank you for accepting, you have been sent a guidance email'
       @assignment_service.accept(@assignment)
     end
 
     if response_action == 'reject'
-      # flash[:notice] = 'Thank you for responding, your message has been sent to the PQ team'
       @assignment_service.reject(@assignment, @response)
     end
 
@@ -39,35 +31,31 @@ class AssignmentController < ApplicationController
     render 'confirmation'
   end
 
-  private
-    def set_data
-      # the entity is in this format "assignment:<id>"
-      # for example "assignment:3"
+private
 
-      entity = params[:entity].split(':')
-      assignment_id = entity[1]
+  def set_data
+    entity = params[:entity].split(':')
+    assignment_id = entity[1]
 
-      if assignment_id.nil?
-        return render :file => 'public/401.html', :status => :unauthorized
-      end
-
-      @assignment = ActionOfficersPq.find(assignment_id)
-
-      if @assignment.nil?
-        return render :file => 'public/401.html', :status => :unauthorized
-      end
-
-      @question = Pq.find_by(uin: params[:uin])
-      @ao = @assignment.action_officer
-
+    if assignment_id.nil?
+      return render :file => 'public/401.html', :status => :unauthorized
     end
 
-    def response_params
-      params.require(:allocation_response).permit(:response_action, :reason_option, :reason)
+    @assignment = ActionOfficersPq.find(assignment_id)
+
+    if @assignment.nil?
+      return render :file => 'public/401.html', :status => :unauthorized
     end
 
-    def load_service(service = AssignmentService.new)
-      @assignment_service ||= service
-    end
+    @question = Pq.find_by(uin: params[:uin])
+    @ao = @assignment.action_officer
+  end
 
+  def response_params
+    params.require(:allocation_response).permit(:response_action, :reason_option, :reason)
+  end
+
+  def load_service(service = AssignmentService.new)
+    @assignment_service ||= service
+  end
 end

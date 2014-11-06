@@ -1,10 +1,7 @@
 class PQProgressChangerService
-
   def update_progress(pq)
-
     @new_progress = pq.progress
     @progress_onwards = TRUE
-
 
     commissioned_filter(pq) if @progress_onwards
     rejected_filter(pq) if @progress_onwards
@@ -17,18 +14,17 @@ class PQProgressChangerService
     minister_query_filter(pq) if @progress_onwards
     minister_cleared_filter(pq) if @progress_onwards
     answered_filter(pq) if @progress_onwards
-    transferred_out(pq) # Always check transferred out.
-    
+    transferred_out(pq)
+
     update_pq(pq, @new_progress)
-
   end
-
 
   def commissioned_filter(pq)
     if pq.commissioned?
       @new_progress = Progress.no_response
     end
   end
+
   def rejected_filter(pq)
     if pq.rejected?
       @new_progress = Progress.rejected
@@ -42,6 +38,7 @@ class PQProgressChangerService
       @progress_onwards = FALSE
     end
   end
+
   def draft_pending_filter(pq)
     beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
 
@@ -52,22 +49,19 @@ class PQProgressChangerService
     else
       @progress_onwards = FALSE
     end
-
   end
+
   def with_pod_filter(pq)
     if !pq.draft_answer_received.nil?
       @new_progress =  Progress.with_pod
     else
       @progress_onwards = FALSE
     end
-
   end
 
   def pod_query_filter(pq)
     if pq.pod_query_flag
       @new_progress =  Progress.pod_query
-    # else
-    #   @progress_onwards = FALSE
     end
   end
 
@@ -85,8 +79,6 @@ class PQProgressChangerService
 
 
   def with_minister_filter(pq)
-
-    # does not have policy minister
     if pq.policy_minister.nil?
       if !pq.sent_to_answering_minister.nil?
         @new_progress =  Progress.with_minister
@@ -96,7 +88,6 @@ class PQProgressChangerService
       end
     end
 
-    # has policy minister
     if !pq.sent_to_answering_minister.nil? && !pq.sent_to_policy_minister.nil?
       @new_progress =  Progress.with_minister
       @progress_onwards = TRUE
@@ -107,8 +98,6 @@ class PQProgressChangerService
   end
 
   def minister_query_filter(pq)
-
-    # does not have policy minister
     if pq.policy_minister.nil?
       if pq.answering_minister_query
         @new_progress =  Progress.ministerial_query
@@ -116,7 +105,6 @@ class PQProgressChangerService
       end
     end
 
-    # has policy minister
     if pq.policy_minister_query || pq.answering_minister_query
       @new_progress = Progress.ministerial_query
       progress_onwards = TRUE
@@ -124,11 +112,7 @@ class PQProgressChangerService
     end
   end
 
-
   def minister_cleared_filter(pq)
-
-    # does not have policy minister & cleared by minister
-    # Or has been cleared policy minister and not cleared by answering minister
     if pq_approved_by_minister_and_no_pol_minister(pq) || pq_approved_by_policy_minister(pq)
       @new_progress =  Progress.minister_cleared
       return
@@ -137,9 +121,7 @@ class PQProgressChangerService
     end
   end
 
-
   def answered_filter(pq)
-
     if !pq.pq_withdrawn.nil?
       @new_progress =   Progress.answered
       return
@@ -153,7 +135,6 @@ class PQProgressChangerService
     else
       @progress_onwards = FALSE
     end
-
   end
 
   def transferred_out(pq)
@@ -163,17 +144,17 @@ class PQProgressChangerService
     end
   end
 
-  private
+private
+
   def update_pq(pq, progress)
     pq.update(progress_id: progress.id)
   end
 
-  # PQ has no Policy minister and has been approved by Answering minister
   def pq_approved_by_minister_and_no_pol_minister(pq)
     pq.policy_minister.nil? && !pq.cleared_by_answering_minister.nil?
   end
-  # PQ has been cleared by the policy minister and not been cleared by Answering minister
+
   def pq_approved_by_policy_minister(pq)
     !pq.cleared_by_answering_minister.nil? && !pq.cleared_by_policy_minister.nil?
   end
-  end
+end
