@@ -18,7 +18,7 @@ describe 'PQAcceptedMailer' do
 
   describe '#deliver' do
     it 'should set question and the email' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
       PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
@@ -179,7 +179,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should add the deputy director of the AO to the CC on the draft email link' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'dep@dep.gov'
       ao.deputy_director = dd
 
@@ -192,7 +192,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'dep@dep.gov'
 
       PqMailer.acceptance_email(pq, ao).deliver

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Pq do
-	let(:newQ) {build(:pq)}
+	let(:subject) {build(:pq)}
 
 	describe "associations" do
 		it { is_expected.to belong_to :minister }
@@ -13,6 +13,35 @@ describe Pq do
 		it { is_expected.to belong_to :minister }
 		it { is_expected.to belong_to :policy_minister }
 		it { is_expected.to have_many :trim_links }
+	end
+
+	describe '#not_seen_by_finance' do
+		subject! { create(:pq) }
+		before { create(:checked_by_finance_pq) }
+	  it { expect(described_class.not_seen_by_finance).to eq [subject] }
+	end
+
+	describe '#ministers_by_progress' do
+		let(:minister) { create(:minister) }
+		let(:policy_minister) { create(:minister) }
+		let(:progresses) { Progress.where(name: Progress.in_progress_questions) }
+
+		before do
+			Progress.in_progress_questions.each do |status|
+				factory = "#{status.gsub(' ', '_').downcase}_pq"
+				create(factory, minister: minister, policy_minister: policy_minister)
+				create(factory, minister: policy_minister)
+			end
+		end
+
+	  it 'returns table summed by questions in in progress states grouped by minister not counting policy minister' do
+			minister_counts = progresses.map{|status| [[minister.id, status.id], 1] }
+			policy_minister_counts = progresses.map{|status| [[policy_minister.id, status.id], 1] }
+
+	    expect(Pq.ministers_by_progress([minister, policy_minister], progresses)).to eq(
+				(minister_counts + policy_minister_counts).to_h
+			)
+	  end
 	end
 
   describe 'allocated_since' do
@@ -33,28 +62,32 @@ describe Pq do
   end
 
   describe '#commissioned?' do
+<<<<<<< HEAD
     subject(:pq) { create(:pq)}
     subject { pq.commissioned? }
+=======
+    subject { create(:pq) }
+>>>>>>> refactored query to use group by. Moved into model. Added tests
 
     context 'when no officer is assigned' do
-      it { should be false}
+      it { is_expected.not_to be_commissioned}
     end
 
     context 'when all assigned officers are rejected' do
       before do
-        pq.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
+        subject.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
       end
 
-      it { should be false}
+      it { is_expected.not_to be_commissioned}
     end
 
     context 'when some assigned officers are not rejected' do
       before do
-        pq.action_officers_pq.create(action_officer: create(:action_officer))
-        pq.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
+        subject.action_officers_pq.create(action_officer: create(:action_officer))
+        subject.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
       end
 
-      it { should be true}
+      it { is_expected.to be_commissioned}
     end
   end
 
@@ -83,63 +116,59 @@ describe Pq do
 	end
 
   it 'should set pod_waiting when users set draft_answer_received' do
-    expect(newQ).to receive(:set_pod_waiting)
-    newQ.update(draft_answer_received: Date.new(2014,9,4))
-    newQ.save
+    expect(subject).to receive(:set_pod_waiting)
+    subject.update(draft_answer_received: Date.new(2014,9,4))
+    subject.save
   end
 
   it '#set_pod_waiting should work as expected' do
-    expect(newQ.draft_answer_received).to be_nil
-    expect(newQ.pod_waiting).to be_nil
+    expect(subject.draft_answer_received).to be_nil
+    expect(subject.pod_waiting).to be_nil
     dar = Date.new(2014,9,4)
-    newQ.draft_answer_received = dar
-    newQ.set_pod_waiting
-    expect(newQ.pod_waiting).to eq(dar)
+    subject.draft_answer_received = dar
+    subject.set_pod_waiting
+    expect(subject.pod_waiting).to eq(dar)
   end
 
 	describe 'validation' do
 		it 'should pass onfactory build' do
-			expect(newQ).to be_valid
+			expect(subject).to be_valid
 		end
+
 		it 'should have a Uin' do
-			newQ.uin=nil
-			expect(newQ).to be_invalid
+			subject.uin=nil
+			expect(subject).to be_invalid
 		end
+
 		it 'should have a Raising MP ID' do
-			newQ.raising_member_id=nil
-			expect(newQ).to be_invalid
+			subject.raising_member_id=nil
+			expect(subject).to be_invalid
 		end
+
 		it 'should have text' do
-			newQ.question=nil
-			expect(newQ).to be_invalid
+			subject.question=nil
+			expect(subject).to be_invalid
 		end
-		xit 'should not allow finance interest to be set if it has not been seen by finance' do
-			newQ.seen_by_finance=true
-			expect(newQ).to be_invalid
-			newQ.finance_interest=true
-			expect(newQ).to be_valid
-			newQ.finance_interest=false
-			expect(newQ).to be_valid
-    end
-    it 'should strip any whitespace from uins' do
-      newQ.update(uin: ' hl1234' )
-      expect(newQ).to be_valid
-      expect(newQ.uin).to eql('hl1234')
-      newQ.update(uin: 'hl1234 ' )
-      expect(newQ).to be_valid
-      expect(newQ.uin).to eql('hl1234')
-      newQ.update(uin: ' hl1 234' )
-      expect(newQ).to be_valid
-      expect(newQ.uin).to eql('hl1234')
+
+		it 'should strip any whitespace from uins' do
+      subject.update(uin: ' hl1234' )
+      expect(subject).to be_valid
+      expect(subject.uin).to eql('hl1234')
+      subject.update(uin: 'hl1234 ' )
+      expect(subject).to be_valid
+      expect(subject.uin).to eql('hl1234')
+      subject.update(uin: ' hl1 234' )
+      expect(subject).to be_valid
+      expect(subject.uin).to eql('hl1234')
     end
 	end
 
 	describe 'item' do
 		it 'should allow finance interest to be set' do
-			newQ.finance_interest=true
-			expect(newQ).to be_valid
-			newQ.finance_interest=false
-			expect(newQ).to be_valid
+			subject.finance_interest=true
+			expect(subject).to be_valid
+			subject.finance_interest=false
+			expect(subject).to be_valid
 		end
 	end
 end
