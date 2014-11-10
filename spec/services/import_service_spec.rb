@@ -176,12 +176,12 @@ describe 'ImportService' do
     end
 
     it 'should move questions from Accepted to Draft Pending' do
-      pq = create(:Pq, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.accepted.id)
+      pq = create(:pq, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.accepted.id)
       ao = create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov')
       yesterday = DateTime.now - 1.day
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: yesterday)
 
-      pq = create(:Pq, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.accepted.id)
+      pq = create(:pq, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.accepted.id)
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: DateTime.now)
 
       import_result = @import_service.questions()

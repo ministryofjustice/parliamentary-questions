@@ -1,12 +1,5 @@
 class Pq < ActiveRecord::Base
-
   has_paper_trail
-
-  before_update :set_pod_waiting
-
-	validates :uin , presence: true, uniqueness:true
-  validates :raising_member_id, presence:true
-	validates :question, presence:true
 
   has_many :trim_links
   has_many :action_officers_pq
@@ -17,11 +10,28 @@ class Pq < ActiveRecord::Base
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
 
-  after_initialize :init
   before_validation :strip_uin_whitespace
+
+	validates :uin , presence: true, uniqueness:true
+  validates :raising_member_id, presence:true
+	validates :question, presence:true
+
   before_update :process_date_for_answer
+  before_update :set_pod_waiting
+
+  after_initialize :init
 
   scope :allocated_since, ->(since) { joins(:action_officers_pq).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
+  scope :not_seen_by_finance, -> { where(seen_by_finance: false) }
+
+  def self.ministers_by_progress(ministers, progresses)
+    includes(:progress, :minister).
+      where(progress_id: progresses).
+      where(minister_id: ministers).
+      group(:minister_id).
+      group(:progress_id).
+      count
+  end
 
   def init
     self.seen_by_finance ||= false
@@ -91,10 +101,6 @@ class Pq < ActiveRecord::Base
     else
       'HoC'
     end
-  end
-
-  def self.not_seen_by_finance()
-    where('seen_by_finance = ?', false)
   end
 
   def self.by_status(status)

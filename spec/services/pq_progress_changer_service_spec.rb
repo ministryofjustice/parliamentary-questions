@@ -141,7 +141,7 @@ describe PQProgressChangerService do
       end
 
       context 'for MINISTER_QUERY question with no policy minister' do
-        let(:pq) { create(:minister_query_pq) }
+        let(:pq) { create(:ministerial_query_pq) }
         it { is_expected.to eql(Progress.MINISTER_CLEARED) }
       end
 
@@ -151,7 +151,7 @@ describe PQProgressChangerService do
       end
 
       context 'for MINISTER_QUERY question with policy minister' do
-        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
+        let(:pq) { create(:ministerial_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
         it { is_expected.not_to eql(Progress.MINISTER_CLEARED) }
       end
     end
@@ -162,12 +162,12 @@ describe PQProgressChangerService do
       end
 
       context 'for MINISTER_QUERY question and policy minister set' do
-        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
+        let(:pq) { create(:ministerial_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
         it { is_expected.to eql(Progress.MINISTER_CLEARED) }
       end
 
       context 'for WITH_MINISTER question and policy minister set' do
-        let(:pq) { create(:minister_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
+        let(:pq) { create(:ministerial_query_pq, policy_minister: policy_minister, sent_to_policy_minister: Time.now) }
         it { is_expected.to eql(Progress.MINISTER_CLEARED) }
       end
 
@@ -188,7 +188,7 @@ describe PQProgressChangerService do
       end
 
       context 'for question other than MINISTER_CLEARED' do
-        let(:pq) { create(:minister_query_pq) }
+        let(:pq) { create(:ministerial_query_pq) }
         it { is_expected.not_to eql(Progress.ANSWERED) }
       end
     end
