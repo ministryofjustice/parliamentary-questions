@@ -4,16 +4,10 @@ class ReportsController < ApplicationController
   @@per_page = 10
 
   def ministers_by_progress
-    @p = Progress.where(name: Progress.in_progress_questions)
-    @m = Minister.where(deleted: false)
+    @ministers = Minister.where(deleted: false)
+    @progresses = Progress.where(name: Progress.in_progress_questions)
 
-    @counters = build_hash
-
-    @m.each do |m|
-      @p.each do |p|
-        @counters[m.id][p.id] = PQ_by_minister(m.id).where('progress_id = ?', p.id).count
-      end
-    end
+    @counters = Pq.ministers_by_progress(@ministers, @progresses)
   end
 
   def press_desk_by_progress
@@ -46,10 +40,6 @@ class ReportsController < ApplicationController
 
   def PQ_by_press_desk(aos)
     Pq.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
-  end
-
-  def PQ_by_minister(minister_id)
-    Pq.where('minister_id = :m_id', m_id: minister_id)
   end
 
   def PQ_by_all(aos, minister_id, progress_id)
