@@ -1,13 +1,11 @@
 require 'thread'
 
 class LogStuff
-
   NAMESPACE = :log
 
   def self.use_logstasher?
     LogStasher.enabled?
   end
-
 
   def self.get_thread_current(name)
     Thread.current[NAMESPACE] ||= {
@@ -17,7 +15,6 @@ class LogStuff
     Thread.current[NAMESPACE][name].dup
   end
 
-
   def self.set_thread_current(name, value)
     Thread.current[NAMESPACE] ||= {
         :current_fields => {},
@@ -26,12 +23,9 @@ class LogStuff
     Thread.current[NAMESPACE][name] = value.dup
   end
 
-
   def self.log(severity = 'info', *args, &block)
-
     return unless block_given?
 
-    # Ignore if we are not logging this severity
     if self.use_logstasher?
       return unless LogStasher.logger.send("#{severity}?")
     else
@@ -66,7 +60,6 @@ class LogStuff
     end
   end
 
-
   %w( fatal error warn info debug ).each do |severity|
     eval <<-EOM, nil, __FILE__, __LINE__ + 1
       def self.#{severity}(*args, &block)
@@ -74,7 +67,6 @@ class LogStuff
       end
     EOM
   end
-
 
   def self.tag(*tags, &block)
     original_tags = get_thread_current(:current_tags)
@@ -96,7 +88,4 @@ class LogStuff
     yield
     set_thread_current(:current_fields, original_fields)
   end
-
 end
-
-

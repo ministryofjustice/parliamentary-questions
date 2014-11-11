@@ -14,5 +14,4 @@ ActiveSupport::Notifications.subscribe /process_action.action_controller/ do |*a
   $statsd.timing("#{key}.page", page_duration)
   $statsd.timing("#{key}.view", view_duration)
   $statsd.timing("#{key}.db", db_duration)
-
 end

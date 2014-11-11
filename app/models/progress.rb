@@ -2,12 +2,9 @@ class Progress < ActiveRecord::Base
   has_paper_trail
   has_many :pqs
 
-
   def classname
     self.name.downcase.sub ' ', '-'
   end
-
-  # status finders
 
   def self.find_by_status(status)
     Progress.find_by_name(status)
@@ -57,14 +54,9 @@ class Progress < ActiveRecord::Base
     find_by_status(self.MINISTER_CLEARED)
   end
 
-
-
-  # was
-
   def self.transfer
     find_by_status(self.TRANSFER)
   end
-
 
   def self.answered
     find_by_status(self.ANSWERED)
@@ -73,7 +65,6 @@ class Progress < ActiveRecord::Base
     find_by_status(self.TRANSFERRED_OUT)
   end
 
-  # status constants
   def self.UNASSIGNED
     'Unassigned'
   end
@@ -130,35 +121,35 @@ class Progress < ActiveRecord::Base
     'Transfer'
   end
 
-
   def self.new_questions
     [
-        Progress.UNASSIGNED,
-        Progress.NO_RESPONSE,
-        Progress.ACCEPTED,
-        Progress.REJECTED
+      Progress.UNASSIGNED,
+      Progress.NO_RESPONSE,
+      Progress.ACCEPTED,
+      Progress.REJECTED
     ]
   end
 
   def self.in_progress_questions
     [
-        Progress.DRAFT_PENDING,
-        Progress.WITH_POD,
-        Progress.POD_QUERY,
-        Progress.POD_CLEARED,
-        Progress.WITH_MINISTER,
-        Progress.MINISTERIAL_QUERY,
-        Progress.MINISTER_CLEARED
+      Progress.DRAFT_PENDING,
+      Progress.WITH_POD,
+      Progress.POD_QUERY,
+      Progress.POD_CLEARED,
+      Progress.WITH_MINISTER,
+      Progress.MINISTERIAL_QUERY,
+      Progress.MINISTER_CLEARED
     ]
   end
+
   def self.closed_questions
     [
-        Progress.ANSWERED,
-        Progress.TRANSFERRED_OUT
+      Progress.ANSWERED,
+      Progress.TRANSFERRED_OUT
     ]
   end
+
   def self.visible
     [new_questions, in_progress_questions].flatten
   end
-
 end

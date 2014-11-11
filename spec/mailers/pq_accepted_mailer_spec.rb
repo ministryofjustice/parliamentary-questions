@@ -18,7 +18,6 @@ describe 'PQAcceptedMailer' do
 
   describe '#deliver' do
     it 'should set question and the email' do
-
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -39,7 +38,6 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include expectedCC
       mail.html_part.body.should include CGI::escape(expectedCC)
-
     end
 
     it 'should set the right cc with minister the right people if the minister is Simon Hughes' do
@@ -52,12 +50,9 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include expectedCC
       mail.html_part.body.should include CGI::escape(expectedCC)
-
     end
 
-
     it 'should add the people from the Actionlist to the CC on the draft email link' do
-
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
@@ -71,9 +66,7 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include expectedCC
       mail.html_part.body.should include CGI::escape(expectedCC)
-
     end
-
 
     it 'should contain the name of the minister' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
@@ -84,7 +77,6 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include minister_1.name
       mail.html_part.body.should include minister_1.name
-
     end
 
     it 'should contain the asking minister ' do
@@ -97,8 +89,8 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include member_name
       mail.html_part.body.should include member_name
-
     end
+
     it 'should contain the house ' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
@@ -108,9 +100,8 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include 'HoL'
       mail.html_part.body.should include 'HoL'
-
-
     end
+
     it 'should add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question' do
 
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
@@ -128,10 +119,9 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include my_finance_email
       mail.html_part.body.should include CGI::escape(my_finance_email)
-
     end
-    it 'should not add the Finance email to the CC list on the draft email link if Finance has not registered an interest in the question' do
 
+    it 'should not add the Finance email to the CC list on the draft email link if Finance has not registered an interest in the question' do
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
@@ -146,8 +136,8 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should_not include my_finance_email
       mail.html_part.body.should_not include CGI::escape(my_finance_email)
-
     end
+
     it 'should not add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question but is inactive' do
 
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
@@ -164,8 +154,8 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should_not include my_finance_email
       mail.html_part.body.should_not include CGI::escape(my_finance_email)
-
     end
+
     it 'should show the date for answer if set' do
       pq = create(:pq, uin: 'HL789', date_for_answer: Date.new(2014,9,4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
@@ -176,6 +166,7 @@ describe 'PQAcceptedMailer' do
       mail.text_part.body.should include '04/09/2014'
       mail.html_part.body.should include '04/09/2014'
     end
+
     it 'should not show the date for answer block if not set' do
       pq = create(:pq, uin: 'HL789', date_for_answer: nil, question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
@@ -186,8 +177,8 @@ describe 'PQAcceptedMailer' do
       mail.text_part.body.should_not include 'Due back to Parliament by '
       mail.html_part.body.should_not include 'Due back to Parliament by '
     end
-    it 'should add the deputy director of the AO to the CC on the draft email link' do
 
+    it 'should add the deputy director of the AO to the CC on the draft email link' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'dep@dep.gov'
       ao.deputy_director = dd
@@ -198,11 +189,9 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should include expectedCC
       mail.html_part.body.should include CGI::escape(expectedCC)
-
     end
 
     it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
-
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'dep@dep.gov'
 
@@ -212,8 +201,6 @@ describe 'PQAcceptedMailer' do
 
       mail.text_part.body.should_not include expectedCC
       mail.html_part.body.should_not include CGI::escape(expectedCC)
-
     end
-
   end
 end

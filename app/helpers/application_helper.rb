@@ -1,6 +1,5 @@
 module ApplicationHelper
   class ActionView::Helpers::FormBuilder
-    # http://stackoverflow.com/a/2625727/1935918
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::FormTagHelper
     include ActionView::Helpers::FormOptionsHelper
@@ -23,18 +22,11 @@ module ApplicationHelper
   end
 
   def flash_class_for flash_type
-    case flash_type
-      when :success
-        "alert-success"
-      when :error
-        "alert-danger"
-      when :alert
-        "alert-block"
-      when :notice
-        "alert-info"
-      else
-        flash_type.to_s
-    end
+    { success: "alert-success",
+      error: "alert-danger",
+      alert: "alert-block",
+      notice: "alert-info"
+    }[flash_type] || flash_type.to_s
   end
 
   def minister_warning?(question, minister)

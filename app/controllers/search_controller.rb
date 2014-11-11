@@ -16,8 +16,5 @@ class SearchController  < ApplicationController
     end
 
     return redirect_to pq_path(pq.first.uin)
-
   end
-
-
 end

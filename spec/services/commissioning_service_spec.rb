@@ -38,7 +38,6 @@ describe 'CommissioningService' do
 
     token_expires = DateTime.now.midnight.change({:offset => 0}) + 3.days
     token.expire.should eq(token_expires)
-
   end
 
   it 'should send an email with the right data' do
@@ -48,7 +47,6 @@ describe 'CommissioningService' do
     sentToken = result[:token]
 
     mail = ActionMailer::Base.deliveries.first
-
 
     token_param = {token: sentToken}.to_query
     entity = {entity: "assignment:#{result[:assignment_id]}"}.to_query
@@ -67,7 +65,6 @@ describe 'CommissioningService' do
     mail.text_part.body.should include entity
 
     mail.to.should include action_officer.email
-
   end
 
 
@@ -85,9 +82,7 @@ describe 'CommissioningService' do
 
     pq = Pq.find(assignment.pq_id)
     pq.progress.name.should  eq(Progress.NO_RESPONSE)
-
   end
-
 
   it 'should not set the progress to Allocated Pending if the question is already accepted' do
     assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
@@ -99,7 +94,6 @@ describe 'CommissioningService' do
 
     pq = Pq.find(assignment.pq_id)
     pq.progress.name.should  eq(Progress.ACCEPTED)
-
   end
 
   it 'should not set the progress to Allocated Pending if the question is rejected' do
@@ -112,7 +106,6 @@ describe 'CommissioningService' do
 
     pq = Pq.find(assignment.pq_id)
     pq.progress.name.should  eq(Progress.REJECTED)
-
   end
 
   it 'should raise an error if the action_officer.id is null' do
@@ -130,17 +123,9 @@ describe 'CommissioningService' do
   end
 
   it 'should send an email to the deputy director the right data' do
-
     assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
     result = @comm_service.notify_dd(assignment)
-
     mail = ActionMailer::Base.deliveries.first
-
-   # entity = {entity: "assignment:#{result[:assignment_id]}"}.to_query
-
-   # url = "/assignment/HL789"
-
 
     mail.html_part.body.should include pq.uin
     mail.html_part.body.should include pq.question
@@ -148,7 +133,6 @@ describe 'CommissioningService' do
     mail.html_part.body.should include pq.internal_deadline.strftime('%d/%m/%Y')
     mail.html_part.body.should include action_officer.name
     mail.html_part.body.should include deputy_director.name
-
 
     mail.text_part.body.should include pq.uin
     mail.text_part.body.should include pq.question
@@ -158,29 +142,20 @@ describe 'CommissioningService' do
     mail.text_part.body.should include deputy_director.name
 
     mail.to.should include deputy_director.email
-
   end
 
   it 'should not send an email if the deputy director email does not exist' do
-
     assignment = ActionOfficersPq.new(action_officer_id: action_officer2.id, pq_id: pq.id)
-
     result = @comm_service.notify_dd(assignment)
-
     result.should eq('Deputy Director has no email')
-
   end
 
   it 'should include "No deadline set" in email to DD if not set' do
-
     new_pq = Pq.create(uin: 'HL999', question: 'test question?', raising_member_id: 0, member_name: 'Henry Higgins', internal_deadline: nil, minister:minister, house_name:'commons' )
 
     assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: new_pq.id)
-
     result = @comm_service.notify_dd(assignment)
-
     mail = ActionMailer::Base.deliveries.first
-
     mail.html_part.body.should include 'No deadline set'
   end
 end

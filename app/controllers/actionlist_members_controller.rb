@@ -6,15 +6,8 @@ class ActionlistMembersController < ApplicationController
     @actionlist_members = ActionlistMember.all.order(:name.downcase)
   end
 
-  def show
-  end
-
   def new
     @actionlist_member = ActionlistMember.new
-  end
-
-
-  def edit
   end
 
   def create
@@ -25,15 +18,14 @@ class ActionlistMembersController < ApplicationController
     else
       render action: 'new'
     end
-
   end
 
   def update
-      if @actionlist_member.update(actionlist_member_params)
-        redirect_to @actionlist_member, notice: 'Actionlist member was successfully updated.'
-      else
-        render action: 'edit'
-      end
+    if @actionlist_member.update(actionlist_member_params)
+      redirect_to @actionlist_member, notice: 'Actionlist member was successfully updated.'
+    else
+      render action: 'edit'
+    end
   end
 
   def destroy
@@ -41,14 +33,13 @@ class ActionlistMembersController < ApplicationController
     redirect_to actionlist_members_url
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_actionlist_member
-      @actionlist_member = ActionlistMember.find(params[:id])
-    end
+private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def actionlist_member_params
-      params.require(:actionlist_member).permit(:name, :email, :deleted)
-    end
+  def set_actionlist_member
+    @actionlist_member = ActionlistMember.find(params[:id])
+  end
+
+  def actionlist_member_params
+    params.require(:actionlist_member).permit(:name, :email, :deleted)
+  end
 end

@@ -50,7 +50,6 @@ class IWillWriteController < ApplicationController
     )
 
     if @pq.save
-      # duplicate commissioning data
       ao_pq = action_officer_pq_accepted(pq_to_dup)
       if !ao_pq.nil?
         ao_pq.pq_id = @pq.id
@@ -61,8 +60,8 @@ class IWillWriteController < ApplicationController
     return redirect_to controller:'pqs', action: 'show', id: params[:id], notice: 'Error saving the PQ \'I will write\''
   end
 
+private
 
-  private
   def action_officer_pq_accepted(pq)
     pq.action_officers_pq.each do |ao_pq|
       if ao_pq.accept
@@ -71,5 +70,4 @@ class IWillWriteController < ApplicationController
     end
     return nil
   end
-
 end

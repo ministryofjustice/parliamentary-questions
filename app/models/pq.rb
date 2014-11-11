@@ -11,12 +11,11 @@ class Pq < ActiveRecord::Base
   has_many :trim_links
   has_many :action_officers_pq
   has_many :action_officers, :through => :action_officers_pq
-  belongs_to :minister #no link seems to be needed for policy_minister_id!?
-  belongs_to :policy_minister, :class_name=>'Minister', :foreign_key=>'policy_minister_id'
- 	#validates :finance_interest, :inclusion => {:in => [true, false]}, if: :seen_by_finance
+  belongs_to :minister
+  belongs_to :policy_minister, :class_name=>'Minister'
   belongs_to :progress
-  belongs_to :transfer_out_ogd, :class_name=>'Ogd', :foreign_key => 'transfer_out_ogd_id'
-  belongs_to :transfer_in_ogd, :class_name=>'Ogd', :foreign_key => 'transfer_in_ogd_id'
+  belongs_to :transfer_out_ogd, :class_name=>'Ogd'
+  belongs_to :transfer_in_ogd, :class_name=>'Ogd'
 
   after_initialize :init
   before_validation :strip_uin_whitespace
@@ -25,7 +24,7 @@ class Pq < ActiveRecord::Base
   scope :allocated_since, ->(since) { joins(:action_officers_pq).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
 
   def init
-    self.seen_by_finance ||= false           #will set the default value only if it's nil
+    self.seen_by_finance ||= false
   end
 
   def strip_uin_whitespace
@@ -39,7 +38,6 @@ class Pq < ActiveRecord::Base
 
   def rejected?
     if action_officers_pq.count > 0 &&  ao_pq_accepted.nil?
-      #Check rejects
       action_officers_pq.each do |ao_pq|
         if ao_pq.reject
           return true
@@ -49,7 +47,6 @@ class Pq < ActiveRecord::Base
     return false
   end
 
-  # Fixme I'm not sure if this is valid assumption, has to be checked
   def closed?
     unless progress.nil?
       Progress.closed_questions.include?(progress.name)
@@ -67,20 +64,11 @@ class Pq < ActiveRecord::Base
   end
 
   def action_officer_accepted
-    action_officers_pq.each do |ao_pq|
-      if ao_pq.accept
-        return ao_pq.action_officer
-      end
-    end
-    return nil
+    action_officers_pq.find(&:accept).try(:action_officer)
   end
+
   def ao_pq_accepted
-    action_officers_pq.each do |ao_pq|
-      if ao_pq.accept
-        return ao_pq
-      end
-    end
-    return nil
+    action_officers_pq.find(&:accept)
   end
 
   def self.new_questions()
@@ -93,7 +81,6 @@ class Pq < ActiveRecord::Base
     in_progress_internal
   end
 
-  # in_progress or new_questions, are the one visibles on the dashboard
   def self.visibles()
     by_status_internal(Progress.visible)
   end
@@ -110,12 +97,6 @@ class Pq < ActiveRecord::Base
     where('seen_by_finance = ?', false)
   end
 
-
-  # status queries
-  # accepts an string
-  #  -> by_status(Progress.ALLOCATED_ACCEPTED)
-  # or an array
-  #  -> by_status([Progress.ALLOCATED_ACCEPTED, Progress.ALLOCATED_PENDING])
   def self.by_status(status)
     monitor_questions_by_status(status)
     by_status_internal(status)
@@ -124,40 +105,50 @@ class Pq < ActiveRecord::Base
   def self.allocated_accepted()
     by_status(Progress.ACCEPTED)
   end
+
   def self.no_response()
     by_status(Progress.NO_RESPONSE)
   end
+
   def self.unassigned()
     by_status(Progress.UNASSIGNED)
   end
+
   def self.rejected
     by_status(Progress.REJECTED)
   end
+
   def self.draft_pending
     by_status(Progress.DRAFT_PENDING)
   end
+
   def self.with_pod
     by_status(Progress.WITH_POD)
   end
+
   def self.pod_query
     by_status(Progress.POD_QUERY)
   end
+
   def self.pod_cleared
     by_status(Progress.POD_CLEARED)
   end
+
   def self.with_minister
     by_status(Progress.WITH_MINISTER)
   end
+
   def self.ministerial_query
     by_status(Progress.MINISTERIAL_QUERY)
   end
+
   def self.minister_cleared
     by_status(Progress.MINISTER_CLEARED)
   end
+
   def self.answered
     by_status(Progress.ANSWERED)
   end
-
 
   def self.transferred
     joins(:progress).where('pqs.transferred = true AND progresses.name IN (?)', Progress.new_questions)
@@ -173,7 +164,7 @@ class Pq < ActiveRecord::Base
     end
   end
 
-  private
+private
 
   def process_date_for_answer
     if self.date_for_answer.nil?
@@ -188,7 +179,6 @@ class Pq < ActiveRecord::Base
   def self.by_status_internal(status)
     joins(:progress).where(progresses: {name: status})
   end
-
 
   def self.new_questions_internal()
     by_status(Progress.new_questions)
@@ -209,16 +199,10 @@ class Pq < ActiveRecord::Base
   end
 
   def self.monitor_questions_by_status(status)
-    # monitor the number of questions, if you query one status only
-    if status.kind_of?(Array)
-      return
-    end
+    return if status.kind_of?(Array)
 
-    # count it is use in the dashboard, so it hits the cache
     number_of_questions = by_status_internal(status).count
     key = status.underscore.gsub(' ', '_')
     $statsd.gauge("#{StatsHelper::PROGRESS}.#{key}", number_of_questions)
   end
-
-
 end

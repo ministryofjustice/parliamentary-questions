@@ -1,4 +1,5 @@
 class ImportService
+  LARGEST_POSTGRES_INTEGER = 2147483647
 
   def initialize(questionsService = QuestionsService.new)
     @questionsService = questionsService
@@ -18,7 +19,6 @@ class ImportService
     move_questions_from_accepted_to_draft_pending
     update_date_for_answer_relatives
 
-    # log the time in statsd
     elapsed_seconds = Time.now - t_start
     $statsd.timing("#{StatsHelper::IMPORT}.import_time", elapsed_seconds * 1000)
   end
@@ -58,8 +58,8 @@ class ImportService
     {questions: questions_processed, errors: errors}
   end
 
+protected
 
-  protected
   def import_one_question(q, &block)
     pq = Pq.find_or_initialize_by(uin: q['Uin'])
 
@@ -104,7 +104,6 @@ class ImportService
   end
 
   def get_date_for_answer(pq, incoming_date)
-
     date_for_answer = pq.date_for_answer
 
     if date_for_answer.nil?
@@ -113,7 +112,7 @@ class ImportService
 
     date_for_answer
   end
-  
+
   def get_pqs_to_move
     beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
     Pq.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
@@ -138,8 +137,8 @@ class ImportService
     pqs = Pq.all
     pqs.each do |pq|
       if pq.date_for_answer.nil?
-        pq.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
-        pq.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
+        pq.date_for_answer_has_passed = true
+        pq.days_from_date_for_answer = LARGEST_POSTGRES_INTEGER
       else
         pq.date_for_answer_has_passed = pq.date_for_answer < Date.today
         pq.days_from_date_for_answer = (pq.date_for_answer - Date.today).abs
@@ -151,4 +150,4 @@ class ImportService
     LogStuff.info "Import process, updated #{number_of_pqs_date_for_answer_relative_updates} questions with date_for_answer_relatives"
     number_of_pqs_date_for_answer_relative_updates
   end
-end	
+end

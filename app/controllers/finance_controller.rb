@@ -16,5 +16,4 @@ class FinanceController < ApplicationController
     flash[:notice] = 'Successfully registered interest in the questions'
     redirect_to action: 'questions'
   end
-
 end

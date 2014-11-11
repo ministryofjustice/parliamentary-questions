@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'ActionOfficerReminderMailer' do
-
   let(:ao) { create(:action_officer,  name: 'ao name 1', email: 'ao@ao.gov') }
   let(:minister_1) { create(:minister, name: 'Mr Name1 for Test') }
 
@@ -38,6 +37,7 @@ describe 'ActionOfficerReminderMailer' do
       end
     end
   end
+
   describe 'draft reminder' do
     describe 'deliver' do
       it 'should have URGENT in the subject' do
@@ -49,5 +49,4 @@ describe 'ActionOfficerReminderMailer' do
       end
     end
   end
-
 end
