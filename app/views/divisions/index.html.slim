@@ -1,0 +1,25 @@
+h2 Divisions
+#admin-division-list
+  div class="row>" 
+    #admin-button-bar.pull-right class="col-md-2.5" 
+      = link_to ('Add division'), new_division_path, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th Directorate
+        th#admin-status Status
+        th
+    - @divisions.each do |division|
+      tbody
+        tr
+          td= link_to "# division.name ", division_path(division)
+          td= division.directorate.name
+          td
+            - if division.deleted
+              i.fa.fa-times
+              | \&nbsp;Inactive
+            - else
+              i.fa.fa-check-circle
+              | \&nbsp;Active
+          td= link_to 'Edit', edit_division_path(division)

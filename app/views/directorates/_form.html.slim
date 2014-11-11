@@ -1,0 +1,21 @@
+#admin-directorates-form
+  = form_for(@directorate) do |f|
+    - if @directorate.errors.any?
+      .alert.notice
+        = pluralize(@directorate.errors.count, "error")
+        | prohibited this directorate from being saved:
+        br/
+        - @directorate.errors.full_messages.each do |msg|
+          = msg
+          br/
+    fieldset
+      .form-group
+        label.form-label for="directorate_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        p.text Status
+        label.block-label for="directorate_deleted" 
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

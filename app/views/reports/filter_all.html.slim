@@ -1,0 +1,32 @@
+h2 PQ filter
+= render partial: 'shared/flash_messages'
+#report-filter.row
+  .col-md-9
+    - if @questions.nil?
+      h3 Please select a filter option
+    - else
+      h3
+        = pluralize(@questions_count,'Question')
+        | found
+      ul.questions-list
+        - @questions.each do |question|
+          li id="pq-frame-#{question.id}" 
+            = render partial: 'dashboard/question_data', locals: {question: question}
+  .col-md-3
+    = form_tag({controller: 'reports', action: 'filter_all'}, {:method => :get}) do
+      fieldset
+        .form-group
+          label.form-label for="minister_id"  Minister
+          = select_tag 'minister_id', content_tag(:option,'Select a minister',:value=>'') + options_from_collection_for_select(Minister.all_active, 'id', 'name', params[:minister_id] )
+        .form-group
+          label.form-label for="press_desk_id"  Press Desk
+          = select_tag 'press_desk_id', content_tag(:option,'Select a press desk',:value=>'') + options_from_collection_for_select(PressDesk.where(deleted: false), 'id', 'name', params[:press_desk_id] )
+        .form-group
+          label.form-label for="progress_id"  Status
+          = select_tag 'progress_id', content_tag(:option,'Select a progress',:value=>'') + options_from_collection_for_select(Progress.all, 'id', 'name', params[:progress_id] )
+        .form-group
+          = submit_tag 'Report' , class: 'button' , :onclick=> "ga('send', 'event', 'reports', 'view', 'pq filter')"
+          | \&nbsp;#{link_to 'Reset', reports_filter_all_path, class: 'button-secondary'}
+- if !@questions.nil?
+  #pages.row
+    = will_paginate @questions, {class: 'col-md-9'}

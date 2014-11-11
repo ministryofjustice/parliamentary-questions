@@ -1,0 +1,19 @@
+= form_for(@progress) do |f|
+  - if @progress.errors.any?
+    div id=("alert notice") 
+      = pluralize(@progress.errors.count, "error")
+      | prohibited this progress from being saved:
+      br/
+      - @progress.errors.full_messages.each do |msg|
+        = msg
+        br/
+  .field
+    = f.label :name
+    br/
+    = f.text_field :name
+  .field
+    = f.label :progress_order
+    br/
+    = f.number_field :progress_order
+  .actions
+    = f.submit

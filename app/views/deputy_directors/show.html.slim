@@ -1,0 +1,19 @@
+h2 Deputy director details
+#admin-deputy-details
+  p#notice
+    = notice
+  h4 Name
+  = @deputy_director.name
+  h4 Email
+  = @deputy_director.email
+  h4 Division
+  = @deputy_director.division.name
+  h4 Status
+  - if @deputy_director.deleted
+    i.fa.fa-times
+    | \&nbsp;Inactive
+  - else
+    i.fa.fa-check-circle
+    | \&nbsp;Active
+  = link_to 'Edit', edit_deputy_director_path(@deputy_director), {class: 'admin-link'}
+  = link_to 'Return to deputy director list', deputy_directors_path, {class: 'admin-link'}

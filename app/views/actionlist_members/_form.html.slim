@@ -1,0 +1,24 @@
+#admin-al-form
+  = form_for @actionlist_member do |f|
+    - if @actionlist_member.errors.any?
+      .alert.notice
+        = pluralize(@actionlist_member.errors.count, "error")
+        | prohibited this Actionlist member from being saved:
+        br/
+        - @actionlist_member.errors.full_messages.each do |msg|
+          = msg
+          br/
+    fieldset
+      .form-group
+        label.form-label for="actionlist_member_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        label.form-label for="actionlist_member_email"  Email
+        = f.text_field :email , {class: 'form-control'}
+      .form-group
+        p.text Status:
+        label.block-label for="actionlist_member_deleted" 
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

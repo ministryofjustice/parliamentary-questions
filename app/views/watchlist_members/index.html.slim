@@ -1,0 +1,29 @@
+= render partial: "shared/flash_messages", flash: flash
+h2 Watchlist members
+#admin-wm-list
+  div class="row>" 
+    #admin-button-bar.pull-right class="col-md-6.5" 
+      = link_to ('Send allocation info'), {controller: 'watchlist_send_emails', action: 'send_emails'}, {class: 'button', :onclick=> "ga('send', 'event', 'settings', 'watchlist', 'send allocation info');" }
+      | \&nbsp;
+      | \#{link_to ('Add watchlist member'), new_watchlist_member_path, {class: 'button-secondary'}}&nbsp;
+      | \#{link_to ('Watchlist preview'), {controller: 'watchlist_dashboard', action: 'preview'}, {class: 'button-secondary'}}
+  table.table
+    thead
+      tr
+        th Name
+        th Email
+        th#admin-status Status
+        th
+    - @watchlist_members.each do |watchlist_member|
+      tbody
+        tr
+          td= link_to "# watchlist_member.name ", watchlist_member_path(watchlist_member)
+          td= watchlist_member.email
+          td
+            - if watchlist_member.deleted
+              i.fa.fa-times
+              | \&nbsp;Inactive
+            - else
+              i.fa.fa-check-circle
+              | \&nbsp;Active
+          td= link_to 'Edit', edit_watchlist_member_path(watchlist_member)
