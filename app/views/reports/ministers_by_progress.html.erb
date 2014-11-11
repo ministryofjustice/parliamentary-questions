@@ -3,7 +3,7 @@
   <thead>
     <tr>
       <th>Progress</th>
-      <% @m.each do |m| %>
+      <% @ministers.each do |m| %>
         <th class="table-cell-centered">
           <%= link_to m.name  , {:action => 'filter_all', minister_id: m.id }%>
         </th>
@@ -11,15 +11,15 @@
     </tr>
   </thead>
   <tbody>
-  <% @p.each do |p| %>
+  <% @progresses.each do |p| %>
     <tr>
       <td><span class="label flag-<%= p.classname %>"><%= p.name %></span></td>
-      <% @m.each do |m| @count = @counters[m.id][p.id] || 0 %>
+      <% @ministers.each do |m| @count = @counters[[m.id, p.id]] || 0 %>
         <td class="table-cell-centered">
           <% if @count > 0 %>
             <%= link_to @count  , {:action => 'filter_all', minister_id: m.id, progress_id: p.id} %>
           <% else %>
-            0 <!-- <span class="btn btn-xs btn-default btn-block">0</span> -->
+            0
           <% end %>
         </td>
       <% end %>
