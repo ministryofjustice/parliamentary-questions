@@ -62,12 +62,7 @@ describe Pq do
   end
 
   describe '#commissioned?' do
-<<<<<<< HEAD
-    subject(:pq) { create(:pq)}
-    subject { pq.commissioned? }
-=======
     subject { create(:pq) }
->>>>>>> refactored query to use group by. Moved into model. Added tests
 
     context 'when no officer is assigned' do
       it { is_expected.not_to be_commissioned}
