@@ -4,7 +4,7 @@ describe 'CommissioningService' do
   let(:minister) {build(:minister)}
   let(:deputy_director) { create(:deputy_director, name: 'dd name', email: 'dd@dd.gov', id: 1+rand(10))}
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
-  let(:pq) { create(:Pq, uin: 'HL789', question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons' ) }
+  let(:pq) { create(:pq, uin: 'HL789', question: 'test question?', member_name: 'Henry Higgins', internal_deadline:'01/01/2014 10:30', minister:minister, house_name:'commons' ) }
 
   let(:deputy_director2) { create(:deputy_director, name: 'dd name', email: '', id: 1+rand(10))}
   let(:action_officer2) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director2.id) }

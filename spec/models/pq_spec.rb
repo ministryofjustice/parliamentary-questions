@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Pq do
-	let(:newQ) {build(:Pq)}
+	let(:newQ) {build(:pq)}
 
   describe 'allocated_since' do
     let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days)}
@@ -21,7 +21,7 @@ describe Pq do
   end
 
   describe '#commissioned?' do
-    subject(:pq) { create(:Pq)}
+    subject(:pq) { create(:pq)}
     subject { pq.commissioned? }
 
     context 'when no officer is assigned' do
@@ -53,14 +53,14 @@ describe Pq do
 		end
 
 		it 'is not closed when unanswered' do
-			subject = build(:Pq)
+			subject = build(:pq)
 			expect(subject.closed?).to be false
 		end
 	end
 
 	describe '#open?' do
 		it 'open when unanswered' do
-			subject = build(:Pq)
+			subject = build(:pq)
 		  expect(subject.open?).to be true
 		end
 
