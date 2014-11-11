@@ -19,7 +19,7 @@ describe 'PQAcceptedMailer' do
   describe '#deliver' do
     it 'should set question and the email' do
 
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
       PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
@@ -30,7 +30,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should set the right cc with minister ' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
       expectedCC = 'test1@tesk.uk'
 
       PqMailer.acceptance_email(pq, ao).deliver
@@ -43,7 +43,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should set the right cc with minister the right people if the minister is Simon Hughes' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
       expectedCC = 'Christopher.Beal@justice.gsi.gov.uk;Nicola.Calderhead@justice.gsi.gov.uk;thomas.murphy@JUSTICE.gsi.gov.uk'
 
       PqMailer.acceptance_email(pq, ao).deliver
@@ -62,7 +62,7 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
 
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
 
       PqMailer.acceptance_email(pq, ao).deliver
@@ -76,7 +76,7 @@ describe 'PQAcceptedMailer' do
 
 
     it 'should contain the name of the minister' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -89,7 +89,7 @@ describe 'PQAcceptedMailer' do
 
     it 'should contain the asking minister ' do
       member_name =  'Jeremy Snodgrass'
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: member_name, house_name: 'HoL')
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: member_name, house_name: 'HoL')
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -100,7 +100,7 @@ describe 'PQAcceptedMailer' do
 
     end
     it 'should contain the house ' do
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -120,7 +120,7 @@ describe 'PQAcceptedMailer' do
       create(:user, name:'Finance Guy2', roles:'FINANCE', is_active:FALSE, email:'financePQ2@wibble.com', password:'bloib2bloib2bloib2bloib2')
 
 
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -138,7 +138,7 @@ describe 'PQAcceptedMailer' do
       my_finance_email =  'financepq@wibble.com'
       create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:TRUE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
 
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: FALSE)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: FALSE)
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -156,7 +156,7 @@ describe 'PQAcceptedMailer' do
       my_finance_email =  'financepq@wibble.com'
       create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:FALSE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
 
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -167,7 +167,7 @@ describe 'PQAcceptedMailer' do
 
     end
     it 'should show the date for answer if set' do
-      pq = create(:Pq, uin: 'HL789', date_for_answer: Date.new(2014,9,4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+      pq = create(:pq, uin: 'HL789', date_for_answer: Date.new(2014,9,4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -177,7 +177,7 @@ describe 'PQAcceptedMailer' do
       mail.html_part.body.should include '04/09/2014'
     end
     it 'should not show the date for answer block if not set' do
-      pq = create(:Pq, uin: 'HL789', date_for_answer: nil, question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+      pq = create(:pq, uin: 'HL789', date_for_answer: nil, question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -188,7 +188,7 @@ describe 'PQAcceptedMailer' do
     end
     it 'should add the deputy director of the AO to the CC on the draft email link' do
 
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'dep@dep.gov'
       ao.deputy_director = dd
 
@@ -203,7 +203,7 @@ describe 'PQAcceptedMailer' do
 
     it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
 
-      pq = create(:Pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'dep@dep.gov'
 
       PqMailer.acceptance_email(pq, ao).deliver
