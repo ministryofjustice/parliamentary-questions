@@ -60,7 +60,7 @@ describe Pq do
 
 	describe '#open?' do
 		it 'open when unanswered' do
-			subject = build(:Pq)
+			subject = build(:pq)
 		  expect(subject.open?).to be true
 		end
 
