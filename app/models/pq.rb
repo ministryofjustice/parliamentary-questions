@@ -58,6 +58,10 @@ class Pq < ActiveRecord::Base
     end
   end
 
+  def open?
+    !closed?
+  end
+
   def is_in_progress?(pro)
     progress_id == pro.id
   end
