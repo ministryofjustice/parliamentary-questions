@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   respond_to :html
   before_action :authenticate_user!, PQUserFilter
 
-
   def index
     @users = User.all.order("lower(name)").page(params[:page]).per_page(15)
   end
@@ -28,9 +27,9 @@ class UsersController < ApplicationController
     @user
   end
 
-  protected
+protected
+
   def user_params
     params.require(:user).permit(:email, :admin, :name, :roles, :is_active)
   end
-
 end

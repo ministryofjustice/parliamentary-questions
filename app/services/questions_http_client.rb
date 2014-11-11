@@ -35,8 +35,6 @@ class QuestionsHttpClient
       rails_log_and_raise_error "Receiving from API timed out after #{Settings.http_client_timeout}", 'API response timed-out'
     rescue Errno::ECONNREFUSED
       rails_log_and_raise_error 'Server refused connection', 'Server refused connection'
-    # rescue => generic_error
-    #   rails_log_and_raise_error generic_error.message, "Error #{generic_error.inspect} occurred during import"
     end
   end
 
@@ -51,13 +49,17 @@ class QuestionsHttpClient
     response = @client.put(endpoint, body)
     {content: response.content, status: response.status}
   end
+
   def set_connect_timeout(sec)
     @client.connect_timeout = sec
   end
+
   def set_receive_timeout(sec)
     @client.receive_timeout = sec
   end
-  private
+
+private
+
   def rails_log_and_raise_error(log_msg, error_msg)
     LogStuff.info log_msg
     $statsd.increment "#{StatsHelper::IMPORT_ERROR}"

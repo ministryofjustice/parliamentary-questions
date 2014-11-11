@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe 'QuestionsService' do
-
-  before(:each) do
+  before do
     @http_client = double('QuestionsHttpClient')
     allow(@http_client).to receive(:questions) { sample_questions }
 
     @questions_service = QuestionsService.new(@http_client)
   end
+
   describe 'parsing xml questions' do
     it 'should return a list of questions with data' do
       questions = @questions_service.questions()
@@ -19,7 +19,6 @@ describe 'QuestionsService' do
 
       update_date = questions[1]["UpdatedDate"]
       update_date.should eq('2014-01-17T11:28:02.263Z')
-
     end
 
     it 'should have data for TablingMember (asking MP)' do
@@ -43,7 +42,6 @@ describe 'QuestionsService' do
     end
 
     it 'should pass dateFrom to httpclient in the right date format' do
-
       expect(@http_client).to receive(:questions).with({"dateFrom"=>"2014-02-01T00:00:00"})
 
       @questions_service.questions(dateFrom: Date.new(2014, 2, 1))
@@ -53,9 +51,9 @@ describe 'QuestionsService' do
       day = Date.new(2014, 2, 1)
       day_plus_one = day + 1
       expect(@http_client).to receive(:questions).with({
-                                                           "dateFrom"=>"2014-02-01T00:00:00",
-                                                           "dateTo"=>"2014-02-02T23:59:59",
-                                                       })
+        "dateFrom"=>"2014-02-01T00:00:00",
+        "dateTo"=>"2014-02-02T23:59:59",
+      })
 
       @questions_service.questions(dateFrom: day, dateTo: day_plus_one)
     end
@@ -64,14 +62,13 @@ describe 'QuestionsService' do
       day = Date.new(2014, 2, 1)
       day_plus_one = day + 1
       expect(@http_client).to receive(:questions).with({
-                                                           "dateFrom"=>"2014-02-01T00:00:00",
-                                                           "dateTo"=>"2014-02-02T23:59:59",
-                                                           "status"=>"Tabled"
-                                                       })
+        "dateFrom"=>"2014-02-01T00:00:00",
+        "dateTo"=>"2014-02-02T23:59:59",
+        "status"=>"Tabled"
+      })
 
       @questions_service.questions(dateFrom: day, dateTo: day_plus_one, status: "Tabled")
     end
-
   end
 
   describe '#questions_by_uin' do
@@ -84,7 +81,6 @@ describe 'QuestionsService' do
       question["Uin"].should eq('HL4837')
     end
   end
-
 
   describe '#answer' do
     it 'should generate the correct xml' do
@@ -115,9 +111,5 @@ describe 'QuestionsService' do
 
       result[:error].should  eq('Validation failed on the request.')
     end
-
   end
-
-
 end
-

@@ -7,11 +7,9 @@ class MembersController  < ApplicationController
     render :partial => 'by_name'
   end
 
-
-  protected
+protected
 
   def load_service(members_client = MembersHttpClient.new)
     @members_client ||= members_client
   end
-
 end

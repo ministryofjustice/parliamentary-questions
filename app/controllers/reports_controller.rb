@@ -10,13 +10,11 @@ class ReportsController < ApplicationController
     @counters = build_hash
 
     @m.each do |m|
-      # calculate the counters
       @p.each do |p|
         @counters[m.id][p.id] = PQ_by_minister(m.id).where('progress_id = ?', p.id).count
       end
     end
   end
-
 
   def press_desk_by_progress
     @p = Progress.where("name != 'Unassigned'")
@@ -25,9 +23,7 @@ class ReportsController < ApplicationController
     @counters = build_hash
 
     @pd.each do |pd|
-      # collect Action Officers Ids
       aos = get_actionofficer_ids_by_press_desk(pd.id)
-      # calculate the counters
       @p.each do |p|
         @counters[pd.id][p.id] = PQ_by_press_desk(aos).where('progress_id = ?', p.id).distinct.count
       end
@@ -57,7 +53,6 @@ class ReportsController < ApplicationController
   end
 
   def PQ_by_all(aos, minister_id, progress_id)
-
     @Pqs = Pq
 
     if !minister_id.blank?
@@ -72,13 +67,13 @@ class ReportsController < ApplicationController
     @Pqs
   end
 
-  private
+private
+
   def build_hash
-    # auto-vivifying Hash (http://trevoke.net/blog/2009/11/06/auto-vivifying-hashes-in-ruby/)
     Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
   end
+
   def get_actionofficer_ids_by_press_desk(pd_id)
     PressDesk.find(pd_id).action_officers.collect{|it| it.id}
   end
-
 end

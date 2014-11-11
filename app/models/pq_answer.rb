@@ -16,5 +16,4 @@ class PQAnswer
   def persisted?
     false
   end
-
 end

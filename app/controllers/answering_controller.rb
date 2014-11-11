@@ -26,7 +26,7 @@ class AnsweringController < ApplicationController
     render :partial => 'answer', :locals => {pq: @pq}
   end
 
-  protected
+protected
 
   def load_service(answering_service = AnsweringService.new)
     @answering_service ||= answering_service

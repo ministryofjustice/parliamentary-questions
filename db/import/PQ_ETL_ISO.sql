@@ -76,7 +76,7 @@ WITH (
   OIDS=FALSE
 );
 
-copy stageing 
+copy stageing
 (
   "Author",
   "Record Classification",
@@ -155,7 +155,7 @@ insert into directorates(name, deleted)
   from Stageing
   where "Directorate"  is not null
   and not exists (select name from Directorates where name = "Directorate");
-  
+
 insert into divisions(name, deleted)
   SELECT distinct "Division of Action Officer" as name, FALSE
   from Stageing
@@ -167,7 +167,7 @@ insert into deputy_directors(name, deleted)
   from Stageing
   where "Deputy Director"  is not null
   and not exists (select name from deputy_directors where name = "Deputy Director");
-  
+
 insert into press_desks(name,deleted,created_at,updated_at)
 select 'Not in TRIM', false, now(), now()
 where not exists (select name from press_desks where name = 'Not in TRIM');
@@ -181,7 +181,7 @@ select    'No Press Officer Assigned',
   (select id from press_desks p where p.name = 'Not in TRIM') ,
   FALSE,
   now() ,
-  now() 
+  now()
   where not exists (select name from press_officers where name = 'No Press Officer Assigned');
 
 insert into action_officers(name, email, deleted, press_desk_id)
@@ -213,7 +213,7 @@ update divisions set directorate_id = (select max(d.id) from directorates d, sta
 where d.name = stageing."Directorate"
       and divisions.name = stageing."Division of Action Officer")
 where directorate_id is null;
-	  
+
 insert into ministers(name, deleted)
 	    SELECT "Minister Responsible for signing off Question" as name, FALSE
 	    from Stageing
@@ -349,21 +349,21 @@ from stageing s
 
 
 insert into action_officers_pqs(action_officer_id,pq_id,accept,reject,reason,reason_option, created_at, updated_at)
-select ao.id, p.id, 
+select ao.id, p.id,
   case when s."Date Accepted by Action Officer" is null THEN FALSE ELSE TRUE END as Accept,
   case when s."Date Accepted by Action Officer" is null THEN TRUE ELSE FALSE END as Reject,
   case when s."Date Accepted by Action Officer" is null THEN 'Is for other Government department' ELSE '' END as Reason,
   case when s."Date Accepted by Action Officer" is null THEN 2 ELSE null END as reason_option,
-  case when s."Date Accepted by Action Officer" is not null THEN to_timestamp(s."Date Accepted by Action Officer",'DD/MM/YYYY at HH24:MI') else 
+  case when s."Date Accepted by Action Officer" is not null THEN to_timestamp(s."Date Accepted by Action Officer",'DD/MM/YYYY at HH24:MI') else
   to_timestamp(s."Date First Appeared in Parliament",'DD/MM/YYYY at HH24:MI')  END,
-  case when s."Date Accepted by Action Officer" is not null THEN to_timestamp(s."Date Accepted by Action Officer",'DD/MM/YYYY at HH24:MI') else 
+  case when s."Date Accepted by Action Officer" is not null THEN to_timestamp(s."Date Accepted by Action Officer",'DD/MM/YYYY at HH24:MI') else
   to_timestamp(s."Date First Appeared in Parliament",'DD/MM/YYYY at HH24:MI')  END
-from action_officers ao, pqs p, stageing s 
+from action_officers ao, pqs p, stageing s
 where ao.name = s."Action Officer"
   and s."Parliaments Identifying Number" = p.uin
   and not exists (select  aop2.id
 		from action_officers_pqs aop2, action_officers ao2, pqs p2
-		where s."Action Officer" = ao2.name 
+		where s."Action Officer" = ao2.name
 		and p2.uin= s."Parliaments Identifying Number"
 		and aop2.pq_id = p2.id
 		and aop2.action_officer_id = ao2.id);
@@ -373,5 +373,3 @@ where ao.name = s."Action Officer"
   update pqs set progress_id = (select id from progresses where name='Answered');
 
   UPDATE pqs SET progress_id = (select id from progresses where name='Transferred out') WHERE transfer_out_ogd_id IS NOT NULL;
-
-

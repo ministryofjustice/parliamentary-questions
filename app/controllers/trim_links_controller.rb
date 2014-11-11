@@ -37,10 +37,9 @@ class TrimLinksController < ApplicationController
     send_data(@data, :type => 'application/json', :filename => @upload.filename, :disposition => 'download')
   end
 
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def trim_link_params
-      params.require(:trim_link).permit(:file_data, :pq_id)
-    end
+private
 
+  def trim_link_params
+    params.require(:trim_link).permit(:file_data, :pq_id)
+  end
 end

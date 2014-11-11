@@ -20,26 +20,21 @@ describe 'ImportService' do
       question_one.should_not be_nil
       question_one.raising_member_id.should eql(2479)
       question_one.question.should eql('Hello we are asking questions')
-
     end
   end
 
-
   describe '#today_questions' do
-
     it 'should not fail if 0 questions returned' do
       allow(@http_client).to receive(:questions) { empty_questions_for_today }
 
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(0)
-
     end
 
     it 'should store today questions into the data model' do
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
-      # first question
       question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.raising_member_id.should eql(2479)
@@ -59,13 +54,11 @@ describe 'ImportService' do
       question_one.transferred.should eq(false)
 
       question_one.question_status.should eq('Tabled')
-      
-      # second question
+
       question_two = Pq.find_by(uin: 'HL673892')
       question_two.should_not be_nil
       question_two.raising_member_id.should eql(9742)
       question_two.question.should eql("I'm asking questions too")
-
     end
 
     it 'should update the question data if #today_questions is called multiple times' do
@@ -124,7 +117,6 @@ describe 'ImportService' do
       question_new = Pq.find_by(uin: 'HL5151')
       question_new.should_not be_nil
       question_new.question.should eql('New question in the api')
-
     end
 
     it 'should store audit events by name when importing' do
@@ -137,7 +129,6 @@ describe 'ImportService' do
       update = question_one.versions.last
       expect(question_one.versions.size).to eql(2) # Create and update
       expect(update.whodunnit).to eql('TestRunner')
-
     end
 
     it 'should return error hash when sent malformed XML from api' do
@@ -147,20 +138,18 @@ describe 'ImportService' do
       import_result[:questions].size.should eql(1)
 
       errors = import_result[:errors]
-      errors.size.should eql(1)	  
+      errors.size.should eql(1)
 
       err = errors.first
 
-	  err[:message].should eql(["Uin can't be blank"])
-	  question_with_error = err[:question]
+  	  err[:message].should eql(["Uin can't be blank"])
+  	  question_with_error = err[:question]
 
-	  question_with_error['Text'].should eql("I'm asking questions too")
-	  question_with_error['Uin'].should be_nil	  
-
+  	  question_with_error['Text'].should eql("I'm asking questions too")
+  	  question_with_error['Uin'].should be_nil
     end
 
     it 'should not overwrite the question internal_deadline' do
-      # First call
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
@@ -170,14 +159,11 @@ describe 'ImportService' do
       question_one.internal_deadline = DateTime.new(2012, 8, 29,  0,  0,  0)
       question_one.save()
 
-      # Second call, should have the deadline saved, not the default one
       import_result = @import_service.questions()
       question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.internal_deadline.strftime("%Y-%m-%d %H:%M").should eql("2012-08-29 00:00")
-
     end
-
 
     it 'should create the question in Unallocated state' do
       import_result = @import_service.questions()
@@ -187,19 +173,14 @@ describe 'ImportService' do
       question_one.should_not be_nil
 
       question_one.progress.name.should eq(Progress.UNASSIGNED)
-
     end
 
-
     it 'should move questions from Accepted to Draft Pending' do
-
-      # setup a pq accepted that needs to move from Accepted to Draft Pending
       pq = create(:pq, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.accepted.id)
       ao = create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov')
       yesterday = DateTime.now - 1.day
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: yesterday)
 
-      # setup a pq accepted that does need to move it
       pq = create(:pq, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.accepted.id)
       ActionOfficersPq.create(action_officer_id: ao.id, pq_id: pq.id, accept: true, reject: false, updated_at: DateTime.now)
 
@@ -214,12 +195,9 @@ describe 'ImportService' do
 
       pq_unallocated = Pq.find_by(uin: 'HL784845')
       pq_unallocated.progress.name.should eq(Progress.UNASSIGNED)
-
-
     end
 
     it 'should not overwrite the question date_for_answer' do
-      # First call
       import_result = @import_service.questions()
       import_result[:questions].size.should eq(2)
 
@@ -229,13 +207,10 @@ describe 'ImportService' do
       question_one.date_for_answer = DateTime.new(2012, 8, 29,  0,  0,  0)
       question_one.save()
 
-      # Second call, should have the deadline saved, not the default one
       import_result = @import_service.questions()
       question_one = Pq.find_by(uin: 'HL784845')
       question_one.should_not be_nil
       question_one.date_for_answer.strftime("%Y-%m-%d %H:%M").should eql("2012-08-29 00:00")
-
     end
-
   end
 end

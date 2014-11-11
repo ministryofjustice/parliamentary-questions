@@ -4,6 +4,6 @@ class Directorate < ActiveRecord::Base
   after_initialize :init
 
   def init
-    self.deleted  ||= false           #will set the default value only if it's nil
+    self.deleted ||= false
   end
 end

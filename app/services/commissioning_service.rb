@@ -1,5 +1,4 @@
 class CommissioningService
-
   def initialize(tokenService = TokenService.new)
     @tokenService = tokenService
   end
@@ -12,7 +11,6 @@ class CommissioningService
     ao = get_action_officer(assignment)
     pq = get_pq_by(assignment)
 
-    # no accepted/rejected -> change the state to allocated_pending
     update_pq_progress(pq)
 
     path = "/assignment/#{pq.uin.encode}"
@@ -60,29 +58,32 @@ class CommissioningService
     LogStuff.tag(:mail_notify) do
       PqMailer.notify_dd_email(template).deliver
     end
-
   end
 
-  private
+private
+
   def build_template_hash(pq,ao)
     {
-        :uin => pq.uin,
-        :question => pq.question,
-        :ao_name => ao.name,
-        :member_name => pq.member_name,
-        :house => pq.house_name,
-        :answer_by => pq.minister.name
+      :uin => pq.uin,
+      :question => pq.question,
+      :ao_name => ao.name,
+      :member_name => pq.member_name,
+      :house => pq.house_name,
+      :answer_by => pq.minister.name
     }
   end
+
   def update_pq_progress(pq)
     if !(pq.is_in_progress?(Progress.accepted) || pq.is_in_progress?(Progress.rejected))
       pro = Progress.no_response
       pq.update progress_id: pro.id
     end
   end
+
   def get_pq_by(assignment)
     Pq.find_by(id: assignment.pq_id)
   end
+
   def get_action_officer(assignment)
     ActionOfficer.find(assignment.action_officer_id)
   end

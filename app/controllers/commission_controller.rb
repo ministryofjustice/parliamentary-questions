@@ -4,8 +4,6 @@ class CommissionController < ApplicationController
   def commission
     form = CommissionForm.new(commission_form_params)
     if form.valid?
-      # Fixme this all should be 1 transaction (or something like that)
-
       pq = Pq.find(form.pq_id)
       pq.minister_id = form.minister_id
       pq.policy_minister_id = form.policy_minister_id
@@ -20,11 +18,9 @@ class CommissionController < ApplicationController
 
         render :partial => 'shared/question_assigned', :locals => {question: pq}
       rescue Exception => e
-        # ToDo there's a follow up story to display error messages
         render text: "Error when commissioning: #{e}", status: 400
       end
     else
-      # ToDo there's a follow up story to display error messages
       render text: form.errors.values.flatten.join('\n'), status: 422
     end
   end
@@ -34,7 +30,7 @@ class CommissionController < ApplicationController
     render :partial => 'shared/commissioned', :locals => {uin: @pq}
   end
 
-  private
+private
 
   def assign_one_action_officer(pq_id, ao_id)
     assignment = ActionOfficersPq.new(pq_id: pq_id, action_officer_id: ao_id)
@@ -50,6 +46,6 @@ class CommissionController < ApplicationController
 
   def commission_form_params
     params.require(:commission_form).permit(
-        :pq_id, :minister_id, :policy_minister_id, {action_officer_id: []}, :date_for_answer, :internal_deadline)
+      :pq_id, :minister_id, :policy_minister_id, {action_officer_id: []}, :date_for_answer, :internal_deadline)
   end
 end

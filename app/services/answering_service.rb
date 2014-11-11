@@ -1,9 +1,7 @@
 class AnsweringService
-
   def initialize(questionsService = QuestionsService.new)
     @questionsService = questionsService
   end
-
 
   def answer(pq, args)
     uin = pq.uin
@@ -23,9 +21,7 @@ class AnsweringService
       raise result[:error]
     end
     preview_url = result[:preview_url]
-    # update the preview url
+
     pq.update(preview_url: preview_url)
-
   end
-
 end
