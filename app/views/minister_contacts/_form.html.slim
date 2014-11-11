@@ -1,0 +1,26 @@
+#admin-minister-contact-form
+  = form_for @minister_contact do |f|
+    - if @minister_contact.errors.any?
+      .alert.notice
+        = pluralize(@minister_contact.errors.count, "error")
+        | prohibited this contact from being saved:
+        br/
+        - @minister_contact.errors.full_messages.each do |msg|
+          = msg
+          br/
+    .form-group
+      label.form-label for="minister_contact_name"  Contact description
+      = f.text_field :name, {class: 'form-control'}
+    .form-group
+      label.form-label for="minister_contact_email"  Email
+      = f.text_field :email, {class: 'form-control'}
+    .form-group
+      label.form-label for="minister_contact_phone"  Phone
+      = f.text_field :phone, {class: 'form-control'}
+    .form-group
+      label.block-label for="minister_contact_deleted" 
+        = f.check_box :deleted
+        | Inactive
+    .form-group
+      = f.hidden_field :minister_id
+      = f.submit 'Save', :id => 'save', :class => 'button'

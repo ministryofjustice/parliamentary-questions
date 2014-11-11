@@ -1,0 +1,16 @@
+h2 Directorate details
+#admin-directorate-details
+  p#notice= notice
+  h4 Name
+  p.text= @directorate.name
+  h4 Status
+  - if @directorate.deleted
+    p.text
+      i.fa.fa-times
+      | \&nbsp;Inactive
+  - else
+    p.text
+      i.fa.fa-check-circle
+      | \&nbsp;Active
+  = link_to 'Edit', edit_directorate_path(@directorate), {class: 'admin-link'}
+  = link_to 'Return to directorate list', directorates_path, {class: 'admin-link'}

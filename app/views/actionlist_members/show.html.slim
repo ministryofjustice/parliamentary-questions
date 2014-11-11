@@ -1,0 +1,18 @@
+h2 Actionlist member details
+#admin-al-details
+  p#notice= notice
+  h4 Name
+  p.text= @actionlist_member.name
+  h4 Email
+  p.text= @actionlist_member.email
+  h4 Status
+  - if @actionlist_member.deleted
+    p.text
+      i.fa.fa-times
+      | \&nbsp;Inactive
+  - else
+    p.text
+      i.fa.fa-check-circle
+      | \&nbsp;Active
+  = link_to 'Edit', edit_actionlist_member_path(@actionlist_member), {class: 'admin-link'}
+  = link_to 'Return to actionlist member list', actionlist_members_path, {class: 'admin-link'}

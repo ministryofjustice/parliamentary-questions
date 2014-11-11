@@ -1,0 +1,18 @@
+h2 Division details
+#admin-division-details
+  p#notice= notice
+  h4 Name
+  p.text= @division.name
+  h4 Directorate
+  p.text= @division.directorate.name
+  h4 Status
+  - if @division.deleted
+    p.text
+      i.fa.fa-times
+      | \&nbsp;Inactive
+  - else
+    p.text
+      i.fa.fa-check-circle
+      | \&nbsp;Active
+  = link_to 'Edit', edit_division_path(@division), {class: 'admin-link'}
+  = link_to 'Return to divisions list', divisions_path, {class: 'admin-link'}

@@ -1,0 +1,33 @@
+h2 Minister details
+#admin-ministers-details
+  p#notice= notice
+  h4 Name
+  p.text= @minister.name
+  h4 Title
+  p.text= @minister.title
+  h4 Status
+  - if @minister.deleted
+    p.text
+      i.fa.fa-times
+      | \&nbsp;Deleted
+  - else
+    p.text
+      i.fa.fa-check-circle
+      | \&nbsp;Active
+  h3 Contacts
+  div class="row>" 
+    #admin-button-bar.pull-right class="col-md-2.5" 
+      = link_to ('Add new contact'), new_minister_contact_withid_path(@minister), {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Description
+        th email
+        th phone
+    tbody
+      - @minister.minister_contacts.where(deleted: false).each do |c|
+        tr
+          td= c.name
+          td= c.email
+          td= c.phone
+  = link_to 'Return to the minister list', ministers_path, {class: 'admin-link'}

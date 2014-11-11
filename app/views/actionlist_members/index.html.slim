@@ -1,0 +1,24 @@
+= render partial: "shared/flash_messages", flash: flash
+h2 Actionlist members
+#admin-al-list
+  div class="row>" 
+    #admin-button-bar.pull-right class="col-md-2.5" 
+      = link_to ('Add actionlist member'), new_actionlist_member_path, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th#admin-status Status
+        th
+    - @actionlist_members.each do |actionlist_member|
+      tbody
+        tr
+          td= link_to "# actionlist_member.name ", actionlist_member_path(actionlist_member)
+          td
+            - if actionlist_member.deleted
+              i.fa.fa-times
+              | \&nbsp;Inactive
+            - else
+              i.fa.fa-check-circle
+              | \&nbsp;Active
+          td= link_to 'Edit', edit_actionlist_member_path(actionlist_member)

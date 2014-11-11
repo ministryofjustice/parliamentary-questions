@@ -1,0 +1,18 @@
+h2 Watchlist member details
+#admin-wl-details
+  p#notice= notice
+  h4 Name
+  p.text= @watchlist_member.name
+  h4 Email
+  p.text= @watchlist_member.email
+  h4 Status
+  - if @watchlist_member.deleted
+    p.text
+      i.fa.fa-times
+      | \&nbsp;Inactive
+  - else
+    p.text
+      i.fa.fa-check-circle
+      | \&nbsp;Active
+  = link_to 'Edit', edit_watchlist_member_path(@watchlist_member), {class: 'admin-link'}
+  = link_to 'Return to watchlist member list', watchlist_members_path, {class: 'admin-link'}

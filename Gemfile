@@ -1,106 +1,49 @@
 source 'https://rubygems.org'
 
-# auditing
-gem 'paper_trail', '~> 3.0.5'
-
-# XML parsing
-gem 'nokogiri'
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.1.7'
-gem 'rails_config'
-
-# Use postgresql as the database for Active Record
-gem 'pg'
-
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-
-# UI for the date-time picker
-gem 'momentjs-rails', '~> 2.5.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
-gem 'font-awesome-rails'
-# Select multiple with autocomplete
-gem "select2-rails"
-
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-gem 'unicorn'
-
-# statsd client
-gem 'statsd-ruby'
-
-# instrumentation gem for rails, we dont know if we going to use it
-#gem 'nunes'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-gem 'byebug', group: [:development, :test]
-
-
-gem 'httpclient'
-gem 'builder'
-
-# Authentication
-gem 'devise'
-# invite users by email
-gem 'devise_invitable'
-
-# pagintation support for models
-gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-
-#jQuery file upload
-gem 'remotipart', '~> 1.2'
-
-# Async job, and workers execution -> http://sidekiq.org/
-gem 'sidekiq'
-# Cron jobs in ruby
-gem 'whenever', :require => false
-
-# Logstasher for easier integration with logstash
+gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
+gem 'builder'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'devise_invitable'
+gem 'devise'
+gem 'font-awesome-rails'
+gem 'govuk_frontend_toolkit', '~> 1.7.0'
+gem 'httpclient'
+gem 'jbuilder', '~> 1.2'
+gem 'jquery-rails'
 gem 'logstasher'
-
+gem 'moj_template', '0.11.1'
+gem 'momentjs-rails', '~> 2.5.0'
+gem 'nokogiri'
+gem 'paper_trail', '~> 3.0.5'
+gem 'pg'
+gem 'rails_config'
+gem 'rails', '~> 4.1.7'
+gem 'remotipart', '~> 1.2'
+gem 'sass-rails', '~> 4.0.0'
+gem 'sidekiq'
+gem 'slim'
+gem 'statsd-ruby'
+gem 'turbolinks'
+gem 'uglifier', '>= 1.3.0'
+gem 'unicorn'
+gem 'whenever', :require => false
+gem 'will_paginate'
+gem "select2-rails"
 
 group :development do
   gem 'annotate', '~> 2.6.3'
   gem 'better_errors'
-  gem 'brakeman'
   gem 'hirb'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
 end
 
+gem 'codeclimate-test-reporter', group: :test, require: false
+
 group :test, :development do
+  gem 'byebug'
   gem 'capybara'
   gem 'capybara-email'
   gem 'cucumber-rails', require: false
@@ -116,13 +59,3 @@ group :test, :development do
   gem 'wirb'
   gem 'wirble'
 end
-
-gem 'codeclimate-test-reporter', group: :test, require: nil
-
-gem 'haml-rails'
-gem 'html2haml'
-
-
-# MoJ front-end gems
-gem 'govuk_frontend_toolkit', '~> 1.7.0'
-gem 'moj_template', '0.11.1'

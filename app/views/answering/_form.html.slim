@@ -1,0 +1,23 @@
+= render partial: "shared/flash_messages", flash: flash
+= form_for @pq_answer, { :remote => true, :authenticity_token => true, :html => { :id => "answer-pq-form-#{@pq.id}", :class => 'answer-pq-form', :data => {:id => @pq.id }}, :url => { :controller => 'answering', :action => 'answer', :id => @pq.id} }  do |f|
+  - if @pq_answer.errors.any?
+    .alert.alert-danger
+      p There are errors submitting the answer
+      ul
+        - @pq_answer.errors.full_messages.each do |msg|
+          li= msg
+  = f.hidden_field(:pq_id)
+  .form-group
+    label.form-label for=""  Answer
+    = f.text_area :text, {class: 'form-control', rows: '3'}
+  .form-group
+    label.block-label for=""
+      = f.label(:is_holding_answer)
+      = f.check_box :is_holding_answer
+  = f.submit 'Submit Answer', :class => 'button'
+javascript:
+  $('#answer-pq-form-#{@pq.id}').bind('ajax:success', function(e, data, status, xhr){
+    var pq_id = $(this).data('id');
+    var divToFill = "#answer-pq-" + pq_id;
+    $( divToFill ).html(data);
+  });
