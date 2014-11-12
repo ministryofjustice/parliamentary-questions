@@ -1,13 +1,7 @@
 #admin-wl-form
   = form_for @watchlist_member do |f|
+    = render partial: 'shared/errors', object: @watchlist_member
     - if @watchlist_member.errors.any?
-      .alert.notice
-        = pluralize(@watchlist_member.errors.count, "error")
-        | prohibited this watchlist member from being saved:
-        br/
-        - @watchlist_member.errors.full_messages.each do |msg|
-          = msg
-          br/
     fieldset
       .form-group
         label.form-label for="watchlist_member_name"  Name
@@ -17,7 +11,7 @@
         = f.text_field :email , {class: 'form-control'}
       p.text Status
       .form-group
-        label.block-label for="watchlist_member_deleted" 
+        label.block-label for="watchlist_member_deleted"
           = f.check_box :deleted
           | Inactive
       .form-group

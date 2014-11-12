@@ -1,13 +1,6 @@
 #transfer
   = form_for(@pq, url: { controller:'transferred', action:'create'} ) do |f|
-    - if @pq.errors.any?
-      .alert.notice
-        = pluralize(@pq.errors.count, "error")
-        | prohibited this pq from being saved:
-        br/
-        - @pq.errors.full_messages.each do |msg|
-          = msg
-          br/
+    = render partial: 'shared/errors', object: @pq
     fieldset
       .form-group
         label.form-label for="pq_uin"  Please enter the UIN for the transferred PQ
@@ -17,15 +10,15 @@
         = f.text_area :question, cols: 40, rows: 5, class:'form-control'
       .form-group
         label.form-label for="pq_dateforanswer"  Date for answer
-        .input-group.date.internal-dtp.datetimepicker data-date-format=("DD/MM/YYYY HH:mm") 
+        .input-group.date.internal-dtp.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
           input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.strftime('%d/%m/%Y %H:%M') unless @pq.date_for_answer.nil?) /
           span.input-group-addon.glyphicon.glyphicon-calendar
       p.text House
       .form-group.inline
-        label.block-label for="pq_house_name_house_of_commons" 
+        label.block-label for="pq_house_name_house_of_commons"
           = f.radio_button :house_name, 'House Of Commons'
           | House of Commons
-        label.block-label for="pq_house_name_house_of_lords" 
+        label.block-label for="pq_house_name_house_of_lords"
           = f.radio_button :house_name, 'House Of Lords'
           | House of Lords
       .form-group
@@ -36,18 +29,18 @@
         = f.text_field :member_constituency, class:'form-control'
       p.text Member has registered an interest in the question
       .form-group.inline
-        label.inline.block-label for="pq_registered_interest_false" 
+        label.inline.block-label for="pq_registered_interest_false"
           = f.radio_button :registered_interest, 'FALSE'
           | No
-        label.inline.block-label for="pq_registered_interest_true" 
+        label.inline.block-label for="pq_registered_interest_true"
           = f.radio_button :registered_interest, 'TRUE'
           | Yes
       p.text Question type
       .form-group.inline
-        label.block-label for="pq_question_type_ordinary" 
+        label.block-label for="pq_question_type_ordinary"
           = f.radio_button :question_type, 'Ordinary'
           | Ordinary
-        label.block-label for="pq_question_type_namedday" 
+        label.block-label for="pq_question_type_namedday"
           = f.radio_button :question_type, 'NamedDay'
           | Named day
       .form-group
@@ -55,7 +48,7 @@
         = f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department")
       .form-group
         label.form-label for="transfer_in_date"  Date transferred in
-        .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm") 
+        .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
           input#transfer_in_date.form-control name="pq[transfer_in_date]" type="text" value=(@pq.transfer_in_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_in_date.nil?) /
           span.input-group-addon.glyphicon.glyphicon-calendar
       .form-group

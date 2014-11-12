@@ -1,9 +1,9 @@
 = render partial: "shared/flash_messages", flash: flash
 h2 Users
 #admin-ao-list
-  div class="row>" 
-    #admin-button-bar.pull-right class="col-md-2.5" 
-      = link_to 'Invite new user', new_user_invitation_path, {class: 'button-secondary'}
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to 'Invite new user', new_user_invitation_path, {class: 'button-secondary'}
   table.table
     thead
       tr
@@ -14,13 +14,13 @@ h2 Users
     tbody
       - @users.each do |user|
         tr
-          td= link_to "# user.name ", user_path(user)
-          td= link_to "# user.roles ", user_path(user)
+          td= link_to user.name, user_path(user)
+          td= link_to user.roles, user_path(user)
           td
             - if user.current_sign_in_at.nil?
               | never active
             - else
               = time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil?
           td= link_to 'Edit', edit_user_path(user)
-  div class="pagination-row.bottom" 
+  div class="pagination-row.bottom"
     .page-entries= will_paginate @users

@@ -1,13 +1,6 @@
 #admin-ogd-form
   = form_for(@ogd) do |f|
-    - if @ogd.errors.any?
-      .alert.notice
-        = pluralize(@ogd.errors.count, "error")
-        | prohibited this ogd from being saved:
-        br/
-        - @ogd.errors.full_messages.each do |msg|
-          = msg
-          br/
+    = render partial: 'shared/errors', object: @ogd
     fieldset
       .form-group
         label.form-label for="ogd_name"  Name
@@ -17,7 +10,7 @@
         = f.text_field :acronym, {class: 'form-control'}
       .form-group
         p.text Status
-        label.block-label for="ogd_deleted" 
+        label.block-label for="ogd_deleted"
           = f.check_box :deleted
           | Inactive
       .form-group

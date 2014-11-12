@@ -1,8 +1,8 @@
 h2 Ministers
 #admin-ministers-list
-  div class="row>" 
-    #admin-button-bar.pull-right class="col-md-2.5" 
-      = link_to ('Add minister'), new_minister_path, {class: 'button-secondary'}
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add minister'), new_minister_path, {class: 'button-secondary'}
   table.table
     thead
       tr
@@ -13,13 +13,7 @@ h2 Ministers
     tbody
       - @ministers.each do |minister|
         tr
-          td= link_to "# minister.name ", minister_path(minister)
+          td= link_to minister.name, minister_path(minister)
           td= minister.title
-          td
-            - if minister.deleted
-              i.fa.fa-times
-              | \&nbsp;Deleted
-            - else
-              i.fa.fa-check-circle
-              | \&nbsp;Active
+          td= render partial: 'shared/status', object: minister
           td= link_to 'Edit', edit_minister_path(minister)

@@ -10,4 +10,8 @@ class WatchlistMember < ActiveRecord::Base
   def init
     self.deleted ||= false
   end
+
+  def active?
+    !deleted?
+  end
 end

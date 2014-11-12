@@ -11,10 +11,10 @@ table#pressdesk-report.table.table-hover
       tr
         td
           span class=("label flag-#{p.classname}") = p.name
-        - @pd.each do |pd| count = @counters[pd.id][p.id] || 0
+        - @pd.each do |pd|
+          - count = @counters[pd.id][p.id] || 0
           td.table-cell-centered
             - if count > 0
               = link_to count  , {:action => 'filter_all', press_desk_id: pd.id, progress_id: p.id}
             - else
               | 0
-              /! <span class="btn btn-xs btn-default btn-block">0</span

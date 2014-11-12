@@ -6,18 +6,11 @@ h2 Minister details
   h4 Title
   p.text= @minister.title
   h4 Status
-  - if @minister.deleted
-    p.text
-      i.fa.fa-times
-      | \&nbsp;Deleted
-  - else
-    p.text
-      i.fa.fa-check-circle
-      | \&nbsp;Active
+  = render partial: 'shared/status', object: @minister
   h3 Contacts
-  div class="row>" 
-    #admin-button-bar.pull-right class="col-md-2.5" 
-      = link_to ('Add new contact'), new_minister_contact_withid_path(@minister), {class: 'button-secondary'}
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add new contact'), new_minister_contact_withid_path(@minister), {class: 'button-secondary'}
   table.table
     thead
       tr
