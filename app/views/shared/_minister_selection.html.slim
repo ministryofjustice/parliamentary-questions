@@ -1,0 +1,9 @@
+.minister-dropdown.form-group id="answering-minister-form-#{question.try(:id)}"
+  label.form-label for="pq_minister_id" Answering minister
+  = form.collection_select(:minister_id, ministers(question), :id, :name_with_inactive_status, { :include_blank => ''}, { class: 'minister-select', disabled: !question.try(:seen_by_finance) })
+  = render('shared/warning_icon') if minister_warning?(question, question.try(:minister))
+
+.minister-dropdown.form-group id="policy-minister-form-#{question.try(:id)}"
+  label.form-label for="pq_policy_minister_id" Policy minister (Optional)
+  = form.collection_select(:policy_minister_id, policy_ministers(question), :id, :name_with_inactive_status, { :include_blank => ''}, { class: 'minister-select', disabled: !question.try(:seen_by_finance) })
+  = render('shared/warning_icon') if minister_warning?(question, question.try(:policy_minister))
