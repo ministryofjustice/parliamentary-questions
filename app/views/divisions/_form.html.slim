@@ -1,13 +1,6 @@
 #admin-divisions-form
   = form_for(@division) do |f|
-    - if @division.errors.any?
-      .alert.notice
-        = pluralize(@division.errors.count, "error")
-        | prohibited this division from being saved:
-        br/
-        - @division.errors.full_messages.each do |msg|
-          = msg
-          br/
+    = render partial: 'shared/errors', object: @division
     fieldset
       .form-group
         label.form-label for="division_name"  Name
@@ -17,7 +10,7 @@
         = f.collection_select(:directorate_id, @directorates, :id, :name, :include_blank => "Please select")
       .form-group
         p.text Status
-        label.block-label for="division_deleted" 
+        label.block-label for="division_deleted"
           = f.check_box :deleted
           | Inactive
       .form-group

@@ -6,13 +6,6 @@ h2 Press officer details
   h4 Email
   p.text= @press_officer.email
   h4 Status
-  - if @press_officer.deleted
-    p.text
-      i.fa.fa-times
-      | \&nbsp;Inactive
-  - else
-    p.text
-      i.fa.fa-check-circle
-      | \&nbsp;Active
+  = render partial: 'shared/status', object: @press_officer
   = link_to 'Edit', edit_press_officer_path(@press_officer), {class: 'admin-link'}
   = link_to 'Return to press officer list', press_officers_path, {class: 'admin-link'}

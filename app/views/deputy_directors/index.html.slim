@@ -1,8 +1,8 @@
 h2 Deputy directors
 #admin-deputy-list
-  div class="row>" 
-    #admin-button-bar.pull-right class="col-md-3.5" 
-      = link_to ('Add deputy director'), new_deputy_director_path, {class: 'button-secondary'}
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add deputy director'), new_deputy_director_path, {class: 'button-secondary'}
   table.table
     thead
       tr
@@ -13,13 +13,7 @@ h2 Deputy directors
     tbody
       - @deputy_directors.each do |deputy_director|
         tr
-          td= link_to "# deputy_director.name ", deputy_director_path(deputy_director)
+          td= link_to deputy_director.name, deputy_director_path(deputy_director)
           td= deputy_director.division.name
-          td
-            - if deputy_director.deleted
-              i.fa.fa-times
-              | \&nbsp;Inactive
-            - else
-              i.fa.fa-check-circle
-              | \&nbsp;Active
+          td= render partial: 'shared/status', object: deputy_director
           td= link_to 'Edit', edit_deputy_director_path(deputy_director)

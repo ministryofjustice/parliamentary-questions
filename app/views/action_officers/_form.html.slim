@@ -1,13 +1,6 @@
 #admin-ao-form
   = form_for @action_officer do |f|
-    - if @action_officer.errors.any?
-      .alert.notice
-        = pluralize(@action_officer.errors.count, "error")
-        | prohibited this Action Officer from being saved:
-        br/
-        - @action_officer.errors.full_messages.each do |msg|
-          = msg
-          br/
+    = render partial: 'shared/errors', object: @action_officer.errors
     fieldset
       .form-group
         label.form-label for="action_officer_name"  Name
@@ -29,7 +22,7 @@
         = f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select")
       p.text Status
       .form-group
-        label.block-label for="action_officer_deleted" 
+        label.block-label for="action_officer_deleted"
           = f.check_box :deleted
           | Inactive
       .form-group

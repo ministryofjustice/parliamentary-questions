@@ -1,20 +1,13 @@
 #admin-pd-form
   = form_for(@press_desk) do |f|
-    - if @press_desk.errors.any?
-      .alert.notice
-        = pluralize(@press_desk.errors.count, "error")
-        | prohibited this press_desk from being saved:
-        br/
-        - @press_desk.errors.full_messages.each do |msg|
-          = msg
-          br/
+    = render partial: 'shared/errors', object: @press_desk
     fieldset
       .form-group
         label.form-label for="press_desk_name"  Name
         = f.text_field :name, {class: 'form-control'}
       .form-group
         p.text Status
-        label.block-label for="press_desk_deleted" 
+        label.block-label for="press_desk_deleted"
           = f.check_box :deleted
           | Inactive
       .form-group

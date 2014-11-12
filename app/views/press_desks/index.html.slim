@@ -1,8 +1,8 @@
 h2 Press desks
 #admin-pd-list
-  div class="row>" 
-    #admin-button-bar.pull-right class="col-md-3.5" 
-      = link_to ('Add press desk'), new_press_desk_path, {class: 'button-secondary'}
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add press desk'), new_press_desk_path, {class: 'button-secondary'}
   table.table
     thead
       tr
@@ -13,13 +13,7 @@ h2 Press desks
     - @press_desks.each do |press_desk|
       tbody
         tr
-          td= link_to "# press_desk.name ", press_desk_path(press_desk)
+          td= link_to press_desk.name, press_desk_path(press_desk)
           td= press_desk.press_officers.count unless press_desk.press_officers.nil?
-          td
-            - if press_desk.deleted
-              i.fa.fa-times
-              | \&nbsp;Inactive
-            - else
-              i.fa.fa-check-circle
-              | \&nbsp;Active
+          td= render partial: 'shared/status', object: press_desk
           td= link_to 'Edit', edit_press_desk_path(press_desk)

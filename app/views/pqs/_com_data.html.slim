@@ -13,9 +13,9 @@ hr/
         = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
         - reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : ''
         | \&nbsp;
-        | \#{link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}}
+        = link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}
         p.text
-          = link_to ('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
+          = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
         h4 Email of Action Officer
         p.text= mail_to ao_pq.action_officer.email
         h4 Phone of Action Officer
@@ -37,8 +37,8 @@ hr/
           = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
           - reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : ''
           | \&nbsp;
-          | \#{link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'}}
-        = link_to ('Manually reject this action officer'), {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
+          = link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'}
+        = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
   - else
     p.text Not allocated
   = render partial:'shared/rejected_reasons', locals: {question: @pq}

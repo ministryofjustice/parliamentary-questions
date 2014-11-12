@@ -1,8 +1,8 @@
 h2 Other government departments
 #admin-odg-list
-  div class="row>" 
-    #admin-button-bar.pull-right class="col-md-2.5" 
-      = link_to ('Add government department'), new_ogd_path, {class: 'button-secondary'}
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add government department'), new_ogd_path, {class: 'button-secondary'}
   table.table
     thead
       tr
@@ -13,13 +13,7 @@ h2 Other government departments
     tbody
       - @ogds.each do |ogd|
         tr
-          td= link_to "# ogd.name ", ogd_path(ogd)
+          td= link_to ogd.name, ogd_path(ogd)
           td= ogd.acronym
-          td
-            - if ogd.deleted
-              i.fa.fa-times
-              | \&nbsp;Inactive
-            - else
-              i.fa.fa-check-circle
-              | \&nbsp;Active
+          td= render partial: 'shared/status', object: ogd
           td= link_to 'Edit', edit_ogd_path(ogd)

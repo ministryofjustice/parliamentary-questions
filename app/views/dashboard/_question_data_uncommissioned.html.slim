@@ -1,9 +1,9 @@
 .pq-columns.row
   = form_for CommissionForm.new,
-    remote => true,
-    authenticity_token => true,
-    html => {:id => "form-commission#{question.id}", :class => 'form-commission', :data => {:pqid => "#{question.id}"}},
-    url => commission_path do |f|
+  remote: true,
+  authenticity_token: true,
+  html: {:id => "form-commission#{question.id}", :class => 'form-commission', :data => {:pqid => "#{question.id}"}},
+  url: commission_path do |f|
     /! start of 'sub column 1'
     .col-md-7
       .dashboard-column1-uncommissioned

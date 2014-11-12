@@ -11,7 +11,8 @@ table#minister-report.table.table-hover
       tr
         td
           span class=("label flag-#{p.classname}") = p.name
-        - @ministers.each do |m| @count = @counters[[m.id, p.id]] || 0
+        - @ministers.each do |m|
+          - @count = @counters[[m.id, p.id]] || 0
           td.table-cell-centered
             - if @count > 0
               = link_to @count  , {:action => 'filter_all', minister_id: m.id, progress_id: p.id}

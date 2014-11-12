@@ -10,14 +10,9 @@
       span.message
     .inline.tr5-actions.toggle-content style="overflow:hidden;"
       = form_for TrimLink.new(:pq_id => question.id),
-        remote => true,
-        authenticity_token => true,
-        html=> {
-          multipart => true,
-          id => "new_trim_link_form_#{question.id}" ,
-          class => 'pq-inline-form, form-add-trim-link',
-          data => {:pqid => "#{question.id}" }
-        } do |f|
+        remote: true,
+        authenticity_token: true,
+        html: { multipart: true, id: "new_trim_link_form_#{question.id}", class: 'pq-inline-form form-add-trim-link', data: {pqid: question.id }} do |f|
         = f.file_field :file_data, :class=>'pq-inline-form trim-file-chooser', :id=>"file_data-#{question.id}"
         = f.hidden_field(:pq_id , :value => question.id , :id=>"pq_id-trimlink-#{question.id}")
         = f.submit 'Upload', :class=>'button button-upload'

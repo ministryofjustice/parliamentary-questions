@@ -1,10 +1,3 @@
-- if @pq.seen_by_finance
-  p.text
-    i.fa.fa-check-circle
-    | PQ viewed
-- else
-  p.text
-    i.fa.fa-times-circle
-    | PQ not viewed
+= render partial: 'shared/status', object: @pq, locals: { active: 'PQ viewed', inactive: 'PQ not viewed' }
 = f.check_box_gds :seen_by_finance
 = f.check_box_gds :finance_interest

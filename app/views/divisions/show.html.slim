@@ -6,13 +6,6 @@ h2 Division details
   h4 Directorate
   p.text= @division.directorate.name
   h4 Status
-  - if @division.deleted
-    p.text
-      i.fa.fa-times
-      | \&nbsp;Inactive
-  - else
-    p.text
-      i.fa.fa-check-circle
-      | \&nbsp;Active
+  = render partial: 'shared/status', object: @division
   = link_to 'Edit', edit_division_path(@division), {class: 'admin-link'}
   = link_to 'Return to divisions list', divisions_path, {class: 'admin-link'}
