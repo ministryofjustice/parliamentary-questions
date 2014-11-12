@@ -1,0 +1,17 @@
+#admin-divisions-form
+  = form_for(@division) do |f|
+    = render partial: 'shared/errors', object: @division
+    fieldset
+      .form-group
+        label.form-label for="division_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        label.form-label for="division_directorate_id"  Directorate
+        = f.collection_select(:directorate_id, @directorates, :id, :name, :include_blank => "Please select")
+      .form-group
+        p.text Status
+        label.block-label for="division_deleted"
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

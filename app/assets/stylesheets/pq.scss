@@ -609,7 +609,15 @@ li.select2-search-field {border-bottom: none;}
   padding-left: 0px;
 }
 
-#admin-button-bar { margin-bottom: 10px; }
+#admin-button-bar {
+  float: right;
+  margin-bottom: 10px;
+  list-style-type: none;
+  li {
+    display: inline;
+    margin-left: 5px;
+  }
+}
 
 .form-control,
 .form-group select {

@@ -33,4 +33,8 @@ class ActionOfficer < ActiveRecord::Base
       "#{name} (#{deputy_director.division.name})"
     end
   end
+
+  def active?
+    !deleted?
+  end
 end

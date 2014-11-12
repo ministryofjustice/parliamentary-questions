@@ -1,9 +1,0 @@
-<% if @pq.seen_by_finance %>
-	<p class="text"><i class="fa fa-check-circle"></i> PQ viewed</p>
-<% else %>
-	<p class="text"><i class="fa fa-times-circle"></i> PQ not viewed</p>
-<% end %>
-
-<%= f.check_box_gds :seen_by_finance %>
-
-<%= f.check_box_gds :finance_interest %>

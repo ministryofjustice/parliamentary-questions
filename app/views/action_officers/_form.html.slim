@@ -1,0 +1,29 @@
+#admin-ao-form
+  = form_for @action_officer do |f|
+    = render partial: 'shared/errors', object: @action_officer.errors
+    fieldset
+      .form-group
+        label.form-label for="action_officer_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        label.form-label for="action_officer_email"  Email
+        = f.text_field :email , {class: 'form-control'}
+      .form-group
+        label.form-label for="action_officer_group_email"  Group email
+        = f.text_field :group_email , {class: 'form-control'}
+      .form-group
+        label.form-label for="action_officer_phone"  Phone
+        = f.text_field :phone , {class: 'form-control'}
+      .form-group
+        label.form-label for="action_officer_deputy_director_id"  Deputy Director
+        = f.collection_select(:deputy_director_id, @deputy_directors, :id, :name, :include_blank => "Please select")
+      .form-group
+        label.form-label for="action_officer_press_desk_id"  Press Desk
+        = f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select")
+      p.text Status
+      .form-group
+        label.block-label for="action_officer_deleted"
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

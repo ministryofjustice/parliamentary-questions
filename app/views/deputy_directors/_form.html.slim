@@ -1,0 +1,20 @@
+#admin-deputy-form
+  = form_for(@deputy_director) do |f|
+    = render partial: 'shared/errors', object: @deputy_director.errors
+    fieldset
+      .form-group
+        label.form-label for="deputy_director_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        label.form-label for="deputy_director_email"  Email
+        = f.text_field :email, {class: 'form-control'}
+      .form-group
+        label.form-label for="deputy_director_division_id"  Division
+        = f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select")
+      .form-group
+        p.text Status
+        label.block-label for="deputy_director_deleted"
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

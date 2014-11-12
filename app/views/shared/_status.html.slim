@@ -1,0 +1,6 @@
+- if status.active?
+  i.fa.fa-check-circle
+  = (defined? active) ? active : ' Active'
+- else
+  i.fa.fa-times-circle
+  = (defined? inactive) ? inactive : ' Inactive'

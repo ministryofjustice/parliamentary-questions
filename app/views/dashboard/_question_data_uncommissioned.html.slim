@@ -1,0 +1,46 @@
+.pq-columns.row
+  = form_for CommissionForm.new,
+  remote: true,
+  authenticity_token: true,
+  html: {:id => "form-commission#{question.id}", :class => 'form-commission', :data => {:pqid => "#{question.id}"}},
+  url: commission_path do |f|
+    /! start of 'sub column 1'
+    .col-md-7
+      .dashboard-column1-uncommissioned
+        - disabled = !question.seen_by_finance
+        fieldset
+          = render partial: 'shared/minister_selection', locals: {question: @pq, form: f}
+          .allocation-info.form-group id="comm-form-container-#{question.id}"
+            label.form-label Assign action officer(s)
+            = collection_select(:commission_form, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers form-control required-for-commission', :id => "action_officers_pq_action_officer_id-#{question.id}", :disabled => disabled})
+          .form-group
+            = f.hidden_field(:pq_id , :value => question.id)
+            br/
+            = f.submit 'Commission', :class => 'button commission-button', :disabled => disabled, data: {disable_with: 'Commissioning...'}
+    /! end of column 1
+    /! start of sub column 2
+    .col-md-5
+      .dashboard-column-2
+        - if !question.house_name.nil?
+          h4= question.house_name
+          p.text= question.member_name
+        fieldset
+          .form-group
+            label for="datetimepicker-#{question.id}"
+            h4 Date for answer
+            .input-group.date-for-answer-picker.date.internal-dtp data-date-format="DD/MM/YYYY" id="datetimepicker-#{question.id}"
+              input.form-control.date-for-answer.required-for-commission id="pq_date_for_answer-#{question.id}" name="commission_form[date_for_answer]" type="text" value=(question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil?)
+              span.input-group-addon.glyphicon.glyphicon-calendar
+              = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
+          .form-group
+            label for="pq_internal_deadline-#{question.id}"
+            h4 Internal deadline
+            .input-group.internal-deadline-picker.date.internal-dtp data-date-format=("DD/MM/YYYY HH:mm") id="datetimepicker-int-#{question.id}"
+              input.form-control.internal-deadline.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil?)
+              span.input-group-addon.glyphicon.glyphicon-calendar
+              = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
+  .col-md-5
+    .dashboard-column-2
+      .trim_area.trim_area_dashboard id="trim_area_#{question.id}"
+        h4 Trim link
+        = render partial: 'shared/trim_links', locals: {question: question}

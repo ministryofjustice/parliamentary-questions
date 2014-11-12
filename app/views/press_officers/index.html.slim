@@ -1,0 +1,19 @@
+h2 Press officers
+#admin-po-list
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add press officer'), new_press_officer_path, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th Press Desk
+        th#admin-status Status
+        th
+    tbody
+      - @press_officers.each do |press_officer|
+        tr
+          td= link_to press_officer.name, press_officer_path(press_officer)
+          td= press_officer.press_desk.name
+          td= render partial: 'shared/status', object: press_officer
+          td= link_to 'Edit', edit_press_officer_path(press_officer)

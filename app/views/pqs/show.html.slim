@@ -1,0 +1,43 @@
+.row
+  .col-md-12
+    = render partial: "shared/flash_messages", flash: flash
+.row
+  .col-md-12
+    = render partial: 'shared/errors', object: @pq
+= render 'pq_header'
+#pq-detail-area.row
+  #progress-menu.col-md-3
+    ul.nav.nav-pills.nav-stacked
+      li
+        a#progress-menu-pq.progress-menu-item PQ Details
+      li
+        a#progress-menu-fc.progress-menu-item Finance check
+      li
+        a#progress-menu-com.progress-menu-item PQ commission
+      li
+        a#progress-menu-sub.progress-menu-item PQ draft
+      li
+        a#progress-menu-pod.progress-menu-item POD check
+      li
+        a#progress-menu-min.progress-menu-item Minister check
+      li
+        a#progress-menu-answer.progress-menu-item Answer
+  #progress-panel.col-md-9
+    = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|
+      fieldset
+        #progress-menu-pq-data.progress-menu-data.start-hidden
+          = render partial:'pq_data', locals: {f: f}
+        #progress-menu-fc-data.progress-menu-data.start-hidden
+          = render partial:'fc_data', locals: {f: f}
+        #progress-menu-com-data.progress-menu-data.start-hidden
+          = render  partial:'com_data', locals: {f: f}
+        #progress-menu-sub-data.progress-menu-data.start-hidden
+          = render  partial:'pq_draft', locals: {f: f}
+        #progress-menu-pod-data.progress-menu-data.start-hidden
+          = render partial:'pod_check', locals: {f: f}
+        #progress-menu-min-data.progress-menu-data.start-hidden
+          = render partial:'minister_check', locals: {f: f}
+        #progress-menu-answer-data.progress-menu-data.start-hidden
+          = render partial:'answer', locals: {f: f}
+        .form-group
+          = f.submit 'Save', :id => 'save', :class => 'button'

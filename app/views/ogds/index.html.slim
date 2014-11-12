@@ -1,0 +1,19 @@
+h2 Other government departments
+#admin-odg-list
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add government department'), new_ogd_path, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th Acronym
+        th#admin-status Status
+        th
+    tbody
+      - @ogds.each do |ogd|
+        tr
+          td= link_to ogd.name, ogd_path(ogd)
+          td= ogd.acronym
+          td= render partial: 'shared/status', object: ogd
+          td= link_to 'Edit', edit_ogd_path(ogd)

@@ -1,0 +1,35 @@
+- if user_signed_in?
+  nav.navbar.navbar-default role="navigation" 
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button" 
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      .collapse.navbar-collapse
+        - if current_user.is_pq_user?
+          ul.nav.navbar-nav
+            li= link_to 'Dashboard', dashboard_path
+            li.dropdown
+              a.dropdown-toggle data-toggle="dropdown" href="#" 
+                | Reports
+                span.caret
+              ul.dropdown-menu role="menu" 
+                li
+                li
+                  = link_to 'Minister report', reports_ministers_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Minister Report')"
+                li
+                  = link_to 'Press desk report', reports_press_desk_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Press Desk Report')"
+                li
+                  = link_to 'PQ filter', reports_filter_all_path
+            li#settings= link_to 'Settings', admin_path
+            li= link_to 'Sign out', destroy_user_session_path
+          = form_tag(search_path, { :method => 'get', :id => 'search_form', :class => 'navbar-form navbar-right', :role => 'search'}) do
+            .form-group
+              = text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search by UIN' }
+            = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
+              i.glyphicon.glyphicon-search
+        - elsif current_user.is_finance_user?
+          ul.nav.navbar-nav
+            li= link_to 'Sign out', destroy_user_session_path

@@ -1,0 +1,40 @@
+= render partial: 'shared/flash_messages'
+- if @assignment.reject
+  p.br.space-before-20
+    strong Thank you for your response
+  p.br.space-before
+    | You rejected PQ
+    strong= @question.uin
+    | on
+    strong= @assignment.updated_at.strftime('%d/%m/%Y')
+    | at
+    strong= @assignment.updated_at.strftime('%H:%M')
+    | stating:
+  p.br.space-before
+    = @assignment.reason_option
+    | \- #{@assignment.reason}
+  p.br.space-before Your message has been sent to the PQ team. You don't need to take any further action.
+- elsif @question.action_officers_pq.accepted.first.action_officer_id == @assignment.action_officer_id
+  p.br.space-before-20
+    strong Thank you for your response
+  p.br.space-before
+    | You accepted PQ
+    strong= @question.uin
+    | on
+    strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y')
+    | at
+    strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%H:%M')
+  p.br.space-before You will receive a further email which explains how and when to return your draft response, and provides a link to PQ guidance on the intranet.
+- else
+  p
+    strong This PQ has been accepted
+  = @question.action_officers_pq.accepted.first.action_officer.name
+  | accepted PQ
+  strong= @question.uin
+  | on
+  strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y')
+  | at
+  strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%H:%M')
+p.br.space-before
+  | If you have any queries please
+  a href="mailto:#{Settings.mail_reply_to}"  contact the PQ team

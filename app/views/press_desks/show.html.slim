@@ -1,0 +1,13 @@
+h2 Press desk details
+#admin-pd-details
+  p#notice= notice
+  h4 Name
+  p.text= @press_desk.name
+  h4 Status
+  = render partial: 'shared/status', object: @press_desk
+  h3 Press officers
+  ul
+    - @press_desk.press_officers.each do |po|
+      li= link_to(po.name,   controller: 'press_officers', action: 'show', id: po.id   )
+  = link_to 'Edit', edit_press_desk_path(@press_desk), {class: 'admin-link'}
+  = link_to 'Return to press desk list', press_desks_path, {class: 'admin-link'}

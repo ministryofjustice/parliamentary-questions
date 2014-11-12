@@ -1,0 +1,14 @@
+h2 User details
+#admin-user-details
+  h4 Name
+  = @user.name
+  h4 Email
+  = @user.email
+  h4 Role
+  = @user.roles
+  h4 Last active
+  = time_ago_in_words(@user.last_sign_in_at) unless @user.last_sign_in_at.nil?
+  h4 Invited by
+  = @user.invited_by_user
+  = link_to 'Edit', edit_user_path(@user), {class: 'admin-link'}
+  = link_to 'Return to user list', users_path, {class: 'admin-link'}

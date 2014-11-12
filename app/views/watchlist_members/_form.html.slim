@@ -1,0 +1,18 @@
+#admin-wl-form
+  = form_for @watchlist_member do |f|
+    = render partial: 'shared/errors', object: @watchlist_member
+    - if @watchlist_member.errors.any?
+    fieldset
+      .form-group
+        label.form-label for="watchlist_member_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        label.form-label for="watchlist_member_email"  Email
+        = f.text_field :email , {class: 'form-control'}
+      p.text Status
+      .form-group
+        label.block-label for="watchlist_member_deleted"
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

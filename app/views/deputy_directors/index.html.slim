@@ -1,0 +1,19 @@
+h2 Deputy directors
+#admin-deputy-list
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to ('Add deputy director'), new_deputy_director_path, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th Division
+        th#admin-status Status
+        th
+    tbody
+      - @deputy_directors.each do |deputy_director|
+        tr
+          td= link_to deputy_director.name, deputy_director_path(deputy_director)
+          td= deputy_director.division.name
+          td= render partial: 'shared/status', object: deputy_director
+          td= link_to 'Edit', edit_deputy_director_path(deputy_director)
