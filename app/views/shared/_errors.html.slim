@@ -1,0 +1,8 @@
+- name = errors.class.model_name.human
+- errors = errors.errors
+- if errors.any?
+  .alert.notice
+    = "#{pluralize(errors.count, "error")} prohibited this #{name} from being saved:"
+    ul
+    - errors.full_messages.each do |msg|
+      li= msg
