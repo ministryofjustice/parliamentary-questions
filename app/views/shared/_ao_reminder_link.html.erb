@@ -1,9 +1,0 @@
-<% if ao_pq.accept %>
-    <% reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : '' %>
-    <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder#{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'} %>
-<% elsif ao_pq.reject %>
-    <!-- rejected -->
-<% else %>
-    <% reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : '' %>
-    <%= link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a accept/reject reminder email'} %>
-<% end %>

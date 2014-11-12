@@ -1,0 +1,20 @@
+h2 Press Desk report
+table#pressdesk-report.table.table-hover
+  thead
+    tr
+      th Progress
+      - @pd.each do |pd|
+        th.table-cell-centered
+          = link_to pd.name  , {:action => 'filter_all', press_desk_id: pd.id }
+  tbody
+    - @p.each do |p|
+      tr
+        td
+          span class=("label flag-#{p.classname}") = p.name
+        - @pd.each do |pd|
+          - count = @counters[pd.id][p.id] || 0
+          td.table-cell-centered
+            - if count > 0
+              = link_to count  , {:action => 'filter_all', press_desk_id: pd.id, progress_id: p.id}
+            - else
+              | 0

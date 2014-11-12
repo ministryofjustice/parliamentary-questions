@@ -37,4 +37,8 @@ class User < ActiveRecord::Base
   def is_finance_user?
     roles == User.ROLE_FINANCE
   end
+
+  def active?
+    is_active?
+  end
 end

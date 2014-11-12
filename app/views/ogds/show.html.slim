@@ -1,0 +1,11 @@
+h2 Government department details
+#admin-ogd-details
+  p#notice= notice
+  h4 Name
+  p.text= @ogd.name
+  h4 Acronym
+  p.text= @ogd.acronym
+  h4 Status
+  = render partial: 'shared/status', object: @ogd
+  = link_to 'Edit', edit_ogd_path(@ogd), {class: 'admin-link'}
+  = link_to 'Return to other government department list', ogds_path, {class: 'admin-link'}

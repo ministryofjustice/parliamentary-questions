@@ -1,6 +1,19 @@
 class Pq < ActiveRecord::Base
   has_paper_trail
 
+  RESPONSES = [
+    "Commercial in confidence",
+    "Disproportionate cost",
+    "Full disclosure",
+    "Holding reply [named day PQ only]",
+    "I will write",
+    "Information not held centrally",
+    "Information not recorded",
+    "Partial disclosure",
+    "Partial Disproportionate cost",
+    "Referral"
+  ]
+
   has_many :trim_links
   has_many :action_officers_pq
   has_many :action_officers, :through => :action_officers_pq
@@ -15,6 +28,7 @@ class Pq < ActiveRecord::Base
 	validates :uin , presence: true, uniqueness:true
   validates :raising_member_id, presence:true
 	validates :question, presence:true
+  validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
 
   before_update :process_date_for_answer
   before_update :set_pod_waiting
@@ -168,6 +182,10 @@ class Pq < ActiveRecord::Base
     if self.draft_answer_received_changed?
       self.pod_waiting = draft_answer_received
     end
+  end
+
+  def active?
+    seen_by_finance?
   end
 
 private

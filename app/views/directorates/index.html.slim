@@ -1,0 +1,17 @@
+h2 Directorates
+#admin-directorate-list
+  div class="row>"
+    ul#admin-button-bar
+      li= link_to 'Add directorate', new_directorate_path, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th#admin-status Status
+        th
+    - @directorates.each do |directorate|
+      tbody
+        tr
+          td= link_to directorate.name, directorate_path(directorate)
+          td= render partial: 'shared/status', object: directorate
+          td= link_to 'Edit', edit_directorate_path(directorate)

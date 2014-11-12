@@ -1,0 +1,12 @@
+= form_for(@progress) do |f|
+  = render partial: 'shared/errors', object: @progress
+  .field
+    = f.label :name
+    br/
+    = f.text_field :name
+  .field
+    = f.label :progress_order
+    br/
+    = f.number_field :progress_order
+  .actions
+    = f.submit

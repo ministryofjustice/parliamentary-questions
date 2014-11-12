@@ -1,0 +1,14 @@
+#admin-pd-form
+  = form_for(@press_desk) do |f|
+    = render partial: 'shared/errors', object: @press_desk
+    fieldset
+      .form-group
+        label.form-label for="press_desk_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        p.text Status
+        label.block-label for="press_desk_deleted"
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

@@ -1,0 +1,54 @@
+.pq-columns.row
+  /! start of 'sub column 1'
+  .col-md-7
+    .dashboard-column1-commissioned
+      | Replying minister
+      .row
+        .col-md-6
+          = link_to question.minister.name, minister_path(question.minister)
+        .col-md-6
+          = mail_to question.minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")
+      - if question.policy_minister
+        | Policy minister
+        .row
+          .col-md-6
+            = link_to question.policy_minister.name, minister_path(question.policy_minister)
+          .col-md-6
+            - if question.policy_minister.email.blank?
+              | No contacts set
+            - else
+              = mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")
+      | Action officer(s)
+      .row
+        - if question.ao_pq_accepted.nil?
+          - question.action_officers_pq.each do |ao_pq|
+            - if !ao_pq.reject && !ao_pq.action_officer.nil?
+              .col-md-6
+                = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
+              .col-md-6
+                = render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question}
+        - else
+          .col-md-6
+            = link_to question.action_officer_accepted.name, action_officer_path(question.action_officer_accepted)
+          .col-md-6
+            = render partial: 'shared/ao_reminder_link', locals: {ao_pq: question.ao_pq_accepted, question: question}
+  /! end of column 1
+  /! start of sub column 2
+  .col-md-5
+    .dashboard-column-2
+      - if !question.house_name.nil?
+        h4= question.house_name
+        p.text= question.member_name
+      - if !question.date_for_answer.nil?
+        h4 Date for answer
+        p.text
+          = question.date_for_answer.strftime('%d/%m/%Y')
+          = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
+      - if !question.internal_deadline.nil?
+        h4 Internal deadline
+        p.text
+          = question.internal_deadline.strftime('%d/%m/%Y %H:%M')
+          = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
+      .trim_area.trim_area_dashboard id="trim_area_#{question.id}" 
+        h4 Trim link
+        = render partial: 'shared/trim_links', locals: {question: question}

@@ -4,4 +4,8 @@ class PressOfficer < ActiveRecord::Base
   validates :press_desk_id, presence: true
 
   belongs_to :press_desk
+
+  def active?
+    !deleted?
+  end
 end

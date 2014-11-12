@@ -1,0 +1,35 @@
+= render partial: 'shared/flash_messages'
+h2
+  | New PQ's today
+  span.badge= @questions.count
+hr/
+- if @questions.count == 0
+  p There are not more questions to review
+- if @questions.count > 0
+  = form_tag :controller => 'finance', :action => 'confirm' do
+    ul.questions-list.col-md-9
+      - @questions.each do |question|
+        li
+          fieldset
+            .pq-header
+              h3= question.uin
+              - if question.question_type == 'NamedDay'
+                span.label.name-day title=("Named day")  N
+              - if question.transferred
+                span.label.flag-transferred-in title="Transferred"  T
+            .pq-question
+              p.text= question.question
+            .row
+              .form-group.col-md-6
+                label.block-label for="pq[#{question.id}][finance_interest]" 
+                  input id="pq[#{question.id}][finance_interest]" name="pq[#{question.id}][finance_interest]" type="checkbox" value="true" /
+                  | Register interest
+              .col-md-6
+                span.form-group
+                h4= question.house_name
+                p.text= question.member_name
+                h4 Date for answer
+                p.text= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil?
+                input name="pq[#{question.id}][seen_by_finance]" type="hidden" value="true" /
+    #confirmation_button_bar.col-md-9
+      = submit_tag 'Confirm Visibility of all PQs' , id: 'btn_finance_visibility' , class: 'button'

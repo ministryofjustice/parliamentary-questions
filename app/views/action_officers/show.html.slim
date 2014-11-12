@@ -1,0 +1,21 @@
+h2 Action officer details
+#admin-ao-details
+  p#notice= notice
+  h4 Name
+  p.text= @action_officer.name
+  h4 Email
+  p.text= @action_officer.email
+  h4 Group email
+  p.text= @action_officer.group_email
+  h4 Phone
+  p.text= @action_officer.phone
+  h4 Deputy director
+  p.text= @action_officer.deputy_director.name
+  h4 Division
+  p.text= @action_officer.deputy_director.division.name
+  h4 Press desk
+  p.text= @action_officer.press_desk.name
+  h4 Status
+  = render partial: 'shared/status', object: @action_officer
+  = link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'admin-link'}
+  = link_to 'Return to action officer list', action_officers_path, {class: 'admin-link'}

@@ -1,0 +1,17 @@
+#admin-al-form
+  = form_for @actionlist_member do |f|
+    = render partial: 'shared/errors', object: @actionlist_member.errors
+    fieldset
+      .form-group
+        label.form-label for="actionlist_member_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        label.form-label for="actionlist_member_email"  Email
+        = f.text_field :email , {class: 'form-control'}
+      .form-group
+        p.text Status:
+        label.block-label for="actionlist_member_deleted"
+          = f.check_box :deleted
+          | Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

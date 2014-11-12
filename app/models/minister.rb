@@ -23,6 +23,10 @@ class Minister < ActiveRecord::Base
     where(arel)
   end
 
+  def active?
+    !deleted?
+  end
+
 private
 
   def strip_whitespace

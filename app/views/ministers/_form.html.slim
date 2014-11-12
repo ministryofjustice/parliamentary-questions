@@ -1,0 +1,32 @@
+#admin-minister-form
+  = form_for(@minister) do |f|
+    = render partial: 'shared/errors', object: @minister
+    fieldset
+      .form-group
+        label.form-label for="minister_name"  Name
+        = f.text_field :name, {class: 'form-control'}
+      .form-group
+        label.form-label for="minister_title"  Title
+        = f.text_field :title, {class: 'form-control'}
+      = f.fields_for :minister_contacts do |ff|
+        .form-group
+          label.form-label for="minister_minister_contacts_attributes_0_name"  Contact description
+          = ff.text_field :name, {class: 'form-control'}
+        .form-group
+          label.form-label for="minister_minister_contacts_attributes_0_email"  Email
+          = ff.text_field :email, {class: 'form-control'}
+        .form-group
+          label.form-label for="minister_minister_contacts_attributes_0_phone"  Phone
+          = ff.text_field :phone, {class: 'form-control'}
+        .form-group
+          p.text Contact status
+          label.block-label for="minister_minister_contacts_attributes_0_deleted"
+            = ff.check_box :deleted
+            | Inactive
+      .form-group
+        p.text style=""  Minister status
+        label.block-label for="minister_deleted"
+          = f.check_box :deleted
+          | \&nbsp;Inactive
+      .form-group
+        = f.submit 'Save', :id => 'save', :class => 'button'

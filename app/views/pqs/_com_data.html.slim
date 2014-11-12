@@ -1,0 +1,55 @@
+.deadline_input.form-group
+  label.form-label for="pq_internal_deadline"
+    | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
+  span#datetimepicker1.input-group.date.internal-deadline-picker data-date-format=("DD/MM/YYYY HH:mm")
+    input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil?) /
+    span.input-group-addon.glyphicon.glyphicon-calendar
+hr/
+.question-allocation
+  - if @pq.action_officers.size > 0
+    - @pq.action_officers_pq.order(updated_at: :desc).each do |ao_pq|
+      - if ao_pq.accept
+        h4 Name of Action Officer
+        = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
+        - reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : ''
+        | \&nbsp;
+        = link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}
+        p.text
+          = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
+        h4 Email of Action Officer
+        p.text= mail_to ao_pq.action_officer.email
+        h4 Phone of Action Officer
+        p.text= ao_pq.action_officer.phone
+        h4 Division of Action Officer
+        p.text= ao_pq.action_officer.deputy_director.division.name
+        h4 Directorate of Action Officer
+        p.text= ao_pq.action_officer.deputy_director.division.directorate.name
+        h4 Deputy director
+        p.text= ao_pq.action_officer.deputy_director.name
+        h4 Press Desk
+        = ao_pq.action_officer.press_desk.name
+        br/
+        - ao_pq.action_officer.press_desk.press_officers.each do |po|
+          = link_to po.name, press_officer_path(po)
+          br/
+      - if !ao_pq.accept && !ao_pq.reject
+        p.text
+          = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
+          - reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : ''
+          | \&nbsp;
+          = link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'}
+        = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
+  - else
+    p.text Not allocated
+  = render partial:'shared/rejected_reasons', locals: {question: @pq}
+hr/
+= render partial: 'shared/minister_selection', locals: {question: @pq, form: f}
+hr/
+.form-group
+  label.form-label for="pq_transfer_out_ogd_id"  Transfer out to
+  = f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department")
+.form-group
+  label.form-label for="transfer_out_date"  Date transferred out
+  span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+    input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil?) /
+    span.input-group-addon.glyphicon.glyphicon-calendar

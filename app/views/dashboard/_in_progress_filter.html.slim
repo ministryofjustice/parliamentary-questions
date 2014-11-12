@@ -1,0 +1,21 @@
+#status-filters.col-md-3.col-md-push-9
+  h3 Filter
+  ul.nav.nav-pills.nav-stacked
+    li#db-filter-today class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress')) 
+      = link_to raw("View all<span class='badge'>#{Pq.in_progress.count}</span>") , {:controller => 'dashboard', :action => 'in_progress'}
+    li#db-filter-draft-pending class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.DRAFT_PENDING)) 
+      = link_to raw("Draft Pending <span class='badge'>#{Pq.draft_pending.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.DRAFT_PENDING}
+    li#db-filter-pod-waitting class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.WITH_POD)) 
+      = link_to raw("With POD <span class='badge'>#{Pq.with_pod.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.WITH_POD}
+    li#db-filter-pod-query class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.POD_QUERY)) 
+      = link_to raw("POD Query <span class='badge'>#{Pq.pod_query.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.POD_QUERY}
+    li#db-filter-pod-cleared class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.POD_CLEARED)) 
+      = link_to raw("POD Cleared <span class='badge'>#{Pq.pod_cleared.count}</span>") , {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.POD_CLEARED}
+    li#db-filter-minister-waiting class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.WITH_MINISTER)) 
+      = link_to raw("With Minister <span class='badge'>#{Pq.with_minister.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.WITH_MINISTER}
+    li#db-filter-minister-query class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.MINISTERIAL_QUERY)) 
+      = link_to raw("Ministerial Query <span class='badge'>#{Pq.ministerial_query.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTERIAL_QUERY}
+    li#db-filter-minister-cleared class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'in_progress_by_status' && params[:qstatus] == Progress.MINISTER_CLEARED)) 
+      = link_to raw("Minister Cleared <span class='badge'>#{Pq.minister_cleared.count}</span>"), {:controller => 'dashboard', :action => 'in_progress_by_status' , :qstatus => Progress.MINISTER_CLEARED}
+    li#db-filter-i-will-write class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'i_will_write')) 
+      = link_to raw("I will write <span class='badge'>#{Pq.i_will_write_flag.count}</span>") , {:controller => 'dashboard', :action => 'i_will_write'}

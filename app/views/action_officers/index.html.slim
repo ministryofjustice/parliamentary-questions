@@ -1,0 +1,22 @@
+= render partial: "shared/flash_messages", flash: flash
+h2 Action officers
+#admin-ao-list
+  .row
+    ul#admin-button-bar
+      li= link_to ('Add Action Officer'), new_action_officer_path, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th Division
+        th Press desk
+        th#admin-status Status
+        th
+    - @action_officers.each do |action_officer|
+      tbody
+        tr
+          td= link_to action_officer.name, action_officer_path(action_officer)
+          td= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil?
+          td= action_officer.press_desk.name unless action_officer.press_desk.nil?
+          td= render partial: 'shared/status', object: action_officer
+          td= link_to 'Edit', edit_action_officer_path(action_officer)
