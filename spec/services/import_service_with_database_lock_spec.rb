@@ -16,19 +16,19 @@ describe 'ImportServiceWithDatabaseLock' do
       @import_service.questions()
 
       logs = ImportLog.all
-      logs[0].log_type.should eq('START')
-      logs[1].log_type.should eq('SUCCESS')
-      logs[2].log_type.should eq('SUCCESS')
-      logs[3].log_type.should eq('FINISH')
+      expect(logs[0].log_type).to eq('START')
+      expect(logs[1].log_type).to eq('SUCCESS')
+      expect(logs[2].log_type).to eq('SUCCESS')
+      expect(logs[3].log_type).to eq('FINISH')
     end
 
     it 'should prevent that multiple execution run at the same time' do
       result = @import_service.questions()
-      result[:log_type].should eq('FINISH')
+      expect(result[:log_type]).to eq('FINISH')
 
       result = @import_service.questions()
 
-      result[:log_type].should eq('SKIP_RUN')
+      expect(result[:log_type]).to eq('SKIP_RUN')
     end
 
     it 'should cleanup older results' do
@@ -37,9 +37,9 @@ describe 'ImportServiceWithDatabaseLock' do
       ImportLog.create(log_type: 'TEST', msg: 'test', created_at: DateTime.now - 5.days)
 
       result = @import_service.questions()
-      result[:log_type].should eq('FINISH')
+      expect(result[:log_type]).to eq('FINISH')
 
-      ImportLog.where('log_type = ?', 'TEST').count.should eq(0)
+      expect(ImportLog.where('log_type = ?', 'TEST').count).to eq(0)
     end
   end
 end

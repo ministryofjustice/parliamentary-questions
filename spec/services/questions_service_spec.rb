@@ -12,25 +12,25 @@ describe 'QuestionsService' do
     it 'should return a list of questions with data' do
       questions = @questions_service.questions()
       uin = questions[0]["Uin"]
-      uin.should eq('174151')
+      expect(uin).to eq('174151')
 
       uin = questions[1]["Uin"]
-      uin.should eq('174152')
+      expect(uin).to eq('174152')
 
       update_date = questions[1]["UpdatedDate"]
-      update_date.should eq('2014-01-17T11:28:02.263Z')
+      expect(update_date).to eq('2014-01-17T11:28:02.263Z')
     end
 
     it 'should have data for TablingMember (asking MP)' do
       questions = @questions_service.questions()
-      questions[0]['TablingMember']['MemberId'].should eq('308')
-      questions[0]['TablingMember']['MemberName'].should eq('Mr Jim Cunningham')
+      expect(questions[0]['TablingMember']['MemberId']).to eq('308')
+      expect(questions[0]['TablingMember']['MemberName']).to eq('Mr Jim Cunningham')
     end
 
     it 'should identify which house it is from' do
       questions = @questions_service.questions()
-      questions[0]['House']['HouseId'].should eq('1')
-      questions[0]['House']['HouseName'].should eq('House of Commons')
+      expect(questions[0]['House']['HouseId']).to eq('1')
+      expect(questions[0]['House']['HouseName']).to eq('House of Commons')
     end
   end
 
@@ -78,7 +78,7 @@ describe 'QuestionsService' do
       uin = "HL4837"
       expect(@http_client).to receive(:question).with(uin)
       question = @questions_service.questions_by_uin(uin)
-      question["Uin"].should eq('HL4837')
+      expect(question["Uin"]).to eq('HL4837')
     end
   end
 
@@ -90,7 +90,7 @@ describe 'QuestionsService' do
 
       expect(@http_client).to receive(:answer).with('H111', expected_xml)
       result = @questions_service.answer(uin: 'H111', member_id: '123', text: 'text test')
-      result[:preview_url].should eq('https://wqatest.parliament.uk/Questions/Details/36527')
+      expect(result[:preview_url]).to eq('https://wqatest.parliament.uk/Questions/Details/36527')
     end
 
     it 'should generate the correct xml and holding answer' do
@@ -101,7 +101,7 @@ describe 'QuestionsService' do
       expect(@http_client).to receive(:answer).with('H112', expected_xml)
       result = @questions_service.answer(uin: 'H112', member_id: '1234', text: 'text2 test', is_holding_answer: true)
 
-      result[:preview_url].should  eq('https://wqatest.parliament.uk/Questions/Details/36527')
+      expect(result[:preview_url]).to  eq('https://wqatest.parliament.uk/Questions/Details/36527')
     end
 
     it 'should return the error message if the status code is not 200' do
@@ -109,7 +109,7 @@ describe 'QuestionsService' do
 
       result = @questions_service.answer(uin: 'H112', member_id: '1234', text: 'text2 test', is_holding_answer: true)
 
-      result[:error].should  eq('Validation failed on the request.')
+      expect(result[:error]).to  eq('Validation failed on the request.')
     end
   end
 end

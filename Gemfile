@@ -46,7 +46,6 @@ group :test, :development do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-email'
-  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
@@ -56,6 +55,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'site_prism'
+  gem 'webmock'
   gem 'wirb'
   gem 'wirble'
 end

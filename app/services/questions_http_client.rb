@@ -27,7 +27,6 @@ class QuestionsHttpClient
           PqMailer.import_fail_email(email_params).deliver
         end
         rails_log_and_raise_error "Import API call returned #{response.status_code}", 'API response non-valid'
-        return
       end
     rescue HTTPClient::ConnectTimeoutError
       rails_log_and_raise_error "Connecting to API timed out after #{Settings.http_client_timeout}", 'API connection timed-out'
