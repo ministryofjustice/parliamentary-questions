@@ -18,7 +18,7 @@ describe 'roles filer' do
 
     has_access = PQUserFilter.has_access(controller)
 
-    has_access.should eq(true)
+    expect(has_access).to eq(true)
   end
 
   it 'PQUserFilter should not allow to access a user without a PQ ROLE' do
@@ -28,7 +28,7 @@ describe 'roles filer' do
 
     has_access = PQUserFilter.has_access(controller)
 
-    has_access.should eq(false)
+    expect(has_access).to eq(false)
   end
 
   it 'FinanceUserFilter should allow to access a user with a Finance ROLE' do
@@ -38,7 +38,7 @@ describe 'roles filer' do
 
     has_access = FinanceUserFilter.has_access(controller)
 
-    has_access.should eq(true)
+    expect(has_access).to eq(true)
   end
 
   it 'FinanceUserFilter should not allow to access a user without a Finance ROLE' do
@@ -48,7 +48,7 @@ describe 'roles filer' do
 
     has_access = FinanceUserFilter.has_access(controller)
 
-    has_access.should eq(false)
+    expect(has_access).to eq(false)
   end
 
 end

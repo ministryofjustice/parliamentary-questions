@@ -5,6 +5,7 @@ describe 'WatchlistReportService' do
   let!(:watchlist_one) { create(:watchlist_member, name: 'member 1', email: 'm1@ao.gov',  deleted: false) }
   let!(:watchlist_two) { create(:watchlist_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:watchlist_deleted) { create(:watchlist_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
+  let(:testid) { "watchlist-" + DateTime.now.to_s }
 
   before(:each) do
     @report_service = WatchlistReportService.new
@@ -16,31 +17,29 @@ describe 'WatchlistReportService' do
 
     token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
 
-    token.should_not be nil
-    token.id.should_not be nil
-    token.token_digest.should_not be nil
+    expect(token).to_not be nil
+    expect(token.id).to_not be nil
+    expect(token.token_digest).to_not be nil
 
     end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
-    token.expire.should eq(end_of_day)
+    expect(token.expire).to eq(end_of_day)
 
     token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
-    token.should_not be nil
-    token.id.should_not be nil
-    token.token_digest.should_not be nil
+    expect(token).to_not be nil
+    expect(token.id).to_not be nil
+    expect(token.token_digest).to_not be nil
 
     end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
-    token.expire.should eq(end_of_day)
+    expect(token.expire).to eq(end_of_day)
 
     token = Token.where(entity: "watchlist:#{watchlist_deleted.id}", path: '/watchlist/dashboard').first
-    token.should be nil
+    expect(token).to be nil
   end
 
   it 'should send an email with the right data' do
     pqtest_mail ='pqtest@digital.justice.gov.uk'
 
-    testid = "watchlist-" + DateTime.now.to_s
-
-    @report_service.stub(:entity) { testid }
+    allow(@report_service).to receive(:entity).and_return testid
     result = @report_service.send()
 
     mail = ActionMailer::Base.deliveries.first
@@ -50,23 +49,21 @@ describe 'WatchlistReportService' do
     entity = {entity: entity = testid }.to_query
     url = '/watchlist/dashboard'
 
-    mail.html_part.body.should include url
-    mail.html_part.body.should include token_param
-    mail.html_part.body.should include entity
+    expect(mail.html_part.body).to include url
+    expect(mail.html_part.body).to include token_param
+    expect(mail.html_part.body).to include entity
 
 
-    mail.text_part.body.should include url
-    mail.text_part.body.should include token_param
-    mail.text_part.body.should include entity
+    expect(mail.text_part.body).to include url
+    expect(mail.text_part.body).to include token_param
+    expect(mail.text_part.body).to include entity
 
-    mail.to.should include pqtest_mail
+    expect(mail.to).to include pqtest_mail
 
   end
 
   it 'should add the people from the Watchlist to the CC' do
-    testid = "watchlist-" + DateTime.now.to_s
-
-    @report_service.stub(:entity) { testid }
+    allow(@report_service).to receive(:entity).and_return testid
     result = @report_service.send()
 
     mail = ActionMailer::Base.deliveries.first
@@ -75,7 +72,7 @@ describe 'WatchlistReportService' do
     entity = {entity: entity = testid }.to_query
     url = '/watchlist/dashboard'
 
-    mail.cc.should include watchlist_one.email
-    mail.cc.should include watchlist_two.email
+    expect(mail.cc).to include watchlist_one.email
+    expect(mail.cc).to include watchlist_two.email
   end
 end

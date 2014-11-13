@@ -14,11 +14,11 @@ describe Division do
 
   describe "associations" do
     it "should have a directorate attribute" do
-      @dir = div.should respond_to(:directorate)
+      expect(div).to respond_to(:directorate)
     end
 
    	it 'should have a collection of Deputy directors' do
-   		@deputies = div.should respond_to(:deputy_directors)
+   expect(div).to respond_to(:deputy_directors)
    	end
   end
 end

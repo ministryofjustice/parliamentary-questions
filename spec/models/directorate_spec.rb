@@ -9,7 +9,7 @@ describe Directorate do
 
   describe "associations" do
     it "should have a divisions collection" do
-      @divs = dir.should respond_to(:divisions)
+      expect(dir).to respond_to(:divisions)
     end
   end
 end
