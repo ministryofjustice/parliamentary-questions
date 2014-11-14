@@ -24,7 +24,7 @@ describe 'AnsweringService' do
       @answering_service.answer(pq, {text: 'Hello test', is_holding_answer: true})
 
       pq = Pq.find_by(uin: uin)
-      pq.preview_url.should eq('https://wqatest.parliament.uk/Questions/Details/36527')
+      expect(pq.preview_url).to eq('https://wqatest.parliament.uk/Questions/Details/36527')
     end
 
     it 'should raise an exception if the minister is nil' do

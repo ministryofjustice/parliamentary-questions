@@ -25,15 +25,15 @@ describe 'ActionOfficerReminderMailer' do
 
         mail = ActionMailer::Base.deliveries.first
 
-        mail.html_part.body.should include @pq.member_name
-        mail.html_part.body.should include @pq.house_name
-        mail.html_part.body.should include @pq.uin
-        mail.html_part.body.should include ao.name
+        expect(mail.html_part.body).to include @pq.member_name
+        expect(mail.html_part.body).to include @pq.house_name
+        expect(mail.html_part.body).to include @pq.uin
+        expect(mail.html_part.body).to include ao.name
 
-        mail.text_part.body.should include @pq.member_name
-        mail.text_part.body.should include @pq.house_name
-        mail.text_part.body.should include @pq.uin
-        mail.text_part.body.should include ao.name
+        expect(mail.text_part.body).to include @pq.member_name
+        expect(mail.text_part.body).to include @pq.house_name
+        expect(mail.text_part.body).to include @pq.uin
+        expect(mail.text_part.body).to include ao.name
       end
     end
   end
@@ -44,8 +44,8 @@ describe 'ActionOfficerReminderMailer' do
         PqMailer.acceptance_email(@pq, ao,true).deliver
 
         mail = ActionMailer::Base.deliveries.first
-        mail.to.should include ao.email
-        mail.subject.should include 'URGENT'
+        expect(mail.to).to include ao.email
+        expect(mail.subject).to include 'URGENT'
       end
     end
   end

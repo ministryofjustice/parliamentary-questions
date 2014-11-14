@@ -30,11 +30,11 @@ describe ActionOfficer do
 
   describe "associations" do
     it "should have a deputy director attribute" do
-      @depdir = officer.should respond_to(:deputy_director)
+      expect(officer).to respond_to(:deputy_director)
     end
 
 		it 'should have a collection of assignments' do
-      officer.should respond_to(:action_officers_pqs)
+      expect(officer).to respond_to(:action_officers_pqs)
     end
   end
 end

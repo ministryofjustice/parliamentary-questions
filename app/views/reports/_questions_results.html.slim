@@ -3,13 +3,12 @@
     .row
       .col-md-6
         p
-          = pluralize(@questions_count,'Question')
-          | found
+          = pluralize(@questions_count, 'Question') + ' found'
 - if !questions.nil?
   .row
     ul.questions-list.col-md-9
       - questions.each do |question|
-        li.row id="pq-frame-#{question.id}" 
+        li.row id="pq-frame-#{question.id}"
           = render partial: 'dashboard/question_data', locals: {question: question}
   #pages.row
     = will_paginate @questions, {class: 'col-md-9'}
