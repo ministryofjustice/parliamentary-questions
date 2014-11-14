@@ -16,6 +16,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 Capybara.javascript_driver = :webkit
 Capybara.current_driver = :rack_test
 
+WebMock.disable_net_connect!(allow: "codeclimate.com")
 
 RSpec.configure do |config|
   # ## Mock Framework
