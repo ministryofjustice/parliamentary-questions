@@ -17,7 +17,7 @@ describe 'AOTokenFilter' do
 
     has_access = AOTokenFilter.has_access(controller)
 
-    has_access.should eq(false)
+    expect(has_access).to eq(false)
   end
 
   it 'the filter should pass if you have a valid token' do
@@ -34,7 +34,7 @@ describe 'AOTokenFilter' do
     allow(controller).to receive(:request) { request }
 
     has_access = AOTokenFilter.has_access(controller)
-    has_access.should eq(true)
+    expect(has_access).to eq(true)
 
   end
 
@@ -48,7 +48,7 @@ describe 'AOTokenFilter' do
 
     has_access = AOTokenFilter.has_access(controller)
 
-    has_access.should eq(false)
+    expect(has_access).to eq(false)
   end
 
   it 'the filter should say no access if you provide empty entity' do
@@ -61,7 +61,7 @@ describe 'AOTokenFilter' do
 
     has_access = AOTokenFilter.has_access(controller)
 
-    has_access.should eq(false)
+    expect(has_access).to eq(false)
   end
 
   it 'the filter should say no access if you have a are in the wrong path' do
@@ -78,7 +78,7 @@ describe 'AOTokenFilter' do
     allow(controller).to receive(:request) { request }
 
     has_access = AOTokenFilter.has_access(controller)
-    has_access.should eq(false)
+    expect(has_access).to eq(false)
 
   end
 

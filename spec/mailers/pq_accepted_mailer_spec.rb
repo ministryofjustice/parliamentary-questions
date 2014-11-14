@@ -22,10 +22,10 @@ describe 'PQAcceptedMailer' do
       PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first
-      mail.html_part.body.should include pq.question
+      expect(mail.html_part.body).to include pq.question
 
-      mail.text_part.body.should include pq.question
-      mail.to.should include ao.email
+      expect(mail.text_part.body).to include pq.question
+      expect(mail.to).to include ao.email
     end
 
     it 'should set the right cc with minister ' do
@@ -36,8 +36,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include expectedCC
-      mail.html_part.body.should include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expectedCC
+      expect(mail.html_part.body).to include CGI::escape(expectedCC)
     end
 
     it 'should set the right cc with minister the right people if the minister is Simon Hughes' do
@@ -48,8 +48,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include expectedCC
-      mail.html_part.body.should include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expectedCC
+      expect(mail.html_part.body).to include CGI::escape(expectedCC)
     end
 
     it 'should add the people from the Actionlist to the CC on the draft email link' do
@@ -64,8 +64,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include expectedCC
-      mail.html_part.body.should include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expectedCC
+      expect(mail.html_part.body).to include CGI::escape(expectedCC)
     end
 
     it 'should contain the name of the minister' do
@@ -75,8 +75,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include minister_1.name
-      mail.html_part.body.should include minister_1.name
+      expect(mail.text_part.body).to include minister_1.name
+      expect(mail.html_part.body).to include minister_1.name
     end
 
     it 'should contain the asking minister ' do
@@ -87,8 +87,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include member_name
-      mail.html_part.body.should include member_name
+      expect(mail.text_part.body).to include member_name
+      expect(mail.html_part.body).to include member_name
     end
 
     it 'should contain the house ' do
@@ -98,8 +98,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include 'HoL'
-      mail.html_part.body.should include 'HoL'
+      expect(mail.text_part.body).to include 'HoL'
+      expect(mail.html_part.body).to include 'HoL'
     end
 
     it 'should add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question' do
@@ -117,8 +117,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include my_finance_email
-      mail.html_part.body.should include CGI::escape(my_finance_email)
+      expect(mail.text_part.body).to include my_finance_email
+      expect(mail.html_part.body).to include CGI::escape(my_finance_email)
     end
 
     it 'should not add the Finance email to the CC list on the draft email link if Finance has not registered an interest in the question' do
@@ -134,8 +134,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should_not include my_finance_email
-      mail.html_part.body.should_not include CGI::escape(my_finance_email)
+      expect(mail.text_part.body).to_not include my_finance_email
+      expect(mail.html_part.body).to_not include CGI::escape(my_finance_email)
     end
 
     it 'should not add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question but is inactive' do
@@ -152,8 +152,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should_not include my_finance_email
-      mail.html_part.body.should_not include CGI::escape(my_finance_email)
+      expect(mail.text_part.body).to_not include my_finance_email
+      expect(mail.html_part.body).to_not include CGI::escape(my_finance_email)
     end
 
     it 'should show the date for answer if set' do
@@ -163,8 +163,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include '04/09/2014'
-      mail.html_part.body.should include '04/09/2014'
+      expect(mail.text_part.body).to include '04/09/2014'
+      expect(mail.html_part.body).to include '04/09/2014'
     end
 
     it 'should not show the date for answer block if not set' do
@@ -174,8 +174,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should_not include 'Due back to Parliament by '
-      mail.html_part.body.should_not include 'Due back to Parliament by '
+      expect(mail.text_part.body).to_not include 'Due back to Parliament by '
+      expect(mail.html_part.body).to_not include 'Due back to Parliament by '
     end
 
     it 'should add the deputy director of the AO to the CC on the draft email link' do
@@ -187,8 +187,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should include expectedCC
-      mail.html_part.body.should include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expectedCC
+      expect(mail.html_part.body).to include CGI::escape(expectedCC)
     end
 
     it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
@@ -199,8 +199,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      mail.text_part.body.should_not include expectedCC
-      mail.html_part.body.should_not include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to_not include expectedCC
+      expect(mail.html_part.body).to_not include CGI::escape(expectedCC)
     end
   end
 end

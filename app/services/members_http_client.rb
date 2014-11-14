@@ -13,6 +13,6 @@ class MembersHttpClient
   end
 
   def members(name)
-    XmlParse.get_xml_data(members_xml(name),'Members')
+    XmlParse.get_xml_data(members_xml(name),'Member')
   end
 end

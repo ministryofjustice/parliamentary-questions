@@ -7,6 +7,7 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
+require 'webmock/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -15,6 +16,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 Capybara.javascript_driver = :webkit
 Capybara.current_driver = :rack_test
 
+WebMock.disable_net_connect!(allow: "codeclimate.com")
 
 RSpec.configure do |config|
   # ## Mock Framework
@@ -47,10 +49,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-
-  config.expect_with :rspec do |c|
-    c.syntax = [:should, :expect]
-  end
 
   config.infer_spec_type_from_file_location!
 

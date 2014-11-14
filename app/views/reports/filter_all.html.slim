@@ -6,8 +6,7 @@ h2 PQ filter
       h3 Please select a filter option
     - else
       h3
-        = pluralize(@questions_count,'Question')
-        | found
+        = pluralize(@questions_count,'Question') + ' found'
       ul.questions-list
         - @questions.each do |question|
           li id="pq-frame-#{question.id}"

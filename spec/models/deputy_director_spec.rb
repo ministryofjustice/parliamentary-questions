@@ -14,11 +14,11 @@ describe DeputyDirector do
 
   describe "associations" do
     it "should have a division attribute" do
-      @division = depdir.should respond_to(:division)
+      expect(depdir).to respond_to(:division)
     end
 
     it 'should have a collection of action officers' do
-      depdir.should respond_to(:action_officers)
+      expect(depdir).to respond_to(:action_officers)
     end
   end
 end

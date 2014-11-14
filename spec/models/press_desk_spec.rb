@@ -27,11 +27,11 @@ describe PressDesk do
 
   describe "associations" do
     it "should have a collection of press officers" do
-      @depdir = pdesk.should respond_to(:press_officers)
+      expect(pdesk).to respond_to(:press_officers)
     end
 
     it 'should have a collection of action officers' do
-      pdesk.should respond_to(:action_officers)
+      expect(pdesk).to respond_to(:action_officers)
     end
   end
 end
