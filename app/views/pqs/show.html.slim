@@ -9,19 +9,19 @@
   #progress-menu.col-md-3
     ul.nav.nav-pills.nav-stacked
       li
-        a#progress-menu-pq.progress-menu-item PQ Details
+        a#progress-menu-pq.progress-menu-item(href="#") PQ Details
       li
-        a#progress-menu-fc.progress-menu-item Finance check
+        a#progress-menu-fc.progress-menu-item(href="#") Finance check
       li
-        a#progress-menu-com.progress-menu-item PQ commission
+        a#progress-menu-com.progress-menu-item(href="#") PQ commission
       li
-        a#progress-menu-sub.progress-menu-item PQ draft
+        a#progress-menu-sub.progress-menu-item(href="#") PQ draft
       li
-        a#progress-menu-pod.progress-menu-item POD check
+        a#progress-menu-pod.progress-menu-item(href="#") POD check
       li
-        a#progress-menu-min.progress-menu-item Minister check
+        a#progress-menu-min.progress-menu-item(href="#") Minister check
       li
-        a#progress-menu-answer.progress-menu-item Answer
+        a#progress-menu-answer.progress-menu-item(href="#") Answer
   #progress-panel.col-md-9
     = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|
       fieldset
