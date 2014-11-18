@@ -40,7 +40,10 @@ group :development do
   gem 'spring-commands-cucumber'
 end
 
-gem 'codeclimate-test-reporter', group: :test, require: false
+group :test do
+  gem 'codeclimate-test-reporter', require: false
+  gem 'webmock'
+end
 
 group :test, :development do
   gem 'byebug'
@@ -55,7 +58,6 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'site_prism'
-  gem 'webmock'
   gem 'wirb'
   gem 'wirble'
 end
