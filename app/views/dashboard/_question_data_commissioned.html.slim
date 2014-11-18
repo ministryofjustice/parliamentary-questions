@@ -49,6 +49,6 @@
         p.text
           = question.internal_deadline.strftime('%d/%m/%Y %H:%M')
           = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
-      .trim_area.trim_area_dashboard id="trim_area_#{question.id}" 
+      .trim_area.trim_area_dashboard id="trim_area_#{question.id}"
         h4 Trim link
-        = render partial: 'shared/trim_links', locals: {question: question}
+        = render partial: 'shared/trim_link', locals: {question: question}

@@ -7,9 +7,10 @@ FactoryGirl.define do
     response_due "2014-05-08 13:45:31"
     question { Faker::Lorem.sentence(10) }
     answer nil
+    progress Progress.unassigned
 
     factory :checked_by_finance_pq do
-      progress { Progress.find_by(name: Progress.UNASSIGNED) }
+      progress Progress.unassigned
       seen_by_finance true
       finance_interest false
 
