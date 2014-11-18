@@ -1,7 +1,8 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
   before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister]
-
+  before_action :archive_trim_link, only: :update
+  before_action :build_trim_link, only: :update
   before_action :prepare_progresses
   before_action :prepare_ogds
   before_action :load_service
@@ -21,15 +22,30 @@ class PqsController < ApplicationController
   def update
     if @pq.update(pq_params)
       flash[:success] = 'Successfully updated'
-      # update the progress of the questions
       @pq_progress_changer_service.update_progress(@pq)
-      return redirect_to action:'show', id: @pq.uin
+      return redirect_to action: 'show', id: @pq.uin
     end
 
     render action: 'show'
   end
 
 private
+
+  def archive_trim_link
+    if params[:commit] == 'Delete'
+      @pq.trim_link.archive
+    elsif params[:commit] == 'Undo'
+      @pq.trim_link.unarchive
+    end
+  end
+
+  def build_trim_link
+    trim_link = pq_params[:trim_data]
+    return unless trim_link.present?
+    filename = trim_link.original_filename
+    data = trim_link.read
+    @pq.build_trim_link(data: data, filename: filename, size: data.size)
+  end
 
   def set_pq
     @pq = Pq.find_by(uin: params[:id])
@@ -40,49 +56,50 @@ private
   end
 
   def pq_params
-    params.require(:pq).permit(
-        :internal_deadline,
-        :seen_by_finance,
-        :press_interest,
-        :finance_interest,
-        :minister_id,
-        :policy_minister_id,
-        :draft_answer_received,
-        :i_will_write_estimate,
-        :holding_reply,
-        :with_pod,
-        :pod_query,
-        :pod_clearance,
-        :round_robin,
-        :round_robin_date,
-        :progress_id,
-        :i_will_write,
-        :pq_correction_received,
-        :correction_circulated_to_action_officer,
-        :pod_query_flag,
-        :sent_to_policy_minister,
-        :policy_minister_query,
-        :policy_minister_to_action_officer,
-        :policy_minister_returned_by_action_officer,
-        :resubmitted_to_policy_minister,
-        :cleared_by_policy_minister,
-        :sent_to_answering_minister,
-        :answering_minister_query,
-        :answering_minister_to_action_officer,
-        :answering_minister_returned_by_action_officer,
-        :resubmitted_to_answering_minister,
-        :cleared_by_answering_minister,
-        :answer_submitted,
-        :library_deposit,
-        :pq_withdrawn,
-        :holding_reply_flag,
-        :final_response_info_released,
-        :round_robin_guidance_received,
-        :transfer_out_ogd_id,
-        :transfer_out_date,
-        :transfer_in_ogd_id,
-        :transfer_in_date,
-        :date_for_answer
+    @pq_params ||= params.require(:pq).permit(
+      :answer_submitted,
+      :answering_minister_query,
+      :answering_minister_returned_by_action_officer,
+      :answering_minister_to_action_officer,
+      :cleared_by_answering_minister,
+      :cleared_by_policy_minister,
+      :correction_circulated_to_action_officer,
+      :date_for_answer,
+      :draft_answer_received,
+      :final_response_info_released,
+      :finance_interest,
+      :holding_reply_flag,
+      :holding_reply,
+      :i_will_write_estimate,
+      :i_will_write,
+      :internal_deadline,
+      :library_deposit,
+      :minister_id,
+      :pod_clearance,
+      :pod_query_flag,
+      :pod_query,
+      :policy_minister_id,
+      :policy_minister_query,
+      :policy_minister_returned_by_action_officer,
+      :policy_minister_to_action_officer,
+      :pq_correction_received,
+      :pq_withdrawn,
+      :press_interest,
+      :progress_id,
+      :resubmitted_to_answering_minister,
+      :resubmitted_to_policy_minister,
+      :round_robin_date,
+      :round_robin_guidance_received,
+      :round_robin,
+      :seen_by_finance,
+      :sent_to_answering_minister,
+      :sent_to_policy_minister,
+      :transfer_in_date,
+      :transfer_in_ogd_id,
+      :transfer_out_date,
+      :transfer_out_ogd_id,
+      :trim_data,
+      :with_pod
     )
   end
 

@@ -11,6 +11,8 @@
       li
         a#progress-menu-pq.progress-menu-item(href="#") PQ Details
       li
+        a#progress-menu-trim.progress-menu-item(href="#") Trim link
+      li
         a#progress-menu-fc.progress-menu-item(href="#") Finance check
       li
         a#progress-menu-com.progress-menu-item(href="#") PQ commission
@@ -27,6 +29,8 @@
       fieldset
         #progress-menu-pq-data.progress-menu-data.start-hidden
           = render partial:'pq_data', locals: {f: f}
+        #progress-menu-trim-data.progress-menu-data.start-hidden
+          = render partial:'trim_link', locals: {f: f}
         #progress-menu-fc-data.progress-menu-data.start-hidden
           = render partial:'fc_data', locals: {f: f}
         #progress-menu-com-data.progress-menu-data.start-hidden

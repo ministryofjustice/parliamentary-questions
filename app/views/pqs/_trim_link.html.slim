@@ -1,0 +1,12 @@
+- if @pq.trim_link.present?
+  .form-group
+    h4 Trim link
+    - if @pq.has_trim_link?
+      span= link_to 'Open trim link', @pq.trim_link
+      span= f.submit 'Delete', class: 'button'
+    - else
+      span= '(deleted)'
+      span= f.submit 'Undo', class: 'button'
+.form-group
+  = f.label :trim_data, (@pq.has_trim_link? ? 'Change trim link' : 'Choose trim link')
+  = f.file_field :trim_data

@@ -260,30 +260,8 @@ $(document).ready(function () {
   /* PQ Details Page - Set styling when tab clicked */
   $("a").click(function() {
       var e="#"+$(this).attr("id");
-      $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
-      switch(e){
-          case "#progress-menu-pq":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-fc":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-com":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-sub":
-             $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-pod":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-min":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-answer":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-      }
+      $("#progress-menu-pq, #progress-menu-trim, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
+			$(e).removeClass("inactiveTab").addClass("activeTab");
   });
 
   // Checkbox and radio button CSS state changes

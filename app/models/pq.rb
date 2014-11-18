@@ -14,7 +14,7 @@ class Pq < ActiveRecord::Base
     "Referral"
   ]
 
-  has_many :trim_links
+  has_one :trim_link, dependent: :destroy
   has_many :action_officers_pq
   has_many :action_officers, :through => :action_officers_pq
   belongs_to :minister
@@ -22,6 +22,8 @@ class Pq < ActiveRecord::Base
   belongs_to :progress
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
+
+  attr_accessor :trim_data
 
   before_validation :strip_uin_whitespace
 
@@ -49,6 +51,10 @@ class Pq < ActiveRecord::Base
 
   def init
     self.seen_by_finance ||= false
+  end
+
+  def has_trim_link?
+    trim_link.present? && !trim_link.deleted?
   end
 
   def strip_uin_whitespace
