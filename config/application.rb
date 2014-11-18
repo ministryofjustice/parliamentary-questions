@@ -33,8 +33,6 @@ module ParliamentaryQuestions
 
     config.encoding = 'utf-8'
 
-    config.active_record.schema_format = :sql
-
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
