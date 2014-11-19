@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    super and self.is_active!=false
+    super && !self.deleted?
   end
 
   def set_defaults
@@ -30,15 +30,11 @@ class User < ActiveRecord::Base
     'FINANCE'
   end
 
-  def is_pq_user?
+  def pq_user?
     roles == User.ROLE_PQ_USER
   end
 
-  def is_finance_user?
+  def finance_user?
     roles == User.ROLE_FINANCE
-  end
-
-  def active?
-    is_active?
   end
 end

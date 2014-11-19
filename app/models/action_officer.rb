@@ -12,11 +12,6 @@ class ActionOfficer < ActiveRecord::Base
   belongs_to :press_desk
 
   before_validation WhitespaceValidator.new
-  after_initialize :init
-
-  def init
-    self.deleted ||= false
-  end
 
   def emails
     if group_email.blank?
@@ -32,9 +27,5 @@ class ActionOfficer < ActiveRecord::Base
     else
       "#{name} (#{deputy_director.division.name})"
     end
-  end
-
-  def active?
-    !deleted?
   end
 end

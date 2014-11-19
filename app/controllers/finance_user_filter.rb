@@ -6,6 +6,6 @@ class FinanceUserFilter
   end
 
   def self.has_access(controller)
-    controller.current_user.is_finance_user?
+    controller.current_user.finance_user?
   end
 end

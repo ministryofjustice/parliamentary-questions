@@ -6,6 +6,6 @@ class PQUserFilter
   end
 
   def self.has_access(controller)
-    controller.current_user.is_pq_user?
+    controller.current_user.pq_user?
   end
 end
