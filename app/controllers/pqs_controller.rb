@@ -2,7 +2,6 @@ class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
   before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister]
   before_action :archive_trim_link, only: :update
-  before_action :build_trim_link, only: :update
   before_action :prepare_progresses
   before_action :prepare_ogds
   before_action :load_service
@@ -23,10 +22,11 @@ class PqsController < ApplicationController
     if @pq.update(pq_params)
       flash[:success] = 'Successfully updated'
       @pq_progress_changer_service.update_progress(@pq)
-      return redirect_to action: 'show', id: @pq.uin
+      redirect_to action: 'show', id: @pq.uin
+    else
+      @pq.trim_link(true)
+      render action: 'show'
     end
-
-    render action: 'show'
   end
 
 private
@@ -37,14 +37,6 @@ private
     elsif params[:commit] == 'Undo'
       @pq.trim_link.unarchive
     end
-  end
-
-  def build_trim_link
-    trim_link = pq_params[:trim_data]
-    return unless trim_link.present?
-    filename = trim_link.original_filename
-    data = trim_link.read
-    @pq.build_trim_link(data: data, filename: filename, size: data.size)
   end
 
   def set_pq
@@ -98,8 +90,8 @@ private
       :transfer_in_ogd_id,
       :transfer_out_date,
       :transfer_out_ogd_id,
-      :trim_data,
-      :with_pod
+      :with_pod,
+      trim_link_attributes: [:file]
     )
   end
 

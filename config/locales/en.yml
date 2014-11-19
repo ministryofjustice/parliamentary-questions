@@ -6,3 +6,5 @@ en:
           attributes:
             filename:
               invalid: must end with .tr5
+            data:
+              blank: file empty

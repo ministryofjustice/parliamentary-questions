@@ -23,8 +23,7 @@ class Pq < ActiveRecord::Base
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
 
-  attr_accessor :trim_data
-
+  accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
 
 	validates :uin , presence: true, uniqueness:true

@@ -1,3 +1,5 @@
+@import "colours";
+
 // = Reset =================================================================================
 
 .row {
@@ -279,6 +281,17 @@ label {
 
 a.button:hover,
 a.button-secondary:hover { text-decoration: none; }
+button, input[type="submit"] {
+  &.link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    cursor: pointer;
+    color: $link-colour;
+    font-size: 85%;
+    text-decoration: underline;
+  }
+}
 
 .inline { display: inline-block; }
 
@@ -554,12 +567,15 @@ li.select2-search-field {border-bottom: none;}
 }
 
 .button-cancel { margin-right: 0; }
-
 .trim-links-form { margin: .3em 0 0; }
-
 .tr5-message{ display: none; }
-
 .toggle-content{ display: none; }
+.additional-action { padding-left: 20px; }
+.cancel {
+  display: none;
+  font-size: 85%;
+  text-decoration: underline;
+}
 
 /* = Pagination ================================================================= */
 

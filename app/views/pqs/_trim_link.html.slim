@@ -2,11 +2,13 @@
   .form-group
     h4 Trim link
     - if @pq.has_trim_link?
-      span= link_to 'Open trim link', @pq.trim_link
-      span= f.submit 'Delete', class: 'button'
+      = link_to 'Open trim link', @pq.trim_link
+      span.additional-action= f.submit 'Delete', class: 'button-secondary'
     - else
-      span= '(deleted)'
-      span= f.submit 'Undo', class: 'button'
+      | Trim link deleted
+      span.additional-action= f.submit 'Undo', class: 'link'
 .form-group
-  = f.label :trim_data, (@pq.has_trim_link? ? 'Change trim link' : 'Choose trim link')
-  = f.file_field :trim_data
+  = f.fields_for :trim_link_attributes, @pq.trim_link do |trim|
+    = trim.label :file, (@pq.has_trim_link? ? 'Change trim link' : 'Choose trim link')
+    = trim.file_field :file
+  a.cancel(href="#") Cancel
