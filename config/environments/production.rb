@@ -79,6 +79,13 @@ ParliamentaryQuestions::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # Custom Logging
+  config.logstasher.enabled = true
+  config.logstasher.suppress_app_log = true
+  config.logstasher.log_level = Logger::INFO
+  config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
+  # This line is optional, it allows you to set a custom value for the @source field of the log event
+  config.logstasher.source = 'logstasher'
 
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
