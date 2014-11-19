@@ -1,23 +1,30 @@
 require 'spec_helper'
 
 describe TrimLink do
-	let(:trim) {build(:trim_link)}
+  it { is_expected.to belong_to :pq }
+  it { is_expected.to validate_presence_of :data }
+  it { is_expected.to allow_value('filename.tr5').for :filename }
+  it { is_expected.not_to allow_value('filename').for :filename }
 
-	it 'should pass factory build' do
-		expect(trim).to be_valid
-	end
+  describe '#after_initialize' do
+    subject { described_class.new file: double(original_filename: 'filename.tr5', read: 'data') }
+    it { expect(subject.filename).to eq 'filename.tr5' }
+    it { expect(subject.data).to eq 'data' }
+  end
 
-	it 'should have binary data' do
-		trim.data = nil
-		expect(trim).to be_invalid
-	end
+  describe '#archive' do
+    it 'marks trim link as deleted' do
+      subject = build(:trim_link)
+      subject.archive
+      expect(subject).to be_deleted
+    end
+  end
 
-	it 'should be linked to a pq' do
-		trim.pq_id = nil
-		expect(trim).to be_invalid
-	end
-
-  describe "associations" do
-		it { is_expected.to belong_to :pq }
-	end
+  describe '#unarchive' do
+    it 'removes deleted flag from trim link' do
+      subject = build(:trim_link, deleted: true)
+      subject.unarchive
+      expect(subject).not_to be_deleted
+    end
+  end
 end

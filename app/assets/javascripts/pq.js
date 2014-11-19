@@ -117,18 +117,12 @@ PQ.setCommissionButtonStatus = function(form) {
 $(document).ready(function () {
 
 	$('.datetimepicker').datetimepicker();
-
-    $('.dateonlypicker').datetimepicker({
-        pickTime: false
-    });
-
-    $('.minister-select').ministerSelect({inputClass: 'minister-select-input form-control'});
-
+  $('.dateonlypicker').datetimepicker({ pickTime: false });
+  $('.minister-select').ministerSelect({inputClass: 'minister-select-input form-control'});
 	$(".multi-select-action-officers").select2({width:'250px'});
+  $(".single-select-dropdown").select2({width:'250px', allowClear: true});
 
-    $(".single-select-dropdown").select2({width:'250px', allowClear: true});
-
-    $('#allocation_response_response_action_accept').click(function (){
+  $('#allocation_response_response_action_accept').click(function (){
 		$('#reason-textarea').addClass('hide');
 	});
 
@@ -136,19 +130,16 @@ $(document).ready(function () {
 		$('#reason-textarea').removeClass('hide');
 	});
 
-    $('.form-commission').each(function() {
-        PQ.setCommissionButtonStatus($(this));
-    });
+  $('.form-commission').each(function() {
+    PQ.setCommissionButtonStatus($(this));
+  });
+
 	$(".form-commission")
 		.on("ajax:success", function(data){
             var pqid = $(this).data('pqid');
             var uin = $('#pq-frame-'+pqid+ ' h3').text();
-            //it worked!
-            //so - get the entire question and replace it with a flash success message
             $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
-            //increment allocated pending
             incrementBadge('#db-filter-alloc-pend');
-            //decrement Unallocated
             decrementBadge('#db-filter-unalloc');
 		}).on("ajax:error", function(e, xhr) {
 			console.log(xhr.responseText);
@@ -178,15 +169,12 @@ $(document).ready(function () {
         $( divToFill ).html(data);
     });
 
-
     $('.date-for-answer-picker').datetimepicker({pickTime: false})
 
     $('.internal-deadline-picker').each(function() {
-        // indicate that the field was empty on load (so the picker can react accordingly on first open)
         var empty = ($(this).find('input').val() === '');
         $(this).data('empty', empty);
     }).datetimepicker().on("dp.show",function () {
-        // when the field was empty on load, pre-select 10:00 as time
         var picker = $(this).data('DateTimePicker'),
             empty = $(this).data('empty') || false,
             date;
@@ -200,7 +188,6 @@ $(document).ready(function () {
 
         $(this).removeData('empty');
     }).on('change', function() {
-        // remove the empty indicator if the field was changed manually
         $(this).removeData('empty');
     });
 
@@ -223,67 +210,19 @@ $(document).ready(function () {
   });
 
   $('.progress-menu-item').on('click',function() {
-      //hide all progress-menu-data items
       $('.progress-menu-data').hide();
-      //and show the required
       $('#' + $(this).attr('id') + '-data').show();
       $('.progress-menu-form').show();
   });
 
-  /* PQ Details Page - Set intial opened tab */
-  var pqStage = $("#pq_progress_id option:selected").val();
-  if(pqStage === 2 || pqStage === 4) {
-      $("#progress-menu-com").addClass("activeTab");
-      $("#progress-menu-com-data").removeClass("start-hidden");
-  }
-  else if (pqStage === 3 || pqStage === 6) {
-      $("#progress-menu-sub").addClass("activeTab");
-      $("#progress-menu-sub-data").removeClass("start-hidden");
-  }
-  else if (pqStage === 7 || pqStage === 8 || pqStage === 9) {
-      $("#progress-menu-pod").addClass("activeTab");
-      $("#progress-menu-pod-data").removeClass("start-hidden");
-  }
-  else if (pqStage === 10 || pqStage === 11 || pqStage === 12) {
-      $("#progress-menu-min").addClass("activeTab");
-      $("#progress-menu-min-data").removeClass("start-hidden");
-  }
-  else if (pqStage === 13 || pqStage === 14) {
-      $("#progress-menu-answer").addClass("activeTab");
-      $("#progress-menu-answer-data").removeClass("start-hidden");
-  }
-  else {
-      $("#progress-menu-pq").addClass("activeTab");
-      $("#progress-menu-pq-data").removeClass("start-hidden");
-  }
+  $("#progress-menu-pq").addClass("activeTab");
+  $("#progress-menu-pq-data").removeClass("start-hidden");
 
   /* PQ Details Page - Set styling when tab clicked */
-  $("a").click(function() {
+  $("#progress-menu a").click(function() {
       var e="#"+$(this).attr("id");
-      $("#progress-menu-pq, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
-      switch(e){
-          case "#progress-menu-pq":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-fc":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-com":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-sub":
-             $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-pod":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-min":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-          case "#progress-menu-answer":
-              $(e).removeClass("inactiveTab").addClass("activeTab");
-          break;
-      }
+      $("#progress-menu-pq, #progress-menu-trim, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
+			$(e).removeClass("inactiveTab").addClass("activeTab");
   });
 
   // Checkbox and radio button CSS state changes

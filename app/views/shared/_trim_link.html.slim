@@ -1,8 +1,9 @@
 = render partial: "shared/flash_messages", flash: flash
-- question.trim_links.each do |trim|
+- trim = question.trim_link
+- if trim
   .dashboard_trim_link id="trim_links_#{trim.id}"
     = link_to('Open trim link', trim_link_path(trim), {title: 'Open trim link', rel: 'external'})
-- if question.trim_links.empty?
+- else
   .trim-links-form id="trim-links-form-#{question.id}"
     button.button.button-choose Choose Trim file
     .tr5-message
