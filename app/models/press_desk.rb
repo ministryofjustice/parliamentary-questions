@@ -12,7 +12,4 @@ class PressDesk < ActiveRecord::Base
 		result
 	end
 
-  def active?
-    !deleted?
-  end
 end

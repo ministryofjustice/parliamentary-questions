@@ -10,7 +10,7 @@ namespace :user do
                  password: password,
                  password_confirmation: password,
                  name: name,
-                 is_active: true)
+                 deleted: false)
     puts 'User created!'
   end
 end

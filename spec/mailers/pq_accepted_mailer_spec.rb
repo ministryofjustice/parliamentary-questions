@@ -106,11 +106,11 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
 
       my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:TRUE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
-      create(:user, name:'Finance Guy2', roles:'FINANCE', is_active:FALSE, email:'financePQ2@wibble.com', password:'bloib2bloib2bloib2bloib2')
+      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: false, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      create(:user, name:'Finance Guy2', roles:'FINANCE', deleted: true, email:'financePQ2@wibble.com', password:'bloib2bloib2bloib2bloib2')
 
 
-      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -125,9 +125,9 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
       my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:TRUE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: false, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
 
-      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: FALSE)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: false)
 
       PqMailer.acceptance_email(pq, ao).deliver
 
@@ -143,9 +143,9 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
       my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', is_active:FALSE, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: true, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
 
-      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: TRUE)
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
       PqMailer.acceptance_email(pq, ao).deliver
 

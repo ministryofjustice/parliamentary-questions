@@ -5,13 +5,4 @@ class ActionlistMember < ActiveRecord::Base
   validates_format_of :email,:with => Devise::email_regexp
 
 	before_validation WhitespaceValidator.new
-	after_initialize :init
-
-  def init
-    self.deleted ||= false
-  end
-
-  def active?
-    !deleted?
-  end
 end

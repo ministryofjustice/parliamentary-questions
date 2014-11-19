@@ -19,7 +19,6 @@ class ActionOfficersController < ApplicationController
   def create
     begin
     @action_officer = ActionOfficer.new(action_officer_params)
-    @action_officer[:deleted] = false
     if @action_officer.save
       flash[:notice] = 'Action officer was successfully created.'
       redirect_to action_officers_path

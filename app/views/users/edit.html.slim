@@ -11,11 +11,12 @@ h2
     .form-group
       = f.label(:roles, "Role:")
       = f.select(:roles, [ User.ROLE_PQ_USER, User.ROLE_FINANCE ])
-    p Status:
-    .form-group
-      label.block-label for="user_is_active"
-        = f.check_box :is_active
-        | Active
+    - unless @user.new_record?
+      p Status:
+      .form-group
+        label.block-label for="user_deleted"
+          = f.check_box :deleted
+          | Deleted
     .form-group
       = f.submit 'Save', :id => 'save', :class => 'button'
 = link_to 'Return to user list', users_path, {class: 'admin-link'}

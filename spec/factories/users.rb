@@ -6,6 +6,5 @@ FactoryGirl.define do
     email 'user.one@admin.com'
     password '123456789'
     roles 'PQUSER'
-    is_active true
   end
 end
