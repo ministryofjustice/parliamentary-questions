@@ -6,13 +6,23 @@ describe Pq do
 	describe "associations" do
 		it { is_expected.to belong_to :minister }
 		it { is_expected.to belong_to :policy_minister }
-		it { is_expected.to have_many :trim_links }
+		it { is_expected.to have_one :trim_link }
 	end
 
-	describe "associations" do
-		it { is_expected.to belong_to :minister }
-		it { is_expected.to belong_to :policy_minister }
-		it { is_expected.to have_many :trim_links }
+	describe '#has_trim_link?' do
+		context 'when trim link present' do
+			before { subject.trim_link = TrimLink.new }
+		  it { is_expected.to have_trim_link }
+		end
+
+		context 'when no trim link' do
+		  it { is_expected.not_to have_trim_link }
+		end
+
+		context 'when trim link deleted' do
+			before { subject.trim_link = TrimLink.new deleted: true }
+		  it { is_expected.not_to have_trim_link }
+		end
 	end
 
 	describe '#not_seen_by_finance' do

@@ -8,8 +8,6 @@
     - if @pq.i_will_write
       span.label.flag-will-write title=("I will write")  IWW
     span#pq-details-progress class=("label flag-#{@pq.progress.classname}") = @pq.progress.name
-  .col-md-3.trim_area.trim_area_header id="trim_area_#{@pq.id}" 
-    = render partial: 'shared/trim_links', locals: {question: @pq}
 #pq-details-qa-link.row
   .col-md-9
   .col-md-3.pull-right

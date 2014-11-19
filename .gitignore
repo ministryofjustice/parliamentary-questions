@@ -11,5 +11,6 @@
 .rvmrc
 coverage
 log
+public/assets
 set_env.sh
 tmp

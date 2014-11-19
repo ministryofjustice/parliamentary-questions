@@ -1,20 +1,10 @@
 require 'spec_helper'
 
 feature 'Visit the dashboard an show the questions for the day' do
-  let(:user) { create(:user, name: 'admin', email:'admin@admin.com', password: 'password123') }
-
-  context 'as pq user' do
-    before do
-      visit '/dashboard'
-      sign_in user
-    end
-
-    context 'view' do
-      scenario "can view the questions tabled for today" do
-        visit '/dashboard'
-        expect(page).to have_content('PQ Tracker')
-      end
-    end
-
+  scenario "can view the questions tabled for today" do
+    pq = create(:pq)
+    sign_in
+    visit '/dashboard'
+    expect(page).to have_content(pq.uin)
   end
 end
