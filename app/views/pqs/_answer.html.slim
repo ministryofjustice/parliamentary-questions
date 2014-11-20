@@ -1,10 +1,10 @@
 .form-group
   label.form-label for="answer_submitted"  Date answer submitted
   span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
-    input#answer_submitted.form-control name="pq[answer_submitted]" type="text" value=(@pq.answer_submitted.strftime('%d/%m/%Y %H:%M') unless @pq.answer_submitted.nil?) /
+    input#answer_submitted.form-control name="pq[answer_submitted]" type="text" value=(@pq.answer_submitted.to_s) /
     span.input-group-addon.glyphicon.glyphicon-calendar
-- if !@pq.answer_submitted.nil? && !@pq.date_for_answer.nil?
-  - @answer_target = DateTime.parse(@pq.date_for_answer.to_s).change({ hour: 18, min: 0, sec: 0 })
+- if @pq.answer_submitted.present? && @pq.date_for_answer.present?
+  - @answer_target = @pq.date_for_answer + 18.hours
   - if @pq.answer_submitted <= @answer_target
     p.text
       i.fa.fa-check-circle
@@ -17,7 +17,7 @@
 .form-group
   label.form-label for="pq_withdrawn"  Date PQ withdrawn
   span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
-    input#pq_withdrawn.form-control name="pq[pq_withdrawn]" type="text" value=(@pq.pq_withdrawn.strftime('%d/%m/%Y %H:%M') unless @pq.pq_withdrawn.nil?) /
+    input#pq_withdrawn.form-control name="pq[pq_withdrawn]" type="text" value=(@pq.pq_withdrawn.to_s) /
     span.input-group-addon.glyphicon.glyphicon-calendar
 = f.check_box_gds :holding_reply_flag
 - if @pq.i_will_write

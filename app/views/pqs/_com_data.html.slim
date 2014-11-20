@@ -2,7 +2,7 @@
   label.form-label for="pq_internal_deadline"
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
   span#datetimepicker1.input-group.date.internal-deadline-picker data-date-format=("DD/MM/YYYY HH:mm")
-    input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.strftime('%d/%m/%Y %H:%M') unless @pq.internal_deadline.nil?) /
+    input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
     span.input-group-addon.glyphicon.glyphicon-calendar
 hr/
 .question-allocation
@@ -51,5 +51,5 @@ hr/
 .form-group
   label.form-label for="transfer_out_date"  Date transferred out
   span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
-    input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_out_date.nil?) /
+    input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.to_s) /
     span.input-group-addon.glyphicon.glyphicon-calendar

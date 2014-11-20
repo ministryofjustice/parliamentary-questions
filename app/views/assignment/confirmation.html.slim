@@ -5,10 +5,7 @@
   p.br.space-before
     | You rejected PQ
     strong= @question.uin
-    | on
-    strong= @assignment.updated_at.strftime('%d/%m/%Y')
-    | at
-    strong= @assignment.updated_at.strftime('%H:%M')
+    = @assignment.updated_at(:wordy)
     | stating:
   p.br.space-before
     = @assignment.reason_option
@@ -20,10 +17,7 @@
   p.br.space-before
     | You accepted PQ
     strong= @question.uin
-    | on
-    strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y')
-    | at
-    strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%H:%M')
+    = @question.action_officers_pq.accepted.first.updated_at.to_s(:wordy)
   p.br.space-before You will receive a further email which explains how and when to return your draft response, and provides a link to PQ guidance on the intranet.
 - else
   p
@@ -31,10 +25,7 @@
   = @question.action_officers_pq.accepted.first.action_officer.name
   | accepted PQ
   strong= @question.uin
-  | on
-  strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%d/%m/%Y')
-  | at
-  strong= @question.action_officers_pq.accepted.first.updated_at.strftime('%H:%M')
+  = @question.action_officers_pq.accepted.first.updated_at.to_s(:wordy)
 p.br.space-before
   | If you have any queries please
   a href="mailto:#{Settings.mail_reply_to}"  contact the PQ team

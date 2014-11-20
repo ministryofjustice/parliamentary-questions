@@ -16,7 +16,7 @@ class PqMailer < PQBaseMailer
 
     @template_params = build_primary_hash(pq, ao)
 
-    @template_params[:date_to_parliament] = pq.date_for_answer.nil? ? '' : pq.date_for_answer.strftime('%d/%m/%Y')
+    @template_params[:date_to_parliament] = pq.date_for_answer.try(:to_s, :date)
 
     cc_list = [
         @template_params[:mpemail],
@@ -52,7 +52,7 @@ class PqMailer < PQBaseMailer
   def watchlist_email(template_params)
 
     @template_params = template_params
-    date = Date.today.strftime('%d/%m/%Y')
+    date = Date.today.to_s(:date)
     @template_params[:date] = date
     mail(to: @template_params[:email], cc: @template_params[:cc], subject: 'PQs allocated today')
   end
@@ -77,7 +77,7 @@ private
       :press_email => ao.press_desk.nil? ? '' : ao.press_desk.email_output,
       :member_name => get_pq_details(pq,'member_name'),
       :house_name => get_pq_details(pq,'house_name'),
-      :internal_deadline => pq.internal_deadline.nil? ? '' : "#{pq.internal_deadline.strftime('%d/%m/%Y') } - 10am "
+      :internal_deadline => pq.internal_deadline.nil? ? '' : "#{pq.internal_deadline.to_s(:date) } - 10am "
     }
   end
 

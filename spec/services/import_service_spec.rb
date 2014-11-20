@@ -18,8 +18,8 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.raising_member_id).to eql(2479)
-      expect(question_one.question).to eql('Hello we are asking questions')
+      expect(question_one.raising_member_id).to eq 2479
+      expect(question_one.question).to eq 'Hello we are asking questions'
     end
   end
 
@@ -37,57 +37,56 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.raising_member_id).to eql(2479)
-      expect(question_one.question).to eql('Hello we are asking questions')
+      expect(question_one.raising_member_id).to eq 2479
+      expect(question_one.question).to eq 'Hello we are asking questions'
 
-      expect(question_one.member_name).to eql('Diana Johnson')
-      expect(question_one.member_constituency).to eql('Kingston upon Hull North')
-      expect(question_one.house_name).to eql('House of Lords')
-      expect(question_one.date_for_answer.strftime("%Y-%m-%d")).to eql('2013-01-27')
-      expect(question_one.registered_interest).to eql(false)
-      expect(question_one.tabled_date.strftime("%Y-%m-%d")).to eql('2013-01-22')
+      expect(question_one.member_name).to eq 'Diana Johnson'
+      expect(question_one.member_constituency).to eq 'Kingston upon Hull North'
+      expect(question_one.house_name).to eq 'House of Lords'
+      expect(question_one.date_for_answer).to eq Date.new(2013, 1, 27)
+      expect(question_one.registered_interest).to be(false)
+      expect(question_one.tabled_date).to eq Date.new(2013, 1, 22)
 
 
-      expect(question_one.question_type).to eql('NamedDay')
-      expect(question_one.preview_url).to eql ('https://wqatest.parliament.uk/Questions/Details/37988')
+      expect(question_one.question_type).to eq 'NamedDay'
+      expect(question_one.preview_url).to eq 'https://wqatest.parliament.uk/Questions/Details/37988'
 
-      expect(question_one.transferred).to eq(false)
+      expect(question_one.transferred).to be(false)
 
       expect(question_one.question_status).to eq('Tabled')
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
-      expect(question_two.raising_member_id).to eql(9742)
-      expect(question_two.question).to eql("I'm asking questions too")
+      expect(question_two.raising_member_id).to eq 9742
+      expect(question_two.question).to eq "I'm asking questions too"
     end
 
     it 'should update the question data if #today_questions is called multiple times' do
-
       # First call
       import_result = @import_service.questions()
       expect(import_result[:questions].size).to eq(2)
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.question).to eql('Hello we are asking questions')
+      expect(question_one.question).to eq 'Hello we are asking questions'
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
-      expect(question_two.question).to eql("I'm asking questions too")
+      expect(question_two.question).to eq "I'm asking questions too"
 
       # Second call, with different xml response
       allow(@http_client).to receive(:questions) { import_questions_for_today_with_changes }
 
-      @import_service.questions()
+      @import_service.questions
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.question).to eql('Hello we are asking questions')
+      expect(question_one.question).to eq 'Hello we are asking questions'
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
       # The question text is different now
-      expect(question_two.question).to eql("The Text Changed")
+      expect(question_two.question).to eq "The Text Changed"
 
     end
 
@@ -100,11 +99,11 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.question).to eql('Hello we are asking questions')
+      expect(question_one.question).to eq 'Hello we are asking questions'
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
-      expect(question_two.question).to eql("I'm asking questions too")
+      expect(question_two.question).to eq "I'm asking questions too"
 
       question_new = Pq.find_by(uin: 'HL5151')
       expect(question_new).to be_nil
@@ -116,7 +115,7 @@ describe 'ImportService' do
 
       question_new = Pq.find_by(uin: 'HL5151')
       expect(question_new).to_not be_nil
-      expect(question_new.question).to eql('New question in the api')
+      expect(question_new.question).to eq 'New question in the api'
     end
 
     it 'should store audit events by name when importing' do
@@ -127,26 +126,26 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       update = question_one.versions.last
-      expect(question_one.versions.size).to eql(2) # Create and update
-      expect(update.whodunnit).to eql('TestRunner')
+      expect(question_one.versions.size).to eq 2 # Create and update
+      expect(update.whodunnit).to eq 'TestRunner'
     end
 
     it 'should return error hash when sent malformed XML from api' do
       allow(@http_client).to receive(:questions) { import_questions_for_today_with_missing_uin }
       import_result = @import_service.questions()
 
-      expect(import_result[:questions].size).to eql(1)
+      expect(import_result[:questions].size).to eq 1
 
       errors = import_result[:errors]
-      expect(errors.size).to eql(1)
+      expect(errors.size).to eq 1
 
       err = errors.first
 
-  expect(	  err[:message]).to eql(["Uin can't be blank"])
-  	  question_with_error = err[:question]
+      expect(err[:message]).to eq ["Uin can't be blank"]
+      question_with_error = err[:question]
 
-  expect(	  question_with_error['Text']).to eql("I'm asking questions too")
-  expect(	  question_with_error['Uin']).to be_nil
+      expect(question_with_error['Text']).to eq "I'm asking questions too"
+      expect(question_with_error['Uin']).to be_nil
     end
 
     it 'should not overwrite the question internal_deadline' do
@@ -162,7 +161,7 @@ describe 'ImportService' do
       import_result = @import_service.questions()
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.internal_deadline.strftime("%Y-%m-%d %H:%M")).to eql("2012-08-29 00:00")
+      expect(question_one.internal_deadline).to eq DateTime.new(2012, 8, 29)
     end
 
     it 'should create the question in Unallocated state' do
@@ -210,7 +209,7 @@ describe 'ImportService' do
       import_result = @import_service.questions()
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.date_for_answer.strftime("%Y-%m-%d %H:%M")).to eql("2012-08-29 00:00")
+      expect(question_one.date_for_answer).to eq Date.new(2012, 8, 29)
     end
   end
 end

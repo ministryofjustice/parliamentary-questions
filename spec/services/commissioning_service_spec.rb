@@ -130,14 +130,14 @@ describe 'CommissioningService' do
     expect(mail.html_part.body).to include pq.uin
     expect(mail.html_part.body).to include pq.question
     expect(mail.html_part.body).to include pq.member_name
-    expect(mail.html_part.body).to include pq.internal_deadline.strftime('%d/%m/%Y')
+    expect(mail.html_part.body).to include pq.internal_deadline.to_s(:date)
     expect(mail.html_part.body).to include action_officer.name
     expect(mail.html_part.body).to include deputy_director.name
 
     expect(mail.text_part.body).to include pq.uin
     expect(mail.text_part.body).to include pq.question
     expect(mail.text_part.body).to include pq.member_name
-    expect(mail.text_part.body).to include pq.internal_deadline.strftime('%d/%m/%Y')
+    expect(mail.text_part.body).to include pq.internal_deadline.to_s(:date)
     expect(mail.text_part.body).to include action_officer.name
     expect(mail.text_part.body).to include deputy_director.name
 

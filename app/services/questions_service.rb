@@ -7,10 +7,9 @@ class QuestionsService
   def questions(args = { dateFrom: Date.today} )
     result = ''
     $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
-      format = "%Y-%m-%dT%H:%M:%S"
       options = {}
-      options['dateFrom'] = args[:dateFrom].strftime(format)
-      options['dateTo'] = args[:dateTo].end_of_day.strftime(format) if args[:dateTo].present?
+      options['dateFrom'] = args[:dateFrom].xmlschema
+      options['dateTo'] = args[:dateTo].end_of_day.xmlschema if args[:dateTo].present?
       options['status'] = args[:status] if args[:status].present?
       begin
         response = @http_client.questions(options)

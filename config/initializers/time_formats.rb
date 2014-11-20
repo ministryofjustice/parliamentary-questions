@@ -1,0 +1,5 @@
+Time::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M'
+Time::DATE_FORMATS[:wordy] = 'on <strong>%d/%m/%Y<strong> at <strong>%H:%M<strong>'
+Time::DATE_FORMATS[:db] = '%Y-%m-%d %H:%M:%S'
+Time::DATE_FORMATS[:export] = '%Y-%m-%d %H:%M'
+Time::DATE_FORMATS[:date] = '%d/%m/%Y'

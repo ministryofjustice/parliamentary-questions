@@ -110,11 +110,7 @@ private
   end
 
   def format(datetime)
-    datetime_format = '%d/%m/%Y %H:%M'
-    if datetime.nil?
-      return ''
-    end
-    datetime.strftime(datetime_format)
+    datetime.try(:to_s, :export)
   end
 
   def format_pq_dates(pq)
