@@ -42,12 +42,12 @@
       - if !question.date_for_answer.nil?
         h4 Date for answer
         p.text
-          = question.date_for_answer.strftime('%d/%m/%Y')
+          = question.date_for_answer.to_s(:date)
           = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
       - if !question.internal_deadline.nil?
         h4 Internal deadline
         p.text
-          = question.internal_deadline.strftime('%d/%m/%Y %H:%M')
+          = question.internal_deadline.to_s
           = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
       .trim_area.trim_area_dashboard id="trim_area_#{question.id}"
         h4 Trim link

@@ -29,14 +29,14 @@
             label for="datetimepicker-#{question.id}"
             h4 Date for answer
             .input-group.date-for-answer-picker.date.internal-dtp data-date-format="DD/MM/YYYY" id="datetimepicker-#{question.id}"
-              input.form-control.date-for-answer.required-for-commission id="pq_date_for_answer-#{question.id}" name="commission_form[date_for_answer]" type="text" value=(question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil?)
+              input.form-control.date-for-answer.required-for-commission id="pq_date_for_answer-#{question.id}" name="commission_form[date_for_answer]" type="text" value=(question.date_for_answer.try(:to_s, :date))
               span.input-group-addon.glyphicon.glyphicon-calendar
               = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
           .form-group
             label for="pq_internal_deadline-#{question.id}"
             h4 Internal deadline
             .input-group.internal-deadline-picker.date.internal-dtp data-date-format=("DD/MM/YYYY HH:mm") id="datetimepicker-int-#{question.id}"
-              input.form-control.internal-deadline.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.strftime('%d/%m/%Y %H:%M') unless question.internal_deadline.nil?)
+              input.form-control.internal-deadline.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.to_s)
               span.input-group-addon.glyphicon.glyphicon-calendar
               = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
   .col-md-5

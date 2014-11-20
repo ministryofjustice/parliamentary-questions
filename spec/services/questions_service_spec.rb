@@ -11,13 +11,13 @@ describe 'QuestionsService' do
   describe 'parsing xml questions' do
     it 'should return a list of questions with data' do
       questions = @questions_service.questions()
-      uin = questions[0]["Uin"]
+      uin = questions[0]['Uin']
       expect(uin).to eq('174151')
 
-      uin = questions[1]["Uin"]
+      uin = questions[1]['Uin']
       expect(uin).to eq('174152')
 
-      update_date = questions[1]["UpdatedDate"]
+      update_date = questions[1]['UpdatedDate']
       expect(update_date).to eq('2014-01-17T11:28:02.263Z')
     end
 
@@ -37,12 +37,14 @@ describe 'QuestionsService' do
   describe '#questions' do
     it 'should raise an error if the date is not valid' do
       expect {
-        @questions_service.questions(dateFrom: "baddate")
+        @questions_service.questions(dateFrom: 'baddate')
       }.to raise_error()
     end
 
     it 'should pass dateFrom to httpclient in the right date format' do
-      expect(@http_client).to receive(:questions).with({"dateFrom"=>"2014-02-01T00:00:00"})
+      expect(@http_client).to receive(:questions).with({
+        'dateFrom' => '2014-02-01T00:00:00Z'
+      })
 
       @questions_service.questions(dateFrom: Date.new(2014, 2, 1))
     end
@@ -51,8 +53,8 @@ describe 'QuestionsService' do
       day = Date.new(2014, 2, 1)
       day_plus_one = day + 1
       expect(@http_client).to receive(:questions).with({
-        "dateFrom"=>"2014-02-01T00:00:00",
-        "dateTo"=>"2014-02-02T23:59:59",
+        'dateFrom' => '2014-02-01T00:00:00Z',
+        'dateTo' => '2014-02-02T23:59:59Z'
       })
 
       @questions_service.questions(dateFrom: day, dateTo: day_plus_one)
@@ -62,12 +64,12 @@ describe 'QuestionsService' do
       day = Date.new(2014, 2, 1)
       day_plus_one = day + 1
       expect(@http_client).to receive(:questions).with({
-        "dateFrom"=>"2014-02-01T00:00:00",
-        "dateTo"=>"2014-02-02T23:59:59",
-        "status"=>"Tabled"
+        'dateFrom' => '2014-02-01T00:00:00Z',
+        'dateTo' => '2014-02-02T23:59:59Z',
+        'status' => 'Tabled'
       })
 
-      @questions_service.questions(dateFrom: day, dateTo: day_plus_one, status: "Tabled")
+      @questions_service.questions(dateFrom: day, dateTo: day_plus_one, status: 'Tabled')
     end
   end
 
@@ -75,10 +77,10 @@ describe 'QuestionsService' do
     it 'should retrieve the question by Uin' do
       allow(@http_client).to receive(:question) { sample_questions_by_uin }
 
-      uin = "HL4837"
+      uin = 'HL4837'
       expect(@http_client).to receive(:question).with(uin)
       question = @questions_service.questions_by_uin(uin)
-      expect(question["Uin"]).to eq('HL4837')
+      expect(question['Uin']).to eq('HL4837')
     end
   end
 

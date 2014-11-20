@@ -12,7 +12,7 @@
       .form-group
         label.form-label for="date_to"  Date to
         .input-group.date.dateonlypicker data-date-format="DD/MM/YYYY" 
-          input#date_to.form-control name="date_to" type="text" value=Date.today.strftime('%d/%m/%Y') /
+          input#date_to.form-control name="date_to" type="text" value=Date.today.to_s(:date) /
           span.input-group-addon.glyphicon.glyphicon-calendar
     .form-group
       = submit_tag 'Download CSV' , class: 'button' ,  :onclick=> "ga('send', 'event', 'tasks', 'download', 'pod csv')"
