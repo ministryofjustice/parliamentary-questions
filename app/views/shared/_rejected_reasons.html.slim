@@ -1,10 +1,10 @@
 - question.action_officers_pq.rejected.each do |r|
   - if !r.action_officer.nil?
     .row
-      .info-notice.col-md-12 id="pq-reject-reasons-#{r.id}" 
-        p.text id="pq-reject-reasons-header-#{r.id}" 
+      .info-notice.col-md-12 id="pq-reject-reasons-#{r.id}"
+        p.text id="pq-reject-reasons-header-#{r.id}"
           = link_to r.action_officer.name, action_officer_path(r.action_officer)
-          | rejected at: #{r.updated_at.strftime('%d/%m/%Y %H:%M')}
+          | rejected at: #{r.updated_at.to_s}
           br/
           = r.reason_option
           | \: #{r.reason}
