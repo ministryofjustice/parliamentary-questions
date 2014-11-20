@@ -11,7 +11,7 @@
       .form-group
         label.form-label for="pq_dateforanswer"  Date for answer
         .input-group.date.internal-dtp.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
-          input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.strftime('%d/%m/%Y %H:%M') unless @pq.date_for_answer.nil?) /
+          input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.to_s) /
           span.input-group-addon.glyphicon.glyphicon-calendar
       p.text House
       .form-group.inline
@@ -49,7 +49,7 @@
       .form-group
         label.form-label for="transfer_in_date"  Date transferred in
         .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
-          input#transfer_in_date.form-control name="pq[transfer_in_date]" type="text" value=(@pq.transfer_in_date.strftime('%d/%m/%Y %H:%M') unless @pq.transfer_in_date.nil?) /
+          input#transfer_in_date.form-control name="pq[transfer_in_date]" type="text" value=(@pq.transfer_in_date.to_s) /
           span.input-group-addon.glyphicon.glyphicon-calendar
       .form-group
         = f.submit 'Create PQ', :class => 'button'
