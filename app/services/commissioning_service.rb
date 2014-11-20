@@ -52,7 +52,7 @@ class CommissioningService
                         :internal_deadline => 'No deadline set'
                     })
     if pq.internal_deadline
-      template[:internal_deadline] = pq.internal_deadline.strftime('%d/%m/%Y')
+      template[:internal_deadline] = pq.internal_deadline.to_s(:date)
     end
 
     LogStuff.tag(:mail_notify) do

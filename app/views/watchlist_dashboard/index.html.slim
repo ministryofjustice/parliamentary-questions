@@ -1,6 +1,6 @@
 div
   h2
-    | Questions Allocated #{Date.today.strftime('%d/%m/%Y')}
+    | Questions Allocated #{Date.today.to_s(:date)}
   h3.section
     | Allocated Today
     span.badge= @questions.length
@@ -9,7 +9,7 @@ div
     p.text= question.question
     - unless question.date_for_answer.nil?
       h4 Date For Answer
-      p.text= question.date_for_answer.strftime('%d/%m/%Y')
+      p.text= question.date_for_answer.to_s(:date)
     - unless question.internal_deadline.nil?
       h4 Internal deadline
       p.text= question.internal_deadline.strftime('%d/%m/%Y %H:%M')

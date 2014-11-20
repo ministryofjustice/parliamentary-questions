@@ -4,21 +4,21 @@ h4 House
 p.text= @pq.house_name
 .form-group
   label.form-label for="date_for_answer"  Date for answer back to Parliament
-  span.input-group.date.dateonlypicker data-date-format="DD/MM/YYYY" 
-    input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.strftime('%d/%m/%Y') unless @pq.date_for_answer.nil?) /
+  span.input-group.date.dateonlypicker data-date-format="DD/MM/YYYY"
+    input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.try(:to_s, :date)) /
     span.input-group-addon.glyphicon.glyphicon-calendar
 h4 Tabling member
 p.text= @pq.member_name
 h4 Question type
 p.text= @pq.question_type
 h4 Question tabled date
-p.text= @pq.tabled_date.strftime('%d/%m/%Y') unless @pq.tabled_date.nil?
+p.text= @pq.tabled_date.try(:to_s, :date)
 - if @pq.registered_interest
   p.text
     | * Member has registered an interest in the Question.
 - if @pq.transfer_in_ogd_id
   p.text
-    | Transferred in from #{@pq.transfer_in_ogd.name}#{' on ' + @pq.transfer_in_date.strftime('%d/%m/%Y')  unless @pq.transfer_in_date.nil?}
+    | Transferred in from #{@pq.transfer_in_ogd.name}#{' on ' + @pq.transfer_in_date.try(:to_s, :date)}
 hr/
 h4 Question
 p.text= @pq.question
@@ -26,11 +26,11 @@ hr/
 = f.check_box_gds(:round_robin)
 .form-group
   label.form-label for="round_robin_guidance_received"  Date guidance received
-  .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm") 
-    input#round_robin_guidance_received.form-control name="pq[round_robin_guidance_received]" type="text" value=(@pq.round_robin_guidance_received.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_guidance_received.nil?) /
+  .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+    input#round_robin_guidance_received.form-control name="pq[round_robin_guidance_received]" type="text" value=(@pq.round_robin_guidance_received.to_s) /
     span.input-group-addon.glyphicon.glyphicon-calendar
 .form-group
   label.form-label for="round_robin_date"  Date round robin guidance sent to action officer
-  .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm") 
-    input#round_robin_date.form-control name="pq[round_robin_date]" type="text" value=(@pq.round_robin_date.strftime('%d/%m/%Y %H:%M') unless @pq.round_robin_date.nil?) /
+  .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+    input#round_robin_date.form-control name="pq[round_robin_date]" type="text" value=(@pq.round_robin_date.to_s) /
     span.input-group-addon.glyphicon.glyphicon-calendar
