@@ -21,7 +21,7 @@ hr/
               p.text= question.question
             .row
               .form-group.col-md-6
-                label.block-label for="pq[#{question.id}][finance_interest]" 
+                label.block-label for="pq[#{question.id}][finance_interest]"
                   input id="pq[#{question.id}][finance_interest]" name="pq[#{question.id}][finance_interest]" type="checkbox" value="true" /
                   | Register interest
               .col-md-6
@@ -29,7 +29,7 @@ hr/
                 h4= question.house_name
                 p.text= question.member_name
                 h4 Date for answer
-                p.text= question.date_for_answer.strftime('%d/%m/%Y') unless question.date_for_answer.nil?
+                p.text= question.date_for_answer.try(:to_s, :date)
                 input name="pq[#{question.id}][seen_by_finance]" type="hidden" value="true" /
     #confirmation_button_bar.col-md-9
       = submit_tag 'Confirm Visibility of all PQs' , id: 'btn_finance_visibility' , class: 'button'

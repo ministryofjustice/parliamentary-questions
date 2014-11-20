@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'PQAcceptedMailer' do
-
   let(:contact1) { create(:minister_contact, email: 'test1@tesk.uk')}
   let(:contact2) { create(:minister_contact, email: 'test2@tesk.uk')}
   let(:ao) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
