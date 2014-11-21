@@ -4,13 +4,4 @@ class DeputyDirector < ActiveRecord::Base
 
 	has_many :action_officers
 	belongs_to :division
-  after_initialize :init
-
-  def init
-    self.deleted  ||= false
-  end
-
-  def active?
-    !deleted?
-  end
 end

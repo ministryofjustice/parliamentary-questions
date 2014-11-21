@@ -34,8 +34,6 @@ class Pq < ActiveRecord::Base
   before_update :process_date_for_answer
   before_update :set_pod_waiting
 
-  after_initialize :init
-
   scope :allocated_since, ->(since) { joins(:action_officers_pq).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
   scope :not_seen_by_finance, -> { where(seen_by_finance: false) }
 
@@ -46,10 +44,6 @@ class Pq < ActiveRecord::Base
       group(:minister_id).
       group(:progress_id).
       count
-  end
-
-  def init
-    self.seen_by_finance ||= false
   end
 
   def has_trim_link?
@@ -189,8 +183,8 @@ class Pq < ActiveRecord::Base
     end
   end
 
-  def active?
-    seen_by_finance?
+  def deleted?
+    !seen_by_finance?
   end
 
 private
