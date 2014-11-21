@@ -1,6 +1,4 @@
 class ImportService
-  LARGEST_POSTGRES_INTEGER = 2147483647
-
   def initialize(questionsService = QuestionsService.new)
     @questionsService = questionsService
     @progress_unallocated = Progress.unassigned

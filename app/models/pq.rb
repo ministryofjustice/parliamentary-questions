@@ -191,8 +191,8 @@ private
 
   def process_date_for_answer
     if self.date_for_answer.nil?
-      self.date_for_answer_has_passed = TRUE      # We don't know that it hasn't passed,so we want these at the very bottom of the sort...
-      self.days_from_date_for_answer = 2147483647 # Biggest available Postgres Integer
+      self.date_for_answer_has_passed = true
+      self.days_from_date_for_answer = LARGEST_POSTGRES_INTEGER
     else
       self.date_for_answer_has_passed = self.date_for_answer < Date.today
       self.days_from_date_for_answer = (self.date_for_answer - Date.today).abs
