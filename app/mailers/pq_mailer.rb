@@ -120,7 +120,7 @@ private
   end
 
   def finance_users_emails(pq)
-    result = User.where("roles = 'FINANCE'").where('is_active = TRUE').collect{|it| it.email}
+    result = User.where("roles = 'FINANCE'").where(deleted: false).collect{|it| it.email}
     return pq.finance_interest ? result.reject(&:blank?).join(';') : ''
   end
 

@@ -13,7 +13,7 @@ private
   end
 
   def invite_params
-    params.require(:user).permit(:name, :email, :roles, :is_active)
+    params.require(:user).permit(:name, :email, :roles, :deleted)
   end
 
   def update_resource_params

@@ -4,13 +4,4 @@ class Division < ActiveRecord::Base
 
 	has_many :deputy_directors
 	belongs_to :directorate
-  after_initialize :init
-
-  def init
-    self.deleted ||= false
-  end
-
-  def active?
-    !deleted?
-  end
 end
