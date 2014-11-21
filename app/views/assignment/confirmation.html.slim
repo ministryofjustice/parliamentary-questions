@@ -5,7 +5,7 @@
   p.br.space-before
     | You rejected PQ
     strong= @question.uin
-    = @assignment.updated_at(:wordy)
+    = @assignment.updated_at.to_s(:wordy)
     | stating:
   p.br.space-before
     = @assignment.reason_option
