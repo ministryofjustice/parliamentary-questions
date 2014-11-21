@@ -1,7 +1,7 @@
 class PQProgressChangerService
   def update_progress(pq)
     @new_progress = pq.progress
-    @progress_onwards = TRUE
+    @progress_onwards = true
 
     commissioned_filter(pq) if @progress_onwards
     rejected_filter(pq) if @progress_onwards
@@ -35,7 +35,7 @@ class PQProgressChangerService
     if !pq.action_officer_accepted.nil?
       @new_progress = Progress.accepted
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
   end
 
@@ -47,7 +47,7 @@ class PQProgressChangerService
         @new_progress = Progress.draft_pending
       end
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
   end
 
@@ -55,7 +55,7 @@ class PQProgressChangerService
     if !pq.draft_answer_received.nil?
       @new_progress =  Progress.with_pod
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
   end
 
@@ -73,7 +73,7 @@ class PQProgressChangerService
     if !pq.pod_clearance.nil?
       @new_progress =  Progress.pod_cleared
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
   end
 
@@ -84,16 +84,16 @@ class PQProgressChangerService
         @new_progress =  Progress.with_minister
         return
       else
-        @progress_onwards = FALSE
+        @progress_onwards = false
       end
     end
 
     if !pq.sent_to_answering_minister.nil? && !pq.sent_to_policy_minister.nil?
       @new_progress =  Progress.with_minister
-      @progress_onwards = TRUE
+      @progress_onwards = true
       return
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
   end
 
@@ -107,7 +107,7 @@ class PQProgressChangerService
 
     if pq.policy_minister_query || pq.answering_minister_query
       @new_progress = Progress.ministerial_query
-      progress_onwards = TRUE
+      progress_onwards = true
       return
     end
   end
@@ -117,7 +117,7 @@ class PQProgressChangerService
       @new_progress =  Progress.minister_cleared
       return
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
   end
 
@@ -126,14 +126,14 @@ class PQProgressChangerService
       @new_progress =   Progress.answered
       return
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
 
     if !pq.answer_submitted.nil?
       @new_progress =  Progress.answered
       return
     else
-      @progress_onwards = FALSE
+      @progress_onwards = false
     end
   end
 

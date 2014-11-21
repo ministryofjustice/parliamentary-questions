@@ -23,7 +23,7 @@ class IWillWriteController < ApplicationController
         pq_correction_received: nil,
         correction_circulated_to_action_officer: nil,
         pod_query: nil,
-        pod_query_flag: FALSE,
+        pod_query_flag: false,
         pod_clearance: nil,
         sent_to_policy_minister: nil,
         policy_minister_query: nil,
