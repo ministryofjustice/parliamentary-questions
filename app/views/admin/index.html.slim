@@ -2,32 +2,24 @@ h2 Settings
 #settings-home.row
   .col-md-4
     h3 Address books
-    = link_to 'Action officers', action_officers_path
-    br/
-    = link_to 'Watch list', watchlist_members_path
-    br/
-    = link_to 'Action list', actionlist_members_path
-    br/
-    = link_to 'Ministers', ministers_path
-    br/
-    = link_to 'Deputy directors', deputy_directors_path
-    br/
-    = link_to 'Press officers', press_officers_path
+    ul
+      li= link_to 'Action officers', action_officers_path
+      li= link_to 'Watch list', watchlist_members_path
+      li= link_to 'Action list', actionlist_members_path
+      li= link_to 'Ministers', ministers_path
+      li= link_to 'Deputy directors', deputy_directors_path
+      li= link_to 'Press officers', press_officers_path
   .col-md-4
     h3 Tasks
-    = link_to 'Create a transferred PQ', transferred_new_path
-    br/
-    = link_to 'Export to CSV', export_path
-    br/
-    = link_to 'POD Export to CSV', export_pod_path
+    ul
+      li= link_to 'Create a transferred PQ', transferred_new_path
+      li= link_to 'Export to CSV', export_path
+      li= link_to 'POD Export to CSV', export_pod_path
   .col-md-4
     h3 User admin
-    = link_to 'Users', users_path
-    br/
-    = link_to 'Directorates', directorates_path
-    br/
-    = link_to 'Divisions', divisions_path
-    br/
-    = link_to 'Press desks', press_desks_path
-    br/
-    = link_to 'Other government departments', ogds_path
+    ul
+      li= link_to 'Users', users_path
+      li= link_to 'Directorates', directorates_path
+      li= link_to 'Divisions', divisions_path
+      li= link_to 'Press desks', press_desks_path
+      li= link_to 'Other government departments', ogds_path
