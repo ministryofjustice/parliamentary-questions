@@ -209,6 +209,11 @@ button.close {
 
 hr { height: 1px; }
 
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 // = Flags ======================================================================
 
 .flag-accepted,
