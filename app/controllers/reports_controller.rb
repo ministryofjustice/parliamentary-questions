@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
   end
 
   def PQ_by_press_desk(aos)
-    Pq.joins(:action_officers_pq).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
+    Pq.joins(:action_officers_pqs).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
   end
 
   def PQ_by_all(aos, minister_id, progress_id)
@@ -49,7 +49,7 @@ class ReportsController < ApplicationController
       @Pqs = @Pqs.where('minister_id = :m_id', m_id: minister_id)
     end
     if !aos.nil?
-      @Pqs = @Pqs.joins(:action_officers_pq).distinct.where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
+      @Pqs = @Pqs.joins(:action_officers_pqs).distinct.where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
     end
     if !progress_id.blank?
       @Pqs = @Pqs.where('progress_id = :p_id', p_id:progress_id)

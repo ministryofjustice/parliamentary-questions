@@ -113,7 +113,7 @@ protected
 
   def get_pqs_to_move
     beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
-    Pq.allocated_accepted.joins(:action_officers_pq).where('action_officers_pqs.updated_at < ?', beginning_of_day)
+    Pq.allocated_accepted.joins(:action_officers_pqs).where('action_officers_pqs.updated_at < ?', beginning_of_day)
   end
 
   def move_questions_from_accepted_to_draft_pending

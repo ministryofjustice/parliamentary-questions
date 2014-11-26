@@ -1,5 +1,5 @@
 - if @pq.action_officers.size > 0
-  - @pq.action_officers_pq.each do |ao_pq|
+  - @pq.action_officers_pqs.each do |ao_pq|
     - if ao_pq.accept
       h4 Date PQ accepted by action officer
       p.text= ao_pq.updated_at.to_s

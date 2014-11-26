@@ -7,7 +7,7 @@
 hr/
 .question-allocation
   - if @pq.action_officers.size > 0
-    - @pq.action_officers_pq.order(updated_at: :desc).each do |ao_pq|
+    - @pq.action_officers_pqs.order(updated_at: :desc).each do |ao_pq|
       - if ao_pq.accept
         h4 Name of Action Officer
         = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)

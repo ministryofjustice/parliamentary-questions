@@ -30,9 +30,9 @@ class AssignmentService
       assignment.update_attributes(accept: false, reject: true, reason_option: response.reason_option, reason: response.reason)
     end
 
-    if pq.action_officers_pq.rejected.size==pq.action_officers_pq.size
+    if pq.action_officers_pqs.rejected.size==pq.action_officers_pqs.size
       pro = Progress.rejected
-    elsif pq.action_officers_pq.accepted.size >=1
+    elsif pq.action_officers_pqs.accepted.size >=1
       pro = Progress.accepted
     else
       pro = Progress.no_response
