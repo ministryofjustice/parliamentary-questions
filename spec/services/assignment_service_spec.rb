@@ -243,7 +243,7 @@ describe 'AssignmentService' do
       assignment1 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
       assignment2 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
       assignment3 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
-      expect(pq.action_officers_pq.size).to eq(3)
+      expect(pq.action_officers_pqs.size).to eq(3)
       response = double('response')
       allow(response).to receive(:reason) { 'Some reason' }
       allow(response).to receive(:reason_option) { 'reason option' }

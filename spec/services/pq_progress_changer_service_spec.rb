@@ -236,7 +236,7 @@ describe PQProgressChangerService do
 
     describe 'when action officer accept status changes' do
       before do
-        pq.action_officers_pq.first.update(accept: nil)
+        pq.action_officers_pqs.first.update(accept: nil)
       end
 
       let(:pq) { create(:draft_pending_pq) }
@@ -245,7 +245,7 @@ describe PQProgressChangerService do
 
     describe 'when action officer acceptance date changes' do
       before do
-        pq.action_officers_pq.first.update(updated_at: Time.now)
+        pq.action_officers_pqs.first.update(updated_at: Time.now)
       end
 
       let(:pq) { create(:draft_pending_pq) }
@@ -254,7 +254,7 @@ describe PQProgressChangerService do
 
     describe 'when action officer is set to rejected' do
       before do
-        pq.action_officers_pq.first.update(accept: false, reject: true, reason: 'Some reason', reason_option: 'Some option')
+        pq.action_officers_pqs.first.update(accept: false, reject: true, reason: 'Some reason', reason_option: 'Some option')
       end
 
       let(:pq) { create(:draft_pending_pq) }
@@ -263,7 +263,7 @@ describe PQProgressChangerService do
 
     describe 'next day after action officer accepted the question' do
       before do
-        pq.action_officers_pq.first.update(updated_at: 1.day.ago)
+        pq.action_officers_pqs.first.update(updated_at: 1.day.ago)
       end
 
       let(:pq) { create(:accepted_pq) }

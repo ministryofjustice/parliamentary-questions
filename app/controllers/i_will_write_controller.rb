@@ -63,7 +63,7 @@ class IWillWriteController < ApplicationController
 private
 
   def action_officer_pq_accepted(pq)
-    pq.action_officers_pq.each do |ao_pq|
+    pq.action_officers_pqs.each do |ao_pq|
       if ao_pq.accept
         return ao_pq
       end

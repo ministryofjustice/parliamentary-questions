@@ -21,7 +21,7 @@
       | Action officer(s)
       .row
         - if question.ao_pq_accepted.nil?
-          - question.action_officers_pq.each do |ao_pq|
+          - question.action_officers_pqs.each do |ao_pq|
             - if !ao_pq.reject && !ao_pq.action_officer.nil?
               .col-md-6
                 = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)

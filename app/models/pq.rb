@@ -15,8 +15,8 @@ class Pq < ActiveRecord::Base
   ]
 
   has_one :trim_link, dependent: :destroy
-  has_many :action_officers_pq
-  has_many :action_officers, :through => :action_officers_pq
+  has_many :action_officers_pqs
+  has_many :action_officers, :through => :action_officers_pqs
   belongs_to :minister
   belongs_to :policy_minister, :class_name=>'Minister'
   belongs_to :progress
@@ -34,7 +34,7 @@ class Pq < ActiveRecord::Base
   before_update :process_date_for_answer
   before_update :set_pod_waiting
 
-  scope :allocated_since, ->(since) { joins(:action_officers_pq).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
+  scope :allocated_since, ->(since) { joins(:action_officers_pqs).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
   scope :not_seen_by_finance, -> { where(seen_by_finance: false) }
 
   def self.ministers_by_progress(ministers, progresses)
@@ -55,13 +55,13 @@ class Pq < ActiveRecord::Base
   end
 
   def commissioned?
-    action_officers_pq.size > 0 &&
-        action_officers_pq.rejected.size != action_officers_pq.size
+    action_officers_pqs.size > 0 &&
+        action_officers_pqs.rejected.size != action_officers_pqs.size
   end
 
   def rejected?
-    if action_officers_pq.count > 0 &&  ao_pq_accepted.nil?
-      action_officers_pq.each do |ao_pq|
+    if action_officers_pqs.count > 0 &&  ao_pq_accepted.nil?
+      action_officers_pqs.each do |ao_pq|
         if ao_pq.reject
           return true
         end
@@ -87,11 +87,11 @@ class Pq < ActiveRecord::Base
   end
 
   def action_officer_accepted
-    action_officers_pq.find(&:accept).try(:action_officer)
+    action_officers_pqs.find(&:accept).try(:action_officer)
   end
 
   def ao_pq_accepted
-    action_officers_pq.find(&:accept)
+    action_officers_pqs.find(&:accept)
   end
 
   def self.new_questions()

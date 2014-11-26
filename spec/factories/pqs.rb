@@ -40,7 +40,7 @@ FactoryGirl.define do
         minister
 
         after(:create) do |pq, _|
-          pq.action_officers_pq = [create(:accepted_action_officers_pq, pq: pq)]
+          pq.action_officers_pqs = [create(:accepted_action_officers_pq, pq: pq)]
         end
 
         factory :draft_pending_pq do
@@ -85,3 +85,4 @@ FactoryGirl.define do
     end
   end
 end
+

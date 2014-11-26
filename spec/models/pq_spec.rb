@@ -80,7 +80,7 @@ describe Pq do
 
     context 'when all assigned officers are rejected' do
       before do
-        subject.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
+        subject.action_officers_pqs.create(action_officer: create(:action_officer), reject: true)
       end
 
       it { is_expected.not_to be_commissioned}
@@ -88,8 +88,8 @@ describe Pq do
 
     context 'when some assigned officers are not rejected' do
       before do
-        subject.action_officers_pq.create(action_officer: create(:action_officer))
-        subject.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
+        subject.action_officers_pqs.create(action_officer: create(:action_officer))
+        subject.action_officers_pqs.create(action_officer: create(:action_officer), reject: true)
       end
 
       it { is_expected.to be_commissioned}
