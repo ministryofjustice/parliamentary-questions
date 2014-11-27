@@ -236,7 +236,7 @@ describe PQProgressChangerService do
 
     describe 'when action officer accept status changes' do
       before do
-        pq.action_officers_pqs.first.update(accept: nil)
+        pq.action_officers_pqs.first.update(response: :awaiting)
       end
 
       let(:pq) { create(:draft_pending_pq) }
@@ -254,7 +254,7 @@ describe PQProgressChangerService do
 
     describe 'when action officer is set to rejected' do
       before do
-        pq.action_officers_pqs.first.update(accept: false, reject: true, reason: 'Some reason', reason_option: 'Some option')
+        pq.action_officers_pqs.first.reject('Some option', 'Some reason')
       end
 
       let(:pq) { create(:draft_pending_pq) }

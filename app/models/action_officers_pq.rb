@@ -3,10 +3,27 @@ class ActionOfficersPq < ActiveRecord::Base
   belongs_to :pq
 	belongs_to :action_officer
 
-  def answered
-    reject || accept
+  def accept
+    update(response: :accepted)
   end
 
-  scope :rejected, ->{ where(reject: true) }
-  scope :accepted, ->{ where(accept: true) }
+  def reject(option, reason)
+    update(response: :rejected, reason_option: option, reason: reason)
+  end
+
+  def reset
+    update(response: :awaiting)
+  end
+
+  def rejected?
+    response.to_sym == :rejected
+  end
+
+  def accepted?
+    response.to_sym == :accepted
+  end
+
+  def response
+    self[:response].to_sym
+  end
 end

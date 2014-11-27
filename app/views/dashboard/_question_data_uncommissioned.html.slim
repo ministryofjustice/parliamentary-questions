@@ -10,9 +10,7 @@
         - disabled = !question.seen_by_finance
         fieldset
           = render partial: 'shared/minister_selection', locals: {question: question, form: f}
-          .allocation-info.form-group id="comm-form-container-#{question.id}"
-            label.form-label Assign action officer(s)
-            = collection_select(:commission_form, :action_officer_id, ActionOfficer.where(deleted: false).all, :id, :name_with_div, {}, {:multiple => true, :class => 'multi-select-action-officers form-control required-for-commission', :id => "action_officers_pq_action_officer_id-#{question.id}", :disabled => disabled})
+          = render partial: 'shared/action_officer_selection', locals: {question: question, form: f, reassign: false}
           .form-group
             = f.hidden_field(:pq_id , :value => question.id)
             br/

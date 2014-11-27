@@ -6,7 +6,7 @@ class AssignmentService
     changed_by = "AO:#{ao.name}"
 
     assignment.whodunnit(changed_by) do
-      assignment.update_attributes(accept: true, reject: false)
+      assignment.accept
     end
 
     div = get_dep_director_for_ao(ao)
@@ -15,7 +15,7 @@ class AssignmentService
     pro = Progress.accepted
 
     pq.whodunnit(changed_by) do
-      pq.update(progress_id: pro.id, at_acceptance_directorate_id: dir, at_acceptance_division_id: div)
+      pq.update(progress_id: pro.id, directorate_id: dir, division_id: div)
     end
     PqMailer.acceptance_email(pq, ao).deliver
   end
@@ -27,12 +27,12 @@ class AssignmentService
     changed_by = "AO:#{ao.name}"
 
     assignment.whodunnit(changed_by) do
-      assignment.update_attributes(accept: false, reject: true, reason_option: response.reason_option, reason: response.reason)
+      assignment.reject(response.reason_option, response.reason)
     end
 
-    if pq.action_officers_pqs.rejected.size==pq.action_officers_pqs.size
+    if pq.action_officers_pqs.rejected.size == pq.action_officers_pqs.size
       pro = Progress.rejected
-    elsif pq.action_officers_pqs.accepted.size >=1
+    elsif pq.action_officers_pqs.accepted.present?
       pro = Progress.accepted
     else
       pro = Progress.no_response

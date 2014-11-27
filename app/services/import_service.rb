@@ -8,6 +8,7 @@ class ImportService
     t_start = Time.now
 
     questions = @questionsService.questions(args)
+    return unless questions.any?
 
     LogStuff.info { "Import: obtained #{questions.count} from API" }
     questions.each do |q|

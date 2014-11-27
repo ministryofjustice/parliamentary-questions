@@ -22,7 +22,7 @@
       .row
         - if question.ao_pq_accepted.nil?
           - question.action_officers_pqs.each do |ao_pq|
-            - if !ao_pq.reject && !ao_pq.action_officer.nil?
+            - if !ao_pq.rejected? && !ao_pq.action_officer.nil?
               .col-md-6
                 = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
               .col-md-6

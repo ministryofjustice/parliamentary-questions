@@ -7,7 +7,7 @@ class CommissioningService
     raise 'Action Officer is not selected' if assignment.action_officer_id.nil?
     raise 'Question is not selected' if assignment.pq_id.nil?
 
-    action_officers_pq = ActionOfficersPq.create(action_officer_id: assignment.action_officer_id, pq_id: assignment.pq_id, accept: false, reject: false)
+    action_officers_pq = ActionOfficersPq.create(action_officer_id: assignment.action_officer_id, pq_id: assignment.pq_id)
     ao = get_action_officer(assignment)
     pq = get_pq_by(assignment)
 
