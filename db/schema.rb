@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121072257) do
+ActiveRecord::Schema.define(version: 20141127142731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,16 +31,15 @@ ActiveRecord::Schema.define(version: 20141121072257) do
   add_index "action_officers", ["email", "deputy_director_id"], name: "index_action_officers_on_email_and_deputy_director_id", unique: true, using: :btree
 
   create_table "action_officers_pqs", force: true do |t|
-    t.integer  "pq_id",                         null: false
-    t.integer  "action_officer_id",             null: false
-    t.boolean  "accept"
-    t.boolean  "reject"
+    t.integer  "pq_id",                                  null: false
+    t.integer  "action_officer_id",                      null: false
     t.text     "reason"
     t.string   "reason_option"
     t.datetime "updated_at"
     t.datetime "created_at"
     t.integer  "reminder_accept",   default: 0
     t.integer  "reminder_draft",    default: 0
+    t.string   "response",          default: "awaiting"
   end
 
   create_table "actionlist_members", force: true do |t|
@@ -164,8 +163,8 @@ ActiveRecord::Schema.define(version: 20141121072257) do
     t.datetime "round_robin_guidance_received"
     t.integer  "transfer_out_ogd_id"
     t.datetime "transfer_out_date"
-    t.integer  "at_acceptance_directorate_id"
-    t.integer  "at_acceptance_division_id"
+    t.integer  "directorate_id"
+    t.integer  "division_id"
     t.integer  "transfer_in_ogd_id"
     t.datetime "transfer_in_date"
     t.integer  "days_from_date_for_answer"

@@ -59,8 +59,8 @@ private
   def pq_data_to_hash(pq,ao)
     pq_dates = format_pq_dates(pq)
     [ pq.member_name,               # 'MP',
-      '',                           # 'Record Number',
-      get_ao_name(ao),              # 'Action Officer',
+      nil,                          # 'Record Number',
+      ao.try(:name),                # 'Action Officer',
       pq_dates[:as],                # 'Date response answered by Parly (dept)',
       pq_dates[:id],                # 'Draft due to Parly Branch',
       pq_dates[:td],                # 'Date First Appeared in Parliament',
@@ -71,42 +71,22 @@ private
       pq_dates[:amtao],             # 'Date sent back to AO (if applicable)',
       pq_dates[:stam],              # 'Date delivered to Minister',
       pq_dates[:cbam],              # 'Returned signed from Minister',
-      get_original_directorate(pq), # 'Directorate',
-      get_original_division(pq),    # 'Division',
+      pq.directorate.try(:name),    # 'Directorate',
+      pq.division.try(:name),       # 'Division',
       pq.answer,                    # 'Final Response',
       pq.question,                  # 'Full_PQ_subject',
-      '',                           # 'Delay Reason',
-      get_minister(pq),             # 'Minister',
+      nil,                          # 'Delay Reason',
+      pq.minister.try(:name),       # 'Minister',
       pq.answering_minister_query,  # 'Ministerial Query? (if applicable)',
       pq.uin,                       # 'PIN',
       pq_dates[:pc],                # '"Date/time of POD clearance"',
       pq.pod_query_flag,            # 'PODquery',
       pq.finance_interest,          # 'Requested by finance',
-      '',                           # 'Requested by HR',
-      '',                           # 'Requested by Press',
+      nil,                          # 'Requested by HR',
+      nil,                          # 'Requested by Press',
       pq.question_type,             # 'Type of Question',
-      get_ao_email(ao)              # 'AO Email'
+      ao.try(:email)                # 'AO Email'
     ]
-  end
-
-  def get_original_division(pq)
-    pq.at_acceptance_division_id.nil? ? '' : Division.find(pq.at_acceptance_division_id).name
-  end
-
-  def get_original_directorate(pq)
-    pq.at_acceptance_directorate_id.nil? ? '' : Directorate.find(pq.at_acceptance_directorate_id).name
-  end
-
-  def get_minister(pq)
-    pq.minister.nil? ? '' : pq.minister.name
-  end
-
-  def get_ao_name(ao)
-    ao.nil? ? '' : ao.name
-  end
-
-  def get_ao_email(ao)
-    ao.nil? ? '' : ao.email
   end
 
   def format(datetime)

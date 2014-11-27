@@ -15,13 +15,36 @@ class Pq < ActiveRecord::Base
   ]
 
   has_one :trim_link, dependent: :destroy
-  has_many :action_officers_pqs
-  has_many :action_officers, :through => :action_officers_pqs
+  has_many :action_officers_pqs do
+    def accepted
+      where(response: 'accepted').first
+    end
+
+    def rejected
+      where(response: 'rejected')
+    end
+
+    def find_by(action_officer)
+      where(action_officer: action_officer[:action_officer]).first
+    end
+  end
+  has_many :action_officers, :through => :action_officers_pqs do
+    def accepted
+      where(action_officers_pqs: {response: 'accepted'}).first
+    end
+
+    def rejected
+      where(action_officers_pqs: {response: 'rejected'})
+    end
+  end
   belongs_to :minister
   belongs_to :policy_minister, :class_name=>'Minister'
   belongs_to :progress
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
+  belongs_to :directorate
+  belongs_to :division
+
 
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
@@ -36,6 +59,20 @@ class Pq < ActiveRecord::Base
 
   scope :allocated_since, ->(since) { joins(:action_officers_pqs).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
   scope :not_seen_by_finance, -> { where(seen_by_finance: false) }
+
+  def reassign(action_officer)
+    if action_officer.present? && action_officer_accepted != action_officer
+      Pq.transaction do
+        ao_pq_accepted.reset
+        action_officers_pqs.find_or_create_by(action_officer: action_officer).accept
+        division = action_officer.deputy_director.try(:division)
+        directorate = division.try(:directorate)
+        whodunnit("AO:#{action_officer.name}") do
+          update(directorate: directorate, division: division)
+        end
+      end
+    end
+  end
 
   def self.ministers_by_progress(ministers, progresses)
     includes(:progress, :minister).
@@ -55,19 +92,12 @@ class Pq < ActiveRecord::Base
   end
 
   def commissioned?
-    action_officers_pqs.size > 0 &&
-        action_officers_pqs.rejected.size != action_officers_pqs.size
+    action_officers.size > 0 &&
+        action_officers.rejected.size != action_officers.size
   end
 
   def rejected?
-    if action_officers_pqs.count > 0 &&  ao_pq_accepted.nil?
-      action_officers_pqs.each do |ao_pq|
-        if ao_pq.reject
-          return true
-        end
-      end
-    end
-    return false
+    action_officers.accepted.nil? && action_officers.rejected.any?
   end
 
   def closed?
@@ -87,11 +117,11 @@ class Pq < ActiveRecord::Base
   end
 
   def action_officer_accepted
-    action_officers_pqs.find(&:accept).try(:action_officer)
+    action_officers.accepted
   end
 
   def ao_pq_accepted
-    action_officers_pqs.find(&:accept)
+    action_officers_pqs.accepted
   end
 
   def self.new_questions()

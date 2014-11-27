@@ -32,7 +32,7 @@ class PQProgressChangerService
   end
 
   def accepted_filter(pq)
-    if !pq.action_officer_accepted.nil?
+    if pq.action_officer_accepted.present?
       @new_progress = Progress.accepted
     else
       @progress_onwards = false
@@ -42,7 +42,7 @@ class PQProgressChangerService
   def draft_pending_filter(pq)
     beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
 
-    if !pq.action_officer_accepted.nil?
+    if pq.action_officer_accepted.present?
       if pq.ao_pq_accepted.updated_at < beginning_of_day
         @new_progress = Progress.draft_pending
       end

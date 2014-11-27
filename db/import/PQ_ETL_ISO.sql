@@ -284,8 +284,8 @@ insert into pqs(
   round_robin_guidance_received,
   transfer_out_ogd_id,
   transfer_out_date,
-  at_acceptance_directorate_id,
-  at_acceptance_division_id,
+  directorate_id,
+  division_id,
   transfer_in_ogd_id,
   transfer_in_date)
   SELECT to_date(s."Date First Appeared in Parliament",'DD/MM/YYYY'),
