@@ -23,7 +23,7 @@
     strong This PQ has been accepted
   = @question.action_officers_pqs.accepted.action_officer.name
   = ' accepted PQ'
-  strong= @question.uin
+  strong= " #{@question.uin} "
   = raw @question.action_officers_pqs.accepted.updated_at.to_s(:wordy)
 p.br.space-before
   | If you have any queries please
