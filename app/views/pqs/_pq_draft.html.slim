@@ -1,6 +1,6 @@
 - if @pq.action_officers.size > 0
   - @pq.action_officers_pqs.each do |ao_pq|
-    - if ao_pq.accept
+    - if ao_pq.accepted?
       h4 Date PQ accepted by action officer
       p.text= ao_pq.updated_at.to_s
 .form-group

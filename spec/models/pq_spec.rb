@@ -73,10 +73,11 @@ describe Pq do
     end
   end
 
-	describe 'scopes' do
+	describe 'association methods' do
 		let!(:accepted) { create(:accepted_action_officers_pq, pq: subject) }
+		let!(:awaiting) { create(:action_officers_pq, pq: subject) }
+
 		before do
-			create(:action_officers_pq, pq: subject)
 			2.times { create(:rejected_action_officers_pq, pq: subject) }
 		end
 
@@ -90,6 +91,24 @@ describe Pq do
 			describe '#rejected' do
 				it 'returns 2 records' do
 					expect(subject.action_officers_pqs.rejected.count).to eq 2
+				end
+			end
+
+			describe '#all_rejected?' do
+			  it 'returns true when all action officers have rejected' do
+					accepted.reject(nil, nil)
+					awaiting.reject(nil, nil)
+			    expect(subject.action_officers_pqs).to be_all_rejected
+			  end
+
+				it 'returns false when an action officer has not responded' do
+					accepted.reject(nil, nil)
+					expect(subject.action_officers_pqs).not_to be_all_rejected
+				end
+
+				it 'returns false when an action officer has accepted' do
+					awaiting.reject(nil, nil)
+					expect(subject.action_officers_pqs).not_to be_all_rejected
 				end
 			end
 		end
@@ -110,7 +129,7 @@ describe Pq do
 	end
 
 	describe '#reassign' do
-		subject { create(:accepted_pq) }
+		subject { create(:draft_pending_pq) }
 		let!(:original_assignment) { subject.ao_pq_accepted }
 		let(:new_assignment) { create :action_officers_pq, pq: subject }
 		let(:new_action_officer) { new_assignment.action_officer }
@@ -119,18 +138,31 @@ describe Pq do
 
 		before do
 			subject.action_officers << new_action_officer
-			subject.reassign new_action_officer
 		end
 
-	  it 'to assign a new action officer' do
+	  it 'assigns a new action officer' do
+			subject.reassign new_action_officer
+
 			expect(original_assignment.reload.response).to eq :awaiting
 			expect(new_assignment.reload).to be_accepted
 			expect(subject.division).to eq(division)
 			expect(subject.directorate).to eq(directorate)
 		end
 
+		context 'when reassigning to an action officer already commissioned (in the list)' do
+			it 'assigns to other action officer' do
+				subject.action_officers_pqs << new_assignment
+				subject.reassign new_action_officer
+
+				expect(original_assignment.reload.response).to eq :awaiting
+				expect(new_assignment.reload).to be_accepted
+			end
+		end
+
 		context 'when reassigning to the same action officer' do
 		  it 'ignores change' do
+				subject.reassign new_action_officer
+
 				expect(subject).not_to receive(:update)
 				subject.reassign new_action_officer
 		  end
@@ -141,30 +173,6 @@ describe Pq do
 				expect(subject).not_to receive(:action_officers_pqs)
 				subject.reassign nil
 		  end
-		end
-	end
-
-	describe '#rejected?' do
-		before { subject.save; subject.action_officers_pqs = action_officers_pq }
-
-		context 'when accepted' do
-			let(:action_officers_pq) { [create(:accepted_action_officers_pq, pq: subject)] }
-
-		  it { is_expected.not_to be_rejected }
-		end
-
-		context 'when not accepted' do
-			context 'when none rejected' do
-				let(:action_officers_pq) { [create(:action_officers_pq, pq: subject)] }
-
-				it { is_expected.not_to be_rejected }
-			end
-
-			context 'when one rejected' do
-				let(:action_officers_pq) { [create(:rejected_action_officers_pq, pq: subject)] }
-
-				it { is_expected.to be_rejected }
-			end
 		end
 	end
 

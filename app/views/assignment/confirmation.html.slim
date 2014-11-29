@@ -6,7 +6,7 @@
     | You rejected PQ
     strong= " #{@question.uin} "
     = raw @assignment.updated_at.to_s(:wordy)
-    = ' stating:'
+    = ' stating: '
   p.br.space-before
     = "#{@assignment.reason_option} - #{@assignment.reason}"
   p.br.space-before Your message has been sent to the PQ team. You don't need to take any further action.
@@ -20,7 +20,7 @@
   p.br.space-before You will receive a further email which explains how and when to return your draft response, and provides a link to PQ guidance on the intranet.
 - else
   p
-    strong This PQ has been accepted
+    strong This PQ already has been accepted
   = @question.action_officers_pqs.accepted.action_officer.name
   = ' accepted PQ'
   strong= " #{@question.uin} "

@@ -174,27 +174,6 @@ describe 'ImportService' do
       expect(question_one.progress.name).to eq(Progress.UNASSIGNED)
     end
 
-    it 'should move questions from Accepted to Draft Pending' do
-      pq = create(:pq, uin: 'PQ_TO_MOVE', question: 'test question?', progress_id: Progress.accepted.id)
-      ao = create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov')
-      create(:accepted_action_officers_pq, action_officer: ao, pq: pq, updated_at: Date.yesterday)
-
-      pq = create(:pq, uin: 'PQ_TO_STAY', question: 'test question?', progress_id: Progress.accepted.id)
-      create(:accepted_action_officers_pq, action_officer: ao, pq: pq)
-
-      import_result = @import_service.questions()
-      expect(import_result[:questions].size).to eq(2)
-
-      pq_to_move = Pq.find_by(uin: 'PQ_TO_MOVE')
-      expect(pq_to_move.progress.name).to eq(Progress.DRAFT_PENDING)
-
-      pq_to_stay = Pq.find_by(uin: 'PQ_TO_STAY')
-      expect(pq_to_stay.progress.name).to eq(Progress.ACCEPTED)
-
-      pq_unallocated = Pq.find_by(uin: 'HL784845')
-      expect(pq_unallocated.progress.name).to eq(Progress.UNASSIGNED)
-    end
-
     it 'should not overwrite the question date_for_answer' do
       import_result = @import_service.questions()
       expect(import_result[:questions].size).to eq(2)
