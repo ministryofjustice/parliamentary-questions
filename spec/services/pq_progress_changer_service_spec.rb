@@ -33,7 +33,7 @@ describe PQProgressChangerService do
         it { is_expected.to eql(Progress.WITH_POD) }
       end
 
-      context 'for question not (DRAFT_PENDING or ACCEPTED)' do
+      context 'for question not DRAFT_PENDING' do
         let(:pq) { create(:not_responded_pq) }
         it { is_expected.not_to eql(Progress.WITH_POD) }
       end
@@ -235,21 +235,10 @@ describe PQProgressChangerService do
     end
 
     describe 'when action officer accept status changes' do
-      before do
-        pq.action_officers_pqs.first.update(response: :awaiting)
-      end
+      before { pq.action_officers_pqs.first.update(response: :awaiting) }
 
       let(:pq) { create(:draft_pending_pq) }
       it { is_expected.to eql(Progress.NO_RESPONSE) }
-    end
-
-    describe 'when action officer acceptance date changes' do
-      before do
-        pq.action_officers_pqs.first.update(updated_at: Time.now)
-      end
-
-      let(:pq) { create(:draft_pending_pq) }
-      it { is_expected.to eql(Progress.ACCEPTED) }
     end
 
     describe 'when action officer is set to rejected' do
@@ -261,12 +250,10 @@ describe PQProgressChangerService do
       it { is_expected.to eql(Progress.REJECTED) }
     end
 
-    describe 'next day after action officer accepted the question' do
-      before do
-        pq.action_officers_pqs.first.update(updated_at: 1.day.ago)
-      end
+    describe 'action officer accepted the question' do
+      before { create(:accepted_action_officers_pq, pq: pq) }
 
-      let(:pq) { create(:accepted_pq) }
+      let(:pq) { create(:pq) }
       it { is_expected.to eql(Progress.DRAFT_PENDING) }
     end
   end

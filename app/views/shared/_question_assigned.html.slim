@@ -8,9 +8,9 @@
           - if !ao_pq.action_officer.nil?
             = ao_pq.action_officer.name
             | (#{ao_pq.action_officer.deputy_director.division.name})
-            - if ao_pq.accept
+            - if ao_pq.accepted?
               span.label.flag-pq-accepted Accepted
-            - elsif ao_pq.reject
+            - elsif ao_pq.rejected?
               span.label.flag-pq-rejected Rejected
               a.button data-target="#rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}" data-toggle="collapse"
                 | Display Reason

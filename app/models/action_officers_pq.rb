@@ -16,11 +16,15 @@ class ActionOfficersPq < ActiveRecord::Base
   end
 
   def rejected?
-    response.to_sym == :rejected
+    response == :rejected
   end
 
   def accepted?
-    response.to_sym == :accepted
+    response == :accepted
+  end
+
+  def awaiting_response?
+    response == :awaiting
   end
 
   def response

@@ -6,11 +6,11 @@ describe AssignmentService do
   let(:division) {create(:division,name: 'Division', directorate_id: directorate.id, id: 1+rand(10))}
   let(:deputy_director) { create(:deputy_director, name: 'dd name', division_id: division.id, id: 1+rand(10))}
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
+  let(:commissioning_service) { CommissioningService.new }
 
   let(:pq) { create(:pq, uin: 'HL789', question: 'test question?',minister:minister, house_name:'commons') }
 
   before(:each) do
-    @comm_service = CommissioningService.new
     ActionMailer::Base.deliveries = []
   end
 
@@ -22,11 +22,18 @@ describe AssignmentService do
       subject.accept(assignment)
     end
 
+    it 'updates progress' do
+      progress_service = double
+      expect(progress_service).to receive(:update_progress).with(pq)
+      expect(PQProgressChangerService).to receive(:new).and_return progress_service
+
+      subject.accept(assignment)
+    end
 
     it 'should create an audit event storing the action officer name' do
       PaperTrail.enabled = true
 
-      result = @comm_service.send(assignment)
+      result = commissioning_service.commission(assignment)
       assignment_id = result[:assignment_id]
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
@@ -39,7 +46,7 @@ describe AssignmentService do
     end
 
     it 'should sent an email with the accept data' do
-      result = @comm_service.send(assignment)
+      result = commissioning_service.commission(assignment)
       assignment_id = result[:assignment_id]
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
@@ -52,23 +59,8 @@ describe AssignmentService do
       expect(mail.subject).to include pq.uin
     end
 
-
-    it 'should set the progress to Allocated Accepted' do
-      result = @comm_service.send(assignment)
-      assignment_id = result[:assignment_id]
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-
-      subject.accept(assignment)
-
-      assignment = ActionOfficersPq.find(assignment_id)
-
-      pq = Pq.find(assignment.pq_id)
-      expect(pq.progress.name).to  eq(Progress.ACCEPTED)
-    end
-
     it 'should set the original division_id on PQ' do
-      result = @comm_service.send(assignment)
+      result = commissioning_service.commission(assignment)
       assignment_id = result[:assignment_id]
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
@@ -82,7 +74,7 @@ describe AssignmentService do
     end
 
     it 'should set the original directorate on PQ' do
-      result = @comm_service.send(assignment)
+      result = commissioning_service.commission(assignment)
       assignment_id = result[:assignment_id]
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
@@ -96,7 +88,7 @@ describe AssignmentService do
     end
 
     it 'should set the directorate on acceptance and not change if AO moves' do
-      result = @comm_service.send(assignment)
+      result = commissioning_service.commission(assignment)
       assignment_id = result[:assignment_id]
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
@@ -121,15 +113,25 @@ describe AssignmentService do
   end
 
   describe '#reject' do
+    let(:reason) { double(reason_option: 'reason option', reason: 'Some reason') }
+
     it 'rejects the assignment' do
       expect(assignment).to receive(:reject).with 'reason option', 'Some reason'
-      subject.reject(assignment, double(reason_option: 'reason option', reason: 'Some reason'))
+      subject.reject(assignment, reason)
+    end
+
+    it 'updates progress' do
+      progress_service = double
+      expect(progress_service).to receive(:update_progress).with(pq)
+      expect(PQProgressChangerService).to receive(:new).and_return progress_service
+
+      subject.reject(assignment, reason)
     end
 
     it 'should create an audit event storing the action officer name' do
       PaperTrail.enabled=true
 
-      result = @comm_service.send(assignment)
+      result = commissioning_service.commission(assignment)
       assignment_id = result[:assignment_id]
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
@@ -142,89 +144,6 @@ describe AssignmentService do
       expect(assignment.versions.size).to eql(2)
       update = assignment.versions.last
       expect(update.whodunnit).to eql('AO:ao name 1')
-    end
-
-    it 'should set the progress to rejected' do
-      result = @comm_service.send(assignment)
-      assignment_id = result[:assignment_id]
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-
-      response = double('response')
-      allow(response).to receive(:reason) { 'Some reason' }
-      allow(response).to receive(:reason_option) { 'reason option' }
-      subject.reject(assignment, response)
-
-      assignment = ActionOfficersPq.find(assignment_id)
-
-      pq = Pq.find(assignment.pq_id)
-      expect(pq.progress.name).to  eq(Progress.REJECTED)
-    end
-
-
-    it 'should not set the progress to rejected if it is accepted' do
-      result = @comm_service.send(assignment)
-      assignment_id = result[:assignment_id]
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-      subject.accept(assignment)
-
-      pq = Pq.find(assignment.pq_id)
-      expect(pq.progress.name).to  eq(Progress.ACCEPTED)
-
-      assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-      result = @comm_service.send(assignment)
-      assignment_id = result[:assignment_id]
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-      response = double('response')
-      allow(response).to receive(:reason) { 'Some reason' }
-      allow(response).to receive(:reason_option) { 'reason option' }
-
-      subject.reject(assignment, response)
-      assignment = ActionOfficersPq.find(assignment_id)
-
-      pq = Pq.find(assignment.pq_id)
-      expect(pq.progress.name).to  eq(Progress.ACCEPTED)
-    end
-
-    it 'should not set the progress to rejected when you change your mind and put it again to rejected' do
-      result = @comm_service.send(assignment)
-      assignment_id = result[:assignment_id]
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-
-      subject.accept(assignment)
-
-      response = double('response')
-      allow(response).to receive(:reason) { 'Some reason' }
-      allow(response).to receive(:reason_option) { 'reason option' }
-      subject.reject(assignment, response)
-
-      pq = Pq.find(assignment.pq_id)
-      expect(pq.progress.name).to  eq(Progress.REJECTED)
-    end
-
-    it 'should only set the progress to rejected when all action officers reject' do
-      assignment1 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
-      assignment2 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
-      assignment3 = ActionOfficersPq.create(action_officer_id: action_officer.id, pq_id: pq.id)
-      expect(pq.action_officers_pqs.size).to eq(3)
-      response = double('response')
-      allow(response).to receive(:reason) { 'Some reason' }
-      allow(response).to receive(:reason_option) { 'reason option' }
-
-      subject.reject(assignment1, response)
-      pq = Pq.find(assignment1.pq_id)
-      expect(pq.progress.name).to  eq(Progress.NO_RESPONSE)
-
-      subject.reject(assignment2, response)
-      pq = Pq.find(assignment2.pq_id)
-      expect(pq.progress.name).to  eq(Progress.NO_RESPONSE)
-
-      subject.reject(assignment3, response)
-      pq = Pq.find(assignment3.pq_id)
-      expect(pq.progress.name).to  eq(Progress.REJECTED)
     end
   end
 end

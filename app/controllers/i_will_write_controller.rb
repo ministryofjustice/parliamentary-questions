@@ -53,7 +53,7 @@ class IWillWriteController < ApplicationController
       ao_pq = action_officer_pq_accepted(pq_to_dup)
       if !ao_pq.nil?
         ao_pq.pq_id = @pq.id
-        ao_pq.save()
+        ao_pq.save
       end
       return redirect_to controller:'pqs', action: 'show', id: uin_iww, notice: "Created PQ 'I will write' #{uin_iww}"
     end
@@ -64,7 +64,7 @@ private
 
   def action_officer_pq_accepted(pq)
     pq.action_officers_pqs.each do |ao_pq|
-      if ao_pq.accept
+      if ao_pq.accepted?
         return ao_pq
       end
     end

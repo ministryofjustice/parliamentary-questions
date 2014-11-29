@@ -24,8 +24,8 @@ class Pq < ActiveRecord::Base
       where(response: 'rejected')
     end
 
-    def find_by(action_officer)
-      where(action_officer: action_officer[:action_officer]).first
+    def all_rejected?
+      all.find{ |assignment| !assignment.rejected? }.nil?
     end
   end
   has_many :action_officers, :through => :action_officers_pqs do
@@ -59,15 +59,16 @@ class Pq < ActiveRecord::Base
 
   scope :allocated_since, ->(since) { joins(:action_officers_pqs).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
   scope :not_seen_by_finance, -> { where(seen_by_finance: false) }
+  scope :accepted_in, ->(action_offiers) { joins(:action_officers_pqs).where(action_officers_pqs: { response: 'accepted', action_officer_id: action_officers }) }
 
   def reassign(action_officer)
     if action_officer.present? && action_officer_accepted != action_officer
       Pq.transaction do
         ao_pq_accepted.reset
         action_officers_pqs.find_or_create_by(action_officer: action_officer).accept
-        division = action_officer.deputy_director.try(:division)
-        directorate = division.try(:directorate)
         whodunnit("AO:#{action_officer.name}") do
+          division = action_officer.deputy_director.try(:division)
+          directorate = division.try(:directorate)
           update(directorate: directorate, division: division)
         end
       end
@@ -96,7 +97,7 @@ class Pq < ActiveRecord::Base
         action_officers.rejected.size != action_officers.size
   end
 
-  def rejected?
+  def only_rejected?
     action_officers.accepted.nil? && action_officers.rejected.any?
   end
 
@@ -149,10 +150,6 @@ class Pq < ActiveRecord::Base
   def self.by_status(status)
     monitor_questions_by_status(status)
     by_status_internal(status)
-  end
-
-  def self.allocated_accepted()
-    by_status(Progress.ACCEPTED)
   end
 
   def self.no_response()

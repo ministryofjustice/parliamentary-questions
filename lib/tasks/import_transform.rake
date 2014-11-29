@@ -35,7 +35,6 @@ namespace :db do
     puts 'Pre-populate Progresses'
     Progress.create([   {name: Progress.UNASSIGNED},
                         {name: Progress.NO_RESPONSE},
-                        {name: Progress.ACCEPTED},
                         {name: Progress.REJECTED},
                         {name: Progress.DRAFT_PENDING},
                         {name: Progress.WITH_POD},

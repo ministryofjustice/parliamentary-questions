@@ -23,12 +23,12 @@ div
             - question.action_officers_pqs.each do |ao_pq|
               li
                 - if !ao_pq.action_officer.nil?
-                  - if ao_pq.accept
+                  - if ao_pq.accepted?
                     span.no-indent
                       = ao_pq.action_officer.name
                       = " (#{ao_pq.action_officer.deputy_director.division.name}) "
                       span.label.flag-accepted Accepted
-                  - elsif ao_pq.reject
+                  - elsif ao_pq.rejected?
                     details.details-reveal
                       summary aria-controls="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
                         span.link.closed

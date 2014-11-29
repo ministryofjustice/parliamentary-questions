@@ -15,7 +15,6 @@ class ImportService
       import_one_question(q, &block)
     end
 
-    move_questions_from_accepted_to_draft_pending
     update_date_for_answer_relatives
 
     elapsed_seconds = Time.now - t_start
@@ -110,25 +109,6 @@ protected
     end
 
     date_for_answer
-  end
-
-  def get_pqs_to_move
-    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
-    Pq.allocated_accepted.joins(:action_officers_pqs).where('action_officers_pqs.updated_at < ?', beginning_of_day)
-  end
-
-  def move_questions_from_accepted_to_draft_pending
-    progress_id = Progress.draft_pending.id
-    number_of_questions_moved = 0
-
-    pqs = get_pqs_to_move
-    pqs.each do |pq_relation|
-      pq_relation.update(progress_id: progress_id )
-      number_of_questions_moved +=1
-    end
-
-    LogStuff.info "Import process, moved #{number_of_questions_moved} questions from Allocated Accepted"
-    number_of_questions_moved
   end
 
   def update_date_for_answer_relatives

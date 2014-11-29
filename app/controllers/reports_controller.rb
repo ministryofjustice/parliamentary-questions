@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
     @pd.each do |pd|
       aos = get_actionofficer_ids_by_press_desk(pd.id)
       @p.each do |p|
-        @counters[pd.id][p.id] = PQ_by_press_desk(aos).where('progress_id = ?', p.id).distinct.count
+        @counters[pd.id][p.id] = Pq.accepted_in(aos).where('progress_id = ?', p.id).distinct.count
       end
     end
   end
@@ -38,10 +38,6 @@ class ReportsController < ApplicationController
     render action: 'filter_all', press_desk_id: press_desk_id, progress_id: progress_id, minister_id: minister_id
   end
 
-  def PQ_by_press_desk(aos)
-    Pq.joins(:action_officers_pqs).where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
-  end
-
   def PQ_by_all(aos, minister_id, progress_id)
     @Pqs = Pq
 
@@ -49,7 +45,7 @@ class ReportsController < ApplicationController
       @Pqs = @Pqs.where('minister_id = :m_id', m_id: minister_id)
     end
     if !aos.nil?
-      @Pqs = @Pqs.joins(:action_officers_pqs).distinct.where('action_officers_pqs.accept = true AND action_officers_pqs.action_officer_id IN (:ao)', ao: aos)
+      @Pqs = @Pqs.accepted_in(aos)
     end
     if !progress_id.blank?
       @Pqs = @Pqs.where('progress_id = :p_id', p_id:progress_id)
