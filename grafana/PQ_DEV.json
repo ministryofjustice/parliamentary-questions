@@ -18,9 +18,6 @@
                     "span": 6,
                     "targets": [
                         {
-                            "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.allocated_accepted,'allocated_accepted')"
-                        },
-                        {
                             "target": "alias(stats.pq.dev.apphost.gauges.questions.progress.allocated_pending,'allocated_pending')",
                             "hide": false
                         },

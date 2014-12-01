@@ -20,7 +20,6 @@ puts '-populate'
 progresses = Progress.create([
   {name: Progress.UNASSIGNED},
   {name: Progress.NO_RESPONSE},
-  {name: Progress.ACCEPTED},
   {name: Progress.REJECTED},
   {name: Progress.DRAFT_PENDING},
   {name: Progress.WITH_POD},

@@ -35,7 +35,7 @@ private
   def assign_one_action_officer(pq_id, ao_id)
     assignment = ActionOfficersPq.new(pq_id: pq_id, action_officer_id: ao_id)
     comm_service = CommissioningService.new
-    result = comm_service.send(assignment)
+    result = comm_service.commission(assignment)
     if result.nil?
       flash.now[:error] = "Error in commissioning to #{assignment.action_officer.name}"
       return render :partial => 'shared/question_assigned', :locals => {question: @pq}

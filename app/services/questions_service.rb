@@ -5,7 +5,7 @@ class QuestionsService
   end
 
   def questions(args = { dateFrom: Date.today} )
-    result = ''
+    result = []
     $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
       options = {}
       options['dateFrom'] = args[:dateFrom].xmlschema

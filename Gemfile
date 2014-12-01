@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'binding_of_caller'
 gem 'bootstrap-will_paginate'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 gem 'builder'

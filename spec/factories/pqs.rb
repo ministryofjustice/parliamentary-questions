@@ -33,18 +33,14 @@ FactoryGirl.define do
         end
       end
 
-      factory :accepted_pq do
-        progress { Progress.find_by(name: Progress.ACCEPTED) }
+      factory :draft_pending_pq do
+        progress { Progress.find_by(name: Progress.DRAFT_PENDING) }
         internal_deadline { Faker::Date.forward(14) }
         date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
         minister
 
         after(:create) do |pq, _|
-          pq.action_officers_pq = [create(:accepted_action_officers_pq, pq: pq)]
-        end
-
-        factory :draft_pending_pq do
-          progress { Progress.find_by(name: Progress.DRAFT_PENDING) }
+          pq.action_officers_pqs = [create(:accepted_action_officers_pq, pq: pq)]
         end
 
         factory :with_pod_pq do

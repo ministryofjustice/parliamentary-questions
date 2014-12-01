@@ -7,6 +7,8 @@ describe Pq do
 		it { is_expected.to belong_to :minister }
 		it { is_expected.to belong_to :policy_minister }
 		it { is_expected.to have_one :trim_link }
+		it { is_expected.to belong_to :directorate }
+		it { is_expected.to belong_to :division }
 	end
 
 	describe '#has_trim_link?' do
@@ -71,6 +73,109 @@ describe Pq do
     end
   end
 
+	describe 'association methods' do
+		let!(:accepted) { create(:accepted_action_officers_pq, pq: subject) }
+		let!(:awaiting) { create(:action_officers_pq, pq: subject) }
+
+		before do
+			2.times { create(:rejected_action_officers_pq, pq: subject) }
+		end
+
+		describe '#action_officers_pq' do
+			describe '#accepted' do
+				it 'returns 1 record' do
+					expect(subject.action_officers_pqs.accepted).to eq accepted
+				end
+			end
+
+			describe '#rejected' do
+				it 'returns 2 records' do
+					expect(subject.action_officers_pqs.rejected.count).to eq 2
+				end
+			end
+
+			describe '#all_rejected?' do
+			  it 'returns true when all action officers have rejected' do
+					accepted.reject(nil, nil)
+					awaiting.reject(nil, nil)
+			    expect(subject.action_officers_pqs).to be_all_rejected
+			  end
+
+				it 'returns false when an action officer has not responded' do
+					accepted.reject(nil, nil)
+					expect(subject.action_officers_pqs).not_to be_all_rejected
+				end
+
+				it 'returns false when an action officer has accepted' do
+					awaiting.reject(nil, nil)
+					expect(subject.action_officers_pqs).not_to be_all_rejected
+				end
+			end
+		end
+
+		describe '#action_officers' do
+			describe '#accepted' do
+				it 'returns 1 record' do
+					expect(subject.action_officers.accepted).to eq accepted.action_officer
+				end
+			end
+
+			describe '#rejected' do
+				it 'returns 2 records' do
+					expect(subject.action_officers.rejected.count).to eq 2
+				end
+			end
+		end
+	end
+
+	describe '#reassign' do
+		subject { create(:draft_pending_pq) }
+		let!(:original_assignment) { subject.ao_pq_accepted }
+		let(:new_assignment) { create :action_officers_pq, pq: subject }
+		let(:new_action_officer) { new_assignment.action_officer }
+		let(:division) { new_action_officer.deputy_director.division }
+		let(:directorate) { division.directorate }
+
+		before do
+			subject.action_officers << new_action_officer
+		end
+
+	  it 'assigns a new action officer' do
+			subject.reassign new_action_officer
+
+			expect(original_assignment.reload.response).to eq :awaiting
+			expect(new_assignment.reload).to be_accepted
+			expect(subject.division).to eq(division)
+			expect(subject.directorate).to eq(directorate)
+		end
+
+		context 'when reassigning to an action officer already commissioned (in the list)' do
+			it 'assigns to other action officer' do
+				subject.action_officers_pqs << new_assignment
+				subject.reassign new_action_officer
+
+				expect(original_assignment.reload.response).to eq :awaiting
+				expect(new_assignment.reload).to be_accepted
+			end
+		end
+
+		context 'when reassigning to the same action officer' do
+		  it 'ignores change' do
+				subject.reassign new_action_officer
+
+				expect(subject).not_to receive(:update)
+				subject.reassign new_action_officer
+		  end
+		end
+
+		context 'when nil' do
+		  it 'ignores change' do
+				expect(subject).not_to receive(:action_officers_pqs)
+				subject.reassign nil
+		  end
+		end
+	end
+
   describe '#commissioned?' do
     subject { create(:pq) }
 
@@ -80,7 +185,7 @@ describe Pq do
 
     context 'when all assigned officers are rejected' do
       before do
-        subject.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
+        subject.action_officers_pqs.create(action_officer: create(:action_officer), response: 'rejected')
       end
 
       it { is_expected.not_to be_commissioned}
@@ -88,8 +193,8 @@ describe Pq do
 
     context 'when some assigned officers are not rejected' do
       before do
-        subject.action_officers_pq.create(action_officer: create(:action_officer))
-        subject.action_officers_pq.create(action_officer: create(:action_officer), reject: true)
+        subject.action_officers_pqs.create(action_officer: create(:action_officer))
+        subject.action_officers_pqs.create(action_officer: create(:action_officer), response: 'rejected')
       end
 
       it { is_expected.to be_commissioned}
