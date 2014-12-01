@@ -37,23 +37,17 @@ describe ActionOfficersPq do
     end
   end
 
-  describe '#rejected?' do
-    it 'returns true when rejected' do
+  describe 'states' do
+    {awaiting: :awaiting_response, accepted: :accepted, rejected: :rejected}.each do |state, check|
+      context "when #{check}" do
+        subject { described_class.new response: state }
+        it { is_expected.to send("be_#{check}") }
+      end
 
-    end
-
-    it 'returns false when not rejected' do
-
-    end
-  end
-
-  describe '#accepted?' do
-    it 'returns true when accepted' do
-
-    end
-
-    it 'returns false when not accepted' do
-
+      context 'when not #{state}' do
+        subject { described_class.new response: :other_state }
+        it { is_expected.not_to send("be_#{check}") }
+      end
     end
   end
 end
