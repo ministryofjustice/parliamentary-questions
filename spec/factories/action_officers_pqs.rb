@@ -3,9 +3,11 @@ FactoryGirl.define do
     action_officer
 
     factory :accepted_action_officers_pq do
-      accept true
-      reject false
-      reason ''
+      response 'accepted'
+    end
+
+    factory :rejected_action_officers_pq do
+      response 'rejected'
     end
   end
 end

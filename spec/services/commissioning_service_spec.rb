@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'CommissioningService' do
+describe CommissioningService do
   let(:minister) {build(:minister)}
   let(:deputy_director) { create(:deputy_director, name: 'dd name', email: 'dd@dd.gov', id: 1+rand(10))}
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
@@ -8,16 +8,22 @@ describe 'CommissioningService' do
 
   let(:deputy_director2) { create(:deputy_director, name: 'dd name', email: '', id: 1+rand(10))}
   let(:action_officer2) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director2.id) }
+  let(:assignment) { create(:action_officers_pq, action_officer: action_officer, pq: pq) }
 
   before(:each) do
-    @comm_service = CommissioningService.new
     ActionMailer::Base.deliveries = []
   end
 
-  it 'should return the assignment id and inserts the data' do
-    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
+  it 'updates progress' do
+    progress_service = double
+    expect(progress_service).to receive(:update_progress).with(pq)
+    expect(PQProgressChangerService).to receive(:new).and_return progress_service
 
-    result = @comm_service.send(assignment)
+    subject.commission(assignment)
+  end
+
+  it 'should return the assignment id and inserts the data' do
+    result = subject.commission(assignment)
 
     expect(result).to_not be nil
     expect(result[:assignment_id]).to_not be nil
@@ -26,9 +32,7 @@ describe 'CommissioningService' do
   end
 
   it 'should have generated a valid token' do
-    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-    result = @comm_service.send(assignment)
+    result = subject.commission(assignment)
 
     token = Token.where(entity: "assignment:#{result[:assignment_id]}", path: '/assignment/HL789').first
 
@@ -41,9 +45,7 @@ describe 'CommissioningService' do
   end
 
   it 'should send an email with the right data' do
-    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-    result = @comm_service.send(assignment)
+    result = subject.commission(assignment)
     sentToken = result[:token]
 
     mail = ActionMailer::Base.deliveries.first
@@ -68,10 +70,8 @@ describe 'CommissioningService' do
   end
 
 
-  it 'should set the progress to Allocated Pending' do
-    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-    result = @comm_service.send(assignment)
+  it 'should set the progress to awaiting response' do
+    result = subject.commission(assignment)
 
     expect(result).to_not be nil
 
@@ -84,47 +84,22 @@ describe 'CommissioningService' do
     expect(pq.progress.name).to  eq(Progress.NO_RESPONSE)
   end
 
-  it 'should not set the progress to Allocated Pending if the question is already accepted' do
-    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-    pq.progress_id = Progress.accepted.id
-    pq.save
-
-    @comm_service.send(assignment)
-
-    pq = Pq.find(assignment.pq_id)
-    expect(pq.progress.name).to  eq(Progress.ACCEPTED)
-  end
-
-  it 'should not set the progress to Allocated Pending if the question is rejected' do
-    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-
-    pq.progress_id = Progress.rejected.id
-    pq.save
-
-    @comm_service.send(assignment)
-
-    pq = Pq.find(assignment.pq_id)
-    expect(pq.progress.name).to  eq(Progress.REJECTED)
-  end
-
   it 'should raise an error if the action_officer.id is null' do
     assignment = ActionOfficersPq.new(pq_id: pq.id)
     expect {
-      @comm_service.send(assignment)
+      subject.commission(assignment)
     }.to raise_error 'Action Officer is not selected'
   end
 
   it 'should raise an error if the pq_id is null' do
     assignment = ActionOfficersPq.new(action_officer_id: action_officer.id)
     expect {
-      @comm_service.send(assignment)
+      subject.commission(assignment)
     }.to raise_error 'Question is not selected'
   end
 
   it 'should send an email to the deputy director the right data' do
-    assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: pq.id)
-    result = @comm_service.notify_dd(assignment)
+    result = subject.notify_dd(assignment)
     mail = ActionMailer::Base.deliveries.first
 
     expect(mail.html_part.body).to include pq.uin
@@ -146,7 +121,7 @@ describe 'CommissioningService' do
 
   it 'should not send an email if the deputy director email does not exist' do
     assignment = ActionOfficersPq.new(action_officer_id: action_officer2.id, pq_id: pq.id)
-    result = @comm_service.notify_dd(assignment)
+    result = subject.notify_dd(assignment)
     expect(result).to eq('Deputy Director has no email')
   end
 
@@ -154,7 +129,7 @@ describe 'CommissioningService' do
     new_pq = Pq.create(uin: 'HL999', question: 'test question?', raising_member_id: 0, member_name: 'Henry Higgins', internal_deadline: nil, minister:minister, house_name:'commons' )
 
     assignment = ActionOfficersPq.new(action_officer_id: action_officer.id, pq_id: new_pq.id)
-    result = @comm_service.notify_dd(assignment)
+    result = subject.notify_dd(assignment)
     mail = ActionMailer::Base.deliveries.first
     expect(mail.html_part.body).to include 'No deadline set'
   end

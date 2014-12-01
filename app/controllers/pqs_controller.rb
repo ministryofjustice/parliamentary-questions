@@ -20,6 +20,7 @@ class PqsController < ApplicationController
 
   def update
     if @pq.update(pq_params)
+      @pq.reassign(find_action_officer)
       flash[:success] = 'Successfully updated'
       @pq_progress_changer_service.update_progress(@pq)
       redirect_to action: 'show', id: @pq.uin
@@ -30,6 +31,11 @@ class PqsController < ApplicationController
   end
 
 private
+
+  def find_action_officer
+    id = params[:commission_form].try(:[], :action_officer_id)
+    ActionOfficer.find(id) if id.present?
+  end
 
   def archive_trim_link
     if params[:commit] == 'Delete'

@@ -18,10 +18,6 @@ class Progress < ActiveRecord::Base
     find_by_status(self.NO_RESPONSE)
   end
 
-  def self.accepted
-    find_by_status(self.ACCEPTED)
-  end
-
   def self.draft_pending
     find_by_status(self.DRAFT_PENDING)
   end
@@ -73,10 +69,6 @@ class Progress < ActiveRecord::Base
     'No response'
   end
 
-  def self.ACCEPTED
-    'Accepted'
-  end
-
   def self.DRAFT_PENDING
     'Draft Pending'
   end
@@ -125,7 +117,6 @@ class Progress < ActiveRecord::Base
     [
       Progress.UNASSIGNED,
       Progress.NO_RESPONSE,
-      Progress.ACCEPTED,
       Progress.REJECTED
     ]
   end

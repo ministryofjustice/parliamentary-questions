@@ -5,7 +5,6 @@ class PQProgressChangerService
 
     commissioned_filter(pq) if @progress_onwards
     rejected_filter(pq) if @progress_onwards
-    accepted_filter(pq) if @progress_onwards
     draft_pending_filter(pq) if @progress_onwards
     with_pod_filter(pq) if @progress_onwards
     pod_query_filter(pq) if @progress_onwards
@@ -26,26 +25,14 @@ class PQProgressChangerService
   end
 
   def rejected_filter(pq)
-    if pq.rejected?
+    if pq.action_officers_pqs.all_rejected?
       @new_progress = Progress.rejected
     end
   end
 
-  def accepted_filter(pq)
-    if !pq.action_officer_accepted.nil?
-      @new_progress = Progress.accepted
-    else
-      @progress_onwards = false
-    end
-  end
-
   def draft_pending_filter(pq)
-    beginning_of_day = DateTime.now.at_beginning_of_day.change({offset: 0})
-
-    if !pq.action_officer_accepted.nil?
-      if pq.ao_pq_accepted.updated_at < beginning_of_day
-        @new_progress = Progress.draft_pending
-      end
+    if pq.action_officer_accepted.present?
+      @new_progress = Progress.draft_pending
     else
       @progress_onwards = false
     end
