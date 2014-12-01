@@ -2,8 +2,8 @@ class MergeAcceptRejectColumnsToResponse < ActiveRecord::Migration
   def up
     add_column :action_officers_pqs, :response, :string, default: 'awaiting'
 
-    execute("UPDATE action_officers_pqs SET response='accepted' WHERE accept=true")
     execute("UPDATE action_officers_pqs SET response='rejected' WHERE reject=true")
+    execute("UPDATE action_officers_pqs SET response='accepted' WHERE accept=true")
 
     remove_column :action_officers_pqs, :accept
     remove_column :action_officers_pqs, :reject
@@ -19,3 +19,4 @@ class MergeAcceptRejectColumnsToResponse < ActiveRecord::Migration
     remove_column :action_officers_pqs, :response
   end
 end
+
