@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141127142731) do
+ActiveRecord::Schema.define(version: 20141202131341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,12 +111,11 @@ ActiveRecord::Schema.define(version: 20141127142731) do
     t.integer  "raising_member_id"
     t.datetime "tabled_date"
     t.datetime "response_due"
-    t.text     "question"
+    t.text     "text"
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "finance_interest"
-    t.boolean  "seen_by_finance",                               default: false
     t.string   "uin"
     t.string   "member_name"
     t.string   "member_constituency"
@@ -127,30 +126,23 @@ ActiveRecord::Schema.define(version: 20141127142731) do
     t.string   "question_type"
     t.integer  "minister_id"
     t.integer  "policy_minister_id"
-    t.integer  "progress_id"
     t.datetime "draft_answer_received"
-    t.datetime "i_will_write_estimate"
     t.datetime "holding_reply"
     t.string   "preview_url"
-    t.datetime "pod_waiting"
     t.datetime "pod_query"
     t.datetime "pod_clearance"
-    t.boolean  "transferred"
     t.string   "question_status"
     t.boolean  "round_robin"
     t.datetime "round_robin_date"
     t.boolean  "i_will_write"
     t.boolean  "pq_correction_received"
     t.datetime "correction_circulated_to_action_officer"
-    t.boolean  "pod_query_flag"
     t.datetime "sent_to_policy_minister"
-    t.boolean  "policy_minister_query"
     t.datetime "policy_minister_to_action_officer"
     t.datetime "policy_minister_returned_by_action_officer"
     t.datetime "resubmitted_to_policy_minister"
     t.datetime "cleared_by_policy_minister"
     t.datetime "sent_to_answering_minister"
-    t.boolean  "answering_minister_query"
     t.datetime "answering_minister_to_action_officer"
     t.datetime "answering_minister_returned_by_action_officer"
     t.datetime "resubmitted_to_answering_minister"
@@ -169,6 +161,7 @@ ActiveRecord::Schema.define(version: 20141127142731) do
     t.datetime "transfer_in_date"
     t.integer  "days_from_date_for_answer"
     t.boolean  "date_for_answer_has_passed"
+    t.integer  "state"
   end
 
   create_table "press_desks", force: true do |t|
@@ -183,13 +176,6 @@ ActiveRecord::Schema.define(version: 20141127142731) do
     t.string   "email"
     t.integer  "press_desk_id"
     t.boolean  "deleted",       default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "progresses", force: true do |t|
-    t.string   "name"
-    t.integer  "progress_order"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

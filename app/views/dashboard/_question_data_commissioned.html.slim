@@ -20,7 +20,7 @@
               = mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")
       | Action officer(s)
       .row
-        - if question.ao_pq_accepted.nil?
+        - if question.accepted_assignment.nil?
           - question.action_officers_pqs.each do |ao_pq|
             - if !ao_pq.rejected? && !ao_pq.action_officer.nil?
               .col-md-6
@@ -29,9 +29,9 @@
                 = render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question}
         - else
           .col-md-6
-            = link_to question.action_officer_accepted.name, action_officer_path(question.action_officer_accepted)
+            = link_to question.accepted_action_officer.name, action_officer_path(question.accepted_action_officer)
           .col-md-6
-            = render partial: 'shared/ao_reminder_link', locals: {ao_pq: question.ao_pq_accepted, question: question}
+            = render partial: 'shared/ao_reminder_link', locals: {ao_pq: question.accepted_assignment, question: question}
   /! end of column 1
   /! start of sub column 2
   .col-md-5
@@ -43,12 +43,14 @@
         h4 Date for answer
         p.text
           = question.date_for_answer.to_s(:date)
-          = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
+          = render 'shared/warning_icon' if question.overdue?
+
       - if !question.internal_deadline.nil?
         h4 Internal deadline
         p.text
           = question.internal_deadline.to_s
-          = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
+          = render 'shared/warning_icon' if question.overdue_internally?
+
       .trim_area.trim_area_dashboard id="trim_area_#{question.id}"
         h4 Trim link
         = render partial: 'shared/trim_link', locals: {question: question}

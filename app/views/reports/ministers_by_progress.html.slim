@@ -7,14 +7,14 @@ table#minister-report.table.table-hover
         th.table-cell-centered
           = link_to m.name  , {:action => 'filter_all', minister_id: m.id }
   tbody
-    - @progresses.each do |p|
+    - @states.each do |state|
       tr
         td
-          span class=("label flag-#{p.classname}") = p.name
+          span class=("label flag-#{state}") = state
         - @ministers.each do |m|
-          - @count = @counters[[m.id, p.id]] || 0
+          - @count = @counters[[m.id, state]] || 0
           td.table-cell-centered
             - if @count > 0
-              = link_to @count  , {:action => 'filter_all', minister_id: m.id, progress_id: p.id}
+              = link_to @count  , {:action => 'filter_all', minister_id: m.id, state: state}
             - else
               | 0

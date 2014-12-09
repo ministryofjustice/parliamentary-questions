@@ -3,8 +3,8 @@ require 'spec_helper'
 feature 'I want to manage trim links' do
   background do
     sign_in
-    @pq = create(:pq)
-    @pq_with_trim = create(:pq, trim_link: create(:trim_link))
+    @pq = create(:question)
+    @pq_with_trim = create(:question, trim_link: create(:trim_link))
   end
 
   scenario 'adding a trim link' do

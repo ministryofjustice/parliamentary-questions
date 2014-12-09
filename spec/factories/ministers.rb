@@ -9,5 +9,8 @@ FactoryGirl.define do
     factory :deleted_minister do
       deleted true
     end
+
+    factory :policy_minister do
+    end
   end
 end

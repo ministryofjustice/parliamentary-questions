@@ -139,8 +139,8 @@ $(document).ready(function () {
             var pqid = $(this).data('pqid');
             var uin = $('#pq-frame-'+pqid+ ' h3').text();
             $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
-            incrementBadge('#db-filter-alloc-pend');
-            decrementBadge('#db-filter-unalloc');
+            incrementBadge('#filter-with-officers');
+            decrementBadge('#filter-with-finance');
 		}).on("ajax:error", function(e, xhr) {
 			console.log(xhr.responseText);
 		}).on('change', function(e) {

@@ -11,8 +11,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   resources :press_officers
 
-  resources :progresses
-
   resources :ministers
 
   resources :deputy_directors
@@ -37,7 +35,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'admin' => 'admin#index'
 
   get 'commission/:id' => 'commission#commission'
-  get 'commission_complete/:id' => 'commission#complete'
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
   post 'commission' => 'commission#commission', as: :commission
   get 'answering/:id' => 'answering#index'
@@ -97,8 +94,8 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'export_pod/pq_pod.csv' => 'export#csv_for_pod', via: [:get, :post]
   get 'export_pod' => 'export#index_for_pod'
 
-  get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
-  get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
+  get 'reports/ministers_by_state' => 'reports#ministers_by_state'
+  get 'reports/press_desk_by_state' => 'reports#press_desk_by_state'
   match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
 
   if Rails.env.production?

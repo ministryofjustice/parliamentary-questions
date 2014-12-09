@@ -3,22 +3,21 @@
   .pq-header-flags
     - if question.question_type == 'NamedDay'
       span.label.name-day title=("Named day")  N
-    - if question.transferred
+    - if question.transferred_in?
       span.label.flag-transferred-in title="Transferred"  T
-    - if question.i_will_write
+    - if question.i_will_write?
       span.label.flag-will-write title=("I will write")  IWW
   = link_to('PQ details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'pq-header-links right' )
 p.pq-question
-  = question.question
+  = question.text
 .row
   .status-bar.col-md-12
-    - if !question.seen_by_finance
+    - if question.with_finance?
       span.label.flag-finance-unchecked Not checked by finance
-    span class=("label flag-#{question.progress.classname}") = question.progress.name
-- if [Progress.UNASSIGNED,Progress.NO_RESPONSE,Progress.REJECTED].include?(question.progress.name)
-  /! if a question is unassigned, No response or rejected: loop through and show rejection reasons
+    span class=("label flag-#{question.state}") = question.state
+- if question.new_question?
   = render partial:'shared/rejected_reasons', locals: {question: question}
-- if question.commissioned?
+- if question.with_officers?
   = render partial: 'dashboard/question_data_commissioned', locals: { question: question }
 - else
   = render partial: 'dashboard/question_data_uncommissioned', locals: { question: question }

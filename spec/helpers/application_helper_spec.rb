@@ -7,24 +7,24 @@ RSpec.describe ApplicationHelper do
     end
 
     it 'false when not open' do
-      question = build(:answered_pq)
+      question = build(:question_answered)
       expect(helper.minister_warning?(question, nil)).to be false
     end
 
     it 'false when no minister' do
-      question = build(:pq)
+      question = build(:question)
       minister = nil
       expect(helper.minister_warning?(question, minister)).to be nil
     end
 
     it 'false when minister not deleted' do
-      question = build(:pq)
+      question = build(:question)
       minister = build(:minister)
       expect(helper.minister_warning?(question, minister)).to be false
     end
 
     it 'true when minister deleted' do
-      question = build(:pq)
+      question = build(:question)
       minister = build(:deleted_minister)
       expect(helper.minister_warning?(question, minister)).to be true
     end

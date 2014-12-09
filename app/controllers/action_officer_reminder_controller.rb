@@ -36,7 +36,7 @@ private
     @template[:ao_name] = @ao.name
     @template[:email] = @ao.emails
     @template[:uin] = @pq.uin
-    @template[:question] = @pq.question
+    @template[:text] = @pq.text
     @template[:member_name] = @pq.member_name
     @template[:house] = @pq.house_name
   end

@@ -5,7 +5,7 @@ class AssignmentController < ApplicationController
 
   def index
     @question = Pq.find_by(uin: params[:uin])
-    if @question.action_officers_pqs.accepted.present? || @assignment.rejected?
+    if @question.accepted_assignment.present? || @assignment.rejected?
       return render 'confirmation'
     end
     @response = AllocationResponse.new()

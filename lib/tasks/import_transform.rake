@@ -19,7 +19,6 @@ namespace :db do
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE directorates RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE watchlist_members RESTART IDENTITY;")
-    ActiveRecord::Base.connection.execute("TRUNCATE TABLE progresses RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE ministers RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE divisions RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE deputy_directors RESTART IDENTITY;")
@@ -31,20 +30,6 @@ namespace :db do
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers_pqs RESTART IDENTITY;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE ogds RESTART IDENTITY;")
-
-    puts 'Pre-populate Progresses'
-    Progress.create([   {name: Progress.UNASSIGNED},
-                        {name: Progress.NO_RESPONSE},
-                        {name: Progress.REJECTED},
-                        {name: Progress.DRAFT_PENDING},
-                        {name: Progress.WITH_POD},
-                        {name: Progress.POD_QUERY},
-                        {name: Progress.POD_CLEARED},
-                        {name: Progress.WITH_MINISTER},
-                        {name: Progress.MINISTERIAL_QUERY},
-                        {name: Progress.MINISTER_CLEARED},
-                        {name: Progress.ANSWERED},
-                        {name: Progress.TRANSFERRED_OUT}])
 
     connection = ActiveRecord::Base.connection
     rc = connection.raw_connection

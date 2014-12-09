@@ -13,7 +13,6 @@ class AssignmentService
       directorate = division.try(:directorate)
       pq.update(directorate: directorate, division: division)
     end
-    update_progress(pq)
     PqMailer.acceptance_email(pq, assignment.action_officer).deliver
   end
 
@@ -26,12 +25,6 @@ class AssignmentService
       assignment.reject(response.reason_option, response.reason)
     end
 
-    update_progress(pq)
-  end
-
-private
-
-  def update_progress(pq)
-    PQProgressChangerService.new.update_progress(pq)
+    pq.transition
   end
 end
