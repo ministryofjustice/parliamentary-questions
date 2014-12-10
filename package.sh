@@ -52,7 +52,7 @@ docker_push()
 	TAG=$(tag $1 $2)
 	# Skip push if build generates an error
 
-	output "+ docker push ${TAG}"
+	output "+ docker push --insecure-registry ${TAG}"
         echo "BEGIN SECTION push-details"
 	docker push ${TAG}
 	RETCODE=$?
