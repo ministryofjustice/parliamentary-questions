@@ -64,3 +64,4 @@ The import_transform task takes two parameters:
 # the file should be tilde(~) delimited, not tab
 rake db:import_transform['/users/yourname/path/to/filename.txt', false] --trace
 ```
+
