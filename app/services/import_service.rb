@@ -1,7 +1,6 @@
 class ImportService
   def initialize(questionsService = QuestionsService.new)
     @questionsService = questionsService
-    @progress_unallocated = Progress.unassigned
   end
 
   def questions_with_callback(args = { dateFrom: Date.today} , &block)
@@ -66,7 +65,7 @@ protected
     pq.update(
         uin: q['Uin'],
         raising_member_id: q['TablingMember']['MemberId'],
-        question: q['Text'],
+        text: q['Text'],
         tabled_date: q['TabledDate'],
         member_name: q['TablingMember']['MemberName'],
         member_constituency: q['TablingMember']['Constituency'],
@@ -76,8 +75,7 @@ protected
         question_type: q['QuestionType'],
         preview_url: q['Url'],
         question_status: q['QuestionStatus'],
-        transferred: get_transfer(pq),
-        progress_id: get_progress_id(pq)
+        state: initial_state(pq)
     )
 
     status ||= get_changed(pq)
@@ -93,12 +91,8 @@ protected
     end
   end
 
-  def get_progress_id(pq)
-    pq.progress_id || @progress_unallocated.id
-  end
-
-  def get_transfer(pq)
-    pq.transferred || false
+  def initial_state(question)
+    question.state || QuestionStateMachine.index_for(:with_finance)
   end
 
   def get_date_for_answer(pq, incoming_date)

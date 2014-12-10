@@ -39,7 +39,7 @@
                   p= ao_pq.reason
           - else
             span.label.flag-no-response No response
-- if !@question.is_in_progress?(Progress.draft_pending)
+- unless @question.draft_pending?
   .accept-reject-form
     .panel.panel-default
       .panel-heading

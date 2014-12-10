@@ -1,6 +1,5 @@
 h4 Date sent to POD
-p.text= @pq.pod_waiting.to_s
-= f.check_box_gds :pod_query_flag
+p.text= (@pq.draft_answer_received || 'n/a').to_s
 .form-group
   label.form-label for="pod_clearance"  Date cleared by POD
   span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")

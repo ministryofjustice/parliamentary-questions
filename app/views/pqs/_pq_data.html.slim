@@ -21,7 +21,7 @@ p.text= @pq.tabled_date.try(:to_s, :date)
     | Transferred in from #{@pq.transfer_in_ogd.name}#{' on ' + @pq.transfer_in_date.try(:to_s, :date)}
 hr/
 h4 Question
-p.text= @pq.question
+p.text= @pq.text
 hr/
 = f.check_box_gds(:round_robin)
 .form-group

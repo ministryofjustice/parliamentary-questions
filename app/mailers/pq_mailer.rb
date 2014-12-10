@@ -69,7 +69,7 @@ private
       :ao_name => ao.name,
       :email => ao.emails,
       :uin => pq.uin,
-      :question => pq.question,
+      :text => pq.text,
       :mpname => get_minister_detail(pq,'name') ,
       :mpemail => get_minister_email(pq.minister),
       :policy_mpname => get_policy_minister_detail(pq, 'name'),

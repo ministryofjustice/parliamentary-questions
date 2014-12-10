@@ -7,14 +7,14 @@ table#pressdesk-report.table.table-hover
         th.table-cell-centered
           = link_to pd.name  , {:action => 'filter_all', press_desk_id: pd.id }
   tbody
-    - @p.each do |p|
+    - @state.each do |state|
       tr
         td
-          span class=("label flag-#{p.classname}") = p.name
+          span class=("label flag-#{state}") = state
         - @pd.each do |pd|
-          - count = @counters[pd.id][p.id] || 0
+          - count = @counters[pd.id][state] || 0
           td.table-cell-centered
             - if count > 0
-              = link_to count  , {:action => 'filter_all', press_desk_id: pd.id, progress_id: p.id}
+              = link_to count  , {:action => 'filter_all', press_desk_id: pd.id, state: state}
             - else
               | 0

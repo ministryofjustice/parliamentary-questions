@@ -2,7 +2,6 @@ class ImportServiceWithDatabaseLock
   def initialize(importService = ImportService.new, time_threshold = 60.minutes)
     @time_threshold = time_threshold
     @importService = importService
-    @progress_unallocated = Progress.unassigned
   end
 
   def questions_no_lock(args = { dateFrom: Date.today} )

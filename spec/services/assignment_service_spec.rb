@@ -8,7 +8,7 @@ describe AssignmentService do
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
   let(:commissioning_service) { CommissioningService.new }
 
-  let(:pq) { create(:pq, uin: 'HL789', question: 'test question?',minister:minister, house_name:'commons') }
+  let(:pq) { create(:question, uin: 'HL789', text: 'test question?',minister:minister, house_name:'commons') }
 
   before(:each) do
     ActionMailer::Base.deliveries = []
@@ -22,11 +22,8 @@ describe AssignmentService do
       subject.accept(assignment)
     end
 
-    it 'updates progress' do
-      progress_service = double
-      expect(progress_service).to receive(:update_progress).with(pq)
-      expect(PQProgressChangerService).to receive(:new).and_return progress_service
-
+    it 'updates state' do
+      expect(pq).to receive(:transition)
       subject.accept(assignment)
     end
 
@@ -55,7 +52,7 @@ describe AssignmentService do
       subject.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
       mail = ActionMailer::Base.deliveries.first
-      expect(mail.html_part.body).to include pq.question
+      expect(mail.html_part.body).to include pq.text
       expect(mail.subject).to include pq.uin
     end
 
@@ -120,11 +117,8 @@ describe AssignmentService do
       subject.reject(assignment, reason)
     end
 
-    it 'updates progress' do
-      progress_service = double
-      expect(progress_service).to receive(:update_progress).with(pq)
-      expect(PQProgressChangerService).to receive(:new).and_return progress_service
-
+    it 'updates state' do
+      expect(pq).to receive(:transition)
       subject.reject(assignment, reason)
     end
 

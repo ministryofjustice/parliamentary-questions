@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActionOfficersPq do
-  subject { described_class.new pq: create(:pq), action_officer: create(:action_officer) }
+  subject { described_class.new pq: create(:question), action_officer: create(:action_officer) }
   describe 'relationships' do
     it { is_expected.to belong_to :pq }
     it { is_expected.to belong_to :action_officer }

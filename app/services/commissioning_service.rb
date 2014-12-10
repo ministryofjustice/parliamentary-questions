@@ -11,8 +11,6 @@ class CommissioningService
     ao = assignment.action_officer
     pq = assignment.pq
 
-    PQProgressChangerService.new.update_progress(pq)
-
     path = "/assignment/#{pq.uin.encode}"
     entity = "assignment:#{action_officers_pq.id}"
 
@@ -65,7 +63,7 @@ private
   def build_template_hash(pq,ao)
     {
       :uin => pq.uin,
-      :question => pq.question,
+      :text => pq.text,
       :ao_name => ao.name,
       :member_name => pq.member_name,
       :house => pq.house_name,

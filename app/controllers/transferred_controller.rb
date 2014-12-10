@@ -10,8 +10,7 @@ class TransferredController < ApplicationController
     @pq = Pq.new(pq_params)
     @pq.transferred = true
     @pq.raising_member_id = '0'
-    @pq.progress_id = Progress.unassigned.id
-
+    @pq.state = :with_finance
 
     if @pq.save
       flash[notice] = 'Transferred PQ was successfully created.'
@@ -26,7 +25,7 @@ private
 
   def pq_params
     params.require(:pq).permit(:uin,
-                               :question,
+                               :text,
                                :house_name,
                                :member_name,
                                :member_constituency,

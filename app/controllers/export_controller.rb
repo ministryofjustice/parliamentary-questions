@@ -50,7 +50,7 @@ private
           'AO Email'
       ]
       pqs.each do |pq|
-        ao = pq.action_officer_accepted
+        ao = pq.accepted_action_officer
         csv << pq_data_to_hash(pq,ao)
       end
     end
@@ -74,13 +74,13 @@ private
       pq.directorate.try(:name),    # 'Directorate',
       pq.division.try(:name),       # 'Division',
       pq.answer,                    # 'Final Response',
-      pq.question,                  # 'Full_PQ_subject',
+      pq.text,                      # 'Full_PQ_subject',
       nil,                          # 'Delay Reason',
       pq.minister.try(:name),       # 'Minister',
-      pq.answering_minister_query,  # 'Ministerial Query? (if applicable)',
+      nil,                          # 'Ministerial Query? (if applicable)',
       pq.uin,                       # 'PIN',
       pq_dates[:pc],                # '"Date/time of POD clearance"',
-      pq.pod_query_flag,            # 'PODquery',
+      nil,                          # 'PODquery',
       pq.finance_interest,          # 'Requested by finance',
       nil,                          # 'Requested by HR',
       nil,                          # 'Requested by Press',

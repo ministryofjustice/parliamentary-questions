@@ -19,7 +19,7 @@ describe 'ImportService' do
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
       expect(question_one.raising_member_id).to eq 2479
-      expect(question_one.question).to eq 'Hello we are asking questions'
+      expect(question_one.text).to eq 'Hello we are asking questions'
     end
   end
 
@@ -38,7 +38,7 @@ describe 'ImportService' do
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
       expect(question_one.raising_member_id).to eq 2479
-      expect(question_one.question).to eq 'Hello we are asking questions'
+      expect(question_one.text).to eq 'Hello we are asking questions'
 
       expect(question_one.member_name).to eq 'Diana Johnson'
       expect(question_one.member_constituency).to eq 'Kingston upon Hull North'
@@ -51,14 +51,15 @@ describe 'ImportService' do
       expect(question_one.question_type).to eq 'NamedDay'
       expect(question_one.preview_url).to eq 'https://wqatest.parliament.uk/Questions/Details/37988'
 
-      expect(question_one.transferred).to be(false)
+      # FIXME: Why is this transferred in?
+      # expect(question_one).to be_transferred_in
 
       expect(question_one.question_status).to eq('Tabled')
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
       expect(question_two.raising_member_id).to eq 9742
-      expect(question_two.question).to eq "I'm asking questions too"
+      expect(question_two.text).to eq "I'm asking questions too"
     end
 
     it 'should update the question data if #today_questions is called multiple times' do
@@ -68,11 +69,11 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.question).to eq 'Hello we are asking questions'
+      expect(question_one.text).to eq 'Hello we are asking questions'
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
-      expect(question_two.question).to eq "I'm asking questions too"
+      expect(question_two.text).to eq "I'm asking questions too"
 
       # Second call, with different xml response
       allow(@http_client).to receive(:questions) { import_questions_for_today_with_changes }
@@ -81,12 +82,12 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.question).to eq 'Hello we are asking questions'
+      expect(question_one.text).to eq 'Hello we are asking questions'
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
       # The question text is different now
-      expect(question_two.question).to eq "The Text Changed"
+      expect(question_two.text).to eq "The Text Changed"
 
     end
 
@@ -99,11 +100,11 @@ describe 'ImportService' do
 
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
-      expect(question_one.question).to eq 'Hello we are asking questions'
+      expect(question_one.text).to eq 'Hello we are asking questions'
 
       question_two = Pq.find_by(uin: 'HL673892')
       expect(question_two).to_not be_nil
-      expect(question_two.question).to eq "I'm asking questions too"
+      expect(question_two.text).to eq "I'm asking questions too"
 
       question_new = Pq.find_by(uin: 'HL5151')
       expect(question_new).to be_nil
@@ -115,7 +116,7 @@ describe 'ImportService' do
 
       question_new = Pq.find_by(uin: 'HL5151')
       expect(question_new).to_not be_nil
-      expect(question_new.question).to eq 'New question in the api'
+      expect(question_new.text).to eq 'New question in the api'
     end
 
     it 'should store audit events by name when importing' do
@@ -171,7 +172,7 @@ describe 'ImportService' do
       question_one = Pq.find_by(uin: 'HL784845')
       expect(question_one).to_not be_nil
 
-      expect(question_one.progress.name).to eq(Progress.UNASSIGNED)
+      expect(question_one.state_machine.state).to eq(:with_finance)
     end
 
     it 'should not overwrite the question date_for_answer' do
