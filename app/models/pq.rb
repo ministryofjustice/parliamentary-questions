@@ -59,7 +59,7 @@ class Pq < ActiveRecord::Base
 
   scope :allocated_since, ->(since) { joins(:action_officers_pqs).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
   scope :not_seen_by_finance, -> { where(seen_by_finance: false) }
-  scope :accepted_in, ->(action_offiers) { joins(:action_officers_pqs).where(action_officers_pqs: { response: 'accepted', action_officer_id: action_officers }) }
+  scope :accepted_in, ->(action_officers) { joins(:action_officers_pqs).where(action_officers_pqs: { response: 'accepted', action_officer_id: action_officers }) }
 
   def reassign(action_officer)
     if action_officer.present? && action_officer_accepted != action_officer
