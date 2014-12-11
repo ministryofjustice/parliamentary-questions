@@ -7,7 +7,7 @@
       span.label.flag-transferred-in title="Transferred"  T
     - if @pq.i_will_write?
       span.label.flag-will-write title=("I will write")  IWW
-    span#pq-details-progress class=("label flag-#{@pq.state}") = @pq.state
+    span#pq-details-progress class=("label state #{state_class_for(@pq)}") = display_state_for(@pq)
 #pq-details-qa-link.row
   .col-md-9
   .col-md-3.pull-right

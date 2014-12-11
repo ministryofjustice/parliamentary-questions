@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Visit the dashboard an show the questions for the day' do
+feature 'Visit the dashboard' do
   scenario "can view the questions tabled for today" do
     pq = create(:question)
     sign_in

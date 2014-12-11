@@ -11,7 +11,6 @@ describe QuestionStateMachine do
         :uncommissioned,
         :with_officers,
         :rejected,
-        :transferred_out,
         :draft_pending,
         :with_pod,
         :pod_cleared,
@@ -20,14 +19,15 @@ describe QuestionStateMachine do
         :with_answering_minister,
         :cleared,
         :answered,
-        :withdrawn
+        :withdrawn,
+        :transferred_out,
       ]
     end
   end
 
   describe '.indexes_for' do
     it 'returns indexes for given states' do
-      expect(subject.class.indexes_for(:with_finance, :pod_cleared)).to eq [0, 7]
+      expect(subject.class.indexes_for(:with_finance, :pod_cleared)).to eq [0, 6]
     end
   end
 
@@ -92,7 +92,7 @@ describe QuestionStateMachine do
   end
 
   describe '#transition on real model' do
-    let(:model) { build(:question_pod_cleared) }
+    let(:model) { create(:question_pod_cleared) }
 
     context 'when sent to answering minister and no policy minister' do
       before do
@@ -144,7 +144,7 @@ describe QuestionStateMachine do
     end
 
     def expects_not_to_transition
-      expect(subject.transition).to be false
+      expect(subject.transition).to be nil
     end
 
     it 'ensure validation callbacks are run' do

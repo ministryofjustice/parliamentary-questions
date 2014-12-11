@@ -54,8 +54,8 @@ class Pq < ActiveRecord::Base
   validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
 
   before_update :process_date_for_answer
-  before_save :set_state
   before_save :transition
+  before_save :set_state
 
   def set_state
     self[:state] = state_machine.index
@@ -88,11 +88,7 @@ class Pq < ActiveRecord::Base
 
   def transition
     state_machine.transition
-    true #TODO: needed as callbacks will halt if false
-  end
-
-  def has_trim_link?
-    trim_link.present? && !trim_link.deleted?
+    true
   end
 
   def reassign(action_officer)
@@ -107,14 +103,6 @@ class Pq < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def only_rejected?
-    accepted_action_officer.nil? && action_officers.rejected.any?
-  end
-
-  def open?
-    !closed?
   end
 
   def accepted_action_officer
@@ -133,16 +121,28 @@ class Pq < ActiveRecord::Base
     end
   end
 
-  def seen_by_finance
-    seen_by_finance?
+  def has_trim_link?
+    trim_link.present? && !trim_link.deleted?
   end
 
-  def seen_by_finance?
-    !with_finance?
+  def only_rejected?
+    accepted_action_officer.nil? && action_officers.rejected.any?
+  end
+
+  def open?
+    !closed?
   end
 
   def transferred_in?
     transfer_in_date.present?
+  end
+
+  def seen_by_finance
+    {'0' => false, '1' => true, nil => !with_finance?}[@seen_by_finance]
+  end
+
+  def seen_by_finance?
+    seen_by_finance
   end
 
   def deleted?
@@ -173,6 +173,7 @@ private
   end
 
   def all_action_officers_rejected?
+    return false if action_officers_pqs.empty?
     action_officers_pqs.find{ |assignment| !assignment.rejected? }.nil?
   end
 
@@ -181,7 +182,6 @@ private
     true
   end
 
-  #TODO: turn these into calculated fields
   def process_date_for_answer
     if self.date_for_answer.nil?
       self.date_for_answer_has_passed = true
@@ -192,7 +192,6 @@ private
     end
   end
 
-  #TODO: add hook on state changes to update stats
   def self.monitor_new_questions
     number_of_questions = new_questions_internal.count
     $statsd.gauge("#{StatsHelper::PROGRESS}.new_questions", number_of_questions)

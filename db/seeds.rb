@@ -1,21 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-puts 'Clear tables'
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE ministers RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE directorates RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE divisions RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE deputy_directors RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE ogds RESTART IDENTITY;")
-
-puts '-populate'
 ministers = Minister.create!([
 	{name: 'Chris Grayling', title: 'Secretary of State and Lord High Chancellor of Great Britain'},
 	{name: 'Damian Green (MP)', title: 'Minister of State'},
@@ -101,4 +83,6 @@ Ogd.create!([
     {name:'Ministry of Defence', acronym:'MOD'}
   ])
 
-puts 'Done'
+puts 'Seeded.'
+puts 'Run rake db:seed:user to create a user to login with'
+puts 'Run rake db:seed:questions to create some questions'

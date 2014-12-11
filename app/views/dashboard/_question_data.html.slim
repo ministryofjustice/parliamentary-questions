@@ -12,9 +12,8 @@ p.pq-question
   = question.text
 .row
   .status-bar.col-md-12
-    - if question.with_finance?
-      span.label.flag-finance-unchecked Not checked by finance
-    span class=("label flag-#{question.state}") = question.state
+    span class=("label state #{state_class_for(question)}")
+      = display_state_for(question)
 - if question.new_question?
   = render partial:'shared/rejected_reasons', locals: {question: question}
 - if question.with_officers?

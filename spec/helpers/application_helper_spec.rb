@@ -7,7 +7,7 @@ RSpec.describe ApplicationHelper do
     end
 
     it 'false when not open' do
-      question = build(:question_answered)
+      question = create(:question_answered)
       expect(helper.minister_warning?(question, nil)).to be false
     end
 

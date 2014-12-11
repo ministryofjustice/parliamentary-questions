@@ -4,10 +4,15 @@ class DashboardController < ApplicationController
   @@per_page = 5
 
   def index
-    @questions = paginate_collection(Pq.in_state(states))
+    @questions = paginate_collection(Pq.in_state(state))
   end
 
   def search
+  end
+
+  def state
+    state = params[:state].try(:to_sym)
+    (state.nil? || state == :view_all) ? states : state
   end
 
   helper_method def tab

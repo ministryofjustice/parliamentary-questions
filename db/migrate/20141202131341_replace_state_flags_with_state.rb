@@ -65,11 +65,33 @@ class ReplaceStateFlagsWithState < ActiveRecord::Migration
       t.remove :pod_query_flag
       t.remove :answering_minister_query
       t.remove :policy_minister_query
+      t.remove :response_due
 
       # question.question looks ugly
       t.rename :question, :text
     end
 
     drop_table :progresses
+  end
+
+  def down
+    change_table :pqs do |t|
+      t.remove :state
+      t.boolean :seen_by_finance
+      t.integer :progress_id
+      t.datetime :i_will_write_estimate
+      t.boolean :transferred
+      t.datetime :pod_waiting
+      t.boolean :pod_query_flag
+      t.boolean :answering_minister_query
+      t.boolean :policy_minister_query
+      t.datetime :response_due
+      t.rename :text, :question
+    end
+
+    create_table :progresses do |t|
+      t.string :name
+      t.timestamps
+    end
   end
 end

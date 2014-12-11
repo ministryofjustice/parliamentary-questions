@@ -110,7 +110,6 @@ ActiveRecord::Schema.define(version: 20141202131341) do
     t.integer  "house_id"
     t.integer  "raising_member_id"
     t.datetime "tabled_date"
-    t.datetime "response_due"
     t.text     "text"
     t.string   "answer"
     t.datetime "created_at"

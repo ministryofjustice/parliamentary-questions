@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe CommissionForm, type: :model do
   describe 'validation error messages' do
-    let(:form) { build(:commission_form) }
     subject { form.errors.values.flatten }
+    let(:form) { described_class.new }
 
     before do
       form.valid?
@@ -22,7 +22,7 @@ describe CommissionForm, type: :model do
     end
 
     context 'when action_officer_id is empty' do
-      let(:form) { build(:commission_form, action_officer_id: [''])}
+      before { form.action_officer_id = [''] }
       it { is_expected.to include('Please select at least one action officer')}
     end
 
@@ -35,7 +35,12 @@ describe CommissionForm, type: :model do
     end
 
     context 'when all required fields are provided' do
-      let(:form) { build(:commission_form, pq_id: 1, minister_id: 1, action_officer_id: [1], date_for_answer: '20/10/2014', internal_deadline: '14/10/2014')}
+      let(:form) { described_class.new(
+        pq_id: 1,
+        minister_id: 1,
+        action_officer_id: [1],
+        date_for_answer: '20/10/2014',
+        internal_deadline: '14/10/2014') }
       it { is_expected.to be_empty }
     end
   end

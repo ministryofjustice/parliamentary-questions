@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :user do
-    name 'user one'
-    email 'user.one@admin.com'
-    password '123456789'
+    name 'User'
+    email 'user@example.com'
+    password '12345678'
     roles 'PQUSER'
   end
 end

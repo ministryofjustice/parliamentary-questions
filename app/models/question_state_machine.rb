@@ -4,7 +4,6 @@ class QuestionStateMachine
     :uncommissioned,
     :with_officers,
     :rejected,
-    :transferred_out,
     :draft_pending,
     :with_pod,
     :pod_cleared,
@@ -13,7 +12,8 @@ class QuestionStateMachine
     :with_answering_minister,
     :cleared,
     :answered,
-    :withdrawn
+    :withdrawn,
+    :transferred_out
   ].freeze
 
   class Transition < Struct.new(:from, :to, :dependents, :requirements, :reverse)
@@ -140,6 +140,6 @@ class QuestionStateMachine
       errors.empty?
     end
 
-    transition.present? && (self.state = transition.to) && true
+    self.state = transition.to and true if transition.present?
   end
 end

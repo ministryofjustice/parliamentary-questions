@@ -23,21 +23,7 @@ i.fa-envelope,
 .name-day,
 .open,
 .dropdown-toggle.btn-success,
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-in,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-will-write,
-.flag-with-minister,
-.flag-with-pod,
+.state,
 .trim-links-header:hover,
 .trim-links-cancel:hover { color: #fff; }
 
@@ -45,8 +31,8 @@ i.fa-envelope,
 .nav-pills > li.active > a:hover,
 .nav-pills > li > a,
 .file-choose-replace,
-.flag-minister-cleared,
-.flag-pod-cleared,
+.state-policy-minister-cleared,
+.state-pod-cleared,
 .alert,
 button.close { color: #000; }
 
@@ -71,23 +57,22 @@ h4 { color: #6f777b; }
 .js-enabled .selected, .alert { background-color: #fff; }
 
 .block-label { background: #dee0e2; }
-.flag-accepted { background-color: #28a197; }
-.flag-answered { background-color: #006435; }
-.flag-draft-pending { background-color: #85994b; }
-.flag-finance-unchecked { background-color: #b10e1e; }
-.flag-minister-cleared { background-color: #c1a87e; }
-.flag-ministerial-query { background-color: #b58840; }
-.flag-no-response { background-color: #f47738; }
-.flag-pod-cleared { background-color: #a1a8ff; }
-.flag-pod-query { background-color: #5461ff; }
-.flag-rejected { background-color: #d0021b; }
+.state-with-finance { background-color: #b10e1e; }
+.state-uncommissioned { background-color: #f47738; }
+.state-with-officers { background-color: #f47738; }
+.state-rejected { background-color: #d0021b; }
+.state-draft-pending { background-color: #85994b; }
+.state-with-pod { background-color: #2e358b; }
+.state-pod-cleared { background-color: #a1a8ff; }
+.state-with-policy-minister { background-color: #82622e; }
+.state-policy-minister-cleared { background-color: #c1a87e; }
+.state-with-answering-minister { background-color: #5461ff; }
+.state-cleared { background-color: #c1a87e; }
+.state-answered, .state-withdrawn { background-color: #006435; }
+.state-transferred-out { background-color: #d53880; }
+
 .flag-transferred-in { background-color: #7d7d7d; }
-.flag-transferred-out { background-color: #d53880; }
-.flag-unallocated { background-color: #f47738; }
-.flag-unassigned { background-color: #bd10e0; }
 .flag-will-write { background-color: #5f5f5f; }
-.flag-with-minister { background-color: #82622e; }
-.flag-with-pod { background-color: #2e358b; }
 
 h2 .badge,
 #status-filters .badge { background-color: #000; }
@@ -216,24 +201,7 @@ ul {
 
 // = Flags ======================================================================
 
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-minister-cleared,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-cleared
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-in,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-will-write,
-.flag-with-minister,
-.flag-with-pod,
-.name-day,
+.state, .name-day,
  {
   border-radius: 6px;
   font-weight: normal;

@@ -9,8 +9,7 @@ class FinanceController < ApplicationController
     params[:pq].each do |id, values|
       Pq.find(id).update(
         seen_by_finance: values['seen_by_finance'],
-        finance_interest: values['finance_interest']
-      )
+        finance_interest: values['finance_interest'])
     end
 
     flash[:notice] = 'Finance check complete'
