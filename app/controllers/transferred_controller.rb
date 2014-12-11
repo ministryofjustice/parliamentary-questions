@@ -32,7 +32,7 @@ private
                                :member_constituency,
                                :date_for_answer,
                                :registered_interest,
-                               :type_of_question,
+                               :question_type,
                                :transfer_in_ogd_id,
                                :transfer_in_date)
   end
