@@ -40,11 +40,9 @@ In order to run the project local and in production you have to set the followin
 
 # Development setup
 
-Setup the development database and a user and some questions.
+Setup the development database, add a user and some questions.
 
-    rake db:reset
-    rake db:seed:user
-    rake db:seed:questions
+    rake db:reset db:seed:user db:seed:questions
 
 
 # User authentication
