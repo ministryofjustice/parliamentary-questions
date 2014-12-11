@@ -10,7 +10,7 @@ table#minister-report.table.table-hover
     - @states.each do |state|
       tr
         td
-          span class=("label flag-#{state}") = state
+          span class=("label state state-#{state.to_s.dasherize}") = state.to_s.humanize
         - @ministers.each do |m|
           - @count = @counters[[m.id, state]] || 0
           td.table-cell-centered

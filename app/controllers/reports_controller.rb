@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @ministers = Minister.where(deleted: false)
     @states = QuestionStateMachine.in_progress
 
-    @counters = Pq.ministers_by_states(@ministers, @states)
+    @counters = Pq.ministers_by_state(@ministers, @states)
   end
 
   def press_desk_by_state
