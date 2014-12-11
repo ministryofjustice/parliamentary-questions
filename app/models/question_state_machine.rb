@@ -69,7 +69,7 @@ class QuestionStateMachine
   end
 
   def self.new_questions
-    [:with_finance, :with_officers, :rejected]
+    [:with_finance, :uncommissioned, :with_officers, :rejected]
   end
 
   def self.in_progress

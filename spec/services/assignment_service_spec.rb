@@ -22,11 +22,6 @@ describe AssignmentService do
       subject.accept(assignment)
     end
 
-    it 'updates state' do
-      expect(pq).to receive(:transition)
-      subject.accept(assignment)
-    end
-
     it 'should create an audit event storing the action officer name' do
       PaperTrail.enabled = true
 

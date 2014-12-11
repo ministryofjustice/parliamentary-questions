@@ -57,24 +57,18 @@ describe Pq do
     end
   end
 
-  describe '#update' do
-    it 'transitions after assigning attributes' do
-      expect(subject).to receive(:transition) do
-        expect(subject.text).to eq 'updated question'
-      end
-      subject.update({text: 'updated question'})
-    end
-
+  describe '#transition' do
     it 'saves' do
       expect(subject).to receive(:save)
-      subject.update({})
+      subject.transition
     end
   end
 
-  describe '#transition' do
+  describe 'callbacks' do
     it 'always returns true to allow callbacks to run' do
       allow(subject).to receive(:state_machine) { double transition: false }
-      expect(subject.transition).to be true
+      expect(subject).to receive(:set_state)
+      subject.save
     end
   end
 

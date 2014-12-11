@@ -22,68 +22,68 @@ FactoryGirl.define do
     minister
     after(:create) do |question, evaluator|
       create(:action_officers_pq, pq: question, created_at: evaluator.age, updated_at: evaluator.age)
-      question.update({})
+      question.transition
     end
   end
 
   factory :question_rejected, parent: :question_with_officers do
     after(:create) do |question|
       question.action_officers_pqs.first.reject('option', 'reason')
-      question.update({})
+      question.transition
     end
   end
 
   factory :question_draft_pending, parent: :question_with_officers do
     after(:create) do |question|
       question.action_officers_pqs.first.accept
-      question.update({})
+      question.transition
     end
   end
 
   factory :question_with_pod, parent: :question_draft_pending do
     draft_answer_received { Faker::Date.between(3.days.ago, 2.days.ago) }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_pod_cleared, parent: :question_with_pod do
     pod_clearance { Faker::Date.between(draft_answer_received, draft_answer_received + 1.day) }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_with_policy_minister, parent: :question_pod_cleared do
     policy_minister
     sent_to_policy_minister { Faker::Date.between(pod_clearance, pod_clearance + 1.day) }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_policy_minister_cleared, parent: :question_with_policy_minister do
     cleared_by_policy_minister { Faker::Date.between(sent_to_policy_minister, sent_to_policy_minister + 1.day) }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_with_answering_minister, parent: :question_policy_minister_cleared do
     sent_to_answering_minister { 2.hours.ago }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_cleared, parent: :question_with_answering_minister do
     cleared_by_answering_minister { 1.hour.ago }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_answered, parent: :question_cleared do
     answer_submitted { 10.minutes.ago }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_withdrawn, parent: :question_cleared do
     pq_withdrawn { 5.minutes.ago }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 
   factory :question_transferred_out, parent: :question_with_officers do
     sequence(:transfer_out_ogd_id)
     transfer_out_date { 3.minutes.ago }
-    after(:create) { |question| question.update({}) }
+    after(:create) { |question| question.transition }
   end
 end

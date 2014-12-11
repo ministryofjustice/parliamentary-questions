@@ -54,7 +54,7 @@ class Pq < ActiveRecord::Base
   validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
 
   before_update :process_date_for_answer
-  before_save :transition
+  before_save :transition_before_save
   before_save :set_state
 
   def set_state
@@ -87,8 +87,7 @@ class Pq < ActiveRecord::Base
   delegate :closed?, :new_question?, to: :state_machine
 
   def transition
-    state_machine.transition
-    true
+    save
   end
 
   def reassign(action_officer)
@@ -164,6 +163,11 @@ class Pq < ActiveRecord::Base
   end
 
 private
+
+  def transition_before_save
+    state_machine.transition
+    true
+  end
 
   def set_non_model_attributes_for_transitions
     self.action_officers_present = action_officers.any?

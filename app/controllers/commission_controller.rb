@@ -20,7 +20,7 @@ class CommissionController < ApplicationController
       rescue Exception => e
         render text: "Error when commissioning: #{e}", status: 400
       end
-      pq.transition
+      pq.reload.transition
     else
       render text: form.errors.values.flatten.join('\n'), status: 422
     end
