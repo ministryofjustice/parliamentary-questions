@@ -27,6 +27,6 @@
         p.text style=""  Minister status
         label.block-label for="minister_deleted"
           = f.check_box :deleted
-          | \&nbsp;Inactive
+          = ' Inactive'
       .form-group
         = f.submit 'Save', :id => 'save', :class => 'button'
