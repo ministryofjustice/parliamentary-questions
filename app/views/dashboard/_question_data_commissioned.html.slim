@@ -2,22 +2,15 @@
   /! start of 'sub column 1'
   .col-md-7
     .dashboard-column1-commissioned
-      | Replying minister
+      | Answering minister
       .row
         .col-md-6
           = link_to question.minister.name, minister_path(question.minister)
-        .col-md-6
-          = mail_to question.minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")
       - if question.policy_minister
         | Policy minister
         .row
           .col-md-6
             = link_to question.policy_minister.name, minister_path(question.policy_minister)
-          .col-md-6
-            - if question.policy_minister.email.blank?
-              | No contacts set
-            - else
-              = mail_to question.policy_minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")
       | Action officer(s)
       .row
         - if question.accepted_assignment.nil?

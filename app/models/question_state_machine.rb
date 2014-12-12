@@ -10,7 +10,7 @@ class QuestionStateMachine
     :with_policy_minister,
     :policy_minister_cleared,
     :with_answering_minister,
-    :cleared,
+    :answering_minister_cleared,
     :answered,
     :withdrawn,
     :transferred_out
@@ -48,13 +48,14 @@ class QuestionStateMachine
   transition :pod_cleared, :with_answering_minister, if: [:sent_to_answering_minister], required: [:no_policy_minister]
   transition :with_policy_minister, :policy_minister_cleared, if: [:cleared_by_policy_minister]
   transition :policy_minister_cleared, :with_answering_minister, if: [:sent_to_answering_minister], required: [:policy_minister]
-  transition :with_answering_minister, :cleared, if: [:cleared_by_answering_minister]
-  transition :cleared, :answered, if: [:answer_submitted]
-  transition :cleared, :withdrawn, if: [:pq_withdrawn]
+  transition :with_answering_minister, :answering_minister_cleared, if: [:cleared_by_answering_minister]
+  transition :answering_minister_cleared, :answered, if: [:answer_submitted]
+  transition :answering_minister_cleared, :withdrawn, if: [:pq_withdrawn]
 
-  [:with_finance, :uncommissioned, :with_officers, :rejected].each do |state|
+  [:uncommissioned, :with_officers, :rejected].each do |state|
     transition state, :transferred_out, if: [:transfer_out_ogd_id, :transfer_out_date], reverse: false
   end
+  transition :with_finance, :transferred_out, if: [:transfer_out_ogd_id, :transfer_out_date]
 
   def self.indexes_for(*states)
     states.flatten.map{|state| index_for(state) }
@@ -79,7 +80,7 @@ class QuestionStateMachine
       :with_policy_minister,
       :policy_minister_cleared,
       :with_answering_minister,
-      :cleared
+      :answering_minister_cleared
     ]
   end
 

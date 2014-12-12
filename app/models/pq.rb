@@ -128,10 +128,6 @@ class Pq < ActiveRecord::Base
     accepted_action_officer.nil? && action_officers.rejected.any?
   end
 
-  def open?
-    !closed?
-  end
-
   def transferred_in?
     transfer_in_date.present?
   end
@@ -144,6 +140,10 @@ class Pq < ActiveRecord::Base
     seen_by_finance
   end
 
+  def open?
+    !closed?
+  end
+
   def deleted?
     !seen_by_finance?
   end
@@ -154,6 +154,10 @@ class Pq < ActiveRecord::Base
 
   def overdue?
     open? && date_for_answer.try(:past?)
+  end
+
+  def past?(state)
+    self[:state] > QuestionStateMachine.index_for(state)
   end
 
   QuestionStateMachine::STATES.each do |test_state|

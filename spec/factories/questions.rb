@@ -66,17 +66,17 @@ FactoryGirl.define do
     after(:create) { |question| question.transition }
   end
 
-  factory :question_cleared, parent: :question_with_answering_minister do
+  factory :question_answering_minister_cleared, parent: :question_with_answering_minister do
     cleared_by_answering_minister { 1.hour.ago }
     after(:create) { |question| question.transition }
   end
 
-  factory :question_answered, parent: :question_cleared do
+  factory :question_answered, parent: :question_answering_minister_cleared do
     answer_submitted { 10.minutes.ago }
     after(:create) { |question| question.transition }
   end
 
-  factory :question_withdrawn, parent: :question_cleared do
+  factory :question_withdrawn, parent: :question_answering_minister_cleared do
     pq_withdrawn { 5.minutes.ago }
     after(:create) { |question| question.transition }
   end

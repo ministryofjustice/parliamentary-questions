@@ -16,7 +16,7 @@ p.pq-question
       = display_state_for(question)
 - if question.new_question?
   = render partial:'shared/rejected_reasons', locals: {question: question}
-- if question.with_officers?
+- if question.past?(:uncommissioned)
   = render partial: 'dashboard/question_data_commissioned', locals: { question: question }
 - else
   = render partial: 'dashboard/question_data_uncommissioned', locals: { question: question }

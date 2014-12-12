@@ -17,7 +17,7 @@ describe QuestionStateMachine do
         :with_policy_minister,
         :policy_minister_cleared,
         :with_answering_minister,
-        :cleared,
+        :answering_minister_cleared,
         :answered,
         :withdrawn,
         :transferred_out,
@@ -284,12 +284,12 @@ describe QuestionStateMachine do
 
       context 'when cleared_by_answering_minister' do
         let(:attributes) { {cleared_by_answering_minister: double} }
-        it { expects_transition_to :cleared }
+        it { expects_transition_to :answering_minister_cleared }
       end
     end
 
-    context 'when :cleared' do
-      before { model_state :cleared }
+    context 'when :answering_minister_cleared' do
+      before { model_state :answering_minister_cleared }
 
       context 'when not cleared_by_answering_minister' do
         let(:attributes) { {cleared_by_answering_minister: nil} }
@@ -312,7 +312,7 @@ describe QuestionStateMachine do
 
       context 'when answer not submitted' do
         let(:attributes) { {answer_submitted: nil} }
-        it { expects_transition_to :cleared }
+        it { expects_transition_to :answering_minister_cleared }
       end
 
       context 'when answer submitted' do
@@ -326,7 +326,7 @@ describe QuestionStateMachine do
 
       context 'when question not withdrawn' do
         let(:attributes) { {pq_withdrawn: nil} }
-        it { expects_transition_to :cleared }
+        it { expects_transition_to :answering_minister_cleared }
       end
 
       context 'when question withdrawn' do
@@ -335,7 +335,7 @@ describe QuestionStateMachine do
       end
     end
 
-    [:with_finance, :uncommissioned, :with_officers, :rejected].each do |state|
+    [:uncommissioned, :with_officers, :rejected].each do |state|
       context "when :#{state}" do
         before { model_state state }
 
@@ -349,6 +349,18 @@ describe QuestionStateMachine do
           expect(subject.class.reverse_transitions.find{|rt| rt == reverse_transition}).to be nil
         end
       end
+    end
+
+    context 'when :with_finance' do
+      before { model_state :with_finance }
+
+      let(:attributes) { {transfer_out_ogd_id: 1, transfer_out_date: double} }
+      it { expects_transition_to :transferred_out }
+    end
+
+    context "when :transferred_out" do
+      before { model_state :transferred_out }
+      it { expects_transition_to :with_finance }
     end
   end
 end
