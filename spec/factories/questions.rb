@@ -16,7 +16,7 @@ FactoryGirl.define do
     state { QuestionStateMachine::index_for(:uncommissioned) }
   end
 
-  factory :question_with_officers, parent: :question_uncommissioned do
+  factory :question_awaiting_response, parent: :question_uncommissioned do
     internal_deadline { Faker::Date.forward(5) }
     date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 3.days) }
     minister
@@ -26,14 +26,14 @@ FactoryGirl.define do
     end
   end
 
-  factory :question_rejected, parent: :question_with_officers do
+  factory :question_rejected, parent: :question_awaiting_response do
     after(:create) do |question|
       question.action_officers_pqs.first.reject('option', 'reason')
       question.transition
     end
   end
 
-  factory :question_draft_pending, parent: :question_with_officers do
+  factory :question_draft_pending, parent: :question_awaiting_response do
     after(:create) do |question|
       question.action_officers_pqs.first.accept
       question.transition
@@ -42,6 +42,11 @@ FactoryGirl.define do
 
   factory :question_with_pod, parent: :question_draft_pending do
     draft_answer_received { Faker::Date.between(3.days.ago, 2.days.ago) }
+    after(:create) { |question| question.transition }
+  end
+
+  factory :question_with_pod_official, parent: :question_with_pod do
+    pod_official_interest '1'
     after(:create) { |question| question.transition }
   end
 
@@ -81,7 +86,7 @@ FactoryGirl.define do
     after(:create) { |question| question.transition }
   end
 
-  factory :question_transferred_out, parent: :question_with_officers do
+  factory :question_transferred_out, parent: :question_awaiting_response do
     sequence(:transfer_out_ogd_id)
     transfer_out_date { 3.minutes.ago }
     after(:create) { |question| question.transition }

@@ -2,8 +2,8 @@
   h3 Filter
   ul.nav.nav-pills.nav-stacked
     - ([:view_all] + states).each do |state|
-      li id="filter-#{state.to_s.dasherize}" class=filter_active(state)
+      li class=filter_active(state)
         = link_to(action: :index, state: state, tab: tab) do
-          = state.to_s.humanize
+          = display_state(state)
           span class='badge'
             = Pq.in_state(state == :view_all ? states : state).count

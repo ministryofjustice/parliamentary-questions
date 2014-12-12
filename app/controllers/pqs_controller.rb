@@ -68,6 +68,7 @@ private
       :policy_minister_id,
       :policy_minister_returned_by_action_officer,
       :policy_minister_to_action_officer,
+      :pod_official_interest,
       :pq_correction_received,
       :pq_withdrawn,
       :press_interest,

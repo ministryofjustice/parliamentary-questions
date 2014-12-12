@@ -9,10 +9,11 @@ describe QuestionStateMachine do
       expect(QuestionStateMachine::STATES).to eq [
         :with_finance,
         :uncommissioned,
-        :with_officers,
+        :awaiting_response,
         :rejected,
         :draft_pending,
         :with_pod,
+        :with_pod_official,
         :pod_cleared,
         :with_policy_minister,
         :policy_minister_cleared,
@@ -20,14 +21,14 @@ describe QuestionStateMachine do
         :answering_minister_cleared,
         :answered,
         :withdrawn,
-        :transferred_out,
+        :transferred_out
       ]
     end
   end
 
   describe '.indexes_for' do
     it 'returns indexes for given states' do
-      expect(subject.class.indexes_for(:with_finance, :pod_cleared)).to eq [0, 6]
+      expect(subject.class.indexes_for(:with_finance, :pod_cleared)).to eq [0, 7]
     end
   end
 
@@ -81,12 +82,12 @@ describe QuestionStateMachine do
 
   describe '#available_transitions' do
     it 'returns "to" states for current state' do
-      subject.state = :with_officers
+      subject.state = :awaiting_response
       expect(subject.available_transitions).to eq([
-        QuestionStateMachine::Transition.new(:with_officers, :rejected),
-        QuestionStateMachine::Transition.new(:with_officers, :draft_pending),
-        QuestionStateMachine::Transition.new(:with_officers, :transferred_out),
-        QuestionStateMachine::Transition.new(:with_officers, :uncommissioned)
+        QuestionStateMachine::Transition.new(:awaiting_response, :rejected),
+        QuestionStateMachine::Transition.new(:awaiting_response, :draft_pending),
+        QuestionStateMachine::Transition.new(:awaiting_response, :transferred_out),
+        QuestionStateMachine::Transition.new(:awaiting_response, :uncommissioned)
       ])
     end
   end
@@ -171,12 +172,12 @@ describe QuestionStateMachine do
 
       context 'when action officers are assigned' do
         let(:attributes) { {action_officers_present: true} }
-        it { expects_transition_to :with_officers }
+        it { expects_transition_to :awaiting_response }
       end
     end
 
-    context 'when :with_officers' do
-      before { model_state :with_officers }
+    context 'when :awaiting_response' do
+      before { model_state :awaiting_response }
 
       context 'when no action officers are assigned' do
         let(:attributes) { {action_officers_present: false} }
@@ -199,7 +200,7 @@ describe QuestionStateMachine do
 
       context 'when no accepted action officer' do
         let(:attributes) { {accepted_action_officer: nil} }
-        it { expects_transition_to :with_officers }
+        it { expects_transition_to :awaiting_response }
       end
 
       context 'when draft answered received' do
@@ -216,8 +217,27 @@ describe QuestionStateMachine do
         it { expects_transition_to :draft_pending }
       end
 
-      context 'when pod cleared' do
+      context 'when POD official interest' do
+        let(:attributes) { {pod_official_interest: true} }
+        it { expects_transition_to :with_pod_official }
+      end
+
+      context 'when POD cleared' do
         let(:attributes) { {pod_clearance: double} }
+        it { expects_transition_to :pod_cleared }
+      end
+    end
+
+    context 'when :with_pod_official' do
+      before { model_state :with_pod_official }
+
+      context 'when no POD official interest' do
+        let(:attributes) { {pod_official_interest: false} }
+        it { expects_transition_to :with_pod }
+      end
+
+      context 'when POD cleared' do
+        let(:attributes) { {pod_clearance: double, pod_official_interest: true} }
         it { expects_transition_to :pod_cleared }
       end
     end
@@ -225,9 +245,14 @@ describe QuestionStateMachine do
     context 'when :pod_cleared' do
       before { model_state :pod_cleared }
 
-      context 'when no pod clearance' do
+      context 'when no POD clearance' do
         let(:attributes) { {pod_clearance: nil} }
         it { expects_transition_to :with_pod }
+      end
+
+      context 'when no POD clearance and POD official interest' do
+        let(:attributes) { {pod_clearance: nil, pod_official_interest: true} }
+        it { expects_transition_to :with_pod_official }
       end
 
       context 'when sent to answering minister and there is a policy minister' do
@@ -236,7 +261,7 @@ describe QuestionStateMachine do
       end
 
       context 'when sent to answering minister and no policy minister' do
-        let(:attributes) { {sent_to_answering_minister: double, no_policy_minister: true} }
+        let(:attributes) { {sent_to_answering_minister: double} }
         it { expects_transition_to :with_answering_minister }
       end
     end
@@ -278,7 +303,7 @@ describe QuestionStateMachine do
       end
 
       context 'when not sent_to_answering_minister and has no policy minister' do
-        let(:attributes) { {sent_to_answering_minister: nil, no_policy_minister: true} }
+        let(:attributes) { {sent_to_answering_minister: nil} }
         it { expects_transition_to :pod_cleared }
       end
 
@@ -335,7 +360,7 @@ describe QuestionStateMachine do
       end
     end
 
-    [:uncommissioned, :with_officers, :rejected].each do |state|
+    [:uncommissioned, :awaiting_response, :rejected].each do |state|
       context "when :#{state}" do
         before { model_state state }
 

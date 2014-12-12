@@ -2,10 +2,11 @@ class QuestionStateMachine
   STATES = [
     :with_finance,
     :uncommissioned,
-    :with_officers,
+    :awaiting_response,
     :rejected,
     :draft_pending,
     :with_pod,
+    :with_pod_official,
     :pod_cleared,
     :with_policy_minister,
     :policy_minister_cleared,
@@ -39,20 +40,22 @@ class QuestionStateMachine
   end
 
   transition :with_finance, :uncommissioned, if: [:seen_by_finance]
-  transition :uncommissioned, :with_officers, if: [:action_officers_present]
-  transition :with_officers, :rejected, if: [:all_action_officers_rejected]
-  transition :with_officers, :draft_pending, if: [:accepted_action_officer]
+  transition :uncommissioned, :awaiting_response, if: [:action_officers_present]
+  transition :awaiting_response, :rejected, if: [:all_action_officers_rejected]
+  transition :awaiting_response, :draft_pending, if: [:accepted_action_officer]
   transition :draft_pending, :with_pod, if: [:draft_answer_received]
   transition :with_pod, :pod_cleared, if: [:pod_clearance]
+  transition :with_pod, :with_pod_official, if: [:pod_official_interest]
+  transition :with_pod_official, :pod_cleared, if: [:pod_clearance], required: [:pod_official_interest]
   transition :pod_cleared, :with_policy_minister, if: [:sent_to_policy_minister], required: [:policy_minister]
-  transition :pod_cleared, :with_answering_minister, if: [:sent_to_answering_minister], required: [:no_policy_minister]
+  transition :pod_cleared, :with_answering_minister, if: [:sent_to_answering_minister]
   transition :with_policy_minister, :policy_minister_cleared, if: [:cleared_by_policy_minister]
   transition :policy_minister_cleared, :with_answering_minister, if: [:sent_to_answering_minister], required: [:policy_minister]
   transition :with_answering_minister, :answering_minister_cleared, if: [:cleared_by_answering_minister]
   transition :answering_minister_cleared, :answered, if: [:answer_submitted]
   transition :answering_minister_cleared, :withdrawn, if: [:pq_withdrawn]
 
-  [:uncommissioned, :with_officers, :rejected].each do |state|
+  [:uncommissioned, :awaiting_response, :rejected].each do |state|
     transition state, :transferred_out, if: [:transfer_out_ogd_id, :transfer_out_date], reverse: false
   end
   transition :with_finance, :transferred_out, if: [:transfer_out_ogd_id, :transfer_out_date]
@@ -70,12 +73,13 @@ class QuestionStateMachine
   end
 
   def self.new_questions
-    [:with_finance, :uncommissioned, :with_officers, :rejected]
+    [:with_finance, :uncommissioned, :awaiting_response, :rejected]
   end
 
   def self.in_progress
     [ :draft_pending,
       :with_pod,
+      :with_pod_official,
       :pod_cleared,
       :with_policy_minister,
       :policy_minister_cleared,

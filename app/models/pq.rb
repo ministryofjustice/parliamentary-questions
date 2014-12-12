@@ -17,7 +17,7 @@ class Pq < ActiveRecord::Base
   attr_accessor :seen_by_finance,
     :action_officers_present,
     :all_action_officers_rejected,
-    :no_policy_minister
+    :pod_official_interest
 
   has_one :trim_link, dependent: :destroy
   has_many :action_officers_pqs do
@@ -140,6 +140,14 @@ class Pq < ActiveRecord::Base
     seen_by_finance
   end
 
+  def pod_official_interest
+    {'0' => false, '1' => true, nil => with_pod_official?}[@pod_official_interest]
+  end
+
+  def pod_official_interest?
+    pod_official_interest
+  end
+
   def open?
     !closed?
   end
@@ -176,7 +184,6 @@ private
   def set_non_model_attributes_for_transitions
     self.action_officers_present = action_officers.any?
     self.all_action_officers_rejected = all_action_officers_rejected?
-    self.no_policy_minister = policy_minister.blank?
     true
   end
 

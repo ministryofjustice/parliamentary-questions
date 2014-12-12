@@ -34,7 +34,7 @@ class ReplaceStateFlagsWithState < ActiveRecord::Migration
     # Order is important
     progress_to_state :unassigned, :with_finance
     flag_to_state :seen_by_finance, :uncommissioned
-    progress_to_state :no_response, :with_officers
+    progress_to_state :no_response, :awaiting_response
     progress_to_state :rejected, :rejected
     progress_to_state :draft_pending, :draft_pending
     progress_to_state :with_pod, :with_pod
@@ -45,7 +45,7 @@ class ReplaceStateFlagsWithState < ActiveRecord::Migration
     progress_to_state :answered, :answered
     progress_to_state :transferred_out, :transferred_out
 
-    execute("UPDATE pqs SET state=#{state_index(:cleared)}
+    execute("UPDATE pqs SET state=#{state_index(:answering_minister_cleared)}
       WHERE (cleared_by_policy_minister IS NOT NULL OR policy_minister_id IS NULL)
       AND cleared_by_answering_minister IS NOT NULL")
 

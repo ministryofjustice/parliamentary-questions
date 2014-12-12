@@ -101,23 +101,6 @@ describe Pq do
         end
       end
     end
-
-    describe '#no_policy_minister' do
-      context 'when no policy minister' do
-        it 'returns true' do
-          subject.valid?
-          expect(subject.no_policy_minister).to be true
-        end
-      end
-
-      context 'when there is a policy minister' do
-        before { subject.policy_minister = build(:minister) }
-        it 'returns false' do
-          subject.valid?
-          expect(subject.no_policy_minister).to be false
-        end
-      end
-    end
   end
 
   describe '#reassign' do
@@ -192,10 +175,10 @@ describe Pq do
   end
 
   describe '.allocated_since' do
-    let!(:oldest_question) { create(:question_with_officers, uin: '1000', age: 2.days.ago)}
-    let!(:newest_question) { create(:question_with_officers, uin: '20001', age: 3.hours.ago)}
-    let!(:older_question) { create(:question_with_officers, uin: 'HL01', age: 5.hours.ago)}
-    let!(:new_question) { create(:question_with_officers, uin: '15000', age: 4.hours.ago)}
+    let!(:oldest_question) { create(:question_awaiting_response, uin: '1000', age: 2.days.ago)}
+    let!(:newest_question) { create(:question_awaiting_response, uin: '20001', age: 3.hours.ago)}
+    let!(:older_question) { create(:question_awaiting_response, uin: 'HL01', age: 5.hours.ago)}
+    let!(:new_question) { create(:question_awaiting_response, uin: '15000', age: 4.hours.ago)}
 
     let(:results) { Pq.allocated_since(Date.yesterday) }
 
@@ -270,6 +253,33 @@ describe Pq do
   describe '#seen_by_finance?' do
     before { subject.seen_by_finance = '1' }
     it { is_expected.to be_seen_by_finance }
+  end
+
+  describe '#pod_official_interest' do
+    it 'returns false when "0" from user input' do
+      subject.pod_official_interest = '0'
+      expect(subject.pod_official_interest).to be false
+    end
+
+    it 'returns true when "1" from user input' do
+      subject.seen_by_finance = '1'
+      expect(subject.pod_official_interest).to be true
+    end
+
+    it 'returns false when not with POD official' do
+      subject.state_machine.state = :pod_cleared
+      expect(subject.pod_official_interest).to be false
+    end
+
+    it 'returns true when with POD official' do
+      subject.state_machine.state = :with_pod_official
+      expect(subject.pod_official_interest).to be true
+    end
+  end
+
+  describe '#pod_official_interest?' do
+    before { subject.pod_official_interest = '1' }
+    it { is_expected.to be_pod_official_interest }
   end
 
   describe '#closed?' do

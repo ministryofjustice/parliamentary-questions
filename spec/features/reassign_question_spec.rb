@@ -14,7 +14,7 @@ feature 'Reassign question' do
   end
 
   scenario 'reassignment not shown when past no response' do
-    question = create(:question_with_officers)
+    question = create(:question_awaiting_response)
     sign_in
     visit "/pqs/#{question.uin}"
     expect(page).not_to have_content('Reassign action officer')

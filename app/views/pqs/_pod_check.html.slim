@@ -1,6 +1,9 @@
 h4 Date sent to POD
 p.text= (@pq.draft_answer_received || 'n/a').to_s
 .form-group
+  label.form-label for="pod_official_interest"  With POD Official
+  = f.check_box_gds :pod_official_interest
+.form-group
   label.form-label for="pod_clearance"  Date cleared by POD
   span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
     input#pod_clearance.form-control name="pq[pod_clearance]" type="text" value=(@pq.pod_clearance.to_s) /
