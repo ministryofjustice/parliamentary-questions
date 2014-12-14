@@ -8,7 +8,7 @@ feature 'Finance Check' do
     click_link 'Finance check'
     check 'Seen by finance'
     click_button 'Save'
-    expect(page).to have_content 'uncommissioned'
+    expect(page).to have_content 'Uncommissioned'
   end
 
   scenario "unchecking seen by finance to reverse back to with finance" do
@@ -18,6 +18,7 @@ feature 'Finance Check' do
     click_link 'Finance check'
     uncheck 'Seen by finance'
     click_button 'Save'
-    expect(page).to have_content 'with finance'
+    expect(page).to have_content 'With finance'
   end
 end
+

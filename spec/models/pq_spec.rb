@@ -262,7 +262,7 @@ describe Pq do
     end
 
     it 'returns true when "1" from user input' do
-      subject.seen_by_finance = '1'
+      subject.pod_official_interest = '1'
       expect(subject.pod_official_interest).to be true
     end
 
@@ -344,3 +344,4 @@ describe Pq do
     end
   end
 end
+

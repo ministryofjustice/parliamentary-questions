@@ -23,5 +23,3 @@ production:
   database: <%= ENV['DB_NAME'] || 'parliamentary-questions' %>
   pool: 15
 
-cucumber:
-  <<: *test

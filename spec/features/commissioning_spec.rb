@@ -15,6 +15,7 @@ feature 'Commissioning' do
     click_button 'Commission'
     visit '/dashboard'
 
-    expect(page).to have_content 'awaiting response'
+    expect(page).to have_content 'Awaiting response'
   end
 end
+
