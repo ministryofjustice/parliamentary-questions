@@ -1,4 +1,9 @@
 #!/bin/bash
+
+for i in /rails/log/unicorn.log /rails/log/production.log /rails/log/logstash_production.json;
+  do touch $i
+done
+
 cat <<EOT
 
   input {
