@@ -14,6 +14,9 @@ WORKDIR /rails
 # Publish port 80
 EXPOSE 80
 
+ADD logstash.service /etc/service/logstash/run
+RUN chmod +x /etc/service/logstash/run
+
 ADD docker/rails/logstash-conf.sh /etc/logstash-conf.sh
 
 # ...put your own build instructions here...
