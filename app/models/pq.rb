@@ -113,6 +113,10 @@ class Pq < ActiveRecord::Base
     !closed?
   end
 
+  def is_unallocated?
+    action_officers_pqs.count == 0
+  end
+
   def is_in_progress?(pro)
     progress_id == pro.id
   end

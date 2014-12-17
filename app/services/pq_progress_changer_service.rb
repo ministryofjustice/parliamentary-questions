@@ -3,6 +3,7 @@ class PQProgressChangerService
     @new_progress = pq.progress
     @progress_onwards = true
 
+    unassigned_filter(pq)
     commissioned_filter(pq) if @progress_onwards
     rejected_filter(pq) if @progress_onwards
     draft_pending_filter(pq) if @progress_onwards
@@ -16,6 +17,12 @@ class PQProgressChangerService
     transferred_out(pq)
 
     update_pq(pq, @new_progress)
+  end
+  def unassigned_filter(pq)
+    if pq.is_unallocated?
+      @new_progress = Progress.unassigned
+      @progress_onwards = false
+    end
   end
 
   def commissioned_filter(pq)
