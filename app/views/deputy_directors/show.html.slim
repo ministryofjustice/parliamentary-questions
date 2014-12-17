@@ -10,6 +10,5 @@ h2 Deputy director details
   = @deputy_director.division.name
   h4 Status
   = render partial: 'shared/status', object: @deputy_director
-  - else
   = link_to 'Edit', edit_deputy_director_path(@deputy_director), {class: 'admin-link'}
   = link_to 'Return to deputy director list', deputy_directors_path, {class: 'admin-link'}
