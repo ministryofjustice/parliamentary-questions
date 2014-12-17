@@ -14,3 +14,8 @@ log
 public/assets
 set_env.sh
 tmp
+/bin
+/Dockerfile
+/MANIFEST
+/docker/app_env_vars/
+
