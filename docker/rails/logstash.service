@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Enable Logstash if address was passed
+if [ -z "$LOGSTASH_SERVER" ]; then
+  echo "No logstash server defined - disabling" > /var/log/logstash-forwarder
+  sv down logstash
+  exit 1
+fi
+
+# Setup Logstash config file
+if [ ! -f "/etc/logstash-conf.sh" ]; then
+  echo "No logstash-forwarder config - disabling" > /var/log/logstash-forwarder
+  sv down logstash
+  exit 1
+fi
+
+
+# Run Config script
+bash /etc/logstash-conf.sh > /etc/logstash/conf.d/forward.conf
+
+
+# Logstash start based on original /etc/init.d/logstash
+LS_USER=logstash
+LS_GROUP=logstash
+LS_HOME=/var/lib/logstash
+LS_HEAP_SIZE="500m"
+LS_JAVA_OPTS="-Djava.io.tmpdir=${LS_HOME}"
+LS_LOG_DIR=/var/log/logstash
+LS_LOG_FILE="${LS_LOG_DIR}/logstash.log"
+LS_CONF_DIR=/etc/logstash/conf.d
+LS_OPEN_FILES=16384
+LS_NICE=19
+LS_OPTS=""
+
+program=/opt/logstash/bin/logstash
+args="agent -f ${LS_CONF_DIR} -l ${LS_LOG_FILE} ${LS_OPTS}"
+
+
+JAVA_OPTS=${LS_JAVA_OPTS}
+HOME=${LS_HOME}
+export PATH HOME JAVA_OPTS LS_HEAP_SIZE LS_JAVA_OPTS LS_USE_GC_LOGGING
+
+# set ulimit as (root, presumably) first, before we drop privileges
+ulimit -n ${LS_OPEN_FILES}
+
+# Run the program!
+nice -n ${LS_NICE} chroot --userspec $LS_USER:$LS_GROUP / sh -c "
+  cd $LS_HOME
+  ulimit -n ${LS_OPEN_FILES}
+  exec \"$program\" $args
+" > "${LS_LOG_DIR}/logstash.stdout" 2> "${LS_LOG_DIR}/logstash.err"
+
