@@ -33,6 +33,14 @@ cat <<EOT
       add_field => [ "env",       "$ENV" ]
       add_field => [ "format",    "json" ]
     }
+    file {
+      path  => "/rails/log/schedule.log"
+      type => "rails"
+      add_field => [ "project",   "$PROJECT" ]
+      add_field => [ "appserver", "rails" ]
+      add_field => [ "version",   "$APPVERSION" ]
+      add_field => [ "env",       "$ENV" ]
+    }
   }
   output {
     redis { host => "$LOGSTASH_SERVER" data_type => "list" key => "logstash" }
