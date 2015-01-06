@@ -48,7 +48,8 @@ i.fa-envelope,
 .flag-minister-cleared,
 .flag-pod-cleared,
 .alert,
-button.close { color: #000; }
+button.close,
+.dropdown-menu li a:hover { color: #000; }
 
 #search_button { color: #999; }
 .glyphicon-search { color: #979797; }
@@ -96,7 +97,8 @@ h2 .badge,
 
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus { background-color: #ffbf47; }
+.nav-pills > li.active > a:focus,
+.dropdown-menu li a:hover { background-color: #ffbf47; }
 
 .name-day { background-color: #9b9b9b; }
 .alert-ie6 { background-color: #e9f9f8; }
@@ -106,6 +108,7 @@ h2 .badge,
 .questions-list li, .form-control { border-color: #bfc1c3; }
 .progress-menu-form { border-color: #c2c2c2; }
 .block-label { border-color: #dee0e2; }
+
 .form-control:focus { border-color: #ffbf47; }
 
 #settings-home h3 { border-bottom-color: #dee0e2; }
@@ -300,7 +303,11 @@ button, input[type="submit"] {
 
 .inline { display: inline-block; }
 
-.form-control { font-size: 19px; }
+.form-control {
+  font-size: 19px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 
 .no-indent { margin-left: -2.1em; }
 
