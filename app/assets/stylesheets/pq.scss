@@ -98,7 +98,9 @@ h2 .badge,
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus,
-.dropdown-menu li a:hover { background-color: #ffbf47; }
+.dropdown-menu li a:hover {
+  background-color: #ffbf47;
+}
 
 .name-day { background-color: #9b9b9b; }
 .alert-ie6 { background-color: #e9f9f8; }
@@ -489,11 +491,8 @@ li.select2-search-field {border-bottom: none;}
   margin-bottom: 1em;
   li {
     margin: .8em 0;
-    &:first-child{
-      margin-top: 0;
-    }
-    &:last-child{
-      margin-bottom: 0;
+    details {
+      margin-left: 1.2em;
     }
   }
 }

@@ -24,10 +24,9 @@ div
               li
                 - if !ao_pq.action_officer.nil?
                   - if ao_pq.accepted?
-                    span.no-indent
-                      = ao_pq.action_officer.name
-                      = " (#{ao_pq.action_officer.deputy_director.division.name}) "
-                      span.label.flag-accepted Accepted
+                    = ao_pq.action_officer.name
+                    = " (#{ao_pq.action_officer.deputy_director.division.name}) "
+                    span.label.flag-accepted Accepted
                   - elsif ao_pq.rejected?
                     details.details-reveal
                       summary aria-controls="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
@@ -39,8 +38,7 @@ div
                         p.strong= ao_pq.reason_option
                         p= ao_pq.reason
                   - else
-                    span.no-indent
-                      = ao_pq.action_officer.name
-                      = " (#{ao_pq.action_officer.deputy_director.division.name}) "
-                      span.label.flag-no-response No response
-hr/
+                    = ao_pq.action_officer.name
+                    = " (#{ao_pq.action_officer.deputy_director.division.name}) "
+                    span.label.flag-no-response No response
+  hr/
