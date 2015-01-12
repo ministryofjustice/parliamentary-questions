@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'paper_trail/frameworks/rspec'
 
 describe AssignmentService do
   let(:minister) {build(:minister)}
@@ -30,7 +31,8 @@ describe AssignmentService do
       subject.accept(assignment)
     end
 
-    it 'should create an audit event storing the action officer name' do
+    with_versioning do
+      it 'should create an audit event storing the action officer name' do
       PaperTrail.enabled = true
 
       result = commissioning_service.commission(assignment)
@@ -43,6 +45,7 @@ describe AssignmentService do
       expect(assignment.versions.size).to eql(2) # Create and update
       update = assignment.versions.last
       expect(update.whodunnit).to eql('AO:ao name 1')
+      end
     end
 
     it 'should sent an email with the accept data' do

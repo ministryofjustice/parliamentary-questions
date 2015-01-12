@@ -126,7 +126,7 @@ protected
       number_of_pqs_date_for_answer_relative_updates +=1
     end
 
-    LogStuff.info "Import process, updated #{number_of_pqs_date_for_answer_relative_updates} questions with date_for_answer_relatives"
+    LogStuff.info {"Import process, updated #{number_of_pqs_date_for_answer_relative_updates} questions with date_for_answer_relatives"}
     number_of_pqs_date_for_answer_relative_updates
   end
 end

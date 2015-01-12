@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'paper_trail/frameworks/rspec'
 
 describe 'ImportService' do
   before(:each) do
@@ -118,16 +119,18 @@ describe 'ImportService' do
       expect(question_new.question).to eq 'New question in the api'
     end
 
-    it 'should store audit events by name when importing' do
-      PaperTrail.enabled = true
-      PaperTrail.whodunnit = 'TestRunner'
-      import_result = @import_service.questions()
-      expect(import_result[:questions].size).to eq(2)
+    with_versioning do
+      it 'should store audit events by name when importing' do
+        PaperTrail.enabled = true
+        PaperTrail.whodunnit = 'TestRunner'
+        import_result = @import_service.questions()
+        expect(import_result[:questions].size).to eq(2)
 
-      question_one = Pq.find_by(uin: 'HL784845')
-      update = question_one.versions.last
-      expect(question_one.versions.size).to eq 2 # Create and update
-      expect(update.whodunnit).to eq 'TestRunner'
+        question_one = Pq.find_by(uin: 'HL784845')
+        update = question_one.versions.last
+        expect(question_one.versions.size).to eq 2 # Create and update
+        expect(update.whodunnit).to eq 'TestRunner'
+      end
     end
 
     it 'should return error hash when sent malformed XML from api' do
