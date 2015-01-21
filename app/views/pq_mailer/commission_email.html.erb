@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <div style="font-family: arial, sans-serif; font-size: 12pt;"><%= @template_params[:ao_name] %>,</div>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;">You have been allocated PQ <strong><%= @template_params[:uin] %></strong></p>
-
-    <div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
-      <%= @template_params[:question] %>
-    </div>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;">Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
-    <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+    <head>
+        <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    </head>
+    <body>
         <div style="font-family: arial, sans-serif; font-size: 12pt;">
-          You need to <%= link_to "accept or reject this question", controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> <strong>before 2pm today</strong>.
+            <%= @template_params[:ao_name] %>,
         </div>
-    </div>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;">If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.</p>
-    <p style="font-family: arial, sans-serif; font-size: 12pt;">If you have any queries please <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a></p>
-
-    <%= render 'shared/mailer/email_signature' %>
-
-  </body>
+        <p style="font-family: arial, sans-serif; font-size: 12pt;">
+            You have been allocated PQ <strong><%= @template_params[:uin] %></strong>
+        </p>
+        <div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+            <%= @template_params[:question] %>
+        </div>
+        <p style="font-family: arial, sans-serif; font-size: 12pt;">
+          Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
+        </p>
+        <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
+            <div style="font-family: arial, sans-serif; font-size: 12pt;">
+                You need to <%= link_to "accept or reject this question", controller: "assignment", action: "index", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> <strong>before 2pm today</strong>.
+            </div>
+        </div>
+        <p style="font-family: arial, sans-serif; font-size: 12pt;">
+            If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.
+        </p>
+        <p style="font-family: arial, sans-serif; font-size: 12pt;">
+            If you have any queries please <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>
+        </p>
+        <p style="font-family: arial, sans-serif; font-size: 12pt;">
+            If you have any technical issues, please <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ support</a>
+        </p>
+        <p style="font-family: arial, sans-serif; font-size: 12pt;">
+            This is a new service and your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.
+        </p>
+        <%= render 'shared/mailer/email_signature' %>
+    </body>
 </html>
