@@ -7,7 +7,6 @@
         .col-md-6
           = link_to question.minister.name, minister_path(question.minister)
         .col-md-6
-          = mail_to question.minister.email, raw("<i class='glyphicon glyphicon-envelope'></i> Email")
       - if question.policy_minister
         | Policy minister
         .row
