@@ -1,5 +1,5 @@
 .pq-header.row
-  h3= question.uin
+  h3= link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
   .pq-header-flags
     - if question.question_type == 'NamedDay'
       span.label.name-day title=("Named day")  N
@@ -7,7 +7,6 @@
       span.label.flag-transferred-in title="Transferred"  T
     - if question.i_will_write
       span.label.flag-will-write title=("I will write")  IWW
-  = link_to('PQ details', { controller: 'pqs', action: 'show', id: question.uin}, class: 'pq-header-links right' )
 p.pq-question
   = question.question
 .row
