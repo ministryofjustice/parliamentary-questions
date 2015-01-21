@@ -1,4 +1,7 @@
 - if user_signed_in?
+  .phase-banner
+    p.phase-tag = config_item(:phase).upcase
+    span This is a new service. Your <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a> will help us to improve it.
   nav.navbar.navbar-default role="navigation"
     .container-fluid
       .navbar-header

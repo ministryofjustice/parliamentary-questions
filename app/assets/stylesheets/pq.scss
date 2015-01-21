@@ -19,6 +19,7 @@ body {
 // = Colour definitions ====================================================================
 
 #build,
+.phase-banner .phase-tag,
 i.fa-envelope,
 .name-day,
 .open,
@@ -41,85 +42,63 @@ i.fa-envelope,
 .trim-links-header:hover,
 .trim-links-cancel:hover { color: #fff; }
 
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li > a,
-.file-choose-replace,
-.flag-minister-cleared,
-.flag-pod-cleared,
-.alert,
-button.close,
-.dropdown-menu li a:hover { color: #000; }
-
-#search_button { color: #999; }
-.glyphicon-search { color: #979797; }
-
-i.fa-exclamation-triangle,
-i.fa-times-circle { color: #df3034; }
-
-i.fa-check-circle { color: #00823b; }
-#status-filters .active .badge { color: #6f7781; }
-#qa-link a { color: #4a8acd; }
-hr { color: #bfc1c3; }
-h4 { color: #6f777b; }
-
-#build { background-color: #f47738; }
-
+.phase-banner p, .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
+#search_button                                                                                                                                                                                      { color: #999999; }
+.glyphicon-search                                                                                                                                                                                   { color: #979797; }
+i.fa-exclamation-triangle, i.fa-times-circle                                                                                                                                                        { color: #df3034; }
+i.fa-check-circle                                                                                                                                                                                   { color: #00823b; }
+#status-filters .active .badge                                                                                                                                                                      { color: #6f7781; }
+#qa-link a                                                                                                                                                                                          { color: #4a8acd; }
+hr                                                                                                                                                                                                  { color: #bfc1c3; }
+h4                                                                                                                                                                                                  { color: #6f777b; }
+#build,
+.phase-banner .phase-tag,
+.flag-no-response,
+.flag-unallocated { background-color: #f47738; }
 #search_button,
 #status-filters .active .badge,
 .js-enabled .selected,
 #progress-menu ul li a.progress-menu-item:hover,
-.js-enabled .selected, .alert { background-color: #fff; }
-
-.block-label { background: #dee0e2; }
+.js-enabled .selected,
+.alert { background-color: #fff; }
+.block-label,
+.navbar { background-color: #dee0e2; }
 .flag-accepted { background-color: #28a197; }
 .flag-answered { background-color: #006435; }
 .flag-draft-pending { background-color: #85994b; }
 .flag-finance-unchecked { background-color: #b10e1e; }
 .flag-minister-cleared { background-color: #c1a87e; }
 .flag-ministerial-query { background-color: #b58840; }
-.flag-no-response { background-color: #f47738; }
 .flag-pod-cleared { background-color: #a1a8ff; }
 .flag-pod-query { background-color: #5461ff; }
 .flag-rejected { background-color: #d0021b; }
 .flag-transferred-in { background-color: #7d7d7d; }
 .flag-transferred-out { background-color: #d53880; }
-.flag-unallocated { background-color: #f47738; }
 .flag-unassigned { background-color: #bd10e0; }
 .flag-will-write { background-color: #5f5f5f; }
 .flag-with-minister { background-color: #82622e; }
 .flag-with-pod { background-color: #2e358b; }
-
-h2 .badge,
-#status-filters .badge { background-color: #000; }
-
-.navbar { background-color: #dee0e2; }
-
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus,
-.dropdown-menu li a:hover {
-  background-color: #ffbf47;
-}
-
+.dropdown-menu li a:hover { background-color: #ffbf47; }
 .name-day { background-color: #9b9b9b; }
 .alert-ie6 { background-color: #e9f9f8; }
+h2 .badge,
+#status-filters .badge { background-color: #000; }
 
-#progress-menu ul li a.progress-menu-item { border-color: #000; }
+#progress-menu ul li a.progress-menu-item { border-color: #000000; }
 .block-label:hover, .js-enabled .selected { border-color: #0b0c0c; }
-.questions-list li, .form-control { border-color: #bfc1c3; }
-.progress-menu-form { border-color: #c2c2c2; }
-.block-label { border-color: #dee0e2; }
+.questions-list li, .form-control         { border-color: #bfc1c3; }
+.progress-menu-form                       { border-color: #c2c2c2; }
+.block-label                              { border-color: #dee0e2; }
+.form-control:focus                       { border-color: #ffbf47; }
 
-.form-control:focus { border-color: #ffbf47; }
+#settings-home h3        { border-bottom-color: #dee0e2; }
+.phase-banner            { border-bottom:1px solid #bfc1c3; }
 
-#settings-home h3 { border-bottom-color: #dee0e2; }
-
-.alert-success,
-.success { border-left-color: #85994b; }
-
-.notice,
-.info-notice { border-left-color: #d0021b; }
+.alert-success, .success { border-left-color: #85994b; }
+.notice, .info-notice    { border-left-color: #d0021b; }
 
 .js-enabled .add-focus { outline-color: #ffbf47; }
 .js-enabled .add-focus { outline: 3px solid #ffbf47; }
@@ -141,6 +120,31 @@ h2 .badge,
   width: 241px;
   height: 48px;
 }
+
+.phase-banner {
+  padding:10px 16px 8px 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.phase-banner .phase-tag {
+  display:-moz-inline-stack;
+  display:inline-block;
+  vertical-align:top;
+  margin:0 8px 0 0;
+  padding:2px 5px 0;
+  font-size:16px;
+  line-height:1.25;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  text-decoration:none;
+  // background-color:#f47738;
+}
+
+.phase-banner p {margin:0;font-size:16px;line-height:1.25;font-weight:400;text-transform:none;}
+.phase-banner span {display:-moz-inline-stack;display:inline-block;width:75%;vertical-align:top;}
+
 
 .content a {
   line-height: 32px;
@@ -239,7 +243,7 @@ ul {
 .flag-with-minister,
 .flag-with-pod,
 .name-day,
- {
+{
   border-radius: 6px;
   font-weight: normal;
   font-size: 14px;
@@ -407,7 +411,7 @@ textarea {
 // = Navigation =================================================================
 
 .navbar {
-  margin: 0px -15px 20px -15px;
+  // margin: 0px -15px 20px -15px;
   border-radius: 0px;
   #settings { margin-right: 65px; }
   .navbar-right { margin-right: 74px; }
