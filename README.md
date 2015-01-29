@@ -7,7 +7,6 @@ parliamentary-questions
 # Introduction
 Webapp to manage the workflow Parliamentary Questions
 
-
 # Environment Variables
 
 In order to run the project local and in production you have to set the following environment variables
@@ -39,7 +38,40 @@ ASSET_HOST=http://assets.example.com
 APPVERSION=0.1-sprint6
 ```
 
+# System dependencies
 
+- Ruby MRI 2.1.2
+- Postgresql 9.3
+
+To start with, make sure you have the right version of the Ruby runtime installed.
+Multiple versions of Ruby can be managed on the same machine through either [rbenv](https://github.com/sstephenson/rbenv)
+or [rvm](https://rvm.io/).
+
+The Postgresql version used in production is 9.3. This can be installed via [homebrew](brew.sh):
+
+    brew install homebrew/versions/postgresql93
+
+# Project setup
+
+Install the app dependencies by running the following
+
+    gem install bundler && bundle install
+
+You can now procede setting up the database table layout
+
+    bundle exec rake db:setup
+
+And starting the app with:
+
+    bundle exec rails s
+
+Finally, mock data can be automatically imported by just pointing your browser to
+this URL:
+
+    http://localhost:3000/import/questions_force_update?dateFrom=2014-05-01&dateTo=2015-01-12
+
+Refer to the [Mock PQ API](https://github.com/ministryofjustice/mock-pq-api) Readme
+file for further details on the mock dataset.
 
 # User authentication
 
@@ -64,4 +96,3 @@ The import_transform task takes two parameters:
 # the file should be tilde(~) delimited, not tab
 rake db:import_transform['/users/yourname/path/to/filename.txt', false] --trace
 ```
-
