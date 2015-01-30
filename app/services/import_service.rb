@@ -38,13 +38,6 @@ class ImportService
     {questions: questions_processed, errors: errors}
   end
 
-  def process_result(result, q_p, err)
-    if result[:error].empty?
-      q_p.push(result[:question])
-    else
-      err.push({ message: result[:error], question: result[:question] })
-    end
-  end
 
   def questions_by_uin(uin)
     questions_processed = Array.new
@@ -57,6 +50,14 @@ class ImportService
   end
 
 protected
+
+  def process_result(result, q_p, err)
+    if result[:error].empty?
+      q_p.push(result[:question])
+    else
+      err.push({ message: result[:error], question: result[:question] })
+    end
+  end
 
   def import_one_question(q, &block)
     pq = Pq.find_or_initialize_by(uin: q['Uin'])
@@ -101,15 +102,6 @@ protected
     pq.transferred || false
   end
 
-  def get_date_for_answer(pq, incoming_date)
-    date_for_answer = pq.date_for_answer
-
-    if date_for_answer.nil?
-      date_for_answer = incoming_date
-    end
-
-    date_for_answer
-  end
 
   def update_date_for_answer_relatives
     number_of_pqs_date_for_answer_relative_updates = 0

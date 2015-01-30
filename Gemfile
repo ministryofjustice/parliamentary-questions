@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'binding_of_caller'
 gem 'bootstrap-will_paginate'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 gem 'builder'
@@ -33,12 +32,8 @@ gem 'will_paginate'
 gem "select2-rails"
 
 group :development do
+  gem 'sinatra'
   gem 'annotate', '~> 2.6.3'
-  gem 'better_errors'
-  gem 'hirb'
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-commands-cucumber'
 end
 
 group :test do
@@ -47,7 +42,6 @@ group :test do
 end
 
 group :test, :development do
-  gem 'byebug'
   gem 'capybara'
   gem 'capybara-email'
   gem 'database_cleaner'
@@ -59,6 +53,4 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'site_prism'
-  gem 'wirb'
-  gem 'wirble'
 end

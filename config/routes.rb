@@ -71,13 +71,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'members/by_name' => 'members#by_name'
 
-  get 'import/question' => 'import#question'
-  get 'import/questions' => 'import#questions'
-  get 'import/questions_force_update' => 'import#questions_force_update'
-  get 'import/questions_no_log' => 'import#questions_no_log'
-  get 'import/questions_no_log' => 'import#questions_no_log'
-  get 'import/questions_async' => 'import#questions_async'
-
   get 'import/logs' => 'import#logs'
 
   get 'finance/questions' => 'finance#questions'
@@ -101,10 +94,13 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
   match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
 
+  unless Rails.env.production?
+    match 'mock' => PQA::MockApiServer, anchor: false, via: [:get, :put]
+  end
+
   if Rails.env.production?
     get '401', :to => 'application#unauthorized'
     get '404', :to => 'application#page_not_found'
     get '500', :to => 'application#server_error'
   end
-
 end
