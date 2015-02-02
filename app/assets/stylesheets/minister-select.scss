@@ -1,36 +1,28 @@
 @import 'colours';
-
+// Colours for the site, as per:
+// http://alphagov.github.com/design/gov.uk.colours/
 input.minister-select-input {
-  width: 248px;
+    width: 248px;
 }
-
 .autocomplete-suggestions {
-  border: 1px solid $grey-2;
-  background: $white;
-  overflow: auto;
+    border: 1px solid $grey-2;
+    background: $white;
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
 }
-
-.autocomplete-suggestion {
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
 .autocomplete-selected {
-  background: $yellow;
-  color: $white;
+    background: $yellow;
+    color: $white;
 }
-
 .autocomplete-suggestions strong {
-  font-weight: normal;
-  text-decoration: underline;
+    font-weight: normal;
+    text-decoration: underline;
 }
-
 .autocomplete-group {
-  padding: 2px 5px;
-}
-
-.autocomplete-group strong {
-  display: block;
-  border-bottom: 1px solid $black;
+    padding: 2px 5px;
+    strong {
+        display: block;
+        border-bottom: 1px solid $black;
+    }
 }
