@@ -4,13 +4,13 @@
 
   $.fn.ministerSelect = function (options) {
     var settings = $.extend({
-        inputClass: 'minister-select-input'
+      inputClass: 'minister-select-input'
     }, options);
 
     return this.each(function () {
       var $select = $(this),
-          $input = $('<input type="text" value="" class="' + settings['inputClass'] + '" />'),
-          lookup = [];
+        $input = $('<input type="text" value="" class="' + settings['inputClass'] + '" />'),
+        lookup = [];
 
       // compile the list of auto suggestions from the select and pre-fill the input field
       $select.find('option').each(function () {
@@ -49,8 +49,8 @@
       });
 
       if ( $select && $select.attr('disabled') ) { $input.attr('disabled', true); }
-      $select.hide();
-      $select.before($input);
+        $select.hide();
+        $select.before($input);
     });
   }
 }(jQuery));
