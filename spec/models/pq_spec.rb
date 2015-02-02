@@ -159,15 +159,6 @@ describe Pq do
 			end
 		end
 
-		context 'when reassigning to the same action officer' do
-		  it 'ignores change' do
-				subject.reassign new_action_officer
-
-				expect(subject).not_to receive(:update)
-				subject.reassign new_action_officer
-		  end
-		end
-
 		context 'when nil' do
 		  it 'ignores change' do
 				expect(subject).not_to receive(:action_officers_pqs)
