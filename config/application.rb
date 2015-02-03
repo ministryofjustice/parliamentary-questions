@@ -26,7 +26,7 @@ module ParliamentaryQuestions
 # Feedback URL (URL for feedback link in phase banner)
     config.feedback_url = '#'
 # Google Analytics ID (Tracking ID for the service)
-    config.ga_id = ''
+    config.ga_id = 'UA-37377084-14'
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/scrapers)
