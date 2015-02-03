@@ -95,7 +95,7 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
 
   unless Rails.env.production?
-    match 'mock' => PQA::MockApiServer, anchor: false, via: [:get, :put]
+    match 'mock' => PQA::MockApiServer, anchor: false, via: [:get, :put, :delete]
   end
 
   if Rails.env.production?

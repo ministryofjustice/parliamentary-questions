@@ -23,7 +23,7 @@ module PQA
       xml    = request.body.read
       doc    = Nokogiri::XML(xml)
       errors = @schema.validate(doc)
-      q      = QuestionParser.new(xml).question
+      q      = XMLDecoder.decode_question(xml)
 
       unless errors.empty?
         status 400
