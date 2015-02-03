@@ -2,19 +2,13 @@ module PQA
   module QuestionBuilder
     module_function
 
-    #def updated(uin, updated, status = nil)
-    #  q = default(uin, status)
-    #  q.updated_date    = updated
-    #  q.date_for_answer = updated + 1.day
-    #  q.tabled_date     = updated
-    #  q
-    #end
-
-    #def date_for_answer(uin, d, status = nil)
-    #  q = default(uin, status)
-    #  q.date_for_answer = d
-    #  q
-    #end
+    def updated(uin, updated)
+      q = default(uin)
+      q.updated_date    = updated
+      q.date_for_answer = updated + 1.day
+      q.tabled_date     = updated
+      q
+    end
 
     def default(uin)
       q                           = Question.new
