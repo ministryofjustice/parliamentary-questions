@@ -4,7 +4,7 @@ module PQA
                   :answering_body_id, :answering_body_name, :answering_body_short_name,
                   :house_id, :house_name, :member_id, :member_name, :member_constituency,
                   :question_status, :question_type, :registered_interest,
-                  :session, :target, :text, :session_number, :uri, :version_number,
+                  :session, :target, :text, :session_number, :url, :version_number,
                   :parliament_number
 
     def self.from_xml(el)
@@ -32,7 +32,7 @@ module PQA
       q.session                   = xml.text(el,'Session')
       q.target                    = xml.text(el,'Target')
       q.text                      = xml.text(el,'Text')
-      q.uri                       = xml.text(el,'Url')
+      q.url                       = xml.text(el,'Url')
 
       q.version_number            = xml.int(el,'VersionNumber')
       q.parliament_number         = xml.int(el,'ParliamentNumber')
