@@ -117,6 +117,13 @@ h2 .badge,
   float:none;
   width: 241px;
   height: 48px;
+
+  // both govuk_template and moj_template add a hover underline.
+  // Until moj_template's border bottom is fixed
+  // (https://github.com/ministryofjustice/moj_template/pull/55) we need to cancel it.
+  #proposition-name:hover {
+    border-bottom: none;
+  }
 }
 
 .phase-banner {
