@@ -1,6 +1,6 @@
 class PQAService
   def self.from_settings
-    new(APIClient.from_settings)
+    new(PQA::ApiClient.from_settings)
   end
 
   def initialize(client)
@@ -19,7 +19,7 @@ class PQAService
     answer.minister_id       = member_id
     answer.text              = text
     answer.is_holding_answer = is_holding_answer
-    response                 = @client.save_answer(uin, XMLEncoder.encode_answer(answer))
+    response                 = @client.save_answer(uin, PQA::XMLEncoder.encode_answer(answer))
 
     PQA::XMLDecoder.decode_answer_response(response.body)
   end

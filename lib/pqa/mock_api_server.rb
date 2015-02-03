@@ -3,11 +3,14 @@ require 'date'
 
 module PQA
   class MockApiServer < Sinatra::Base
-    def initialize(path = nil)
-      schema_path = path || File.expand_path('schema.xsd', __dir__)
-      @schema     = Nokogiri::XML::Schema(File.read(schema_path))
-      @questions  = {}
-      super(nil)
+    PID_FILEPATH     = '/tmp/mock_api_server'
+    RACK_CONFIG_PATH = File.expand_path('../../mock-api-config.ru', __dir__)
+    SCHEMA_PATH      = File.expand_path('schema.xsd', __dir__)
+    SCHEMA           = Nokogiri::XML::Schema(File.read(SCHEMA_PATH))
+    QUESTIONS        = {}
+
+    configure do
+      set :lock, true
     end
 
     get '/' do
@@ -15,14 +18,14 @@ module PQA
     end
 
     put '/reset' do
-      @questions = {}
+      QUESTIONS = {}
       "ok"
     end
 
     put '/api/qais/questions/:uin' do
       xml    = request.body.read
       doc    = Nokogiri::XML(xml)
-      errors = @schema.validate(doc)
+      errors = SCHEMA.validate(doc)
       q      = XMLDecoder.decode_question(xml)
 
       unless errors.empty?
@@ -33,7 +36,7 @@ module PQA
         ).join("\n")
         body msg
       else
-        @questions[q.uin] = q
+        QUESTIONS[q.uin] = q
         body "Uin: #{q.uin}, tabled date: #{q.tabled_date}, status: #{q.question_status} => OK"
       end
     end
@@ -46,7 +49,7 @@ module PQA
 
     delete '/api/qais/questions/:uin' do
       uin = params[:uin]
-      @questions.delete(uin)
+      QUESTIONS.delete(uin)
       "ok"
     end
 
@@ -55,7 +58,7 @@ module PQA
       date_from    = DateTime.parse(params[:dateFrom] || DateTime.commercial(1000).to_s)
       date_to      = DateTime.parse(params[:dateTo]   || DateTime.commercial(3000).to_s)
       match_status = proc { |q| !status || q.question_status == status }
-      questions    = @questions.select do |uin, q|
+      questions    = QUESTIONS.select do |uin, q|
         q.tabled_date >= date_from && q.tabled_date <= date_to && match_status.call(q)
       end.values
 

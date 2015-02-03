@@ -19,6 +19,9 @@ Capybara.current_driver = :rack_test
 WebMock.disable_net_connect!(allow: ["codeclimate.com", "localhost"])
 
 RSpec.configure do |config|
+  mock_api_runner = PQA::MockApiServerRunner.default
+
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -57,7 +60,11 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
     DatabaseCleaner.strategy = :transaction
 
+    mock_api_runner.start
     progress_seed
   end
 
+  config.after(:suite) do
+    mock_api_runner.stop
+  end
 end

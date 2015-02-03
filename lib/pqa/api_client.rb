@@ -13,14 +13,14 @@ module PQA
     end
 
     def questions(date_from, date_to, status)
-      uri       = File.join(@base_url, 'api/qais/questions')
+      uri       = URI.parse(File.join(@base_url, 'api/qais/questions'))
       params    = {
         'dateFrom' => date_from.xmlschema,
         'dateTo'   => date_to && date_to.xmlschema,
         'status'   => status
       }
       uri.query = URI.encode_www_form(params)
-      issue_request(:get, uri)
+      issue_request(:get, uri.to_s)
     end
 
     def save_question(uin, xml)
