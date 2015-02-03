@@ -12,6 +12,10 @@
          .content-inner
             = yield
 
+- content_for :footer_support_links do
+   li
+     = link_to "Contact us", "mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker"
+
 = render template: "layouts/moj_template"
 
 
