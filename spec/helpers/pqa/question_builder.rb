@@ -10,6 +10,12 @@ module PQA
       q
     end
 
+    def date_for_answer(uin, d, status = nil)
+      q = default(uin, status)
+      q.date_for_answer = d
+      q
+    end
+
     def default(uin, status = nil)
       q                           = Question.new
       q.uin                       = uin

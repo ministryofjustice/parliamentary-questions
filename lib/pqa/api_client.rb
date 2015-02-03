@@ -1,5 +1,11 @@
 module PQA
   class ApiClient
+    def self.from_settings
+      new(Settings.pq_rest_api.url,
+          Settings.pq_rest_api.username,
+          Settings.pq_rest_api.password)
+    end
+
     def initialize(base_url, username, password)
       @base_url = base_url
       @username = username
@@ -28,25 +34,26 @@ module PQA
     end
 
     def reset_mock_data!
-      uri = File.join(@base_url, 'reset', uin)
+      uri = File.join(@base_url, 'reset')
       issue_request(:put, uri)
     end
 
     protected
 
-    def issue_request(method, uri, body = nil)
+    def issue_request(method, uri_s, body = nil)
+      uri = URI.parse(uri_s)
       req = case method
             when :put
-              Net::HTTP::Put.new(uri)
-            else
-              r = Net::HTTP::Get.new(uri)
+              r = Net::HTTP::Put.new(uri)
               r.body = body
               r
+            else
+              Net::HTTP::Get.new(uri)
             end
 
       req.basic_auth(@username, @password) if @username && @password
 
-      res = Net::HTTP.start(uri.hostname, uri.port) { |http| 
+      res = Net::HTTP.start(uri.hostname, uri.port) { |http|
         http.read_timeout = Settings.http_client_timeout
         http.request(req)
       }

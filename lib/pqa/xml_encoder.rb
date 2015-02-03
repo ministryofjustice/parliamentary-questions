@@ -1,7 +1,6 @@
 module PQA
   module XMLEncoder
     XML_NS    = {
-      'xlmns:xsd' => 'http://www.w3.org/2001/XMLSchema',
       'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
       'xmlns'     => 'http://data.parliament.uk/QnA/2013/02'
     }
@@ -49,9 +48,9 @@ module PQA
               x.QuestionStatus q.question_status
               x.QuestionType q.question_type
               x.RegisteredInterest q.registered_interest
-              x.session q.session
-              x.TabledDate q.tabled_date.xmlschema
-              x.DateForAnswer q.date_for_answer.xmlschema
+              x.Session q.session
+              x.TabledDate q.tabled_date.to_date.iso8601
+              x.DateForAnswer q.date_for_answer.to_date.iso8601
               x.Target q.target
               x.Text q.text
               x.VersionNumber q.version_number
