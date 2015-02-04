@@ -1,6 +1,7 @@
-var PQ = PQ || {};
+(function(){
+'use strict';
 
-PQ.trimFileUpload = function() {
+var trimFileUpload = function() {
 	$('.trim-links-form').each(function(i, area){
 		var container = $(area),
 			message_container = container.find('.tr5-message'),
@@ -50,7 +51,7 @@ PQ.trimFileUpload = function() {
 
 		choose_button.on('click', function () {
 			file_field.click();
-		})
+		});
 
 		form
 			.on('ajax:error', function(e, response) {
@@ -75,15 +76,13 @@ PQ.trimFileUpload = function() {
 					actions
 						.hide()
 						.after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-				} else {
-
 				}
 				message_container.show();
-            });
+      });
 
     });
 };
-PQ.toggleSiblingContent = function(){
+var toggleSiblingContent = function(){
 	$('details').each(function(i, el){
 		var root = $(el),
 			summary = root.find('span.link'),
@@ -96,7 +95,7 @@ PQ.toggleSiblingContent = function(){
 	});
 };
 
-PQ.setCommissionButtonStatus = function(form) {
+var setCommissionButtonStatus = function(form) {
     var enable = true;
     var button = form.find('.commission-button');
 
@@ -112,7 +111,23 @@ PQ.setCommissionButtonStatus = function(form) {
     } else {
       button.attr('disabled', 'disabled');
     }
-}
+};
+
+var incrementBadge = function(id_of_navpill) {
+  changeBadgeBy(id_of_navpill,1);
+};
+var decrementBadge = function(id_of_navpill) {
+  changeBadgeBy(id_of_navpill,-1);
+};
+var changeBadgeBy = function(id_of_navpill, val) {
+  var $badge = $(id_of_navpill).children('a').children('span');
+  var curval = parseInt($badge.text(),10);
+  var nextval = curval+val;
+  if (nextval < 0) {
+    nextval = 0;
+  }
+  $badge.text(nextval);
+};
 
 $(document).ready(function () {
 
@@ -131,20 +146,20 @@ $(document).ready(function () {
 	});
 
   $('.form-commission').each(function() {
-    PQ.setCommissionButtonStatus($(this));
+   setCommissionButtonStatus($(this));
   });
 
 	$(".form-commission")
-		.on("ajax:success", function(data){
+		.on("ajax:success", function(){
       var pqid = $(this).data('pqid');
       var uin = $('#pq-frame-'+pqid+ ' h3').text();
       $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
-      incrementBadge('#db-filter-alloc-pend');
+     incrementBadge('#db-filter-alloc-pend');
       decrementBadge('#db-filter-unalloc');
 		}).on("ajax:error", function(e, xhr) {
 			console.log(xhr.responseText);
 		}).on('change', function(e) {
-      PQ.setCommissionButtonStatus($(e.currentTarget));
+     setCommissionButtonStatus($(e.currentTarget));
     });
 
     $('#search_member').bind('ajax:before', function() {
@@ -169,7 +184,7 @@ $(document).ready(function () {
       $( divToFill ).html(data);
     });
 
-    $('.date-for-answer-picker').datetimepicker({pickTime: false})
+    $('.date-for-answer-picker').datetimepicker({pickTime: false});
 
     $('.internal-deadline-picker').each(function() {
       var empty = ($(this).find('input').val() === '');
@@ -196,10 +211,10 @@ $(document).ready(function () {
     });
 
 	if($('.trim_area').length){
-		PQ.trimFileUpload();
+		trimFileUpload();
 	}
 	if($('details').length){
-		PQ.toggleSiblingContent();
+		toggleSiblingContent();
 	}
 
 	$('.comm-header').on('click', function () {
@@ -254,19 +269,7 @@ $(document).ready(function () {
   $('#'+target).show();
 
 });
+}());
 
-function incrementBadge(id_of_navpill) {
-  changeBadgeBy(id_of_navpill,1);
-}
-function decrementBadge(id_of_navpill) {
-  changeBadgeBy(id_of_navpill,-1);
-}
-function changeBadgeBy(id_of_navpill, val) {
-  var $badge = $(id_of_navpill).children('a').children('span');
-  var curval = parseInt($badge.text(),10);
-  var nextval = curval+val;
-  if (nextval < 0) {
-    nextval = 0;
-  }
-  $badge.text(nextval);
-}
+
+
