@@ -19,7 +19,7 @@ Capybara.current_driver = :rack_test
 WebMock.disable_net_connect!(allow: ["codeclimate.com", "localhost"])
 
 RSpec.configure do |config|
-  mock_api_runner = PQA::MockApiServerRunner.default
+  mock_api_runner = PQA::MockApiServerRunner.new
 
 
   # ## Mock Framework
