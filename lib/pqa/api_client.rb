@@ -45,7 +45,7 @@ module PQA
 
     def issue_request(method, uri_s, body = nil)
       uri  = URI.parse(uri_s)
-      req  = build_request(method, uri)
+      req  = build_request(method, uri, body)
       http = handle_https(uri, Net::HTTP.new(uri.hostname, uri.port))
       res  = http.request(req)
 
@@ -80,7 +80,7 @@ module PQA
       http
     end
 
-    def build_request(method, uri)
+    def build_request(method, uri, body)
       req = case method
             when :put
               r = Net::HTTP::Put.new(uri)
