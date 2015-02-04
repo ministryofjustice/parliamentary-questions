@@ -8,15 +8,6 @@ module PQA
     CWD                = File.expand_path('../../', __dir__)
     HEARTBEAT_ENDPOINT = '/'
 
-    def self.default
-      new(PID_FILEPATH, RACK_CONFIG_PATH)
-    end
-
-    def initialize(pid_path, rack_config_path)
-      @pid_path = pid_path
-      @rack_config_path = rack_config_path
-    end
-
     def start
       cmd = "bundle exec rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
 
