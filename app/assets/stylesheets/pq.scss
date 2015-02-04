@@ -1,4 +1,7 @@
 @import "colours";
+@import "design-patterns/alpha-beta";
+
+$phase: beta;
 
 // = Reset =================================================================================
 
@@ -19,7 +22,6 @@ body {
 // = Colour definitions ====================================================================
 
 #build,
-.phase-banner .phase-tag,
 i.fa-envelope,
 .name-day,
 .open,
@@ -42,7 +44,7 @@ i.fa-envelope,
 .trim-links-header:hover,
 .trim-links-cancel:hover { color: #fff; }
 
-.phase-banner p, .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
 #search_button                                                                                                                                                                                      { color: #999999; }
 .glyphicon-search                                                                                                                                                                                   { color: #979797; }
 i.fa-exclamation-triangle, i.fa-times-circle                                                                                                                                                        { color: #df3034; }
@@ -52,15 +54,16 @@ i.fa-check-circle                                                               
 hr                                                                                                                                                                                                  { color: #bfc1c3; }
 h4                                                                                                                                                                                                  { color: #6f777b; }
 #build,
-.phase-banner .phase-tag,
 .flag-no-response,
 .flag-unallocated { background-color: #f47738; }
+
 #search_button,
 #status-filters .active .badge,
 .js-enabled .selected,
 #progress-menu ul li a.progress-menu-item:hover,
 .js-enabled .selected,
 .alert { background-color: #fff; }
+
 .block-label,
 .navbar { background-color: #dee0e2; }
 .flag-accepted { background-color: #28a197; }
@@ -95,7 +98,6 @@ h2 .badge,
 .form-control:focus                       { border-color: #ffbf47; }
 
 #settings-home h3        { border-bottom-color: #dee0e2; }
-.phase-banner            { border-bottom:1px solid #bfc1c3; }
 
 .alert-success, .success { border-left-color: #85994b; }
 .notice, .info-notice    { border-left-color: #d0021b; }
@@ -126,29 +128,18 @@ h2 .badge,
   }
 }
 
+// - Phase banner (alpha/beta/live) -----------------------------------
+
 .phase-banner {
-  padding:10px 16px 8px 16px;
-  margin-left: auto;
-  margin-right: auto;
+  @include phase-banner($phase);
+  border-bottom:1px solid #bfc1c3;
 }
 
-.phase-banner .phase-tag {
-  display:-moz-inline-stack;
-  display:inline-block;
-  vertical-align:top;
-  margin:0 8px 0 0;
-  padding:2px 5px 0;
-  font-size:16px;
-  line-height:1.25;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  text-decoration:none;
-  // background-color:#f47738;
+.phase-tag {
+  @include phase-tag($phase);
 }
 
-.phase-banner p {margin:0;font-size:16px;line-height:1.25;font-weight:400;text-transform:none;}
-.phase-banner span {display:-moz-inline-stack;display:inline-block;width:75%;vertical-align:top;}
+// --------------------------------------------------------------------
 
 
 .content a {
