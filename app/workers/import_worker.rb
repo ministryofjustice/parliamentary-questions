@@ -11,19 +11,18 @@
 #     $ export REDIS_URL=redis://my_redis_server:6379
 #
 class ImportWorker
-
   def initialize
-    @import_service = ImportServiceWithDatabaseLock.new
+    @import = PQA::Import.new
   end
 
   def perform
     LogStuff.tag(:import) do
       LogStuff.info { "Import: starting scheduled import" }
       PaperTrail.whodunnit = 'SideKiq'
-      @import_service.questions(dateFrom: Date.yesterday)
+      yesterday = Date.today - 1.day
+      tomorrow  = Date.today + 1.day
+      @import.run(yesterday, tomorrow)
       LogStuff.info { "Import: completed scheduled import" }
     end
-
   end
-
 end
