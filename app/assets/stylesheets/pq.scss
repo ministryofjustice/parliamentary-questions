@@ -105,60 +105,38 @@ h2 .badge,
 .js-enabled .add-focus { outline-color: #ffbf47; }
 .js-enabled .add-focus { outline: 3px solid #ffbf47; }
 
-// = Template and shared ========================================================
 
-.header-wrapper,
+
+// =============================================================================
+// = Modification to govuk_template & moj_template =============================
+
 #wrapper {
-  max-width: 1024px;
+  max-width: 1024px; // width and alignment are unspecified in govuk_template
   margin-left: auto;
   margin-right: auto;
+  border-bottom: none; // remove blue bar at bottom added by moj_template
+  padding: 0px 32px; // align to width of content
 }
 
-#global-header.with-proposition .header-wrapper .header-proposition {
-  display: inline-block;
-  float:none;
-  width: 241px;
-  height: 48px;
-
-  // both govuk_template and moj_template add a hover underline.
-  // Until moj_template's border bottom is fixed
-  // (https://github.com/ministryofjustice/moj_template/pull/55) we need to cancel it.
-  #proposition-name:hover {
-    border-bottom: none;
-  }
+/*
+  both govuk_template and moj_template add a hover underline.
+  Until moj_template's border bottom is fixed
+  (https://github.com/ministryofjustice/moj_template/pull/55) we need to cancel it.
+*/
+#global-header.with-proposition .header-wrapper .header-proposition #proposition-name:hover {
+  border-bottom: none;
 }
-
-// - Phase banner (alpha/beta/live) -----------------------------------
 
 .phase-banner {
   @include phase-banner($phase);
-  border-bottom:1px solid #bfc1c3;
 }
 
 .phase-tag {
   @include phase-tag($phase);
 }
 
-// --------------------------------------------------------------------
-
-
-.content a {
-  line-height: 32px;
-  vertical-align: middle;
-}
-
-#build {
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  padding: 2px 5px;
-}
-
-#wrapper {
-  border-bottom: none;
-  padding: 0px 15px;
-}
+// =============================================================================
+// = PQ-specific styling =======================================================
 
 h1 {
   font-size: 24px;
@@ -690,7 +668,6 @@ li.select2-search-field {border-bottom: none;}
 
 // = Footer ============================================================
 
-#footer { margin-top: 100px; }
 
 /* ============================================================ */
 /* = Misc.                                                      */
