@@ -1,4 +1,7 @@
-toggleCancelLink = function showCancelLink () {
+(function() {
+
+'use strict';
+var toggleCancelLink = function() {
   var cancel = $('#progress-menu-trim-data .cancel'),
       field = $('#pq_trim_link_attributes_file');
 
@@ -9,7 +12,7 @@ toggleCancelLink = function showCancelLink () {
   }
 };
 
-cancelFileSelection = function cancelFileSelection (e) {
+var cancelFileSelection = function(e) {
   e.preventDefault();
   $('#pq_trim_link_attributes_file').replaceWith('<input id="pq_trim_link_attributes_file" name="pq[pq_trim_link_attributes][file]" type="file">');
   toggleCancelLink();
@@ -17,3 +20,5 @@ cancelFileSelection = function cancelFileSelection (e) {
 
 $('#pq_trim_link_attributes_file').on('change', toggleCancelLink);
 $('#progress-menu-trim-data .cancel').on('click', cancelFileSelection);
+
+}());

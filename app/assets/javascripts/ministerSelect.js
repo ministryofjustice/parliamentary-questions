@@ -1,6 +1,7 @@
 //= require jquery.autocomplete
-
+var jQuery;
 (function ($) {
+  'use strict';
 
   $.fn.ministerSelect = function (options) {
     var settings = $.extend({
@@ -9,7 +10,7 @@
 
     return this.each(function () {
       var $select = $(this),
-        $input = $('<input type="text" value="" class="' + settings['inputClass'] + '" />'),
+        $input = $('<input type="text" value="" class="' + settings.inputClass + '" />'),
         lookup = [];
 
       // compile the list of auto suggestions from the select and pre-fill the input field
@@ -34,10 +35,10 @@
       $input.on('change', function () {
         var textToCompare = $(this).val().toLowerCase(),
         matching_options = $.grep(lookup, function(suggestion) {
-          return suggestion.toLowerCase().indexOf(textToCompare) !== -1
+          return suggestion.toLowerCase().indexOf(textToCompare) !== -1;
         });
 
-        if (matching_options.length == 1) {
+        if (matching_options.length === 1) {
           var $option = $select.find('option:contains("' + matching_options[0] + '")').first();
 
           $select.val($option.val());
@@ -52,5 +53,5 @@
         $select.hide();
         $select.before($input);
     });
-  }
+  };
 }(jQuery));
