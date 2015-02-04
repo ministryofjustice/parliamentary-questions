@@ -3,15 +3,12 @@ module PQA
     def initialize(pqa_service = nil)
       @pqa_service  = pqa_service || PQAService.from_settings
       @logger       = LogStuff
-
-      # import reporting
-      @total        = 0
-      @created      = 0
-      @updated      = 0
-      @errors       = {}
+      init_state!
     end
 
     def run(date_from, date_to)
+      init_state!
+
       ActiveRecord::Base.transaction do
         questions = @pqa_service.questions(date_from, date_to)
         @total    = questions.size
@@ -25,6 +22,13 @@ module PQA
     end
 
     private
+
+    def init_state!
+      @total   = 0
+      @created = 0
+      @updated = 0
+      @errors  = {}
+    end
 
     def report
       {

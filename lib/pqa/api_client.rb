@@ -1,5 +1,8 @@
+require 'net/https'
 module PQA
   class ApiClient
+    PEM_FILE_PATH = File.expand_path('resources/certs/wqa.parliament.uk.pem', __dir__)
+
     def self.from_settings
       new(Settings.pq_rest_api.url,
           Settings.pq_rest_api.username,
@@ -41,22 +44,10 @@ module PQA
     protected
 
     def issue_request(method, uri_s, body = nil)
-      uri = URI.parse(uri_s)
-      req = case method
-            when :put
-              r = Net::HTTP::Put.new(uri)
-              r.body = body
-              r
-            else
-              Net::HTTP::Get.new(uri)
-            end
-
-      req.basic_auth(@username, @password) if @username && @password
-
-      res = Net::HTTP.start(uri.hostname, uri.port) { |http|
-        http.read_timeout = Settings.http_client_timeout
-        http.request(req)
-      }
+      uri  = URI.parse(uri_s)
+      req  = build_request(method, uri)
+      http = handle_https(uri, Net::HTTP.new(uri.hostname, uri.port))
+      res  = http.request(req)
 
       case res.code
       when /^2/
@@ -72,6 +63,35 @@ module PQA
     rescue Errno::ECONNREFUSED => err
       LogStuff.error "PQ rest API refused HTTP connection"
       raise err
+    end
+
+    def handle_https(uri, http)
+      if uri.scheme == 'https'
+        http.use_ssl     = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        cert_dir = ENV['CA_CERT']
+
+        if cert_dir && File.directory?(cert_dir)
+          http.ca_path(cert_dir)
+        else
+          http.ca_file = PEM_FILE_PATH
+        end
+      end
+      http
+    end
+
+    def build_request(method, uri)
+      req = case method
+            when :put
+              r = Net::HTTP::Put.new(uri)
+              r.body = body
+              r
+            else
+              Net::HTTP::Get.new(uri)
+            end
+
+      req.basic_auth(@username, @password) if @username && @password
+      req
     end
   end
 end
