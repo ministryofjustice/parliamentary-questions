@@ -1,27 +1,19 @@
 class AnsweringService
-  def initialize(questionsService = QuestionsService.new)
-    @questionsService = questionsService
+  def initialize
+    @pqa_service = PQAService.from_settings
   end
 
   def answer(pq, args)
-    uin = pq.uin
-    if pq.minister.nil?
-      raise 'Replying minister is not selected for the question'
-    end
-    if pq.minister.member_id.nil?
-      raise 'Replying minister has not member id, please update the member id of the minister'
+    unless pq.minister && pq.minister.member_id
+      raise 'Replying minister is not selected for the question, or does not have a member id'
     end
 
-    member_id = pq.minister.member_id
-    text = args[:text]
+    uin               = pq.uin
+    member_id         = pq.minister.member_id
+    text              = args[:text]
     is_holding_answer = args[:is_holding_answer] || false
+    answer_response   = @pqa_service.answer(uin, member_id, text, is_holding_answer)
 
-    result = @questionsService.answer(uin: uin, member_id: member_id, text: text, is_holding_answer: is_holding_answer)
-    if !result[:error].nil?
-      raise result[:error]
-    end
-    preview_url = result[:preview_url]
-
-    pq.update(preview_url: preview_url)
+    pq.update(preview_url: answer_response.preview_url)
   end
 end
