@@ -3,9 +3,7 @@ require 'date'
 
 module PQA
   class MockApiServer < Sinatra::Base
-    PID_FILEPATH     = '/tmp/mock_api_server'
-    RACK_CONFIG_PATH = File.expand_path('../../mock-api-config.ru', __dir__)
-    SCHEMA_PATH      = File.expand_path('schema.xsd', __dir__)
+    SCHEMA_PATH      = File.expand_path('resources/schema.xsd', __dir__)
     SCHEMA           = Nokogiri::XML::Schema(File.read(SCHEMA_PATH))
     QUESTIONS        = {}
 
