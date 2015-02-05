@@ -1,12 +1,20 @@
 module Features
   module SessionHelpers
-    def sign_in(user = nil, password = nil)
-      password ||= password || 'password123'
-      user ||= create(:user, password: password)
+    
+    def create_pq_session
+      UserBuilder.create_pq
+      sign_in(UserBuilder::EMAILS.fetch(:pq), UserBuilder::PASS)
+    end
 
+    def create_finance_session
+      UserBuilder.create_finance
+      sign_in(UserBuilder::EMAILS.fetch(:finance), UserBuilder::PASS)
+    end
+
+    def sign_in(email, password)
       visit '/users/sign_in'
-      fill_in 'Email', with: user.email
-      fill_in 'user_password', with: password
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
       click_button 'Sign in'
     end
   end

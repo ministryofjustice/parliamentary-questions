@@ -84,6 +84,9 @@ It's done using devise and devise invitable:
 
 For development you can create users with a rake task.
 ```
-# email, password, name
+# default user
+rake user:create 
+
+# specific email, password, name
 rake "user:create[admin@admin.com, 123456789, admin]"
 ```
