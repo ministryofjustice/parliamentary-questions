@@ -9,11 +9,13 @@ Webapp to manage the workflow Parliamentary Questions
 
 # Environment Variables
 
-In order to run the project local and in production you have to set the following environment variables
-
 ```
 # username and pass for the PQ Rest Api
 PQ_REST_API_URL=<url_for_pq_api>
+
+While developing or running automated tests, you can use the built-in mock API server by
+setting this value to: http://localhost:8888
+
 PQ_REST_API_USERNAME=<username_here>
 PQ_REST_API_PASSWORD=<password_here>
 
@@ -28,8 +30,11 @@ SMTP_PORT=<port>
 SMTP_USERNAME=
 SMTP_PASSWORD=
 
+# for production only
+CA_CERT=/etc/ssl/certs/
+
 # redis server, for sideqik jobs
-export REDIS_URL=redis://localhost:6379
+REDIS_URL=redis://localhost:6379
 
 # host to deploy the assets (following the assets pipeline)
 ASSET_HOST=http://assets.example.com
@@ -65,13 +70,9 @@ And starting the app with:
 
     bundle exec rails s
 
-Finally, mock data can be automatically imported by just pointing your browser to
-this URL:
+Finally, mock data can be automatically imported by running the following rake task:
 
-    http://localhost:3000/import/questions_force_update?dateFrom=2014-05-01&dateTo=2015-01-12
-
-Refer to the [Mock PQ API](https://github.com/ministryofjustice/mock-pq-api) Readme
-file for further details on the mock dataset.
+    bundle exec rake db:import_dummy_data
 
 # User authentication
 
@@ -84,15 +85,4 @@ For development you can create users with a rake task.
 ```
 # email, password, name
 rake "user:create[admin@admin.com, 123456789, admin]"
-```
-
-# Data migration
-
-The import_transform task takes two parameters:
-* the path to the file you want to import
-* optional boolean parameter to show the full script of the sql commands being run [default is true]
-```
-# path to local import text file.
-# the file should be tilde(~) delimited, not tab
-rake db:import_transform['/users/yourname/path/to/filename.txt', false] --trace
 ```
