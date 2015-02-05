@@ -31,7 +31,6 @@ gem 'will_paginate'
 gem "select2-rails"
 
 group :development do
-  gem 'sinatra'
   gem 'annotate', '~> 2.6.3'
 end
 
@@ -41,6 +40,7 @@ group :test do
 end
 
 group :test, :development do
+  gem 'sinatra'
   gem 'capybara'
   gem 'capybara-email'
   gem 'database_cleaner'
