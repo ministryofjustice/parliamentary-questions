@@ -1,0 +1,193 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:qna="http://data.parliament.uk/QnA/2013/02" 
+           targetNamespace="http://data.parliament.uk/QnA/2013/02"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="MemberUserName" type="xs:string" />
+  <xs:element name="Question" type="qna:Question" />
+  <xs:element name="AnswerResponse" type="qna:AnswerResponse"/>
+  <xs:element name="Questions">  
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Question" type="qna:Question" maxOccurs="unbounded" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Answer" type="qna:Answer" />
+  <xs:complexType name="Question">
+    <xs:all>
+      <xs:element name="Uin" type="xs:string" />
+      <xs:element name="AnsweringBody" type="qna:AnsweringBody" />
+      <xs:element name="Text" type="xs:string" />
+      <xs:element name="VersionNumber" minOccurs="0" maxOccurs="1" type="xs:int" />
+      <xs:element name="PreviousVersions" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PreviousVersion" type="qna:QuestionVersion" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="UpdatedDate" minOccurs="0" maxOccurs="1" type="xs:dateTime" />
+      <xs:element name="House" type="qna:HouseElement" />
+      <xs:element name="TablingMember" type="qna:Member" />
+      <xs:element name="QuestionStatus" type="qna:QuestionStatus" />
+      <xs:element name="QuestionType" type="qna:QuestionType" />
+      <xs:element name="RegisteredInterest" type="xs:boolean" />
+      <xs:element name="Session" type="xs:string" />
+      <xs:element name="TabledDate" type="xs:date" />
+      <xs:element name="DateForAnswer" type="xs:date" />
+      <xs:element name="Target" type="xs:string" />
+      <xs:element name="ParliamentNumber" type="xs:int" minOccurs="0" />
+      <xs:element name="SessionNumber" type="xs:int" minOccurs="0" />
+      <xs:element name="Heading" type="xs:string" minOccurs="0" />
+      <xs:element name="Topic" type="qna:Topics" minOccurs="0" />
+      <xs:element name="IsOralNotReached" type="xs:boolean" minOccurs="0" />
+      <xs:element name="Url" type="xs:anyURI" minOccurs="0" />
+      <xs:element name="AnswerDueDate" type="xs:date" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="QuestionVersion">
+    <xs:all>
+      <xs:element name="VersionNumber" type="xs:int" />
+      <xs:element name="UpdatedDate" type="xs:dateTime" />
+      <xs:element name="Text" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="Member">
+    <xs:all>
+      <xs:element name="MemberId" minOccurs="1" maxOccurs="1" type="xs:positiveInteger" />
+      <xs:element name="MemberName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Constituency" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="QuestionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ordinary" />
+      <xs:enumeration value="Daily" />
+      <xs:enumeration value="NamedDay" />
+    </xs:restriction>
+
+  </xs:simpleType>
+
+  <xs:simpleType name="QuestionStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Tabled" />
+      <xs:enumeration value="Withdrawn" />
+      <xs:enumeration value="WithdrawnWithoutNotice" />
+      <xs:enumeration value="AnswerNotExpected" />
+      <xs:enumeration value="Incomplete" />
+      <xs:enumeration value="PendingCorrectionReview" />
+      <xs:enumeration value="PendingAnswerReview" />
+      <xs:enumeration value="ReturnedVirus" />
+      <xs:enumeration value="ReturnedCorrection" />
+      <xs:enumeration value="ReturnedAnswer" />
+      <xs:enumeration value="Answered" />
+      <xs:enumeration value="Holding" />
+      <xs:enumeration value="ScanningForVirus" />
+    </xs:restriction>
+
+  </xs:simpleType>
+
+  <xs:complexType name="AnsweringBody">
+    <xs:all>
+      <xs:element name="AnsweringBodyId" type="xs:positiveInteger" minOccurs="1" maxOccurs="1" />
+      <xs:element name="AnsweringBodyName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="AnsweringBodyShortName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="AnsweringBodySortName" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="House">
+    <xs:restriction base="xs:unsignedByte">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="HouseElement">
+    <xs:all>
+      <xs:element name="HouseId" type="qna:House" />
+      <xs:element name="HouseName" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="Answer">
+    <xs:all>
+      <xs:element name="MinisterId" minOccurs="0" maxOccurs="1" type="xs:positiveInteger" />
+      <xs:element name="IsHoldingAnswer" type="xs:boolean" minOccurs="1" />
+      <xs:element name="Text" type="qna:NonEmptyString"  minOccurs="0"/>
+      <xs:element name="OtherQuestionsInGroup" type="qna:OtherQuestionsInGroup" minOccurs="0"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="Attachments" type="qna:Attachments"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="QuestionVersionNumber" type="xs:integer"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="OtherQuestionsInGroup">
+    <xs:sequence>
+      <xs:element name="QuestionInGroup" type="qna:QuestionInGroup" maxOccurs="unbounded" />      
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Attachments">
+    <xs:sequence>
+      <xs:element maxOccurs="3" name="Attachment" type="qna:Attachment"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Attachment">
+    <xs:all>
+      <xs:element name="Title">
+        <xs:simpleType>
+          <xs:restriction base="qna:NonEmptyString">
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="FileName" type="qna:NonEmptyString" />
+      <xs:element name="Contents" >
+        <xs:simpleType>
+          <xs:restriction base="xs:base64Binary">
+            <xs:maxLength value="4194304"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="QuestionInGroup">
+    <xs:all>
+      <xs:element name="Uin" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="NonEmptyString">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Topics">
+    <xs:sequence>
+      <xs:element name="Topic" maxOccurs="unbounded" minOccurs="0">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="Name" type="xs:string" />
+            <xs:element name="Id" type="xs:integer" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AnswerResponse">
+    <xs:all>
+      <xs:element name="AnswerPreviewUrl" type="xs:anyURI" />
+    </xs:all> 
+  </xs:complexType>
+</xs:schema>
