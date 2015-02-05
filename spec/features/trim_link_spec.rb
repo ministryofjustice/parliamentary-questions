@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'I want to manage trim links' do
   background do
-    sign_in
+    create_pq_session
     @pq = create(:pq)
     @pq_with_trim = create(:pq, trim_link: create(:trim_link))
   end

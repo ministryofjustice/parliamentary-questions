@@ -1,4 +1,12 @@
 class User < ActiveRecord::Base
+  ROLE_PQ_USER  = 'PQUSER'
+  ROLE_FINANCE  = 'FINANCE'
+
+  ROLES         = [
+    ROLE_FINANCE,
+    ROLE_PQ_USER
+  ]
+
   has_paper_trail
 
   devise :invitable, :database_authenticatable,
@@ -20,14 +28,6 @@ class User < ActiveRecord::Base
 
   def set_defaults
     self.roles ||= User::ROLE_PQ_USER
-  end
-
-  def self.ROLE_PQ_USER
-    'PQUSER'
-  end
-
-  def self.ROLE_FINANCE
-    'FINANCE'
   end
 
   def pq_user?
