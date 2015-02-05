@@ -15,7 +15,7 @@ module PQA
         @total    = questions.size
 
         questions.each do |q|
-          upsert_question(q)
+          insert_or_update(q)
         end
         update_date_for_answers
       end
@@ -53,7 +53,7 @@ module PQA
       end
     end
 
-    def upsert_question(q)
+    def insert_or_update(q)
       uin = q.uin
       pq  = Pq.find_or_initialize_by(uin: uin)
 
