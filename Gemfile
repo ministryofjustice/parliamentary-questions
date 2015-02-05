@@ -35,13 +35,12 @@ end
 
 group :test do
   gem 'codeclimate-test-reporter', require: false
-  gem 'webmock'
 end
 
 group :test, :development do
   gem 'sinatra'
-  gem 'capybara'
   gem 'capybara-email'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
