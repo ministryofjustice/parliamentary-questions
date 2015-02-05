@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def set_defaults
-    self.roles ||= User.ROLE_PQ_USER
+    self.roles ||= User::ROLE_PQ_USER
   end
 
   def self.ROLE_PQ_USER
@@ -31,10 +31,10 @@ class User < ActiveRecord::Base
   end
 
   def pq_user?
-    roles == User.ROLE_PQ_USER
+    roles == User::ROLE_PQ_USER
   end
 
   def finance_user?
-    roles == User.ROLE_FINANCE
+    roles == User::ROLE_FINANCE
   end
 end

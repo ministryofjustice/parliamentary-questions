@@ -10,7 +10,7 @@ h2
       = f.text_field :email, {class: 'form-control'}
     .form-group
       = f.label(:roles, "Role:")
-      = f.select(:roles, [ User.ROLE_PQ_USER, User.ROLE_FINANCE ])
+      = f.select(:roles, [ User::ROLE_PQ_USER, User::ROLE_FINANCE ])
     - unless @user.new_record?
       p Status:
       .form-group
