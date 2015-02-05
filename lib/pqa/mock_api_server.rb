@@ -16,7 +16,7 @@ module PQA
     end
 
     put '/reset' do
-      QUESTIONS = {}
+      QUESTIONS.clear
       "ok"
     end
 
