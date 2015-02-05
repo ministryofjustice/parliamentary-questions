@@ -1,8 +1,9 @@
 module PQA
   class Import
     def initialize(pqa_service = nil)
-      @pqa_service  = pqa_service || PQAService.from_settings
-      @logger       = LogStuff
+      @pqa_service         = pqa_service || PQAService.from_settings
+      @logger              = LogStuff
+      @unassigned_progress = Progress.unassigned
       init_state!
     end
 
@@ -68,7 +69,8 @@ module PQA
       pq.question_status     = q.question_status
       pq.preview_url         = q.url
       pq.date_for_answer     = pq.date_for_answer || q.date_for_answer
-      pq.transferred         = pq.transferred || false
+      pq.transferred         ||= false
+      pq.progress            ||= @unassigned_progress
 
       if !pq.valid?
         error_msgs   = pq.errors.messages

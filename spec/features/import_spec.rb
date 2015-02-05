@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'helpers/pqa/question_builder'
-require 'helpers/pqa/question_loader'
 
 describe PQA::Import do
   def loader
@@ -50,9 +48,13 @@ describe PQA::Import do
         })
       end
 
-      it "saves the records in the 'pq' table" do
+      it "saves the records and flags them as 'unassigned'" do
         import.run(from_date, to_date)
-        expect(Pq.order(:uin).pluck(:uin)).to eq(['uin-0', 'uin-1', 'uin-2'])
+        expect(Pq.order(:uin).map { |pq| [pq.uin, pq.progress.name] }).to eq([
+          ['uin-0', Progress.UNASSIGNED],
+          ['uin-1', Progress.UNASSIGNED],
+          ['uin-2', Progress.UNASSIGNED]
+        ])
       end
     end
 
@@ -83,14 +85,20 @@ describe PQA::Import do
         })
       end
 
-      it "saves the new records, updating the existing ones" do
+      it "saves the new records, updating the existing ones, without changing the progress" do
         import.run(from_date, to_date)
-        expect(Pq.order(:uin).pluck(:uin, :tabled_date).map { |uin, d|
-          [uin, [d.day, d.month, d.year]]
+        pq = Pq.find_by(uin: 'uin-1')
+        pq.update(progress: Progress.rejected)
+
+        expect(Pq.order(:uin).map {|pq|
+          d      = pq.tabled_date
+          status = pq.progress.name
+
+          [pq.uin, [d.day, d.month, d.year], status]
         }).to eq([
-          ['uin-0', [1, 2, 2015]],
-          ['uin-1', [3, 2, 2015]],
-          ['uin-2', [4, 2, 2015]]
+          ['uin-0', [1, 2, 2015], Progress.UNASSIGNED],
+          ['uin-1', [3, 2, 2015], Progress.REJECTED],
+          ['uin-2', [4, 2, 2015], Progress.UNASSIGNED]
         ])
       end
 

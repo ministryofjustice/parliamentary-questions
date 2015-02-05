@@ -50,3 +50,5 @@ module ParliamentaryQuestions
     $statsd = Statsd.new 'localhost', 8125
   end
 end
+
+require 'settings'

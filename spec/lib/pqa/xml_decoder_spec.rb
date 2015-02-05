@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'helpers/pqa/question_builder'
 
 describe PQA::XMLDecoder do
   describe "#decode_questions" do
