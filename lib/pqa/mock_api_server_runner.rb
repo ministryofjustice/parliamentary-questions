@@ -32,7 +32,8 @@ module PQA
 
     private
 
-    def wait_for_app
+    def wait_for_app(attempts_left = 100)
+      raise "Mock PQA API timed out! Please try starting it manually" if attempts_left < 1
       resp_code =
         begin
           sleep 0.1
@@ -40,7 +41,7 @@ module PQA
         rescue Errno::ECONNREFUSED
         end
 
-      wait_for_app unless resp_code == '200'
+      wait_for_app(attempts_left - 1) unless resp_code == '200'
     end
 
     def app_uri

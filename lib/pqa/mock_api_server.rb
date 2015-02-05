@@ -2,6 +2,9 @@ require 'sinatra/base'
 require 'date'
 
 module PQA
+  # This class provides a mock implementation of the PQ&A API.
+  # It is used in development and testing only, and does not gets executed in
+  # the production environment.
   class MockApiServer < Sinatra::Base
     SCHEMA_PATH      = File.expand_path('resources/schema.xsd', __dir__)
     SCHEMA           = Nokogiri::XML::Schema(File.read(SCHEMA_PATH))
@@ -11,15 +14,18 @@ module PQA
       set :lock, true
     end
 
+    # Note: Internal to the Mock API server
     get '/' do
       'This API is working'
     end
 
+    # Note: Internal to the Mock API server
     put '/reset' do
       QUESTIONS.clear
       "ok"
     end
 
+    # Note: Internal to the Mock API server
     put '/api/qais/questions/:uin' do
       xml    = request.body.read
       doc    = Nokogiri::XML(xml)
@@ -45,6 +51,7 @@ module PQA
       XMLEncoder.encode_answer_response(answer)
     end
 
+    # Note: Internal to the Mock API server
     delete '/api/qais/questions/:uin' do
       uin = params[:uin]
       QUESTIONS.delete(uin)

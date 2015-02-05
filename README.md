@@ -30,8 +30,11 @@ SMTP_PORT=<port>
 SMTP_USERNAME=
 SMTP_PASSWORD=
 
+# for production only
+CA_CERT=/etc/ssl/certs/
+
 # redis server, for sideqik jobs
-export REDIS_URL=redis://localhost:6379
+REDIS_URL=redis://localhost:6379
 
 # host to deploy the assets (following the assets pipeline)
 ASSET_HOST=http://assets.example.com
