@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     request = self.request
     opts = ::ActionMailer::Base.default_url_options
     opts[:host] = request.host
-    opts[:port] = request.port unless [80, 443].include?(request.port)
     protocol = /(.*):\/\//.match(request.protocol)[1] if request.protocol.ends_with?("://")
     opts[:protocol] = protocol
   end
