@@ -139,7 +139,7 @@ $(document).ready(function () {
 
   $('.datetimepicker').datetimepicker();
   $('.dateonlypicker').datetimepicker({ pickTime: false });
-  $('.minister-select').ministerSelect({inputClass: 'minister-select-input form-control'});
+  $('.minister-select').select2({width:'250px'});
   $(".multi-select-action-officers").select2({width:'250px'});
   $(".single-select-dropdown").select2({width:'250px', allowClear: true});
 
