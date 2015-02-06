@@ -8,7 +8,7 @@ module PQA
 
     def encode_answer(answer)
       Nokogiri::XML::Builder.new { |x|
-        xml.Answer('xmlns' => 'http://data.parliament.uk/QnA/2013/02') {
+        x.Answer('xmlns' => 'http://data.parliament.uk/QnA/2013/02') {
           x.IsHoldingAnswer answer.is_holding_answer
           x.Text answer.text
           x.MinisterId answer.member_id
