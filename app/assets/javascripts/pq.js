@@ -1,6 +1,7 @@
 (function(){
 'use strict';
 
+//function to upload file to trim
 var trimFileUpload = function() {
 	$('.trim-links-form').each(function(i, area){
 		var container = $(area),
@@ -34,6 +35,7 @@ var trimFileUpload = function() {
 			file_field.trigger('change');
 		});
 
+    //selecting a file to upload to trim
 		file_field.on('change', function () {
 			var chosen = file_field.val();
 			if(chosen) {
@@ -48,12 +50,12 @@ var trimFileUpload = function() {
 				message_container.hide();
 			}
 		});
-
+    //clicking on the "choose trim file" button
 		choose_button.on('click', function () {
 			file_field.click();
 		});
 
-		form
+		form // clicking on open trim link to open an uploaded file
 			.on('ajax:error', function(e, response) {
 				var json = JSON.parse(response.responseText);
 
@@ -82,6 +84,8 @@ var trimFileUpload = function() {
 
     });
 };
+
+//assignment  & watchlist_dashboard/index - pages 
 var toggleSiblingContent = function(){
 	$('details').each(function(i, el){
 		var root = $(el),
@@ -95,6 +99,7 @@ var toggleSiblingContent = function(){
 	});
 };
 
+//setting the commision status of the "commision" button on the dashboard / new tab 
 var setCommissionButtonStatus = function(form) {
     var enable = true;
     var button = form.find('.commission-button');
@@ -113,6 +118,7 @@ var setCommissionButtonStatus = function(form) {
     }
 };
 
+// The "incrementBadge" shows the incremented New PQ's on /finance/questions page
 var incrementBadge = function(id_of_navpill) {
   changeBadgeBy(id_of_navpill,1);
 };
@@ -137,6 +143,7 @@ $(document).ready(function () {
 	$(".multi-select-action-officers").select2({width:'250px'});
   $(".single-select-dropdown").select2({width:'250px', allowClear: true});
 
+//accept or reject tokenised PQ on assignment / index page
   $('#allocation_response_response_action_accept').click(function (){
 		$('#reason-textarea').addClass('hide');
 	});
@@ -149,6 +156,7 @@ $(document).ready(function () {
    setCommissionButtonStatus($(this));
   });
 
+// commisioning a question and showing the success message on the dashboard page
 	$(".form-commission")
 		.on("ajax:success", function(){
       var pqid = $(this).data('pqid');
