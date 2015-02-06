@@ -22,7 +22,7 @@ end
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
-  mock_api_runner = PQA::MockApiServerRunner.new
+  
 
   # ## Mock Framework
   #
@@ -42,6 +42,8 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
+
+  # Set to false to enable Poltergeist
   config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
@@ -50,18 +52,40 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
 
   # Run specs in random order to surface order dependencies. If you find an
-  # order dependency and want to debug it, you can fix the order by providing
+  # order dependency and want to debug it, you  can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
 
   config.infer_spec_type_from_file_location!
 
-  config.before(:suite) do
+  # Databse cleaner setup
+  # Use truncation in js tests, transaction otherwise
+  # source: http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
+   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.clean
-    DatabaseCleaner.strategy = :transaction
+  end
 
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  # Manage mock API server instance
+  mock_api_runner = PQA::MockApiServerRunner.new
+
+  config.before(:suite) do
     mock_api_runner.start
     progress_seed
   end
