@@ -6,7 +6,7 @@ namespace :user do
     email, password, name = args[:email], args[:password],  args[:name]
     puts "Creating user with name: #{name} and email: #{email} and with password: #{password}"
 
-    UserBuilder.create_custom(email, password, name)
+    UserBuilder.create(email, password, name)
     puts 'User created!'
   end
 end
