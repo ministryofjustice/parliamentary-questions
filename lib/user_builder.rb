@@ -1,6 +1,5 @@
 module UserBuilder
   PASS    =   '123456789'
-  
   EMAILS  = {
     pq:       'pq@pq.com',
     finance:  'fin@fin.com'
@@ -10,15 +9,15 @@ module UserBuilder
 
   def create_pq
     create(EMAILS[:pq],
-                  PASS,
-                  'Test User')
+           PASS,
+           'Test User')
   end
 
   def create_finance
     create(EMAILS[:finance],
-                  PASS,
-                  'Finance User',
-                  User::ROLE_FINANCE)
+           PASS,
+           'Finance User',
+           User::ROLE_FINANCE)
   end
 
   def create(email, password, name, role = User::ROLE_PQ_USER)

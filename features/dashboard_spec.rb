@@ -1,5 +1,4 @@
-require 'spec_helper'
-
+require 'feature_helper'
 
 feature 'Visit the dashboard an show the questions for the day' do
   before(:each) do

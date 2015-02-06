@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_helper'
 
 feature 'Reassign question' do
   scenario 'assign question to another action officer' do
