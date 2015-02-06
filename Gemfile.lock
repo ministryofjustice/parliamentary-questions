@@ -92,7 +92,6 @@ GEM
       sass (>= 3.2.0)
     hike (1.2.3)
     hitimes (1.2.2)
-    httpclient (2.4.0)
     i18n (0.7.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -269,7 +268,6 @@ DEPENDENCIES
   faker
   font-awesome-rails
   govuk_frontend_toolkit (~> 3.1.0)
-  httpclient
   jbuilder (~> 1.2)
   jquery-rails
   launchy
