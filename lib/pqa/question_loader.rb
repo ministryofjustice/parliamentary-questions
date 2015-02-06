@@ -2,7 +2,7 @@ module PQA
   class QuestionLoader
     def initialize
       uri     = "http://#{MockApiServerRunner::HOST}:#{MockApiServerRunner::PORT}"
-      @client = ApiClient.new(uri, nil, nil)
+      @client = ApiClient.new(uri, nil, nil, nil)
     end
 
     def load(questions)
