@@ -1,102 +1,106 @@
-var PQ = PQ || {};
+(function(){
+'use strict';
 
-PQ.trimFileUpload = function() {
-	$('.trim-links-form').each(function(i, area){
-		var container = $(area),
-			message_container = container.find('.tr5-message'),
-			message_icon = message_container.find('.fa'),
-			upload_message = message_icon.siblings('.message'),
-			actions = container.find('.tr5-actions'),
-			choose_button = container.find('.button-choose'),
-			form = container.find('form'),
-			file_field = form.find('.trim-file-chooser'),
-			cancel_button = form.find('.button-cancel'),
-			status_messages = {
-				selected : {
-					message : 'File selected',
-					classname : 'fa fa-check-circle'
-				},
-				uploading : {
-					message : 'Uploading',
-					classname : 'fa fa-spin fa-circle-o-notch'
-				},
-				success : {
-					classname : 'fa fa-check-circle'
-				},
-				failure : {
-					classname : 'fd fa-warning'
-				}
-			};
+//function to upload file to trim
+var trimFileUpload = function() {
+  $('.trim-links-form').each(function(i, area){
+    var container = $(area),
+      message_container = container.find('.tr5-message'),
+      message_icon = message_container.find('.fa'),
+      upload_message = message_icon.siblings('.message'),
+      actions = container.find('.tr5-actions'),
+      choose_button = container.find('.button-choose'),
+      form = container.find('form'),
+      file_field = form.find('.trim-file-chooser'),
+      cancel_button = form.find('.button-cancel'),
+      status_messages = {
+        selected : {
+          message : 'File selected',
+          classname : 'fa fa-check-circle'
+        },
+        uploading : {
+          message : 'Uploading',
+          classname : 'fa fa-spin fa-circle-o-notch'
+        },
+        success : {
+          classname : 'fa fa-check-circle'
+        },
+        failure : {
+          classname : 'fd fa-warning'
+        }
+      };
 
-		cancel_button.on('click', function () {
-			form.trigger('reset');
-			file_field.trigger('change');
-		});
+    cancel_button.on('click', function () {
+      form.trigger('reset');
+      file_field.trigger('change');
+    });
 
-		file_field.on('change', function () {
-			var chosen = file_field.val();
-			if(chosen) {
-				choose_button.hide();
-				message_icon[0].className = status_messages.selected.classname;
-				upload_message.text(status_messages.selected.message);
-				message_container.show();
-				actions.show();
-			} else {
-				choose_button.show();
-				actions.hide();
-				message_container.hide();
-			}
-		});
+    //selecting a file to upload to trim
+    file_field.on('change', function () {
+      var chosen = file_field.val();
+      if(chosen) {
+        choose_button.hide();
+        message_icon[0].className = status_messages.selected.classname;
+        upload_message.text(status_messages.selected.message);
+        message_container.show();
+        actions.show();
+      } else {
+        choose_button.show();
+        actions.hide();
+        message_container.hide();
+      }
+    });
+    //clicking on the "choose trim file" button
+    choose_button.on('click', function () {
+      file_field.click();
+    });
 
-		choose_button.on('click', function () {
-			file_field.click();
-		})
+    form // clicking on open trim link to open an uploaded file
+      .on('ajax:error', function(e, response) {
+        var json = JSON.parse(response.responseText);
 
-		form
-			.on('ajax:error', function(e, response) {
-				var json = JSON.parse(response.responseText);
+        message_icon.addClass(status_messages[json.status].classname);
+        upload_message.text(json.message);
 
-				message_icon.addClass(status_messages[json.status].classname);
-				upload_message.text(json.message);
+        actions
+          .hide()
+          .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+        message_container.show();
+      })
+      .on('ajax:success', function(e, response) {
+        var json = JSON.parse(response.responseText),
+          success = json.status === 'success';
 
-				actions
-					.hide()
-					.after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-				message_container.show();
-			})
-			.on('ajax:success', function(e, response) {
-				var json = JSON.parse(response.responseText),
-					success = json.status === 'success';
+        message_icon.addClass(status_messages[json.status].classname);
+        upload_message.text(json.message);
 
-				message_icon.addClass(status_messages[json.status].classname);
-				upload_message.text(json.message);
-
-				if(success) {
-					actions
-						.hide()
-						.after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-				} else {
-
-				}
-				message_container.show();
-            });
+        if(success) {
+          actions
+            .hide()
+            .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+        }
+        message_container.show();
+      });
 
     });
 };
-PQ.toggleSiblingContent = function(){
-	$('details').each(function(i, el){
-		var root = $(el),
-			summary = root.find('span.link'),
-			content = root.find('.reveal');
 
-		summary.on('click', function(){
-			content.toggleClass('closed');
-			summary.toggleClass('opened');
-		});
-	});
+//assignment  & watchlist_dashboard/index - pages 
+var toggleSiblingContent = function(){
+  $('details').each(function(i, el){
+    var root = $(el),
+      summary = root.find('span.link'),
+      content = root.find('.reveal');
+
+    summary.on('click', function(){
+      content.toggleClass('closed');
+      summary.toggleClass('opened');
+    });
+  });
 };
 
-PQ.setCommissionButtonStatus = function(form) {
+//setting the commision status of the "commision" button on the dashboard / new tab 
+var setCommissionButtonStatus = function(form) {
     var enable = true;
     var button = form.find('.commission-button');
 
@@ -112,39 +116,58 @@ PQ.setCommissionButtonStatus = function(form) {
     } else {
       button.attr('disabled', 'disabled');
     }
-}
+};
+
+// The "incrementBadge" shows the incremented New PQ's on /finance/questions page
+var incrementBadge = function(id_of_navpill) {
+  changeBadgeBy(id_of_navpill,1);
+};
+var decrementBadge = function(id_of_navpill) {
+  changeBadgeBy(id_of_navpill,-1);
+};
+var changeBadgeBy = function(id_of_navpill, val) {
+  var $badge = $(id_of_navpill).children('a').children('span');
+  var curval = parseInt($badge.text(),10);
+  var nextval = curval+val;
+  if (nextval < 0) {
+    nextval = 0;
+  }
+  $badge.text(nextval);
+};
 
 $(document).ready(function () {
 
   $('.datetimepicker').datetimepicker();
   $('.dateonlypicker').datetimepicker({ pickTime: false });
   $('.minister-select').ministerSelect({inputClass: 'minister-select-input form-control'});
-	$(".multi-select-action-officers").select2({width:'250px'});
+  $(".multi-select-action-officers").select2({width:'250px'});
   $(".single-select-dropdown").select2({width:'250px', allowClear: true});
 
+//accept or reject tokenised PQ on assignment / index page
   $('#allocation_response_response_action_accept').click(function (){
-		$('#reason-textarea').addClass('hide');
-	});
-
-	$('#allocation_response_response_action_reject').click(function (){
-		$('#reason-textarea').removeClass('hide');
-	});
-
-  $('.form-commission').each(function() {
-    PQ.setCommissionButtonStatus($(this));
+    $('#reason-textarea').addClass('hide');
   });
 
-	$(".form-commission")
-		.on("ajax:success", function(data){
+  $('#allocation_response_response_action_reject').click(function (){
+    $('#reason-textarea').removeClass('hide');
+  });
+
+  $('.form-commission').each(function() {
+   setCommissionButtonStatus($(this));
+  });
+
+// commisioning a question and showing the success message on the dashboard page
+  $(".form-commission")
+    .on("ajax:success", function(){
       var pqid = $(this).data('pqid');
       var uin = $('#pq-frame-'+pqid+ ' h3').text();
       $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
-      incrementBadge('#db-filter-alloc-pend');
+     incrementBadge('#db-filter-alloc-pend');
       decrementBadge('#db-filter-unalloc');
-		}).on("ajax:error", function(e, xhr) {
-			console.log(xhr.responseText);
-		}).on('change', function(e) {
-      PQ.setCommissionButtonStatus($(e.currentTarget));
+    }).on("ajax:error", function(e, xhr) {
+      console.log(xhr.responseText);
+    }).on('change', function(e) {
+     setCommissionButtonStatus($(e.currentTarget));
     });
 
     $('#search_member').bind('ajax:before', function() {
@@ -169,7 +192,7 @@ $(document).ready(function () {
       $( divToFill ).html(data);
     });
 
-    $('.date-for-answer-picker').datetimepicker({pickTime: false})
+    $('.date-for-answer-picker').datetimepicker({pickTime: false});
 
     $('.internal-deadline-picker').each(function() {
       var empty = ($(this).find('input').val() === '');
@@ -195,14 +218,14 @@ $(document).ready(function () {
       $(this).after(data);
     });
 
-	if($('.trim_area').length){
-		PQ.trimFileUpload();
-	}
-	if($('details').length){
-		PQ.toggleSiblingContent();
-	}
+  if($('.trim_area').length){
+    trimFileUpload();
+  }
+  if($('details').length){
+    toggleSiblingContent();
+  }
 
-	$('.comm-header').on('click', function () {
+  $('.comm-header').on('click', function () {
     var pqid = $(this).data('pqid');
     var $caret = $(this).children('#comm-caret-' + pqid);
     $caret.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
@@ -222,7 +245,7 @@ $(document).ready(function () {
   $("#progress-menu a").click(function() {
     var e="#"+$(this).attr("id");
     $("#progress-menu-pq, #progress-menu-trim, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
-		$(e).removeClass("inactiveTab").addClass("activeTab");
+    $(e).removeClass("inactiveTab").addClass("activeTab");
   });
 
   // Checkbox and radio button CSS state changes
@@ -254,19 +277,7 @@ $(document).ready(function () {
   $('#'+target).show();
 
 });
+}());
 
-function incrementBadge(id_of_navpill) {
-  changeBadgeBy(id_of_navpill,1);
-}
-function decrementBadge(id_of_navpill) {
-  changeBadgeBy(id_of_navpill,-1);
-}
-function changeBadgeBy(id_of_navpill, val) {
-  var $badge = $(id_of_navpill).children('a').children('span');
-  var curval = parseInt($badge.text(),10);
-  var nextval = curval+val;
-  if (nextval < 0) {
-    nextval = 0;
-  }
-  $badge.text(nextval);
-}
+
+
