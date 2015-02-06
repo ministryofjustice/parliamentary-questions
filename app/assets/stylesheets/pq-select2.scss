@@ -29,8 +29,6 @@
 .select2-container .select2-choice {
   background-image:none;
 }
-<<<<<<< Updated upstream
-=======
 
 // Remove default background image and use govuk border colour
 .select2-container .select2-choice {
@@ -41,7 +39,6 @@
 .select2-container.select2-container-disabled .select2-choice {
   border-color: $border-colour;
 }
->>>>>>> Stashed changes
 
 // Make single-select disabled cursor like multi-select
 .select2-container.select2-container-disabled .select2-choice,
@@ -59,13 +56,9 @@
   @include reset-border-radius;
   -webkit-box-shadow: none;
   box-shadow: none;
-<<<<<<< Updated upstream
-  border-width: 1px;
-=======
   &.select2-drop-multi {
     margin-top: inherit!important;
   }
->>>>>>> Stashed changes
 }
 
 .select2-drop.select2-drop-above {
