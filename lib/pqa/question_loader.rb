@@ -5,6 +5,16 @@ module PQA
       @client = ApiClient.new(uri, nil, nil, nil)
     end
 
+    def load_and_import(n = 1)
+      import    = Import.new
+      questions = (1..n).map do |i|
+        QuestionBuilder.default("uin-#{i}")
+      end
+      load(questions)
+      import.run(Date.yesterday, Date.tomorrow)
+      questions
+    end
+
     def load(questions)
       @client.reset_mock_data!
       questions.each do |q|
