@@ -11,7 +11,7 @@ module UserBuilder
   def create_pq
     create(EMAILS[:pq],
                   PASS,
-                  'Finance User')
+                  'Test User')
   end
 
   def create_finance
