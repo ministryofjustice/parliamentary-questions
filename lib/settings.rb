@@ -1,32 +1,4 @@
 module Settings
-  module_function
-  filepath = File.expand_path('../config/settings.yml', __dir__)
-  @h = YAML::load_file(filepath)
-
-  def pq_rest_api
-    PqRestApi.from_env
-  end
-
-  def mail_from
-    @h['mail_from']
-  end
-
-  def mail_reply_to
-    @h['mail_reply_to']
-  end
-
-  def members_api_url
-    @h['members_api_url']
-  end
-
-  def mail_tech_support
-    @h['mail_tech_support']
-  end
-
-  def http_client_timeout
-    @h['http_client_timeout']
-  end
-
   class PqRestApi
     attr_reader :url, :username, :password
 
@@ -50,5 +22,34 @@ module Settings
       @username = username
       @password = password
     end
+  end
+
+  module_function
+  filepath     = File.expand_path('../config/settings.yml', __dir__)
+  @h           = YAML::load_file(filepath)
+  @pq_rest_api = PqRestApi.from_env
+
+  def pq_rest_api
+    @pq_rest_api
+  end
+
+  def mail_from
+    @h['mail_from']
+  end
+
+  def mail_reply_to
+    @h['mail_reply_to']
+  end
+
+  def members_api_url
+    @h['members_api_url']
+  end
+
+  def mail_tech_support
+    @h['mail_tech_support']
+  end
+
+  def http_client_timeout
+    @h['http_client_timeout']
   end
 end
