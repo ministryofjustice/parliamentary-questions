@@ -9,19 +9,19 @@ module UserBuilder
   module_function
 
   def create_pq
-    create_custom(EMAILS[:pq],
+    create(EMAILS[:pq],
                   PASS,
                   'Finance User')
   end
 
   def create_finance
-    create_custom(EMAILS[:finance],
+    create(EMAILS[:finance],
                   PASS,
                   'Finance User',
                   User::ROLE_FINANCE)
   end
 
-  def create_custom(email, password, name, role = User::ROLE_PQ_USER)
+  def create(email, password, name, role = User::ROLE_PQ_USER)
     User.first_or_create!(email: email,
                           password: password,
                           password_confirmation: password,
