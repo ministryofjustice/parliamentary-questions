@@ -1,5 +1,8 @@
 @import 'colours';
 
+// Colours for the site, as per:
+// http://alphagov.github.com/design/gov.uk.colours/
+
 input.minister-select-input {
   width: 248px;
 }
@@ -28,9 +31,8 @@ input.minister-select-input {
 
 .autocomplete-group {
   padding: 2px 5px;
-}
-
-.autocomplete-group strong {
-  display: block;
-  border-bottom: 1px solid $black;
+    strong {
+      display: block;
+      border-bottom: 1px solid $black;
+    }
 }
