@@ -14,7 +14,8 @@ addons:
 script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
-  - bundle exec rake spec
+  - bundle exec rspec spec
+  - bundle exec rspec features
 #notifications:
 #  hipchat:
 #    rooms:

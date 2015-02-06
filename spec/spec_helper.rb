@@ -5,25 +5,12 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
-require 'capybara/rspec'
-require 'capybara/poltergeist'
-require 'capybara/email/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, {
-      phantomjs_logger: File.new('/dev/null', 'a')
-    })
-end
-
-Capybara.javascript_driver = :poltergeist
-
 RSpec.configure do |config|
-  
-
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -62,16 +49,10 @@ RSpec.configure do |config|
   # Databse cleaner setup
   # Use truncation in js tests, transaction otherwise
   # source: http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
-   config.before(:suite) do
+  config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:each) do
     DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, :js => true) do
-    DatabaseCleaner.strategy = :truncation
+    DBHelpers.load_seeds
   end
 
   config.before(:each) do
@@ -80,17 +61,5 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
-  end
-
-  # Manage mock API server instance
-  mock_api_runner = PQA::MockApiServerRunner.new
-
-  config.before(:suite) do
-    mock_api_runner.start
-    progress_seed
-  end
-
-  config.after(:suite) do
-    mock_api_runner.stop
   end
 end
