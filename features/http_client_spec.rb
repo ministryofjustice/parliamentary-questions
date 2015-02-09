@@ -3,8 +3,8 @@ require 'feature_helper'
 describe HTTPClient do
   let(:default_settings) {[ 
       Settings.pq_rest_api.url,
-      Settings.pq_rest_api.username,
-      Settings.pq_rest_api.password,
+      'username',
+      'password',
       File.expand_path('resources/certs/wqa.parliament.uk.pem', __dir__)
   ]}
 
@@ -39,8 +39,7 @@ describe HTTPClient do
   context 'authentication' do
     it 'should authenticate based on credentials provided' do
       expect_any_instance_of(Net::HTTP::Get).to receive(:basic_auth)
-          .with(Settings.pq_rest_api.username,
-                Settings.pq_rest_api.password)
+          .with('username', 'password')
 
       res = client.issue_request(:get, "#{client.base_url}/")
     end
