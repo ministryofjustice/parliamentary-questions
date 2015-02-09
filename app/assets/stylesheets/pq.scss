@@ -129,6 +129,9 @@ h2 .badge,
 
 .phase-banner {
   @include phase-banner($phase);
+  a {
+    text-decoration: underline; // override bootstrap
+  }
 }
 
 .phase-tag {
@@ -197,7 +200,12 @@ ul {
   padding-left: 0;
 }
 
-footer { margin-top: 100px }
+footer {
+  margin-top: 100px;
+  a {
+    text-decoration: underline; // override bootstrap
+  }
+}
 
 // = Flags ======================================================================
 
