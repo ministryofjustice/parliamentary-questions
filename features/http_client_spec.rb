@@ -39,7 +39,7 @@ describe HTTPClient do
   context 'authentication' do
     it 'should authenticate based on credentials provided' do
       expect_any_instance_of(Net::HTTP::Get).to receive(:basic_auth)
-          .with('username', 'password')
+        .with('username', 'password')
 
       res = client.issue_request(:get, "#{client.base_url}/")
     end
@@ -55,22 +55,22 @@ describe HTTPClient do
     it 'should raise an error for a non success code response (3XX, 4XX, 5XX)' do      
       expect(LogStuff).to receive(:error).with(/non success code/)
       expect{ client.issue_request(:put, "#{client.base_url}/") }
-          .to raise_error(RuntimeError, /non success code/)
+        .to raise_error(RuntimeError, /non success code/)
     end
 
     it 'should raise an error on a server timeout' do
       allow_any_instance_of(Net::HTTP).to receive(:request)
-          .and_raise(Net::ReadTimeout)
+        .and_raise(Net::ReadTimeout)
 
       expect(LogStuff).to receive(:error).with(/api request timed out/)
       expect{ client.issue_request(:get, "#{client.base_url}/") }
-          .to raise_error(Net::ReadTimeout)
+        .to raise_error(Net::ReadTimeout)
     end
 
     it 'should raise an error on a refused connection' do
       expect(LogStuff).to receive(:error).with(/refused HTTP connection/)
       expect{ client.issue_request(:put, "http://localhost:65437/") }
-          .to raise_error(Errno::ECONNREFUSED)
+        .to raise_error(Errno::ECONNREFUSED)
     end
   end
 end
