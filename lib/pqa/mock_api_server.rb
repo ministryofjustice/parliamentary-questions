@@ -51,13 +51,6 @@ module PQA
       XMLEncoder.encode_answer_response(answer)
     end
 
-    # Note: Internal to the Mock API server
-    delete '/api/qais/questions/:uin' do
-      uin = params[:uin]
-      QUESTIONS.delete(uin)
-      "ok"
-    end
-
     get '/api/qais/questions' do
       status       = params[:status]
       date_from    = DateTime.parse(params[:dateFrom] || DateTime.commercial(1000).to_s)
