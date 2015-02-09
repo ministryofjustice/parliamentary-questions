@@ -2,13 +2,11 @@ source 'https://rubygems.org'
 
 gem 'bootstrap-will_paginate'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
-gem 'builder'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'devise_invitable'
 gem 'devise'
 gem 'font-awesome-rails'
 gem 'govuk_frontend_toolkit', '~> 3.1.0'
-gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'logstasher'
 gem 'moj_template', '0.23.0'
@@ -19,7 +17,6 @@ gem 'pg'
 gem 'rails', '~> 4.1.7'
 gem 'remotipart', '~> 1.2'
 gem 'sass-rails', '~> 4.0.0'
-gem 'sidekiq'
 gem 'slim'
 gem 'statsd-ruby'
 gem 'turbolinks'
@@ -35,13 +32,12 @@ end
 
 group :test do
   gem 'codeclimate-test-reporter', require: false
-  gem 'webmock'
 end
 
 group :test, :development do
   gem 'sinatra'
-  gem 'capybara'
   gem 'capybara-email'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'

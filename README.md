@@ -33,9 +33,6 @@ SMTP_PASSWORD=
 # for production only
 CA_CERT=/etc/ssl/certs/
 
-# redis server, for sideqik jobs
-REDIS_URL=redis://localhost:6379
-
 # host to deploy the assets (following the assets pipeline)
 ASSET_HOST=http://assets.example.com
 
@@ -47,6 +44,7 @@ APPVERSION=0.1-sprint6
 
 - Ruby MRI 2.1.2
 - Postgresql 9.3
+- phantomjs (tests only)
 
 To start with, make sure you have the right version of the Ruby runtime installed.
 Multiple versions of Ruby can be managed on the same machine through either [rbenv](https://github.com/sstephenson/rbenv)
@@ -70,9 +68,13 @@ And starting the app with:
 
     bundle exec rails s
 
-Finally, mock data can be automatically imported by running the following rake task:
+Mock data can be automatically imported by running the following rake task:
 
     bundle exec rake db:import_dummy_data
+
+Finally, a rake task is also provided to load PQ&A XML data into the system.
+
+    bundle exec rake db:import_from_xml[path/to/question_file.xml]
 
 # User authentication
 
@@ -83,6 +85,15 @@ It's done using devise and devise invitable:
 
 For development you can create users with a rake task.
 ```
-# email, password, name
+# default user
+rake user:create
+
+# specific email, password, name
 rake "user:create[admin@admin.com, 123456789, admin]"
 ```
+
+# Running tests
+
+Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
+be run be executing the same command with the features folder as argument (i.e.
+`bundle exec rspec features`).
