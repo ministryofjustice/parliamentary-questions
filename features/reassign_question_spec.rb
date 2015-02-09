@@ -1,6 +1,8 @@
 require 'feature_helper'
 
 feature 'Reassign question' do
+  include FactoryGirl::Syntax::Methods
+
   scenario 'assign question to another action officer' do
     question = create(:draft_pending_pq)
     old_action_officer = question.action_officers.first
