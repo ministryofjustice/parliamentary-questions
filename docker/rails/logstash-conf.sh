@@ -42,6 +42,11 @@ cat <<EOT
       add_field => [ "env",       "$ENV" ]
     }
   }
+  filter {
+     if ([@fields][path] =~ "ping.json") {
+        drop {}
+    }
+  }
   output {
     redis { host => "$LOGSTASH_SERVER" data_type => "list" key => "logstash" }
   }
