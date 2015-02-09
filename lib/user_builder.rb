@@ -21,11 +21,14 @@ module UserBuilder
   end
 
   def create(email, password, name, role = User::ROLE_PQ_USER)
-    User.first_or_create!(email: email,
-                          password: password,
-                          password_confirmation: password,
-                          name: name,
-                          deleted: false,
-                          roles: role)
+    u = User.find_or_initialize_by(email: email,
+                                   name: name,
+                                   deleted: false,
+                                   roles: role)
+
+    u.password              = password
+    u.password_confirmation = password
+    u.save
+    u
   end
 end

@@ -37,12 +37,21 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     mock_api_runner.start
+    DBHelpers.load_seeds
   end
 
   config.before(:each) do |example|
-    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
+    if example.metadata[:js]
+      DatabaseCleaner.strategy = [
+        :truncation,
+        { except: ['progresses'] }
+      ]
+    else
+      DatabaseCleaner.strategy = [
+        :transaction
+      ]
+    end
     DatabaseCleaner.start
-    DBHelpers.load_seeds
   end
 
   config.after(:each) do
