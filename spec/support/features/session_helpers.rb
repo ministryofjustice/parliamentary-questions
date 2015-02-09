@@ -12,6 +12,7 @@ module Features
     end
 
     def sign_in(email, password)
+      visit '/users/sign_out'
       visit '/users/sign_in'
       fill_in 'Email', with: email
       fill_in 'Password', with: password
