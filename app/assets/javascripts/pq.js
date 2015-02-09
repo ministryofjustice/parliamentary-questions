@@ -1,89 +1,8 @@
+//this allows access to the objects declared in trim_link.js
+var trim_link; 
+
 (function(){
 'use strict';
-
-//function to upload file to trim
-var trimFileUpload = function() {
-  $('.trim-links-form').each(function(i, area){
-    var container = $(area),
-      message_container = container.find('.tr5-message'),
-      message_icon = message_container.find('.fa'),
-      upload_message = message_icon.siblings('.message'),
-      actions = container.find('.tr5-actions'),
-      choose_button = container.find('.button-choose'),
-      form = container.find('form'),
-      file_field = form.find('.trim-file-chooser'),
-      cancel_button = form.find('.button-cancel'),
-      status_messages = {
-        selected : {
-          message : 'File selected',
-          classname : 'fa fa-check-circle'
-        },
-        uploading : {
-          message : 'Uploading',
-          classname : 'fa fa-spin fa-circle-o-notch'
-        },
-        success : {
-          classname : 'fa fa-check-circle'
-        },
-        failure : {
-          classname : 'fd fa-warning'
-        }
-      };
-
-    cancel_button.on('click', function () {
-      form.trigger('reset');
-      file_field.trigger('change');
-    });
-
-    //selecting a file to upload to trim
-    file_field.on('change', function () {
-      var chosen = file_field.val();
-      if(chosen) {
-        choose_button.hide();
-        message_icon[0].className = status_messages.selected.classname;
-        upload_message.text(status_messages.selected.message);
-        message_container.show();
-        actions.show();
-      } else {
-        choose_button.show();
-        actions.hide();
-        message_container.hide();
-      }
-    });
-    //clicking on the "choose trim file" button
-    choose_button.on('click', function () {
-      file_field.click();
-    });
-
-    form // clicking on open trim link to open an uploaded file
-      .on('ajax:error', function(e, response) {
-        var json = JSON.parse(response.responseText);
-
-        message_icon.addClass(status_messages[json.status].classname);
-        upload_message.text(json.message);
-
-        actions
-          .hide()
-          .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-        message_container.show();
-      })
-      .on('ajax:success', function(e, response) {
-        var json = JSON.parse(response.responseText),
-          success = json.status === 'success';
-
-        message_icon.addClass(status_messages[json.status].classname);
-        upload_message.text(json.message);
-
-        if(success) {
-          actions
-            .hide()
-            .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-        }
-        message_container.show();
-      });
-
-    });
-};
 
 //assignment  & watchlist_dashboard/index - pages 
 var toggleSiblingContent = function(){
@@ -219,7 +138,7 @@ $(document).ready(function () {
     });
 
   if($('.trim_area').length){
-    trimFileUpload();
+    trim_link.trimFileUpload();
   }
   if($('details').length){
     toggleSiblingContent();
