@@ -1,6 +1,8 @@
 require 'net/https'
 
 class HTTPClient
+  attr_reader :base_url
+
   def initialize(base_url, username, password, pem_file_path)
     @base_url      = base_url
     @username      = username
@@ -8,7 +10,6 @@ class HTTPClient
     @pem_file_path = pem_file_path
   end
 
-  protected
   def issue_request(method, uri_s, body = nil)
     uri  = URI.parse(uri_s)
     req  = build_request(method, uri, body)
@@ -23,13 +24,15 @@ class HTTPClient
       LogStuff.error(msg)
       raise msg
     end
-  rescue Net::ReadTimeout
-    LogStuff.error "PQ rest api request timed out (request: #{req.inspect}, current timeout: #{req.read_timeout})"
+  rescue Net::ReadTimeout => err
+    LogStuff.error "PQ rest api request timed out (request: #{req.inspect}, current timeout: #{http.read_timeout})"
     raise err
   rescue Errno::ECONNREFUSED => err
     LogStuff.error "PQ rest API refused HTTP connection"
     raise err
   end
+
+  private
 
   def handle_https(uri, http)
     if uri.scheme == 'https'
