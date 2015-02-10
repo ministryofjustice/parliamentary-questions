@@ -7,12 +7,11 @@ require './spec/support/db_helpers'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
-require 'capybara/email/rspec'
 
 Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, {
-      phantomjs_logger: File.new('/dev/null', 'a')
-    })
+  Capybara::Poltergeist::Driver.new(app, {
+    phantomjs_logger: File.new('/dev/null', 'a')
+  })
 end
 
 Capybara.javascript_driver = :poltergeist
@@ -44,7 +43,17 @@ RSpec.configure do |config|
     if example.metadata[:js]
       DatabaseCleaner.strategy = [
         :truncation,
-        { except: ['progresses'] }
+        { except: [
+          Progress,
+          Minister,
+          Directorate,
+          Division,
+          DeputyDirector,
+          PressDesk,
+          PressOfficer,
+          ActionOfficer,
+          Ogd
+        ].map(&:table_name) }
       ]
     else
       DatabaseCleaner.strategy = [
