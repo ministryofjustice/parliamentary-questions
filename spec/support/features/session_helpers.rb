@@ -1,6 +1,6 @@
 module Features
   module SessionHelpers
-    
+
     def create_pq_session
       UserBuilder.create_pq
       sign_in(UserBuilder::EMAILS.fetch(:pq), UserBuilder::PASS)

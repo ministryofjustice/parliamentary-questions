@@ -1,60 +1,62 @@
 class PqsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_pq, only: [:show, :update, :assign_minister, :assign_answering_minister]
-  before_action :archive_trim_link, only: :update
-  before_action :prepare_progresses
-  before_action :prepare_ogds
-  before_action :load_service
 
   def index
     redirect_to controller: 'dashboard'
   end
 
   def show
-    @pq = Pq.find_by(uin: params[:id])
-    if !@pq.present?
-      flash[:notice] = 'Question not found'
-      redirect_to action: 'index'
-    end
+    loading_relations
   end
 
   def update
-    if @pq.update(pq_params)
-      @pq.reassign(find_action_officer)
-      flash[:success] = 'Successfully updated'
-      @pq_progress_changer_service.update_progress(@pq)
-      redirect_to action: 'show', id: @pq.uin
-    else
-      @pq.trim_link(true)
-      render action: 'show'
+    loading_relations do
+      archive_trim_link!(params[:commit])
+
+      if @pq.update(pq_params)
+        PQProgressChangerService.new.update_progress(@pq)
+
+        action_officer_id = params.fetch(:commission_form, {})[:action_officer_id]
+
+        if action_officer_id.present?
+          @pq.reassign(ActionOfficer.find(action_officer_id))
+        end
+
+        flash[:success] = 'Successfully updated'
+        redirect_to action: 'show', id: @pq.uin
+      else
+        @pq.trim_link(true)
+        render action: 'show'
+      end
     end
   end
 
-private
+  private
 
-  def find_action_officer
-    id = params[:commission_form].try(:[], :action_officer_id)
-    ActionOfficer.find(id) if id.present?
+  def loading_relations
+    @progress_list = Progress.all
+    @ogd_list      = Ogd.all
+    @pq            = Pq.find_by(uin: params[:id])
+
+    unless @pq
+      flash[:notice] = 'Question not found'
+      redirect_to action: 'index'
+    end
+
+    yield if block_given?
   end
 
-  def archive_trim_link
-    if params[:commit] == 'Delete'
+  def archive_trim_link!(action)
+    case action
+    when 'Delete'
       @pq.trim_link.archive
-    elsif params[:commit] == 'Undo'
+    when 'Undo'
       @pq.trim_link.unarchive
     end
   end
 
-  def set_pq
-    @pq = Pq.find_by(uin: params[:id])
-  end
-
-  def load_service(pq_progress_changer_service = PQProgressChangerService.new)
-    @pq_progress_changer_service ||= pq_progress_changer_service
-  end
-
   def pq_params
-    @pq_params ||= params.require(:pq).permit(
+    params.require(:pq).permit(
       :answer_submitted,
       :answering_minister_query,
       :answering_minister_returned_by_action_officer,
@@ -99,14 +101,6 @@ private
       :with_pod,
       trim_link_attributes: [:file]
     )
-  end
-
-  def prepare_progresses
-    @progress_list = Progress.all
-  end
-
-  def prepare_ogds
-    @ogd_list = Ogd.all
   end
 
   def uppm_params

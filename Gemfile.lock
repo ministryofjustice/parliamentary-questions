@@ -44,9 +44,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-email (2.4.0)
-      capybara (~> 2.4)
-      mail
     chronic (0.10.2)
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.1)
@@ -241,7 +238,6 @@ DEPENDENCIES
   annotate (~> 2.6.3)
   bootstrap-will_paginate
   bootstrap3-datetimepicker-rails (~> 3.0.0)
-  capybara-email
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   database_cleaner
