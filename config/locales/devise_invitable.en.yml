@@ -18,4 +18,4 @@ en:
         someone_invited_you: 'You have been invited to use the PQ Tracker.'
         accept: 'accept the invitation'
         setup: "You will need to create your own password as part of your account setup."
-        ignore: "If you don't want to accept the invitation"
+        ignore: "If you don't want to accept the invitation "
