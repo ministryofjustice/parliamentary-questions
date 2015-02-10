@@ -35,7 +35,6 @@ end
 
 group :test, :development do
   gem 'sinatra'
-  gem 'capybara-email'
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
