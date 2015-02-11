@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 CONTAINERS=(assets rails)
 
 DEFAULT_DOCKERREPO="docker.local:5000"
@@ -128,6 +130,8 @@ cat <<EOT >public/assets/ping.json
 {"version_number":"$APPVERSION","build_date":"$DATE","commit_id":"$GIT_COMMIT","build_tag":"$BUILD_TAG"}
 EOT
 
+# After here we capture the retcode when we need it, so turn off automatic fail on error
+set +e
 
 JENKINS_RETCODE=0
 
@@ -148,9 +152,10 @@ done
 if [ -z "$DOCKER_NOPUSH" ]; then
 	for i in  ${CONTAINERS[@]}; do
 		docker_push $i $APPVERSION
-  		if [ "$RETCODE" -ne 0 ]; then
-     			JENKINS_RETCODE=$RETCODE
-     			output "Failed $i push with code $RETCODE"
+		RETCODE=$?
+		if [ "$RETCODE" -ne 0 ]; then
+			JENKINS_RETCODE=$RETCODE
+			output "Failed $i push with code $RETCODE"
 		fi
 	done
 else
@@ -160,7 +165,6 @@ fi
 if [ -z "$DOCKER_NORMI" ]; then
 	for i in  ${CONTAINERS[@]}; do
 		docker_rmi $i $APPVERSION
-		RETCODE=$?
 	done
 else
 	output "Not removing images"
