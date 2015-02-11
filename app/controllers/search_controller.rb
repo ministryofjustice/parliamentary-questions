@@ -11,7 +11,7 @@ class SearchController  < ApplicationController
     pq = Pq.where("lower(uin) = :p", p: uin.downcase)
 
     if pq.nil? || pq.size==0
-      flash[:notice] = "The Question with UIN '#{uin}' not found"
+      flash[:error] = "Question with UIN '#{uin}' not found"
       return redirect_to controller: 'dashboard', action: 'index'
     end
 
