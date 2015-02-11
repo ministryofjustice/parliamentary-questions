@@ -23,6 +23,8 @@ module ApplicationHelper
 
   def flash_class_for(flash_type)
     case flash_type.to_s
+    when 'notice'
+      'alert-info'
     when 'success'
       'alert-success'
     when 'error'
@@ -30,7 +32,7 @@ module ApplicationHelper
     when 'alert'
       'alert-block'
     else
-      'alert-info'
+      'alert-success'
     end
   end
 
