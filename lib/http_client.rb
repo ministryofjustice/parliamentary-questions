@@ -41,7 +41,7 @@ class HTTPClient
       cert_dir = ENV['CA_CERT']
 
       if cert_dir && File.directory?(cert_dir)
-        http.ca_path(cert_dir)
+        http.ca_path = cert_dir
       else
         http.ca_file = @pem_file_path
       end
