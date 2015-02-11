@@ -36,31 +36,31 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     mock_api_runner.start
-    DBHelpers.load_seeds
   end
 
   config.before(:each) do |example|
     if example.metadata[:js]
-      DatabaseCleaner.strategy = [
-        :truncation,
-        { except: [
-          Progress,
-          Minister,
-          Directorate,
-          Division,
-          DeputyDirector,
-          PressDesk,
-          PressOfficer,
-          ActionOfficer,
-          Ogd
-        ].map(&:table_name) }
-      ]
+      DatabaseCleaner.strategy = :truncation
+#      DatabaseCleaner.strategy = [
+#        :truncation,
+##        { except: [
+##          Progress,
+##          Minister,
+##          Directorate,
+##          Division,
+##          DeputyDirector,
+##          PressDesk,
+##          PressOfficer,
+##          ActionOfficer,
+##          Ogd
+#        ].map(&:table_name) }
     else
       DatabaseCleaner.strategy = [
         :transaction
       ]
     end
     DatabaseCleaner.start
+    DBHelpers.load_seeds
   end
 
   config.after(:each) do

@@ -13,7 +13,7 @@ describe 'WatchlistReportService' do
   end
 
   it 'should have generated a valid token' do
-    @report_service.send()
+    @report_service.notify_watchlist
 
     token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
 
@@ -21,7 +21,7 @@ describe 'WatchlistReportService' do
     expect(token.id).to_not be nil
     expect(token.token_digest).to_not be nil
 
-    end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
+    end_of_day = DateTime.now.end_of_day
     expect(token.expire).to eq(end_of_day)
 
     token = Token.where(entity: "watchlist-" +  @report_service.timestamp, path: '/watchlist/dashboard').first
@@ -29,7 +29,6 @@ describe 'WatchlistReportService' do
     expect(token.id).to_not be nil
     expect(token.token_digest).to_not be nil
 
-    end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
     expect(token.expire).to eq(end_of_day)
 
     token = Token.where(entity: "watchlist:#{watchlist_deleted.id}", path: '/watchlist/dashboard').first
@@ -40,7 +39,7 @@ describe 'WatchlistReportService' do
     pqtest_mail ='pqtest@digital.justice.gov.uk'
 
     allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.send()
+    result = @report_service.notify_watchlist
 
     mail = ActionMailer::Base.deliveries.first
 
@@ -64,7 +63,7 @@ describe 'WatchlistReportService' do
 
   it 'should add the people from the Watchlist to the CC' do
     allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.send()
+    result = @report_service.notify_watchlist
 
     mail = ActionMailer::Base.deliveries.first
     sentToken = result[watchlist_one.id]

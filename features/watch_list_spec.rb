@@ -6,6 +6,8 @@ feature "Watch list member sees allocated questions" do
   end
 
   scenario "Admin creates a new watch list member and sends allocation info. Member accesses watchlist dashboard" do
+    include Rails.application.routes.url_helpers
+
     # Creating a watchlist member
     create_pq_session
     click_link 'Settings'
@@ -31,7 +33,7 @@ feature "Watch list member sees allocated questions" do
     #
 
     # sending allocation info
-    visit '/watchlist_members'
+    visit watchlist_members_path
     click_link_or_button 'Send allocation info'
 
     # assert that the watchlist member receives the email
@@ -39,12 +41,12 @@ feature "Watch list member sees allocated questions" do
     expect(mail.cc).to include('test-member-a@pq.com')
     html_email = mail.body.parts.find { |p| p.content_type.match(/text\/html/)}
     doc = Nokogiri::HTML(html_email.body.raw_source)
-    watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ /watchlist\/dashboard/ }
+    watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ Regexp.new(watchlist_dashboard_path) }
     url = watchlist_a['href']
     expect(url).to_not be_blank
 
     # sign out and visit the watchlist dasboard
-    visit '/users/sign_out'
+    visit destroy_user_session_path
     visit url
     expect(page).to have_text(/allocated today 1/i)
     expect(page).to have_text(@pq.text)
