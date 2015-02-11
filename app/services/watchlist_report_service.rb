@@ -1,20 +1,17 @@
 class WatchlistReportService
   include Rails.application.routes.url_helpers
-  def initialize(tokenService = TokenService.new)
-    @tokenService = tokenService
-    @@timestamp = DateTime.now.to_s
-  end
-
-  def timestamp
-    @@timestamp
+  
+  def initialize(tokenService = nil, current_time = nil)
+    @tokenService = tokenService || TokenService.new
+    @current_time = current_time || DateTime.now
   end
 
   def entity
-    "watchlist-" + @@timestamp
+    "watchlist-" + @current_time.to_s
   end
 
   def notify_watchlist
-    end_of_day = DateTime.now.end_of_day
+    end_of_day = @current_time.end_of_day
     token      = @tokenService.generate_token(watchlist_dashboard_path, entity, end_of_day)
     cc         = WatchlistMember.where(deleted: false).map(&:email).join(' ;')
     template   = {
