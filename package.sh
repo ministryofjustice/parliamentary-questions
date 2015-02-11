@@ -110,7 +110,6 @@ bundle --quiet \
        --path vendor/bundle \
        --deployment \
        --standalone \
-       --binstubs \
        --without build
 
 
