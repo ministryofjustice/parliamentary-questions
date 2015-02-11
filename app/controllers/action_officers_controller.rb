@@ -20,7 +20,7 @@ class ActionOfficersController < ApplicationController
     begin
     @action_officer = ActionOfficer.new(action_officer_params)
     if @action_officer.save
-      flash[:notice] = 'Action officer was successfully created.'
+      flash[:success] = 'Action officer was successfully created.'
       redirect_to action_officers_path
       return
     end

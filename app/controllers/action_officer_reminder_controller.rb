@@ -9,7 +9,7 @@ class ActionOfficerReminderController  < ApplicationController
 
     @ao_pq.increment(:reminder_accept).save()
 
-    flash[:reminder] = "reminder sent"
+    flash[:success] = "reminder sent"
     render partial: 'shared/flash_messages'
   end
 
@@ -20,7 +20,7 @@ class ActionOfficerReminderController  < ApplicationController
 
     @ao_pq.increment(:reminder_draft).save()
 
-    flash[:reminder] = "reminder sent"
+    flash[:success] = "reminder sent"
     render partial: 'shared/flash_messages'
   end
 
