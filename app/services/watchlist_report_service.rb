@@ -1,4 +1,5 @@
 class WatchlistReportService
+  include Rails.application.routes.url_helpers
   def initialize(tokenService = TokenService.new)
     @tokenService = tokenService
     @@timestamp = DateTime.now.to_s
@@ -12,26 +13,19 @@ class WatchlistReportService
     "watchlist-" + @@timestamp
   end
 
-  def send
-    path = '/watchlist/dashboard'
-    end_of_day = DateTime.now.end_of_day.change({:offset => 0})+3
-    token = @tokenService.generate_token(path, entity, end_of_day)
+  def notify_watchlist
+    end_of_day = DateTime.now.end_of_day
+    token      = @tokenService.generate_token(watchlist_dashboard_path, entity, end_of_day)
+    cc         = WatchlistMember.where(deleted: false).map(&:email).join(' ;')
+    template   = {
+      :name   => 'Watchlist',
+      :entity => entity,
+      :email  => 'pqtest@digital.justice.gov.uk',
+      :token  => token,
+      :cc     => cc
+    }
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"
-
-    template = Hash.new
-    template[:name] = 'Watchlist'
-    template[:entity] = entity
-    template[:email] = 'pqtest@digital.justice.gov.uk'
-    template[:token] = token
-
-    watchlist_cc = ''
-    watchlist_members = WatchlistMember.where(deleted: false).load
-    watchlist_members.each do |member|
-      watchlist_cc = watchlist_cc + member.email + ';'
-    end
-    template[:cc] = watchlist_cc
-
     LogStuff.tag(:mailer_watchlist) do
       LogStuff.info { "Watchlist  email to #{template[:email]} (name #{template[:name]}) [CCd to #{template[:cc]}]" }
       PqMailer.watchlist_email(template).deliver
