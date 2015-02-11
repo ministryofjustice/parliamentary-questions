@@ -30,7 +30,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     mock_api_runner.start
-    DBHelpers.load_seeds
+    DBHelpers.load_feature_seeds
   end
 
   # Tables to except from truncation
