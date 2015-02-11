@@ -2,7 +2,7 @@
 - if question.action_officers_pqs.size > 0
   .question-allocation
     h4 Allocation:
-    ul.question-allocation-list data-pqid=question.id
+    ul.question-allocation-list data-pquin=question.uin
       - question.action_officers_pqs.each do |ao_pq|
         li
           - if !ao_pq.action_officer.nil?
