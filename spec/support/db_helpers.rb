@@ -1,6 +1,7 @@
 module DBHelpers
   module_function
-  def load_seeds
+
+  def load_spec_seeds
     Progress.create!([
       {name: Progress.UNASSIGNED},
       {name: Progress.NO_RESPONSE},
@@ -15,7 +16,10 @@ module DBHelpers
       {name: Progress.ANSWERED},
       {name: Progress.TRANSFERRED_OUT}
     ])
+  end
 
+  def load_feature_seeds
+    load_spec_seeds
     Minister.create!([
       {name: 'Chris Grayling', title: 'Secretary of State and Lord High Chancellor of Great Britain'},
       {name: 'Damian Green (MP)', title: 'Minister of State'},
