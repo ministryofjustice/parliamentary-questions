@@ -13,7 +13,7 @@ class PqsController < ApplicationController
   def show
     @pq = Pq.find_by(uin: params[:id])
     if !@pq.present?
-      flash[:notice] = 'Question not found'
+      flash[:error] = 'Question not found'
       redirect_to action: 'index'
     end
   end
