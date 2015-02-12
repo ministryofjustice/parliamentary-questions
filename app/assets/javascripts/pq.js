@@ -30,6 +30,7 @@ var setCommissionButtonStatus = function(form) {
       enable = enable && filled;
     });
 
+
     if (enable === true) {
       button.removeAttr('disabled');
     } else {
@@ -79,7 +80,7 @@ $(document).ready(function () {
   $(".form-commission")
     .on("ajax:success", function(){
       var pqid = $(this).data('pqid');
-      var uin = $('#pq-frame-'+pqid+ ' h3').text();
+      var uin  = $(this).data('pquin');
       $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
      incrementBadge('#db-filter-alloc-pend');
       decrementBadge('#db-filter-unalloc');

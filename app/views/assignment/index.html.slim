@@ -21,7 +21,7 @@
   .row
     .question-allocation
       p This question has also been allocated to the following action officers, but only one person may accept responsibility.
-      ul.question-allocation-list data-pquin=@question.uin
+      ul.question-allocation-list data-pqid=@question.id data-pquin=@question.uin
         - @question.action_officers_pqs.each do |ao_pq|
           - if !ao_pq.action_officer.nil? && ao_pq.action_officer_id!=@ao.id
             li
