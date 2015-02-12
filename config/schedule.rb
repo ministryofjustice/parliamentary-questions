@@ -5,13 +5,12 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, 'log/schedule.log'
-job_type :runner,  "cd :path && bundle exec rails runner -e :environment ':task' :output"
+job_type :rake,  "cd :path && RAILS_ENV=production bundle exec rake :task :output"
 
 every 1.day, :at => '4:00 am' do
-  runner 'ImportWorker.new.perform'
+  rake 'pqa:nightly_import'
 end
 
 every 1.day, :at => '6:00 am' do
-  runner 'ImportWorker.new.perform'
+  rake 'pqa:nightly_import'
 end
-

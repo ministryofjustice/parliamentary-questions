@@ -70,11 +70,11 @@ And starting the app with:
 
 Mock data can be automatically imported by running the following rake task:
 
-    bundle exec rake db:import_dummy_data
+    bundle exec rake pqa:import_dummy_data
 
 Finally, a rake task is also provided to load PQ&A XML data into the system.
 
-    bundle exec rake db:import_from_xml[path/to/question_file.xml]
+    bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
 
 # User authentication
 
