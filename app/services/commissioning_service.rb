@@ -1,6 +1,7 @@
 class CommissioningService
-  def initialize(tokenService = TokenService.new)
-    @tokenService = tokenService
+  def initialize(tokenService = nil, current_time = nil)
+    @tokenService = tokenService || TokenService.new
+    @current_time = current_time || DateTime.now
   end
 
   def commission(assignment)
@@ -16,7 +17,7 @@ class CommissioningService
     path = "/assignment/#{pq.uin.encode}"
     entity = "assignment:#{action_officers_pq.id}"
 
-    token_expires = DateTime.now.midnight.change({:offset => 0}) + 3.days
+    token_expires = @current_time.end_of_day + 3.days
     token = @tokenService.generate_token(path, entity, token_expires)
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
