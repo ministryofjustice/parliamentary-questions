@@ -1,24 +1,24 @@
 module Settings
   class PqRestApi
-    attr_reader :url, :username, :password
+    attr_reader :host, :username, :password
 
     def self.from_env
-      url      = ENV['PQ_REST_API_URL']
+      host     = ENV['PQ_REST_API_HOST']
       username = ENV['PQ_REST_API_USERNAME']
       password = ENV['PQ_REST_API_PASSWORD']
 
-      raise "Cannot find environment variable PQ_REST_API_URL. Please set it first" unless url
+      raise "Cannot find environment variable PQ_REST_API_HOST. Please set it first" unless host
 
       if ENV['RAILS_ENV'] == 'production'
         raise "Cannot find environment variable PQ_REST_API_USERNAME. Please set it first" unless username
         raise "Cannot find environment variable PQ_REST_API_PASSWORD. Please set it first" unless password
       end
 
-      new(url, username, password)
+      new(host, username, password)
     end
 
-    def initialize(url, username, password)
-      @url      = url
+    def initialize(host, username, password)
+      @host     = host
       @username = username
       @password = password
     end

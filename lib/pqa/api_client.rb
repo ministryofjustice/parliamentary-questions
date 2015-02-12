@@ -6,7 +6,7 @@ module PQA
   #
   class ApiClient < HTTPClient
     def self.from_settings
-      new(Settings.pq_rest_api.url,
+      new(Settings.pq_rest_api.host,
           Settings.pq_rest_api.username,
           Settings.pq_rest_api.password,
           File.expand_path('resources/certs/wqa.parliament.uk.pem', __dir__))
