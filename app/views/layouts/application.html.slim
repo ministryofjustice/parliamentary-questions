@@ -9,6 +9,15 @@
 
 - content_for :content_override do
    main#wrapper(role="main")
+      .phase-banner
+         p.phase-tag = config_item(:phase).upcase
+         span This is a new service - Your&nbsp;
+         - if ! user_signed_in?
+            <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Feedback">feedback</a>&nbsp;
+         - else
+            <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a>&nbsp;
+         will help us to improve it.
+
       = render partial: "shared/navigation"
       .container
          .content-inner
