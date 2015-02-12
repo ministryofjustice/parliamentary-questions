@@ -11,7 +11,7 @@ Webapp to manage the workflow Parliamentary Questions
 
 ```
 # username and pass for the PQ Rest Api
-PQ_REST_API_URL=<url_for_pq_api>
+PQ_REST_API_HOST=<url_for_pq_api>
 
 While developing or running automated tests, you can use the built-in mock API server by
 setting this value to: http://localhost:8888

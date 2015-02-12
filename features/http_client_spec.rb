@@ -2,25 +2,25 @@ require 'feature_helper'
 
 describe HTTPClient do
   let(:default_settings) {[ 
-      Settings.pq_rest_api.url,
+      Settings.pq_rest_api.host,
       'username',
       'password',
       File.expand_path('resources/certs/wqa.parliament.uk.pem', __dir__)
   ]}
 
   let(:client)      { HTTPClient.new(*default_settings)                  }
-    
+
   context 'issuing requests' do
     it 'should send a get request to the server' do
       res = client.issue_request(:get, "#{client.base_url}/")
-      
+
       expect(res.code).to eq '200'
       expect(res.body).to eq 'This API is working'
     end
 
     it 'should create a put request' do
       res = client.issue_request(:put, "#{client.base_url}/reset")
-      
+
       expect(res.code).to eq '200'
       expect(res.body).to eq 'ok'
     end
@@ -41,7 +41,7 @@ describe HTTPClient do
       expect_any_instance_of(Net::HTTP::Get).to receive(:basic_auth)
         .with('username', 'password')
 
-      res = client.issue_request(:get, "#{client.base_url}/")
+      client.issue_request(:get, "#{client.base_url}/")
     end
 
     it 'should not verify SSL certificate when handling HTTP' do
