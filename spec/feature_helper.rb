@@ -10,7 +10,8 @@ require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {
-    phantomjs_logger: File.new('/dev/null', 'a')
+    phantomjs_logger: File.new('/dev/null', 'a'),
+    window_size: [1024, 1500]
   })
 end
 
