@@ -1,8 +1,7 @@
 namespace :pqa do
   desc "Perform nightly import"
   task :nightly_import, [] => :environment do
-    report = ImportWorker.new.perform
-    puts report.inspect
+    ImportWorker.new.perform
   end
 
   desc "Generate and import dummy data for development"
