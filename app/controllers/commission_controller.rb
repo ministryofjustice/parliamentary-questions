@@ -3,6 +3,7 @@ class CommissionController < ApplicationController
 
   def commission
     form = CommissionForm.new(commission_form_params)
+
     if form.valid?
       pq = Pq.find(form.pq_id)
       pq.minister_id = form.minister_id
