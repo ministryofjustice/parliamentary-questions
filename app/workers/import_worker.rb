@@ -16,13 +16,15 @@ class ImportWorker
   end
 
   def perform
+    report = nil
     LogStuff.tag(:import) do
       LogStuff.info { "Import: starting scheduled import" }
       PaperTrail.whodunnit = 'SideKiq'
       yesterday = Date.today - 1.day
       tomorrow  = Date.today + 1.day
-      @import.run(yesterday, tomorrow)
+      report    = @import.run(yesterday, tomorrow)
       LogStuff.info { "Import: completed scheduled import" }
     end
+    report
   end
 end
