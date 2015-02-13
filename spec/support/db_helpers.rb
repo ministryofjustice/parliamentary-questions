@@ -1,8 +1,66 @@
 module DBHelpers
   module_function
 
-  def load_spec_seeds
-    Progress.create!([
+  FIXTURES = [
+    :ministers,
+    :progresses,
+    :directorates,
+    :divisions,
+    :deputy_directors,
+    :press_desks,
+    :action_officers,
+    :ogds,
+    :pqs
+  ]
+
+  def load_spec_fixtures
+    load_fixtures(:progresses)
+  end
+
+  def load_feature_fixtures
+    load_fixtures(:ministers,
+                  :progresses,
+                  :directorates,
+                  :divisions,
+                  :deputy_directors,
+                  :press_desks,
+                  :action_officers,
+                  :ogds)
+  end
+
+  def load_fixtures(*fixtures)
+    FIXTURES.each do |m|
+      method(m).call if fixtures.include?(m)
+    end
+  end
+
+  def pqs
+    (1..3).map do |n|
+      Pq.find_or_create_by(
+        uin: "uin-#{n}",
+        house_id: 1,
+        raising_member_id: 1,
+        tabled_date: Date.today,
+        response_due: Date.tomorrow,
+        question: "test question #{n}",
+        progress: progresses.find { |p| p.name == Progress.UNASSIGNED }
+      )
+    end
+  end
+
+  def ministers
+    [
+      {name: 'Chris Grayling', title: 'Secretary of State and Lord High Chancellor of Great Britain'},
+      {name: 'Damian Green (MP)', title: 'Minister of State'},
+      {name: 'Jeremy Wright (MP)', title: 'Parliamentary Under-Secretary of State; Minister for Prisons and Rehabilitation'},
+      {name: 'Shailesh Vara (MP)', title: 'Parliamentary Under-Secretary of State'},
+      {name: 'Simon Hughes (MP)',  title: 'Minister of State for Justice & Civil Liberties'},
+      {name: 'Lord Faulks QC',  title: 'Lord Faulks QC, Minister of State'}
+    ].map { |h| Minister.find_or_create_by(h) }
+  end
+
+  def progresses
+    [
       {name: Progress.UNASSIGNED},
       {name: Progress.NO_RESPONSE},
       {name: Progress.REJECTED},
@@ -15,30 +73,22 @@ module DBHelpers
       {name: Progress.MINISTER_CLEARED},
       {name: Progress.ANSWERED},
       {name: Progress.TRANSFERRED_OUT}
-    ])
+    ].map { |h| Progress.find_or_create_by(h) }
   end
 
-  def load_feature_seeds
-    load_spec_seeds
-    Minister.create!([
-      {name: 'Chris Grayling', title: 'Secretary of State and Lord High Chancellor of Great Britain'},
-      {name: 'Damian Green (MP)', title: 'Minister of State'},
-      {name: 'Jeremy Wright (MP)', title: 'Parliamentary Under-Secretary of State; Minister for Prisons and Rehabilitation'},
-      {name: 'Shailesh Vara (MP)', title: 'Parliamentary Under-Secretary of State'},
-      {name: 'Simon Hughes (MP)',  title: 'Minister of State for Justice & Civil Liberties'},
-      {name: 'Lord Faulks QC',  title: 'Lord Faulks QC, Minister of State'}
-    ])
-
-    directorates = Directorate.create!([
+  def directorates
+    [
       {name: 'Finance Assurance and Commercial'},
       {name: 'Criminal Justice'},
       {name: 'Law and Access to Justice'},
       {name: 'NOMS'},
       {name: 'HMCTS'},
       {name: 'LAA and Corporate Services'},
-    ])
+    ].map { |h| Directorate.find_or_create_by(h) }
+  end
 
-    divisions = Division.create!([
+  def divisions
+    [
       {directorate:  directorates[0], name: 'Corporate Finance'},
       {directorate:  directorates[0], name: 'Analytical Services'},
       {directorate:  directorates[0], name: 'Procurement'},
@@ -58,30 +108,40 @@ module DBHelpers
       {directorate:  directorates[4], name: 'IT'},
       {directorate:  directorates[5], name: 'Shared Services'},
       {directorate:  directorates[5], name: 'MoJ Technology'}
-    ])
+    ].map { |h| Division.find_or_create_by(h) }
+  end
 
-    deputy_directors = DeputyDirector.create!([
-      {division: divisions[0], name: 'deputy director 1'},
-      {division: divisions[0], name: 'deputy director 2'},
-    ])
+  def deputy_directors
+    [
+      {division: divisions[0], email: 'dd1@pq.com', name: 'deputy director 1'},
+      {division: divisions[0], email: 'dd2@pq.com', name: 'deputy director 2'},
+    ].map { |h| DeputyDirector.find_or_create_by(h) }
+  end
 
-    press_desks = PressDesk.create!([
+  def press_desks
+    [
       {name: 'Finance press desk'},
       {name: 'Prisons press desk'}
-    ])
+    ].map { |h| PressDesk.find_or_create_by(h) }
+  end
 
-    PressOfficer.create!([
+  def press_offices
+    [
       {name: 'press officer 1', email: 'one@press.office.com', press_desk: press_desks[0] },
       {name: 'press officer 2', email: 'two@press.office.com', press_desk: press_desks[1] },
-    ])
+    ].map { |h| PressOffice.find_or_create_by(h) }
+  end
 
-     ActionOfficer.create!([
+  def action_officers
+    [
       {deputy_director: deputy_directors[0], name: 'action officer 1', email: 'ao1@pq.com', press_desk: press_desks[0]},
       {deputy_director: deputy_directors[1], name: 'action officer 2', email: 'ao2@pq.com', press_desk: press_desks[1]},
-    ])
+    ].map { |h| ActionOfficer.find_or_create_by(h) }
+  end
 
-    Ogd.create!([
-        {name:'Ministry of Defence', acronym:'MOD'}
-    ])
+  def ogds
+    [
+      {name:'Ministry of Defence', acronym:'MOD'}
+    ].map { |h| Ogd.find_or_create_by(h) }
   end
 end
