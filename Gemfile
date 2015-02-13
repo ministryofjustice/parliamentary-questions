@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'bootstrap-will_paginate'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'devise_invitable'
 gem 'devise'

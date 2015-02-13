@@ -111,27 +111,18 @@ $(document).ready(function () {
       $( divToFill ).html(data);
     });
 
-    $('.date-for-answer-picker').datetimepicker({pickTime: false});
+    $('.date-for-answer').datetimepicker({timepicker: false,
+                                          closeOnDateSelect:true,
+                                          format:'d/m/Y'});
 
-    $('.internal-deadline-picker').each(function() {
-      var empty = ($(this).find('input').val() === '');
-      $(this).data('empty', empty);
-    }).datetimepicker().on("dp.show",function () {
-      var picker = $(this).data('DateTimePicker'),
-        empty = $(this).data('empty') || false,
-        date;
-
-      if (empty === true) {
-        date = picker.getDate();
-        date.hour(10);
-        date.minute(0);
-        picker.setDate(date);
-      }
-
-      $(this).removeData('empty');
-    }).on('change', function() {
-      $(this).removeData('empty');
+    // when clicking a calendar icon, open the calendar to the left of it
+    $('span.glyphicon').on('click', function () {
+        $(this).prev().datetimepicker('show');
     });
+
+    $('.internal-deadline').datetimepicker({defaultTime:'10:00',
+                                            closeOnDateSelect:true,
+                                            format:'d/m/Y     H:i'});
 
     $('.ao-reminder-link').on('ajax:success', function(e, data){
       $(this).after(data);
