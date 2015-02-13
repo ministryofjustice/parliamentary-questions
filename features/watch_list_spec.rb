@@ -1,7 +1,7 @@
 require 'feature_helper'
 
 feature "Watch list member sees allocated questions", suspend_cleaner: true do
-  
+
   before(:all) do
     #TODO: Execute this action via UI
     @aos  = ActionOfficer.where("email like 'ao%@pq.com'") 
@@ -16,7 +16,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     fill_in 'Name', with: 'test-member-a'
     fill_in 'Email', with: 'test-member-a@pq.com'
     click_link_or_button 'Save'
-    
+
     expect(page).to have_text(/watchlist member was successfully created/i)
   end
 
@@ -36,7 +36,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     expect(page).to have_text(/allocated today 1/i)
     expect(page).to have_text(@pq.question)
     allocation_el = find("*[data-pquin='#{@pq.uin}']")
-    
+
     @aos.each do |action_officer|
       expect(allocation_el).to have_text(action_officer.name)
     end
@@ -54,7 +54,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
 
   def generate_dummy_pq(aos)
     PQA::QuestionLoader.new.load_and_import
-    
+
     q = Pq.first
     q.seen_by_finance   = true
     q.minister          = Minister.find_by(name: 'Chris Grayling')
@@ -63,14 +63,13 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     q.internal_deadline = Date.today + 2.day
     PQProgressChangerService.new.update_progress(q)
     q.save
-    
+
     q
   end
 
   def watchlist_member_email_data
     mail        = ActionMailer::Base.deliveries.last
-    html_email  = mail.body.parts.find { |p| p.content_type.match(/text\/html/)}
-    doc         = Nokogiri::HTML(html_email.body.raw_source)
+    doc         = Nokogiri::HTML(mail.html_part.body.raw_source)
     watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ Regexp.new(watchlist_dashboard_path) }
     [mail, watchlist_a['href']]
   end
