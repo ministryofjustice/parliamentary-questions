@@ -5,7 +5,7 @@ feature 'Commissioning questions', suspend_cleaner: true do
   let(:minister)  { Minister.first                             }
 
   before(:all) do
-    @pq , _ =  PQA::QuestionLoader.new.load_and_import(1)
+    @pq, _ =  PQA::QuestionLoader.new.load_and_import(1)
 
     create_finance_session
     check "pq[1][finance_interest]"
@@ -27,10 +27,9 @@ feature 'Commissioning questions', suspend_cleaner: true do
   end
 
   scenario 'AO received email notification of assigned question with a link' do
-    mail = ActionMailer::Base.deliveries.last
-
-    expect(mail.to).to include ao.email
-    expect(mail.text_part.body).to include "You have been allocated PQ #{@pq.uin}"
+    aa_mail = ActionMailer::Base.deliveries.first
+    expect(aa_mail.to).to include ao.email
+    expect(aa_mail.text_part.body).to include "You have been allocated PQ #{@pq.uin}"
   end
 
   scenario 'Following the link after 3 days have passed shows error page'
