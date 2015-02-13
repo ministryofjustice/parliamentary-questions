@@ -7,57 +7,66 @@ require './spec/support/db_helpers'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
-require 'capybara/email/rspec'
 
 Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, {
-      phantomjs_logger: File.new('/dev/null', 'a')
-    })
+  Capybara::Poltergeist::Driver.new(app, {
+    phantomjs_logger: File.new('/dev/null', 'a')
+  })
 end
 
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
+  # Test Order
+  # config.order = "random"
+
+  # Helper modules to load
   config.include Features::SessionHelpers, type: :feature
 
-  # Manage mock API server instance
+  # Start mock API server instance
   mock_api_runner = PQA::MockApiServerRunner.new
 
-
-  # Set to false to enable Poltergeist
-  #config.use_transactional_fixtures = false
-  config.order = "random"
-  #config.infer_spec_type_from_file_location!
-
-
-  DatabaseCleaner.strategy = :truncation
-  # Databse cleaner setup
-  # Use truncation in js tests, transaction otherwise
-  # source: http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
+  # Database cleaner setup
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     mock_api_runner.start
-    DBHelpers.load_seeds
+    DBHelpers.load_feature_seeds
   end
 
-  config.before(:each) do |example|
-    if example.metadata[:js]
+  # Tables to except from truncation
+  TABLE_EXCEPTIONS = [
+    Progress,
+    Minister,
+    Directorate,
+    Division,
+    DeputyDirector,
+    PressDesk,
+    PressOfficer,
+    ActionOfficer,
+    Ogd
+  ].map(&:table_name)
+
+  # Use truncation in js tests, transaction otherwise
+  config.before(:each) do |test|
+    if test.metadata[:js]
       DatabaseCleaner.strategy = [
         :truncation,
-        { except: ['progresses'] }
+        { except: TABLE_EXCEPTIONS } 
       ]
     else
       DatabaseCleaner.strategy = [
         :transaction
       ]
     end
-    DatabaseCleaner.start
+
+    DatabaseCleaner.start unless test.metadata[:suspend_cleaner]
   end
 
-  config.after(:each) do
-    DatabaseCleaner.clean
+  config.after(:each) do |test|
+    DatabaseCleaner.clean unless test.metadata[:suspend_cleaner]
   end
 
+  # Shut down mock API instance
   config.after(:suite) do
     mock_api_runner.stop
   end

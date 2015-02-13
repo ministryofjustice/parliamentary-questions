@@ -52,7 +52,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
-    DBHelpers.load_seeds
+    DBHelpers.load_spec_seeds
   end
 
   config.before(:each) do
