@@ -3,9 +3,12 @@ require 'feature_helper'
 feature "Watch list member sees allocated questions", suspend_cleaner: true do
 
   before(:all) do
-    #TODO: Execute this action via UI
-    @aos  = ActionOfficer.where("email like 'ao%@pq.com'") 
+    @aogit s  = ActionOfficer.where("email like 'ao%@pq.com'") 
     @pq   = generate_dummy_pq(@aos)
+  end
+
+  after(:all) do
+    DatabaseCleaner.clean
   end
 
   scenario "An admin can create a new watchlist member" do
@@ -24,14 +27,15 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     create_pq_session
     visit watchlist_members_path
     click_link_or_button 'Send allocation info'
-    mail, url = watchlist_member_email_data
+    mail = sent_mail.last
+    url  = extract_url_like(watchlist_dashboard_path, mail)
 
     expect(mail.cc).to include('test-member-a@pq.com')
     expect(url).to_not be_blank
   end 
 
   scenario "A watchlist member follows an email link to view the list of daily questions" do
-    _ , url = watchlist_member_email_data
+    url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
     visit url
     expect(page).to have_text(/allocated today 1/i)
     expect(page).to have_text(@pq.question)
@@ -44,7 +48,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
 
   scenario 'The URL token sent to the watchlist member expires after 24 hours' do
     WatchlistReportService.new(nil, DateTime.now - 2.days).notify_watchlist
-    _ , url = watchlist_member_email_data
+    url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
     visit url
 
     expect(page).to have_text(/unauthorized/i)
@@ -65,12 +69,5 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     q.save
 
     q
-  end
-
-  def watchlist_member_email_data
-    mail        = ActionMailer::Base.deliveries.last
-    doc         = Nokogiri::HTML(mail.html_part.body.raw_source)
-    watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ Regexp.new(watchlist_dashboard_path) }
-    [mail, watchlist_a['href']]
   end
 end
