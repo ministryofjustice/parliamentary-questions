@@ -56,7 +56,14 @@ var changeBadgeBy = function(id_of_navpill, val) {
 
 $(document).ready(function () {
 
-  $('.datetimepicker').datetimepicker();
+  $('.datetimepicker input').datetimepicker({defaultTime:'10:00',
+                                            closeOnDateSelect:true,
+                                            format:'d/m/Y     H:i'});
+  $('.datepicker').datetimepicker({timepicker: false,
+                                   closeOnDateSelect:true,
+                                   format:'d/m/Y'});
+
+
   $('.dateonlypicker').datetimepicker({ pickTime: false });
   $('.minister-select').select2({width:'250px'});
   $(".multi-select-action-officers").select2({width:'250px'});
@@ -111,18 +118,10 @@ $(document).ready(function () {
       $( divToFill ).html(data);
     });
 
-    $('.date-for-answer').datetimepicker({timepicker: false,
-                                          closeOnDateSelect:true,
-                                          format:'d/m/Y'});
-
     // when clicking a calendar icon, open the calendar to the left of it
     $('span.glyphicon').on('click', function () {
         $(this).prev().datetimepicker('show');
     });
-
-    $('.internal-deadline').datetimepicker({defaultTime:'10:00',
-                                            closeOnDateSelect:true,
-                                            format:'d/m/Y     H:i'});
 
     $('.ao-reminder-link').on('ajax:success', function(e, data){
       $(this).after(data);

@@ -295,17 +295,26 @@ button, input[type="submit"] {
 
 .no-indent { margin-left: -2.1em; }
 
-input.internal-deadline, input.date-for-answer {
-  display: inline;
-  width: 90%;
-  border: none;
-}
 
-.date-cal {
+// = Calendars =================================================================
+
+.datepicker, .datetimepicker {
   border-style: solid;
   border-radius: 0px;
   border-color: #BFC1C3;
   border-width: 1px;
+  display: inline-block;
+  width: 90%;
+  max-width: 218px;
+  input {
+    display: inline;
+    width: 90%;
+    border: none;
+  }
+}
+
+.glyphicon-calendar, .fa-exclamation-triangle {
+  vertical-align: -20%;
 }
 
 // = Element spacing ============================================================
