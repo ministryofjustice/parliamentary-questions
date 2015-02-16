@@ -33,7 +33,7 @@ feature "As a finance officer, I want to be able to register interest in a quest
 # These tests are actioned on the following URL //finance/questions
 
   scenario "Finance officer tries to access the dashboard page" do
-    visit '/dashboard'
+    visit dashboard_path
     expect(page).to have_content(/unauthorized/i)
   end
 

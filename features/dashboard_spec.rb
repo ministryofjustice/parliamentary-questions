@@ -7,7 +7,7 @@ feature 'Visit the dashboard an show the questions for the day' do
   end
 
   scenario 'can view the questions tabled for today' do
-    visit '/dashboard'
+    visit dashboard_path
     expect(page).to have_content(@pq.text)
   end
 end
