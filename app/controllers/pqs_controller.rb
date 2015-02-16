@@ -41,9 +41,9 @@ class PqsController < ApplicationController
     unless @pq
       flash[:error] = 'Question not found'
       redirect_to action: 'index'
+    else
+      yield if block_given?
     end
-
-    yield if block_given?
   end
 
   def archive_trim_link!(action)
