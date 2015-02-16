@@ -13,7 +13,7 @@ class FinanceController < ApplicationController
       pq.update(seen_by_finance: seen_by_finance, finance_interest: finance_interest)
     end
 
-    flash[:notice] = 'Successfully registered interest in the questions'
+    flash[:success] = 'Successfully registered interest in the questions'
     redirect_to action: 'questions'
   end
 end

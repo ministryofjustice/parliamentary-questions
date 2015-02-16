@@ -1,8 +1,3 @@
-- if ! user_signed_in?
-  .phase-banner
-    p.phase-tag = config_item(:phase).upcase
-    span This is a new service. Your <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Watchlist">feedback</a> will help us to improve it.
-
 div
   h2
     | Questions Allocated #{Date.today.to_s}
@@ -24,7 +19,7 @@ div
       - if question.action_officers_pqs.size > 0
         .question-allocation
           h4 Allocation
-          ul.question-allocation-list data-pqid=question.id
+          ul.question-allocation-list data-pqid=question.id data-pquin=question.uin
             - question.action_officers_pqs.each do |ao_pq|
               li
                 - if !ao_pq.action_officer.nil?

@@ -9,11 +9,13 @@ Webapp to manage the workflow Parliamentary Questions
 
 # Environment Variables
 
-In order to run the project local and in production you have to set the following environment variables
-
 ```
 # username and pass for the PQ Rest Api
-PQ_REST_API_URL=<url_for_pq_api>
+PQ_REST_API_HOST=<url_for_pq_api>
+
+While developing or running automated tests, you can use the built-in mock API server by
+setting this value to: http://localhost:8888
+
 PQ_REST_API_USERNAME=<username_here>
 PQ_REST_API_PASSWORD=<password_here>
 
@@ -28,8 +30,8 @@ SMTP_PORT=<port>
 SMTP_USERNAME=
 SMTP_PASSWORD=
 
-# redis server, for sideqik jobs
-export REDIS_URL=redis://localhost:6379
+# for production only
+CA_CERT=/etc/ssl/certs/
 
 # host to deploy the assets (following the assets pipeline)
 ASSET_HOST=http://assets.example.com
@@ -42,6 +44,8 @@ APPVERSION=0.1-sprint6
 
 - Ruby MRI 2.1.2
 - Postgresql 9.3
+- phantomjs (tests only)
+- cureutils (for required by the `version_tag.sh` script)
 
 To start with, make sure you have the right version of the Ruby runtime installed.
 Multiple versions of Ruby can be managed on the same machine through either [rbenv](https://github.com/sstephenson/rbenv)
@@ -65,13 +69,13 @@ And starting the app with:
 
     bundle exec rails s
 
-Finally, mock data can be automatically imported by just pointing your browser to
-this URL:
+Mock data can be automatically imported by running the following rake task:
 
-    http://localhost:3000/import/questions_force_update?dateFrom=2014-05-01&dateTo=2015-01-12
+    bundle exec rake pqa:import_dummy_data
 
-Refer to the [Mock PQ API](https://github.com/ministryofjustice/mock-pq-api) Readme
-file for further details on the mock dataset.
+Finally, a rake task is also provided to load PQ&A XML data into the system.
+
+    bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
 
 # User authentication
 
@@ -82,17 +86,15 @@ It's done using devise and devise invitable:
 
 For development you can create users with a rake task.
 ```
-# email, password, name
+# default user
+rake user:create
+
+# specific email, password, name
 rake "user:create[admin@admin.com, 123456789, admin]"
 ```
 
-# Data migration
+# Running tests
 
-The import_transform task takes two parameters:
-* the path to the file you want to import
-* optional boolean parameter to show the full script of the sql commands being run [default is true]
-```
-# path to local import text file.
-# the file should be tilde(~) delimited, not tab
-rake db:import_transform['/users/yourname/path/to/filename.txt', false] --trace
-```
+Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
+be run be executing the same command with the features folder as argument (i.e.
+`bundle exec rspec features`).

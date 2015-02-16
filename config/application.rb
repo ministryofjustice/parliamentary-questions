@@ -20,16 +20,16 @@ module ParliamentaryQuestions
     # Current Phase (Sets the current phase and the colour of phase tags)
     # Presumed values: alpha, beta, live
     config.phase = 'beta'
-# Product Type (Adds class to body based on service type)
-# Presumed values: information, service
+    # Product Type (Adds class to body based on service type)
+    # Presumed values: information, service
     config.product_type = 'service'
-# Feedback URL (URL for feedback link in phase banner)
+    # Feedback URL (URL for feedback link in phase banner)
     config.feedback_url = '#'
-# Google Analytics ID (Tracking ID for the service)
-    config.ga_id = ''
+    # Google Analytics ID (Tracking ID for the service)
+    config.ga_id = 'UA-37377084-14'
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/scrapers)
+    config.autoload_paths += %W(#{config.root}/scrapers #{config.root}/lib)
 
     config.encoding = 'utf-8'
 
@@ -50,3 +50,5 @@ module ParliamentaryQuestions
     $statsd = Statsd.new 'localhost', 8125
   end
 end
+
+require 'settings'

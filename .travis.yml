@@ -1,9 +1,7 @@
 language: ruby
 env:
   global:
-    - PQ_REST_API_URL=http://pq-rest-api
-    - PQ_REST_API_USERNAME=username
-    - PQ_REST_API_PASSWORD=password
+    - PQ_REST_API_HOST=http://localhost:8888
     - CODECLIMATE_REPO_TOKEN=08183fa3b285d981f273ace1c809c402810db3221b1060023a6db8633ac5b8cb
 rvm:
   - 2.1.2
@@ -16,7 +14,8 @@ addons:
 script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
-  - bundle exec rake spec
+  - bundle exec rspec spec
+  - bundle exec rspec features
 #notifications:
 #  hipchat:
 #    rooms:
