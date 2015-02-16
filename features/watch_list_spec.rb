@@ -3,7 +3,7 @@ require 'feature_helper'
 feature "Watch list member sees allocated questions", suspend_cleaner: true do
 
   before(:all) do
-    @aogit s  = ActionOfficer.where("email like 'ao%@pq.com'") 
+    @aos  = ActionOfficer.where("email like 'ao%@pq.com'") 
     @pq   = generate_dummy_pq(@aos)
   end
 
