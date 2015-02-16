@@ -26,7 +26,7 @@ class CommissionController < ApplicationController
   def commission_form_params
     params.require(:commission_form)
       .permit(:pq_id, :minister_id, :policy_minister_id,
-             { action_officer_id: []},
+             { action_officer_id: [] },
              :date_for_answer, :internal_deadline)
   end
 end
