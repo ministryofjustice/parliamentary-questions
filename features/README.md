@@ -9,9 +9,9 @@ $ bundle exec rspec features/
 ```
 
 The tests are configured using the helper file located in spec/feature_helper.rb. Key points to note:
-* Seed data is saved before the suite runs using the DBHelpers module (spec/support/db_helpers.rb)
+* Seed data is loaded before the suite runs using the DBHelpers module (spec/support/db_helpers.rb)
 * Database is cleaned using transactions by default
-* If JS enabled testing is used, Capybara will use the poltergeist driver rather than the default 
+* If JS enabled testing is used (by setting js: true flag in the test block), Capybara will use the poltergeist driver rather than the default 
 * Database cleaner uses truncation strategy for JS enabled testing (excepting the tables containing seed data)
 * Tests are run in deterministic order
 
