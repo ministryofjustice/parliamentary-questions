@@ -58,7 +58,6 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
-
       PqMailer.acceptance_email(pq, ao).deliver
 
       mail = ActionMailer::Base.deliveries.first

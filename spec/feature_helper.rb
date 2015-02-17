@@ -21,7 +21,6 @@ Capybara.javascript_driver = :poltergeist
 RSpec.configure do |config|
   # Helper modules to load
   config.include Features::SessionHelpers, type: :feature
-  config.include Features::EmailHelpers,   type: :feature
 
   # Start mock API server instance
   mock_api_runner = PQA::MockApiServerRunner.new
