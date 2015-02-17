@@ -45,19 +45,6 @@ module PQA
       issue_request(:put, uri, xml)
     end
 
-    # Saves a question answer.
-    #
-    # Note: This is part of the actual PQ&A API
-    #
-    # @param uin [String] The question unique identification number.
-    # @param xml [String] The XML representation of the answer
-    #
-    # @return [Net::HTTP::Response]
-    def save_answer(uin, xml)
-      uri = File.join(@base_url, 'api/qais/answers', uin)
-      issue_request(:put, uri, xml)
-    end
-
     # Resets the Mock API in-memory data store.
     #
     # @return [Net::HTTP::Response]
