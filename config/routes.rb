@@ -71,13 +71,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'members/by_name' => 'members#by_name'
 
-  get 'import/question' => 'import#question'
-  get 'import/questions' => 'import#questions'
-  get 'import/questions_force_update' => 'import#questions_force_update'
-  get 'import/questions_no_log' => 'import#questions_no_log'
-  get 'import/questions_no_log' => 'import#questions_no_log'
-  get 'import/questions_async' => 'import#questions_async'
-
   get 'import/logs' => 'import#logs'
 
   get 'finance/questions' => 'finance#questions'
@@ -106,5 +99,4 @@ ParliamentaryQuestions::Application.routes.draw do
     get '404', :to => 'application#page_not_found'
     get '500', :to => 'application#server_error'
   end
-
 end

@@ -12,7 +12,8 @@ p.text= @pq.member_name
 h4 Question type
 p.text= @pq.question_type
 h4 Question tabled date
-p.text= @pq.tabled_date.try(:to_s, :date)
+- if @pq.tabled_date
+  p.text= @pq.tabled_date.try(:to_s, :date)
 - if @pq.registered_interest
   p.text
     | * Member has registered an interest in the Question.

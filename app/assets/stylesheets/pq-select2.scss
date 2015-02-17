@@ -1,3 +1,5 @@
+/* Rules to make select2 components more like govuk elements */
+
 @import 'colours';
 
 @mixin reset-border-radius {
@@ -24,19 +26,46 @@
 .select2-container .select2-choice {
   @include reset-border-radius;
 }
+.select2-container .select2-choice {
+  background-image:none;
+}
 
+// Remove default background image and use govuk border colour
+.select2-container .select2-choice {
+  background-image: inherit;
+  border-color: $border-colour;
+}
+
+.select2-container.select2-container-disabled .select2-choice {
+  border-color: $border-colour;
+}
+
+// Make single-select disabled cursor like multi-select
+.select2-container.select2-container-disabled .select2-choice,
+.select2-container-multi.select2-container-disabled .select2-choices input {
+  cursor: not-allowed;
+}
+
+// Since select2 looks like an input, make the cursor look like a text cursor
+.select2-choice.select2-default {
+  cursor: text;
+}
+
+// More inline with govuk elements
 .select2-drop {
   @include reset-border-radius;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-width: 3px;
+  &.select2-drop-multi {
+    margin-top: inherit!important;
+  }
 }
 
 .select2-drop.select2-drop-above {
   @include reset-border-radius;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-width: 3px;
+  border-width: 1px;
 }
 
 .select2-drop-active {
@@ -63,8 +92,8 @@ html[dir="rtl"] .select2-container .select2-choice .select2-arrow {
 .select2-dropdown-open.select2-drop-above .select2-choice,
 .select2-dropdown-open.select2-drop-above .select2-choices {
   @include set-border-color;
-  border-width: 3px;
-  background-image: none;
+  border-width: 1px;
+  background-image: inherit;
 }
 
 .select2-results .select2-highlighted {
@@ -89,10 +118,13 @@ html[dir="rtl"] .select2-container .select2-choice .select2-arrow {
 .form-control.select2-container.select2-dropdown-open {
   @include set-border-color;
   @include reset-border-radius;
-  border-width: 3px;
+  border-width: 1px;
 }
 .form-control .select2-container.select2-dropdown-open .select2-choices {
   @include reset-border-radius;
+}
+.select2-dropdown-open .select2-choice {
+  background-color: inherit;
 }
 .form-control.select2-container .select2-choices {
   @include reset-border-radius;

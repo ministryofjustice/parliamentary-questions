@@ -1,4 +1,7 @@
 @import "colours";
+@import "design-patterns/alpha-beta";
+
+$phase: beta;
 
 // = Reset =================================================================================
 
@@ -19,7 +22,6 @@ body {
 // = Colour definitions ====================================================================
 
 #build,
-.phase-banner .phase-tag,
 i.fa-envelope,
 .name-day,
 .open,
@@ -42,7 +44,7 @@ i.fa-envelope,
 .trim-links-header:hover,
 .trim-links-cancel:hover { color: #fff; }
 
-.phase-banner p, .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
 #search_button                                                                                                                                                                                      { color: #999999; }
 .glyphicon-search                                                                                                                                                                                   { color: #979797; }
 i.fa-exclamation-triangle, i.fa-times-circle                                                                                                                                                        { color: #df3034; }
@@ -52,15 +54,16 @@ i.fa-check-circle                                                               
 hr                                                                                                                                                                                                  { color: #bfc1c3; }
 h4                                                                                                                                                                                                  { color: #6f777b; }
 #build,
-.phase-banner .phase-tag,
 .flag-no-response,
 .flag-unallocated { background-color: #f47738; }
+
 #search_button,
 #status-filters .active .badge,
 .js-enabled .selected,
 #progress-menu ul li a.progress-menu-item:hover,
 .js-enabled .selected,
 .alert { background-color: #fff; }
+
 .block-label,
 .navbar { background-color: #dee0e2; }
 .flag-accepted { background-color: #28a197; }
@@ -95,7 +98,6 @@ h2 .badge,
 .form-control:focus                       { border-color: #ffbf47; }
 
 #settings-home h3        { border-bottom-color: #dee0e2; }
-.phase-banner            { border-bottom:1px solid #bfc1c3; }
 
 .alert-success, .success { border-left-color: #85994b; }
 .notice, .info-notice    { border-left-color: #d0021b; }
@@ -103,66 +105,41 @@ h2 .badge,
 .js-enabled .add-focus { outline-color: #ffbf47; }
 .js-enabled .add-focus { outline: 3px solid #ffbf47; }
 
-// = Template and shared ========================================================
 
-.header-wrapper,
+
+// =============================================================================
+// = Modification to govuk_template & moj_template =============================
+
 #wrapper {
-  max-width: 1024px;
+  max-width: 1024px; // width and alignment are unspecified in govuk_template
   margin-left: auto;
   margin-right: auto;
+  border-bottom: none; // remove blue bar at bottom added by moj_template
+  padding: 0px 32px; // align to width of content
 }
 
-.header-global { margin-right: 40.5%; }
-
-#global-header.with-proposition .header-wrapper .header-proposition {
-  display: inline-block;
-  float:none;
-  width: 241px;
-  height: 48px;
+/*
+  both govuk_template and moj_template add a hover underline.
+  Until moj_template's border bottom is fixed
+  (https://github.com/ministryofjustice/moj_template/pull/55) we need to cancel it.
+*/
+#global-header.with-proposition .header-wrapper .header-proposition #proposition-name:hover {
+  border-bottom: none;
 }
 
 .phase-banner {
-  padding:10px 16px 8px 16px;
-  margin-left: auto;
-  margin-right: auto;
+  @include phase-banner($phase);
+  a {
+    text-decoration: underline; // override bootstrap
+  }
 }
 
-.phase-banner .phase-tag {
-  display:-moz-inline-stack;
-  display:inline-block;
-  vertical-align:top;
-  margin:0 8px 0 0;
-  padding:2px 5px 0;
-  font-size:16px;
-  line-height:1.25;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  text-decoration:none;
-  // background-color:#f47738;
+.phase-tag {
+  @include phase-tag($phase);
 }
 
-.phase-banner p {margin:0;font-size:16px;line-height:1.25;font-weight:400;text-transform:none;}
-.phase-banner span {display:-moz-inline-stack;display:inline-block;width:75%;vertical-align:top;}
-
-
-.content a {
-  line-height: 32px;
-  vertical-align: middle;
-}
-
-#build {
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  padding: 2px 5px;
-}
-
-#wrapper {
-  border-bottom: none;
-  padding: 0px 15px;
-}
+// =============================================================================
+// = PQ-specific styling =======================================================
 
 h1 {
   font-size: 24px;
@@ -223,6 +200,13 @@ ul {
   padding-left: 0;
 }
 
+footer {
+  margin-top: 100px;
+  a {
+    text-decoration: underline; // override bootstrap
+  }
+}
+
 // = Flags ======================================================================
 
 .flag-accepted,
@@ -266,10 +250,6 @@ ul {
   border-left-style: solid;
   margin: 0px 0px 20px 16px;
   padding:16px;
-  ul {
-    list-style-type: none;
-    li { margin-left: -41px; }
-  }
 }
 
 i.fa-envelope,
@@ -438,8 +418,10 @@ textarea {
   h3 { margin: 0px 0px 10px 0px; }
   .badge {
     float: right;
-    min-width: 2.5em;
-    margin-top: .4em;
+    min-width: 1.5em;
+    margin-top: .2em;
+    border-radius: 4px;
+    padding: 5px 2px 3px 3px;
   }
 }
 
@@ -487,6 +469,7 @@ textarea {
 }
 
 .select2-container .select2-choice abbr {top: 5px!important;}
+.select2-arrow {display:none!important;}
 
 li.select2-search-field {border-bottom: none;}
 
@@ -692,9 +675,6 @@ li.select2-search-field {border-bottom: none;}
   .button { margin-right: 25%; }
 }
 
-// = Footer ============================================================
-
-#footer { margin-top: 100px; }
 
 /* ============================================================ */
 /* = Misc.                                                      */

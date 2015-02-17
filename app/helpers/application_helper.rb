@@ -21,12 +21,19 @@ module ApplicationHelper
     end
   end
 
-  def flash_class_for flash_type
-    { success: "alert-success",
-      error: "alert-danger",
-      alert: "alert-block",
-      notice: "alert-info"
-    }[flash_type] || flash_type.to_s
+  def flash_class_for(flash_type)
+    case flash_type.to_s
+    when 'notice'
+      'alert-info'
+    when 'success'
+      'alert-success'
+    when 'error'
+      'alert-danger'
+    when 'alert'
+      'alert-block'
+    else
+      'alert-success'
+    end
   end
 
   def minister_warning?(question, minister)

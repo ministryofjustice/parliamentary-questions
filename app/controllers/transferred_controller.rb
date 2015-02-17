@@ -14,10 +14,10 @@ class TransferredController < ApplicationController
 
 
     if @pq.save
-      flash[notice] = 'Transferred PQ was successfully created.'
+      flash[:success] = 'Transferred PQ was successfully created.'
       redirect_to controller: 'dashboard', action: 'index'
     else
-      flash[notice] = 'There was an error creating the transfer PQ.'
+      flash[:error] = 'There was an error creating the transfer PQ.'
       render :new
     end
   end
