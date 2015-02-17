@@ -3,7 +3,6 @@ class PqMailer < PQBaseMailer
 
   def commission_email(template_params)
   	@template_params = template_params
-
     mail(to: @template_params[:email], subject: "You have been allocated PQ #{@template_params[:uin]}")
   end
 
@@ -13,19 +12,20 @@ class PqMailer < PQBaseMailer
   end
 
   def acceptance_email(pq, ao, urgent = false)
+    @template_params      = build_primary_hash(pq, ao)
+    deputy_director_email = ao.deputy_director && ao.deputy_director.email
+
     cc_list = [
-      dd_email(ao),
-      mp_email(pq),
-      policy_mp_email(pq),
-      press_email(ao)
+      deputy_director_email,
+      @template_params[:mpemail],
+      @template_params[:policy_mpemail],
+      @template_params[:press_email]
     ] + 
     mp_office_emails(pq, 'Simon Hughes (MP)') + 
     action_list_emails +
     finance_users_emails(pq)
 
-    @template_params = build_primary_hash(pq, ao).merge({
-      cc_list: cc_list.reject(&:blank?).join(';')
-    })
+    @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
         
     subject = if urgent
       "URGENT : please send your draft response for PQ #{@template_params[:uin]}"
@@ -42,9 +42,8 @@ class PqMailer < PQBaseMailer
   end
 
   def watchlist_email(template_params)
-    @template_params = template_params
-    date = Date.today.to_s(:date)
-    @template_params[:date] = date
+    @template_params        = template_params
+    @template_params[:date] = Date.today.to_s(:date)
     mail(to: @template_params[:email], cc: @template_params[:cc], subject: 'PQs allocated today')
   end
 
@@ -61,14 +60,14 @@ private
       email:                ao.emails,
       uin:                  pq.uin,
       question:             pq.question,
-      mpname:               mp_name(pq),
-      mpemail:              mp_email(pq),
-      policy_mpname:        policy_mp_name(pq),
-      policy_mpemail:       policy_mp_email(pq),
-      press_email:          press_email(ao),
+      mpname:               pq.minister && pq.minister.name,
+      mpemail:              pq.minister && pq.minister.email,
+      policy_mpname:        pq.policy_minister && pq.policy_minister.name,
+      policy_mpemail:       pq.policy_minister && pq.policy_minister.email,
+      press_email:          ao.press_desk && ao.press_desk.email_output,
       member_name:          pq.member_name,
       house_name:           pq.house_name,
-      internal_deadline:    internal_deadline(pq),
+      internal_deadline:    format_internal_deadline(pq),
       date_to_parliament:   pq.date_for_answer.try(:to_s, :date),
       finance_users_emails: finance_users_emails(pq).join(';'),
     }
@@ -98,31 +97,7 @@ private
     end
   end
 
-  def dd_email(ao)
-    ao.deputy_director && ao.deputy_director.email
-  end
-
-  def mp_name(pq)
-    pq.minister && pq.minister.name
-  end
-
-  def mp_email(pq)
-    pq.minister && pq.minister.email
-  end
-
-  def policy_mp_name(pq)
-    pq.policy_minister && pq.policy_minister.name
-  end
-
-  def policy_mp_email(pq)
-    pq.policy_minister && pq.policy_minister.email
-  end
-
-  def press_email(ao)
-    ao.press_desk && ao.press_desk.email_output
-  end
-
-  def internal_deadline(pq)
+  def format_internal_deadline(pq)
     pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date) } - 10am " : ''
   end
 end
