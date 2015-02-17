@@ -3,6 +3,6 @@ p.text= @pq.pod_waiting.to_s
 = f.check_box_gds :pod_query_flag
 .form-group
   label.form-label for="pod_clearance"  Date cleared by POD
-  span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+  .datetimepicker
     input#pod_clearance.form-control name="pq[pod_clearance]" type="text" value=(@pq.pod_clearance.to_s) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar
