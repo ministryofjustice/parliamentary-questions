@@ -268,6 +268,15 @@ label {
 .date,
 .datetimepicker { width: 13em; }
 
+
+// override jquery.datepicker's colours to match the rest of the page
+.xdsoft_datetimepicker .xdsoft_calendar td:hover, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+  background-color: #FFBF47!important;
+}
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current {
+  background-color: #2B8CC4!important;
+}
+
 #pages,
 .select2-container-multi .select2-choices li { width: 100%; }
 
