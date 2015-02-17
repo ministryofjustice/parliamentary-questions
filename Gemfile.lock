@@ -36,6 +36,7 @@ GEM
     bootstrap-will_paginate (0.0.10)
       momentjs-rails (~> 2.5.0)
       will_paginate
+      will_paginate
     builder (3.2.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
