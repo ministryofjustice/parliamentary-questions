@@ -14,33 +14,28 @@ class PqMailer < PQBaseMailer
 
   def acceptance_email(pq, ao, urgent = false)
 
-    @template_params = build_primary_hash(pq, ao)
-
-    @template_params[:date_to_parliament] = pq.date_for_answer.try(:to_s, :date)
+    @template_params = build_primary_hash(pq, ao).merge({
+      date_to_parliament:    pq.date_for_answer.try(:to_s, :date),
+      finance_users_emails:  finance_users_emails(pq).join(';'),
+    })
 
     cc_list = [
-        @template_params[:mpemail],
-        @template_params[:policy_mpemail],
-        @template_params[:press_email]
-    ]
+      ao.deputy_director && ao.deputy_director.email,
+      @template_params[:mpemail],
+      @template_params[:policy_mpemail],
+      @template_params[:press_email]
+    ].reject(&:blank?) + 
+    mp_office_emails(pq, 'Simon Hughes (MP)') + 
+    action_list_emails +
+    finance_users_emails(pq)
+        
+    @template_params[:cc_list] = cc_list.join(';')
 
-    cc_list.append(get_mp_office_email(pq, 'Simon Hughes (MP)'))
-
-    cc_list.append(get_action_list_mails)
-
-    cc_list.append(get_dd_email(ao))
-
-    @template_params[:finance_users_emails] = finance_users_emails(pq)
-    cc_list.append(@template_params[:finance_users_emails])
-
-    @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
-
-    if urgent
-      subject = "URGENT : please send your draft response for PQ #{@template_params[:uin]}"
+    subject = if urgent
+      "URGENT : please send your draft response for PQ #{@template_params[:uin]}"
     else
-      subject = "You have accepted PQ #{@template_params[:uin]}"
+      "You have accepted PQ #{@template_params[:uin]}"
     end
-
     mail(to: @template_params[:email], subject: subject)
   end
 
@@ -50,7 +45,6 @@ class PqMailer < PQBaseMailer
   end
 
   def watchlist_email(template_params)
-
     @template_params = template_params
     date = Date.today.to_s(:date)
     @template_params[:date] = date
@@ -70,65 +64,38 @@ private
       :email => ao.emails,
       :uin => pq.uin,
       :question => pq.question,
-      :mpname => get_minister_detail(pq,'name') ,
-      :mpemail => get_minister_email(pq.minister),
-      :policy_mpname => get_policy_minister_detail(pq, 'name'),
-      :policy_mpemail => get_minister_email(pq.policy_minister),
-      :press_email => ao.press_desk.nil? ? '' : ao.press_desk.email_output,
-      :member_name => get_pq_details(pq,'member_name'),
-      :house_name => get_pq_details(pq,'house_name'),
-      :internal_deadline => pq.internal_deadline.nil? ? '' : "#{pq.internal_deadline.to_s(:date) } - 10am "
+      :mpname => pq.minister && pq.minister.name,
+      :mpemail => pq.minister && pq.minister.email,
+      :policy_mpname => pq.policy_minister && pq.policy_minister.name,
+      :policy_mpemail => pq.policy_minister && pq.policy_minister.email,
+      :press_email => ao.press_desk && ao.press_desk.email_output,
+      :member_name => pq.member_name,
+      :house_name => pq.house_name,
+      :internal_deadline => pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date) } - 10am " : ''
     }
   end
 
-  def get_minister_email(minister)
-    minister.nil? ? '' : minister.email
-  end
-
-  def get_minister_detail(pq, field)
-    if !pq.minister.nil?
-      return pq.minister[field]
-    else
-      return ''
-    end
-  end
-
-  def get_policy_minister_detail(pq, field)
-    if !pq.policy_minister.nil?
-      return pq.policy_minister[field]
-    else
-      return ''
-    end
-  end
-
-  def get_pq_details(pq, field)
-    pq[field].nil? ? '' : pq[field]
-  end
-
-  def get_mp_office_email(pq, mp_name)
-    if !pq.minister.nil? && pq.minister.name == mp_name
-      return [
-          'Christopher.Beal@justice.gsi.gov.uk',
-          'Nicola.Calderhead@justice.gsi.gov.uk',
-          'thomas.murphy@JUSTICE.gsi.gov.uk'
+  def mp_office_emails(pq, mp_name)
+    if pq.minister && pq.minister.name == mp_name
+      [
+        'Christopher.Beal@justice.gsi.gov.uk',
+        'Nicola.Calderhead@justice.gsi.gov.uk',
+        'thomas.murphy@JUSTICE.gsi.gov.uk'
       ]
+    else
+      []
     end
   end
 
-  def get_action_list_mails
-    ActionlistMember.where('deleted = false').collect{|it| it.email}
+  def action_list_emails
+    ActionlistMember.where('deleted = false').map{ |a| a.email }
   end
 
   def finance_users_emails(pq)
-    result = User.where("roles = 'FINANCE'").where(deleted: false).collect{|it| it.email}
-    return pq.finance_interest ? result.reject(&:blank?).join(';') : ''
-  end
-
-  def get_dd_email(ao)
-    if !ao.deputy_director.nil?
-      if !ao.deputy_director.email.nil?
-        return ao.deputy_director.email
-      end
+    if pq.finance_interest 
+      User.finance.where('email IS NOT NULL').map(&:email)
+    else
+      []
     end
   end
 end
