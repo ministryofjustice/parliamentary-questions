@@ -27,11 +27,11 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     within("*[data-pquin='#{@pq.uin}']") do
       select minister.name, from: 'Answering minister'
       select ao.name, from: 'Action officer(s)'
-      select ao2.name, from: 'Action officer(s)'
-      find("input.internal-deadline").set Date.tomorrow.strftime('%d/%m/%Y')
+      find("#internal-deadline").set Date.tomorrow.strftime('%d/%m/%Y')
+      click_on 'Commission'
     end
 
-    click_on 'Commission'
+
 
     expect(page).to have_content("#{@pq.uin} commissioned successfully")
   end
