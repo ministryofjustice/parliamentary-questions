@@ -4,11 +4,13 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   include Features::EmailHelpers
 
   let(:ao)         { ActionOfficer.find_by(email: 'ao1@pq.com') }
+  let(:ao2)        { ActionOfficer.find_by(email: 'ao2@pq.com') }
   let(:minister)   { Minister.first                             }
 
   before(:all) do
     @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
 
+    # Ensure questions are seen by finance
     create_finance_session
     check "pq[1][finance_interest]"
     click_link_or_button 'btn_finance_visibility'
@@ -18,13 +20,14 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
-  scenario 'Parli-branch member allocates a question to an AO' do
+  scenario 'Parli-branch member allocates a question to selected AOs' do
     create_pq_session
     visit dashboard_path
 
     within("*[data-pquin='#{@pq.uin}']") do
       select minister.name, from: 'Answering minister'
       select ao.name, from: 'Action officer(s)'
+      select ao2.name, from: 'Action officer(s)'
       find("input.internal-deadline").set Date.tomorrow.strftime('%d/%m/%Y')
     end
 
@@ -34,7 +37,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'AO and DD should receive an email notification of assigned question' do
-    ao_mail, dd_mail = sent_mail.last(2)
+    ao_mail, dd_mail = sent_mail.first(2)
     
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.text_part.body).to include "You have been allocated PQ #{@pq.uin}"
@@ -43,7 +46,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     expect(dd_mail.text_part.body).to include "#{ao.name} has been allocated the PQ #{@pq.uin}"
   end
 
-  scenario 'Following the link should let the AO accept the question' do
+  scenario 'Following the email link should let the AO accept the question' do
     url = extract_url_like('/assignment', sent_mail.first)
     visit url
     choose 'Accept'
@@ -68,6 +71,15 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.text_part.body).to include 
       "You have accepted responsibility for drafting an answer to PQ #{@pq.uin}"
+  end
+
+  scenario 'After an AO has accepted a question, another AO cannot accept the question' do
+    ao2_mail = sent_mail[2]
+    ao2_link = extract_url_like('/assignment', ao2_mail)
+    visit ao2_link
+
+    expect(page).to have_content(/this pq has already been accepted/i)
+    expect(page).to have_content("#{ao.name} accepted PQ #{@pq.uin}")
   end
 
   scenario 'Following the link after 3 days have passed should show an error page' do

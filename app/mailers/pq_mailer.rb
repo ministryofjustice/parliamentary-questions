@@ -52,7 +52,7 @@ class PqMailer < PQBaseMailer
     mail(to: Settings.mail_tech_support, subject: 'API import failed')
   end
 
-private
+  private
 
   def build_primary_hash(pq, ao)
     {
