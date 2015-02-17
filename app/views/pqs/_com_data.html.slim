@@ -1,7 +1,7 @@
 .deadline_input.form-group
   label.form-label for="pq_internal_deadline"
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
-  .datetimepicker
+  .datetimepicker.default-time
     input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
     span.glyphicon.glyphicon-calendar
 hr/
