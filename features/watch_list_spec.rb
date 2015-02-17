@@ -1,6 +1,7 @@
 require 'feature_helper'
 
 feature "Watch list member sees allocated questions", suspend_cleaner: true do
+  include Features::EmailHelpers
 
   before(:all) do
     @aos  = ActionOfficer.where("email like 'ao%@pq.com'") 
