@@ -15,7 +15,7 @@ The tests are configured using the helper file located in spec/feature_helper.rb
 * Database cleaner uses truncation strategy for JS enabled testing (excepting the tables containing seed data)
 * Tests are run in deterministic order
 
-## Catering for Complex User Journies
+## Catering for Complex User Journeys
 
 Certain scenarios and longer, more complex stories require tests to be run in a sepcific order and state maintained through a number of tests. To enable such tests set the suspend_cleaner flag to true on a feature and the database cleaner will not be run for the duration of this feature. Example usage:
 
