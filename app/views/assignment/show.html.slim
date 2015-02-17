@@ -48,7 +48,7 @@
       .panel-body
         .row
           .col-md-6
-            = form_for @response, :url => {:controller => 'assignment', :action => 'action', :uin => params[:uin]} do |f|
+            = form_for @response, :url => {:controller => 'assignment', :action => 'show', :uin => params[:uin]} do |f|
               = hidden_field_tag 'token', params[:token]
               = hidden_field_tag 'entity', params[:entity]
               .form-group.inline
