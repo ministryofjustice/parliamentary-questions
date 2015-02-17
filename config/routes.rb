@@ -40,8 +40,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'commission_complete/:id' => 'commission#complete'
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
   post 'commission' => 'commission#commission', as: :commission
-  get 'answering/:id' => 'answering#index'
-  post 'answering/:id' => 'answering#answer'
 
   get '/', to: 'root#index', as: :root
   get 'dashboard' => 'dashboard#index'
@@ -52,9 +50,9 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'filter' => 'filter#index'
   get 'filter/:search' => 'filter#index'
+
   get 'dashboard/search' => 'dashboard#search'
   post 'dashboard/search/:search' => 'dashboard#search'
-
 
   get 'dashboard/by_status/:qstatus' => 'dashboard#by_status'
   get 'dashboard/in_progress_by_status/:qstatus' => 'dashboard#in_progress_by_status'
