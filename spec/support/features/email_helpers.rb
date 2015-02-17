@@ -12,5 +12,9 @@ module Features
     def sent_mail
       ActionMailer::Base.deliveries
     end
+
+    def clear_sent_mail
+      ActionMailer::Base.deliveries = []
+    end
   end
 end
