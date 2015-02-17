@@ -4,7 +4,7 @@
     strong>= @ao.name
     | ,
   p.br.space-before
-    | You have been allocated the PQ
+    | You have been allocated the PQ&nbsp;
     strong= @question.uin
 .row.row-spacer
   blockquote.pq-question.col-md-12
@@ -34,11 +34,12 @@
                     span.label.flag-accepted Accepted
                   - elsif ao_pq.rejected?
                     span.label.flag-rejected Rejected
-                .panel-indent.reveal.closed id="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
-                  p.strong= ao_pq.reason_option
-                  p= ao_pq.reason
-          - else
-            span.label.flag-no-response No response
+                    .panel-indent.reveal.closed id="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
+                      p.strong= ao_pq.reason_option
+                      p= ao_pq.reason
+                  - else
+                    span.label.flag-no-response No response
+
 - if !@question.is_in_progress?(Progress.draft_pending)
   .accept-reject-form
     .panel.panel-default
