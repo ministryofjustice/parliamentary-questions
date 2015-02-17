@@ -271,8 +271,6 @@ label {
 #pages,
 .select2-container-multi .select2-choices li { width: 100%; }
 
-.internal-deadline { font-size: 19px; }
-
 a.button:hover,
 a.button-secondary:hover { text-decoration: none; }
 button, input[type="submit"] {
@@ -296,6 +294,28 @@ button, input[type="submit"] {
 }
 
 .no-indent { margin-left: -2.1em; }
+
+
+// = Calendars =================================================================
+
+.datepicker, .datetimepicker {
+  border-style: solid;
+  border-radius: 0px;
+  border-color: #BFC1C3;
+  border-width: 1px;
+  display: inline-block;
+  width: 90%;
+  max-width: 218px;
+  input {
+    display: inline;
+    width: 90%;
+    border: none;
+  }
+}
+
+.glyphicon-calendar, .fa-exclamation-triangle {
+  vertical-align: -20%;
+}
 
 // = Element spacing ============================================================
 

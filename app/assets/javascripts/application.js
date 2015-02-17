@@ -15,6 +15,5 @@
 //= require jquery.remotipart
 //= require kendo.custom.min
 //= require bootstrap
-//= require bootstrap-datetimepicker
 //= require select2
 //= require_tree .

@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap
- *= require bootstrap-datetimepicker
  *= require font-awesome
  *= require select2
  *= require select2-bootstrap
