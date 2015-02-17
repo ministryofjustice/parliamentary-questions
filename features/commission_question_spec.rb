@@ -28,17 +28,16 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       select minister.name, from: 'Answering minister'
       select ao.name, from: 'Action officer(s)'
       select ao2.name, from: 'Action officer(s)'
-      find("input.internal-deadline").set Date.tomorrow.strftime('%d/%m/%Y')
+      find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y')
     end
 
     click_on 'Commission'
-
     expect(page).to have_content("#{@pq.uin} commissioned successfully")
   end
 
   scenario 'AO and DD should receive an email notification of assigned question' do
     ao_mail, dd_mail = sent_mail.first(2)
-    
+
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.text_part.body).to include "You have been allocated PQ #{@pq.uin}"
 
@@ -69,8 +68,9 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     ao_mail = sent_mail.last
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.text_part.body).to include 
+    expect(ao_mail.text_part.body).to include(
       "You have accepted responsibility for drafting an answer to PQ #{@pq.uin}"
+    )
   end
 
   scenario 'After an AO has accepted a question, another AO cannot accept the question' do

@@ -1,8 +1,8 @@
 .form-group
   label.form-label for="answer_submitted"  Date answer submitted
-  span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+  .datetimepicker
     input#answer_submitted.form-control name="pq[answer_submitted]" type="text" value=(@pq.answer_submitted.to_s) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar
 - if @pq.answer_submitted.present? && @pq.date_for_answer.present?
   - @answer_target = @pq.date_for_answer + 18.hours
   - if @pq.answer_submitted <= @answer_target
@@ -16,9 +16,9 @@
 = f.check_box_gds :library_deposit
 .form-group
   label.form-label for="pq_withdrawn"  Date PQ withdrawn
-  span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+  .datetimepicker
     input#pq_withdrawn.form-control name="pq[pq_withdrawn]" type="text" value=(@pq.pq_withdrawn.to_s) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar
 = f.check_box_gds :holding_reply_flag
 - if @pq.i_will_write
   = link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button', title: 'Create an ''I will write'' follow up'}

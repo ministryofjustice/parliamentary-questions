@@ -23,7 +23,8 @@ class DivisionsController < ApplicationController
 
   def update
     if @division.update(division_params)
-      redirect_to @division, notice: 'Division was successfully updated.'
+      flash[:success] = 'Division successfully updated'
+      redirect_to @division
     else
       render action: 'edit'
     end
