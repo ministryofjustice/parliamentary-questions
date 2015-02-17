@@ -139,6 +139,10 @@ $(document).ready(function () {
         picker.datetimepicker('show');
     });
 
+    $('.internal-deadline').datetimepicker({defaultTime:'10:00',
+                                            closeOnDateSelect:true,
+                                            format:'d/m/Y     H:i'});
+
     $('.ao-reminder-link').on('ajax:success', function(e, data){
       $(this).after(data);
     });
