@@ -2,15 +2,19 @@ h4 UIN
 p.text= @pq.uin
 h4 House
 p.text= @pq.house_name
+
 .form-group
   label.form-label for="date_for_answer"  Date for answer back to Parliament
-  span.input-group.date.dateonlypicker data-date-format="DD/MM/YYYY"
+  .datepicker
     input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.try(:to_s, :date)) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar
+
 h4 Tabling member
 p.text= @pq.member_name
+
 h4 Question type
 p.text= @pq.question_type
+
 h4 Question tabled date
 - if @pq.tabled_date
   p.text= @pq.tabled_date.try(:to_s, :date)
@@ -21,17 +25,20 @@ h4 Question tabled date
   p.text
     | Transferred in from #{@pq.transfer_in_ogd.name}#{' on ' + @pq.transfer_in_date.try(:to_s, :date)}
 hr/
+
 h4 Question
 p.text= @pq.question
 hr/
 = f.check_box_gds(:round_robin)
+
 .form-group
   label.form-label for="round_robin_guidance_received"  Date guidance received
-  .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+  .datetimepicker
     input#round_robin_guidance_received.form-control name="pq[round_robin_guidance_received]" type="text" value=(@pq.round_robin_guidance_received.to_s) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar
+
 .form-group
   label.form-label for="round_robin_date"  Date round robin guidance sent to action officer
-  .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+  .datetimepicker
     input#round_robin_date.form-control name="pq[round_robin_date]" type="text" value=(@pq.round_robin_date.to_s) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar

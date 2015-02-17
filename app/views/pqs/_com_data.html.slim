@@ -1,9 +1,9 @@
 .deadline_input.form-group
   label.form-label for="pq_internal_deadline"
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
-  span#datetimepicker1.input-group.date.internal-deadline-picker data-date-format=("DD/MM/YYYY HH:mm")
+  .datetimepicker.default-time
     input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar
 hr/
 .question-allocation
   - if @pq.action_officers.size > 0
@@ -52,8 +52,9 @@ hr/
 .form-group
   label.form-label for="pq_transfer_out_ogd_id"  Transfer out to
   = f.collection_select(:transfer_out_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department")
+
 .form-group
   label.form-label for="transfer_out_date"  Date transferred out
-  span.input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+  .datetimepicker
     input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.to_s) /
-    span.input-group-addon.glyphicon.glyphicon-calendar
+    span.glyphicon.glyphicon-calendar

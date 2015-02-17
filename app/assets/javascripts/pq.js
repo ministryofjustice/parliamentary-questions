@@ -1,10 +1,10 @@
 //this allows access to the objects declared in trim_link.js
-var trim_link; 
+var trim_link;
 
 (function(){
 'use strict';
 
-//assignment  & watchlist_dashboard/index - pages 
+//assignment  & watchlist_dashboard/index - pages
 var toggleSiblingContent = function(){
   $('details').each(function(i, el){
     var root = $(el),
@@ -18,7 +18,7 @@ var toggleSiblingContent = function(){
   });
 };
 
-//setting the commision status of the "commision" button on the dashboard / new tab 
+//setting the commision status of the "commision" button on the dashboard / new tab
 var setCommissionButtonStatus = function(form) {
     var enable = true;
     var button = form.find('.commission-button');
@@ -56,9 +56,13 @@ var changeBadgeBy = function(id_of_navpill, val) {
 };
 
 $(document).ready(function () {
+  $('.datetimepicker input').datetimepicker({closeOnDateSelect:true,
+                                             format:'d/m/Y     H:i'});
 
-  $('.datetimepicker').datetimepicker();
-  $('.dateonlypicker').datetimepicker({ pickTime: false });
+  $('.datepicker input').datetimepicker({timepicker: false,
+                                         closeOnDateSelect:true,
+                                         format:'d/m/Y'});
+
   $('.minister-select').select2({width:'250px'});
   $(".multi-select-action-officers").select2({width:'250px'});
   $(".single-select-dropdown").select2({width:'250px', allowClear: true});
@@ -112,26 +116,27 @@ $(document).ready(function () {
       $( divToFill ).html(data);
     });
 
-    $('.date-for-answer-picker').datetimepicker({pickTime: false});
+    // when clicking a calendar icon, open the calendar to the left of it
+    // and if empty populate it with the current time,
+    // unless it has class default-time, in which case set time to 10:00
+    $('span.glyphicon').on('click', function () {
+        var picker = $(this).prev('input'), now, nowString;
 
-    $('.internal-deadline-picker').each(function() {
-      var empty = ($(this).find('input').val() === '');
-      $(this).data('empty', empty);
-    }).datetimepicker().on("dp.show",function () {
-      var picker = $(this).data('DateTimePicker'),
-        empty = $(this).data('empty') || false,
-        date;
+        if (picker.val() === '') {
+          now = new Date();
+          if (picker.parent('.datepicker').length) {
+            nowString = now.toLocaleString().substring(0,10);
+          } else {
+            if (picker.parent('.datetimepicker').hasClass('default-time')) {
+              now.setHours(10);
+              now.setMinutes(0);
+            }
+            nowString = now.toLocaleString().substring(0,16).replace(' ', '     ');
+          }
+          picker.val(nowString);
+        }
 
-      if (empty === true) {
-        date = picker.getDate();
-        date.hour(10);
-        date.minute(0);
-        picker.setDate(date);
-      }
-
-      $(this).removeData('empty');
-    }).on('change', function() {
-      $(this).removeData('empty');
+        picker.datetimepicker('show');
     });
 
     $('.ao-reminder-link').on('ajax:success', function(e, data){
@@ -198,6 +203,3 @@ $(document).ready(function () {
 
 });
 }());
-
-
-

@@ -1,9 +1,12 @@
+require 'uri'
 module Features
   module EmailHelpers
     def extract_url_like(regex_string, mail)
       doc         = Nokogiri::HTML(mail.html_part.body.raw_source)
       watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ Regexp.new(regex_string) }
-      watchlist_a['href']
+      if watchlist_a
+        URI.parse(watchlist_a['href']).request_uri
+      end
     end
 
     def sent_mail
