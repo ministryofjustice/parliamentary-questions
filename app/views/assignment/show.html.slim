@@ -21,7 +21,7 @@
   .row
     .question-allocation
       p This question has also been allocated to the following action officers, but only one person may accept responsibility.
-      ul.question-allocation-list data-pqid=@question.id data-pquin=@question.uin
+      ul.question-allocation-list data-pqid=@question.id
         - @question.action_officers_pqs.each do |ao_pq|
           - if !ao_pq.action_officer.nil? && ao_pq.action_officer_id!=@ao.id
             li
@@ -48,7 +48,7 @@
       .panel-body
         .row
           .col-md-6
-            = form_for @response, :url => {:controller => 'assignment', :action => 'action', :uin => params[:uin]} do |f|
+            = form_for @response, :url => {:controller => 'assignment', :action => 'show', :uin => params[:uin]} do |f|
               = hidden_field_tag 'token', params[:token]
               = hidden_field_tag 'entity', params[:entity]
               .form-group.inline

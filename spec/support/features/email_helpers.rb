@@ -9,8 +9,16 @@ module Features
       end
     end
 
+    def sent_mail_to(email)
+      sent_mail.select { |e| e.to.include?(email) }
+    end
+
     def sent_mail
       ActionMailer::Base.deliveries
+    end
+
+    def clear_sent_mail
+      ActionMailer::Base.deliveries = []
     end
   end
 end

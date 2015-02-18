@@ -2,6 +2,7 @@ require 'feature_helper'
 
 feature 'Visit the dashboard an show the questions for the day' do
   before(:each) do
+    DBHelpers.load_feature_fixtures
     @pq, _ = PQA::QuestionLoader.new.load_and_import
     create_pq_session
   end

@@ -1,19 +1,16 @@
 require 'feature_helper'
 
 feature 'Commissioning questions', js: true, suspend_cleaner: true do
-  include Features::EmailHelpers
+  include Features::PqHelpers
 
   let(:ao)         { ActionOfficer.find_by(email: 'ao1@pq.com') }
   let(:ao2)        { ActionOfficer.find_by(email: 'ao2@pq.com') }
   let(:minister)   { Minister.first                             }
 
   before(:all) do
+    DBHelpers.load_feature_fixtures
     @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
-
-    # Ensure questions are seen by finance
-    create_finance_session
-    check "pq[1][finance_interest]"
-    click_link_or_button 'btn_finance_visibility'
+    set_seen_by_finance
   end
 
   after(:all) do
@@ -21,17 +18,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'Parli-branch member allocates a question to selected AOs' do
-    create_pq_session
-    visit dashboard_path
-
-    within("*[data-pquin='#{@pq.uin}']") do
-      select minister.name, from: 'Answering minister'
-      select ao.name, from: 'Action officer(s)'
-      select ao2.name, from: 'Action officer(s)'
-      find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y')
-    end
-
-    click_on 'Commission'
+    commission_question(@pq.uin, [ao, ao2], minister)
     expect(page).to have_content("#{@pq.uin} commissioned successfully")
   end
 
@@ -46,10 +33,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'Following the email link should let the AO accept the question' do
-    url = extract_url_like('/assignment', sent_mail.first)
-    visit url
-    choose 'Accept'
-    click_on 'Save Response'
+    accept_assignnment(ao)
 
     expect(page).to have_content(/thank you for your response/i)
     expect(page).to have_content("PQ #{@pq.uin}")
@@ -74,7 +58,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'After an AO has accepted a question, another AO cannot accept the question' do
-    ao2_mail = sent_mail[2]
+    ao2_mail = sent_mail_to(ao2.email).first
     ao2_link = extract_url_like('/assignment', ao2_mail)
     visit ao2_link
 

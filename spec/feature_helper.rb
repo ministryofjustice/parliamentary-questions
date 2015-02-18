@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 
 require './spec/support/features/session_helpers'
 require './spec/support/features/email_helpers'
+require './spec/support/features/pq_helpers'
 require './spec/support/db_helpers'
 require 'rspec/rails'
 require 'capybara/rspec'
@@ -29,25 +30,15 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     mock_api_runner.start
-    DBHelpers.load_feature_fixtures
   end
 
   # Tables to except from truncation
   TABLE_EXCEPTIONS = [
-    Progress,
-    Minister,
-    Directorate,
-    Division,
-    DeputyDirector,
-    PressDesk,
-    PressOfficer,
-    ActionOfficer,
-    Ogd
+    Progress
   ].map(&:table_name)
 
   # Use truncation in js tests and suspended tests, transaction otherwise
   config.before(:each) do |test|
-    
     if test.metadata[:js] || test.metadata[:suspend_cleaner]
       DatabaseCleaner.strategy = [
         :truncation,
