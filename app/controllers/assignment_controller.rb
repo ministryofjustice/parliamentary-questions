@@ -22,7 +22,7 @@ class AssignmentController < ApplicationController
         when 'accept'
           service.accept(@assignment)
         when 'reject'
-          service.reject(@assignment)
+          service.reject(@assignment, @response)
         else
           #TODO: log unexpected input
         end

@@ -26,6 +26,7 @@ end
 # Actual testing Senario 4
 feature "As a finance officer, I want to be able to register interest in a question", js: true do
   before do
+    DBHelpers.load_feature_fixtures
     @pqs = PQA::QuestionLoader.new.load_and_import(3)
     create_finance_session
   end
