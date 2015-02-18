@@ -558,6 +558,9 @@ li.select2-search-field {border-bottom: none;}
       margin-bottom: 20px;
     }
     .start-hidden { display: none; }
+    .ao-reminder-link {
+      margin-left: 40px; // put some space between person name and link to email them
+    }
   }
 }
 
