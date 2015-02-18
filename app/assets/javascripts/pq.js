@@ -56,11 +56,15 @@ var changeBadgeBy = function(id_of_navpill, val) {
 };
 
 $(document).ready(function () {
-  $('.datetimepicker input').datetimepicker({closeOnDateSelect:true,
+  $('.datetimepicker input').datetimepicker({validateOnBlur:false,
+                                             closeOnDateSelect:true,
+                                             dayOfWeekStart: 1,
                                              format:'d/m/Y     H:i'});
 
   $('.datepicker input').datetimepicker({timepicker: false,
+                                         validateOnBlur:false,
                                          closeOnDateSelect:true,
+                                         dayOfWeekStart: 1,
                                          format:'d/m/Y'});
 
   $('.minister-select').select2({width:'250px'});
