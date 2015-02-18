@@ -12,11 +12,6 @@
         .row
           .col-md-6
             = link_to question.policy_minister.name, minister_path(question.policy_minister)
-          .col-md-6
-            - if question.policy_minister.email.blank?
-              | No contacts set
-            - else
-              = mail_to question.policy_minister.email, raw("<i class='fa fa-envelope-o'></i> Email")
       | Action officer(s)
       .row
         - if question.ao_pq_accepted.nil?
