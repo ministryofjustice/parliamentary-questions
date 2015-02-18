@@ -3,7 +3,7 @@
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
   .datetimepicker.default-time
     input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
-    span.glyphicon.glyphicon-calendar
+    span.fa.fa-calendar
 hr/
 .question-allocation
   - if @pq.action_officers.size > 0
@@ -13,7 +13,7 @@ hr/
         = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
         - reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : ''
         = ' '
-        = link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Draft reminder #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}
+        = link_to raw("<i class=\"fa fa-envelope-o\"></i> Draft reminder #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}
         p.text
           = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
 
@@ -38,7 +38,7 @@ hr/
           = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
           - reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept})" : ''
           = ' '
-          = link_to raw("<i class=\"glyphicon glyphicon-envelope\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'}
+          = link_to raw("<i class=\"fa fa-envelope-o\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'}
         = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
     - unless Progress.new_questions.include?(@pq.progress.name)
       = render partial: 'shared/action_officer_selection', locals: {question: @pq, form: f, reassign: true}
@@ -57,4 +57,4 @@ hr/
   label.form-label for="transfer_out_date"  Date transferred out
   .datetimepicker
     input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.to_s) /
-    span.glyphicon.glyphicon-calendar
+    span.fa.fa-calendar

@@ -46,7 +46,6 @@ i.fa-envelope,
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
 #search_button                                                                                                                                                                                      { color: #999999; }
-.glyphicon-search                                                                                                                                                                                   { color: #979797; }
 i.fa-exclamation-triangle, i.fa-times-circle                                                                                                                                                        { color: #df3034; }
 i.fa-check-circle                                                                                                                                                                                   { color: #00823b; }
 #status-filters .active .badge                                                                                                                                                                      { color: #6f7781; }
@@ -331,7 +330,7 @@ button, input[type="submit"] {
   }
 }
 
-.glyphicon-calendar, .fa-exclamation-triangle {
+.fa-exclamation-triangle {
   vertical-align: -20%;
 }
 

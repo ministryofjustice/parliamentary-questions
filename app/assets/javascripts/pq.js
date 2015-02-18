@@ -119,7 +119,7 @@ $(document).ready(function () {
     // when clicking a calendar icon, open the calendar to the left of it
     // and if empty populate it with the current time,
     // unless it has class default-time, in which case set time to 10:00
-    $('span.glyphicon').on('click', function () {
+    $('span.fa-calendar').on('click', function () {
         var picker = $(this).prev('input'), now, nowString;
 
         if (picker.val() === '') {
