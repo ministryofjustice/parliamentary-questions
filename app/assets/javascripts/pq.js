@@ -84,7 +84,7 @@ $(document).ready(function () {
   $(".form-commission")
     .on("ajax:success", function(){
       var pqid = $(this).data('pqid');
-      var uin  = $(this).data('pquin');
+      var uin  = $(this).parents('*[data-pquin]').data('pquin');
       $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
      incrementBadge('#db-filter-alloc-pend');
       decrementBadge('#db-filter-unalloc');
