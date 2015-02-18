@@ -1,6 +1,6 @@
 module Features
   module PqHelpers
-    include EmailHelpers
+    include ::Features::EmailHelpers
 
     def set_seen_by_finance
       create_finance_session
