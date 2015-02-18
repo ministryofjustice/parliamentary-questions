@@ -2,11 +2,11 @@
   h3= link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
   .pq-header-flags
     - if question.question_type == 'NamedDay'
-      span.question-type title=("Named day")  Named day
+      span.question-type  Named day
     - if question.transferred
-      span.question-type title="Transferred"  Transferred
+      span.question-type  Transferred in
     - if question.i_will_write
-      span.question-type title=("I will write")  I will write
+      span.question-type  I will write
 p.pq-question
   = question.question
 .row
