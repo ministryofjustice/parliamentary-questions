@@ -39,9 +39,13 @@ describe 'PQAcceptedMailer' do
       expect(mail.html_part.body).to include CGI::escape(expectedCC)
     end
 
-    it 'should set the right cc with minister the right people if the minister is Simon Hughes' do
+    it 'should cc minister contacts when present' do
+      minister_simon.minister_contacts << MinisterContact.create(email: 'bob@pq.com')
+      minister_simon.save
+
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
-      expectedCC = 'Christopher.Beal@justice.gsi.gov.uk;Nicola.Calderhead@justice.gsi.gov.uk;thomas.murphy@JUSTICE.gsi.gov.uk'
+      contact_emails = minister_simon.minister_contacts.map(&:email)
+      expectedCC = contact_emails.join(';')
 
       PqMailer.acceptance_email(pq, ao).deliver
 
