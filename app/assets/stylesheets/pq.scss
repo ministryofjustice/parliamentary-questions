@@ -23,28 +23,12 @@ body {
 
 #build,
 i.fa-envelope,
-.name-day,
 .open,
 .dropdown-toggle.btn-success,
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-in,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-will-write,
-.flag-with-minister,
-.flag-with-pod,
 .trim-links-header:hover,
 .trim-links-cancel:hover { color: #fff; }
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .flag-minister-cleared, .flag-pod-cleared, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
 #search_button                                                                                                                                                                                      { color: #999999; }
 i.fa-exclamation-triangle, i.fa-times-circle                                                                                                                                                        { color: #df3034; }
 i.fa-check-circle                                                                                                                                                                                   { color: #00823b; }
@@ -52,9 +36,7 @@ i.fa-check-circle                                                               
 #qa-link a                                                                                                                                                                                          { color: #4a8acd; }
 hr                                                                                                                                                                                                  { color: #bfc1c3; }
 h4                                                                                                                                                                                                  { color: #6f777b; }
-#build,
-.flag-no-response,
-.flag-unallocated { background-color: #f47738; }
+#build { color: #f47738; }
 
 #search_button,
 #status-filters .active .badge,
@@ -65,26 +47,10 @@ h4                                                                              
 
 .block-label,
 .navbar { background-color: #dee0e2; }
-.flag-accepted { background-color: #28a197; }
-.flag-answered { background-color: #006435; }
-.flag-draft-pending { background-color: #85994b; }
-.flag-finance-unchecked { background-color: #b10e1e; }
-.flag-minister-cleared { background-color: #c1a87e; }
-.flag-ministerial-query { background-color: #b58840; }
-.flag-pod-cleared { background-color: #a1a8ff; }
-.flag-pod-query { background-color: #5461ff; }
-.flag-rejected { background-color: #d0021b; }
-.flag-transferred-in { background-color: #7d7d7d; }
-.flag-transferred-out { background-color: #d53880; }
-.flag-unassigned { background-color: #bd10e0; }
-.flag-will-write { background-color: #5f5f5f; }
-.flag-with-minister { background-color: #82622e; }
-.flag-with-pod { background-color: #2e358b; }
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus,
 .dropdown-menu li a:hover { background-color: #ffbf47; }
-.name-day { background-color: #9b9b9b; }
 .alert-ie6 { background-color: #e9f9f8; }
 h2 .badge,
 #status-filters .badge { background-color: #000; }
@@ -217,32 +183,36 @@ footer {
 
 // = Flags ======================================================================
 
-.flag-accepted,
-.flag-answered,
-.flag-draft-pending,
-.flag-finance-unchecked,
-.flag-minister-cleared,
-.flag-ministerial-query,
-.flag-no-response,
-.flag-pod-cleared
-.flag-pod-query,
-.flag-rejected,
-.flag-transferred-in,
-.flag-transferred-out,
-.flag-unallocated,
-.flag-unassigned,
-.flag-will-write,
-.flag-with-minister,
-.flag-with-pod,
-.name-day,
-{
-  border-radius: 6px;
-  font-weight: normal;
+.flag {
+  border: 1.5px solid;
+  font-weight: bold;
   font-size: 14px;
-  padding: 3.5px 8px;
+  padding: 3px 5px;
   text-align: center;
   white-space: nowrap;
   margin: 0px 10px 0px 0px;
+  &.finance-unchecked { color: #b10e1e; }
+  &.no-response { color: #f47738; }
+  &.accepted { color: #28a197; }
+  &.answered { color: #006435; }
+  &.draft-pending { color: #85994b; }
+  &.minister-cleared { color: #c1a87e; }
+  &.ministerial-query { color: #b58840; }
+  &.pod-cleared { color: #a1a8ff; }
+  &.pod-query { color: #5461ff; }
+  &.rejected { color: #d0021b; }
+  &.unassigned { color: #bd10e0; }
+  &.with-minister { color: #82622e; }
+  &.with-pod { color: #2e358b; }
+}
+
+.question-type {
+  color: #6f777b;
+  &:before {
+    content: '|';
+    margin-left: 17px;
+    margin-right: 10px;
+  }
 }
 
 // ==============================================================================
@@ -476,9 +446,8 @@ textarea {
     line-height: 27px;
     margin-bottom: 20px;
     h3 {
-      margin: 0px 14px 0px 0px;
-      padding: 0px;
-      vertical-align: middle;
+      margin: 0;
+      padding: 0;
     }
     .pq-header-flags { margin-right: 26px; }
   }
