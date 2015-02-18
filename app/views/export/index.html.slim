@@ -8,12 +8,12 @@
         label.form-label for="date_from"  Date from
         .datepicker
           input#date_from.form-control name="date_from" type="text" value="04/06/2014" /
-          span.glyphicon.glyphicon-calendar
+          span.fa.fa-calendar
       .form-group
         label.form-label for="date_to"  Date to
         .datepicker
             input#date_to.form-control name="date_to" type="text" value=Date.today.to_s(:date) /
-            span.glyphicon.glyphicon-calendar
+            span.fa.fa-calendar
       .form-group
         = submit_tag 'Download CSV' , class: 'button' , :onclick=> "ga('send', 'event', 'tasks', 'download', 'pq csv');"
 

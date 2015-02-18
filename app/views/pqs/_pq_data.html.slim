@@ -7,7 +7,7 @@ p.text= @pq.house_name
   label.form-label for="date_for_answer"  Date for answer back to Parliament
   .datepicker
     input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.try(:to_s, :date)) /
-    span.glyphicon.glyphicon-calendar
+    span.fa.fa-calendar
 
 h4 Tabling member
 p.text= @pq.member_name
@@ -35,10 +35,10 @@ hr/
   label.form-label for="round_robin_guidance_received"  Date guidance received
   .datetimepicker
     input#round_robin_guidance_received.form-control name="pq[round_robin_guidance_received]" type="text" value=(@pq.round_robin_guidance_received.to_s) /
-    span.glyphicon.glyphicon-calendar
+    span.fa.fa-calendar
 
 .form-group
   label.form-label for="round_robin_date"  Date round robin guidance sent to action officer
   .datetimepicker
     input#round_robin_date.form-control name="pq[round_robin_date]" type="text" value=(@pq.round_robin_date.to_s) /
-    span.glyphicon.glyphicon-calendar
+    span.fa.fa-calendar
