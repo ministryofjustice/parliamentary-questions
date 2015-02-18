@@ -2,18 +2,18 @@
   h3= link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
   .pq-header-flags
     - if question.question_type == 'NamedDay'
-      span.label.name-day title=("Named day")  N
+      span.question-type title=("Named day")  Named day
     - if question.transferred
-      span.label.flag-transferred-in title="Transferred"  T
+      span.question-type title="Transferred"  Transferred
     - if question.i_will_write
-      span.label.flag-will-write title=("I will write")  IWW
+      span.question-type title=("I will write")  I will write
 p.pq-question
   = question.question
 .row
   .status-bar.col-md-12
     - if !question.seen_by_finance
-      span.label.flag-finance-unchecked Not checked by finance
-    span class=("label flag-#{question.progress.classname}") = question.progress.name
+      span.flag.finance-unchecked Not checked by finance
+    span class=("flag #{question.progress.classname}") = question.progress.name
 - if [Progress.UNASSIGNED,Progress.NO_RESPONSE,Progress.REJECTED].include?(question.progress.name)
   /! if a question is unassigned, No response or rejected: loop through and show rejection reasons
   = render partial:'shared/rejected_reasons', locals: {question: question}

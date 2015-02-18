@@ -1,13 +1,13 @@
 #pq-details-header.row
   #pq-details-ref.col-md-9
     h2= @pq.uin
-    - if @pq.question_type == 'NamedDay'
-      span.label.name-day title=("Named day")  N
+    - if @pq.question-type == 'NamedDay'
+      span.question-type  Named day
     - if @pq.transferred
-      span.label.flag-transferred-in title="Transferred"  T
+      span.question-type  Transferred
     - if @pq.i_will_write
-      span.label.flag-will-write title=("I will write")  IWW
-    span#pq-details-progress class=("label flag-#{@pq.progress.classname}") = @pq.progress.name
+      span.question-type  I will write
+    span#pq-details-progress class=("flag #{@pq.progress.classname}") = @pq.progress.name
 #pq-details-qa-link.row
   .col-md-9
   .col-md-3.pull-right
