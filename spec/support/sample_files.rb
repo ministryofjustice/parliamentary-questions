@@ -10,7 +10,6 @@ def import_questions_for_today
   File.open('spec/fixtures/import_questions_for_today.xml')
 end
 
-
 def import_questions_for_today_with_changes
   File.open('spec/fixtures/import_questions_for_today_with_changes.xml')
 end
