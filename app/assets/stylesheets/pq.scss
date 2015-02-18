@@ -138,6 +138,15 @@ h2 .badge,
   @include phase-tag($phase);
 }
 
+// override govuk-template visited links colours,
+// as this is an application more than a simple web page
+@media screen {
+  a:visited {
+    color: $link-colour;
+  }
+}
+
+
 // =============================================================================
 // = PQ-specific styling =======================================================
 
