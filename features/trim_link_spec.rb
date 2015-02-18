@@ -8,6 +8,7 @@ feature 'I want to manage trim links', js: true do
   end
 
   before(:each) do
+    DBHelpers.load_feature_fixtures
     create_pq_session
     @pq, _ = PQA::QuestionLoader.new.load_and_import
   end
