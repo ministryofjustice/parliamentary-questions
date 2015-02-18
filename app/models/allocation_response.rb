@@ -9,7 +9,6 @@ class AllocationResponse
   validates :reason_option, presence: true, if: :rejected?
   validates :reason, presence: true, if: :rejected?
 
-
   def initialize(attributes = {})
     attributes.each do |name, value|
       public_send("#{name}=", value)
