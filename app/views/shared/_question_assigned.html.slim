@@ -9,9 +9,9 @@
             = ao_pq.action_officer.name
             | (#{ao_pq.action_officer.deputy_director.division.name})
             - if ao_pq.accepted?
-              span.label.flag-pq-accepted Accepted
+              span.flag.pq-accepted Accepted
             - elsif ao_pq.rejected?
-              span.label.flag-pq-rejected Rejected
+              span.flag.pq-rejected Rejected
               a.button data-target="#rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}" data-toggle="collapse"
                 | Display Reason
                 span.caret
@@ -20,4 +20,4 @@
                   strong= ao_pq.reason_option
                 p= ao_pq.reason
             - else
-              span.label.flag-no-response No response
+              span.flag.no-response No response
