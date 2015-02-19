@@ -136,6 +136,7 @@ module DBHelpers
     [
       {deputy_director: deputy_directors[0], name: 'action officer 1', email: 'ao1@pq.com', press_desk: press_desks[0]},
       {deputy_director: deputy_directors[1], name: 'action officer 2', email: 'ao2@pq.com', press_desk: press_desks[1]},
+      {deputy_director: deputy_directors[1], name: 'action officer 3', email: 'ao3@pq.com', press_desk: press_desks[1]},
     ].map { |h| ActionOfficer.find_or_create_by(h) }
   end
 
