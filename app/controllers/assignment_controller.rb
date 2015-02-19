@@ -38,7 +38,7 @@ class AssignmentController < ApplicationController
     @question = Pq.find_by(uin: params[:uin])
 
     if assignment_id
-      @assignment = @question.action_officers_pqs.find(assignment_id)
+      @assignment = ActionOfficersPq.find(assignment_id)
       @ao         = @assignment.action_officer
       yield
     else
