@@ -70,7 +70,7 @@ h2 .badge,
 .js-enabled .add-focus { outline-color: #ffbf47; }
 .js-enabled .add-focus { outline: 3px solid #ffbf47; }
 
-
+#progress-menu a { outline: 0 } // firefox's outline makes tabs ugly
 
 // =============================================================================
 // = Modification to govuk_template & moj_template =============================
