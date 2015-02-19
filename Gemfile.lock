@@ -238,7 +238,6 @@ DEPENDENCIES
   annotate (~> 2.6.3)
   bootstrap-will_paginate
   codeclimate-test-reporter
-  coffee-rails (~> 4.0.0)
   database_cleaner
   devise
   devise_invitable

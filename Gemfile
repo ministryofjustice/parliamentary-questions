@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'bootstrap-will_paginate'
-gem 'coffee-rails', '~> 4.0.0'
 gem 'devise_invitable'
 gem 'devise'
 gem 'font-awesome-rails'
