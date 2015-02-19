@@ -31,14 +31,14 @@
                     = ao_pq.action_officer.name
                     | (#{ao_pq.action_officer.deputy_director.division.name})
                   - if ao_pq.accepted?
-                    span.label.flag-accepted Accepted
+                    span.flag.accepted Accepted
                   - elsif ao_pq.rejected?
-                    span.label.flag-rejected Rejected
+                    span.flag.rejected Rejected
                     .panel-indent.reveal.closed id="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
                       p.strong= ao_pq.reason_option
                       p= ao_pq.reason
                   - else
-                    span.label.flag-no-response No response
+                    span.flag.no-response No response
 
 - if !@question.is_in_progress?(Progress.draft_pending)
   .accept-reject-form

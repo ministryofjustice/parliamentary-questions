@@ -14,9 +14,9 @@ hr/
             .pq-header
               h3= question.uin
               - if question.question_type == 'NamedDay'
-                span.label.name-day title=("Named day")  N
+                span.question-type  Named day
               - if question.transferred
-                span.label.flag-transferred-in title="Transferred"  T
+                span.question-type  Transferred in
             .pq-question
               p.text= question.question
             .row
