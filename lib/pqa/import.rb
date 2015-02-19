@@ -75,18 +75,20 @@ module PQA
       if !pq.valid?
         error_msgs   = pq.errors.messages
         @errors[uin] = error_msgs
-        @logger.warn "Failed to import question with uin #{uin} (errors: #{error_msgs})"
+        @logger.warn { "Failed to import question with uin #{uin} (errors: #{error_msgs})" }
       elsif pq.new_record?
         @created += 1
-        @logger.debug "Imported new record (uin: #{uin})"
+        @logger.debug { "Imported new record (uin: #{uin})" }
         pq.save
       else
         @updated += 1
-        @logger.debug "Updating record (uin: #{uin})"
+        @logger.debug { "Updating record (uin: #{uin})" }
         pq.save
       end
 
-      @logger.info "Completed import: questions downloaded #{@total}, new #{@created}, updated #{@updated}, invalid: #{@errors.size}"
+      LogStuff.tag(:import) do
+        @logger.info { "Completed import: questions downloaded #{@total}, new #{@created}, updated #{@updated}, invalid: #{@errors.size}" }
+      end
     end
   end
 end
