@@ -15,18 +15,18 @@ class PqMailer < PQBaseMailer
     @template_params      = build_primary_hash(pq, ao)
     deputy_director_email = ao.deputy_director && ao.deputy_director.email
 
-    cc_list = [
+    cc_list = Set.new([
       deputy_director_email,
       @template_params[:mpemail],
       @template_params[:policy_mpemail],
       @template_params[:press_email]
-    ] + 
-    mp_office_emails(pq, 'Simon Hughes (MP)') + 
+    ]) +
+    minister_contacts(pq.minister) +
     action_list_emails +
     finance_users_emails(pq)
 
     @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
-        
+
     subject = if urgent
       "URGENT : please send your draft response for PQ #{@template_params[:uin]}"
     else
@@ -73,24 +73,16 @@ class PqMailer < PQBaseMailer
     }
   end
 
-  def mp_office_emails(pq, mp_name)
-    if pq.minister && pq.minister.name == mp_name
-      [
-        'Christopher.Beal@justice.gsi.gov.uk',
-        'Nicola.Calderhead@justice.gsi.gov.uk',
-        'thomas.murphy@JUSTICE.gsi.gov.uk'
-      ]
-    else
-      []
-    end
+  def minister_contacts(minister)
+    minister.minister_contacts.map(&:email)
   end
 
   def action_list_emails
-    ActionlistMember.where('deleted = false').map{ |a| a.email }
+    ActionlistMember.where('deleted = false').map { |a| a.email }
   end
 
   def finance_users_emails(pq)
-    if pq.finance_interest 
+    if pq.finance_interest
       User.finance.where('email IS NOT NULL').map(&:email)
     else
       []
