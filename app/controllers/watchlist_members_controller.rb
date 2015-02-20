@@ -16,7 +16,8 @@ class WatchlistMembersController < ApplicationController
   def update
     loading_watchlist_member do
       if @watchlist_member.update(watchlist_member_params)
-        redirect_to @watchlist_member, notice: 'Watchlist member was successfully updated.'
+        flash[:success] = 'Watchlist member was successfully updated.'
+        redirect_to @watchlist_member
       else
         render action: 'edit'
       end
@@ -31,7 +32,8 @@ class WatchlistMembersController < ApplicationController
     @watchlist_member = WatchlistMember.new(watchlist_member_params)
 
     if @watchlist_member.save
-      redirect_to @watchlist_member, notice: 'Watchlist member was successfully created.'
+      flash[:success] = 'Watchlist member was successfully created.'
+      redirect_to @watchlist_member
     else
       render action: 'new'
     end

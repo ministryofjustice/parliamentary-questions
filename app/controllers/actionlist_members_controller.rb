@@ -14,7 +14,8 @@ class ActionlistMembersController < ApplicationController
     @actionlist_member = ActionlistMember.new(actionlist_member_params)
 
     if @actionlist_member.save
-      redirect_to @actionlist_member, notice: 'Actionlist member was successfully created.'
+      flash[:success] = 'Actionlist member was successfully created.'
+      redirect_to @actionlist_member 
     else
       render action: 'new'
     end
@@ -22,7 +23,8 @@ class ActionlistMembersController < ApplicationController
 
   def update
     if @actionlist_member.update(actionlist_member_params)
-      redirect_to @actionlist_member, notice: 'Actionlist member was successfully updated.'
+      flash[:success] = 'Actionlist member was successfully updated.'
+      redirect_to @actionlist_member 
     else
       render action: 'edit'
     end

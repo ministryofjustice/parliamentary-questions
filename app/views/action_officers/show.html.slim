@@ -1,6 +1,6 @@
 h2 Action officer details
 #admin-ao-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @action_officer.name
   h4 Email
