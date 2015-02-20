@@ -428,9 +428,14 @@ textarea {
 /* = New / In Progress Tabs ===================================================== */
 
 .nav-tabs {
-  margin-bottom: 20px;
-  border-bottom: 0;
+  margin-bottom: 20px; // spacing under horizontal tabs
+
+  &.nav-stacked {
+    border-bottom: 0; // no thin line under vertical tabs
+  }
 }
+
+.nav-tabs.nav-stacked
 
 /* Status Filters =============================================================== */
 
