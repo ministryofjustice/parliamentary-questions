@@ -19,4 +19,4 @@ h2 Action officers
           td= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil?
           td= action_officer.press_desk.name unless action_officer.press_desk.nil?
           td= render partial: 'shared/status', object: action_officer
-          td= link_to 'Edit', edit_action_officer_path(action_officer)
+          td.edit= link_to 'Edit', edit_action_officer_path(action_officer)
