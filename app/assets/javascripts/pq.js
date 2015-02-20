@@ -164,12 +164,6 @@ $(document).ready(function () {
     $('#comm-details-' + pqid).toggleClass('start-hidden');
   });
 
-  $('.progress-menu-item').on('click',function() {
-    $('.progress-menu-data').hide();
-    $('#' + $(this).attr('id') + '-data').show();
-    $('.progress-menu-form').show();
-  });
-
   // Checkbox and radio button CSS state changes
   $(".block-label").each(function() {
 
