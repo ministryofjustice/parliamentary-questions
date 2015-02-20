@@ -205,22 +205,3 @@ $(document).ready(function () {
 
 }()); // end IFFE
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> updated all notices to use flash success message
