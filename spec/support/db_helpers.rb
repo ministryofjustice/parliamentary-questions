@@ -1,7 +1,9 @@
 module DBHelpers
   module_function
+  USER_PASSWORD = '123456789'
 
   FIXTURES = [
+    :users,
     :ministers,
     :progresses,
     :directorates,
@@ -31,6 +33,19 @@ module DBHelpers
   def load_fixtures(*fixtures)
     FIXTURES.each do |m|
       method(m).call if fixtures.include?(m)
+    end
+  end
+
+  def users
+    [
+     ['pq@pq.com', 'pq-user', User::ROLE_PQ_USER],
+     ['fin@fin.com', 'finance-user', User::ROLE_FINANCE]
+    ].map do |email, name, role|
+      u = User.find_or_create_by(email: email, name: name, roles: role)
+      if u.new_record?
+        u.update(password: USER_PASSWORD, password_confirmation: USER_PASSWORD)
+      end
+      u
     end
   end
 
