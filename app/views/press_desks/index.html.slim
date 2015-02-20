@@ -10,8 +10,8 @@ h2 Press desks
         th Press Officers
         th#admin-status Status
         th
-    - @press_desks.each do |press_desk|
-      tbody
+    tbody
+      - @press_desks.each do |press_desk|
         tr
           td= link_to press_desk.name, press_desk_path(press_desk)
           td= press_desk.press_officers.count unless press_desk.press_officers.nil?

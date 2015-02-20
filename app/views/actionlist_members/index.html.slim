@@ -10,8 +10,8 @@ h2 Actionlist members
         th Name
         th#admin-status Status
         th
-    - @actionlist_members.each do |actionlist_member|
-      tbody
+    tbody
+      - @actionlist_members.each do |actionlist_member|
         tr
           td= link_to actionlist_member.name, actionlist_member_path(actionlist_member)
           td= render partial: 'shared/status', object: actionlist_member
