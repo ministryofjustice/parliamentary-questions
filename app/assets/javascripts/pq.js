@@ -201,9 +201,26 @@ $(document).ready(function () {
     $('#'+target).show();
   });
 
-  // For pre-checked inputs, show toggled content
-  var target = $('input:checked').parent().attr('data-target');
-  $('#'+target).show();
-
 });
-}());
+
+}()); // end IFFE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> updated all notices to use flash success message

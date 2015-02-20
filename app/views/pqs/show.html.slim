@@ -8,21 +8,21 @@
 #pq-detail-area.row
   #progress-menu.col-md-3
     ul.nav.nav-pills.nav-stacked
-      li
+      li.progress-menu-pq
         a#progress-menu-pq.progress-menu-item(href="#") PQ Details
-      li
+      li.progress-menu-trim
         a#progress-menu-trim.progress-menu-item(href="#") Trim link
-      li
+      li.progress-menu-fc
         a#progress-menu-fc.progress-menu-item(href="#") Finance check
-      li
+      li.progress-menu-com
         a#progress-menu-com.progress-menu-item(href="#") PQ commission
-      li
+      li.progress-menu-sub
         a#progress-menu-sub.progress-menu-item(href="#") PQ draft
-      li
+      li.progress-menu-pod
         a#progress-menu-pod.progress-menu-item(href="#") POD check
-      li
+      li.progress-menu-min
         a#progress-menu-min.progress-menu-item(href="#") Minister check
-      li
+      li.progress-menu-answer
         a#progress-menu-answer.progress-menu-item(href="#") Answer
   #progress-panel.col-md-9
     = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|

@@ -1,6 +1,6 @@
 h2 Press desk details
 #admin-pd-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @press_desk.name
   h4 Status
