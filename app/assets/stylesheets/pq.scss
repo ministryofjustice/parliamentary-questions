@@ -41,7 +41,6 @@ h4                                                                              
 #search_button,
 #status-filters .active .badge,
 .js-enabled .selected,
-#progress-menu ul li a.progress-menu-item:hover,
 .js-enabled .selected,
 .alert { background-color: #fff; }
 
@@ -55,7 +54,6 @@ h4                                                                              
 h2 .badge,
 #status-filters .badge { background-color: #000; }
 
-#progress-menu ul li a.progress-menu-item { border-color: #000000; }
 .block-label:hover, .js-enabled .selected { border-color: #0b0c0c; }
 .questions-list li, .form-control         { border-color: #bfc1c3; }
 .progress-menu-form                       { border-color: #c2c2c2; }
@@ -69,8 +67,6 @@ h2 .badge,
 
 .js-enabled .add-focus { outline-color: #ffbf47; }
 .js-enabled .add-focus { outline: 3px solid #ffbf47; }
-
-
 
 // =============================================================================
 // = Modification to govuk_template & moj_template =============================
@@ -228,7 +224,7 @@ footer {
   border-left-style: solid;
   margin: 0px 0px 20px 16px;
   padding:16px;
-  
+
   ul {
     list-style-type: none;
     li { margin-left: 0px; }
@@ -431,7 +427,15 @@ textarea {
 
 /* = New / In Progress Tabs ===================================================== */
 
-.nav-tabs { margin-bottom: 20px; }
+.nav-tabs {
+  margin-bottom: 20px; // spacing under horizontal tabs
+
+  &.nav-stacked {
+    border-bottom: 0; // no thin line under vertical tabs
+  }
+}
+
+.nav-tabs.nav-stacked
 
 /* Status Filters =============================================================== */
 
@@ -521,35 +525,45 @@ li.select2-search-field {border-bottom: none;}
 
 #pq-details-qa-link { display: block; }
 
+ul.nav-tabs li a {
+  outline: 0;
+}
+
 #pq-detail-area {
   margin: 15px 0px 0px 0px;
+
   #progress-menu {
-    z-index:1;
-    padding:0px;
-    ul li {
-      a.progress-menu-item {
-        border-radius: 6px 0px 0px 6px;
-        padding-left: 0px;
-      }
-      a.progress-menu-item:hover {
-        margin-left: 10px;
-        width: 207px;
-      }
-      a.progress-menu-item.activeTab {
-        width: 100%;
-        padding-left: 10px;
-        background: url(image_path('progress-tab-bg.png')) repeat-x;
-        border-top: 1px solid #c2c2c2;
-        border-bottom: 1px solid #c2c2c2;
-        border-left: 1px solid #c2c2c2;
-        @media screen and (max-width: 991px) {
-          border-radius: 6px;
-          border: 1px solid #c2c2c2;
-        }
-      }
-      a.progress-menu-item.activeTab:hover { margin-left: 0px; }
+    z-index: 1;
+    padding: 0;
+
+    ul li a {
+      padding-left: 0;
     }
+
+    ul li a:hover {
+      border: 0;
+      padding-left: 1em;
+      background-color: white;
+    }
+
+    ul li.active a {
+      padding-left: 1em;
+      border: 1px solid #c2c2c2;
+      border-right: 0;
+      margin-right: 0;
+      border-radius: 6px 0 0 6px;
+      @media screen and (max-width: 991px) {
+        border-radius: 6px;
+        border: 1px solid #c2c2c2;
+      }
+    }
+
+    ul li a:link {
+      color: black;
+    }
+
   }
+
   #progress-panel {
     margin: 0px;
     padding: 0px;
