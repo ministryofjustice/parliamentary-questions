@@ -1,4 +1,9 @@
-namespace :db do
+namespace :pqa do
+  desc "Perform nightly import"
+  task :nightly_import, [] => :environment do
+    ImportWorker.new.perform
+  end
+
   desc "Generate and import dummy data for development"
   task :import_dummy_data, [:n_records] => :environment do |_, args|
     n_records = args[:n_records] || 3
@@ -9,7 +14,7 @@ namespace :db do
     import_from_mock_server(questions, Date.yesterday, Date.tomorrow)
   end
 
-  desc "Import questions from XML"
+  desc "Import questions from XML file"
   task :import_from_xml, [:xml_path] => :environment do |_, args|
     fpath = args[:xml_path]
     raise ArgumentError, "Cannot find file #{fpath}" unless File.exists?(fpath)

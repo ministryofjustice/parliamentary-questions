@@ -11,7 +11,7 @@ Webapp to manage the workflow Parliamentary Questions
 
 ```
 # username and pass for the PQ Rest Api
-PQ_REST_API_URL=<url_for_pq_api>
+PQ_REST_API_HOST=<url_for_pq_api>
 
 While developing or running automated tests, you can use the built-in mock API server by
 setting this value to: http://localhost:8888
@@ -45,6 +45,7 @@ APPVERSION=0.1-sprint6
 - Ruby MRI 2.1.2
 - Postgresql 9.3
 - phantomjs (tests only)
+- cureutils (for required by the `version_tag.sh` script)
 
 To start with, make sure you have the right version of the Ruby runtime installed.
 Multiple versions of Ruby can be managed on the same machine through either [rbenv](https://github.com/sstephenson/rbenv)
@@ -70,11 +71,11 @@ And starting the app with:
 
 Mock data can be automatically imported by running the following rake task:
 
-    bundle exec rake db:import_dummy_data
+    bundle exec rake pqa:import_dummy_data
 
 Finally, a rake task is also provided to load PQ&A XML data into the system.
 
-    bundle exec rake db:import_from_xml[path/to/question_file.xml]
+    bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
 
 # User authentication
 

@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'bootstrap-will_paginate'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
-gem 'coffee-rails', '~> 4.0.0'
 gem 'devise_invitable'
 gem 'devise'
 gem 'font-awesome-rails'
@@ -36,7 +34,6 @@ end
 
 group :test, :development do
   gem 'sinatra'
-  gem 'capybara-email'
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

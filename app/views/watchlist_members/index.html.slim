@@ -19,4 +19,4 @@ h2 Watchlist members
           td= link_to watchlist_member.name, watchlist_member_path(watchlist_member)
           td= watchlist_member.email
           td= render partial: 'shared/status', object: watchlist_member
-          td= link_to 'Edit', edit_watchlist_member_path(watchlist_member)
+          td.edit= link_to 'Edit', edit_watchlist_member_path(watchlist_member)

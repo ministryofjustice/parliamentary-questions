@@ -10,9 +10,9 @@
         = f.text_area :question, cols: 40, rows: 5, class:'form-control'
       .form-group
         label.form-label for="pq_dateforanswer"  Date for answer
-        .input-group.date.internal-dtp.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+        .datetimepicker
           input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.to_s) /
-          span.input-group-addon.glyphicon.glyphicon-calendar
+          span.fa.fa-calendar
       p.text House
       .form-group.inline
         label.block-label for="pq_house_name_house_of_commons"
@@ -48,8 +48,8 @@
         = f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department")
       .form-group
         label.form-label for="transfer_in_date"  Date transferred in
-        .input-group.date.datetimepicker data-date-format=("DD/MM/YYYY HH:mm")
+        .datetimepicker
           input#transfer_in_date.form-control name="pq[transfer_in_date]" type="text" value=(@pq.transfer_in_date.to_s) /
-          span.input-group-addon.glyphicon.glyphicon-calendar
+          span.fa.fa-calendar
       .form-group
         = f.submit 'Create PQ', :class => 'button'

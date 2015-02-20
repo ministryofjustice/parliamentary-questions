@@ -6,7 +6,7 @@ module PQA
   #
   class ApiClient < HTTPClient
     def self.from_settings
-      new(Settings.pq_rest_api.url,
+      new(Settings.pq_rest_api.host,
           Settings.pq_rest_api.username,
           Settings.pq_rest_api.password,
           File.expand_path('resources/certs/wqa.parliament.uk.pem', __dir__))
@@ -42,19 +42,6 @@ module PQA
     # @return [Net::HTTP::Response]
     def save_question(uin, xml)
       uri = File.join(@base_url, 'api/qais/questions', uin)
-      issue_request(:put, uri, xml)
-    end
-
-    # Saves a question answer.
-    #
-    # Note: This is part of the actual PQ&A API
-    #
-    # @param uin [String] The question unique identification number.
-    # @param xml [String] The XML representation of the answer
-    #
-    # @return [Net::HTTP::Response]
-    def save_answer(uin, xml)
-      uri = File.join(@base_url, 'api/qais/answers', uin)
       issue_request(:put, uri, xml)
     end
 

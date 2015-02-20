@@ -1,6 +1,6 @@
 h2 Actionlist member details
 #admin-al-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @actionlist_member.name
   h4 Email
