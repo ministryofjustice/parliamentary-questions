@@ -228,6 +228,11 @@ footer {
   border-left-style: solid;
   margin: 0px 0px 20px 16px;
   padding:16px;
+  
+  ul {
+    list-style-type: none;
+    li { margin-left: 0px; }
+  }
 }
 
 i.fa-envelope,
@@ -741,5 +746,5 @@ details{
 }
 
 @media print {
-  .trim_area, .button, .button-secondary { display: none; }
+  .trim_area, .button, .button-secondary, td.edit { display: none; }
 }
