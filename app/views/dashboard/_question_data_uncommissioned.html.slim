@@ -20,17 +20,17 @@
     .col-md-5
       .dashboard-column-2
         - if !question.house_name.nil?
-          h4= question.house_name
+          label.form-label= question.house_name
           p.text= question.member_name
         fieldset
 
-        h4 Date for answer
+        label.form-label for="pq_date_for_answer-#{question.id}" Date for answer
         .datepicker.form-group
           input.form-control.required-for-commission id="pq_date_for_answer-#{question.id}" name="commission_form[date_for_answer]" type="text" value=(question.date_for_answer.try(:to_s, :date))
           span.fa.fa-calendar
         = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
 
-        h4 Internal deadline
+        label.form-label for="pq_internal_deadline-#{question.id}" Internal deadline
         .datetimepicker.form-group.default-time#internal-deadline
           input.form-control.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.to_s)
           span.fa.fa-calendar
@@ -39,5 +39,5 @@
   .col-md-5
     .dashboard-column-2
       .trim_area.trim_area_dashboard id="trim_area_#{question.id}"
-        h4 Trim link
+        label.form-label Trim link
         = render partial: 'shared/trim_link', locals: {question: question}
