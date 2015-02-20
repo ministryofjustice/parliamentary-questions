@@ -224,7 +224,7 @@ footer {
   border-left-style: solid;
   margin: 0px 0px 20px 16px;
   padding:16px;
-  
+
   ul {
     list-style-type: none;
     li { margin-left: 0px; }
@@ -520,6 +520,9 @@ li.select2-search-field {border-bottom: none;}
 
 #pq-details-qa-link { display: block; }
 
+ul.nav-tabs li a {
+  outline: 0;
+}
 
 #pq-detail-area {
   margin: 15px 0px 0px 0px;
@@ -540,7 +543,6 @@ li.select2-search-field {border-bottom: none;}
 
     ul li.active a {
       padding-left: 1em;
-      outline: 0;
       border: 1px solid #c2c2c2;
       border-right: 0;
       margin-right: 0;
