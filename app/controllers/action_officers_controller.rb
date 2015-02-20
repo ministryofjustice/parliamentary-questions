@@ -33,7 +33,8 @@ class ActionOfficersController < ApplicationController
   def update
     begin
     if @action_officer.update(action_officer_params)
-      redirect_to @action_officer, notice: 'Action officer was successfully updated.'
+      flash[:success] = 'Action officer was successfully updated.'
+      redirect_to @action_officer 
       return
     end
     rescue => err
