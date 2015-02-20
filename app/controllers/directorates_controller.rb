@@ -13,7 +13,8 @@ class DirectoratesController < ApplicationController
   def create
     @directorate = Directorate.new(directorate_params)
     if @directorate.save
-      redirect_to @directorate, notice: 'Directorate was successfully created.'
+      flash[:success] ='Directorate was successfully created.'
+      redirect_to @directorate
     else
       render action: 'new'
     end
@@ -21,7 +22,8 @@ class DirectoratesController < ApplicationController
 
   def update
     if @directorate.update(directorate_params)
-      redirect_to @directorate, notice: 'Directorate was successfully updated.'
+      flash[:success] = 'Directorate was successfully updated.'
+      redirect_to @directorate
     else
       render action: 'edit'
     end

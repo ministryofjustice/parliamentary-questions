@@ -14,7 +14,8 @@ class PressDesksController < ApplicationController
     @press_desk = PressDesk.new(press_desk_params)
 
     if @press_desk.save
-      redirect_to @press_desk, notice: 'Press desk was successfully created.'
+      flash[:success] = 'Press desk was successfully created.'
+      redirect_to @press_desk
     else
       render action: 'new'
     end
@@ -22,7 +23,8 @@ class PressDesksController < ApplicationController
 
   def update
     if @press_desk.update(press_desk_params)
-      redirect_to @press_desk, notice: 'Press desk was successfully updated.'
+      flash[:success] = 'Press desk was successfully updated.'
+      redirect_to @press_desk
     else
       render action: 'edit'
     end

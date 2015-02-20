@@ -14,7 +14,8 @@ class OgdsController < ApplicationController
     @ogd = Ogd.new(ogd_params)
 
     if @ogd.save
-      redirect_to @ogd, notice: 'OGD was successfully created.'
+      flash[:success] ='OGD was successfully created.'
+      redirect_to @ogd
     else
       render action: 'new'
     end
@@ -22,7 +23,8 @@ class OgdsController < ApplicationController
 
   def update
     if @ogd.update(ogd_params)
-      redirect_to @ogd, notice: 'Ogd was successfully updated.'
+      flash[:success] = 'Ogd was successfully updated.'
+      redirect_to @ogd
     else
       render action: 'edit'
     end
