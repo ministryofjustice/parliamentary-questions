@@ -15,7 +15,8 @@ class DeputyDirectorsController < ApplicationController
     @deputy_director = DeputyDirector.new(deputy_director_params)
 
       if @deputy_director.save
-        redirect_to @deputy_director, notice: 'Deputy director was successfully created.'
+        flash[:success] = 'Deputy director was successfully created.'
+        redirect_to @deputy_director
       else
         render action: 'new'
       end
@@ -23,7 +24,8 @@ class DeputyDirectorsController < ApplicationController
 
   def update
     if @deputy_director.update(deputy_director_params)
-      redirect_to @deputy_director, notice: 'Deputy director was successfully updated.'
+      flash[:success] = 'Deputy director was successfully updated.'
+      redirect_to @deputy_director
     else
       render action: 'edit'
     end

@@ -1,6 +1,6 @@
 h2 Watchlist member details
 #admin-wl-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @watchlist_member.name
   h4 Email

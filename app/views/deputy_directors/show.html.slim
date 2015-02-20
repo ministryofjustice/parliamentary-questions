@@ -1,7 +1,6 @@
 h2 Deputy director details
 #admin-deputy-details
-  p#notice
-    = notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   = @deputy_director.name
   h4 Email

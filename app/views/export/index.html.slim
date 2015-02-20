@@ -1,18 +1,19 @@
 #csv-export
-  h2 Export PQ to CSV
+  h2 Export PQ's to CSV
   = render partial: 'shared/flash_messages'
   h3 Select the range of dates to do the export
   = form_tag controller: 'export', action: 'csv' do
     fieldset
       .form-group
         label.form-label for="date_from"  Date from
-        .input-group.date.dateonlypicker data-date-format="DD/MM/YYYY" 
+        .datepicker
           input#date_from.form-control name="date_from" type="text" value="04/06/2014" /
-          span.input-group-addon.glyphicon.glyphicon-calendar
+          span.fa.fa-calendar
       .form-group
         label.form-label for="date_to"  Date to
-        .input-group.date.dateonlypicker data-date-format="DD/MM/YYYY" 
-          input#date_to.form-control name="date_to" type="text" value=Date.today.to_s(:date) /
-          span.input-group-addon.glyphicon.glyphicon-calendar
-    .form-group
-      = submit_tag 'Download CSV' , class: 'button' , :onclick=> "ga('send', 'event', 'tasks', 'download', 'pq csv');"
+        .datepicker
+            input#date_to.form-control name="date_to" type="text" value=Date.today.to_s(:date) /
+            span.fa.fa-calendar
+      .form-group
+        = submit_tag 'Download CSV' , class: 'button' , :onclick=> "ga('send', 'event', 'tasks', 'download', 'pq csv');"
+

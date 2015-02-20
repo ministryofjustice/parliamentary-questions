@@ -21,6 +21,6 @@ h2 Users
               | never active
             - else
               = time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil?
-          td= link_to 'Edit', edit_user_path(user)
+          td.edit= link_to 'Edit', edit_user_path(user)
   div class="pagination-row.bottom"
     .page-entries= will_paginate @users

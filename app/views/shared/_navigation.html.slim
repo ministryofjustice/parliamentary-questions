@@ -1,7 +1,4 @@
 - if user_signed_in?
-  .phase-banner
-    p.phase-tag = config_item(:phase).upcase
-    span This is a new service. Your <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a> will help us to improve it.
   nav.navbar.navbar-default role="navigation"
     .container-fluid
       .navbar-header
@@ -32,7 +29,7 @@
             .form-group
               = text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search by UIN' }
             = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
-              i.glyphicon.glyphicon-search
+              i.fa.fa-search
         - elsif current_user.finance_user?
           ul.nav.navbar-nav
             li= link_to 'Sign out', destroy_user_session_path

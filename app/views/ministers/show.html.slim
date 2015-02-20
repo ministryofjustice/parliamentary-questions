@@ -1,6 +1,6 @@
 h2 Minister details
 #admin-ministers-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @minister.name
   h4 Title

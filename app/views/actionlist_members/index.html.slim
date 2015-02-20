@@ -15,4 +15,4 @@ h2 Actionlist members
         tr
           td= link_to actionlist_member.name, actionlist_member_path(actionlist_member)
           td= render partial: 'shared/status', object: actionlist_member
-          td= link_to 'Edit', edit_actionlist_member_path(actionlist_member)
+          td.edit= link_to 'Edit', edit_actionlist_member_path(actionlist_member)
