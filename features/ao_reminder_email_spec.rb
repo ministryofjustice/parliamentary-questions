@@ -20,7 +20,6 @@ feature 'Parli-branch sends reminder email to action officer', js: true, suspend
   scenario "PB commissions a question and sends 2 reminder emails" do
     create_pq_session
     commission_question(@pq.uin, [ao1], minister)
-    expect(page).to have_text("#{@pq.uin} commissioned successfully")
     visit dashboard_path
 
     within_pq(@pq.uin) do

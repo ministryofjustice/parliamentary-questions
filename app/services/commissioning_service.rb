@@ -1,4 +1,5 @@
 class CommissioningService
+  include Rails.application.routes.url_helpers
   AO_TOKEN_LIFETIME = 3
 
   def initialize(tokenService = nil, current_time = nil)
@@ -18,8 +19,8 @@ class CommissioningService
       if pq.valid?
         PQProgressChangerService.new.update_progress(pq)
 
-        pq.action_officers.each do |ao|
-          notify_assignment(pq, ao)
+        pq.action_officers_pqs.each do |ao_pq|
+          notify_assignment(ao_pq)
         end
       end
       pq
@@ -37,12 +38,14 @@ class CommissioningService
     pq
   end
 
-  def notify_assignment(pq, ao)
-    path              = "/assignment/#{pq.uin.encode}"
-    entity            = "assignment:#{ao.id}"
-    expires           = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
-    token             = @tokenService.generate_token(path, entity, expires)
-    dd                = DeputyDirector.find(ao.deputy_director_id)
+  def notify_assignment(ao_pq)
+    ao      = ao_pq.action_officer
+    pq      = ao_pq.pq
+    path    = assignment_path(uin: pq.uin.encode)
+    entity  = "assignment:#{ao_pq.id}"
+    expires = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
+    token   = @tokenService.generate_token(path, entity, expires)
+    dd      = DeputyDirector.find(ao.deputy_director_id)
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 

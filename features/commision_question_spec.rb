@@ -20,7 +20,6 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   scenario 'Parli-branch member allocates a question to selected AOs' do
     commission_question(@pq.uin, [ao, ao2], minister)
-    expect(page).to have_content("#{@pq.uin} commissioned successfully")
   end
 
   scenario 'AO and DD should receive an email notification of assigned question' do
@@ -42,11 +41,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   scenario 'The PQ status should then change to draft pending' do
     create_pq_session
-    visit dashboard_path
-    click_on 'In progress'
-    click_on 'Draft Pending'
-
-    expect(page).to have_content("#{@pq.uin}")
+    expect_pq_status(@pq.uin, 'In progress', 'Draft Pending')
   end
 
   scenario 'The AO should receive an email notification confirming the question acceptance' do

@@ -1,19 +1,20 @@
 module Features
   module SessionHelpers
+    include Rails.application.routes.url_helpers
 
     def create_pq_session
-      UserBuilder.create_pq
-      sign_in(UserBuilder::EMAILS.fetch(:pq), UserBuilder::PASS)
+      user = DBHelpers.users.find(&:pq_user?)
+      sign_in(user.email, DBHelpers::USER_PASSWORD)
     end
 
     def create_finance_session
-      UserBuilder.create_finance
-      sign_in(UserBuilder::EMAILS.fetch(:finance), UserBuilder::PASS)
+      user = DBHelpers.users.find(&:finance_user?)
+      sign_in(user.email, DBHelpers::USER_PASSWORD)
     end
 
     def sign_in(email, password)
-      visit '/users/sign_out'
-      visit '/users/sign_in'
+      visit destroy_user_session_path
+      visit new_user_session_path
       fill_in 'Email', with: email
       fill_in 'Password', with: password
       click_button 'Sign in'

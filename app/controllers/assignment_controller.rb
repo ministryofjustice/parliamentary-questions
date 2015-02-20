@@ -13,17 +13,21 @@ class AssignmentController < ApplicationController
 
   def create
     loading_question_and_assignment do
-      @response = AllocationResponse.new(response_params)
+      @response       = AllocationResponse.new(response_params)
+      response_action = @response.response_action
+
       unless @response.valid?
         render 'show'
       else
         service = AssignmentService.new
-        case @response.response_action
+        case response_action
         when 'accept'
           service.accept(@assignment)
         when 'reject'
           service.reject(@assignment, @response)
         else
+          msg = "AllocationResponse.response_action must be set to either 'accept' or 'reject'. Got #{response_action}"
+          raise ArgumentError, msg
           #TODO: log unexpected input
         end
         render 'confirmation'

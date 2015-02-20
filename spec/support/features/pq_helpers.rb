@@ -20,6 +20,8 @@ module Features
         find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y')
         click_on 'Commission'
       end
+
+      expect(page).to have_content("#{@pq.uin} commissioned successfully")
     end
 
     def accept_assignnment(action_officer)
@@ -38,6 +40,14 @@ module Features
 
       fill_in 'allocation_response_reason', with: reason_text
       click_on 'Save Response'
+    end
+
+    def expect_pq_status(uin, *click_path)
+      visit dashboard_path
+      click_path.each do |anchor|
+        click_on anchor
+      end
+      expect(page).to have_content(uin)
     end
 
     def within_pq(uin)

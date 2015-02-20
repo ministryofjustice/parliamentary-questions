@@ -22,7 +22,6 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
 
   scenario 'Parli-branch member allocates a question to selected AOs' do
     commission_question(@pq.uin, [ao1, ao2], minister)
-    expect(page).to have_content("#{@pq.uin} commissioned successfully")
   end
 
   scenario 'Following the email link should let an AO reject the question' do
@@ -42,18 +41,13 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
 
   scenario 'The question status should remain no response' do
     create_pq_session
-    visit dashboard_path
-    click_on 'No response'
-    expect(page).to have_text(@pq.uin)
+    expect_pq_status(@pq.uin, 'No response')
   end
 
   scenario 'If an AO is the last to reject a question, the status should change to rejected' do
     reject_assignment(ao2, 3, 'too busy!')
-
     create_pq_session
-    visit dashboard_path
-    click_on 'Rejected'
-    expect(page).to have_text(@pq.uin)
+    expect_pq_status(@pq.uin, 'Rejected')
 
     within_pq(@pq.uin) do
       expect(page).to have_text("#{ao1.name} rejected at:")
