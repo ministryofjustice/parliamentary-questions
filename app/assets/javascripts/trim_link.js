@@ -63,26 +63,21 @@ trim_link.trimFileUpload = function() {
       .on('ajax:error', function(e, response) {
         var json = JSON.parse(response.responseText);
 
-        message_icon.addClass(status_messages[json.status].classname);
+        message_icon.addClass(status_messages.failure.classname);
+        upload_message.text(json.message);
+
+        message_container.show();
+      })
+      .on('ajax:success', function(e, response) {
+        var json = JSON.parse(response.responseText);
+
+        message_icon.addClass(status_messages.success.classname);
         upload_message.text(json.message);
 
         actions
           .hide()
           .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-        message_container.show();
-      })
-      .on('ajax:success', function(e, response) {
-        var json = JSON.parse(response.responseText),
-          success = json.status === 'success';
 
-        message_icon.addClass(status_messages[json.status].classname);
-        upload_message.text(json.message);
-
-        if(success) {
-          actions
-            .hide()
-            .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-        }
         message_container.show();
       });
 
