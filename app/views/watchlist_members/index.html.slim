@@ -13,8 +13,8 @@ h2 Watchlist members
         th Email
         th#admin-status Status
         th
-    - @watchlist_members.each do |watchlist_member|
-      tbody
+    tbody
+      - @watchlist_members.each do |watchlist_member|
         tr
           td= link_to watchlist_member.name, watchlist_member_path(watchlist_member)
           td= watchlist_member.email
