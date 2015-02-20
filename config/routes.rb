@@ -59,7 +59,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'dashboard/transferred' => 'dashboard#transferred'
   get 'dashboard/i_will_write' => 'dashboard#i_will_write'
 
-  get 'assignment/:uin' => 'assignment#show'
+  get 'assignment/:uin' => 'assignment#show', as: :assignment
   post 'assignment/:uin' => 'assignment#create'
 
   get 'watchlist/dashboard' => 'watchlist_dashboard#index'
