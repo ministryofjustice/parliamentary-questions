@@ -164,22 +164,6 @@ $(document).ready(function () {
     $('#comm-details-' + pqid).toggleClass('start-hidden');
   });
 
-  $('.progress-menu-item').on('click',function() {
-    $('.progress-menu-data').hide();
-    $('#' + $(this).attr('id') + '-data').show();
-    $('.progress-menu-form').show();
-  });
-
-  $("#progress-menu-pq").addClass("activeTab");
-  $("#progress-menu-pq-data").removeClass("start-hidden");
-
-  /* PQ Details Page - Set styling when tab clicked */
-  $("#progress-menu a").click(function() {
-    var e="#"+$(this).attr("id");
-    $("#progress-menu-pq, #progress-menu-trim, #progress-menu-fc, #progress-menu-com, #progress-menu-sub, #progress-menu-pod, #progress-menu-min, #progress-menu-answer").removeClass( "activeTab" ).addClass("inactiveTab");
-    $(e).removeClass("inactiveTab").addClass("activeTab");
-  });
-
   // Checkbox and radio button CSS state changes
   $(".block-label").each(function() {
 
