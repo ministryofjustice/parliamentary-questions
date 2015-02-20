@@ -69,8 +69,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'members/by_name' => 'members#by_name'
 
-  get 'import/logs' => 'import#logs'
-
   get 'finance/questions' => 'finance#questions'
   post 'finance/confirm' => 'finance#confirm'
 
