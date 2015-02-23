@@ -109,7 +109,7 @@ private
     if !pq.minister.nil? && pq.minister.name == mp_name
       return [
           'Christopher.Beal@justice.gsi.gov.uk',
-          'Nicola.Calderhead@justice.gsi.gov.uk',
+          'Kelly.Kileff@justice.gsi.gov.uk',
           'thomas.murphy@JUSTICE.gsi.gov.uk'
       ]
     end
