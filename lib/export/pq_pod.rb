@@ -4,8 +4,8 @@ module Export
 
     def pqs
       Pq.where('tabled_date >= ? AND tabled_date <= ? AND draft_answer_received ' +
-               'is not null AND pod_clearance is null and answer_submitted is null', 
-               @date_to, @date_from)
+               'IS NOT null AND pod_clearance IS null AND answer_submitted IS null', 
+               @date_from, @date_to)
         .order(:date_for_answer)
     end
   end

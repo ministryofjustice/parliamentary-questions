@@ -8,6 +8,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require './spec/support/db_helpers'
 require './spec/support/features/session_helpers'
+require './spec/support/unit/question_factory'
 require 'shoulda/matchers'
 
 RSpec.configure do |config|
