@@ -1,6 +1,8 @@
 require 'feature_helper'
 
 feature "Parli-branch manages trim link" , js: true do
+  include Features::PqHelpers
+
   def add_trim_link
     click_link 'Trim link'
     attach_file('pq[trim_link_attributes][file]', Rails.root.join('spec/fixtures/trimlink.tr5'))
@@ -10,12 +12,13 @@ feature "Parli-branch manages trim link" , js: true do
 
   before(:each) do
     DBHelpers.load_feature_fixtures
-    create_pq_session
     @pq, _ = PQA::QuestionLoader.new.load_and_import
+    set_seen_by_finance
+    create_pq_session
   end
 
   feature 'from the details view' do
-    scenario 'adding a trim link' do
+    scenario 'add a trim link' do
       visit pq_path(@pq.uin)
       expect(page).not_to have_link 'Open trim link'
       add_trim_link
@@ -66,22 +69,10 @@ feature "Parli-branch manages trim link" , js: true do
     end
   end
 
-  feature 'Parli-branch manages trim-links from the dashboard' do
+  feature 'from the dashboard' do
     let(:ao1)      { ActionOfficer.find_by(email: 'ao1@pq.com') }
     let(:minister) { Minister.first                             }
-    include Features::PqHelpers
 
-    scenario "uploading a valid trim file" do
-      visit dashboard_path
-      commission_question(@pq.uin, [ao1], minister)
-      visit dashboard_path
-      attach_file('Choose Trim file', Rails.root.join('spec/fixtures/trimlink.tr5'))
-
-      within_pq(@pq.uin) do
-        save_screenshot('out.png')
-        click_on "Upload"
-      end
-      expect(page).to have_text('Happy friday!')
-    end
+    scenario "uploading a valid trim file"
   end
 end
