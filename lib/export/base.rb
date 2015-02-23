@@ -68,17 +68,17 @@ module Export
         pq.answering_minister_to_action_officer,
         pq.sent_to_answering_minister,
         pq.cleared_by_answering_minister
-      ].map { |date| date.to_s(EXPORT_DATE_FORMAT) }  +
+      ].map { |date| date && date.to_s(EXPORT_DATE_FORMAT) }  +
       [
-        pq.directorate.name,
-        pq.division.name,
+        pq.directorate && pq.directorate.name,
+        pq.division && pq.division.name,
         pq.answer,
         pq.question,
         nil,
-        pq.minister.name,
+        pq.minister && pq.minister.name,
         pq.answering_minister_query,
         pq.uin,
-        pq.pod_clearance.to_s(EXPORT_DATE_FORMAT),
+        pq.pod_clearance && pq.pod_clearance.to_s(EXPORT_DATE_FORMAT),
         pq.pod_query_flag,
         pq.finance_interest,
         nil,

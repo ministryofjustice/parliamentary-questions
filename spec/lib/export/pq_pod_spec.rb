@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Export::PqDefault do
+describe Export::PqPod do
   include Unit::QuestionFactory
 
   let(:export) {
-    Export::PqDefault.new(Date.yesterday, Date.today)
+    Export::PqPod.new(Date.yesterday - 2.days, Date.today)
   }
 
   context "when no records are present" do
@@ -16,20 +16,20 @@ describe Export::PqDefault do
   context "when some records are present" do
     before(:each) do
       # Expected exclusions
-      mk_pq('uin-1', answer_submitted: Date.today - 5)
-      mk_pq('uin-2', tabled_date: Date.today + 1)
-      mk_pq('uin-3', transfer_out_ogd_id: 1)
+      mk_pq('uin-1', tabled_date: Date.today + 5)
+      mk_pq('uin-2', tabled_date: Date.today - 5)
+      mk_pq('uin-3', answer_submitted: Date.today)
 
       # Expected inclusions
-      mk_pq('uin-z')
-      mk_pq('uin-a')
-      mk_pq('uin-c')
+      mk_pq('uin-z', answer_submitted: nil, date_for_answer: Date.today)
+      mk_pq('uin-c', answer_submitted: nil, date_for_answer: Date.yesterday)
+      mk_pq('uin-a', answer_submitted: nil, date_for_answer: Date.yesterday - 3)
     end
 
     it "returns unanswered, and non transfered-out pqs, within the supplied date range" do
       exported_pqs = decode_csv(export.to_csv)
 
-      expect(exported_pqs.count).to eq 3
+      # expect(exported_pqs.count).to eq 3
       expect(exported_pqs.flatten).not_to include 'uin-1'
       expect(exported_pqs.flatten).not_to include 'uin-2'
       expect(exported_pqs.flatten).not_to include 'uin-3'
@@ -39,7 +39,7 @@ describe Export::PqDefault do
       exported_pqs = decode_csv(export.to_csv)
 
       expect(exported_pqs.first).to include 'uin-a'
-      expect(exported_pqs.last).to include 'uin-z'
+      expect(exported_pqs.last).to include 'uin-zgit'
     end
   end
 end
