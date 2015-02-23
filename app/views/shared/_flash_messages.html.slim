@@ -1,6 +1,6 @@
 - flash.each do |type, message|
   - if !message.blank?
-    div class=("alert #{flash_class_for(type)} fade in") 
+    div class=("#{flash_class_for(type)} fade in") 
       = message
       button.close data-dismiss="alert"  x
 - flash.clear

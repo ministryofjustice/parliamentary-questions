@@ -1,7 +1,7 @@
 - question.action_officers_pqs.rejected.each do |r|
   - if !r.action_officer.nil?
     .row
-      .info-notice.col-md-12 id="pq-reject-reasons-#{r.id}"
+      .pq-msg-warning.col-md-12 id="pq-reject-reasons-#{r.id}"
         p.text id="pq-reject-reasons-header-#{r.id}"
           = link_to r.action_officer.name, action_officer_path(r.action_officer)
           |  rejected at: #{r.updated_at.to_s}
