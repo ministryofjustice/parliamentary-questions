@@ -29,7 +29,7 @@ describe Export::PqPod do
     it "returns unanswered, and non transfered-out pqs, within the supplied date range" do
       exported_pqs = decode_csv(export.to_csv)
 
-      # expect(exported_pqs.count).to eq 3
+      expect(exported_pqs.count).to eq 3
       expect(exported_pqs.flatten).not_to include 'uin-1'
       expect(exported_pqs.flatten).not_to include 'uin-2'
       expect(exported_pqs.flatten).not_to include 'uin-3'
@@ -39,7 +39,7 @@ describe Export::PqPod do
       exported_pqs = decode_csv(export.to_csv)
 
       expect(exported_pqs.first).to include 'uin-a'
-      expect(exported_pqs.last).to include 'uin-zgit'
+      expect(exported_pqs.last).to include 'uin-z'
     end
   end
 end
