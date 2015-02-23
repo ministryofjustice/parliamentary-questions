@@ -4,7 +4,6 @@ describe TrimLink do
   it { is_expected.to belong_to :pq }
   it { is_expected.to validate_presence_of :data }
   it { is_expected.to allow_value('filename.tr5').for :filename }
-  it { is_expected.not_to allow_value('filename').for :filename }
 
   describe '#after_initialize' do
     subject { described_class.new file: double(original_filename: 'filename.tr5', read: 'data') }
