@@ -1,4 +1,4 @@
-- if @pq.trim_link.present?
+- if @pq.trim_link && !@pq.trim_link.deleted
   .form-group
     h4 Trim link
     - if @pq.has_trim_link?
