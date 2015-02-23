@@ -260,7 +260,7 @@ describe Pq do
       expect(subject.uin).to eql('hl1234')
       subject.update(uin: ' hl1 234' )
       expect(subject).to be_valid
-      expect(subject.uin).to eql('hl1234')
+      expect(subject.uin).to eql('hl1 234')
     end
 	end
 
