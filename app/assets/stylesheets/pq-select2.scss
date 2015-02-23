@@ -14,6 +14,10 @@
  kept separately and not optimised, so the origin can be tracked.
 */
 
+.select2-container-multi .select2-choices .select2-search-field input {
+  padding: 2px 0px; // make the multi-select2 fields as tall as the date fields
+}
+
 .select2-container-multi .select2-choices {
   padding: 0px 10px 0px 0px;
 }
@@ -25,6 +29,7 @@
 
 .select2-container .select2-choice {
   @include reset-border-radius;
+  padding: 4px 0 28px 5px; // make the select2 choice fields as tall as the date fields
 }
 .select2-container .select2-choice {
   background-image:none;
