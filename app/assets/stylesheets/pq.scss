@@ -21,6 +21,10 @@ body {
 
 // = Colour definitions ====================================================================
 
+$success-colour: $button-colour;
+$notice-colour: $govuk-blue;
+$danger-colour: $error-colour;
+
 #build,
 i.fa-envelope,
 .open,
@@ -29,13 +33,13 @@ i.fa-envelope,
 .trim-links-cancel:hover { color: #fff; }
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
-#search_button                                                                                                                                                                                      { color: #999999; }
-i.fa-exclamation-triangle, i.fa-times-circle                                                                                                                                                        { color: #df3034; }
-i.fa-check-circle                                                                                                                                                                                   { color: #00823b; }
-#status-filters .active .badge                                                                                                                                                                      { color: #6f7781; }
-#qa-link a                                                                                                                                                                                          { color: #4a8acd; }
-hr                                                                                                                                                                                                  { color: #bfc1c3; }
-h4                                                                                                                                                                                                  { color: #6f777b; }
+#search_button { color: #999999; }
+i.fa-exclamation-triangle, i.fa-times-circle { color: #df3034; }
+i.fa-check-circle { color: $success-colour; }
+#status-filters .active .badge { color: #6f7781; }
+#qa-link a { color: #4a8acd; }
+hr { color: #bfc1c3; }
+h4 { color: #6f777b; }
 #build { color: #f47738; }
 
 #search_button,
@@ -62,8 +66,16 @@ h2 .badge,
 
 #settings-home h3        { border-bottom-color: #dee0e2; }
 
-.alert-success, .success { border-left-color: #85994b; }
-.alert-block, .notice, .info-notice { border-left-color: #d0021b; }
+@mixin alert($colour)
+{
+  margin: 20px 15px;
+  border-left: 4px solid $colour;
+  padding:15px;
+}
+
+.pq-msg-success { @include alert($success-colour); } //Success
+.pq-msg-notice { @include alert($notice-colour); }   //Notice invites etc
+.pq-msg-error, .pq-msg-warning { @include alert($danger-colour); }  //for Error's and Warnings rejections etc
 
 .js-enabled .add-focus { outline-color: #ffbf47; }
 .js-enabled .add-focus { outline: 3px solid #ffbf47; }
@@ -142,19 +154,6 @@ h4 {
 .pq-header-links,
 #pq-details-title h2 {display: inline-block;}
 
-.alert {
-  border-radius: 0px;
-  border-width: 0px 0px 0px 4px;
-  border-style: none none none solid;
-  margin: 20px 15px;
-}
-
-.alert.reminder {
-  border-width: 0px;
-  border-style: none;
-  margin: 0px;
-  padding: 0px;
-}
 
 button.close {
   float: none;
@@ -219,17 +218,17 @@ footer {
   .block-label { margin: 0px 0px 20px 0px; }
 }
 
-.info-notice {
-  border-left-width: 4px;
-  border-left-style: solid;
-  margin: 0px 0px 20px 16px;
-  padding:16px;
+// .info-notice, .alert-error {
+//   border-left-width: 4px;
+//   border-left-style: solid;
+//   margin: 0px 0px 20px 16px;
+//   padding:16px;
 
-  ul {
-    list-style-type: none;
-    li { margin-left: 0px; }
-  }
-}
+//   ul {
+//     list-style-type: none;
+//     li { margin-left: 0px; }
+//   }
+// }
 
 i.fa-envelope,
 i.fa-exclamation-triangle { margin-left: 4px; }
