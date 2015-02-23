@@ -14,7 +14,7 @@ module DeviseHelper
                       resource: resource.class.model_name.human.downcase)
 
     html = <<-HTML
-    <div class="info-notice">
+    <div class="pq-msg-error">
       #{sentence}<br />
       <ul>#{messages}</ul>
     </div>
