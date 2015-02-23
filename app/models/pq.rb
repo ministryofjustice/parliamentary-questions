@@ -89,7 +89,7 @@ class Pq < ActiveRecord::Base
   end
 
   def strip_uin_whitespace
-    self.uin = uin.strip.gsub(/\s/,'') if !uin.nil?
+    uin && self.uin = uin.lstrip.rstrip
   end
 
   def commissioned?
