@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Export::PqDefault do
   include Unit::QuestionFactory
+  include CSVHelpers
 
   let(:export) {
     Export::PqDefault.new(Date.yesterday, Date.today)
@@ -27,19 +28,22 @@ describe Export::PqDefault do
     end
 
     it "returns unanswered, and non transfered-out pqs, within the supplied date range" do
-      exported_pqs = decode_csv(export.to_csv)
+      today        = datetime_s(Date.today)
+      yesterday    = datetime_s(Date.yesterday)
+      exported_pqs = decode_csv(export.to_csv).map do |h|
+        [
+          h['PIN'],
+          h['Full_PQ_subject'],
+          h['Date First Appeared in Parliament'],
+          h['Date response answered by Parly (dept)'],
+        ]
+      end
 
-      expect(exported_pqs.count).to eq 3
-      expect(exported_pqs.flatten).not_to include 'uin-1'
-      expect(exported_pqs.flatten).not_to include 'uin-2'
-      expect(exported_pqs.flatten).not_to include 'uin-3'
-    end
-
-    it 'returns the results sorted by uin' do
-      exported_pqs = decode_csv(export.to_csv)
-
-      expect(exported_pqs.first).to include 'uin-a'
-      expect(exported_pqs.last).to include 'uin-z'
+      expect(exported_pqs).to eq([
+        ['uin-a', 'uin-a body text', yesterday, today],
+        ['uin-c', 'uin-c body text', yesterday, today],
+        ['uin-z', 'uin-z body text', yesterday, today]
+      ])
     end
   end
 end

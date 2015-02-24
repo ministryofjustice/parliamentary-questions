@@ -1,27 +1,25 @@
-=begin
-  
-
-Senario
-As a PB user given that I click on the export to csv link 
-Then I should see the Export to CSV view. 
-
-When I select a date from and date to values and click the csv button.
-Then the CSV file should download. 
-And data should contain all questions where the table date is greater than 
-or equal to the date form and the answer date is either null or less then or 
-equal too the date to.
-And data should not include questions that have been transferred out. 
-=end
 require 'feature_helper'
+require './spec/support/csv_helpers'
 
-feature 'Transferring questions', js: true do
+feature 'Transferring questions' do
   include Features::PqHelpers
+  include CSVHelpers
 
   before(:all) do
     DBHelpers.load_feature_fixtures
 
-    @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
+    @pqs =  PQA::QuestionLoader.new.load_and_import(3)
     set_seen_by_finance
   end
 
+  scenario "Parli-branch exports pq data as CSV" do
+    create_pq_session
+    visit export_path
+
+    fill_in 'Date from', with: Date.today.strftime('%d/%m/%Y')
+    fill_in 'Date to', with: Date.tomorrow.strftime('%d/%m/%Y')
+    click_on 'Download CSV'
+    uins = decode_csv(page.body).map { |h| h['PIN'] }
+    expect(uins).to eq(@pqs.map(&:uin))
+  end
 end
