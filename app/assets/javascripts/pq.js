@@ -92,7 +92,7 @@ $(document).ready(function () {
     .on("ajax:success", function(){
       var pqid = $(this).data('pqid');
       var uin  = $(this).parents('*[data-pquin]').data('pquin');
-      $('#pq-frame-'+pqid).replaceWith('<div class="alert success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
+      $('#pq-frame-'+pqid).replaceWith('<div class="pq-msg-success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
      incrementBadge('#db-filter-alloc-pend');
       decrementBadge('#db-filter-unalloc');
     }).on("ajax:error", function(e, xhr) {
