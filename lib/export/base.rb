@@ -1,4 +1,8 @@
 module Export
+  # NOTE :
+  # The format of this CSV export is intended to match the a legacy spredsheet used
+  # by Parli-branch. Column ordering must not be altered.
+
   class Base
     EXPORT_DATE_FORMAT  = '%Y-%m-%d'
 
@@ -53,40 +57,41 @@ module Export
 
     def csv_fields(pq, ao)
       [
-        pq.member_name,
-        nil,
-        ao && ao.name
+        pq.member_name,                                                 # 'MP',
+        nil,                                                            # 'Record Number',
+        ao && ao.name                                                   # 'Action Officer',
       ] +
       [
-        pq.answer_submitted,
-        pq.internal_deadline,
-        pq.tabled_date,
-        pq.date_for_answer,
-        pq.resubmitted_to_answering_minister,
-        pq.answering_minister_returned_by_action_officer,
-        pq.draft_answer_received,
-        pq.answering_minister_to_action_officer,
-        pq.sent_to_answering_minister,
-        pq.cleared_by_answering_minister
+        pq.answer_submitted,                                            # 'Date response answered by Parly (dept)',
+        pq.internal_deadline,                                           # 'Draft due to Parly Branch',
+        pq.tabled_date,                                                 # 'Date First Appeared in Parliament',
+        pq.date_for_answer,                                             # 'Date Due in Parliament',
+        pq.resubmitted_to_answering_minister,                           # 'Date resubmitted to Minister (if appliable)',
+        pq.answering_minister_returned_by_action_officer,               # 'Date returned by AO (if applicable)',
+        pq.draft_answer_received,                                       # 'Date Draft Returned to PB',
+        pq.answering_minister_to_action_officer,                        # 'Date sent back to AO (if applicable)',
+        pq.sent_to_answering_minister,                                  # 'Date delivered to Minister',
+        pq.cleared_by_answering_minister                                # 'Returned signed from Minister',
       ].map { |date| date && date.to_s(EXPORT_DATE_FORMAT) }  +
       [
-        pq.directorate && pq.directorate.name,
-        pq.division && pq.division.name,
-        pq.answer,
-        pq.question,
-        nil,
-        pq.minister && pq.minister.name,
-        pq.answering_minister_query,
-        pq.uin,
-        pq.pod_clearance && pq.pod_clearance.to_s(EXPORT_DATE_FORMAT),
-        pq.pod_query_flag,
-        pq.finance_interest,
-        nil,
-        nil,
-        pq.question_type,
-        ao && ao.email
+        pq.directorate && pq.directorate.name,                          # 'Directorate',
+        pq.division && pq.division.name,                                # 'Division',
+        pq.answer,                                                      # 'Final Response',
+        pq.question,                                                    # 'Full_PQ_subject',
+        nil,                                                            # 'Delay Reason',
+        pq.minister && pq.minister.name,                                # 'Minister',
+        pq.answering_minister_query,                                    # 'Ministerial Query? (if applicable)',
+        pq.uin,                                                         # 'PIN',
+        pq.pod_clearance && pq.pod_clearance.to_s(EXPORT_DATE_FORMAT),  # '"Date/time of POD clearance"',
+        pq.pod_query_flag,                                              # 'PODquery',
+        pq.finance_interest,                                            # 'Requested by finance',
+        nil,                                                            # 'Requested by HR',
+        nil,                                                            # 'Requested by Press',
+        pq.question_type,                                               # 'Type of Question',
+        ao && ao.email                                                  # 'AO Email'
       ]
     end
+
     def rebase(date)
       date + 1.day - 1.minutes
     end
