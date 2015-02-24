@@ -1,6 +1,6 @@
 = render partial: "shared/flash_messages", flash: flash
 - trim = question.trim_link
-- if trim
+- if trim && !trim.deleted
   .dashboard_trim_link id="trim_links_#{trim.id}"
     = link_to('Open trim link', trim_link_path(trim), {title: 'Open trim link', rel: 'external'})
 - else
