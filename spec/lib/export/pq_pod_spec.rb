@@ -28,7 +28,7 @@ describe Export::PqPod do
       mk_pq('uin-a', answer_submitted: nil, date_for_answer: Date.yesterday - 3)
     end
 
-    it "returns unanswered, and non transfered-out pqs, within the supplied date range" do
+    it "returns unanswered, and non transfered-out pqs, within the supplied date range ordered by date for answer" do
       exported_pqs = decode_csv(export.to_csv).map do |h|
         [
           h['PIN'],
