@@ -1,7 +1,11 @@
 module Export
   # NOTE :
-  # The format of this CSV export is intended to match the a legacy spredsheet used
-  # by Parli-branch. Column ordering must not be altered.
+  # The format of this CSV export is intended to match the structure of the
+  # spredsheet used by Parli-branch for offline reporting.
+  #
+  # Column ordering must not be altered.
+  #
+  # For a sample, see https://dsdmoj.atlassian.net/wiki/display/PQ/Parli-branch+sample+spreadsheet
 
   class Base
     EXPORT_DATE_FORMAT  = '%Y-%m-%d'
