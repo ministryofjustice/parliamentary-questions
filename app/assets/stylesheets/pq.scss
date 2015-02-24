@@ -71,6 +71,11 @@ h2 .badge,
   margin: 20px 15px;
   border-left: 4px solid $colour;
   padding:15px;
+  ul {  // browser compatability to make style consistent
+    list-style: disc outside none;
+    margin-left: 0;
+    padding-left: 1em;
+  }
 }
 
 .pq-msg-success { @include alert($success-colour); } //Success
