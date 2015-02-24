@@ -17,6 +17,7 @@ class AssignmentController < ApplicationController
       response_action = @response.response_action
 
       unless @response.valid?
+        flash[:error] = "Form was not completed"
         render 'show'
       else
         service = AssignmentService.new

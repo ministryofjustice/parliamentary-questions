@@ -2,110 +2,31 @@ class ExportController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def csv
-    pqs = get_pqs('transfer_out_ogd_id is null AND (answer_submitted >=? OR answer_submitted is null) AND tabled_date <=?')
-    send_data to_csv(pqs.order(:uin))
-  end
-
-  def csv_for_pod
-    pqs = get_pqs('tabled_date >=? AND tabled_date <=? AND draft_answer_received is not null AND pod_clearance is null and answer_submitted is null')
-    send_data to_csv(pqs.order(:date_for_answer))
-  end
-
-private
-
-  def get_pqs(sql)
-    Pq.where(sql, DateTime.parse(params[:date_from])+1.day-1.minutes, DateTime.parse(params[:date_to])+1.day-1.minute)
-  end
-
-  def to_csv(pqs)
-    CSV.generate do |csv|
-      csv << [
-          'MP',
-          'Record Number',
-          'Action Officer',
-          'Date response answered by Parly (dept)',
-          'Draft due to Parly Branch',
-          'Date First Appeared in Parliament',
-          'Date Due in Parliament',
-          'Date resubmitted to Minister (if applicable)',
-          'Date returned by AO (if applicable)',
-          'Date Draft Returned to PB',
-          'Date sent back to AO (if applicable)',
-          'Date delivered to Minister',
-          'Returned signed from Minister',
-          'Directorate',
-          'Division',
-          'Final Response',
-          'Full_PQ_subject',
-          'Delay Reason',
-          'Minister',
-          'Ministerial Query? (if applicable)',
-          'PIN',
-          '"Date/time of POD clearance"',
-          'PODquery',
-          'Requested by finance',
-          'Requested by HR',
-          'Requested by Press',
-          'Type of Question',
-          'AO Email'
-      ]
-      pqs.each do |pq|
-        ao = pq.action_officer_accepted
-        csv << pq_data_to_hash(pq,ao)
-      end
+    with_valid_dates('index') do |date_from, date_to|
+      export = Export::PqDefault.new(date_from, date_from)
+      send_data(export.to_csv, content_type: 'text/csv')
     end
   end
 
-  def pq_data_to_hash(pq,ao)
-    pq_dates = format_pq_dates(pq)
-    [ pq.member_name,               # 'MP',
-      nil,                          # 'Record Number',
-      ao.try(:name),                # 'Action Officer',
-      pq_dates[:as],                # 'Date response answered by Parly (dept)',
-      pq_dates[:id],                # 'Draft due to Parly Branch',
-      pq_dates[:td],                # 'Date First Appeared in Parliament',
-      pq_dates[:dfa],               # 'Date Due in Parliament',
-      pq_dates[:rtam],              # 'Date resubmitted to Minister (if appliable)',
-      pq_dates[:amrbao],            # 'Date returned by AO (if applicable)',
-      pq_dates[:dar],               # 'Date Draft Returned to PB',
-      pq_dates[:amtao],             # 'Date sent back to AO (if applicable)',
-      pq_dates[:stam],              # 'Date delivered to Minister',
-      pq_dates[:cbam],              # 'Returned signed from Minister',
-      pq.directorate.try(:name),    # 'Directorate',
-      pq.division.try(:name),       # 'Division',
-      pq.answer,                    # 'Final Response',
-      pq.question,                  # 'Full_PQ_subject',
-      nil,                          # 'Delay Reason',
-      pq.minister.try(:name),       # 'Minister',
-      pq.answering_minister_query,  # 'Ministerial Query? (if applicable)',
-      pq.uin,                       # 'PIN',
-      pq_dates[:pc],                # '"Date/time of POD clearance"',
-      pq.pod_query_flag,            # 'PODquery',
-      pq.finance_interest,          # 'Requested by finance',
-      nil,                          # 'Requested by HR',
-      nil,                          # 'Requested by Press',
-      pq.question_type,             # 'Type of Question',
-      ao.try(:email)                # 'AO Email'
-    ]
+  def csv_for_pod
+    with_valid_dates('index_for_pod') do |date_from, date_to|
+      export = Export::PqPod.new(date_from, date_from)
+      send_data(export.to_csv, content_type: 'text/csv')
+    end
   end
 
-  def format(datetime)
-    datetime.try(:to_s, :export)
-  end
+  private
 
-  def format_pq_dates(pq)
-    {
-        as: format(pq.answer_submitted),         # 'Date response answered by Parly (dept)',
-        id: format(pq.internal_deadline),        # 'Draft due to Parly Branch',
-        td: format(pq.tabled_date),              # 'Date First Appeared in Parliament',
-        dfa: format(pq.date_for_answer),          # 'Date Due in Parliament',
-        rtam: format(pq.resubmitted_to_answering_minister),             # 'Date resubmitted to Minister (if appliable)',
-        amrbao: format(pq.answering_minister_returned_by_action_officer), # 'Date returned by AO (if applicable)',
-        dar: format(pq.draft_answer_received),                         # 'Date Draft Returned to PB',
-        amtao: format(pq.answering_minister_to_action_officer),          # 'Date sent back to AO (if applicable)',
-        stam: format(pq.sent_to_answering_minister),                    # 'Date delivered to Minister',
-        cbam: format(pq.cleared_by_answering_minister),                 # 'Returned signed from Minister',
-        pc: format(pq.pod_clearance),     # '"Date/time of POD clearance"',
-    }
+  def with_valid_dates(form_template)
+    begin
+      date_from, date_to = [
+        DateTime.parse(params[:date_from]),
+        DateTime.parse(params[:date_to])
+      ]
+      yield(date_from, date_to)
+    rescue ArgumentError
+      flash[:error] = "Invalid date input!"
+      render(form_template, status: 400)
+    end
   end
 end
