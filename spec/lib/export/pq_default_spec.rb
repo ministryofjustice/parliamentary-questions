@@ -27,7 +27,7 @@ describe Export::PqDefault do
       mk_pq('uin-c')
     end
 
-    it "returns unanswered, and non transfered-out pqs, within the supplied date range" do
+    it "returns unanswered, and non transfered-out pqs, within the supplied date range ordered by UIN" do
       today        = datetime_s(Date.today)
       yesterday    = datetime_s(Date.yesterday)
       exported_pqs = decode_csv(export.to_csv).map do |h|
