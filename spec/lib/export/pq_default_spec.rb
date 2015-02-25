@@ -28,8 +28,8 @@ describe Export::PqDefault do
     end
 
     it "returns unanswered, and non transfered-out pqs, within the supplied date range ordered by UIN" do
-      today        = datetime_s(Date.today)
-      yesterday    = datetime_s(Date.yesterday)
+      today        = date_s(Date.today)
+      yesterday    = date_s(Date.yesterday)
       exported_pqs = decode_csv(export.to_csv).map do |h|
         [
           h['PIN'],
