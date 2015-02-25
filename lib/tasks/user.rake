@@ -6,7 +6,7 @@ namespace :user do
     email, password, name = args[:email], args[:password],  args[:name]
 
     puts "Creating user with name: #{name} and email: #{email} with password: #{password}"
-    User.create(email: email, password: password, name: name, role: User::ROLE_PQ_USER)
+    User.create(email: email, password: password, name: name, roles: User::ROLE_PQ_USER)
     puts 'User created!'
   end
 end
