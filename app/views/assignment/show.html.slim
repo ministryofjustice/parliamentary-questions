@@ -60,7 +60,7 @@
                   | Reject
               #reason-textarea class=('hide' unless @response.errors.any?)
                 - if !@response.errors[:reason_option].empty?
-                  .alert.alert-danger
+                  .pq-msg-error
                     | Please select one of the reasons to reject the question
                 .form-group
                   select.form-control name="allocation_response[reason_option]"
@@ -69,8 +69,8 @@
                     option I think it is for another department in the MoJ
                     option I think it is for another government department
                 - if !@response.errors[:reason].empty?
-                  .alert.alert-danger
-                    | Please select give us information about why you reject the question
+                  .pq-msg-error
+                    | Please give us information about why you reject the question
                 .form-group
                   = f.label :reason, 'Please explain why you reject the question, or if you are not the right person or department, please tell us who we should contact'
                   = f.text_area  :reason,  class: 'form-control', rows: '10'

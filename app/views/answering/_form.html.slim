@@ -1,7 +1,7 @@
 = render partial: "shared/flash_messages", flash: flash
 = form_for @pq_answer, { :remote => true, :authenticity_token => true, :html => { :id => "answer-pq-form-#{@pq.id}", :class => 'answer-pq-form', :data => {:id => @pq.id }}, :url => { :controller => 'answering', :action => 'answer', :id => @pq.id} }  do |f|
   - if @pq_answer.errors.any?
-    .alert.alert-danger
+    .pq-msg-error
       p There are errors submitting the answer
       ul
         - @pq_answer.errors.full_messages.each do |msg|
