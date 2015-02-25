@@ -18,10 +18,11 @@
             <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a>&nbsp;
          will help us to improve it.
 
-      = render partial: "shared/navigation"
-      .container
-         .content-inner
-            = yield
+      #content
+        = render partial: "shared/navigation"
+        .container
+           .content-inner
+              = yield
 
 - content_for :footer_support_links do
    li
