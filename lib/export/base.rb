@@ -86,7 +86,7 @@ module Export
         pq.minister && pq.minister.name,                                # 'Minister',
         pq.answering_minister_query,                                    # 'Ministerial Query? (if applicable)',
         pq.uin,                                                         # 'PIN',
-        pq.pod_clearance && pq.pod_clearance.strftime(FORMAT),          # '"Date/time of POD clearance"',
+        pq.pod_clearance && pq.pod_clearance.strftime(DATE_FORMAT),     # '"Date/time of POD clearance"',
         pq.pod_query_flag,                                              # 'PODquery',
         pq.finance_interest,                                            # 'Requested by finance',
         nil,                                                            # 'Requested by HR',
