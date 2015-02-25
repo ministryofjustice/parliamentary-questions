@@ -39,9 +39,9 @@ describe Export::PqPod do
       end
 
       expect(exported_pqs).to eq([
-        ['uin-a', 'uin-a body text', datetime_s(Date.yesterday), date_s(Date.yesterday - 3)],
-        ['uin-c', 'uin-c body text', datetime_s(Date.yesterday), date_s(Date.yesterday)],
-        ['uin-z', 'uin-z body text', datetime_s(Date.yesterday), date_s(Date.today)]
+        ['uin-a', 'uin-a body text', date_s(Date.yesterday), date_s(Date.yesterday - 3)],
+        ['uin-c', 'uin-c body text', date_s(Date.yesterday), date_s(Date.yesterday)],
+        ['uin-z', 'uin-z body text', date_s(Date.yesterday), date_s(Date.today)]
       ])
     end
   end
