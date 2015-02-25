@@ -46,7 +46,7 @@ h4 { color: #6f777b; }
 #status-filters .active .badge,
 .js-enabled .selected,
 .js-enabled .selected,
-.alert { background-color: #fff; }
+{ background-color: #fff; }
 
 .block-label,
 .navbar { background-color: #dee0e2; }
@@ -54,7 +54,6 @@ h4 { color: #6f777b; }
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus,
 .dropdown-menu li a:hover { background-color: #ffbf47; }
-.alert-ie6 { background-color: #e9f9f8; }
 h2 .badge,
 #status-filters .badge { background-color: #000; }
 
@@ -71,6 +70,11 @@ h2 .badge,
   margin: 20px 15px;
   border-left: 4px solid $colour;
   padding:15px;
+  ul {  // browser compatability to make style consistent
+    list-style: disc outside none;
+    margin-left: 0;
+    padding-left: 1em;
+  }
 }
 
 .pq-msg-success { @include alert($success-colour); } //Success
@@ -217,18 +221,6 @@ footer {
   margin: 0px 0px 20px 0px;
   .block-label { margin: 0px 0px 20px 0px; }
 }
-
-// .info-notice, .alert-error {
-//   border-left-width: 4px;
-//   border-left-style: solid;
-//   margin: 0px 0px 20px 16px;
-//   padding:16px;
-
-//   ul {
-//     list-style-type: none;
-//     li { margin-left: 0px; }
-//   }
-// }
 
 i.fa-envelope,
 i.fa-exclamation-triangle { margin-left: 4px; }
