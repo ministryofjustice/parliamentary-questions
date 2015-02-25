@@ -13,13 +13,16 @@ describe Minister do
     expect(minister.name).to eql('person')
   end
 
-  describe '#email' do
+  describe '#contact_emails' do
     let!(:minister_contact1) { create(:minister_contact, minister: subject) }
     let!(:minister_contact2) { create(:minister_contact, minister: subject) }
     let!(:deleted_minister_contact) { create(:deleted_minister_contact, minister: subject) }
 
-    it 'returns active minister contacts emails joined with ;' do
-      expect(subject.email).to eql("#{minister_contact1.email};#{minister_contact2.email}")
+    it 'returns the active minister contacts emails' do
+      expect(subject.contact_emails).to eql([
+        minister_contact1.email,
+        minister_contact2.email
+      ])
     end
   end
 
