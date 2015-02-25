@@ -13,7 +13,10 @@ class CommissioningService
     ActiveRecord::Base.transaction do
       pq = build_pq(form)
       pq.action_officers_pqs << form.action_officer_id.map do |ao_id|
-        ActionOfficersPq.find_or_create_by(pq_id: pq.id, action_officer_id: ao_id)
+        ActionOfficersPq.create!(
+          pq_id: pq.id,
+          action_officer_id: ao_id
+        )
       end
 
       pq.save!
@@ -44,7 +47,7 @@ class CommissioningService
     entity  = "assignment:#{ao_pq.id}"
     expires = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
     token   = @tokenService.generate_token(path, entity, expires)
-    dd      = DeputyDirector.find(ao.deputy_director_id)
+    dd      = ao.deputy_director
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
@@ -56,7 +59,7 @@ class CommissioningService
       )).deliver
     end
 
-    if dd.email
+    if dd && dd.email
       internal_deadline = pq.internal_deadline ? pq.internal_deadline.to_s(:date) :
                                                 'No deadline set'
 
