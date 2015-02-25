@@ -44,7 +44,7 @@ class CommissioningService
     entity  = "assignment:#{ao_pq.id}"
     expires = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
     token   = @tokenService.generate_token(path, entity, expires)
-    dd      = DeputyDirector.find(ao.deputy_director_id)
+    dd      = ao.deputy_director
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
@@ -56,7 +56,7 @@ class CommissioningService
       )).deliver
     end
 
-    if dd.email
+    if dd && dd.email
       internal_deadline = pq.internal_deadline ? pq.internal_deadline.to_s(:date) :
                                                 'No deadline set'
 
