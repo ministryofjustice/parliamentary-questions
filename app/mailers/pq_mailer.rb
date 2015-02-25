@@ -21,7 +21,6 @@ class PqMailer < PQBaseMailer
       @template_params[:policy_mpemail],
       @template_params[:press_email]
     ]) +
-    minister_contacts(pq.minister) +
     action_list_emails +
     finance_users_emails(pq)
 
@@ -61,9 +60,9 @@ class PqMailer < PQBaseMailer
       uin:                  pq.uin,
       question:             pq.question,
       mpname:               pq.minister && pq.minister.name,
-      mpemail:              pq.minister && pq.minister.email,
+      mpemail:              pq.minister && pq.minister.contact_emails.join(';'),
       policy_mpname:        pq.policy_minister && pq.policy_minister.name,
-      policy_mpemail:       pq.policy_minister && pq.policy_minister.email,
+      policy_mpemail:       pq.policy_minister && pq.policy_minister.contact_emails.join(';'),
       press_email:          ao.press_desk && ao.press_desk.email_output,
       member_name:          pq.member_name,
       house_name:           pq.house_name,
@@ -71,10 +70,6 @@ class PqMailer < PQBaseMailer
       date_to_parliament:   pq.date_for_answer.try(:to_s, :date),
       finance_users_emails: finance_users_emails(pq).join(';'),
     }
-  end
-
-  def minister_contacts(minister)
-    minister.minister_contacts.map(&:email)
   end
 
   def action_list_emails

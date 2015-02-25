@@ -8,8 +8,8 @@ class Minister < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
-  def email
-    minister_contacts.where(deleted: false).pluck('email').join(';')
+  def contact_emails
+    minister_contacts.where(deleted: false).pluck('email')
   end
 
   def name_with_inactive_status
