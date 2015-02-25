@@ -190,9 +190,16 @@ $(document).ready(function () {
 
   // throw a google analytics event on trim link upload from dashboard
   $('.form-add-trim-link').on('submit', function() {
-    ga('send', 'event', 'trim upload from dashboard', 'submit', 'pqid', $(this).data('pqid'));
+    var pquin = $(this).parents('li').first().data('pquin');
+    ga('send', 'event', 'trim upload from dashboard', 'submit', pquin);
   });
 
+  $('.progress-menu-form').on('submit', function() {
+    var files_selected = $('#pq_trim_link_attributes_file').prop('files');
+    if (files_selected.length) {
+      ga('send', 'event', 'trim upload from details page', 'submit', $('h2').first().text());
+    }
+  });
 
 });
 
