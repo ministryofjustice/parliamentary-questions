@@ -12,11 +12,11 @@ class CommissioningService
 
     ActiveRecord::Base.transaction do
       pq = build_pq(form)
-      pq.action_officers_pqs = form.action_officer_id.map do |ao_id|
+      pq.action_officers_pqs << form.action_officer_id.map do |ao_id|
         ActionOfficersPq.find_or_create_by(pq_id: pq.id, action_officer_id: ao_id)
       end
 
-      pq.save! 
+      pq.save!
       PQProgressChangerService.new.update_progress(pq)
 
       pq.action_officers_pqs.each do |ao_pq|
