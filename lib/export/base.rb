@@ -8,7 +8,7 @@ module Export
   # For a sample, see https://dsdmoj.atlassian.net/wiki/display/PQ/Parli-branch+sample+spreadsheet
 
   class Base
-    EXPORT_DATE_FORMAT  = '%Y-%m-%d'
+    DATE_FORMAT  = '%Y-%m-%d %H:%M'
 
     HEADINGS = [
       'MP',
@@ -76,7 +76,7 @@ module Export
         pq.answering_minister_to_action_officer,                        # 'Date sent back to AO (if applicable)',
         pq.sent_to_answering_minister,                                  # 'Date delivered to Minister',
         pq.cleared_by_answering_minister                                # 'Returned signed from Minister',
-      ].map { |date| date && date.to_s(EXPORT_DATE_FORMAT) }  +
+      ].map { |date| date && date.strftime(DATE_FORMAT) }  +
       [
         pq.directorate && pq.directorate.name,                          # 'Directorate',
         pq.division && pq.division.name,                                # 'Division',
@@ -86,7 +86,7 @@ module Export
         pq.minister && pq.minister.name,                                # 'Minister',
         pq.answering_minister_query,                                    # 'Ministerial Query? (if applicable)',
         pq.uin,                                                         # 'PIN',
-        pq.pod_clearance && pq.pod_clearance.to_s(EXPORT_DATE_FORMAT),  # '"Date/time of POD clearance"',
+        pq.pod_clearance && pq.pod_clearance.strftime(FORMAT),          # '"Date/time of POD clearance"',
         pq.pod_query_flag,                                              # 'PODquery',
         pq.finance_interest,                                            # 'Requested by finance',
         nil,                                                            # 'Requested by HR',
