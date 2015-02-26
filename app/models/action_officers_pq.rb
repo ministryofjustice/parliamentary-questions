@@ -1,7 +1,7 @@
 class ActionOfficersPq < ActiveRecord::Base
   has_paper_trail
   belongs_to :pq
-	belongs_to :action_officer
+  belongs_to :action_officer
 
   def accept
     update(response: :accepted)

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  extend SoftDeletion
+
   ROLE_PQ_USER  = 'PQUSER'
   ROLE_FINANCE  = 'FINANCE'
 

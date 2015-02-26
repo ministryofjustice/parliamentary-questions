@@ -1,4 +1,6 @@
 class Minister < ActiveRecord::Base
+  extend SoftDeletion
+
   has_paper_trail
   before_validation :strip_whitespace
 

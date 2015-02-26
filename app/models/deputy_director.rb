@@ -1,4 +1,5 @@
 class DeputyDirector < ActiveRecord::Base
+  extend SoftDeletion
   has_paper_trail
   validates :division_id, presence: true
   validates :email, presence: true

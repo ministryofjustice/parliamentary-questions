@@ -1,4 +1,5 @@
 class Division < ActiveRecord::Base
+  extend SoftDeletion
   has_paper_trail
   validates :directorate_id, presence: true
 
