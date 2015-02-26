@@ -67,8 +67,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
   get 'find_action_officers' => 'action_officers#find'
 
-  get 'members/by_name' => 'members#by_name'
-
   get 'finance/questions' => 'finance#questions'
   post 'finance/confirm' => 'finance#confirm'
 
