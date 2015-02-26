@@ -1,17 +1,40 @@
-<%= @template_params[:ao_name] %>,
-You have been allocated PQ <%= @template_params[:uin] %>
-============================================================================
-<%= @template_params[:question] %>.
-============================================================================
-Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
+<%= @template_params[:ao_name] %>, you have been allocated PQ <%= @template_params[:uin] %>:
+
+  <%= @template_params[:question] %>.
+
+<% if @template_params[:member_name].present? %>
+  Asked by: <%= @template_params[:member_name] %>
+  <% if @template_params[:house_name].present? %>
+    <%= @template_params[:house_name] %>)
+  <% end %>
+<% end %>
+
+<% if @template_params[:member_constituency].present? %>
+  Constituency: <%= @template_params[:member_constituency] %>
+<% end %>
+
+<% if @template_params[:mpname].present? %>
+  To be answered by: <%= @template_params[:mpname] %>
+<% end %>
+
+<% if @template_params[:internal_deadline].present? %>
+  Internal deadline: <%= @template_params[:internal_deadline] %>
+<% end %>
+
+<% if @template_params[:date_to_parliament].present? %>
+  Due back to Parliament by <%= @template_params[:date_to_parliament] %>
+<% end %>
 
 You need to accept or reject the question, by clicking the link below or cutting and pasting this url into a web browser, before 2pm today.
- <%= url_for(controller: "assignment", action: "show", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
 
-If you accept the question, you will be sent a further email with all the relevant guidance to draft an answer.
+<%= url_for(controller: "assignment", action: "show", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
 
-If you have any questions, please contact the PQ team at <%= Settings.mail_reply_to %>
+If you accept the question, we will send you a further email with all the relevant guidance to draft an answer.
 
-This is a new service and your feedback will help us improve it. Please send your feedback to pqfeedback@digital.justice.gov.uk
+If you have any queries about responding to this PQ, contact the PQ team at <%= Settings.mail_reply_to %>
+
+For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk
+
+This is a new service. Please send your feedback to pqfeedback@digital.justice.gov.uk
 
 <%= render 'shared/mailer/email_signature_plain' %>
