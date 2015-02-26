@@ -1,7 +1,7 @@
 // Externals
-var trim_link, $;
+var trim_link, $, ga;
 
-(function(){
+(function() {
   'use strict';
 
   // make <detail> tags toggleable
@@ -33,7 +33,8 @@ var trim_link, $;
     }
   };
 
-  // The "incrementBadge" shows the incremented New PQ's on /finance/questions page
+  // 3 functions below increment, decrement of change the number of New PQ's
+  // on the filter box
   var incrementBadge = function(id_of_navpill) {
     changeBadgeBy(id_of_navpill,1);
   };
@@ -116,22 +117,6 @@ var trim_link, $;
        setCommissionButtonStatus($(e.currentTarget));
       });
 
-    $('#search_member').bind('ajax:before', function() {
-      $(this).data('params', { name: $("#minister_name").val() });
-    });
-
-    $('#search_member').bind('ajax:success', function(e, data){
-      $( "#members_result" ).replaceWith(data);
-      $("#members_result_select").select2({width:'250px'});
-      $('#members_result_select_link').bind('ajax:before', function() {
-        var m_id = $("#members_result_select").val();
-        var m_name = $("#members_result_select option:selected").data('name');
-        $("#minister_member_id").val(m_id);
-        $("#minister_name").val(m_name);
-        return false;
-      });
-    });
-
     // when clicking a calendar icon, open the calendar to the left of it
     // and if empty populate it with the current time,
     // (unless it has class default-time, in which case set time to 10:00)
@@ -184,6 +169,19 @@ var trim_link, $;
       $('.toggle-content').hide();
       var target = $('input:checked').parent().attr('data-target');
       $('#'+target).show();
+    });
+
+    // throw a google analytics event on trim link upload from dashboard
+    $('.form-add-trim-link').on('submit', function() {
+      var pquin = $(this).parents('li').first().data('pquin');
+      ga('send', 'event', 'trim upload from dashboard', 'submit', pquin.toString());
+    });
+
+    $('.progress-menu-form').on('submit', function() {
+      var files_selected = $('#pq_trim_link_attributes_file').prop('files');
+      if (files_selected.length) {
+        ga('send', 'event', 'trim upload from details page', 'submit', $('h2').first().text());
+      }
     });
 
   });
