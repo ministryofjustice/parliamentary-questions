@@ -27,9 +27,9 @@ class PqMailer < PQBaseMailer
     @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
 
     subject = if urgent
-      "URGENT : please send your draft response for PQ #{@template_params[:uin]}"
+      "URGENT REMINDER: please send your draft response to PQ #{@template_params[:uin]}"
     else
-      "You have accepted PQ #{@template_params[:uin]}"
+      "You accepted PQ #{@template_params[:uin]}"
     end
 
     mail(to: @template_params[:email], subject: subject)
@@ -37,7 +37,7 @@ class PqMailer < PQBaseMailer
 
   def acceptance_reminder_email(template_params)
     @template_params = template_params
-    mail(to: @template_params[:email], subject: "URGENT: you need to accept or reject PQ #{@template_params[:uin]}")
+    mail(to: @template_params[:email], subject: "URGENT REMINDER: you need to accept or reject PQ #{@template_params[:uin]}")
   end
 
   def watchlist_email(template_params)
@@ -65,6 +65,7 @@ class PqMailer < PQBaseMailer
       policy_mpemail:       pq.policy_minister && pq.policy_minister.contact_emails.join(';'),
       press_email:          ao.press_desk && ao.press_desk.email_output,
       member_name:          pq.member_name,
+      member_constituency:  pq.member_constituency,
       house_name:           pq.house_name,
       internal_deadline:    format_internal_deadline(pq),
       date_to_parliament:   pq.date_for_answer.try(:to_s, :date),
