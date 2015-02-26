@@ -1,4 +1,6 @@
 class TrimLink < ActiveRecord::Base
+  extend SoftDeletion
+
   attr_accessor :file
   after_initialize :extract_details
 
