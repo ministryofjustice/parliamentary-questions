@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
 
   IN_PROGRESS = 'In progress'
   NEW         = 'New'
-  PER_PAGE    = 5
+  PER_PAGE    = 20
 
   def index
     @dashboard_state = NEW
