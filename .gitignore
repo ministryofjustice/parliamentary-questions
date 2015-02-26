@@ -21,3 +21,4 @@ vendor/
 *~
 *.swp
 *.swo
+.tern-port
