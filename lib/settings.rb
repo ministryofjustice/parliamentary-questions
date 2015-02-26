@@ -30,14 +30,9 @@ module Settings
   filepath         = File.expand_path('../config/settings.yml', __dir__)
   @h               = YAML::load_file(filepath)
   @pq_rest_api     = PqRestApi.from_env
-  @members_api_url = @h.fetch('members_api_url')
 
   def pq_rest_api
     @pq_rest_api
-  end
-
-  def members_api_url
-    @members_api_url
   end
 
   def mail_from
