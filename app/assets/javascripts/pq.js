@@ -101,22 +101,6 @@ $(document).ready(function () {
      setCommissionButtonStatus($(e.currentTarget));
     });
 
-    $('#search_member').bind('ajax:before', function() {
-      $(this).data('params', { name: $("#minister_name").val() });
-    });
-
-    $('#search_member').bind('ajax:success', function(e, data){
-      $( "#members_result" ).replaceWith(data);
-      $("#members_result_select").select2({width:'250px'});
-      $('#members_result_select_link').bind('ajax:before', function() {
-        var m_id = $("#members_result_select").val();
-        var m_name = $("#members_result_select option:selected").data('name');
-        $("#minister_member_id").val(m_id);
-        $("#minister_name").val(m_name);
-          return false;
-        });
-    });
-
     $('.answer-pq-link').on('ajax:success', function(e, data){
       var pq_id = $(this).data('id');
       var divToFill = "#answer-pq-" + pq_id;
