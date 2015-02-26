@@ -191,7 +191,7 @@ $(document).ready(function () {
   // throw a google analytics event on trim link upload from dashboard
   $('.form-add-trim-link').on('submit', function() {
     var pquin = $(this).parents('li').first().data('pquin');
-    ga('send', 'event', 'trim upload from dashboard', 'submit', pquin);
+    ga('send', 'event', 'trim upload from dashboard', 'submit', pquin.toString());
   });
 
   $('.progress-menu-form').on('submit', function() {
