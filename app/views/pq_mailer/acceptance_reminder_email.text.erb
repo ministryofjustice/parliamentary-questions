@@ -1,19 +1,31 @@
-<%= @template_params[:ao_name] %>,
+<%= @template_params[:ao_name] %>, you have missed the 2pm deadline. Please immediately accept or reject PQ <%= @template_params[:uin] %>:
 
-You have missed the 2pm deadline.
-
-Please immediately accept or reject the PQ <%= @template_params[:uin] %>
-
-============================================================================
-<%= @template_params[:question] %>.
-============================================================================
+<%= @template_params[:question] %>
 
 Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
 
-The link to accept or reject will be in a previous email. Please search your email inbox for <%= @template_params[:uin] %>
+<% if @template_params[:member_constituency].present? %>
+Constituency: <%= @template_params[:member_constituency] %>
+<% end %>
+
+<% if @template_params[:mpname].present? %>
+To be answered by: <%= @template_params[:mpname] %>
+<% end %>
+
+<% if @template_params[:internal_deadline].present? %>
+Internal deadline: <%= @template_params[:internal_deadline] %>
+<% end %>
+
+<% if @template_params[:date_to_parliament].present? %>
+Due back to Parliament: <%= @template_params[:date_to_parliament] %>
+<% end %>
+
+The link to accept or reject will be in a previous email. To accept or reject this PQ, search your inbox for <%= @template_params[:uin] %> and use the link in that email.
 
 If you have any questions please contact the PQ team at <%= Settings.mail_reply_to %>
 
-This is a new service and your feedback will help us improve it. Please send your feedback to pqfeedback@digital.justice.gov.uk
+For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk
+
+This is a new service. Please send your feedback to pqfeedback@digital.justice.gov.uk
 
 <%= render 'shared/mailer/email_signature_plain' %>
