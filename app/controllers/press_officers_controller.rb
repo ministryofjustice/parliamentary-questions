@@ -4,7 +4,7 @@ class PressOfficersController < ApplicationController
   before_action :prepare_press_offices
 
   def index
-    @press_officers = PressOfficer.all.order('lower(name)')
+    @press_officers = PressOfficer.order('lower(name)')
   end
 
   def new
@@ -31,7 +31,7 @@ class PressOfficersController < ApplicationController
     end
   end
 
-private
+  private
 
   def set_press_officer
     @press_officer = PressOfficer.find(params[:id])
@@ -42,6 +42,6 @@ private
   end
 
   def prepare_press_offices
-    @press_offices = PressDesk.where(deleted: false).all
+    @press_offices = PressDesk.active
   end
 end

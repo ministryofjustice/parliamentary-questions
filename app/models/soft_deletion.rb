@@ -1,9 +1,21 @@
 module SoftDeletion
-  def active
-    where(deleted: false)
+  module Collection
+    def active
+      where(deleted: false)
+    end
+
+    def inactive
+      where(deleted: true)
+    end
   end
 
-  def inactive
-    where(deleted: true)
+  module Record
+    def activate!
+      update(deleted: false)
+    end
+
+    def deactivate!
+      update(deleted: true)
+    end
   end
 end

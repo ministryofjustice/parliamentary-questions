@@ -49,9 +49,9 @@ class PqsController < ApplicationController
   def archive_trim_link!(action)
     case action
     when 'Delete'
-      @pq.trim_link.archive
+      @pq.trim_link.deactivate!
     when 'Undo'
-      @pq.trim_link.unarchive
+      @pq.trim_link.activate!
     end
   end
 

@@ -1,5 +1,6 @@
 class TrimLink < ActiveRecord::Base
-  extend SoftDeletion
+  extend  SoftDeletion::Collection
+  include SoftDeletion::Record
 
   attr_accessor :file
   after_initialize :extract_details
@@ -9,14 +10,6 @@ class TrimLink < ActiveRecord::Base
 
   validate :trim_file_format
   validates :data, presence: true
-
-  def archive
-    update(deleted: true)
-  end
-
-  def unarchive
-    update(deleted: false)
-  end
 
   private
 

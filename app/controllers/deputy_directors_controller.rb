@@ -4,7 +4,7 @@ class DeputyDirectorsController < ApplicationController
   before_action :prepare_divisions
 
   def index
-    @deputy_directors = DeputyDirector.all.joins(:division).order('lower(divisions.name)').order('lower(deputy_directors.name)')
+    @deputy_directors = DeputyDirector.joins(:division).order('lower(divisions.name)').order('lower(deputy_directors.name)')
   end
 
   def new
@@ -42,6 +42,6 @@ private
   end
 
   def prepare_divisions
-    @divisions = Division.where(deleted: false).order('lower(name)')
+    @divisions = Division.active.order('lower(name)')
   end
 end
