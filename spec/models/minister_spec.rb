@@ -43,12 +43,12 @@ describe Minister do
     end
   end
 
-  describe '.active' do
-    let(:minister) { create(:minister) }
+  describe '.active_or_having_id' do
+    let(:minister)         { create(:minister) }
     let(:deleted_minister) { create(:deleted_minister) }
 
     it 'returns only active ministers' do
-      subject = Minister.active
+      subject = Minister.active_or_having_id(nil)
       expect(subject).to eq [minister]
     end
 
@@ -56,7 +56,7 @@ describe Minister do
       let(:selected_minister) { create(:deleted_minister) }
 
       it 'is included' do
-        subject = Minister.active(selected_minister)
+        subject = Minister.active_or_having_id(selected_minister.id)
         expect(subject).to eq [selected_minister, minister]
       end
     end
