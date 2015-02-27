@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    </head>
-    <body>
-        <div style="font-family: arial, sans-serif; font-size: 12pt;">
-            <%= @template_params[:ao_name] %>,
-        </div>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            you have missed the 2pm deadline.
-        </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            Please <strong>immediately</strong> accept or reject the PQ <strong><%= @template_params[:uin] %></strong>
-        </p>
-        <div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
-            <%= @template_params[:question] %>
-        </div>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
-        </p>
-        <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
-            <p style="font-family: arial, sans-serif; font-size: 12pt;">
-                The link to accept or reject will be in a previous email. <strong>Please search your email inbox for <%= @template_params[:uin] %></strong>
-            </p>
-        </div>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            If you have any questions <a href="mailto:<%= Settings.mail_reply_to %>">Contact the PQ Team</a>
-        </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            If you have any technical issues, please <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ support</a>
-        </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            This is a new service and your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.
-        </p>
-        <%= render 'shared/mailer/email_signature' %>
-    </body>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <style type="text/css">
+      body {
+        font-family: arial, sans-serif;
+        font-size: 12pt;
+      }
+      .pq-details {
+        padding-left: 0.5em;
+        border-left: 4px solid gray;
+        margin: 5px 5px 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p><%= @template_params[:ao_name] %>, you have missed the 2pm deadline. Please <strong>immediately</strong> accept or reject PQ <strong><%= @template_params[:uin] %></strong>:</p>
+
+    <div class="pq-details">
+      <p><%= @template_params[:question] %></p>
+
+      <p>Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
+
+      <% if @template_params[:member_constituency].present? %>
+      <p>Constituency: <%= @template_params[:member_constituency] %></p>
+      <% end %>
+
+      <% if @template_params[:mpname].present? %>
+      <p>To be answered by: <%= @template_params[:mpname].to_s %></p>
+      <% end %>
+
+      <% if @template_params[:internal_deadline].present? %>
+      <p>Internal deadline: <%= @template_params[:internal_deadline] %></p>
+      <% end %>
+
+      <% if @template_params[:date_to_parliament].present? %>
+      <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
+      <% end %>
+    </div>
+
+    <p>The link to accept or reject will be in a previous email. <strong>To accept or reject this PQ, search your inbox for <%= @template_params[:uin] %> and use the link in that email.</strong></p>
+
+    <p>If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a>.</p>
+
+    <p><small>If you have any technical issues, please <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ technical support</a>.</small></p>
+
+    <p><small>This is a new service - your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.</small></p>
+
+  </body>
 </html>
