@@ -30,8 +30,12 @@ SMTP_PORT=<port>
 SMTP_USERNAME=
 SMTP_PASSWORD=
 
-# for production only
+# FOR PRODUCTION ONLY...
+
+# Path to ssl certs
 CA_CERT=/etc/ssl/certs/
+# number of unicorn workers
+ENV["WEB_CONCURRENCY"]=4
 
 # host to deploy the assets (following the assets pipeline)
 ASSET_HOST=http://assets.example.com
