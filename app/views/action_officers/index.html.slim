@@ -12,11 +12,11 @@ h2 Action officers
         th Press desk
         th#admin-status Status
         th
-    - @action_officers.each do |action_officer|
-      tbody
+    tbody
+      - @action_officers.each do |action_officer|
         tr
           td= link_to action_officer.name, action_officer_path(action_officer)
           td= action_officer.deputy_director.division.name unless action_officer.deputy_director.nil?
           td= action_officer.press_desk.name unless action_officer.press_desk.nil?
           td= render partial: 'shared/status', object: action_officer
-          td= link_to 'Edit', edit_action_officer_path(action_officer)
+          td.edit= link_to 'Edit', edit_action_officer_path(action_officer)

@@ -59,17 +59,13 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'dashboard/transferred' => 'dashboard#transferred'
   get 'dashboard/i_will_write' => 'dashboard#i_will_write'
 
-  get 'assignment/:uin' => 'assignment#index'
-  post 'assignment/:uin' => 'assignment#action'
+  get 'assignment/:uin' => 'assignment#show', as: :assignment
+  post 'assignment/:uin' => 'assignment#create'
 
   get 'watchlist/dashboard' => 'watchlist_dashboard#index'
   get 'watchlist/preview' => 'watchlist_dashboard#preview'
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
   get 'find_action_officers' => 'action_officers#find'
-
-  get 'members/by_name' => 'members#by_name'
-
-  get 'import/logs' => 'import#logs'
 
   get 'finance/questions' => 'finance#questions'
   post 'finance/confirm' => 'finance#confirm'

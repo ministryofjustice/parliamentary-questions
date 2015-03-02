@@ -10,7 +10,7 @@ table#minister-report.table.table-hover
     - @progresses.each do |p|
       tr
         td
-          span class=("label flag-#{p.classname}") = p.name
+          span class=("flag #{p.classname}") = p.name
         - @ministers.each do |m|
           - @count = @counters[[m.id, p.id]] || 0
           td.table-cell-centered

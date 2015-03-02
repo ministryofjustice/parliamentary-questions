@@ -1,6 +1,6 @@
 h2 Press officer details
 #admin-po-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @press_officer.name
   h4 Email

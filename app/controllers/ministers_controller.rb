@@ -14,7 +14,8 @@ class MinistersController < ApplicationController
   def create
     @minister = Minister.new(minister_params)
     if @minister.save
-      redirect_to @minister, notice: 'Minister was successfully created.'
+      flash[:success] = 'Minister was successfully created.'
+      redirect_to @minister
     else
       render action: 'new'
     end
@@ -22,7 +23,8 @@ class MinistersController < ApplicationController
 
   def update
     if @minister.update(minister_params)
-      redirect_to @minister, notice: 'Minister was successfully updated.'
+      flash[:success] = 'Minister was successfully updated.'
+      redirect_to @minister
     else
       render action: 'edit'
     end

@@ -1,4 +1,6 @@
 module Settings
+  DEFAULT_GA_TRACKER_ID = 'UA-37377084-14'
+
   class PqRestApi
     attr_reader :host, :username, :password
 
@@ -25,9 +27,9 @@ module Settings
   end
 
   module_function
-  filepath     = File.expand_path('../config/settings.yml', __dir__)
-  @h           = YAML::load_file(filepath)
-  @pq_rest_api = PqRestApi.from_env
+  filepath         = File.expand_path('../config/settings.yml', __dir__)
+  @h               = YAML::load_file(filepath)
+  @pq_rest_api     = PqRestApi.from_env
 
   def pq_rest_api
     @pq_rest_api
@@ -41,15 +43,15 @@ module Settings
     @h['mail_reply_to']
   end
 
-  def members_api_url
-    @h['members_api_url']
-  end
-
   def mail_tech_support
     @h['mail_tech_support']
   end
 
   def http_client_timeout
     @h['http_client_timeout']
+  end
+
+  def ga_tracker_id
+    ENV.fetch('GA_TRACKER_ID', DEFAULT_GA_TRACKER_ID)
   end
 end

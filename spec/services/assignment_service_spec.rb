@@ -2,7 +2,18 @@ require 'spec_helper'
 require 'paper_trail/frameworks/rspec'
 
 describe AssignmentService do
-  let(:minister) {build(:minister)}
+  let(:minister) { build(:minister) }
+
+  let(:form) { 
+    CommissionForm.new({
+      pq_id: pq.id,
+      minister_id: minister.id,
+      action_officer_id: [action_officer.id],
+      date_for_answer: Date.tomorrow,
+      internal_deadline: Date.today
+    })
+  }
+
   let(:directorate) {create(:directorate, name: 'This Directorate', id: 1+rand(10))}
   let(:division) {create(:division,name: 'Division', directorate_id: directorate.id, id: 1+rand(10))}
   let(:deputy_director) { create(:deputy_director, name: 'dd name', division_id: division.id, id: 1+rand(10))}
@@ -34,9 +45,9 @@ describe AssignmentService do
     with_versioning do
       it 'should create an audit event storing the action officer name' do
       PaperTrail.enabled = true
+      pq = commissioning_service.commission(form)
 
-      result = commissioning_service.commission(assignment)
-      assignment_id = result[:assignment_id]
+      assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
 
@@ -49,8 +60,8 @@ describe AssignmentService do
     end
 
     it 'should sent an email with the accept data' do
-      result = commissioning_service.commission(assignment)
-      assignment_id = result[:assignment_id]
+      pq = commissioning_service.commission(form)
+      assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
 
@@ -63,8 +74,8 @@ describe AssignmentService do
     end
 
     it 'should set the original division_id on PQ' do
-      result = commissioning_service.commission(assignment)
-      assignment_id = result[:assignment_id]
+      pq = commissioning_service.commission(form)
+      assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
 
@@ -77,8 +88,9 @@ describe AssignmentService do
     end
 
     it 'should set the original directorate on PQ' do
-      result = commissioning_service.commission(assignment)
-      assignment_id = result[:assignment_id]
+      pq = commissioning_service.commission(form)
+      assignment_id = pq.action_officers_pqs.first.id
+
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
 
@@ -91,8 +103,9 @@ describe AssignmentService do
     end
 
     it 'should set the directorate on acceptance and not change if AO moves' do
-      result = commissioning_service.commission(assignment)
-      assignment_id = result[:assignment_id]
+      pq = commissioning_service.commission(form)
+      assignment_id = pq.action_officers_pqs.first.id
+
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
 
@@ -133,9 +146,9 @@ describe AssignmentService do
 
     it 'should create an audit event storing the action officer name' do
       PaperTrail.enabled=true
+      pq = commissioning_service.commission(form)
+      assignment_id = pq.action_officers_pqs.first.id
 
-      result = commissioning_service.commission(assignment)
-      assignment_id = result[:assignment_id]
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).to_not be nil
 

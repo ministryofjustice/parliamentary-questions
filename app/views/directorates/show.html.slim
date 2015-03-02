@@ -1,6 +1,6 @@
 h2 Directorate details
 #admin-directorate-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @directorate.name
   h4 Status

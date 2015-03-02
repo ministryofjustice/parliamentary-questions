@@ -1,6 +1,6 @@
 h2 Division details
 #admin-division-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @division.name
   h4 Directorate

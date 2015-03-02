@@ -31,14 +31,14 @@
                     = ao_pq.action_officer.name
                     | (#{ao_pq.action_officer.deputy_director.division.name})
                   - if ao_pq.accepted?
-                    span.label.flag-accepted Accepted
+                    span.flag.accepted Accepted
                   - elsif ao_pq.rejected?
-                    span.label.flag-rejected Rejected
+                    span.flag.rejected Rejected
                     .panel-indent.reveal.closed id="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
                       p.strong= ao_pq.reason_option
                       p= ao_pq.reason
                   - else
-                    span.label.flag-no-response No response
+                    span.flag.no-response No response
 
 - if !@question.is_in_progress?(Progress.draft_pending)
   .accept-reject-form
@@ -48,7 +48,7 @@
       .panel-body
         .row
           .col-md-6
-            = form_for @response, :url => {:controller => 'assignment', :action => 'action', :uin => params[:uin]} do |f|
+            = form_for @response, :url => {:controller => 'assignment', :action => 'show', :uin => params[:uin]} do |f|
               = hidden_field_tag 'token', params[:token]
               = hidden_field_tag 'entity', params[:entity]
               .form-group.inline
@@ -60,7 +60,7 @@
                   | Reject
               #reason-textarea class=('hide' unless @response.errors.any?)
                 - if !@response.errors[:reason_option].empty?
-                  .alert.alert-danger
+                  .pq-msg-error
                     | Please select one of the reasons to reject the question
                 .form-group
                   select.form-control name="allocation_response[reason_option]"
@@ -69,8 +69,8 @@
                     option I think it is for another department in the MoJ
                     option I think it is for another government department
                 - if !@response.errors[:reason].empty?
-                  .alert.alert-danger
-                    | Please select give us information about why you reject the question
+                  .pq-msg-error
+                    | Please give us information about why you reject the question
                 .form-group
                   = f.label :reason, 'Please explain why you reject the question, or if you are not the right person or department, please tell us who we should contact'
                   = f.text_area  :reason,  class: 'form-control', rows: '10'

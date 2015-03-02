@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 
   after_initialize :set_defaults
 
+  def self.finance
+    where(deleted: false, roles: ROLE_FINANCE)
+  end
+
   def invited_by_user
     User.find(self.invited_by_id).name unless invited_by_id.nil?
   end
@@ -27,14 +31,14 @@ class User < ActiveRecord::Base
   end
 
   def set_defaults
-    self.roles ||= User::ROLE_PQ_USER
+    self.roles ||= ROLE_PQ_USER
   end
 
   def pq_user?
-    roles == User::ROLE_PQ_USER
+    roles == ROLE_PQ_USER
   end
 
   def finance_user?
-    roles == User::ROLE_FINANCE
+    roles == ROLE_FINANCE
   end
 end

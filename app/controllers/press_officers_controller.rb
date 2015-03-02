@@ -15,7 +15,8 @@ class PressOfficersController < ApplicationController
     @press_officer = PressOfficer.new(press_officer_params)
 
     if @press_officer.save
-      redirect_to @press_officer, notice: 'Press officer was successfully created.'
+      flash[:success] = 'Press officer was successfully created.'
+      redirect_to @press_officer
     else
       render action: 'new'
     end
@@ -23,7 +24,8 @@ class PressOfficersController < ApplicationController
 
   def update
     if @press_officer.update(press_officer_params)
-      redirect_to @press_officer, notice: 'Press officer was successfully updated.'
+      flash[:success] = 'Press officer was successfully updated.'
+      redirect_to @press_officer
     else
       render action: 'edit'
     end

@@ -1,5 +1,4 @@
 mail_from: PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>
 mail_reply_to: pqs@justice.gsi.gov.uk
-members_api_url: http://data.parliament.uk
 mail_tech_support: pqsupport@digital.justice.gov.uk
 http_client_timeout: 20

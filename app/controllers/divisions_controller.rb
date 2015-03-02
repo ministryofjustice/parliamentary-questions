@@ -15,7 +15,8 @@ class DivisionsController < ApplicationController
     @division = Division.new(division_params)
 
     if @division.save
-      redirect_to @division, notice: 'Division was successfully created.'
+      flash[:success] = 'Division was successfully created.'
+      redirect_to @division
     else
       render action: 'new'
     end
@@ -23,7 +24,8 @@ class DivisionsController < ApplicationController
 
   def update
     if @division.update(division_params)
-      redirect_to @division, notice: 'Division was successfully updated.'
+      flash[:succees] = 'Division successfully updated'
+      redirect_to @division
     else
       render action: 'edit'
     end
