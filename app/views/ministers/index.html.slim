@@ -16,4 +16,4 @@ h2 Ministers
           td= link_to minister.name, minister_path(minister)
           td= minister.title
           td= render partial: 'shared/status', object: minister
-          td= link_to 'Edit', edit_minister_path(minister)
+          td.edit= link_to 'Edit', edit_minister_path(minister)

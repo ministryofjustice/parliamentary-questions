@@ -30,8 +30,12 @@ SMTP_PORT=<port>
 SMTP_USERNAME=
 SMTP_PASSWORD=
 
-# for production only
+# FOR PRODUCTION ONLY...
+
+# Path to ssl certs
 CA_CERT=/etc/ssl/certs/
+# number of unicorn workers
+WEB_CONCURRENCY=4
 
 # host to deploy the assets (following the assets pipeline)
 ASSET_HOST=http://assets.example.com
@@ -45,6 +49,7 @@ APPVERSION=0.1-sprint6
 - Ruby MRI 2.1.2
 - Postgresql 9.3
 - phantomjs (tests only)
+- cureutils (for required by the `version_tag.sh` script)
 
 To start with, make sure you have the right version of the Ruby runtime installed.
 Multiple versions of Ruby can be managed on the same machine through either [rbenv](https://github.com/sstephenson/rbenv)

@@ -10,10 +10,10 @@ h2 Divisions
         th Directorate
         th#admin-status Status
         th
-    - @divisions.each do |division|
-      tbody
+    tbody
+      - @divisions.each do |division|
         tr
           td= link_to division.name, division_path(division)
           td= division.directorate.name
           td= render partial: 'shared/status', object: division
-          td= link_to 'Edit', edit_division_path(division)
+          td.edit= link_to 'Edit', edit_division_path(division)

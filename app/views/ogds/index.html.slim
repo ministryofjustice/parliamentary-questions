@@ -16,4 +16,4 @@ h2 Other government departments
           td= link_to ogd.name, ogd_path(ogd)
           td= ogd.acronym
           td= render partial: 'shared/status', object: ogd
-          td= link_to 'Edit', edit_ogd_path(ogd)
+          td.edit= link_to 'Edit', edit_ogd_path(ogd)

@@ -20,7 +20,7 @@ class CommissionForm
     false
   end
 
-private
+  private
 
   def remove_blank_action_officer
     action_officer_id.reject!(&:blank?) unless action_officer_id.nil?

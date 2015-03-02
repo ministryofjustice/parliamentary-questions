@@ -10,7 +10,7 @@ table#pressdesk-report.table.table-hover
     - @p.each do |p|
       tr
         td
-          span class=("label flag-#{p.classname}") = p.name
+          span class=("flag #{p.classname}") = p.name
         - @pd.each do |pd|
           - count = @counters[pd.id][p.id] || 0
           td.table-cell-centered

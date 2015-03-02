@@ -22,17 +22,18 @@ module ApplicationHelper
   end
 
   def flash_class_for(flash_type)
+    Rails.logger.info flash_type
     case flash_type.to_s
     when 'notice'
-      'alert-info'
+      'pq-msg-notice'
     when 'success'
-      'alert-success'
+      'pq-msg-success'
     when 'error'
-      'alert-danger'
+      'pq-msg-error'
     when 'alert'
-      'alert-block'
+      'pq-msg-warning'
     else
-      'alert-success'
+      'pq-msg-success'
     end
   end
 

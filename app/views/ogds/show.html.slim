@@ -1,6 +1,6 @@
 h2 Government department details
 #admin-ogd-details
-  p#notice= notice
+  = render partial: "shared/flash_messages", flash: flash
   h4 Name
   p.text= @ogd.name
   h4 Acronym

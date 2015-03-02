@@ -12,7 +12,6 @@ describe TokenService do
 
       token_entry = Token.find_by(path: '/path/one')
 
-      expect(token_entry).to_not be nil
       expect(token_entry.expire).to eq expire_in_future
       expect(token_entry.token_digest).to_not be nil
       expect(token_entry.entity).to eq('entity_one')
@@ -34,7 +33,6 @@ describe TokenService do
       token_to_send = subject.generate_token('/path/one', 'entity_one', expire_in_future)
 
       is_valid = subject.is_valid(token_to_send, '/path/one', 'entity_one')
-
       expect(is_valid).to eq(true)
     end
 
