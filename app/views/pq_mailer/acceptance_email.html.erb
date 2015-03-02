@@ -40,7 +40,6 @@
     <% if @template_params[:internal_deadline].present? %>
       <p>The deadline to return your draft response to the PQ team is <strong><%= @template_params[:internal_deadline] %></strong></p>
     <% end %>
-
     <p><strong>You must use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> All relevant people will be included automatically. You can add extra recipients if needed.</p>
 
     <p>Liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For templates and guidance, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a></p>
