@@ -11,6 +11,8 @@ class ImportWorker
       tomorrow  = Date.today + 1.day
       @import.run(yesterday, tomorrow)
       LogStuff.info { "Import: completed scheduled import" }
+    rescue HTTPClient::FailureResponse => e
+
     end
   end
 end
