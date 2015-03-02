@@ -20,9 +20,9 @@ class HTTPClient
     when /^2/
       res
     else
-      msg = "PQ rest API responded with non success code: #{res.code}, response: #{res.body} (request: #{req.inspect})"
-      LogStuff.error(msg)
-      raise msg
+      error = FailureResponse.new(req, res)
+      LogStuff.error(error.msg)
+      raise error
     end
   rescue Net::ReadTimeout => err
     LogStuff.error "PQ rest api request timed out (request: #{req.inspect}, current timeout: #{http.read_timeout})"
@@ -30,6 +30,17 @@ class HTTPClient
   rescue Errno::ECONNREFUSED => err
     LogStuff.error "PQ rest API refused HTTP connection"
     raise err
+  end
+
+  class FailureResponse < StandardError
+    attr_reader :code, :body
+
+    def initialize(request, response)
+      @code = request.code
+      @body = request.body
+      super("PQ rest API responded with non success code: #{code}," +
+            " response: #{body} (request: #{req.inspect})")
+    end
   end
 
   private
