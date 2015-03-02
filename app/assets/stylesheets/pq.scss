@@ -33,7 +33,15 @@ i.fa-envelope,
 .trim-links-cancel:hover { color: #fff; }
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
-#search_button { color: #999999; }
+
+.navbar-default .navbar-nav li a {
+  color: $text-colour; // override bootstrap
+  &::hover {
+    color: $secondary-text-colour;
+  }
+}
+
+
 i.fa-exclamation-triangle, i.fa-times-circle { color: #df3034; }
 i.fa-check-circle { color: $success-colour; }
 i.fa-warning { color: $error-colour; }
@@ -48,6 +56,15 @@ h4 { color: #6f777b; }
 .js-enabled .selected,
 .js-enabled .selected,
 { background-color: #fff; }
+
+#search_form { color: $grey-2; }
+
+// specify colour of input placeholders for all browsers
+::-webkit-input-placeholder { color: $grey-2; }
+:-moz-placeholder { color: $grey-2; opacity: 1; }
+::-moz-placeholder { color: $grey-2; opacity:  1; }
+:-ms-input-placeholder { color: $grey-2; }
+
 
 .block-label,
 .navbar { background-color: #dee0e2; }
@@ -68,7 +85,8 @@ h2 .badge,
 
 @mixin alert($colour)
 {
-  margin: 20px 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   border-left: 4px solid $colour;
   padding:15px;
   ul {  // browser compatability to make style consistent
@@ -147,6 +165,8 @@ h3 {
   font-weight: bold;
 }
 
+
+
 h4 {
   font-size: 19px;
   font-weight: normal;
@@ -208,6 +228,8 @@ footer {
 
 .question-type {
   color: #6f777b;
+  font-size: 19px;
+  font-weight: bold;
   &:before {
     content: '|';
     margin-left: 17px;
@@ -383,7 +405,10 @@ button, input[type="submit"] {
 
 textarea {
   resize:none;
-  &.form-control { width: 100%; }
+  &.form-control {
+    width: 66%;
+    min-width: 246px;
+  }
 }
 
 .admin-link {
@@ -401,17 +426,19 @@ textarea {
   // margin: 0px -15px 20px -15px;
   border-radius: 0px;
   #settings { margin-right: 65px; }
-  .navbar-right { margin-right: 74px; }
   #search_field {
     width: 142px;
     border-radius: 0px;
     margin-right: -4px;
     margin-bottom: 0px;
+    font-size: 16px;
   }
   #search_button {
     border-radius: 0px;
     width: 34px;
     height: 34px;
+    font-size: 18px;
+    padding: 4px;
   }
 }
 
@@ -442,6 +469,7 @@ textarea {
 
 .questions-list {
   padding: 0px 45px 20px 0px;
+  h3 { font-size: 24px; }
   li {
     list-style: none;
     border-bottom-width: 2px;
@@ -517,6 +545,12 @@ ul.nav-tabs li a {
   outline: 0;
 }
 
+// remove firefox's dotted line
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
 #pq-detail-area {
   margin: 15px 0px 0px 0px;
 
@@ -526,12 +560,6 @@ ul.nav-tabs li a {
 
     ul li a {
       padding-left: 0;
-    }
-
-    ul li a:hover {
-      border: 0;
-      padding-left: 1em;
-      background-color: white;
     }
 
     ul li.active a {
@@ -558,7 +586,7 @@ ul.nav-tabs li a {
     .progress-menu-form {
       border-width: 1px;
       border-style: solid;
-      padding: 15px;
+      padding: 15px 15px 15px 30px;
       margin-left: -1px;
       min-height: 350px;
     }
@@ -571,6 +599,9 @@ ul.nav-tabs li a {
     .start-hidden { display: none; }
     .ao-reminder-link {
       margin-left: 40px; // put some space between person name and link to email them
+    }
+    #progress-menu-fc-data .status {
+      margin-bottom: .5em;
     }
   }
 }
@@ -670,7 +701,9 @@ ul.nav-tabs li a {
   box-shadow: none;
 }
 
+// Minister list column widths
 #admin-status { width: 100px; }
+#minister-name { width: 30% }
 
 // = Reports ============================================================
 
