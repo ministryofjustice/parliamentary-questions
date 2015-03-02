@@ -65,14 +65,14 @@
                 .form-group
                   select.form-control name="allocation_response[reason_option]"
                     option disabled="disabled" selected="selected"  Select your reasons for rejecting the question
-                    option I think it is for another person in my department
-                    option I think it is for another department in the MoJ
-                    option I think it is for another government department
+                    option I think it is for another person in my Department
+                    option I think it is for another Department in the MoJ
+                    option I think it is for another government Department
                 - if !@response.errors[:reason].empty?
                   .pq-msg-error
                     | Please give us information about why you reject the question
                 .form-group
-                  = f.label :reason, 'Please explain why you reject the question, or if you are not the right person or department, please tell us who we should contact'
+                  = f.label :reason, 'Please explain why you reject the question, or if you are not the right person or Department, please tell us who we should contact'
                   = f.text_area  :reason,  class: 'form-control', rows: '10'
               .form-group
                 = submit_tag 'Save Response' , class: 'button'
