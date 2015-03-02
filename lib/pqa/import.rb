@@ -72,7 +72,7 @@ module PQA
       pq.transferred         ||= false
       pq.progress            ||= @unassigned_progress
 
-      unless pq.valid?
+      if !pq.valid?
         error_msgs   = pq.errors.messages
         @errors[uin] = error_msgs
         @logger.warn { "Failed to import question with uin #{uin} (errors: #{error_msgs})" }

@@ -28,6 +28,10 @@ describe PQA::Import do
   end
 
   feature "importing PQA data into the app" do
+    before(:all) do
+      DBHelpers.load_spec_fixtures
+    end
+
     context "when no questions exist in the db" do
       before do
         ds = {

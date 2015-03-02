@@ -46,11 +46,6 @@ class PqMailer < PQBaseMailer
     mail(to: @template_params[:email], cc: @template_params[:cc], subject: 'PQs allocated today')
   end
 
-  def import_fail_email(params)
-    @params = params
-    mail(to: Settings.mail_tech_support, subject: 'API import failed')
-  end
-
   private
 
   def build_primary_hash(pq, ao)
