@@ -1,5 +1,8 @@
 h4 Date sent to POD
-p.text= @pq.pod_waiting.to_s
+- if @pq.pod_waiting.to_s != ''
+  p.text= @pq.pod_waiting.to_s
+- else
+  p.text= 'TBD'
 = f.check_box_gds :pod_query_flag
 .form-group
   label.form-label for="pod_clearance"  Date cleared by POD
