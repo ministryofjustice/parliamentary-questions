@@ -1,26 +1,24 @@
 
 <%= @template_params[:ao_name] %>, you have agreed to draft an answer to PQ <%= @template_params[:uin] %>.
 
-    <%= @template_params[:question] %>
+  <%= @template_params[:question] %>
 
 <% if @template_params[:member_name].present? %>
-	Asked by: <%= @template_params[:member_name] %>
-	<% if @template_params[:house_name].present? %>
-		(<%= @template_params[:house_name] %>)
-	<% end %>
+  Asked by: <%= @template_params[:member_name] %><% if @template_params[:house].present? %> (<%= @template_params[:house] %>)<% end %>
 <% end %>
 
 <% if @template_params[:member_constituency].present? %>
   Constituency: <%= @template_params[:member_constituency] %>
 <% end %>
 
-<% if @template_params[:mpname].present? %>
-  To be answered by: <%= @template_params[:mpname] %>
+<% if @template_params[:answer_by].present? %>
+  To be answered by: <%= @template_params[:answer_by] %>
 <% end %>
 
 <% if @template_params[:date_to_parliament].present? %>
-  Due back to Parliament by <%= @template_params[:date_to_parliament] %>
+  Due back to Parliament: <%= @template_params[:date_to_parliament] %>
 <% end %>
+
 
 <% if @template_params[:internal_deadline].present? %>
 The deadline to return your draft response back to the PQ team is <%= @template_params[:internal_deadline] %>
@@ -30,14 +28,14 @@ You must use the email list below to ensure that all relevant people are include
 
 <%= @template_params[:cc_list]  %>
 
-Liaise with <%= "finance (#{ @template_params[:finance_users_emails]}) and" if !@template_params[:finance_users_emails].empty?  %> your relevant press officer (<%=@template_params[:press_email] %>) before you send your draft response. For templates and guidance, refer to the PQ guidance:
+Liaise with<%= " finance (#{ @template_params[:finance_users_emails]}) and" if !@template_params[:finance_users_emails].empty?  %> your relevant press officer (<%=@template_params[:press_email] %>) before you send your draft response. For templates and guidance, refer to the PQ guidance:
 
-ttp://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm
+http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm
 
-If you have any queries about drafting your response, please contact the PQ team <%= Settings.mail_reply_to %>
+If you have any queries about drafting your response, please contact the PQ team at <%= Settings.mail_reply_to %>
 
 For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk
 
-This is a new service. Please send your feedback to pqfeedback@digital.justice.gov.uk
+This is a new service - please send your feedback to pqfeedback@digital.justice.gov.uk
 
 <%= render 'shared/mailer/email_signature_plain' %>

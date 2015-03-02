@@ -20,18 +20,18 @@
     <div class="pq-details">
       <%= @template_params[:question] %>
 
-      <p>Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</p>
+      <p>Asked by <%= @template_params[:member_name] %><% if @template_params[:house].present? %> (<%= @template_params[:house] %>)<% end %></p>
 
       <% if @template_params[:member_constituency].present? %>
       <p>Constituency: <%= @template_params[:member_constituency] %></p>
       <% end %>
 
-      <% if @template_params[:mpname].present? %>
-      <p>To be answered by: <%= @template_params[:mpname].to_s %></p>
+      <% if @template_params[:answer_by].present? %>
+      <p>To be answered by: <%= @template_params[:answer_by].to_s %></p>
       <% end %>
 
       <% if @template_params[:internal_deadline].present? %>
-      <p>Internal deadline: <strong><%= @template_params[:internal_deadline] %></strong></p>
+      <p>Internal deadline: <%= @template_params[:internal_deadline] %></p>
       <% end %>
 
       <% if @template_params[:date_to_parliament].present? %>
@@ -39,13 +39,13 @@
       <% end %>
     </div>
 
-    <p>You need to <%= link_to "accept or reject this question", controller: "assignment", action: "show", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> <strong>before 2pm today</strong>.</p>
+    <p><strong>You need to <%= link_to "accept or reject this question", controller: "assignment", action: "show", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> before 2pm today</strong>.</p>
 
-    <p>The content is best viewed in Firefox browser</p>
+    <p>The content is best viewed in <strong>Firefox</strong> browser</p>
 
-    <p>If you accept the question, we will send you a further email with all the relevant guidance to draft an answer.</p>
+    <p>If you accept the question, we will send you a further email with all the relevant guidance to draft your answer.</p>
 
-    <p>If you have any queries please <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>.</p>
+    <p>If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>.</p>
 
     <p><small>For technical issues, e.g. broken links, <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ technical support</a>.</small></p>
 

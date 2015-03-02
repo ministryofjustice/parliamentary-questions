@@ -21,7 +21,7 @@
       <%= @template_params[:question] %>
 
       <% if @template_params[:member_name].present? %>
-        <p>Asked by <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></p>
+        <p>Asked by: <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></p>
       <% end %>
 
       <% if @template_params[:member_constituency].present? %>
@@ -29,26 +29,26 @@
       <% end %>
 
       <% if @template_params[:mpname].present? %>
-        <p>To be answered by <%= @template_params[:mpname].to_s %></p>
+        <p>To be answered by: <%= @template_params[:mpname].to_s %></p>
       <% end %>
 
       <% if @template_params[:date_to_parliament].present? %>
-        <p>Due back to Parliament by <%= @template_params[:date_to_parliament] %></p>
+        <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
       <% end %>
     </div>
 
     <% if @template_params[:internal_deadline].present? %>
-      <p>The deadline to return your draft response to the PQ team is <strong><%= @template_params[:internal_deadline] %></strong></p>
+      <p>Deadline to return your draft response to the PQ team is <strong><%= @template_params[:internal_deadline] %></strong></p>
     <% end %>
     <p><strong>You must use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> All relevant people will be included automatically. You can add extra recipients if needed.</p>
 
-    <p>Liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For templates and guidance, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a></p>
+    <p>Liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For templates and guidance, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>.</p>
 
-    <p>If you have any queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a></p>
+    <p>If you have any queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a>.</p>
 
     <p><small>For any technical issues, e.g. broken links, <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ technical support</a>.</small></p>
 
-    <p><small>This is a new service - <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.</small></p>
+    <p><small>This is a new service - your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.</small></p>
 
     <%= render 'shared/mailer/email_signature' %>
   </body>
