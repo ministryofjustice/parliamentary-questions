@@ -14,7 +14,6 @@ class ImportWorker
         LogStuff.info { "Import: completed scheduled import" }
 
         ImportMailer.notify_success(report)
-        binding.pry
       rescue HTTPClient::FailureResponse => err
           LogStuff.error { err.message }
           ImportMailer.notify_fail(err.message)
