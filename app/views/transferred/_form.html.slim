@@ -45,7 +45,7 @@
           | Named day
       .form-group
         label.form-label for="pq_transfer_in_ogd_id"  Transferred in from
-        = f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select department")
+        = f.collection_select(:transfer_in_ogd_id, @ogd_list, :id, :name, :include_blank => "Select Department")
       .form-group
         label.form-label for="transfer_in_date"  Date transferred in
         .datetimepicker
