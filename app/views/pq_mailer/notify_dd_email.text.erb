@@ -1,21 +1,30 @@
+<%= @template_params[:ao_name] %> has been allocated the PQ <%= @template_params[:uin]%>
+
 <%= @template_params[:dd_name] %>
 
+============================================================================
 <%= @template_params[:ao_name] %> has been allocated the PQ <%= @template_params[:uin]%>
 ============================================================================
+
 <%= @template_params[:question] %>
-============================================================================
-
 Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
+Constituency: <%= @template_params[:member_constituency] %>
 To be answered by: <%= @template_params[:answer_by] %>
+Internal deadline: <%= @template_params[:internal_deadline].to_s %>
+Due back to Parliament by: <%= @template_params[:date_to_parliament] %>
 
 ============================================================================
-An Accept or Reject Response is required from them before 2pm today.
+<%= @template_params[:ao_name] %> must accept or reject this PQ before 2pm today.
 
-The draft response to the question is required before <%= @template_params[:internal_deadline] %> - 10am
+The draft response to the question is required before <%= @template_params[:internal_deadline] %>
+
 ============================================================================
 
-If you have any questions, please contact the PQ Team (<%= Settings.mail_reply_to %>).
+If you have any questions about responding to this PQ, contact the team at (<%= Settings.mail_reply_to %>).
+
+For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk .
 
 This is a new service and your feedback will help us improve it. Please send your feedback to pqfeedback@digital.justice.gov.uk
 
 <%= render 'shared/mailer/email_signature_plain' %>
+

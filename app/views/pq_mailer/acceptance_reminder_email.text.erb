@@ -2,14 +2,14 @@
 
 <%= @template_params[:question] %>
 
-Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
+Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)
 
 <% if @template_params[:member_constituency].present? %>
 Constituency: <%= @template_params[:member_constituency] %>
 <% end %>
 
-<% if @template_params[:mpname].present? %>
-To be answered by: <%= @template_params[:mpname] %>
+<% if @template_params[:answer_by].present? %>
+To be answered by: <%= @template_params[:answer_by] %>
 <% end %>
 
 <% if @template_params[:internal_deadline].present? %>
@@ -27,5 +27,6 @@ If you have any questions please contact the PQ team at <%= Settings.mail_reply_
 For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk
 
 This is a new service. Please send your feedback to pqfeedback@digital.justice.gov.uk
+
 
 <%= render 'shared/mailer/email_signature_plain' %>
