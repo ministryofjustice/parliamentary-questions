@@ -23,12 +23,12 @@ describe Validators::DateInput do
     date_a = DateTime.now + window
     date_b = DateTime.now - window
 
-    expect { secure_parse(date_a) }.to raise_error(Validators::DateInput::DateTimeInputError)
-    expect { secure_parse(date_b) }.to raise_error(Validators::DateInput::DateTimeInputError)
+    expect { secure_parse(date_a.to_s) }.to raise_error(Validators::DateInput::DateTimeInputError)
+    expect { secure_parse(date_b.to_s) }.to raise_error(Validators::DateInput::DateTimeInputError)
   end
 
   it 'should return a date time if input is correct' do
-    expect(secure_parse(Date.today)).to eq Date.today
+    expect(secure_parse(Date.today.to_s)).to eq Date.today
   end
 
 end
