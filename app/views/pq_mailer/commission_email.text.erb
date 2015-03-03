@@ -3,7 +3,7 @@
   <%= @template_params[:question] %>.
 
 <% if @template_params[:member_name].present? %>
-  Asked by: <%= @template_params[:member_name] %><% if @template_params[:house].present? %> (<%= @template_params[:house] %>)<% end %>
+  Asked by: <%= @template_params[:member_name] %><% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>)<% end %>
 <% end %>
 
 <% if @template_params[:member_constituency].present? %>
