@@ -7,7 +7,7 @@ h2
       = f.text_field :name, {class: 'form-control'}
     .form-group
       = f.label(:name, "Email:")
-      = f.text_field :email, {class: 'form-control'}
+      = f.email_field :email, {class: 'form-control'}
     .form-group
       = f.label(:roles, "Role:")
       = f.select(:roles, [ User::ROLE_PQ_USER, User::ROLE_FINANCE ])
