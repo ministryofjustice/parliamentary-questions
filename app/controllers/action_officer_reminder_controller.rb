@@ -9,7 +9,8 @@ class ActionOfficerReminderController  < ApplicationController
         uin:  pq.uin,
         question:  pq.question,
         member_name:  pq.member_name,
-        house:  pq.house_name
+        answer_by:  pq.minister.name,
+        house_name:  pq.house_name
       }).deliver
 
       ao_pq.increment(:reminder_accept).save()
