@@ -20,7 +20,7 @@
     <div class="pq-details">
       <%= @template_params[:question] %>
 
-      <p>Asked by <%= @template_params[:member_name] %><% if @template_params[:house].present? %> (<%= @template_params[:house] %>)<% end %></p>
+      <p>Asked by <%= @template_params[:member_name] %><% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>)<% end %></p>
 
       <% if @template_params[:member_constituency].present? %>
       <p>Constituency: <%= @template_params[:member_constituency] %></p>
