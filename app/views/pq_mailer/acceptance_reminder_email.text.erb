@@ -1,23 +1,23 @@
 <%= @template_params[:ao_name] %>, you have missed the 2pm deadline. Please immediately accept or reject PQ <%= @template_params[:uin] %>:
 
-<%= @template_params[:question] %>
+  <%= @template_params[:question] %>
 
-Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)
+  Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)
 
 <% if @template_params[:member_constituency].present? %>
-Constituency: <%= @template_params[:member_constituency] %>
+  Constituency: <%= @template_params[:member_constituency] %>
 <% end %>
 
 <% if @template_params[:answer_by].present? %>
-To be answered by: <%= @template_params[:answer_by] %>
+  To be answered by: <%= @template_params[:answer_by] %>
 <% end %>
 
 <% if @template_params[:internal_deadline].present? %>
-Internal deadline: <%= @template_params[:internal_deadline] %>
+  Internal deadline: <%= @template_params[:internal_deadline] %>
 <% end %>
 
 <% if @template_params[:date_to_parliament].present? %>
-Due back to Parliament: <%= @template_params[:date_to_parliament] %>
+  Due back to Parliament: <%= @template_params[:date_to_parliament] %>
 <% end %>
 
 The link to accept or reject will be in a previous email. To accept or reject this PQ, search your inbox for <%= @template_params[:uin] %> and use the link in that email.
