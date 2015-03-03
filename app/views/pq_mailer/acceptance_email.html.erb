@@ -28,8 +28,8 @@
         <p>Constituency: <%= @template_params[:member_constituency] %></p>
       <% end %>
 
-      <% if @template_params[:mpname].present? %>
-        <p>To be answered by: <%= @template_params[:mpname].to_s %></p>
+      <% if @template_params[:answer_by].present? %>
+        <p>To be answered by: <%= @template_params[:answer_by].to_s %></p>
       <% end %>
 
       <% if @template_params[:date_to_parliament].present? %>

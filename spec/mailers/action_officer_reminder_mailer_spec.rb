@@ -15,7 +15,7 @@ describe 'ActionOfficerReminderMailer' do
     @template[:uin] = @pq.uin
     @template[:question] = @pq.question
     @template[:member_name] = @pq.member_name
-    @template[:house] = @pq.house_name
+    @template[:house_name] = @pq.house_name
   end
 
   describe 'Accept reminder' do
