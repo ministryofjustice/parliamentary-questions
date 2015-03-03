@@ -22,8 +22,10 @@ class ActionOfficerReminderController  < ApplicationController
 
   def send_draft
     loading_records do |pq, ao, ao_pq|
-      PqMailer.acceptance_email(pq, ao, true).deliver
+      PqMailer.draft_reminder_email(ao, pq).deliver
+
       ao_pq.increment(:reminder_draft).save()
+
       flash[:success] = "reminder sent"
       render partial: 'shared/flash_messages'
     end
