@@ -3,15 +3,7 @@ class ActionOfficerReminderController  < ApplicationController
 
   def accept_reject
     loading_records do |pq, ao, ao_pq|
-      PqMailer.acceptance_reminder_email({
-        ao_name:  ao.name,
-        email:  ao.emails,
-        uin:  pq.uin,
-        question:  pq.question,
-        member_name:  pq.member_name,
-        answer_by:  pq.minister.name,
-        house_name:  pq.house_name
-      }).deliver
+      PqMailer.acceptance_reminder_email(ao, pq).deliver
 
       ao_pq.increment(:reminder_accept).save()
 
