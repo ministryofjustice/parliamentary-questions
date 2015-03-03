@@ -11,7 +11,7 @@ class PqMailer < PQBaseMailer
     mail(to: @template_params[:email], subject: "#{@template_params[:ao_name]} has been allocated PQ #{@template_params[:uin]}")
   end
 
-   def acceptance_email(pq, ao, urgent = false)
+  def acceptance_email(pq, ao)
     @template_params      = build_primary_hash(pq, ao)
     deputy_director_email = ao.deputy_director && ao.deputy_director.email
 
@@ -26,17 +26,11 @@ class PqMailer < PQBaseMailer
 
     @template_params[:cc_list] = cc_list.reject(&:blank?).join(';')
 
-    subject = if urgent
-      "URGENT REMINDER: please send your draft response to PQ #{@template_params[:uin]}"
-    else
-      "You accepted PQ #{@template_params[:uin]}"
-    end
-
-    mail(to: @template_params[:email], subject: subject)
+    mail(to: @template_params[:email], subject: "You accepted PQ #{@template_params[:uin]}")
   end
 
-  def acceptance_reminder_email(template_params)
-    @template_params = template_params
+  def acceptance_reminder_email(ao, pq)
+    @template_params = build_primary_hash(pq, ao)
     mail(to: @template_params[:email], subject: "URGENT REMINDER: you need to accept or reject PQ #{@template_params[:uin]}")
   end
 
