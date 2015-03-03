@@ -31,7 +31,8 @@
 
       <% if @template_params[:internal_deadline].present? %>
       <p>Internal deadline: <%= @template_params[:internal_deadline] %></p>
-
+      <% end %>
+      
       <% if @template_params[:date_to_parliament].present? %>
       <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
       <% end %>
