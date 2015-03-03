@@ -2,12 +2,13 @@ Please click the link below, or copy and paste into your browser, to see the PQs
 
 <%= url_for(controller: "watchlist_dashboard", action: "index", token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
 
-This email is valid for today only.
+This link will only be active today. The content is best viewed Firefox browser.
 
-You will receive an email each day to view PQs allocated on that day.
+You have signed up to receive these daily emails. To unsubscribe, (<%= Settings.mail_reply_to %>).
 
-If you no longer wish to receive the daily emails contact the PQ Team (<%= Settings.mail_reply_to %>).
+For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk
 
 This is a new service and your feedback will help us improve it. Please send your feedback to pqfeedback@digital.justice.gov.uk
 
 <%= render 'shared/mailer/email_signature_plain' %>
+
