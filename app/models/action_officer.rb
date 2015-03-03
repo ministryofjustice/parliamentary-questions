@@ -15,7 +15,7 @@ class ActionOfficer < ActiveRecord::Base
   belongs_to :deputy_director
   belongs_to :press_desk
 
-  before_validation WhitespaceValidator.new
+  before_validation Validators::Whitespace.new
 
   def self.by_name(name)
     active.where("name ILIKE ?","%#{name}%")

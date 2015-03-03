@@ -7,5 +7,5 @@ class ActionlistMember < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, on: :create
   validates_format_of :email,:with => Devise::email_regexp
 
-  before_validation WhitespaceValidator.new
+	before_validation Validators::Whitespace.new
 end
