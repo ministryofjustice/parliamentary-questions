@@ -31,17 +31,6 @@ class HTTPClient
     end
   end
 
-  class FailureResponse < StandardError
-    attr_reader :code, :body
-
-    def initialize(request, response)
-      @code = request.code
-      @body = request.body
-      super("PQ rest API responded with non success code: #{code}," +
-            " response: #{body} (request: #{req.inspect})")
-    end
-  end
-
   private
 
   def handle_https(uri, http)
