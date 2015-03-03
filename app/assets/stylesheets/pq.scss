@@ -190,19 +190,20 @@ footer {
   text-align: center;
   white-space: nowrap;
   margin: 0px 10px 0px 0px;
-  &.finance-unchecked { color: #b10e1e; }
-  &.no-response { color: #f47738; }
-  &.accepted { color: #28a197; }
-  &.answered { color: #006435; }
-  &.draft-pending { color: #85994b; }
-  &.minister-cleared { color: #c1a87e; }
-  &.ministerial-query { color: #b58840; }
-  &.pod-cleared { color: #a1a8ff; }
-  &.pod-query { color: #5461ff; }
-  &.rejected { color: #d0021b; }
-  &.unassigned { color: #bd10e0; }
-  &.with-minister { color: #82622e; }
-  &.with-pod { color: #2e358b; }
+  color: white;
+  &.finance-unchecked { background-color: #b10e1e; }
+  &.no-response { background-color: #f47738; }
+  &.accepted { background-color: #28a197; }
+  &.answered { background-color: #006435; }
+  &.draft-pending { background-color: #85994b; }
+  &.minister-cleared { background-color: #c1a87e; }
+  &.ministerial-query { background-color: #b58840; }
+  &.pod-cleared { background-color: #a1a8ff; }
+  &.pod-query { background-color: #5461ff; }
+  &.rejected { background-color: #d0021b; }
+  &.unassigned { background-color: #bd10e0; }
+  &.with-minister { background-color: #82622e; }
+  &.with-pod { background-color: #2e358b; }
 }
 
 .question-type {

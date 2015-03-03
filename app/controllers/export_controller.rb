@@ -3,14 +3,14 @@ class ExportController < ApplicationController
 
   def csv
     with_valid_dates('index') do |date_from, date_to|
-      export = Export::PqDefault.new(date_from, date_from)
+      export = Export::PqDefault.new(date_from, date_to)
       send_data(export.to_csv, content_type: 'text/csv')
     end
   end
 
   def csv_for_pod
     with_valid_dates('index_for_pod') do |date_from, date_to|
-      export = Export::PqPod.new(date_from, date_from)
+      export = Export::PqPod.new(date_from, date_to)
       send_data(export.to_csv, content_type: 'text/csv')
     end
   end

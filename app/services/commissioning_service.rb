@@ -59,7 +59,7 @@ class CommissioningService
       )).deliver
     end
 
-    if dd && dd.email
+    if dd && dd.email.present?
       internal_deadline = pq.internal_deadline ? pq.internal_deadline.to_s(:date) :
                                                 'No deadline set'
 
