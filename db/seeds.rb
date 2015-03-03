@@ -71,37 +71,39 @@ divisions = Division.create!([
 	])
 
 deputy_directors = DeputyDirector.create!([
-	{division_id: 1, name: 'Craig Watkins'},
-	{division_id: 2, name: 'Rebecca Endean'},
-	{division_id: 3, name: 'Procurement'},
-	{division_id: 4, name: 'Jonathon Sedgwick'},
-	{division_id: 5, name: 'Helen Judge'},
-	{division_id: 6, name: 'Paul Kett'},
-	{division_id: 7, name: 'Ian Poree'},
-	{division_id: 8, name: 'Darren Tierney'},
-	{division_id: 9, name: 'Mark Sweeney'},
-	{division_id: 10, name: 'Vacant'},
-	{division_id: 11, name: 'Pat Lloyd'},
-	{division_id: 12, name: 'Pam Teare'},
-	{division_id: 13, name: 'Carol Carpenter'},
-	{division_id: 14, name: 'Phil Copple'},
-	{division_id: 15, name: 'Kevin Sadler'},
-	{division_id: 16, name: 'Guy Tompkins'},
-	{division_id: 17, name: 'Paul Shipley'},
-	{division_id: 18, name: 'Gerry Smith'},
-	{division_id: 19, name: 'Nick Ramsey'}
+  {division_id: 1, email: 'dd1@email.com', name: 'Craig Watkins'},
+	{division_id: 2, email: 'dd2@email.com', name: 'Rebecca Endean'},
+	{division_id: 3, email: 'dd3@email.com', name: 'Procurement'},
+	{division_id: 4, email: 'dd4@email.com', name: 'Jonathon Sedgwick'},
+	{division_id: 5, email: 'dd5@email.com', name: 'Helen Judge'},
+	{division_id: 6, email: 'dd6@email.com', name: 'Paul Kett'},
+	{division_id: 7, email: 'dd7@email.com', name: 'Ian Poree'},
+	{division_id: 8, email: 'dd8@email.com', name: 'Darren Tierney'},
+	{division_id: 9, email: 'dd9@email.com', name: 'Mark Sweeney'},
+	{division_id: 10,email: 'dd10@email.com',  name: 'Vacant'},
+	{division_id: 11,email: 'dd11@email.com',  name: 'Pat Lloyd'},
+	{division_id: 12,email: 'dd12@email.com',  name: 'Pam Teare'},
+	{division_id: 13,email: 'dd13@email.com',  name: 'Carol Carpenter'},
+	{division_id: 14,email: 'dd14@email.com',  name: 'Phil Copple'},
+	{division_id: 15,email: 'dd15@email.com',  name: 'Kevin Sadler'},
+	{division_id: 16,email: 'dd16@email.com',  name: 'Guy Tompkins'},
+	{division_id: 17,email: 'dd17@email.com',  name: 'Paul Shipley'},
+	{division_id: 18,email: 'dd18@email.com',  name: 'Gerry Smith'},
+	{division_id: 19,email: 'dd19@email.com',  name: 'Nick Ramsey'}
 	])
 
 PressDesk.create!([
     {name: 'Finance press desk'},
     {name: 'Prisons press desk'}
     ])
+
 PressOfficer.create!([
     {name: 'press officer one', email: 'one@press.office.com', press_desk_id: 1 },
     {name: 'press officer two', email: 'two@press.office.com', press_desk_id: 1 },
     {name: 'press officer three', email: 'three@press.office.com', press_desk_id: 2 },
     {name: 'press officer four', email: 'four@press.office.com', press_desk_id: 2 },
     ])
+
 action_officers = ActionOfficer.create!([
 	{deputy_director_id: 17, name: 'Colin Bruce', email: 'colin.bruce@digital.justice.gov.uk', press_desk_id: 1},
 	{deputy_director_id: 19, name: 'Daniel Penny', email: 'daniel.penny@digital.justice.gov.uk', press_desk_id: 1},
