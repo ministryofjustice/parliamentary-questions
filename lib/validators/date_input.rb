@@ -4,13 +4,10 @@ module Validators
     WINDOW  = 100.years
     MAX_LEN = 100
 
-    def secure_parse(input_d)
-      input_d  = input_d.to_s
-      d        = DateTime.parse(input_d)
-      
-      unless d.between?(min_date, max_date) && input_d.size < MAX_LEN
-        raise DateTimeInputError
-      end
+    def secure_parse(date_s)
+      raise DateTimeInputError unless date_s.size < MAX_LEN
+      d = DateTime.parse(date_s)
+      raise DateTimeInputError unless d.between?(min_date, max_date)
       d
 
     rescue ArgumentError
