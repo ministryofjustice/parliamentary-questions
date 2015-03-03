@@ -45,7 +45,8 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     visit dashboard_path
 
     expect(page).not_to have_content(uin)
-    expect(page).to have_content('uin-2')
-    expect(page).to have_content('uin-3')
+    Pq.order(:uin).drop(1).each do |pq| 
+      expect(page).to have_content(pq.uin)
+    end
   end
 end
