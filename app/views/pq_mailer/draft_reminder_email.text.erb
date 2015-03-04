@@ -1,19 +1,19 @@
 <%= @template_params[:ao_name] %>, you have missed the 10am deadline for submitting the draft answer to PQ <%= @template_params[:uin] %>:
 
-<%= @template_params[:question] %>
+  <%= @template_params[:question] %>
 
-Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)
+  Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)
 
 <% if @template_params[:member_constituency].present? %>
-Constituency: <%= @template_params[:member_constituency] %>
+  Constituency: <%= @template_params[:member_constituency] %>
 <% end %>
 
 <% if @template_params[:answer_by].present? %>
-To be answered by: <%= @template_params[:answer_by] %>
+  To be answered by: <%= @template_params[:answer_by] %>
 <% end %>
 
 <% if @template_params[:date_to_parliament].present? %>
-Due back to Parliament: <%= @template_params[:date_to_parliament] %>
+  Due back to Parliament: <%= @template_params[:date_to_parliament] %>
 <% end %>
 
 Your deadline to return this draft response to the PQ team was <%= @template_params[:internal_deadline] %>
@@ -26,7 +26,7 @@ Liaise with<%= " finance (#{ @template_params[:finance_users_emails]}) and" if !
 
 http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm
 
-If you have any questions please contact the PQ team at <%= Settings.mail_reply_to %>
+If you have any queries please contact the PQ team at <%= Settings.mail_reply_to %>
 
 For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk
 
