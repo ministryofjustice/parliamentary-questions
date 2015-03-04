@@ -17,10 +17,14 @@ h2 Minister details
         th Description
         th email
         th phone
+        th#admin-status Status
+        th
     tbody
-      - @minister.minister_contacts.where(deleted: false).each do |c|
+      - @minister.minister_contacts.each do |c|
         tr
-          td= c.name
+          td= link_to c.name, edit_minister_contact_path(c)
           td= c.email
           td= c.phone
+          td= render partial: 'shared/status', object: c
+          td.edit= link_to 'Edit', edit_minister_contact_path(c)
   = link_to 'Return to the minister list', ministers_path, {class: 'admin-link'}
