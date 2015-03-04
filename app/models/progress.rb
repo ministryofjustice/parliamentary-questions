@@ -82,11 +82,11 @@ class Progress < ActiveRecord::Base
   end
 
   def self.POD_QUERY
-    'POD Query'
+    'Pod Query'
   end
 
   def self.POD_CLEARED
-    'POD Cleared'
+    'Pod Cleared'
   end
 
   def self.WITH_MINISTER

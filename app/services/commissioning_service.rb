@@ -11,18 +11,19 @@ class CommissioningService
     raise ArgumentError, "form is invalid" unless form.valid?
 
     ActiveRecord::Base.transaction do
-      pq = build_pq(form)
-      pq.action_officers_pqs << form.action_officer_id.map do |ao_id|
+      pq     = build_pq(form)
+      ao_pqs = form.action_officer_id.map do |ao_id|
         ActionOfficersPq.create!(
           pq_id: pq.id,
           action_officer_id: ao_id
         )
       end
 
+      pq.action_officers_pqs << ao_pqs
       pq.save!
       PQProgressChangerService.new.update_progress(pq)
 
-      pq.action_officers_pqs.each do |ao_pq|
+      ao_pqs.each do |ao_pq|
         notify_assignment(ao_pq)
       end
       pq
@@ -59,7 +60,7 @@ class CommissioningService
       )).deliver
     end
 
-    if dd && dd.email
+    if dd && dd.email.present?
       internal_deadline = pq.internal_deadline ? pq.internal_deadline.to_s(:date) :
                                                 'No deadline set'
 
