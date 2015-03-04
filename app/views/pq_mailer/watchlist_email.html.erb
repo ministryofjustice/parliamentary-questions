@@ -11,19 +11,19 @@
   </head>
   <body>
         <p>
-          View the <%= link_to 'PQs Allocated', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> by the Ministry of Justice, Parliamentary Branch.
+          View the <%= link_to 'PQs Allocated', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> on <%= Date.today.strftime "%d/%m/%Y" %> by the Ministry of Justice, Parliamentary Branch.
         </p>
         <p>
-          This link will only be active <b>today</b>. The content is best viewed <b>Firefox</b> browser.
+          This link will only be active <b>today</b>. The content is best viewed in <b>Firefox</b> browser.
         </p>
         <p>
-          You have signed up to receive these daily emails. To unsubscribe, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>
+          You have signed up to receive these daily emails. To unsubscribe, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>.
         </p>
         <p><small>
           For any technical issues, e.g. broken links, <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ technical support</a>.
         </small></p>
         <p><small>
-          This is a new service and your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.
+          This is a new service - your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.
         </small></p>
         <%= render 'shared/mailer/email_signature' %>
   </body>
