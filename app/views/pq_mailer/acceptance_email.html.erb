@@ -21,7 +21,7 @@
       <%= @template_params[:question] %>
 
       <% if @template_params[:member_name].present? %>
-        <p>Asked by: <%= @template_params[:member_name] %> <% if !@template_params[:house_name].nil? %> (<%= @template_params[:house_name] %>) <% end %></p>
+        <p>Asked by: <%= @template_params[:member_name] %> <% if @template_params[:house_name].present %> (<%= @template_params[:house_name] %>) <% end %></p>
       <% end %>
 
       <% if @template_params[:member_constituency].present? %>
