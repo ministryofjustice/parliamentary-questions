@@ -15,7 +15,7 @@
     </style>
   </head>
   <body>
-    <p><%= @template_params[:ao_name] %>, you have missed the 10am deadline for submitting the draft answer to <strong><%= @template_params[:uin] %></strong>:</p>
+    <p><%= @template_params[:ao_name] %>, you have missed the 10am deadline for submitting the draft answer to PQ <strong><%= @template_params[:uin] %></strong>:</p>
     <div class="pq-details">
       <p><%= @template_params[:question] %></p>
 
@@ -42,7 +42,8 @@
 
     <p>If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a>.</p>
 
-    <p><small>If you have any technical issues, please <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ technical support</a>.</small></p>
+    <p><small>For any technical issues, e.g. broken links, <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ technical support</a>.</small></p>
+
 
     <p><small>This is a new service - your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.</small></p>
     <%= render 'shared/mailer/email_signature' %>
