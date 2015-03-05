@@ -1,7 +1,7 @@
 module Validators
   module DateInput
-    WINDOW  = 100.years
-    MAX_LEN = 100
+    WINDOW  = 50.years
+    MAX_LEN = 50
 
     def parse_date(date_s)
       @date_class = Date

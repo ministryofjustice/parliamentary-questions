@@ -1,19 +1,32 @@
 class CommissionController < ApplicationController
+  include Validators::DateInput
+
   before_action :authenticate_user!, PQUserFilter
 
   def commission
-    form       = CommissionForm.new(commission_form_params)
-    pq, status =
+    pq     = Pq.find(params[:commission_form][:pq_id])
+    
+    status = with_sanitized_inputs do 
+      form = CommissionForm.new(commission_form_params)
       if form.valid?
-        [CommissioningService.new.commission(form), 200]
+        CommissioningService.new.commission(form)
+        200
       else
-        flash.now[:error] = "Error in commissioning question"
-        [Pq.find_by(uin: params[:id]), 422]
+        400
+      end
+    end
+
+    flash.now[:error] =
+      case status
+      when 400
+         'Error in commissioning question' 
+      when 422 
+        'Invalid date input!'
       end
 
     render(partial: 'shared/question_assigned',
-           locals: { question: pq },
-           status: status)
+           locals:  { question: pq },
+           status:  status)
   end
 
   def complete
@@ -28,5 +41,16 @@ class CommissionController < ApplicationController
       .permit(:pq_id, :minister_id, :policy_minister_id,
              { action_officer_id: [] },
              :date_for_answer, :internal_deadline)
+  end
+
+  def with_sanitized_inputs
+    [
+      params[:commission_form][:date_for_answer], 
+      params[:commission_form][:internal_deadline]
+    ].each { |d| parse_date(d)}
+    yield
+
+  rescue DateTimeInputError
+    422
   end
 end
