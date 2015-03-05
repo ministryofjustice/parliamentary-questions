@@ -89,7 +89,7 @@ class PqMailer < PQBaseMailer
   end
 
   def action_list_emails
-    ActionlistMember.where('deleted = false').map { |a| a.email }
+    ActionlistMember.active.pluck(:email)
   end
 
   def finance_users_emails(pq)

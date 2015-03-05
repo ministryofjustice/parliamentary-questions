@@ -1,4 +1,7 @@
 class PressDesk < ActiveRecord::Base
+  extend  SoftDeletion::Collection
+  include SoftDeletion::Record
+
   has_paper_trail
   validates :name, uniqueness: true, presence: true
   has_many :action_officers

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  extend  SoftDeletion::Collection
+  include SoftDeletion::Record
+
   ROLE_PQ_USER  = 'PQUSER'
   ROLE_FINANCE  = 'FINANCE'
 
@@ -19,15 +22,15 @@ class User < ActiveRecord::Base
   after_initialize :set_defaults
 
   def self.finance
-    where(deleted: false, roles: ROLE_FINANCE)
+    active.where(roles: ROLE_FINANCE)
   end
 
   def invited_by_user
-    User.find(self.invited_by_id).name unless invited_by_id.nil?
+    invited_by_id && User.find(invited_by_id).name
   end
 
   def active_for_authentication?
-    super && !self.deleted?
+    !self.deleted? && super
   end
 
   def set_defaults

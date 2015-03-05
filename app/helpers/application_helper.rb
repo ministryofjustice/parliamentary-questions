@@ -40,12 +40,4 @@ module ApplicationHelper
   def minister_warning?(question, minister)
     question.present? && question.open? && minister.try(:deleted?)
   end
-
-  def ministers(question)
-    Minister.active(question.try(:minister))
-  end
-
-  def policy_ministers(question)
-    Minister.active(question.try(:policy_minister))
-  end
 end

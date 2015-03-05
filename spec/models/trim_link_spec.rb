@@ -10,20 +10,4 @@ describe TrimLink do
     it { expect(subject.filename).to eq 'filename.tr5' }
     it { expect(subject.data).to eq 'data' }
   end
-
-  describe '#archive' do
-    it 'marks trim link as deleted' do
-      subject = build(:trim_link)
-      subject.archive
-      expect(subject).to be_deleted
-    end
-  end
-
-  describe '#unarchive' do
-    it 'removes deleted flag from trim link' do
-      subject = build(:trim_link, deleted: true)
-      subject.unarchive
-      expect(subject).not_to be_deleted
-    end
-  end
 end

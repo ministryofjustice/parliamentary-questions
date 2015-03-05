@@ -4,7 +4,7 @@ class DivisionsController < ApplicationController
   before_action :prepare_directorates
 
   def index
-    @divisions = Division.all.joins(:directorate).order('lower(directorates.name)').order('lower(divisions.name)')
+    @divisions = Division.joins(:directorate).order('lower(directorates.name)').order('lower(divisions.name)')
   end
 
   def new
@@ -41,6 +41,6 @@ private
     params.require(:division).permit(:name, :deleted, :directorate_id)
   end
   def prepare_directorates
-    @directorates = Directorate.where(deleted: false).order('lower(name)')
+    @directorates = Directorate.active.order('lower(name)')
   end
 end

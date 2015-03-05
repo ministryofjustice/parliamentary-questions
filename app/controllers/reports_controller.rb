@@ -1,10 +1,10 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
-  @@per_page = 10
+  PER_PAGE = 10
 
   def ministers_by_progress
-    @ministers = Minister.where(deleted: false)
+    @ministers = Minister.active
     @progresses = Progress.where(name: Progress.in_progress_questions)
 
     @counters = Pq.ministers_by_progress(@ministers, @progresses)
@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
 
   def press_desk_by_progress
     @p = Progress.where("name != 'Unassigned'")
-    @pd = PressDesk.where(deleted: false)
+    @pd = PressDesk.active
 
     @counters = build_hash
 
@@ -33,10 +33,13 @@ class ReportsController < ApplicationController
     if !minister_id.blank? || !press_desk_id.blank? || !progress_id.blank?
       pqs = PQ_by_all(aos,minister_id,progress_id)
       @questions_count = pqs.count
-      @questions = pqs.paginate(:page => params[:page], :per_page => @@per_page).order(:internal_deadline).load
+      @questions = pqs.paginate(:page => params[:page], :per_page => PER_PAGE).order(:internal_deadline).load
     end
     render action: 'filter_all', press_desk_id: press_desk_id, progress_id: progress_id, minister_id: minister_id
   end
+
+
+  private
 
   def PQ_by_all(aos, minister_id, progress_id)
     @Pqs = Pq
@@ -52,8 +55,6 @@ class ReportsController < ApplicationController
     end
     @Pqs
   end
-
-private
 
   def build_hash
     Hash.new{ |h,k| h[k] = Hash.new(&h.default_proc) }
