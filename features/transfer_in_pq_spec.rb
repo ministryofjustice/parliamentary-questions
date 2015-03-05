@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-feature 'Transferring questions', js: true, suspend_cleaner: true do
+feature 'Transferring IN questions', js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
   def create_transferred_pq(uin, text)
