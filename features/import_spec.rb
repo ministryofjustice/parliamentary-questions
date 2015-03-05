@@ -120,11 +120,6 @@ describe PQA::Import do
           ])
         end
       end
-
-    end
-
-    context "when some question in the API causes a validation error" do
-      it "rejects the failing questions and report the validation errors"
     end
   end
 end
