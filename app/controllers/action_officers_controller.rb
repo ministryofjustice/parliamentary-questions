@@ -12,7 +12,7 @@ class ActionOfficersController < ApplicationController
   end
 
   def find
-    @results = ActionOfficer.where("name ILIKE :search", search: "%#{params[:q]}%").select(:id, :name)
+    @results = ActionOfficer.by_name(params[:q]).select(:id, :name)
     render json: @results
   end
 
@@ -43,12 +43,7 @@ class ActionOfficersController < ApplicationController
     render action: 'edit'
   end
 
-  def destroy
-    @action_officer.destroy
-    redirect_to action_officers_url
-  end
-
-private
+  private
 
   def set_action_officer
     @action_officer = ActionOfficer.find(params[:id])
@@ -59,8 +54,8 @@ private
   end
 
   def prepare_dropdowns
-    @deputy_directors = DeputyDirector.where(deleted: false).all
-    @press_desks = PressDesk.where(deleted: false).all
+    @deputy_directors = DeputyDirector.active
+    @press_desks = PressDesk.active
   end
 
   def handle_db_error(err)

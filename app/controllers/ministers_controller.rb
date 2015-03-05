@@ -3,7 +3,11 @@ class MinistersController < ApplicationController
   before_action :set_minister, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ministers = Minister.all.order('lower(name)')
+    @ministers = Minister.order('lower(name)')
+  end
+
+  def show
+    @minister_contacts = @minister.minister_contacts
   end
 
   def new
@@ -30,7 +34,7 @@ class MinistersController < ApplicationController
     end
   end
 
-private
+  private
 
   def set_minister
     @minister = Minister.find(params[:id])
