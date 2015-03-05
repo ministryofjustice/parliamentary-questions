@@ -62,27 +62,15 @@ class PqMailer < PQBaseMailer
   end
 
   def mp_emails(pq)
-    if pq.minister
-      pq.minister.contact_emails
-    else
-      []
-    end
+    Array(pq.minister && pq.minister.contact_emails)
   end
 
   def policy_mpemails(pq)
-    if pq.policy_minister
-      pq.policy_minister.contact_emails
-    else
-      []
-    end
+    Array(pq.policy_minister && pq.policy_minister.contact_emails)
   end
 
   def press_emails(ao)
-    if ao.press_desk
-      ao.press_desk.press_officer_emails
-    else
-      []
-    end
+    Array(ao.press_desk && ao.press_desk.press_officer_emails)
   end
 
   def build_primary_hash(pq, ao)
