@@ -9,19 +9,12 @@ describe 'ActionOfficerReminderMailer' do
     @pq = create(:pq, uin: 'HL789', question: 'test question?', member_name:'Asking MP', minister_id: minister_1.id, house_name: 'House of Lords')
     @ao_pq = ActionOfficersPq.new(action_officer_id: ao.id, pq_id: @pq.id)
 
-    @template = Hash.new
-    @template[:ao_name] = ao.name
-    @template[:email] = ao.emails
-    @template[:uin] = @pq.uin
-    @template[:question] = @pq.question
-    @template[:member_name] = @pq.member_name
-    @template[:house] = @pq.house_name
   end
 
   describe 'Accept reminder' do
     describe 'deliver' do
       it 'should include house, member name and uin from PQ and AO name' do
-        PqMailer.acceptance_reminder_email(@template).deliver
+        PqMailer.acceptance_reminder_email(ao, @pq).deliver
 
         mail = ActionMailer::Base.deliveries.first
 
@@ -41,7 +34,7 @@ describe 'ActionOfficerReminderMailer' do
   describe 'draft reminder' do
     describe 'deliver' do
       it 'should have URGENT in the subject' do
-        PqMailer.acceptance_email(@pq, ao,true).deliver
+        PqMailer.draft_reminder_email(ao, @pq).deliver
 
         mail = ActionMailer::Base.deliveries.first
         expect(mail.to).to include ao.email

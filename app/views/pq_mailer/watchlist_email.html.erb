@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-        </head>
-    <body>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            These are the <%= link_to 'PQs Allocated today', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> by the Ministry of Justice, Parliamentary Branch.
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style type="text/css">
+      body {
+        font-family: arial, sans-serif;
+        font-size: 12pt;
+      }
+    </style>
+  </head>
+  <body>
+        <p>
+          View the <%= link_to 'PQs Allocated', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> on <%= Date.today.strftime "%d/%m/%Y" %> by the Ministry of Justice, Parliamentary Branch.
         </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            This email is valid for <b>today</b> only.
+        <p>
+          This link will only be active <b>today</b>. The content is best viewed in <b>Firefox</b> browser.
         </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-          You will receive an email each day to view PQs allocated on that day
+        <p>
+          You have signed up to receive these daily emails. To unsubscribe, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>.
         </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            If you no longer wish to receive these daily emails <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>
-        </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-          This is a new service and your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.
-        </p>
+        <p><small>
+          For any technical issues, e.g. broken links, <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ technical support</a>.
+        </small></p>
+        <p><small>
+          This is a new service - your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.
+        </small></p>
         <%= render 'shared/mailer/email_signature' %>
-    </body>
+  </body>
 </html>
