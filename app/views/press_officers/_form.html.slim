@@ -7,7 +7,7 @@
         = f.text_field :name, {class: 'form-control'}
       .form-group
         label.form-label for="press_officer_email"  Email
-        = f.text_field :email, {class: 'form-control'}
+        = f.email_field :email, {class: 'form-control'}
       .form-group
         label.form-label for="press_officer_press_desk_id"  Press Desk
         = f.collection_select(:press_desk_id, @press_offices, :id, :name, :include_blank => "Please select")
