@@ -7,7 +7,7 @@ class MinistersController < ApplicationController
   end
 
   def show
-    @minister_contacts = @minister.minister_contacts.active
+    @minister_contacts = @minister.minister_contacts
   end
 
   def new
