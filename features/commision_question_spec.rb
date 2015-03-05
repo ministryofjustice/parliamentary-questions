@@ -41,7 +41,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   scenario 'The PQ status should then change to draft pending' do
     create_pq_session
-    expect_pq_status(@pq.uin, 'In progress', 'Draft Pending')
+    expect_pq_in_progress_status(@pq.uin, 'Draft Pending')
   end
 
   scenario 'The AO should receive an email notification confirming the question acceptance' do
