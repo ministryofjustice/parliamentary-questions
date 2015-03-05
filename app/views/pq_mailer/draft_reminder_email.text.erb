@@ -1,7 +1,4 @@
-
-<%= @template_params[:dd_name] %>
-
-<%= @template_params[:ao_name] %> has been allocated the PQ <%= @template_params[:uin]%>
+<%= @template_params[:ao_name] %>, you have missed the 10am deadline for submitting the draft answer to PQ <%= @template_params[:uin] %>:
 
   <%= @template_params[:question] %>
 
@@ -15,17 +12,19 @@
   To be answered by: <%= @template_params[:answer_by] %>
 <% end %>
 
-<% if @template_params[:internal_deadline].present? %>
-  Internal deadline: <%= @template_params[:internal_deadline] %>
-<% end %>
-
 <% if @template_params[:date_to_parliament].present? %>
   Due back to Parliament: <%= @template_params[:date_to_parliament] %>
 <% end %>
 
-<%= @template_params[:ao_name] %> must accept or reject this PQ before 2pm today.
+Your deadline to return this draft response to the PQ team was <%= @template_params[:internal_deadline] %>
 
-The draft response to the question is required before <%= @template_params[:internal_deadline] %>
+You must use the email list below to ensure that all relevant people are included. You can add extra recipients if needed.
+
+<%= @template_params[:cc_list]  %>
+
+Liaise with<%= " finance (#{ @template_params[:finance_users_emails]}) and" if !@template_params[:finance_users_emails].empty?  %> your relevant press officer (<%=@template_params[:press_email] %>) before you send your draft response. For templates and guidance, refer to the PQ guidance:
+
+http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm
 
 If you have any queries please contact the PQ team at <%= Settings.mail_reply_to %>
 

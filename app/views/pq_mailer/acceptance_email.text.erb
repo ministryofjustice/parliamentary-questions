@@ -1,42 +1,41 @@
 
-<%= @template_params[:ao_name] %>,
-You have accepted responsibility for drafting an answer to PQ <%= @template_params[:uin] %>
+<%= @template_params[:ao_name] %>, you have agreed to draft an answer to PQ <%= @template_params[:uin] %>.
 
-
-<============================================================================
-<%= @template_params[:question] %>.
-============================================================================
-
-
-<div>
+  <%= @template_params[:question] %>
 
 <% if @template_params[:member_name].present? %>
-	Question asked by <%= @template_params[:member_name] %>
-	<% if @template_params[:house_name].present? %>
-		(<%= @template_params[:house_name] %>)
-	<% end %>
-<% end %>
-<% if @template_params[:mpname].present? %>
-To be answered by <%= @template_params[:mpname] %>
-<% end %>
-<% if @template_params[:date_to_parliament].present? %>
-Due back to Parliament by <%= @template_params[:date_to_parliament] %>
-<% end %>
-<% if @template_params[:internal_deadline].present? %>
-Deadline to return your draft response is <%= @template_params[:internal_deadline] %>
+  Asked by: <%= @template_params[:member_name] %><% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>)<% end %>
 <% end %>
 
-You MUST use the email list below to ensure that all relevant people are cc’d.:-
+<% if @template_params[:member_constituency].present? %>
+  Constituency: <%= @template_params[:member_constituency] %>
+<% end %>
+
+<% if @template_params[:answer_by].present? %>
+  To be answered by: <%= @template_params[:answer_by] %>
+<% end %>
+
+<% if @template_params[:date_to_parliament].present? %>
+  Due back to Parliament: <%= @template_params[:date_to_parliament] %>
+<% end %>
+
+
+<% if @template_params[:internal_deadline].present? %>
+The deadline to return your draft response back to the PQ team is <%= @template_params[:internal_deadline] %>
+<% end %>
+
+You must use the email list below to ensure that all relevant people are included. You can add extra recipients if needed.
 
 <%= @template_params[:cc_list]  %>
 
-You will need to liaise with <%= "finance (#{ @template_params[:finance_users_emails]}) and" if !@template_params[:finance_users_emails].empty?  %> your relevant press officer (<%=@template_params[:press_email] %>) before you send your draft response. For drafting templates and guidance on how to respond, please refer to the intranet PQ guidance by using the following link.
-	http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm
+Liaise with<%= " finance (#{ @template_params[:finance_users_emails]}) and" if !@template_params[:finance_users_emails].empty?  %> your relevant press officer (<%=@template_params[:press_email] %>) before you send your draft response. For templates and guidance, refer to the PQ guidance:
 
-If you have further queries about drafting your response, please contact the PQ team <%= Settings.mail_reply_to %>
+http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm
 
-If you have any technical issues, please contact PQ support at pqsupport@digital.justice.gov.uk
+If you have any queries about drafting your response, please contact the PQ team at <%= Settings.mail_reply_to %>
 
-This is a new service and your feedback will help us improve it. Please send your feedback to pqfeedback@digital.justice.gov.uk
+For any technical issues, e.g. broken links, contact PQ technical support at pqsupport@digital.justice.gov.uk
+
+This is a new service - please send your feedback to pqfeedback@digital.justice.gov.uk
 
 <%= render 'shared/mailer/email_signature_plain' %>
