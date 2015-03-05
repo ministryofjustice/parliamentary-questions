@@ -6,7 +6,7 @@ class CommissionController < ApplicationController
   def commission
     pq     = Pq.find(params[:commission_form][:pq_id])
     
-    status = with_sanitized_inputs do 
+    status = checking_valid_dates do 
       form = CommissionForm.new(commission_form_params)
       if form.valid?
         CommissioningService.new.commission(form)
@@ -43,14 +43,13 @@ class CommissionController < ApplicationController
              :date_for_answer, :internal_deadline)
   end
 
-  def with_sanitized_inputs
+  def checking_valid_dates
     [
-      params[:commission_form][:date_for_answer], 
-      params[:commission_form][:internal_deadline]
-    ].each { |d| parse_date(d)}
+      :date_for_answer, 
+      :internal_deadline
+    ].each { |date_key| parse_date(params[:commission_form][date_key]) }
     yield
-
-  rescue DateTimeInputError
-    422
+    rescue DateTimeInputError
+      422
   end
 end
