@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe PressDesk do
-	let(:pdesk) {build(:press_desk)}
+  let(:pdesk) {build(:press_desk)}
 
-	it 'should pass factory build' do
-		expect(pdesk).to be_valid
-	end
+  it 'should pass factory build' do
+    expect(pdesk).to be_valid
+  end
 
   it 'should have a name' do
     pdesk.name = nil
@@ -18,11 +18,11 @@ describe PressDesk do
     expect(duplicate).to be_invalid
   end
 
-  it 'should expose a merged list of email addresses' do
+  it 'exploses a press_officer_emails method' do
     pdesk.press_officers << build(:press_officer, name: 'PO one', email: 'po.one@po.com')
     pdesk.press_officers << build(:press_officer, name: 'PO two', email: 'po.two@po.com')
 
-    expect(pdesk.email_output).to eql(';po.one@po.com;po.two@po.com')
+    expect(pdesk.press_officer_emails).to eql(['po.one@po.com', 'po.two@po.com'])
   end
 
   describe "associations" do
