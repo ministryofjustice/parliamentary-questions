@@ -2,32 +2,24 @@ class ActionOfficersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    loading_records do
-      @action_officers = 
-        ActionOfficer.all
+    @action_officers = 
+      ActionOfficer.all
         .joins(:deputy_director => :division)
         .order('lower(divisions.name)')
         .order('lower(action_officers.name)')
-    end
   end
 
   def show
-    loading_records do
-      @action_officer = ActionOfficer.find(params[:id])
-    end
+    loading_records(:existing) 
   end
 
   def new
-    loading_records do
-      @action_officer = ActionOfficer.new
-    end
+    loading_records(:new)
   end
 
   def create
-    loading_records do
-      @action_officer = ActionOfficer.new(action_officer_params)
-      
-      if @action_officer.save
+    loading_records(:new) do      
+      if @action_officer.update(action_officer_params)
         flash[:success] = 'Action officer was successfully created'
         redirect_to action_officers_path
       else
@@ -36,17 +28,13 @@ class ActionOfficersController < ApplicationController
       end
     end
   end
-  
+
   def edit
-   loading_records do
-     @action_officer = ActionOfficer.find(params[:id])
-   end
+   loading_records(:existing)
   end
 
   def update
-    loading_records do
-      @action_officer = ActionOfficer.find(params[:id])
-
+    loading_records(:existing) do
       if @action_officer.update(action_officer_params)
         flash[:success] = 'Action officer was successfully updated'
         redirect_to @action_officer 
@@ -64,9 +52,19 @@ class ActionOfficersController < ApplicationController
 
   private
 
-  def loading_records
+  def loading_records(type)
     @deputy_directors = DeputyDirector.active
     @press_desks      = PressDesk.active
+    @action_officer   =
+      case type
+      when :new
+        ActionOfficer.new
+      when :existing
+        ActionOfficer.find(params[:id])
+      else
+        raise ArgumentError, 'the specified record type is not supported'
+      end
+    
     yield if block_given?
   end
 
