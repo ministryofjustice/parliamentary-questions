@@ -15,7 +15,7 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     Pq.first.uin
   end
 
-  scenario 'Parli branch should be able to transfer out a PQ' do
+  def transfer_out_pq(uin, date = nil)
     create_pq_session
     visit dashboard_path
     click_on uin
@@ -25,8 +25,19 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
       .find(:xpath, "option[2]")
       .select_option
     
-    find('#transfer_out_date').set Date.today.strftime('%d/%m/%Y')
+    find('#transfer_out_date').set(date || Date.today.strftime('%d/%m/%Y'))
     click_on 'Save'
+  end
+
+  scenario 'Parli-branch should not be able to update a question with incorrect inputs' do
+    transfer_out_pq(uin, 'a' * 51)
+
+    expect(page).to have_content('Invalid date input')
+    expect(page).not_to have_content('Successfully updated')
+  end
+
+  scenario 'Parli branch should be able to transfer out a PQ' do
+    transfer_out_pq(uin)
 
     expect(page).to have_content('Successfully updated')
   end

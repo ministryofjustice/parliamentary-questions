@@ -1,4 +1,6 @@
 class PqsController < ApplicationController
+  include Validators::DateInput
+
   before_action :authenticate_user!, PQUserFilter
 
   def index
@@ -11,27 +13,32 @@ class PqsController < ApplicationController
 
   def update
     loading_relations do
-      archive_trim_link!(params[:commit])
+      with_valid_dates do
+        archive_trim_link!(params[:commit])
 
-      if @pq.update(pq_params)
-        PQProgressChangerService.new.update_progress(@pq)
-
-        action_officer_id = params.fetch(:commission_form, {})[:action_officer_id]
-
-        if action_officer_id.present?
-          @pq.reassign(ActionOfficer.find(action_officer_id))
+        if @pq.update(pq_params) 
+          PQProgressChangerService.new.update_progress(@pq)
+          reassign_ao_if_present(@pq)
+          flash[:success] = 'Successfully updated'
+        else
+          @pq.trim_link(true)
+          flash[:error] = 'Update failed'
         end
 
-        flash[:success] = 'Successfully updated'
-        redirect_to action: 'show', id: @pq.uin
-      else
-        @pq.trim_link(true)
-        render action: 'show'
+        render :show
       end
     end
   end
 
   private
+
+  def with_valid_dates
+    date_keys.each { |key| pq_params[key].present? && parse_date(pq_params[key]) } 
+    yield
+  rescue DateTimeInputError
+    flash[:error] = 'Invalid date input!'
+    render :show
+  end
 
   def loading_relations
     @progress_list = Progress.all
@@ -53,6 +60,17 @@ class PqsController < ApplicationController
     when 'Undo'
       @pq.trim_link.activate!
     end
+  end
+
+  def reassign_ao_if_present(pq)
+    action_officer_id = params.fetch(:commission_form, {})[:action_officer_id]
+    pq.reassign(ActionOfficer.find(action_officer_id)) if action_officer_id.present?
+  end
+
+  def date_keys
+    Pq.columns
+      .select{ |c| [:datetime, :date].include? c.type }
+      .map(&:name)
   end
 
   def pq_params
@@ -101,21 +119,5 @@ class PqsController < ApplicationController
       :with_pod,
       trim_link_attributes: [:file]
     )
-  end
-
-  def uppm_params
-    params.require(:pq).permit(:policy_minister_id)
-  end
-
-  def answering_minister_params
-    params.require(:pq).permit(:minister_id)
-  end
-
-  def update_deadline_params
-    params.require(:pq).permit(:internal_deadline)
-  end
-
-  def update_date_for_answer_params
-    params.require(:pq).permit(:date_for_answer)
   end
 end
