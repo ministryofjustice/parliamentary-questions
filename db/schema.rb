@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141127142731) do
+ActiveRecord::Schema.define(version: 20150306114738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(version: 20141127142731) do
     t.datetime "transfer_in_date"
     t.integer  "days_from_date_for_answer"
     t.boolean  "date_for_answer_has_passed"
+    t.string   "follow_up_to"
   end
 
   create_table "press_desks", force: true do |t|

@@ -45,13 +45,12 @@ class Pq < ActiveRecord::Base
   belongs_to :directorate
   belongs_to :division
 
-
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
 
-	validates :uin , presence: true, uniqueness:true
+  validates :uin , presence: true, uniqueness:true
   validates :raising_member_id, presence:true
-	validates :question, presence:true
+  validates :question, presence:true
   validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
 
   before_update :process_date_for_answer
@@ -82,6 +81,72 @@ class Pq < ActiveRecord::Base
       group(:minister_id).
       group(:progress_id).
       count
+  end
+
+  def find_or_create_follow_up
+    unless i_will_write && follow_up_to.blank? && valid?
+      raise "A PQ follow-up must be valid, have 'i_will_write' set to true, and 'follow_up_to' blank!"
+    end
+
+    ActiveRecord::Base.transaction do
+      follow_up = Pq.find_or_initialize_by(uin: iww_uin)
+
+      if follow_up.new_record?
+        attrs = attributes
+                  .reject { |k,_| FOLLOW_UP_ATTR_RESET.include?(k) }
+                  .merge('question_type' => 'Follow-up IWW',
+                         'i_will_write'  => true,
+                         'follow_up_to'  => uin,
+                         'progress'      => Progress.draft_pending)
+
+        follow_up.update!(attrs)
+      end
+
+      ao_pq = action_officers_pqs.find(&:accepted?)
+      ao_pq.update(pq_id: follow_up.id) if ao_pq
+      follow_up
+    end
+  end
+
+  FOLLOW_UP_ATTR_RESET = [
+    'id',
+    'uin',
+    'draft_answer_received',
+    'pq_correction_received',
+    'correction_circulated_to_action_officer',
+    'pod_query',
+    'pod_query_flag',
+    'pod_clearance',
+    'sent_to_policy_minister',
+    'policy_minister_query',
+    'policy_minister_to_action_officer',
+    'policy_minister_returned_by_action_officer',
+    'resubmitted_to_policy_minister',
+    'cleared_by_policy_minister',
+    'sent_to_answering_minister',
+    'answering_minister_query',
+    'answering_minister_to_action_officer',
+    'answering_minister_returned_by_action_officer',
+    'resubmitted_to_answering_minister',
+    'cleared_by_answering_minister',
+    'answer_submitted',
+    'library_deposit',
+    'pq_withdrawn',
+    'holding_reply_flag',
+    'final_response_info_released',
+    'round_robin_guidance_received',
+    'transfer_out_ogd_id',
+    'transfer_out_date',
+    'transfer_in_ogd_id',
+    'transfer_in_date',
+  ]
+
+  def has_follow_up?
+    Pq.exists?(follow_up_to: uin)
+  end
+
+  def is_follow_up?
+    i_will_write && follow_up_to.present?
   end
 
   def has_trim_link?
@@ -218,7 +283,11 @@ class Pq < ActiveRecord::Base
     !seen_by_finance?
   end
 
-private
+  private
+
+  def iww_uin
+    "#{uin}-IWW" if uin.present? && !is_follow_up?
+  end
 
   def process_date_for_answer
     if self.date_for_answer.nil?

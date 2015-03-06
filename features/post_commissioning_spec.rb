@@ -1,6 +1,5 @@
 require 'feature_helper'
 
-
 feature 'After commissioning', js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
