@@ -10,15 +10,15 @@ class ActionOfficersController < ApplicationController
   end
 
   def show
-    loading_records(:existing) 
+    loading_existing_records
   end
 
   def new
-    loading_records(:new)
+    loading_new_records
   end
 
   def create
-    loading_records(:new) do      
+    loading_new_records do      
       if @action_officer.update(action_officer_params)
         flash[:success] = 'Action officer was successfully created'
         redirect_to action_officers_path
@@ -30,14 +30,14 @@ class ActionOfficersController < ApplicationController
   end
 
   def edit
-   loading_records(:existing)
+   loading_existing_records
   end
 
   def update
-    loading_records(:existing) do
+    loading_existing_records do
       if @action_officer.update(action_officer_params)
         flash[:success] = 'Action officer was successfully updated'
-        redirect_to @action_officer 
+        redirect_to action_officer_path(@action_officer)
       else
         flash[:error] = 'Action officer could not be updated'
         render action: 'edit'  
@@ -46,26 +46,26 @@ class ActionOfficersController < ApplicationController
   end
 
   def find
-    @results = ActionOfficer.by_name(params[:q]).select(:id, :name)
-    render json: @results
+    render json: ActionOfficer.by_name(params[:q]).select(:id, :name)
   end
 
   private
 
-  def loading_records(type)
+  def loading_new_records
+    loading_defaults
+    @action_officer = ActionOfficer.new
+    yield if block_given?
+  end
+
+  def loading_existing_records
+    loading_defaults
+    @action_officer = ActionOfficer.find(params[:id])
+    yield if block_given?
+  end
+
+  def loading_defaults
     @deputy_directors = DeputyDirector.active
     @press_desks      = PressDesk.active
-    @action_officer   =
-      case type
-      when :new
-        ActionOfficer.new
-      when :existing
-        ActionOfficer.find(params[:id])
-      else
-        raise ArgumentError, 'the specified record type is not supported'
-      end
-    
-    yield if block_given?
   end
 
   def action_officer_params
