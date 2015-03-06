@@ -100,10 +100,11 @@ class Pq < ActiveRecord::Base
                          'progress'      => Progress.draft_pending)
 
         follow_up.update!(attrs)
+
+        ao_pq = action_officers_pqs.find(&:accepted?)
+        ao_pq.update(pq_id: follow_up.id) if ao_pq
       end
 
-      ao_pq = action_officers_pqs.find(&:accepted?)
-      ao_pq.update(pq_id: follow_up.id) if ao_pq
       follow_up
     end
   end
