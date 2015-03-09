@@ -1,68 +1,84 @@
 class ActionOfficersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_action_officer, only: [:show, :edit, :update, :destroy]
-  before_action :prepare_dropdowns
 
   def index
-    @action_officers = ActionOfficer.all.joins(:deputy_director => :division).order('lower(divisions.name)').order('lower(action_officers.name)')
+    @action_officers = 
+      ActionOfficer.all
+        .joins(:deputy_director => :division)
+        .order('lower(divisions.name)')
+        .order('lower(action_officers.name)')
+  end
+
+  def show
+    loading_existing_records
   end
 
   def new
-    @action_officer = ActionOfficer.new
-  end
-
-  def find
-    @results = ActionOfficer.by_name(params[:q]).select(:id, :name)
-    render json: @results
+    loading_new_records
   end
 
   def create
-    begin
-    @action_officer = ActionOfficer.new(action_officer_params)
-    if @action_officer.save
-      flash[:success] = 'Action officer was successfully created.'
-      redirect_to action_officers_path
-      return
+    loading_new_records do      
+      if @action_officer.update(action_officer_params)
+        flash[:success] = 'Action officer was successfully created'
+        redirect_to action_officers_path
+      else
+        flash[:error] = 'Action officer could not be created'
+        render action: 'new'
+      end
     end
-    rescue => err
-      @action_officer.errors[:base] << handle_db_error(err)
-    end
-    render action: 'new'
+  end
+
+  def edit
+   loading_existing_records
   end
 
   def update
-    begin
-    if @action_officer.update(action_officer_params)
-      flash[:success] = 'Action officer was successfully updated.'
-      redirect_to @action_officer 
-      return
+    loading_existing_records do
+      if @action_officer.update(action_officer_params)
+        flash[:success] = 'Action officer was successfully updated'
+        redirect_to action_officer_path(@action_officer)
+      else
+        flash[:error] = 'Action officer could not be updated'
+        render action: 'edit'  
+      end
     end
-    rescue => err
-      @action_officer.errors[:base] << handle_db_error(err)
-    end
-    render action: 'edit'
+  end
+
+  def find
+    render json: ActionOfficer.by_name(params[:q]).select(:id, :name)
   end
 
   private
 
-  def set_action_officer
+  def loading_new_records
+    loading_defaults
+    @action_officer = ActionOfficer.new
+    yield if block_given?
+  end
+
+  def loading_existing_records
+    loading_defaults
     @action_officer = ActionOfficer.find(params[:id])
+    yield if block_given?
+  end
+
+  def loading_defaults
+    @deputy_directors = DeputyDirector.active
+    @press_desks      = PressDesk.active
   end
 
   def action_officer_params
-    params.require(:action_officer).permit(:name, :email, :group_email, :phone, :deleted, :deputy_director_id, :press_desk_id)
-  end
-
-  def prepare_dropdowns
-    @deputy_directors = DeputyDirector.active
-    @press_desks = PressDesk.active
-  end
-
-  def handle_db_error(err)
-    if err.message.include?('index_action_officers_on_email_and_deputy_director_id')
-      "An action officer with this email address(#{@action_officer.email}) is already assigned to #{@action_officer.deputy_director.name}"
-    else
-      err
-    end
+    params
+      .require(:action_officer)
+      .permit(
+        :name, 
+        :email, 
+        :group_email, 
+        :phone, 
+        :deleted, 
+        :deputy_director_id,
+        :press_desk_id
+      )
   end
 end
