@@ -5,7 +5,7 @@ class CommissionController < ApplicationController
 
   def commission
     pq     = Pq.find(params[:commission_form][:pq_id])
-    
+
     status = checking_valid_dates do 
       form = CommissionForm.new(commission_form_params)
       if form.valid?
@@ -44,10 +44,8 @@ class CommissionController < ApplicationController
   end
 
   def checking_valid_dates
-    [
-      :date_for_answer, 
-      :internal_deadline
-    ].each { |date_key| parse_date(params[:commission_form][date_key]) }
+    parse_date(params[:commission_form][:date_for_answer])
+    parse_date(params[:commission_form][:internal_deadline])
     yield
     rescue DateTimeInputError
       422
