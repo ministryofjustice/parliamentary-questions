@@ -2,7 +2,7 @@ class ManualRejectCommissionController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def reject_manual
-    ao_pq = ActionOfficersPq.find(params[:id])
+    ao_pq = ActionOfficersPq.first(id: params[:id])
 
     unless ao_pq
       redirect_to(
