@@ -3,7 +3,7 @@ p
   | ,
 p= I18n.t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url)
 p= I18n.t("devise.mailer.invitation_instructions.setup").html_safe
-div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;"
+div style="padding-left:0.5em;margin-left:10px;border-left:4px solid gray;margin-top:5px;margin-right:5px;margin-bottom:5px;"
   p
     | To complete your account setup you need to #{link_to I18n.t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token)}
 p It is recommended that you use Firefox web browser to access PQ Tracker. Using Internet Explorer may cause performance issues.
