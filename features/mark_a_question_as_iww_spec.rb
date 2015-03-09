@@ -35,6 +35,9 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     click_on "Answer"
     click_on "Create 'I will write' follow up"
 
+    visit dashboard_path
+    expect(page).not_to have_text(@uin)
+
     expect_pq_in_progress_status(@iww_uin, 'Draft Pending')
 
     visit pq_path(@iww_uin)
