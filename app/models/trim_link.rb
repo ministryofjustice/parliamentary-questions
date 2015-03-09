@@ -14,7 +14,7 @@ class TrimLink < ActiveRecord::Base
   private
 
   def trim_file_format
-    if file && !::Trim::Validator.valid_upload?(file)
+    if file && !::Validators::Trim.valid_upload?(file)
       errors.add(:file, 'Missing or invalid trim link file!')
     end
   end
