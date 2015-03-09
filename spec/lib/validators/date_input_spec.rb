@@ -27,6 +27,12 @@ describe Validators::DateInput do
     expect { parse_datetime(date_b.to_s) }.to raise_error(Validators::DateInput::DateTimeInputError)
   end
 
+  it 'should raise an error if the time is outside the expected window' do
+    date_s = '13/03/2015     25:15'
+
+    expect { parse_datetime(date_s) }.to raise_error(Validators::DateInput::DateTimeInputError)
+  end
+
   context '#parse_datetime' do
     it 'should return a date time if input is correct' do
       dt = DateTime.now.midnight

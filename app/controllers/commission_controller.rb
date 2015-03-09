@@ -44,8 +44,8 @@ class CommissionController < ApplicationController
   end
 
   def checking_valid_dates
-    parse_date(params[:commission_form][:date_for_answer])
-    parse_date(params[:commission_form][:internal_deadline])
+    parse_datetime(params[:commission_form][:date_for_answer])
+    parse_datetime(params[:commission_form][:internal_deadline])
     yield
     rescue DateTimeInputError
       422
