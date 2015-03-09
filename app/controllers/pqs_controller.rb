@@ -33,7 +33,7 @@ class PqsController < ApplicationController
   private
 
   def with_valid_dates
-    DATE_PARAMS.each { |key| pq_params[key].present? && parse_date(pq_params[key]) }
+    DATE_PARAMS.each { |key| pq_params[key].present? && parse_datetime(pq_params[key]) }
     yield
   rescue DateTimeInputError
     flash[:error] = 'Invalid date input!'
