@@ -33,7 +33,7 @@ class PqsController < ApplicationController
   private
 
   def with_valid_dates
-    date_keys.each { |key| pq_params[key].present? && parse_date(pq_params[key]) } 
+    DATE_PARAMS.each { |key| pq_params[key].present? && parse_date(pq_params[key]) }
     yield
   rescue DateTimeInputError
     flash[:error] = 'Invalid date input!'
@@ -67,57 +67,58 @@ class PqsController < ApplicationController
     pq.reassign(ActionOfficer.find(action_officer_id)) if action_officer_id.present?
   end
 
-  def date_keys
-    Pq.columns
-      .select{ |c| [:datetime, :date].include? c.type }
-      .map(&:name)
+  def pq_params
+    whitelist = PARAMS + DATE_PARAMS
+    params.require(:pq).permit(*whitelist)
   end
 
-  def pq_params
-    params.require(:pq).permit(
-      :answer_submitted,
-      :answering_minister_query,
-      :answering_minister_returned_by_action_officer,
-      :answering_minister_to_action_officer,
-      :cleared_by_answering_minister,
-      :cleared_by_policy_minister,
-      :correction_circulated_to_action_officer,
-      :date_for_answer,
-      :draft_answer_received,
-      :final_response_info_released,
-      :finance_interest,
-      :holding_reply_flag,
-      :holding_reply,
-      :i_will_write_estimate,
-      :i_will_write,
-      :internal_deadline,
-      :library_deposit,
-      :minister_id,
-      :pod_clearance,
-      :pod_query_flag,
-      :pod_query,
-      :policy_minister_id,
-      :policy_minister_query,
-      :policy_minister_returned_by_action_officer,
-      :policy_minister_to_action_officer,
-      :pq_correction_received,
-      :pq_withdrawn,
-      :press_interest,
-      :progress_id,
-      :resubmitted_to_answering_minister,
-      :resubmitted_to_policy_minister,
-      :round_robin_date,
-      :round_robin_guidance_received,
-      :round_robin,
-      :seen_by_finance,
-      :sent_to_answering_minister,
-      :sent_to_policy_minister,
-      :transfer_in_date,
-      :transfer_in_ogd_id,
-      :transfer_out_date,
-      :transfer_out_ogd_id,
-      :with_pod,
-      trim_link_attributes: [:file]
-    )
-  end
+  PARAMS = [
+    :answering_minister_query,
+    :final_response_info_released,
+    :finance_interest,
+    :holding_reply_flag,
+    :i_will_write,
+    :library_deposit,
+    :minister_id,
+    :pod_query_flag,
+    :policy_minister_id,
+    :policy_minister_query,
+    :pq_correction_received,
+    :press_interest,
+    :progress_id,
+    :round_robin,
+    :seen_by_finance,
+    :transfer_in_ogd_id,
+    :transfer_out_ogd_id,
+    :with_pod,
+    trim_link_attributes: [:file]
+  ]
+
+
+  DATE_PARAMS = [
+    :date_for_answer,
+    :internal_deadline,
+    :draft_answer_received,
+    :i_will_write_estimate,
+    :holding_reply,
+    :pod_query,
+    :pod_clearance,
+    :round_robin_date,
+    :correction_circulated_to_action_officer,
+    :sent_to_policy_minister,
+    :policy_minister_to_action_officer,
+    :policy_minister_returned_by_action_officer,
+    :resubmitted_to_policy_minister,
+    :cleared_by_policy_minister,
+    :sent_to_answering_minister,
+    :answering_minister_to_action_officer,
+    :answering_minister_returned_by_action_officer,
+    :resubmitted_to_answering_minister,
+    :cleared_by_answering_minister,
+    :answer_submitted,
+    :pq_withdrawn,
+    :round_robin_guidance_received,
+    :transfer_out_date,
+    :transfer_in_date
+    ]
 end
