@@ -1,7 +1,7 @@
 require 'feature_helper'
 require './spec/support/csv_helpers'
 
-feature 'Transferring questions' do
+feature 'Exporting PQ data to CSV' do
   include Features::PqHelpers
   include CSVHelpers
 
@@ -12,7 +12,7 @@ feature 'Transferring questions' do
     set_seen_by_finance
   end
 
-  scenario "Parli-branch exports pq data as CSV" do
+  scenario 'Parli-branch can export pq data as CSV' do
     create_pq_session
     visit export_path
 
@@ -21,5 +21,16 @@ feature 'Transferring questions' do
     click_on 'Download CSV'
     uins = decode_csv(page.body).map { |h| h['PIN'] }
     expect(uins).to eq(@pqs.map(&:uin))
+  end
+
+  scenario 'Incorrect date input will show an error on the page' do
+    create_pq_session
+    visit export_path
+
+    fill_in 'Date from', with: Date.today.strftime('%d/%m/%Y')
+    fill_in 'Date to', with: 'A' * 100
+    click_on 'Download CSV'
+
+    expect(page).to have_content 'Invalid date input!'
   end
 end

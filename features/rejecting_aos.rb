@@ -33,7 +33,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
 
     visit pq_path(@pq.uin)
     click_on "PQ commission"
-    #TODO: replace UserBuilder with fixtures
+
     expect(page).to have_content("rejected manually by pq@pq.com")
     expect_pq_status(@pq.uin, "No response")
   end
@@ -43,6 +43,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
     visit pq_path(@pq.uin)
     click_on "PQ commission"
     first('a', text:'Manually reject this action officer').click
+    
     expect_pq_status(@pq.uin, "Rejected")
   end
 end
