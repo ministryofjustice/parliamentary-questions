@@ -22,7 +22,6 @@ module ApplicationHelper
   end
 
   def flash_class_for(flash_type)
-    Rails.logger.info flash_type
     case flash_type.to_s
     when 'notice'
       'pq-msg-success'
