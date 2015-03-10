@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from StandardError do |exception|
     case exception.class
-    when ActiveRecord::RecordNotFound
+    when ActiveRecord::RecordNotFound, ActionController::RoutingError
       page_not_found
     else
       server_error
