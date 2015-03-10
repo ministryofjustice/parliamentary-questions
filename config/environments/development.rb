@@ -29,13 +29,15 @@ ParliamentaryQuestions::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  # Custom Logging - comment this block out if you don't need logstash-type logs in dev mode
-  config.logstasher.enabled = true
-  config.logstasher.suppress_app_log = true
-  config.logstasher.log_level = Logger::INFO
-  config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
-  # This line is optional, it allows you to set a custom value for the @source field of the log event
-  config.logstasher.source = 'logstasher'
+  # Custom Logging - unocmment this block if you want to see logstash-style logs written
+  # to log/logstash_development.json.
+  # A side effect of this is that the normal log/development.log will just contain SQL actions and
+  # no details of the controller action or parameters.
+      # config.logstasher.enabled = true
+      # config.logstasher.suppress_app_log = true
+      # config.logstasher.log_level = Logger::INFO
+      # config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
+      # config.logstasher.source = 'logstasher'
   # End of custom logging block
 
 

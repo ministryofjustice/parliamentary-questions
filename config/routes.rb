@@ -66,6 +66,8 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'watchlist/dashboard' => 'watchlist_dashboard#index'
   get 'watchlist/preview' => 'watchlist_dashboard#preview'
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
+
+  # TODO I think this is unused code
   get 'find_action_officers' => 'action_officers#find'
 
   get 'finance/questions' => 'finance#questions'
