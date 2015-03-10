@@ -29,7 +29,8 @@ ParliamentaryQuestions::Application.routes.draw do
   devise_for :users , :controllers => { :invitations => 'users/invitations' }
   resources :users
 
-  resources :pqs
+  resources :pqs, only: [ :index, :show, :update ]
+  
   resources :trim_links
 
   get 'trim_links/new/:id' => 'trim_links#new'

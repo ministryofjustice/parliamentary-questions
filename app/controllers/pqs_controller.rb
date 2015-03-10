@@ -43,14 +43,8 @@ class PqsController < ApplicationController
   def loading_relations
     @progress_list = Progress.all
     @ogd_list      = Ogd.all
-    @pq            = Pq.find_by(uin: params[:id])
-
-    unless @pq
-      flash[:error] = 'Question not found'
-      redirect_to action: 'index'
-    else
-      yield if block_given?
-    end
+    @pq            = Pq.find_by(uin: params[:id]) or page_not_found
+    yield if block_given?
   end
 
   def archive_trim_link!(action)
