@@ -13,7 +13,7 @@ class ImportWorker
 
       rescue => err
         case err
-        when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED
+        when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError
           LogStuff.error { err.message }
           ImportMailer.notify_fail(err.message).deliver
         else
