@@ -30,6 +30,10 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  # def render_not_found
+  #   render file: "#{Rails.root}/public/404", :status => 404
+  # end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:invite).concat [:name, :roles]
     devise_parameter_sanitizer.for(:accept_invitation).concat [:name, :roles, :invitation_token, :password, :password_confirmation]
@@ -46,3 +50,4 @@ protected
     end
   end
 end
+
