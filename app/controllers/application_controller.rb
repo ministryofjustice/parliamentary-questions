@@ -34,6 +34,12 @@ protected
   #   render file: "#{Rails.root}/public/404", :status => 404
   # end
 
+  def request_url
+    "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
+  end
+
+
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:invite).concat [:name, :roles]
     devise_parameter_sanitizer.for(:accept_invitation).concat [:name, :roles, :invitation_token, :password, :password_confirmation]
@@ -48,6 +54,8 @@ protected
       format.html { render file: "public/#{err_number}", status: err_number }
       format.all  { render nothing: true, status: err_number }
     end
+    LogStuff.info(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}" }
+
   end
 end
 
