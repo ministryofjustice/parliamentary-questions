@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    page_not_found
+  end
+
   def set_am_host
     request = self.request
     opts = ::ActionMailer::Base.default_url_options
@@ -29,10 +33,6 @@ class ApplicationController < ActionController::Base
   end
 
 protected
-
-  # def render_not_found
-  #   render file: "#{Rails.root}/public/404", :status => 404
-  # end
 
   def request_url
     "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
