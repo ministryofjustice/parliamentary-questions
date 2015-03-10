@@ -4,7 +4,7 @@ class CommissionController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def commission
-    pq     = Pq.find(params[:commission_form][:pq_id])
+    pq     = Pq.find(params[:commission_form][:pq_id])        # raises 404 if not found
 
     status = checking_valid_dates do 
       form = CommissionForm.new(commission_form_params)
