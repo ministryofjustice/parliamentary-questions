@@ -1,5 +1,5 @@
 class ImportMailer < PQBaseMailer
-  default from: Settings.mail_from 
+  default from: Settings.mail_from
 
   def notify_fail(err_msg)
     @err_msg = err_msg

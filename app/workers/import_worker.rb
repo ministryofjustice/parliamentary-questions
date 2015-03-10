@@ -7,22 +7,18 @@ class ImportWorker
     LogStuff.tag(:import) do
       begin
         LogStuff.info { "Import: starting scheduled import" }
-        PaperTrail.whodunnit = 'SideKiq'
-
         report = @import.run(Date.yesterday, Date.tomorrow)
-        
         LogStuff.info { "Import: completed scheduled import" }
+        ImportMailer.notify_success(report).deliver
 
-        ImportMailer.notify_success(report)
-      rescue HTTPClient::FailureResponse => err
+      rescue => err
+        case err
+        when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED
           LogStuff.error { err.message }
-          ImportMailer.notify_fail(err.message)
-      rescue Net::ReadTimeout => err
-          LogStuff.error { "PQ rest api request timed out" }
-          ImportMailer.notify_fail(err.message)
-      rescue Errno::ECONNREFUSED => err
-          LogStuff.error { "PQ rest API refused HTTP connection" }
-          ImportMailer.notify_fail(err.message)
+          ImportMailer.notify_fail(err.message).deliver
+        else
+          raise err
+        end
       end
     end
   end
