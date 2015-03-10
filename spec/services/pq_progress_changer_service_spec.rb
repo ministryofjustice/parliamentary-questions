@@ -11,9 +11,6 @@ describe PQProgressChangerService do
   let(:pq_progress_changer_service) { described_class.new }
 
   before(:each) do
-    @pq_progress_changer_service = PQProgressChangerService.new
-    @assignment_service = AssignmentService.new
-    @comm_service = CommissioningService.new
     ActionMailer::Base.deliveries = []
   end
 

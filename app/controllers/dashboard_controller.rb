@@ -6,46 +6,48 @@ class DashboardController < ApplicationController
   PER_PAGE    = 15
 
   def index
-    @dashboard_state = NEW
-    LogStuff.metadata(:request_id => request.env['action_dispatch.request_id']) do
-      LogStuff.tag(:dashboard) do
-        LogStuff.info { "Showing dashboard" }
-        @questions = paginate_collection(Pq.new_questions)
-      end
-    end
+    load_pq_with_counts(NEW) { Pq.new_questions }
   end
 
   def by_status
-    @dashboard_state = NEW
-    @questions = paginate_collection(Pq.by_status(params[:qstatus]))
+    load_pq_with_counts(NEW) { Pq.by_status(params[:qstatus]) }
   end
 
   def transferred
-    @dashboard_state = NEW
-    @questions = paginate_collection(Pq.transferred)
+    load_pq_with_counts(NEW) { Pq.transferred }
     render 'by_status'
   end
 
   def in_progress_by_status
-    @dashboard_state = IN_PROGRESS
     by_status
   end
 
   def i_will_write
-    @dashboard_state = IN_PROGRESS
-    @questions = paginate_collection(Pq.i_will_write_flag)
+    load_pq_with_counts(IN_PROGRESS) { Pq.i_will_write_flag }
     render 'in_progress_by_status'
   end
 
   def in_progress
-    @dashboard_state = IN_PROGRESS
-    @questions = paginate_collection(Pq.in_progress)
+    load_pq_with_counts(IN_PROGRESS) { Pq.in_progress }
   end
 
   def search
   end
 
   private
+
+  def load_pq_with_counts(dashboard_state)
+    @pq_counts       = {}
+    pq_counts        = Pq.counts_by_state
+    @dashboard_state = dashboard_state
+    @questions       = paginate_collection(yield) if block_given?
+    @filters         =
+      if dashboard_state == IN_PROGRESS
+        DashboardFilters.build_in_progress(pq_counts, params)
+      else
+        DashboardFilters.build(pq_counts, params)
+      end
+  end
 
   def paginate_collection(pqs)
     page = params.fetch(:page, 1)
