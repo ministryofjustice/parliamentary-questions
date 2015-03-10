@@ -27,17 +27,17 @@ class ApplicationController < ActionController::Base
   end
 
   def page_not_found
-    @page_title = 'Error Page 404'
+    @page_title = 'Not found (404) - MOJ Parliamentary Questions'
     show_error_page_and_increment_statsd(404)
   end
 
   def unauthorized
-    @page_title = 'Error Page 401'
+    @page_title = 'Unauthorized (401) - MOJ Parliamentary Questions'
     show_error_page_and_increment_statsd(401)
   end
 
   def server_error
-    @page_title = 'Error Page 500'
+    @page_title = 'Internal server error (500) - MOJ Parliamentary Questions'
     show_error_page_and_increment_statsd(500)
   end
 
