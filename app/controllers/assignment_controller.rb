@@ -40,7 +40,7 @@ class AssignmentController < ApplicationController
 
   def loading_question_and_assignment
     _, assignment_id = params[:entity].split(':')
-    @question = Pq.find_by(uin: params[:uin])
+    @question = Pq.find_by!(uin: params[:uin])
 
     if assignment_id
       @assignment = @question.action_officers_pqs.find(assignment_id)
