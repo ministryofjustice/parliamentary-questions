@@ -13,8 +13,10 @@ h2 Settings
     h3 Tasks
     ul
       li= link_to 'Create a transferred PQ', transferred_new_path
-      li= link_to 'Export to CSV', export_path
-      li= link_to 'POD Export to CSV', export_pod_path
+      li
+        a href="#{export_path}" Export to <abbr title="Comma Separated Values">CSV</abbr>
+      li
+        a href="#{export_pod_path}" <abbr title="Private Office Directorate">POD</abbr> export to <abbr title="Comma Separated Values">CSV</abbr>
   .col-md-4
     h3 User admin
     ul

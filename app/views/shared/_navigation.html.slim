@@ -29,7 +29,7 @@
             .form-group
               = text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search by UIN' }
             = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
-              i.fa.fa-search
+              span.fa.fa-search
         - elsif current_user.finance_user?
           ul.nav.navbar-nav
             li= link_to 'Sign out', destroy_user_session_path
