@@ -3,7 +3,11 @@
     = render partial: 'shared/errors', object: @pq
     fieldset
       .form-group
-        label.form-label for="pq_uin"  Please enter the UIN for the transferred PQ
+        label.form-label for="pq_uin"
+          'Please enter the
+          abbr title="Unique Identification Number" UIN
+          '  for the transferred PQ
+
         = f.text_field :uin, class:'form-control'
       .form-group
         label.form-label for="pq_question"  Please enter the text of the question for the transferred PQ

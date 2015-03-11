@@ -7,11 +7,11 @@
   - @answer_target = @pq.date_for_answer + 18.hours
   - if @pq.answer_submitted <= @answer_target
     p.text
-      i.fa.fa-check-circle
+      span.fa.fa-check-circle
       | Answer submitted on time
   - elsif @pq.answer_submitted > @answer_target
     p.text
-      i.fa.fa-thumbs-o-down
+      span.fa.fa-thumbs-o-down
       | Answer NOT submitted on time
 = f.check_box_gds :library_deposit
 .form-group

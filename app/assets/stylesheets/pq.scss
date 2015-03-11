@@ -517,10 +517,7 @@ li.select2-search-field {border-bottom: none;}
   list-style: none;
   margin-bottom: 1em;
   li {
-    margin: .8em 0;
-    details {
-      margin-left: 1.2em;
-    }
+    margin: 0.8em 0 0.8em 1.2em;
   }
 }
 
@@ -755,24 +752,22 @@ select:-moz-focusring {
 
 .space-before-20 { margin-top: 20px; }
 
-details{
-  summary{
-    span.link{
-      color: #005ea5;
-      cursor: pointer;
-      margin-right: .5em;
-      position: relative;
-      &.closed {
-        &:before {
-          content: '► ';
-          position: absolute;
-          left: -1.25em;
-        }
+.details-reveal {
+  span.link{
+    color: #005ea5;
+    cursor: pointer;
+    margin-right: .5em;
+    position: relative;
+    &.closed {
+      &:before {
+        content: '► ';
+        position: absolute;
+        left: -1.25em;
       }
-      &.opened {
-        &:before {
-          content: '▼ ';
-        }
+    }
+    &.opened {
+      &:before {
+        content: '▼ ';
       }
     }
   }
