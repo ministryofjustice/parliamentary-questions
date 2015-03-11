@@ -11,7 +11,8 @@ class MinisterContactsController < ApplicationController
     @minister         = @minister_contact.minister
 
     if @minister_contact.save
-      redirect_to @minister, notice: 'Contact was successfully created.'
+      flash[:success] = 'Contact was successfully created.'
+      redirect_to @minister
     else
       render action: 'new'
     end
@@ -27,7 +28,8 @@ class MinisterContactsController < ApplicationController
     @minister         = @minister_contact.minister
 
     if @minister_contact.update(minister_contacts_params)
-      redirect_to @minister_contact.minister, notice: 'Contact was successfully updated.'
+      flash[:success] = 'Contact was successfully updated.'
+      redirect_to @minister
     else
       render action: 'edit'
     end
