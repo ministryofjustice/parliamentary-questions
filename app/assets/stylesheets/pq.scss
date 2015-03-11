@@ -26,7 +26,7 @@ $notice-colour: $govuk-blue;
 $danger-colour: $error-colour;
 
 #build,
-i.fa-envelope,
+.fa-envelope,
 .open,
 .dropdown-toggle.btn-success,
 .trim-links-header:hover,
@@ -42,9 +42,10 @@ i.fa-envelope,
 }
 
 
-i.fa-exclamation-triangle, i.fa-times-circle { color: #df3034; }
-i.fa-check-circle { color: $success-colour; }
-i.fa-warning { color: $error-colour; }
+.fa-exclamation-triangle,
+.fa-times-circle { color: #df3034; }
+.fa-check-circle { color: $success-colour; }
+.fa-warning { color: $error-colour; }
 #status-filters .active .badge { color: #6f7781; }
 #qa-link a { color: #4a8acd; }
 hr { color: #bfc1c3; }
@@ -52,9 +53,7 @@ h4 { color: #6f777b; }
 #build { color: #f47738; }
 
 #search_button,
-#status-filters .active .badge,
-.js-enabled .selected,
-.js-enabled .selected,
+#status-filters .active .badge
 { background-color: #fff; }
 
 #search_form { color: $grey-2; }
@@ -75,7 +74,6 @@ h4 { color: #6f777b; }
 h2 .badge,
 #status-filters .badge { background-color: #000; }
 
-.block-label:hover, .js-enabled .selected { border-color: #0b0c0c; }
 .questions-list li, .form-control         { border-color: #bfc1c3; }
 .progress-menu-form                       { border-color: #c2c2c2; }
 .block-label                              { border-color: #dee0e2; }
@@ -246,8 +244,8 @@ footer {
   .block-label { margin: 0px 0px 20px 0px; }
 }
 
-i.fa-envelope,
-i.fa-exclamation-triangle { margin-left: 4px; }
+.fa-envelope,
+.fa-exclamation-triangle { margin-left: 4px; }
 
 .right { float: right; }
 
@@ -509,7 +507,6 @@ textarea {
   }
 }
 
-.select2-container .select2-choice abbr {top: 5px!important;}
 .select2-arrow {display:none!important;}
 
 li.select2-search-field {border-bottom: none;}
