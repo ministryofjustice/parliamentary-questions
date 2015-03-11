@@ -3,7 +3,7 @@
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
   .datetimepicker.default-time
     input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"
 hr/
 .question-allocation
   - if @pq.action_officers.size > 0
@@ -57,4 +57,4 @@ hr/
   label.form-label for="transfer_out_date"  Date transferred out
   .datetimepicker
     input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"
