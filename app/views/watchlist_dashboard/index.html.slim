@@ -21,8 +21,8 @@ div
           h4 Allocation
           ul.question-allocation-list data-pqid=question.id data-pquin=question.uin
             - question.action_officers_pqs.each do |ao_pq|
-              li
-                - if !ao_pq.action_officer.nil?
+              - if !ao_pq.action_officer.nil?
+                li
                   - if ao_pq.accepted?
                     = ao_pq.action_officer.name
                     = " (#{ao_pq.action_officer.deputy_director.division.name}) "
