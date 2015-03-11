@@ -12,7 +12,7 @@
         label.form-label for="pq_dateforanswer"  Date for answer
         .datetimepicker
           input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.to_s) /
-          span.fa.fa-calendar
+          span.fa.fa-calendar title="select a date"
       p.text House
       .form-group.inline
         label.block-label for="pq_house_name_house_of_commons"
@@ -50,6 +50,6 @@
         label.form-label for="transfer_in_date"  Date transferred in
         .datetimepicker
           input#transfer_in_date.form-control name="pq[transfer_in_date]" type="text" value=(@pq.transfer_in_date.to_s) /
-          span.fa.fa-calendar
+          span.fa.fa-calendar title="select a date"
       .form-group
         = f.submit 'Create PQ', :class => 'button'
