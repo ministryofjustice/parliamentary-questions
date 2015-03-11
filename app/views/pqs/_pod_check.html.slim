@@ -5,7 +5,9 @@ h4 Date sent to POD
   p.text= 'TBD'
 = f.check_box_gds :pod_query_flag
 .form-group
-  label.form-label for="pod_clearance"  Date cleared by POD
+  label.form-label for="pod_clearance"
+    ' Date cleared by
+    abbr title="Private Office Directorate" POD
   .datetimepicker
     input#pod_clearance.form-control name="pq[pod_clearance]" type="text" value=(@pq.pod_clearance.to_s) /
     span.fa.fa-calendar title="select a date"

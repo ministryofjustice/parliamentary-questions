@@ -1,8 +1,8 @@
 .status
   - if status.deleted?
-    i.fa.fa-times-circle&nbsp;
+    span.fa.fa-times-circle&nbsp;
     = (defined? inactive) ? inactive : ' Inactive'
   - else
-    i.fa.fa-check-circle&nbsp;
+    span.fa.fa-check-circle&nbsp;
     = (defined? active) ? active : ' Active'
   

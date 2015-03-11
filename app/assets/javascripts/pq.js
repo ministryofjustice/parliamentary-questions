@@ -81,7 +81,7 @@ var trim_link, $, ga;
 
     // if the page has rejection details, make them collapsible
     // applies to /assignment and /watchlist/preview pages
-    $('details').each(enableDetailsToggle);
+    $('.details-reveal').each(enableDetailsToggle);
 
     // on /assignment, open the reject justification form when Reject is selected
     // and hide it when Accept is selected
