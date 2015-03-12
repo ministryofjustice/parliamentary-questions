@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from StandardError do |exception|
     case exception.class
-    when ActiveRecord::RecordNotFound, ActionController::RoutingError
+    when ActiveRecord::RecordNotFound
       page_not_found
     else
       server_error
@@ -67,7 +67,7 @@ protected
       format.html { render file: "public/#{err_number}", status: err_number }
       format.all  { render nothing: true, status: err_number }
     end
-    LogStuff.info(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}" }
+    LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}" }
 
   end
 end
