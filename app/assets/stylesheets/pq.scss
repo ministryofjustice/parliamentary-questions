@@ -692,6 +692,7 @@ select:-moz-focusring {
   border-style: solid;
   border-radius: 0px;
   width: auto;
+  height: auto; // override bootstrap
 }
 
 .form-control:focus,
