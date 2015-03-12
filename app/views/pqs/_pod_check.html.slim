@@ -1,8 +1,11 @@
-h4 Date sent to POD
+h4
+  ' Date sent to
+  abbr title="Private Office Directorate" POD
 - if @pq.pod_waiting.to_s != ''
   p.text= @pq.pod_waiting.to_s
 - else
-  p.text= 'TBD'
+  p.text
+    abbr title="To Be Decided" TBD
 = f.check_box_gds :pod_query_flag
 .form-group
   label.form-label for="pod_clearance"
