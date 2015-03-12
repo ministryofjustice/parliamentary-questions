@@ -30,11 +30,10 @@
                 | (#{ao_pq.action_officer.deputy_director.division.name})
                 span.flag.accepted Accepted
               - elsif ao_pq.rejected?
-                details.details-reveal
-                  summary aria-controls="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
-                    span.link.closed
-                      = ao_pq.action_officer.name
-                      | (#{ao_pq.action_officer.deputy_director.division.name})
+                span.details-reveal
+                  span.link.closed aria-controls="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
+                    = ao_pq.action_officer.name
+                    | (#{ao_pq.action_officer.deputy_director.division.name}) 
                     span.flag.rejected Rejected
                   .panel-indent.reveal.closed id="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
                     p.strong= ao_pq.reason_option
