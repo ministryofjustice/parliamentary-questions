@@ -756,22 +756,20 @@ select:-moz-focusring {
 .space-before-20 { margin-top: 20px; }
 
 .details-reveal {
-  .link {
-    color: #005ea5;
-    cursor: pointer;
-    margin-right: .5em;
-    position: relative;
-    &.closed {
-      &:before {
-        content: '► ';
-        position: absolute;
-        left: -1.25em;
-      }
+  color: #005ea5;
+  cursor: pointer;
+  margin-right: .5em;
+  position: relative;
+  &.closed {
+    &:before {
+      content: '► ';
+      position: absolute;
+      left: -1.25em;
     }
-    &.opened {
-      &:before {
-        content: '▼ ';
-      }
+  }
+  &.opened {
+    &:before {
+      content: '▼ ';
     }
   }
 }
