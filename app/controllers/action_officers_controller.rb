@@ -45,7 +45,6 @@ class ActionOfficersController < ApplicationController
     end
   end
 
-  # TODO I don't think this is used
   def find
     render json: ActionOfficer.by_name(params[:q]).select(:id, :name)
   end
