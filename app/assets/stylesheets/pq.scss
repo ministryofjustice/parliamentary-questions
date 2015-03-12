@@ -36,9 +36,11 @@ $danger-colour: $error-colour;
 
 .navbar-default .navbar-nav li a {
   color: $text-colour; // override bootstrap
-  &::hover {
-    color: $secondary-text-colour;
-  }
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: $secondary-text-colour; // override bootstrap
 }
 
 
