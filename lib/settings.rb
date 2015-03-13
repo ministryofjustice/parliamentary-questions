@@ -29,27 +29,20 @@ module Settings
   module_function
   filepath         = File.expand_path('../config/settings.yml', __dir__)
   @h               = YAML::load_file(filepath)
+  @config_keys     = @h.keys.map { |k| k.to_sym }
   @pq_rest_api     = PqRestApi.from_env
 
   def pq_rest_api
     @pq_rest_api
   end
 
-  def mail_from
-    @h['mail_from']
-  end
-
-  def mail_reply_to
-    @h['mail_reply_to']
-  end
-
-  def mail_tech_support
-    @h['mail_tech_support']
-  end
-
-  def http_client_timeout
-    @h['http_client_timeout']
-  end
+  def method_missing(method, *params)
+    if @config_keys.include?(method)
+      @h[method.to_s]
+    else
+      super
+    end
+  end  
 
   def ga_tracker_id
     ENV.fetch('GA_TRACKER_ID', DEFAULT_GA_TRACKER_ID)
