@@ -13,6 +13,5 @@
 //= require moment
 //= require jquery_ujs
 //= require jquery.remotipart
-//= require bootstrap
 //= require select2
 //= require_tree .
