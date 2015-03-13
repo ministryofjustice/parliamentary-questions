@@ -604,26 +604,28 @@ select:-moz-focusring {
       margin-bottom: .5em;
     }
   }
-
-  // override bootstrap and make tabs work without JS
-
-  // without js, show all panes on the page
-  .tab-content > .tab-pane { display: block; }
-
-  // with js, all panes are invisible by default...
-  .js-enabled .tab-content > .tab-pane {
-    display: none;
-  }
-
-  // ... except the active one
-  .js-enabled .tab-content > .tab-pane.active {
-    display: block;
-  }
-
-
-
-
 }
+
+
+// override bootstrap and make tabs work without JS
+
+// without js, show all panes on the page
+.tab-content > .tab-pane { display: block; }
+
+// with js, all panes are invisible by default...
+.js-enabled .tab-content > .tab-pane {
+  display: none;
+}
+
+// ... except the active one
+.js-enabled .tab-content > .tab-pane.active {
+  display: block;
+}
+
+
+
+
+
 
 
 // override bootstrap and make tabs work without JS
