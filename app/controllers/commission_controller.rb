@@ -5,8 +5,7 @@ class CommissionController < ApplicationController
 
   def commission
     pq     = Pq.find(params[:commission_form][:pq_id])
-
-    status = checking_valid_dates do 
+    status = checking_valid_dates do
       form = CommissionForm.new(commission_form_params)
       if form.valid?
         CommissioningService.new.commission(form)
@@ -30,7 +29,7 @@ class CommissionController < ApplicationController
   end
 
   def complete
-    @pq = Pq.find_by(uin: params[:id])
+    @pq = Pq.find_by!(uin: params[:id])
     render :partial => 'shared/commissioned', :locals => {uin: @pq}
   end
 
