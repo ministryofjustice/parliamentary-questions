@@ -17,7 +17,6 @@ tmp
 /Dockerfile
 /MANIFEST
 /docker/app_env_vars/
-vendor/
 *~
 *.swp
 *.swo
