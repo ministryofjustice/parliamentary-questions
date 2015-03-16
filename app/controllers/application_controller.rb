@@ -46,8 +46,6 @@ protected
     "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
   end
 
-
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:invite).concat [:name, :roles]
     devise_parameter_sanitizer.for(:accept_invitation).concat [:name, :roles, :invitation_token, :password, :password_confirmation]
@@ -63,7 +61,5 @@ protected
       format.all  { render nothing: true, status: err_number }
     end
     LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}" }
-
   end
 end
-
