@@ -43,7 +43,7 @@ class PqsController < ApplicationController
   def loading_relations
     @progress_list = Progress.all
     @ogd_list      = Ogd.all
-    @pq            = Pq.find_by(uin: params[:id]) or page_not_found
+    @pq            = Pq.find_by!(uin: params[:id])
     yield if block_given?
   end
 
