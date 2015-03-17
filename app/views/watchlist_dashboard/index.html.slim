@@ -1,7 +1,7 @@
-div
-  h2
+#watchlist-preview
+  h1
     | Questions Allocated #{Date.today.to_s}
-  h3.section
+  h2.section
     = "Allocated Today "
     span.badge= @questions.length
   - @questions.each do |question|
