@@ -9,7 +9,7 @@ hr/
   - if @pq.action_officers.size > 0
     - @pq.action_officers_pqs.order(updated_at: :desc).each do |ao_pq|
       - if ao_pq.accepted?
-        h4 Name of Action Officer
+        h3 Name of Action Officer
         = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
         - reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : ''
         = ' '
@@ -17,17 +17,17 @@ hr/
         p.text
           = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
 
-        h4 Email of Action Officer
+        h3 Email of Action Officer
         p.text= mail_to ao_pq.action_officer.email
-        h4 Phone of Action Officer
+        h3 Phone of Action Officer
         p.text= ao_pq.action_officer.phone
-        h4 Division of Action Officer
+        h3 Division of Action Officer
         p.text= ao_pq.action_officer.deputy_director.division.name
-        h4 Directorate of Action Officer
+        h3 Directorate of Action Officer
         p.text= ao_pq.action_officer.deputy_director.division.directorate.name
-        h4 Deputy director
+        h3 Deputy director
         p.text= ao_pq.action_officer.deputy_director.name
-        h4 Press Desk
+        h3 Press Desk
         = ao_pq.action_officer.press_desk.name
         br/
         - ao_pq.action_officer.press_desk.press_officers.each do |po|

@@ -51,7 +51,6 @@ $danger-colour: $error-colour;
 #status-filters .active .badge { color: #6f7781; }
 #qa-link a { color: #4a8acd; }
 hr { color: #bfc1c3; }
-h4 { color: #6f777b; }
 #build { color: #f47738; }
 
 #search_button,
@@ -74,7 +73,6 @@ h4 { color: #6f777b; }
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus,
 .dropdown-menu li a:hover { background-color: #ffbf47; }
-h2 .badge,
 #status-filters .badge { background-color: #000; }
 
 .block-label:hover, .js-enabled .selected { border-color: #0b0c0c; }
@@ -82,8 +80,6 @@ h2 .badge,
 .progress-menu-form                       { border-color: #c2c2c2; }
 .block-label                              { border-color: #dee0e2; }
 .form-control:focus                       { border-color: #ffbf47; }
-
-#settings-home h3        { border-bottom-color: #dee0e2; }
 
 @mixin alert($colour)
 {
@@ -145,41 +141,54 @@ h2 .badge,
 }
 
 
-// =============================================================================
-// = PQ-specific styling =======================================================
+// ==============================================================================
+// = PQ-wide styling ============================================================
 
 h1 {
+  font-family: "nta",Arial,sans-serif;
   font-size: 24px;
-  font-weight: normal;
-  display: inline;
-  margin-right: 19px;
+  font-weight: bold;
+  margin: 20px 0 10px 0;
 }
 
 h2 {
-  font-size: 24px;
-  font-weight: bold;
-}
+  font-size: 19px;
+  font-family: "nta",Arial,sans-serif;
+  font-weight: normal;
+  margin: 10px 0 0 0;
+  color: $secondary-text-colour;
 
-h2 .badge { vertical-align: middle; }
+}
 
 h3 {
   font-size: 19px;
-  font-weight: bold;
+  font-weight: normal;
+  font-family: "nta",Arial,sans-serif;
+  color: $secondary-text-colour;
+  margin: 10px 0 0 0;
+  #watchlist-preview & {
+    font-weight: bold;
+    color: $text-colour;
+    margin: 20px 0 10px 0;
+  }
 }
-
-
 
 h4 {
   font-size: 19px;
   font-weight: normal;
-  margin-bottom: 0px;
-  padding: 0px;
+  color: $secondary-text-colour;
 }
 
-.pq-header h3,
+
+
+// --------------------
+
+
+
+
 .pq-header-flags,
-.pq-header-links,
-#pq-details-title h2 {display: inline-block;}
+.pq-header-links  {display: inline-block;}
+
 
 
 button.close {
@@ -227,7 +236,11 @@ footer {
   &.unassigned { background-color: #bd10e0; }
   &.with-minister { background-color: #82622e; }
   &.with-pod { background-color: #2e358b; }
+  &.transferred-out { background-color: #d53880; }
+  &.transferred-in { background-color: #7d7d7d; }
+  &.will-write { background-color: #5f5f5f; }
 }
+
 
 .question-type {
   color: #6f777b;
@@ -326,19 +339,21 @@ button, input[type="submit"] {
   vertical-align: -20%;
 }
 
+.select2-arrow {display:none!important;}
+
+li.select2-search-field {border-bottom: none;}
+
+
 // = Element spacing ============================================================
 
-.dashboard-column1-uncommissioned { margin-bottom: 20px; }
-
-.dashboard-column1-commissioned .col-md-6 {
-  padding-left: 0px;
-  margin: 0px 0px 10px 0px;
+.question-allocation-list {
+  list-style: none;
+  margin-bottom: 1em;
+  li {
+    margin: 0.8em 0 0.8em 1.2em;
+  }
 }
 
-.dashboard-column-2 .text {
-  display: block;
-  margin: 0px 0px 6px 0px;
-}
 
 .select2-search-choice div { line-height: 1em; }
 
@@ -357,7 +372,6 @@ button, input[type="submit"] {
 #pq-columns label.block-label
 { margin: 0px 0px 20px 0px; }
 
-#progress-panel h4 { margin: 0px; }
 #progress-panel label.form-label {
   color: #6F777B;
 }
@@ -423,7 +437,14 @@ textarea {
 
 #sign_in { margin: 30px 0px; }
 
-// = Navigation =================================================================
+
+
+/* ============================================================================== */
+/* ========= Components ========================================================= */
+/* ============================================================================== */
+
+
+// = Navigation bar==============================================================
 
 .navbar {
   // margin: 0px -15px 20px -15px;
@@ -456,10 +477,13 @@ textarea {
   }
 }
 
-/* Status Filters =============================================================== */
+/* = Status filter component on dashboard ========================================== */
 
 #status-filters {
-  h3 { margin: 0px 0px 10px 0px; }
+  h2 {
+    margin: 0 0 10px 0;
+    color: $text-colour;
+  }
   .badge {
     float: right;
     min-width: 1.5em;
@@ -469,143 +493,7 @@ textarea {
   }
 }
 
-/* = Dashboard Questions ======================================================== */
-
-.questions-list {
-  padding: 0px 45px 20px 0px;
-  h3 { font-size: 24px; }
-  li.question {
-    list-style: none;
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    padding: 30px 0px 30px 0px;
-  }
-  .pq-header {
-    line-height: 27px;
-    margin-bottom: 20px;
-    h3 {
-      margin: 0;
-      padding: 0;
-    }
-    .pq-header-flags { margin-right: 26px; }
-  }
-  .pq-question {
-    margin: .5em 0 .5em;
-    padding: .5em 0;
-  }
-  .status-bar {
-    line-height: 32px;
-    margin-bottom: 26px;
-    padding: 0px;
-  }
-  .pq-columns {
-    .col-md-7 { padding-left: 0px; }
-    .dashboard-column-2 {
-      .trim_area.trim_area_dashboard{
-        .trim-links-form {
-          .inline.tr5-actions.toggle-content{
-            .pq-inline-form { display: inline!important; }
-          }
-        }
-      }
-    }
-  }
-}
-
-.select2-arrow {display:none!important;}
-
-li.select2-search-field {border-bottom: none;}
-
-.question-allocation-list {
-  list-style: none;
-  margin-bottom: 1em;
-  li {
-    margin: 0.8em 0 0.8em 1.2em;
-  }
-}
-
-/* = PQ Details Page ============================================================ */
-
-#pq-details-header {
-  #pq-details-ref {
-    padding: 11px 0px;
-    margin: 0px;
-    h2 {
-      padding: 0px;
-      margin: 0px 10px 0px 0px;
-      display: inline-block;
-    }
-    #pq-details-progress { margin-left: 26px; }
-  }
-}
-
-#pq-details-qa-link { display: block; }
-
-ul.nav-tabs li a {
-  outline: 0;
-}
-
-// remove firefox's dotted line
-select:-moz-focusring {
-    color: transparent;
-    text-shadow: 0 0 0 #000;
-}
-
-#pq-detail-area {
-  margin: 15px 0px 0px 0px;
-
-  #progress-menu {
-    z-index: 1;
-    padding: 0;
-
-    ul li a {
-      padding-left: 0;
-    }
-
-    ul li.active a {
-      padding-left: 1em;
-      border: 1px solid #c2c2c2;
-      border-right: 0;
-      margin-right: 0;
-      border-radius: 6px 0 0 6px;
-      @media screen and (max-width: 991px) {
-        border-radius: 6px;
-        border: 1px solid #c2c2c2;
-      }
-    }
-
-    ul li a:link {
-      color: black;
-    }
-
-  }
-
-  #progress-panel {
-    margin: 0px;
-    padding: 0px;
-    .progress-menu-form {
-      border-width: 1px;
-      border-style: solid;
-      padding: 15px 15px 15px 30px;
-      margin-left: -1px;
-      min-height: 350px;
-    }
-    #create_iww {
-      clear: both;
-      display: block;
-      width: 280px;
-      margin-bottom: 20px;
-    }
-    .start-hidden { display: none; }
-    .ao-reminder-link {
-      margin-left: 40px; // put some space between person name and link to email them
-    }
-    #progress-menu-fc-data .status {
-      margin-bottom: .5em;
-    }
-  }
-}
-
+/* = Tab component ================================================================ */
 
 // override bootstrap and make tabs work without JS
 
@@ -621,10 +509,6 @@ select:-moz-focusring {
 .js-enabled .tab-content > .tab-pane.active {
   display: block;
 }
-
-
-
-
 
 
 /* = TRIM links ================================================================= */
@@ -679,18 +563,265 @@ select:-moz-focusring {
   border-right: 0px;
 }
 
-/* = Administration ============================================================ */
+/* ============================================================================== */
+/* ========= Specific pages ===================================================== */
+/* ============================================================================== */
 
-#settings-home .col-md-4 {
-  padding-left: 0px;
-  padding-right: 32px;
+/* = Assignment page (/assignment) ============================================== */
+
+#assignment .panel-heading {
+  color: $text-colour;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-#settings-home h3 {
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-  padding-bottom: 7.5px;
+/* = Dashboard page (/dashboard) ======================================================== */
+
+#dashboard {
+
+  h1 {
+    font-size: 19px;
+    font-weight: normal;
+    margin: auto 2px auto auto;
+  }
+
+  h2 {
+    font-size: 24px;
+    display: inline-block;
+    font-weight: bold;
+    margin: auto;
+    color: $text-colour;
+  }
+
+  .dashboard-column1-uncommissioned { margin-bottom: 20px; }
+
+  .dashboard-column1-commissioned .col-md-6 {
+    padding-left: 0px;
+    margin: 0px 0px 10px 0px;
+  }
+
+  .dashboard-column-2 .text {
+    display: block;
+    margin: 0px 0px 6px 0px;
+  }
+
+  .questions-list {
+    padding: 0px 45px 20px 0px;
+    li.question {
+      list-style: none;
+      border-bottom-width: 2px;
+      border-bottom-style: solid;
+      padding: 30px 0px 30px 0px;
+    }
+    .pq-header {
+      line-height: 27px;
+      margin-bottom: 20px;
+      .pq-header-flags { margin-right: 26px; }
+    }
+    .pq-question {
+      margin: .5em 0 .5em;
+      padding: .5em 0;
+    }
+    .status-bar {
+      line-height: 32px;
+      margin-bottom: 26px;
+      padding: 0px;
+    }
+    .pq-columns {
+      .col-md-7 { padding-left: 0px; }
+      .dashboard-column-2 {
+        .trim_area.trim_area_dashboard{
+          .trim-links-form {
+            .inline.tr5-actions.toggle-content{
+              .pq-inline-form { display: inline!important; }
+            }
+          }
+        }
+      }
+    }
+  }
 }
+
+/* = PQ Details Page (/pqs/[uin]) ============================================ */
+
+#pq-details {
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0px 10px 0px 0px;
+  }
+
+  h2 {
+    padding: 0;
+    margin: 0;
+    color: $text-colour;
+  }
+
+  #pq-details-header {
+    #pq-details-ref {
+      padding: 11px 0px;
+      margin: 0px;
+      #pq-details-progress { margin-left: 26px; }
+    }
+  }
+
+  #pq-details-qa-link { display: block; }
+
+  ul.nav-tabs li a {
+    outline: 0;
+  }
+
+  // remove firefox's dotted line
+  select:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #000;
+  }
+
+  #pq-detail-area {
+    margin: 15px 0px 0px 0px;
+
+    #progress-menu {
+      z-index: 1;
+      padding: 0;
+
+      ul li a {
+        padding-left: 0;
+      }
+
+      ul li.active a {
+        padding-left: 1em;
+        border: 1px solid #c2c2c2;
+        border-right: 0;
+        margin-right: 0;
+        border-radius: 6px 0 0 6px;
+        @media screen and (max-width: 991px) {
+          border-radius: 6px;
+          border: 1px solid #c2c2c2;
+        }
+      }
+
+      ul li a:link {
+        color: black;
+      }
+
+    }
+
+    #progress-panel {
+      margin: 0px;
+      padding: 0px;
+      .progress-menu-form {
+        border-width: 1px;
+        border-style: solid;
+        padding: 15px 15px 15px 30px;
+        margin-left: -1px;
+        min-height: 350px;
+      }
+      #create_iww {
+        clear: both;
+        display: block;
+        width: 280px;
+        margin-bottom: 20px;
+      }
+      .start-hidden { display: none; }
+      .ao-reminder-link {
+        margin-left: 40px; // put some space between person name and link to email them
+      }
+      #progress-menu-fc-data .status {
+        margin-bottom: .5em;
+      }
+    }
+  }
+
+}
+
+/* = Report pages (/reports/...) ================================================ */
+
+#filter-report {
+
+  h2 {
+    font-size: 24px;
+    display: inline-block;
+    font-weight: bold;
+    margin: auto;
+    color: $text-colour;
+  }
+
+  p.count {
+    font-size: 19px;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+  }
+
+  .col-md-9 { padding: 0px; }
+  .col-md-3 {
+    select{
+      width: 200px;
+      white-space: pre-wrap; /* css-3 */
+      white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+      white-space: -pre-wrap; /* Opera 4-6 */
+      white-space: -o-pre-wrap; /* Opera 7 */
+      word-wrap: break-word; /* Internet Explorer 5.5+ */
+      text-overflow: ellipsis;
+      option {}
+    }
+  }
+  .button { margin-right: 25%; }
+
+}
+
+#minister-report,
+#press-desk-report {
+  table td {
+    padding-top: 10px;
+    padding-bottom: 13px;
+  }
+  .table-cell-centered { text-align: center; }
+}
+
+
+/* = Settings (/admin) ====================================================== */
+
+#settings-home {
+  h2 {
+    font-weight: bold;
+    border-bottom: 2px solid $panel-colour;
+    padding-bottom: 7.5px;
+    display: block;
+    margin: 20px 0 10px 0;
+    color: $text-colour;
+  }
+
+  .col-md-4 {
+    padding-left: 0px;
+    padding-right: 32px;
+  }
+}
+
+/* = Watchlist preview (/watchlist/preview) ================================ */
+
+#watchlist-preview {
+  h2 {
+    margin: 20px 0 10px 0;
+    font-weight: bold;
+    color: $text-colour;
+  }
+}
+
+/* = Minister details page (/ministers/) =========================== */
+/* = Press-desk page (/press_desks/]) ============================== */
+/* = CSV export page (/export) ===================================== */
+
+#admin-ministers-details h2:last-of-type,
+#admin-pd-details h2:last-of-type,
+#csv-export h2 {
+  margin: 20px 0 10px 0;
+  font-weight: bold;
+  color: $text-colour;
+}
+
+
+/* ================================================================= */
 
 .table {clear: both;}
 
@@ -726,33 +857,6 @@ select:-moz-focusring {
 // Minister list column widths
 #admin-status { width: 100px; }
 #minister-name { width: 30% }
-
-// = Reports ============================================================
-
-.table-cell-centered { text-align: center; }
-
-#minister-report td,
-#pressdesk-report td {
-  padding-top: 10px;
-  padding-bottom: 13px;
-}
-
-#report-filter {
-  .col-md-9 { padding: 0px; }
-  .col-md-3 {
-    select{
-      width: 200px;
-      white-space: pre-wrap; /* css-3 */
-      white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-      white-space: -pre-wrap; /* Opera 4-6 */
-      white-space: -o-pre-wrap; /* Opera 7 */
-      word-wrap: break-word; /* Internet Explorer 5.5+ */
-      text-overflow: ellipsis;
-      option {}
-    }
-  }
-  .button { margin-right: 25%; }
-}
 
 
 /* ============================================================ */

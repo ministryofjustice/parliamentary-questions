@@ -1,20 +1,21 @@
-h2 Minister report
-table#minister-report.table.table-hover
-  thead
-    tr
-      th Progress
-      - @ministers.each do |m|
-        th.table-cell-centered
-          = link_to m.name  , {:action => 'filter_all', minister_id: m.id }
-  tbody
-    - @progresses.each do |p|
+div#minister-report
+  h1 Minister report
+  table.table.table-hover
+    thead
       tr
-        td
-          span class=("flag #{p.classname}") = p.name
+        th Progress
         - @ministers.each do |m|
-          - @count = @counters[[m.id, p.id]] || 0
-          td.table-cell-centered
-            - if @count > 0
-              = link_to @count  , {:action => 'filter_all', minister_id: m.id, progress_id: p.id}
-            - else
-              | 0
+          th.table-cell-centered
+            = link_to m.name  , {:action => 'filter_all', minister_id: m.id }
+    tbody
+      - @progresses.each do |p|
+        tr
+          td
+            span class=("flag #{p.classname}") = p.name
+          - @ministers.each do |m|
+            - @count = @counters[[m.id, p.id]] || 0
+            td.table-cell-centered
+              - if @count > 0
+                = link_to @count  , {:action => 'filter_all', minister_id: m.id, progress_id: p.id}
+              - else
+                | 0

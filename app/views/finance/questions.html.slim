@@ -1,5 +1,5 @@
 = render partial: 'shared/flash_messages'
-h2
+h1
   | New PQ's today&nbsp;
   span.badge= @questions.count
 hr/
@@ -12,7 +12,7 @@ hr/
         li
           fieldset
             .pq-header
-              h3= question.uin
+              h2= question.uin
               - if question.question_type == 'NamedDay'
                 span.question-type  Named day
               - if question.transferred
@@ -26,9 +26,9 @@ hr/
                   | Register interest
               .col-md-6
                 span.form-group
-                h4= question.house_name
+                h2= question.house_name
                 p.text= question.member_name
-                h4 Date for answer
+                h2 Date for answer
                 p.text= question.date_for_answer.try(:to_s, :date)
                 input name="pq[#{question.id}][seen_by_finance]" type="hidden" value="true" /
     #confirmation_button_bar.col-md-9
