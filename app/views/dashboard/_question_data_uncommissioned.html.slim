@@ -1,5 +1,5 @@
 .pq-columns.row
-  = form_for CommissionForm.new,
+  = form_for CommissionForm.new(minister_id: question.minister_id, policy_minister_id: question.policy_minister_id),
   remote: true,
   authenticity_token: true,
   html: {:id => "form-commission#{question.id}", :class => 'form-commission', :data => {pqid: question.id}},

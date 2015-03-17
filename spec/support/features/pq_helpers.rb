@@ -7,12 +7,13 @@ module Features
       click_link_or_button 'btn_finance_visibility'
     end
 
-    def commission_question(uin, action_officers, minister)
+    def commission_question(uin, action_officers, minister, policy_minister = nil)
       create_pq_session
       visit dashboard_path
 
       within_pq(uin) do
-        select minister.name, from: 'Answering minister'
+        select_option('commission_form[minister_id]', minister.name)
+        select_option('commission_form[policy_minister_id]', policy_minister.name) if policy_minister
 
         action_officers.each do |ao|
           select ao.name, from: 'Action officer(s)'
@@ -68,6 +69,12 @@ module Features
     end
 
     private
+
+    def select_option(selector_name, option_text)
+      find(:select, selector_name)
+            .find(:option, text: option_text)
+            .select_option
+    end
 
     def visit_assignment_url(action_officer)
       mail = sent_mail_to(action_officer.email).first
