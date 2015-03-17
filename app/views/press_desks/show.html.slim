@@ -1,11 +1,11 @@
-h2 Press desk details
 #admin-pd-details
+  h1 Press desk details
   = render partial: "shared/flash_messages", flash: flash
-  h4 Name
+  h2 Name
   p.text= @press_desk.name
-  h4 Status
+  h2 Status
   = render partial: 'shared/status', object: @press_desk
-  h3 Press officers
+  h2 Press officers
   ul
     - @press_desk.press_officers.each do |po|
       li= link_to(po.name,   controller: 'press_officers', action: 'show', id: po.id   )
