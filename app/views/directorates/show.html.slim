@@ -1,9 +1,9 @@
-h2 Directorate details
 #admin-directorate-details
+  h1 Directorate details
   = render partial: "shared/flash_messages", flash: flash
-  h4 Name
+  h2 Name
   p.text= @directorate.name
-  h4 Status
+  h2 Status
   = render partial: 'shared/status', object: @directorate
   = link_to 'Edit', edit_directorate_path(@directorate), {class: 'admin-link'}
   = link_to 'Return to directorate list', directorates_path, {class: 'admin-link'}

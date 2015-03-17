@@ -1,27 +1,28 @@
-h2 Settings
-#settings-home.row
-  .col-md-4
-    h3 Address books
-    ul
-      li= link_to 'Action officers', action_officers_path
-      li= link_to 'Watch list', watchlist_members_path
-      li= link_to 'Action list', actionlist_members_path
-      li= link_to 'Ministers', ministers_path
-      li= link_to 'Deputy directors', deputy_directors_path
-      li= link_to 'Press officers', press_officers_path
-  .col-md-4
-    h3 Tasks
-    ul
-      li= link_to 'Create a transferred PQ', transferred_new_path
-      li
-        a href="#{export_path}" Export to <abbr title="Comma Separated Values">CSV</abbr>
-      li
-        a href="#{export_pod_path}" <abbr title="Private Office Directorate">POD</abbr> export to <abbr title="Comma Separated Values">CSV</abbr>
-  .col-md-4
-    h3 User admin
-    ul
-      li= link_to 'Users', users_path
-      li= link_to 'Directorates', directorates_path
-      li= link_to 'Divisions', divisions_path
-      li= link_to 'Press desks', press_desks_path
-      li= link_to 'Other government Departments', ogds_path
+#settings-home
+  h1 Settings
+  .row
+    .col-md-4
+      h2 Address books
+      ul
+        li= link_to 'Action officers', action_officers_path
+        li= link_to 'Watch list', watchlist_members_path
+        li= link_to 'Action list', actionlist_members_path
+        li= link_to 'Ministers', ministers_path
+        li= link_to 'Deputy directors', deputy_directors_path
+        li= link_to 'Press officers', press_officers_path
+    .col-md-4
+      h2 Tasks
+      ul
+        li= link_to 'Create a transferred PQ', transferred_new_path
+        li
+          a href="#{export_path}" Export to <abbr title="Comma Separated Values">CSV</abbr>
+        li
+          a href="#{export_pod_path}" <abbr title="Private Office Directorate">POD</abbr> export to <abbr title="Comma Separated Values">CSV</abbr>
+    .col-md-4
+      h2 User admin
+      ul
+        li= link_to 'Users', users_path
+        li= link_to 'Directorates', directorates_path
+        li= link_to 'Divisions', divisions_path
+        li= link_to 'Press desks', press_desks_path
+        li= link_to 'Other government Departments', ogds_path
