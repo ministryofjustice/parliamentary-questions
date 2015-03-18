@@ -8,7 +8,7 @@
   h2 Status
   = render partial: 'shared/status', object: @minister
   h2 Contacts
-  div class="row>"
+  div class="row"
     ul#admin-button-bar
       li= link_to ('Add new contact'), new_minister_contact_withid_path(@minister), {class: 'button-secondary'}
   table.table
