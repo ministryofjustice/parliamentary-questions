@@ -1,15 +1,15 @@
 require 'feature_helper'
 
-feature 'Transferring questions', js: true, suspend_cleaner: true do
+feature 'Transferring IN questions', js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  def create_transferred_pq(uin, text)
+  def create_transferred_pq(uin, text, date = nil)
     create_pq_session
     visit transferred_new_path
 
     fill_in 'pq[uin]', with: uin
     fill_in 'pq[question]', with: text
-    find('#pq_dateforanswer').set Date.tomorrow.strftime('%d/%m/%Y')
+    find('#pq_dateforanswer').set date || Date.tomorrow.strftime('%d/%m/%Y')
     choose 'House of Commons'
 
     find("select[name = 'pq[transfer_in_ogd_id]']")
@@ -30,6 +30,14 @@ feature 'Transferring questions', js: true, suspend_cleaner: true do
 
   let(:uin)           { 'transfer-uin-1'                  }
   let(:question_text) { 'this is a question - t37egfcsdb' }
+
+  scenario 'Attempting to transfer a PQ with invalid inputs shows an error on the page' do
+    invalid_date = 'A' * 51
+    create_transferred_pq('invalid-uin-1', 'question_text', invalid_date )
+
+    expect(page).not_to have_content('Transferred PQ was successfully created')
+    expect(page).to have_content('Invalid date input!')
+  end
 
   scenario 'Parli branch should be able to create a transferred PQ' do
     create_transferred_pq(uin, question_text)

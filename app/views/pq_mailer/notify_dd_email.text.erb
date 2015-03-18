@@ -1,21 +1,32 @@
+
 <%= @template_params[:dd_name] %>
 
 <%= @template_params[:ao_name] %> has been allocated the PQ <%= @template_params[:uin]%>
-============================================================================
-<%= @template_params[:question] %>
-============================================================================
 
-Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)
-To be answered by: <%= @template_params[:answer_by] %>
+  <%= @template_params[:question] %>
 
-============================================================================
-An Accept or Reject Response is required from them before 2pm today.
+  Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)
 
-The draft response to the question is required before <%= @template_params[:internal_deadline] %> - 10am
-============================================================================
+<% if @template_params[:member_constituency].present? %>
+  Constituency: <%= @template_params[:member_constituency] %>
+<% end %>
 
-If you have any questions, please contact the PQ Team (<%= Settings.mail_reply_to %>).
+<% if @template_params[:answer_by].present? %>
+  To be answered by: <%= @template_params[:answer_by] %>
+<% end %>
 
-This is a new service and your feedback will help us improve it. Please send your feedback to pqfeedback@digital.justice.gov.uk
+<% if @template_params[:internal_deadline].present? %>
+  Internal deadline: <%= @template_params[:internal_deadline] %>
+<% end %>
+
+<% if @template_params[:date_to_parliament].present? %>
+  Due back to Parliament: <%= @template_params[:date_to_parliament] %>
+<% end %>
+
+<%= @template_params[:ao_name] %> must accept or reject this PQ before 2pm today.
+
+The draft response to the question is required before <%= @template_params[:internal_deadline] %>
+
+If you have any queries please contact the PQ team at <%= Settings.mail_reply_to %>
 
 <%= render 'shared/mailer/email_signature_plain' %>

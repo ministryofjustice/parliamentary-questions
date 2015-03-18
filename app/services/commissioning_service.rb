@@ -81,9 +81,12 @@ class CommissioningService
       :uin => pq.uin,
       :question => pq.question,
       :ao_name => ao.name,
+      :member_constituency => pq.member_constituency,
       :member_name => pq.member_name,
-      :house => pq.house_name,
-      :answer_by => pq.minister.name
+      :house_name => pq.house_name,
+      :answer_by => pq.minister.name,
+      :internal_deadline => pq.internal_deadline,
+      :date_to_parliament => pq.date_for_answer
     }
   end
 end

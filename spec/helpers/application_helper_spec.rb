@@ -29,24 +29,4 @@ RSpec.describe ApplicationHelper do
       expect(helper.minister_warning?(question, minister)).to be true
     end
   end
-
-  describe '#ministers' do
-    let(:minister) { double }
-    let(:question) { double minister: minister }
-    before { expect(Minister).to receive(:active).with(minister) }
-
-    it 'returns active ministers including selected' do
-      helper.ministers(question)
-    end
-  end
-
-  describe '#policy_ministers' do
-    let(:minister) { double }
-    let(:question) { double policy_minister: minister }
-    before { expect(Minister).to receive(:active).with(minister) }
-
-    it 'returns active ministers including selected' do
-      helper.policy_ministers(question)
-    end
-  end
 end

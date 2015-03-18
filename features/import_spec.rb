@@ -28,6 +28,10 @@ describe PQA::Import do
   end
 
   feature "importing PQA data into the app" do
+    before(:all) do
+      DBHelpers.load_spec_fixtures
+    end
+
     context "when no questions exist in the db" do
       before do
         ds = {
@@ -116,11 +120,6 @@ describe PQA::Import do
           ])
         end
       end
-
-    end
-
-    context "when some question in the API causes a validation error" do
-      it "rejects the failing questions and report the validation errors"
     end
   end
 end

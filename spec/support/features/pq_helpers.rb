@@ -21,7 +21,7 @@ module Features
         click_on 'Commission'
       end
 
-      expect(page).to have_content("#{@pq.uin} commissioned successfully")
+      expect(page).to have_content("#{uin} commissioned successfully")
     end
 
     def accept_assignnment(action_officer)
@@ -42,11 +42,15 @@ module Features
       click_on 'Save Response'
     end
 
-    def expect_pq_status(uin, *click_path)
-      visit dashboard_path
-      click_path.each do |anchor|
-        click_on anchor
-      end
+    def expect_pq_status(uin, status)
+      visit dashboard_path unless page.current_path == dashboard_path
+      click_on status
+      expect(page).to have_content(uin)
+    end
+
+    def expect_pq_in_progress_status(uin, status)
+      visit dashboard_in_progress_path unless page.current_path == dashboard_in_progress_path
+      click_on status
       expect(page).to have_content(uin)
     end
 
@@ -54,6 +58,13 @@ module Features
       within("*[data-pquin='#{uin}']") do
         yield
       end
+    end
+
+    def in_pq_detail(uin, section_anchor)
+      visit pq_path(uin) unless page.current_path == pq_path(uin)
+      click_on section_anchor
+      yield
+      click_on "Save"
     end
 
     private

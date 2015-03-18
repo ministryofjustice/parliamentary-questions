@@ -49,7 +49,7 @@ APPVERSION=0.1-sprint6
 - Ruby MRI 2.1.2
 - Postgresql 9.3
 - phantomjs (tests only)
-- cureutils (for required by the `version_tag.sh` script)
+- coreutils (for required by the `version_tag.sh` script)
 
 To start with, make sure you have the right version of the Ruby runtime installed.
 Multiple versions of Ruby can be managed on the same machine through either [rbenv](https://github.com/sstephenson/rbenv)

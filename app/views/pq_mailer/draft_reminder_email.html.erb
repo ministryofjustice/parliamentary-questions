@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style type="text/css">
+      body {
+        font-family: arial, sans-serif;
+        font-size: 12pt;
+      }
+      .pq-details {
+        padding-left: 0.5em;
+        border-left: 4px solid gray;
+        margin: 5px 5px 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p><%= @template_params[:ao_name] %>, you have missed the 10am deadline for submitting the draft answer to PQ <strong><%= @template_params[:uin] %></strong>:</p>
+    <div class="pq-details">
+      <p><%= @template_params[:question] %></p>
+
+      <p>Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)</p>
+
+      <% if @template_params[:member_constituency].present? %>
+      <p>Constituency: <%= @template_params[:member_constituency] %></p>
+      <% end %>
+
+      <% if @template_params[:answer_by].present? %>
+      <p>To be answered by: <%= @template_params[:answer_by].to_s %></p>
+      <% end %>
+
+      <% if @template_params[:date_to_parliament].present? %>
+      <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
+      <% end %>
+    </div>
+
+    <p>Your deadline to return this draft response to the PQ team was <%= @template_params[:internal_deadline]%>.</p>
+
+    <p><strong>You must use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> All relevant people will be included automatically. You can add extra recipients if needed.</p>
+
+    <p>Liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For templates and guidance, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>.</p>
+
+    <p>If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a>.</p>
+
+    <%= render 'shared/mailer/email_signature' %>
+  </body>
+</html>

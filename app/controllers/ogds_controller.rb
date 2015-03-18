@@ -3,7 +3,7 @@ class OgdsController < ApplicationController
   before_action :set_ogd, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ogds = Ogd.all.order('lower(name)')
+    @ogds = Ogd.order('lower(name)')
   end
 
   def new
@@ -31,7 +31,7 @@ class OgdsController < ApplicationController
   end
 
   def find
-    @results = Ogd.where("name ILIKE :search OR acronym ILIKE :search", search: "%#{params[:q]}%").select(:id, :name, :deleted)
+    @results = Ogd.by_name(params[:q]).select(:id, :name, :deleted)
     render json: @results
   end
 

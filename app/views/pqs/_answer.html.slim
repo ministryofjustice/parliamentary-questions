@@ -20,7 +20,7 @@
     input#pq_withdrawn.form-control name="pq[pq_withdrawn]" type="text" value=(@pq.pq_withdrawn.to_s) /
     span.fa.fa-calendar
 = f.check_box_gds :holding_reply_flag
-- if @pq.i_will_write
+- unless @pq.is_follow_up?
   = link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button', title: 'Create an ''I will write'' follow up'}
 .form-group
   label.form-label for="pq_final_response_info_released"  Final response information released

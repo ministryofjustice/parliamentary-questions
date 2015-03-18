@@ -50,27 +50,4 @@ describe HTTPClient do
       client.issue_request(:get, "#{client.base_url}/")
     end
   end
-
-  context 'handling server errors' do
-    it 'should raise an error for a non success code response (3XX, 4XX, 5XX)' do      
-      expect(LogStuff).to receive(:error).with(/non success code/)
-      expect{ client.issue_request(:put, "#{client.base_url}/") }
-        .to raise_error(RuntimeError, /non success code/)
-    end
-
-    it 'should raise an error on a server timeout' do
-      allow_any_instance_of(Net::HTTP).to receive(:request)
-        .and_raise(Net::ReadTimeout)
-
-      expect(LogStuff).to receive(:error).with(/api request timed out/)
-      expect{ client.issue_request(:get, "#{client.base_url}/") }
-        .to raise_error(Net::ReadTimeout)
-    end
-
-    it 'should raise an error on a refused connection' do
-      expect(LogStuff).to receive(:error).with(/refused HTTP connection/)
-      expect{ client.issue_request(:put, "http://localhost:65437/") }
-        .to raise_error(Errno::ECONNREFUSED)
-    end
-  end
 end

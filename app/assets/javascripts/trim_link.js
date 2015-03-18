@@ -30,7 +30,7 @@ trim_link.trimFileUpload = function() {
           classname : 'fa fa-check-circle'
         },
         failure : {
-          classname : 'fd fa-warning'
+          classname : 'fa fa-warning'
         }
       };
 
@@ -59,11 +59,11 @@ trim_link.trimFileUpload = function() {
       file_field.click();
     });
 
-    form // clicking on open trim link to open an uploaded file
+    form // trim file upload callbacks
       .on('ajax:error', function(e, response) {
         var json = JSON.parse(response.responseText);
 
-        message_icon.addClass(status_messages.failure.classname);
+        message_icon.attr('class', status_messages.failure.classname);
         upload_message.text(json.message);
 
         message_container.show();
@@ -71,7 +71,7 @@ trim_link.trimFileUpload = function() {
       .on('ajax:success', function(e, response) {
         var json = JSON.parse(response.responseText);
 
-        message_icon.addClass(status_messages.success.classname);
+        message_icon.attr('class', status_messages.success.classname);
         upload_message.text(json.message);
 
         actions
@@ -105,4 +105,3 @@ trim_link.cancelFileSelection = function(e) {
 
 $('#pq_trim_link_attributes_file').on('change', trim_link.toggleCancelLink);
 $('#progress-menu-trim-data .cancel').on('click', trim_link.cancelFileSelection);
-
