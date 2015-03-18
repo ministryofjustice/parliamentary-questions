@@ -2,9 +2,13 @@
 @import "design-patterns/alpha-beta";
 
 $phase: beta;
+$success-colour: $button-colour;
+$notice-colour: $govuk-blue;
+$danger-colour: $error-colour;
 
-// ==============================================================================
-// = PQ-wide styling ============================================================
+//==============================================================================
+// = Global Elements ===========================================================
+//==============================================================================
 
 h1 {
   font-family: "nta",Arial,sans-serif;
@@ -19,7 +23,6 @@ h2 {
   font-weight: normal;
   margin: 10px 0 0 0;
   color: $secondary-text-colour;
-
 }
 
 h3 {
@@ -28,11 +31,6 @@ h3 {
   font-family: "nta",Arial,sans-serif;
   color: $secondary-text-colour;
   margin: 10px 0 0 0;
-  #watchlist-preview & {
-    font-weight: bold;
-    color: $text-colour;
-    margin: 20px 0 10px 0;
-  }
 }
 
 h4 {
@@ -48,141 +46,73 @@ body {
   line-height: 1.3;
 }
 
-// --------------------
+textarea { resize: none; }
 
-
-//===========================================================
-// = GLOBAL CLASSES =========================================
-
-.row {
-  margin: 0px;
-  &.row-spacer{
-    margin: 15px 0;
-  }
+hr {
+  color: $border-colour;
+  height: 1px;
 }
 
-.table {clear: both;}
-
-.table thead tr th,
-.table tbody tr td {
-  padding-left: 0px;
-}
-
-#admin-button-bar {
-  float: right;
-  margin-bottom: 10px;
+ul {
   list-style-type: none;
-  li {
-    display: inline;
-    margin-left: 5px;
-  }
+  padding-left: 0;
 }
 
-.form-control,
-.form-group select {
-  border-style: solid;
-  border-radius: 0px;
-  width: auto;
-  height: auto; // override bootstrap
+footer {
+  margin-top: 100px;
+  a { text-decoration: underline; }
 }
 
-.form-control:focus,
-.form-group select:focus {
-  border-width: 3px;
-  box-shadow: none;
+label {
+  display: block;
+  font-weight: normal;
+  clear: both;
 }
 
-// Minister list column widths
-#admin-status { width: 100px; }
-#minister-name { width: 30% }
-// =======================END ================================
+//==============================================================================
+// = GLOBAL CLASSES ============================================================
+//==============================================================================
+
+.row { margin: 0px; }
 
 
+.open { color: $page-colour; }
 
-// = Colour definitions ============================================================
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: black; }
 
-$success-colour: $button-colour;
-$notice-colour: $govuk-blue;
-$danger-colour: $error-colour;
+// == symbols =====
 
-#build,
-.fa-envelope,
-.open,
-.dropdown-toggle.btn-success,
-.trim-links-header:hover,
-.trim-links-cancel:hover { color: #fff; }
-
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: #000000; }
-
-.navbar-default .navbar-nav li a {
-  color: $text-colour; // override bootstrap
-}
-
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: $secondary-text-colour; // override bootstrap
-}
-
-
-.fa-exclamation-triangle,
-.fa-times-circle { color: #df3034; }
+.fa-times-circle { color: $error-colour; }
 .fa-check-circle { color: $success-colour; }
 .fa-warning { color: $error-colour; }
-#status-filters .active .badge { color: #6f7781; }
-#qa-link a { color: #4a8acd; }
-hr { color: #bfc1c3; }
-#build { color: #f47738; }
+.fa-envelope {
+  color: $page-colour;
+  margin-left: 4px;
+}
+.fa-exclamation-triangle {
+  color: $error-colour;
+  margin-left: 4px;
+  vertical-align: -20%;
+}
 
-#search_button,
-#status-filters .active .badge,
-.js-enabled .selected
-{ background-color: #fff; }
 
-#search_form { color: $grey-2; }
-
-// specify colour of input placeholders for all browsers
+// specify the colour of input placeholders (eg search bar) for all browsers
 ::-webkit-input-placeholder { color: $grey-2; }
 :-moz-placeholder { color: $grey-2; opacity: 1; }
 ::-moz-placeholder { color: $grey-2; opacity:  1; }
 :-ms-input-placeholder { color: $grey-2; }
 
 
-.block-label,
-.navbar { background-color: #dee0e2; }
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus,
-.dropdown-menu li a:hover { background-color: #ffbf47; }
-#status-filters .badge { background-color: #000; }
+.dropdown-menu li a:hover { background-color: $yellow; }
 
-.block-label:hover, .js-enabled .selected { border-color: #0b0c0c; }
-.questions-list li, .form-control         { border-color: #bfc1c3; }
-.progress-menu-form                       { border-color: #c2c2c2; }
-.block-label                              { border-color: #dee0e2; }
-.form-control:focus                       { border-color: #ffbf47; }
+.block-label:hover, .js-enabled .selected { border-color: $text-colour; }
+.questions-list li { border-color: $border-colour; }
+.progress-menu-form { border-color: #c2c2c2; }
+.block-label { border-color: $panel-colour; }
 
-@mixin alert($colour)
-{
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border-left: 4px solid $colour;
-  padding:15px;
-  ul {  // browser compatability to make style consistent
-    list-style: disc outside none;
-    margin-left: 0;
-    padding-left: 1em;
-  }
-}
-
-.pq-msg-success { @include alert($success-colour); } //Success
-.pq-msg-notice { @include alert($notice-colour); }   //Notice invites etc
-.pq-msg-error, .pq-msg-warning { @include alert($danger-colour); }  //for Error's and Warnings rejections etc
-
-.js-enabled .add-focus { outline-color: #ffbf47; }
-.js-enabled .add-focus { outline: 3px solid #ffbf47; }
-
-// =============================================================================
-// = Modification to govuk_template & moj_template =============================
 
 #wrapper {
   max-width: 1024px; // width and alignment are unspecified in govuk_template
@@ -213,46 +143,17 @@ hr { color: #bfc1c3; }
 }
 
 // override govuk-template visited links colours,
-// as this is an application more than a simple web page
+// as this is an application, rather than a simple web page
 @media screen {
   a:visited {
     color: $link-colour;
   }
 }
 
-
-
-
-
-
-
-.pq-header-flags,
-.pq-header-links  {display: inline-block;}
-
-
-
 button.close {
   float: none;
   margin: 0.5em;
 }
-
-.start-hidden { display: none; }
-
-hr { height: 1px; }
-
-ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-footer {
-  margin-top: 100px;
-  a {
-    text-decoration: underline; // override bootstrap
-  }
-}
-
-// = Flags ======================================================================
 
 .flag {
   border: 1.5px solid;
@@ -281,9 +182,8 @@ footer {
   &.will-write { background-color: #5f5f5f; }
 }
 
-
 .question-type {
-  color: #6f777b;
+  color: $secondary-text-colour;
   font-size: 19px;
   font-weight: bold;
   &:before {
@@ -293,38 +193,7 @@ footer {
   }
 }
 
-// ==============================================================================
-
-.form-group {
-  clear: both;
-  margin: 0px 0px 20px 0px;
-  .block-label { margin: 0px 0px 20px 0px; }
-}
-
-.fa-envelope,
-.fa-exclamation-triangle { margin-left: 4px; }
-
-.right { float: right; }
-
 .strong { font-weight: 700; }
-
-label {
-  display: block;
-  font-weight: normal;
-  clear: both;
-}
-
-.date,
-.datetimepicker { width: 13em; }
-
-
-// override jquery.datepicker's colours to match the rest of the page
-.xdsoft_datetimepicker .xdsoft_calendar td:hover, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
-  background-color: #FFBF47!important;
-}
-.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current {
-  background-color: #2B8CC4!important;
-}
 
 #pages,
 .select2-container-multi .select2-choices li { width: 100%; }
@@ -345,46 +214,13 @@ button, input[type="submit"] {
 
 .inline { display: inline-block; }
 
-.form-control {
-  font-size: 19px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
+
 
 .no-indent { margin-left: -2.1em; }
-
-
-// = Calendars =================================================================
-
-.datepicker, .datetimepicker {
-  border-style: solid;
-  border-radius: 0px;
-  border-color: #BFC1C3;
-  border-width: 1px;
-  display: inline-block;
-  width: 90%;
-  max-width: 218px;
-  input {
-    display: inline;
-    width: 90%;
-    border: none;
-  }
-}
-
-.fa-calendar {
-  cursor: pointer;
-}
-
-.fa-exclamation-triangle {
-  vertical-align: -20%;
-}
 
 .select2-arrow {display:none!important;}
 
 li.select2-search-field {border-bottom: none;}
-
-
-// = Element spacing ============================================================
 
 .question-allocation-list {
   list-style: none;
@@ -399,29 +235,67 @@ li.select2-search-field {border-bottom: none;}
 
 .allocation-info .button { margin: 30px 0px 0px 0px; }
 
-#progress-panel .date.datetimepicker,
-#progress-panel p,
-#progress-panel .text,
-#progress-panel hr,
-#progress-panel a,
-#progress-panel label.block-label,
-#pq-columns .date.datetimepicker,
-#pq-columns p,
-#pq-columns select,
-#pq-columns hr,
-#pq-columns label.block-label
-{ margin: 0px 0px 20px 0px; }
 
-#progress-panel label.form-label {
-  color: #6F777B;
+#pq-columns {
+  .date.datetimepicker,
+  p,
+  select,
+  hr,
+  label.block-label {
+    margin: 0px 0px 20px 0px;
+  }
 }
-
-#pq-columns label, #progress-panel label { margin-bottom: 0px; }
 
 #confirmation_button_bar { padding-left: 0px; }
 #btn_finance_visibility { margin-top: 30px; }
 
-// = Radio / checkbox styling ===================================================
+//= Forms ====
+
+.form-control {
+  font-size: 19px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: $border-colour;
+}
+
+.form-group.inline {
+  .block-label {
+    margin: .5em .5em 0 0;
+    &:last-child { margin-right: 0; }
+  }
+}
+
+
+textarea.form-control {
+  width: 66%;
+  min-width: 246px;
+}
+
+
+.form-control:focus                       { border-color: $yellow; }
+
+.form-group {
+  clear: both;
+  margin: 0px 0px 20px 0px;
+  .block-label { margin: 0px 0px 20px 0px; }
+}
+
+.form-control,
+.form-group select {
+  border-style: solid;
+  border-radius: 0px;
+  width: auto;
+  height: auto; // override bootstrap
+}
+
+.form-control:focus,
+.form-group select:focus {
+  border-width: 3px;
+  box-shadow: none;
+}
+
+.js-enabled .add-focus { outline-color: $yellow; }
+.js-enabled .add-focus { outline: 3px solid $yellow; }
 
 .block-label {
   display: block;
@@ -434,64 +308,45 @@ li.select2-search-field {border-bottom: none;}
   margin-top: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-}
+  background-color: $panel-colour;
 
-@media (min-width: 641px) {
-  .block-label {
+  input {
+    position: absolute;
+    top: 18px;
+    left: 15px;
+  }
+
+  .inline & {
+    clear: none;
+    margin-right: 15px;
+  }
+
+  .js-enabled & {
+    input:focus {
+      outline: none;
+    }
+  }
+
+  @media (min-width: 641px) {
     float: left;
     margin-top: 5px;
     margin-bottom: 5px;
   }
 }
 
-.block-label input {
-  position: absolute;
-  top: 18px;
-  left: 15px;
-  cursor: pointer;
-}
 
-.inline .block-label {
-  clear: none;
-  margin-right: 15px;
-}
-
-.js-enabled .block-label input:focus { outline: none; }
-
-// ==============================================================================
-
-textarea {
-  resize:none;
-  &.form-control {
-    width: 66%;
-    min-width: 246px;
-  }
-}
-
+// on all the "return to..." links
 .admin-link {
   display: block;
   margin: 7.5px 0px;
 }
 
-// = Sign in ====================================================================
-
-#sign_in { margin: 30px 0px; }
-
-/* ============================================================ */
-/* = Misc.                                                      */
-/* ============================================================ */
-
 /* found in confirmation and assignment pages*/
 .space-before { margin-top: 15px; }
 .space-before-20 { margin-top: 20px; }
 
-.form-group.inline {
-  .block-label {
-    margin: .5em .5em 0 0;
-    &:last-child { margin-right: 0; }
-  }
-}
 
+// when printing pages, remove interactive components
 @media print {
   .trim_area, .button, .button-secondary, td.edit { display: none; }
 }
@@ -500,7 +355,83 @@ textarea {
 /* ========= Components ========================================================= */
 /* ============================================================================== */
 
-// = Allocatrion rejection control==============================================================
+// = Alert messages ============================================================
+
+
+@mixin alert($colour)
+{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid $colour;
+  padding:15px;
+  ul {
+    list-style: disc outside none;
+    margin-left: 0;
+    padding-left: 1em;
+  }
+}
+
+.pq-msg-success { @include alert($success-colour); }
+.pq-msg-notice { @include alert($notice-colour); }
+.pq-msg-error, .pq-msg-warning { @include alert($danger-colour); }
+
+// = Date-time pickers =========================================================
+
+.datepicker, .datetimepicker {
+  border-style: solid;
+  border-radius: 0px;
+  border-color: $border-colour;
+  border-width: 1px;
+  display: inline-block;
+  width: 90%;
+  max-width: 218px;
+  input {
+    display: inline;
+    width: 90%;
+    border: none;
+  }
+}
+
+// override jquery.datepicker's colours to match the rest of the page
+.xdsoft_datetimepicker .xdsoft_calendar td:hover, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+  background-color: $yellow!important;
+}
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current {
+  background-color: #2B8CC4!important;
+}
+
+.fa-calendar {
+  cursor: pointer;
+}
+
+
+
+// Tables on setting pages (ministers, watch list, action officers, etc.) =========
+.table {
+  clear: both;
+  thead tr th, tbody tr td {
+    padding-left: 0px; // bootstrap override
+  }
+}
+
+// specific columns
+#admin-status { width: 100px; }
+#minister-name { width: 30% }
+
+
+// = Button bar on some settings pages (watch list, action officers, etc.) =========
+#admin-button-bar {
+  float: right;
+  margin-bottom: 10px;
+  list-style-type: none;
+  li {
+    display: inline;
+    margin-left: 5px;
+  }
+}
+
+
+// = Allocation rejection control ==================================================
 /* used to show/hide allocation rejections*/
 .reveal{
   div {
@@ -537,10 +468,17 @@ textarea {
 
 
 
-// = Navigation bar==============================================================
+// = Navigation bar ============================================================
+
+.navbar-default .navbar-nav li a {
+  color: $text-colour; // override bootstrap
+  &::hover {
+    color: $secondary-text-colour;
+  }
+}
 
 .navbar {
-  // margin: 0px -15px 20px -15px;
+  background-color: $grey-3;
   border-radius: 0px;
   #settings { margin-right: 65px; }
   #search_field {
@@ -567,22 +505,6 @@ textarea {
 
   &.nav-stacked {
     border-bottom: 0; // no thin line under vertical tabs
-  }
-}
-
-/* = Status filter component on dashboard ========================================== */
-
-#status-filters {
-  h2 {
-    margin: 0 0 10px 0;
-    color: $text-colour;
-  }
-  .badge {
-    float: right;
-    min-width: 1.5em;
-    margin-top: .2em;
-    border-radius: 4px;
-    padding: 5px 2px 3px 3px;
   }
 }
 
@@ -628,6 +550,7 @@ textarea {
 /* = TRIM links ================================================================= */
 
 .trim-links-form {
+  margin: .3em 0 0;
   input[type="file"] {
     display: none !important;
   }
@@ -637,9 +560,9 @@ textarea {
     margin: .5em .5em 0 0;
   }
 }
-
+.trim-links-header:hover,
+.trim-links-cancel:hover { color: $page-colour; }
 .button-cancel { margin-right: 0; }
-.trim-links-form { margin: .3em 0 0; }
 .tr5-message{ display: none; }
 .toggle-content{ display: none; }
 .additional-action { padding-left: 20px; }
@@ -689,9 +612,12 @@ textarea {
     font-size: 16px;
     font-weight: bold;
   }
+  .row-spacer {
+    margin: 15px 0;
+  }
 }
 
-/* = Dashboard page (/dashboard) ======================================================== */
+/* = Dashboard page (/dashboard) ============================================ */
 
 #dashboard {
 
@@ -746,6 +672,27 @@ textarea {
     .pq-columns .col-md-7 { padding-left: 0px; }
     .pq-inline-form { display: inline!important; }
   }
+
+  .pq-header-flags {display: inline-block;}
+
+  #status-filters {
+    h2 {
+      margin: 0 0 10px 0;
+      color: $text-colour;
+    }
+    .active .badge {
+      color: #6f7781;
+      background-color: $page-colour;
+    }
+    .badge {
+      float: right;
+      min-width: 1.5em;
+      margin-top: .2em;
+      border-radius: 4px;
+      padding: 5px 2px 3px 3px;
+      background-color: black;
+    }
+  }
 }
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
@@ -762,6 +709,13 @@ textarea {
     padding: 0;
     margin: 0;
     color: $text-colour;
+  }
+
+  #progress-panel {
+    .date.datetimepicker, p, .text, hr, a, label {
+      &.block-label { margin: 0px 0px 20px 0px; }
+      &.form-label { color: #6F777B; }
+    }
   }
 
   #pq-details-header {
@@ -781,7 +735,7 @@ textarea {
   // remove firefox's dotted line
   select:-moz-focusring {
       color: transparent;
-      text-shadow: 0 0 0 #000;
+      text-shadow: 0 0 0 black;
   }
 
   #pq-detail-area {
@@ -829,7 +783,6 @@ textarea {
         width: 280px;
         margin-bottom: 20px;
       }
-      .start-hidden { display: none; }
       .ao-reminder-link {
         margin-left: 40px; // put some space between person name and link to email them
       }
@@ -912,6 +865,11 @@ textarea {
     font-weight: bold;
     color: $text-colour;
   }
+  h3 {
+    font-weight: bold;
+    color: $text-colour;
+    margin: 20px 0 10px 0;
+  }
 }
 
 /* = Minister details page (/ministers/) =========================== */
@@ -926,8 +884,6 @@ textarea {
   color: $text-colour;
 }
 
+// = Sign in page (/users/sign_in) ========================================== */
 
-
-
-
-
+#sign_in { margin: 30px 0px; }
