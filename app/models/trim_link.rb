@@ -1,4 +1,7 @@
 class TrimLink < ActiveRecord::Base
+  extend  SoftDeletion::Collection
+  include SoftDeletion::Record
+
   attr_accessor :file
   after_initialize :extract_details
 
@@ -8,18 +11,10 @@ class TrimLink < ActiveRecord::Base
   validate :trim_file_format
   validates :data, presence: true
 
-  def archive
-    update(deleted: true)
-  end
-
-  def unarchive
-    update(deleted: false)
-  end
-
   private
 
   def trim_file_format
-    if file && !::Trim::Validator.valid_upload?(file)
+    if file && !::Validators::Trim.valid_upload?(file)
       errors.add(:file, 'Missing or invalid trim link file!')
     end
   end

@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-    </head>
-    <body>
-        <div style="font-family: arial, sans-serif; font-size: 12pt;">
-          <%= @template_params[:dd_name] %>,
-        </div>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-          <%= @template_params[:ao_name] %> has been allocated the PQ <strong><%= @template_params[:uin] %></strong>
-        </p>
-        <div style="font-family: arial, sans-serif; font-size: 12pt; padding-left:0.5em;margin-left:10px;border-left:4px solid grey;margin-top:5px;margin-right:5px;margin-bottom:5px;">
-            <%= @template_params[:question] %>
-        </div>
-        <div>
-            <p>
-                <div style="font-family: arial, sans-serif; font-size: 12pt;">Asked by: <%= @template_params[:member_name] %> (<%= @template_params[:house] %>)</div>
-                <div style="font-family: arial, sans-serif; font-size: 12pt;">To be answered by: <%= @template_params[:answer_by] %></div>
-            </p>
-        </div>
-        <div style="padding-left:0.5em;margin-left:10px;border-left:4px solid black;margin-top:5px;margin-right:5px;margin-bottom:5px;">
-            <div style="font-family: arial, sans-serif; font-size: 12pt;">
-                An accept or reject response is required from them <strong>before 2pm today</strong>.
-            </div>
-        </div>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            The draft response to the question is expected before <strong><%= @template_params[:internal_deadline] %> - 10am</strong>.
-        </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            If you have any questions, please <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>
-        </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            If you have any technical issues, please <a href="mailto:pqsupport@digital.justice.gov.uk">contact PQ support</a>
-        </p>
-        <p style="font-family: arial, sans-serif; font-size: 12pt;">
-            This is a new service and your <a href="mailto:pqfeedback@digital.justice.gov.uk?Subject=PQ%20Email%20Feedback">feedback</a> will help us improve it.
-        </p>
-        <%= render 'shared/mailer/email_signature' %>
-    </body>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style type="text/css">
+      body {
+        font-family: arial, sans-serif;
+        font-size: 12pt;
+      }
+      .pq-details {
+        padding-left: 0.5em;
+        border-left: 4px solid gray;
+        margin: 5px 5px 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <%= @template_params[:dd_name] %>,
+    </div>
+    <p>
+      <%= @template_params[:ao_name] %> has been allocated the PQ <strong><%= @template_params[:uin] %></strong>
+    </p>
+    <div class="pq-details">
+      <%= @template_params[:question] %>
+
+      <% if @template_params[:member_name].present? %>
+        <p>Asked by: <%= @template_params[:member_name] %> <% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>) <% end %></p>
+      <% end %>
+
+      <% if @template_params[:member_constituency].present? %>
+        <p>Constituency: <%= @template_params[:member_constituency] %></p>
+      <% end %>
+
+      <% if @template_params[:answer_by].present? %>
+        <p>To be answered by: <%= @template_params[:answer_by].to_s %></p>
+      <% end %>
+
+      <% if @template_params[:internal_deadline].present? %>
+        <p>Internal deadline: <%= @template_params[:internal_deadline].to_s %></p>
+      <% end %>
+
+      <% if @template_params[:date_to_parliament].present? %>
+        <p>Due back to Parliament by: <%= @template_params[:date_to_parliament] %></p>
+      <% end %>
+    </div>
+    <p>
+      <strong><%= @template_params[:ao_name] %> must accept or reject this PQ before 2pm today.</strong>
+    </p>
+    <p>
+      The draft response to the question is required <strong>before <%= @template_params[:internal_deadline] %>, 10am</strong>.
+    </p>
+    <p>
+      If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>
+    </p>
+    <%= render 'shared/mailer/email_signature' %>
+</body>
 </html>

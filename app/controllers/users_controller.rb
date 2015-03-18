@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-  respond_to :html
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @users = User.all.order("lower(name)").page(params[:page]).per_page(15)
+    @users = User.order("lower(name)").page(params[:page]).per_page(15)
   end
 
   def edit
@@ -20,14 +19,7 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    @user
-  end
-
-protected
+  protected
 
   def user_params
     params.require(:user).permit(:email, :admin, :name, :roles, :deleted)

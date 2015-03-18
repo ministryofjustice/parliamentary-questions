@@ -26,7 +26,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     ao_mail, dd_mail = sent_mail.first(2)
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.text_part.body).to include "You have been allocated PQ #{@pq.uin}"
+    expect(ao_mail.text_part.body).to include "you have been allocated PQ #{@pq.uin}"
 
     expect(dd_mail.to).to include ao.deputy_director.email
     expect(dd_mail.text_part.body).to include "#{ao.name} has been allocated the PQ #{@pq.uin}"
@@ -41,7 +41,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   scenario 'The PQ status should then change to draft pending' do
     create_pq_session
-    expect_pq_status(@pq.uin, 'In progress', 'Draft Pending')
+    expect_pq_in_progress_status(@pq.uin, 'Draft Pending')
   end
 
   scenario 'The AO should receive an email notification confirming the question acceptance' do
@@ -49,7 +49,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.text_part.body).to include(
-      "You have accepted responsibility for drafting an answer to PQ #{@pq.uin}"
+      "you have agreed to draft an answer to PQ #{@pq.uin}"
     )
   end
 

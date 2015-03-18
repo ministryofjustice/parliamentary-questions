@@ -38,9 +38,7 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'remove a trim link' do
       visit pq_path(@pq.uin)
       add_trim_link
-      save_screenshot('out.png')
       click_button 'Delete'
-      save_screenshot('out.png')
       click_link 'Trim link'
       expect(page).not_to have_link 'Open trim link'
     end

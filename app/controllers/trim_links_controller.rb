@@ -5,7 +5,7 @@ class TrimLinksController < ApplicationController
     upload = trim_link_params[:file_data]
 
     data =
-      unless Trim::Validator.valid_upload?(upload)
+      unless Validators::Trim.valid_upload?(upload)
         failure_data('Missing or invalid trim file!')
       else
         io   = upload.read

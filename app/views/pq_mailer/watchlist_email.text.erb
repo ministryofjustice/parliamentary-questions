@@ -1,13 +1,9 @@
-Please click the link below, or copy and paste into your browser, to see the PQs allocated by the Ministry of Justice today.
+View the PQs allocated on <%= Date.today.strftime "%d/%m/%Y" %> by the Ministry of Justice, Parliamentry Branch:
 
 <%= url_for(controller: "watchlist_dashboard", action: "index", token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
 
-This email is valid for today only.
+This link will only be active today. The content is best viewed in Firefox browser.
 
-You will receive an email each day to view PQs allocated on that day.
-
-If you no longer wish to receive the daily emails contact the PQ Team (<%= Settings.mail_reply_to %>).
-
-This is a new service and your feedback will help us improve it. Please send your feedback to pqfeedback@digital.justice.gov.uk
+You have signed up to receive these daily emails. To unsubscribe, contact the PQ tam at <%= Settings.mail_reply_to %>.
 
 <%= render 'shared/mailer/email_signature_plain' %>

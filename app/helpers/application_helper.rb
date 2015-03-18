@@ -25,7 +25,7 @@ module ApplicationHelper
     Rails.logger.info flash_type
     case flash_type.to_s
     when 'notice'
-      'pq-msg-notice'
+      'pq-msg-success'
     when 'success'
       'pq-msg-success'
     when 'error'
@@ -39,13 +39,5 @@ module ApplicationHelper
 
   def minister_warning?(question, minister)
     question.present? && question.open? && minister.try(:deleted?)
-  end
-
-  def ministers(question)
-    Minister.active(question.try(:minister))
-  end
-
-  def policy_ministers(question)
-    Minister.active(question.try(:policy_minister))
   end
 end

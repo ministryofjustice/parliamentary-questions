@@ -30,11 +30,6 @@ class ActionlistMembersController < ApplicationController
     end
   end
 
-  def destroy
-    @actionlist_member.destroy
-    redirect_to actionlist_members_url
-  end
-
 private
 
   def set_actionlist_member

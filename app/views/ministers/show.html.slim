@@ -20,7 +20,7 @@ h2 Minister details
         th#admin-status Status
         th
     tbody
-      - @minister.minister_contacts.each do |c|
+      - @minister_contacts.each do |c|
         tr
           td= link_to c.name, edit_minister_contact_path(c)
           td= c.email
