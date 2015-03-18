@@ -7,7 +7,7 @@ var trim_link, $, ga;
   // make <detail> tags toggleable
   var enableDetailsToggle = function(i, el){
     var root = $(el),
-      content = root.next('.reveal');
+      content = root.next('.reveal > div');
 
     root.on('click', function(){
       content.toggleClass('closed');
@@ -80,7 +80,7 @@ var trim_link, $, ga;
 
     // if the page has rejection details, make them collapsible
     // applies to /assignment and /watchlist/preview pages
-    $('.details-reveal').each(enableDetailsToggle);
+    $('.reveal > span').each(enableDetailsToggle);
 
     // on /assignment, open the reject justification form when Reject is selected
     // and hide it when Accept is selected
