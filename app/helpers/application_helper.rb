@@ -25,7 +25,7 @@ module ApplicationHelper
     Rails.logger.info flash_type
     case flash_type.to_s
     when 'notice'
-      'pq-msg-notice'
+      'pq-msg-success' # We set success msg for notice as well as success
     when 'success'
       'pq-msg-success'
     when 'error'
