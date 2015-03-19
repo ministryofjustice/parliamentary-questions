@@ -75,7 +75,6 @@ label {
 
 .row { margin: 0px; }
 
-
 .open { color: $page-colour; }
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: black; }
@@ -95,13 +94,11 @@ label {
   vertical-align: -20%;
 }
 
-
 // specify the colour of input placeholders (eg search bar) for all browsers
 ::-webkit-input-placeholder { color: $grey-2; }
 :-moz-placeholder { color: $grey-2; opacity: 1; }
 ::-moz-placeholder { color: $grey-2; opacity:  1; }
 :-ms-input-placeholder { color: $grey-2; }
-
 
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
@@ -112,7 +109,6 @@ label {
 .questions-list li { border-color: $border-colour; }
 .progress-menu-form { border-color: #c2c2c2; }
 .block-label { border-color: $panel-colour; }
-
 
 #wrapper {
   max-width: 1024px; // width and alignment are unspecified in govuk_template
@@ -193,6 +189,7 @@ button.close {
   }
 }
 
+//found in assignment/show and shared/_allocation_list 
 .strong { font-weight: 700; }
 
 #pages,
@@ -214,13 +211,9 @@ button, input[type="submit"] {
 
 .inline { display: inline-block; }
 
-
-
-.no-indent { margin-left: -2.1em; }
-
 .select2-arrow {display:none!important;}
-
 li.select2-search-field {border-bottom: none;}
+
 
 .question-allocation-list {
   list-style: none;
@@ -230,27 +223,16 @@ li.select2-search-field {border-bottom: none;}
   }
 }
 
-
-.select2-search-choice div { line-height: 1em; }
-
 .allocation-info .button { margin: 30px 0px 0px 0px; }
 
-
 #pq-columns {
-  .date.datetimepicker,
-  p,
-  select,
-  hr,
-  label.block-label {
+  .date.datetimepicker, p, select, hr, label.block-label {
     margin: 0px 0px 20px 0px;
   }
 }
 
-#confirmation_button_bar { padding-left: 0px; }
-#btn_finance_visibility { margin-top: 30px; }
-
 //= Forms ====
-
+//mels work
 .form-control {
   font-size: 19px;
   -webkit-box-shadow: none;
@@ -272,7 +254,7 @@ textarea.form-control {
 }
 
 
-.form-control:focus                       { border-color: $yellow; }
+.form-control:focus  { border-color: $yellow; }
 
 .form-group {
   clear: both;
@@ -403,8 +385,6 @@ textarea.form-control {
 .fa-calendar {
   cursor: pointer;
 }
-
-
 
 // Tables on setting pages (ministers, watch list, action officers, etc.) =========
 .table {
@@ -596,6 +576,9 @@ textarea.form-control {
   }
 }
 
+/* = finance/questions page ============================================== */
+#confirmation_button_bar { padding-left: 0px; }
+
 /* = Dashboard page (/dashboard) ============================================ */
 
 #dashboard {
@@ -673,6 +656,9 @@ textarea.form-control {
     }
   }
 }
+
+//formatting of the action officers listed in the PQ's on the dashboard when commisioning
+.select2-search-choice div { line-height: 1em; }
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
 
@@ -866,3 +852,12 @@ textarea.form-control {
 // = Sign in page (/users/sign_in) ========================================== */
 
 #sign_in { margin: 30px 0px; }
+
+
+// selectors / classes /ids not found....
+// .no-indent { margin-left: -2.1em; }  not being used ? was in global 
+// #btn_finance_visibility { margin-top: 30px; } not being used ? was in global
+
+
+
+
