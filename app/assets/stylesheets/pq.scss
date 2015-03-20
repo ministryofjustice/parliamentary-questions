@@ -232,7 +232,7 @@ li.select2-search-field {border-bottom: none;}
 }
 
 //= Forms ====
-//mels work
+
 .form-control {
   font-size: 19px;
   -webkit-box-shadow: none;
@@ -247,12 +247,10 @@ li.select2-search-field {border-bottom: none;}
   }
 }
 
-
 textarea.form-control {
   width: 66%;
   min-width: 246px;
 }
-
 
 .form-control:focus  { border-color: $yellow; }
 
@@ -316,7 +314,6 @@ textarea.form-control {
   }
 }
 
-
 // on all the "return to..." links
 .admin-link {
   display: block;
@@ -338,7 +335,6 @@ textarea.form-control {
 /* ============================================================================== */
 
 // = Alert messages ============================================================
-
 
 @mixin alert($colour)
 {
@@ -410,7 +406,6 @@ textarea.form-control {
   }
 }
 
-
 // = Allocation rejection control ==================================================
 /* used to show/hide allocation rejections*/
 .reveal{
@@ -445,8 +440,6 @@ textarea.form-control {
     }
   }
 }
-
-
 
 // = Navigation bar ============================================================
 
@@ -750,7 +743,6 @@ textarea.form-control {
       ul li a:link {
         color: black;
       }
-
     }
 
     #progress-panel {
@@ -823,7 +815,6 @@ textarea.form-control {
   }
   .table-cell-centered { text-align: center; }
 }
-
 
 /* = Settings (/admin) ====================================================== */
 
