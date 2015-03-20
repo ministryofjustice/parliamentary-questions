@@ -18,7 +18,7 @@ class ImportMailer < PQBaseMailer
   end
 
   def app_version
-    ENV.fetch('APP_VERSION', 'version-unknown')
+    ENV.fetch('APPVERSION', 'version-unknown')
   end
 
   def app_env
