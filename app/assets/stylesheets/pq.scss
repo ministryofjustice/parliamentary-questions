@@ -72,6 +72,7 @@ label {
 //==============================================================================
 // = GLOBAL CLASSES ============================================================
 //==============================================================================
+<<<<<<< HEAD
 
 .row { margin: 0px; }
 
@@ -81,6 +82,17 @@ label {
 
 // == symbols =====
 
+=======
+
+.row { margin: 0px; }
+
+.open { color: $page-colour; }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: black; }
+
+// == symbols =====
+
+>>>>>>> 3c10f34b9a1f1b21787b2886af5049ceae4a39c7
 .fa-times-circle { color: $error-colour; }
 .fa-check-circle { color: $success-colour; }
 .fa-warning { color: $error-colour; }
@@ -189,7 +201,7 @@ button.close {
   }
 }
 
-//found in assignment/show and shared/_allocation_list 
+//found in assignment/show and shared/_allocation_list
 .strong { font-weight: 700; }
 
 #pages,
@@ -392,8 +404,7 @@ textarea.form-control {
 
 // specific columns
 #admin-status { width: 100px; }
-#minister-name { width: 30% }
-
+#minister-name { width: 30%; }
 
 // = Button bar on some settings pages (watch list, action officers, etc.) =========
 #admin-button-bar {
@@ -492,17 +503,6 @@ textarea.form-control {
 .js-enabled .tab-content > .tab-pane {
   display: none;
 }
-
-// ... except the active one
-.js-enabled .tab-content > .tab-pane.active {
-  display: block;
-}
-
-
-
-
-
-
 
 // override bootstrap and make tabs work without JS
 
@@ -866,9 +866,5 @@ textarea.form-control {
 
 
 // selectors / classes /ids not found....
-// .no-indent { margin-left: -2.1em; }  not being used ? was in global 
+// .no-indent { margin-left: -2.1em; }  not being used ? was in global
 // #btn_finance_visibility { margin-top: 30px; } not being used ? was in global
-
-
-
-
