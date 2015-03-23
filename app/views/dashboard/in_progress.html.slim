@@ -1,4 +1,5 @@
-= render partial: "tabs"
-= render partial: "in_progress_filter"
-= render partial: "shared/flash_messages", flash: flash
-= render partial: "dashboard/questions_list", locals: {questions: @questions}
+#dashboard
+  = render partial: "shared/flash_messages", flash: flash
+  = render partial: "tabs"
+  = render partial: "in_progress_filter"
+  = render partial: "dashboard/questions_list", locals: {questions: @questions}

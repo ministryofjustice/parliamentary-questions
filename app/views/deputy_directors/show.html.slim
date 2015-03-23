@@ -1,13 +1,13 @@
-h2 Deputy director details
 #admin-deputy-details
+  h1 Deputy director details
   = render partial: "shared/flash_messages", flash: flash
-  h4 Name
+  h2 Name
   = @deputy_director.name
-  h4 Email
+  h2 Email
   = @deputy_director.email
-  h4 Division
+  h2 Division
   = @deputy_director.division.name
-  h4 Status
+  h2 Status
   = render partial: 'shared/status', object: @deputy_director
   = link_to 'Edit', edit_deputy_director_path(@deputy_director), {class: 'admin-link'}
   = link_to 'Return to deputy director list', deputy_directors_path, {class: 'admin-link'}

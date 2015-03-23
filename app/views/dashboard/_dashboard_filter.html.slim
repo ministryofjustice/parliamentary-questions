@@ -1,5 +1,5 @@
 #status-filters.col-md-3.col-md-push-9
-  h3 Filter
+  h2 Filter
   ul.nav.nav-pills.nav-stacked
     li#db-filter-today class=('active' if (params[:controller] == 'dashboard' && params[:action] == 'index'))
       = link_to raw("View all<span class='badge'>#{Pq.new_questions.count}</span>") , {:controller => 'dashboard', :action => 'index'}

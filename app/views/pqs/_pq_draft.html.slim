@@ -1,17 +1,17 @@
 - if @pq.action_officers.size > 0
   - @pq.action_officers_pqs.each do |ao_pq|
     - if ao_pq.accepted?
-      h4 Date PQ accepted by action officer
+      h3 Date PQ accepted by action officer
       p.text= ao_pq.updated_at.to_s
 .form-group
   label.form-label for="draft_answer_received"  Date PQ returned by action officer
   .datetimepicker
     input#draft_answer_received.form-control name="pq[draft_answer_received]" type="text" value=(@pq.draft_answer_received.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"
 = f.check_box_gds :i_will_write
 = f.check_box_gds :pq_correction_received
 .form-group
   label.form-label for="correction_circulated"  Date correction circulated to action officer
   .datetimepicker
     input#correction_circulated.form-control name="pq[correction_circulated_to_action_officer]" type="text" value=(@pq.correction_circulated_to_action_officer.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"
