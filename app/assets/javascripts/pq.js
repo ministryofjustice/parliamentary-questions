@@ -7,8 +7,7 @@ var trim_link, $, ga;
   // make <detail> tags toggleable
   var enableDetailsToggle = function(i, el){
     var root = $(el),
-      summary = root.find('.link'),
-      content = root.find('.reveal');
+      content = root.next('.reveal');
 
     root.on('click', function(){
       content.toggleClass('closed');
