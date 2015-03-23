@@ -178,17 +178,6 @@ button.close {
   &.will-write { background-color: #5f5f5f; }
 }
 
-.question-type {
-  color: $secondary-text-colour;
-  font-size: 19px;
-  font-weight: bold;
-  &:before {
-    content: '|';
-    margin-left: 17px;
-    margin-right: 10px;
-  }
-}
-
 //found in assignment/show and shared/_allocation_list
 .strong { font-weight: 700; }
 
@@ -333,6 +322,46 @@ textarea.form-control {
 /* ============================================================================== */
 /* ========= Components ========================================================= */
 /* ============================================================================== */
+
+
+// = linear list of questions (found on dashboard and filter views) =============
+
+.questions-list {
+  padding: 0px 45px 20px 0px;
+  > li {
+    list-style: none;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding: 30px 0px 30px 0px;
+  }
+  .pq-question {
+    margin: .5em 0 .5em;
+    padding: .5em 0;
+  }
+  .status-bar {
+    line-height: 32px;
+    margin-bottom: 26px;
+    padding: 0px;
+  }
+  .pq-columns .col-md-7 { padding-left: 0px; }
+  .pq-inline-form { display: inline!important; }
+}
+
+.pq-header {
+    line-height: 27px;
+    margin-bottom: 20px;
+}
+.pq-header-flags {display: inline-block;}
+.question-type {
+  color: $secondary-text-colour;
+  font-size: 19px;
+  font-weight: bold;
+  &:before {
+    content: '|';
+    margin-left: 17px;
+    margin-right: 10px;
+  }
+}
 
 // = Alert messages ============================================================
 
@@ -611,33 +640,8 @@ textarea.form-control {
     margin: 0px 0px 6px 0px;
   }
 
-  .questions-list {
-    padding: 0px 45px 20px 0px;
-    li.question {
-      list-style: none;
-      border-bottom-width: 2px;
-      border-bottom-style: solid;
-      padding: 30px 0px 30px 0px;
-    }
-    .pq-header {
-      line-height: 27px;
-      margin-bottom: 20px;
-      .pq-header-flags { margin-right: 26px; }
-    }
-    .pq-question {
-      margin: .5em 0 .5em;
-      padding: .5em 0;
-    }
-    .status-bar {
-      line-height: 32px;
-      margin-bottom: 26px;
-      padding: 0px;
-    }
-    .pq-columns .col-md-7 { padding-left: 0px; }
-    .pq-inline-form { display: inline!important; }
-  }
 
-  .pq-header-flags {display: inline-block;}
+
 
   #status-filters {
     h2 {
