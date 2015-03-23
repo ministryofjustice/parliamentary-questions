@@ -72,7 +72,6 @@ label {
 //==============================================================================
 // = GLOBAL CLASSES ============================================================
 //==============================================================================
-<<<<<<< HEAD
 
 .row { margin: 0px; }
 
@@ -82,17 +81,6 @@ label {
 
 // == symbols =====
 
-=======
-
-.row { margin: 0px; }
-
-.open { color: $page-colour; }
-
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: black; }
-
-// == symbols =====
-
->>>>>>> 3c10f34b9a1f1b21787b2886af5049ceae4a39c7
 .fa-times-circle { color: $error-colour; }
 .fa-check-circle { color: $success-colour; }
 .fa-warning { color: $error-colour; }
