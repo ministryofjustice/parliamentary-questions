@@ -106,9 +106,11 @@ label {
 .dropdown-menu li a:hover { background-color: $yellow; }
 
 .block-label:hover, .js-enabled .selected { border-color: $text-colour; }
+.js-enabled .selected { background-color: $page-colour; }
 .questions-list li { border-color: $border-colour; }
 .progress-menu-form { border-color: #c2c2c2; }
 .block-label { border-color: $panel-colour; }
+
 
 #wrapper {
   max-width: 1024px; // width and alignment are unspecified in govuk_template
@@ -361,6 +363,18 @@ textarea.form-control {
     margin-left: 17px;
     margin-right: 10px;
   }
+}
+
+.dashboard-column1-uncommissioned { margin-bottom: 20px; }
+
+.dashboard-column1-commissioned .col-md-6 {
+  padding-left: 0px;
+  margin: 0px 0px 10px 0px;
+}
+
+.dashboard-column-2 .text {
+  display: block;
+  margin: 0px 0px 6px 0px;
 }
 
 // = Alert messages ============================================================
@@ -627,21 +641,6 @@ textarea.form-control {
     margin: auto;
     color: $text-colour;
   }
-
-  .dashboard-column1-uncommissioned { margin-bottom: 20px; }
-
-  .dashboard-column1-commissioned .col-md-6 {
-    padding-left: 0px;
-    margin: 0px 0px 10px 0px;
-  }
-
-  .dashboard-column-2 .text {
-    display: block;
-    margin: 0px 0px 6px 0px;
-  }
-
-
-
 
   #status-filters {
     h2 {
