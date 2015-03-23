@@ -55,11 +55,11 @@ describe Settings do
     end
 
     describe 'non existent config key' do
-    	it 'should raise NoMethodError' do
-    		expect {
-    			Settings.unknown_config_key
-    		}.to raise_error NoMethodError, "undefined method `unknown_config_key' for Settings:Module"
-    	end
+      it 'should raise NoMethodError' do
+        expect {
+          Settings.unknown_config_key
+        }.to raise_error NoMethodError, "undefined method `unknown_config_key' for Settings:Module"
+      end
     end
   end
 

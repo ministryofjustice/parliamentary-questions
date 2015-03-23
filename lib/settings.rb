@@ -36,13 +36,25 @@ module Settings
     @pq_rest_api
   end
 
-  def method_missing(method, *params)
-    if @config_keys.include?(method)
-      @h[method.to_s]
-    else
-      super
-    end
-  end  
+  def mail_from
+    @h['mail_from']
+  end
+
+  def commission_mail_from
+    @h['commission_mail_from']
+  end
+
+  def mail_reply_to
+    @h['mail_reply_to']
+  end
+
+  def mail_tech_support
+    @h['mail_tech_support']
+  end
+
+  def http_client_timeout
+    @h['http_client_timeout']
+  end
 
   def ga_tracker_id
     ENV.fetch('GA_TRACKER_ID', DEFAULT_GA_TRACKER_ID)
