@@ -14,14 +14,6 @@ class DashboardFilter
     @count || 0
   end
 
-  def link
-    if @count
-      path
-    else
-      '#'
-    end
-  end
-
   def active?
     raise NotImplementedError, "The #active? method should be implemented by subclasses"
   end
