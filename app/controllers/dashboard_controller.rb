@@ -11,24 +11,26 @@ class DashboardController < ApplicationController
 
   def by_status
     load_pq_with_counts(NEW) { Pq.by_status(params[:qstatus]) }
-  end
-
-  def transferred
-    load_pq_with_counts(NEW) { Pq.transferred }
-    render 'by_status'
+    render 'index'
   end
 
   def in_progress_by_status
     by_status
   end
 
+  def transferred
+    load_pq_with_counts(NEW) { Pq.transferred }
+    render 'index'
+  end
+
   def i_will_write
     load_pq_with_counts(IN_PROGRESS) { Pq.i_will_write_flag }
-    render 'in_progress_by_status'
+    render 'index'
   end
 
   def in_progress
     load_pq_with_counts(IN_PROGRESS) { Pq.in_progress }
+    render 'index'
   end
 
   def search
@@ -37,7 +39,6 @@ class DashboardController < ApplicationController
   private
 
   def load_pq_with_counts(dashboard_state)
-    @pq_counts       = {}
     pq_counts        = Pq.counts_by_state
     @dashboard_state = dashboard_state
     @questions       = paginate_collection(yield) if block_given?
