@@ -63,10 +63,6 @@ The Postgresql version used in production is 9.3. This can be installed via [hom
 
 Install the app dependencies by running the following
 
-		gem install bundler && bundle install
-
-If you get problems installing the pg gem not being able to find libpg, try setting the architecture flag as follows:
-
     gem install bundler && ARCHFLAGS="-arch x86_64" bundle install
 
 You can now procede setting up the database table layout
