@@ -29,6 +29,7 @@ module Settings
   module_function
   filepath         = File.expand_path('../config/settings.yml', __dir__)
   @h               = YAML::load_file(filepath)
+  @config_keys     = @h.keys.map { |k| k.to_sym }
   @pq_rest_api     = PqRestApi.from_env
 
   def pq_rest_api
@@ -37,6 +38,10 @@ module Settings
 
   def mail_from
     @h['mail_from']
+  end
+
+  def commission_mail_from
+    @h['commission_mail_from']
   end
 
   def mail_reply_to
