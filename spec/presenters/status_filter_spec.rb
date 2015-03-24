@@ -18,18 +18,8 @@ describe StatusFilter do
   }
 
   describe "#link" do
-    context "when no count value is supplied" do
-      it "returns '#'" do
-        expect(
-          StatusFilter.new(nil, 'a', nil, nil).link
-        ).to eq('#')
-      end
-    end
-
-    context "when a count is supplied" do
-      it "returns the correct path" do
-        expect(filter.link).to eq(dashboard_by_status_path(qstatus: 'test_key'))
-      end
+    it "returns the correct path" do
+      expect(filter.path).to eq(dashboard_by_status_path(qstatus: 'test_key'))
     end
   end
 
