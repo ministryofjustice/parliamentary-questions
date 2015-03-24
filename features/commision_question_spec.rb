@@ -76,6 +76,6 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     url = extract_url_like('/assignment', ao_mail)
     visit url
 
-    expect(page).to have_content(/you don't have permission to see the page/i)
+    expect(page).to have_content(/Access Token expired/i)
   end
 end
