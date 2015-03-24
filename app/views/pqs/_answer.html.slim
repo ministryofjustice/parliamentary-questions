@@ -24,13 +24,4 @@
   = link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button-secondary', title: 'Create an ''I will write'' follow up'}
 .form-group
   label.form-label for="pq_final_response_info_released"  Final response information released
-  = f.select(:final_response_info_released, options_for_select(["Commercial in confidence",
-                                                                "Disproportionate cost",
-                                                                "Full disclosure",
-                                                                "Holding reply [named day PQ only]",
-                                                                "I will write",
-                                                                "Information not held centrally",
-                                                                "Information not recorded",
-                                                                "Partial disclosure",
-                                                                "Partial Disproportionate cost",
-                                                                "Referral"]))
+  = f.select(:final_response_info_released, options_for_select(Pq::RESPONSES))
