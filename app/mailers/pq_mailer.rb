@@ -3,7 +3,12 @@ class PqMailer < PQBaseMailer
 
   def commission_email(template_params)
     @template_params = template_params
-    mail(to: @template_params[:email], subject: "You have been allocated PQ #{@template_params[:uin]}")
+    mail(
+      to: @template_params[:email], 
+      from: Settings.commission_mail_from,
+      reply_to: Settings.mail_reply_to,
+      subject: "You have been allocated PQ #{@template_params[:uin]}")
+  
   end
 
   def notify_dd_email(template_params)
