@@ -1,6 +1,3 @@
-require 'pq_state'
-require 'pq_state/progress_changer'
-
 class PqsController < ApplicationController
   include Validators::DateInput
 
