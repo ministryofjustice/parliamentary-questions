@@ -3,31 +3,31 @@
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
   .datetimepicker.default-time
     input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"
 hr/
 .question-allocation
   - if @pq.action_officers.size > 0
     - @pq.action_officers_pqs.order(updated_at: :desc).each do |ao_pq|
       - if ao_pq.accepted?
-        h4 Name of Action Officer
+        h3 Name of Action Officer
         = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
         - reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : ''
         = ' '
-        = link_to raw("<i class=\"fa fa-envelope-o\"></i> Draft reminder #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}
+        = link_to raw("<span class=\"fa fa-envelope-o\"></span> Draft reminder #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}
         p.text
           = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
 
-        h4 Email of Action Officer
+        h3 Email of Action Officer
         p.text= mail_to ao_pq.action_officer.email
-        h4 Phone of Action Officer
+        h3 Phone of Action Officer
         p.text= ao_pq.action_officer.phone
-        h4 Division of Action Officer
+        h3 Division of Action Officer
         p.text= ao_pq.action_officer.deputy_director.division.name
-        h4 Directorate of Action Officer
+        h3 Directorate of Action Officer
         p.text= ao_pq.action_officer.deputy_director.division.directorate.name
-        h4 Deputy director
+        h3 Deputy director
         p.text= ao_pq.action_officer.deputy_director.name
-        h4 Press Desk
+        h3 Press Desk
         = ao_pq.action_officer.press_desk.name
         br/
         - ao_pq.action_officer.press_desk.press_officers.each do |po|
@@ -57,4 +57,4 @@ hr/
   label.form-label for="transfer_out_date"  Date transferred out
   .datetimepicker
     input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"

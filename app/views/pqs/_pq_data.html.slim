@@ -1,21 +1,22 @@
-h4 UIN
+h3
+  abbr title="Unique Identification Number" UIN
 p.text= @pq.uin
-h4 House
+h3 House
 p.text= @pq.house_name
 
 .form-group
   label.form-label for="date_for_answer"  Date for answer back to Parliament
   .datepicker
     input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.try(:to_s, :date)) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"
 
-h4 Tabling member
+h3 Tabling member
 p.text= @pq.member_name
 
-h4 Question type
+h3 Question type
 p.text= @pq.question_type
 
-h4 Question tabled date
+h3 Question tabled date
 - if @pq.tabled_date
   p.text= @pq.tabled_date.try(:to_s, :date)
 - if @pq.registered_interest
@@ -26,7 +27,7 @@ h4 Question tabled date
     | Transferred in from #{@pq.transfer_in_ogd.name}#{' on ' + @pq.transfer_in_date.try(:to_s, :date)}
 hr/
 
-h4 Question
+h3 Question
 p.text= @pq.question
 hr/
 = render partial: 'gds_checkbox', locals: { value: @pq.round_robin,
@@ -36,10 +37,10 @@ hr/
   label.form-label for="round_robin_guidance_received"  Date guidance received
   .datetimepicker
     input#round_robin_guidance_received.form-control name="pq[round_robin_guidance_received]" type="text" value=(@pq.round_robin_guidance_received.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"
 
 .form-group
   label.form-label for="round_robin_date"  Date round robin guidance sent to action officer
   .datetimepicker
     input#round_robin_date.form-control name="pq[round_robin_date]" type="text" value=(@pq.round_robin_date.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"

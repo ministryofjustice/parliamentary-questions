@@ -1,13 +1,18 @@
-h4 Date sent to POD
+h3
+  ' Date sent to
+  abbr title="Private Office Directorate" POD
 - if @pq.pod_waiting.to_s != ''
   p.text= @pq.pod_waiting.to_s
 - else
-  p.text= 'TBD'
+  p.text
+    abbr title="To Be Decided" TBD
 = render partial: 'gds_checkbox', locals: { value: @pq.pod_query_flag,
                                             field: 'pod_query_flag',
                                             label: 'POD query flag' }
 .form-group
-  label.form-label for="pod_clearance"  Date cleared by POD
+  label.form-label for="pod_clearance"
+    ' Date cleared by
+    abbr title="Private Office Directorate" POD
   .datetimepicker
     input#pod_clearance.form-control name="pq[pod_clearance]" type="text" value=(@pq.pod_clearance.to_s) /
-    span.fa.fa-calendar
+    span.fa.fa-calendar title="select a date"

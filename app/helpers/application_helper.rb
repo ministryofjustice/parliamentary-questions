@@ -2,7 +2,7 @@ module ApplicationHelper
   def flash_class_for(flash_type)
     case flash_type.to_s
     when 'notice'
-      'pq-msg-success'
+      'pq-msg-success' # We set success msg for notice as well as success
     when 'success'
       'pq-msg-success'
     when 'error'
