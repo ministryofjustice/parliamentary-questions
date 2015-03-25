@@ -3,6 +3,8 @@ require 'spec_helper'
 describe PressOfficer do
 	let(:pofficer) {build(:press_officer)}
 
+	it { should validate_presence_of(:name) }
+
 	it 'should pass factory build' do
 		expect(pofficer).to be_valid
 	end
