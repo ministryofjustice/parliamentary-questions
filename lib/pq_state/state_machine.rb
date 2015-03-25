@@ -46,7 +46,13 @@ module PQState
 
     def transitions_permitted(from_state)
       ts = @transitions.select { |t| t.state_from == from_state }
-      ts || raise(ArgumentError, "Cannot find a transition from state '#{from_state}'. Current states are: #{states}")
+      ts || raise(ArgumentError, "Cannot find a transition from state '#{from_state}'. Valid states are: #{states}")
+    end
+
+    def states
+      @transitions.reduce(Set.new) do |acc, t|
+        acc + Set.new([t.state_from, t.state_to])
+      end
     end
   end
 end

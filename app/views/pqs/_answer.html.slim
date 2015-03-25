@@ -13,13 +13,20 @@
     p.text
       i.fa.fa-thumbs-o-down
       | Answer NOT submitted on time
-= f.check_box_gds :library_deposit
+
+= render partial: 'gds_checkbox', locals: { value: @pq.library_deposit,
+                                            field: 'library_deposit',
+                                            label: 'Library deposit' }
+
 .form-group
   label.form-label for="pq_withdrawn"  Date PQ withdrawn
   .datetimepicker
     input#pq_withdrawn.form-control name="pq[pq_withdrawn]" type="text" value=(@pq.pq_withdrawn.to_s) /
     span.fa.fa-calendar
-= f.check_box_gds :holding_reply_flag
+
+= render partial: 'gds_checkbox', locals: { value: @pq.holding_reply_flag,
+                                            field: 'holding_reply_flag',
+                                            label: 'Holding reply flag' }
 - unless @pq.is_follow_up?
   = link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button-secondary', title: 'Create an ''I will write'' follow up'}
 .form-group

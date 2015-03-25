@@ -29,8 +29,9 @@ hr/
 h4 Question
 p.text= @pq.question
 hr/
-= f.check_box_gds(:round_robin)
-
+= render partial: 'gds_checkbox', locals: { value: @pq.round_robin,
+                                            field: 'round_robin',
+                                            label: 'Round robin' }
 .form-group
   label.form-label for="round_robin_guidance_received"  Date guidance received
   .datetimepicker

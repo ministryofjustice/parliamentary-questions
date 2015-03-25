@@ -8,8 +8,13 @@
   .datetimepicker
     input#draft_answer_received.form-control name="pq[draft_answer_received]" type="text" value=(@pq.draft_answer_received.to_s) /
     span.fa.fa-calendar
-= f.check_box_gds :i_will_write
-= f.check_box_gds :pq_correction_received
+= render partial: 'gds_checkbox', locals: { value: @pq.i_will_write,
+                                            field: 'i_will_write',
+                                            label: 'I will write' }
+
+= render partial: 'gds_checkbox', locals: { value: @pq.pq_correction_received,
+                                            field: 'pq_correction_received',
+                                            label: 'Pq correction received' }
 .form-group
   label.form-label for="correction_circulated"  Date correction circulated to action officer
   .datetimepicker
