@@ -4,6 +4,7 @@ describe PQProgressChangerService do
 
   let(:deputy_director) { create(:deputy_director, name: 'dd name', email: 'dd@dd.gov', id: 1+rand(10))}
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
+  let(:pq) { create(:draft_pending_pq) }
   let(:minister_1) { create(:minister, name: 'name1') }
   let(:minister) {build(:minister)}
   let(:policy_minister) { create(:minister) }
@@ -11,9 +12,6 @@ describe PQProgressChangerService do
   let(:pq_progress_changer_service) { described_class.new }
 
   before(:each) do
-    @pq_progress_changer_service = PQProgressChangerService.new
-    @assignment_service = AssignmentService.new
-    @comm_service = CommissioningService.new
     ActionMailer::Base.deliveries = []
   end
 

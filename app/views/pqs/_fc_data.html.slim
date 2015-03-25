@@ -1,3 +1,8 @@
 = render partial: 'shared/status', object: @pq, locals: { active: 'PQ viewed', inactive: 'PQ not viewed' }
-= f.check_box_gds :seen_by_finance
-= f.check_box_gds :finance_interest
+= render partial: 'gds_checkbox', locals: { value: @pq.seen_by_finance,
+                                            field: 'seen_by_finance',
+                                            label: 'Seen by finance' }
+
+= render partial: 'gds_checkbox', locals: { value: @pq.finance_interest,
+                                            field: 'finance_interest',
+                                            label: 'Finance interest' }

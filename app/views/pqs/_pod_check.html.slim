@@ -3,7 +3,9 @@ h4 Date sent to POD
   p.text= @pq.pod_waiting.to_s
 - else
   p.text= 'TBD'
-= f.check_box_gds :pod_query_flag
+= render partial: 'gds_checkbox', locals: { value: @pq.pod_query_flag,
+                                            field: 'pod_query_flag',
+                                            label: 'POD query flag' }
 .form-group
   label.form-label for="pod_clearance"  Date cleared by POD
   .datetimepicker

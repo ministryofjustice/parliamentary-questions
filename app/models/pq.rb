@@ -1,18 +1,8 @@
 class Pq < ActiveRecord::Base
   has_paper_trail
 
-  RESPONSES = [
-    "Commercial in confidence",
-    "Disproportionate cost",
-    "Full disclosure",
-    "Holding reply [named day PQ only]",
-    "I will write",
-    "Information not held centrally",
-    "Information not recorded",
-    "Partial disclosure",
-    "Partial Disproportionate cost",
-    "Referral"
-  ]
+  include PqFollowup
+  extend PqScopes
 
   has_one :trim_link, dependent: :destroy
   has_many :action_officers_pqs do
@@ -28,6 +18,7 @@ class Pq < ActiveRecord::Base
       all.find{ |assignment| !assignment.rejected? }.nil?
     end
   end
+
   has_many :action_officers, :through => :action_officers_pqs do
     def accepted
       where(action_officers_pqs: {response: 'accepted'}).first
@@ -37,6 +28,7 @@ class Pq < ActiveRecord::Base
       where(action_officers_pqs: {response: 'rejected'})
     end
   end
+
   belongs_to :minister
   belongs_to :policy_minister, :class_name=>'Minister'
   belongs_to :progress
@@ -51,17 +43,39 @@ class Pq < ActiveRecord::Base
   validates :uin , presence: true, uniqueness:true
   validates :raising_member_id, presence:true
   validates :question, presence:true
+
+  RESPONSES = [
+    "Commercial in confidence",
+    "Disproportionate cost",
+    "Full disclosure",
+    "Holding reply [named day PQ only]",
+    "I will write",
+    "Information not held centrally",
+    "Information not recorded",
+    "Partial disclosure",
+    "Partial Disproportionate cost",
+    "Referral"
+  ]
   validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
 
-  before_update :process_date_for_answer
-  before_update :set_pod_waiting
+  before_update :set_pod_waiting, :process_date_for_answer
 
-  scope :allocated_since, ->(since) { joins(:action_officers_pqs).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin) }
-  scope :not_seen_by_finance, -> { where(seen_by_finance: false) }
-  scope :accepted_in, ->(action_officers) { joins(:action_officers_pqs).where(action_officers_pqs: { response: 'accepted', action_officer_id: action_officers }) }
+  def set_pod_waiting
+    self.pod_waiting = draft_answer_received if draft_answer_received_changed?
+  end
+
+  def process_date_for_answer
+    unless date_for_answer
+      self.date_for_answer_has_passed = true
+      self.days_from_date_for_answer = LARGEST_POSTGRES_INTEGER
+    else
+      self.date_for_answer_has_passed = self.date_for_answer < Date.today
+      self.days_from_date_for_answer = (self.date_for_answer - Date.today).abs
+    end
+  end
 
   def reassign(action_officer)
-    if action_officer.present?
+    if action_officer
       Pq.transaction do
         ao_pq_accepted.reset
         action_officers_pqs.find_or_create_by(action_officer: action_officer).accept
@@ -74,82 +88,6 @@ class Pq < ActiveRecord::Base
     end
   end
 
-  def self.ministers_by_progress(ministers, progresses)
-    includes(:progress, :minister).
-      where(progress_id: progresses).
-      where(minister_id: ministers).
-      group(:minister_id).
-      group(:progress_id).
-      count
-  end
-
-  def find_or_create_follow_up
-    unless i_will_write && follow_up_to.blank? && valid?
-      raise "A PQ follow-up must be valid, have 'i_will_write' set to true, and 'follow_up_to' blank!"
-    end
-
-    ActiveRecord::Base.transaction do
-      follow_up = Pq.find_or_initialize_by(uin: iww_uin)
-
-      if follow_up.new_record?
-        attrs = attributes
-                  .reject { |k,_| FOLLOW_UP_ATTR_RESET.include?(k) }
-                  .merge('question_type' => 'Follow-up IWW',
-                         'i_will_write'  => true,
-                         'follow_up_to'  => uin,
-                         'progress'      => Progress.draft_pending)
-
-        follow_up.update!(attrs)
-
-        ao_pq = action_officers_pqs.find(&:accepted?)
-        ao_pq.update(pq_id: follow_up.id) if ao_pq
-      end
-
-      follow_up
-    end
-  end
-
-  FOLLOW_UP_ATTR_RESET = [
-    'id',
-    'uin',
-    'draft_answer_received',
-    'pq_correction_received',
-    'correction_circulated_to_action_officer',
-    'pod_query',
-    'pod_query_flag',
-    'pod_clearance',
-    'sent_to_policy_minister',
-    'policy_minister_query',
-    'policy_minister_to_action_officer',
-    'policy_minister_returned_by_action_officer',
-    'resubmitted_to_policy_minister',
-    'cleared_by_policy_minister',
-    'sent_to_answering_minister',
-    'answering_minister_query',
-    'answering_minister_to_action_officer',
-    'answering_minister_returned_by_action_officer',
-    'resubmitted_to_answering_minister',
-    'cleared_by_answering_minister',
-    'answer_submitted',
-    'library_deposit',
-    'pq_withdrawn',
-    'holding_reply_flag',
-    'final_response_info_released',
-    'round_robin_guidance_received',
-    'transfer_out_ogd_id',
-    'transfer_out_date',
-    'transfer_in_ogd_id',
-    'transfer_in_date',
-  ]
-
-  def has_follow_up?
-    Pq.exists?(follow_up_to: uin)
-  end
-
-  def is_follow_up?
-    i_will_write && follow_up_to.present?
-  end
-
   def has_trim_link?
     trim_link.present? && !trim_link.deleted?
   end
@@ -160,15 +98,23 @@ class Pq < ActiveRecord::Base
 
   def commissioned?
     action_officers.size > 0 &&
-        action_officers.rejected.size != action_officers.size
+      action_officers.rejected.size != action_officers.size
+  end
+
+  def rejected?
+    action_officers_pqs.all_rejected?
+  end
+
+  def no_response?
+    action_officers_pqs.where("response != 'rejected'").any?
   end
 
   def only_rejected?
-    action_officers.accepted.nil? && action_officers.rejected.any?
+    !action_officers.accepted && action_officers.rejected.any?
   end
 
   def closed?
-    unless progress.nil?
+    if progress
       Progress.closed_questions.include?(progress.name)
     else
       false
@@ -195,88 +141,11 @@ class Pq < ActiveRecord::Base
     action_officers_pqs.accepted
   end
 
-  def self.new_questions()
-    monitor_new_questions
-    new_questions_internal
-  end
-
-  def self.in_progress()
-    monitor_in_progress_questions
-    in_progress_internal
-  end
-
-  def self.visibles()
-    by_status_internal(Progress.visible)
-  end
-
   def short_house_name
     if house_name.include?('Lords')
       'HoL'
     else
       'HoC'
-    end
-  end
-
-  def self.by_status(status)
-    monitor_questions_by_status(status)
-    by_status_internal(status)
-  end
-
-  def self.no_response()
-    by_status(Progress.NO_RESPONSE)
-  end
-
-  def self.unassigned()
-    by_status(Progress.UNASSIGNED)
-  end
-
-  def self.rejected
-    by_status(Progress.REJECTED)
-  end
-
-  def self.draft_pending
-    by_status(Progress.DRAFT_PENDING)
-  end
-
-  def self.with_pod
-    by_status(Progress.WITH_POD)
-  end
-
-  def self.pod_query
-    by_status(Progress.POD_QUERY)
-  end
-
-  def self.pod_cleared
-    by_status(Progress.POD_CLEARED)
-  end
-
-  def self.with_minister
-    by_status(Progress.WITH_MINISTER)
-  end
-
-  def self.ministerial_query
-    by_status(Progress.MINISTERIAL_QUERY)
-  end
-
-  def self.minister_cleared
-    by_status(Progress.MINISTER_CLEARED)
-  end
-
-  def self.answered
-    by_status(Progress.ANSWERED)
-  end
-
-  def self.transferred
-    joins(:progress).where('pqs.transferred = true AND progresses.name IN (?)', Progress.new_questions)
-  end
-
-  def self.i_will_write_flag
-    joins(:progress).where('pqs.i_will_write = true AND progresses.name NOT IN (?)', Progress.closed_questions)
-  end
-
-  def set_pod_waiting
-    if self.draft_answer_received_changed?
-      self.pod_waiting = draft_answer_received
     end
   end
 
@@ -288,45 +157,5 @@ class Pq < ActiveRecord::Base
 
   def iww_uin
     "#{uin}-IWW" if uin.present? && !is_follow_up?
-  end
-
-  def process_date_for_answer
-    if self.date_for_answer.nil?
-      self.date_for_answer_has_passed = true
-      self.days_from_date_for_answer = LARGEST_POSTGRES_INTEGER
-    else
-      self.date_for_answer_has_passed = self.date_for_answer < Date.today
-      self.days_from_date_for_answer = (self.date_for_answer - Date.today).abs
-    end
-  end
-
-  def self.by_status_internal(status)
-    joins(:progress).where(progresses: {name: status})
-  end
-
-  def self.new_questions_internal()
-    by_status(Progress.new_questions)
-  end
-
-  def self.in_progress_internal()
-    by_status(Progress.in_progress_questions)
-  end
-
-  def self.monitor_new_questions
-    number_of_questions = new_questions_internal.count
-    $statsd.gauge("#{StatsHelper::PROGRESS}.new_questions", number_of_questions)
-  end
-
-  def self.monitor_in_progress_questions
-    number_of_questions = in_progress_internal.count
-    $statsd.gauge("#{StatsHelper::PROGRESS}.in_progress", number_of_questions)
-  end
-
-  def self.monitor_questions_by_status(status)
-    return if status.kind_of?(Array)
-
-    number_of_questions = by_status_internal(status).count
-    key = status.underscore.gsub(' ', '_')
-    $statsd.gauge("#{StatsHelper::PROGRESS}.#{key}", number_of_questions)
   end
 end
