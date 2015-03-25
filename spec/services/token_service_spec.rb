@@ -28,18 +28,18 @@ describe TokenService do
 
   end
 
-  describe '#is_valid' do
+  describe '#valid?' do
     it 'should return true if valid token is provided' do
       token_to_send = subject.generate_token('/path/one', 'entity_one', expire_in_future)
 
-      is_valid = subject.is_valid(token_to_send, '/path/one', 'entity_one')
+      is_valid = subject.valid?(token_to_send, '/path/one', 'entity_one')
       expect(is_valid).to eq(true)
     end
 
     it 'should return false if the token is not correct' do
       subject.generate_token('/path/one', 'entity_one', expire_in_future)
 
-      is_valid = subject.is_valid('invalid', '/path/one', 'entity_one')
+      is_valid = subject.valid?('invalid', '/path/one', 'entity_one')
 
       expect(is_valid).to eq(false)
     end
@@ -47,7 +47,7 @@ describe TokenService do
     it 'should return false if the path is not correct' do
       token_to_send = subject.generate_token('/path/one', 'entity_one', expire_in_future)
 
-      is_valid = subject.is_valid(token_to_send, '/invalid', 'entity_one')
+      is_valid = subject.valid?(token_to_send, '/invalid', 'entity_one')
 
       expect(is_valid).to eq(false)
     end
@@ -55,18 +55,18 @@ describe TokenService do
     it 'should return false if the entity is not correct' do
       token_to_send = subject.generate_token('/path/one', 'entity_one', expire_in_future)
 
-      is_valid = subject.is_valid(token_to_send, '/path/one', 'invalid')
+      is_valid = subject.valid?(token_to_send, '/path/one', 'invalid')
 
       expect(is_valid).to eq(false)
     end
 
 
-    it 'should return false if token expired' do
+    it 'should return true if token valid but expired' do
       token_to_send = subject.generate_token('/path/one', 'entity_one', expire_in_past)
 
-      is_valid = subject.is_valid(token_to_send, '/path/one', 'entity_one')
+      result = subject.valid?(token_to_send, '/path/one', 'entity_one')
 
-      expect(is_valid).to eq(false)
+      expect(result).to eq(true)
     end
 
 
@@ -74,13 +74,29 @@ describe TokenService do
       first_token = subject.generate_token('/path/one', 'entity_one', expire_in_future)
       second_token = subject.generate_token('/path/one', 'entity_one', expire_in_future)
 
-      invalid = subject.is_valid(first_token, '/path/one', 'entity_one')
-      valid = subject.is_valid(second_token, '/path/one', 'entity_one')
+      invalid = subject.valid?(first_token, '/path/one', 'entity_one')
+      valid = subject.valid?(second_token, '/path/one', 'entity_one')
 
       expect(invalid).to eq(false)
       expect(valid).to eq(true)
     end
   end
+
+  describe '#expired?' do
+    it 'should return false if expiry time is in the future' do
+      token_to_send = subject.generate_token('/path/one', 'entity_one', 3.days.from_now)
+      result = subject.expired?(token_to_send, '/path/one', 'entity_one')
+      expect(result).to be false
+    end
+
+    it 'should return true if expiry date is in the past' do
+      token_to_send = subject.generate_token('/path/one', 'entity_one', 3.days.ago)
+      result = subject.expired?(token_to_send, '/path/one', 'entity_one')
+      expect(result).to be true
+    end
+  end
+
+
 
   describe '#delete_expired' do
     it 'should delete expired tokens' do
