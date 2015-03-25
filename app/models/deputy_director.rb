@@ -3,6 +3,7 @@ class DeputyDirector < ActiveRecord::Base
   include SoftDeletion::Record
 
   has_paper_trail
+  validates :name, presence: true
   validates :division_id, presence: true
   validates :email, presence: true
 
