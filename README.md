@@ -106,3 +106,4 @@ rake "user:create[admin@admin.com, 123456789, admin]"
 Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
 be run be executing the same command with the features folder as argument (i.e.
 `bundle exec rspec features`).
+
