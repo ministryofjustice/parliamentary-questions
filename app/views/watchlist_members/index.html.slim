@@ -1,7 +1,7 @@
 = render partial: "shared/flash_messages", flash: flash
-h2 Watchlist members
+h1 Watchlist members
 #admin-wm-list
-  div class="row>"
+  div class="row"
     ul#admin-button-bar
       li= link_to ('Send allocation info'), {controller: 'watchlist_send_emails', action: 'send_emails'}, {class: 'button', :onclick=> "ga('send', 'event', 'settings', 'watchlist', 'send allocation info');" }
       li= link_to ('Add watchlist member'), new_watchlist_member_path, {class: 'button-secondary'}

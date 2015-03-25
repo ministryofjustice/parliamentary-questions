@@ -1,85 +1,73 @@
-= render partial: 'shared/flash_messages'
-.row.space-before-20
-  p
-    strong>= @ao.name
-    | ,
-  p.br.space-before
-    | You have been allocated the PQ&nbsp;
-    strong= @question.uin
-.row.row-spacer
-  blockquote.pq-question.col-md-12
-    = @question.question
-.row
-  div
-    | Question asked by #{@question.member_name} (#{@question.house_name}).
-.row
-  div
-    | To be answered on behalf of #{@question.minister.name}.
-.row.row-spacer
-  p.strong The deadline to accept or reject this allocation is 2pm today
-- if @question.action_officers_pqs.size > 1
+#assignment
+  = render partial: 'shared/flash_messages'
+  .row.space-before-20
+    p
+      strong>= @ao.name
+      | ,
+    p.space-before
+      | You have been allocated the PQ&nbsp;
+      strong= @question.uin
+  .row.row-spacer
+    blockquote.pq-question.col-md-12
+      = @question.question
   .row
-    .question-allocation
-      p This question has also been allocated to the following action officers, but only one person may accept responsibility.
-      ul.question-allocation-list data-pqid=@question.id
-        - @question.action_officers_pqs.each do |ao_pq|
-          - if !ao_pq.action_officer.nil? && ao_pq.action_officer_id!=@ao.id
-            li
-              details.details-reveal
-                summary aria-controls="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
-                  span.link.closed
-                    = ao_pq.action_officer.name
-                    | (#{ao_pq.action_officer.deputy_director.division.name})
-                  - if ao_pq.accepted?
-                    span.flag.accepted Accepted
-                  - elsif ao_pq.rejected?
-                    span.flag.rejected Rejected
-                    .panel-indent.reveal.closed id="rejection-#{ao_pq.id}-#{ao_pq.action_officer.id}"
-                      p.strong= ao_pq.reason_option
-                      p= ao_pq.reason
-                  - else
-                    span.flag.no-response No response
-
-- if !@question.is_in_progress?(Progress.draft_pending)
-  .accept-reject-form
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title Will you take responsibility for drafting an answer to this question?
-      .panel-body
-        .row
-          .col-md-6
-            = form_for @response, :url => {:controller => 'assignment', :action => 'show', :uin => params[:uin]} do |f|
-              = hidden_field_tag 'token', params[:token]
-              = hidden_field_tag 'entity', params[:entity]
-              .form-group.inline
-                label.block-label
-                  = f.radio_button :response_action, 'accept'
-                  | Accept
-                label.block-label
-                  = f.radio_button :response_action, 'reject'
-                  | Reject
-              #reason-textarea class=('hide' unless @response.errors.any?)
-                - if !@response.errors[:reason_option].empty?
-                  .pq-msg-error
-                    | Please select one of the reasons to reject the question
-                .form-group
-                  select.form-control name="allocation_response[reason_option]"
-                    option disabled="disabled" selected="selected"  Select your reasons for rejecting the question
-                    option I think it is for another person in my Department
-                    option I think it is for another Department in the MoJ
-                    option I think it is for another government Department
-                - if !@response.errors[:reason].empty?
-                  .pq-msg-error
-                    | Please give us information about why you reject the question
-                .form-group
-                  = f.label :reason, 'Please explain why you reject the question, or if you are not the right person or Department, please tell us who we should contact'
-                  = f.text_area  :reason,  class: 'form-control', rows: '10'
-              .form-group
-                = submit_tag 'Save Response' , class: 'button'
-  p
-    | If you have any queries please
-    a href="mailto:#{Settings.mail_reply_to}"  contact the PQ Team
-- else
+    div
+      | Question asked by #{@question.member_name} (#{@question.house_name}).
   .row
-    .col-md-10
-      h4 The question has been accepted and an email has been sent to the accepting officer with drafting instructions, please contact Parliamentary branch if you have any questions
+    div
+      | To be answered on behalf of #{@question.minister.name}.
+  .row.row-spacer
+    p.strong The deadline to accept or reject this allocation is 2pm today
+  - if @question.action_officers_pqs.size > 1
+    .row
+      .question-allocation
+        p This question has also been allocated to the following action officers, but only one person may accept responsibility.
+        ul.question-allocation-list data-pqid=@question.id
+          - @question.action_officers_pqs.each do |ao_pq|
+            - if !ao_pq.action_officer.nil? && ao_pq.action_officer_id!=@ao.id
+              li
+                = render partial: 'shared/allocation_list', locals: { ao_pq: ao_pq }
+  
+  - if !@question.is_in_progress?(Progress.draft_pending)
+    .accept-reject-form
+      .panel.panel-default
+        .panel-heading
+          | Will you take responsibility for drafting an answer to this question?
+        .panel-body
+          .row
+            .col-md-6
+              = form_for @response, :url => {:controller => 'assignment', :action => 'show', :uin => params[:uin]} do |f|
+                = hidden_field_tag 'token', params[:token]
+                = hidden_field_tag 'entity', params[:entity]
+                .form-group.inline
+                  label.block-label
+                    = f.radio_button :response_action, 'accept'
+                    | Accept
+                  label.block-label
+                    = f.radio_button :response_action, 'reject'
+                    | Reject
+                #reason-textarea class=('hide' unless @response.errors.any?)
+                  - if !@response.errors[:reason_option].empty?
+                    .pq-msg-error
+                      | Please select one of the reasons to reject the question
+                  .form-group
+                    select.form-control name="allocation_response[reason_option]"
+                      option disabled="disabled" selected="selected"  Select your reasons for rejecting the question
+                      option I think it is for another person in my Department
+                      option I think it is for another Department in the MoJ
+                      option I think it is for another government Department
+                  - if !@response.errors[:reason].empty?
+                    .pq-msg-error
+                      | Please give us information about why you reject the question
+                  .form-group
+                    = f.label :reason, 'Please explain why you reject the question, or if you are not the right person or Department, please tell us who we should contact'
+                    = f.text_area  :reason,  class: 'form-control', rows: '10'
+                .form-group
+                  = submit_tag 'Save Response' , class: 'button'
+    p
+      | If you have any queries please
+      a href="mailto:#{Settings.mail_reply_to}"  contact the PQ Team
+  - else
+    .row
+      .col-md-10
+        h1 The question has been accepted and an email has been sent to the accepting officer with drafting instructions, please contact Parliamentary branch if you have any questions

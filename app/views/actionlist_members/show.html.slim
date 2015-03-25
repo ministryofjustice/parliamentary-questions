@@ -1,11 +1,11 @@
-h2 Actionlist member details
 #admin-al-details
+  h1 Actionlist member details
   = render partial: "shared/flash_messages", flash: flash
-  h4 Name
+  h2 Name
   p.text= @actionlist_member.name
-  h4 Email
+  h2 Email
   p.text= @actionlist_member.email
-  h4 Status
+  h2 Status
   = render partial: 'shared/status', object: @actionlist_member
   = link_to 'Edit', edit_actionlist_member_path(@actionlist_member), {class: 'admin-link'}
   = link_to 'Return to actionlist member list', actionlist_members_path, {class: 'admin-link'}

@@ -1,11 +1,11 @@
-h2 Press officer details
+h1 Press officer details
 #admin-po-details
   = render partial: "shared/flash_messages", flash: flash
-  h4 Name
+  h2 Name
   p.text= @press_officer.name
-  h4 Email
+  h2 Email
   p.text= @press_officer.email
-  h4 Status
+  h2 Status
   = render partial: 'shared/status', object: @press_officer
   = link_to 'Edit', edit_press_officer_path(@press_officer), {class: 'admin-link'}
   = link_to 'Return to press officer list', press_officers_path, {class: 'admin-link'}

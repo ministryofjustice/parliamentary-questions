@@ -1,11 +1,11 @@
-h2 Division details
 #admin-division-details
+  h1 Division details
   = render partial: "shared/flash_messages", flash: flash
-  h4 Name
+  h2 Name
   p.text= @division.name
-  h4 Directorate
+  h2 Directorate
   p.text= @division.directorate.name
-  h4 Status
+  h2 Status
   = render partial: 'shared/status', object: @division
   = link_to 'Edit', edit_division_path(@division), {class: 'admin-link'}
   = link_to 'Return to divisions list', divisions_path, {class: 'admin-link'}
