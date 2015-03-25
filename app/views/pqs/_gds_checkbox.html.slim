@@ -1,0 +1,7 @@
+- name = "pq[#{field}]"
+- id   = "pq_#{field}"
+.form-group
+  input type="hidden" name=name value="0"
+  label for=id class="block-label"
+    input id=id name=name type="checkbox" value="1" checked=('checked' if value.present?)
+    = label

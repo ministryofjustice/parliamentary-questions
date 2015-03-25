@@ -4,7 +4,9 @@
     .datetimepicker
       input#sent_to_answering_minister.form-control name="pq[sent_to_answering_minister]" type="text" value=(@pq.sent_to_answering_minister.to_s) /
       span.fa.fa-calendar
-  = f.check_box_gds :answering_minister_query
+  = render partial: 'gds_checkbox', locals: { value: @pq.answering_minister_query,
+                                              field: 'answering_minister_query',
+                                              label: 'Answering minister query' }
   .form-group
     label.form-label for="answering_minister_to_action_officer"  Date sent back to action officer
     .datetimepicker
@@ -33,7 +35,11 @@
       .datetimepicker
         input#sent_to_policy_minister.form-control name="pq[sent_to_policy_minister]" type="text" value=(@pq.sent_to_policy_minister.to_s) /
         span.fa.fa-calendar
-    = f.check_box_gds :policy_minister_query
+
+    = render partial: 'gds_checkbox', locals: { value: @pq.policy_minister_query,
+                                                field: 'policy_minister_query',
+                                                label: 'Policy minister query' }
+
     .form-group
       label.form-label for="policy_minister_to_action_officer"  Date sent back to action officer
       .datetimepicker
