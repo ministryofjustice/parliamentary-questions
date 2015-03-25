@@ -14,6 +14,9 @@ module PQState
       @final_states = final_states
     end
 
+    # Walk the state transition graph and verify that there is no final states
+    # other than the specified ones.
+    #
     def validate_transition_graph!
       Validator.new(@transitions, @final_states).check_consistent_state_graph!
     end
@@ -45,12 +48,14 @@ module PQState
     end
 
     def transitions_permitted(from_state)
-      ts = @transitions.select { |t| t.state_from == from_state }
-      ts || raise(ArgumentError, "Cannot find a transition from state '#{from_state}'. Valid states are: #{states}")
+      unless states.include?(from_state)
+        raise(ArgumentError, "Cannot find a transition from state '#{from_state}'. Valid states are: #{states}")
+      end
+      @transitions.select { |t| t.state_from == from_state }
     end
 
     def states
-      @transitions.reduce(Set.new) do |acc, t|
+      @states ||= @transitions.reduce(Set.new) do |acc, t|
         acc + Set.new([t.state_from, t.state_to])
       end
     end
