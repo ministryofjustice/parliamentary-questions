@@ -1,33 +1,26 @@
 class AOTokenFilter
   def self.before(controller)
-    if !has_access(controller)
+    token_state = validate_token(controller)
+    if token_state == :invalid
+      LogStuff.error(:token_error) { "type: invalid_token, referrer:#{controller.request.referer}" }
+      controller.render :file => "shared/token_invalid.html.slim", :status => :unauthorized
+    elsif token_state == :expired
+      LogStuff.error(:token_error) { "type: expired_token, referrer:#{controller.request.referer}" }
       controller.render :file => "shared/token_expired.html.slim", :status => :unauthorized
     end
   end
 
-  def self.has_access(controller)
+  def self.validate_token(controller)
+    result = :invalid
     token_service = TokenService.new
 
     token = controller.params[:token]
     entity = controller.params[:entity]
     path = controller.request.path
 
-    is_valid = token_service.is_valid(token, path, entity)
+    result = :valid if token_service.valid?(token, path, entity)
+    result = :expired if result == :valid && token_service.expired?(token, path, entity)
 
-    suffix = 'other'
-    if path.include? 'assignment'
-      suffix = 'commission'
-    end
-    if path.include? 'watchlist'
-      suffix = 'watchlist'
-    end
-
-    if is_valid
-      $statsd.increment "#{StatsHelper::TOKENS_VALID}.#{suffix}"
-    else
-      $statsd.increment "#{StatsHelper::TOKENS_INVALID}.#{suffix}"
-    end
-
-    return is_valid
+    return result
   end
 end

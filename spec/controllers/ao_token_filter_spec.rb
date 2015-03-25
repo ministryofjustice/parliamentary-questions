@@ -14,9 +14,7 @@ describe 'AOTokenFilter' do
     allow(controller).to receive(:params) { {token: 'mytoken', entity: 'test'} }
     allow(controller).to receive(:request) { request }
 
-    has_access = AOTokenFilter.has_access(controller)
-
-    expect(has_access).to eq(false)
+    expect(AOTokenFilter.validate_token(controller)).to eq :invalid
   end
 
   it 'the filter should pass if you have a valid token' do
@@ -32,9 +30,24 @@ describe 'AOTokenFilter' do
     allow(controller).to receive(:params) { {token: token, entity: entity} }
     allow(controller).to receive(:request) { request }
 
-    has_access = AOTokenFilter.has_access(controller)
-    expect(has_access).to eq(true)
+    expect(AOTokenFilter.validate_token(controller)).to eq :valid
+  end
 
+
+  it 'the filter should fail if the token is expired' do
+    controller = double('ApplicationController')
+    request = double('request')
+
+    path = '/my/valid/path'
+    entity = 'ao@justice.com'
+
+    token = @token_service.generate_token(path, entity, 20.minutes.ago)
+
+    allow(request).to receive(:path) { path }
+    allow(controller).to receive(:params) { {token: token, entity: entity} }
+    allow(controller).to receive(:request) { request }
+
+    expect(AOTokenFilter.validate_token(controller)).to eq :expired
   end
 
   it 'the filter should say no access if you provide empty token' do
@@ -45,9 +58,7 @@ describe 'AOTokenFilter' do
     allow(controller).to receive(:params) { { entity: 'test'} }
     allow(controller).to receive(:request) { request }
 
-    has_access = AOTokenFilter.has_access(controller)
-
-    expect(has_access).to eq(false)
+    expect(AOTokenFilter.validate_token(controller)).to eq :invalid
   end
 
   it 'the filter should say no access if you provide empty entity' do
@@ -58,10 +69,9 @@ describe 'AOTokenFilter' do
     allow(controller).to receive(:params) { { token: 'test'} }
     allow(controller).to receive(:request) { request }
 
-    has_access = AOTokenFilter.has_access(controller)
-
-    expect(has_access).to eq(false)
+    expect(AOTokenFilter.validate_token(controller)).to eq :invalid
   end
+    
 
   it 'the filter should say no access if you have a are in the wrong path' do
     controller = double('ApplicationController')
@@ -76,9 +86,7 @@ describe 'AOTokenFilter' do
     allow(controller).to receive(:params) { {token: token, entity: entity} }
     allow(controller).to receive(:request) { request }
 
-    has_access = AOTokenFilter.has_access(controller)
-    expect(has_access).to eq(false)
-
+    expect(AOTokenFilter.validate_token(controller)).to eq :invalid
   end
 
 
