@@ -41,7 +41,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   end
 
   scenario "Parli-branch moves a question to 'POD Query' and to 'POD cleared'" do
-    in_pq_detail(@uin1, "POD check") { check "Pod query flag" }
+    in_pq_detail(@uin1, "POD check") { check "POD query flag" }
     expect_pq_in_progress_status(@uin1, 'POD Query')
 
     in_pq_detail(@uin1, "POD check") { fillin_date('#pod_clearance') }
@@ -71,7 +71,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     accept_assignnment(@ao)
 
     in_pq_detail(@uin2, "PQ draft")       { fillin_date('#draft_answer_received') }
-    in_pq_detail(@uin2, "POD check")      { check "Pod query flag" }
+    in_pq_detail(@uin2, "POD check")      { check "POD query flag" }
     in_pq_detail(@uin2, "POD check")      { fillin_date('#pod_clearance') }
     in_pq_detail(@uin2, "Minister check") { fillin_date('#sent_to_answering_minister') }
     in_pq_detail(@uin2, "Minister check") { check 'Answering minister query' }
@@ -97,7 +97,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     in_pq_detail(@uin2, "POD check") { remove_date('#pod_clearance') }
     expect_pq_in_progress_status(@uin2, 'POD Query')
 
-    in_pq_detail(@uin2, "POD check") { uncheck "Pod query flag" }
+    in_pq_detail(@uin2, "POD check") { uncheck "POD query flag" }
     in_pq_detail(@uin2, "PQ draft")  { remove_date('#draft_answer_received') }
     expect_pq_in_progress_status(@uin2, 'Draft Pending')
   end
