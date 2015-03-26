@@ -1,0 +1,13 @@
+TODO_FOR_BRANCH
+
+This branch is to provide logstash records for expired and invalid tokens.
+
+It's been done, but not tested properly yet because webrick on local machine does not forward the request.referer.
+
+TO complete this ticket:
+
+ = tag the release on git (see deployment instructions on how to do that)
+ - deploy tag to staging
+ - see if the referrer comes through on the staging logs.
+
+ 
