@@ -1,6 +1,7 @@
 class PQProgressChangerService
   def update_progress(pq)
-    new_state   = PQState.progress_changer.next_state(:unassigned, pq)
+    new_state   = PQState.progress_changer.next_state(PQState::UNASSIGNED, pq)
+    pq.state    = new_state
     pq.progress = conversions.fetch(new_state)
     pq.save!
   end
@@ -9,18 +10,18 @@ class PQProgressChangerService
 
   def conversions
     @conversions ||= {
-      unassigned: Progress.unassigned,
-      rejected: Progress.rejected,
-      no_response: Progress.no_response,
-      draft_pending: Progress.draft_pending,
-      with_pod: Progress.with_pod,
-      pod_query: Progress.pod_query,
-      pod_cleared: Progress.pod_cleared,
-      with_minister: Progress.with_minister,
-      ministerial_query: Progress.ministerial_query,
-      minister_cleared: Progress.minister_cleared,
-      answered: Progress.answered,
-      transferred_out: Progress.transferred_out
+      PQState::UNASSIGNED        => Progress.unassigned,
+      PQState::REJECTED          => Progress.rejected,
+      PQState::NO_RESPONSE       => Progress.no_response,
+      PQState::DRAFT_PENDING     => Progress.draft_pending,
+      PQState::WITH_POD          => Progress.with_pod,
+      PQState::POD_QUERY         => Progress.pod_query,
+      PQState::POD_CLEARED       => Progress.pod_cleared,
+      PQState::WITH_MINISTER     => Progress.with_minister,
+      PQState::MINISTERIAL_QUERY => Progress.ministerial_query,
+      PQState::MINISTER_CLEARED  => Progress.minister_cleared,
+      PQState::ANSWERED          => Progress.answered,
+      PQState::TRANSFERRED_OUT   => Progress.transferred_out
     }
   end
 end

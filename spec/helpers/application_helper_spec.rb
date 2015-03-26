@@ -14,7 +14,7 @@ RSpec.describe ApplicationHelper do
     it 'false when no minister' do
       question = build(:pq)
       minister = nil
-      expect(helper.minister_warning?(question, minister)).to be nil
+      expect(helper.minister_warning?(question, minister)).to be false
     end
 
     it 'false when minister not deleted' do

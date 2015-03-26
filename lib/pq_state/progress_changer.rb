@@ -2,21 +2,21 @@ module PQState
   module_function
 
   ALLOWED = [
-    :unassigned,
-    :rejected,
-    :no_response,
-    :draft_pending,
-    :with_pod,
-    :pod_cleared,
-    :with_minister,
-    :ministerial_query,
-    :minister_cleared,
-    :answered
+    UNASSIGNED,
+    REJECTED,
+    NO_RESPONSE,
+    DRAFT_PENDING,
+    WITH_POD,
+    POD_CLEARED,
+    WITH_MINISTER,
+    MINISTERIAL_QUERY,
+    MINISTER_CLEARED,
+    ANSWERED
   ]
 
   FINAL_STATES = [
-    :answered,
-    :transferred_out
+    ANSWERED,
+    TRANSFERRED_OUT
   ]
 
   def progress_changer
@@ -24,41 +24,41 @@ module PQState
       FINAL_STATES,
 
       ## Commissioning
-      Transition(:unassigned, :no_response) do |pq|
+      Transition(UNASSIGNED, NO_RESPONSE) do |pq|
         pq.action_officers_pqs.any?
       end,
 
       ## Rejecting
-      Transition(:no_response, :rejected) do |pq|
+      Transition(NO_RESPONSE, REJECTED) do |pq|
         pq.rejected?
       end,
 
-      Transition(:rejected, :no_response) do |pq|
+      Transition(REJECTED, NO_RESPONSE) do |pq|
         pq.no_response?
       end,
 
       ## Draft Pending
-      Transition(:no_response, :draft_pending) do |pq|
+      Transition(NO_RESPONSE, DRAFT_PENDING) do |pq|
         pq.action_officer_accepted.present?
       end,
 
       ## With POD
-      Transition(:draft_pending, :with_pod) do |pq|
+      Transition(DRAFT_PENDING, WITH_POD) do |pq|
         !!pq.draft_answer_received
       end,
 
       ## POD Query
-      Transition(:with_pod, :pod_query) do |pq|
+      Transition(WITH_POD, POD_QUERY) do |pq|
         !!pq.pod_query_flag
       end,
 
       ## POD Clearance
-      Transition.factory([:with_pod, :pod_query], [:pod_cleared]) do |pq|
+      Transition.factory([WITH_POD, POD_QUERY], [POD_CLEARED]) do |pq|
         (pq.draft_answer_received || pq.pod_query_flag) && pq.pod_clearance
       end,
 
       ## With Minister
-      Transition(:pod_cleared, :with_minister) do |pq|
+      Transition(POD_CLEARED, WITH_MINISTER) do |pq|
         if !pq.policy_minister
           !!pq.sent_to_answering_minister
         else
@@ -67,23 +67,23 @@ module PQState
       end,
 
       ## Minister Query
-      Transition(:with_minister, :ministerial_query) do |pq|
+      Transition(WITH_MINISTER, MINISTERIAL_QUERY) do |pq|
         pq.answering_minister_query || pq.policy_minister_query
       end,
 
       ## Minister Cleared
-      Transition.factory([:with_minister, :ministerial_query], [:minister_cleared]) do |pq|
+      Transition.factory([WITH_MINISTER, MINISTERIAL_QUERY], [MINISTER_CLEARED]) do |pq|
         (!pq.policy_minister && pq.cleared_by_answering_minister) ||
           (pq.cleared_by_answering_minister && pq.cleared_by_policy_minister)
       end,
 
       ## Answered
-      Transition(:minister_cleared, :answered) do |pq|
+      Transition(MINISTER_CLEARED, ANSWERED) do |pq|
         pq.pq_withdrawn || pq.answer_submitted
       end,
 
       # Transferred out
-      Transition.factory(ALLOWED - [:answered], [:transferred_out]) do |pq|
+      Transition.factory(ALLOWED - [ANSWERED], [TRANSFERRED_OUT]) do |pq|
         pq.transfer_out_ogd_id && pq.transfer_out_date
       end
     )

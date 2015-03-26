@@ -28,7 +28,7 @@
               li
                 = render partial: 'shared/allocation_list', locals: { ao_pq: ao_pq }
   
-  - if !@question.is_in_progress?(Progress.draft_pending)
+  - unless @question.state == PQState::DRAFT_PENDING
     .accept-reject-form
       .panel.panel-default
         .panel-heading

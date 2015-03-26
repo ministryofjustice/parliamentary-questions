@@ -39,26 +39,26 @@ class DashboardFilters
   private_class_method
 
   def self.statuses(counts, params)
-    {
-      Progress.UNASSIGNED  => 'Unassigned',
-      Progress.NO_RESPONSE => 'No response',
-      Progress.REJECTED    => 'Rejected',
-    }.map do |key, label|
-      StatusFilter.new(counts[key], key, label, params)
+    [
+      PQState::UNASSIGNED,
+      PQState::NO_RESPONSE,
+      PQState::REJECTED,
+    ].map do |key|
+      StatusFilter.new(counts[key], key, PQState.state_label(key), params)
     end
   end
 
   def self.in_progress_statuses(counts, params)
-    {
-      Progress.DRAFT_PENDING     => 'Draft Pending',
-      Progress.WITH_POD          => 'With POD',
-      Progress.POD_QUERY         => 'POD Query',
-      Progress.POD_CLEARED       => 'POD Cleared',
-      Progress.WITH_MINISTER     => 'With Minister',
-      Progress.MINISTERIAL_QUERY => 'Ministerial Query',
-      Progress.MINISTER_CLEARED  => 'Minister Cleared'
-    }.map do |key, label|
-      InProgressStatusFilter.new(counts[key], key, label, params)
+    [
+      PQState::DRAFT_PENDING,
+      PQState::WITH_POD,
+      PQState::POD_QUERY,
+      PQState::POD_CLEARED,
+      PQState::WITH_MINISTER,
+      PQState::MINISTERIAL_QUERY,
+      PQState::MINISTER_CLEARED,
+    ].map do |key|
+      InProgressStatusFilter.new(counts[key], key, PQState.state_label(key), params)
     end
   end
 end
