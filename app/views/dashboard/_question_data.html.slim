@@ -13,10 +13,10 @@ p.pq-question
   .status-bar.col-md-12
     - if !question.seen_by_finance
       span.flag.finance-unchecked Not checked by finance
-    span class=("flag #{question.progress.classname}") = question.progress.name
-- if [Progress.UNASSIGNED,Progress.NO_RESPONSE,Progress.REJECTED].include?(question.progress.name)
+    span class=("flag #{state_classname question.state}") = state_label question.state
+- if question.is_new?
   / if a question is unassigned, No response or rejected: loop through and show rejection reasons
-  = render partial:'shared/rejected_reasons', locals: {question: question}
+  = render partial: 'shared/rejected_reasons', locals: {question: question}
 - if question.commissioned?
   = render partial: 'dashboard/question_data_commissioned', locals: { question: question }
 - else

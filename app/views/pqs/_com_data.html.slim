@@ -1,6 +1,6 @@
 .deadline_input.form-group
   label.form-label for="pq_internal_deadline"
-    | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, progress_val: @pq.progress, draft_reply: @pq.draft_answer_received }}
+    | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, is_closed: @pq.closed?, draft_reply: @pq.draft_answer_received }}
   .datetimepicker.default-time
     input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
     span.fa.fa-calendar title="select a date"
@@ -40,7 +40,7 @@ hr/
           = ' '
           = link_to raw("<i class=\"fa fa-envelope-o\"></i> Send reminder#{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'}
         = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
-    - unless Progress.new_questions.include?(@pq.progress.name)
+    - unless @pq.is_new?
       = render partial: 'shared/action_officer_selection', locals: {question: @pq, form: f, reassign: true}
 
   - else

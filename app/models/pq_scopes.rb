@@ -17,6 +17,7 @@ module PqScopes
     })
   end
 
+  #TODO: rename into ministers_by_state
   def ministers_by_progress(ministers, progresses)
     includes(:progress, :minister).
       where(progress_id: progresses, minister_id: ministers).
@@ -25,82 +26,84 @@ module PqScopes
   end
 
   def new_questions
-    by_status(Progress.new_questions)
+    by_status(PQState::NEW)
   end
 
   def in_progress
-    by_status(Progress.in_progress_questions)
+    by_status(PQState::IN_PROGRESS)
   end
 
   def visibles
-    by_status(Progress.visible)
+    by_status(PQState::VISIBLE)
   end
 
-  def by_status(status)
-    joins(:progress).where(progresses: {name: status})
+  def by_status(states)
+    where(state: states)
   end
 
   def no_response()
-    by_status(Progress.NO_RESPONSE)
+    by_status(PQState::NO_RESPONSE)
   end
 
   def unassigned()
-    by_status(Progress.UNASSIGNED)
+    by_status(PQState::UNASSIGNED)
   end
 
   def rejected
-    by_status(Progress.REJECTED)
+    by_status(PQState::REJECTED)
   end
 
   def draft_pending
-    by_status(Progress.DRAFT_PENDING)
+    by_status(PQState::DRAFT_PENDING)
   end
 
   def with_pod
-    by_status(Progress.WITH_POD)
+    by_status(PQState::WITH_POD)
   end
 
   def pod_query
-    by_status(Progress.POD_QUERY)
+    by_status(PQState::POD_QUERY)
   end
 
   def pod_cleared
-    by_status(Progress.POD_CLEARED)
+    by_status(PQState::POD_CLEARED)
   end
 
   def with_minister
-    by_status(Progress.WITH_MINISTER)
+    by_status(PQState::WITH_MINISTER)
   end
 
   def ministerial_query
-    by_status(Progress.MINISTERIAL_QUERY)
+    by_status(PQState::MINISTERIAL_QUERY)
   end
 
   def minister_cleared
-    by_status(Progress.MINISTER_CLEARED)
+    by_status(PQState::MINISTER_CLEARED)
   end
 
   def answered
-    by_status(Progress.ANSWERED)
+    by_status(PQState::ANSWERED)
   end
 
   def transferred
-    joins(:progress)
-      .where('pqs.transferred = true AND progresses.name IN (?)',
-             Progress.new_questions)
+    where(state: PQState::NEW, transferred: true)
   end
 
   def i_will_write_flag
-    joins(:progress)
-      .where('pqs.i_will_write = true AND progresses.name NOT IN (?)',
-             Progress.closed_questions)
+    where('i_will_write = true AND state NOT IN (?)', PQState::CLOSED)
   end
 
+  #def sorted_for_dashboard
+  #  order("date_for_answer > CURRENT_DATE ASC")
+  #    .order("DATE_PART('day', date_for_answer::timestamp - CURRENT_DATE::timestamp) ASC")
+  #    .order('state_weight DESC')
+  #    .order('updated_at ASC')
+  #end
+
   def counts_by_state
-    state_counts = joins('join progresses p on p.id = progress_id')
-      .select('p.name', 'count(*)')
-      .group('p.name')
-      .reduce({}) { |acc, r| acc.merge(r.name => r.count) }
+    state_counts = select('state', 'count(*)')
+                     .group('state')
+                     .reduce({}) { |acc, r| acc.merge(r.state => r.count) }
 
     state_counts.merge({
       'view_all'             => Pq.count,

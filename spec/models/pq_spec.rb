@@ -11,6 +11,15 @@ describe Pq do
     it { is_expected.to belong_to :division }
   end
 
+  describe ".before_update" do
+    it "sets the state weight" do
+      state    = PQState::DRAFT_PENDING
+      pq, _    = DBHelpers.pqs
+      pq.update(state: state)
+      expect(pq.state_weight).to eq(PQState.state_weight(state))
+    end
+  end
+
   describe '#has_trim_link?' do
     context 'when trim link present' do
       before { subject.trim_link = TrimLink.new }

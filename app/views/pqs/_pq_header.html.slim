@@ -7,7 +7,7 @@
       span.question-type  Transferred in
     - if @pq.i_will_write
       span.question-type  I will write
-    span#pq-details-progress class=("flag #{@pq.progress.classname}") = @pq.progress.name
+    span#pq-details-progress class=("flag #{state_classname @pq.state}") = state_label @pq.state
 #pq-details-qa-link.row
   .col-md-9
   .col-md-3.pull-right

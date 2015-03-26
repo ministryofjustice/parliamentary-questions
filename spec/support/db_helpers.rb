@@ -58,7 +58,8 @@ module DBHelpers
         tabled_date: Date.today,
         response_due: Date.tomorrow,
         question: "test question #{n}",
-        progress: progresses.find { |p| p.name == Progress.UNASSIGNED }
+        progress: progresses.find { |p| p.name == Progress.UNASSIGNED },
+        state: PQState::UNASSIGNED
       )
     end
   end

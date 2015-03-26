@@ -47,7 +47,6 @@ class PqsController < ApplicationController
   end
 
   def loading_relations
-    @progress_list = Progress.all
     @ogd_list      = Ogd.all
     @pq            = Pq.find_by!(uin: params[:id])
     yield if block_given?
