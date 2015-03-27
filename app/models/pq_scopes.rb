@@ -10,19 +10,37 @@ module PqScopes
     where(seen_by_finance: false)
   end
 
+  def in_progress_pqs_by_minister
+    select("minister_id, state, count(*)")
+      .joins(:minister)
+      .where(state: PQState::IN_PROGRESS)
+      .where('ministers.deleted = false')
+      .group(:state, :minister_id)
+      .reduce({}) { |acc, r|
+        h = { r.minister_id => r.count }
+          acc.merge(r.state => h ) { |_, old_v, new_v| old_v.merge(new_v) }
+      }
+  end
+
+  def accepted_by_press_desk
+    select("pqs.state, ao.press_desk_id, count(*)")
+      .joins('JOIN action_officers_pqs aopq ON aopq.pq_id = pqs.id')
+      .joins('JOIN action_officers ao ON ao.id = aopq.action_officer_id')
+      .joins('JOIN press_desks pd ON pd.id = ao.press_desk_id')
+      .where("state != ?", PQState::UNASSIGNED)
+      .where("aopq.response = 'accepted' AND pd.deleted = false")
+      .group('state, ao.press_desk_id')
+      .reduce({}) { |acc, r|
+        h = { r.press_desk_id => r.count }
+        acc.merge(r.state => h ) { |_, old_v, new_v| old_v.merge(new_v) }
+      }
+  end
+
   def accepted_in(aos)
     joins(:action_officers_pqs).where(action_officers_pqs: {
       response: 'accepted',
       action_officer_id: aos 
     })
-  end
-
-  #TODO: rename into ministers_by_state
-  def ministers_by_progress(ministers, progresses)
-    includes(:progress, :minister).
-      where(progress_id: progresses, minister_id: ministers).
-      group(:minister_id, :progress_id).
-      count
   end
 
   def new_questions

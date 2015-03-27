@@ -33,6 +33,21 @@ module PQState
     TRANSFERRED_OUT
   ]
 
+  ALL = [
+    UNASSIGNED,
+    NO_RESPONSE,
+    REJECTED,
+    DRAFT_PENDING,
+    WITH_POD,
+    POD_QUERY,
+    POD_CLEARED,
+    WITH_MINISTER,
+    MINISTERIAL_QUERY,
+    MINISTER_CLEARED,
+    ANSWERED,
+    TRANSFERRED_OUT,
+  ]
+
   VISIBLE = NEW + IN_PROGRESS
 
   def self.state_weight(state)
