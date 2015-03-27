@@ -25,7 +25,7 @@ module Features
       expect(page).to have_content("#{uin} commissioned successfully")
     end
 
-    def accept_assignnment(action_officer)
+    def accept_assignment(action_officer)
       visit_assignment_url(action_officer)
       choose 'Accept'
       click_on 'Save Response'

@@ -69,7 +69,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   scenario "Parli-branch moves a question back from 'Minister Cleared' back to 'Ministerial Query'" do
     clear_sent_mail
     commission_question(@uin2, [@ao], @minister)
-    accept_assignnment(@ao)
+    accept_assignment(@ao)
 
     in_pq_detail(@uin2, "PQ draft")       { fillin_date('#draft_answer_received') }
     in_pq_detail(@uin2, "POD check")      { check "POD query flag" }
