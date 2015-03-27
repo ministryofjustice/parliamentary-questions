@@ -29,8 +29,7 @@ class AOTokenFilter
     params.uri     = controller.env['REQUEST_URI']
     params.referer = controller.request.referer
     params.uin     = extract_uin(controller)  
-    params.user    = controller.current_user.name
-    params.user_id = controller.current_user.id
+    params.user    = extract_user_name(controller)
     log_error(token_state, params)
     controller.render :file => "shared/token_#{token_state.to_s}.html.slim", status: :unauthorized
   end
@@ -42,8 +41,7 @@ class AOTokenFilter
                     uri: params.uri, 
                     referer: params.referer, 
                     uin: params.uin, 
-                    user: params.user, 
-                    user_id: params.user_id) { "Access Token Error - #{token_state.to_s.humanize} Token" }
+                    user: params.user) { "Access Token Error - #{token_state.to_s.humanize} Token" }
   end
 
   def self.extract_uin(controller)
@@ -52,6 +50,15 @@ class AOTokenFilter
       controller.env['REQUEST_PATH'].split('/').last
     else
       nil
+    end
+  end
+
+
+  def self.extract_user_name(controller)
+    if controller.current_user.nil?
+      'User not logged in'
+    else
+      controller.current_user.name
     end
   end
 
