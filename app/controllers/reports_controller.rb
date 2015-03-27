@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
   PER_PAGE = 10
 
   def ministers_by_progress
+    update_page_title('Minister report')
     @ministers = Minister.active
     @progresses = Progress.where(name: Progress.in_progress_questions)
 
@@ -11,6 +12,7 @@ class ReportsController < ApplicationController
   end
 
   def press_desk_by_progress
+    update_page_title('Press Desk report')
     @p = Progress.where("name != 'Unassigned'")
     @pd = PressDesk.active
 

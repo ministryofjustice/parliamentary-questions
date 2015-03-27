@@ -3,6 +3,14 @@ class ExportController < ApplicationController
 
   before_action :authenticate_user!, PQUserFilter
 
+  def index
+    update_page_title('Export PQs to CSV')
+  end
+
+  def index_for_pod
+    update_page_title('POD Export PQs to CSV')
+  end
+
   def csv
     run_export(Export::PqDefault, 'index')
   end
@@ -28,6 +36,7 @@ class ExportController < ApplicationController
     yield(date_from, date_to)
     rescue DateTimeInputError
       flash[:error] = 'Invalid date input!'
+      update_page_title('Export PQs to CSV')
       render(form_template, status: 422)
   end
 end

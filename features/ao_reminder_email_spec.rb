@@ -27,6 +27,7 @@ feature 'Parli-branch sends reminder email to action officer', js: true, suspend
         find('.ao-reminder-link').click
         sleep 0.5
         visit dashboard_path
+        expect(page.title).to have_content("Dashboard")
         expect(page).to have_text("Send reminder (#{n})")
       end
     end
