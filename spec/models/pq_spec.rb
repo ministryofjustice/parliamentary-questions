@@ -20,6 +20,111 @@ describe Pq do
     end
   end
 
+  describe ".accepted_by_press_desk" do
+    def accept_pq(pq, ao)
+      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
+                                                     response: 'accepted',
+                                                     pq: pq)
+      pq.save
+    end
+
+    context "when no data exist" do
+      it "returns an empty hash" do
+        expect(Pq.accepted_by_press_desk).to eq({})
+      end
+    end
+
+    context "when some data exist" do
+      before do
+        @pd1, @pd2             = DBHelpers.press_desks
+        @ao1, @ao2, @ao3       = DBHelpers.action_officers
+        @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
+
+        @pq1.state = PQState::NO_RESPONSE
+        @pq2.state = PQState::WITH_POD
+        @pq3.state = PQState::WITH_POD
+
+        accept_pq(@pq1, @ao1)
+        accept_pq(@pq2, @ao2)
+        accept_pq(@pq3, @ao3)
+      end
+
+      it "returns a hash with states as keys and press-desk/counts as values" do
+        expect(Pq.accepted_by_press_desk).to eq({
+          PQState::NO_RESPONSE => {
+            @pd1.id => 1
+          },
+          PQState::WITH_POD => {
+            @pd2.id => 2
+          }
+        })
+      end
+
+      context "when a press desk gets deleted" do
+        before do
+          @pd1.deactivate!
+        end
+
+        it "omits the associated questions from the results" do
+          expect(Pq.accepted_by_press_desk).to eq({
+            PQState::WITH_POD => {
+              @pd2.id => 2
+            }
+          })
+        end
+      end
+    end
+  end
+
+  describe ".in_progress_pqs_by_minister" do
+    context "when no data exist" do
+      it "returns an empty hash" do
+        expect(Pq.in_progress_pqs_by_minister).to eq({})
+      end
+    end
+
+    context "when some data exist" do
+      before do
+        @minister1, @minister2, _ = DBHelpers.ministers
+        @pq1, @pq2, @pq3, @pq4    = DBHelpers.pqs
+
+        @pq1.update(state: PQState::DRAFT_PENDING, minister: @minister1)
+        @pq2.update(state: PQState::WITH_MINISTER, minister: @minister2)
+        @pq3.update(state: PQState::ANSWERED, minister: @minister2) # <= should not be included
+        @pq4.update(state: PQState::DRAFT_PENDING, minister: @minister2)
+      end
+
+      it "returns a hash with states as keys and minister counts as values" do
+        expect(Pq.in_progress_pqs_by_minister).to eq({
+          PQState::DRAFT_PENDING => {
+            @minister1.id => 1,
+            @minister2.id => 1,
+          },
+          PQState::WITH_MINISTER => {
+            @minister2.id => 1
+          }
+        })
+      end
+
+      context "when a minister becomes inactive" do
+        before do
+          @minister1.deactivate!
+        end
+
+        it "omits the minister and its related PQ count from the results" do
+          expect(Pq.in_progress_pqs_by_minister).to eq({
+            PQState::DRAFT_PENDING => {
+              @minister2.id => 1,
+            },
+            PQState::WITH_MINISTER => {
+              @minister2.id => 1
+            }
+          })
+        end
+      end
+    end
+  end
+
   describe '#has_trim_link?' do
     context 'when trim link present' do
       before { subject.trim_link = TrimLink.new }
