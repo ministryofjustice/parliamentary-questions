@@ -23,17 +23,13 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
-  def fillin_date(css_sel)
-    find(css_sel).set(Date.today.strftime('%d/%m/%Y'))
-  end
-
   def remove_date(css_sel)
     find(css_sel).set('')
   end
 
   scenario "Parli-branch moves an accepted question to 'Draft'" do
     commission_question(@uin1, [@ao], @minister)
-    accept_assignnment(@ao)
+    accept_assignment(@ao)
 
     expect_pq_in_progress_status(@uin1, 'Draft Pending')
     in_pq_detail(@uin1, "PQ draft") { fillin_date('#draft_answer_received') }
