@@ -16,7 +16,7 @@ trim_link.trimFileUpload = function() {
       choose_button = container.find('.button-choose'),
       form = container.find('form'),
       file_field = form.find('.trim-file-chooser'),
-      cancel_button = form.find('.button-cancel'),
+      cancel_button = container.find('.button-cancel'),
       status_messages = {
         selected : {
           message : 'File selected',
@@ -36,7 +36,9 @@ trim_link.trimFileUpload = function() {
 
     cancel_button.on('click', function () {
       form.trigger('reset');
-      file_field.trigger('change');
+      choose_button.show();
+      actions.hide();
+      message_container.hide();
     });
 
     //selecting a file to upload to trim
@@ -61,24 +63,22 @@ trim_link.trimFileUpload = function() {
 
     form // trim file upload callbacks
       .on('ajax:error', function(e, response) {
+        console.log(1);
         var json = JSON.parse(response.responseText);
 
-        message_icon.attr('class', status_messages.failure.classname);
+        if (json.status === 200) {
+          message_icon.attr('class', status_messages.success.classname);
+          actions
+            .hide()
+            .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+        } else {
+          message_icon.attr('class', status_messages.failure.classname);
+        }
         upload_message.text(json.message);
-
         message_container.show();
       })
       .on('ajax:success', function(e, response) {
-        var json = JSON.parse(response.responseText);
-
-        message_icon.attr('class', status_messages.success.classname);
-        upload_message.text(json.message);
-
-        actions
-          .hide()
-          .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-
-        message_container.show();
+        console.log(2);
       });
 
     });
