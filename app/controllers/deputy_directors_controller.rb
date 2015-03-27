@@ -5,11 +5,23 @@ class DeputyDirectorsController < ApplicationController
 
   def index
     @deputy_directors = DeputyDirector.joins(:division).order('lower(divisions.name)').order('lower(deputy_directors.name)')
+    update_dashboard_title 'Deputy Directors Index'
   end
 
   def new
     @deputy_director = DeputyDirector.new
+    update_page_title 'Add Deputy Director'
   end
+
+  def show
+    update_page_title('Deputy Director Details')
+  end
+
+  def edit
+    update_page_title('Edit Deputy Director')
+  end
+
+
 
   def create
     @deputy_director = DeputyDirector.new(deputy_director_params)

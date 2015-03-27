@@ -34,11 +34,12 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
     visit pq_path(@pq.uin)
     click_on "PQ commission"
     first('a', text:'Manually reject this action officer').click
+    expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).to have_content("#{@pq.uin} manually rejected")
 
     visit pq_path(@pq.uin)
     click_on "PQ commission"
-
+    expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).to have_content("rejected manually by pq@pq.com")
     expect_pq_status(@pq.uin, "No response")
   end

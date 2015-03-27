@@ -35,6 +35,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   scenario 'Following the email link should let the AO accept the question' do
     accept_assignnment(ao)
 
+    expect(page.title).to have_content("PQ Assigned")
     expect(page).to have_content(/thank you for your response/i)
     expect(page).to have_content("PQ #{@pq.uin}")
   end
@@ -58,6 +59,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     ao2_link = extract_url_like('/assignment', ao2_mail)
     visit ao2_link
 
+    expect(page.title).to have_content("PQ Assignment")
     expect(page).to have_content(/this pq has already been accepted/i)
     expect(page).to have_content("#{ao.name} accepted PQ #{@pq.uin}")
   end
@@ -70,12 +72,12 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       date_for_answer: Date.tomorrow,
       internal_deadline: Date.today
     }
-    form = CommissionForm.new(form_params) 
+    form = CommissionForm.new(form_params)
     CommissioningService.new(nil, Date.today - 4.days).commission(form)
     ao_mail, _ = sent_mail.last(2)
     url = extract_url_like('/assignment', ao_mail)
     visit url
-
+    expect(page.title).to have_content("Unauthorised (401)")
     expect(page).to have_content(/you don't have permission to see the page/i)
   end
 end

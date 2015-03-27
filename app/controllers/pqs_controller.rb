@@ -9,6 +9,7 @@ class PqsController < ApplicationController
 
   def show
     loading_relations
+    set_dashboard_title
   end
 
   def update
@@ -24,7 +25,7 @@ class PqsController < ApplicationController
           @pq.trim_link(true)
           flash[:error] = 'Update failed'
         end
-
+        set_dashboard_title
         render :show
       end
     end
@@ -32,11 +33,16 @@ class PqsController < ApplicationController
 
   private
 
+  def set_dashboard_title
+    update_page_title("PQ #{@pq.uin}")
+  end
+
   def with_valid_dates
     DATE_PARAMS.each { |key| pq_params[key].present? && parse_datetime(pq_params[key]) }
     yield
   rescue DateTimeInputError
     flash[:error] = 'Invalid date input!'
+    set_dashboard_title
     render :show
   end
 

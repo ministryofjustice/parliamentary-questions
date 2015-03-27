@@ -27,6 +27,8 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     commission_question(@uin, [@ao], @minister)
     accept_assignnment(@ao)
     in_pq_detail(@uin, 'PQ draft') { check 'I will write' }
+
+    expect(page.title).to have_content("PQ #{@uin}")
     expect(page).to have_text('I will write')
   end
 
@@ -36,6 +38,7 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     click_on "Create 'I will write' follow up"
 
     visit dashboard_path
+    expect(page.title).to match(/Dashboard/)
     expect(page).not_to have_text(@uin)
 
     expect_pq_in_progress_status(@iww_uin, 'Draft Pending')
@@ -44,6 +47,7 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     click_on "Answer"
     expect(page).not_to have_text("Create 'I will write' follow up")
     click_on "PQ commission"
+    expect(page.title).to have_text("PQ #{@iww_uin}")
     expect(page).to have_text(@ao.email)
   end
 
@@ -51,6 +55,7 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     visit pq_path(@uin)
     click_on "Answer"
     click_on "Create 'I will write' follow up"
+    expect(page.title).to have_text("PQ #{@iww_uin}")
     expect(page).to have_content(@iww_uin)
     expect(Pq.where(uin: @iww_uin).count).to eq(1)
   end

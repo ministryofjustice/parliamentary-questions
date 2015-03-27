@@ -3,14 +3,17 @@ class UsersController < ApplicationController
 
   def index
     @users = User.order("lower(name)").page(params[:page]).per_page(15)
+    update_page_title('Users Index')
   end
 
   def edit
     @user = User.find(params[:id])
+    update_page_title('Edit User')
   end
 
   def show
     @user = User.find(params[:id])
+    update_page_title('User Details')
   end
 
   def update

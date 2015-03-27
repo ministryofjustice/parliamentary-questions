@@ -4,11 +4,22 @@ class PressDesksController < ApplicationController
 
   def index
     @press_desks = PressDesk.all.order('lower(name)')
+    update_page_title('Press Desks Index')
   end
 
   def new
     @press_desk = PressDesk.new
+    update_page_title('Add Press Desks')
   end
+
+  def show
+    update_page_title('Press Desk Details')
+  end
+
+  def edit
+    update_page_title('Edit Press Desk')
+  end
+
 
   def create
     @press_desk = PressDesk.new(press_desk_params)
