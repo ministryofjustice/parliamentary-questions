@@ -34,6 +34,7 @@ group :test do
 end
 
 group :test, :development do
+  gem 'awesome_print'
   gem 'sinatra'
   gem 'poltergeist'
   gem 'database_cleaner'
