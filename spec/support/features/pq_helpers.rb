@@ -81,5 +81,10 @@ module Features
       url  = extract_url_like('/assignment', mail)
       visit url
     end
+
+    def fillin_date(css_sel)
+      find(css_sel).set(Date.today.strftime('%d/%m/%Y'))
+    end
+
   end
 end
