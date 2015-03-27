@@ -33,7 +33,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'Following the email link should let the AO accept the question' do
-    accept_assignnment(ao)
+    accept_assignment(ao)
 
     expect(page.title).to have_content("PQ Assigned")
     expect(page).to have_content(/thank you for your response/i)
