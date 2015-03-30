@@ -41,21 +41,24 @@ trim_link.trimFileUpload = function() {
       message_container.hide();
     });
 
-    //selecting a file to upload to trim
+    // File selector behaviour
     file_field.on('change', function () {
       var chosen = file_field.val();
       if(chosen) {
+        // If a file is selected successfully, show a message
         choose_button.hide();
         message_icon[0].className = status_messages.selected.classname;
         upload_message.text(status_messages.selected.message);
         message_container.show();
         actions.show();
       } else {
+        // or else, go back to showing just the 'Choose Trim link' button
         choose_button.show();
         actions.hide();
         message_container.hide();
       }
     });
+
     //clicking on the "choose trim file" button
     choose_button.on('click', function () {
       file_field.click();
