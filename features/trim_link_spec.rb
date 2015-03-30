@@ -73,10 +73,18 @@ feature "Parli-branch manages trim link" , js: true do
     end
   end
 
-  feature 'from the dashboard' do
+  feature 'from the dashboard', js: true do
     let(:ao1)      { ActionOfficer.find_by(email: 'ao1@pq.com') }
     let(:minister) { Minister.first                             }
 
-    scenario "uploading a valid trim file"
+    scenario "uploading a valid trim file"  do
+      create_pq_session
+      visit dashboard_path
+      # click_button 'Choose Trim file'
+      Capybara.ignore_hidden_elements = false
+      attach_file('trim_link[file_data]', Rails.root.join('spec/fixtures/trimlink.tr5'))
+      save_and_open_screenshot
+      # expect(page).to have_content 'File selected'
+    end
   end
 end
