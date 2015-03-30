@@ -22,18 +22,22 @@ class ApplicationController < ActionController::Base
   end
 
   def page_not_found
-    @page_title = 'Not found (404) - MOJ Parliamentary Questions'
+    update_page_title 'Not found (404)'
     show_error_page_and_increment_statsd(404)
   end
 
   def unauthorized
-    @page_title = 'Unauthorized (401) - MOJ Parliamentary Questions'
+    update_page_title 'Internal server error (500)'
     show_error_page_and_increment_statsd(401)
   end
 
   def server_error
-    @page_title = 'Internal server error (500) - MOJ Parliamentary Questions'
+    update_page_title 'Unauthorized (401)'
     show_error_page_and_increment_statsd(500)
+  end
+
+  def update_page_title(prefix, suffix = "MOJ Parliamentary Questions")
+    @page_title = "#{prefix} - #{suffix}"
   end
 
 protected

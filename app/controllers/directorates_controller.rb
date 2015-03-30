@@ -4,10 +4,20 @@ class DirectoratesController < ApplicationController
 
   def index
     @directorates = Directorate.all.order('lower(name)')
+    update_page_title('Directorates Index')
   end
 
   def new
     @directorate = Directorate.new
+    update_page_title('Directorate New')
+  end
+
+  def show
+    update_page_title('Directorate Details')
+  end
+
+  def edit
+    update_page_title('Edit Directorate')
   end
 
   def create

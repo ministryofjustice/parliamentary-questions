@@ -2,6 +2,7 @@ class FinanceController < ApplicationController
   before_action :authenticate_user!, FinanceUserFilter
 
   def questions
+    @page_title = 'New PQs today'
     @questions = Pq.not_seen_by_finance.order(:internal_deadline).load
   end
 

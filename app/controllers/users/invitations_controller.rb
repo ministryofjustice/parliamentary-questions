@@ -20,3 +20,5 @@ private
     params.require(:user).permit(:password, :password_confirmation, :name, :email, :roles, :invitation_token)
   end
 end
+
+

@@ -17,14 +17,13 @@ feature 'Parliamentary Question view', js: true, suspend_cleaner: true do
     scenario 'GET show' do
       create_pq_session
       expect(LogStuff).to receive(:error).with(:error_page)
-      
+
       visit pq_path("uin-#{100 + rand(5000)}")
       expect(page.status_code).to eq 404
+      expect(page.title).to have_text("Not found (404)")
       expect(page).to have_content("The page you were looking for doesn't exist. (Error 404)")
     end
-    
+
   end
 
 end
-
-
