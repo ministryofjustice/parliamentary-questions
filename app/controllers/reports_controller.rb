@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
 
   def ministers_by_progress
     update_page_title('Minister report')
-    report_data = Pq.in_progress_pqs_by_minister
+    report_data = Pq.in_progress_by_minister
     @report     = Report.ministers(report_data, Minister.active)
     render 'report'
   end
@@ -15,5 +15,19 @@ class ReportsController < ApplicationController
     report_data = Pq.accepted_by_press_desk
     @report     = Report.press_desk(report_data, PressDesk.active)
     render 'report'
+  end
+
+  def filter_all
+    state         = params[:state]
+    minister_id   = params[:minister_id]
+    press_desk_id = params[:press_desk_id]
+
+    @ministers    = Minister.active
+    @press_desks  = PressDesk.active
+    @questions    = Pq.filter_for_report(state, minister_id, press_desk_id)
+                      .paginate(page: params[:page], per_page: PER_PAGE)
+    @states       = PQState::ALL.map { |s| [PQState.state_label(s), s] }
+
+    render 'filter_all'
   end
 end

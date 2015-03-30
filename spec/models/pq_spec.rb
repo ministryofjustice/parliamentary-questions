@@ -76,10 +76,10 @@ describe Pq do
     end
   end
 
-  describe ".in_progress_pqs_by_minister" do
+  describe ".in_progress_by_minister" do
     context "when no data exist" do
       it "returns an empty hash" do
-        expect(Pq.in_progress_pqs_by_minister).to eq({})
+        expect(Pq.in_progress_by_minister).to eq({})
       end
     end
 
@@ -90,12 +90,13 @@ describe Pq do
 
         @pq1.update(state: PQState::DRAFT_PENDING, minister: @minister1)
         @pq2.update(state: PQState::WITH_MINISTER, minister: @minister2)
-        @pq3.update(state: PQState::ANSWERED, minister: @minister2) # <= should not be included
+        @pq3.update(state: PQState::ANSWERED, minister: @minister2)
+        # ^ should not be included as its state is not included in PQState::IN_PROGRESS
         @pq4.update(state: PQState::DRAFT_PENDING, minister: @minister2)
       end
 
       it "returns a hash with states as keys and minister counts as values" do
-        expect(Pq.in_progress_pqs_by_minister).to eq({
+        expect(Pq.in_progress_by_minister).to eq({
           PQState::DRAFT_PENDING => {
             @minister1.id => 1,
             @minister2.id => 1,
@@ -112,7 +113,7 @@ describe Pq do
         end
 
         it "omits the minister and its related PQ count from the results" do
-          expect(Pq.in_progress_pqs_by_minister).to eq({
+          expect(Pq.in_progress_by_minister).to eq({
             PQState::DRAFT_PENDING => {
               @minister2.id => 1,
             },
@@ -122,6 +123,23 @@ describe Pq do
           })
         end
       end
+    end
+  end
+
+  describe ".filter_for_report" do
+    def commission_and_accept(pq, ao)
+      pq.update(state: PQState::WITH_POD)
+    end
+
+    before do
+      @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
+    end
+
+    context "when state, minister or press desk are all nil" do
+      it "returns all the records"
+    end
+    context "when state, minister or press desk are all present" do
+      it "returns the expected records"
     end
   end
 
@@ -145,29 +163,6 @@ describe Pq do
     subject! { create(:pq) }
     before { create(:checked_by_finance_pq) }
     it { expect(described_class.not_seen_by_finance).to eq [subject] }
-  end
-
-  describe '#ministers_by_progress' do
-    let(:minister) { create(:minister) }
-    let(:policy_minister) { create(:minister) }
-    let(:progresses) { Progress.where(name: Progress.in_progress_questions) }
-
-    before do
-      Progress.in_progress_questions.each do |status|
-        factory = "#{status.gsub(' ', '_').downcase}_pq"
-        create(factory, minister: minister, policy_minister: policy_minister)
-        create(factory, minister: policy_minister)
-      end
-    end
-
-    it 'returns table summed by questions in in progress states grouped by minister not counting policy minister' do
-      minister_counts = progresses.map{|status| [[minister.id, status.id], 1] }
-      policy_minister_counts = progresses.map{|status| [[policy_minister.id, status.id], 1] }
-
-      expect(Pq.ministers_by_progress([minister, policy_minister], progresses)).to eq(
-        (minister_counts + policy_minister_counts).to_h
-      )
-    end
   end
 
   describe 'allocated_since' do
