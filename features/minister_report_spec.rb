@@ -21,6 +21,7 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
   let(:with_pod_progress)       { Progress.find_by_name('With POD') }
   let(:pod_query)               { Progress.find_by_name('POD Query') }
   let(:pod_cleared)             { Progress.find_by_name('POD Cleared') }
+  let(:with_minister)           { Progress.find_by_name('With Minister') }
 
 
   scenario 'Acceptance of a question by an AO should show in report as draft pending' do
@@ -62,7 +63,27 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
     expect_ministers_report_to_have(minister, pod_cleared, '2')
   end
 
+
+  scenario 'setting sent_to_answering_and_policy_ministers whould show in report as with minister' do
+    pq = Pq.all[5]
+    progress_pq_to_draft_pending(pq)
+    progress_pq_from_draft_pending_to_with_pod(pq)
+    progress_pq_to_pod_cleared(pq)
+    progress_pq_from_pod_cleared_to_with_minister(pq)
+    expect_ministers_report_to_have(minister, with_minister, '1')
+  end
+
 end 
+
+
+def progress_pq_from_pod_cleared_to_with_minister(pq)
+  visit pq_path(pq)
+  in_pq_detail(pq.uin, 'Minister check')  do
+    fillin_date('#sent_to_answering_minister') 
+    fillin_date('#sent_to_policy_minister')
+    click_on 'Save'
+  end
+end
 
 
 def progress_pq_to_pod_cleared(pq)
