@@ -6,6 +6,8 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
   before(:all) do
     DBHelpers.load_feature_fixtures
     PQA::QuestionLoader.new.load_and_import(10)
+    puts ">>>>>>>>>>>>>>>> DEBUG message    #{__FILE__}::#{__LINE__} <<<<<<<<<<"
+    pp Pq.all.map(&:id)
   end
 
   before(:each) do
@@ -25,13 +27,15 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
 
 
   scenario 'Acceptance of a question by an AO should show in report as draft pending' do
-    pq = Pq.first
+    pq = Pq.all.order(:id).first
+    puts ">>>>>>>>>>>>>>>> DEBUG pq[0] has id #{pq.id}    #{__FILE__}::#{__LINE__} <<<<<<<<<<"
     progress_pq_to_draft_pending(pq)
     expect_ministers_report_to_have(minister, draft_pending_progress, '1')
   end
 
   scenario 'Setting date for answer to parliament should show in report as With POD' do
-    pq = Pq.all[1]
+    pq = Pq.all.order(:id)[1]
+    puts ">>>>>>>>>>>>>>>> DEBUG pq[1] has id #{pq.id}    #{__FILE__}::#{__LINE__} <<<<<<<<<<"
     progress_pq_to_draft_pending(pq)
     progress_pq_from_draft_pending_to_with_pod(pq)
     expect_ministers_report_to_have(minister, with_pod_progress, '1')
@@ -39,7 +43,8 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
 
 
   scenario 'setting pod query flag should show in report as POD query' do
-    pq = Pq.all[2]
+    pq = Pq.all.order(:id)[2]
+    puts ">>>>>>>>>>>>>>>> DEBUG pq[2] has id #{pq.id}    #{__FILE__}::#{__LINE__} <<<<<<<<<<"
     progress_pq_to_draft_pending(pq)
     progress_pq_from_draft_pending_to_with_pod(pq)
     progress_pq_from_with_pod_to_pod_query(pq)
@@ -47,8 +52,10 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
   end
 
   scenario 'setting pod_cleared on with pod and pod query should set both to pod cleared' do
-    pq3 = Pq.all[3]
-    pq4 = Pq.all[4]
+    pq3 = Pq.all.order(:id)[3]
+    pq4 = Pq.all.order(:id)[4]
+    puts ">>>>>>>>>>>>>>>> DEBUG pq[3] has id #{pq3.id}    #{__FILE__}::#{__LINE__} <<<<<<<<<<"
+    puts ">>>>>>>>>>>>>>>> DEBUG pq[4] has id #{pq4.id}    #{__FILE__}::#{__LINE__} <<<<<<<<<<"
     
     progress_pq_to_draft_pending(pq3)
     progress_pq_from_draft_pending_to_with_pod(pq3)
@@ -65,7 +72,10 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
 
 
   scenario 'setting sent_to_answering_and_policy_ministers whould show in report as with minister' do
-    pq = Pq.all[5]
+    pq = Pq.all.order(:id)[5]
+    puts ">>>>>>>>>>>>>>>> DEBUG pq[5] has id #{pq.id}    #{__FILE__}::#{__LINE__} <<<<<<<<<<"
+    puts pq.progress.name
+    ENV['SAVE_PAGE'] = '1'
     progress_pq_to_draft_pending(pq)
     progress_pq_from_draft_pending_to_with_pod(pq)
     progress_pq_to_pod_cleared(pq)
