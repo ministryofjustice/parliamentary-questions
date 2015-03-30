@@ -1,4 +1,5 @@
 require File.expand_path('../boot', __FILE__)
+$LOAD_PATH << File.expand_path('../../lib/pq_state', __FILE__)
 
 require 'csv'
 require 'rails/all'
