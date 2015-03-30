@@ -26,6 +26,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
 
   scenario 'Following the email link should let an AO reject the question' do
     reject_assignment(ao1, 2, 'going to the cinema')
+    expect(page.title).to have_text("PQ Rejected")
     expect(page).to have_content(/thank you for your response/i)
   end
 
@@ -34,6 +35,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     visit dashboard_path
 
     within_pq(@pq.uin) do
+      expect(page.title).to have_text("Dashboard")
       expect(page).to have_text("#{ao1.name} rejected at:")
       expect(page).to have_text('going to the cinema')
     end
@@ -50,6 +52,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     expect_pq_status(@pq.uin, 'Rejected')
 
     within_pq(@pq.uin) do
+      expect(page.title).to have_text("Rejected")
       expect(page).to have_text("#{ao1.name} rejected at:")
       expect(page).to have_text('going to the cinema')
 

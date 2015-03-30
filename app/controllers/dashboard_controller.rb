@@ -6,11 +6,13 @@ class DashboardController < ApplicationController
   PER_PAGE    = 15
 
   def index
+    update_page_title "Dashboard"
     load_pq_with_counts(NEW) { Pq.new_questions }
   end
 
   def by_status
     load_pq_with_counts(NEW) { Pq.by_status(params[:qstatus]) }
+    update_page_title "#{params[:qstatus]}"
     render 'index'
   end
 
@@ -29,6 +31,7 @@ class DashboardController < ApplicationController
   end
 
   def in_progress
+    update_page_title "In progress"
     load_pq_with_counts(IN_PROGRESS) { Pq.in_progress }
     render 'index'
   end

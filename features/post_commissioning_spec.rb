@@ -62,6 +62,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   scenario "Parli-branch moves a question to 'Answered'" do
     in_pq_detail(@uin1, 'Answer') { fillin_date('#answer_submitted') }
     visit dashboard_in_progress_path
+    expect(page.title).to match(/In progress/)
     expect(page).not_to have_text(@uin1)
   end
 
