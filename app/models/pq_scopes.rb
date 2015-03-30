@@ -59,16 +59,10 @@ module PqScopes
   end
 
   def filter_for_report(state, minister_id, press_desk_id)
-    q = Pq.order(:internal_deadline)
-    if press_desk_id.present?
-      q = join_press_desks.where('pd.id = ?', press_desk_id)
-    end
-    if state.present?
-      q = q.where(state: state)
-    end
-    if minister_id.present?
-      q = q.where(minister_id: minister_id)
-    end
+    q = order(:internal_deadline)
+    q = join_press_desks.where('pd.id = ?', press_desk_id) if press_desk_id.present?
+    q = q.where(state: state) if state.present?
+    q = q.where(minister_id: minister_id) if minister_id.present?
     q
   end
 
@@ -77,13 +71,6 @@ module PqScopes
       .joins('JOIN action_officers ao ON ao.id = aopq.action_officer_id')
       .joins('JOIN press_desks pd ON pd.id = ao.press_desk_id')
       .where("aopq.response = 'accepted' AND pd.deleted = false")
-  end
-
-  def accepted_in(aos)
-    joins(:action_officers_pqs).where(action_officers_pqs: {
-      response: 'accepted',
-      action_officer_id: aos 
-    })
   end
 
   def new_questions

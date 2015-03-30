@@ -127,19 +127,39 @@ describe Pq do
   end
 
   describe ".filter_for_report" do
-    def commission_and_accept(pq, ao)
-      pq.update(state: PQState::WITH_POD)
+    def commission_and_accept(pq, ao, minister)
+      pq.state    = PQState::WITH_POD
+      pq.minister = minister
+      pq.action_officers_pqs << ActionOfficersPq.new(pq: pq,
+                                                     response: 'accepted',
+                                                     action_officer: ao,)
+      pq.save
     end
 
     before do
+      @ao1, @ao2             = DBHelpers.action_officers
+      @min1, _               = DBHelpers.ministers
       @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
+
+      expect(@ao1.press_desk).to_not eq(@ao2.press_desk)
+      commission_and_accept(@pq1, @ao1, @min1)
+      commission_and_accept(@pq4, @ao2, @min1)
     end
 
     context "when state, minister or press desk are all nil" do
-      it "returns all the records"
+      it "returns all the records" do
+        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq([
+          'uin-1', 'uin-2', 'uin-3', 'uin-4'
+        ].to_set)
+      end
     end
     context "when state, minister or press desk are all present" do
-      it "returns the expected records"
+      it "returns the expected records" do
+        uins = Pq.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
+                 .pluck(:uin)
+
+        expect(uins).to eq(['uin-1'])
+      end
     end
   end
 
