@@ -11,7 +11,7 @@ div#minister-report
       - @report.rows.each do |r|
         tr
           td
-            span class=("flag #{state_classname r.label}") = state_label r.label
+            span class=("flag #{state_classname r.state}") = r.label
           - r.cells.each do |c|
             td.table-cell-centered
               - unless c.zero?

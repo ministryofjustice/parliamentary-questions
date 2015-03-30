@@ -18,7 +18,7 @@ class Report
     end
 
     def path
-      filter_path(@filter_params)
+      filter_all_path(@filter_params)
     end
   end
 end

@@ -10,7 +10,26 @@ module PqScopes
     where(seen_by_finance: false)
   end
 
-  def in_progress_pqs_by_minister
+  # Returns a hash with the PQ state as key and count by minister_id as value.
+  #
+  # It includes only PQs that are in the in progress states (PQState::IN_PROGRESS),
+  # and ministers that are active.
+  #
+  # @returns [Hash[String, Hash]]
+  #
+  # Example:
+  #
+  #     {
+  #       "no_response" => {
+  #         43 => 1,
+  #         44 => 10
+  #         48 => 2
+  #       },
+  #       "with_pod" => {
+  #         44 => 2
+  #       }
+  #     }
+  def in_progress_by_minister
     select("minister_id, state, count(*)")
       .joins(:minister)
       .where(state: PQState::IN_PROGRESS)
@@ -18,15 +37,18 @@ module PqScopes
       .group(:state, :minister_id)
       .reduce({}) { |acc, r|
         h = { r.minister_id => r.count }
-          acc.merge(r.state => h ) { |_, old_v, new_v| old_v.merge(new_v) }
+        acc.merge(r.state => h ) { |_, old_v, new_v| old_v.merge(new_v) }
       }
   end
 
+  # Returns a hash with the PQ state as key and count by press_desk_id as value.
+  #
+  # It will filter out PQs that are below the PQState::DRAFT_PENDING state,
+  # and press desks that are not active.
+  #
   def accepted_by_press_desk
-    select("pqs.state, ao.press_desk_id, count(*)")
-      .joins('JOIN action_officers_pqs aopq ON aopq.pq_id = pqs.id')
-      .joins('JOIN action_officers ao ON ao.id = aopq.action_officer_id')
-      .joins('JOIN press_desks pd ON pd.id = ao.press_desk_id')
+    join_press_desks
+      .select("pqs.state, ao.press_desk_id, count(*)")
       .where("state != ?", PQState::UNASSIGNED)
       .where("aopq.response = 'accepted' AND pd.deleted = false")
       .group('state, ao.press_desk_id')
@@ -34,6 +56,27 @@ module PqScopes
         h = { r.press_desk_id => r.count }
         acc.merge(r.state => h ) { |_, old_v, new_v| old_v.merge(new_v) }
       }
+  end
+
+  def filter_for_report(state, minister_id, press_desk_id)
+    q = Pq.order(:internal_deadline)
+    if press_desk_id.present?
+      q = join_press_desks.where('pd.id = ?', press_desk_id)
+    end
+    if state.present?
+      q = q.where(state: state)
+    end
+    if minister_id.present?
+      q = q.where(minister_id: minister_id)
+    end
+    q
+  end
+
+  def join_press_desks
+    joins('JOIN action_officers_pqs aopq ON aopq.pq_id = pqs.id')
+      .joins('JOIN action_officers ao ON ao.id = aopq.action_officer_id')
+      .joins('JOIN press_desks pd ON pd.id = ao.press_desk_id')
+      .where("aopq.response = 'accepted' AND pd.deleted = false")
   end
 
   def accepted_in(aos)

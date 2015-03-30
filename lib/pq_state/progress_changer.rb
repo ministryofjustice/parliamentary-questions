@@ -1,5 +1,4 @@
 module PQState
-  module_function
 
   ALLOWED = [
     UNASSIGNED,
@@ -19,7 +18,7 @@ module PQState
     TRANSFERRED_OUT
   ]
 
-  def progress_changer
+  def self.progress_changer
     @progress_changer ||= StateMachine.build(
       FINAL_STATES,
 
@@ -89,7 +88,7 @@ module PQState
     )
   end
 
-  def Transition(from, to, &block)
+  def self.Transition(from, to, &block)
     Transition.new(from, to, block)
   end
 end
