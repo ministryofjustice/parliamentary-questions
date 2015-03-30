@@ -23,6 +23,7 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
   let(:pod_query)               { Progress.find_by_name('POD Query') }
   let(:pod_cleared)             { Progress.find_by_name('POD Cleared') }
   let(:with_minister)           { Progress.find_by_name('With Minister') }
+  let(:ministerial_query)       { Progress.find_by_name('Ministerial Query') }
 
 
   scenario 'Acceptance of a question by an AO should show in report as draft pending' do
@@ -74,24 +75,49 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
     expect_ministers_report_to_have(minister, with_minister, '1')
   end
 
+  scenario 'setting answering minister query and policy minister query shows in reports as minister query' do
+    pq6 = @pqs[6]
+    pq7 = @pqs[7]
+
+    progress_pq_to_draft_pending(pq6)
+    progress_pq_from_draft_pending_to_with_pod(pq6)
+    progress_pq_to_pod_cleared(pq6)
+    progress_pq_from_pod_cleared_to_with_minister(pq6)
+    set_answering_minister_query(pq6)
+
+    clear_sent_mail
+    progress_pq_to_draft_pending(pq7)
+    progress_pq_from_draft_pending_to_with_pod(pq7)
+    progress_pq_to_pod_cleared(pq7)
+    progress_pq_from_pod_cleared_to_with_minister(pq7)
+    set_policy_minister_query(pq7)
+
+    expect_ministers_report_to_have(minister, ministerial_query, '2')
+  end
+
+end 
+
+
+def set_policy_minister_query(pq)
+  in_pq_detail(pq.uin, 'Minister check')  { check 'Policy minister query' }
+end
+
+def set_answering_minister_query(pq)
+  in_pq_detail(pq.uin, 'Minister check')  { check 'Answering minister query' }
 end 
 
 
 def progress_pq_from_pod_cleared_to_with_minister(pq)
-  visit pq_path(pq)
   in_pq_detail(pq.uin, 'Minister check')  do
     fillin_date('#sent_to_answering_minister') 
     fillin_date('#sent_to_policy_minister')
-    click_on 'Save'
   end
 end
 
 
 def progress_pq_to_pod_cleared(pq)
-  visit pq_path(pq)
   in_pq_detail(pq.uin, 'POD check')  do
     fillin_date('#pod_clearance') 
-    click_on 'Save'
   end
 end
 
@@ -105,10 +131,8 @@ end
 
 
 def progress_pq_from_with_pod_to_pod_query(pq)
-  visit pq_path(pq)
   in_pq_detail(pq.uin, 'POD check')  do
     check 'POD query flag'
-    click_on 'Save'
   end
 end
 
@@ -121,7 +145,6 @@ end
 
 
 def progress_pq_from_draft_pending_to_with_pod(pq)
-  visit pq_path(pq)
   in_pq_detail(pq.uin, "PQ draft")       { fillin_date('#draft_answer_received') }
 end
 
@@ -134,10 +157,8 @@ end
 
 
 def set_seen_by_finance_check_box(pq)
-  visit pq_path(pq)
   in_pq_detail(pq.uin, 'Finance check')  do
     check 'pq_seen_by_finance'
-    click_on 'Save'
   end
 end
 
