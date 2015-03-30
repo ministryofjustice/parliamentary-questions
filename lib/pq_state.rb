@@ -1,4 +1,6 @@
 module PQState
 end
 
-require_relative './pq_state/progress_changer'
+require 'pq_state/transition'
+require 'pq_state/state_machine'
+require 'pq_state/progress_changer'
