@@ -24,6 +24,7 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
   let(:pod_cleared)             { Progress.find_by_name('POD Cleared') }
   let(:with_minister)           { Progress.find_by_name('With Minister') }
   let(:ministerial_query)       { Progress.find_by_name('Ministerial Query') }
+  let(:minister_cleared)        { Progress.find_by_name('Minister Cleared') }
 
 
   scenario 'Acceptance of a question by an AO should show in report as draft pending' do
@@ -95,7 +96,27 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
     expect_ministers_report_to_have(minister, ministerial_query, '2')
   end
 
+  scenario 'setting cleared by answering minister should show in report as minister cleared' do
+    pq = @pqs[8]
+    progress_pq_to_draft_pending(pq)
+    progress_pq_from_draft_pending_to_with_pod(pq)
+    progress_pq_to_pod_cleared(pq)
+    progress_pq_from_pod_cleared_to_with_minister(pq)
+    set_minister_cleared(pq)
+
+    expect(pq.reload.progress.name).to eq 'Minister Cleared'
+    expect_ministers_report_to_have(minister, minister_cleared, '1')
+  end
+
 end 
+
+
+def set_minister_cleared(pq) 
+  in_pq_detail(pq.uin, 'Minister check')  do 
+    fillin_date '#cleared_by_answering_minister' 
+    fillin_date '#cleared_by_policy_minister'
+  end
+end
 
 
 def set_policy_minister_query(pq)
