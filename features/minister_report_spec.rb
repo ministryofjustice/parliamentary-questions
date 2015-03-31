@@ -2,6 +2,7 @@ require 'feature_helper'
 
 feature 'Minister Report', js: true, suspend_cleaner: true do
   include Features::PqHelpers
+  include Features::ReportSpecHelpers
 
   before(:all) do
     DBHelpers.load_feature_fixtures
@@ -32,160 +33,48 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
 
 
   scenario 'Acceptance of a question by an AO should show in report as draft pending' do
-    pq = @pqs.first
-    progress_pq_to_draft_pending(pq)
+    create_draft_pending_pq(@pqs.first)
     expect_ministers_report_to_have(minister, draft_pending_progress, '1')
   end
 
   scenario 'Setting date for answer to parliament should show in report as With POD' do
-    pq = @pqs[1]
-    progress_pq_to_draft_pending(pq)
-    progress_pq_from_draft_pending_to_with_pod(pq)
+    create_with_pod_pq(@pqs[1])
     expect_ministers_report_to_have(minister, with_pod_progress, '1')
   end
 
-
   scenario 'setting pod query flag should show in report as POD query' do
-    pq = @pqs[2]
-    progress_pq_to_draft_pending(pq)
-    progress_pq_from_draft_pending_to_with_pod(pq)
-    progress_pq_from_with_pod_to_pod_query(pq)
+    create_pod_query_pq(@pqs[2])
     expect_ministers_report_to_have(minister, pod_query, '1')
   end
 
   scenario 'setting pod_cleared on with pod and pod query should set both to pod cleared' do
-    pq3 = @pqs[3]
-    pq4 = @pqs[4]
-    
-    progress_pq_to_draft_pending(pq3)
-    progress_pq_from_draft_pending_to_with_pod(pq3)
-    progress_pq_from_with_pod_to_pod_query(pq3)
-    progress_pq_to_pod_cleared(pq3)
-
+    create_pod_cleared_pq_via_pod_query(@pqs[3])
     clear_sent_mail
-    progress_pq_to_draft_pending(pq4)
-    progress_pq_from_draft_pending_to_with_pod(pq4)
-    progress_pq_to_pod_cleared(pq4)
-
+    create_pod_cleared_pq(@pqs[4])
     expect_ministers_report_to_have(minister, pod_cleared, '2')
   end
 
-
   scenario 'setting sent_to_answering_and_policy_ministers whould show in report as with minister' do
-    pq = @pqs[5]
-    progress_pq_to_draft_pending(pq)
-    progress_pq_from_draft_pending_to_with_pod(pq)
-    progress_pq_to_pod_cleared(pq)
-    progress_pq_from_pod_cleared_to_with_minister(pq)
+    create_with_minister_pq(@pqs[5])
     expect_ministers_report_to_have(minister, with_minister, '1')
   end
 
   scenario 'setting answering minister query and policy minister query shows in reports as minister query' do
-    pq6 = @pqs[6]
-    pq7 = @pqs[7]
-
-    progress_pq_to_draft_pending(pq6)
-    progress_pq_from_draft_pending_to_with_pod(pq6)
-    progress_pq_to_pod_cleared(pq6)
-    progress_pq_from_pod_cleared_to_with_minister(pq6)
-    set_answering_minister_query(pq6)
-
+    create_answering_minister_query(@pqs[6])
     clear_sent_mail
-    progress_pq_to_draft_pending(pq7)
-    progress_pq_from_draft_pending_to_with_pod(pq7)
-    progress_pq_to_pod_cleared(pq7)
-    progress_pq_from_pod_cleared_to_with_minister(pq7)
-    set_policy_minister_query(pq7)
-
+    create_policy_minister_query(@pqs[7])
     expect_ministers_report_to_have(minister, ministerial_query, '2')
   end
 
   scenario 'setting cleared by answering minister should show in report as minister cleared' do
-    pq = @pqs[8]
-    progress_pq_to_draft_pending(pq)
-    progress_pq_from_draft_pending_to_with_pod(pq)
-    progress_pq_to_pod_cleared(pq)
-    progress_pq_from_pod_cleared_to_with_minister(pq)
-    set_minister_cleared(pq)
-
-    expect(pq.reload.progress.name).to eq 'Minister Cleared'
+    create_minister_cleared_pq(@pqs[8])
     expect_ministers_report_to_have(minister, minister_cleared, '1')
   end
 
 end 
 
 
-def set_minister_cleared(pq) 
-  in_pq_detail(pq.uin, 'Minister check')  do 
-    fillin_date '#cleared_by_answering_minister' 
-    fillin_date '#cleared_by_policy_minister'
-  end
-end
 
-
-def set_policy_minister_query(pq)
-  in_pq_detail(pq.uin, 'Minister check')  { check 'Policy minister query' }
-end
-
-def set_answering_minister_query(pq)
-  in_pq_detail(pq.uin, 'Minister check')  { check 'Answering minister query' }
-end 
-
-
-def progress_pq_from_pod_cleared_to_with_minister(pq)
-  in_pq_detail(pq.uin, 'Minister check')  do
-    fillin_date('#sent_to_answering_minister') 
-    fillin_date('#sent_to_policy_minister')
-  end
-end
-
-
-def progress_pq_to_pod_cleared(pq)
-  in_pq_detail(pq.uin, 'POD check')  do
-    fillin_date('#pod_clearance') 
-  end
-end
-
-
-def expect_ministers_report_to_have(minister, progress, expected_text)
-  visit reports_ministers_by_progress_path
-  el = find_table_element_by_minister_and_progress(minister, progress)
-  expect(el.text).to eq expected_text
-end
-
-
-
-def progress_pq_from_with_pod_to_pod_query(pq)
-  in_pq_detail(pq.uin, 'POD check')  do
-    check 'POD query flag'
-  end
-end
-
-
-def progress_pq_to_draft_pending(pq)
-  set_seen_by_finance_check_box(pq)
-  commission_question(pq.uin, [action_officer], minister, policy_minister)
-  accept_assignment(action_officer)
-end
-
-
-def progress_pq_from_draft_pending_to_with_pod(pq)
-  in_pq_detail(pq.uin, "PQ draft")       { fillin_date('#draft_answer_received') }
-end
-
-
-
-def find_table_element_by_minister_and_progress(minister, progress)
-  selector = %Q<a[href='/reports/filter_all?minister_id=#{minister.id}&progress_id=#{progress.id}']>
-  find(selector)
-end
-
-
-def set_seen_by_finance_check_box(pq)
-  in_pq_detail(pq.uin, 'Finance check')  do
-    check 'pq_seen_by_finance'
-  end
-end
 
 
 
