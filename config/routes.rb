@@ -29,7 +29,8 @@ ParliamentaryQuestions::Application.routes.draw do
   devise_for :users , :controllers => { :invitations => 'users/invitations' }
   resources :users
 
-  resources :pqs
+  resources :pqs, only: [ :index, :show, :update ]
+  
   resources :trim_links
 
   get 'trim_links/new/:id' => 'trim_links#new'
@@ -65,6 +66,8 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'watchlist/dashboard' => 'watchlist_dashboard#index'
   get 'watchlist/preview' => 'watchlist_dashboard#preview'
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
+
+  # TODO I think this is unused code
   get 'find_action_officers' => 'action_officers#find'
 
   get 'finance/questions' => 'finance#questions'
@@ -87,6 +90,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
   match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
+  match "*path", to: "application#page_not_found", via: :all
 
   if Rails.env.production?
     get '401', :to => 'application#unauthorized'
