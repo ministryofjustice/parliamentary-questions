@@ -10,103 +10,93 @@ module PqScopes
     where(seen_by_finance: false)
   end
 
-  def accepted_in(aos)
-    joins(:action_officers_pqs).where(action_officers_pqs: {
-      response: 'accepted',
-      action_officer_id: aos 
-    })
+  def filter_for_report(state, minister_id, press_desk_id)
+    q = order(:internal_deadline)
+    q = join_press_desks.where('pd.id = ?', press_desk_id).distinct('pqs.uin') if press_desk_id.present?
+    q = q.where(state: state) if state.present?
+    q = q.where(minister_id: minister_id) if minister_id.present?
+    q
   end
 
-  def ministers_by_progress(ministers, progresses)
-    includes(:progress, :minister).
-      where(progress_id: progresses, minister_id: ministers).
-      group(:minister_id, :progress_id).
-      count
+  def join_press_desks
+    joins('JOIN action_officers_pqs aopq ON aopq.pq_id = pqs.id')
+      .joins('JOIN action_officers ao ON ao.id = aopq.action_officer_id')
+      .joins('JOIN press_desks pd ON pd.id = ao.press_desk_id')
+      .where("aopq.response = 'accepted' AND pd.deleted = false")
   end
 
   def new_questions
-    by_status(Progress.new_questions)
+    by_status(PQState::NEW)
   end
 
   def in_progress
-    by_status(Progress.in_progress_questions)
+    by_status(PQState::IN_PROGRESS)
   end
 
   def visibles
-    by_status(Progress.visible)
+    by_status(PQState::VISIBLE)
   end
 
-  def by_status(status)
-    joins(:progress).where(progresses: {name: status})
+  def by_status(states)
+    where(state: states)
   end
 
   def no_response()
-    by_status(Progress.NO_RESPONSE)
+    by_status(PQState::NO_RESPONSE)
   end
 
   def unassigned()
-    by_status(Progress.UNASSIGNED)
+    by_status(PQState::UNASSIGNED)
   end
 
   def rejected
-    by_status(Progress.REJECTED)
+    by_status(PQState::REJECTED)
   end
 
   def draft_pending
-    by_status(Progress.DRAFT_PENDING)
+    by_status(PQState::DRAFT_PENDING)
   end
 
   def with_pod
-    by_status(Progress.WITH_POD)
+    by_status(PQState::WITH_POD)
   end
 
   def pod_query
-    by_status(Progress.POD_QUERY)
+    by_status(PQState::POD_QUERY)
   end
 
   def pod_cleared
-    by_status(Progress.POD_CLEARED)
+    by_status(PQState::POD_CLEARED)
   end
 
   def with_minister
-    by_status(Progress.WITH_MINISTER)
+    by_status(PQState::WITH_MINISTER)
   end
 
   def ministerial_query
-    by_status(Progress.MINISTERIAL_QUERY)
+    by_status(PQState::MINISTERIAL_QUERY)
   end
 
   def minister_cleared
-    by_status(Progress.MINISTER_CLEARED)
+    by_status(PQState::MINISTER_CLEARED)
   end
 
   def answered
-    by_status(Progress.ANSWERED)
+    by_status(PQState::ANSWERED)
   end
 
   def transferred
-    joins(:progress)
-      .where('pqs.transferred = true AND progresses.name IN (?)',
-             Progress.new_questions)
+    where(state: PQState::NEW, transferred: true)
   end
 
   def i_will_write_flag
-    joins(:progress)
-      .where('pqs.i_will_write = true AND progresses.name NOT IN (?)',
-             Progress.closed_questions)
+    where('i_will_write = true AND state NOT IN (?)', PQState::CLOSED)
   end
 
-  def counts_by_state
-    state_counts = joins('join progresses p on p.id = progress_id')
-      .select('p.name', 'count(*)')
-      .group('p.name')
-      .reduce({}) { |acc, r| acc.merge(r.name => r.count) }
-
-    state_counts.merge({
-      'view_all'             => Pq.count,
-      'view_all_in_progress' => Pq.in_progress.count,
-      'transferred_in'       => Pq.transferred.count,
-      'iww'                  => Pq.i_will_write_flag.count
-    })
-  end
+  #def sorted_for_dashboard
+  #  order("date_for_answer > CURRENT_DATE ASC")
+  #    .order("DATE_PART('day', date_for_answer::timestamp - CURRENT_DATE::timestamp) ASC")
+  #    .order('state_weight DESC')
+  #    .order('updated_at ASC')
+  #end
 end

@@ -3,6 +3,7 @@ class Pq < ActiveRecord::Base
 
   include PqFollowup
   extend PqScopes
+  extend PqCounts
 
   has_one :trim_link, dependent: :destroy
   has_many :action_officers_pqs do
@@ -58,10 +59,19 @@ class Pq < ActiveRecord::Base
   ]
   validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
 
-  before_update :set_pod_waiting, :process_date_for_answer
+  before_update :set_pod_waiting, :process_date_for_answer, :set_state_weight
 
   def set_pod_waiting
     self.pod_waiting = draft_answer_received if draft_answer_received_changed?
+  end
+
+  def set_state_weight
+    self.state_weight = PQState.state_weight(state)
+  end
+
+  def update_state!
+    self.state = PQState.progress_changer.next_state(PQState::UNASSIGNED, self)
+    self.save!
   end
 
   def process_date_for_answer
@@ -113,12 +123,12 @@ class Pq < ActiveRecord::Base
     !action_officers.accepted && action_officers.rejected.any?
   end
 
+  def is_new?
+    PQState::NEW.include?(state)
+  end
+
   def closed?
-    if progress
-      Progress.closed_questions.include?(progress.name)
-    else
-      false
-    end
+    PQState::CLOSED.include?(state)
   end
 
   def open?
@@ -127,10 +137,6 @@ class Pq < ActiveRecord::Base
 
   def is_unallocated?
     action_officers_pqs.count == 0
-  end
-
-  def is_in_progress?(pro)
-    progress_id == pro.id
   end
 
   def action_officer_accepted

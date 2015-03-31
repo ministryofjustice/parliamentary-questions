@@ -14,7 +14,15 @@ module ApplicationHelper
     end
   end
 
+  def state_classname(s)
+    s.gsub('_', '-')
+  end
+
+  def state_label(s)
+    PQState.state_label(s)
+  end
+
   def minister_warning?(question, minister)
-    question.present? && question.open? && minister.try(:deleted?)
+    !!(question.present? && question.open? && minister.try(:deleted?))
   end
 end

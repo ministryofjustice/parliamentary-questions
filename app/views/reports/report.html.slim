@@ -1,0 +1,20 @@
+div#minister-report
+  h1= @report.title
+  table.table.table-hover
+    thead
+      tr
+        th Progress
+        - @report.header_cells.each do |c|
+          th.table-cell-centered
+            = link_to(c.label, c.path)
+    tbody
+      - @report.rows.each do |r|
+        tr
+          td
+            span class=("flag #{state_classname r.state}") = r.label
+          - r.cells.each do |c|
+            td.table-cell-centered
+              - unless c.zero?
+                = link_to(c.count, c.path)
+              - else
+                | 0
