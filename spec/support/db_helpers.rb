@@ -5,7 +5,6 @@ module DBHelpers
   FIXTURES = [
     :users,
     :ministers,
-    :progresses,
     :directorates,
     :divisions,
     :deputy_directors,
@@ -16,12 +15,10 @@ module DBHelpers
   ]
 
   def load_spec_fixtures
-    load_fixtures(:progresses)
   end
 
   def load_feature_fixtures
     load_fixtures(:ministers,
-                  :progresses,
                   :directorates,
                   :divisions,
                   :deputy_directors,
@@ -58,7 +55,6 @@ module DBHelpers
         tabled_date: Date.today,
         response_due: Date.tomorrow,
         question: "test question #{n}",
-        progress: progresses.find { |p| p.name == Progress.UNASSIGNED },
         state: PQState::UNASSIGNED
       )
     end
@@ -73,23 +69,6 @@ module DBHelpers
       {name: 'Simon Hughes (MP)',  title: 'Minister of State for Justice & Civil Liberties'},
       {name: 'Lord Faulks QC',  title: 'Lord Faulks QC, Minister of State'}
     ].map { |h| Minister.find_or_create_by(h) }
-  end
-
-  def progresses
-    [
-      {name: Progress.UNASSIGNED},
-      {name: Progress.NO_RESPONSE},
-      {name: Progress.REJECTED},
-      {name: Progress.DRAFT_PENDING},
-      {name: Progress.WITH_POD},
-      {name: Progress.POD_QUERY},
-      {name: Progress.POD_CLEARED},
-      {name: Progress.WITH_MINISTER},
-      {name: Progress.MINISTERIAL_QUERY},
-      {name: Progress.MINISTER_CLEARED},
-      {name: Progress.ANSWERED},
-      {name: Progress.TRANSFERRED_OUT}
-    ].map { |h| Progress.find_or_create_by(h) }
   end
 
   def directorates

@@ -68,6 +68,11 @@ class Pq < ActiveRecord::Base
     self.state_weight=PQState.state_weight(state)
   end
 
+  def update_state!
+    self.state = PQState.progress_changer.next_state(PQState::UNASSIGNED, self)
+    self.save!
+  end
+
   def process_date_for_answer
     unless date_for_answer
       self.date_for_answer_has_passed = true

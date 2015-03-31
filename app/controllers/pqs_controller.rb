@@ -17,8 +17,7 @@ class PqsController < ApplicationController
       with_valid_dates do
         archive_trim_link!(params[:commit])
 
-        if @pq.update(pq_params)
-          PQProgressChangerService.new.update_progress(@pq)
+        if @pq.assign_attributes(pq_params) && @pq.update_state!
           reassign_ao_if_present(@pq)
           flash[:success] = 'Successfully updated'
         else
