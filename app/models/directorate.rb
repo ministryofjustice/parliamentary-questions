@@ -3,5 +3,6 @@ class Directorate < ActiveRecord::Base
   include SoftDeletion::Record
 
   has_paper_trail
+  validates :name, presence: true
   has_many :divisions
 end

@@ -63,7 +63,11 @@ The Postgresql version used in production is 9.3. This can be installed via [hom
 
 Install the app dependencies by running the following
 
-    gem install bundler && bundle install
+		gem install bundler && bundle install
+
+If you get problems installing the pg gem not being able to find libpg, try setting the architecture flag as follows:
+
+    gem install bundler && ARCHFLAGS="-arch x86_64" bundle install
 
 You can now procede setting up the database table layout
 
@@ -102,3 +106,4 @@ rake "user:create[admin@admin.com, 123456789, admin]"
 Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
 be run be executing the same command with the features folder as argument (i.e.
 `bundle exec rspec features`).
+
