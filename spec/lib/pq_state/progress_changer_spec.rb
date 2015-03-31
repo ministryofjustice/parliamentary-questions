@@ -28,7 +28,7 @@ describe "PQState#progress_changer" do
   describe "#next_state" do
     context "when moving from the initial, to an intermediate state of the graph" do
       it "returns the intermediate state" do
-        expect(subject.next_state(:unassigned, stub_pq)).to eq(:no_response)
+        expect(subject.next_state(PQState::UNASSIGNED, stub_pq)).to eq(PQState::NO_RESPONSE)
       end
     end
 
@@ -37,7 +37,7 @@ describe "PQState#progress_changer" do
         pq = stub_pq(transfer_out_ogd_id: 'test-id',
                      transfer_out_date: DateTime.now)
 
-        expect(subject.next_state(:no_response, pq)).to eq(:transferred_out)
+        expect(subject.next_state(PQState::NO_RESPONSE, pq)).to eq(PQState::TRANSFERRED_OUT)
       end
     end
 
@@ -57,7 +57,7 @@ describe "PQState#progress_changer" do
                      pq_withdrawn: true
                     )
 
-        expect(subject.next_state(:unassigned, pq)).to eq(:answered)
+        expect(subject.next_state(PQState::UNASSIGNED, pq)).to eq(PQState::ANSWERED)
       end
     end
   end

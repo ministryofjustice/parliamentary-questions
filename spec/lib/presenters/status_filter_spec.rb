@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StatusFilter do
+describe Presenters::StatusFilter do
   include Rails.application.routes.url_helpers
 
   let(:params) {{
@@ -14,7 +14,7 @@ describe StatusFilter do
   }
 
   let(:filter) {
-    StatusFilter.new(1, 'test_key', label, params)
+    Presenters::StatusFilter.new(1, 'test_key', label, params)
   }
 
   describe "#link" do

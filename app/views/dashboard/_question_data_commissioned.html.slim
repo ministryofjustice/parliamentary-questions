@@ -37,12 +37,12 @@
         h3 Date for answer
         p.text
           = question.date_for_answer.to_s(:date)
-          = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
-      - if !question.internal_deadline.nil?
+          = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed? }
+      - if question.internal_deadline
         h3 Internal deadline
         p.text
-          = question.internal_deadline.to_s
-          = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
+          = question.internal_deadline
+          = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
       .trim_area.trim_area_dashboard id="trim_area_#{question.id}"
         h3 Trim link
         = render partial: 'shared/trim_link', locals: {question: question}

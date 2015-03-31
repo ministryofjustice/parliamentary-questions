@@ -45,7 +45,7 @@ class TransferredController < ApplicationController
       .merge({
         transferred:        true,
         raising_member_id:  '0',
-        progress:           Progress.unassigned
+        state: PQState::UNASSIGNED
       })
   end
 

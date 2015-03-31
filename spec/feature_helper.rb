@@ -32,17 +32,11 @@ RSpec.configure do |config|
     mock_api_runner.start
   end
 
-  # Tables to except from truncation
-  TABLE_EXCEPTIONS = [
-    Progress
-  ].map(&:table_name)
-
   # Use truncation in js tests and suspended tests, transaction otherwise
   config.before(:each) do |test|
     if test.metadata[:js] || test.metadata[:suspend_cleaner]
       DatabaseCleaner.strategy = [
-        :truncation,
-        { except: TABLE_EXCEPTIONS } 
+        :truncation
       ]
     else
       DatabaseCleaner.strategy = [

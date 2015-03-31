@@ -94,7 +94,7 @@ describe CommissioningService do
       end
 
       it "sets the PQ state to 'no-response'" do
-        expect(@pq.progress).to eq(Progress.no_response)
+        expect(@pq.state).to eq(PQState::NO_RESPONSE)
       end
     end
   end

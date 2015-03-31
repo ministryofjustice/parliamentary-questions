@@ -47,9 +47,9 @@ class DashboardController < ApplicationController
     @questions       = paginate_collection(yield) if block_given?
     @filters         =
       if dashboard_state == IN_PROGRESS
-        DashboardFilters.build_in_progress(pq_counts, params)
+        Presenters::DashboardFilters.build_in_progress(pq_counts, params)
       else
-        DashboardFilters.build(pq_counts, params)
+        Presenters::DashboardFilters.build(pq_counts, params)
       end
   end
 

@@ -28,7 +28,7 @@ module ParliamentaryQuestions
     config.feedback_url = '#'
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/scrapers #{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib)
 
     config.encoding = 'utf-8'
 

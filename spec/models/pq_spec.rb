@@ -11,6 +11,158 @@ describe Pq do
     it { is_expected.to belong_to :division }
   end
 
+  describe ".before_update" do
+    it "sets the state weight" do
+      state    = PQState::DRAFT_PENDING
+      pq, _    = DBHelpers.pqs
+      pq.update(state: state)
+      expect(pq.state_weight).to eq(PQState.state_weight(state))
+    end
+  end
+
+  describe ".count_accepted_by_press_desk" do
+    def accept_pq(pq, ao)
+      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
+                                                     response: 'accepted',
+                                                     pq: pq)
+      pq.save
+    end
+
+    context "when no data exist" do
+      it "returns an empty hash" do
+        expect(Pq.count_accepted_by_press_desk).to eq({})
+      end
+    end
+
+    context "when some data exist" do
+      before do
+        @pd1, @pd2             = DBHelpers.press_desks
+        @ao1, @ao2, @ao3       = DBHelpers.action_officers
+        @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
+
+        @pq1.state = PQState::NO_RESPONSE
+        @pq2.state = PQState::WITH_POD
+        @pq3.state = PQState::WITH_POD
+
+        accept_pq(@pq1, @ao1)
+        accept_pq(@pq2, @ao2)
+        accept_pq(@pq3, @ao3)
+      end
+
+      it "returns a hash with states as keys and press-desk/counts as values" do
+        expect(Pq.count_accepted_by_press_desk).to eq({
+          PQState::NO_RESPONSE => {
+            @pd1.id => 1
+          },
+          PQState::WITH_POD => {
+            @pd2.id => 2
+          }
+        })
+      end
+
+      context "when a press desk gets deleted" do
+        before do
+          @pd1.deactivate!
+        end
+
+        it "omits the associated questions from the results" do
+          expect(Pq.count_accepted_by_press_desk).to eq({
+            PQState::WITH_POD => {
+              @pd2.id => 2
+            }
+          })
+        end
+      end
+    end
+  end
+
+  describe ".count_in_progress_by_minister" do
+    context "when no data exist" do
+      it "returns an empty hash" do
+        expect(Pq.count_in_progress_by_minister).to eq({})
+      end
+    end
+
+    context "when some data exist" do
+      before do
+        @minister1, @minister2, _ = DBHelpers.ministers
+        @pq1, @pq2, @pq3, @pq4    = DBHelpers.pqs
+
+        @pq1.update(state: PQState::DRAFT_PENDING, minister: @minister1)
+        @pq2.update(state: PQState::WITH_MINISTER, minister: @minister2)
+        @pq3.update(state: PQState::ANSWERED, minister: @minister2)
+        # ^ should not be included as its state is not included in PQState::IN_PROGRESS
+        @pq4.update(state: PQState::DRAFT_PENDING, minister: @minister2)
+      end
+
+      it "returns a hash with states as keys and minister counts as values" do
+        expect(Pq.count_in_progress_by_minister).to eq({
+          PQState::DRAFT_PENDING => {
+            @minister1.id => 1,
+            @minister2.id => 1,
+          },
+          PQState::WITH_MINISTER => {
+            @minister2.id => 1
+          }
+        })
+      end
+
+      context "when a minister becomes inactive" do
+        before do
+          @minister1.deactivate!
+        end
+
+        it "omits the minister and its related PQ count from the results" do
+          expect(Pq.count_in_progress_by_minister).to eq({
+            PQState::DRAFT_PENDING => {
+              @minister2.id => 1,
+            },
+            PQState::WITH_MINISTER => {
+              @minister2.id => 1
+            }
+          })
+        end
+      end
+    end
+  end
+
+  describe ".filter_for_report" do
+    def commission_and_accept(pq, ao, minister)
+      pq.state    = PQState::WITH_POD
+      pq.minister = minister
+      pq.action_officers_pqs << ActionOfficersPq.new(pq: pq,
+                                                     response: 'accepted',
+                                                     action_officer: ao,)
+      pq.save
+    end
+
+    before do
+      @ao1, @ao2             = DBHelpers.action_officers
+      @min1, _               = DBHelpers.ministers
+      @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
+
+      expect(@ao1.press_desk).to_not eq(@ao2.press_desk)
+      commission_and_accept(@pq1, @ao1, @min1)
+      commission_and_accept(@pq4, @ao2, @min1)
+    end
+
+    context "when state, minister or press desk are all nil" do
+      it "returns all the records" do
+        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq([
+          'uin-1', 'uin-2', 'uin-3', 'uin-4'
+        ].to_set)
+      end
+    end
+    context "when state, minister or press desk are all present" do
+      it "returns the expected records" do
+        uins = Pq.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
+                 .pluck(:uin)
+
+        expect(uins).to eq(['uin-1'])
+      end
+    end
+  end
+
   describe '#has_trim_link?' do
     context 'when trim link present' do
       before { subject.trim_link = TrimLink.new }
@@ -31,29 +183,6 @@ describe Pq do
     subject! { create(:pq) }
     before { create(:checked_by_finance_pq) }
     it { expect(described_class.not_seen_by_finance).to eq [subject] }
-  end
-
-  describe '#ministers_by_progress' do
-    let(:minister) { create(:minister) }
-    let(:policy_minister) { create(:minister) }
-    let(:progresses) { Progress.where(name: Progress.in_progress_questions) }
-
-    before do
-      Progress.in_progress_questions.each do |status|
-        factory = "#{status.gsub(' ', '_').downcase}_pq"
-        create(factory, minister: minister, policy_minister: policy_minister)
-        create(factory, minister: policy_minister)
-      end
-    end
-
-    it 'returns table summed by questions in in progress states grouped by minister not counting policy minister' do
-      minister_counts = progresses.map{|status| [[minister.id, status.id], 1] }
-      policy_minister_counts = progresses.map{|status| [[policy_minister.id, status.id], 1] }
-
-      expect(Pq.ministers_by_progress([minister, policy_minister], progresses)).to eq(
-        (minister_counts + policy_minister_counts).to_h
-      )
-    end
   end
 
   describe 'allocated_since' do

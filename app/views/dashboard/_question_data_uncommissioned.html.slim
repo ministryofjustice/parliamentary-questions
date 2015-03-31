@@ -28,13 +28,13 @@
         .datepicker.form-group
           input.form-control.required-for-commission id="pq_date_for_answer-#{question.id}" name="commission_form[date_for_answer]" type="text" value=(question.date_for_answer.try(:to_s, :date))
           span.fa.fa-calendar title="select a date"
-        = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, progress_val: question.progress}
+        = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed? }
 
         label.form-label for="pq_internal_deadline-#{question.id}" Internal deadline
         .datetimepicker.form-group.default-time#internal-deadline
           input.form-control.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.to_s)
           span.fa.fa-calendar title="select a date"
-        = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, progress_val: question.progress, draft_reply: question.draft_answer_received}
+        = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
 
   .col-md-5
     .dashboard-column-2
