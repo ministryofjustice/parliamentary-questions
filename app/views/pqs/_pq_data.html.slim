@@ -24,7 +24,7 @@ h3 Question tabled date
     | * Member has registered an interest in the Question.
 - if @pq.transfer_in_ogd_id
   p.text
-    | Transferred in from #{@pq.transfer_in_ogd.name}#{' on ' + @pq.transfer_in_date.try(:to_s, :date)}
+    | Transferred in from #{@pq.transfer_in_ogd.name} on #{@pq.transfer_in_date.try(:to_s, :date)}
 hr/
 
 h3 Question
