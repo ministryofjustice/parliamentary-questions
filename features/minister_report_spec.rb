@@ -15,6 +15,10 @@ feature 'Minister Report', js: true, suspend_cleaner: true do
     create_pq_session
   end
 
+  after(:all) do
+    DatabaseCleaner.clean
+  end
+
   let(:action_officer)          { ActionOfficer.first }
   let(:minister)                { Minister.find_by_name('Chris Grayling') }
   let(:policy_minister)         { Minister.find_by_name('Damian Green (MP)') }
