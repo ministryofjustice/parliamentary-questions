@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DashboardFilters do
+describe Presenters::DashboardFilters do
   include Rails.application.routes.url_helpers
 
   describe "#build" do
@@ -24,7 +24,7 @@ describe DashboardFilters do
         ['Transferred In', 0, dashboard_transferred_path, false]
       ]
 
-      filter_values = DashboardFilters
+      filter_values = Presenters::DashboardFilters
                         .build(counts, params)
                         .filters
                         .map { |f| [f.label, f.count, f.path, f.active?] }
@@ -64,7 +64,7 @@ describe DashboardFilters do
         ['I will write', 2, dashboard_iww_path, false],
       ]
 
-      filter_values = DashboardFilters
+      filter_values = Presenters::DashboardFilters
                         .build_in_progress(counts, params)
                         .filters
                         .map { |f| [f.label, f.count, f.path, f.active?] }
