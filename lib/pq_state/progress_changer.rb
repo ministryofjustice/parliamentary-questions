@@ -1,26 +1,7 @@
 module PQState
-
-  ALLOWED = [
-    UNASSIGNED,
-    REJECTED,
-    NO_RESPONSE,
-    DRAFT_PENDING,
-    WITH_POD,
-    POD_CLEARED,
-    WITH_MINISTER,
-    MINISTERIAL_QUERY,
-    MINISTER_CLEARED,
-    ANSWERED
-  ]
-
-  FINAL_STATES = [
-    ANSWERED,
-    TRANSFERRED_OUT
-  ]
-
   def self.progress_changer
     @progress_changer ||= StateMachine.build(
-      FINAL_STATES,
+      CLOSED,
 
       ## Commissioning
       Transition(UNASSIGNED, NO_RESPONSE) do |pq|
@@ -82,7 +63,7 @@ module PQState
       end,
 
       # Transferred out
-      Transition.factory(ALLOWED - [ANSWERED], [TRANSFERRED_OUT]) do |pq|
+      Transition.factory(ALL - CLOSED, [TRANSFERRED_OUT]) do |pq|
         pq.transfer_out_ogd_id && pq.transfer_out_date
       end
     )
