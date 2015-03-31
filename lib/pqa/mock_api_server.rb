@@ -62,5 +62,13 @@ module PQA
 
       XMLEncoder.encode_questions(questions)
     end
+
+
+    # return 404 if no such uin
+
+    get '/api/qais/question/:uin' do 
+      my_uin = QUESTIONS[params['uin']]
+      XMLEncoder.encode_questions( [my_uin] )
+    end
   end
 end

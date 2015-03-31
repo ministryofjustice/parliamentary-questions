@@ -26,6 +26,21 @@ namespace :pqa do
     import_from_mock_server(questions, min_date, max_date)
   end
 
+  namespace :mock do
+    desc 'start a mock api service and load with 50 questions' 
+    task :api, [:n_records] => :environment do |_, args|
+      n_records = args[:n_records] || 3
+      require_relative '../pqa.rb'
+      runner = PQA::MockApiServerRunner.new
+      runner.start
+      puts "Mock API server started on http://#{PQA::MockApiServerRunner::HOST}:#{PQA::MockApiServerRunner::PORT}"
+      loader = PQA::QuestionLoader.new
+      loader.load_and_import(n_records, true)
+      puts "Mock API loaded with #{n_records} questions"
+    end
+  end
+
+
   private
 
   def import_from_mock_server(questions, date_from, date_to)
