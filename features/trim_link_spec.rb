@@ -76,20 +76,92 @@ feature "Parli-branch manages trim link" , js: true do
   feature 'from the dashboard', js: true do
     let(:ao1)      { ActionOfficer.find_by(email: 'ao1@pq.com') }
     let(:minister) { Minister.first                             }
-    Capybara.ignore_hidden_elements = false
+    # Capybara.ignore_hidden_elements = false
 
-    scenario "uploading a valid trim file"  do
-      create_pq_session
-      visit dashboard_path
-
+    def select_file_to_upload(filename)
       # We need to make the file <input> visible, otherwise it won't pick up attach_file later
       # Not sure why it's not enough to use ignore_hidden_elements above.
       # Probably a bug with capybara/phantomjs
       page.execute_script('$(".trim-file-chooser").attr("style","display:inline!important")')
+      page.execute_script('$(".toggle-content").attr("style","display:block!important")')
 
-      attach_file('trim_link[file_data]', Rails.root.join('spec/fixtures/trimlink.tr5'))
+      attach_file('trim_link[file_data]', Rails.root.join(filename))
       page.execute_script('$(".trim-file-chooser").trigger("change")')
-      expect(page).to have_content 'File selected'
+
+      page.execute_script('$(".trim-file-chooser").attr("style","display:inline")')
+      page.execute_script('$(".toggle-content").attr("style","display:block")')
     end
+
+    before(:each) do
+      create_pq_session
+      visit dashboard_path
+    end
+
+    scenario 'selecting a file to upload to trim'  do
+      select_file_to_upload 'spec/fixtures/trimlink.tr5'
+      expect(page).to have_content 'File selected'
+      expect(page).to have_css 'span.fa-check-circle'
+    end
+
+    scenario 'cancel after selecting' do 
+      select_file_to_upload 'spec/fixtures/trimlink.tr5'
+      click_button 'Cancel'
+      expect(page).to have_css 'button.button-choose'
+      expect(page).not_to have_css 'button.button-cancel'
+    end
+
+    scenario 'upload a file after selecting' do 
+      select_file_to_upload 'spec/fixtures/trimlink.tr5'
+      click_button 'Upload'
+      expect(page).to have_content 'Trim link was successfully created'
+      expect(page).to have_css 'span.fa-check-circle'
+      expect(page).to have_content 'Open trim link'
+    end
+
+    scenario 'upload an invalid file to trim' do 
+      select_file_to_upload 'spec/fixtures/invalid_trimlink.tr5'
+      click_button 'Upload'
+      expect(page).to have_content 'Missing or invalid trim file!'
+      expect(page).to have_css 'span.fa-warning'
+    end
+    
+    # scenario 'After trying to upload an invalid file, try to upload another file' do 
+    #   select_file_to_upload 'spec/fixtures/invalid_trimlink.tr5'
+    #   click_button 'Upload'
+    #   expect(page).to have_content 'Missing or invalid trim file!'
+    #   click_button 'Cancel'
+    #   select_file_to_upload 'spec/fixtures/trimlink.tr5'
+
+    #   expect(page).to have_content 'Trim link was successfully created'
+    #   expect(page).to have_css 'span.fa-check-circle'
+    #   expect(page).to have_content 'Open trim link'
+    # end
+
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
