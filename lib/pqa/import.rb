@@ -16,7 +16,6 @@ module PQA
         questions.each do |q|
           insert_or_update(q)
         end
-        update_sort_dates
       end
       report
     end
@@ -39,7 +38,6 @@ module PQA
       }
     end
 
-    def update_sort_dates
       Pq.find_each(batch_size: 100) do |pq|
         unless pq.date_for_answer
           pq.date_for_answer_has_passed = true
