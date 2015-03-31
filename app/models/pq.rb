@@ -59,7 +59,7 @@ class Pq < ActiveRecord::Base
   ]
   validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
 
-  before_update :set_pod_waiting, :process_date_for_answer, :set_state_weight
+  before_update :set_pod_waiting, :set_state_weight
 
   def set_pod_waiting
     self.pod_waiting = draft_answer_received if draft_answer_received_changed?
@@ -72,16 +72,6 @@ class Pq < ActiveRecord::Base
   def update_state!
     self.state = PQState.progress_changer.next_state(PQState::UNASSIGNED, self)
     self.save!
-  end
-
-  def process_date_for_answer
-    unless date_for_answer
-      self.date_for_answer_has_passed = true
-      self.days_from_date_for_answer = LARGEST_POSTGRES_INTEGER
-    else
-      self.date_for_answer_has_passed = self.date_for_answer < Date.today
-      self.days_from_date_for_answer = (self.date_for_answer - Date.today).abs
-    end
   end
 
   def reassign(action_officer)
