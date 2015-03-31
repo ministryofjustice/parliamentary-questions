@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Report do
+describe Presenters::Report do
   include Rails.application.routes.url_helpers
 
   def header_values(r)
@@ -11,11 +11,11 @@ describe Report do
     [r.label, r.cells.map { |c| [c.count, c.path] }]
   end
 
-  let(:ministers)       { DBHelpers.ministers }
-  let(:press_desks)     { DBHelpers.press_desks }
-  let(:minister_report) { Report.ministers(report_data, ministers) }
-  let(:pd_report)       { Report.press_desk(report_data, press_desks) }
-  let(:report_data)     {{}}
+  let(:ministers)       { DBHelpers.ministers                                     }
+  let(:press_desks)     { DBHelpers.press_desks                                   }
+  let(:minister_report) { Presenters::Report.ministers(report_data, ministers)    }
+  let(:pd_report)       { Presenters::Report.press_desk(report_data, press_desks) }
+  let(:report_data)     { {}                                                      }
 
   describe "#header_values" do
     context "minister report" do
