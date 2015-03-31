@@ -4,7 +4,7 @@
 
 var trim_link = {};
 
-//function to upload file to trim
+// Prepare the callback on trim upload controls
 trim_link.trimFileUpload = function() {
   'use strict';
   $('.trim-links-form').each(function(i, area){
@@ -16,7 +16,7 @@ trim_link.trimFileUpload = function() {
       choose_button = container.find('.button-choose'),
       form = container.find('form'),
       file_field = form.find('.trim-file-chooser'),
-      cancel_button = form.find('.button-cancel'),
+      cancel_button = container.find('.button-cancel'),
       status_messages = {
         selected : {
           message : 'File selected',
@@ -36,53 +36,69 @@ trim_link.trimFileUpload = function() {
 
     cancel_button.on('click', function () {
       form.trigger('reset');
-      file_field.trigger('change');
+      choose_button.show();
+      actions.hide();
+      message_container.hide();
     });
 
-    //selecting a file to upload to trim
-    file_field.on('change', function () {
+
+    // called when a file has been chosen by the user
+    function file_selected_callback() {
       var chosen = file_field.val();
       if(chosen) {
+        // If a file is selected successfully, show a message
         choose_button.hide();
         message_icon[0].className = status_messages.selected.classname;
         upload_message.text(status_messages.selected.message);
         message_container.show();
         actions.show();
       } else {
+        // or else, go back to showing just the 'Choose Trim link' button
         choose_button.show();
         actions.hide();
         message_container.hide();
       }
-    });
+    }
+
+    // File selector behaviour
+    file_field.on('change', file_selected_callback);
+
     //clicking on the "choose trim file" button
     choose_button.on('click', function () {
       file_field.click();
     });
 
-    form // trim file upload callbacks
+    // trim file async upload callbacks
+    form
       .on('ajax:error', function(e, response) {
         var json = JSON.parse(response.responseText);
 
-        message_icon.attr('class', status_messages.failure.classname);
+        if (json.status === 200) {
+          message_icon.attr('class', status_messages.success.classname);
+          actions
+            .hide()
+            .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+        } else {
+          message_icon.attr('class', status_messages.failure.classname);
+        }
         upload_message.text(json.message);
-
         message_container.show();
+
+        // iframe-transport removes the change event handler when uploading,
+        // so we need to add it back
+        file_field = form.find('.trim-file-chooser');
+        file_field.on('change', file_selected_callback);
       })
       .on('ajax:success', function(e, response) {
-        var json = JSON.parse(response.responseText);
-
-        message_icon.attr('class', status_messages.success.classname);
-        upload_message.text(json.message);
-
-        actions
-          .hide()
-          .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-
-        message_container.show();
+        // trim file upload with iframe-transport always returns error
       });
 
     });
 };
+
+
+
+// Trim link behaviour on PQ details page
 
 trim_link.toggleCancelLink = function() {
   'use strict';
@@ -102,6 +118,7 @@ trim_link.cancelFileSelection = function(e) {
   $('#pq_trim_link_attributes_file').replaceWith('<input id="pq_trim_link_attributes_file" name="pq[pq_trim_link_attributes][file]" type="file">');
   trim_link.toggleCancelLink();
 };
+
 
 $('#pq_trim_link_attributes_file').on('change', trim_link.toggleCancelLink);
 $('#progress-menu-trim-data .cancel').on('click', trim_link.cancelFileSelection);
