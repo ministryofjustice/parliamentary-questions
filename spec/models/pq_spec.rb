@@ -20,7 +20,7 @@ describe Pq do
     end
   end
 
-  describe ".accepted_by_press_desk" do
+  describe ".count_accepted_by_press_desk" do
     def accept_pq(pq, ao)
       pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
                                                      response: 'accepted',
@@ -30,7 +30,7 @@ describe Pq do
 
     context "when no data exist" do
       it "returns an empty hash" do
-        expect(Pq.accepted_by_press_desk).to eq({})
+        expect(Pq.count_accepted_by_press_desk).to eq({})
       end
     end
 
@@ -50,7 +50,7 @@ describe Pq do
       end
 
       it "returns a hash with states as keys and press-desk/counts as values" do
-        expect(Pq.accepted_by_press_desk).to eq({
+        expect(Pq.count_accepted_by_press_desk).to eq({
           PQState::NO_RESPONSE => {
             @pd1.id => 1
           },
@@ -66,7 +66,7 @@ describe Pq do
         end
 
         it "omits the associated questions from the results" do
-          expect(Pq.accepted_by_press_desk).to eq({
+          expect(Pq.count_accepted_by_press_desk).to eq({
             PQState::WITH_POD => {
               @pd2.id => 2
             }
@@ -76,10 +76,10 @@ describe Pq do
     end
   end
 
-  describe ".in_progress_by_minister" do
+  describe ".count_in_progress_by_minister" do
     context "when no data exist" do
       it "returns an empty hash" do
-        expect(Pq.in_progress_by_minister).to eq({})
+        expect(Pq.count_in_progress_by_minister).to eq({})
       end
     end
 
@@ -96,7 +96,7 @@ describe Pq do
       end
 
       it "returns a hash with states as keys and minister counts as values" do
-        expect(Pq.in_progress_by_minister).to eq({
+        expect(Pq.count_in_progress_by_minister).to eq({
           PQState::DRAFT_PENDING => {
             @minister1.id => 1,
             @minister2.id => 1,
@@ -113,7 +113,7 @@ describe Pq do
         end
 
         it "omits the minister and its related PQ count from the results" do
-          expect(Pq.in_progress_by_minister).to eq({
+          expect(Pq.count_in_progress_by_minister).to eq({
             PQState::DRAFT_PENDING => {
               @minister2.id => 1,
             },

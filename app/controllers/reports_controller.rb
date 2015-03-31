@@ -5,14 +5,14 @@ class ReportsController < ApplicationController
 
   def ministers_by_progress
     update_page_title('Minister report')
-    report_data = Pq.in_progress_by_minister
+    report_data = Pq.count_in_progress_by_minister
     @report     = Presenters::Report.ministers(report_data, Minister.active)
     render 'report'
   end
 
   def press_desk_by_progress
     update_page_title('Press Desk report')
-    report_data = Pq.accepted_by_press_desk
+    report_data = Pq.count_accepted_by_press_desk
     @report     = Presenters::Report.press_desk(report_data, PressDesk.active)
     render 'report'
   end

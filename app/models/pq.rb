@@ -3,6 +3,7 @@ class Pq < ActiveRecord::Base
 
   include PqFollowup
   extend PqScopes
+  extend PqCounts
 
   has_one :trim_link, dependent: :destroy
   has_many :action_officers_pqs do
