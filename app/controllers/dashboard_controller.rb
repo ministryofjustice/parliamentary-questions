@@ -6,7 +6,6 @@ class DashboardController < ApplicationController
   PER_PAGE    = 15
 
   def index
-    raise 'Boom'
     update_page_title "Dashboard"
     load_pq_with_counts(NEW) { Pq.new_questions }
     @dashboard_state = NEW
