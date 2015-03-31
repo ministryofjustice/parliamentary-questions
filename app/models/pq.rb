@@ -66,7 +66,7 @@ class Pq < ActiveRecord::Base
   end
 
   def set_state_weight
-    self.state_weight=PQState.state_weight(state)
+    self.state_weight = PQState.state_weight(state)
   end
 
   def update_state!
