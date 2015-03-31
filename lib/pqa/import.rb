@@ -3,7 +3,6 @@ module PQA
     def initialize(pqa_service = nil)
       @pqa_service         = pqa_service || PQAService.from_settings
       @logger              = LogStuff
-      @unassigned_progress = Progress.unassigned
       init_state!
     end
 
@@ -70,7 +69,7 @@ module PQA
       pq.preview_url         = q.url
       pq.date_for_answer     = pq.date_for_answer || q.date_for_answer
       pq.transferred         ||= false
-      pq.progress            ||= @unassigned_progress
+      pq.state               ||= PQState::UNASSIGNED
 
       if !pq.valid?
         error_msgs   = pq.errors.messages

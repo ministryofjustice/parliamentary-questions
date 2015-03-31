@@ -68,8 +68,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     q.action_officers   = aos
     q.internal_deadline = Date.today + 1.day
     q.internal_deadline = Date.today + 2.day
-    PQProgressChangerService.new.update_progress(q)
-    q.save
+    q.update_state!
 
     q
   end

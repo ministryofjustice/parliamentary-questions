@@ -8,14 +8,12 @@ FactoryGirl.define do
     question { Faker::Lorem.sentence(10) }
     answer nil
     state PQState::UNASSIGNED
-    progress { Progress.find_by(name: Progress.UNASSIGNED) }
 
     factory :checked_by_finance_pq do
       seen_by_finance true
       finance_interest false
 
       factory :not_responded_pq do
-        progress { Progress.find_by(name: Progress.NO_RESPONSE) }
         state PQState::NO_RESPONSE
         internal_deadline { Faker::Date.forward(14) }
         date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
@@ -37,7 +35,6 @@ FactoryGirl.define do
 
       factory :draft_pending_pq do
         state PQState::DRAFT_PENDING
-        progress { Progress.find_by(name: Progress.DRAFT_PENDING) }
         internal_deadline { Faker::Date.forward(14) }
         date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
         minister
@@ -48,33 +45,27 @@ FactoryGirl.define do
 
         factory :with_pod_pq do
           state PQState::WITH_POD
-          progress { Progress.find_by(name: Progress.WITH_POD) }
           draft_answer_received { Time.now }
 
           factory :pod_query_pq do
             state PQState::POD_QUERY
-            progress { Progress.find_by(name: Progress.POD_QUERY) }
             pod_query_flag true
 
             factory :pod_cleared_pq do
               state PQState::POD_CLEARED
-              progress { Progress.find_by(name: Progress.POD_CLEARED) }
               pod_clearance { Time.now }
 
               factory :with_minister_pq do
                 state PQState::WITH_MINISTER
-                progress { Progress.find_by(name: Progress.WITH_MINISTER) }
                 sent_to_answering_minister { Time.now }
 
                 factory :ministerial_query_pq do
                   state PQState::MINISTERIAL_QUERY
-                  progress { Progress.find_by(name: Progress.MINISTERIAL_QUERY) }
                   answering_minister_query true
                 end
 
                 factory :minister_cleared_pq do
                   state PQState::MINISTER_CLEARED
-                  progress { Progress.find_by(name: Progress.MINISTER_CLEARED) }
                   cleared_by_answering_minister { Time.now }
                 end
               end
@@ -86,7 +77,6 @@ FactoryGirl.define do
 
     factory :answered_pq do
       state PQState::ANSWERED
-      progress { Progress.find_by(name: Progress.ANSWERED) }
     end
   end
 end

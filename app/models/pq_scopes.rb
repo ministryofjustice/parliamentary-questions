@@ -48,7 +48,7 @@ module PqScopes
   #
   def accepted_by_press_desk
     join_press_desks
-      .select("pqs.state, ao.press_desk_id, count(*)")
+      .select("pqs.state, ao.press_desk_id, count(distinct pqs.id)")
       .where("state != ?", PQState::UNASSIGNED)
       .where("aopq.response = 'accepted' AND pd.deleted = false")
       .group('state, ao.press_desk_id')
@@ -60,7 +60,7 @@ module PqScopes
 
   def filter_for_report(state, minister_id, press_desk_id)
     q = order(:internal_deadline)
-    q = join_press_desks.where('pd.id = ?', press_desk_id) if press_desk_id.present?
+    q = join_press_desks.where('pd.id = ?', press_desk_id).distinct('pqs.uin') if press_desk_id.present?
     q = q.where(state: state) if state.present?
     q = q.where(minister_id: minister_id) if minister_id.present?
     q
