@@ -47,8 +47,9 @@ class PqsController < ApplicationController
   end
 
   def loading_relations
-    @ogd_list      = Ogd.all
-    @pq            = Pq.find_by!(uin: params[:id])
+    @ogd_list        = Ogd.all
+    @pq              = Pq.find_by!(uin: params[:id])
+    @action_officers = ActionOfficer.active
     yield if block_given?
   end
 

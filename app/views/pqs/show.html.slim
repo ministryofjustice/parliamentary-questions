@@ -44,7 +44,7 @@
           #progress-menu-fc-data role="tabpanel" class="tab-pane"
             = render partial:'fc_data', locals: {f: f}
           #progress-menu-com-data role="tabpanel" class="tab-pane"
-            = render  partial:'com_data', locals: {f: f}
+            = render  partial:'com_data', locals: {f: f, action_officers: @action_officers}
           #progress-menu-sub-data role="tabpanel" class="tab-pane"
             = render  partial:'pq_draft', locals: {f: f}
           #progress-menu-pod-data role="tabpanel" class="tab-pane"

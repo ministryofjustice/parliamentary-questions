@@ -26,9 +26,9 @@ module PqScopes
   end
 
   def sorted_for_dashboard
-    order("DATE_PART('day', date_for_answer::timestamp - CURRENT_DATE::timestamp) ASC")
-      .order('state_weight DESC')
-      .order('updated_at ASC') # <= This ASC causes the weird effect of pushing recent edits to the bottom of the list
+     order("DATE_PART('day', date_for_answer::timestamp - CURRENT_DATE::timestamp) ASC")
+       .order('state_weight DESC')
+       .order('updated_at ASC') # <= This ASC causes the weird effect of pushing recent edits to the bottom of the list
   end
 
   def new_questions

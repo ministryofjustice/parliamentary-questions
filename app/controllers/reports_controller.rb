@@ -18,15 +18,16 @@ class ReportsController < ApplicationController
   end
 
   def filter_all
-    state         = params[:state]
-    minister_id   = params[:minister_id]
-    press_desk_id = params[:press_desk_id]
+    state            = params[:state]
+    minister_id      = params[:minister_id]
+    press_desk_id    = params[:press_desk_id]
 
-    @ministers    = Minister.active
-    @press_desks  = PressDesk.active
-    @questions    = Pq.filter_for_report(state, minister_id, press_desk_id)
-                      .paginate(page: params[:page], per_page: PER_PAGE)
-    @states       = PQState::ALL.map { |s| [PQState.state_label(s), s] }
+    @ministers       = Minister.active
+    @action_officers = ActionOfficer.active
+    @press_desks     = PressDesk.active
+    @questions       = Pq.filter_for_report(state, minister_id, press_desk_id)
+                         .paginate(page: params[:page], per_page: PER_PAGE)
+    @states          = PQState::ALL.map { |s| [PQState.state_label(s), s] }
 
     render 'filter_all'
   end
