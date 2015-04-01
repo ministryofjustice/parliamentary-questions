@@ -62,8 +62,6 @@ class DashboardController < ApplicationController
 
   def paginate_collection(pqs)
     page = params.fetch(:page, 1)
-    pqs.paginate(page: page, per_page: PER_PAGE)
-      .order("date_for_answer_has_passed asc, days_from_date_for_answer asc, progress_id desc, updated_at asc")
-      .load
+    pqs.sorted_for_dashboard.paginate(page: page, per_page: PER_PAGE)
   end
 end

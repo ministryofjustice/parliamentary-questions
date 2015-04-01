@@ -25,6 +25,12 @@ module PqScopes
       .where("aopq.response = 'accepted' AND pd.deleted = false")
   end
 
+  def sorted_for_dashboard
+    order("DATE_PART('day', date_for_answer::timestamp - CURRENT_DATE::timestamp) ASC")
+      .order('state_weight DESC')
+      .order('updated_at ASC') # <= This ASC causes the weird effect of pushing recent edits to the bottom of the list
+  end
+
   def new_questions
     by_status(PQState::NEW)
   end
@@ -92,11 +98,4 @@ module PqScopes
   def i_will_write_flag
     where('i_will_write = true AND state NOT IN (?)', PQState::CLOSED)
   end
-
-  #def sorted_for_dashboard
-  #  order("date_for_answer > CURRENT_DATE ASC")
-  #    .order("DATE_PART('day', date_for_answer::timestamp - CURRENT_DATE::timestamp) ASC")
-  #    .order('state_weight DESC')
-  #    .order('updated_at ASC')
-  #end
 end

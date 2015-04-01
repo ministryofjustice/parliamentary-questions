@@ -59,7 +59,7 @@ module PqCounts
                      .reduce({}) { |acc, r| acc.merge(r.state => r.count) }
 
     state_counts.merge({
-      'view_all'             => Pq.count,
+      'view_all'             => Pq.new_questions.count,
       'view_all_in_progress' => Pq.in_progress.count,
       'transferred_in'       => Pq.transferred.count,
       'iww'                  => Pq.i_will_write_flag.count
