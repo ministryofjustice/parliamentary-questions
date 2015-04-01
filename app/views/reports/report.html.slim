@@ -9,7 +9,7 @@ div#minister-report
             = link_to(c.label, c.path)
     tbody
       - @report.rows.each do |r|
-        tr
+        tr data="report-state-#{r.state}"
           td
             span class=("flag #{state_classname r.state}") = r.label
           - r.cells.each do |c|

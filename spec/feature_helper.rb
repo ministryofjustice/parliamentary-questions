@@ -5,7 +5,6 @@ require File.expand_path("../../config/environment", __FILE__)
 require './spec/support/features/session_helpers'
 require './spec/support/features/email_helpers'
 require './spec/support/features/pq_helpers'
-require './spec/support/features/report_spec_helpers'
 require './spec/support/db_helpers'
 require 'rspec/rails'
 require 'capybara/rspec'
