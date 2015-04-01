@@ -7,17 +7,17 @@ class ActionOfficersController < ApplicationController
         .joins(:deputy_director => :division)
         .order('lower(divisions.name)')
         .order('lower(action_officers.name)')
-    update_page_title 'Action Officer Index'
+    update_page_title 'Action officers'
   end
 
   def show
     loading_existing_records
-    update_page_title 'Action Officer Details'
+    update_page_title 'Action officer details'
   end
 
   def new
     loading_new_records
-    update_page_title 'Add Action Officer'
+    update_page_title 'Add action officer'
   end
 
   def create
@@ -27,7 +27,7 @@ class ActionOfficersController < ApplicationController
         redirect_to action_officers_path
       else
         flash[:error] = 'Action officer could not be created'
-        update_page_title 'Add Action Officer'
+        update_page_title 'Add action officer'
         render action: 'new'
       end
     end
@@ -35,7 +35,7 @@ class ActionOfficersController < ApplicationController
 
   def edit
    loading_existing_records
-   update_page_title 'Edit Action Officer'
+   update_page_title 'Edit action officer'
   end
 
   def update
@@ -45,7 +45,7 @@ class ActionOfficersController < ApplicationController
         redirect_to action_officer_path(@action_officer)
       else
         flash[:error] = 'Action officer could not be updated'
-        update_page_title 'Edit Action Officer'
+        update_page_title 'Edit action officer'
         render action: 'edit'
       end
     end

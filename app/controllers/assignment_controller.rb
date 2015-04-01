@@ -1,10 +1,10 @@
 class AssignmentController < ApplicationController
   before_action AOTokenFilter
 
-  
+
 
   def show
-    update_page_title 'PQ Assignment'
+    update_page_title 'PQ assignment'
     loading_question_and_assignment do
       if @question.action_officers_pqs.accepted || @assignment.rejected?
         render 'confirmation'
@@ -18,7 +18,7 @@ class AssignmentController < ApplicationController
     loading_question_and_assignment do
       @response       = AllocationResponse.new(response_params)
       response_action = @response.response_action
-      update_page_title 'PQ Assignment'
+      update_page_title 'PQ assignment'
 
       unless @response.valid?
         flash[:error] = "Form was not completed"
@@ -27,10 +27,10 @@ class AssignmentController < ApplicationController
         service = AssignmentService.new
         case response_action
         when 'accept'
-          update_page_title "PQ Assigned"
+          update_page_title "PQ assigned"
           service.accept(@assignment)
         when 'reject'
-          update_page_title "PQ Rejected"
+          update_page_title "PQ rejected"
           service.reject(@assignment, @response)
         else
           msg = "AllocationResponse.response_action must be set to either 'accept' or 'reject'. Got #{response_action}"

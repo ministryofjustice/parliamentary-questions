@@ -3,17 +3,17 @@ class WatchlistMembersController < ApplicationController
 
   def index
     @watchlist_members = WatchlistMember.all.order('lower(name)')
-    update_page_title('Watchlist Members Index')
+    update_page_title('Watchlist members')
   end
 
   def show
     loading_watchlist_member
-    update_page_title('Watchlist Member Details')
+    update_page_title('Watchlist member details')
   end
 
   def edit
     loading_watchlist_member
-    update_page_title('Edit Watchlist Member')
+    update_page_title('Edit watchlist member')
   end
 
   def update
@@ -29,7 +29,7 @@ class WatchlistMembersController < ApplicationController
 
   def new
     @watchlist_member = WatchlistMember.new
-    update_page_title('Add Watchlist Member')
+    update_page_title('Add watchlist member')
   end
 
   def create

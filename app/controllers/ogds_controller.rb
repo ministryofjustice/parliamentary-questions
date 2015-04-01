@@ -4,7 +4,7 @@ class OgdsController < ApplicationController
 
   def index
     @ogds = Ogd.order('lower(name)')
-    update_page_title('Other government Departments Index')
+    update_page_title('Other government Departments')
   end
 
   def new
@@ -13,11 +13,11 @@ class OgdsController < ApplicationController
   end
 
   def show
-    update_page_title('Government Department Details')
+    update_page_title('Government Department details')
   end
 
   def edit
-    update_page_title('Edit Government Department')
+    update_page_title('Edit government Department')
   end
 
   def create

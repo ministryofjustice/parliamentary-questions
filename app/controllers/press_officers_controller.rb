@@ -5,20 +5,20 @@ class PressOfficersController < ApplicationController
 
   def index
     @press_officers = PressOfficer.order('lower(name)')
-    update_page_title('Press Officers Index')
+    update_page_title('Press officers')
   end
 
   def new
     @press_officer = PressOfficer.new
-    update_page_title('Add Press Officer')
+    update_page_title('Add press officer')
   end
 
   def show
-    update_page_title('Press Officer Details')
+    update_page_title('Press officer details')
   end
 
   def edit
-    update_page_title('Edit Press Officer')
+    update_page_title('Edit press officer')
   end
 
 
