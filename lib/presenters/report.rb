@@ -13,7 +13,7 @@ module Presenters
     end
 
     def self.press_desk(report_h, press_desks)
-      states = PQState::ALL - [PQState::UNASSIGNED]
+      states = PQState::IN_PROGRESS + PQState::CLOSED
       build(report_h, press_desks, states, 'Press desk report')
     end
 
