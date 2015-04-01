@@ -22,13 +22,13 @@ describe Pq do
 
   describe ".sorted_for_dashboard" do
     before do
-        @pq1, @pq2, @pq3, @pq4, @pq5 = DBHelpers.pqs(5)
-        @pq2.update(date_for_answer: Date.yesterday)
-        @pq1.update(updated_at: Date.yesterday, state: PQState::POD_CLEARED,
-                    date_for_answer: Date.tomorrow + 1.days)
-        @pq4.update(state: PQState::POD_CLEARED, date_for_answer: Date.tomorrow + 1.days)
-        @pq5.update(date_for_answer: Date.tomorrow + 1.days)
-        @pq3.update(date_for_answer: Date.tomorrow + 2.days)
+      @pq1, @pq2, @pq3, @pq4, @pq5 = DBHelpers.pqs(5)
+      @pq2.update(date_for_answer: Date.yesterday)
+      @pq1.update(updated_at: Date.yesterday, state: PQState::POD_CLEARED,
+                  date_for_answer: Date.tomorrow + 1.days)
+      @pq4.update(state: PQState::POD_CLEARED, date_for_answer: Date.tomorrow + 1.days)
+      @pq5.update(date_for_answer: Date.tomorrow + 1.days)
+      @pq3.update(date_for_answer: Date.tomorrow + 2.days)
     end
 
     it "sorts pqs in the expected order" do
