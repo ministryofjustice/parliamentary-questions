@@ -20,4 +20,4 @@ p.pq-question
 - if question.commissioned?
   = render partial: 'dashboard/question_data_commissioned', locals: { question: question }
 - else
-  = render partial: 'dashboard/question_data_uncommissioned', locals: { question: question }
+  = render partial: 'dashboard/question_data_uncommissioned', locals: { question: question, action_officers: action_officers }

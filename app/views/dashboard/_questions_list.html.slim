@@ -1,6 +1,6 @@
 ul.questions-list.col-md-9.col-md-pull-3
   - questions.each do |question|
     li id="pq-frame-#{question.id}" data-pquin=question.uin
-      = render partial: 'dashboard/question_data', locals: {question: question}
+      = render partial: 'dashboard/question_data', locals: {question: question, action_officers: action_officers}
 #pages.row
   = will_paginate @questions, {class: 'col-md-9'}

@@ -50,6 +50,7 @@ class DashboardController < ApplicationController
 
   def load_pq_with_counts(dashboard_state)
     pq_counts        = Pq.counts_by_state
+    @action_officers = ActionOfficer.active
     @dashboard_state = dashboard_state
     @questions       = paginate_collection(yield) if block_given?
     @filters         =
