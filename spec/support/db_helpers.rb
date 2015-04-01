@@ -46,8 +46,8 @@ module DBHelpers
     end
   end
 
-  def pqs
-    (1..4).map do |n|
+  def pqs(n=4)
+    (1..n).map do |n|
       Pq.find_or_create_by(
         uin: "uin-#{n}",
         house_id: 1,
