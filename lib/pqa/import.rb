@@ -38,18 +38,6 @@ module PQA
       }
     end
 
-      Pq.find_each(batch_size: 100) do |pq|
-        unless pq.date_for_answer
-          pq.date_for_answer_has_passed = true
-          pq.days_from_date_for_answer = LARGEST_POSTGRES_INTEGER
-        else
-          pq.date_for_answer_has_passed = pq.date_for_answer < Date.today
-          pq.days_from_date_for_answer = (pq.date_for_answer - Date.today).abs
-        end
-        pq.save
-      end
-    end
-
     def insert_or_update(q)
       uin = q.uin
       pq  = Pq.find_or_initialize_by(uin: uin)
