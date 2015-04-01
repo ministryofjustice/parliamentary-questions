@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Division do
 	let(:div) { build(:division) }
 
+	it { should validate_presence_of(:name) }
+
 	it 'should pass factory build' do
 		expect(div).to be_valid
 	end
