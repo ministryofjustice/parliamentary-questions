@@ -94,7 +94,7 @@ describe PQA::Import do
         pq = Pq.find_by(uin: 'uin-1')
         pq.update(state: PQState::REJECTED)
 
-        expect(Pq.order(:uin).map {|pq|
+        expect(Pq.order(:uin).map { |pq|
           d      = pq.tabled_date
           state  = pq.state
 
@@ -104,21 +104,6 @@ describe PQA::Import do
           ['uin-1', [3, 2, 2015], PQState::REJECTED],
           ['uin-2', [4, 2, 2015], PQState::UNASSIGNED]
         ])
-      end
-
-      context "when some the 'date_for_answer' of some question has expired" do
-        before do
-          allow(Date).to receive(:today) { Date.parse('5/2/2015') }
-          import.run(from_date, to_date)
-        end
-
-        it "flags questions for which the date for answer has passed" do
-          expect(Pq.order(:uin).pluck(:uin, :date_for_answer_has_passed)).to eq([
-            ['uin-0', true],
-            ['uin-1', true],
-            ['uin-2', false]
-          ])
-        end
       end
     end
   end
