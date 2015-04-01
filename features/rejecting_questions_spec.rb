@@ -26,7 +26,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
 
   scenario 'Following the email link should let an AO reject the question' do
     reject_assignment(ao1, 2, 'going to the cinema')
-    expect(page.title).to have_text("PQ Rejected")
+    expect(page.title).to have_text("PQ rejected")
     expect(page).to have_content(/thank you for your response/i)
   end
 

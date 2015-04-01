@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
   end
 
   def press_desk_by_progress
-    update_page_title('Press Desk report')
+    update_page_title('Press desk report')
     report_data = Pq.count_accepted_by_press_desk
     @report     = Presenters::Report.press_desk(report_data, PressDesk.active)
     render 'report'
