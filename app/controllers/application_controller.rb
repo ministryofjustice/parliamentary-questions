@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    page_not_found
-  end
+  # rescue_from ActiveRecord::RecordNotFound do |exception|
+  #   page_not_found
+  # end
 
 
 
