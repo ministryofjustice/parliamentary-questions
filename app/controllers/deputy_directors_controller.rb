@@ -5,7 +5,7 @@ class DeputyDirectorsController < ApplicationController
 
   def index
     @deputy_directors = DeputyDirector.joins(:division).order('lower(divisions.name)').order('lower(deputy_directors.name)')
-    update_dashboard_title 'Deputy Directors Index'
+    update_page_title 'Deputy Directors Index'
   end
 
   def new
