@@ -5,14 +5,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  if Rails.env.production? || Rails.env.test?
-    rescue_from StandardError do |exception|
-      if exception.is_a?(ActiveRecord::RecordNotFound)
-        page_not_found
-      else
-        server_error
-      end
-    end
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    page_not_found
   end
 
 
