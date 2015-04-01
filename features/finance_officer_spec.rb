@@ -20,7 +20,7 @@ feature 'Creating finance officers', js: true, suspend_cleaner: true do
     fill_in 'Name', with: name
     select 'FINANCE', from: 'Role'
     click_on 'Send an invitation'
-    expect(page.title).to have_content("Users Index")
+    expect(page.title).to have_content("Users")
     expect(page).to have_content "An invitation email has been sent to #{email}"
   end
 

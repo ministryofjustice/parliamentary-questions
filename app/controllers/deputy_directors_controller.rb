@@ -5,20 +5,20 @@ class DeputyDirectorsController < ApplicationController
 
   def index
     @deputy_directors = DeputyDirector.joins(:division).order('lower(divisions.name)').order('lower(deputy_directors.name)')
-    update_page_title 'Deputy Directors Index'
+    update_page_title 'Deputy directors'
   end
 
   def new
     @deputy_director = DeputyDirector.new
-    update_page_title 'Add Deputy Director'
+    update_page_title 'Add deputy director'
   end
 
   def show
-    update_page_title('Deputy Director Details')
+    update_page_title('Deputy director details')
   end
 
   def edit
-    update_page_title('Edit Deputy Director')
+    update_page_title('Edit deputy director')
   end
 
 
