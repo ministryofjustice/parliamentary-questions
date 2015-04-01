@@ -54,7 +54,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
     visit url
 
-    expect(page).to have_text(/unauthorized/i)
+    expect(page).to have_text(/Link expired/i)
   end
 
   private

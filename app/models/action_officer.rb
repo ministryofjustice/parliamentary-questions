@@ -3,7 +3,7 @@ class ActionOfficer < ActiveRecord::Base
   include SoftDeletion::Record
 
   has_paper_trail
-
+  validates :name, presence: true
   validates_format_of :email,:with => Devise::email_regexp
   validates_format_of :group_email,:with => Devise::email_regexp, :allow_blank =>true
   validates :deputy_director_id, presence: true
