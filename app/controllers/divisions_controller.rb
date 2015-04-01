@@ -5,20 +5,20 @@ class DivisionsController < ApplicationController
 
   def index
     @divisions = Division.joins(:directorate).order('lower(directorates.name)').order('lower(divisions.name)')
-    update_page_title('Divisions Index')
+    update_page_title('Divisions')
   end
 
   def new
     @division = Division.new
-    update_page_title('New Division')
+    update_page_title('Add division')
   end
 
   def show
-    update_page_title('Division Details')
+    update_page_title('Division details')
   end
 
   def edit
-    update_page_title('Edit Division')
+    update_page_title('Edit division')
   end
 
   def create

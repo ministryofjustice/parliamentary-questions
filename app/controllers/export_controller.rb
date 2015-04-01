@@ -4,11 +4,11 @@ class ExportController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    update_page_title('Export PQs to CSV')
+    update_page_title('Export PQs')
   end
 
   def index_for_pod
-    update_page_title('POD Export PQs to CSV')
+    update_page_title('POD export PQs')
   end
 
   def csv
