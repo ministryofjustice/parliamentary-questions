@@ -8,6 +8,13 @@ class DashboardController < ApplicationController
   def index
     update_page_title "Dashboard"
     load_pq_with_counts(NEW) { Pq.new_questions }
+    @dashboard_state = NEW
+    LogStuff.metadata(:request_id => request.env['action_dispatch.request_id']) do
+      LogStuff.tag(:dashboard) do
+        LogStuff.info { "Showing dashboard" }
+        @questions = paginate_collection(Pq.new_questions)
+      end
+    end
   end
 
   def by_status
