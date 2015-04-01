@@ -14,6 +14,14 @@ class PQAService
     end
   end
 
+
+  def question(uin)
+    $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
+      response = @client.question(uin)
+      PQA::XMLDecoder.decode_questions(response.body)
+    end
+  end
+
   def answer_response(uin, member_id, text, is_holding_answer)
     answer                   = PQA::Answer.new
     answer.minister_id       = member_id

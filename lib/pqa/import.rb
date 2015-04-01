@@ -7,20 +7,31 @@ module PQA
     end
 
     def run(date_from, date_to)
+      query_api_and_update(type: :date_range, date_from: date_from, date_to: date_to)
+    end
+
+    def run_for_question(uin)
+      query_api_and_update(type: :uin, uin: uin)
+    end
+
+
+    private
+
+    def query_api_and_update(options)
       init_state!
-
       ActiveRecord::Base.transaction do
-        questions = @pqa_service.questions(date_from, date_to)
-        @total    = questions.size
-
-        questions.each do |q|
-          insert_or_update(q)
+        questions = []
+        if options[:type] == :date_range
+          questions = @pqa_service.questions(options[:date_from], options[:date_to])
+        else
+          questions = @pqa_service.question(options[:uin])
         end
+        @total    = questions.size
+        questions.each { |q| insert_or_update(q)  }
+        update_sort_dates
       end
       report
     end
-
-    private
 
     def init_state!
       @total   = 0
@@ -70,6 +81,8 @@ module PQA
         @logger.debug { "Updating record (uin: #{uin})" }
         pq.save
       end
+
+
 
       LogStuff.tag(:import) do
         @logger.info { "Completed import: questions downloaded #{@total}, new #{@created}, updated #{@updated}, invalid: #{@errors.size}" }

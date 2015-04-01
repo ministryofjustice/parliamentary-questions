@@ -27,9 +27,9 @@ namespace :pqa do
   end
 
   namespace :mock do
-    desc 'start a mock api service and load with 50 questions' 
-    task :api, [:n_records] => :environment do |_, args|
-      n_records = args[:n_records] || 3
+    desc 'start a mock api service and load with n questions' 
+    task :api_start, [:n_records] => :environment do |_, args|
+      n_records = args[:n_records].to_i || 3
       require_relative '../pqa.rb'
       runner = PQA::MockApiServerRunner.new
       runner.start
@@ -38,6 +38,26 @@ namespace :pqa do
       loader.load_and_import(n_records, true)
       puts "Mock API loaded with #{n_records} questions"
     end
+
+
+    desc 'stops the mock api server if running' 
+    task :api_stop => :environment do
+      pid_filepath = "/tmp/mock_api_server.pid"
+      if File.exists?(pid_filepath)
+        pid  = File.read(pid_filepath)
+        puts "pid file for process #{pid} found - attempting to kill"
+        result = Process.kill("INT", pid.to_i)
+        case result
+        when 1
+          puts "Process killed"
+        else
+          puts "Unable to kill process - try manually"
+        end
+      else
+        puts "No pid file found for mock-api server - nothing to kill."
+      end
+    end
+
   end
 
 
