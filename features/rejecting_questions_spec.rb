@@ -46,6 +46,21 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     expect_pq_status(@pq.uin, 'No response')
   end
 
+  scenario 'If an AO submits an empty acceptance form, show an error' do
+    visit_assignment_url(ao2)
+    click_on 'Save Response'
+    expect(page).to have_content('Form was not completed')
+    expect(page).not_to have_content('Please select one of the reasons to reject the question')
+  end
+
+  scenario 'If an AO rejects without a reason, show an error' do
+    visit_assignment_url(ao2)
+    choose 'Reject'
+    click_on 'Save Response'
+    expect(page).to have_content('Form was not completed')
+    expect(page).to have_content('Please select one of the reasons to reject the question')
+  end
+
   scenario 'If an AO is the last to reject a question, the status should change to rejected' do
     reject_assignment(ao2, 3, 'too busy!')
     create_pq_session
