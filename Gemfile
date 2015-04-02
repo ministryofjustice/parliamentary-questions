@@ -25,7 +25,7 @@ gem 'will_paginate'
 gem "select2-rails"
 
 group :development do
-  gem 'annotate', '~> 2.6.3'
+  gem 'rails-erd'
 end
 
 group :test do
