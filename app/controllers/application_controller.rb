@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-
   def set_am_host
     request = self.request
     opts = ::ActionMailer::Base.default_url_options
@@ -48,7 +46,7 @@ class ApplicationController < ActionController::Base
     @page_title = "#{prefix} - #{suffix}"
   end
 
-protected
+  protected
 
   def set_page_title
     @page_title = 'MOJ Parliamentary Questions'

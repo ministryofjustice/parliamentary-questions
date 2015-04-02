@@ -33,7 +33,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
   end
 
   scenario 'Action officer receive notification and accepts question' do
-    accept_assignnment(ao1)
+    accept_assignment(ao1)
   end
 
   scenario 'Parli-branch re-assigns question to another action officer' do
