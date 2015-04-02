@@ -1,7 +1,4 @@
 class Progress < ActiveRecord::Base
-  has_paper_trail
-  has_many :pqs
-
   def classname
     self.name.downcase.sub ' ', '-'
   end

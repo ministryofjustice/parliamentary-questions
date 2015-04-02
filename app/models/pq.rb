@@ -32,7 +32,6 @@ class Pq < ActiveRecord::Base
 
   belongs_to :minister
   belongs_to :policy_minister, :class_name=>'Minister'
-  belongs_to :progress
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
   belongs_to :directorate
