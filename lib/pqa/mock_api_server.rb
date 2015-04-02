@@ -63,7 +63,7 @@ module PQA
       XMLEncoder.encode_questions(questions)
     end
 
-    get '/api/qais/question/:uin' do 
+    get '/api/qais/questions/:uin' do 
       my_uin = QUESTIONS[params['uin']]
       if my_uin.nil?
         status 404

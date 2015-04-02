@@ -120,7 +120,7 @@ describe PQA::Import do
       context 'specifying a question that doesnt exists' do
         it 'should return 404' do
           expect {
-            report = import.import_question('xyz-1234')
+            report = import.run_for_question('xyz-1234')
           }.to raise_error HTTPClient::FailureResponse, /PQ rest API responded with non success code: 404, response: Not found/
         end
       end

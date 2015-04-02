@@ -41,7 +41,7 @@ module PQA
     # @return [Net::HTTP::Response]
     #
     def question(uin)
-      uri = URI.parse(File.join(@base_url, "api/qais/question/#{uin}"))
+      uri = URI.parse(File.join(@base_url, "api/qais/questions/#{uin}"))
       issue_request(:get, uri.to_s)
     end
 

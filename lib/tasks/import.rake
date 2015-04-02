@@ -29,7 +29,8 @@ namespace :pqa do
   namespace :mock do
     desc 'start a mock api service and load with n questions' 
     task :api_start, [:n_records] => :environment do |_, args|
-      n_records = args[:n_records].to_i || 3
+      n_records = args[:n_records] || 3
+      n_records = n_records.to_i if n_records.is_a?(String)
       require_relative '../pqa.rb'
       runner = PQA::MockApiServerRunner.new
       runner.start

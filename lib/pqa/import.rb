@@ -28,7 +28,6 @@ module PQA
         end
         @total    = questions.size
         questions.each { |q| insert_or_update(q)  }
-        update_sort_dates
       end
       report
     end
