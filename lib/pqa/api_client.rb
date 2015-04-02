@@ -32,6 +32,20 @@ module PQA
       issue_request(:get, uri.to_s)
     end
 
+    # Fetch a single question specified by UIN
+    #
+    # Note: part of the actual PQ&A API
+    #
+    # @param [String] uin : The question that is to be retrieved
+    #
+    # @return [Net::HTTP::Response]
+    #
+    def question(uin)
+      uri = URI.parse(File.join(@base_url, "api/qais/questions/#{uin}"))
+      issue_request(:get, uri.to_s)
+    end
+
+
     # Loads a question in the Mock API server.
     #
     # Note: This is not part of the actual PQ&A API
