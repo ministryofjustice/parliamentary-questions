@@ -33,13 +33,11 @@ describe Validators::DateInput do
   end
 
   context '#parse_datetime' do
-    pending 'bug fixed in other branch' do
     it 'should return a date time if input is correct' do
       dt_with_gmt_adjust = DateTime.now.midnight
       dt = DateTime.parse(dt_with_gmt_adjust.strftime('%a, %d %b %Y %H:%M:%S'))
       expect(parse_datetime(dt.to_s)).to eq dt
     end
-  end
   end
 
   context '#parse_date' do
