@@ -25,7 +25,7 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
 
   scenario "Parli-branch marks a question as 'I will write'" do
     commission_question(@uin, [@ao], @minister)
-    accept_assignnment(@ao)
+    accept_assignment(@ao)
     in_pq_detail(@uin, 'PQ draft') { check 'I will write' }
 
     expect(page.title).to have_content("PQ #{@uin}")

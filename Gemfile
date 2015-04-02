@@ -26,7 +26,6 @@ gem "select2-rails"
 
 group :development do
   gem 'annotate', '~> 2.6.3'
-  gem 'awesome_print'
 end
 
 group :test do
@@ -34,6 +33,7 @@ group :test do
 end
 
 group :test, :development do
+  gem 'awesome_print'
   gem 'sinatra'
   gem 'poltergeist'
   gem 'database_cleaner'
