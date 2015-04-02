@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def server_error
-    update_page_title 'Unauthorized (401)'
+    update_page_title 'Unauthorised (401)'
     show_error_page_and_increment_statsd(500)
   end
 

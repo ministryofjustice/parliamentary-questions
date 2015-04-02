@@ -1,11 +1,9 @@
 class AOTokenFilter
+  
   def self.before(controller)
-    if !has_access(controller)
-      controller.update_page_title "Unauthorised (401)"
-      controller.render :file => "shared/token_expired.html.slim", :status => :unauthorized
-    end
+    token_state = validate_token(controller)
+    log_and_redirect(controller, token_state) unless token_state == :valid
   end
-
 
   private
 
@@ -31,6 +29,7 @@ class AOTokenFilter
     params.uin     = extract_uin(controller)  
     params.user    = extract_user_name(controller)
     log_error(token_state, params)
+    controller.update_page_title "Unauthorised (401)"
     controller.render :file => "shared/token_#{token_state.to_s}.html.slim", status: :unauthorized
   end
 

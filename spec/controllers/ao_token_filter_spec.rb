@@ -116,6 +116,7 @@ describe 'AOTokenFilter' do
           user: 'Joe Blow'
         )
 
+      expect(controller).to receive(:update_page_title).with('Unauthorised (401)')
       expect(controller).to receive(:render).with({:file => 'shared/token_invalid.html.slim', :status => :unauthorized})
       AOTokenFilter.before(controller)
     end
@@ -133,6 +134,7 @@ describe 'AOTokenFilter' do
           user: 'Joe Blow'
         )
 
+      expect(controller).to receive(:update_page_title).with('Unauthorised (401)')
       expect(controller).to receive(:render).with({:file => 'shared/token_expired.html.slim', :status => :unauthorized})
       AOTokenFilter.before(controller)
     end
