@@ -10,7 +10,7 @@
         - disabled = !question.seen_by_finance
         fieldset
           = render partial: 'shared/minister_selection', locals: {question: question, form: f}
-          = render partial: 'shared/action_officer_selection', locals: {question: question, form: f, reassign: false}
+          = render partial: 'shared/action_officer_selection', locals: {action_officers: action_officers, question: question, form: f, reassign: false}
           .form-group
             = f.hidden_field(:pq_id , :value => question.id)
             br/

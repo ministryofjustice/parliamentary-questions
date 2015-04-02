@@ -4,4 +4,4 @@
   - else
     - label_text = 'Action officer(s)'
   = label :action_officers_pqs, :action_officer_id, label_text, value: question.try(:id), class: 'form-label'
-  = collection_select(:commission_form, :action_officer_id, ActionOfficer.active, :id, :name_with_div, {include_blank: true}, {multiple: !reassign, class: 'multi-select-action-officers form-control required-for-commission', id: "action_officers_pqs_action_officer_id_#{question.try(:id)}", disabled: !question.try(:seen_by_finance?) })
+  = collection_select(:commission_form, :action_officer_id, action_officers, :id, :name_with_div, {include_blank: true}, {multiple: !reassign, class: 'multi-select-action-officers form-control required-for-commission', id: "action_officers_pqs_action_officer_id_#{question.try(:id)}", disabled: !question.try(:seen_by_finance?) })
