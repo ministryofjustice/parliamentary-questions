@@ -106,5 +106,34 @@ describe PQA::Import do
         ])
       end
     end
+
+    context 'importing a single question' do
+      
+      before(:each) do
+        # first import
+        loader.load(questions({
+          'uin-0' => ["2/2/2015", "3/2/2015"],
+          'uin-1' => ["3/2/2015", "4/2/2015"]
+        }))
+      end
+
+      context 'specifying a question that doesnt exists' do
+        it 'should return 404' do
+          expect {
+            report = import.run_for_question('xyz-1234')
+          }.to raise_error HTTPClient::FailureResponse, /PQ rest API responded with non success code: 404, response: Not found/
+        end
+      end
+
+      context 'specifying a question that does exist' do
+        it 'should update the question and return the report' do
+          report = import.run_for_question('uin-1')
+          expect(report[:total]).to eq 1
+          expect(report[:created]).to eq 1
+          expect(report[:updated]).to eq 0
+          expect(report[:errors]).to be_empty
+        end
+      end
+    end
   end
 end
