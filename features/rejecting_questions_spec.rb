@@ -59,6 +59,25 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     click_on 'Save Response'
     expect(page).to have_content('Form was not completed')
     expect(page).to have_content('Please select one of the reasons to reject the question')
+    expect(page).to have_content('Please give us information about why you reject the question')
+  end
+
+  scenario 'If an AO rejects without selecting from the dropdown, show an error' do
+    visit_assignment_url(ao2)
+    choose 'Reject'
+    fill_in 'allocation_response_reason', with: "no time"
+    click_on 'Save Response'
+    expect(page).to have_content('Form was not completed')
+    expect(page).to have_content('Please select one of the reasons to reject the question')
+    expect(page).not_to have_content('Please give us information about why you reject the question')
+  end
+
+  scenario 'If an AO rejects without typing a reason, show an error' do
+    visit_assignment_url(ao2)
+    reject_assignment(ao2, 3, '')
+    expect(page).to have_content('Form was not completed')
+    expect(page).not_to have_content('Please select one of the reasons to reject the question')
+    expect(page).to have_content('Please give us information about why you reject the question')
   end
 
   scenario 'If an AO is the last to reject a question, the status should change to rejected' do

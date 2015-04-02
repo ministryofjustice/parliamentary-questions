@@ -46,7 +46,7 @@
                   label.block-label
                     = f.radio_button :response_action, 'reject'
                     | Reject
-                #reason-textarea class=('hide' unless @response.errors[:reason_option].any?)
+                #reason-textarea class=('hide' unless @response.rejected?)
                   - if !@response.errors[:reason_option].empty?
                     .pq-msg-error
                       | Please select one of the reasons to reject the question
