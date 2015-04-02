@@ -11,7 +11,7 @@ div#filter-report
         ul.questions-list
           - @questions.each do |question|
             li id="pq-frame-#{question.id}"
-              = render partial: 'dashboard/question_data', locals: {question: question}
+              = render partial: 'dashboard/question_data', locals: {question: question, action_officers: @action_officers}
     .col-md-3
       = form_tag({controller: 'reports', action: 'filter_all'}, {:method => :get}) do
         fieldset
