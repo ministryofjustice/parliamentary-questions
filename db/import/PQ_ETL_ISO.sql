@@ -66,7 +66,7 @@ CREATE TABLE stageing
   "Requested by Press?" text,
   "Round Robin" text,
   "Tracking Notes: e.g redraft comments from AO" text,
-  "Transfer to MoJ from other Government Department" text,
+  "Transfer to MoJ from Other Government Department" text,
   "Transfer to Other Government Department" text,
   "Type of Question" text,
   "Action Officer-Internet E-Mail Address" text,
@@ -139,7 +139,7 @@ copy stageing
   "Requested by Press?",
   "Round Robin",
   "Tracking Notes: e.g redraft comments from AO",
-  "Transfer to MoJ from other Government Department",
+  "Transfer to MoJ from Other Government Department",
   "Transfer to Other Government Department",
   "Type of Question",
   "Action Officer-Internet E-Mail Address"
@@ -232,10 +232,10 @@ insert into ogds(name, deleted)
   where "Transfer to Other Government Department"  is not null
     and not exists (select name from ogds where name = "Transfer to Other Government Department")
   union
-  SELECT distinct "Transfer to MoJ from other Government Department" as name, FALSE
+  SELECT distinct "Transfer to MoJ from Other Government Department" as name, FALSE
   from Stageing
-  where "Transfer to MoJ from other Government Department"  is not null
-  and not exists (select name from ogds where name = "Transfer to MoJ from other Government Department");
+  where "Transfer to MoJ from Other Government Department"  is not null
+  and not exists (select name from ogds where name = "Transfer to MoJ from Other Government Department");
 
 UPDATE ogds SET Acronym=Name;
 
@@ -341,7 +341,7 @@ to_timestamp(s."Date Transferred",'DD/MM/YYYY at HH24:MI'),
     where ao.name = s."Action Officer"
     and ao.deputy_director_id = dd.id
     and dd.division_id = d.id),
-    (SELECT id from ogds where name = s."Transfer to MoJ from other Government Department"),
+    (SELECT id from ogds where name = s."Transfer to MoJ from Other Government Department"),
 to_timestamp(s."Date transferred to MoJ",'DD/MM/YYYY at HH24:MI')
 from stageing s
   where not exists (select uin from pqs where uin = s."Parliaments Identifying Number")
@@ -352,7 +352,7 @@ insert into action_officers_pqs(action_officer_id,pq_id,accept,reject,reason,rea
 select ao.id, p.id,
   case when s."Date Accepted by Action Officer" is null THEN FALSE ELSE TRUE END as Accept,
   case when s."Date Accepted by Action Officer" is null THEN TRUE ELSE FALSE END as Reject,
-  case when s."Date Accepted by Action Officer" is null THEN 'Is for other Government department' ELSE '' END as Reason,
+  case when s."Date Accepted by Action Officer" is null THEN 'Is for Other Government Department' ELSE '' END as Reason,
   case when s."Date Accepted by Action Officer" is null THEN 2 ELSE null END as reason_option,
   case when s."Date Accepted by Action Officer" is not null THEN to_timestamp(s."Date Accepted by Action Officer",'DD/MM/YYYY at HH24:MI') else
   to_timestamp(s."Date First Appeared in Parliament",'DD/MM/YYYY at HH24:MI')  END,
