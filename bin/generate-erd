@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+# Install GraphViz if not already done
+graphviz_version=`brew ls --versions graphviz`
+
+if [ -z "$graphviz_version" ] 
+  then
+  brew install graphviz
+fi
+
+# Generate the diagram
+sha=$(git log --format=oneline |head -1| cut -d ' ' -f 1 | cut -c '1-15')
+bundle exec rake erd filetype="png" attributes="foreign_keys" orientation="orizontal" exclude="Progress" title="PQ entity-relation diagram (SHA: $sha)"
