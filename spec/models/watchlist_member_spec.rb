@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: watchlist_members
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  email      :string(255)
+#  deleted    :boolean          default(FALSE)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe WatchlistMember do

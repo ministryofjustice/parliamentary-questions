@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: press_officers
+#
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  email         :string(255)
+#  press_desk_id :integer
+#  deleted       :boolean          default(FALSE)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 require 'spec_helper'
 
 describe PressOfficer do

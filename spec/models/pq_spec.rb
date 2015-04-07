@@ -1,3 +1,73 @@
+# == Schema Information
+#
+# Table name: pqs
+#
+#  id                                            :integer          not null, primary key
+#  house_id                                      :integer
+#  raising_member_id                             :integer
+#  tabled_date                                   :datetime
+#  response_due                                  :datetime
+#  question                                      :text
+#  answer                                        :string(255)
+#  created_at                                    :datetime
+#  updated_at                                    :datetime
+#  finance_interest                              :boolean
+#  seen_by_finance                               :boolean          default(FALSE)
+#  uin                                           :string(255)
+#  member_name                                   :string(255)
+#  member_constituency                           :string(255)
+#  house_name                                    :string(255)
+#  date_for_answer                               :date
+#  registered_interest                           :boolean
+#  internal_deadline                             :datetime
+#  question_type                                 :string(255)
+#  minister_id                                   :integer
+#  policy_minister_id                            :integer
+#  progress_id                                   :integer
+#  draft_answer_received                         :datetime
+#  i_will_write_estimate                         :datetime
+#  holding_reply                                 :datetime
+#  preview_url                                   :string(255)
+#  pod_waiting                                   :datetime
+#  pod_query                                     :datetime
+#  pod_clearance                                 :datetime
+#  transferred                                   :boolean
+#  question_status                               :string(255)
+#  round_robin                                   :boolean
+#  round_robin_date                              :datetime
+#  i_will_write                                  :boolean
+#  pq_correction_received                        :boolean
+#  correction_circulated_to_action_officer       :datetime
+#  pod_query_flag                                :boolean
+#  sent_to_policy_minister                       :datetime
+#  policy_minister_query                         :boolean
+#  policy_minister_to_action_officer             :datetime
+#  policy_minister_returned_by_action_officer    :datetime
+#  resubmitted_to_policy_minister                :datetime
+#  cleared_by_policy_minister                    :datetime
+#  sent_to_answering_minister                    :datetime
+#  answering_minister_query                      :boolean
+#  answering_minister_to_action_officer          :datetime
+#  answering_minister_returned_by_action_officer :datetime
+#  resubmitted_to_answering_minister             :datetime
+#  cleared_by_answering_minister                 :datetime
+#  answer_submitted                              :datetime
+#  library_deposit                               :boolean
+#  pq_withdrawn                                  :datetime
+#  holding_reply_flag                            :boolean
+#  final_response_info_released                  :string(255)
+#  round_robin_guidance_received                 :datetime
+#  transfer_out_ogd_id                           :integer
+#  transfer_out_date                             :datetime
+#  directorate_id                                :integer
+#  division_id                                   :integer
+#  transfer_in_ogd_id                            :integer
+#  transfer_in_date                              :datetime
+#  follow_up_to                                  :string(255)
+#  state                                         :string(255)      default("unassigned")
+#  state_weight                                  :integer          default(0)
+#
+
 require 'spec_helper'
 
 describe Pq do
