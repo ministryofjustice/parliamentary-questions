@@ -15,6 +15,7 @@
             = f.hidden_field(:pq_id , :value => question.id)
             br/
             = f.submit 'Commission', :class => 'button commission-button', :disabled => disabled, data: {disable_with: 'Commissioning...'}
+            .commissioning-error-message
     /! end of column 1
     /! start of sub column 2
     .col-md-5
