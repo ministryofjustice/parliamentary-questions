@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: progresses
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  progress_order :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 class Progress < ActiveRecord::Base
   def classname
     self.name.downcase.sub ' ', '-'

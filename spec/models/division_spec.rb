@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: divisions
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  directorate_id :integer
+#  deleted        :boolean          default(FALSE)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 require 'spec_helper'
 
 describe Division do
