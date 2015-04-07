@@ -1,9 +1,12 @@
 class AOTokenFilter
   
+
   def self.before(controller)
     token_state = validate_token(controller)
     log_and_redirect(controller, token_state) unless token_state == :valid
   end
+
+
 
   private
 
