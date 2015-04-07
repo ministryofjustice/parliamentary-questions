@@ -53,9 +53,10 @@
                   .form-group
                     select.form-control name="allocation_response[reason_option]"
                       option disabled="disabled" selected="selected"  Select your reasons for rejecting the question
-                      option I think it is for another person in my Department
-                      option I think it is for another Department in the MoJ
-                      option I think it is for another government Department
+                      option I think it is for another person in my team
+                      option I think it is for another Directorate in MOJ
+                      option I think it is for another Division in MOJ
+                      option I think it is for an Other Government Department
                   - if !@response.errors[:reason].empty?
                     .pq-msg-error
                       | Please give us information about why you reject the question
