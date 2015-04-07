@@ -37,6 +37,14 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     expect(page).not_to have_content('Successfully updated')
   end
 
+  scenario 'Parli-branch cannot transfer out a PQ without providing both a date and OGD' do
+    transfer_out_pq(uin, '')
+
+    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_content('Update failed')
+    expect(page).not_to have_content('Successfully updated')
+  end
+
   scenario 'Parli branch should be able to transfer out a PQ' do
     transfer_out_pq(uin)
     expect(page.title).to have_text("PQ #{uin}")
