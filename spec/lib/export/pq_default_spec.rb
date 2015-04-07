@@ -19,7 +19,7 @@ describe Export::PqDefault do
       # Expected exclusions
       mk_pq('uin-1', answer_submitted: Date.today - 5)
       mk_pq('uin-2', tabled_date: Date.today + 1)
-      mk_pq('uin-3', transfer_out_ogd_id: 1)
+      mk_pq('uin-3', transfer_out_ogd_id: 1, transfer_out_date: Date.today)
 
       # Expected inclusions
       mk_pq('uin-z')

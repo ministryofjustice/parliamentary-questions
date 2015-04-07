@@ -43,6 +43,7 @@ class Pq < ActiveRecord::Base
   validates :uin , presence: true, uniqueness:true
   validates :raising_member_id, presence:true
   validates :question, presence:true
+  validate  :transfer_out_consistency
 
   RESPONSES = [
     "Commercial in confidence",
@@ -149,6 +150,12 @@ class Pq < ActiveRecord::Base
   end
 
   private
+
+  def transfer_out_consistency
+    if ( !!transfer_out_date ^ !!transfer_out_ogd_id )
+      errors[:base] << 'Invalid transfer out submission - requires BOTH date and department'
+    end
+  end
 
   def iww_uin
     "#{uin}-IWW" if uin.present? && !is_follow_up?
