@@ -7,28 +7,25 @@ module PQA
     end
 
     def run(date_from, date_to)
-      query_api_and_update(type: :date_range, date_from: date_from, date_to: date_to)
+      query_api_and_update do
+        questions = @pqa_service.questions(date_from, date_to)
+      end
     end
 
     def run_for_question(uin)
-      query_api_and_update(type: :uin, uin: uin)
+      query_api_and_update do
+        questions = @pqa_service.question(uin)
+      end
     end
 
 
     private
 
-    def query_api_and_update(options)
+    def query_api_and_update(&block)
       init_state!
-      ActiveRecord::Base.transaction do
-        questions = []
-        if options[:type] == :date_range
-          questions = @pqa_service.questions(options[:date_from], options[:date_to])
-        else
-          questions = @pqa_service.question(options[:uin])
-        end
-        @total    = questions.size
-        questions.each { |q| insert_or_update(q)  }
-      end
+      questions = block.call
+      @total    = questions.size
+      questions.each { |q| insert_or_update(q)  }
       report
     end
 
