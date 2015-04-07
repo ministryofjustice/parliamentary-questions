@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: action_officers
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  deleted            :boolean          default(FALSE)
+#  phone              :string(255)
+#  deputy_director_id :integer
+#  press_desk_id      :integer
+#  group_email        :string(255)
+#
+
 class ActionOfficer < ActiveRecord::Base
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
