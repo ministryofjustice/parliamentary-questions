@@ -4,6 +4,24 @@ namespace :pqa do
     ImportWorker.new.perform
   end
 
+
+  desc "Import individual questions identified by UIN (rake pqa:import_uins['uin-1 uin-2 uin-3'])"
+  task :import_uins, [:uins] => :environment do |_, args|
+    uins = args[:uins].split
+    importer = PQA::Import.new
+    uins.each do |uin|
+      begin
+        report = importer.run_for_question(uin)
+      rescue HTTPClient::FailureResponse => err 
+        puts "UIN '#{uin}': #{err.message}"
+      else
+        puts analyse_report(uin, report)
+      end
+    end
+  end
+
+
+
   desc "Generate and import dummy data for development"
   task :import_dummy_data, [:n_records] => :environment do |_, args|
     n_records = args[:n_records] || 3
@@ -75,6 +93,17 @@ namespace :pqa do
       puts report.inspect
     ensure
       runner.stop
+    end
+  end
+
+
+  def analyse_report(uin, report)
+    if report[:created] == 1
+      "UIN '#{uin}': Created"
+    elsif report[:updated] == 1
+      "UIN '#{uin}': Updated"
+    else
+      "UIN '#{uin}': Error"
     end
   end
 end
