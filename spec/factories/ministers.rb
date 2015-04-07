@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: ministers
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  title      :string(255)
+#  deleted    :boolean          default(FALSE)
+#  created_at :datetime
+#  updated_at :datetime
+#  member_id  :integer
+#
+
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do

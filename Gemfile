@@ -26,6 +26,7 @@ gem "select2-rails"
 
 group :development do
   gem 'rails-erd'
+  gem 'annotate'
 end
 
 group :test do
