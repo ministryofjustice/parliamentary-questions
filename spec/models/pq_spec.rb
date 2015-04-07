@@ -95,23 +95,28 @@ describe Pq do
       # Start with randomly ordered PQs
       pqs = DBHelpers.pqs(8).shuffle
 
-      # PQs sorted by absolute days until date for answer, then state
-      on_time_due_sooner_higher_weight  = pqs[0].update(date_for_answer: Date.tomorrow,
-                                                        state: PQState::POD_CLEARED) && pqs[0]
-      on_time_due_sooner_lower_weight   = pqs[1].update(date_for_answer: Date.tomorrow) && pqs[1]
-      on_time_due_later_higher_weight   = pqs[2].update(date_for_answer: Date.tomorrow  + 1.days,
-                                                        state: PQState::POD_QUERY) && pqs[2]
-      on_time_due_later_lower_weight    = pqs[3].update(date_for_answer: Date.tomorrow  + 1.days) && pqs[3]
+      # Update to cover all sorting criteria
+      pqs[0].update(date_for_answer: Date.tomorrow, state: PQState::POD_CLEARED)
+      pqs[1].update(date_for_answer: Date.tomorrow)
+      pqs[2].update(date_for_answer: Date.tomorrow  + 1.days, state: PQState::POD_QUERY)
+      pqs[3].update(date_for_answer: Date.tomorrow  + 1.days)
+      pqs[4].update(date_for_answer: Date.yesterday, state: PQState::POD_CLEARED)
+      pqs[5].update(date_for_answer: Date.yesterday)
+      pqs[6].update(date_for_answer: Date.yesterday - 1.days, state: PQState::WITH_MINISTER)
+      pqs[7].update(date_for_answer: Date.yesterday - 1.days) && pqs[7]
 
       # Late PQs are pushed to the bottom regardless
-      late_due_sooner_higher_weight = pqs[4].update(date_for_answer: Date.yesterday,
-                                                    state: PQState::POD_CLEARED) && pqs[4]
-      late_due_sooner_lower_weight  = pqs[5].update(date_for_answer: Date.yesterday) && pqs[5]
-      late_due_later_higher_weight  = pqs[6].update(date_for_answer: Date.yesterday - 1.days,
-                                                    state: PQState::WITH_MINISTER) && pqs[6]
-      late_due_later_lower_weight   = pqs[7].update(date_for_answer: Date.yesterday - 1.days) && pqs[7]
+      late_due_sooner_higher_weight = pqs[4]
+      late_due_sooner_lower_weight  = pqs[5]
+      late_due_later_higher_weight  = pqs[6]
+      late_due_later_lower_weight   = pqs[7]
 
-          
+      # PQs sorted by absolute days until date for answer, then state weight
+      on_time_due_sooner_higher_weight  = pqs[0]
+      on_time_due_sooner_lower_weight   = pqs[1]
+      on_time_due_later_higher_weight   = pqs[2]
+      on_time_due_later_lower_weight    = pqs[3]
+      
       expect(Pq.sorted_for_dashboard.map(&:uin)).to eq([
         on_time_due_sooner_higher_weight,
         on_time_due_sooner_lower_weight,
