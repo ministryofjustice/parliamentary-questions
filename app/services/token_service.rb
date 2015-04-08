@@ -8,18 +8,25 @@ class TokenService
     token_to_send
   end
 
-  def is_valid(token, path, entity)
+
+  def valid?(token, path, entity)
     token_dec = Devise.token_generator.digest(Token, :token_digest, token)
-    t         = Token.find_by(path: path, entity: entity)
-    if t
-      DateTime.now < t.expire && Devise.secure_compare(token_dec, t.token_digest)
-    else
-      false
-    end
+    token = Token.find_by(path: path, entity: entity)
+    result = token && Devise.secure_compare(token_dec, token.token_digest) ? true : false
+    result
+  end
+
+
+  def expired?(token, path, entity)
+    token_dec = Devise.token_generator.digest(Token, :token_digest, token)
+    token = Token.find_by(path: path, entity: entity)
+    result = token.expire < DateTime.now
+    result
   end
 
   def delete_expired
     now_no_time_zone = DateTime.now
     Token.where('expire < ?', now_no_time_zone).destroy_all
   end
+
 end
