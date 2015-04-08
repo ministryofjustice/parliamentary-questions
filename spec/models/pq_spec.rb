@@ -91,23 +91,41 @@ describe Pq do
   end
 
   describe ".sorted_for_dashboard" do
-    before do
-      @pq1, @pq2, @pq3, @pq4, @pq5 = DBHelpers.pqs(5)
-      @pq2.update(date_for_answer: Date.yesterday)
-      @pq1.update(updated_at: Date.yesterday, state: PQState::POD_CLEARED,
-                  date_for_answer: Date.tomorrow + 1.days)
-      @pq4.update(state: PQState::POD_CLEARED, date_for_answer: Date.tomorrow + 1.days)
-      @pq5.update(date_for_answer: Date.tomorrow + 1.days)
-      @pq3.update(date_for_answer: Date.tomorrow + 2.days)
-    end
-
     it "sorts pqs in the expected order" do
+      # Start with randomly ordered PQs
+      pqs = DBHelpers.pqs(8).shuffle
+
+      # Update to cover all sorting criteria
+      pqs[0].update(date_for_answer: Date.tomorrow, state: PQState::POD_CLEARED)
+      pqs[1].update(date_for_answer: Date.tomorrow)
+      pqs[2].update(date_for_answer: Date.tomorrow  + 1.days, state: PQState::POD_QUERY)
+      pqs[3].update(date_for_answer: Date.tomorrow  + 1.days)
+      pqs[4].update(date_for_answer: Date.yesterday, state: PQState::POD_CLEARED)
+      pqs[5].update(date_for_answer: Date.yesterday)
+      pqs[6].update(date_for_answer: Date.yesterday - 1.days, state: PQState::WITH_MINISTER)
+      pqs[7].update(date_for_answer: Date.yesterday - 1.days) && pqs[7]
+
+      # Late PQs are pushed to the bottom regardless
+      late_due_sooner_higher_weight = pqs[4]
+      late_due_sooner_lower_weight  = pqs[5]
+      late_due_later_higher_weight  = pqs[6]
+      late_due_later_lower_weight   = pqs[7]
+
+      # PQs sorted by absolute days until date for answer, then state weight
+      on_time_due_sooner_higher_weight  = pqs[0]
+      on_time_due_sooner_lower_weight   = pqs[1]
+      on_time_due_later_higher_weight   = pqs[2]
+      on_time_due_later_lower_weight    = pqs[3]
+      
       expect(Pq.sorted_for_dashboard.map(&:uin)).to eq([
-        @pq2,
-        @pq1,
-        @pq4,
-        @pq5,
-        @pq3
+        on_time_due_sooner_higher_weight,
+        on_time_due_sooner_lower_weight,
+        on_time_due_later_higher_weight,
+        on_time_due_later_lower_weight,
+        late_due_sooner_higher_weight,
+        late_due_sooner_lower_weight,
+        late_due_later_higher_weight,
+        late_due_later_lower_weight
       ].map(&:uin))
     end
   end
