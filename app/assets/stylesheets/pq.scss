@@ -660,6 +660,13 @@ textarea.form-control {
       background-color: black;
     }
   }
+
+  // errors that show when commissioning failed
+  .commissioning-error-message {
+    display: none;
+    color: $error-colour;
+    padding: 1em 0 0 2em;
+  }
 }
 
 //formatting of the action officers listed in the PQ's on the dashboard when commisioning
