@@ -18,13 +18,16 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
     fill_in 'Search by UIN', with: uin
     find('#search_button').click
   end
-   
+
   scenario 'Parli-branch can view the questions tabled for today' do
     create_pq_session
     visit dashboard_path
-    
+
     @pqs.each do |pq|
-      within_pq(pq.uin) { expect(page).to have_content(pq.text) }
+      within_pq(pq.uin) {
+        expect(page.title).to have_content("Dashboard")
+        expect(page).to have_content(pq.text)
+      }
     end
   end
 
@@ -32,13 +35,15 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
     uin = @pqs.first.uin
     search_for(uin)
 
-    expect(page).to have_content(uin) 
+    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_content(uin)
     expect(page.current_path).to eq pq_path(uin)
   end
 
   scenario 'Parli-branch sees an error message if no question matches the uin' do
     search_for('gibberish')
 
+    expect(page.title).to have_content("Dashboard")
     expect(page.current_path).to eq dashboard_path
     expect(page).to have_content "Question with UIN 'gibberish' not found"
   end

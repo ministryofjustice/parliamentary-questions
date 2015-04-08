@@ -4,10 +4,20 @@ class ActionlistMembersController < ApplicationController
 
   def index
     @actionlist_members = ActionlistMember.all.order(:name.downcase)
+    update_page_title('Actionlist members')
   end
 
   def new
     @actionlist_member = ActionlistMember.new
+    update_page_title('Add actionlist nember')
+  end
+
+  def show
+    update_page_title('Actionlist member details')
+  end
+
+  def edit
+    update_page_title('Edit actionlist member')
   end
 
   def create
@@ -15,7 +25,8 @@ class ActionlistMembersController < ApplicationController
 
     if @actionlist_member.save
       flash[:success] = 'Actionlist member was successfully created.'
-      redirect_to @actionlist_member 
+      update_page_title('Actionlist member details')
+      redirect_to @actionlist_member
     else
       render action: 'new'
     end
@@ -24,8 +35,10 @@ class ActionlistMembersController < ApplicationController
   def update
     if @actionlist_member.update(actionlist_member_params)
       flash[:success] = 'Actionlist member was successfully updated.'
-      redirect_to @actionlist_member 
+      update_page_title('Actionlist member details')
+      redirect_to @actionlist_member
     else
+      update_page_title('Edit actionlist member')
       render action: 'edit'
     end
   end

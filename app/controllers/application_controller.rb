@@ -5,8 +5,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    page_not_found
+  if Rails.env.production? || Rails.env.test?
+    rescue_from StandardError do |exception|
+      if exception.is_a?(ActiveRecord::RecordNotFound)
+        page_not_found
+      else
+        server_error
+      end
+    end
   end
 
   def set_am_host
@@ -22,21 +28,25 @@ class ApplicationController < ActionController::Base
   end
 
   def page_not_found
-    @page_title = 'Not found (404) - MOJ Parliamentary Questions'
+    update_page_title 'Not found (404)'
     show_error_page_and_increment_statsd(404)
   end
 
   def unauthorized
-    @page_title = 'Unauthorized (401) - MOJ Parliamentary Questions'
+    update_page_title 'Internal server error (500)'
     show_error_page_and_increment_statsd(401)
   end
 
   def server_error
-    @page_title = 'Internal server error (500) - MOJ Parliamentary Questions'
+    update_page_title 'Unauthorized (401)'
     show_error_page_and_increment_statsd(500)
   end
 
-protected
+  def update_page_title(prefix, suffix = "MOJ Parliamentary Questions")
+    @page_title = "#{prefix} - #{suffix}"
+  end
+
+  protected
 
   def set_page_title
     @page_title = 'MOJ Parliamentary Questions'

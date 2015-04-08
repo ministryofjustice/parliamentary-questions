@@ -1,4 +1,10 @@
 require File.expand_path('../boot', __FILE__)
+$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+
+require 'pq_state'
+require 'pq_state/transition'
+require 'pq_state/state_machine'
+require 'pq_state/progress_changer'
 
 require 'csv'
 require 'rails/all'
@@ -27,7 +33,7 @@ module ParliamentaryQuestions
     config.feedback_url = '#'
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/scrapers #{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib)
 
     config.encoding = 'utf-8'
 

@@ -54,10 +54,10 @@ describe PQA::Import do
 
       it "saves the records and flags them as 'unassigned'" do
         import.run(from_date, to_date)
-        expect(Pq.order(:uin).map { |pq| [pq.uin, pq.progress.name] }).to eq([
-          ['uin-0', Progress.UNASSIGNED],
-          ['uin-1', Progress.UNASSIGNED],
-          ['uin-2', Progress.UNASSIGNED]
+        expect(Pq.order(:uin).map { |pq| [pq.uin, pq.state] }).to eq([
+          ['uin-0', PQState::UNASSIGNED],
+          ['uin-1', PQState::UNASSIGNED],
+          ['uin-2', PQState::UNASSIGNED]
         ])
       end
     end
@@ -89,35 +89,49 @@ describe PQA::Import do
         })
       end
 
-      it "saves the new records, updating the existing ones, without changing the progress" do
+      it "saves the new records, updating the existing ones, without changing the state" do
         import.run(from_date, to_date)
         pq = Pq.find_by(uin: 'uin-1')
-        pq.update(progress: Progress.rejected)
+        pq.update(state: PQState::REJECTED)
 
-        expect(Pq.order(:uin).map {|pq|
+        expect(Pq.order(:uin).map { |pq|
           d      = pq.tabled_date
-          status = pq.progress.name
+          state  = pq.state
 
-          [pq.uin, [d.day, d.month, d.year], status]
+          [pq.uin, [d.day, d.month, d.year], state]
         }).to eq([
-          ['uin-0', [1, 2, 2015], Progress.UNASSIGNED],
-          ['uin-1', [3, 2, 2015], Progress.REJECTED],
-          ['uin-2', [4, 2, 2015], Progress.UNASSIGNED]
+          ['uin-0', [1, 2, 2015], PQState::UNASSIGNED],
+          ['uin-1', [3, 2, 2015], PQState::REJECTED],
+          ['uin-2', [4, 2, 2015], PQState::UNASSIGNED]
         ])
       end
+    end
 
-      context "when some the 'date_for_answer' of some question has expired" do
-        before do
-          allow(Date).to receive(:today) { Date.parse('5/2/2015') }
-          import.run(from_date, to_date)
+    context 'importing a single question' do
+      
+      before(:each) do
+        # first import
+        loader.load(questions({
+          'uin-0' => ["2/2/2015", "3/2/2015"],
+          'uin-1' => ["3/2/2015", "4/2/2015"]
+        }))
+      end
+
+      context 'specifying a question that doesnt exists' do
+        it 'should return 404' do
+          expect {
+            report = import.run_for_question('xyz-1234')
+          }.to raise_error HTTPClient::FailureResponse, /PQ rest API responded with non success code: 404, response: Not found/
         end
+      end
 
-        it "flags questions for which the date for answer has passed" do
-          expect(Pq.order(:uin).pluck(:uin, :date_for_answer_has_passed)).to eq([
-            ['uin-0', true],
-            ['uin-1', true],
-            ['uin-2', false]
-          ])
+      context 'specifying a question that does exist' do
+        it 'should update the question and return the report' do
+          report = import.run_for_question('uin-1')
+          expect(report[:total]).to eq 1
+          expect(report[:created]).to eq 1
+          expect(report[:updated]).to eq 0
+          expect(report[:errors]).to be_empty
         end
       end
     end

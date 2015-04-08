@@ -1,3 +1,73 @@
+# == Schema Information
+#
+# Table name: pqs
+#
+#  id                                            :integer          not null, primary key
+#  house_id                                      :integer
+#  raising_member_id                             :integer
+#  tabled_date                                   :datetime
+#  response_due                                  :datetime
+#  question                                      :text
+#  answer                                        :string(255)
+#  created_at                                    :datetime
+#  updated_at                                    :datetime
+#  finance_interest                              :boolean
+#  seen_by_finance                               :boolean          default(FALSE)
+#  uin                                           :string(255)
+#  member_name                                   :string(255)
+#  member_constituency                           :string(255)
+#  house_name                                    :string(255)
+#  date_for_answer                               :date
+#  registered_interest                           :boolean
+#  internal_deadline                             :datetime
+#  question_type                                 :string(255)
+#  minister_id                                   :integer
+#  policy_minister_id                            :integer
+#  progress_id                                   :integer
+#  draft_answer_received                         :datetime
+#  i_will_write_estimate                         :datetime
+#  holding_reply                                 :datetime
+#  preview_url                                   :string(255)
+#  pod_waiting                                   :datetime
+#  pod_query                                     :datetime
+#  pod_clearance                                 :datetime
+#  transferred                                   :boolean
+#  question_status                               :string(255)
+#  round_robin                                   :boolean
+#  round_robin_date                              :datetime
+#  i_will_write                                  :boolean
+#  pq_correction_received                        :boolean
+#  correction_circulated_to_action_officer       :datetime
+#  pod_query_flag                                :boolean
+#  sent_to_policy_minister                       :datetime
+#  policy_minister_query                         :boolean
+#  policy_minister_to_action_officer             :datetime
+#  policy_minister_returned_by_action_officer    :datetime
+#  resubmitted_to_policy_minister                :datetime
+#  cleared_by_policy_minister                    :datetime
+#  sent_to_answering_minister                    :datetime
+#  answering_minister_query                      :boolean
+#  answering_minister_to_action_officer          :datetime
+#  answering_minister_returned_by_action_officer :datetime
+#  resubmitted_to_answering_minister             :datetime
+#  cleared_by_answering_minister                 :datetime
+#  answer_submitted                              :datetime
+#  library_deposit                               :boolean
+#  pq_withdrawn                                  :datetime
+#  holding_reply_flag                            :boolean
+#  final_response_info_released                  :string(255)
+#  round_robin_guidance_received                 :datetime
+#  transfer_out_ogd_id                           :integer
+#  transfer_out_date                             :datetime
+#  directorate_id                                :integer
+#  division_id                                   :integer
+#  transfer_in_ogd_id                            :integer
+#  transfer_in_date                              :datetime
+#  follow_up_to                                  :string(255)
+#  state                                         :string(255)      default("unassigned")
+#  state_weight                                  :integer          default(0)
+#
+
 require 'spec_helper'
 
 describe Pq do
@@ -9,6 +79,198 @@ describe Pq do
     it { is_expected.to have_one :trim_link }
     it { is_expected.to belong_to :directorate }
     it { is_expected.to belong_to :division }
+  end
+
+  describe ".before_update" do
+    it "sets the state weight" do
+      state    = PQState::DRAFT_PENDING
+      pq, _    = DBHelpers.pqs
+      pq.update(state: state)
+      expect(pq.state_weight).to eq(PQState.state_weight(state))
+    end
+  end
+
+  describe ".sorted_for_dashboard" do
+    it "sorts pqs in the expected order" do
+      # Start with randomly ordered PQs
+      pqs = DBHelpers.pqs(8).shuffle
+
+      # Update to cover all sorting criteria
+      pqs[0].update(date_for_answer: Date.tomorrow, state: PQState::POD_CLEARED)
+      pqs[1].update(date_for_answer: Date.tomorrow)
+      pqs[2].update(date_for_answer: Date.tomorrow  + 1.days, state: PQState::POD_QUERY)
+      pqs[3].update(date_for_answer: Date.tomorrow  + 1.days)
+      pqs[4].update(date_for_answer: Date.yesterday, state: PQState::POD_CLEARED)
+      pqs[5].update(date_for_answer: Date.yesterday)
+      pqs[6].update(date_for_answer: Date.yesterday - 1.days, state: PQState::WITH_MINISTER)
+      pqs[7].update(date_for_answer: Date.yesterday - 1.days) && pqs[7]
+
+      # Late PQs are pushed to the bottom regardless
+      late_due_sooner_higher_weight = pqs[4]
+      late_due_sooner_lower_weight  = pqs[5]
+      late_due_later_higher_weight  = pqs[6]
+      late_due_later_lower_weight   = pqs[7]
+
+      # PQs sorted by absolute days until date for answer, then state weight
+      on_time_due_sooner_higher_weight  = pqs[0]
+      on_time_due_sooner_lower_weight   = pqs[1]
+      on_time_due_later_higher_weight   = pqs[2]
+      on_time_due_later_lower_weight    = pqs[3]
+      
+      expect(Pq.sorted_for_dashboard.map(&:uin)).to eq([
+        on_time_due_sooner_higher_weight,
+        on_time_due_sooner_lower_weight,
+        on_time_due_later_higher_weight,
+        on_time_due_later_lower_weight,
+        late_due_sooner_higher_weight,
+        late_due_sooner_lower_weight,
+        late_due_later_higher_weight,
+        late_due_later_lower_weight
+      ].map(&:uin))
+    end
+  end
+
+  describe ".count_accepted_by_press_desk" do
+    def accept_pq(pq, ao)
+      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
+                                                     response: 'accepted',
+                                                     pq: pq)
+      pq.save
+    end
+
+    context "when no data exist" do
+      it "returns an empty hash" do
+        expect(Pq.count_accepted_by_press_desk).to eq({})
+      end
+    end
+
+    context "when some data exist" do
+      before do
+        @pd1, @pd2             = DBHelpers.press_desks
+        @ao1, @ao2, @ao3       = DBHelpers.action_officers
+        @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
+
+        @pq1.state = PQState::NO_RESPONSE
+        @pq2.state = PQState::WITH_POD
+        @pq3.state = PQState::WITH_POD
+
+        accept_pq(@pq1, @ao1)
+        accept_pq(@pq2, @ao2)
+        accept_pq(@pq3, @ao3)
+      end
+
+      it "returns a hash with states as keys and press-desk/counts as values" do
+        expect(Pq.count_accepted_by_press_desk).to eq({
+          PQState::NO_RESPONSE => {
+            @pd1.id => 1
+          },
+          PQState::WITH_POD => {
+            @pd2.id => 2
+          }
+        })
+      end
+
+      context "when a press desk gets deleted" do
+        before do
+          @pd1.deactivate!
+        end
+
+        it "omits the associated questions from the results" do
+          expect(Pq.count_accepted_by_press_desk).to eq({
+            PQState::WITH_POD => {
+              @pd2.id => 2
+            }
+          })
+        end
+      end
+    end
+  end
+
+  describe ".count_in_progress_by_minister" do
+    context "when no data exist" do
+      it "returns an empty hash" do
+        expect(Pq.count_in_progress_by_minister).to eq({})
+      end
+    end
+
+    context "when some data exist" do
+      before do
+        @minister1, @minister2, _ = DBHelpers.ministers
+        @pq1, @pq2, @pq3, @pq4    = DBHelpers.pqs
+
+        @pq1.update(state: PQState::DRAFT_PENDING, minister: @minister1)
+        @pq2.update(state: PQState::WITH_MINISTER, minister: @minister2)
+        @pq3.update(state: PQState::ANSWERED, minister: @minister2)
+        # ^ should not be included as its state is not included in PQState::IN_PROGRESS
+        @pq4.update(state: PQState::DRAFT_PENDING, minister: @minister2)
+      end
+
+      it "returns a hash with states as keys and minister counts as values" do
+        expect(Pq.count_in_progress_by_minister).to eq({
+          PQState::DRAFT_PENDING => {
+            @minister1.id => 1,
+            @minister2.id => 1,
+          },
+          PQState::WITH_MINISTER => {
+            @minister2.id => 1
+          }
+        })
+      end
+
+      context "when a minister becomes inactive" do
+        before do
+          @minister1.deactivate!
+        end
+
+        it "omits the minister and its related PQ count from the results" do
+          expect(Pq.count_in_progress_by_minister).to eq({
+            PQState::DRAFT_PENDING => {
+              @minister2.id => 1,
+            },
+            PQState::WITH_MINISTER => {
+              @minister2.id => 1
+            }
+          })
+        end
+      end
+    end
+  end
+
+  describe ".filter_for_report" do
+    def commission_and_accept(pq, ao, minister)
+      pq.state    = PQState::WITH_POD
+      pq.minister = minister
+      pq.action_officers_pqs << ActionOfficersPq.new(pq: pq,
+                                                     response: 'accepted',
+                                                     action_officer: ao,)
+      pq.save
+    end
+
+    before do
+      @ao1, @ao2             = DBHelpers.action_officers
+      @min1, _               = DBHelpers.ministers
+      @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
+
+      expect(@ao1.press_desk).to_not eq(@ao2.press_desk)
+      commission_and_accept(@pq1, @ao1, @min1)
+      commission_and_accept(@pq4, @ao2, @min1)
+    end
+
+    context "when state, minister or press desk are all nil" do
+      it "returns all the records" do
+        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq([
+          'uin-1', 'uin-2', 'uin-3', 'uin-4'
+        ].to_set)
+      end
+    end
+    context "when state, minister or press desk are all present" do
+      it "returns the expected records" do
+        uins = Pq.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
+                 .pluck(:uin)
+
+        expect(uins).to eq(['uin-1'])
+      end
+    end
   end
 
   describe '#has_trim_link?' do
@@ -31,29 +293,6 @@ describe Pq do
     subject! { create(:pq) }
     before { create(:checked_by_finance_pq) }
     it { expect(described_class.not_seen_by_finance).to eq [subject] }
-  end
-
-  describe '#ministers_by_progress' do
-    let(:minister) { create(:minister) }
-    let(:policy_minister) { create(:minister) }
-    let(:progresses) { Progress.where(name: Progress.in_progress_questions) }
-
-    before do
-      Progress.in_progress_questions.each do |status|
-        factory = "#{status.gsub(' ', '_').downcase}_pq"
-        create(factory, minister: minister, policy_minister: policy_minister)
-        create(factory, minister: policy_minister)
-      end
-    end
-
-    it 'returns table summed by questions in in progress states grouped by minister not counting policy minister' do
-      minister_counts = progresses.map{|status| [[minister.id, status.id], 1] }
-      policy_minister_counts = progresses.map{|status| [[policy_minister.id, status.id], 1] }
-
-      expect(Pq.ministers_by_progress([minister, policy_minister], progresses)).to eq(
-        (minister_counts + policy_minister_counts).to_h
-      )
-    end
   end
 
   describe 'allocated_since' do

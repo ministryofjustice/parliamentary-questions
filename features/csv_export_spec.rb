@@ -31,6 +31,7 @@ feature 'Exporting PQ data to CSV' do
     fill_in 'Date to', with: 'A' * 100
     click_on 'Download CSV'
 
+    expect(page.title).to have_content("Export PQs to CSV")
     expect(page).to have_content 'Invalid date input!'
   end
 end

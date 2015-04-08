@@ -1,5 +1,5 @@
 .pq-header.row
-  h3= link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
+  h2= link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
   .pq-header-flags
     - if question.question_type == 'NamedDay'
       span.question-type  Named day
@@ -13,11 +13,11 @@ p.pq-question
   .status-bar.col-md-12
     - if !question.seen_by_finance
       span.flag.finance-unchecked Not checked by finance
-    span class=("flag #{question.progress.classname}") = question.progress.name
-- if [Progress.UNASSIGNED,Progress.NO_RESPONSE,Progress.REJECTED].include?(question.progress.name)
-  /! if a question is unassigned, No response or rejected: loop through and show rejection reasons
-  = render partial:'shared/rejected_reasons', locals: {question: question}
+    span class=("flag #{state_classname question.state}") = state_label question.state
+- if question.is_new?
+  / if a question is unassigned, No response or rejected: loop through and show rejection reasons
+  = render partial: 'shared/rejected_reasons', locals: {question: question}
 - if question.commissioned?
   = render partial: 'dashboard/question_data_commissioned', locals: { question: question }
 - else
-  = render partial: 'dashboard/question_data_uncommissioned', locals: { question: question }
+  = render partial: 'dashboard/question_data_uncommissioned', locals: { question: question, action_officers: action_officers }

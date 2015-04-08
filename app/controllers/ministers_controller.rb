@@ -4,15 +4,22 @@ class MinistersController < ApplicationController
 
   def index
     @ministers = Minister.order('lower(name)')
+    update_page_title('Ministers')
   end
 
   def show
     @minister_contacts = @minister.minister_contacts
+    update_page_title('Minister details')
   end
 
   def new
     @minister = Minister.new
     @minister.minister_contacts << MinisterContact.new
+    update_page_title('Add minister')
+  end
+
+  def edit
+    update_page_title('Edit minister')
   end
 
   def create

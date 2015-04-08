@@ -34,12 +34,9 @@ describe AssignmentService do
       subject.accept(assignment)
     end
 
-    it 'updates progress' do
-      progress_service = double
-      expect(progress_service).to receive(:update_progress).with(pq)
-      expect(PQProgressChangerService).to receive(:new).and_return progress_service
-
+    it 'sets pq state to DRAFT_PENDING' do
       subject.accept(assignment)
+      expect(pq.state).to eq(PQState::DRAFT_PENDING)
     end
 
     with_versioning do
@@ -137,11 +134,8 @@ describe AssignmentService do
     end
 
     it 'updates progress' do
-      progress_service = double
-      expect(progress_service).to receive(:update_progress).with(pq)
-      expect(PQProgressChangerService).to receive(:new).and_return progress_service
-
       subject.reject(assignment, reason)
+      expect(pq.state).to eq(PQState::REJECTED)
     end
 
     it 'should create an audit event storing the action officer name' do

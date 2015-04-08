@@ -1,11 +1,11 @@
-h2 Government Department details
+h1 Government Department details
 #admin-ogd-details
   = render partial: "shared/flash_messages", flash: flash
-  h4 Name
+  h2 Name
   p.text= @ogd.name
-  h4 Acronym
+  h2 Acronym
   p.text= @ogd.acronym
-  h4 Status
+  h2 Status
   = render partial: 'shared/status', object: @ogd
   = link_to 'Edit', edit_ogd_path(@ogd), {class: 'admin-link'}
-  = link_to 'Return to other government Department list', ogds_path, {class: 'admin-link'}
+  = link_to 'Return to Other Government Department list', ogds_path, {class: 'admin-link'}

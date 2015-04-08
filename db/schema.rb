@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306114738) do
+ActiveRecord::Schema.define(version: 20150331154333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,10 +167,17 @@ ActiveRecord::Schema.define(version: 20150306114738) do
     t.integer  "division_id"
     t.integer  "transfer_in_ogd_id"
     t.datetime "transfer_in_date"
-    t.integer  "days_from_date_for_answer"
-    t.boolean  "date_for_answer_has_passed"
     t.string   "follow_up_to"
+    t.string   "state",                                         default: "unassigned"
+    t.integer  "state_weight",                                  default: 0
   end
+
+  add_index "pqs", ["date_for_answer"], name: "index_pqs_on_date_for_answer", using: :btree
+  add_index "pqs", ["internal_deadline"], name: "index_pqs_on_internal_deadline", using: :btree
+  add_index "pqs", ["minister_id"], name: "index_pqs_on_minister_id", using: :btree
+  add_index "pqs", ["state"], name: "index_pqs_on_state", using: :btree
+  add_index "pqs", ["state_weight"], name: "index_pqs_on_state_weight", using: :btree
+  add_index "pqs", ["updated_at"], name: "index_pqs_on_updated_at", using: :btree
 
   create_table "press_desks", force: true do |t|
     t.string   "name"
