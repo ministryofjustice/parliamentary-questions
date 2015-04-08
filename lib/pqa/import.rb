@@ -3,26 +3,31 @@ module PQA
     def initialize(pqa_service = nil)
       @pqa_service         = pqa_service || PQAService.from_settings
       @logger              = LogStuff
-      @unassigned_progress = Progress.unassigned
       init_state!
     end
 
     def run(date_from, date_to)
-      init_state!
-
-      ActiveRecord::Base.transaction do
+      query_api_and_update do
         questions = @pqa_service.questions(date_from, date_to)
-        @total    = questions.size
-
-        questions.each do |q|
-          insert_or_update(q)
-        end
-        update_sort_dates
       end
-      report
     end
 
+    def run_for_question(uin)
+      query_api_and_update do
+        questions = @pqa_service.question(uin)
+      end
+    end
+
+
     private
+
+    def query_api_and_update(&block)
+      init_state!
+      questions = block.call
+      @total    = questions.size
+      questions.each { |q| insert_or_update(q)  }
+      report
+    end
 
     def init_state!
       @total   = 0
@@ -38,19 +43,6 @@ module PQA
         updated: @updated,
         errors: @errors
       }
-    end
-
-    def update_sort_dates
-      Pq.find_each(batch_size: 100) do |pq|
-        unless pq.date_for_answer
-          pq.date_for_answer_has_passed = true
-          pq.days_from_date_for_answer = LARGEST_POSTGRES_INTEGER
-        else
-          pq.date_for_answer_has_passed = pq.date_for_answer < Date.today
-          pq.days_from_date_for_answer = (pq.date_for_answer - Date.today).abs
-        end
-        pq.save
-      end
     end
 
     def insert_or_update(q)
@@ -70,7 +62,7 @@ module PQA
       pq.preview_url         = q.url
       pq.date_for_answer     = pq.date_for_answer || q.date_for_answer
       pq.transferred         ||= false
-      pq.progress            ||= @unassigned_progress
+      pq.state               ||= PQState::UNASSIGNED
 
       if !pq.valid?
         error_msgs   = pq.errors.messages
@@ -85,6 +77,8 @@ module PQA
         @logger.debug { "Updating record (uin: #{uin})" }
         pq.save
       end
+
+
 
       LogStuff.tag(:import) do
         @logger.info { "Completed import: questions downloaded #{@total}, new #{@created}, updated #{@updated}, invalid: #{@errors.size}" }

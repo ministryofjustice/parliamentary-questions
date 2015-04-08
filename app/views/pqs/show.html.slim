@@ -1,47 +1,57 @@
-.row
-  .col-md-12
-    = render partial: "shared/flash_messages", flash: flash
-.row
-  .col-md-12
-    = render partial: 'shared/errors', object: @pq
-= render 'pq_header'
-#pq-detail-area.row
-  #progress-menu.col-md-3
-    ul.nav.nav-tabs.nav-stacked data-tabs="tabs"
-      li.active
-        a#progress-menu-pq href="#progress-menu-pq-data" data-toggle="tab" PQ Details
-      li
-        a#progress-menu-trim href="#progress-menu-trim-data" data-toggle="tab" Trim link
-      li
-        a#progress-menu-fc href="#progress-menu-fc-data" data-toggle="tab" Finance check
-      li
-        a#progress-menu-com href="#progress-menu-com-data" data-toggle="tab" PQ commission
-      li
-        a#progress-menu-sub href="#progress-menu-sub-data" data-toggle="tab" PQ draft
-      li
-        a#progress-menu-pod href="#progress-menu-pod-data" data-toggle="tab" POD check
-      li
-        a#progress-menu-min href="#progress-menu-min-data" data-toggle="tab" Minister check
-      li
-        a#progress-menu-answer href="#progress-menu-answer-data" data-toggle="tab" Answer
-  #progress-panel.col-md-9
-    = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|
-      fieldset.tab-content
-        #progress-menu-pq-data role="tabpanel" class="tab-pane active"
-          = render partial:'pq_data', locals: {f: f}
-        #progress-menu-trim-data role="tabpanel" class="tab-pane"
-          = render partial:'trim_link', locals: {f: f}
-        #progress-menu-fc-data role="tabpanel" class="tab-pane"
-          = render partial:'fc_data', locals: {f: f}
-        #progress-menu-com-data role="tabpanel" class="tab-pane"
-          = render  partial:'com_data', locals: {f: f}
-        #progress-menu-sub-data role="tabpanel" class="tab-pane"
-          = render  partial:'pq_draft', locals: {f: f}
-        #progress-menu-pod-data role="tabpanel" class="tab-pane"
-          = render partial:'pod_check', locals: {f: f}
-        #progress-menu-min-data role="tabpanel" class="tab-pane"
-          = render partial:'minister_check', locals: {f: f}
-        #progress-menu-answer-data role="tabpanel" class="tab-pane"
-          = render partial:'answer', locals: {f: f}
-        .form-group
-          = f.submit 'Save', :id => 'save', :class => 'button'
+#pq-details
+  .row
+    .col-md-12
+      = render partial: "shared/flash_messages", flash: flash
+  .row
+    .col-md-12
+      = render partial: 'shared/errors', object: @pq
+  = render 'pq_header'
+  #pq-detail-area.row
+    #progress-menu.col-md-3
+      ul.nav.nav-tabs.nav-stacked data-tabs="tabs"
+        li.active
+          a#progress-menu-pq href="#progress-menu-pq-data" data-toggle="tab"
+            h2 PQ Details
+        li
+          a#progress-menu-trim href="#progress-menu-trim-data" data-toggle="tab"
+            h2 Trim link
+        li
+          a#progress-menu-fc href="#progress-menu-fc-data" data-toggle="tab"
+            h2 Finance check
+        li
+          a#progress-menu-com href="#progress-menu-com-data" data-toggle="tab"
+            h2 PQ commission
+        li
+          a#progress-menu-sub href="#progress-menu-sub-data" data-toggle="tab"
+            h2 PQ draft
+        li
+          a#progress-menu-pod href="#progress-menu-pod-data" data-toggle="tab"
+            h2
+              abbr title="Private Office Directorate" POD 
+              ' check
+        li
+          a#progress-menu-min href="#progress-menu-min-data" data-toggle="tab"
+            h2 Minister check
+        li
+          a#progress-menu-answer href="#progress-menu-answer-data" data-toggle="tab" Answer
+    #progress-panel.col-md-9
+      = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|
+        fieldset.tab-content
+          #progress-menu-pq-data role="tabpanel" class="tab-pane active"
+            = render partial:'pq_data', locals: {f: f}
+          #progress-menu-trim-data role="tabpanel" class="tab-pane"
+            = render partial:'trim_link', locals: {f: f}
+          #progress-menu-fc-data role="tabpanel" class="tab-pane"
+            = render partial:'fc_data', locals: {f: f}
+          #progress-menu-com-data role="tabpanel" class="tab-pane"
+            = render  partial:'com_data', locals: {f: f, action_officers: @action_officers}
+          #progress-menu-sub-data role="tabpanel" class="tab-pane"
+            = render  partial:'pq_draft', locals: {f: f}
+          #progress-menu-pod-data role="tabpanel" class="tab-pane"
+            = render partial:'pod_check', locals: {f: f}
+          #progress-menu-min-data role="tabpanel" class="tab-pane"
+            = render partial:'minister_check', locals: {f: f}
+          #progress-menu-answer-data role="tabpanel" class="tab-pane"
+            = render partial:'answer', locals: {f: f}
+          .form-group
+            = f.submit 'Save', :id => 'save', :class => 'button'

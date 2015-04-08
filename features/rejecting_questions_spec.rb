@@ -26,6 +26,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
 
   scenario 'Following the email link should let an AO reject the question' do
     reject_assignment(ao1, 2, 'going to the cinema')
+    expect(page.title).to have_text("PQ rejected")
     expect(page).to have_content(/thank you for your response/i)
   end
 
@@ -34,6 +35,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     visit dashboard_path
 
     within_pq(@pq.uin) do
+      expect(page.title).to have_text("Dashboard")
       expect(page).to have_text("#{ao1.name} rejected at:")
       expect(page).to have_text('going to the cinema')
     end
@@ -44,12 +46,47 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     expect_pq_status(@pq.uin, 'No response')
   end
 
+  scenario 'If an AO submits an empty acceptance form, show an error' do
+    visit_assignment_url(ao2)
+    click_on 'Save Response'
+    expect(page).to have_content('Form was not completed')
+    expect(page).not_to have_content('Please select one of the reasons to reject the question')
+  end
+
+  scenario 'If an AO rejects without a reason, show an error' do
+    visit_assignment_url(ao2)
+    choose 'Reject'
+    click_on 'Save Response'
+    expect(page).to have_content('Form was not completed')
+    expect(page).to have_content('Please select one of the reasons to reject the question')
+    expect(page).to have_content('Please give us information about why you reject the question')
+  end
+
+  scenario 'If an AO rejects without selecting from the dropdown, show an error' do
+    visit_assignment_url(ao2)
+    choose 'Reject'
+    fill_in 'allocation_response_reason', with: "no time"
+    click_on 'Save Response'
+    expect(page).to have_content('Form was not completed')
+    expect(page).to have_content('Please select one of the reasons to reject the question')
+    expect(page).not_to have_content('Please give us information about why you reject the question')
+  end
+
+  scenario 'If an AO rejects without typing a reason, show an error' do
+    visit_assignment_url(ao2)
+    reject_assignment(ao2, 3, '')
+    expect(page).to have_content('Form was not completed')
+    expect(page).not_to have_content('Please select one of the reasons to reject the question')
+    expect(page).to have_content('Please give us information about why you reject the question')
+  end
+
   scenario 'If an AO is the last to reject a question, the status should change to rejected' do
     reject_assignment(ao2, 3, 'too busy!')
     create_pq_session
     expect_pq_status(@pq.uin, 'Rejected')
 
     within_pq(@pq.uin) do
+      expect(page.title).to match(/rejected/i)
       expect(page).to have_text("#{ao1.name} rejected at:")
       expect(page).to have_text('going to the cinema')
 

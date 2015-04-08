@@ -1,6 +1,7 @@
 class AOTokenFilter
   def self.before(controller)
     if !has_access(controller)
+      controller.update_page_title "Unauthorised (401)"
       controller.render :file => "shared/token_expired.html.slim", :status => :unauthorized
     end
   end

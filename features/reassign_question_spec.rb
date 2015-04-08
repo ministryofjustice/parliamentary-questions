@@ -27,12 +27,13 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     create_pq_session
     visit pq_path(@pq.uin)
     click_on "PQ commission"
+    expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).not_to have_content('Reassign action officer')
     expect(page).not_to have_content('Action officer(s)')
   end
 
   scenario 'Action officer receive notification and accepts question' do
-    accept_assignnment(ao1)
+    accept_assignment(ao1)
   end
 
   scenario 'Parli-branch re-assigns question to another action officer' do
@@ -46,6 +47,8 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
 
     click_button 'Save'
     click_on 'PQ commission'
+
+    expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).to have_content(ao2.email)
     expect(page).not_to have_content(ao1.email)
   end

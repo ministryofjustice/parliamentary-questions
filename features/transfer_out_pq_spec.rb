@@ -24,7 +24,7 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     find("select[name = 'pq[transfer_out_ogd_id]']")
       .find(:xpath, "option[2]")
       .select_option
-    
+
     find('#transfer_out_date').set(date || Date.today.strftime('%d/%m/%Y'))
     click_on 'Save'
   end
@@ -32,13 +32,22 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
   scenario 'Parli-branch should not be able to update a question with incorrect inputs' do
     transfer_out_pq(uin, 'a' * 51)
 
+    expect(page.title).to have_text("PQ #{uin}")
     expect(page).to have_content('Invalid date input')
+    expect(page).not_to have_content('Successfully updated')
+  end
+
+  scenario 'Parli-branch cannot transfer out a PQ without providing both a date and OGD' do
+    transfer_out_pq(uin, '')
+
+    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_content('Update failed')
     expect(page).not_to have_content('Successfully updated')
   end
 
   scenario 'Parli branch should be able to transfer out a PQ' do
     transfer_out_pq(uin)
-
+    expect(page.title).to have_text("PQ #{uin}")
     expect(page).to have_content('Successfully updated')
   end
 
@@ -47,6 +56,7 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     visit pq_path(uin)
 
     within('#pq-details-progress') do
+      expect(page.title).to have_text("PQ #{uin}")
       expect(page).to have_content('Transferred out')
     end
   end
@@ -56,7 +66,8 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     visit dashboard_path
 
     expect(page).not_to have_content(uin)
-    Pq.order(:uin).drop(1).each do |pq| 
+    Pq.order(:uin).drop(1).each do |pq|
+      expect(page.title).to have_text("Dashboard")
       expect(page).to have_content(pq.uin)
     end
   end

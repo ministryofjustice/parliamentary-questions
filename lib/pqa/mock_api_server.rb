@@ -62,5 +62,15 @@ module PQA
 
       XMLEncoder.encode_questions(questions)
     end
+
+    get '/api/qais/questions/:uin' do 
+      my_uin = QUESTIONS[params['uin']]
+      if my_uin.nil?
+        status 404
+        "Not found"
+      else
+        XMLEncoder.encode_questions( [my_uin] )
+      end
+    end
   end
 end

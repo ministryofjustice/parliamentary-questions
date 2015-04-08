@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Validators::DateInput do
-  
   include Validators::DateInput
 
   let(:window)  { Validators::DateInput::WINDOW  + 1.days }
@@ -35,8 +34,8 @@ describe Validators::DateInput do
 
   context '#parse_datetime' do
     it 'should return a date time if input is correct' do
-      dt = DateTime.now.midnight
-      expect(parse_datetime(dt.to_s)).to be_an_instance_of DateTime
+      dt_with_gmt_adjust = DateTime.now.midnight
+      dt = DateTime.parse(dt_with_gmt_adjust.strftime('%a, %d %b %Y %H:%M:%S'))
       expect(parse_datetime(dt.to_s)).to eq dt
     end
   end
@@ -44,7 +43,6 @@ describe Validators::DateInput do
   context '#parse_date' do
     it 'should return a date if input is correct' do
       d = Date.today
-      expect(parse_date(d.to_s)).to be_an_instance_of Date
       expect(parse_date(d.to_s)).to eq d
     end
   end

@@ -4,10 +4,20 @@ class OgdsController < ApplicationController
 
   def index
     @ogds = Ogd.order('lower(name)')
+    update_page_title('Other Government Departments')
   end
 
   def new
     @ogd = Ogd.new
+    update_page_title('Add Government Department')
+  end
+
+  def show
+    update_page_title('Government Department details')
+  end
+
+  def edit
+    update_page_title('Edit Government Department')
   end
 
   def create
@@ -23,7 +33,7 @@ class OgdsController < ApplicationController
 
   def update
     if @ogd.update(ogd_params)
-      flash[:success] = 'Ogd was successfully updated.'
+      flash[:success] = 'OGD was successfully updated.'
       redirect_to @ogd
     else
       render action: 'edit'

@@ -30,7 +30,7 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :users
 
   resources :pqs, only: [ :index, :show, :update ]
-  
+
   resources :trim_links
 
   get 'trim_links/new/:id' => 'trim_links#new'
@@ -46,7 +46,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'dashboard' => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'
 
-
   get 'search' => 'search#index'
 
   get 'filter' => 'filter#index'
@@ -55,10 +54,10 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'dashboard/search' => 'dashboard#search'
   post 'dashboard/search/:search' => 'dashboard#search'
 
-  get 'dashboard/by_status/:qstatus' => 'dashboard#by_status'
-  get 'dashboard/in_progress_by_status/:qstatus' => 'dashboard#in_progress_by_status'
-  get 'dashboard/transferred' => 'dashboard#transferred'
-  get 'dashboard/i_will_write' => 'dashboard#i_will_write'
+  get 'dashboard/by_status/:qstatus' => 'dashboard#by_status', as: :dashboard_by_status
+  get 'dashboard/in_progress_by_status/:qstatus' => 'dashboard#in_progress_by_status', as: :dashboard_in_progress_by_status
+  get 'dashboard/transferred' => 'dashboard#transferred', as: :dashboard_transferred
+  get 'dashboard/i_will_write' => 'dashboard#i_will_write', as: :dashboard_iww
 
   get 'assignment/:uin' => 'assignment#show', as: :assignment
   post 'assignment/:uin' => 'assignment#create'
@@ -89,7 +88,7 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
-  match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post]
+  match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
   match "*path", to: "application#page_not_found", via: :all
 
   if Rails.env.production?

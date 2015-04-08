@@ -3,28 +3,30 @@
     label.form-label for="sent_to_answering_minister"  Date sent to answering minister
     .datetimepicker
       input#sent_to_answering_minister.form-control name="pq[sent_to_answering_minister]" type="text" value=(@pq.sent_to_answering_minister.to_s) /
-      span.fa.fa-calendar
-  = f.check_box_gds :answering_minister_query
+      span.fa.fa-calendar title="select a date"
+  = render partial: 'gds_checkbox', locals: { value: @pq.answering_minister_query,
+                                              field: 'answering_minister_query',
+                                              label: 'Answering minister query' }
   .form-group
     label.form-label for="answering_minister_to_action_officer"  Date sent back to action officer
     .datetimepicker
       input#answering_minister_to_action_officer.form-control name="pq[answering_minister_to_action_officer]" type="text" value=(@pq.answering_minister_to_action_officer.to_s) /
-      span.fa.fa-calendar
+      span.fa.fa-calendar title="select a date"
   .form-group
     label.form-label for="answering_minister_returned_by_action_officer"  Date returned by action officer
     .datetimepicker
       input#answering_minister_returned_by_action_officer.form-control name="pq[answering_minister_returned_by_action_officer]" type="text" value=(@pq.answering_minister_returned_by_action_officer.to_s) /
-      span.fa.fa-calendar
+      span.fa.fa-calendar title="select a date"
   .form-group
     label.form-label for="resubmitted_to_answering_minister"  Resubmitted to minister
     .datetimepicker
       input#resubmitted_to_answering_minister.form-control name="pq[resubmitted_to_answering_minister]" type="text" value=(@pq.resubmitted_to_answering_minister.to_s) /
-      span.fa.fa-calendar
+      span.fa.fa-calendar title="select a date"
   .form-group
     label.form-label for="cleared_by_answering_minister"  Date cleared by answering minister
     .datetimepicker
       input#cleared_by_answering_minister.form-control name="pq[cleared_by_answering_minister]" type="text" value=(@pq.cleared_by_answering_minister.to_s) /
-      span.fa.fa-calendar
+      span.fa.fa-calendar title="select a date"
 - if @pq.policy_minister_id
   hr/
   #policyminister
@@ -32,25 +34,29 @@
       label.form-label for="sent_to_policy_minister"  Sent to policy minister
       .datetimepicker
         input#sent_to_policy_minister.form-control name="pq[sent_to_policy_minister]" type="text" value=(@pq.sent_to_policy_minister.to_s) /
-        span.fa.fa-calendar
-    = f.check_box_gds :policy_minister_query
+        span.fa.fa-calendar title="select a date"
+
+    = render partial: 'gds_checkbox', locals: { value: @pq.policy_minister_query,
+                                                field: 'policy_minister_query',
+                                                label: 'Policy minister query' }
+
     .form-group
       label.form-label for="policy_minister_to_action_officer"  Date sent back to action officer
       .datetimepicker
         input#policy_minister_to_action_officer.form-control name="pq[policy_minister_to_action_officer]" type="text" value=(@pq.policy_minister_to_action_officer.to_s) /
-        span.fa.fa-calendar
+        span.fa.fa-calendar title="select a date"
     .form-group
       label.form-label for="policy_minister_returned_by_action_officer"  Date returned by action officer
       .datetimepicker
         input#policy_minister_returned_by_action_officer.form-control name="pq[policy_minister_returned_by_action_officer]" type="text" value=(@pq.policy_minister_returned_by_action_officer.to_s) /
-        span.fa.fa-calendar
+        span.fa.fa-calendar title="select a date"
     .form-group
       label.form-label for="resubmitted_to_policy_minister"  Date resubmitted to minister
       .datetimepicker
         input#resubmitted_to_policy_minister.form-control name="pq[resubmitted_to_policy_minister]" type="text" value=(@pq.resubmitted_to_policy_minister.to_s) /
-        span.fa.fa-calendar
+        span.fa.fa-calendar title="select a date"
     .form-group
       label.form-label for="cleared_by_policy_minister"  Date Cleared by policy minister
       .datetimepicker
         input#cleared_by_policy_minister.form-control name="pq[cleared_by_policy_minister]" type="text" value=(@pq.cleared_by_policy_minister.to_s) /
-        span.fa.fa-calendar
+        span.fa.fa-calendar title="select a date"

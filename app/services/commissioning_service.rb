@@ -20,8 +20,7 @@ class CommissioningService
       end
 
       pq.action_officers_pqs << ao_pqs
-      pq.save!
-      PQProgressChangerService.new.update_progress(pq)
+      pq.update_state!
 
       ao_pqs.each do |ao_pq|
         notify_assignment(ao_pq)

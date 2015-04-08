@@ -1,7 +1,15 @@
-class Progress < ActiveRecord::Base
-  has_paper_trail
-  has_many :pqs
+# == Schema Information
+#
+# Table name: progresses
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  progress_order :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#
 
+class Progress < ActiveRecord::Base
   def classname
     self.name.downcase.sub ' ', '-'
   end
@@ -82,11 +90,11 @@ class Progress < ActiveRecord::Base
   end
 
   def self.POD_QUERY
-    'Pod Query'
+    'POD Query'
   end
 
   def self.POD_CLEARED
-    'Pod Cleared'
+    'POD Cleared'
   end
 
   def self.WITH_MINISTER

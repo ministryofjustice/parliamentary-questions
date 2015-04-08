@@ -4,6 +4,7 @@ class TransferredController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def new
+    update_page_title('Create a transferred PQ')
     @ogd_list = Ogd.all
     @pq       = Pq.new
   end
@@ -17,6 +18,7 @@ class TransferredController < ApplicationController
         flash[:success] = 'Transferred PQ was successfully created.'
         redirect_to dashboard_path
       else
+        update_page_title('Error creating a transferred PQ')
         flash.now[:error] = 'There was an error creating the transfer PQ.'
         render :new
       end
@@ -40,10 +42,10 @@ class TransferredController < ApplicationController
         :transfer_in_ogd_id,
         :transfer_in_date
       )
-      .merge({ 
+      .merge({
         transferred:        true,
         raising_member_id:  '0',
-        progress:           Progress.unassigned 
+        state: PQState::UNASSIGNED
       })
   end
 

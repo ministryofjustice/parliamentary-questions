@@ -35,6 +35,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
     invalid_date = 'A' * 51
     create_transferred_pq('invalid-uin-1', 'question_text', invalid_date )
 
+    expect(page.title).to have_text("")
     expect(page).not_to have_content('Transferred PQ was successfully created')
     expect(page).to have_content('Invalid date input!')
   end
@@ -42,6 +43,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
   scenario 'Parli branch should be able to create a transferred PQ' do
     create_transferred_pq(uin, question_text)
 
+    expect(page.title).to have_text("Dashboard")
     expect(page).to have_content('Transferred PQ was successfully created')
     expect_pq_status(uin, 'Transferred In')
   end
@@ -56,8 +58,8 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
   scenario 'If API import contains PQ with the same UIN as the transferred PQ, it updates the details' do
     loader      = PQA::QuestionLoader.new
     import      = PQA::Import.new
-    imported_pq = PQA::QuestionBuilder.default(uin) 
-    
+    imported_pq = PQA::QuestionBuilder.default(uin)
+
     loader.load([imported_pq])
     report = import.run(Date.yesterday, Date.tomorrow)
 
@@ -65,7 +67,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
 
     create_pq_session
     visit pq_path(uin)
-
+    expect(page.title).to have_text("PQ #{uin}")
     expect(page).to have_content(imported_pq.text)
     expect(page).not_to have_content(question_text)
   end
