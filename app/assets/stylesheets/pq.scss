@@ -667,6 +667,12 @@ textarea.form-control {
     color: $error-colour;
     padding: 1em 0 0 2em;
   }
+
+  button.button-choose {
+    background-color: $light-blue;
+    color: $page-colour;
+    box-shadow: 0px 2px 0px darkblue;
+  }
 }
 
 //formatting of the action officers listed in the PQ's on the dashboard when commisioning
