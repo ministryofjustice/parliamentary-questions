@@ -33,11 +33,11 @@ ParliamentaryQuestions::Application.configure do
   # to log/logstash_development.json.
   # A side effect of this is that the normal log/development.log will just contain SQL actions and
   # no details of the controller action or parameters.
-      # config.logstasher.enabled = true
-      # config.logstasher.suppress_app_log = true
-      # config.logstasher.log_level = Logger::INFO
-      # config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
-      # config.logstasher.source = 'logstasher'
+      config.logstasher.enabled = true
+      config.logstasher.suppress_app_log = true
+      config.logstasher.log_level = Logger::INFO
+      config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
+      config.logstasher.source = 'logstasher'
   # End of custom logging block
 
 

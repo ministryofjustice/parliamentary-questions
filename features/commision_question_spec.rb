@@ -33,8 +33,9 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'Following the email link should let the AO accept the question' do
-    accept_assignment(ao)
-
+    visit_assignment_url(ao)
+    choose 'Accept'
+    click_on "Save"
     expect(page.title).to have_content("PQ assigned")
     expect(page).to have_content(/thank you for your response/i)
     expect(page).to have_content("PQ #{@pq.uin}")
