@@ -5,15 +5,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  if Rails.env.production? || Rails.env.test?
+  # if Rails.env.production? || Rails.env.test?
     rescue_from StandardError do |exception|
       if exception.is_a?(ActiveRecord::RecordNotFound)
-        page_not_found
+        page_not_found(exception)
       else
-        server_error
+        server_error(exception)
       end
     end
-  end
+  # end
 
   def set_am_host
     request = self.request
@@ -27,19 +27,20 @@ class ApplicationController < ActionController::Base
     users_path
   end
 
-  def page_not_found
+  def page_not_found(exception)
     update_page_title 'Not found (404)'
-    show_error_page_and_increment_statsd(404)
+    show_error_page_and_increment_statsd(404, exception)
   end
 
   def unauthorized
-    update_page_title 'Internal server error (500)'
+    update_page_title 'Unauthorized (401)'
     show_error_page_and_increment_statsd(401)
   end
 
-  def server_error
-    update_page_title 'Unauthorised (401)'
-    show_error_page_and_increment_statsd(500)
+
+  def server_error(exception)
+    update_page_title 'Server Error (500)'
+    show_error_page_and_increment_statsd(500, exception)
   end
 
   def update_page_title(prefix, suffix = "MOJ Parliamentary Questions")
@@ -64,12 +65,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def show_error_page_and_increment_statsd(err_number)
+  def show_error_page_and_increment_statsd(err_number, exception = nil)
     $statsd.increment("#{StatsHelper::PAGES_ERRORS}.#{err_number}")
     respond_to do |format|
       format.html { render file: "public/#{err_number}", status: err_number }
       format.all  { render nothing: true, status: err_number }
     end
-    LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}" }
+    backtrace = exception.nil? ? nil: exception.backtrace
+    message = exception.nil? ? nil: exception.message
+    LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}, message:#{message}, backtrace:#{backtrace}" }
   end
 end
