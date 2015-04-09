@@ -24,6 +24,10 @@ gem 'whenever', :require => false
 gem 'will_paginate'
 gem "select2-rails"
 
+# DB management requirements
+gem 'aws-s3'
+gem 'aws-sdk', '< 2.0'
+
 group :development do
   gem 'rails-erd'
   gem 'annotate'

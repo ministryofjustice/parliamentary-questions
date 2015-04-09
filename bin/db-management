@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+# Author: Lukasz Raczylo < lukasz@raczylo.com / lukasz.raczylo@digital.justice.gov.uk >
+# Goal: Automate database dump and restore between live and staging environments.
+
+# Db username: ENV['DB_USERNAME']
+# Db password: ENV['DB_PASSWORD'] || 'password'
+# Db host:     ENV['DB_HOST'] || 'localhost'
+# Db name:     ENV['DB_NAME'] || 'parliamentary-questions'
+
+require 'aws-s3'
+
+bucket = 'pq-db-dumps'
+datestamp = Time.now.strftime("%Y-%m-%d")
+backup_file = "/tmp/pq_db_dump_#{datestamp}.dbdump"
+file_name = File.basename(file_path)
+
+def upload_to_s3_storage(file_path)
+  AWS::S3::Base.establish_connection(:access_key_id => ENV['AWS_S3_KEY'],
+    :secret_access_key => ENV['AWS_S3_SECRET'])
+  AWS::S3::S3Object.store(file_name, File.open("#{file_path}"), bucket)
+end
+
+def download_from_s3_storage(file_path)
+  AWS::S3::Base.establish_connection(:access_key_id => ENV['AWS_S3_KEY'],
+    :secret_access_key => ENV['AWS_S3_SECRET'])
+  open(backup_file, 'w') do |f|
+    S3Object.stream(file_path, bucket) do |s|
+      f.write s
+    end
+  end
+end
+
+if ARGV[0] == 'backup'
+  %x(PGPASSWORD=#{ENV['DB_PASSWORD'] || 'password'} pg_dump -h #{ENV['DB_HOST'] || 'localhost'} -U #{ENV['DB_USERNAME'] || 'postgres' } -f #{backup_file} #{ENV['DB_NAME'] || 'parliamentary-questions'})
+  upload_to_s3_storage(backup_file)
+  File.delete backup_file
+elsif ARGV[0] == 'restore'
+  download_from_s3_storage(file_name)
+  %x(psql -f backup_file #{ENV['DB_NAME']})
+  File.delete(backup_file)
+else
+  puts "Usage: #{__FILE__} (backup|restore)"
+end

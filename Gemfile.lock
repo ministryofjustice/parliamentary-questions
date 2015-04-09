@@ -33,6 +33,15 @@ GEM
       rake (>= 0.8.7)
     arel (5.0.1.20140414130214)
     awesome_print (1.6.1)
+    aws-s3 (0.6.3)
+      builder
+      mime-types
+      xml-simple
+    aws-sdk (1.64.0)
+      aws-sdk-v1 (= 1.64.0)
+    aws-sdk-v1 (1.64.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt (3.1.7)
     bootstrap-will_paginate (0.0.10)
       momentjs-rails (~> 2.5.0)
@@ -233,6 +242,7 @@ GEM
     whenever (0.9.3)
       chronic (>= 0.6.3)
     will_paginate (3.0.7)
+    xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -242,6 +252,8 @@ PLATFORMS
 DEPENDENCIES
   annotate
   awesome_print
+  aws-s3
+  aws-sdk (< 2.0)
   bootstrap-will_paginate
   codeclimate-test-reporter
   database_cleaner
