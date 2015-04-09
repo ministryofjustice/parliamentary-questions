@@ -120,11 +120,11 @@ module DBHelpers
     ].map { |h| PressDesk.find_or_create_by(h) }
   end
 
-  def press_offices
+  def press_officers
     [
       {name: 'press officer 1', email: 'one@press.office.com', press_desk: press_desks[0] },
       {name: 'press officer 2', email: 'two@press.office.com', press_desk: press_desks[1] },
-    ].map { |h| PressOffice.find_or_create_by(h) }
+    ].map { |h| PressOfficer.find_or_create_by(h) }
   end
 
   def action_officers
