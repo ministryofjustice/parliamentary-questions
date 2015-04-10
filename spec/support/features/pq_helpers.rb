@@ -18,7 +18,7 @@ module Features
         action_officers.each do |ao|
           select ao.name, from: 'Action officer(s)'
         end
-        find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y')
+        find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y 12:00')
         click_on 'Commission'
       end
 
