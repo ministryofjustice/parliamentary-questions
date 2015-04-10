@@ -53,6 +53,30 @@
 
   $(document).ready(function () {
 
+    // if the page has rejection details, make them collapsible
+    // applies to /assignment and /watchlist/preview pages
+    $('.reveal > span').each(enableDetailsToggle);
+
+    // Form behaviour: checkbox and radio button CSS state changes
+    $(".block-label").each(function() {
+      // Add focus
+      $(".block-label input").focus(function() {
+        $("label[for='" + this.id + "']").addClass("add-focus");
+      }).blur(function() {
+        $("label").removeClass("add-focus");
+      });
+      // Add selected class
+      $('input:checked').parent().addClass('selected');
+    });
+
+    // Form behaviour: add/remove selected class
+    $('.block-label').find('input[type=radio], input[type=checkbox]').click(function() {
+      $('input:not(:checked)').parent().removeClass('selected');
+      $('input:checked').parent().addClass('selected');
+      $('.toggle-content').hide();
+      var target = $('input:checked').parent().attr('data-target');
+      $('#'+target).show();
+    });
 
     if (document.getElementById('assignment')) {
       // This is the assignment page. As it is typically seen on IE7
@@ -90,10 +114,6 @@
       $('.minister-select').select2({width:'250px'});
       $('.multi-select-action-officers').select2({width:'250px'});
       $('.single-select-dropdown').select2({width:'250px', allowClear: true});
-
-      // if the page has rejection details, make them collapsible
-      // applies to /assignment and /watchlist/preview pages
-      $('.reveal > span').each(enableDetailsToggle);
 
       // on the dashboard, enable the Commission button only if the required fields are non-empty
       $('.form-commission').each(function() {
@@ -151,27 +171,6 @@
       if ($('.trim_area').length) {
         trimLink.trimFileUpload();
       }
-
-      // Form behaviour: checkbox and radio button CSS state changes
-      $(".block-label").each(function() {
-        // Add focus
-        $(".block-label input").focus(function() {
-          $("label[for='" + this.id + "']").addClass("add-focus");
-        }).blur(function() {
-          $("label").removeClass("add-focus");
-        });
-        // Add selected class
-        $('input:checked').parent().addClass('selected');
-      });
-
-      // Form behaviour: add/remove selected class
-      $('.block-label').find('input[type=radio], input[type=checkbox]').click(function() {
-        $('input:not(:checked)').parent().removeClass('selected');
-        $('input:checked').parent().addClass('selected');
-        $('.toggle-content').hide();
-        var target = $('input:checked').parent().attr('data-target');
-        $('#'+target).show();
-      });
 
       // throw a google analytics event on trim link upload from dashboard
       $('.form-add-trim-link').on('submit', function() {
