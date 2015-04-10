@@ -7,14 +7,8 @@ class DashboardController < ApplicationController
 
   def index
     update_page_title "Dashboard"
-    load_pq_with_counts(NEW) { Pq.new_questions }
     @dashboard_state = NEW
-    LogStuff.metadata(:request_id => request.env['action_dispatch.request_id']) do
-      LogStuff.tag(:dashboard) do
-        LogStuff.info { "Showing dashboard" }
-        @questions = paginate_collection(Pq.new_questions)
-      end
-    end
+    load_pq_with_counts(@dashboard_state) { Pq.new_questions.sorted_for_dashboard }
   end
 
   def by_status
@@ -39,7 +33,7 @@ class DashboardController < ApplicationController
 
   def in_progress
     update_page_title "In progress"
-    load_pq_with_counts(IN_PROGRESS) { Pq.in_progress }
+    load_pq_with_counts(IN_PROGRESS) { Pq.in_progress.sorted_for_dashboard }
     render 'index'
   end
 
@@ -63,6 +57,6 @@ class DashboardController < ApplicationController
 
   def paginate_collection(pqs)
     page = params.fetch(:page, 1)
-    pqs.sorted_for_dashboard.paginate(page: page, per_page: PER_PAGE)
+    pqs.paginate(page: page, per_page: PER_PAGE)
   end
 end
