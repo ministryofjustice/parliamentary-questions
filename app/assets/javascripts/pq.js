@@ -1,14 +1,14 @@
 (function() {
   'use strict';
 
-  // make <detail> tags toggleable
-  var enableDetailsToggle = function(i, el){
-    var root = $(el),
-      content = root.next('.reveal > div');
+  // make detail blocks toggleable
+  var enableDetailsToggle = function(i, el) {
+    var $root = $(el);
+    var $content = $root.next('.reveal > div');
 
-    root.on('click', function(){
-      content.toggleClass('closed');
-      root.toggleClass('opened');
+    $root.on('click', function(){
+      $content.toggleClass('closed');
+      $root.toggleClass('opened');
     });
   };
 
@@ -16,39 +16,38 @@
   // the mandatory fields are filled out
   var setCommissionButtonStatus = function(form) {
     var enable = true;
-    var button = form.find('.commission-button');
+    var $button = form.find('.commission-button');
     form.find('select.required-for-commission,input.required-for-commission').each(function() {
       var value = $(this).val();
       var filled = (value !== "" && value !== null);
       enable = enable && filled;
     });
     if (enable) {
-      button.removeAttr('disabled');
+      $button.removeAttr('disabled');
     } else {
-      button.attr('disabled', 'disabled');
+      $button.attr('disabled', 'disabled');
     }
   };
 
-  // 3 functions below increment, decrement of change the number of New PQ's
+  // The 3 functions below increment, decrement or change the number of New PQ's
   // on the filter box
-  var incrementBadge = function(id_of_navpill) {
-    changeBadgeBy(id_of_navpill,1);
+  var incrementBadge = function(idOfNavpill) {
+    changeBadgeBy(idOfNavpill, 1);
   };
 
-  var decrementBadge = function(id_of_navpill) {
-    changeBadgeBy(id_of_navpill,-1);
+  var decrementBadge = function(idOfNavpill) {
+    changeBadgeBy(idOfNavpill, -1);
   };
 
-  var changeBadgeBy = function(id_of_navpill, val) {
-    var $badge = $(id_of_navpill).children('a').children('span');
-    var curval = parseInt($badge.text(),10);
-    var nextval = curval+val;
+  var changeBadgeBy = function(idOfNavpill, val) {
+    var $badge = $(idOfNavpill).children('a').children('span');
+    var curval = parseInt($badge.text(), 10);
+    var nextval = curval + val;
     if (nextval < 0) {
       nextval = 0;
     }
     $badge.text(nextval);
   };
-
 
   //==========================================================================
 
@@ -139,7 +138,6 @@
           }
           picker.val(nowString);
         }
-
         picker.datetimepicker('show');
       });
 
@@ -151,16 +149,16 @@
 
       // set up the trim file upload control on the dashboard
       if ($('.trim_area').length) {
-        trim_link.trimFileUpload();
+        trimLink.trimFileUpload();
       }
 
       // Form behaviour: checkbox and radio button CSS state changes
       $(".block-label").each(function() {
         // Add focus
         $(".block-label input").focus(function() {
-            $("label[for='" + this.id + "']").addClass("add-focus");
+          $("label[for='" + this.id + "']").addClass("add-focus");
         }).blur(function() {
-            $("label").removeClass("add-focus");
+          $("label").removeClass("add-focus");
         });
         // Add selected class
         $('input:checked').parent().addClass('selected');
@@ -189,5 +187,4 @@
       });
     }
   });
-
 }());
