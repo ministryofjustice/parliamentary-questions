@@ -127,7 +127,7 @@ class Pq < ActiveRecord::Base
     "Partial Disproportionate cost",
     "Referral"
   ]
-  validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true
+  validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true, allow_blank: true
 
   before_update :set_pod_waiting, :set_state_weight
 
