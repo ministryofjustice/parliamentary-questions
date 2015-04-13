@@ -25,11 +25,25 @@ module PqScopes
       .where("aopq.response = 'accepted' AND pd.deleted = false")
   end
 
+
+  # dashboard sorting order:
+  #
+  # - first PQs due today, ordered by state-weight in descending order
+  # - then PQs due tomorrow, ordered by state-weight in descending order
+  # - then PQs due day after tomorrow, ordered by state-weight in descending order, etc
+  # - then PQs due yesterday, ordered by state-weight in descending order
+  # - then PQs due the day before yesterday, ordered by state-weight in descending order
+  #
+  # We use Date.today.strftime('%Y-%m-%d') here instead of the postgres function CURRENT_DATE in order to be able to get
+  # consistent results using Timecop in the tests
+  #
   def sorted_for_dashboard
-    order("date_for_answer > CURRENT_DATE DESC")
-      .order("ABS(DATE_PART('day', date_for_answer::timestamp - CURRENT_DATE::timestamp)) ASC")
+    current_date = "'#{Date.today.strftime('%Y-%m-%d')}'"
+    order("date_for_answer >= #{current_date} DESC")
+      .order("ABS(DATE_PART('day', date_for_answer::timestamp - #{current_date}::timestamp)) ASC")
       .order('state_weight DESC')
       .order('updated_at ASC')
+      .order('id')
   end
 
   def new_questions
