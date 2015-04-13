@@ -43,6 +43,7 @@ module PqScopes
       .order("ABS(DATE_PART('day', date_for_answer::timestamp - #{current_date}::timestamp)) ASC")
       .order('state_weight DESC')
       .order('updated_at ASC')
+      .order('id')
   end
 
   def new_questions
