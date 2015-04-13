@@ -22,12 +22,12 @@ class DashboardController < ApplicationController
   end
 
   def transferred
-    load_pq_with_counts(NEW) { Pq.transferred }
+    load_pq_with_counts(NEW) { Pq.transferred.sorted_for_dashboard }
     render 'index'
   end
 
   def i_will_write
-    load_pq_with_counts(IN_PROGRESS) { Pq.i_will_write_flag }
+    load_pq_with_counts(IN_PROGRESS) { Pq.i_will_write_flag.sorted_for_dashboard }
     render 'index'
   end
 
