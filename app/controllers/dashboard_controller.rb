@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
   end
 
   def by_status
-    load_pq_with_counts(NEW) { Pq.by_status(params[:qstatus]) }
+    load_pq_with_counts(NEW) { Pq.by_status(params[:qstatus]).sorted_for_dashboard }
     update_page_title "#{params[:qstatus]}"
     render 'index'
   end
