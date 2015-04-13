@@ -56,6 +56,20 @@ describe DashboardController, type: :controller do
         end
       end
     end
+
+
+    describe 'GET by_status' do
+      it 'should return all questions in unassigned status sorted for dashboard order' do
+       Timecop.freeze(DateTime.new(2015, 5, 1, 14, 4, 45)) do
+          setup_questions
+          expect(PQUserFilter).to receive(:before).and_return(true)
+          expect(controller).to receive(:authenticate_user!).and_return(true)
+          get :by_status, qstatus: 'unassigned'
+          expect(response.status).to eq(200)
+          expect(assigns(:questions).map(&:uin)).to eq expected_order_of_unassigned_questions
+        end
+      end
+    end
   end
 end
 
@@ -82,6 +96,17 @@ def pq_dates
     Date.new(2015, 5, 3),
   ]
 end
+
+def expected_order_of_unassigned_questions
+  [
+    "UIN-0501:0-02",
+    "UIN-0502:0-03",
+    "UIN-0503:0-04",
+    "UIN-0430:0-01",
+    "UIN-0429:0-00"
+  ]
+end
+
 
 
 # UINS of expected results are UIN-<mmdd>:<state_weight>-<unique record id>
