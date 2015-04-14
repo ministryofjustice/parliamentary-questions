@@ -37,7 +37,7 @@ class PqFixer
         # for with minister 
         #   when there is a policy minister
         #     set cleared_by_policy_minister to answer_submitted
-        fix_cleared_by_policy_minister
+        fix_cleared_by_minister
       end
 
       @pq.update_state!
@@ -75,10 +75,15 @@ class PqFixer
     @pq.update_state!
   end
 
-  def fix_cleared_by_policy_minister
-    @pq.update!(cleared_by_policy_minister: @pq.answer_submitted)
+  def fix_cleared_by_minister
+    @pq.update!(cleared_by_answering_minister: @pq.answer_submitted)
+    log("cleared_by_answering_minister set to #{@pq.answer_submitted}")
+
+    if @pq.policy_minister
+      @pq.update!(cleared_by_policy_minister: @pq.answer_submitted)
+      log("cleared_by_policy_minister set to #{@pq.answer_submitted}")
+    end
     @pq.update_state!
-    log("cleared_by_policy_minister set to #{@pq.answer_submitted}")
   end
 
   def fix_uncommissioned
