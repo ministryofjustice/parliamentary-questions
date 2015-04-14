@@ -29,7 +29,7 @@ class PqStateComparer
 
   def display_results
     @results.each do |r|
-      puts "#ID: #{r.id}, UIN: #{r.uin}, STATE: #{r.state}  PROGRESS: #{r.progress.name}"
+      puts "#ID: #{r.id}, UIN: #{r.uin}, STATE: #{r.state}  PROGRESS: #{r.progress}"
     end
   end
 end
