@@ -69,6 +69,9 @@
 #
 
 class Pq < ActiveRecord::Base
+
+  belongs_to :progress
+
   has_paper_trail
 
   include PqFollowup
