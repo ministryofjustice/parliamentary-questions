@@ -2,7 +2,7 @@ require "#{Rails.root}/redeploy/pq_database_fixer.rb"
 
 class FixDbStates < ActiveRecord::Migration
   def up
-    PqDatabaseFixer.new.run
+    Redeploy::PqDatabaseFixer.new.run
   end
 
 
