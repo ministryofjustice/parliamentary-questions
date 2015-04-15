@@ -1,0 +1,21 @@
+prefix: TEST
+
+testers:
+  - name: Jeremy
+    email: jeremy.fox
+    domain: digital.justice.gov.uk
+  - name: Stephen
+    email: stephen.richards
+    domain: digital.justice.gov.uk
+  - name: Jon
+    email: jonathan.lind
+    domain: digital.justice.gov.uk
+  - user: Max
+    email: max.froumentin
+    domain: digital.justice.gov.uk
+  - user: Mel
+    email: mel.pierre
+    domain: digital.justice.gov.uk
+  - user: Rose
+    email: rose.waite
+    domain: digital.justice.gov.uk
