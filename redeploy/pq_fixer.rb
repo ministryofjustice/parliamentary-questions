@@ -110,7 +110,7 @@ module Redeploy
           deputy_director: dd_placeholder, 
           name:            'AO not known placeholder', 
           email:           'pqsupport@digital.justice.gov.uk', 
-          press_desk:      PressDesk.first,
+          press_desk:      pd_placeholder,
           deleted:         true
         )
     end
@@ -118,10 +118,32 @@ module Redeploy
     def dd_placeholder
       @dd_placeholder ||= 
         DeputyDirector.find_or_create_by(
-          division: Division.first,
+          division: div_placeholder,
           email:    'pqsupport@digital.justice.gov.uk',
           name:     'DD for AO not known placeholder',
           deleted:  true
+        )
+    end
+
+    def pd_placeholder
+      @pd_placeholder ||= 
+        PressDesk.find_or_create_by(
+          name: 'Unknown'
+        )
+    end
+
+    def dir_placeholder
+      @dir_placeholder ||= 
+        Directorate.find_or_create_by(
+          name: 'Unknown'
+        )
+    end
+
+    def div_placeholder
+      @div_placholder ||=
+        Division.find_or_create_by(
+          name:        'Unknown',
+          directorate: dir_placeholder
         )
     end
   end
