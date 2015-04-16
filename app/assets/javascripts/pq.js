@@ -1,59 +1,110 @@
 (function() {
   'use strict';
 
-  // make <detail> tags toggleable
-  var enableDetailsToggle = function(i, el){
-    var root = $(el),
-      content = root.next('.reveal > div');
+  // make detail blocks toggleable
+  var enableDetailsToggle = function(i, el) {
+    var $root = $(el);
+    var $content = $root.next('.reveal > div');
 
-    root.on('click', function(){
-      content.toggleClass('closed');
-      root.toggleClass('opened');
+    $root.on('click', function(){
+      $content.toggleClass('closed');
+      $root.toggleClass('opened');
     });
+  };
+
+  // check that the various fields on a single PQ on the dashboard are valid
+  var isValidDashboardPq = function($form) {
+    var validSoFar = true;
+    var $dateFields = $form.find('.datepicker input');
+    var $dateTimeFields = $form.find('.datetimepicker input');
+
+    // check if required fields have content
+    $form.find('select.required-for-commission,input.required-for-commission').each(function() {
+      var value = $(this).val();
+      var filled = (value !== "" && value !== null);
+      validSoFar = validSoFar && filled;
+    });
+
+    if (!validSoFar) { return false; }
+
+    // check if date fields have the correct format
+    $dateFields.each(function(index, field) {
+      if (!field.value.match(/^\s*[0-3]?[0-9]\/[01]?[0-9]\/(19|20)?[0-9]{2}\s*$/)) {
+        validSoFar = false;
+      }
+    });
+
+    if (!validSoFar) { return false; }
+
+    // check if the datetime fields have the correct format
+    $dateTimeFields.each(function(index, field) {
+      if (!field.value.match(/^\s*[0-3]?[0-9]\/[01]?[0-9]\/(19|20)?[0-9]{2}\s+[0-2]?[0-9]:[0-5][0-9]\s*$/)) {
+        validSoFar = false;
+      }
+    });
+
+    return validSoFar;
   };
 
   // on the Dashboard (/dashboard), only enable the Commission button if
-  // the mandatory fields are filled out
-  var setCommissionButtonStatus = function(form) {
-    var enable = true;
-    var button = form.find('.commission-button');
-    form.find('select.required-for-commission,input.required-for-commission').each(function() {
-      var value = $(this).val();
-      var filled = (value !== "" && value !== null);
-      enable = enable && filled;
-    });
-    if (enable) {
-      button.removeAttr('disabled');
+  // the mandatory fields are valid
+  var setCommissionButtonStatus = function($form) {
+    var $button = $form.find('.commission-button');
+    if (isValidDashboardPq($form)) {
+      $button.removeAttr('disabled');
     } else {
-      button.attr('disabled', 'disabled');
+      $button.attr('disabled', 'disabled');
     }
   };
 
-  // 3 functions below increment, decrement of change the number of New PQ's
+  // The 3 functions below increment, decrement or change the number of New PQ's
   // on the filter box
-  var incrementBadge = function(id_of_navpill) {
-    changeBadgeBy(id_of_navpill,1);
+  var incrementBadge = function(idOfNavpill) {
+    changeBadgeBy(idOfNavpill, 1);
   };
 
-  var decrementBadge = function(id_of_navpill) {
-    changeBadgeBy(id_of_navpill,-1);
+  var decrementBadge = function(idOfNavpill) {
+    changeBadgeBy(idOfNavpill, -1);
   };
 
-  var changeBadgeBy = function(id_of_navpill, val) {
-    var $badge = $(id_of_navpill).children('a').children('span');
-    var curval = parseInt($badge.text(),10);
-    var nextval = curval+val;
+  var changeBadgeBy = function(idOfNavpill, val) {
+    var $badge = $(idOfNavpill).children('a').children('span');
+    var curval = parseInt($badge.text(), 10);
+    var nextval = curval + val;
     if (nextval < 0) {
       nextval = 0;
     }
     $badge.text(nextval);
   };
 
-
   //==========================================================================
 
   $(document).ready(function () {
 
+    // if the page has rejection details, make them collapsible
+    // applies to /assignment and /watchlist/preview pages
+    $('.reveal > span').each(enableDetailsToggle);
+
+    // Form behaviour: checkbox and radio button CSS state changes
+    $(".block-label").each(function() {
+      // Add focus
+      $(".block-label input").focus(function() {
+        $("label[for='" + this.id + "']").addClass("add-focus");
+      }).blur(function() {
+        $("label").removeClass("add-focus");
+      });
+      // Add selected class
+      $('input:checked').parent().addClass('selected');
+    });
+
+    // Form behaviour: add/remove selected class
+    $('.block-label').find('input[type=radio], input[type=checkbox]').click(function() {
+      $('input:not(:checked)').parent().removeClass('selected');
+      $('input:checked').parent().addClass('selected');
+      $('.toggle-content').hide();
+      var target = $('input:checked').parent().attr('data-target');
+      $('#'+target).show();
+    });
 
     if (document.getElementById('assignment')) {
       // This is the assignment page. As it is typically seen on IE7
@@ -92,10 +143,6 @@
       $('.multi-select-action-officers').select2({width:'250px'});
       $('.single-select-dropdown').select2({width:'250px', allowClear: true});
 
-      // if the page has rejection details, make them collapsible
-      // applies to /assignment and /watchlist/preview pages
-      $('.reveal > span').each(enableDetailsToggle);
-
       // on the dashboard, enable the Commission button only if the required fields are non-empty
       $('.form-commission').each(function() {
        setCommissionButtonStatus($(this));
@@ -114,8 +161,14 @@
           // and decrement the number of unallocated
           decrementBadge('#db-filter-unalloc');
         }).on("ajax:error", function(e, xhr) {
-          console.log(xhr.responseText);
-        }).on('change', function(e) {
+          // the data passed to the backend was invalid
+          var errorText = xhr.status === 422 ?
+            "Invalid input. Please correct and commission again." :
+            "Internal error. Please try again in a few minutes or contact support.";
+          $(this).find('.commissioning-error-message')
+            .text(errorText)
+            .css('display', 'inline-block');
+          }).on('change', function(e) {
          // when the form is modified, check if all the mandatory fields are set
          // so that the Commission button is enabled
          setCommissionButtonStatus($(e.currentTarget));
@@ -139,7 +192,6 @@
           }
           picker.val(nowString);
         }
-
         picker.datetimepicker('show');
       });
 
@@ -151,29 +203,8 @@
 
       // set up the trim file upload control on the dashboard
       if ($('.trim_area').length) {
-        trim_link.trimFileUpload();
+        trimLink.trimFileUpload();
       }
-
-      // Form behaviour: checkbox and radio button CSS state changes
-      $(".block-label").each(function() {
-        // Add focus
-        $(".block-label input").focus(function() {
-            $("label[for='" + this.id + "']").addClass("add-focus");
-        }).blur(function() {
-            $("label").removeClass("add-focus");
-        });
-        // Add selected class
-        $('input:checked').parent().addClass('selected');
-      });
-
-      // Form behaviour: add/remove selected class
-      $('.block-label').find('input[type=radio], input[type=checkbox]').click(function() {
-        $('input:not(:checked)').parent().removeClass('selected');
-        $('input:checked').parent().addClass('selected');
-        $('.toggle-content').hide();
-        var target = $('input:checked').parent().attr('data-target');
-        $('#'+target).show();
-      });
 
       // throw a google analytics event on trim link upload from dashboard
       $('.form-add-trim-link').on('submit', function() {
@@ -189,5 +220,4 @@
       });
     }
   });
-
 }());
