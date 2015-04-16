@@ -10,8 +10,8 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require moment
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require jquery.iframe-transport
 //= require select2
 //= require_tree .
