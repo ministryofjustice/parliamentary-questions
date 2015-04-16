@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     else
       server_error(exception)
     end
+  end
 
   def set_am_host
     request = self.request
