@@ -1,5 +1,6 @@
 ParliamentaryQuestions::Application.routes.draw do
-  get 'ping' => 'ping#index'
+  get 'ping'        => 'ping#index'
+  get 'healthcheck' => 'healthcheck#index'
 
   resources :minister_contacts
   get 'minister_contacts/new/:id' => 'minister_contacts#new', :as => :new_minister_contact_withid
@@ -37,58 +38,57 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'admin' => 'admin#index'
 
-  get 'commission/:id' => 'commission#commission'
-  get 'commission_complete/:id' => 'commission#complete'
+  get 'commission/:id'               => 'commission#commission'
+  get 'commission_complete/:id'      => 'commission#complete'
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
-  post 'commission' => 'commission#commission', as: :commission
+  post 'commission'                  => 'commission#commission', as: :commission
 
   get '/', to: 'root#index', as: :root
-  get 'dashboard' => 'dashboard#index'
+  get 'dashboard'             => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'
 
   get 'search' => 'search#index'
 
-  get 'filter' => 'filter#index'
+  get 'filter'         => 'filter#index'
   get 'filter/:search' => 'filter#index'
 
-  get 'dashboard/search' => 'dashboard#search'
+  get 'dashboard/search'          => 'dashboard#search'
   post 'dashboard/search/:search' => 'dashboard#search'
 
-  get 'dashboard/by_status/:qstatus' => 'dashboard#by_status', as: :dashboard_by_status
+  get 'dashboard/by_status/:qstatus'             => 'dashboard#by_status', as: :dashboard_by_status
   get 'dashboard/in_progress_by_status/:qstatus' => 'dashboard#in_progress_by_status', as: :dashboard_in_progress_by_status
-  get 'dashboard/transferred' => 'dashboard#transferred', as: :dashboard_transferred
-  get 'dashboard/i_will_write' => 'dashboard#i_will_write', as: :dashboard_iww
+  get 'dashboard/transferred'                    => 'dashboard#transferred', as: :dashboard_transferred
+  get 'dashboard/i_will_write'                   => 'dashboard#i_will_write', as: :dashboard_iww
 
-  get 'assignment/:uin' => 'assignment#show', as: :assignment
+  get 'assignment/:uin'  => 'assignment#show', as: :assignment
   post 'assignment/:uin' => 'assignment#create'
 
-  get 'watchlist/dashboard' => 'watchlist_dashboard#index'
-  get 'watchlist/preview' => 'watchlist_dashboard#preview'
+  get 'watchlist/dashboard'   => 'watchlist_dashboard#index'
+  get 'watchlist/preview'     => 'watchlist_dashboard#preview'
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
 
-  # TODO I think this is unused code
   get 'find_action_officers' => 'action_officers#find'
 
   get 'finance/questions' => 'finance#questions'
-  post 'finance/confirm' => 'finance#confirm'
+  post 'finance/confirm'  => 'finance#confirm'
 
-  get 'transferred/new' => 'transferred#new'
+  get 'transferred/new'     => 'transferred#new'
   post 'transferred/create' => 'transferred#create'
 
   get 'i_will_write/create' => 'i_will_write#create'
 
   get 'send_accept_reject_reminder/:id' => 'action_officer_reminder#accept_reject'
-  get 'send_draft_reminder/:id' => 'action_officer_reminder#send_draft'
+  get 'send_draft_reminder/:id'         => 'action_officer_reminder#send_draft'
 
   match 'export/pq.csv' => 'export#csv', via: [:get, :post]
-  get 'export' => 'export#index'
+  get 'export'          => 'export#index'
 
   match 'export_pod/pq_pod.csv' => 'export#csv_for_pod', via: [:get, :post]
-  get 'export_pod' => 'export#index_for_pod'
+  get 'export_pod'              => 'export#index_for_pod'
 
-  get 'reports/ministers_by_progress' => 'reports#ministers_by_progress'
+  get 'reports/ministers_by_progress'  => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
-  match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
+  match 'reports/filter_all'           => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
   match "*path", to: "application#page_not_found", via: :all
 
   if Rails.env.production?
