@@ -30,5 +30,13 @@ module HealthCheck
       #
       @errors
     end
+
+    def log_unknown_error(e)
+      #
+      # Logs errors that are not component specific
+      # StandardError -> Null
+      #
+      @errors << "Error: #{e.message}\nDetails:#{e.backtrace}"
+    end
   end
 end

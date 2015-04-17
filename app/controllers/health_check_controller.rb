@@ -6,9 +6,9 @@ class HealthCheckController  < ApplicationController
       report = HealthCheckService.default.report
 
       if report.status == '200'
-        render(json: report.messages)
+        render(json: report)
       else
-        render(json: report.messages, status: '500')
+        render(json: report, status: '500')
       end
     end
   end

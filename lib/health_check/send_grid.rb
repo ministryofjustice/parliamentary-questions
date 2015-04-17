@@ -28,6 +28,9 @@ module HealthCheck
     rescue *ERRS_TO_CATCH => e
       log_error('Access', e)
       false
+    rescue => e
+      log_unknown_error(e)
+      false
     end
 
     def accessible?
@@ -43,6 +46,9 @@ module HealthCheck
 
     rescue *ERRS_TO_CATCH => e
       log_error('Authentication', e)
+      false
+    rescue => e
+      log_unknown_error(e)
       false
     end
 
