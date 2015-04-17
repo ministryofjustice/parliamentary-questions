@@ -3,6 +3,10 @@ module HealthCheck
 
     def accessible?
       ActiveRecord::Base.connected? || log_error && false
+
+    rescue => e
+      log_unknown_error(e)
+      false
     end
 
     alias_method :available?, :accessible?

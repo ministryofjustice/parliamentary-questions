@@ -40,7 +40,18 @@ describe HealthCheck::PqaApi do
         .and_raise(Errno::ECONNREFUSED)
 
       pqa.available?
+
       expect(pqa.error_messages).to eq ['PQA API Access Error: Connection refused']
+    end
+
+    it 'returns an error an backtrace for errors not specific to a component' do
+      allow_any_instance_of(Net::HTTP)
+        .to receive(:request)
+        .and_raise(StandardError)
+
+      pqa.available?
+      
+      expect(pqa.error_messages.first).to match /Error: StandardError\nDetails/
     end
   end
 end

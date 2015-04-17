@@ -12,16 +12,15 @@ class HealthCheckService
   end
 
   def report
-    if @components.all?(&:available?) && @components.all?(&:accessible?)
-      HealthCheckReport.new(
-        '200', 
-        'All Components OK'
-      )
+    @components.all?(&:available?) 
+    @components.all?(&:accessible?)
+
+    errors = @components.map(&:error_messages).flatten
+
+    if errors.empty?
+      HealthCheckReport.new('200', 'All Components OK')
     else
-      HealthCheckReport.new(
-        '500',
-        @components.map(&:error_messages).flatten
-      )
+      HealthCheckReport.new('500', errors)
     end
   end
 

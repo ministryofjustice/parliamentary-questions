@@ -37,5 +37,12 @@ describe HealthCheck::Database do
         'on localhost using postgresql'
       ]
     end
+
+    it 'returns an error an backtrace for errors not specific to a component' do
+      allow(ActiveRecord::Base).to receive(:connected?).and_raise(StandardError)
+      db.available?
+
+      expect(db.error_messages.first).to match /Error: StandardError\nDetails/
+    end
   end
 end

@@ -44,12 +44,18 @@ describe HealthCheck::SendGrid do
     it 'returns the exception messages if there is an error accessing the component' do
       allow(Net::SMTP).to receive(:start).and_yield(smtp)
       allow(smtp).to receive(:authenticate).and_raise(Net::SMTPAuthenticationError)
-
       send_grid.accessible?
 
       expect(send_grid.error_messages).to eq(
         ['SendGrid Authentication Error: Net::SMTPAuthenticationError']
       )
+    end
+
+    it 'returns an error an backtrace for errors not specific to a component' do
+      allow(Net::SMTP).to receive(:start).and_raise(StandardError)
+      send_grid.accessible?
+
+      expect(send_grid.error_messages.first).to match /Error: StandardError\nDetails/
     end
   end
 end
