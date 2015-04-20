@@ -19,3 +19,6 @@ testers:
   - user: Rose
     email: rose.waite
     domain: digital.justice.gov.uk
+  - user: Ahana
+    email: ahana.datta
+    domain: digital.justice.gov.uk
