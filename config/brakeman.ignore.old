@@ -1,0 +1,25 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "0b238e6a2d9fa09e875c971e7bf8a12e07f06d00a1b579f3a97040ffe54b7b11",
+      "message": "Possible command injection",
+      "file": "lib/pqa/mock_api_server_runner.rb",
+      "line": 20,
+      "link": "http://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Process.spawn(\"bundle exec rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}\", :chdir => (CWD))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PQA::MockApiServerRunner",
+        "method": "start"
+      },
+      "user_input": "PORT",
+      "confidence": "Medium",
+      "note": ""
+    }
+  ],
+  "updated": "2015-04-17 15:51:05 +0100",
+  "brakeman_version": "3.0.2"
+}
