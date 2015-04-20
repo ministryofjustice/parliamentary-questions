@@ -9,8 +9,6 @@
 .idea
 .project
 .rvmrc
-postgres.log
-brakeman-output.tabs
 coverage
 log
 public/assets

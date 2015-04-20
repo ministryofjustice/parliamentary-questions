@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
     users_path
   end
 
-  def page_not_found(exception = nil)
+  def page_not_found(exception)
     update_page_title 'Not found (404)'
     show_error_page_and_increment_statsd(404, exception)
   end
