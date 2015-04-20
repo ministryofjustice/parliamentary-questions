@@ -6,12 +6,16 @@ namespace :db do
       require "#{Rails.root}/lib/rake_task_helpers/test_user_generator.rb"
 
       if HostEnv.is_staging?
-        RakeTaskHelpers::DBSanitizer.new.run!
-        puts '[+] DB sanitized'
+        begin
+          RakeTaskHelpers::DBSanitizer.new.run!
+          puts '[+] DB sanitized'
 
-        RakeTaskHelpers::TestUserGenerator.from_config.run!
-        puts '[+] Test users created'
-        puts '[+] Done'
+          RakeTaskHelpers::TestUserGenerator.from_config.run!
+          puts '[+] Test users created'
+          puts '[+] Done'
+        rescue => err
+          DbSyncMailer.notify_fail(err.message).deliver
+        end
       else
         puts '[-] This task should only be run in the staging environment'
         puts '[-] Database has NOT been modified'
