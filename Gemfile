@@ -46,4 +46,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'timecop'
+  gem "brakeman", :require => false
 end
