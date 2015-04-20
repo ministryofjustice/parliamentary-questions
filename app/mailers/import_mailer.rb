@@ -10,27 +10,4 @@ class ImportMailer < PQBaseMailer
     @report = report
     mail(to: Settings.mail_tech_support, subject: prefix('API import succeeded'))
   end
-
-  private
-
-  def prefix(subject)
-    "[#{app_env}][#{app_version}] #{subject}"
-  end
-
-  def app_version
-    ENV.fetch('APPVERSION', 'version-unknown')
-  end
-
-  def app_env
-    case ENV['SENDING_HOST']
-    when 'trackparliamentaryquestions.service.gov.uk'
-      'production'
-    when 'staging.pq.dsd.io'
-      'staging'
-    when 'dev.pq.dsd.io'
-      'dev'
-    else
-      'env-unknown'
-    end
-  end
 end
