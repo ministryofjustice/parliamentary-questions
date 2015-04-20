@@ -20,7 +20,7 @@ end
 # Sanitize imported staging data
 # Follows import job staging -> production run via crontab
 # 
-every 1.day, :at => '11:59 pm' do
+every 1.day, :at => '1:00 am' do
   rake 'db:staging:sync'
 end
 
