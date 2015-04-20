@@ -19,7 +19,29 @@ class PQBaseMailer < ActionMailer::Base
         end
       end
     end
-
     m
+  end
+
+  protected
+
+  def prefix(subject)
+    "[#{app_env}][#{app_version}] #{subject}"
+  end
+
+  def app_version
+    ENV.fetch('APPVERSION', 'version-unknown')
+  end
+
+  def app_env
+    case ENV['SENDING_HOST']
+    when 'trackparliamentaryquestions.service.gov.uk'
+      'production'
+    when 'staging.pq.dsd.io'
+      'staging'
+    when 'dev.pq.dsd.io'
+      'dev'
+    else
+      'env-unknown'
+    end
   end
 end

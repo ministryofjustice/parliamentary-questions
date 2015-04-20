@@ -1,0 +1,8 @@
+Alert
+=====
+
+The scheduled sanitization of the staging database failed with the following error:
+
+<%= @err_msg %>
+
+This means that the staging environment contains production email addresses. Real emails will be sent to real users during testing if this is not rectified Please check the logs to diagnose the issue and ensure the sanitization is run manually.
