@@ -869,6 +869,14 @@ textarea.form-control {
 
 #sign_in { margin: 30px 0px; }
 
+.staging_banner {
+  background-color: $red;
+  text-align: center;
+  padding: 1em;
+  height: auto;
+  color: white;
+  font-weight:bold;
+}
 
 // selectors / classes /ids not found....
 // .no-indent { margin-left: -2.1em; }  not being used ? was in global
