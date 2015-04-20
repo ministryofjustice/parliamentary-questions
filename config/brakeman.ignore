@@ -18,8 +18,27 @@
       "user_input": "PORT",
       "confidence": "Medium",
       "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "85f1e78f615519e52063c7a5da162e1f24780ece8b0ff3c08ca6a610380ff338",
+      "message": "Possible SQL injection",
+      "file": "lib/rake_task_helpers/db_sanitizer.rb",
+      "line": 24,
+      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"update #{table} set email='pqsupport+#{abbreviation}' || id || '@digital.justice.gov.uk';\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RakeTaskHelpers::DBSanitizer",
+        "method": "sanitize_email"
+      },
+      "user_input": "table",
+      "confidence": "Medium",
+      "note": ""
     }
   ],
-  "updated": "2015-04-17 15:51:05 +0100",
+  "updated": "2015-04-20 14:09:24 +0100",
   "brakeman_version": "3.0.2"
 }
