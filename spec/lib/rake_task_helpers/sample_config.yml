@@ -1,6 +1,11 @@
 prefix: TEST
 
-testers:
+full_testers:
   - name: tester
     email: tester1
     domain: digital.justice.gov.uk
+
+restricted_testers:
+  - name: tester2
+    email: tester2
+    domain: justice.gsi.gov.uk

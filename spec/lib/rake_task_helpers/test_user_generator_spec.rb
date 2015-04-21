@@ -12,7 +12,7 @@ describe RakeTaskHelpers::TestUserGenerator do
   it 'should load data from the provided config file' do
     tester = gen.testers.first
 
-    expect(gen.prefix).to eq 'TEST'
+    expect(tester.prefix).to eq 'TEST'
     expect(tester.name).to eq 'tester'
     expect(tester.email).to eq 'tester1'
     expect(tester.domain).to eq 'digital.justice.gov.uk'
@@ -21,6 +21,10 @@ describe RakeTaskHelpers::TestUserGenerator do
   it 'should create the records for a tester in the database' do
     gen.run!
 
+    # Restricted Testers
+    expect(User.find_by(name: 'TEST - tester2').email).to eq 'tester2@justice.gsi.gov.uk'
+
+    # Full Testers
     expect(User.find_by(name: 'TEST - tester').email).to eq 'tester1+u@digital.justice.gov.uk'
     expect(Minister.find_by(name: 'TEST - tester').title).to eq 'TEST'
     expect(PressOfficer.find_by(name: 'TEST - tester').email).to eq 'tester1+po@digital.justice.gov.uk'

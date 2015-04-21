@@ -15,7 +15,7 @@ class HTTPClient
     req  = build_request(method, uri, body)
     http = handle_https(uri, Net::HTTP.new(uri.hostname, uri.port))
     res  = http.request(req)
-
+    
     case res.code
     when /^2/
       res
