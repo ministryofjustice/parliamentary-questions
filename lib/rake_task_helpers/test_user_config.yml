@@ -1,6 +1,6 @@
 prefix: TEST
 
-testers:
+full_testers:
   - name: Jeremy
     email: jeremy.fox
     domain: digital.justice.gov.uk
@@ -10,15 +10,23 @@ testers:
   - name: Jon
     email: jonathan.lind
     domain: digital.justice.gov.uk
-  - user: Max
+  - name: Max
     email: max.froumentin
     domain: digital.justice.gov.uk
-  - user: Mel
+  - name: Mel
     email: mel.pierre
     domain: digital.justice.gov.uk
-  - user: Rose
+  - name: Rose
     email: rose.waite
     domain: digital.justice.gov.uk
-  - user: Ahana
+  - name: Ahana
     email: ahana.datta
     domain: digital.justice.gov.uk
+
+restricted_testers:
+  - name: Jake
+    email: jake.thirkell
+    domain: justice.gsi.gov.uk
+  - name: Marcus
+    email: marcus.tucker-cooper
+    domain: justice.gsi.gov.uk
