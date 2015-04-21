@@ -6,6 +6,7 @@ class DashboardController < ApplicationController
   PER_PAGE    = 15
 
   def index
+    puts "++++++++++++ INDEX ++++++++ #{__FILE__}::#{__LINE__} ++++++++\n"
     update_page_title "Dashboard"
     @dashboard_state = NEW
     load_pq_with_counts(@dashboard_state) { Pq.new_questions.sorted_for_dashboard }
