@@ -1,19 +1,18 @@
 class HealthCheckService
-  def self.default
-    new([
-      HealthCheck::Database.new,
-      HealthCheck::SendGrid.new,
-      HealthCheck::PqaApi.new
-    ])
-  end
 
-  def initialize(components)
-    @components = components
+
+  def initialize
+    @components = []
+    @components << HealthCheck::Database.new
+    @components << HealthCheck::SendGrid.new
+    @components << HealthCheck::PqaApi.new if HealthCheck::PqaApi.time_to_run?
   end
 
   def report
-    @components.all?(&:available?) 
-    @components.all?(&:accessible?)
+    @components.each do |component|
+      component.available?
+      component.accessible?
+    end
 
     errors = @components.map(&:error_messages).flatten
 
