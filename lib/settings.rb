@@ -59,4 +59,8 @@ module Settings
   def ga_tracker_id
     ENV.fetch('GA_TRACKER_ID', DEFAULT_GA_TRACKER_ID)
   end
+
+  def excepted_from_ssl
+    @h['excepted_from_ssl']
+  end
 end
