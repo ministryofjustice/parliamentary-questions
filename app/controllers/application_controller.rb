@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   
   # SSL Production Config
-  if Rails.env.production?
+  if Rails.env.production? && !HostEnv.is_dev?
     # Force SSL except in excepted routes
     force_ssl unless: :ssl_excepted?
     # Reset session when hitting excepted routes so as not to leak cookie
