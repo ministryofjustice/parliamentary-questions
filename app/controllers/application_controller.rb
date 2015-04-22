@@ -1,11 +1,17 @@
 class ApplicationController < ActionController::Base
   before_action :set_am_host
   before_action :set_page_title
-  before_action :force_ssl_unless_excepted
 
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
   
+  # SSL Production Config
+  if Rails.env.production?
+    # Force SSL except in excepted routes
+    force_ssl unless: :ssl_excepted?
+    # Reset session when hitting excepted routes so as not to leak cookie
+    before_action :reset_session, if: :ssl_excepted?
+  end
 
   rescue_from StandardError do |exception|
     if exception.is_a?(ActiveRecord::RecordNotFound)
@@ -48,19 +54,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def force_ssl_unless_excepted
-    if Rails.env.production?
-      # SSL Production Config
-      if ssl_excepted?
-        # Reset session when hitting excepted routes so as not to leak cookie
-        reset_session
-      else
-        # Force SSL except in excepted routes
-        force_ssl
-      end
-    end
-  end
 
   def ssl_excepted?
     Settings.excepted_from_ssl.any? do |excepted_path| 
