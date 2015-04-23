@@ -3,7 +3,7 @@ class HealthCheckController  < ApplicationController
 
   def index
     Rails.logger.silence do
-      report = HealthCheckService.default.report
+      report = HealthCheckService.new.report
 
       if report.status == '200'
         render(json: report)

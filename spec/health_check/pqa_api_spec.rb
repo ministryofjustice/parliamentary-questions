@@ -3,6 +3,24 @@ require 'feature_helper'
 describe HealthCheck::PqaApi do
   let(:pqa) { HealthCheck::PqaApi.new }
 
+
+  describe '.time_to_run?' do
+    it 'should be true if the timestamp file does not exist' do
+      delete_timestamp_file
+      expect(HealthCheck::PqaApi.time_to_run?).to be true
+    end
+
+    it 'should be true if the timestamp file contains a time more than 15 minutes ago' do
+      Timecop.freeze(16.minutes.ago) { HealthCheck::PqaApi.new }
+      expect(HealthCheck::PqaApi.time_to_run?).to be true
+    end
+
+    it 'should be false if the timestamp file contains a time less than 15 minutes ago' do
+      Timecop.freeze(14.minutes.ago) { HealthCheck::PqaApi.new }
+      expect(HealthCheck::PqaApi.time_to_run?).to be false
+    end
+  end
+
   context '#available?' do
     it 'returns true if the parliamentary questions API is available' do
       expect(pqa).to be_available
@@ -53,5 +71,12 @@ describe HealthCheck::PqaApi do
       
       expect(pqa.error_messages.first).to match /Error: StandardError\nDetails/
     end
+  end
+end
+
+
+def delete_timestamp_file
+  if File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
+    File.unlink(HealthCheck::PqaApi::TIMESTAMP_FILE)
   end
 end
