@@ -3,7 +3,7 @@ mail_reply_to: pqs@justice.gsi.gov.uk
 mail_tech_support: pqsupport@digital.justice.gov.uk
 http_client_timeout: 20
 commission_mail_from: PQ Team <pqs@justice.gsi.gov.uk>
-healthceck_pqa_api_interval: 15               # minimum interval between pqa API healthchecks in minutes
+healthcheck_pqa_api_interval: 15               # minimum interval between pqa API healthchecks in minutes
 
 
 excepted_from_ssl:
