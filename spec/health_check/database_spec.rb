@@ -10,7 +10,6 @@ describe HealthCheck::Database do
 
     it 'returns false if the database is not available' do
       allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
-
       expect(db).not_to be_available
     end
   end
@@ -21,9 +20,9 @@ describe HealthCheck::Database do
     end
 
     it 'returns false if the database is not accessible with our credentials' do
-      allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
-
-      expect(db).not_to be_accessible
+      allow(db).to receive(:execute_simple_select_on_database).and_raise(PG::ConnectionBad.new('Database has gone away'))
+      result = db.accessible?
+      expect(result).to be false
     end
   end
 

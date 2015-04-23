@@ -63,4 +63,8 @@ module Settings
   def excepted_from_ssl
     @h['excepted_from_ssl']
   end
+
+  def healthceck_pqa_api_interval
+    @h['healthceck_pqa_api_interval']
+  end
 end

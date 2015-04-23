@@ -2,16 +2,32 @@ module HealthCheck
   class Database < Component
 
     def accessible?
-      ActiveRecord::Base.connected? || log_error && false
-
-    rescue => e
-      log_unknown_error(e)
-      false
+      begin
+        tuple = execute_simple_select_on_database
+        result = tuple.to_a == [{"result"=>"1"}]
+      rescue => e
+        log_unknown_error(e)
+        result = false
+      end
+      result
     end
 
-    alias_method :available?, :accessible?
+    def available?
+      begin
+        result = ActiveRecord::Base.connected?
+        log_error unless result == true
+      rescue => e
+        log_unknown_error(e)
+        result = false
+      end
+      result
+    end
 
     private
+
+    def execute_simple_select_on_database
+      tuple = ActiveRecord::Base.connection.execute('select 1 as result') 
+    end
 
     def log_error
       @errors = [ 
@@ -23,5 +39,6 @@ module HealthCheck
     def config
       OpenStruct.new(Rails.configuration.database_configuration[Rails.env])
     end 
+    
   end
 end
