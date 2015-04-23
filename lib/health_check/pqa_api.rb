@@ -51,7 +51,7 @@ module HealthCheck
     private
 
     def self.get_minimum_interval_in_seconds
-      Settings.healthceck_pqa_api_interval * 60
+      Settings.healthcheck_pqa_api_interval * 60
     end
 
     def self.get_time_last_run
