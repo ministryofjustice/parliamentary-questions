@@ -50,7 +50,7 @@ describe Settings do
 
     describe '.commission_mail_from' do
       it 'should return the value from the file' do
-        expect(Settings.commission_mail_from).to eq 'PQ Team <pqs@justice.gsi.gov.uk>'
+        expect(Settings.commission_mail_from).to eq 'PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>'
       end
     end
 
