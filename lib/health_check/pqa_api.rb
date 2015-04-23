@@ -67,7 +67,7 @@ module HealthCheck
 
     def record_time_ran
       tmpdir = "#{Rails.root}/tmp"
-      Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir
+      Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
       File.open(TIMESTAMP_FILE, 'w') do |fp|
         fp.puts Time.now.to_i
       end
