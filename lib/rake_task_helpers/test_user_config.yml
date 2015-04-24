@@ -22,6 +22,9 @@ full_testers:
   - name: Ahana
     email: ahana.datta
     domain: digital.justice.gov.uk
+  - name: Martin Oliver
+    email: martin.oliver
+    domain: digital.justice.gov.uk
 
 restricted_testers:
   - name: Jake
