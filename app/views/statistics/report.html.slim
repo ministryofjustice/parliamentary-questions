@@ -1,0 +1,19 @@
+div#minister-report
+  h1= @report.title
+  - unless @report.rows.empty?
+    table.table.table-hover
+      thead
+        tr
+          - for header in @report.headers
+            th.table-cell-centered 
+              = header
+
+      tbody
+        - for row in @report.rows do
+          tr data="bucket-#{row.start_date}"
+            td.table-cell-centered = row.start_date
+            td.table-cell-centered = row.data
+            td.table-cell-centered = row.arrow
+  - else
+    p
+      | No results available |
