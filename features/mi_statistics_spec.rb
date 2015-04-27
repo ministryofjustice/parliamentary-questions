@@ -1,7 +1,7 @@
 require 'feature_helper'
 
 def date
-  Date.today - PqStatistics::DATE_INTERVAL.days
+  PqStatistics::BUS_DAY_INTERVAL.business_days.before(Date.today)
 end
 
 feature 'Statistics: PQs answered on time' do
@@ -51,18 +51,18 @@ end
 
 feature 'Statistics: Time to assign PQs' do
   before(:each) do
-    Timecop.freeze(Date.yesterday) do
+    Timecop.freeze(1.business_days.before(Date.today)) do
       pqs = (1..4).to_a.map{ FactoryGirl.create(:not_responded_pq) }
 
       pqs.first(2).each do |pq| 
         pq.update(
-          created_at: Date.today - 1.days
+          created_at: 1.business_days.before(Date.today)
         )
       end
 
       pqs.last(2).each do |pq| 
         pq.update(
-          created_at: Date.today - 2.days
+          created_at: 2.business_days.before(Date.today)
         )
       end
     end
@@ -75,7 +75,7 @@ feature 'Statistics: Time to assign PQs' do
     expect(page).to have_content 'PQ Statistics: Assignment'
 
     within "tr[data='bucket-" + date.to_s(:date) + "']" do
-      expect(page).to have_content('36.0')
+      expect(page).to have_content('15.0')
       expect(page).to have_content('↑')
     end
   end
@@ -85,19 +85,19 @@ feature 'Statistics: Time to assign PQs' do
     visit '/statistics/time_to_assign.json'
 
     expect(page).to have_content(
-      "{\"start_date\":\"#{date.to_s(:date)}\",\"data\":\"36.0\",\"arrow\":\"↑\"}"
+      "{\"start_date\":\"#{date.to_s(:date)}\",\"data\":\"15.0\",\"arrow\":\"↑\"}"
     )
   end
 end
 
 feature 'Statistics: Time for AO response' do
   before(:each) do
-    Timecop.freeze(Date.yesterday) do
+    Timecop.freeze(1.business_days.before(Date.today)) do
       pqs = (1..4).to_a.map{ FactoryGirl.create(:draft_pending_pq) }
 
       pqs.first(2).each do |pq| 
         pq.action_officers_pqs.first.update(
-          created_at: Date.today - 2.days
+          created_at: 2.business_days.before(Date.today)
         )
       end
     end
@@ -110,7 +110,7 @@ feature 'Statistics: Time for AO response' do
     expect(page).to have_content 'PQ Statistics: Action Officer response'
 
     within "tr[data='bucket-" + date.to_s(:date) + "']" do
-      expect(page).to have_content('24.0')
+      expect(page).to have_content('10.0')
       expect(page).to have_content('↑')
     end
   end
@@ -120,7 +120,7 @@ feature 'Statistics: Time for AO response' do
     visit '/statistics/ao_response_time.json'
 
     expect(page).to have_content(
-      "{\"start_date\":\"#{date.to_s(:date)}\",\"data\":\"24.0\",\"arrow\":\"↑\"}"
+      "{\"start_date\":\"#{date.to_s(:date)}\",\"data\":\"10.0\",\"arrow\":\"↑\"}"
     )
   end
 end

@@ -34,7 +34,7 @@ class StatisticsController < ApplicationController
   def render_report(calculator, presenter)
     @data   = calculator.calculate
     @report = presenter.build(@data)
-    
+
     respond_to do |format|
       format.html { render 'report'           }
       format.json { render json: @report.rows }
