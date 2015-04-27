@@ -10,7 +10,7 @@ module PqStatistics
     def calculate
       responses = 
         pq_data.map do |commissioned, responded|
-          PqResponse.new(responded, responded - commissioned)
+          PqResponse.new(responded, delta_t(commissioned, responded))
         end
 
       result_by_bucket(responses, AoResponseTimeBucket.build_from(bucket_dates))
@@ -19,8 +19,10 @@ module PqStatistics
     private
 
     def pq_data
-      ActionOfficersPq.where('created_at >= ?', bucket_dates.last) 
-                      .pluck(:created_at, :updated_at)
+      ActionOfficersPq
+        .where('created_at >= ?', bucket_dates.last) 
+        .pluck(:created_at, :updated_at)
+        .map { |created, updated| [ created.to_time, updated.to_time ] }
     end
 
     PqResponse = Struct.new(:date, :time_taken)   

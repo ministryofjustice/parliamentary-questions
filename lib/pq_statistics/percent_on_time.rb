@@ -10,7 +10,7 @@ module PqStatistics
     def calculate
       submissions = 
         pq_data.map do |submitted, deadline|
-          PqSubmission.new(submitted, (submitted <= deadline))
+          PqSubmission.new(submitted, (submitted <= deadline.to_datetime.end_of_day))
         end
 
       result_by_bucket(submissions, OnTimeBucket.build_from(bucket_dates))

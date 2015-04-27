@@ -26,23 +26,23 @@ module PqStatistics
       # Return pq id, pq created_at and count of ao_pq groups
       #
       psql = 
-        "select " +
+        "SELECT " +
           "agg.pq_id, agg.pq_created_at, sum(agg.num_ao_pqs) " +
-        "from ( " +
-          "select " +
+        "FROM ( " +
+          "SELECT " +
             "pq.id as pq_id, " +
-            "count(*) as num_ao_pqs, " +
+            "COUNT(*) as num_ao_pqs, " +
             "pq.created_at as pq_created_at, " +
-            "date_trunc('minute', aopq.created_at) as aopq_created_at " +
-          "from pqs  pq " +
-          "inner join action_officers_pqs aopq on (pq.id = aopq.pq_id) " +
-          "where pq.created_at is not null " +
-          "and aopq.created_at is not null " +
-          "and pq.created_at >= '#{bucket_dates.last.strftime('%Y-%m-%d')}'::date " +
-          "group by pq.id, pq.created_at, aopq_created_at " +
-          "order by pq.id desc " +
-        ") as agg " +
-        "group by agg.pq_id, agg.pq_created_at;" 
+            "DATE_TRUNC('minute', aopq.created_at) as aopq_created_at " +
+          "FROM pqs  pq " +
+          "INNER JOIN action_officers_pqs aopq on (pq.id = aopq.pq_id) " +
+          "WHERE pq.created_at is NOT NULL " +
+          "AND aopq.created_at is NOT NULL " +
+          "AND pq.created_at >= '#{bucket_dates.last.strftime('%Y-%m-%d')}'::date " +
+          "GROUP BY pq.id, pq.created_at, aopq_created_at " +
+          "ORDER BY pq.id desc " +
+        ") AS agg " +
+        "GROUP BY agg.pq_id, agg.pq_created_at;" 
 
       result_set = ActiveRecord::Base.connection.execute(psql).values
       result_set.map{ |_, date, count| [ DateTime.parse(date), count.to_i - 1 ] }

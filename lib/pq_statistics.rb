@@ -1,9 +1,13 @@
+require 'business_time'
+#
+# Calculates statistics for MI reporting
+#
 module PqStatistics
   #
-  # Calculates statistics for MI reporting
+  # Define bucket intervals and quantity
   #
-  DATE_INTERVAL = 7
-  WINDOW        = 24 * DATE_INTERVAL
+  BUS_DAY_INTERVAL = 5
+  WINDOW           = 24 * BUS_DAY_INTERVAL
 
   private
 
@@ -29,11 +33,18 @@ module PqStatistics
     end
   end
 
+  def delta_t(time_1, time_2)
+    Time
+      .first_business_day(time_1)
+      .business_time_until(time_2)
+      .to_f
+  end
+
   def bucket_dates
     @bucket_dates ||= 
-      (DATE_INTERVAL..WINDOW)
-        .step(DATE_INTERVAL)
-        .map{ |i| bucket_date_0 - i.days }
+      (BUS_DAY_INTERVAL..WINDOW)
+        .step(BUS_DAY_INTERVAL)
+        .map{ |i| i.business_days.before(bucket_date_0) }
   end
 
   def bucket_date_0

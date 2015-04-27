@@ -1,6 +1,10 @@
 require 'spec_helper'
+require 'business_time'
 
 describe 'PqStatistics::PercentOnTime' do
+  let(:interval) { PqStatistics::BUS_DAY_INTERVAL }
+  let(:date)     { Date.today                     }
+
   context '#calculate' do
     before(:each) do
       # Create PQs for the latest date bucket with 50% on time
@@ -8,15 +12,15 @@ describe 'PqStatistics::PercentOnTime' do
 
       pqs.first(2).each do |pq| 
         pq.update(
-          date_for_answer:  Date.tomorrow, 
-          answer_submitted: Date.today,
+          date_for_answer:  10.business_days.after(date), 
+          answer_submitted: date,
           state:            PQState::ANSWERED
         )
       end
       pqs.last(2).each do |pq| 
         pq.update(
-          date_for_answer:  Date.yesterday, 
-          answer_submitted: Date.today,
+          date_for_answer:  1.business_days.before(date), 
+          answer_submitted: date,
           state:            PQState::ANSWERED
         )
       end
@@ -25,15 +29,15 @@ describe 'PqStatistics::PercentOnTime' do
       old_pqs = (1..4).to_a.map{ create(:answered_pq) }
       
       old_pqs.first.update(
-        date_for_answer:  Date.tomorrow - 15.days, 
-        answer_submitted: Date.today - 15.days,
+        date_for_answer:  9.business_days.before(date), 
+        answer_submitted: 10.business_days.before(date),
         state:            PQState::ANSWERED
       )
 
       old_pqs.last(3).each do |pq| 
         pq.update(
-          date_for_answer:  Date.yesterday - 15.days, 
-          answer_submitted: Date.today - 15.days,
+          date_for_answer:  11.business_days.before(date), 
+          answer_submitted: 10.business_days.before(date),
           state:            PQState::ANSWERED
         )
       end
@@ -45,11 +49,11 @@ describe 'PqStatistics::PercentOnTime' do
 
       expect(result).to eq(
         [
-          [ Date.today - 7.days , 0.5 ],
-          [ Date.today - 14.days, 0.0 ],
-          [ Date.today - 21.days , 0.25 ] 
+          [ interval.business_days.before(date) , 0.5 ],
+          [ (2 * interval).business_days.before(date), 0.0 ],
+          [ (3 * interval).business_days.before(date) , 0.25 ] 
         ] +
-        (4..24).map { |i| [ Date.today - (i * 7).days, 0 ] } 
+        (4..24).map { |i| [ (i * interval).business_days.before(date), 0.0 ] } 
       )
     end
   end
