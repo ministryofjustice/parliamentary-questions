@@ -2,6 +2,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'ping'               => 'ping#index'
   get 'healthcheck'        => 'health_check#index'
 
+  get 'statistics/'                 => 'statistics#index'
   get 'statistics/on_time'          => 'statistics#on_time'
   get 'statistics/time_to_assign'   => 'statistics#time_to_assign'
   get 'statistics/ao_response_time' => 'statistics#ao_response_time'
