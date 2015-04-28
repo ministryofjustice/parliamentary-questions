@@ -21,6 +21,8 @@ module PqStatistics
     def pq_data
       ActionOfficersPq
         .where('created_at >= ?', bucket_dates.last) 
+        .where('response != ?', 'awaiting')
+        .where.not(created_at: nil, updated_at: nil)
         .pluck(:created_at, :updated_at)
         .map { |created, updated| [ created.to_time, updated.to_time ] }
     end
