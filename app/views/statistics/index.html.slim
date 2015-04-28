@@ -1,0 +1,14 @@
+= render partial: "shared/flash_messages", flash: flash
+h1 Statistics
+#admin-ao-list
+  table.table
+    thead
+      tr
+        th Analysis
+        th Description
+    tbody
+      - @links.each do |link|
+        tr
+          td= link_to(link.name, '/statistics' + link.path)
+          td= link.description
+
