@@ -2,15 +2,29 @@
 namespace :demo do
 
   task :setup => :environment do
+    delete_existing_demo_questions
+    seed_questions = populate_seeds
     (1..5).each do |i|
-      create_question(i)
+      create_question(i, seed_questions[i - 1])
     end
   end
 end
 
 
+def delete_existing_demo_questions
+  Pq.where("uin like 'uin-%'").map(&:destroy)
+end
 
-def create_question(i)
+
+def populate_seeds
+  seed_question_uins = %w{ 201828 208682 209418 209416 210144 }
+  seed_questions = []
+  seed_question_uins.each { |uin| seed_questions << Pq.find_by(uin: uin) }
+  seed_questions
+end
+
+
+def create_question(i, seed_question)
   i +=100
   
   question = Pq.create!(
@@ -18,18 +32,18 @@ def create_question(i)
                                 :raising_member_id => 2479,
                                       :tabled_date => 1.days.ago,
                                      :response_due => nil,
-                                         :question => "Mock question uin-#{i}",
+                                         :question => seed_question.question,
                                            :answer => nil,
                                  :finance_interest => nil,
                                   :seen_by_finance => false,
                                               :uin => "uin-#{i}",
-                                      :member_name => "Diana Johnson",
-                              :member_constituency => "Kingston upon Hull North",
+                                      :member_name => seed_question.member_name,
+                              :member_constituency => seed_question.member_constituency,
                                        :house_name => "House of Commons",
                                   :date_for_answer => 2.days.from_now,
                               :registered_interest => false,
                                 :internal_deadline => nil,
-                                    :question_type => "NamedDay",
+                                    :question_type => seed_question.question_type,
                                       :minister_id => nil,
                                :policy_minister_id => nil,
                                       :progress_id => nil,
