@@ -22,6 +22,44 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "5d69844e76884063a5133bd10db79048eb37feb149a1d1e2858a407cc9101bcb",
+      "message": "Possible SQL injection",
+      "file": "lib/pq_statistics/ao_churn.rb",
+      "line": 47,
+      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(((\"SELECT FROM ( SELECT pq.id as pq_id, FROM pqs  pq \" + \"AND pq.created_at >= '#{bucket_dates.last.strftime(\"%Y-%m-%d\")}'::date \") + \"GROUP BY pq.id, pq.created_at, aopq_created_at \"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PqStatistics::AoChurn",
+        "method": "pq_data"
+      },
+      "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "71cc79661ebd4a9ba1bb9a6194a7d9c1ba7e441b1b9ecf356a27512692590ee5",
+      "message": "Possible SQL injection",
+      "file": "lib/pq_statistics/time_to_assign.rb",
+      "line": 43,
+      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(((\"SELECT pq.created_at as pq_created_at, \" + \"AND pq.created_at >= '#{bucket_dates.last.strftime(\"%Y-%m-%d\")}'::date \") + \"AND pq.follow_up_to is NULL GROUP BY pq.id \"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PqStatistics::TimeToAssign",
+        "method": "pq_data"
+      },
+      "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "85f1e78f615519e52063c7a5da162e1f24780ece8b0ff3c08ca6a610380ff338",
       "message": "Possible SQL injection",
       "file": "lib/rake_task_helpers/db_sanitizer.rb",
@@ -39,6 +77,6 @@
       "note": ""
     }
   ],
-  "updated": "2015-04-20 14:09:24 +0100",
+  "updated": "2015-04-28 16:25:05 +0100",
   "brakeman_version": "3.0.2"
 }
