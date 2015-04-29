@@ -14,14 +14,14 @@
       }
     </style>
   </head>
-  <body>
+  <body style="font-family: arial, sans-serif; font-size: 12pt;">
     <div>
       <%= @template_params[:dd_name] %>,
     </div>
     <p>
       <%= @template_params[:ao_name] %> has been allocated the PQ <strong><%= @template_params[:uin] %></strong>
     </p>
-    <div class="pq-details">
+    <div class="pq-details" style="padding-left: 0.5em; border-left: 4px solid gray; margin: 5px 5px 5px 10px;">
       <%= @template_params[:question] %>
 
       <% if @template_params[:member_name].present? %>
