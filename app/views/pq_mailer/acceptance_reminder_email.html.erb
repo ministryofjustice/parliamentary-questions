@@ -14,9 +14,9 @@
       }
     </style>
   </head>
-  <body>
+  <body style="font-family: arial, sans-serif; font-size: 12pt;">
     <p><%= @template_params[:ao_name] %>, you have missed the 2pm deadline. Please <strong>immediately</strong> accept or reject PQ <strong><%= @template_params[:uin] %></strong>:</p>
-    <div class="pq-details">
+    <div class="pq-details" style="padding-left: 0.5em; border-left: 4px solid gray; margin: 5px 5px 5px 10px;">
       <p><%= @template_params[:question] %></p>
 
       <p>Asked by <%= @template_params[:member_name] %> (<%= @template_params[:house_name] %>)</p>
