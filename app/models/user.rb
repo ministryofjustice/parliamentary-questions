@@ -26,6 +26,9 @@
 #  invitations_count      :integer          default(0)
 #  roles                  :string(255)
 #  deleted                :boolean          default(FALSE)
+#  failed_attempts        :integer          default(0)
+#  unlock_token           :string(255)
+#  locked_at              :datetime
 #
 
 class User < ActiveRecord::Base

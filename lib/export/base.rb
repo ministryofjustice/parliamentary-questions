@@ -79,7 +79,7 @@ module Export
       ].map { |date| date && date.strftime(DATE_FORMAT) }  +
       [
         pq.directorate && pq.directorate.name,                          # 'Directorate',
-        pq.division && pq.division.name,                                # 'Division',
+        pq.original_division && pq.original_division.name,                                # 'Division',
         pq.answer,                                                      # 'Final Response',
         pq.question,                                                    # 'Full_PQ_subject',
         nil,                                                            # 'Delay Reason',
