@@ -10,7 +10,7 @@ h1 Users
         th Name
         th Role
         th Last Sign in
-        th
+        th Status
     tbody
       - @users.each do |user|
         tr
@@ -21,6 +21,7 @@ h1 Users
               | never active
             - else
               = time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil?
+          td= render partial: 'shared/status', object: user
           td.edit= link_to 'Edit', edit_user_path(user)
   div class="pagination-row.bottom"
     .page-entries= will_paginate @users
