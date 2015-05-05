@@ -33,8 +33,8 @@ ParliamentaryQuestions::Application.routes.draw do
 
   resources :action_officers
 
-  devise_for :users , :controllers => { :invitations => 'users/invitations' }
-  resources :users
+  devise_for :users, :controllers => { :invitations => 'users/invitations', sessions: 'users/sessions' }
+  resources  :users
 
   resources :pqs, only: [ :index, :show, :update ]
 
