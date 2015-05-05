@@ -94,8 +94,13 @@ class Pq < ActiveRecord::Base
   end
 
   has_many :action_officers, :through => :action_officers_pqs do
+
+    def all_active_accepted
+      where(action_officers_pqs: {response: 'accepted'}, action_officers: { deleted: false} )
+    end
+
     def accepted
-      where(action_officers_pqs: {response: 'accepted'}).first
+      where(action_officers_pqs: {response: 'accepted'}, action_officers: { deleted: false} ).first
     end
 
     def rejected
@@ -117,6 +122,7 @@ class Pq < ActiveRecord::Base
   validates :raising_member_id, presence:true
   validates :question, presence:true
   validate  :transfer_out_consistency
+  validate  :sole_accepted_action_officer
 
   RESPONSES = [
     "Commercial in confidence",
@@ -223,6 +229,12 @@ class Pq < ActiveRecord::Base
   end
 
   private
+
+  def sole_accepted_action_officer
+    if action_officers.all_active_accepted.size > 1
+      errors[:base] << "Unable to have two active action officers accepted on the same question"
+    end
+  end
 
   def transfer_out_consistency
     if ( !!transfer_out_date ^ !!transfer_out_ogd_id )

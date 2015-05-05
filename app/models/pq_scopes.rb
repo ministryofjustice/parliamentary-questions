@@ -1,4 +1,9 @@
 module PqScopes
+
+  def uin(uin_to_search)
+    where("uin = ?", uin_to_search).first
+  end
+
   def allocated_since(since)
     joins(:action_officers_pqs)
       .where('action_officers_pqs.updated_at >= ?', since)
