@@ -9,7 +9,7 @@
       }
     </style>
   </head>
-  <body>
+  <body style="font-family: arial, sans-serif; font-size: 12pt;">
         <p>
           View the <%= link_to 'PQs Allocated', controller: 'watchlist_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> on <strong> <%= Date.today.strftime "%d/%m/%Y" %> </strong> by the Ministry of Justice, Parliamentary Branch.
         </p>
