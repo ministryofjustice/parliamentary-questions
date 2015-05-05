@@ -44,7 +44,9 @@ class User < ActiveRecord::Base
 
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable,
+         :lockable, :timeoutable,
          :validatable, :validate_on_invite => true
+
 
   validates :name, presence: true
   validates :roles, presence: true
