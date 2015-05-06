@@ -10,6 +10,5 @@ class CreatePqaImportRuns < ActiveRecord::Migration
 
       t.timestamps
     end
-
   end
 end
