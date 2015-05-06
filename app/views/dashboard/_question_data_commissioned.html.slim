@@ -14,7 +14,7 @@
             = link_to question.policy_minister.name, minister_path(question.policy_minister)
       h3 Action officer(s)
       .row
-        - if question.ao_pq_accepted.nil?
+        - if question.action_officer_accepted.nil?
           - question.action_officers_pqs.each do |ao_pq|
             - if !ao_pq.rejected? && !ao_pq.action_officer.nil?
               .col-md-6
