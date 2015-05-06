@@ -60,7 +60,7 @@
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
 #  directorate_id                                :integer
-#  division_id                                   :integer
+#  original_division_id                          :integer
 #  transfer_in_ogd_id                            :integer
 #  transfer_in_date                              :datetime
 #  follow_up_to                                  :string(255)
@@ -78,7 +78,7 @@ describe Pq do
     it { is_expected.to belong_to :policy_minister }
     it { is_expected.to have_one :trim_link }
     it { is_expected.to belong_to :directorate }
-    it { is_expected.to belong_to :division }
+    it { is_expected.to belong_to :original_division }
   end
 
   describe ".before_update" do
@@ -384,7 +384,7 @@ describe Pq do
 
       expect(original_assignment.reload.response).to eq :awaiting
       expect(new_assignment.reload).to be_accepted
-      expect(subject.division).to eq(division)
+      expect(subject.original_division).to eq(division)
       expect(subject.directorate).to eq(directorate)
     end
 

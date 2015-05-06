@@ -11,7 +11,7 @@ class AssignmentService
     pq.whodunnit(changed_by) do
       division = assignment.action_officer.deputy_director.try(:division)
       directorate = division.try(:directorate)
-      pq.update(directorate: directorate, division: division)
+      pq.update(directorate: directorate, original_division: division)
     end
     pq.update_state!
     PqMailer.acceptance_email(pq, assignment.action_officer).deliver
