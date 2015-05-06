@@ -16,7 +16,7 @@ h1
       .form-group
         label.block-label for="user_deleted"
           = f.check_box :deleted
-          | Deleted
+          | Inactive
     .form-group
       = f.submit 'Save', :id => 'save', :class => 'button'
 = link_to 'Return to user list', users_path, {class: 'admin-link'}
