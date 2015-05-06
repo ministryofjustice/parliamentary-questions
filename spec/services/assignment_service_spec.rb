@@ -81,7 +81,7 @@ describe AssignmentService do
       assignment = ActionOfficersPq.find(assignment_id)
 
       pq = Pq.find(assignment.pq_id)
-      expect(pq.division_id).to eq(division.id)
+      expect(pq.original_division_id).to eq(division.id)
     end
 
     it 'should set the original directorate on PQ' do

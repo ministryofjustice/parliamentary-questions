@@ -60,7 +60,7 @@
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
 #  directorate_id                                :integer
-#  division_id                                   :integer
+#  original_division_id                          :integer
 #  transfer_in_ogd_id                            :integer
 #  transfer_in_date                              :datetime
 #  follow_up_to                                  :string(255)

@@ -60,7 +60,7 @@
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
 #  directorate_id                                :integer
-#  division_id                                   :integer
+#  original_division_id                          :integer
 #  transfer_in_ogd_id                            :integer
 #  transfer_in_date                              :datetime
 #  follow_up_to                                  :string(255)
@@ -113,7 +113,7 @@ class Pq < ActiveRecord::Base
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
   belongs_to :directorate
-  belongs_to :division
+  belongs_to :original_division, :class_name => 'Division'
 
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
@@ -159,9 +159,9 @@ class Pq < ActiveRecord::Base
         ao_pq_accepted.reset
         action_officers_pqs.find_or_create_by(action_officer: action_officer).accept
         whodunnit("AO:#{action_officer.name}") do
-          division = action_officer.deputy_director.try(:division)
-          directorate = division.try(:directorate)
-          update(directorate: directorate, division: division)
+          original_division = action_officer.deputy_director.try(:division)
+          directorate = original_division.try(:directorate)
+          update(directorate: directorate, original_division: original_division)
         end
       end
     end
