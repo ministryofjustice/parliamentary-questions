@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505153003) do
+ActiveRecord::Schema.define(version: 20150506161244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,17 @@ ActiveRecord::Schema.define(version: 20150505153003) do
     t.string   "name"
     t.string   "acronym"
     t.boolean  "deleted",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pqa_import_runs", force: true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "status"
+    t.integer  "num_created"
+    t.integer  "num_updated"
+    t.text     "error_messages"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -200,74 +211,6 @@ ActiveRecord::Schema.define(version: 20150505153003) do
     t.integer  "progress_order"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "stageing", primary_key: "stageingid", force: true do |t|
-    t.text "Author"
-    t.text "Record Classification"
-    t.text "Creator"
-    t.text "Action Officer"
-    t.text "Title (Free Text Part)"
-    t.text "(If appl - PS Respon) Date resubmitted to Minister"
-    t.text "Date Accepted by Action Officer"
-    t.text "Date Answered by Parliamentary Branch"
-    t.text "Date Correction Circulated to Action Officer"
-    t.text "Date Due Back to Parliamentary Branch"
-    t.text "Date First Appeared in Parliament"
-    t.text "Date for Answer in Parliament"
-    t.text "Date Guidance Received"
-    t.text "Date of Hansard"
-    t.text "Date of Perm Sec Clearance (If applicable)"
-    t.text "Date PQ Withdrawn"
-    t.text "Date resubmitted to Minister (if appl - PS Respon)"
-    t.text "Date Returned"
-    t.text "Date returned by AO (if applicable)"
-    t.text "Date Returned to Parliamentary Branch"
-    t.text "Date RR Circulated to Action Officer"
-    t.text "Date sent back to AO (if applicable)"
-    t.text "Date Sent to Minister"
-    t.text "Date Sent to Perm Sec for Clearance(If applicable)"
-    t.text "Date Sent to Policy Minister"
-    t.text "Date signed off"
-    t.text "Date Transferred"
-    t.text "Date transferred to MoJ"
-    t.text "Deputy Director"
-    t.text "Directorate"
-    t.text "Division of Action Officer"
-    t.text "Final Response - Information Released"
-    t.text "Final Response Notes:"
-    t.text "Full question"
-    t.text "Hansard Hyperlink"
-    t.text "Holding Reply - date follow up response sent"
-    t.text "I Will Write - date follow up response sent"
-    t.text "I Will Write - response estimated date"
-    t.text "If applicable Date returned by AO"
-    t.text "If applicable Date sent back to AO"
-    t.text "If applicable Ministerial Query?"
-    t.text "If Out of Time - Reason Why"
-    t.text "InTime?"
-    t.text "Library Deposit"
-    t.text "Minister Responsible for signing off Question"
-    t.text "Ministerial Query? (if applicable)"
-    t.text "Name of Policy Minister"
-    t.text "Originator Department"
-    t.text "Parliaments Identifying Number"
-    t.text "POD Clearance"
-    t.text "POD Query?"
-    t.text "PQ Correction Received"
-    t.text "PQ Status Information"
-    t.text "PQ Withdrawn"
-    t.text "Prorogation Answer"
-    t.text "Reference to Answer in Hansard"
-    t.text "Requested by Finance?"
-    t.text "Requested by HR?"
-    t.text "Requested by Press?"
-    t.text "Round Robin"
-    t.text "Tracking Notes: e.g redraft comments from AO"
-    t.text "Transfer to MoJ from other Government Department"
-    t.text "Transfer to Other Government Department"
-    t.text "Type of Question"
-    t.text "Action Officer-Internet E-Mail Address"
   end
 
   create_table "tokens", force: true do |t|

@@ -1,0 +1,157 @@
+# == Schema Information
+#
+# Table name: pqa_import_runs
+#
+#  id             :integer          not null, primary key
+#  start_time     :datetime
+#  end_time       :datetime
+#  status         :string(255)
+#  num_created    :integer
+#  num_updated    :integer
+#  error_messages :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
+require 'spec_helper'
+
+
+describe PqaImportRun, :type => :model do
+  
+  context 'validation' do
+
+    it 'should error if status is not ok or failure or ok_with_errors' do
+      pir = FactoryGirl.build(:pqa_import_run, status: 'gobbledygook')
+      expect(pir).not_to be_valid
+      expect(pir.errors[:status]).to eq ["Status must be 'OK', 'Failure' or 'OK_with_errors': was 'gobbledygook'"]
+    end
+
+    it 'should not error if status ok' do
+      pir = FactoryGirl.build(:pqa_import_run)
+      expect(pir).to be_valid
+    end
+
+    it 'should not error is status failure' do
+      pir = FactoryGirl.build(:pqa_import_run, status: "Failure")
+      expect(pir).to be_valid
+    end
+
+    it 'should not error is status ok_with_errors' do
+      pir = FactoryGirl.build(:pqa_import_run, status: "OK_with_errors")
+      expect(pir).to be_valid
+    end
+
+  end
+
+
+  describe '.last_import_time_utc' do
+    it 'should return start of epoch if no records in the database' do
+      Timecop.freeze(Time.new(2015, 5, 7, 11, 15, 45)) do
+        expect(PqaImportRun.count).to eq 0
+        expect(PqaImportRun.last_import_time_utc).to eq(3.days.ago)
+        expect(PqaImportRun.last_import_time_utc.zone).to eq 'UTC'
+      end
+    end
+
+    it 'should return the start time of the last record' do
+      times = [  10.seconds.ago, 1.day.ago, 2.days.ago ]
+      lastest_time = times.first
+
+      times.each { |t| FactoryGirl.create(:pqa_import_run, start_time: t, end_time: t + 3.seconds) }
+      expect(PqaImportRun.last_import_time_utc).to eq lastest_time
+      expect(PqaImportRun.last_import_time_utc.zone).to eq 'UTC'
+    end
+
+    it 'should ignore failure records' do
+      Timecop.freeze do
+        records = {
+          10.seconds.ago  => 'Failure',
+          2.minutes.ago   => 'OK_with_errors',
+          5.minutes.ago   => 'OK',
+          1.day.ago       => 'OK',
+          3.days.ago      => 'Failure'}
+
+        records.each do |start_time, status|
+          FactoryGirl.create(:pqa_import_run, start_time: start_time, end_time: start_time + 3.seconds, status: status)
+        end
+        expect(PqaImportRun.last_import_time_utc).to eq 2.minutes.ago
+      end
+    end
+
+  end
+
+
+  describe '.record_success' do
+    it 'should record the times in UTC with an OK status' do
+      freeze_time = Time.new(2015, 5, 7, 10, 1, 33)
+      Timecop.freeze(freeze_time) do
+        PqaImportRun.record_success 10.seconds.ago, all_ok_report
+      end
+      pir = PqaImportRun.last
+      expect(pir.start_time).to eq(freeze_time - 10.seconds)
+      expect(pir.end_time).to eq(freeze_time)
+      expect(pir.status).to eq 'OK'
+      expect(pir.num_created).to eq 15
+      expect(pir.num_updated).to eq 3
+      expect(pir.error_messages).to be_nil
+    end
+
+
+    it 'should record the times in UTC with an OK_with_errors status' do
+      freeze_time = Time.new(2015, 5, 7, 10, 1, 33)
+      Timecop.freeze(freeze_time) do
+        PqaImportRun.record_success 10.seconds.ago, ok_with_errors_report
+      end
+      pir = PqaImportRun.last
+      expect(pir.start_time).to eq(freeze_time - 10.seconds)
+      expect(pir.end_time).to eq(freeze_time)
+      expect(pir.status).to eq 'OK_with_errors'
+      expect(pir.num_created).to eq 7
+      expect(pir.num_updated).to eq 15
+      expect(pir.error_messages).to eq( {"UIN1234" => "Invalid Record", "UIN666" => "Really, really invalid"} )
+    end
+  end
+
+
+  describe '.record_failure' do
+    it 'should record the times in UTC with an error status' do
+      freeze_time = Time.new(2015, 5, 7, 10, 1, 33)
+      Timecop.freeze(freeze_time) do
+        PqaImportRun.record_failure 10.seconds.ago, 'Unable to contact API endpoint'
+      end
+      pir = PqaImportRun.last
+      expect(pir.start_time).to eq(freeze_time - 10.seconds)
+      expect(pir.end_time).to eq(freeze_time)
+      expect(pir.status).to eq 'Failure'
+      expect(pir.num_created).to eq 0
+      expect(pir.num_updated).to eq 0
+      expect(pir.error_messages).to eq 'Unable to contact API endpoint'
+    end
+  end
+
+end
+
+
+
+def all_ok_report
+  {
+    total:    18,
+    created:  15,
+    updated:  3,
+    errors:   {}
+  }
+end
+
+
+def ok_with_errors_report
+  {
+    total:    22,
+    created:  7,
+    updated:  15,
+    errors:   {
+      "UIN1234" => "Invalid Record",
+      "UIN666" => "Really, really invalid"
+    }
+  }
+
+end
