@@ -501,6 +501,60 @@ describe Pq do
       expect(subject).to be_valid
       expect(subject.uin).to eql('hl1 234')
     end
+
+    context 'multiple action officers'
+
+      let(:pq) do
+        pq = FactoryGirl.create(:pq)
+        3.times do 
+          ao = FactoryGirl.create(:action_officer)
+          pq.action_officers << ao
+        end
+        pq.save
+        pq
+      end
+
+      it 'should be valid if none accepted' do
+        expect(pq.action_officers_pqs.map(&:response)).to eq([:awaiting, :awaiting, :awaiting])
+        expect(pq).to be_valid
+      end
+
+      it 'should be valid if only one accepted' do
+        aopq = pq.action_officers_pqs.first
+        aopq.response = :accepted
+        aopq.save!
+
+        expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :awaiting, :awaiting])
+        expect(pq).to be_valid
+      end
+
+      it 'should be valid if multiple accepted but only one of those is active' do
+        ao1 = pq.action_officers.first
+        ao1.deleted = true
+        ao1.save!
+        ao2 = pq.action_officers[1]
+        ao2.deleted = true
+        ao2.save!
+        pq.action_officers_pqs.each do |aopq|
+          aopq.response = :accepted
+          aopq.save!
+        end
+        expect(pq.action_officers.order(:id).map(&:deleted)).to eq( [ true, true, false ] )
+        expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
+        expect(pq).to be_valid
+      end
+      
+
+      it 'should not be valid if multiple accepted active' do
+        pq.action_officers_pqs.each do |aopq|
+          aopq.response = :accepted
+          aopq.save!
+        end
+        expect(pq.action_officers.order(:id).map(&:deleted)).to eq( [ false, false, false ] )
+        expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
+        expect(pq).not_to be_valid
+        expect(pq.errors[:base]).to eq([ 'Unable to have two active action officers accepted on the same question'])
+      end
   end
 
   describe 'item' do
