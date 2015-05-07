@@ -55,10 +55,10 @@ describe PqaImportRun, :type => :model do
 
     it 'should return the start time of the last record' do
       times = [  10.seconds.ago, 1.day.ago, 2.days.ago ]
-      lastest_time = times.first
+      latest_time = times.first
 
       times.each { |t| FactoryGirl.create(:pqa_import_run, start_time: t, end_time: t + 3.seconds) }
-      expect(PqaImportRun.last_import_time_utc).to eq lastest_time
+      expect(times_equal?(PqaImportRun.last_import_time_utc, latest_time)).to be true
       expect(PqaImportRun.last_import_time_utc.zone).to eq 'UTC'
     end
 
@@ -74,7 +74,7 @@ describe PqaImportRun, :type => :model do
         records.each do |start_time, status|
           FactoryGirl.create(:pqa_import_run, start_time: start_time, end_time: start_time + 3.seconds, status: status)
         end
-        expect(PqaImportRun.last_import_time_utc).to eq 2.minutes.ago
+        expect(times_equal?(PqaImportRun.last_import_time_utc, 2.minutes.ago)).to be true
       end
     end
 
@@ -133,6 +133,13 @@ end
 
 
 
+
+def times_equal?(t1, t2)
+  t1.to_f.round(4) == t2.to_f.round(4)
+end
+
+
+
 def all_ok_report
   {
     total:    18,
@@ -153,5 +160,4 @@ def ok_with_errors_report
       "UIN666" => "Really, really invalid"
     }
   }
-
 end
