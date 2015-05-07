@@ -8,7 +8,7 @@ describe 'WatchlistReportService' do
   let(:testid) { "watchlist-" + DateTime.now.to_s }
 
   before(:each) do
-    @report_service = WatchlistReportService.new
+    @report_service               = WatchlistReportService.new
     ActionMailer::Base.deliveries = []
   end
 
@@ -32,12 +32,13 @@ describe 'WatchlistReportService' do
     allow(@report_service).to receive(:entity).and_return testid
     result = @report_service.notify_watchlist
 
+    MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
 
-    sentToken = result[pqtest_mail]
+    sentToken   = result[pqtest_mail]
     token_param = {token: sentToken}.to_query
-    entity = {entity: entity = testid }.to_query
-    url = '/watchlist/dashboard'
+    entity      = {entity: entity = testid }.to_query
+    url         = '/watchlist/dashboard'
 
     expect(mail.html_part.body).to include url
     expect(mail.html_part.body).to include token_param
@@ -56,11 +57,13 @@ describe 'WatchlistReportService' do
     allow(@report_service).to receive(:entity).and_return testid
     result = @report_service.notify_watchlist
 
+    MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    sentToken = result[watchlist_one.id]
+    
+    sentToken   = result[watchlist_one.id]
     token_param = {token: sentToken}.to_query
-    entity = {entity: entity = testid }.to_query
-    url = '/watchlist/dashboard'
+    entity      = {entity: entity = testid }.to_query
+    url         = '/watchlist/dashboard'
 
     expect(mail.cc).to include watchlist_one.email
     expect(mail.cc).to include watchlist_two.email

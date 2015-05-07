@@ -9,3 +9,7 @@ healthcheck_pqa_api_interval: 15               # minimum interval between pqa AP
 excepted_from_ssl:
   - ping.json
 
+mail_worker:
+  pid_filepath: '/tmp/mail_worker.pid'
+  max_fail_count: 3
+

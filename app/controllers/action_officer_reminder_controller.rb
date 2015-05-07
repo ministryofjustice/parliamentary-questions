@@ -3,14 +3,14 @@ class ActionOfficerReminderController  < ApplicationController
 
   def accept_reject
     loading_records_and_rendering do |pq, ao, ao_pq|
-      PqMailer.acceptance_reminder_email(ao, pq).deliver
+      MailService::Pq.acceptance_reminder_email(pq, ao)
       ao_pq.increment(:reminder_accept).save()
     end
   end
 
   def send_draft
     loading_records_and_rendering do |pq, ao, ao_pq|
-      PqMailer.draft_reminder_email(ao, pq).deliver
+      MailService::Pq.draft_reminder_email(pq, ao)
       ao_pq.increment(:reminder_draft).save()
     end
   end

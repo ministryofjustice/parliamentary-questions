@@ -14,7 +14,7 @@ class AssignmentService
       pq.update(directorate: directorate, original_division: division)
     end
     pq.update_state!
-    PqMailer.acceptance_email(pq, assignment.action_officer).deliver
+    MailService::Pq.acceptance_email(pq, assignment.action_officer)
   end
 
   def reject(assignment, response)

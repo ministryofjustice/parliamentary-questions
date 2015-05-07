@@ -14,7 +14,8 @@ describe 'ActionOfficerReminderMailer' do
   describe 'Accept reminder' do
     describe 'deliver' do
       it 'should include house, member name and uin from PQ and AO name' do
-        PqMailer.acceptance_reminder_email(ao, @pq).deliver
+        MailService::Pq.acceptance_reminder_email(@pq, ao)
+        MailWorker.new.run!
 
         mail = ActionMailer::Base.deliveries.first
 
@@ -34,7 +35,8 @@ describe 'ActionOfficerReminderMailer' do
   describe 'draft reminder' do
     describe 'deliver' do
       it 'should have URGENT in the subject' do
-        PqMailer.draft_reminder_email(ao, @pq).deliver
+        MailService::Pq.draft_reminder_email(@pq, ao)
+        MailWorker.new.run!
 
         mail = ActionMailer::Base.deliveries.first
         expect(mail.to).to include ao.email
