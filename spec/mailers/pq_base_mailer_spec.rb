@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe PQBaseMailer do
-
   context "logging" do
-
     let(:pq)      { FactoryGirl.create :pq }
 
     let(:template_params) do
@@ -23,22 +21,22 @@ describe PQBaseMailer do
       }
     end
 
-
     it 'should log successful message when successful' do
       expect(LogStuff).to receive(:info).with(:mail_successful)
       expect_any_instance_of(Mail::Message).to receive(:deliver)
-      PqMailer.commission_email(template_params).deliver
+      
+      MailService::Pq.commission_email(template_params)
+      MailWorker.new.run!
     end
 
     it 'should log errror message if exception raised' do
+      MailService::Pq.commission_email(template_params)
+
       expect(LogStuff).not_to receive(:info).with(:mail_successful)
       expect(LogStuff).to receive(:error).with(:mail_unsuccessful)
       expect_any_instance_of(Mail::Message).to receive(:deliver).and_raise(RuntimeError)
-      expect {
-        PqMailer.commission_email(template_params).deliver
-      }.to raise_error(RuntimeError)
+      
+      MailWorker.new.run!
     end
   end
-
-
 end

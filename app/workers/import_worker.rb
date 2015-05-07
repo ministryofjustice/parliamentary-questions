@@ -12,7 +12,8 @@ class ImportWorker
         LogStuff.info { "Import: starting scheduled import from #{date_from} to #{date_to}" }
         report = @import.run(date_from, date_to)
         LogStuff.info { "Import: completed scheduled import" }
-        ImportMailer.notify_success(report).deliver
+        
+        MailService::Import.notify_success(report)
         PqaImportRun.record_success(start_time, report)
 
       rescue => err
@@ -20,7 +21,7 @@ class ImportWorker
         case err
         when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError
           LogStuff.error { err.message }
-          ImportMailer.notify_fail(err.message).deliver
+          MailService::Import.notify_fail(err.message)
         else
           raise err
         end

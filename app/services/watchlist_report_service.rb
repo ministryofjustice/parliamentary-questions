@@ -25,7 +25,7 @@ class WatchlistReportService
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"
     LogStuff.tag(:mailer_watchlist) do
       LogStuff.info { "Watchlist  email to #{template[:email]} (name #{template[:name]}) [CCd to #{template[:cc]}]" }
-      PqMailer.watchlist_email(template).deliver
+      MailService::Pq.watchlist_email(template)
     end
     token
   end
