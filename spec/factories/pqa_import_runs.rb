@@ -1,4 +1,3 @@
-<<<<<<< HED
 # == Schema Information
 #
 # Table name: pqa_import_runs
@@ -25,8 +24,4 @@ FactoryGirl.define do
     num_updated     1
     error_messages  nil
   end
-<<<<<<< HEAD
-=======
-
->>>>>>> ed3eae9... WIP
 end
