@@ -52,12 +52,3 @@ class PqaImportRun < ActiveRecord::Base
   end
 
 end
-
-
-
-# {
-#         total: @total,
-#         created: @created,
-#         updated: @updated,
-#         errors: @errors
-#       }
