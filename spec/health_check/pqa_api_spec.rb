@@ -11,12 +11,12 @@ describe HealthCheck::PqaApi do
     end
 
     it 'should be true if the timestamp file contains a time more than 15 minutes ago' do
-      Timecop.freeze(16.minutes.ago) { HealthCheck::PqaApi.new }
+      Timecop.freeze(16.minutes.ago) { HealthCheck::PqaApi.new.record_result }
       expect(HealthCheck::PqaApi.time_to_run?).to be true
     end
 
     it 'should be false if the timestamp file contains a time less than 15 minutes ago' do
-      Timecop.freeze(14.minutes.ago) { HealthCheck::PqaApi.new }
+      Timecop.freeze(14.minutes.ago) { HealthCheck::PqaApi.new.record_result }
       expect(HealthCheck::PqaApi.time_to_run?).to be false
     end
   end
@@ -71,6 +71,31 @@ describe HealthCheck::PqaApi do
       
       expect(pqa.error_messages.first).to match /Error: StandardError\nDetails/
     end
+  end
+
+
+  context '#record_result' do
+    it 'should write timestamp and OK if no error messages' do
+      Timecop.freeze(Time.new(2015, 5, 8, 15, 35, 45)) do
+        pqa.record_result
+        expect(contents_of_timestamp_file).to eq "1431095745::OK::[]\n"
+      end
+    end
+    
+    it 'should write timestamp and FAIL and error messages if any errors' do
+      Timecop.freeze(Time.new(2015, 5, 8, 15, 35, 45)) do
+        pqa.instance_variable_set(:@errors, [ 'First error message', 'Second error message' ] )
+        pqa.record_result
+        expect(contents_of_timestamp_file).to eq "1431095745::FAIL::[\"First error message\",\"Second error message\"]\n"
+      end
+    end
+  end
+end
+
+
+def contents_of_timestamp_file
+  File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, 'r') do |fp|
+    fp.gets
   end
 end
 

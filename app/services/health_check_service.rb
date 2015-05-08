@@ -12,6 +12,7 @@ class HealthCheckService
     @components.each do |component|
       component.available?
       component.accessible?
+      component.record_result
     end
 
     errors = @components.map(&:error_messages).flatten

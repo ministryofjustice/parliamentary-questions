@@ -21,7 +21,16 @@ module HealthCheck
     def initialize
       @api = PQA::ApiClient.from_settings
       super
-      record_time_ran
+      
+    end
+
+    def record_result
+      tmpdir = "#{Rails.root}/tmp"
+      status = @errors.any? ? "FAIL" : "OK"
+      Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
+      File.open(TIMESTAMP_FILE, 'w') do |fp|
+        fp.puts "#{Time.now.to_i}::#{status}::#{@errors.to_json}"
+      end
     end
 
     def available?
@@ -57,19 +66,11 @@ module HealthCheck
     def self.get_time_last_run
       if File.exist?(TIMESTAMP_FILE)
         File.open(TIMESTAMP_FILE, 'r') do |fp|
-          interval = fp.gets.chomp.to_i
+          interval, status,  error_messages_as_json = fp.gets.chomp.split('::')
+          interval = interval.to_i
         end
       else
         0
-      end
-    end
-
-
-    def record_time_ran
-      tmpdir = "#{Rails.root}/tmp"
-      Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
-      File.open(TIMESTAMP_FILE, 'w') do |fp|
-        fp.puts Time.now.to_i
       end
     end
 
