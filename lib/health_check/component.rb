@@ -38,5 +38,9 @@ module HealthCheck
       #
       @errors << "Error: #{e.message}\nDetails:#{e.backtrace}"
     end
+
+    def record_result
+      # no-op.  Overrrideen in subclasses that need to implement this behaviour.
+    end
   end
 end
