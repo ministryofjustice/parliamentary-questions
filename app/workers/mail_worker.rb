@@ -3,12 +3,14 @@ class MailWorker
   PID_FILEPATH   = Settings.mail_worker.pid_filepath
 
   def initialize
-    @q = MailService::Queue.new
+    @service  = MailService
+    @queue    = []
+    @pid_file = PidFile.new(PID_FILEPATH)
   end
 
   def run!
     starting_worker do
-      emails = MailService.mail_to_send
+      emails = @service.mail_to_send
 
       queue_mail(emails)
       process_queue
@@ -20,43 +22,41 @@ class MailWorker
   def starting_worker
     pid = Process.pid.to_s
 
-    if File.exists?(PID_FILEPATH)
+    if @pid_file.present?
       raise ExistingMailWorkerProcess
     else
-      File.open(PID_FILEPATH, 'w') { |f| f.write(pid) }
+      @pid_file.pid = pid
     end
 
     yield
 
   ensure
-    if File.exists?(PID_FILEPATH) && File.read(PID_FILEPATH) == pid
-      File.delete(PID_FILEPATH) 
-    end
+    @pid_file.delete(pid)
   end
 
   def queue_mail(emails)
     emails.each do |email|
-      @q.enqueue(email)
-      MailService.record_attempt(email)
+      @queue << email
+      @service.record_attempt(email)
     end
   end
 
   def process_queue
-    until @q.empty? do
+    until @queue.empty? do
       begin
-        email = @q.dequeue
+        email = @queue.shift
         process_mail(email)
       rescue 
-        MailService.record_fail(email)
+        @service.record_fail(email)
       end
     end
   end
 
   def process_mail(email)
     if email.num_send_attempts > MAX_FAIL_COUNT
-      MailService.record_abandon(email)
+      @service.record_abandon(email)
     else
-      MailService.send_mail(email)
+      @service.send_mail(email)
     end
   end
 

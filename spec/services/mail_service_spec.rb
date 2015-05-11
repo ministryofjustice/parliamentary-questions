@@ -10,6 +10,12 @@ describe MailService do
     expect(service.mail_to_send).to eq [default, failed]
   end
 
+  it '#abandoned_mail - returns mail in abandoned state' do
+    failed.update(status: 'abandoned')
+
+    expect(service.abandoned_mail).to eq [failed]
+  end
+
   it '#record_attempt - updates db fields for a send attempt' do
     service.record_attempt(default)
 

@@ -12,4 +12,5 @@ excepted_from_ssl:
 mail_worker:
   pid_filepath: '/tmp/mail_worker.pid'
   max_fail_count: 3
+  timeout: 300
 
