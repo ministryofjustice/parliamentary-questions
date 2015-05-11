@@ -3,9 +3,12 @@ require 'feature_helper'
 feature "Parli-branch manages trim link" , js: true do
   include Features::PqHelpers
 
-  def add_trim_link
+  def add_trim_link(trim_file_name = 'spec/fixtures/trimlink.tr5')
     click_link 'Trim link'
-    attach_file('pq[trim_link_attributes][file]', Rails.root.join('spec/fixtures/trimlink.tr5'))
+    # We need to make the file <input> visible, otherwise it won't pick up attach_file later (see below)
+    page.execute_script('$("input[type=file]").attr("style","display:inline!important")')
+    attach_file('pq[trim_link_attributes][file]', Rails.root.join(trim_file_name))
+    page.execute_script('$("input[type=file]").attr("style","")')
     click_button 'Save'
     click_link 'Trim link'
   end
@@ -31,8 +34,7 @@ feature "Parli-branch manages trim link" , js: true do
       add_trim_link
       expect(page.title).to have_text("PQ #{@pq.uin}")
       expect(page).to have_content 'Change trim link'
-      attach_file('pq[trim_link_attributes][file]', Rails.root.join('spec/fixtures/another_trimlink.tr5'))
-      click_button 'Save'
+      add_trim_link('spec/fixtures/another_trimlink.tr5')
       pq = Pq.find_by(uin: @pq.uin)
       expect(pq.trim_link.filename).to eq('another_trimlink.tr5')
     end
@@ -65,10 +67,10 @@ feature "Parli-branch manages trim link" , js: true do
       click_link 'PQ Details'
       fill_in 'Date for answer back to Parliament', with: '01/01/2001'
       click_link 'Trim link'
-      attach_file('pq[trim_link_attributes][file]', Rails.root.join('spec/fixtures/invalid_trimlink.tr5'))
-      click_button 'Save'
+      add_trim_link('spec/fixtures/invalid_trimlink.tr5')
       expect(page.title).to have_text("PQ #{@pq.uin}")
-      expect(page).to have_content 'Missing or invalid trim link file'
+      expect(page).to have_content 'Invalid file selected!'
+      click_link 'PQ Details'
       expect(page).to have_field 'Date for answer back to Parliament', with: '01/01/2001'
     end
   end
@@ -85,7 +87,6 @@ feature "Parli-branch manages trim link" , js: true do
       page.execute_script('$(".toggle-content").attr("style","display:block!important")')
 
       attach_file('trim_link[file_data]', Rails.root.join(filename))
-      page.execute_script('$(".trim-file-chooser").trigger("change")')
 
       page.execute_script('$(".trim-file-chooser").attr("style","display:inline")')
       page.execute_script('$(".toggle-content").attr("style","display:block")')
@@ -99,7 +100,7 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'selecting a file to upload to trim'  do
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       expect(page).to have_content 'File selected'
-      expect(page).to have_css 'span.fa-check-circle'
+      expect(page).to have_css 'span.fa-file-o'
     end
 
     scenario 'cancel after selecting' do
@@ -112,7 +113,7 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'upload a file after selecting' do
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       click_button 'Upload'
-      expect(page).to have_content 'Trim link was successfully created'
+      expect(page).to have_content 'Trim link created'
       expect(page).to have_css 'span.fa-check-circle'
       expect(page).to have_content 'Open trim link'
     end
@@ -120,19 +121,19 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'upload an invalid file to trim' do
       select_file_to_upload 'spec/fixtures/invalid_trimlink.tr5'
       click_button 'Upload'
-      expect(page).to have_content 'Missing or invalid trim file!'
+      expect(page).to have_content 'Invalid file selected!'
       expect(page).to have_css 'span.fa-warning'
     end
 
     scenario 'After trying to upload an invalid file, try to upload another file' do
       select_file_to_upload 'spec/fixtures/invalid_trimlink.tr5'
       click_button 'Upload'
-      expect(page).to have_content 'Missing or invalid trim file!'
+      expect(page).to have_content 'Invalid file selected!'
       click_button 'Cancel'
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       click_button 'Upload'
 
-      expect(page).to have_content 'Trim link was successfully created'
+      expect(page).to have_content 'Trim link created'
       expect(page).to have_css 'span.fa-check-circle'
       expect(page).to have_content 'Open trim link'
     end
