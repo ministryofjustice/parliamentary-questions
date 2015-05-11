@@ -201,10 +201,9 @@
         $(this).after(data);
       });
 
-      // set up the trim file upload control on the dashboard
-      if ($('.trim_area').length) {
-        trimLink.trimFileUpload();
-      }
+      // set up the trim file upload controls, if present
+      trimLink.setUpTrimControls();
+
 
       // throw a google analytics event on trim link upload from dashboard
       $('.form-add-trim-link').on('submit', function() {
