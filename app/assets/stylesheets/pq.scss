@@ -84,6 +84,8 @@ label {
 .fa-times-circle { color: $error-colour; }
 .fa-check-circle { color: $success-colour; }
 .fa-warning { color: $error-colour; }
+.fa-file-o { color: $orange;}
+
 .fa-envelope {
   color: $page-colour;
   margin-left: 4px;
@@ -553,19 +555,20 @@ textarea.form-control {
 
 /* = TRIM links ================================================================= */
 
-.trim-links-form {
-  margin: .3em 0 0;
+.trim_area {
   input[type="file"] {
     display: none !important;
   }
+}
+
+.trim-links-form {
+  margin: .3em 0 0;
   .button-upload,
   .button-cancel {
     float: left;
     margin: .5em .5em 0 0;
   }
 }
-.trim-links-header:hover,
-.trim-links-cancel:hover { color: $page-colour; }
 .button-cancel { margin-right: 0; }
 .tr5-message{ display: none; }
 .toggle-content{ display: none; }
@@ -574,6 +577,12 @@ textarea.form-control {
   display: none;
   font-size: 85%;
   text-decoration: underline;
+}
+.tr5-message span:first-child,
+#status span:first-child {  margin-right: 4px;}
+#status #cancel {
+ display: block;
+ margin-top: 10px;
 }
 
 /* = Pagination ================================================================= */
@@ -661,7 +670,7 @@ textarea.form-control {
     }
   }
 
-  button.button-choose {
+  button.button-choose{
     background-color: $light-blue;
     color: $page-colour;
     box-shadow: 0px 2px 0px darkblue;
@@ -700,6 +709,7 @@ textarea.form-control {
       &.block-label { margin: 0px 0px 20px 0px; }
       &.form-label { color: #6F777B; }
     }
+    #save { margin-top: 40px; }
   }
 
   #pq-details-header {
@@ -718,8 +728,8 @@ textarea.form-control {
 
   // remove firefox's dotted line
   select:-moz-focusring {
-      color: transparent;
-      text-shadow: 0 0 0 black;
+    color: transparent;
+    text-shadow: 0 0 0 black;
   }
 
   #pq-detail-area {
@@ -753,6 +763,15 @@ textarea.form-control {
     #progress-panel {
       margin: 0px;
       padding: 0px;
+
+      #choices {
+        background-color: $light-blue;
+        color: $page-colour;
+        box-shadow: 0px 2px 0px darkblue;
+      }
+      .button-cancel {
+        margin: .5em .5em 0 0;
+      }
       .progress-menu-form {
         border-width: 1px;
         border-style: solid;
