@@ -24,14 +24,21 @@ end
 
 def setup_training_action_officers
   [
-    ['Marcus Tucker-Cooper', 'Marcus.Tucker-Cooper@justice.gsi.gov.uk', 'Youth Justice and Transforming Youth Custody'],
-    ['James Wood', 'james.wood1@justice.gsi.gov.uk', 'Sentencing Policy Unit'],
-    ['Jake Thirkell', 'jake.thirkell@justice.gsi.gov.uk', 'Victims and Criminal Proceedings']
+    ['Marcus Tucker-Cooper', 'Marcus.Tucker-Cooper@justice.gsi.gov.uk', 43],
+    ['James Wood', 'james.wood1@justice.gsi.gov.uk', 3],
+    ['Jake Thirkell', 'jake.thirkell@justice.gsi.gov.uk', 35]
   ].each do |ao_dets|
-    name, email, division = ao_dets
+    name, email, division_id = ao_dets
     ao = ActionOfficer.where("name = ?", name).first
     ao.update_attribute(:email, email)
+    allocate_division_to_ao(ao, division_id)
   end
+end
+
+
+def allocate_division_to_ao(ao, division_id)
+  division = Division.find(division_id)
+  ao.update_attribute(:deputy_director_id, division.deputy_directors.active.first.id)
 end
 
 
