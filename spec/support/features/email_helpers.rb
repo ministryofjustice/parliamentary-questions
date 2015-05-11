@@ -16,10 +16,12 @@ module Features
     end
 
     def sent_mail
+      MailWorker.new.run!
       ActionMailer::Base.deliveries
     end
 
     def clear_sent_mail
+      Email.destroy_all
       ActionMailer::Base.deliveries = []
     end
   end

@@ -23,5 +23,11 @@ end
 every 1.day, :at => '1:00 am' do
   rake 'db:staging:sync'
 end
+#
+# Trigger mail queue poll and new email sending
+#
+every 1.minute do
+  rake 'email:process_queue'
+end
 
 

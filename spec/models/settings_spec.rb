@@ -2,27 +2,27 @@ require 'spec_helper'
 
 describe Settings do
   before(:each) do
-      ENV['PQ_REST_API_HOST'] = 'api_host'
-      ENV['PQ_REST_API_USERNAME'] = 'username'
-      ENV['PQ_REST_API_PASSWORD'] = 'password'
-    end
+    ENV['PQ_REST_API_HOST']     = 'api_host'
+    ENV['PQ_REST_API_USERNAME'] = 'username'
+    ENV['PQ_REST_API_PASSWORD'] = 'password'
+  end
 
-  describe '.from_env' do
-    
-    it 'should call new with environment variables' do
-      expect(Settings::PqRestApi).to receive(:new).with('api_host', 'username', 'password')
-      Settings::PqRestApi.from_env
-    end
-
-    it 'should raise if the api-host environment var is not set' do
-      ENV['PQ_REST_API_HOST'] = nil
-      expect {
+  context 'PQ Rest API' do
+    describe '.from_env' do 
+      it 'should call new with environment variables' do
+        expect(Settings::PqRestApi).to receive(:new).with('api_host', 'username', 'password')
         Settings::PqRestApi.from_env
-        }.to raise_error RuntimeError, 'Cannot find environment variable PQ_REST_API_HOST. Please set it first'
+      end
+
+      it 'should raise if the api-host environment var is not set' do
+        ENV['PQ_REST_API_HOST'] = nil
+        expect {
+          Settings::PqRestApi.from_env
+          }.to raise_error RuntimeError, 'Cannot find environment variable PQ_REST_API_HOST. Please set it first'
+      end
     end
   end
 
-  
   context 'settings file values' do
     describe '.mail_from' do
       it 'should return the value from the file' do
@@ -69,4 +69,17 @@ describe Settings do
     end
   end
 
+  context 'MailWorker' do
+    describe '.pid_filepath' do
+      it 'should return the value from the file' do
+        expect(Settings.mail_worker.pid_filepath).to eq '/tmp/mail_worker.pid'
+      end
+    end
+
+    describe '.max_fail_count' do
+      it 'should return the value from the file' do
+        expect(Settings.mail_worker.max_fail_count).to eq 3
+      end
+    end
+  end
 end
