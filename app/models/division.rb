@@ -17,6 +17,10 @@ class Division < ActiveRecord::Base
   has_paper_trail
   validates :name, presence: true
   validates :directorate_id, presence: true 
-  has_many :deputy_directors
+  has_many :deputy_directors do
+    def active
+      where(deleted: false)
+    end
+  end
   belongs_to :directorate
 end
