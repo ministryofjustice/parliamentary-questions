@@ -57,15 +57,18 @@ describe AssignmentService do
     end
 
     it 'should sent an email with the accept data' do
-      pq = commissioning_service.commission(form)
+      pq            = commissioning_service.commission(form)
       assignment_id = pq.action_officers_pqs.first.id
-      assignment = ActionOfficersPq.find(assignment_id)
+      assignment    = ActionOfficersPq.find(assignment_id)
+      
       expect(assignment).to_not be nil
 
       ActionMailer::Base.deliveries = []
       subject.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
+      MailWorker.new.run!
       mail = ActionMailer::Base.deliveries.first
+      
       expect(mail.html_part.body).to include pq.question
       expect(mail.subject).to include pq.uin
     end

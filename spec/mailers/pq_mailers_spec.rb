@@ -22,14 +22,16 @@ describe PqMailer do
     end
     describe 'deliver' do
       it 'should have correct addressing info' do
-        PqMailer.commission_email(@template_params).deliver
-         mail = ActionMailer::Base.deliveries.first
-         expect(mail.to).to eq ["colin.bruce@digital.justice.gov.uk"]
-         expect(mail.from).to eq ["no-reply@trackparliamentaryquestions.service.gov.uk"]
-         expect(mail.reply_to).to eq ["pqs@justice.gsi.gov.uk"]
+        MailService::Pq.commission_email(@template_params)
+        MailWorker.new.run!
+        
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.to).to eq ["colin.bruce@digital.justice.gov.uk"]
+        expect(mail.from).to eq ["no-reply@trackparliamentaryquestions.service.gov.uk"]
+        expect(mail.reply_to).to eq ["pqs@justice.gsi.gov.uk"]
 
-         expect(mail.to_s).to include 'From: PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>'
-         expect(mail.to_s).to include 'Reply-To: pqs@justice.gsi.gov.uk'
+        expect(mail.to_s).to include 'From: PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>'
+        expect(mail.to_s).to include 'Reply-To: pqs@justice.gsi.gov.uk'
       end
     end
   end

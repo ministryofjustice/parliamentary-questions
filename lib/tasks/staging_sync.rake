@@ -14,7 +14,7 @@ namespace :db do
           puts '[+] Test users created'
           puts '[+] Done'
         rescue => err
-          DbSyncMailer.notify_fail(err.message).deliver
+          MailService::DbSync.notify_fail(err.message)
         end
       else
         puts '[-] This task should only be run in the staging environment'
