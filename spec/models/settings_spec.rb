@@ -81,5 +81,11 @@ describe Settings do
         expect(Settings.mail_worker.max_fail_count).to eq 3
       end
     end
+
+    describe '.timeout' do
+      it 'should return the value from the file' do
+        expect(Settings.mail_worker.timeout).to eq 300
+      end
+    end
   end
 end
