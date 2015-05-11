@@ -6,7 +6,7 @@ class TrimLinksController < ApplicationController
 
     data =
       unless Validators::Trim.valid_upload?(upload)
-        failure_data('Missing or invalid trim file!')
+        failure_data('Invalid file selected!')
       else
         io   = upload.read
         trim = TrimLink.create!(data: io,
@@ -14,7 +14,7 @@ class TrimLinksController < ApplicationController
                                 size: upload.size,
                                 pq_id: trim_link_params[:pq_id])
         link_url  = url_for trim_link_path(trim.id)
-        success_data('Trim link was successfully created', link_url)
+        success_data('Trim link created', link_url)
       end
 
     render json: data
