@@ -13,6 +13,7 @@ namespace :demo do
   desc 'set up staging database for training demo'
   task :training_setup => :environment do
     if HostEnv.is_staging? || HostEnv.is_dev? || Rails.env.development?
+      setup_users
       setup_training_action_officers
       setup_training_questions
     else
@@ -21,6 +22,10 @@ namespace :demo do
   end
 end
 
+def setup_users
+  user = User.find_by(name: 'Rahul Mehta')
+  user.update_attribute(:email, 'rahul.meta@justice.gsi.gov.uk')
+end
 
 def setup_training_action_officers
   [
