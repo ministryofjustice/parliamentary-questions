@@ -10,7 +10,7 @@ class MetricsDashboard
   Struct.new('AppInfo', :version, :build_date, :build_tag, :git_sha)
   Struct.new('MailInfo', :num_waiting, :num_abandoned, :num_unanswered_tokens)
   Struct.new('PqaImportInfo', :last_run_time, :last_run_status, :pqs)
-  Struct.new('NumPqsImported', :today, :this_week, :last_week)
+  Struct.new('NumPqsImported', :today, :this_week, :this_month)
 
 
   def initialize
@@ -33,11 +33,12 @@ class MetricsDashboard
   private
 
   def gather_pqa_import_metrics
-    @pqa_import.last_run_time   = 5.hours.ago
-    @pqa_import.last_run_status = 'OK'
-    @pqa_import.pqs.today       = 8
-    @pqa_import.pqs.this_week   = 19
-    @pqa_import.pqs.last_week   = 35
+    last_run = PqaImportRun.last
+    @pqa_import.last_run_time   =  Time.use_zone('London') { last_run.start_time.in_time_zone }
+    @pqa_import.last_run_status = last_run.status
+    @pqa_import.pqs.today       = PqaImportRun.sum_pqs_imported(:day)
+    @pqa_import.pqs.this_week   = PqaImportRun.sum_pqs_imported(:week)
+    @pqa_import.pqs.this_month  = PqaImportRun.sum_pqs_imported(:month)
   end
 
 
@@ -87,10 +88,6 @@ class MetricsDashboard
     end
     status == 'OK'
   end
-
-
-
-
 
 end
 
