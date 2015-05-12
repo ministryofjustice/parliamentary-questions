@@ -13,11 +13,13 @@ class ApplicationController < ActionController::Base
     before_action :reset_session, if: :ssl_excepted?
   end
 
-  rescue_from StandardError do |exception|
-    if exception.is_a?(ActiveRecord::RecordNotFound)
-      page_not_found(exception)
-    else
-      server_error(exception)
+  unless Rails.env.development?
+    rescue_from StandardError do |exception|
+      if exception.is_a?(ActiveRecord::RecordNotFound)
+        page_not_found(exception)
+      else
+        server_error(exception)
+      end
     end
   end
 
@@ -45,6 +47,7 @@ class ApplicationController < ActionController::Base
 
 
   def server_error(exception)
+    puts "++++++++++++ SERVER ERROR ++++++++ #{__FILE__}::#{__LINE__} ++++++++\n"
     update_page_title 'Server Error (500)'
     show_error_page_and_increment_statsd(500, exception)
   end
