@@ -52,11 +52,13 @@ class CommissioningService
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
     LogStuff.tag(:mailer_commission) do
-      PqMailer.commission_email(email_template(pq, ao).merge(
-        email: ao.emails,
-        token: token,
-        entity: entity
-      )).deliver
+      mail_params = 
+        Presenters::Email.default_hash(pq, ao).merge(
+          token: token,
+          entity: entity
+        )
+
+      MailService::Pq.commission_email(mail_params)
     end
 
     if dd && dd.email.present?
@@ -64,28 +66,15 @@ class CommissioningService
                                                 'No deadline set'
 
       LogStuff.tag(:mail_notify) do
-        PqMailer.notify_dd_email(email_template(pq, ao).merge(
-          email: dd.email,
-          dd_name: dd.name,
-          internal_deadline: internal_deadline
-        )).deliver
+        mail_params = 
+          Presenters::Email.default_hash(pq, ao).merge(
+            email: dd.email,
+            dd_name: dd.name,
+            internal_deadline: internal_deadline
+          )
+
+        MailService::Pq.notify_dd_email(mail_params)
       end
     end
-  end
-
-  private
-
-  def email_template(pq, ao)
-    {
-      :uin => pq.uin,
-      :question => pq.question,
-      :ao_name => ao.name,
-      :member_constituency => pq.member_constituency,
-      :member_name => pq.member_name,
-      :house_name => pq.house_name,
-      :answer_by => pq.minister.name,
-      :internal_deadline => pq.internal_deadline,
-      :date_to_parliament => pq.date_for_answer
-    }
   end
 end

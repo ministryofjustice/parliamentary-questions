@@ -55,7 +55,7 @@ describe CommissioningService do
     context "when the supplied data is valid" do
       before do
         valid_form = CommissionForm.new(form_params)
-        @pq = CommissioningService.new.commission(valid_form)
+        @pq        = CommissioningService.new.commission(valid_form)
       end
 
       it "returns an updated PQ" do
@@ -74,6 +74,7 @@ describe CommissioningService do
       end
 
       it "notifies the action officers" do
+        MailWorker.new.run!
         ao1_mail, _,  ao2_mail, _ = ActionMailer::Base.deliveries
 
         expect(ao1_mail.to).to eq([ao1.email])
@@ -84,6 +85,7 @@ describe CommissioningService do
       end
 
       it "notifies the deputy director" do
+        MailWorker.new.run!
         _, dd1_mail, _, dd2_mail = ActionMailer::Base.deliveries
 
         expect(dd1_mail.to).to eq([ao1.deputy_director.email])

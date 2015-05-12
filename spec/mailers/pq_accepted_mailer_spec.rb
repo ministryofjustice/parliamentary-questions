@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe 'PQAcceptedMailer' do
-  let(:contact1) { create(:minister_contact, email: 'test1@tesk.uk')}
-  let(:contact2) { create(:minister_contact, email: 'test2@tesk.uk')}
-  let(:ao) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
-  let(:minister_1) { create(:minister, name: 'Mr Name1 for Test') }
-  let(:minister_2) { create(:minister, name: 'Mr Name2 for Test') }
-  let(:minister_simon) { create(:minister, name: 'Simon Hughes (MP)') }
-  let(:dd) {create(:deputy_director, name: 'Deputy Director', email:'dep@dep.gov')}
+  let(:contact1)       { create(:minister_contact, email: 'test1@tesk.uk')                     }
+  let(:contact2)       { create(:minister_contact, email: 'test2@tesk.uk')                     }
+  let(:ao)             { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov')        }
+  let(:minister_1)     { create(:minister, name: 'Mr Name1 for Test')                          }
+  let(:minister_2)     { create(:minister, name: 'Mr Name2 for Test')                          }
+  let(:minister_simon) { create(:minister, name: 'Simon Hughes (MP)')                          }
+  let(:dd)             { create(:deputy_director, name: 'Deputy Director', email:'dep@dep.gov')}
 
   before(:each) do
     ActionMailer::Base.deliveries = []
@@ -15,10 +15,15 @@ describe 'PQAcceptedMailer' do
     minister_2.minister_contacts << contact2
   end
 
+  def trigger_acceptance_mail(pq, ao)
+    MailService::Pq.acceptance_email(pq, ao)
+    MailWorker.new.run!
+  end
+
   describe '#deliver' do
     it 'should set question and the email' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
       expect(mail.html_part.body).to include pq.question
@@ -31,7 +36,7 @@ describe 'PQAcceptedMailer' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
       expectedCC = 'test1@tesk.uk'
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -47,7 +52,7 @@ describe 'PQAcceptedMailer' do
       contact_emails = minister_simon.minister_contacts.map(&:email)
       expectedCC = contact_emails.join(';')
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -62,7 +67,8 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
-      PqMailer.acceptance_email(pq, ao).deliver
+     
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -73,7 +79,7 @@ describe 'PQAcceptedMailer' do
     it 'should contain the name of the minister' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id)
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -85,7 +91,7 @@ describe 'PQAcceptedMailer' do
       member_name =  'Jeremy Snodgrass'
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: member_name, house_name: 'HoL')
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -96,7 +102,7 @@ describe 'PQAcceptedMailer' do
     it 'should contain the house ' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -115,7 +121,7 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -132,7 +138,7 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: false)
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -150,7 +156,7 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -161,7 +167,7 @@ describe 'PQAcceptedMailer' do
     it 'should show the date for answer if set' do
       pq = create(:pq, uin: 'HL789', date_for_answer: Date.new(2014,9,4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -172,7 +178,7 @@ describe 'PQAcceptedMailer' do
     it 'should not show the date for answer block if not set' do
       pq = create(:pq, uin: 'HL789', date_for_answer: nil, question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -185,7 +191,7 @@ describe 'PQAcceptedMailer' do
       expectedCC = 'dep@dep.gov'
       ao.deputy_director = dd
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
@@ -197,7 +203,7 @@ describe 'PQAcceptedMailer' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'dep@dep.gov'
 
-      PqMailer.acceptance_email(pq, ao).deliver
+      trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 

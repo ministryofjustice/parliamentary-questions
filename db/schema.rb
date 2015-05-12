@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506161244) do
+ActiveRecord::Schema.define(version: 20150507095914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,22 @@ ActiveRecord::Schema.define(version: 20150506161244) do
     t.string   "name"
     t.integer  "directorate_id"
     t.boolean  "deleted",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "emails", force: true do |t|
+    t.string   "mailer"
+    t.string   "method"
+    t.text     "params"
+    t.text     "from"
+    t.text     "to"
+    t.text     "cc"
+    t.text     "reply_to"
+    t.datetime "send_attempted_at"
+    t.datetime "sent_at"
+    t.integer  "num_send_attempts", default: 0
+    t.string   "status",            default: "new"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
