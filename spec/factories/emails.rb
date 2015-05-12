@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: emails
+#
+#  id                :integer          not null, primary key
+#  mailer            :string(255)
+#  method            :string(255)
+#  params            :text
+#  from              :text
+#  to                :text
+#  cc                :text
+#  reply_to          :text
+#  send_attempted_at :datetime
+#  sent_at           :datetime
+#  num_send_attempts :integer          default(0)
+#  status            :string(255)      default("new")
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
@@ -20,6 +40,16 @@ FactoryGirl.define do
     factory :pq_email_failed, class: Email do           
       num_send_attempts     2
       status                'failed'
+    end
+
+    factory :pq_email_abandoned do
+      num_send_attempts     5
+      status                'abandoned'
+    end
+
+    factory :pq_email_new do
+      num_send_attempts   0
+      status              'new'
     end
   end
 end

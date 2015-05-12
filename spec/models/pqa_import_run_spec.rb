@@ -8,7 +8,7 @@
 #  status         :string(255)
 #  num_created    :integer
 #  num_updated    :integer
-#  error_messages :string(255)
+#  error_messages :text
 #  created_at     :datetime
 #  updated_at     :datetime
 #
