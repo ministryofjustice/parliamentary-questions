@@ -29,7 +29,7 @@ module HealthCheck
       status = @errors.any? ? "FAIL" : "OK"
       Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
       File.open(TIMESTAMP_FILE, 'w') do |fp|
-        fp.puts "#{Time.now.to_i}::#{status}::#{@errors.to_json}"
+        fp.puts "#{Time.now.utc.to_i}::#{status}::#{@errors.to_json}"
       end
     end
 
