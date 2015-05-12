@@ -19,7 +19,15 @@ module MailService
   end
 
   def mail_to_send
-    Email.where(status: ['new', 'failed'])
+    Email
+      .where(status: ['new', 'failed'])
+      .order(:id)
+  end
+
+  def abandoned_mail
+    Email
+      .where(status: 'abandoned')
+      .order(:id)
   end
 
   def record_success(email)
