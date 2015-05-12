@@ -106,12 +106,43 @@ describe MetricsDashboard do
         end
 
       end
+    end
 
+    context 'app_info' do
+      it 'should return whatever Deployment gives it' do
+        expect(Deployment).to receive(:info).and_return(deployment_info)
+        metrics.send(:gather_app_info_metrics)
+        expect(metrics.app_info.version).to eq '9.88.77'
+        expect(metrics.app_info.build_date).to eq 'Mon May 11 15:45:09 UTC 2015'
+        expect(metrics.app_info.git_sha).to eq '00112233445566778899aabbccddeeff'
+        expect(metrics.app_info.build_tag).to eq 'jenkins-build-release-666'
+      end
+    end
 
+    context 'mail_info_metrics' do
+      context 'email records' do
 
+        before(:each) { setup_mail_records }
 
+        it 'should return the number of new and failed mails' do
+          metrics.send(:gather_mail_info_metrics)
+          expect(metrics.mail.num_waiting).to eq 4
+        end
+
+        it 'should return the number of abandoned mails' do
+          metrics.send(:gather_mail_info_metrics)
+          expect(metrics.mail.num_abandoned).to eq 1
+        end
+      end
+
+      it 'should return the dummy number of tokens until this is correctly implemented' do
+        metrics.send(:gather_mail_info_metrics)
+        expect(metrics.mail.num_unanswered_tokens).to eq 666
+      end
 
     end
+
+
   end
 end
 
@@ -123,4 +154,21 @@ def write_pqa_file(timestamp, status, messages)
   end
 end
 
+
+def deployment_info
+  {
+    version_number: "9.88.77",
+    build_date: "Mon May 11 15:45:09 UTC 2015",
+    commit_id: "00112233445566778899aabbccddeeff",
+    build_tag: "jenkins-build-release-666"
+  }
+end
+
+def setup_mail_records
+  3.times { FactoryGirl.create :pq_email_new }
+  2.times { FactoryGirl.create :pq_email_sent }
+  FactoryGirl.create :pq_email_abandoned
+  FactoryGirl.create :pq_email_failed
+
+end
 

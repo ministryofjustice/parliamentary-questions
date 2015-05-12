@@ -8,7 +8,7 @@ class MetricsDashboard
 
   Struct.new('Health', :db_status, :sendgrid_status, :pqa_api_status)
   Struct.new('AppInfo', :version, :build_date, :build_tag, :git_sha)
-  Struct.new('MailInfo', :num_waiting, :num_abandoned, :unanswered_tokens)
+  Struct.new('MailInfo', :num_waiting, :num_abandoned, :num_unanswered_tokens)
   Struct.new('PqaImportInfo', :last_run_time, :last_run_status, :pqs)
   Struct.new('NumPqsImported', :today, :this_week, :last_week)
 
@@ -31,6 +31,21 @@ class MetricsDashboard
 
 
   private
+
+  def gather_mail_info_metrics
+    @mail.num_waiting = Email.waiting.size
+    @mail.num_abandoned = Email.abandoned.size
+    @mail.num_unanswered_tokens = 666
+  end
+
+
+  def gather_app_info_metrics
+    info                 = Deployment.info
+    @app_info.version    = info[:version_number]
+    @app_info.build_date = info[:build_date]
+    @app_info.build_tag  = info[:build_tag]
+    @app_info.git_sha    = info[:commit_id]
+  end
   
   def gather_health_metrics
     @health.db_status = get_db_status
