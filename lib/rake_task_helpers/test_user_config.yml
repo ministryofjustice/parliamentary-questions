@@ -30,3 +30,6 @@ restricted_testers:
   - name: Marcus
     email: marcus.tucker-cooper
     domain: justice.gsi.gov.uk
+  - name: PQ Support
+    email:  pqsupport
+    domain: digital.justice.gov.uk
