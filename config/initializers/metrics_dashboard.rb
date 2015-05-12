@@ -32,6 +32,15 @@ class MetricsDashboard
 
   private
 
+  def gather_pqa_import_metrics
+    @pqa_import.last_run_time   = 5.hours.ago
+    @pqa_import.last_run_status = 'OK'
+    @pqa_import.pqs.today       = 8
+    @pqa_import.pqs.this_week   = 19
+    @pqa_import.pqs.last_week   = 35
+  end
+
+
   def gather_mail_info_metrics
     @mail.num_waiting = Email.waiting.size
     @mail.num_abandoned = Email.abandoned.size
