@@ -74,6 +74,7 @@ describe PqaImportRun, :type => :model do
         records.each do |start_time, status|
           FactoryGirl.create(:pqa_import_run, start_time: start_time, end_time: start_time + 3.seconds, status: status)
         end
+
         expect(times_equal?(PqaImportRun.last_import_time_utc, 2.minutes.ago)).to be true
       end
     end

@@ -30,6 +30,12 @@ module MailService
       .order(:id)
   end
 
+  def new_mail
+    Email
+      .where(status: 'new')
+      .order(:id)
+  end
+
   def record_success(email)
     email.update(
       status: 'sent',
