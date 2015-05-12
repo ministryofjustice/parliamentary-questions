@@ -1,9 +1,10 @@
 require 'feature_helper'
 
 describe HealthCheck::MailWorker do
-  let(:pid_path)  { Settings.mail_worker.pid_filepath }
-  let(:worker)    { HealthCheck::MailWorker.new       }
-  let(:mail)      { double Email, status: 'abandoned' }
+  let(:pid_path)    { Settings.mail_worker.pid_filepath                       }
+  let(:worker)      { HealthCheck::MailWorker.new                             }
+  let(:mail)        { double Email, status: 'abandoned'                       }
+  let(:stale_mail)  { double Email, status: 'new', created_at: Date.yesterday }
 
   context '#available?' do
     it 'returns true if the mail worker is available' do
@@ -13,6 +14,12 @@ describe HealthCheck::MailWorker do
     it 'returns false if the mail worker is not available' do
       expect(File).to receive(:exists?).with(pid_path).and_return(true)
       expect(File).to receive(:ctime).with(pid_path).and_return(Date.yesterday)
+
+      expect(worker).not_to be_available
+    end
+
+    it 'should return false if stale new emails are present' do
+      allow(MailService).to receive(:new_mail).and_return([stale_mail])
 
       expect(worker).not_to be_available
     end

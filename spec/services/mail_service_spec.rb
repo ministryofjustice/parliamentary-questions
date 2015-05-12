@@ -16,6 +16,13 @@ describe MailService do
     expect(service.abandoned_mail).to eq [failed]
   end
 
+  it '#new_mail - returns mail in new state' do
+    default.update(status: 'new')
+
+    expect(service.new_mail).to eq [default]
+  end
+
+
   it '#record_attempt - updates db fields for a send attempt' do
     service.record_attempt(default)
 
