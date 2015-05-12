@@ -33,7 +33,7 @@ class MetricsDashboard
   private
 
   def gather_pqa_import_metrics
-    last_run = PqaImportRun.last
+    last_run = PqaImportRun.last || create_empty_import_run
     @pqa_import.last_run_time   =  Time.use_zone('London') { last_run.start_time.in_time_zone }
     @pqa_import.last_run_status = last_run.status
     @pqa_import.pqs.today       = PqaImportRun.sum_pqs_imported(:day)
@@ -87,6 +87,17 @@ class MetricsDashboard
       return false
     end
     status == 'OK'
+  end
+
+  def create_empty_import_run
+    PqaImportRun.new(
+      :start_time     => Time.at(0),
+      :end_time       => Time.at(0),
+      :status         => 'FAIL',
+      :num_created    => 0,
+      :num_updated    => 0,
+      :error_messages => []
+    )
   end
 
 end
