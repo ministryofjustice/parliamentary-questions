@@ -64,7 +64,7 @@ describe MailWorker do
       expect { worker.run! }.to raise_error(MailWorker::ExistingMailWorkerProcess)
     end
 
-    it 'should clear the pid file on exit, even if an error occurs' do
+    it 'should clear the pid file on exit' do
       expect(File).to receive(:delete).with(pid_path).and_call_original
 
       worker.run!
