@@ -7,6 +7,14 @@ module HealthCheck
       @errors = []
     end
 
+    def self.time_to_run?
+      #
+      # Allows enforcing a minimum time period for refreshing checks on a component
+      # Null -> Boolean
+      #
+      true
+    end
+
     def available?
       #
       # Checks if component is running

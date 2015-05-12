@@ -5,6 +5,7 @@ env:
     - CODECLIMATE_REPO_TOKEN=08183fa3b285d981f273ace1c809c402810db3221b1060023a6db8633ac5b8cb
     - DEVISE_SENDER=no-reply@digital.justice.gov.uk
     - RAILS_ENV=test
+    - TEST_USER_PASS=test
 rvm:
   - 2.1.2
 before_install:
