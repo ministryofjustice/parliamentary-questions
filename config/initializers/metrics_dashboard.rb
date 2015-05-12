@@ -51,10 +51,16 @@ class MetricsDashboard
   end
 
   def get_pqa_api_status
+    return false unless File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
+
     line = File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, 'r') do |fp|
       fp.gets.chomp
     end
-    timestamp, status, error_messages_as_json = line
+    timestamp, status, error_messages_as_json = line.split('::')
+    last_run_time = Time.at(timestamp.to_i).utc
+    if last_run_time + (Settings.healthcheck_pqa_api_interval + 5).minutes < Time.now.utc
+      return false
+    end
     status == 'OK'
   end
 
