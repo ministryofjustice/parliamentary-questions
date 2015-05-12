@@ -8,6 +8,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require './spec/support/db_helpers'
 require './spec/support/features/session_helpers'
+require './spec/support/features/email_helpers'
 require './spec/support/unit/question_factory'
 require './spec/support/csv_helpers'
 require 'shoulda/matchers'
@@ -23,6 +24,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
 
+  config.include Features::EmailHelpers
   config.include Features::SessionHelpers, type: :feature
   # config.include Features::DecisionHelpers, type: :feature
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
