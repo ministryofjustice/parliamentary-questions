@@ -8,7 +8,90 @@ namespace :demo do
       create_question(i, seed_questions[i - 1])
     end
   end
+
+
+  desc 'set up staging database for training demo'
+  task :training_setup => :environment do
+    if HostEnv.is_staging? || HostEnv.is_dev? || Rails.env.development?
+      setup_users
+      setup_training_action_officers
+      setup_training_questions
+    else
+      raise "DANGER!  This task updates the database. May only be run in staging or dev environments"
+    end
+  end
 end
+
+def setup_users
+  user = User.find_by(name: 'Rahul Mehta')
+  user.update_attribute(:email, 'rahul.meta@justice.gsi.gov.uk')
+end
+
+def setup_training_action_officers
+  [
+    ['Marcus Tucker-Cooper', 'Marcus.Tucker-Cooper@justice.gsi.gov.uk', 43],
+    ['James Wood', 'james.wood1@justice.gsi.gov.uk', 3],
+    ['Jake Thirkell', 'jake.thirkell@justice.gsi.gov.uk', 35]
+  ].each do |ao_dets|
+    name, email, division_id = ao_dets
+    ao = ActionOfficer.where("name = ?", name).first
+    ao.update_attribute(:email, email)
+    allocate_division_to_ao(ao, division_id)
+  end
+end
+
+
+def allocate_division_to_ao(ao, division_id)
+  division = Division.find(division_id)
+  ao.update_attribute(:deputy_director_id, division.deputy_directors.active.first.id)
+end
+
+
+
+
+def setup_training_questions
+  dupe_pqs = {
+    'HL2983' => 'HL8954',
+    '220661' => 'HL8957',
+    '218894' => '899344',
+    '218333' => '899325',
+    'HL5762' => 'HL8951',
+    '226031' => '899322',
+    '220161' => '899316',
+    '228151' => '899310',
+    '208826' => '899311'
+  }
+  dupe_pqs.each do |old_uin, new_uin|
+    old_pq = Pq.uin(old_uin)
+    duplicate_question(old_pq, new_uin)
+  end
+end
+
+
+def duplicate_question(old_pq, new_uin)
+question = Pq.create!(
+             :house_id => old_pq.house_id,
+    :raising_member_id => old_pq.raising_member_id,
+          :tabled_date => 1.days.ago,
+             :question => old_pq.question,
+      :seen_by_finance => false,
+                  :uin => new_uin,
+          :member_name => old_pq.member_name,
+  :member_constituency => old_pq.member_constituency,
+           :house_name => old_pq.house_name,
+      :date_for_answer => 2.days.from_now,
+  :registered_interest => old_pq.registered_interest,
+        :question_type => old_pq.question_type,
+          :transferred => old_pq.transferred,
+      :question_status => "Tabled",
+                :state => "unassigned",
+         :state_weight => 0
+  )
+end
+
+
+
+
 
 
 def delete_existing_demo_questions
@@ -31,10 +114,7 @@ def create_question(i, seed_question)
                                          :house_id => nil,
                                 :raising_member_id => 2479,
                                       :tabled_date => 1.days.ago,
-                                     :response_due => nil,
                                          :question => seed_question.question,
-                                           :answer => nil,
-                                 :finance_interest => nil,
                                   :seen_by_finance => false,
                                               :uin => "uin-#{i}",
                                       :member_name => seed_question.member_name,
@@ -42,51 +122,9 @@ def create_question(i, seed_question)
                                        :house_name => "House of Commons",
                                   :date_for_answer => 2.days.from_now,
                               :registered_interest => false,
-                                :internal_deadline => nil,
                                     :question_type => seed_question.question_type,
-                                      :minister_id => nil,
-                               :policy_minister_id => nil,
-                                      :progress_id => nil,
-                            :draft_answer_received => nil,
-                            :i_will_write_estimate => nil,
-                                    :holding_reply => nil,
-                                      :preview_url => nil,
-                                      :pod_waiting => nil,
-                                        :pod_query => nil,
-                                    :pod_clearance => nil,
                                       :transferred => false,
                                   :question_status => "Tabled",
-                                      :round_robin => nil,
-                                 :round_robin_date => nil,
-                                     :i_will_write => nil,
-                           :pq_correction_received => nil,
-          :correction_circulated_to_action_officer => nil,
-                                   :pod_query_flag => nil,
-                          :sent_to_policy_minister => nil,
-                            :policy_minister_query => nil,
-                :policy_minister_to_action_officer => nil,
-       :policy_minister_returned_by_action_officer => nil,
-                   :resubmitted_to_policy_minister => nil,
-                       :cleared_by_policy_minister => nil,
-                       :sent_to_answering_minister => nil,
-                         :answering_minister_query => nil,
-             :answering_minister_to_action_officer => nil,
-    :answering_minister_returned_by_action_officer => nil,
-                :resubmitted_to_answering_minister => nil,
-                    :cleared_by_answering_minister => nil,
-                                 :answer_submitted => nil,
-                                  :library_deposit => nil,
-                                     :pq_withdrawn => nil,
-                               :holding_reply_flag => nil,
-                     :final_response_info_released => nil,
-                    :round_robin_guidance_received => nil,
-                              :transfer_out_ogd_id => nil,
-                                :transfer_out_date => nil,
-                                   :directorate_id => nil,
-                                      :division_id => nil,
-                               :transfer_in_ogd_id => nil,
-                                 :transfer_in_date => nil,
-                                     :follow_up_to => nil,
                                             :state => "unassigned",
                                      :state_weight => 0
   )

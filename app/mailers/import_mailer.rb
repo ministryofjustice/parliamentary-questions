@@ -1,13 +1,21 @@
 class ImportMailer < PQBaseMailer
-  default from: Settings.mail_from
+  def notify_fail(mail_data)
+    @err_msg = mail_data.params
 
-  def notify_fail(err_msg)
-    @err_msg = err_msg
-    mail(to: Settings.mail_tech_support, subject: prefix('API import failed'))
+    mail(
+      mail_data.addressees.merge({ 
+        subject:  prefix('API import failed')
+      })
+    )
   end
 
-  def notify_success(report)
-    @report = report
-    mail(to: Settings.mail_tech_support, subject: prefix('API import succeeded'))
+  def notify_success(mail_data)
+    @report = mail_data.params
+
+    mail(
+      mail_data.addressees.merge({ 
+        subject:  prefix('API import succeeded')
+      })
+    )
   end
 end

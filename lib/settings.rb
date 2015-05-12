@@ -67,4 +67,9 @@ module Settings
   def healthcheck_pqa_api_interval
     @h['healthcheck_pqa_api_interval']
   end
+
+  def mail_worker
+    OpenStruct.new(@h['mail_worker'])
+  end
+
 end

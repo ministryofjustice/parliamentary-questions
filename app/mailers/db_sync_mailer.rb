@@ -1,8 +1,11 @@
 class DbSyncMailer < PQBaseMailer
-  default from: Settings.mail_from
+  def notify_fail(mail_data)
+    @err_msg = mail_data.params
 
-  def notify_fail(err_msg)
-    @err_msg = err_msg
-    mail(to: Settings.mail_tech_support, subject: prefix('Staging DB sanitization failed'))
+    mail(
+      mail_data.addressees.merge({ 
+        subject:  prefix('Staging DB sanitization failed')
+      })
+    )
   end
 end

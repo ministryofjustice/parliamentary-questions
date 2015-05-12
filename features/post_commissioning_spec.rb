@@ -67,6 +67,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     commission_question(@uin2, [@ao], @minister)
     accept_assignment(@ao)
 
+
     in_pq_detail(@uin2, "PQ draft")       { fillin_date('#draft_answer_received') }
     in_pq_detail(@uin2, "POD check")      { check "POD query flag" }
     in_pq_detail(@uin2, "POD check")      { fillin_date('#pod_clearance') }
