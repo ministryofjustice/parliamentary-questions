@@ -78,7 +78,7 @@ describe Settings do
 
     describe '.max_fail_count' do
       it 'should return the value from the file' do
-        expect(Settings.mail_worker.max_fail_count).to eq 3
+        expect(Settings.mail_worker.max_fail_count).to eq 15
       end
     end
 
