@@ -142,6 +142,47 @@ describe MetricsDashboard do
 
     end
 
+    context 'pqa_import_metrics' do
+      it 'should return time of last run in BST during summer' do
+        Timecop.freeze(2015, 5, 15, 13, 45, 5) do
+          FactoryGirl.create :pqa_import_run, start_time: Time.now
+          metrics.send(:gather_pqa_import_metrics)
+          expect(metrics.pqa_import.last_run_time.iso8601).to eq '2015-05-15T14:45:05+01:00'
+        end
+      end
+
+      it 'should return time of last run in UTC during winter' do
+        Timecop.freeze(2014, 12, 25, 13, 45, 5) do
+          FactoryGirl.create :pqa_import_run, start_time: Time.now
+          metrics.send(:gather_pqa_import_metrics)
+          expect(metrics.pqa_import.last_run_time.iso8601).to eq '2014-12-25T13:45:05+00:00'
+        end
+      end
+
+      it 'should return ok status if last run was ok' do
+        FactoryGirl.create :pqa_import_run, start_time: Time.now
+        metrics.send(:gather_pqa_import_metrics)
+        expect(metrics.pqa_import.last_run_status).to eq 'OK'
+      end
+
+      it 'should return fail status if last run was not ok' do
+        FactoryGirl.create :pqa_import_run, start_time: Time.now, status: 'OK_with_errors'
+        metrics.send(:gather_pqa_import_metrics)
+        expect(metrics.pqa_import.last_run_status).to eq 'OK_with_errors'
+      end
+
+      it 'should return values given to it by PqaImportRun' do
+        FactoryGirl.create :pqa_import_run, start_time: Time.now
+        expect(PqaImportRun).to receive(:sum_pqs_imported).with(:day).and_return(25)
+        expect(PqaImportRun).to receive(:sum_pqs_imported).with(:week).and_return(133)
+        expect(PqaImportRun).to receive(:sum_pqs_imported).with(:month).and_return(402)
+        metrics.send(:gather_pqa_import_metrics)
+        expect(metrics.pqa_import.pqs.today).to eq 25
+        expect(metrics.pqa_import.pqs.this_week).to eq 133
+        expect(metrics.pqa_import.pqs.this_month).to eq 402
+      end
+    end
+
 
   end
 end
