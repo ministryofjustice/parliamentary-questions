@@ -140,6 +140,16 @@ label {
   @include phase-tag($phase);
 }
 
+// only visible on the staging server to warn that it is not the live system
+.staging_banner {
+  background-color: $red;
+  text-align: center;
+  padding: 1em;
+  height: auto;
+  color: white;
+  font-weight:bold;
+}
+
 // override govuk-template visited links colours,
 // as this is an application, rather than a simple web page
 @media screen {
@@ -865,19 +875,18 @@ textarea.form-control {
   color: $text-colour;
 }
 
-// = Sign in page (/users/sign_in) ========================================== */
+/* = Sign in page (/users/sign_in) ========================================== */
 
 #sign_in { margin: 30px 0px; }
 
-.staging_banner {
-  background-color: $red;
-  text-align: center;
-  padding: 1em;
-  height: auto;
-  color: white;
-  font-weight:bold;
-}
+/* = Metrics dashboard (/metrics_dashboard) ================================= */
 
-// selectors / classes /ids not found....
-// .no-indent { margin-left: -2.1em; }  not being used ? was in global
-// #btn_finance_visibility { margin-top: 30px; } not being used ? was in global
+#metrics_dashboard {
+  ul { padding-left: 1em;
+    li span {
+      width: 40%;
+      display: inline-block;
+    }
+  }
+
+}
