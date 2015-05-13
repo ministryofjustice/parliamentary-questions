@@ -3,6 +3,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'healthcheck'        => 'health_check#index'
 
   get 'statistics/'                 => 'statistics#index'
+  get 'statistics/stages_time'      => 'statistics#stages_time'
   get 'statistics/on_time'          => 'statistics#on_time'
   get 'statistics/time_to_assign'   => 'statistics#time_to_assign'
   get 'statistics/ao_response_time' => 'statistics#ao_response_time'
