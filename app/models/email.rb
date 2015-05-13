@@ -18,6 +18,10 @@ class Email < ActiveRecord::Base
 
   serialize :params
 
+  scope :new_only,  -> { where(status: 'new' ).order(:id)             }
+  scope :waiting,   -> { where(status: ['new', 'failed']).order(:id)  }
+  scope :abandoned, -> { where(status: 'abandoned' ).order(:id)       }
+
   private
 
   def concatenated_email_to_format
