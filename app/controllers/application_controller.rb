@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  
+
   # SSL Production Config
   if Rails.env.production? && !HostEnv.is_dev?
     # Force SSL except in excepted routes
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     before_action :reset_session, if: :ssl_excepted?
   end
 
-  unless Rails.env.development?
+  if Rails.env.production?
     rescue_from StandardError do |exception|
       if exception.is_a?(ActiveRecord::RecordNotFound)
         page_not_found(exception)
