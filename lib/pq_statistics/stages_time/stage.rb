@@ -46,6 +46,7 @@ module PqStatistics
 
       def update(pq)
         increment(pq.created_at, pq.draft_answer_received)
+        self
       end
     end
 
@@ -56,6 +57,7 @@ module PqStatistics
 
       def update(pq)
         increment(pq.draft_answer_received, pq.pod_clearance)
+        self
       end
     end
 
@@ -66,6 +68,7 @@ module PqStatistics
 
       def update(pq)
         increment(pq.pod_clearance, cleared_by_minister(pq))
+        self
       end
     end
 
@@ -76,6 +79,7 @@ module PqStatistics
 
       def update(pq)
         increment(cleared_by_minister(pq), pq.answer_submitted)
+        self
       end
     end
   end

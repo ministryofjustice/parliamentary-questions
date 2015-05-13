@@ -2,8 +2,9 @@ require_relative 'stage'
 
 module PqStatistics
   module StagesTime
-
     class Journey
+      include PqStatistics
+      
       STAGES = 
       [
         DraftAnswer,
@@ -11,6 +12,8 @@ module PqStatistics
         MinisterClearance,
         SubmitAnswer,
       ]
+
+      attr_reader :stages
 
       def initialize
         @stages = STAGES.map(&:new)
