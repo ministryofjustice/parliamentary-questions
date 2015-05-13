@@ -4,7 +4,7 @@ module HealthCheck
     TIMEOUT  = Settings.mail_worker.timeout
 
     def available?
-      if stale_pid_file?
+      if stale_pid_file? || stale_unsent_mails?
         log_error('Timeout', "mail queue process time > #{TIMEOUT} seconds")
         false
       else
@@ -35,6 +35,10 @@ module HealthCheck
 
     def stale_pid_file?
       File.exists?(PID_FILE) && File.ctime(PID_FILE) < (Time.now - TIMEOUT)
+    end
+
+    def stale_unsent_mails?
+      MailService.new_mail.any? { |email| email.created_at < (Time.now - TIMEOUT) }
     end
 
     def log_error(type, msg)
