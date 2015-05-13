@@ -190,6 +190,7 @@ end
 
 
 def write_pqa_file(timestamp, status, messages)
+  FileUtils.mkdir_p File.dirname(HealthCheck::PqaApi::TIMESTAMP_FILE)
   File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, 'w') do |fp|
     fp.puts("#{timestamp}::#{status}::#{messages.to_json}")
   end

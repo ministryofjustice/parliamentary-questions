@@ -26,10 +26,13 @@ module HealthCheck
 
     def record_result
       tmpdir = "#{Rails.root}/tmp"
-      status = @errors.any? ? "FAIL" : "OK"
       Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
+      status = @errors.any? ? "FAIL" : "OK"
+      
       File.open(TIMESTAMP_FILE, 'w') do |fp|
-        fp.puts "#{Time.now.utc.to_i}::#{status}::#{@errors.to_json}"
+        t = Time.now.utc
+        puts ">>>>>>>>>>>>>>>> DEBUG RECORDING RESULT FOR #{t.iso8601} as #{t.to_i} #{Rails.application.config.time_zone} #{__FILE__}::#{__LINE__} <<<<<<<<<<"
+        fp.puts "#{t.to_i}::#{status}::#{@errors.to_json}"
       end
     end
 
