@@ -76,17 +76,17 @@ describe HealthCheck::PqaApi do
 
   context '#record_result' do
     it 'should write timestamp and OK if no error messages' do
-      Timecop.freeze(Time.new(2015, 5, 8, 15, 35, 45)) do
+      Timecop.freeze(Time.utc(2015, 5, 8, 15, 35, 45)) do
         pqa.record_result
-        expect(contents_of_timestamp_file).to eq "1431095745::OK::[]\n"
+        expect(contents_of_timestamp_file).to eq "1431099345::OK::[]\n"
       end
     end
     
     it 'should write timestamp and FAIL and error messages if any errors' do
-      Timecop.freeze(Time.new(2015, 5, 8, 15, 35, 45)) do
+      Timecop.freeze(Time.utc(2015, 5, 8, 15, 35, 45)) do
         pqa.instance_variable_set(:@errors, [ 'First error message', 'Second error message' ] )
         pqa.record_result
-        expect(contents_of_timestamp_file).to eq "1431095745::FAIL::[\"First error message\",\"Second error message\"]\n"
+        expect(contents_of_timestamp_file).to eq "1431099345::FAIL::[\"First error message\",\"Second error message\"]\n"
       end
     end
   end

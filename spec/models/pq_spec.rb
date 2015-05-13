@@ -529,7 +529,7 @@ describe Pq do
       end
 
       it 'should be valid if multiple accepted but only one of those is active' do
-        ao1 = pq.action_officers.first
+        ao1 = pq.action_officers.order(:id).first
         ao1.deleted = true
         ao1.save!
         ao2 = pq.action_officers[1]
