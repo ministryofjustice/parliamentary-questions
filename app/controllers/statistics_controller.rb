@@ -2,13 +2,7 @@ class StatisticsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @links = 
-    [
-      Link.new('On Time', '/on_time', 'Percentage of questions on answered time'),
-      Link.new('Time to Assign', '/time_to_assign', 'Average time to assign a question to an Action Officer'),
-      Link.new('AO Response Time', '/ao_response_time', 'Average time for an Action Officer to respond with accept/reject'),
-      Link.new('AO Churn', '/ao_churn', 'Average number of times a different set of Action Officers are assigned')
-    ]
+    @links = Presenters::Statistics.report_links
   end
 
   def on_time
@@ -39,6 +33,16 @@ class StatisticsController < ApplicationController
     )
   end
 
+  def stages_time
+    @data   = PqStatistics::StagesTime.calculate
+    @report = Presenters::Statistics::StagesTimeReport.build(@data)
+
+    respond_to do |format|
+      format.html { render 'stages'      } 
+      format.json { render json: @report }
+    end
+  end
+
   private
 
   def render_report(calculator, presenter)
@@ -50,6 +54,4 @@ class StatisticsController < ApplicationController
       format.json { render json: @report.rows }
     end
   end
-
-  Link = Struct.new(:name, :path, :description)
 end
