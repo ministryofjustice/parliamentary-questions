@@ -169,3 +169,38 @@ feature 'Statistics: AO churn' do
     )
   end
 end
+
+feature 'Statistics: Stages Time' do
+  let(:base)      { 1.business_days.ago }
+  let(:past_base) { 9.business_days.ago }
+
+  before(:each) do
+    pq1, pq2 = (1..2).map{ FactoryGirl.create(:answered_pq) } 
+
+    update_stage_times(pq1, [8, 6, 5, 2], base)
+    update_stage_times(pq2, [12, 8, 5, 2], past_base)
+  end
+
+  def update_stage_times(pq, hours, base)
+    pq.update(
+      created_at:                    hours[0].business_hours.before(base),      
+      draft_answer_received:         hours[1].business_hours.before(base),   
+      pod_clearance:                 hours[2].business_hours.before(base),   
+      cleared_by_answering_minister: hours[3].business_hours.before(base), 
+      answer_submitted:              base
+    )
+  end
+
+  scenario 'As a user I can retrieve the average time taken at each stage of the PQ process in JSON' do
+    create_pq_session
+    visit '/statistics/stages_time.json'
+
+    expect(page).to have_content(
+      "{\"title\":\"PQ Statistics: stages time\"," +
+      "\"current_journey\":[{\"name\":\"Draft Answer\",\"time\":\"2.0\"},{\"name\":\"POD Clearance\",\"time\":\"1.0\"}," +
+      "{\"name\":\"Minister Clearance\",\"time\":\"3.0\"},{\"name\":\"Submit Answer\",\"time\":\"2.0\"}]," + 
+      "\"benchmark_journey\":[{\"name\":\"Draft Answer\",\"time\":\"3.0\"},{\"name\":\"POD Clearance\",\"time\":\"2.0\"}," + 
+      "{\"name\":\"Minister Clearance\",\"time\":\"3.0\"},{\"name\":\"Submit Answer\",\"time\":\"2.0\"}]}"
+    )
+  end
+end
