@@ -1,0 +1,40 @@
+[
+  {
+    "title": {
+      "text": "Database"
+    }
+    ,
+    "description": "<%= @metrics.health.db_status %>"
+    <% if @metrics.health.db_status %>
+    ,
+    "label": {
+      "name": "Bad!",
+      "color": "#ff2015"
+    }
+    <% end %>
+  },
+  {
+    "title": {
+      "text": "Safari"
+    },
+    "description": "11577 visits"
+  },
+  {
+    "title": {
+      "text": "Firefox"
+    },
+    "description": "10296 visits"
+  },
+  {
+    "title": {
+      "text": "Internet Explorer"
+    },
+    "description": "3587 visits"
+  },
+  {
+    "title": {
+      "text": "Opera"
+    },
+    "description": "499 visits"
+  }
+]
