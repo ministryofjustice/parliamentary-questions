@@ -169,7 +169,7 @@ end
 
 
 def times_equal?(t1, t2)
-  t1.to_f.round(4) == t2.to_f.round(4)
+  t1.to_f.round(2) == t2.to_f.round(2)
 end
 
 
