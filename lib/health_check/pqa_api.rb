@@ -31,7 +31,6 @@ module HealthCheck
       
       File.open(TIMESTAMP_FILE, 'w') do |fp|
         t = Time.now.utc
-        puts ">>>>>>>>>>>>>>>> DEBUG RECORDING RESULT FOR #{t.iso8601} as #{t.to_i} #{Rails.application.config.time_zone} #{__FILE__}::#{__LINE__} <<<<<<<<<<"
         fp.puts "#{t.to_i}::#{status}::#{@errors.to_json}"
       end
     end
