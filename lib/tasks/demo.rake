@@ -21,6 +21,32 @@ namespace :demo do
       raise "DANGER!  This task updates the database. May only be run in staging or dev environments"
     end
   end
+
+  desc 'setup up staging database for mock scenario test'
+  task :mock_scenario => :environment do
+    prefixes = {
+
+      'ACC'             => 5,
+      'REJ-RECOM-ACC'   => 5,
+      'IGNORE-THEN-ACC' => 5,
+      'ACC-REMIND'      => 5,
+      'POD-QUERY'       => 5,
+      'POLICY-MINISTER' => 3,
+      'MINISTER-QUERY'  => 2,
+    }
+    source_questions = Pq.where('id > ?', 1800).limit(35).to_a
+    Pq.all.map(&:destroy)
+    prefixes.each do |prefix, num_questions|
+      num_questions.times do
+        create_mock_question(prefix, source_questions.pop)
+      end
+    end
+  end
+
+
+
+
+
 end
 
 def setup_users
@@ -108,6 +134,28 @@ def populate_seeds
   seed_question_uins.each { |uin| seed_questions << Pq.find_by(uin: uin) }
   seed_questions
 end
+
+def create_mock_question(prefix, seed_question)
+  Pq.create!(
+             :house_id => seed_question.house_id,
+    :raising_member_id => seed_question.raising_member_id,
+          :tabled_date => 1.days.ago,
+             :question => seed_question.question,
+      :seen_by_finance => false,
+                  :uin => "#{prefix}-#{seed_question.uin}",
+          :member_name => seed_question.member_name,
+  :member_constituency => seed_question.member_constituency,
+           :house_name => seed_question.house_name,
+      :date_for_answer => 5.days.from_now,
+  :registered_interest => false,
+        :question_type => seed_question.question_type,
+          :transferred => false,
+      :question_status => "Tabled",
+                :state => "unassigned",
+         :state_weight => 0
+    )
+end
+
 
 
 def create_question(i, seed_question)
