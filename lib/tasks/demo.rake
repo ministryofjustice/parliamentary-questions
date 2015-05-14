@@ -98,6 +98,7 @@ end
 def delete_existing_demo_questions
   Pq.where("uin like 'uin-%'").map(&:destroy)
   Pq.where("uin like '8%'").map(&:destroy)
+  Pq.where('state in (?)', ['no_response', 'unassigned']).map(&:destroy)
 end
 
 
@@ -110,24 +111,26 @@ end
 
 
 def create_question(i, seed_question)
-  uin = (seed_question.uin.to_i + 600000).to_s
-  
-  question = Pq.create!(
-                                         :house_id => nil,
-                                :raising_member_id => 2479,
-                                      :tabled_date => 1.days.ago,
-                                         :question => seed_question.question,
-                                  :seen_by_finance => true,
-                                              :uin => uin,
-                                      :member_name => seed_question.member_name,
-                              :member_constituency => seed_question.member_constituency,
-                                       :house_name => "House of Commons",
-                                  :date_for_answer => 2.days.from_now,
-                              :registered_interest => false,
-                                    :question_type => seed_question.question_type,
-                                      :transferred => false,
-                                  :question_status => "Tabled",
-                                            :state => "unassigned",
-                                     :state_weight => 0
-  )
+  [610000, 620000, 630000, 640000].each do |adder|
+    uin = (seed_question.uin.to_i + adder).to_s
+    
+    question = Pq.create!(
+                                           :house_id => nil,
+                                  :raising_member_id => 2479,
+                                        :tabled_date => 1.days.ago,
+                                           :question => seed_question.question,
+                                    :seen_by_finance => true,
+                                                :uin => uin,
+                                        :member_name => seed_question.member_name,
+                                :member_constituency => seed_question.member_constituency,
+                                         :house_name => "House of Commons",
+                                    :date_for_answer => 2.days.from_now,
+                                :registered_interest => false,
+                                      :question_type => seed_question.question_type,
+                                        :transferred => false,
+                                    :question_status => "Tabled",
+                                              :state => "unassigned",
+                                       :state_weight => 0
+    )
+  end
 end
