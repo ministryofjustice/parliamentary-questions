@@ -1,5 +1,4 @@
 class MetricsDashboardController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
 
 
   def index
