@@ -5,35 +5,35 @@ var chart_data = chart_data || {
   "current_journey":[
     {
       "name":"Draft Answer",
-      "time":"1.0"
+      "time":"0.0"
     },
     {
       "name":"POD Clearance",
-      "time":"2.0"
+      "time":"0.0"
     },
     {
       "name":"Minister Clearance",
-      "time":"3.0"
+      "time":"0.0"
     },
     {
       "name":"Submit Answer",
-      "time":"4.0"
+      "time":"0.0"
     }
   ],
   "benchmark_journey":[
     {
       "name":"Draft Answer",
-      "time":"4.0"
+      "time":"0.0"
     },
     {
       "name":"POD Clearance",
-      "time":"3.0"
+      "time":"0.0"
     },{
       "name":"Minister Clearance",
-      "time":"2.0"
+      "time":"0.0"
     },{
       "name":"Submit Answer",
-      "time":"1.0"
+      "time":"0.0"
     }
   ]
 };
