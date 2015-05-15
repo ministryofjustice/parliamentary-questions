@@ -4,15 +4,17 @@ h2 Question duration in phases
 
 style scoped="scoped"
  |
-   #graph p { transform: rotate(-90deg) translate(0px,80px); vertical-align: middle; display: inline-block; }
-   #graph canvas {  vertical-align: middle; margin: 10px; }
-   #x-axis { text-align: center }
+   #graph { font-size: 80%; max-width: 600px; }
+   #graph-inner { margin: 2em 0 1em 0; }
+   #graph-inner canvas {  vertical-align: middle; }
+   #x-axis { text-align: center; font-size: 80% }
 
 #graph
- p Average time in phase
- canvas#current width="600" height="400"
+ #graph-inner
+  p Average time in phase
+  canvas#current width="600" height="400"
 
-#x-axis 5-day / 30-day comparison by phase
+ #x-axis 5-day / 30-day comparison by phase
 
 script
  | var chart_data_true =
