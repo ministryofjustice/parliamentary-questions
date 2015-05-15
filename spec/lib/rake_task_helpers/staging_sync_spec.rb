@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe RakeTaskHelpers::StagingSync do
   before(:each) do
+    ENV['TEST_USER_PASS']='xxx'
     allow($stdout).to receive(:puts)
   end
 
