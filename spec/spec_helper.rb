@@ -68,3 +68,30 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
+
+
+RSpec::Matchers.define :be_a_multiple_of do |expected|
+  match do |actual|
+    actual % expected == 0
+  end
+end
+
+
+# match a GeckoStatus object with ['Component Name', "label", 'color', message]
+# message parameter can either be a string or a regex
+RSpec::Matchers.define :eq_gecko_status do |component_name, label, color, message|
+  match do |actual|
+    result = true
+    result = false if actual.component_name != component_name
+    result = false if actual.label != label
+    result = false if actual.color != color
+    if message.is_a?(Regexp)
+      result = false if actual.message !~ message
+    else
+      result = false if actual.message != message
+    end
+    result
+  end
+end
+
+
