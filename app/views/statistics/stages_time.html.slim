@@ -1,26 +1,18 @@
-h1 Statistics
+#stages_time
 
-h2 Question duration in phases
+ h1 Statistics
 
-style scoped="scoped"
- |
-   #graph { font-size: 80%; max-width: 600px; }
-   #graph-inner { margin: 2em 0 1em 0; }
-   #graph-inner canvas {  vertical-align: middle; }
-   #x-axis { text-align: center; font-size: 80% }
+ h2 Question duration in phases
 
-#graph
- #graph-inner
-  p Average time in phase
-  canvas#current width="600" height="400"
+ #graph
+  #graph-inner
+   p Average time in phase
+   canvas#current width="600" height="400"
 
- #x-axis 5-day / 30-day comparison by phase
+  #x-axis 5-day / 30-day comparison by phase
 
-script
- | var chart_data_true =
- = raw(@report.to_json)
- | ;
+ script
+  | var chart_data_true =
+  = raw(@report.to_json)
+  | ;
 
-
-script src="/assets/optional/chart.js"
-script src="/assets/optional/stages_time.js"
