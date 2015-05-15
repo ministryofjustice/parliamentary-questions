@@ -38,7 +38,7 @@ class StatisticsController < ApplicationController
     @report = Presenters::Statistics::StagesTimeReport.build(@data)
 
     respond_to do |format|
-      format.html { render 'stages'      } 
+      format.html { render 'stages_time' }
       format.json { render json: @report }
     end
   end
