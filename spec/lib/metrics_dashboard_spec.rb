@@ -19,6 +19,7 @@ describe MetricsDashboard do
 
           metrics.send(:gather_health_metrics)
           expect(metrics.health.db_status).to be true
+          expect(metrics.gecko.db).to eq_gecko_status('Database', 'OK', 'green', "")
         end
 
         it 'should return false for database acess if inaccessible' do
@@ -27,6 +28,7 @@ describe MetricsDashboard do
 
           metrics.send(:gather_health_metrics)
           expect(metrics.health.db_status).to be false
+          expect(metrics.gecko.db).to eq_gecko_status('Database', 'ERROR', 'red', 'Database inaccessible')
         end
       end
 
@@ -42,6 +44,7 @@ describe MetricsDashboard do
           expect(@checker).to receive(:available?).and_return(true)
           metrics.send(:gather_health_metrics)
           expect(metrics.health.sendgrid_status).to be true
+          expect(metrics.gecko.sendgrid).to eq_gecko_status('Sendgrid', 'OK', 'green', '')
         end
         
         it 'should return false if sendgrid not available' do
@@ -49,6 +52,7 @@ describe MetricsDashboard do
           expect(@checker).to receive(:available?).and_return(false)
           metrics.send(:gather_health_metrics)
           expect(metrics.health.sendgrid_status).to be false
+          expect(metrics.gecko.sendgrid).to eq_gecko_status('Sendgrid', 'ERROR', 'red', 'Unable to contact sendgrid')
         end
         
 
@@ -57,6 +61,7 @@ describe MetricsDashboard do
           expect(Net::SMTP).to receive(:start).and_raise(RuntimeError.new("Something's gone wrong"))
           metrics.send(:gather_health_metrics)
           expect(metrics.health.sendgrid_status).to be false
+          expect(metrics.gecko.sendgrid).to eq_gecko_status('Sendgrid', 'ERROR', 'red', 'Unable to contact sendgrid')
         end
 
         it 'should return false if sendgrid not accessible' do
@@ -64,12 +69,14 @@ describe MetricsDashboard do
           expect(@checker).not_to receive(:available?)
           metrics.send(:gather_health_metrics)
           expect(metrics.health.sendgrid_status).to be false
+          expect(metrics.gecko.sendgrid).to eq_gecko_status('Sendgrid', 'ERROR', 'red', 'Unable to contact sendgrid')
         end
         
         it 'should reutrn false if sendgrid.accessible? raises an error' do
           expect(Net::SMTP).to receive(:start).and_raise(RuntimeError.new("Something's gone wrong"))
           metrics.send(:gather_health_metrics)
           expect(metrics.health.sendgrid_status).to be false
+          expect(metrics.gecko.sendgrid).to eq_gecko_status('Sendgrid', 'ERROR', 'red', 'Unable to contact sendgrid')
         end
       end
 
@@ -79,14 +86,19 @@ describe MetricsDashboard do
           File.unlink HealthCheck::PqaApi::TIMESTAMP_FILE if File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
           metrics.send(:gather_health_metrics)
           expect(metrics.health.pqa_api_status).to be false
+          expect(metrics.gecko.pqa_api).to eq_gecko_status('PQA API', 'ERROR', 'red', /Unable to open .*pqa_api_healthcheck_timestamp/)
         end
 
         it 'should return false if timestamp of file is more than settings healthcheck_pqa_api_interval + 5 minutes' do
+          now = Time.now
           interval = Settings.healthcheck_pqa_api_interval
-          unixtimestamp = (interval + 5).minutes.ago.utc.to_i
-          write_pqa_file(unixtimestamp, 'OK', [])
-          metrics.send(:gather_health_metrics)
-          expect(metrics.health.pqa_api_status).to be false
+          last_run = (now - (interval + 5).minutes).utc
+          Timecop.freeze(now) do
+            write_pqa_file(last_run.to_i, 'OK', [])
+            metrics.send(:gather_health_metrics)
+            expect(metrics.health.pqa_api_status).to be false
+            expect(metrics.gecko.pqa_api).to eq_gecko_status('PQA API', 'ERROR', 'red', "PQA API not checked since #{last_run.strftime('%d/%m/%Y %H:%M')}")
+          end
         end
 
         it 'should return false if status in timestamp file not OK' do
@@ -95,6 +107,7 @@ describe MetricsDashboard do
           write_pqa_file(unixtimestamp, 'FAIL', [])
           metrics.send(:gather_health_metrics)
           expect(metrics.health.pqa_api_status).to be false
+          expect(metrics.gecko.pqa_api).to eq_gecko_status('PQA API', 'ERROR', 'red', "Last API check had status FAIL")
         end
 
         it 'should return true if everything ok' do
@@ -103,6 +116,7 @@ describe MetricsDashboard do
           write_pqa_file(unixtimestamp, 'OK', [])
           metrics.send(:gather_health_metrics)
           expect(metrics.health.pqa_api_status).to be true
+          expect(metrics.gecko.pqa_api).to eq_gecko_status('PQA API', 'OK', 'green', "")
         end
 
       end
@@ -127,17 +141,20 @@ describe MetricsDashboard do
         it 'should return the number of new and failed mails' do
           metrics.send(:gather_mail_info_metrics)
           expect(metrics.mail.num_waiting).to eq 4
+          expect(metrics.gecko.mail).to eq_gecko_status('Email', 'ERROR', 'red', 'Mails Waiting: 4 :: Mails Abandoned: 1')
         end
 
         it 'should return the number of abandoned mails' do
           metrics.send(:gather_mail_info_metrics)
           expect(metrics.mail.num_abandoned).to eq 1
+          expect(metrics.gecko.mail).to eq_gecko_status('Email', 'ERROR', 'red', 'Mails Waiting: 4 :: Mails Abandoned: 1')
         end
       end
 
       it 'should return the dummy number of tokens until this is correctly implemented' do
         metrics.send(:gather_mail_info_metrics)
         expect(metrics.mail.num_unanswered_tokens).to eq 666
+        expect(metrics.gecko.mail).to eq_gecko_status('Email', 'WARNING', 'yellow', 'Unanswered Tokens: 666')
       end
 
     end
@@ -187,6 +204,13 @@ describe MetricsDashboard do
   end
 end
 
+
+def expect_gecko_state(gecko_status, component_name, label, color, message)
+  expect(gecko_status.component_name).to eq component_name
+  expect(gecko_status.label).to eq label
+  expect(gecko_status.color).to eq color
+  expect(gecko_status.message).to eq message
+end
 
 
 def write_pqa_file(timestamp, status, messages)

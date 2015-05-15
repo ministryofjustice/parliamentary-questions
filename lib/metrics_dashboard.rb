@@ -3,7 +3,8 @@ class MetricsDashboard
   attr_reader :health,
               :app_info,
               :mail,
-              :pqa_import
+              :pqa_import,
+              :gecko
 
 
   Struct.new('Health', :db_status, :sendgrid_status, :pqa_api_status)
@@ -11,14 +12,16 @@ class MetricsDashboard
   Struct.new('MailInfo', :num_waiting, :num_abandoned, :num_unanswered_tokens)
   Struct.new('PqaImportInfo', :last_run_time, :last_run_status, :pqs)
   Struct.new('NumPqsImported', :today, :this_week, :this_month)
-
+  
 
   def initialize
-    @health         = Struct::Health.new
-    @app_info       = Struct::AppInfo.new
-    @mail           = Struct::MailInfo.new
-    @pqa_import     = Struct::PqaImportInfo.new
-    @pqa_import.pqs = Struct::NumPqsImported.new
+    @health                = Struct::Health.new
+    @app_info              = Struct::AppInfo.new
+    @mail                  = Struct::MailInfo.new
+    @pqa_import            = Struct::PqaImportInfo.new
+    @pqa_import.pqs        = Struct::NumPqsImported.new
+    @gecko                 = GeckoCollection.new
+    @pqa_api_error_message = nil
   end
 
 
@@ -31,6 +34,7 @@ class MetricsDashboard
 
 
   private
+  
 
   def gather_pqa_import_metrics
     last_run = PqaImportRun.last || create_empty_import_run
@@ -39,14 +43,30 @@ class MetricsDashboard
     @pqa_import.pqs.today       = PqaImportRun.sum_pqs_imported(:day)
     @pqa_import.pqs.this_week   = PqaImportRun.sum_pqs_imported(:week)
     @pqa_import.pqs.this_month  = PqaImportRun.sum_pqs_imported(:month)
+    if last_run.start_time < 1.day.ago
+      @gecko.pqa_import.warn('Last run more than 1 day ago')
+    elsif last_run.status = 'OK'
+      @gecko.pqa_import.ok("#{@pqa_import.pqs.today} :: #{@pqa_import.pqs.this_week} :: #{ @pqa_import.pqs.this_month}")
+    else
+      @gecko.pqa_import.error("#{@pqa_import.pqs.today} :: #{@pqa_import.pqs.this_week} :: #{ @pqa_import.pqs.this_month}")
+    end
   end
+
 
 
   def gather_mail_info_metrics
     @mail.num_waiting = Email.waiting.size
     @mail.num_abandoned = Email.abandoned.size
     @mail.num_unanswered_tokens = 666
+    if @mail.num_waiting >= Settings.gecko_warning_levels.num_emails_waiting || @mail.num_abandoned >= Settings.gecko_warning_levels.num_emails_abandoned
+      @gecko.mail.error("Mails Waiting: #{@mail.num_waiting} :: Mails Abandoned: #{@mail.num_abandoned}")
+    elsif @mail.num_unanswered_tokens > Settings.gecko_warning_levels.num_unanswered_tokens
+      @gecko.mail.warn("Unanswered Tokens: #{@mail.num_unanswered_tokens}")
+    else
+      @gecko.mail.update_satus("OK", 'green')
+    end
   end
+
 
 
   def gather_app_info_metrics
@@ -61,6 +81,10 @@ class MetricsDashboard
     @health.db_status = get_db_status
     @health.sendgrid_status = get_sendgrid_status
     @health.pqa_api_status = get_pqa_api_status
+
+    @health.db_status == true ? @gecko.db.ok : @gecko.db.error('Database inaccessible')
+    @health.sendgrid_status == true ? @gecko.sendgrid.ok : @gecko.sendgrid.error("Unable to contact sendgrid")
+    @health.pqa_api_status == true ? @gecko.pqa_api.ok : @gecko.pqa_api.error(@pqa_api_error_message)
   end
 
 
@@ -76,7 +100,11 @@ class MetricsDashboard
   end
 
   def get_pqa_api_status
-    return false unless File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
+
+    unless File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
+      @pqa_api_error_message = "Unable to open #{HealthCheck::PqaApi::TIMESTAMP_FILE}"
+      return false
+    end
 
     line = File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, 'r') do |fp|
       fp.gets.chomp
@@ -84,9 +112,16 @@ class MetricsDashboard
     timestamp, status, error_messages_as_json = line.split('::')
     last_run_time = Time.at(timestamp.to_i).utc
     if last_run_time + (Settings.healthcheck_pqa_api_interval + 5).minutes < Time.now.utc
+      @pqa_api_error_message = "PQA API not checked since #{last_run_time}"
       return false
     end
-    status == 'OK'
+
+    if status != 'OK'
+      @pqa_api_error_message = "Last API check had status #{status}"
+      return false
+    end
+    @pqa_api_error_message = ""
+    true
   end
 
   def create_empty_import_run
@@ -102,7 +137,3 @@ class MetricsDashboard
 
 end
 
-
-
-
-# JSON format: usable in geckoboard. See https://developer.geckoboard.com/#list
