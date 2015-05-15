@@ -66,7 +66,8 @@ var chart_data = chart_data || {
   var ctx = document.getElementById("current").getContext("2d");
   var currentBarChart = new Chart(ctx).Bar(barchart, {
     scaleLabel: "<%=value%> hours",
-    multiTooltipTemplate: "<%= datasetLabel %>: <%= value %> hours"
+    multiTooltipTemplate: "<%= datasetLabel %>: <%= value %> hours",
+    responsive: true
   });
 
 
