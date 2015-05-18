@@ -76,4 +76,7 @@ module Settings
     OpenStruct.new(@h['gecko_warning_levels'])
   end
 
+  def smoke_test_runner
+    OpenStruct.new(@h['smoke_test_runner'])
+  end
 end
