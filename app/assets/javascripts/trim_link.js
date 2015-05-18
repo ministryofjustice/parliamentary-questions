@@ -47,12 +47,21 @@ trimLink.setUpDetailsPage = function() {
     var $messageContainer = $('#status');
     var $uploadMessage = $('#tr5-message');
     var $chooseBtn = $('#choices');
+    var filesize = this.files[0].size; //(In Bytes)
+    
+
     if(selectedPath) {
 
       // If a file is selected successfully, show a message
       selectedFileName = selectedPath.split(/[\\/]/).pop();
       $chooseBtn.hide();
-      $uploadMessage.text('File selected: ' + selectedFileName);
+
+      if(filesize > 50000) {
+        $('.fa-file-o').toggleClass('fa-warning');
+        $uploadMessage.text('This file is too large: ' + selectedFileName);
+      } else {
+        $uploadMessage.text('File selected: ' + selectedFileName);
+      }
       $messageContainer.show();
     }
   });
@@ -87,7 +96,11 @@ trimLink.setUpDashBoard = function() {
       success : {
         classname : 'fa fa-check-circle'
       },
-        failure : {
+      failure : {
+        classname : 'fa fa-warning'
+      },
+      filesize : {
+        message : 'This file is too large',
         classname : 'fa fa-warning'
       }
     };
@@ -96,14 +109,25 @@ trimLink.setUpDashBoard = function() {
     function fileSelectedCallback() {
       var chosen = $fileField.val();
       var selectedFileName;
+      var filesize = this.files[0].size; //(In Bytes)
+      var statusMessage;
+
       if(chosen) {
         // If a file is selected successfully, show a message
         selectedFileName = chosen.split(/[\\/]/).pop();
         $chooseButton.hide();
-        $messageIcon[0].className = statusMessages.selected.classname;
-        $uploadMessage.text(statusMessages.selected.message +': '+selectedFileName);
+       
+        if(filesize > 50000) {
+          statusMessage = statusMessages.filesize;
+        } else {
+          statusMessage = statusMessages.selected;
+        }
+
+        $messageIcon[0].className = statusMessage.classname;
+        $uploadMessage.text(statusMessage.message +': '+selectedFileName);
+        $actions.find('.button-upload').show();
         $messageContainer.show();
-        $actions.show();
+        $actions.show(); 
       }
     }
 
