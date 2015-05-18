@@ -36,7 +36,7 @@ class MetricsDashboard
   private
 
   def gather_smoke_test_info_metrics
-    @smoke_test_info.run_time     = SmokeTestRunner.run_time
+    @smoke_test_info.run_time    = Time.use_zone('London') { SmokeTestRunner.run_time.in_time_zone }
     @smoke_test_info.run_success = SmokeTestRunner.run_success?
   end
   
