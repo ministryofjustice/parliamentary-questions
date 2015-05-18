@@ -1,6 +1,9 @@
 #metrics_dashboard
   h1 Metrics dashboard
 
+  h3 Gecko
+  = @metrics.gecko.inspect
+
   h2 System health
   - health = @metrics.health
   ul
