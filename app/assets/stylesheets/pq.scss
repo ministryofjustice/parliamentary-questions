@@ -907,5 +907,17 @@ textarea.form-control {
       display: inline-block;
     }
   }
+}
 
+// = statistics pages ====================================================== */
+
+#stages_time {
+  #graph {
+    font-size: 80%; max-width: 600px;
+  }
+  #graph-inner {
+    margin: 2em 0 1em 0;
+    canvas {  vertical-align: middle; }
+  }
+  #x-axis { text-align: center; font-size: 80% }
 }
