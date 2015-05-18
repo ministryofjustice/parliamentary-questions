@@ -1,20 +1,27 @@
 class MetricsDashboardController < ApplicationController
   def index
     @metrics = MetricsDashboard.new
-    @metrics.gather_metrics
+    @metrics.update
+
     respond_to do |format|
       format.html {
         authenticate_user!
       }
+
       format.json {
-        token = ActionController::HttpAuthentication::Basic.encode_credentials(Rails.application.config.gecko_auth_username, "X")
         if request.headers["Authorization"] == token
-          obj = Presenters::DashboardGecko.list(@metrics.gecko)
-          render :json => obj.to_json
+          render :json => Presenters::DashboardGecko.json_report(@metrics.gecko)
         else
           render :file => "public/401.html", :status => :unauthorized
         end
       }
     end
+  end
+
+  private
+
+  def token
+    ActionController::HttpAuthentication::Basic
+      .encode_credentials(Rails.application.config.gecko_auth_username, "X")
   end
 end

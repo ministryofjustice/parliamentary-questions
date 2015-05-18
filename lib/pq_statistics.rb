@@ -3,13 +3,25 @@ require 'business_time'
 # Calculates statistics for MI reporting
 #
 module PqStatistics
+  extend self
   #
   # Define bucket intervals and quantity
   #
   BUS_DAY_INTERVAL = 5
   WINDOW           = 24 * BUS_DAY_INTERVAL
 
+  def key_metric_alert?
+    value  = key_metric.percentage
+    sample = key_metric.count
+
+    sample != 0 && value < Settings.key_metric_threshold
+  end
+
   private
+
+  def key_metric
+    PercentOnTime.calculate_from(bucket_dates.first)
+  end
 
   class Bucket
     attr_accessor :start_date, :count, :total

@@ -2,15 +2,20 @@ module Presenters
   module DashboardGecko
     module_function
 
+    def json_report(gecko_object)
+      list(gecko_object).to_json
+    end
+
+    private_class_method
+
     def list(gecko_object)
-      @result = []
-      gecko_object.each do |field|
-        @result.push ({ "title" => { "text" => field.component_name },
-                        "label" => { "name" => field.label, "color" => field.color },
-                        "description" => field.message,
-                      })
+      gecko_object.map do |fields|
+        { 
+          "title"       => { "text" => fields.name },
+          "label"       => { "name" => fields.label, "color" => fields.color },
+          "description" => fields.message,
+        }
       end
-      @result
     end
   end
 end

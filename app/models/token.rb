@@ -27,7 +27,13 @@ class Token < ActiveRecord::Base
   def self.assignment_stats(date = Date.today)
     recs = self.where('created_at > ? and created_at < ?', date.beginning_of_day, date.end_of_day)
     acks = recs.select{ |r| r.acknowledged? }
-    { total: recs.size, ack: acks.size, open: recs.size - acks.size, pctg: (acks.size.to_f/recs.size.to_f * 100).round(2) }
+    
+    { 
+      total: recs.size, 
+      ack: acks.size, 
+      open: recs.size - acks.size, 
+      pctg: (acks.size.to_f / (recs.size.nonzero? || 1).to_f * 100).round(2) 
+    }
   end
 
 

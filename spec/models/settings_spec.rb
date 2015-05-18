@@ -67,6 +67,12 @@ describe Settings do
         expect(Settings.excepted_from_ssl).to eq ['ping.json']
       end
     end
+
+    describe '.key_metric_threshold' do
+      it 'should return the value from the file' do
+        expect(Settings.key_metric_threshold).to eq 0.5
+      end
+    end
   end
 
   context 'MailWorker' do
