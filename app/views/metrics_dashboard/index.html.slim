@@ -42,6 +42,19 @@
         a href=commit_url
           = app_info.git_sha
 
+  h2 Smoke tests
+  - smoke_test_info = @metrics.smoke_test_info
+  ul
+    li
+      span Status:
+      - if smoke_test_info.run_success
+        span.fa.fa-check-circle
+      - else
+        span.fa.fa-warning
+    li
+      span Last run at:
+      span = smoke_test_info.run_time
+
   h2 Emails
   - mail = @metrics.mail
   ul
