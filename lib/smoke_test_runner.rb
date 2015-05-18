@@ -8,7 +8,7 @@ module SmokeTestRunner
   end
 
   def run_time
-    File.ctime(out_file)
+    File.exists?(out_file) ? File.ctime(out_file) : 'N/A'
   end
 
   def run_success?
