@@ -4,6 +4,7 @@ describe RakeTaskHelpers::StagingSync do
   before(:each) do
     ENV['TEST_USER_PASS']='xxx'
     allow($stdout).to receive(:puts)
+    ENV['TEST_USER_PASS'] = 'xxxx'
   end
 
   it 'should not run unless the host env is staging ' do

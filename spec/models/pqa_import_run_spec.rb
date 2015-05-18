@@ -8,7 +8,7 @@
 #  status         :string(255)
 #  num_created    :integer
 #  num_updated    :integer
-#  error_messages :string(255)
+#  error_messages :text
 #  created_at     :datetime
 #  updated_at     :datetime
 #
@@ -130,13 +130,46 @@ describe PqaImportRun, :type => :model do
     end
   end
 
+
+
+
+  describe '.sum_pqs_imported' do
+    let(:freeze_time)      { Time.utc(2015, 5, 11, 9, 33, 45) }
+
+    it 'should raise an exception if invalid argument given' do
+      expect {
+        PqaImportRun.sum_pqs_imported(:leap_year)
+      }.to raise_error ArgumentError, 'invalid range for sum_pqs_imported'
+    end
+
+
+    it 'should return zero if there are no matching records' do
+      FactoryGirl.create(:pqa_import_run, start_time: 1.year.ago, end_time: 1.year.ago, num_created: 3, num_updated: 4 )
+      expect(PqaImportRun.sum_pqs_imported(:day)).to eq 0
+      expect(PqaImportRun.sum_pqs_imported(:week)).to eq 0
+      expect(PqaImportRun.sum_pqs_imported(:month)).to eq 0
+    end
+
+    it 'should return appropriate figures' do
+      Timecop.freeze(freeze_time) do
+        FactoryGirl.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4 )       # today
+        FactoryGirl.create(:pqa_import_run, start_time: 2.hours.ago, end_time: 2.hours.ago, num_created: 2, num_updated: 5 )     # today
+        FactoryGirl.create(:pqa_import_run, start_time: 25.hours.ago, end_time: 25.hours.ago, num_created: 3, num_updated: 4 )   # this week
+        FactoryGirl.create(:pqa_import_run, start_time: 72.hour.ago, end_time: 72.hour.ago, num_created: 3, num_updated: 4 )     # this week
+        FactoryGirl.create(:pqa_import_run, start_time: 9.days.ago, end_time: 9.days.ago, num_created: 23, num_updated: 14 )     # this week
+        FactoryGirl.create(:pqa_import_run, start_time: 10.days.ago, end_time: 10.days.ago, num_created: 35, num_updated: 7 )     # this week
+    
+        expect(PqaImportRun.sum_pqs_imported(:day)).to eq 14
+        expect(PqaImportRun.sum_pqs_imported(:week)).to eq 28
+        expect(PqaImportRun.sum_pqs_imported(:month)).to eq 107
+      end
+    end
+  end
 end
 
 
-
-
 def times_equal?(t1, t2)
-  t1.to_f.round(4) == t2.to_f.round(4)
+  t1.to_f.round(2) == t2.to_f.round(2)
 end
 
 
