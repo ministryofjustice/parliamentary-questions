@@ -25,4 +25,4 @@ Variable Name          |Required for local development  | Description
 `WEB_CONCURRENCY`      | n                              | Number of unicorn workers to be spawned at startup time
 `ASSET_HOST`           | n                              | Host where Rails' assets pipeline will deploy the assets
 `APPVERSION`           | n                              | The current application version tag
-`TEST_USER_PASS`       | n                              | The password for the test users created by `rake db:staging:sync`
+`TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync`

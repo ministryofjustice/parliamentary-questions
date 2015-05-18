@@ -1,11 +1,12 @@
 #metrics_dashboard
   h1 Metrics dashboard
 
+
   h2 System health
   ul
     - @metrics.gecko.each do |metric|
       li
-        div = metric.component_name
+        div = metric.name
         div
           - if metric.color == 'red'
             span.fa.fa-warning
@@ -16,7 +17,7 @@
           span = metric.message
 
   h2 Application data
-  - app_info = @metrics.app_info
+  - app_info = @metrics.components.app_info
   ul
     li
       div
@@ -42,25 +43,8 @@
           a href=commit_url
             = app_info.git_sha
 
-  h2 Smoke tests
-  - smoke_test_info = @metrics.smoke_test_info
-  ul
-    li
-      div
-        span Status:
-      div
-        - if smoke_test_info.run_success
-          span.fa.fa-check-circle
-        - else
-          span.fa.fa-warning
-    li
-      div
-        span Last run at:
-      div
-        span = smoke_test_info.run_time
-
   h2 Emails
-  - mail = @metrics.mail
+  - mail = @metrics.components.mail_info
   ul
     li
       div
@@ -79,7 +63,7 @@
         span = mail.num_unanswered_tokens
 
   h2 Questions Import
-  - import = @metrics.pqa_import
+  - import = @metrics.components.pqa_import_info
   ul
     li
       div

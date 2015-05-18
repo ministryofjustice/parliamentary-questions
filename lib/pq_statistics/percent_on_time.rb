@@ -7,21 +7,34 @@ module PqStatistics
     # 
     # Null -> Array[OnTimeBucket]
     #
+    #
     def calculate
-      submissions = 
-        pq_data.map do |submitted, deadline|
-          PqSubmission.new(submitted, (submitted <= deadline.to_datetime.end_of_day))
-        end
-
-      result_by_bucket(submissions, OnTimeBucket.build_from(bucket_dates))
+      calculate_for_dates(bucket_dates)
+    end
+    #
+    # Calculate the metric for a single date bucket for metrics dashboard
+    #
+    # Null -> OnTimeBucket
+    #
+    def calculate_from(date)
+      calculate_for_dates([date]).first
     end
 
     private
 
-    def pq_data
+    def calculate_for_dates(dates)
+      submissions = 
+        pq_data(dates).map do |submitted, deadline|
+          PqSubmission.new(submitted, (submitted <= deadline.to_datetime.end_of_day))
+        end
+
+      result_by_bucket(submissions, OnTimeBucket.build_from(dates))
+    end
+
+    def pq_data(dates)
       Pq.answered
         .where.not(answer_submitted: nil, date_for_answer: nil)
-        .where('answer_submitted > ?', bucket_dates.last)
+        .where('answer_submitted > ?', dates.last)
         .pluck(:answer_submitted, :date_for_answer)
     end
 
