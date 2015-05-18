@@ -18,7 +18,8 @@ describe SmokeTestRunner do
 
   it '#run_time - returns the timestamp of the last run' do
     now = Time.now
-
+    allow(File).to receive(:exists?).with(out_file).and_return(true)
+    
     expect(File).to receive(:ctime).with(out_file).and_return(now)
     expect(SmokeTestRunner.run_time).to eq now
   end
