@@ -901,10 +901,24 @@ textarea.form-control {
 /* = Metrics dashboard (/metrics_dashboard) ================================= */
 
 #metrics_dashboard {
-  ul { padding-left: 1em;
-    li span {
+  h2 {
+    padding-top: .4em;
+    clear: both;
+  }
+  ul {
+    padding-left: 1em;
+    li { clear: both; }
+    li div {
+      padding: 0 .3em 0 .3em;
+      margin: 0 0 .2em 0;
+      width: 60%;
+      float: right;
+      span:nth-child(2) { padding-left: 1em; }
+    }
+    li div:first-child {
+      float: left;
+      display: block;
       width: 40%;
-      display: inline-block;
     }
   }
 }
