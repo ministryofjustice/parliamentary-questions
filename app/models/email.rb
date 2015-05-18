@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: emails
+#
+#  id                :integer          not null, primary key
+#  mailer            :string(255)
+#  method            :string(255)
+#  params            :text
+#  from              :text
+#  to                :text
+#  cc                :text
+#  reply_to          :text
+#  send_attempted_at :datetime
+#  sent_at           :datetime
+#  num_send_attempts :integer          default(0)
+#  status            :string(255)      default("new")
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 class Email < ActiveRecord::Base
   EMAIL_REGEXP     = /\A(.*<)?[^@\s]+@([^@\s]+\.)+[^@\s]+>?\z/
   EMAIL_DELIMITERS = [';', ':']

@@ -8,6 +8,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'statistics/time_to_assign'   => 'statistics#time_to_assign'
   get 'statistics/ao_response_time' => 'statistics#ao_response_time'
   get 'statistics/ao_churn'         => 'statistics#ao_churn'
+  get 'metrics_dashboard/'          => 'metrics_dashboard#index'
 
   resources :minister_contacts
   get 'minister_contacts/new/:id' => 'minister_contacts#new', :as => :new_minister_contact_withid

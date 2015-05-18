@@ -72,4 +72,8 @@ module Settings
     OpenStruct.new(@h['mail_worker'])
   end
 
+  def gecko_warning_levels
+    OpenStruct.new(@h['gecko_warning_levels'])
+  end
+
 end

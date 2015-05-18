@@ -15,8 +15,10 @@ class HealthCheckService
   end
 
   def report
-    @components.each(&:available?)
-    @components.each(&:accessible?)
+    @components.each do |component|
+      component.available?
+      component.accessible?
+    end
 
     errors = @components.map(&:error_messages).flatten
 
