@@ -1,7 +1,7 @@
 class MetricsDashboard
-
   attr_reader :health,
               :app_info,
+              :smoke_test_info,
               :mail,
               :pqa_import,
               :gecko
@@ -9,14 +9,15 @@ class MetricsDashboard
 
   Struct.new('Health', :db_status, :sendgrid_status, :pqa_api_status)
   Struct.new('AppInfo', :version, :build_date, :build_tag, :git_sha)
+  Struct.new('SmokeTestInfo', :run_time, :run_success)
   Struct.new('MailInfo', :num_waiting, :num_abandoned, :num_unanswered_tokens)
   Struct.new('PqaImportInfo', :last_run_time, :last_run_status, :pqs)
   Struct.new('NumPqsImported', :today, :this_week, :this_month)
   
-
   def initialize
     @health                = Struct::Health.new
     @app_info              = Struct::AppInfo.new
+    @smoke_test_info       = Struct::SmokeTestInfo.new
     @mail                  = Struct::MailInfo.new
     @pqa_import            = Struct::PqaImportInfo.new
     @pqa_import.pqs        = Struct::NumPqsImported.new
@@ -24,18 +25,21 @@ class MetricsDashboard
     @pqa_api_error_message = nil
   end
 
-
   def gather_metrics
     gather_health_metrics
     gather_app_info_metrics
+    gather_smoke_test_info_metrics
     gather_mail_info_metrics
     gather_pqa_import_metrics
   end
 
-
   private
-  
 
+  def gather_smoke_test_info_metrics
+    @smoke_test_info.run_time    = Time.use_zone('London') { SmokeTestRunner.run_time.in_time_zone }
+    @smoke_test_info.run_success = SmokeTestRunner.run_success?
+  end
+  
   def gather_pqa_import_metrics
     last_run = PqaImportRun.last || create_empty_import_run
     @pqa_import.last_run_time   =  Time.use_zone('London') { last_run.start_time.in_time_zone }
@@ -52,8 +56,6 @@ class MetricsDashboard
     end
   end
 
-
-
   def gather_mail_info_metrics
     @mail.num_waiting = Email.waiting.size
     @mail.num_abandoned = Email.abandoned.size
@@ -66,8 +68,6 @@ class MetricsDashboard
       @gecko.mail.update_satus("OK", 'green')
     end
   end
-
-
 
   def gather_app_info_metrics
     info                 = Deployment.info
@@ -87,12 +87,10 @@ class MetricsDashboard
     @health.pqa_api_status == true ? @gecko.pqa_api.ok : @gecko.pqa_api.error(@pqa_api_error_message)
   end
 
-
   def get_db_status
     checker = HealthCheck::Database.new
     checker.accessible? && checker.available?
   end
-
 
   def get_sendgrid_status
     checker = HealthCheck::SendGrid.new
@@ -134,6 +132,4 @@ class MetricsDashboard
       :error_messages => []
     )
   end
-
 end
-

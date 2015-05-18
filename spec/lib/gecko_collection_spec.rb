@@ -8,7 +8,7 @@ describe GeckoCollection do
     gc.each do |status| 
       component_names << status.component_name
     end
-    expect(component_names).to eq ['Database', 'Sendgrid', 'PQA API', 'Email', 'PQ Import']
+    expect(component_names).to eq ['Database', 'Sendgrid', 'PQA API', 'Email', 'PQ Import', 'Smoke Tests']
   end
 
 end

@@ -29,5 +29,10 @@ end
 every 1.minute do
   rake 'email:process_queue'
 end
-
+#
+# Run smoke tests every hour
+#
+every 1.hour do
+  rake 'smoke_test:run'
+end
 

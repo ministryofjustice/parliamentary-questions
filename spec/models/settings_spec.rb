@@ -97,6 +97,11 @@ describe Settings do
     end
   end
 
-
-
+  context 'Smoke Test Runner' do
+    describe '.out_file' do
+      it 'should return the value in the file' do
+        expect(Settings.smoke_test_runner.out_file).to eq '/tmp/smoke_test_run'
+      end
+    end
+  end
 end

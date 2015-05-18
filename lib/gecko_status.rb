@@ -1,9 +1,6 @@
-
 class GeckoStatus
-
   attr_accessor :label, :color, :message
   attr_reader   :component_name
-
 
   def initialize(component_name)
     @component_name = component_name
@@ -18,7 +15,6 @@ class GeckoStatus
     @message = message
   end
 
-
   def error(message)
     @label = 'ERROR'
     @color = 'red'
@@ -30,11 +26,4 @@ class GeckoStatus
     @color = 'green'
     @message = message
   end
-
- 
-
 end
-
-
-
-
