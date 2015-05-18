@@ -98,12 +98,6 @@ describe Settings do
   end
 
   context 'Smoke Test Runner' do
-    describe '.interval' do
-      it 'should return the value in the file' do
-        expect(Settings.smoke_test_runner.interval).to eq 3600
-      end
-    end
-
     describe '.out_file' do
       it 'should return the value in the file' do
         expect(Settings.smoke_test_runner.out_file).to eq '/tmp/smoke_test_run'
