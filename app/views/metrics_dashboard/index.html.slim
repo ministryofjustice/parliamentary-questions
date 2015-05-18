@@ -1,94 +1,109 @@
 #metrics_dashboard
   h1 Metrics dashboard
 
-  h3 Gecko
-  = @metrics.gecko.inspect
-
   h2 System health
-  - health = @metrics.health
   ul
-    li
-      span Database:
-      - if health.db_status
-        span.fa.fa-check-circle
-      - else
-        span.fa.fa-warning
-    li
-      span Email service:
-      - if health.sendgrid_status
-        span.fa.fa-check-circle
-      - else
-        span.fa.fa-warning
-    li
-      span Parliament API:
-      - if health.pqa_api_status
-        span.fa.fa-check-circle
-      - else
-        span.fa.fa-warning
+    - @metrics.gecko.each do |metric|
+      li
+        div = metric.component_name
+        div
+          - if metric.color == 'red'
+            span.fa.fa-warning
+          - if metric.color == 'yellow'
+            span.fa.fa-question-circle
+          - if metric.color == 'green'
+            span.fa.fa-check-circle
+          span = metric.message
 
   h2 Application data
   - app_info = @metrics.app_info
   ul
     li
-      span Version:
-      span = app_info.version
+      div
+        span Version:
+      div
+        span = app_info.version
     li
-      span Built on:
-      span = app_info.build_date
+      div
+        span Built on:
+      div
+        span = app_info.build_date
     li
-      span Build tag:
-      span = app_info.version
+      div
+        span Build tag:
+      div
+        span = app_info.version
     li
-      span Latest git commit:
-      span
-        - commit_url = "https://github.com/ministryofjustice/parliamentary-questions/commit/"+app_info.git_sha
-        a href=commit_url
-          = app_info.git_sha
+      div
+        span Latest git commit:
+      div
+        span
+          - commit_url = "https://github.com/ministryofjustice/parliamentary-questions/commit/"+app_info.git_sha
+          a href=commit_url
+            = app_info.git_sha
 
   h2 Smoke tests
   - smoke_test_info = @metrics.smoke_test_info
   ul
     li
-      span Status:
-      - if smoke_test_info.run_success
-        span.fa.fa-check-circle
-      - else
-        span.fa.fa-warning
+      div
+        span Status:
+      div
+        - if smoke_test_info.run_success
+          span.fa.fa-check-circle
+        - else
+          span.fa.fa-warning
     li
-      span Last run at:
-      span = smoke_test_info.run_time
+      div
+        span Last run at:
+      div
+        span = smoke_test_info.run_time
 
   h2 Emails
   - mail = @metrics.mail
   ul
     li
-      span Number waiting:
-      span = mail.num_waiting
+      div
+        span Number waiting:
+      div
+        span = mail.num_waiting
     li
-      span Number abandoned:
-      span = mail.num_waiting
+      div
+        span Number abandoned:
+      div
+        span = mail.num_waiting
     li
-      span Number of unanswered tokens:
-      span = mail.num_unanswered_tokens
+      div
+        span Number of unanswered tokens:
+      div
+        span = mail.num_unanswered_tokens
 
   h2 Questions Import
   - import = @metrics.pqa_import
   ul
     li
-      span Last run at:
-      span
-        = import.last_run_time
-        - if import.last_run_status == 'OK'
-          span.fa.fa-check-circle
-        - else
-          span.fa.fa-warning
+      div
+        span Last run at:
+      div
+        span
+          = import.last_run_time
+          - if import.last_run_status == 'OK'
+            span.fa.fa-check-circle
+          - else
+            span.fa.fa-warning
     li
-      span Number imported today:
-      span = import.pqs.today
+      div
+        span Number imported today:
+      div
+        span = import.pqs.today
     li
-      span Number imported this week:
-      span = import.pqs.this_week
+      div
+        span Number imported this week:
+      div
+        span = import.pqs.this_week
     li
-      span Number imported this month:
-      span = import.pqs.this_month
+      div
+        span Number imported this month:
+      div
+        span = import.pqs.this_month
 
