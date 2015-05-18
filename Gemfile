@@ -29,6 +29,7 @@ gem 'will_paginate'
 group :development do
   gem 'rails-erd'
   gem 'annotate'
+  gem 'rails_db_info'
 end
 
 group :test do
