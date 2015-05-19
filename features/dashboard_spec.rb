@@ -47,4 +47,21 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
     expect(page.current_path).to eq dashboard_path
     expect(page).to have_content "Question with UIN 'gibberish' not found"
   end
+
+  scenario 'Filtering in-progress questions keeps in-progress tab' do
+    create_pq_session
+    visit dashboard_path
+    click_link 'In progress'
+    click_link 'POD Query'
+
+    expect(page).to have_css('.nav-tabs > li:nth-child(2).active');
+  end
+
+  scenario 'Filtering new questions keeps new tab' do
+    create_pq_session
+    visit dashboard_path
+    click_link 'Unassigned'
+
+    expect(page).to have_css('.nav-tabs > li:first-child.active');
+  end
 end
