@@ -87,6 +87,10 @@ ParliamentaryQuestions::Application.configure do
   # This line is optional, it allows you to set a custom value for the @source field of the log event
   config.logstasher.source = 'logstasher'
 
+  # For routes accessed by gecko, we require HTTP basic auth
+  # See https://developer.geckoboard.com/#polling-overview
+  config.gecko_auth_username = ENV['GECKO_AUTH_USERNAME']
+
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
 
