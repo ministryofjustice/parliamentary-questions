@@ -100,16 +100,16 @@ describe TokenService do
 
   describe '#delete_expired' do
     it 'should delete expired tokens' do
-      subject.generate_token('/path/one', 'entity_one', expire_in_past)
-      subject.generate_token('/path/two', 'entity_one', expire_in_past)
+      subject.generate_token('/path/one', 'assignment:1', expire_in_past)
+      subject.generate_token('/path/two', 'assignment:2', expire_in_past)
 
-      subject.generate_token('/path/three', 'entity_one', expire_in_future)
+      subject.generate_token('/path/three', 'assignment:3', expire_in_future)
 
-      tokens = Token.where(entity: 'entity_one')
+      tokens = Token.where("entity like ?", 'assignment:%')
       expect(tokens.size).to eq(3)
 
       subject.delete_expired
-      tokens = Token.where(entity: 'entity_one')
+      tokens = Token.where("entity like ?", 'assignment:%')
       expect(tokens.size).to eq(1)
     end
   end

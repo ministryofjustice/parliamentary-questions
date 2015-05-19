@@ -17,7 +17,7 @@ mail_worker:
 gecko_warning_levels:
   num_emails_waiting: 15
   num_emails_abandoned: 1
-  num_unanswered_tokens: 25
+  pctg_answered_tokens: 50
 
 smoke_test_runner:
   out_file: '/tmp/smoke_test_run'
