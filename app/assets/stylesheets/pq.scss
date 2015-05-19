@@ -377,17 +377,6 @@ textarea.form-control {
   }
 }
 
-.dashboard-column1-uncommissioned { margin-bottom: 20px; }
-
-.dashboard-column1-commissioned .col-md-6 {
-  padding-left: 0px;
-  margin: 0px 0px 10px 0px;
-}
-
-.dashboard-column-2 .text {
-  display: block;
-  margin: 0px 0px 6px 0px;
-}
 
 // = Alert messages ============================================================
 
@@ -693,10 +682,27 @@ textarea.form-control {
     padding: 1em 0 0 2em;
   }
 
+  .dashboard-column1-uncommissioned { margin-bottom: 20px; }
+
+  .dashboard-column1-commissioned .col-md-6 {
+    padding-left: 0px;
+    margin: 0px 0px 10px 0px;
+  }
+
+  .dashboard-column-2 .text {
+    display: block;
+    margin: 0px 0px 6px 0px;
+  }
+
+  //formatting of the action officers listed in the PQ's on the dashboard when commisioning
+  .select2-search-choice div { line-height: 1em; }
+
+  // make uncommissioned questions form labels look like
+  // h3s used for commissioned questions
+  label.form-label { color: $secondary-text-colour; }
+
 }
 
-//formatting of the action officers listed in the PQ's on the dashboard when commisioning
-.select2-search-choice div { line-height: 1em; }
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
 
