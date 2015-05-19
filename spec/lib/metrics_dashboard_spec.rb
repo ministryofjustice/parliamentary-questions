@@ -152,9 +152,11 @@ describe MetricsDashboard do
       end
 
       it 'should return the dummy number of tokens until this is correctly implemented' do
+        expect(Token).to receive(:assignment_stats).and_return( {total: 6, ack: 2, open: 4,  pctg: 33.33 } )
         metrics.send(:gather_mail_info_metrics)
-        expect(metrics.mail.num_unanswered_tokens).to eq 666
-        expect(metrics.gecko.mail).to eq_gecko_status('Email', 'WARNING', 'yellow', 'Unanswered Tokens: 666')
+        expect(metrics.mail.num_unanswered_tokens).to eq 4
+        expect(metrics.mail.pctg_answered_tokens).to eq 33.33
+        expect(metrics.gecko.mail).to eq_gecko_status('Email', 'WARNING', 'yellow', '33.33% tokens unanswered (4 of 6)')
       end
 
     end
