@@ -6,19 +6,23 @@ class DashboardController < ApplicationController
   PER_PAGE    = 15
 
   def index
-    update_page_title "Dashboard"
     @dashboard_state = NEW
+    update_page_title "Dashboard"
     load_pq_with_counts(@dashboard_state) { Pq.new_questions.sorted_for_dashboard }
   end
 
   def by_status
-    load_pq_with_counts(NEW) { Pq.by_status(params[:qstatus]).sorted_for_dashboard }
+    @dashboard_state = NEW
+    load_pq_with_counts(@dashboard_state) { Pq.by_status(params[:qstatus]).sorted_for_dashboard }
     update_page_title "#{params[:qstatus]}"
     render 'index'
   end
 
   def in_progress_by_status
-    by_status
+    @dashboard_state = IN_PROGRESS
+    load_pq_with_counts(@dashboard_state) { Pq.by_status(params[:qstatus]).sorted_for_dashboard }
+    update_page_title "#{params[:qstatus]}"
+    render 'index'
   end
 
   def transferred
