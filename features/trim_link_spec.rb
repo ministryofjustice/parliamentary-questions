@@ -29,6 +29,17 @@ feature "Parli-branch manages trim link" , js: true do
       expect(page).to have_link 'Open trim link'
     end
 
+    scenario 'select a trim file too big' do
+      visit pq_path(@pq.uin)
+      click_link 'Trim link'
+      page.execute_script('$("input[type=file]").attr("style","display:inline!important")')
+      attach_file('pq[trim_link_attributes][file]', Rails.root.join('spec/fixtures/trimlink_too_large.tr5'))
+      page.execute_script('$("input[type=file]").attr("style","")')
+
+      expect(page).to have_content 'This file is too large'
+      expect(page).to have_css 'span.fa-warning'
+    end
+
     scenario 'change a trim link' do
       visit pq_path(@pq.uin)
       add_trim_link
@@ -97,6 +108,13 @@ feature "Parli-branch manages trim link" , js: true do
       visit dashboard_path
     end
 
+    scenario 'server error when uploading a trim' do
+      expect_any_instance_of(TrimLinksController).to receive(:create).and_raise(RuntimeError)
+      select_file_to_upload 'spec/fixtures/trimlink.tr5'
+      click_button 'Upload'
+      expect(page).to have_content('Server error')
+    end
+
     scenario 'selecting a file to upload to trim'  do
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       expect(page).to have_content 'File selected'
@@ -122,6 +140,12 @@ feature "Parli-branch manages trim link" , js: true do
       select_file_to_upload 'spec/fixtures/invalid_trimlink.tr5'
       click_button 'Upload'
       expect(page).to have_content 'Invalid file selected!'
+      expect(page).to have_css 'span.fa-warning'
+    end
+
+    scenario 'select a too big file to trim' do
+      select_file_to_upload 'spec/fixtures/trimlink_too_large.tr5'
+      expect(page).to have_content 'This file is too large'
       expect(page).to have_css 'span.fa-warning'
     end
 
