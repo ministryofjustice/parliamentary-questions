@@ -34,6 +34,10 @@ ParliamentaryQuestions::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # For routes accessed by gecko, we require HTTP basic auth
+  # See https://developer.geckoboard.com/#polling-overview
+  config.gecko_auth_username = 'test_username'
+
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
 

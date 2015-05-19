@@ -40,7 +40,9 @@ ParliamentaryQuestions::Application.configure do
       # config.logstasher.source = 'logstasher'
   # End of custom logging block
 
-
+  # For routes accessed by gecko, we require HTTP basic auth
+  # See https://developer.geckoboard.com/#polling-overview
+  config.gecko_auth_username = ENV['GECKO_AUTH_USERNAME']
 
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
