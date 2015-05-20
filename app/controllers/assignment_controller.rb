@@ -29,9 +29,11 @@ class AssignmentController < ApplicationController
         when 'accept'
           update_page_title "PQ assigned"
           service.accept(@assignment)
+          @token.accept
         when 'reject'
           update_page_title "PQ rejected"
           service.reject(@assignment, @response)
+          @token.reject
         else
           msg = "AllocationResponse.response_action must be set to either 'accept' or 'reject'. Got #{response_action}"
           raise ArgumentError, msg
@@ -51,6 +53,7 @@ class AssignmentController < ApplicationController
     if assignment_id
       @assignment = @question.action_officers_pqs.find(assignment_id)
       @ao         = @assignment.action_officer
+      @token      = Token.entity(entity_param_value)
       yield
     else
       render :file => 'public/404.html', :status => :not_found
@@ -59,5 +62,9 @@ class AssignmentController < ApplicationController
 
   def response_params
     params.require(:allocation_response).permit(:response_action, :reason_option, :reason)
+  end
+
+  def entity_param_value
+    params.permit(:entity)['entity']
   end
 end

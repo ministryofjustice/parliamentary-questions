@@ -10,7 +10,7 @@ class MetricsDashboard
   Struct.new('Health', :db_status, :sendgrid_status, :pqa_api_status)
   Struct.new('AppInfo', :version, :build_date, :build_tag, :git_sha)
   Struct.new('SmokeTestInfo', :run_time, :run_success)
-  Struct.new('MailInfo', :num_waiting, :num_abandoned, :num_unanswered_tokens)
+  Struct.new('MailInfo', :num_waiting, :num_abandoned, :num_unanswered_tokens, :pctg_answered_tokens)
   Struct.new('PqaImportInfo', :last_run_time, :last_run_status, :pqs)
   Struct.new('NumPqsImported', :today, :this_week, :this_month)
   
@@ -59,13 +59,16 @@ class MetricsDashboard
   def gather_mail_info_metrics
     @mail.num_waiting = Email.waiting.size
     @mail.num_abandoned = Email.abandoned.size
-    @mail.num_unanswered_tokens = 666
+    token_metrics = Token.assignment_stats
+    @mail.num_unanswered_tokens = token_metrics[:open]
+    @mail.pctg_answered_tokens = token_metrics[:pctg]
     if @mail.num_waiting >= Settings.gecko_warning_levels.num_emails_waiting || @mail.num_abandoned >= Settings.gecko_warning_levels.num_emails_abandoned
       @gecko.mail.error("Mails Waiting: #{@mail.num_waiting} :: Mails Abandoned: #{@mail.num_abandoned}")
-    elsif @mail.num_unanswered_tokens > Settings.gecko_warning_levels.num_unanswered_tokens
+    elsif @mail.pctg_answered_tokens < Settings.gecko_warning_levels.pctg_answered_tokens
       @gecko.mail.warn("Unanswered Tokens: #{@mail.num_unanswered_tokens}")
+      @gecko.mail.warn("#{@mail.pctg_answered_tokens}% tokens unanswered (#{token_metrics[:open]} of #{token_metrics[:total]})")
     else
-      @gecko.mail.update_satus("OK", 'green')
+      @gecko.mail.ok
     end
   end
 
