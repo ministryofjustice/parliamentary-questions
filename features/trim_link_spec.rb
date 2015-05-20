@@ -112,6 +112,7 @@ feature "Parli-branch manages trim link" , js: true do
       expect_any_instance_of(TrimLinksController).to receive(:create).and_raise(RuntimeError)
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       click_button 'Upload'
+
       expect(page).to have_content('Server error')
     end
 
