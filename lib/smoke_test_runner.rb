@@ -2,7 +2,8 @@ module SmokeTestRunner
   extend self
 
   def run!
-    exit_code = system('bundle exec rspec spec -f p && bundle exec rspec features -f p') ? 0 : 1
+    tests     = SmokeTest.factory
+    exit_code = tests.all?(&:passed?) ? 0 : 1
 
     File.open(out_file, 'w') { |f| f.write(exit_code) }
   end
