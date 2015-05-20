@@ -109,11 +109,14 @@ feature "Parli-branch manages trim link" , js: true do
     end
 
     scenario 'server error when uploading a trim' do
+      ENV['TRAP_ERRORS_IN_TEST'] = '1'
+      load "#{Rails.root}/app/controllers/application_controller.rb"
       expect_any_instance_of(TrimLinksController).to receive(:create).and_raise(RuntimeError)
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       click_button 'Upload'
-
       expect(page).to have_content('Server error')
+      ENV['TRAP_ERRORS_IN_TEST'] = nil
+      load "#{Rails.root}/app/controllers/application_controller.rb"
     end
 
     scenario 'selecting a file to upload to trim'  do
