@@ -45,18 +45,18 @@ trimLink.setUpDetailsPage = function() {
   $fileField.on('change', function(){
     var selectedPath = $fileField.val();
     var selectedFileName;
-    var $messageContainer = $('#status');
-    var $uploadMessage = $('#tr5-message');
-    var $chooseBtn = $('#choices');
-    var filesize = this.files[0].size; //(In Bytes)
+    var $uploadMessage;
+    var fileSize;
 
-    if(selectedPath) {
-
-      // If a file is selected successfully, show a message
+    // check if a file was selected successfully
+    // and is under the maximum file size
+    if (selectedPath) {
+      fileSize = $fileField.prop('files')[0].size;
+      $uploadMessage = $('#tr5-message');
       selectedFileName = selectedPath.split(/[\\/]/).pop();
-      $chooseBtn.hide();
+      $('#choices').hide();
 
-      if(filesize > 50000) {
+      if (fileSize > trimLink.maxFileSize) {
         $('.fa-file-o').toggleClass('fa-warning');
         $uploadMessage.text('This file is too large: ' + selectedFileName);
       } else {
@@ -109,18 +109,13 @@ trimLink.setUpDashBoard = function() {
     function fileSelectedCallback() {
       var chosen = $fileField.val();
       var selectedFileName;
-<<<<<<< HEAD
       var filesize = $fileField.prop('files')[0].size;
-=======
-      var filesize = this.files[0].size; //(In Bytes)
->>>>>>> added logic to trap files over 50KB
       var statusMessage;
 
       if(chosen) {
         // If a file is selected successfully, show a message
         selectedFileName = chosen.split(/[\\/]/).pop();
         $chooseButton.hide();
-<<<<<<< HEAD
 
         if(filesize > trimLink.maxFileSize) {
           statusMessage = statusMessages.filesize;
@@ -128,23 +123,13 @@ trimLink.setUpDashBoard = function() {
         } else {
           statusMessage = statusMessages.selected;
           $actions.find('.button-upload').show();
-=======
-       
-        if(filesize > 50000) {
-          statusMessage = statusMessages.filesize;
-        } else {
-          statusMessage = statusMessages.selected;
->>>>>>> added logic to trap files over 50KB
         }
 
         $messageIcon[0].className = statusMessage.classname;
         $uploadMessage.text(statusMessage.message +': '+selectedFileName);
-<<<<<<< HEAD
-=======
-        $actions.find('.button-upload').show();
->>>>>>> added logic to trap files over 50KB
+
         $messageContainer.show();
-        $actions.show(); 
+        $actions.show();
       }
     }
 
