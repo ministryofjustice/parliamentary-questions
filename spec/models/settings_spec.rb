@@ -93,7 +93,7 @@ describe Settings do
     it 'should return the values in the file' do
       expect(Settings.gecko_warning_levels.num_emails_waiting).to eq 15
       expect(Settings.gecko_warning_levels.num_emails_abandoned).to eq 1
-      expect(Settings.gecko_warning_levels.num_unanswered_tokens).to eq 25
+      expect(Settings.gecko_warning_levels.pctg_answered_tokens).to eq 50
     end
   end
 
