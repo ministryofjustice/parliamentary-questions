@@ -15,6 +15,7 @@ class MailWorker
     end
 
     def pid=(pid_s)
+      FileUtils.mkdir_p(File.dirname(@path)) unless Dir.exist?(File.dirname(@path))
       File.open(path, 'w') { |f| f.write(pid_s) }
     end
 
