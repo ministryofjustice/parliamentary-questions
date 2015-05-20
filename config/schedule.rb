@@ -32,7 +32,7 @@ end
 #
 # Run smoke tests every hour
 #
-# every 1.hour do
-#   rake 'smoke_test:run'
-# end
+every 1.hour do
+  rake 'smoke_test:run'
+end
 
