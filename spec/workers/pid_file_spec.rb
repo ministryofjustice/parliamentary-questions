@@ -8,6 +8,20 @@ describe MailWorker::PidFile do
     File.delete(pid_path) if File.exists?(pid_path)
   end
 
+  it 'will create the subdirs for the pidfile if they dont exist' do
+    x_parent_dir = "#{Rails.root}/tmpx"
+    x_pid_dir    = "#{Rails.root}/tmpx/xxx"
+    x_pid_path   = "#{x_pid_dir}/test.pid"
+    FileUtils.remove_entry_secure(x_parent_dir) if Dir.exist?(x_parent_dir)
+    Dir.unlink(x_pid_dir) if Dir.exist?(x_pid_dir)
+    expect(Dir.exist?(x_pid_dir)).to be false
+
+    pidfile = MailWorker::PidFile.new(x_pid_path)
+    pidfile.pid = '777'
+    expect(File.exist?(x_pid_path)).to be true
+    FileUtils.remove_entry_secure(x_parent_dir)
+  end
+
   it '#initialize - creates a pid file with a path and a max age' do
     expect(pid_file.path).to eq pid_path
   end
