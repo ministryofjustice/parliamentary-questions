@@ -127,7 +127,6 @@ trimLink.setUpDashBoard = function() {
 
         $messageIcon[0].className = statusMessage.classname;
         $uploadMessage.text(statusMessage.message +': '+selectedFileName);
-
         $messageContainer.show();
         $actions.show();
       }
