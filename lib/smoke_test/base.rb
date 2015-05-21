@@ -46,8 +46,8 @@ module SmokeTest
       end
     end
 
-    def initialize(app_url, user, pass)
-      @app_uri = build_uri(app_url)
+    def initialize(host, user, pass)
+      @app_uri = build_uri(host)
       @user    = user
       @pass    = pass
       @agent   = mechanize_instance
@@ -55,10 +55,8 @@ module SmokeTest
 
     private
 
-    def build_uri(app_url)
-      uri          = URI.parse(app_url)
-      uri.scheme ||= 'https'
-      uri
+    def build_uri(host)
+      URI::HTTPS.build({ host: host })
     end
 
     def mechanize_instance
