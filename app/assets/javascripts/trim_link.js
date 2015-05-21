@@ -84,6 +84,7 @@ trimLink.setUpDashBoard = function() {
     var $form = $container.find('form');
     var $fileField = $form.find('.trim-file-chooser');
     var $cancelButton = $container.find('.button-cancel');
+    var $uploadButton = $container.find('.button-upload');
 
     var statusMessages = {
       selected : {
@@ -120,10 +121,10 @@ trimLink.setUpDashBoard = function() {
 
         if(filesize > trimLink.maxFileSize) {
           statusMessage = statusMessages.filesize;
-          $actions.find('.button-upload').hide();
+          $uploadButton.hide();
         } else {
           statusMessage = statusMessages.selected;
-          $actions.find('.button-upload').show();
+          $uploadButton.show();
         }
 
         $messageIcon[0].className = statusMessage.classname;
@@ -138,7 +139,7 @@ trimLink.setUpDashBoard = function() {
       $chooseButton.show();
       $actions.hide();
       $messageContainer.hide();
-      $actions.find('.button-upload').show();
+      $uploadButton.show();
     });
 
     // File selector behaviour
@@ -150,7 +151,7 @@ trimLink.setUpDashBoard = function() {
     });
 
     // clicking on the "upload" button
-    $(".button-upload").on('click', function(event) {
+    $uploadButton.on('click', function(event) {
       var formData = new FormData($form[0]);
       $.ajax({
         type: 'post',
@@ -163,14 +164,15 @@ trimLink.setUpDashBoard = function() {
       .done(function (data) {
         if (data.status === 200) {
           $messageIcon.attr('class', statusMessages.success.classname);
+          $uploadMessage.text(data.message);
           $actions
             .hide()
             .after('<a href="'+ data.link +'" rel="external">Open trim link</a>');
         } else {
           $messageIcon.attr('class', statusMessages.failure.classname);
-          $uploadMessage.text("Server error. Please try again or contact support.");
+          $uploadMessage.text(data.message);
+          $uploadButton.hide();
         }
-        $uploadMessage.text(data.message);
       })
       .fail(function() {
         $messageIcon.attr('class', statusMessages.failure.classname);
