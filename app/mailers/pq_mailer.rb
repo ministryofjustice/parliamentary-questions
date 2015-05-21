@@ -6,15 +6,6 @@ class PqMailer < PQBaseMailer
     )
   end
 
-=begin
-  def notify_dd_email(mail_data)
-    mail_with_subject(
-      "#{mail_data.params[:ao_name]} has been allocated PQ #{mail_data.params[:uin]}",
-      mail_data
-    )
-  end
-=end
-
   def acceptance_email(mail_data)
     mail_with_subject("You accepted PQ #{mail_data.params[:uin]}", mail_data)
   end
