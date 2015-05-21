@@ -4,13 +4,17 @@ describe SmokeTestRunner do
   let(:f)        { double File }
   let(:out_file) { "#{Rails.root}#{Settings.smoke_test_runner.out_file}" }
 
+  before(:each) do
+    ENV['SENDING_HOST']   = 'http://localhost'
+    ENV['TEST_USER']      = 'me'
+    ENV['TEST_USER_PASS'] = '123'
+  end
+
   it '#run! - runs the test suite and records result to file' do
-    expect(SmokeTestRunner).to receive(:system)
-      .with('bundle exec rspec spec -f p && bundle exec rspec features -f p')
-      .and_return(true)
-    expect(File).to receive(:open)
-      .with(out_file, 'w')
-      .and_yield(f)
+    test = double SmokeTest::Base, passed?: true
+
+    expect(SmokeTest).to receive(:factory).and_return([test])
+    expect(File).to receive(:open).with(out_file, 'w').and_yield(f)
     expect(f).to receive(:write).with(0)
 
     SmokeTestRunner.run!
