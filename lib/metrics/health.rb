@@ -1,11 +1,11 @@
-class MetricsDashboard
+module Metrics
   class Health < Component
-    attr_accessor :db_status, 
-                  :sendgrid_status, 
-                  :pqa_api_status, 
-                  :pqa_api_error_message
+    attr_reader :db_status, 
+                :sendgrid_status, 
+                :pqa_api_status, 
+                :pqa_api_error_message
 
-    def gather_metrics
+    def collect!
       @db_status       = get_db_status
       @sendgrid_status = get_sendgrid_status
       @pqa_api_status  = get_pqa_api_status

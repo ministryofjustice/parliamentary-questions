@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe MetricsDashboard::MailInfo do
+describe Metrics::Mail do
   let(:email) { double Email }
 
   before(:each) do
     allow(Email).to receive(:waiting).and_return([email])
     allow(Email).to receive(:abandoned).and_return([])
 
-    subject.gather_metrics
+    subject.collect!
   end 
 
-  it '#gather_metrics - updates the email and token metrics' do
+  it '#collect! - updates the email and token metrics' do
     expect(subject.num_waiting).to be 1
     expect(subject.num_abandoned).to be 0
   end
@@ -33,7 +33,7 @@ describe MetricsDashboard::MailInfo do
       allow(Token)
         .to receive(:assignment_stats)
         .and_return({ total: 6, ack: 6, open: 0, pctg: 100.00 })
-      subject.gather_metrics
+      subject.collect!
 
       expect(subject.token_error?).to be false
     end
@@ -42,7 +42,7 @@ describe MetricsDashboard::MailInfo do
       allow(Token)
         .to receive(:assignment_stats)
         .and_return({ total: 6, ack: 2, open: 4, pctg: 33.33 })
-      subject.gather_metrics
+      subject.collect!
 
       expect(subject.token_error?).to be true
     end

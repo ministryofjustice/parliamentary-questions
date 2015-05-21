@@ -1,4 +1,4 @@
-class MetricsDashboard
+module Metrics
   class KeyMetric < Component
     attr_reader :alert
     
@@ -6,7 +6,7 @@ class MetricsDashboard
       @alert = false
     end
 
-    def gather_metrics
+    def collect!
       @alert = PqStatistics.key_metric_alert?
     end
   end

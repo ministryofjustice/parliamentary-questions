@@ -4,7 +4,7 @@
 
   h2 System health
   ul
-    - @metrics.gecko.each do |metric|
+    - @dashboard.gecko.each do |metric|
       li
         div = metric.name
         div
@@ -17,7 +17,7 @@
           span = metric.message
 
   h2 Application data
-  - app_info = @metrics.components.app_info
+  - app_info = @dashboard.metrics.application
   ul
     li
       div
@@ -44,7 +44,7 @@
             = app_info.git_sha
 
   h2 Emails
-  - mail = @metrics.components.mail_info
+  - mail = @dashboard.metrics.mail
   ul
     li
       div
@@ -63,7 +63,7 @@
         span = mail.num_unanswered_tokens
 
   h2 Questions Import
-  - import = @metrics.components.pqa_import_info
+  - import = @dashboard.metrics.pqa_import
   ul
     li
       div

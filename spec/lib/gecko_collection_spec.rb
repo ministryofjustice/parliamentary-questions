@@ -29,7 +29,7 @@ describe GeckoCollection do
   end
 
   it '#update - should update each gecko status instance' do
-    component  = double MetricsDashboard::Component
+    component  = double Metrics::Component
     components = [ component, component ]
 
     all_components.each do |component| 

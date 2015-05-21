@@ -27,7 +27,7 @@ class GeckoStatus
     @message = message
   end
 
-  def update(components)
+  def update(metrics)
     #
     # Update the gecko status from a metrics dashboard component
     #
@@ -42,8 +42,8 @@ class KeyMetricStatus < GeckoStatus
     super('Key Metric')
   end
 
-  def update(components) 
-    components.key_metric.alert ? error('Key metric below threshold') : ok
+  def update(metrics) 
+    metrics.key_metric.alert ? error('Key metric below threshold') : ok
     self
   end
 end
@@ -53,8 +53,8 @@ class DbStatus < GeckoStatus
     super('Database')
   end
 
-  def update(components) 
-    components.health.db_status ? ok : error('Database inaccessible')
+  def update(metrics) 
+    metrics.health.db_status ? ok : error('Database inaccessible')
     self
   end
 end
@@ -64,8 +64,8 @@ class SendgridStatus < GeckoStatus
     super('Sendgrid')
   end
 
-  def update(components) 
-    components.health.sendgrid_status ? ok : error("Unable to contact sendgrid")
+  def update(metrics) 
+    metrics.health.sendgrid_status ? ok : error("Unable to contact sendgrid")
     self
   end
 end
@@ -75,8 +75,8 @@ class PqaApiStatus < GeckoStatus
     super('PQA API')
   end
 
-  def update(components)
-    components.health.pqa_api_status ? ok : error(components.health.pqa_api_error_message)
+  def update(metrics)
+    metrics.health.pqa_api_status ? ok : error(metrics.health.pqa_api_error_message)
     self
   end
 end
@@ -86,18 +86,16 @@ class MailStatus < GeckoStatus
     super('Email')
   end
 
-  def update(components)
-    mail_info = components.mail_info
-
-    if mail_info.email_error?
+  def update(metrics)
+    if metrics.mail.email_error?
       error(
-        "Mails Waiting: #{mail_info.num_waiting} :: " + 
-        "Mails Abandoned: #{mail_info.num_abandoned}"
+        "Mails Waiting: #{metrics.mail.num_waiting} :: " + 
+        "Mails Abandoned: #{metrics.mail.num_abandoned}"
       )
-    elsif mail_info.token_error?
+    elsif metrics.mail.token_error?
       warn(
-        "Unanswered Tokens: #{mail_info.num_unanswered_tokens} ::" +
-        "#{100 - (mail_info.pctg_answered_tokens || 0)}% of total"
+        "Unanswered Tokens: #{metrics.mail.num_unanswered_tokens} ::" +
+        "#{100 - (metrics.mail.pctg_answered_tokens || 0)}% of total"
       )
     else
       ok
@@ -112,15 +110,13 @@ class PqaImportStatus < GeckoStatus
     super('PQ Import') 
   end
 
-  def update(components)
-    pqa_import_info = components.pqa_import_info
-
-    if pqa_import_info.last_run_time < 1.day.ago
+  def update(metrics)
+    if metrics.pqa_import.last_run_time < 1.day.ago
       warn('Last run more than 1 day ago')
-    elsif pqa_import_info.last_run_status == 'OK'
-      ok(pqa_import_info.report)
+    elsif metrics.pqa_import.last_run_status == 'OK'
+      ok(metrics.pqa_import.report)
     else
-      error(pqa_import_info.report)
+      error(metrics.pqa_import.report)
     end
 
     self
@@ -132,10 +128,10 @@ class SmokeTestStatus < GeckoStatus
     super('Smoke Tests')
   end
 
-  def update(components)
-    if components.smoke_test_info.run_time < 1.day.ago
+  def update(metrics)
+    if metrics.smoke_tests.run_time < 1.day.ago
       warn('Last test run more than 1 day ago')
-    elsif components.smoke_test_info.run_success?
+    elsif metrics.smoke_tests.run_success?
       ok
     else
       error("Smoke Test Run Failure")

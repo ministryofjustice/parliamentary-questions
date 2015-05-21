@@ -1,37 +1,32 @@
 class MetricsDashboard
-  COMPONENTS = 
-  {
-    key_metric:      KeyMetric,
-    health:          Health,
-    app_info:        AppInfo,
-    smoke_test_info: SmokeTestInfo,
-    mail_info:       MailInfo,
-    pqa_import_info: PqaImportInfo
-  }
-
-  attr_reader :components,
+  attr_reader :metrics,
               :gecko
 
   def initialize
-    @components = component_factory
-    @gecko      = GeckoCollection.new
+    @metrics = metric_factory
+    @gecko   = GeckoCollection.new
   end
 
   def update
-    gather_metrics
-    gecko.update(components)
+    collect_metrics!
+    gecko.update(metrics)
     self
   end
 
   private
 
-  def gather_metrics    
-    @components.to_h.values.each(&:gather_metrics)    
+  def collect_metrics!  
+    @metrics.to_h.values.each(&:collect!)    
   end
 
-  def component_factory
-    OpenStruct.new(
-      COMPONENTS.map { |name, component| [ name , component.new ] }.to_h
-    )
+  def metric_factory
+    OpenStruct.new({
+      key_metric:  Metrics::KeyMetric.new,
+      health:      Metrics::Health.new,
+      application: Metrics::Application.new,
+      smoke_tests: Metrics::SmokeTests.new,
+      mail:        Metrics::Mail.new,
+      pqa_import:  Metrics::PqaImport.new
+    })
   end
 end
