@@ -84,6 +84,7 @@ trimLink.setUpDashBoard = function() {
     var $form = $container.find('form');
     var $fileField = $form.find('.trim-file-chooser');
     var $cancelButton = $container.find('.button-cancel');
+
     var statusMessages = {
       selected : {
         message : 'File selected',
@@ -148,35 +149,36 @@ trimLink.setUpDashBoard = function() {
       $fileField.click();
     });
 
-    // trim file async upload callbacks
-    $form
-      .on('ajax:error', function(e, response) {
-        var json;
-        if (response.status === "200") {
-          json = JSON.parse(response.responseText);
-          if (json.status === 200) {
-            $messageIcon.attr('class', statusMessages.success.classname);
-            $actions
-              .hide()
-              .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
-          } else {
-            $messageIcon.attr('class', statusMessages.failure.classname);
-            $actions.find('.button-upload').hide();
-          }
-          $uploadMessage.text(json.message);
+    // clicking on the "upload" button
+    $(".button-upload").on('click', function(event) {
+      var formData = new FormData($form[0]);
+      $.ajax({
+        type: 'post',
+        url: '/trim_links',
+        data: formData,
+        contentType: false,
+        processData: false,
+        cache: false
+      })
+      .done(function (data) {
+        if (data.status === 200) {
+          $messageIcon.attr('class', statusMessages.success.classname);
+          $actions
+            .hide()
+            .after('<a href="'+ data.link +'" rel="external">Open trim link</a>');
         } else {
           $messageIcon.attr('class', statusMessages.failure.classname);
           $uploadMessage.text("Server error. Please try again or contact support.");
         }
-        $messageContainer.show();
-
-        // iframe-transport removes the change event handler when uploading,
-        // so we need to add it back
-        $fileField = $form.find('.trim-file-chooser');
-        $fileField.on('change', fileSelectedCallback);
+        $uploadMessage.text(data.message);
       })
-      .on('ajax:success', function(e, response) {
-        // trim file upload with iframe-transport always returns error
+      .fail(function() {
+        $messageIcon.attr('class', statusMessages.failure.classname);
+        $uploadMessage.text("Server error. Please try again or contact support.");
+      })
+      .always(function() {
+        $messageContainer.show();
       });
+    });
   });
 }

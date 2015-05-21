@@ -181,7 +181,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.4.2)
-    remotipart (1.2.1)
     request_store (1.1.0)
     responders (1.1.1)
       railties (>= 3.2, < 4.2)
@@ -301,7 +300,6 @@ DEPENDENCIES
   rails (~> 4.1.7)
   rails-erd
   rails_db_info
-  remotipart (~> 1.2)
   rspec-rails
   sass-rails (~> 4.0.0)
   select2-rails
