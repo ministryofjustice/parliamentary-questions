@@ -8,9 +8,7 @@
     - if @pq.i_will_write
       span.question-type  I will write
     span#pq-details-progress class=("flag #{state_classname @pq.state}") = state_label @pq.state
-#pq-details-qa-link.row
-  .col-md-9
-  .col-md-3.pull-right
     - if !@pq.preview_url.nil?
-      a href=@pq.preview_url rel="external"  View PQ in Q&amp;A Tool
+      #pq-details-qa-link.col-md-3.pull-right
+        a href=@pq.preview_url rel="external"  View PQ in Q&amp;A Tool
 br/

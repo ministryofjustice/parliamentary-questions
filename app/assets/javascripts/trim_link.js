@@ -168,7 +168,7 @@ trimLink.setUpDashBoard = function() {
             .after('<a href="'+ data.link +'" rel="external">Open trim link</a>');
         } else {
           $messageIcon.attr('class', statusMessages.failure.classname);
-          $actions.find('.button-upload').hide();
+          $uploadMessage.text("Server error. Please try again or contact support.");
         }
         $uploadMessage.text(data.message);
       })
