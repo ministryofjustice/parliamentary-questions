@@ -36,8 +36,8 @@ describe GeckoStatus do
 end
 
 describe KeyMetricStatus do
-  let(:key_metric)  { double MetricsDashboard::KeyMetric          }
-  let(:components)  { double 'components', key_metric: key_metric }
+  let(:key_metric)  { double Metrics::KeyMetric                   }
+  let(:metrics)     { double 'metrics', key_metric: key_metric    }
   let(:status)      { KeyMetricStatus.new                         }
 
   context '#update' do
@@ -45,88 +45,88 @@ describe KeyMetricStatus do
       allow(key_metric).to receive(:alert).and_return(false)
 
       expect(status).to receive(:ok)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls error when there is an alert' do
       allow(key_metric).to receive(:alert).and_return(true)
       
       expect(status).to receive(:error)
-      status.update(components)
+      status.update(metrics)
     end
   end
 end
 
 describe DbStatus do
-  let(:health)      { MetricsDashboard::Health.new          }
-  let(:components)  { double 'components', health: health   }
-  let(:status)      { DbStatus.new                          }
+  let(:health)   { Metrics::Health.new                }
+  let(:metrics)  { double 'metrics', health: health   }
+  let(:status)   { DbStatus.new                       }
 
   context '#update' do
     it 'calls ok when the db status is OK' do
       allow(health).to receive(:db_status).and_return(true)
 
       expect(status).to receive(:ok)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls error when there is a DB error' do
       allow(health).to receive(:db_status).and_return(false)
       
       expect(status).to receive(:error)
-      status.update(components)
+      status.update(metrics)
     end
   end
 end
 
 describe SendgridStatus do
-  let(:health)      { MetricsDashboard::Health.new          }
-  let(:components)  { double 'components', health: health   }
-  let(:status)      { SendgridStatus.new                    }
+  let(:health)   { Metrics::Health.new                }
+  let(:metrics)  { double 'metrics', health: health   }
+  let(:status)   { SendgridStatus.new                 }
 
   context '#update' do
     it 'calls ok when the sendgrid status is OK' do
       allow(health).to receive(:sendgrid_status).and_return(true)
 
       expect(status).to receive(:ok)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls error when there is a Send Grid error' do
       allow(health).to receive(:sendgrid_status).and_return(false)
       
       expect(status).to receive(:error)
-      status.update(components)
+      status.update(metrics)
     end
   end
 end
 
 describe PqaApiStatus do
-  let(:health)      { MetricsDashboard::Health.new          }
-  let(:components)  { double 'components', health: health   }
-  let(:status)      { PqaApiStatus.new                      }
+  let(:health)   { Metrics::Health.new                   }
+  let(:metrics)  { double 'metrics', health: health      }
+  let(:status)   { PqaApiStatus.new                      }
 
   context '#update' do
     it 'calls ok when the PQA API status is OK' do
       allow(health).to receive(:pqa_api_status).and_return(true)
 
       expect(status).to receive(:ok)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls error when there is a PQA API error' do
       allow(health).to receive(:pqa_api_status).and_return(false)
       
       expect(status).to receive(:error)
-      status.update(components)
+      status.update(metrics)
     end
   end
 end
 
 describe MailStatus do
-  let(:mail_info)   { MetricsDashboard::MailInfo.new              }
-  let(:components)  { double 'components', mail_info: mail_info   }
-  let(:status)      { MailStatus.new                              }
+  let(:mail_info) { Metrics::Mail.new                           }
+  let(:metrics)   { double 'metrics', mail: mail_info           }
+  let(:status)    { MailStatus.new                              }
 
   context '#update' do
     it 'calls ok when there is no alert' do
@@ -134,14 +134,14 @@ describe MailStatus do
       allow(mail_info).to receive(:token_error?).and_return(false)
 
       expect(status).to receive(:ok)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls error when there is a email error' do
       allow(mail_info).to receive(:email_error?).and_return(true)
       
       expect(status).to receive(:error)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls warn when there is a token error' do
@@ -149,15 +149,15 @@ describe MailStatus do
       allow(mail_info).to receive(:token_error?).and_return(true)
       
       expect(status).to receive(:warn)
-      status.update(components)
+      status.update(metrics)
     end
   end
 end
 
 describe PqaImportStatus do
-  let(:info)        { MetricsDashboard::PqaImportInfo.new         }
-  let(:components)  { double 'components', pqa_import_info: info  }
-  let(:status)      { PqaImportStatus.new                         }
+  let(:info)     { Metrics::PqaImport.new                      }
+  let(:metrics)  { double 'metrics', pqa_import: info          }
+  let(:status)   { PqaImportStatus.new                         }
 
   context '#update' do
     it 'calls ok when there are no issues' do
@@ -165,7 +165,7 @@ describe PqaImportStatus do
       allow(info).to receive(:last_run_status).and_return('OK')
 
       expect(status).to receive(:ok)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls warn when the import is stale' do
@@ -173,7 +173,7 @@ describe PqaImportStatus do
       allow(info).to receive(:last_run_status).and_return('OK')
 
       expect(status).to receive(:warn)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls error when the run_status is not OK' do
@@ -181,15 +181,15 @@ describe PqaImportStatus do
       allow(info).to receive(:last_run_status).and_return('Bad')
 
       expect(status).to receive(:error)
-      status.update(components)
+      status.update(metrics)
     end
   end
 end
 
 describe SmokeTestStatus do
-  let(:info)        { MetricsDashboard::SmokeTestInfo.new         }
-  let(:components)  { double 'components', smoke_test_info: info  }
-  let(:status)      { SmokeTestStatus.new                         }
+  let(:info)     { Metrics::SmokeTests.new                     }
+  let(:metrics)  { double 'metrics', smoke_tests: info         }
+  let(:status)   { SmokeTestStatus.new                         }
 
   context '#update' do
     it 'calls ok when there are no issues' do
@@ -197,7 +197,7 @@ describe SmokeTestStatus do
       allow(info).to receive(:run_success?).and_return(true)
 
       expect(status).to receive(:ok)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls warn when the test run is stale' do
@@ -205,7 +205,7 @@ describe SmokeTestStatus do
       allow(info).to receive(:run_success?).and_return(true)
 
       expect(status).to receive(:warn)
-      status.update(components)
+      status.update(metrics)
     end
 
     it 'calls error when the test run has failures' do
@@ -213,7 +213,7 @@ describe SmokeTestStatus do
       allow(info).to receive(:run_success?).and_return(false)
 
       expect(status).to receive(:error)
-      status.update(components)
+      status.update(metrics)
     end
   end
 end

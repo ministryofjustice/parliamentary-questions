@@ -1,11 +1,11 @@
-class MetricsDashboard
-  class MailInfo < Component
-    attr_accessor :num_waiting, 
-                  :num_abandoned, 
-                  :num_unanswered_tokens,
-                  :pctg_answered_tokens
+module Metrics
+  class Mail < Component
+    attr_reader :num_waiting, 
+                :num_abandoned, 
+                :num_unanswered_tokens,
+                :pctg_answered_tokens
 
-    def gather_metrics
+    def collect!
       @num_waiting           = Email.waiting.size
       @num_abandoned         = Email.abandoned.size
       @num_unanswered_tokens = Token.assignment_stats[:open]

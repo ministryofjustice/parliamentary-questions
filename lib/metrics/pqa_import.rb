@@ -1,12 +1,12 @@
-class MetricsDashboard
-  class PqaImportInfo < Component
-    attr_accessor :last_run_time, :last_run_status, :pqs
+module Metrics
+  class PqaImport < Component
+    attr_reader :last_run_time, :last_run_status, :pqs
 
     def initialize
       @pqs  = NumPqsImported.new
     end
 
-    def gather_metrics
+    def collect!
       @last_run_time   = Time.use_zone('London') { last_run.start_time.in_time_zone }
       @last_run_status = last_run.status
       @pqs             = NumPqsImported.build

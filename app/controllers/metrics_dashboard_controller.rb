@@ -1,7 +1,7 @@
 class MetricsDashboardController < ApplicationController
   def index
-    @metrics = MetricsDashboard.new
-    @metrics.update
+    @dashboard = MetricsDashboard.new
+    @dashboard.update
 
     respond_to do |format|
       format.html {
@@ -10,7 +10,7 @@ class MetricsDashboardController < ApplicationController
 
       format.json {
         if request.headers["Authorization"] == token
-          render :json => Presenters::DashboardGecko.json_report(@metrics.gecko)
+          render :json => Presenters::DashboardGecko.json_report(@dashboard.gecko)
         else
           render :file => "public/401.html", :status => :unauthorized
         end

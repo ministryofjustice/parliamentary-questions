@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MetricsDashboard::AppInfo do
+describe Metrics::Application do
   let(:version) { 1.0        }
   let(:date)    { Date.today }
   let(:tag)     { 2          }
@@ -14,10 +14,10 @@ describe MetricsDashboard::AppInfo do
     }
    }
 
-  it '#gather_metrics - updates the app info fields with deployment info' do
+  it '#collect! - updates the app info fields with deployment info' do
     allow(Deployment).to receive(:info).and_return(info)
 
-    subject.gather_metrics
+    subject.collect!
 
     expect(subject.version).to eq version
     expect(subject.build_date).to eq date
