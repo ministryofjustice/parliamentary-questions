@@ -11,7 +11,5 @@
 // about supported directives.
 //
 //= require jquery_ujs
-//= require jquery.remotipart
-//= require jquery.iframe-transport
 //= require select2
 //= require_tree .
