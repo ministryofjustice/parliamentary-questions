@@ -60,23 +60,6 @@ class CommissioningService
 
       MailService::Pq.commission_email(mail_params)
     end
-
-=begin
-    if dd && dd.email.present?
-      internal_deadline = pq.internal_deadline ? pq.internal_deadline.to_s(:date) :
-                                                'No deadline set'
-
-      LogStuff.tag(:mail_notify) do
-        mail_params =
-          Presenters::Email.default_hash(pq, ao).merge(
-            email: dd.email,
-            dd_name: dd.name,
-            internal_deadline: internal_deadline
-          )
-
-        MailService::Pq.notify_dd_email(mail_params)
-      end
-    end
-=end
+    
   end
 end
