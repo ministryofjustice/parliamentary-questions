@@ -4,10 +4,10 @@ This is an up to date list of the environment variables used by the app.
 Refer to the provisioning code for the actual values expected to be set on each
 specific environment.
 
-For local development, the only mandatory variable is `PQ_REST_API_HOST`. This should
+For local development, the only mandatory variables are `PQ_REST_API_HOST` and `TEST_USER_PASS`. `PQ_REST_API_HOST` should
 be set to `http://localhost:8888`, as it is the default hostname/port used
 by the [mock implementation](https://github.com/ministryofjustice/parliamentary-questions/blob/dev/lib/pqa/mock_api_server_runner.rb)
-of Parliament's Question and Answer API.
+of Parliament's Question and Answer API. `TEST_USER_PASS` can be set to any value.
 
 Variable Name          |Required for local development  | Description
 -----------------------| ------------------------------ | -----------------------------
@@ -25,4 +25,5 @@ Variable Name          |Required for local development  | Description
 `WEB_CONCURRENCY`      | n                              | Number of unicorn workers to be spawned at startup time
 `ASSET_HOST`           | n                              | Host where Rails' assets pipeline will deploy the assets
 `APPVERSION`           | n                              | The current application version tag
-`TEST_USER_PASS`       | n                              | The password for the test users created by `rake db:staging:sync`
+`TEST_USER`            | n                              | The current application version tag
+`TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests

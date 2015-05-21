@@ -4,7 +4,7 @@ mail_tech_support: pqsupport@digital.justice.gov.uk
 http_client_timeout: 20
 commission_mail_from: PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>
 healthcheck_pqa_api_interval: 15               # minimum interval between pqa API healthchecks in minutes
-
+key_metric_threshold: 0.5
 
 excepted_from_ssl:
   - ping.json
