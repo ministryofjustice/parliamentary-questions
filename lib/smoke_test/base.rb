@@ -47,13 +47,19 @@ module SmokeTest
     end
 
     def initialize(app_url, user, pass)
-      @app_uri = URI.parse(app_url)
+      @app_uri = build_uri(app_url)
       @user    = user
       @pass    = pass
       @agent   = mechanize_instance
     end
 
     private
+
+    def build_uri(app_url)
+      uri          = URI.parse(app_url)
+      uri.scheme ||= 'https'
+      uri
+    end
 
     def mechanize_instance
       Mechanize.new do |m|
