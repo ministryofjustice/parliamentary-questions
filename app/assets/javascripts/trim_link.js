@@ -4,7 +4,8 @@
 
 var trimLink = {};
 
-
+// Maximum authorised size of files to upload (in bytes)
+trimLink.maxFileSize = 50000;
 
 trimLink.setUpTrimControls = function() {
   var $fileField, $status, $choices;
@@ -44,16 +45,24 @@ trimLink.setUpDetailsPage = function() {
   $fileField.on('change', function(){
     var selectedPath = $fileField.val();
     var selectedFileName;
-    var $messageContainer = $('#status');
-    var $uploadMessage = $('#tr5-message');
-    var $chooseBtn = $('#choices');
-    if(selectedPath) {
+    var $uploadMessage;
+    var fileSize;
 
-      // If a file is selected successfully, show a message
+    // check if a file was selected successfully
+    // and is under the maximum file size
+    if (selectedPath) {
+      fileSize = $fileField.prop('files')[0].size;
+      $uploadMessage = $('#tr5-message');
       selectedFileName = selectedPath.split(/[\\/]/).pop();
-      $chooseBtn.hide();
-      $uploadMessage.text('File selected: ' + selectedFileName);
-      $messageContainer.show();
+      $('#choices').hide();
+
+      if (fileSize > trimLink.maxFileSize) {
+        $('.fa-file-o').toggleClass('fa-warning');
+        $uploadMessage.text('This file is too large: ' + selectedFileName);
+      } else {
+        $uploadMessage.text('File selected: ' + selectedFileName);
+      }
+      $('#status').show();
     }
   });
 }
@@ -87,7 +96,11 @@ trimLink.setUpDashBoard = function() {
       success : {
         classname : 'fa fa-check-circle'
       },
-        failure : {
+      failure : {
+        classname : 'fa fa-warning'
+      },
+      filesize : {
+        message : 'This file is too large',
         classname : 'fa fa-warning'
       }
     };
@@ -96,12 +109,24 @@ trimLink.setUpDashBoard = function() {
     function fileSelectedCallback() {
       var chosen = $fileField.val();
       var selectedFileName;
+      var filesize = $fileField.prop('files')[0].size;
+      var statusMessage;
+
       if(chosen) {
         // If a file is selected successfully, show a message
         selectedFileName = chosen.split(/[\\/]/).pop();
         $chooseButton.hide();
-        $messageIcon[0].className = statusMessages.selected.classname;
-        $uploadMessage.text(statusMessages.selected.message +': '+selectedFileName);
+
+        if(filesize > trimLink.maxFileSize) {
+          statusMessage = statusMessages.filesize;
+          $actions.find('.button-upload').hide();
+        } else {
+          statusMessage = statusMessages.selected;
+          $actions.find('.button-upload').show();
+        }
+
+        $messageIcon[0].className = statusMessage.classname;
+        $uploadMessage.text(statusMessage.message +': '+selectedFileName);
         $messageContainer.show();
         $actions.show();
       }
@@ -126,18 +151,23 @@ trimLink.setUpDashBoard = function() {
     // trim file async upload callbacks
     $form
       .on('ajax:error', function(e, response) {
-        var json = JSON.parse(response.responseText);
-
-        if (json.status === 200) {
-          $messageIcon.attr('class', statusMessages.success.classname);
-          $actions
-            .hide()
-            .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+        var json;
+        if (response.status === "200") {
+          json = JSON.parse(response.responseText);
+          if (json.status === 200) {
+            $messageIcon.attr('class', statusMessages.success.classname);
+            $actions
+              .hide()
+              .after('<a href="'+ json.link +'" rel="external">Open trim link</a>');
+          } else {
+            $messageIcon.attr('class', statusMessages.failure.classname);
+            $actions.find('.button-upload').hide();
+          }
+          $uploadMessage.text(json.message);
         } else {
           $messageIcon.attr('class', statusMessages.failure.classname);
-          $actions.find('.button-upload').hide();
+          $uploadMessage.text("Server error. Please try again or contact support.");
         }
-        $uploadMessage.text(json.message);
         $messageContainer.show();
 
         // iframe-transport removes the change event handler when uploading,
