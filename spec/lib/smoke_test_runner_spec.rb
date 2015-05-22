@@ -7,6 +7,8 @@ describe SmokeTestRunner do
   before(:each) do
     ENV['TEST_USER']      = 'me'
     ENV['TEST_USER_PASS'] = '123'
+
+    allow(Settings).to receive(:live_url).and_return('http://localhost')
   end
 
   it '#run! - runs the test suite and records result to file' do
