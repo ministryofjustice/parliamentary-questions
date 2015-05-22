@@ -4,6 +4,8 @@ describe SmokeTest do
   before(:each) do
     ENV['TEST_USER']      = 'me'
     ENV['TEST_USER_PASS'] = '123'
+
+    allow(Settings).to receive(:live_url).and_return('http://localhost')
   end
 
   it '#factory - creates an array of all smoke tests' do
@@ -20,7 +22,7 @@ describe SmokeTest do
     it '#from_env - should create an instance based on environment variables' do
       expect(test.instance_variable_get(:@user)).to eq 'me'
       expect(test.instance_variable_get(:@pass)).to eq '123'
-      expect(test.instance_variable_get(:@app_uri).to_s).to eq Settings.live_url
+      expect(test.instance_variable_get(:@app_uri).to_s).to eq 'http://localhost'
     end
 
     it '#passed? - logs into the application and calls all_checks_succeed?' do
