@@ -68,7 +68,7 @@ module SmokeTest
       store = OpenSSL::X509::Store.new
 
       if SSL_CERT_DIR
-        store.add_path(SSL_CERT_DIR)
+        store.set_default_paths
       else
         store.add_file(SSL_CERT_FILE)
       end
