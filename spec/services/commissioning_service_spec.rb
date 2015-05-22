@@ -75,24 +75,13 @@ describe CommissioningService do
 
       it "notifies the action officers" do
         MailWorker.new.run!
-        ao1_mail, _,  ao2_mail, _ = ActionMailer::Base.deliveries
+        ao1_mail,  ao2_mail = ActionMailer::Base.deliveries
 
         expect(ao1_mail.to).to eq([ao1.email])
         expect(ao1_mail.subject).to match(/you have been allocated PQ #{pq.uin}/i)
 
         expect(ao2_mail.to).to eq([ao2.email])
         expect(ao2_mail.subject).to match(/you have been allocated PQ #{pq.uin}/i)
-      end
-
-      it "notifies the deputy director" do
-        MailWorker.new.run!
-        _, dd1_mail, _, dd2_mail = ActionMailer::Base.deliveries
-
-        expect(dd1_mail.to).to eq([ao1.deputy_director.email])
-        expect(dd1_mail.subject).to match(/#{ao1.name} has been allocated PQ #{pq.uin}/i)
-
-        expect(dd2_mail.to).to eq([ao2.deputy_director.email])
-        expect(dd2_mail.subject).to match(/#{ao2.name} has been allocated PQ #{pq.uin}/i)
       end
 
       it "sets the PQ state to 'no-response'" do
