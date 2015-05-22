@@ -22,14 +22,12 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     commission_question(@pq.uin, [ao, ao2], minister)
   end
 
-  scenario 'AO and DD should receive an email notification of assigned question' do
-    ao_mail, dd_mail = sent_mail.first(2)
+  scenario 'AO should receive an email notification of assigned question' do
+    ao_mail = sent_mail.first
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.text_part.body).to include "you have been allocated PQ #{@pq.uin}"
 
-    expect(dd_mail.to).to include ao.deputy_director.email
-    expect(dd_mail.text_part.body).to include "#{ao.name} has been allocated the PQ #{@pq.uin}"
   end
 
   scenario 'Following the email link should let the AO accept the question' do
@@ -75,7 +73,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     }
     form = CommissionForm.new(form_params)
     CommissioningService.new(nil, Date.today - 4.days).commission(form)
-    ao_mail, _ = sent_mail.last(2)
+    ao_mail, _ = sent_mail.last
     url = extract_url_like('/assignment', ao_mail)
     visit url
     expect(page.title).to have_content("Unauthorised (401)")
