@@ -16,7 +16,7 @@ module SmokeTest
       end
 
       new(
-        ENV['SENDING_HOST'],
+        Settings.live_url,
         ENV['TEST_USER'],
         ENV['TEST_USER_PASS']
       )
@@ -46,18 +46,14 @@ module SmokeTest
       end
     end
 
-    def initialize(host, user, pass)
-      @app_uri = build_uri(host)
+    def initialize(app_url, user, pass)
+      @app_uri = URI.parse(app_url)
       @user    = user
       @pass    = pass
       @agent   = mechanize_instance
     end
 
     private
-
-    def build_uri(host)
-      URI::HTTPS.build({ host: host })
-    end
 
     def mechanize_instance
       Mechanize.new do |m|

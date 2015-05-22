@@ -5,7 +5,6 @@ describe SmokeTestRunner do
   let(:out_file) { "#{Rails.root}#{Settings.smoke_test_runner.out_file}" }
 
   before(:each) do
-    ENV['SENDING_HOST']   = 'http://localhost'
     ENV['TEST_USER']      = 'me'
     ENV['TEST_USER_PASS'] = '123'
   end

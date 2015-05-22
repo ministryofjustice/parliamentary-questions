@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe SmokeTest do
   before(:each) do
-    ENV['SENDING_HOST']   = 'http://localhost'
     ENV['TEST_USER']      = 'me'
     ENV['TEST_USER_PASS'] = '123'
   end
@@ -21,7 +20,7 @@ describe SmokeTest do
     it '#from_env - should create an instance based on environment variables' do
       expect(test.instance_variable_get(:@user)).to eq 'me'
       expect(test.instance_variable_get(:@pass)).to eq '123'
-      expect(test.instance_variable_get(:@app_uri).host).to eq 'localhost'
+      expect(test.instance_variable_get(:@app_uri).to_s).to eq Settings.live_url
     end
 
     it '#passed? - logs into the application and calls all_checks_succeed?' do
