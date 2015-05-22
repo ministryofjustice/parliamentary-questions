@@ -24,6 +24,12 @@ describe Settings do
   end
 
   context 'settings file values' do
+    describe '.live_url' do
+      it 'should return the value from the file' do
+        expect(Settings.live_url).to eq 'https://trackparliamentaryquestions.service.gov.uk'
+      end
+    end
+
     describe '.mail_from' do
       it 'should return the value from the file' do
         expect(Settings.mail_from).to eq 'PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>'
