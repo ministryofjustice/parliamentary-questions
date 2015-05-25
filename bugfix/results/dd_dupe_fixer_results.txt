@@ -1,0 +1,26 @@
+AO:116 Sandy Rass [NOMS] has changed DD from 108:Richard Vince (East England) to 43:Richard Vince.
+AO:262 Maggie McDonald has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:299 Sean Rigney has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:300 Bilal Toure has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:198 Elisabeth Stafford has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:311 Ollie Simpson has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:301 Joana Morrison has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:149 Scott Tubbritt has changed DD from 54:Richard Mason (Taskforce) to 21:Richard Mason.
+AO:302 Sue Brown has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:298 Jessica Deacon has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:480 Geraint Davies has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:27 Adam Smith (NOMS) has changed DD from 26:Simon Boddis (NOMS) to 1:Simon Boddis [Noms].
+AO:1 Judith Bernstein has changed DD from 54:Richard Mason (Taskforce) to 21:Richard Mason.
+AO:137 Sarah McKnight has changed DD from 26:Simon Boddis (NOMS) to 1:Simon Boddis [Noms].
+AO:66 Charlotte Hosier has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:101 Amanda Williams has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:118 Daniel Johns has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:133 Adrian Smith has changed DD from 26:Simon Boddis (NOMS) to 1:Simon Boddis [Noms].
+AO:160 James Toon has changed DD from 26:Simon Boddis (NOMS) to 1:Simon Boddis [Noms].
+AO:328 Taj Bhamra has changed DD from 54:Richard Mason (Taskforce) to 21:Richard Mason.
+AO:218 Sharon Barrett (NOMS) has changed DD from 26:Simon Boddis (NOMS) to 1:Simon Boddis [Noms].
+AO:173 Julianne Peterson has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:192 Marcia Williams has changed DD from 54:Richard Mason (Taskforce) to 21:Richard Mason.
+AO:327 Robert Wright has changed DD from 54:Richard Mason (Taskforce) to 21:Richard Mason.
+AO:12 Oliver Lendrum has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].
+AO:197 Stephen Jones (FoI) has changed DD from 51:Simon James to 78:Simon James - Cabinet Office [Restricted].

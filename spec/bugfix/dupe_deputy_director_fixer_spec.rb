@@ -30,7 +30,7 @@ describe DupeDeputyDirectorFixer do
 
   it 'should report on the changes its made' do
     fixer.dedupe!
-    expect(fixer.instance_variable_get(:@reports)).to eq(
+    expect(fixer.instance_variable_get(:@report)).to eq(
       [
         "AO:#{ao1.id} #{ao1.name} has changed DD from #{dd1_old.id}:#{dd1_old.name} to #{dd1_new.id}:#{dd1_new.name}.",
         "AO:#{ao3.id} #{ao3.name} has changed DD from #{dd2_old.id}:#{dd2_old.name} to #{dd2_new.id}:#{dd2_new.name}."
