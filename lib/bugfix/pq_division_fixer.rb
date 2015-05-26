@@ -32,6 +32,11 @@ class PqDivisionFixer
   def update_pq(uin, div_name)
     pq = Pq.uin(uin)
     raise "Unable to find UIN #{uin}" if pq.nil?
+    if pq.action_officers.accepted.nil?
+      @report << ">>>> ERROR UIN #{uin} - no accepted action officer!"
+      return
+    end
+
     new_div = pq.action_officers.accepted.deputy_director.division
     @report << "Changed UIN #{uin} from Div #{pq.original_division_id}:#{pq.original_division.name} to #{new_div.id}:#{new_div.name}"
     if new_div.name.strip != div_name.strip
