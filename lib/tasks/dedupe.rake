@@ -1,5 +1,34 @@
 namespace :dedupe do
+
+
+  task :check => :environment do
+    require 'csv'
+    DIVISIONS_FILE = '/Users/stephen/tmp/division_changes.csv'
+    data = CSV.read(DIVISIONS_FILE)
+    data.shift
+
+    data.each do |row|
+      pq_id, uin, ao_id, name, pq_div_id, pq_div_name, ao_div_id, ao_div_name, correct_division = row
+      next if correct_division.nil?
+      pq = Pq.uin(uin)
+      puts "checking UIN #{uin}"
+      expected_div_name = correct_division.strip.upcase == 'CURRENT' ? ao_div_name : pq_div_name
+      if expected_div_name.strip != pq.original_division.name.strip
+        puts ">>>>>> UIN #{uin}"
+      end
+    end
+
+
+  end
   
+  desc 'change original division on PQ to what it should be'
+  task :div_change => :environment do
+    fixer = PqDivisionFixer.new
+    fixer.fix!
+    fixer.report
+  end
+
+
   desc 'removes duplicate action officers' 
   task :ao => :environment do
     dupes = {
