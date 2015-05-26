@@ -1,4 +1,5 @@
-<%= @template_params[:ao_name] %>, you have been allocated PQ <%= @template_params[:uin] %>:
+<%= @template_params[:ao_name] %>
+Parliamentary Branch believes your team is responsible for answering PQ <%= @template_params[:uin] %>:
 
   <%= @template_params[:question] %>.
 
@@ -22,12 +23,13 @@
   Due back to Parliament: <%= @template_params[:date_to_parliament] %>
 <% end %>
 
-You need to accept or reject the question, by clicking the link below or cutting and pasting this url into a web browser, before 2pm today.
+You need to accept or reject the question, by clicking the link below or cutting and pasting this url into a web browser, as soon as possible. This gives more time to reallocate the PQ if necessary.
 
 <%= url_for(controller: "assignment", action: "show", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
 
-If you accept the question, we will send you a further email with all the relevant guidance to draft an answer.
+If you accept the question, we’ll email you the guidance to draft your answer.
+If you reject the question, please let us know why and suggest which team might answer it.
 
-If you have any queries about responding to this PQ, contact the PQ team at <%= Settings.mail_reply_to %>
+If you have any queries about drafting your response, Contact us <%= Settings.mail_reply_to %>
 
 <%= render 'shared/mailer/email_signature_plain' %>
