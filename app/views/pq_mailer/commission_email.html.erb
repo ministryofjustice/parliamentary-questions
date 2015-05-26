@@ -5,48 +5,52 @@
     <style type="text/css">
       body {
         font-family: arial, sans-serif;
-        font-size: 12pt;
+        font-size: 11pt;
       }
       .pq-details {
-        padding-left: 0.5em;
-        border-left: 4px solid gray;
-        margin: 5px 5px 5px 10px;
+          padding-left: 0.5em;
+          border-left: 4px solid gray;
+          margin: 5px 5px 5px 10px;
+      }
+      .what-to-do{
+          font-family: arial, sans-serif;
+          font-size: 12pt;
       }
     </style>
   </head>
   <body style="font-family: arial, sans-serif; font-size: 12pt;">
-    <p><%= @template_params[:ao_name] %>, you have been allocated PQ <strong><%= @template_params[:uin] %></strong>:</p>
+    <p><%= @template_params[:ao_name] %></p>
+    <p>Parliamentary Branch believes your team is responsible for answering PQ <strong><%= @template_params[:uin] %></strong>:</p>
 
-    <div class="pq-details" style="padding-left: 0.5em; border-left: 4px solid gray; margin: 5px 5px 5px 10px;">
-      <%= @template_params[:question] %>
+    <%= @template_params[:question] %>
 
-      <p>Asked by <%= @template_params[:member_name] %><% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>)<% end %></p>
+    <p>Asked by <%= @template_params[:member_name] %><% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>)<% end %></p>
 
-      <% if @template_params[:member_constituency].present? %>
+    <% if @template_params[:member_constituency].present? %>
       <p>Constituency: <%= @template_params[:member_constituency] %></p>
-      <% end %>
+    <% end %>
 
-      <% if @template_params[:answer_by].present? %>
+    <% if @template_params[:answer_by].present? %>
       <p>To be answered by: <%= @template_params[:answer_by].to_s %></p>
-      <% end %>
+    <% end %>
 
-      <% if @template_params[:internal_deadline].present? %>
+    <% if @template_params[:internal_deadline].present? %>
       <p>Internal deadline: <%= @template_params[:internal_deadline] %></p>
-      <% end %>
+    <% end %>
 
-      <% if @template_params[:date_to_parliament].present? %>
+    <% if @template_params[:date_to_parliament].present? %>
       <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
-      <% end %>
+    <% end %>
+
+    <div class="what-to-do" style="font-family: arial, sans-serif; font-size: 12pt;">
+      <p><strong>What to do next</strong></p>
+      <p><strong>Please <%= link_to "accept or reject this question", controller: "assignment", action: "show", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> as soon as possible.</strong> This gives more time to reallocate the PQ if necessary.</p>
+      <p>If you accept the question, we’ll email you the guidance to draft your answer.</p>
+      <p>If you reject the question, please let us know why and suggest which team might answer it.</p>
+
+
+      <p>If you have any queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact us</a>.</p>
     </div>
-
-    <p><strong>You need to <%= link_to "accept or reject this question", controller: "assignment", action: "show", uin: @template_params[:uin], token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> before 2pm today</strong>.</p>
-
-    <p>The content is best viewed in <strong>Firefox</strong> browser</p>
-
-    <p>If you accept the question, we will send you a further email with all the relevant guidance to draft your answer.</p>
-
-    <p>If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>.</p>
-
     <%= render 'shared/mailer/email_signature' %>
   </body>
 </html>
