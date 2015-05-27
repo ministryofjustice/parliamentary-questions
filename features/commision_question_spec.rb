@@ -26,7 +26,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     ao_mail = sent_mail.first
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.text_part.body).to include "you have been allocated PQ #{@pq.uin}"
+    expect(ao_mail.text_part.body).to include "your team is responsible for answering PQ #{@pq.uin}"
 
   end
 
