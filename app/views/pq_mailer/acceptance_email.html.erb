@@ -15,37 +15,35 @@
     </style>
   </head>
   <body style="font-family: arial, sans-serif; font-size: 12pt;">
-    <p><%= @template_params[:ao_name] %>, you have agreed to draft an answer to PQ <strong><%= @template_params[:uin] %></strong>.</p>
+  <p><%= @template_params[:ao_name] %></p>
+  <p>Thank you for agreeing to draft an answer to PQ <strong><%= @template_params[:uin] %></strong>:</p>
 
-    <div class="pq-details" style="padding-left: 0.5em; border-left: 4px solid gray; margin: 5px 5px 5px 10px;">
-      <%= @template_params[:question] %>
+  <%= @template_params[:question] %>
 
-      <% if @template_params[:member_name].present? %>
-        <p>Asked by: <%= @template_params[:member_name] %> <% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>) <% end %></p>
-      <% end %>
+  <p>Asked by <%= @template_params[:member_name] %><% if @template_params[:house_name].present? %> (<%= @template_params[:house_name] %>)<% end %></p>
 
-      <% if @template_params[:member_constituency].present? %>
-        <p>Constituency: <%= @template_params[:member_constituency] %></p>
-      <% end %>
+  <% if @template_params[:member_constituency].present? %>
+      <p>Constituency: <%= @template_params[:member_constituency] %></p>
+  <% end %>
 
-      <% if @template_params[:answer_by].present? %>
-        <p>To be answered by: <%= @template_params[:answer_by].to_s %></p>
-      <% end %>
+  <% if @template_params[:answer_by].present? %>
+      <p>To be answered by: <%= @template_params[:answer_by].to_s %></p>
+  <% end %>
 
-      <% if @template_params[:date_to_parliament].present? %>
-        <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
-      <% end %>
-    </div>
+  <% if @template_params[:internal_deadline].present? %>
+      <p>Internal deadline is <strong><%= @template_params[:internal_deadline] %></strong></p>
+  <% end %>
 
-    <% if @template_params[:internal_deadline].present? %>
-      <p>Deadline to return your draft response to the PQ team is <strong><%= @template_params[:internal_deadline] %></strong></p>
-    <% end %>
-    <p><strong>You must use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> All relevant people will be included automatically. You can add extra recipients if needed.</p>
+  <% if @template_params[:date_to_parliament].present? %>
+      <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
+  <% end %>
 
-    <p>Liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For templates and guidance, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>.</p>
-
-    <p>If you have any queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a>.</p>
-
+  <div class="what-to-do" style="font-family: arial, sans-serif; font-size: 12pt;">
+    <p><strong>What to do next</strong></p>
+    <p>You must use the <a href="http://intranet.justice.gsi.gov.uk/global/forms/downloads/ministers-parliament/template-written-pqs.doc">PQ template</a> for your answer.  Any member of your team may draft it, but you must ensure the template is complete, approved, and sent to the PQ Team by the internal deadline. For help, please check the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>.</p>
+    <p><strong>Use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> This ensures that all relevant people are included automatically. You can add extra recipients if needed, including those on the template's Deputy Director checklist.</p>
+    <p>If you have any queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact us</a>.</p>
+  </div>
     <%= render 'shared/mailer/email_signature' %>
   </body>
 </html>
