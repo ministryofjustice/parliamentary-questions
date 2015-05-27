@@ -49,7 +49,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.text_part.body).to include(
-      "you have agreed to draft an answer to PQ #{@pq.uin}"
+      "Thank you for agreeing to draft an answer to PQ #{@pq.uin}"
     )
   end
 
