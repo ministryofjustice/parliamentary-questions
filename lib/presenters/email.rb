@@ -71,7 +71,7 @@ module Presenters
     end
 
     def format_internal_deadline(pq)
-      pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date) } - 10am " : ''
+      pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date) } - 11am " : ''
     end
   end
 end
