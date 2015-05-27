@@ -176,16 +176,16 @@
 
       // when clicking a calendar icon, open the calendar to the left of it
       // and if empty populate it with the current time,
-      // (unless it has class default-time, in which case set time to 10:00)
+      // (unless it has class default-time, in which case set time to 11:00)
       $('span.fa-calendar').on('click', function () {
         var picker = $(this).prev('input'), now, nowString;
         if (picker.val() === '') {
           now = new Date();
           if (picker.parent('.datepicker').length) {
-            nowString = now.toLocaleString().substring(0,10);
+              nowString = now.toLocaleString().substring(0,10);
           } else {
             if (picker.parent('.datetimepicker').hasClass('default-time')) {
-              now.setHours(10);
+              now.setHours(11);
               now.setMinutes(0);
             }
             nowString = now.toLocaleString().substring(0,16).replace(' ', '     ');
