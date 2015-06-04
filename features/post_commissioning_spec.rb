@@ -7,10 +7,10 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     clear_sent_mail
     DBHelpers.load_feature_fixtures
 
-    pq1, pq2  = PQA::QuestionLoader.new.load_and_import(2)
-    @ao       = ActionOfficer.find_by(email: 'ao1@pq.com')
-    @minister = Minister.first
-    @uin1, @uin2 = pq1.uin, pq2.uin
+    pq1, pq2, pq3       = PQA::QuestionLoader.new.load_and_import(3)
+    @ao                 = ActionOfficer.find_by(email: 'ao1@pq.com')
+    @minister           = Minister.first
+    @uin1, @uin2, @uin3 = pq1.uin, pq2.uin, pq3.uin
 
     set_seen_by_finance
   end
@@ -34,6 +34,16 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     expect_pq_in_progress_status(@uin1, 'Draft Pending')
     in_pq_detail(@uin1, "PQ draft") { fillin_date('#draft_answer_received') }
     expect_pq_in_progress_status(@uin1, 'With POD')
+  end
+
+  scenario "Question that is late by less than one hour shows overdue warning" do
+    commission_question(@uin3, [@ao], @minister)
+    pq = Pq.find_by(uin: @uin3)
+    pq.internal_deadline = (Time.now - 10.minutes).to_s
+    pq.save
+    visit pq_path(pq.uin)
+    click_on "PQ commission"
+    expect(page).to have_css('span.fa.fa-exclamation-triangle')
   end
 
   scenario "Parli-branch moves a question to 'POD Query' and to 'POD cleared'" do
