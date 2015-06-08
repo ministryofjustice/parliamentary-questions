@@ -26,7 +26,6 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       select ao.name, from: 'Action officer(s)'
       find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y 12:00')
     end
-    save_and_open_screenshot
     expect(page).not_to have_button("Commission")
   end
 
