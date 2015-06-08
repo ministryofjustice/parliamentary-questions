@@ -18,6 +18,18 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
+  scenario 'Parli-branch members tries to allocate a question without an answering minister' do
+    create_pq_session
+    visit dashboard_path
+    within_pq(@pq.uin) do
+      select_option('commission_form[policy_minister_id]', minister.name) if minister
+      select ao.name, from: 'Action officer(s)'
+      find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y 12:00')
+    end
+    save_and_open_screenshot
+    expect(page).not_to have_button("Commission")
+  end
+
   scenario 'Parli-branch member allocates a question to selected AOs' do
     commission_question(@pq.uin, [ao, ao2], minister)
   end
