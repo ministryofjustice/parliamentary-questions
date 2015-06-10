@@ -1,5 +1,4 @@
-- if internal_deadline && !is_closed
-  - from_time = DateTime.now.change ({:offset => 0})
-  - overdue = (from_time -  internal_deadline.to_datetime) > 0
-  - if overdue && draft_reply.blank?
+- if internal_deadline && !is_closed && draft_reply.blank?
+  - deadline_uk = Time.find_zone('London').parse(internal_deadline.to_s).to_datetime
+  - if deadline_uk < DateTime.now
     = render 'shared/warning_icon'
