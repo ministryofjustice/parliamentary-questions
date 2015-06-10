@@ -75,6 +75,8 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'watchlist/preview'     => 'watchlist_dashboard#preview'
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
 
+  get 'preview' => 'preview#index'
+
   get 'find_action_officers' => 'action_officers#find'
 
   get 'finance/questions' => 'finance#questions'
