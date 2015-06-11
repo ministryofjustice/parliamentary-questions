@@ -116,7 +116,7 @@ describe Pq do
       on_time_due_sooner_lower_weight   = pqs[1]
       on_time_due_later_higher_weight   = pqs[2]
       on_time_due_later_lower_weight    = pqs[3]
-      
+
       expect(Pq.sorted_for_dashboard.map(&:uin)).to eq([
         on_time_due_sooner_higher_weight,
         on_time_due_sooner_lower_weight,
@@ -506,7 +506,7 @@ describe Pq do
 
       let(:pq) do
         pq = FactoryGirl.create(:pq)
-        3.times do 
+        3.times do
           ao = FactoryGirl.create(:action_officer)
           pq.action_officers << ao
         end
@@ -528,7 +528,7 @@ describe Pq do
         expect(pq).to be_valid
       end
 
-      it 'should be valid if multiple accepted but only one of those is active' do
+      it 'should not be valid if multiple accepted but only one of those is active' do
         ao1 = pq.action_officers.order(:id).first
         ao1.deleted = true
         ao1.save!
@@ -541,9 +541,10 @@ describe Pq do
         end
         expect(pq.action_officers.order(:id).map(&:deleted)).to eq( [ true, true, false ] )
         expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
-        expect(pq).to be_valid
+        expect(pq).not_to be_valid
+        expect(pq.errors[:base]).to eq([ 'Unable to have two action officers accepted on the same question'])
       end
-      
+
 
       it 'should not be valid if multiple accepted active' do
         pq.action_officers_pqs.each do |aopq|
@@ -553,7 +554,7 @@ describe Pq do
         expect(pq.action_officers.order(:id).map(&:deleted)).to eq( [ false, false, false ] )
         expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
         expect(pq).not_to be_valid
-        expect(pq.errors[:base]).to eq([ 'Unable to have two active action officers accepted on the same question'])
+        expect(pq.errors[:base]).to eq([ 'Unable to have two action officers accepted on the same question'])
       end
   end
 

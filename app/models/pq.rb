@@ -95,11 +95,15 @@ class Pq < ActiveRecord::Base
 
   has_many :action_officers, :through => :action_officers_pqs do
 
+    def all_accepted
+      where(action_officers_pqs: {response: 'accepted'})
+    end
+
     def all_active_accepted
       where(action_officers_pqs: {response: 'accepted'}, action_officers: { deleted: false} )
     end
 
-    def accepted
+    def accepted #TODO Need to change this to live or dead AOs - need data from PB to test.
       where(action_officers_pqs: {response: 'accepted'}, action_officers: { deleted: false} ).first
     end
 
@@ -231,8 +235,8 @@ class Pq < ActiveRecord::Base
   private
 
   def sole_accepted_action_officer
-    if action_officers.all_active_accepted.size > 1
-      errors[:base] << "Unable to have two active action officers accepted on the same question"
+    if action_officers.all_accepted.size > 1
+      errors[:base] << "Unable to have two action officers accepted on the same question"
     end
   end
 
