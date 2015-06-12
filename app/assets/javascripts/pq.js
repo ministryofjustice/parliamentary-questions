@@ -134,6 +134,8 @@ var document, $, trimLink, ga;
       // we need to avoid other unneccessary initialisations as they
       // break the page
 
+      $('nav').hide();
+
       // open the reject justification form when Reject is selected
       // and hide it when Accept is selected
       $('#allocation_response_response_action_accept').on('click', function (){
@@ -148,9 +150,10 @@ var document, $, trimLink, ga;
                                $('#filters input[type="radio"]:checked').siblings('span').text());
       });
 
-      $('#preview #filters input').on('click', function() {
+      $('#preview #filters input').on('click', function(event) {
+        $(event.target).siblings('input').attr('checked', false);
         filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               $('#filters input[type="radio"]:checked').siblings('span').text());
+                               $(event.target).next().text());
       });
 
     } else {
