@@ -23,7 +23,7 @@
             h3 Asked by:
             p#asked-by #{question.member_name}
             h3 Constituency:
-            - if question.member_constituency.empty?
+            - if question.member_constituency.nil?
               | N/A
             - else
               p#constituency #{question.member_constituency}
