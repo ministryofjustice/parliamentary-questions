@@ -99,11 +99,7 @@ class Pq < ActiveRecord::Base
       where(action_officers_pqs: {response: 'accepted'})
     end
 
-    def all_active_accepted
-      where(action_officers_pqs: {response: 'accepted'}, action_officers: { deleted: false} )
-    end
-
-    def accepted #TODO Need to change this to live or dead AOs - need data from PB to test.
+    def accepted
       where(action_officers_pqs: {response: 'accepted'}, action_officers: { deleted: false} ).first
     end
 
