@@ -100,7 +100,7 @@ class Pq < ActiveRecord::Base
     end
 
     def accepted
-      where(action_officers_pqs: {response: 'accepted'}, action_officers: { deleted: false} ).first
+      where(action_officers_pqs: {response: 'accepted'}).first
     end
 
     def rejected
