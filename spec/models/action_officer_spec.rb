@@ -33,12 +33,6 @@ describe ActionOfficer do
     expect(officer).to be_invalid
   end
 
-  it 'should have return concatenated emails if group_email is set' do
-    current_email = officer.emails
-    officer.group_email = 'group.email@email.com'
-    expect(officer.emails).to eql("#{current_email};group.email@email.com")
-  end
-
   it 'should strip whitespace from emails' do
     officer.update(email:' action.officer@new.email.com')
     expect(officer.email).to eql('action.officer@new.email.com')

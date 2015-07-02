@@ -8,6 +8,7 @@ module MailService
       {
         method: 'commission_email',
         from:   Settings.commission_mail_from,
+        cc:     params[:cc],
       }
 
       generate_email(details_h, base_h(params))
@@ -36,7 +37,7 @@ module MailService
     end
 
     def watchlist_email(params)
-      details_h = 
+      details_h =
       {
         method: 'watchlist_email',
         cc:     params[:cc],

@@ -39,14 +39,6 @@ class ActionOfficer < ActiveRecord::Base
     active.where("name ILIKE ?","%#{name}%")
   end
 
-  def emails
-    if group_email.blank?
-      self[:email]
-    else
-      "#{self[:email]};#{self[:group_email]}"
-    end
-  end
-
   def name_with_div
     if deputy_director.nil?
       name

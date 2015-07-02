@@ -5,7 +5,8 @@ module Presenters
     def default_hash(pq, ao)
       {
         ao_name:              ao.name,
-        email:                ao.emails,
+        email:                ao.email,
+        cc:                   ao.group_email,
         uin:                  pq.uin,
         question:             pq.question,
         answer_by:            pq.minister && pq.minister.name,
