@@ -46,6 +46,17 @@ module MailService
       generate_email(details_h, base_h(params))
     end
 
+    def early_bird_email(params)
+      details_h = 
+      {
+        method: 'early_bird_email',
+        cc:     params[:cc],
+        params: params.merge({ date: Date.today.to_s(:date)})
+      }
+
+      generate_email(details_h, base_h(params))
+    end
+
     private_class_method
 
     def base_h(params)

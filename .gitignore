@@ -24,3 +24,4 @@ tmp
 *.swo
 .tern-port
 vendor
+/config/database.yml

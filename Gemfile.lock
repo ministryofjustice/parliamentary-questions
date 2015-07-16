@@ -43,7 +43,6 @@ GEM
     bootstrap-will_paginate (0.0.10)
       momentjs-rails (~> 2.5.0)
       will_paginate
-      will_paginate
     brakeman (3.0.2)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
@@ -334,3 +333,6 @@ DEPENDENCIES
   unicorn
   whenever
   will_paginate
+
+BUNDLED WITH
+   1.10.3

@@ -1,0 +1,9 @@
+View the PQs not allocated on <%= Date.today.strftime "%d/%m/%Y" %> by the Ministry of Justice, Parliamentry Branch:
+
+<%= url_for(controller: "early_bird_dashboard", action: "index", token: @template_params[:token], entity: @template_params[:entity], :host => root_url )%>
+
+This link will only be active today. The content is best viewed in Firefox browser.
+
+You have signed up to receive these daily emails. To unsubscribe, contact the PQ tam at <%= Settings.mail_reply_to %>.
+
+<%= render 'shared/mailer/email_signature_plain' %>

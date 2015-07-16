@@ -28,6 +28,10 @@ class PqMailer < PQBaseMailer
     mail_with_subject('PQs allocated today', mail_data)
   end
 
+  def early_bird_email(mail_data)
+    mail_with_subject('PQs to be allocated today', mail_data)
+  end
+
   private
 
   def mail_with_subject(subject, mail_data)

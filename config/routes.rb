@@ -31,6 +31,9 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :directorates
 
   resources :watchlist_members
+  
+  resources :early_bird_members
+
   resources :actionlist_members
 
   resources :action_officers
@@ -74,6 +77,10 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'watchlist/dashboard'   => 'watchlist_dashboard#index'
   get 'watchlist/preview'     => 'watchlist_dashboard#preview'
   get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
+
+  get 'early_bird/dashboard'   => 'early_bird_dashboard#index'
+  get 'early_bird/preview'     => 'early_bird_dashboard#preview'
+  get 'early_bird/send_emails' => 'early_bird_send_emails#send_emails'
 
   get 'find_action_officers' => 'action_officers#find'
 

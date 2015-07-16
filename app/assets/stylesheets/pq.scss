@@ -888,6 +888,22 @@ textarea.form-control {
   }
 }
 
+/* = Early bird preview (/early_bird/preview) ================================ */
+
+#earlybird-preview {
+  h2 {
+    margin: 20px 0 10px 0;
+    font-weight: bold;
+    color: $text-colour;
+  }
+  h3 {
+    font-weight: bold;
+    color: $text-colour;
+    margin: 20px 0 10px 0;
+  }
+}
+
+
 /* = Minister details page (/ministers/) =========================== */
 /* = Press-desk page (/press_desks/]) ============================== */
 /* = CSV export page (/export) ===================================== */
