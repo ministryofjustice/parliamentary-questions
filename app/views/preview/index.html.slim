@@ -1,0 +1,47 @@
+#preview
+
+  h1 New parliamentary questions to be allocated today (#{@now})
+
+  #main
+    #count
+      strong #{@questions.length}
+      = ' '
+      span new parliamentary questions
+    ul
+      - @questions.each do |question|
+        li
+          h2
+            strong #{question.uin}
+            - if question.question_type == 'NamedDay'
+              span Named day
+            - if question.transferred
+              span Transferred in
+            - if question.question_type == 'Ordinary'
+              span.hide Ordinary
+          p#question #{question.question}
+          - unless question.member_name.empty?
+            h3 Asked by:
+            p#asked-by #{question.member_name}
+            h3 Constituency:
+            - if question.member_constituency.nil?
+              | N/A
+            - else
+              p#constituency #{question.member_constituency}
+          hr
+
+  #filters
+    h2 Filter by:
+    .filter-box
+      h3 Contains
+      input type="text"
+    .filter-box
+      h3 Question type
+      div
+        input type="checkbox"
+        span Named day
+        br
+        input type="checkbox"
+        span Ordinary
+        br
+        input type="checkbox"
+        span Transferred in

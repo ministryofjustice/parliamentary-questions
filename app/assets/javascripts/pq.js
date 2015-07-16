@@ -1,5 +1,28 @@
+var document, $, trimLink, ga;
+
 (function() {
   'use strict';
+
+  var filterPreviewQuestions = function(text, state) {
+    var textToSearch = new RegExp(text, 'i');
+    var count = 0;
+    var stateString = state ? ' <strong>' + state + '</strong> ' : ' ';
+    $('#main ul li').each(function(i, li) {
+      var questionText = $(li).text();
+      if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
+        count++;
+        $(li).css('display', 'block');
+      } else {
+        $(li).css('display', 'none');
+      }
+    });
+    $('#count strong').text(count ? count : 'No');
+    if (text) {
+      $('#count span').html('new' + stateString + 'questions containing <strong>' + text + '</strong>');
+    } else {
+      $('#count span').html('new' + stateString + 'questions');
+    }
+  };
 
   // make detail blocks toggleable
   var enableDetailsToggle = function(i, el) {
@@ -21,7 +44,7 @@
     // check if required fields have content
     $form.find('select.required-for-commission,input.required-for-commission').each(function() {
       var value = $(this).val();
-      var filled = (value !== "" && value !== null);
+      var filled = (value !== '' && value !== null);
       validSoFar = validSoFar && filled;
     });
 
@@ -86,12 +109,12 @@
     $('.reveal > span').each(enableDetailsToggle);
 
     // Form behaviour: checkbox and radio button CSS state changes
-    $(".block-label").each(function() {
+    $('.block-label').each(function() {
       // Add focus
-      $(".block-label input").focus(function() {
-        $("label[for='" + this.id + "']").addClass("add-focus");
+      $('.block-label input').focus(function() {
+        $('label[for="' + this.id + '"]').addClass('add-focus');
       }).blur(function() {
-        $("label").removeClass("add-focus");
+        $('label').removeClass('add-focus');
       });
       // Add selected class
       $('input:checked').parent().addClass('selected');
@@ -103,13 +126,15 @@
       $('input:checked').parent().addClass('selected');
       $('.toggle-content').hide();
       var target = $('input:checked').parent().attr('data-target');
-      $('#'+target).show();
+      $('#' + target).show();
     });
 
-    if (document.getElementById('assignment')) {
+    if (document.getElementById('assignment') || document.getElementById('preview')) {
       // This is the assignment page. As it is typically seen on IE7
       // we need to avoid other unneccessary initialisations as they
       // break the page
+
+      $('nav').hide();
 
       // open the reject justification form when Reject is selected
       // and hide it when Accept is selected
@@ -120,28 +145,39 @@
         $('#reason-textarea').removeClass('hide');
       });
 
+      $('#preview input[type="text"]').on('keyup', function() {
+        filterPreviewQuestions($('#filters input[type="text"]').val(),
+                               $('#filters input[type="radio"]:checked').siblings('span').text());
+      });
+
+      $('#preview #filters input').on('click', function(event) {
+        $(event.target).siblings('input').attr('checked', false);
+        filterPreviewQuestions($('#filters input[type="text"]').val(),
+                               $(event.target).next().text());
+      });
+
     } else {
       // all other pages
 
       // set up any date pickers on the page
-      $('.datetimepicker input').datetimepicker({validateOnBlur:false,
+      $('.datetimepicker input').datetimepicker({validateOnBlur: false,
                                                  scrollMonth: false,
-                                                 closeOnDateSelect:true,
+                                                 closeOnDateSelect: true,
                                                  dayOfWeekStart: 1,
-                                                 format:'d/m/Y     H:i'});
+                                                 format: 'd/m/Y     H:i'});
 
       // set up any datetime pickers on the page
       $('.datepicker input').datetimepicker({timepicker: false,
                                              scrollInput: false,
                                              scrollMonth: false,
-                                             validateOnBlur:false,
-                                             closeOnDateSelect:true,
+                                             validateOnBlur: false,
+                                             closeOnDateSelect: true,
                                              dayOfWeekStart: 1,
-                                             format:'d/m/Y'});
+                                             format: 'd/m/Y'});
       // enable select2 drop-boxes on various select controls
-      $('.minister-select').select2({width:'250px'});
-      $('.multi-select-action-officers').select2({width:'250px'});
-      $('.single-select-dropdown').select2({width:'250px', allowClear: true});
+      $('.minister-select').select2({width: '250px'});
+      $('.multi-select-action-officers').select2({width: '250px'});
+      $('.single-select-dropdown').select2({width: '250px', allowClear: true});
 
       // on the dashboard, enable the Commission button only if the required fields are non-empty
       $('.form-commission').each(function() {
@@ -149,22 +185,22 @@
       });
 
       // commisioning a question and showing the success message on the dashboard page
-      $(".form-commission")
-        .on("ajax:success", function(){
+      $('.form-commission')
+        .on('ajax:success', function(){
           // if the question was successfully commission, then hide it and replace with
           // a success message
           var pqid = $(this).data('pqid');
-          var uin  = $(this).parents('*[data-pquin]').data('pquin');
-          $('#pq-frame-'+pqid).replaceWith('<div class="pq-msg-success fade in">'+ uin +' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
+          var uin = $(this).parents('*[data-pquin]').data('pquin');
+          $('#pq-frame-' + pqid).replaceWith('<div class="pq-msg-success fade in">' + uin + ' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
           // on the right-hand filter panel, increment the number of No Eesponse questions
           incrementBadge('#db-filter-alloc-pend');
           // and decrement the number of unallocated
           decrementBadge('#db-filter-unalloc');
-        }).on("ajax:error", function(e, xhr) {
+        }).on('ajax:error', function(e, xhr) {
           // the data passed to the backend was invalid
           var errorText = xhr.status === 422 ?
-            "Invalid input. Please correct and commission again." :
-            "Internal error. Please try again in a few minutes or contact support.";
+            'Invalid input. Please correct and commission again.' :
+            'Internal error. Please try again in a few minutes or contact support.';
           $(this).find('.commissioning-error-message')
             .text(errorText)
             .css('display', 'inline-block');
@@ -182,13 +218,13 @@
         if (picker.val() === '') {
           now = new Date();
           if (picker.parent('.datepicker').length) {
-              nowString = now.toLocaleString().substring(0,10);
+              nowString = now.toLocaleString().substring(0, 10);
           } else {
             if (picker.parent('.datetimepicker').hasClass('default-time')) {
               now.setHours(11);
               now.setMinutes(0);
             }
-            nowString = now.toLocaleString().substring(0,16).replace(' ', '     ');
+            nowString = now.toLocaleString().substring(0, 16).replace(' ', '     ');
           }
           picker.val(nowString);
         }
@@ -212,8 +248,8 @@
       });
 
       $('.progress-menu-form').on('submit', function() {
-        var files_selected = $('#pq_trim_link_attributes_file').prop('files');
-        if (files_selected.length) {
+        var filesSelected = $('#pq_trim_link_attributes_file').prop('files');
+        if (filesSelected.length) {
           ga('send', 'event', 'trim upload from details page', 'submit', $('h2').first().text());
         }
       });
