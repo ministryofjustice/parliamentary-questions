@@ -11,7 +11,7 @@
   </head>
   <body style="font-family: arial, sans-serif; font-size: 12pt;">
         <p>
-          View the <%= link_to 'PQs not allocated', controller: 'early_bird_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> on <strong> <%= Date.today.strftime "%d/%m/%Y" %> </strong> by the Ministry of Justice, Parliamentary Branch.
+          View the <%= link_to 'New parliamentary questions to be allocated today', controller: 'early_bird_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> on <strong> <%= Date.today.strftime "%d/%m/%Y" %> </strong> by the Ministry of Justice, Parliamentary Branch.
         </p>
         <p>
           This link will only be active <b>today</b>. The content is best viewed in <b>Firefox</b> browser.

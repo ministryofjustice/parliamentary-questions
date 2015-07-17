@@ -1,19 +1,47 @@
-#earlybird-preview
-  h1
-    | New questions #{Date.today.to_s}
-  h2.section
-    = "New questions"
-    span.badge= @questions.length
-  - @questions.each do |question|
-    h3= question.uin
-    p.text= question.question
-    - unless question.date_for_answer.nil?
-      h4 Date For Answer
-      p.text= question.date_for_answer.to_s(:date)
-    - unless question.internal_deadline.nil?
-      h4 Internal deadline
-      p.text= question.internal_deadline.to_s
-    h4= question.house_name
-    p.text= question.member_name
+#preview
 
-  hr/
+  h1 New parliamentary questions to be allocated today (#{@now})
+
+  #main
+    #count
+      strong #{@questions.length}
+      = ' '
+      span new parliamentary questions
+    ul
+      - @questions.each do |question|
+        li
+          h2
+            strong #{question.uin}
+            - if question.question_type == 'NamedDay'
+              span Named day
+            - if question.transferred
+              span Transferred in
+            - if question.question_type == 'Ordinary'
+              span.hide Ordinary
+          p#question #{question.question}
+          - unless question.member_name.empty?
+            h3 Asked by:
+            p#asked-by #{question.member_name}
+            h3 Constituency:
+            - if question.member_constituency.nil?
+              | N/A
+            - else
+              p#constituency #{question.member_constituency}
+          hr
+
+  #filters
+    h2 Filter by:
+    .filter-box
+      h3 Contains
+      input type="text"
+    .filter-box
+      h3 Question type
+      div
+        input type="checkbox"
+        span Named day
+        br
+        input type="checkbox"
+        span Ordinary
+        br
+        input type="checkbox"
+        span Transferred in

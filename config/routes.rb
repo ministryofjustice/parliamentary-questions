@@ -82,7 +82,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'early_bird/preview'     => 'early_bird_dashboard#preview'
   get 'early_bird/send_emails' => 'early_bird_send_emails#send_emails'
 
-  get 'preview' => 'preview#index'
+  #get 'preview' => 'preview#index'
 
   get 'find_action_officers' => 'action_officers#find'
 
