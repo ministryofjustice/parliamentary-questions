@@ -13,7 +13,7 @@ describe 'EarlyBirdReportService' do
   end
 
   it 'should have generated a valid token' do
-    @report_service.notify_earlybird
+    @report_service.notify_early_bird
 
     token = Token.find_by(entity: @report_service.entity, path: '/early_bird/dashboard')
     expect(token.token_digest).to_not be nil
@@ -26,40 +26,38 @@ describe 'EarlyBirdReportService' do
     ).to eq(false)
   end
 
-  it 'should send an email with the right data' do
-    pqtest_mail ='pqtest@digital.justice.gov.uk'
 
-    allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.notify_earlybird
+    it 'should send an email with the right data' do
+      pqtest_mail ='pqtest@digital.justice.gov.uk'
 
-    MailWorker.new.run!
-    mail = ActionMailer::Base.deliveries.first
+      allow(@report_service).to receive(:entity).and_return testid
+      result = @report_service.notify_early_bird
 
-    sentToken   = result[pqtest_mail]
-    token_param = {token: sentToken}.to_query
-    entity      = {entity: entity = testid }.to_query
-    url         = '/early_bird/dashboard'
+      MailWorker.new.run!
+      mail = ActionMailer::Base.deliveries.first
 
-    expect(mail.html_part.body).to include url
-    expect(mail.html_part.body).to include token_param
-    expect(mail.html_part.body).to include entity
+      sentToken   = result[pqtest_mail]
+      token_param = {token: sentToken}.to_query
+      entity      = {entity: entity = testid }.to_query
+      url         = '/early_bird/dashboard'
 
 
-    expect(mail.text_part.body).to include url
-    expect(mail.text_part.body).to include token_param
-    expect(mail.text_part.body).to include entity
+      expect(mail.to_s).to include url
+      expect(mail.to_s).to include token_param
+      expect(mail.to_s).to include entity
 
-    expect(mail.to).to include pqtest_mail
+      expect(mail.to).to include pqtest_mail
 
-  end
+    end
+
 
   it 'should add the people from the Early Bird to the CC' do
     allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.notify_earlybird
+    result = @report_service.notify_early_bird
 
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    
+
     sentToken   = result[early_bird_one.id]
     token_param = {token: sentToken}.to_query
     entity      = {entity: entity = testid }.to_query
