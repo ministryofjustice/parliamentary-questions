@@ -12,7 +12,7 @@ namespace :pqa do
     uins.each do |uin|
       begin
         report = importer.run_for_question(uin)
-      rescue HTTPClient::FailureResponse => err 
+      rescue HTTPClient::FailureResponse => err
         puts "UIN '#{uin}': #{err.message}"
       else
         puts analyse_report(uin, report)
@@ -20,13 +20,14 @@ namespace :pqa do
     end
   end
 
-
-
-  desc "Generate and import dummy data for development"
-  task :import_dummy_data, [:n_records] => :environment do |_, args|
-    n_records = args[:n_records] || 3
+  desc "Generate and import dummy questions by name"
+  task :import_dummy_data, [:uin_prefix, :n_records] => :environment do |_, args|
+    args.with_defaults(:uin_prefix => "uin", :n_records => 1)
+    n_records = args[:n_records]
+    uin_prefix = args[:uin_prefix]
+    
     questions = (1..n_records.to_i).map do |n|
-      PQA::QuestionBuilder.default("uin-#{n}")
+      PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
     end
 
     import_from_mock_server(questions, Date.yesterday, Date.tomorrow)
@@ -45,7 +46,7 @@ namespace :pqa do
   end
 
   namespace :mock do
-    desc 'start a mock api service and load with n questions' 
+    desc 'start a mock api service and load with n questions'
     task :api_start, [:n_records] => :environment do |_, args|
       n_records = args[:n_records] || 3
       n_records = n_records.to_i if n_records.is_a?(String)
@@ -59,7 +60,7 @@ namespace :pqa do
     end
 
 
-    desc 'stops the mock api server if running' 
+    desc 'stops the mock api server if running'
     task :api_stop => :environment do
       pid_filepath = "/tmp/mock_api_server.pid"
       if File.exists?(pid_filepath)
