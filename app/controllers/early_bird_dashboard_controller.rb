@@ -6,7 +6,7 @@ class EarlyBirdDashboardController < ApplicationController
   	update_page_title('Early bird preview')
     @now = Time.now.strftime("%d/%m/%Y")
    # @questions = Pq.with_pod
-    @questions = Pq.new_questions
+    @questions = Pq.new_questions.order(:uin)
   end
 
   def preview
