@@ -2,32 +2,33 @@ class EarlyBirdDashboardController < ApplicationController
   before_action AOTokenFilter, only: [:index]
   before_action :authenticate_user!, PQUserFilter, only: [:preview]
 
-  #def index
-  #	update_page_title('Early bird preview')
-  #  @questions = Pq.with_pod
-  #  #@questions = Pq.new_questions
-  #end
-
-  #def preview
-  #  index
-  #  render 'index'
-  #end
-
-  NEW      = 'New'
-  PER_PAGE = 200
-
   def index
-    @preview_state = NEW
+  	update_page_title('Early bird preview')
     @now = Time.now.strftime("%d/%m/%Y")
-    update_page_title "Early bird preview"
-    #load_pq_with_counts { Pq.new_questions.sorted_for_dashboard }
-    load_pq_with_counts { Pq.with_pod.sorted_for_dashboard }
+   # @questions = Pq.with_pod
+    @questions = Pq.new_questions
   end
 
   def preview
     index
     render 'index'
   end
+
+  NEW      = 'New'
+  PER_PAGE = 200
+
+  #def index
+  #   @preview_state = NEW
+   # @now = Time.now.strftime("%d/%m/%Y")
+   # update_page_title "Early bird preview"
+    #load_pq_with_counts { Pq.new_questions.sorted_for_dashboard }
+    #load_pq_with_counts { Pq.with_pod.sorted_for_dashboard }
+  #end
+
+  #def preview
+  #  index
+  #  render 'index'
+ # end
 
   private
 
