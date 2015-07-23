@@ -17,7 +17,7 @@
             - if question.transferred
               span Transferred in
             - if question.question_type == 'Ordinary'
-              span.hide Ordinary
+              span Ordinary
           p#question #{question.question}
           - unless question.member_name.empty?
             h3 Asked by:
