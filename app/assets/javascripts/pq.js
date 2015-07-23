@@ -129,6 +129,7 @@ var document, $, trimLink, ga;
       $('#' + target).show();
     });
 
+   
     if (document.getElementById('assignment') || document.getElementById('preview')) {
       // This is the assignment page. As it is typically seen on IE7
       // we need to avoid other unneccessary initialisations as they
@@ -151,10 +152,25 @@ var document, $, trimLink, ga;
       });
 
       $('#preview #filters input').on('click', function(event) {
-        $(event.target).siblings('input').attr('checked', false);
+        if($(event.target).is(':checked'))
+        {
+          $(event.target).siblings('input').attr('checked', false);
+          filterPreviewQuestions($('#filters input[type="text"]').val(),
+                               $(event.target).next().text());
+        }
+        else{
+            filterPreviewQuestions($('#filters input[type="text"]').val(),
+                               '');
+        }
+      });
+
+       $('#clearFilter').on('click', function(event) {
+        $('.filter-box div').children('input').attr('checked', false);
+        $('#filters input[type="text"]').val(' ');
         filterPreviewQuestions($('#filters input[type="text"]').val(),
                                $(event.target).next().text());
       });
+
 
     } else {
       // all other pages
@@ -253,6 +269,7 @@ var document, $, trimLink, ga;
           ga('send', 'event', 'trim upload from details page', 'submit', $('h2').first().text());
         }
       });
+
     }
   });
 }());
