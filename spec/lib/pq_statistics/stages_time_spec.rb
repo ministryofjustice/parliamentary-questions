@@ -6,13 +6,15 @@ describe PqStatistics::StagesTime do
   let(:past_base) { 9.business_days.ago }
 
   before(:each) do
-    pq1, pq2, pq3, pq4 = (1..4).map{ FactoryGirl.create(:answered_pq) } 
+    Timecop.freeze(Time.now) do
+      pq1, pq2, pq3, pq4 = (1..4).map{ FactoryGirl.create(:answered_pq) } 
 
-    update_stage_times(pq1, [8, 6, 5, 2], base)
-    update_stage_times(pq2, [12, 8, 5, 2], base)
+      update_stage_times(pq1, [8, 6, 5, 2], base)
+      update_stage_times(pq2, [12, 8, 5, 2], base)
 
-    update_stage_times(pq3, [13, 7, 2, 1], past_base)
-    update_stage_times(pq4, [6, 5, 1, 0], past_base)
+      update_stage_times(pq3, [13, 7, 2, 1], past_base)
+      update_stage_times(pq4, [6, 5, 1, 0], past_base)
+    end
   end
 
   def update_stage_times(pq, hours, base)
@@ -105,7 +107,7 @@ describe PqStatistics::StagesTime::Stage do
     it '#update - should increment the stage duration and count' do
       stage.update(pq)
 
-      expect(stage.average_time).to be_within(1).of(36000)
+      expect(stage.average_time.round(0)).to eq 36000
     end
   end
 
@@ -126,7 +128,7 @@ describe PqStatistics::StagesTime::Stage do
     it '#update - should increment the stage duration and count' do
       stage.update(pq)
 
-      expect(stage.average_time).to be_within(1).of(72000)
+      expect(stage.average_time.round(0)).to eq 72000
     end
   end
 
@@ -148,7 +150,7 @@ describe PqStatistics::StagesTime::Stage do
     it '#update - should increment the stage duration and count' do
       stage.update(pq)
 
-      expect(stage.average_time).to be_within(1).of(36000)
+      expect(stage.average_time.round(0)).to eq 36000
     end
   end
   
@@ -171,7 +173,7 @@ describe PqStatistics::StagesTime::Stage do
     it '#update - should increment the stage duration and count' do
       stage.update(pq)
 
-      expect(stage.average_time).to be_within(1).of(36000)
+      expect(stage.average_time.round(0)).to eq 36000
     end
   end
 end
