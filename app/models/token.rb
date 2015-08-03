@@ -36,6 +36,12 @@ class Token < ActiveRecord::Base
     }
   end
 
+  # returns true if at least one person has acknowledged the watchlist token for the specified date, otherwise false
+  def self.watchlist_status(date = Date.today)
+    rec = self.where('path = ? and created_at >= ? and created_at <= ?',
+                     '/watchlist/dashboard', Date.today.beginning_of_day, Date.today.end_of_day).first
+    rec.acknowledged?
+  end
 
   def accept
     acknowledge('accept')
