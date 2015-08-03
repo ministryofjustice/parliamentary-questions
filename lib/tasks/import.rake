@@ -25,7 +25,7 @@ namespace :pqa do
     args.with_defaults(:uin_prefix => "uin", :n_records => 1)
     n_records = args[:n_records]
     uin_prefix = args[:uin_prefix]
-    
+
     questions = (1..n_records.to_i).map do |n|
       PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
     end
