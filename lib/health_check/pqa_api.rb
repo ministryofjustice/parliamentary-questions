@@ -81,12 +81,7 @@ module HealthCheck
     end
 
     def perform_get(uri_s)
-      uri = URI.parse(uri_s)
-
-      Net::HTTP.start(uri.host, uri.port) do |http|
-        req = Net::HTTP::Get.new(uri)
-        http.request(req) 
-      end
+      Net::HTTP.get_response(URI.parse(uri_s))
     end
   end
 end
