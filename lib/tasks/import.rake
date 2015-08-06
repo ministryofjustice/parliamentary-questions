@@ -20,7 +20,7 @@ namespace :pqa do
     end
   end
 
-  desc "Generate and import dummy questions by name"
+  desc "Generate and import 'n' dummy questions by name"
   task :import_dummy_data, [:uin_prefix, :n_records] => :environment do |_, args|
     args.with_defaults(:uin_prefix => "uin", :n_records => 1)
     n_records = args[:n_records]
