@@ -1,43 +1,46 @@
 - content_for :page_title do
-   = @page_title
+  = @page_title
 
 - content_for :stylesheets do
-   = stylesheet_link_tag "application", media: "all"
+  = stylesheet_link_tag "application", media: "all"
 
 - content_for :javascripts do
-   = javascript_include_tag "application"
+  = javascript_include_tag "application"
 
 - content_for :content_override do
-   main#wrapper(role="main")
-      .phase-banner
-         / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
-         span This is a new service - Your&nbsp;
-         - if ! user_signed_in?
-            <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Feedback">feedback</a>&nbsp;
-         - else
-            <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a>&nbsp;
-         | will help us to improve it.
+  main#wrapper(role="main")
+    .phase-banner
+      / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
+      span This is a new service - Your&nbsp;
+      - if ! user_signed_in?
+        <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Feedback">feedback</a>&nbsp;
+      - else
+        <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a>&nbsp;
+      | will help us to improve it.
 
-      - if HostEnv.is_staging?
-        .staging_banner
-          | This is not the live Parliamentary Questions Tracker environment 
+    - if HostEnv.is_staging?
+      .staging_banner
+        | This is not the live Parliamentary Questions Tracker environment
 
-      #content
-        = render partial: "shared/navigation"
-        .container
-           .content-inner
-              = yield
+    #content
+      = render partial: "shared/navigation"
+      .container
+        .content-inner
+          = yield
 
 - content_for :footer_support_links do
-   li
-     = link_to "Contact Parliamentary Branch", "mailto:pqs@justice.gsi.gov.uk?Subject=PQ%20Tracker"
-
+  li
+    = link_to "Contact Parliamentary Branch", "mailto:pqs@justice.gsi.gov.uk?Subject=PQ%20Tracker"
 
 - content_for :body_end
+
+  script type="text/javascript" GOVUK.stickAtTopWhenScrolling.init();
+  script type="text/javascript" GOVUK.stopScrollingAtFooter.addEl($(footer), $(footer).height());
+
   javascript:
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('create', '#{Settings.ga_tracker_id}', 'auto');
     ga('send', 'pageview');

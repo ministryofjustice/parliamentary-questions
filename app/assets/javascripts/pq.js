@@ -16,6 +16,7 @@ var document, $, trimLink, ga;
         $(li).css('display', 'none');
       }
     });
+
     $('#count strong').text(count ? count : 'No');
     if (text) {
       $('#count span').html('new' + stateString + 'questions containing <strong>' + text + '</strong>');
@@ -129,7 +130,7 @@ var document, $, trimLink, ga;
       $('#' + target).show();
     });
 
-   
+
     if (document.getElementById('assignment') || document.getElementById('preview')) {
       // This is the assignment page. As it is typically seen on IE7
       // we need to avoid other unneccessary initialisations as they
