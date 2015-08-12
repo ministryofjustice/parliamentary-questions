@@ -7,6 +7,7 @@ class EarlyBirdDashboardController < ApplicationController
     @now = Time.now.strftime("%d/%m/%Y")
    # @questions = Pq.with_pod
     @questions = Pq.new_questions.order(:uin)
+    @parliament_url = PQA::RecentQuestionsURL.url(Date.today())
   end
 
   def preview
