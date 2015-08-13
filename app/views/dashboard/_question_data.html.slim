@@ -1,5 +1,7 @@
 .pq-header.row
-  h2= link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
+  h2
+   u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
+   h2/
   .pq-header-flags
     - if question.question_type == 'NamedDay'
       span.question-type  Named day
