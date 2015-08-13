@@ -1,0 +1,13 @@
+Preview the new PQs for the <%= Date.today.strftime "%d/%m/%Y" %>:
+
+<%= url_for(controller: 'early_bird_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %>
+
+This link will only be active today. The content is best viewed in Firefox browser.
+
+These PQs have not yet been allocated by the Ministry of Justice, Parliamentary Branch.
+
+Please contact the PQ team at <%= Settings.mail_reply_to %> if any of these questions are for you or for your team.
+
+You have signed up to receive these daily emails. To unsubscribe, contact the PQ Team at <%= Settings.mail_reply_to %>.
+
+<%= render 'shared/mailer/email_signature' %>

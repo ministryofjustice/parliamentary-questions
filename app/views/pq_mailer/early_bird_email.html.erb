@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style type="text/css">
+      body {
+        font-family: arial, sans-serif;
+        font-size: 12pt;
+      }
+    </style>
+  </head>
+  <body style="font-family: arial, sans-serif; font-size: 12pt;">
+    <p>Preview the <%= link_to 'new PQs', controller: 'early_bird_dashboard', action: 'index', token: @template_params[:token], entity: @template_params[:entity], :host => root_url %> for the <strong><%= Date.today.strftime "%d/%m/%Y" %></strong>. This link will only be active today.</p>
+    <p>These PQs have not yet been allocated by the Ministry of Justice, Parliamentary Branch.</p>
+    <p>Please <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a> if any of these questions are for you or for your team.</p>
+    <p>You have signed up to receive these daily emails. To unsubscribe, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ Team</a>.</p>
+    <p>This is a new service - your <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Feedback">feedback</a> will help us improve it.</p>
+    <%= render 'shared/mailer/email_signature' %>
+  </body>
+</html>

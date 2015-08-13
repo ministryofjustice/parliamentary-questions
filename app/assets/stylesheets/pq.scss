@@ -888,6 +888,21 @@ textarea.form-control {
   }
 }
 
+/* = Early bird preview (/early_bird/preview) ================================ */
+
+#earlybird-preview {
+  h2 {
+    margin: 20px 0 10px 0;
+    font-weight: bold;
+    color: $text-colour;
+  }
+  h3 {
+    font-weight: bold;
+    color: $text-colour;
+    margin: 20px 0 10px 0;
+  }
+}
+
 /* = Minister details page (/ministers/) =========================== */
 /* = Press-desk page (/press_desks/]) ============================== */
 /* = CSV export page (/export) ===================================== */
@@ -941,3 +956,87 @@ textarea.form-control {
   }
   #x-axis { text-align: center; font-size: 80% }
 }
+
+/* = preview page ========================================================== */
+
+#preview {
+  #main {
+    float: left;
+    width: 66.5%;
+    #count {
+      background-color: $highlight-colour;
+      padding: .7em 0 .7em .7em;
+      border-left: 5px solid $border-colour;
+      margin: 1em 0 2em 0;
+    }
+    #question { margin: .7em 0 .7em 0; }
+    ul {
+      font-size: 18px;
+      li {
+        h3 { display: inline-block; }
+        .question { margin-top: 10px; }
+      }
+    }
+    h2 {
+      font-size: 18px;
+      color: $text-colour;
+      span {
+        color: $secondary-text-colour;
+        font-size: 19px;
+        font-weight: 500;
+        &:before {
+          content: '|';
+          padding: 0 .4em 0 .4em;
+        }
+      }
+    }
+
+  }
+  #filters {
+    padding-left: 20px;
+    h2 {
+      color: $text-colour;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .filter-box {
+      padding: 8px;
+      margin-bottom: 1em;
+      background-color: $panel-colour;
+      input[type="text"] {
+        width: 100%;
+        border: 0;
+      }
+      h3 {
+        color: $text-colour;
+        margin: 0 0 7px 0;
+      }
+      div {
+        margin-bottom: 2px;
+        padding: 5px;
+        background-color: $page-colour;
+        span { padding-left: 5px; }
+      }
+    }
+    #clearFilter {
+      margin-left: 200px;
+      font-size: 18px;
+      background-color: $white;
+      color: $link-colour;
+      border: none;
+    }
+    a { display: block; }
+  }
+  .js-stick-at-top-when-scrolling {
+    position: fixed;
+    top: 174px;
+    width: 301px !important;
+    background-color: $white;
+    left: 59.5%;
+    @media screen and (max-width: 1366px) { left: 62%; }
+  }
+  .shim {
+    display: block;
+  }
+}
+

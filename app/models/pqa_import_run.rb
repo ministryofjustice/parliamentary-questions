@@ -30,7 +30,6 @@ class PqaImportRun < ActiveRecord::Base
     end
   end
 
-
   def self.record_success(start_time, import_run_report)
     self.create!(
       start_time:     start_time,
@@ -54,7 +53,7 @@ class PqaImportRun < ActiveRecord::Base
 
   def self.sum_pqs_imported(range)
     valid_ranges = {
-        :day   => Date.today.beginning_of_day, 
+        :day   => Date.today.beginning_of_day,
         :week  => 7.days.ago.beginning_of_day,
         :month => 30.days.ago.beginning_of_day
       }
@@ -63,5 +62,21 @@ class PqaImportRun < ActiveRecord::Base
     recs.inject(0) { |n, rec| n + rec.num_updated + rec.num_created }
   end
 
-
+  def self.ready_for_early_bird
+    if last_import_time_utc < Date.today()
+      return false
+    else
+      rec = self.successful.order(:start_time).last
+      case rec.status
+        when "Failed"
+          false
+        when "OK_with_errors"
+          false
+        when "OK"
+          true
+        else
+          false
+      end
+    end
+  end
 end

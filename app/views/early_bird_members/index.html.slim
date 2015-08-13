@@ -1,0 +1,22 @@
+= render partial: "shared/flash_messages", flash: flash
+h1 Early bird members
+#admin-wm-list
+  div class="row"
+    ul#admin-button-bar
+      li= link_to ('Send early bird info'), {controller: 'early_bird_send_emails', action: 'send_emails'}, {class: 'button', :onclick=> "ga('send', 'event', 'settings', 'earlybird', 'send early bird info');" }
+      li= link_to ('Add early bird member'), new_early_bird_member_path, {class: 'button-secondary'}
+      li= link_to ('Early bird preview'), {controller: 'early_bird_dashboard', action: 'preview'}, {class: 'button-secondary'}
+  table.table
+    thead
+      tr
+        th Name
+        th Email
+        th#admin-status Status
+        th
+    tbody
+      - @early_bird_members.each do |early_bird_member|
+        tr
+          td= link_to early_bird_member.name, early_bird_member_path(early_bird_member)
+          td= early_bird_member.email
+          td= render partial: 'shared/status', object: early_bird_member
+          td.edit= link_to 'Edit', edit_early_bird_member_path(early_bird_member)

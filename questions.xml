@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Questions xmlns="http://data.parliament.uk/QnA/2013/02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <Question>
+    <!--UIN of the question-->
+    <Uin>HoCQ1-2015-01-29</Uin>
+
+    <!-- Last date any fields on the question have been updated -->
+    <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+
+    <AnsweringBody>
+      <!-- Parliament's ID of the answering body -->
+      <AnsweringBodyId>14</AnsweringBodyId>
+      <!-- Name of the answering body -->
+      <AnsweringBodyName>Department of Environment, Food and Rural Affairs</AnsweringBodyName>
+      <AnsweringBodyShortName>Environment, Food and Rural Affairs</AnsweringBodyShortName>
+    </AnsweringBody>
+
+    <House>
+      <!--ID 1 for the House of Commons, ID 2 for the House of Lords -->
+      <HouseId>1</HouseId>
+      <HouseName>House of Commons</HouseName>
+    </House>
+
+    <TablingMember>
+      <!-- Our ID for Member. Ids of MPs and Peers are guaranteed not to clash -->
+      <MemberId>2479</MemberId>
+      <MemberName>Edward Cobblepot</MemberName>
+      <Constituency>Kingston upon Hull North</Constituency>
+    </TablingMember>
+
+    <!-- Status can be
+
+    Tabled
+
+    Withdrawn
+
+    WithdrawnWithoutNotice
+
+    AnswerNotExpected
+
+    Incomplete
+
+    PendingCorrectionReview
+
+    PendingAnswerReview
+
+    ReturnedVirus
+
+    ReturnedCorrection
+
+    ReturnedAnswer
+
+    Answered
+
+    Holding
+
+    ScanningForVirus
+
+    -->
+
+    <QuestionStatus>Tabled</QuestionStatus>
+
+    <!-- QuestionType can be Ordinary, Named Day or Daily -->
+    <QuestionType>NamedDay</QuestionType>
+    <!-- Whether the tabling member has a registered interest in the question -->
+    <RegisteredInterest>false</RegisteredInterest>
+    <!-- Current parliamentary session -->
+    <Session>2012-13</Session>
+    <!-- Date the question was tabled -->
+    <TabledDate>2013-01-22Z</TabledDate>
+    <!-- Date for answer of the question -->
+    <DateForAnswer>2015-01-29Z</DateForAnswer>
+    <!-- Target of the question -->
+    <Target>Secretary of State for Environment, Food and Rural Affairs</Target>
+    <!-- Text of the question -->
+    <Text>
+      To ask the Secretary of State for Justice, how many on-the-spot fines have been issued in each police area to date.
+    </Text>
+
+    <!-- Current version of the question -->
+    <VersionNumber>2</VersionNumber>
+
+    <PreviousVersions>
+      <PreviousVersion>
+        <!-- Date when this version was created -->
+        <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+        <Text>
+          Do you feel like a room without a roof?
+        </Text>
+        <VersionNumber>1</VersionNumber>
+      </PreviousVersion>
+    </PreviousVersions>
+
+    <!-- Number of the parliament-->
+    <ParliamentNumber>55</ParliamentNumber>
+    <!-- Number of the session within the parliament-->
+    <SessionNumber>3</SessionNumber>
+
+  </Question>
+
+  <Question>
+    <Uin>HoCQ2-2015-01-29</Uin>
+    <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+
+    <AnsweringBody>
+      <AnsweringBodyId>15</AnsweringBodyId>
+      <AnsweringBodyName>Department of Testing Webapps</AnsweringBodyName>
+      <AnsweringBodyShortName>Testing this Webapp</AnsweringBodyShortName>
+    </AnsweringBody>
+
+    <House>
+     <HouseId>1</HouseId>
+      <HouseName>House of Commons</HouseName>
+    </House>
+
+    <TablingMember>
+      <MemberId>1234</MemberId>
+      <MemberName>Ian Right</MemberName>
+      <Constituency></Constituency>
+    </TablingMember>
+
+    <QuestionStatus>Withdrawn</QuestionStatus>
+
+    <!-- QuestionType can be Ordinary, Named Day or Daily -->
+    <QuestionType>NamedDay</QuestionType>
+
+    <!-- Whether the tabling member has a registered interest in the question -->
+    <RegisteredInterest>false</RegisteredInterest>
+
+    <!-- Current parliamentary session -->
+    <Session>2012-14</Session>
+
+    <!-- Date the question was tabled -->
+    <TabledDate>2015-01-29Z</TabledDate>
+
+    <!-- Date for answer of the question -->
+    <DateForAnswer>2015-01-29Z</DateForAnswer>
+
+    <!-- Target of the question -->
+    <Target>Secretary of State for Environment, Food and Rural Affairs</Target>
+
+    <!-- Text of the question -->
+    <Text>
+      To ask the Secretary of State for Justice, what the total value was of fines (a) issued by the courts and (b) collected was in financial year 2013-14.
+    </Text>
+
+    <!-- Current version of the question -->
+    <VersionNumber>2</VersionNumber>
+    <PreviousVersions>
+      <PreviousVersion>
+        <!-- Date when this version was created -->
+        <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+        <Text>
+          Is there a way to stop humming "Everything is awesome?"
+        </Text>
+
+        <VersionNumber>1</VersionNumber>
+      </PreviousVersion>
+    </PreviousVersions>
+
+    <!-- Number of the parliament-->
+    <ParliamentNumber>67</ParliamentNumber>
+    <!-- Number of the session within the parliament-->
+    <SessionNumber>5</SessionNumber>
+
+  </Question>
+
+  <Question>
+    <Uin>HoCQ3-2015-01-29</Uin>
+    <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+
+    <AnsweringBody>
+      <AnsweringBodyId>15</AnsweringBodyId>
+      <AnsweringBodyName>Department of Perambulations</AnsweringBodyName>
+      <AnsweringBodyShortName>Testing this Webapp</AnsweringBodyShortName>
+    </AnsweringBody>
+
+    <House>
+      <HouseId>1</HouseId>
+      <HouseName>House of Commons</HouseName>
+    </House>
+
+    <TablingMember>
+      <MemberId>1234</MemberId>
+      <MemberName>Ian Right</MemberName>
+      <Constituency></Constituency>
+    </TablingMember>
+
+    <QuestionStatus>Withdrawn</QuestionStatus>
+
+    <!-- QuestionType can be Ordinary, Named Day or Daily -->
+    <QuestionType>NamedDay</QuestionType>
+
+    <!-- Whether the tabling member has a registered interest in the question -->
+    <RegisteredInterest>false</RegisteredInterest>
+
+    <!-- Current parliamentary session -->
+    <Session>2012-14</Session>
+
+    <!-- Date the question was tabled -->
+    <TabledDate>2015-01-29Z</TabledDate>
+
+    <!-- Date for answer of the question -->
+    <DateForAnswer>2013-01-25Z</DateForAnswer>
+
+    <!-- Target of the question -->
+    <Target>Secretary of State for Environment, Food and Rural Affairs</Target>
+
+    <!-- Text of the question -->
+    <Text>
+      To ask the Secretary of State for Justice, what proportion of officials in his Department have undergone specialist training on working with victims of sexual assault in a court environment.
+    </Text>
+
+    <!-- Current version of the question -->
+    <VersionNumber>2</VersionNumber>
+    <PreviousVersions>
+      <PreviousVersion>
+        <!-- Date when this version was created -->
+        <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+        <Text>
+          Is there a way to stop humming "Everything is awesome?"
+        </Text>
+
+        <VersionNumber>1</VersionNumber>
+      </PreviousVersion>
+    </PreviousVersions>
+
+    <!-- Number of the parliament-->
+    <ParliamentNumber>67</ParliamentNumber>
+    <!-- Number of the session within the parliament-->
+    <SessionNumber>5</SessionNumber>
+
+  </Question>
+
+  <Question>
+    <Uin>HoCQ4-2015-01-29</Uin>
+    <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+
+    <AnsweringBody>
+      <AnsweringBodyId>15</AnsweringBodyId>
+      <AnsweringBodyName>Department of Perambulations</AnsweringBodyName>
+      <AnsweringBodyShortName>Testing this Webapp</AnsweringBodyShortName>
+    </AnsweringBody>
+
+    <House>
+      <HouseId>1</HouseId>
+      <HouseName>House of Commons</HouseName>
+    </House>
+
+    <TablingMember>
+      <MemberId>1234</MemberId>
+      <MemberName>Ian Right</MemberName>
+      <Constituency></Constituency>
+    </TablingMember>
+
+    <QuestionStatus>Withdrawn</QuestionStatus>
+
+    <!-- QuestionType can be Ordinary, Named Day or Daily -->
+    <QuestionType>NamedDay</QuestionType>
+
+    <!-- Whether the tabling member has a registered interest in the question -->
+    <RegisteredInterest>false</RegisteredInterest>
+
+    <!-- Current parliamentary session -->
+    <Session>2012-14</Session>
+
+    <!-- Date the question was tabled -->
+    <TabledDate>2015-01-29Z</TabledDate>
+
+    <!-- Date for answer of the question -->
+    <DateForAnswer>2015-01-29Z</DateForAnswer>
+
+    <!-- Target of the question -->
+    <Target>Secretary of State for Environment, Food and Rural Affairs</Target>
+
+    <!-- Text of the question -->
+    <Text>
+      To ask the Secretary of State for Justice, how much his Department spent on (a) focus groups and (b) surveys in (i) 2013 and (ii) 2014 to date.
+    </Text>
+
+    <!-- Current version of the question -->
+    <VersionNumber>2</VersionNumber>
+    <PreviousVersions>
+      <PreviousVersion>
+        <!-- Date when this version was created -->
+        <UpdatedDate>2015-01-29T10:30:46.45327Z</UpdatedDate>
+        <Text>
+          To ask the Secretary of State for Justice, how much his Department spent on (a) focus groups and (b) surveys in (i) 2013 and (ii) 2014 to date.
+        </Text>
+
+        <VersionNumber>1</VersionNumber>
+      </PreviousVersion>
+    </PreviousVersions>
+
+    <!-- Number of the parliament-->
+    <ParliamentNumber>67</ParliamentNumber>
+    <!-- Number of the session within the parliament-->
+    <SessionNumber>5</SessionNumber>
+
+  </Question>
+
+</Questions>
