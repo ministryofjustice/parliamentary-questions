@@ -1,4 +1,5 @@
 require 'feature_helper'
+require 'business_time'
 
 feature "Early bird member sees allocated questions", suspend_cleaner: true do
   include Features::EmailHelpers
@@ -6,7 +7,7 @@ feature "Early bird member sees allocated questions", suspend_cleaner: true do
   before(:all) do
     DBHelpers.load_feature_fixtures
     clear_sent_mail
-    @aos  = ActionOfficer.where("email like 'ao%@pq.com'") 
+    @aos  = ActionOfficer.where("email like 'ao%@pq.com'")
     @pq   = generate_dummy_pq(@aos)
   end
 
@@ -28,7 +29,7 @@ feature "Early bird member sees allocated questions", suspend_cleaner: true do
 
   scenario 'Early bird members can view the new questions for today' do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview' 
+    visit early_bird_preview_path #'/early_bird/preview'
 
     expect(page).to have_text(/1 new parliamentary questions/i)
   end
@@ -42,7 +43,7 @@ feature "Early bird member sees allocated questions", suspend_cleaner: true do
 
     expect(mail.cc).to include('test-member-a@pq.com')
     expect(url).to_not be_blank
-  end 
+  end
 
   scenario "A early bird member follows an email link to view the list of daily questions" do
     url = extract_url_like(early_bird_dashboard_path, sent_mail.last)
