@@ -10,7 +10,7 @@ env:
 rvm:
   - 2.1.2
 before_install:
-  - sudo apt-get update -qq
+  - apt-get update -qq
 before_script:
   - psql -c 'create role pq login createdb;' -U postgres
 addons:
