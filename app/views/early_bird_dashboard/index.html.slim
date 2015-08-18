@@ -2,7 +2,7 @@
 
   h1 New parliamentary questions to be allocated today (#{@now})
 
-  #filters.js-stick-at-top-when-scrolling.shim
+  #filters
     h2 Filter by
     .filter-box
       h3 Question type
@@ -21,6 +21,7 @@
     input#clearFilter type="button" value="Clear all"
     hr
     <a target="_blank" href="#{@parliament_url}">Today's PQs for all departments</a>(opens in a new tab)
+
   #main
     #count
       strong #{@questions.length}
@@ -49,4 +50,3 @@
             - else
               span.constituency #{question.member_constituency}
             hr
-
