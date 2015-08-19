@@ -2,25 +2,27 @@
 
   h1 New parliamentary questions to be allocated today (#{@now})
 
-  #filters
-    h2 Filter by
-    .filter-box
-      h3 Question type
-      div
-        input type="checkbox"
-        span Named day
-        br
-        input type="checkbox"
-        span Ordinary
-        br
-        input type="checkbox"
-        span Transferred in
-    .filter-box
-      h3 Keywords
-      input type="text"
-    input#clearFilter type="button" value="Clear all"
-    hr
-    <a target="_blank" href="#{@parliament_url}">Today's PQs for all departments</a>(opens in a new tab)
+  #sidebar
+    #filters.js-stick-at-top-when-scrolling
+      h2 Filter by
+      .filter-box
+        h3 Question type
+        div
+          input type="checkbox"
+          span Named day
+          br
+          input type="checkbox"
+          span Ordinary
+          br
+          input type="checkbox"
+          span Transferred in
+      .filter-box
+        h3 Keywords
+        input type="text"
+      input#clearFilter type="button" value="Clear all"
+      hr
+      <a target="_blank" href="#{@parliament_url}">Today's PQs for all departments</a>(opens in a new tab)
+      hr
 
   #main
     #count

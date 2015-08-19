@@ -961,8 +961,10 @@ textarea.form-control {
 
 #preview {
   #main {
+    width: 69%;
+    @media screen and ( min-width: 769px ) and ( max-width: 991px ) {width: 60%; }
+    display: inline-block;
     float: left;
-    width: 66%;
     #count {
       background-color: $highlight-colour;
       padding: .7em 0 .7em .7em;
@@ -992,53 +994,56 @@ textarea.form-control {
     }
 
   }
-  #filters {
-    padding-left: 20px;
-    padding-right: 16px;
-    max-width: 301px;
-    height: 398px;
-    background-color: $white;
-    h2 {
-      color: $text-colour;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .filter-box {
-      padding: 8px;
-      margin-bottom: 1em;
-      background-color: $panel-colour;
-      input[type="text"] {
-        width: 100%;
-        border: 0;
-      }
-      h3 {
-        color: $text-colour;
-        margin: 0 0 7px 0;
-      }
-      div {
-        margin-bottom: 2px;
-        padding: 5px;
-        background-color: $page-colour;
-        span { padding-left: 5px; }
-      }
-    }
-    #clearFilter {
-      @media screen and (min-width: 991px) { margin-left: 200px; }
-      font-size: 18px;
+  #sidebar {
+    display: inline-block;
+    max-width: 258px;
+    float: right;
+    @media screen and ( min-width: 320px ) and ( max-width: 768px ) { float: none; }
+    #filters {
       background-color: $white;
-      color: $link-colour;
-      border: none;
+      height: 445px;
+      h2 {
+        color: $text-colour;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .filter-box {
+        padding: 8px;
+        margin-bottom: 1em;
+        background-color: $panel-colour;
+        input[type="text"] {
+          width: 100%;
+          border: 0;
+        }
+        h3 {
+          color: $text-colour;
+          margin: 0 0 7px 0;
+        }
+        div {
+          margin-bottom: 2px;
+          padding: 5px;
+          background-color: $page-colour;
+          span {
+            padding-left: 5px;
+          }
+        }
+      }
+      #clearFilter {
+        font-size: 18px;
+        background-color: $white;
+        color: $link-colour;
+        border: none;
+      }
+      a {
+        display: block;
+      }
     }
-    a { display: block; }
   }
-  .js-stick-at-top-when-scrolling {
+  .content-fixed {
     position: fixed;
-    //top: 174px;
-    left: 61%;
-    @media screen and (max-width: 1304px){ left: 63.7%; }
-    @media screen and (min-width: 1305px){ left: 60.6%; }
+    top: 0;
   }
-  .shim { display: block; }
+  .shim {
+    display: block;
+  }
 }
-
-
