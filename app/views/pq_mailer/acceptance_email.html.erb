@@ -41,7 +41,7 @@
 
   <div class="what-to-do" style="font-family: arial, sans-serif; font-size: 12pt;">
     <p><strong>What to do next</strong></p>
-    <p>You must use the <a href="http://intranet.justice.gsi.gov.uk/global/forms/downloads/ministers-parliament/template-written-pqs.doc">PQ template</a> for your answer.  Any member of your team may draft it, but you must ensure the template is complete, approved, and sent to the PQ Team by the internal deadline. For help, please check the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>.</p>
+    <p>You must use the <a href="http://intranet.justice.gsi.gov.uk/global/forms/downloads/ministers-parliament/template-written-pqs.doc">PQ template</a> for your answer.  Any member of your team may draft it, but you must ensure the template is complete, approved, and sent to the PQ Team by the internal deadline. For help, please check the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/parliament-questions-guidance-faqs.pdf">PQ guidance</a>.</p>
     <p><strong>Use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> This ensures that all relevant people are included automatically. You can add extra recipients if needed, including those on the template's Deputy Director checklist.</p>
     <p>If you have any queries about drafting your response <a href="mailto:<%= Settings.mail_reply_to %>">contact us</a>.</p>
   </div>
