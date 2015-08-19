@@ -38,6 +38,20 @@ module Presenters
       new([in_progress] + in_progress_statuses(counts, params) + [iww])
     end
 
+    def self.backlog(counts, params)
+      in_progress = ViewAllInProgressFilter.new(counts['view_all_in_progress'],
+                                                'view_all_in_progress',
+                                                'View all',
+                                                params)
+
+      iww = IwwFilter.new(counts['iww'],
+                          'iww',
+                          'I will write',
+                          params)
+
+      new([in_progress] + in_progress_statuses(counts, params) + [iww])
+    end
+
     private_class_method
 
     def self.statuses(counts, params)

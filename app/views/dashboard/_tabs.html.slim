@@ -1,5 +1,7 @@
 ul.nav.nav-tabs
-  li class=('active' if @dashboard_state == 'New') 
+  li class=('active' if @dashboard_state == 'New')
     = link_to raw("<h1>New</h1>"), controller: 'dashboard', action: 'index'
-  li class=('active' if @dashboard_state == 'In progress') 
+  li class=('active' if @dashboard_state == 'In progress')
     = link_to raw("<h1>In progress</h1>"), controller: 'dashboard', action: 'in_progress'
+  li class=('active' if @dashboard_state == 'Backlog')
+    = link_to raw("<h1>Backlog</h1>"), controller: 'dashboard', action: 'backlog'

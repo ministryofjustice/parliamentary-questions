@@ -9,6 +9,10 @@
       span.question-type  Transferred in
     - if question.i_will_write
       span.question-type  I will write
+  - if !question.date_for_answer.nil?
+    |  Date for answer
+    = question.date_for_answer.to_s(:date)
+    = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed?}
 p.pq-question
   = question.question
 .row

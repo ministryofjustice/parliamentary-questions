@@ -1,6 +1,3 @@
 #status-filters.col-md-3.col-md-push-9
   h2 Filter
-  ul.nav.nav-pills.nav-stacked
-    - @filters.each do |f|
-      li class=('active' if f.active?)
-        = link_to(raw("#{f.label}<span class='badge'>#{f.count}</span>"), f.path)
+

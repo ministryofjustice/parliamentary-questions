@@ -56,7 +56,7 @@ module PqScopes
   end
 
   def in_progress
-    by_status(PQState::IN_PROGRESS)
+    where('date_for_answer >= CURRENT_DATE and state IN (?)', PQState::IN_PROGRESS)
   end
 
   def visibles
@@ -117,5 +117,9 @@ module PqScopes
 
   def i_will_write_flag
     where('i_will_write = true AND state NOT IN (?)', PQState::CLOSED)
+  end
+
+  def backlog
+    where('date_for_answer < CURRENT_DATE and state NOT IN (?)', PQState::CLOSED)
   end
 end
