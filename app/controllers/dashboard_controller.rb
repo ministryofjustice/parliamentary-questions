@@ -19,14 +19,14 @@ class DashboardController < ApplicationController
     render 'index'
   end
 
-=begin
+
   def in_progress_by_status
     @dashboard_state = IN_PROGRESS
     load_pq_with_counts(@dashboard_state) { Pq.by_status(params[:qstatus]).sorted_for_dashboard }
     update_page_title "#{params[:qstatus]}"
     render 'index'
   end
-=end
+
 
   def backlog
     @dashboard_state = BACKLOG
@@ -50,6 +50,7 @@ class DashboardController < ApplicationController
 =end
 
   def in_progress
+    @dashboard_state = IN_PROGRESS
     update_page_title "In progress"
     load_pq_with_counts(IN_PROGRESS) { Pq.in_progress.sorted_for_dashboard }
     render 'index'
