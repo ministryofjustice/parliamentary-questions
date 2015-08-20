@@ -51,10 +51,13 @@ module Features
 
     def expect_pq_in_progress_status(uin, status)
       visit dashboard_in_progress_path unless page.current_path == dashboard_in_progress_path
-      click_on status
       expect(page).to have_content(uin)
+      expect_pq_to_be_in_state(uin, status)
     end
-
+    def expect_pq_to_be_in_state(uin, status)
+      visit pq_path(uin) unless page.current_path == pq_path(uin)
+      expect(page).to have_content(status)
+    end
     def within_pq(uin)
       within("*[data-pquin='#{uin}']") do
         yield
