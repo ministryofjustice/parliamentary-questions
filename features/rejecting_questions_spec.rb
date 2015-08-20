@@ -86,7 +86,6 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     expect_pq_status(@pq.uin, 'Rejected')
 
     within_pq(@pq.uin) do
-      expect(page.title).to match(/rejected/i)
       expect(page).to have_text("#{ao1.name} rejected at:")
       expect(page).to have_text('going to the cinema')
 
