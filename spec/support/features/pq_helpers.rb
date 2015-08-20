@@ -45,8 +45,8 @@ module Features
 
     def expect_pq_status(uin, status)
       visit dashboard_path unless page.current_path == dashboard_path
-      click_on status
       expect(page).to have_content(uin)
+      expect_pq_to_be_in_state(uin, status)
     end
 
     def expect_pq_in_progress_status(uin, status)
