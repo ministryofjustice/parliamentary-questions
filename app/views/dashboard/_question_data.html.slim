@@ -3,13 +3,15 @@
    u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
    h2/
   .pq-header-flags
+    - if question.question_type == 'Ordinary'
+      span.question-type  Ordinary
     - if question.question_type == 'NamedDay'
       span.question-type  Named day
     - if question.transferred
       span.question-type  Transferred in
     - if question.i_will_write
       span.question-type  I will write
-  - if !question.date_for_answer.nil?
+  - if !question.date_for_answer.nil? and !question.is_new?
     |  Date for answer
     = question.date_for_answer.to_s(:date)
     = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed?}
