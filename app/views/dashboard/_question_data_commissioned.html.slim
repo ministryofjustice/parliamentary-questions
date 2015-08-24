@@ -2,47 +2,10 @@
   /! start of 'sub column 1'
   .col-md-7
     .dashboard-column1-commissioned
-      h3 Replying minister
-      .row
-        .col-md-6
-          = link_to question.minister.name, minister_path(question.minister)
-        .col-md-6
-      - if question.policy_minister
-        h4 Policy minister
-        .row
-          .col-md-6
-            = link_to question.policy_minister.name, minister_path(question.policy_minister)
-      h3 Action officer(s)
-      .row
-        - if question.action_officer_accepted.nil?
-          - question.action_officers_pqs.each do |ao_pq|
-            - if !ao_pq.rejected? && !ao_pq.action_officer.nil?
-              .col-md-6
-                = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
-              .col-md-6
-                = render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question}
-        - else
-          .col-md-6
-            = link_to question.action_officer_accepted.name, action_officer_path(question.action_officer_accepted)
-          .col-md-6
-            = render partial: 'shared/ao_reminder_link', locals: {ao_pq: question.ao_pq_accepted, question: question}
+- if question.internal_deadline
+  h3 Internal deadline
+  p.text
+    = question.internal_deadline
+    = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
   /! end of column 1
-  /! start of sub column 2
-  .col-md-5
-    .dashboard-column-2
-      - if !question.house_name.nil?
-        h3= question.house_name
-        p.text= question.member_name
-      - if !question.date_for_answer.nil?
-        h3 Date for answer
-        p.text
-          = question.date_for_answer.to_s(:date)
-          = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed? }
-      - if question.internal_deadline
-        h3 Internal deadline
-        p.text
-          = question.internal_deadline
-          = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
-      .trim_area.trim_area_dashboard id="trim_area_#{question.id}"
-        h3 Trim link
-        = render partial: 'shared/trim_link', locals: {question: question}
+

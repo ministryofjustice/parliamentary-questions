@@ -13,13 +13,13 @@
     |  Date for answer
     = question.date_for_answer.to_s(:date)
     = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed?}
+  span class=("flag #{state_classname question.state}") = state_label question.state
 p.pq-question
   = question.question
 .row
   .status-bar.col-md-12
     - if !question.seen_by_finance
       span.flag.finance-unchecked Not checked by finance
-    span class=("flag #{state_classname question.state}") = state_label question.state
 - if question.is_new?
   / if a question is unassigned, No response or rejected: loop through and show rejection reasons
   = render partial: 'shared/rejected_reasons', locals: {question: question}
