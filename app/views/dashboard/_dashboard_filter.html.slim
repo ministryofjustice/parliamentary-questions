@@ -1,3 +1,47 @@
 #status-filters.col-md-3.col-md-push-9
-  h2 Filter
+  #quick-links
+    h2 Quick actions
+    input#draft_reminder.quick_action type="button" value="Draft reminder"
+    input#edit_dates.quick_action type="button" value="Edit PQ date(s)"
+    input#csv_export.quick_action type="button" value="Export PQ(s) to CSV"
+    hr
 
+  #filters
+    h2 Filter by:
+    .filter-box
+      h3 Date for answer
+      input.today type="button" value="Today"
+
+      label.form-label for="answer_from" From
+      .datepicker.form-group
+        input.form-control type="text" name="answer_from" value=""
+
+      label.form-label for="answer_to" To
+      .datepicker.form-group
+        input.form-control type="text" name="answer_to" value=""
+
+      input.clear-filters type="button" value="Clear"
+
+    .filter-box
+      h3 Internal deadline
+      input.today type="button" value="Today"
+
+      label for="deadline_from" From
+      input type="text" name="deadline_from" value=""
+
+      label for="deadline_to" To
+      input type="text" name="deadline_to" value=""
+
+      input.clear-filters type="button" value="Clear"
+
+    .filter-box
+      h3 Status
+    .filter-box
+      h3 Answering minister
+    .filter-box
+      h3 Policy minister
+    .filter-box
+      h3 Question type
+    .filter-box
+      h3 Keywords
+      input type="text" name="keywords" value=""
