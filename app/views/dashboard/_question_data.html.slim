@@ -1,25 +1,26 @@
 .pq-header.row
 
   .col-md-5
-    = form_for CommissionForm.new(minister_id: question.minister_id, policy_minister_id: question.policy_minister_id),
+
+    /= form_for CommissionForm.new(minister_id: question.minister_id, policy_minister_id: question.policy_minister_id),
       remote: true,
       authenticity_token: true,
       html: {:id => "uin-#{question.id}", :class => 'in-progress-checkbox', :data => {pqid: question.id}},
       url: commission_path do |f|
-      /label for="uin-#{question.id}"
-      input id="uin-#{question.id}" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
-      h2
-        u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
 
-      .pq-header-flags
-        - if question.question_type == 'Ordinary'
-          span.question-type  Ordinary
-        - if question.question_type == 'NamedDay'
-          span.question-type  Named day
-        - if question.transferred
-          span.question-type  Transferred in
-        - if question.i_will_write
-          span.question-type  I will write
+      input id="uin-#{question.id}" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
+    h2
+      u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
+
+    .pq-header-flags
+      - if question.question_type == 'Ordinary'
+        span.question-type  Ordinary
+      - if question.question_type == 'NamedDay'
+        span.question-type  Named day
+      - if question.transferred
+        span.question-type  Transferred in
+      - if question.i_will_write
+        span.question-type  I will write
 
   .col-md-5
     - if !question.date_for_answer.nil? and !question.is_new?
