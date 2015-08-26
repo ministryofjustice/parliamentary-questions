@@ -45,5 +45,30 @@
     ga('create', '#{Settings.ga_tracker_id}', 'auto');
     ga('send', 'pageview');
 
+  javascript:
+
+    $(".counter").hide();
+
+    var countChecked = function () {
+      var n = $("input:checked").length;
+      $("div.counter").text(n + (n === 1 ? " question" : " questions") + " selected");
+    };
+    countChecked();
+    $("input[type=checkbox]").on("click", countChecked);
+
+
+    $( "input[type=checkbox]" ).on( "click", function() {
+      var chosen_questions = [];
+      $("input:checkbox:checked").map(function () {
+        chosen_questions.push($(this).val());
+      });
+      console.log(chosen_questions);
+    });
+
+    $("input.quick_action").click(function (event) {
+      event.preventDefault();
+      $(".counter").toggle();
+    });
+
 
 = render template: "layouts/moj_template"

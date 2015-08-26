@@ -2,8 +2,10 @@
   #quick-links
     h2 Quick actions
     input#draft_reminder.quick_action type="button" value="Draft reminder"
+    .counter
     input#edit_dates.quick_action type="button" value="Edit PQ date(s)"
     input#csv_export.quick_action type="button" value="Export PQ(s) to CSV"
+
     hr
 
   #filters
@@ -15,10 +17,12 @@
       label.form-label for="answer_from" From
       .datepicker.form-group
         input.form-control type="text" name="answer_from" value=""
+        span.fa.fa-calendar title="select a date"
 
       label.form-label for="answer_to" To
       .datepicker.form-group
         input.form-control type="text" name="answer_to" value=""
+        span.fa.fa-calendar title="select a date"
 
       input.clear-filters type="button" value="Clear"
 
@@ -26,22 +30,35 @@
       h3 Internal deadline
       input.today type="button" value="Today"
 
-      label for="deadline_from" From
-      input type="text" name="deadline_from" value=""
+      label.form-label for="deadline_from" From
+      .datepicker.form-group
+        input.form-control type="text" name="deadline_from" value=""
+        span.fa.fa-calendar title="select a date"
 
-      label for="deadline_to" To
-      input type="text" name="deadline_to" value=""
+      label.form-label for="deadline_to" To
+      .datepicker.form-group
+        input.form-control type="text" name="deadline_to" value=""
+        span.fa.fa-calendar title="select a date"
 
       input.clear-filters type="button" value="Clear"
 
     .filter-box
       h3 Status
+
     .filter-box
-      h3 Answering minister
+        button.js-container-head
+          .option-select-label Case state
+        #case_state.options-container
+          .js-auto-height-inner
+            label for="case_state-open"
+              input#case_state-open type="checkbox" name="case_state[]" value="open"
+              'Open
+
+
     .filter-box
       h3 Policy minister
     .filter-box
       h3 Question type
     .filter-box
       h3 Keywords
-      input type="text" name="keywords" value=""
+      input.form-control type="text" name="keywords" value=""
