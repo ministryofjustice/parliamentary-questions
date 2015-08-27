@@ -71,5 +71,75 @@
       $(".counter").toggle();
     });
 
+  javascript:
+
+    var getOptionAttribute = function (option) {
+      var toAttribute = option.replace(/\s+/g, '_').toLowerCase();
+      return toAttribute;
+    }
+
+    $(document).ready(function () {
+
+      var in_progress_status = [];
+      var in_progress_question_type = [];
+
+      // Get distinct status' from rendered page.
+      $('div.col-md-2').find('span.flag').each(function () {
+        var questionStatus = ($.trim($(this).text()));
+        //console.log("Statuses found: " + questionStatus);
+        if ($.inArray(questionStatus, in_progress_status) == -1) {
+          in_progress_status.push(questionStatus);
+        }
+      });
+      //console.log("Status' in array: " + in_progress_status);
+
+      // Get distinct question types from rendered page.
+      $('div.pq-header-flags').find('span.question-type').each(function () {
+        var questionType = ($.trim($(this).text()));
+        //console.log(questionType);
+        if ($.inArray(questionType, in_progress_question_type) == -1) {
+          in_progress_question_type.push(questionType);
+        }
+      });
+      //console.log("Question types in array: " + in_progress_question_type);
+
+      // Populate the 'Status' filter.
+      $("#status-list").html(in_progress_status.map(function (value) {
+        var attribute = getOptionAttribute(value);
+        return(
+          '<label for="status-'
+          + attribute +
+          '"><input name="'
+          + attribute +
+          '[]" value="'
+          + attribute +
+          '" id="status-'
+          + attribute +
+          '" type="checkbox">'
+          + value +
+          '</label>'
+        );
+      }).join(""));
+
+      // Populate the 'Question type' filter.
+      $("#question-type-list").html(in_progress_question_type.map(function (value) {
+        var attribute = getOptionAttribute(value);
+        return (
+          '<label for="status-'
+          + attribute +
+          '"><input name="'
+          + attribute +
+          '[]" value="'
+          + attribute +
+          '" id="status-'
+          + attribute +
+          '" type="checkbox">'
+          + value +
+          '</label>'
+        );
+      }).join(""));
+
+    });
+
 
 = render template: "layouts/moj_template"

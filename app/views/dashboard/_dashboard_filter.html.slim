@@ -10,7 +10,7 @@
 
   #filters
     h2 Filter by:
-    .filter-box
+    #date-for-answer.filter-box
       h3 Date for answer
       input.today type="button" value="Today"
 
@@ -26,7 +26,7 @@
 
       input.clear-filters type="button" value="Clear"
 
-    .filter-box
+    #internal-deadline.filter-box
       h3 Internal deadline
       input.today type="button" value="Today"
 
@@ -42,23 +42,20 @@
 
       input.clear-filters type="button" value="Clear"
 
-    .filter-box
+    #status.filter-box
       h3 Status
+      #status-list
 
-    .filter-box
-        button.js-container-head
-          .option-select-label Case state
-        #case_state.options-container
-          .js-auto-height-inner
-            label for="case_state-open"
-              input#case_state-open type="checkbox" name="case_state[]" value="open"
-              'Open
+    //#answering-minister.filter-box
+      h3 Answering minister
 
-
-    .filter-box
+    //#policy-minister.filter-box
       h3 Policy minister
-    .filter-box
+
+    #question-type.filter-box
       h3 Question type
-    .filter-box
+      #question-type-list
+
+    #keywords.filter-box
       h3 Keywords
       input.form-control type="text" name="keywords" value=""
