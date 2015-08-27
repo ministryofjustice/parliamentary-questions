@@ -7,5 +7,8 @@
   p.text
     = question.internal_deadline
     = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
-  /! end of column 1
-
+  h3 Replying minister
+  = question.minister.name
+  - if question.policy_minister
+    h3 Policy minister
+    = question.policy_minister.name
