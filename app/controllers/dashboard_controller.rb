@@ -67,6 +67,7 @@ class DashboardController < ApplicationController
     @dashboard_state = dashboard_state
     #@questions       = paginate_collection(yield) if block_given?
     @questions       = (yield) if block_given?
+    @statuses = @questions.all.map {|q| q.state}.uniq
     @filters         =
       if dashboard_state == IN_PROGRESS
         Presenters::DashboardFilters.build_in_progress(pq_counts, params)
