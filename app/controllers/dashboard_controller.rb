@@ -69,10 +69,8 @@ class DashboardController < ApplicationController
     @questions       = (yield) if block_given?
     @statuses = @questions.all.map {|q| q.state}.uniq
     @question_types = @questions.all.map {|q| q.question_type}.uniq
-    @questions_with_ministers = @questions.where('minister_id > 0') #TODO Refactor for better Ruby
-    @answering_minister_names = @questions_with_ministers.all.map {|q| q.minister.name}.uniq
-    @questions_with_policy_ministers = @questions.where('policy_minister_id > 0')
-    @policy_minister_names = @questions_with_policy_ministers.all.map {|q| q.policy_minister.name}.uniq
+    @answering_minister_names = @questions.where('minister_id > 0').map {|q| q.minister.name}.uniq
+    @policy_minister_names = @questions.where('policy_minister_id > 0').map {|q| q.policy_minister.name}.uniq
     @filters         =
       if dashboard_state == IN_PROGRESS
         Presenters::DashboardFilters.build_in_progress(pq_counts, params)
