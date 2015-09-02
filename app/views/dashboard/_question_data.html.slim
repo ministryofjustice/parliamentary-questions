@@ -13,14 +13,7 @@
       u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
 
     .pq-header-flags
-      - if question.question_type == 'Ordinary'
-        span.question-type  Ordinary
-      - if question.question_type == 'NamedDay'
-        span.question-type  Named day
-      - if question.transferred
-        span.question-type  Transferred in
-      - if question.i_will_write
-        span.question-type  I will write
+      span.question-type  = question.question_type_header
 
   .col-md-5
     - if !question.date_for_answer.nil? and !question.is_new?
