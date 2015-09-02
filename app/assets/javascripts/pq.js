@@ -4,12 +4,14 @@ var document, $, trimLink, ga;
   'use strict';
 
   var filterPreviewQuestions = function(text, state) {
+
     var textToSearch = new RegExp(text, 'i');
     var count = 0;
     var stateString = state ? ' <strong>' + state + '</strong> ' : ' ';
+
     $('#main ul li').each(function(i, li) {
       var questionText = $(li).text();
-      if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
+        if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
         count++;
         $(li).css('display', 'block');
       } else {

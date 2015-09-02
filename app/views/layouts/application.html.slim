@@ -71,6 +71,8 @@
     // ==============================================================================================================
 
     var filterByRadioButton = function (section, text) {
+      console.log("In filter function");
+      console.log("Section: " + section + " | Text:" + text);
 
       // Allow titles in brackets to be passed
       var escapedText = text.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
@@ -97,7 +99,10 @@
         var mFromDate = moment(fromDate, "DD/MM/YYYY");
         var mToDate = moment(toDate, "DD/MM/YYYY");
 
-        if (fromDate != '' && toDate == '' && mDateForAnswer.isAfter(mFromDate) || fromDate != '' && toDate == '' && mDateForAnswer.isSame(mFromDate)) {
+        if (mFromDate > mToDate || mToDate < mFromDate) {
+          console.log("ERROR !");
+        }
+        else if (fromDate != '' && toDate == '' && mDateForAnswer.isAfter(mFromDate) || fromDate != '' && toDate == '' && mDateForAnswer.isSame(mFromDate)) {
           console.log("'To' date missing!");
           $(this).closest('li').css('display', 'block');
         }
@@ -160,7 +165,7 @@
       // ==============================================================================================================
       if (inProgressStatus.length > 1) {
         $("#flag").html(inProgressStatus.map(function (value) {
-          return ('<input type="radio"></input><span>' + value + '</span><br>');
+          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
         }).join(""));
       }
       else {
@@ -169,7 +174,7 @@
 
       if (inProgressQuestionType.length > 1) {
         $("#question-type").html(inProgressQuestionType.map(function (value) {
-          return ('<input type="radio"></input><span>' + value + '</span><br>');
+          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
         }).join(""));
       }
       else {
@@ -178,7 +183,7 @@
 
       if (inProgressReplyingMinister.length > 1) {
         $("#replying-minister").html(inProgressReplyingMinister.map(function (value) {
-          return ('<input type="radio"></input><span>' + value + '</span><br>');
+          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
         }).join(""));
       }
       else {
@@ -187,7 +192,7 @@
 
       if (inProgressPolicyMinister.length > 1) {
         $("#policy-minister").html(inProgressPolicyMinister.map(function (value) {
-          return ('<input type="radio"></input><span>' + value + '</span><br>');
+          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
         }).join(""));
       }
       else {
@@ -200,11 +205,11 @@
 
       $('#dashboard input').on('click', function(event) {
         if ($(event.target).is(':checked')) {
-          $(event.target).siblings('input').attr('checked', false);
-          console.log('DIV name: ' + $(this).closest('div').attr('id'));
-          console.log('Radio button label: ' + $('#filters input[type="radio"]:checked').next().text());
-          filterByRadioButton($(this).closest('div').attr('id'), $('#filters input[type="radio"]:checked').next().text());
+          $(event.target).siblings('input').attr('checked', false); // Simulate radio button behaviour
 
+          console.log("Clicked DIV: " + $(event.target).closest('div').attr('id') + " | Checkbox text: " + $(event.target).next().text());
+
+          filterByRadioButton($(this).closest('div').attr('id'), $(event.target).next().text());
         }
         else if ($(event.target).is('#answer-date')) {
           filterByRadioButton('answer-date', today);
