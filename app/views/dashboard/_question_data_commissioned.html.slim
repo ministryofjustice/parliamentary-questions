@@ -6,13 +6,13 @@
     .dashboard-column1-commissioned
 - if question.internal_deadline
   h3 Internal deadline
-  p.text.deadline-date
+  span.deadline-date.text
     = question.internal_deadline
     = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
   h3 Replying minister
-  .replying-minister
+  span.replying-minister
     = question.minister.name
   - if question.policy_minister
     h3 Policy minister
-    .policy-minister
+    span.policy-minister
       = question.policy_minister.name

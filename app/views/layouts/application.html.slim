@@ -61,105 +61,70 @@
       else {
         $('#internal-deadline input[type="text"]').val(' ');
       }
-
+      $('#dashboard ul li').each(function (i, li) {
+        $(li).css('display', 'block');
+      });
     }
+
+    // ==============================================================================================================
+    // = Filtering
+    // ==============================================================================================================
+
+    var filterByRadioButton = function (section, text) {
+
+      // Allow titles in brackets to be passed
+      var escapedText = text.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      var textToSearch = new RegExp(escapedText, 'i');
+      var count = 0;
+
+      $('#dashboard ul li').each(function (i, li) {
+        var questionText = $(li).text();
+        if (textToSearch.test(questionText) && $(li).has('span.' + section + ':contains("' + text + '")').length) {
+          count++;
+          $(li).css('display', 'block');
+        }
+        else {
+          $(li).css('display', 'none');
+        }
+      });
+    }
+
+    var filterByDateRange = function (fromDate, toDate) {
+      var counter = 0;
+      $('#dashboard ul li').each(function (i, li) {
+        var dateForAnswer = $(this).find('.answer-date').text();
+        var mDateForAnswer = moment(dateForAnswer, "DD/MM/YYYY");
+        var mFromDate = moment(fromDate, "DD/MM/YYYY");
+        var mToDate = moment(toDate, "DD/MM/YYYY");
+
+        if (fromDate != '' && toDate == '' && mDateForAnswer.isAfter(mFromDate) || fromDate != '' && toDate == '' && mDateForAnswer.isSame(mFromDate)) {
+          console.log("'To' date missing!");
+          $(this).closest('li').css('display', 'block');
+        }
+        else if (fromDate == '' && toDate != '' && mDateForAnswer.isBefore(mToDate) || fromDate == '' && toDate != '' && mDateForAnswer.isSame(mToDate)) {
+          console.log("'From' date is missing!");
+          $(this).closest('li').css('display', 'block');
+        }
+        else if (fromDate != '' && toDate != '' && mDateForAnswer.isBetween(mFromDate, mToDate) || fromDate != '' && toDate != '' && mDateForAnswer.isSame(mFromDate) || fromDate != '' && toDate != '' && mDateForAnswer.isSame(mToDate)) {
+          console.log("Inbetweener");
+          $(this).closest('li').css('display', 'block');
+          counter++;
+        }
+        else {
+          $(this).closest('li').css('display', 'none');
+        }
+      });
+    };
 
     $(document).ready(function () {
 
       // Get today's date
       var today = moment().format('DD/MM/YYYY').toString();
+
       var inProgressStatus = [];
       var inProgressQuestionType = [];
       var inProgressReplyingMinister = [];
       var inProgressPolicyMinister = [];
-
-      // ==============================================================================================================
-      // = Filtering
-      // ==============================================================================================================
-      var filterByToday = function (eventType, text) {
-
-        var textToSearch = new RegExp(text, 'i');
-        var count = 0;
-
-        console.log('Event Type: ' + eventType);
-        console.log('Question: ' + text);
-
-        // Answer today nutton
-        if (eventType == "answer-today") {
-          $('#dashboard ul li').each(function (i, li) {
-            var questionText = $(li).text();
-            if (textToSearch.test(questionText) && $(li).has('span.answer-date:contains("' + text + '")').length) {
-              count++;
-              $(li).css('display', 'block');
-            } else {
-              $(li).css('display', 'none');
-            }
-          });
-        }
-
-        // Deadline today button
-        else if (eventType == "deadline-today") {
-          $('#dashboard ul li').each(function (i, li) {
-            var questionText = $(li).text();
-            if (textToSearch.test(questionText) && $(li).has('p.deadline-date:contains("' + text + '")').length) {
-              count++;
-              $(li).css('display', 'block');
-            } else {
-              $(li).css('display', 'none');
-            }
-          });
-        }
-
-      };
-
-      var filterByRadioButton = function(section, text) {
-        var textToSearch = new RegExp(text, 'i');
-        var count = 0;
-
-        console.log('In function text: ' + text);
-        console.log('In function section: ' + section);
-
-        $('#dashboard ul li').each(function (i, li) {
-          var questionText = $(li).text();
-
-          console.log('Question text: ' + questionText);
-          console.log('Text to search: ' + textToSearch);
-          console.log('span.' + section + ':contains("' + text + '")');
-
-          if (textToSearch.test(questionText) && $(li).has('span.' + section + ':contains("' + text + '")').length) {
-            count++;
-            $(li).css('display', 'block');
-          }
-          else {
-            $(li).css('display', 'none');
-          }
-        });
-      }
-
-
-      var filterByDateRange = function (fromDate, toDate) {
-        var counter = 0;
-        $('#dashboard ul li').each(function (i, li) {
-          var dateForAnswer = $(this).find('.answer-date').text();
-          var mDateForAnswer = moment(dateForAnswer, "DD/MM/YYYY");
-          var mFromDate = moment(fromDate, "DD/MM/YYYY");
-          var mToDate = moment(toDate, "DD/MM/YYYY");
-
-          if (fromDate != '' && toDate == '') {
-            console.log("'To' date missing!");
-          }
-          else if (fromDate == '' && toDate != '') {
-            console.log("'From' date is missing!")
-          }
-          else if (fromDate != '' && toDate != '' && mDateForAnswer.isBetween(mFromDate, mToDate) || mDateForAnswer.isSame(mFromDate) || mDateForAnswer.isSame(mToDate)) {
-            $(this).closest('li').css('display', 'block');
-            counter++;
-          }
-          else {
-            $(this).closest('li').css('display', 'none');
-          }
-        });
-      };
 
       // ==============================================================================================================
       // = Populate Array with unique values
@@ -199,34 +164,34 @@
         }).join(""));
       }
       else {
-        $("#status-list").text('N/A');
+        $("#flag").text('N/A');
       }
 
       if (inProgressQuestionType.length > 1) {
-        $("#question-type-list").html(inProgressQuestionType.map(function (value) {
+        $("#question-type").html(inProgressQuestionType.map(function (value) {
           return ('<input type="radio"></input><span>' + value + '</span><br>');
         }).join(""));
       }
       else {
-        $("#question-type-list").text('N/A');
+        $("#question-type").text('N/A');
       }
 
       if (inProgressReplyingMinister.length > 1) {
-        $("#replying-minister-list").html(inProgressReplyingMinister.map(function (value) {
+        $("#replying-minister").html(inProgressReplyingMinister.map(function (value) {
           return ('<input type="radio"></input><span>' + value + '</span><br>');
         }).join(""));
       }
       else {
-        $("#replying-minister-list").text('N/A');
+        $("#replying-minister").text('N/A');
       }
 
       if (inProgressPolicyMinister.length > 1) {
-        $("#policy-minister-list").html(inProgressPolicyMinister.map(function (value) {
+        $("#policy-minister").html(inProgressPolicyMinister.map(function (value) {
           return ('<input type="radio"></input><span>' + value + '</span><br>');
         }).join(""));
       }
       else {
-       $("#policy-minister-list").text('N/A');
+       $("#policy-minister").text('N/A');
       }
 
       // ==============================================================================================================
@@ -241,11 +206,11 @@
           filterByRadioButton($(this).closest('div').attr('id'), $('#filters input[type="radio"]:checked').next().text());
 
         }
-        else if ($(event.target).is('#answer-today')) {
-          filterByToday('answer-today', today);
+        else if ($(event.target).is('#answer-date')) {
+          filterByRadioButton('answer-date', today);
         }
-        else if ($(event.target).is('#deadline-today')) {
-          filterByToday('deadline-today', today);
+        else if ($(event.target).is('#deadline-date')) {
+          filterByRadioButton('deadline-date', today);
         }
         else if ($(event.target).is('#clear-answer-filter')) {
           clearDateFilters('#clear-answer-filter');

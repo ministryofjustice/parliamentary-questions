@@ -13,7 +13,7 @@
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
       #date-for-answer.filter-box
         h3 Date for answer
-        input#answer-today type="button" value="Today"
+        input#answer-date type="button" value="Today"
 
         label.form-label for="answer_from" From
         .datepicker
@@ -29,7 +29,7 @@
 
       #internal-deadline.filter-box
         h3 Internal deadline
-        input#deadline-today type="button" value="Today"
+        input#deadline-date type="button" value="Today"
 
         label.form-label for="deadline_from" From
         .datepicker
@@ -43,23 +43,28 @@
 
         input#clear-deadline-filter.clearFilter type="button" value="Clear"
 
-    #status.filter-box
+    .filter-box
       h3 Status
       #flag
+      input#clear-status-filter.clearFilter type="button" value="Clear"
 
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
-      #replying-minister.filter-box
+      .filter-box
         h3 Replying minister
-        #replying-minister-list
+        #replying-minister
+        input#clear-replying-filter.clearFilter type="button" value="Clear"
 
-      #policy-minister.filter-box
+      .filter-box
         h3 Policy minister
-        #policy-minister-list
+        #policy-minister
+        input#clear-policy-filter.clearFilter type="button" value="Clear"
 
-      #question-type.filter-box
+      .filter-box
         h3 Question type
-        #question-type-list
+        #question-type
+        input#clear-question-filter.clearFilter type="button" value="Clear"
 
       #keywords.filter-box
         h3 Keywords
-        input.form-control type="text" name="keywords" value=""
+        input#pq-question.form-control type="text" name="keywords" value=""
+        input#clear-keywords-filter.clearFilter type="button" value="Clear"

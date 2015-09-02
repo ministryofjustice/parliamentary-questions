@@ -372,11 +372,14 @@ textarea.form-control {
   color: $secondary-text-colour;
   font-size: 19px;
   font-weight: bold;
+  margin-left: 7px;
+  /*
   &:before {
     content: '|';
     margin-left: 17px;
     margin-right: 10px;
   }
+  */
 }
 
 
@@ -1074,12 +1077,13 @@ textarea.form-control {
         .datepicker,
         .datetimepicker {
           width: 100%;
+          input { font-size: 16px; }
         }
         input[type="text"] {
           width: 87%;
           border: 0;
         }
-        input[type="checkbox"] {
+        input[type="radio"] {
           margin: 0px 5px;
           vertical-align: 10%;
         }
@@ -1091,10 +1095,12 @@ textarea.form-control {
           margin-bottom: 2px;
           padding: 5px;
           background-color: $page-colour;
+          font-size: 16px;
           span {
             padding-left: 5px;
           }
         }
+        span { font-size: 16px; }
       }
       .clearFilter,
       input[type="button"] {
