@@ -1,14 +1,18 @@
+
+
 .pq-columns.row
   /! start of 'sub column 1'
   .col-md-7
     .dashboard-column1-commissioned
 - if question.internal_deadline
   h3 Internal deadline
-  p.text
+  p.text.deadline-date
     = question.internal_deadline
     = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
   h3 Replying minister
-  = question.minister.name
+  .replying-minister
+    = question.minister.name
   - if question.policy_minister
     h3 Policy minister
-    = question.policy_minister.name
+    .policy-minister
+      = question.policy_minister.name

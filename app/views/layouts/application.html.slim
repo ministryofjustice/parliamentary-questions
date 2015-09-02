@@ -34,6 +34,8 @@
 
 - content_for :body_end
 
+  script src="/assets/moment.js"
+
   javascript:
     (function (i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r;
@@ -49,100 +51,219 @@
     ga('create', '#{Settings.ga_tracker_id}', 'auto');
     ga('send', 'pageview');
 
-
-  //javascript:
-
-    $(".counter").hide();
-
-    var countChecked = function () {
-      var n = $("input:checked").length;
-      $("div.counter").text(n + (n === 1 ? " question" : " questions") + " selected");
-    };
-    countChecked();
-    $("input[type=checkbox]").on("click", countChecked);
-
-
-    $( "input[type=checkbox]" ).on( "click", function() {
-      var chosen_questions = [];
-      $("input:checkbox:checked").map(function () {
-        chosen_questions.push($(this).val());
-      });
-      console.log(chosen_questions);
-    });
-
-    $("input.quick_action").click(function (event) {
-      event.preventDefault();
-      $(".counter").toggle();
-    });
-
   javascript:
 
-    var getOptionAttribute = function (option) {
-      var toAttribute = option.replace(/\s+/g, '_').toLowerCase();
-      return toAttribute;
+    var clearDateFilters = function(filterName) {
+      if (filterName == '#clear-answer-filter') {
+        $('#date-for-answer input[type="text"]').val(' ');
+
+      }
+      else {
+        $('#internal-deadline input[type="text"]').val(' ');
+      }
+
     }
 
     $(document).ready(function () {
 
-      var in_progress_status = [];
-      var in_progress_question_type = [];
+      // Get today's date
+      var today = moment().format('DD/MM/YYYY').toString();
+      var inProgressStatus = [];
+      var inProgressQuestionType = [];
+      var inProgressReplyingMinister = [];
+      var inProgressPolicyMinister = [];
 
-      // Get distinct status' from rendered page.
+      // ==============================================================================================================
+      // = Filtering
+      // ==============================================================================================================
+      var filterByToday = function (eventType, text) {
+
+        var textToSearch = new RegExp(text, 'i');
+        var count = 0;
+
+        console.log('Event Type: ' + eventType);
+        console.log('Question: ' + text);
+
+        // Answer today nutton
+        if (eventType == "answer-today") {
+          $('#dashboard ul li').each(function (i, li) {
+            var questionText = $(li).text();
+            if (textToSearch.test(questionText) && $(li).has('span.answer-date:contains("' + text + '")').length) {
+              count++;
+              $(li).css('display', 'block');
+            } else {
+              $(li).css('display', 'none');
+            }
+          });
+        }
+
+        // Deadline today button
+        else if (eventType == "deadline-today") {
+          $('#dashboard ul li').each(function (i, li) {
+            var questionText = $(li).text();
+            if (textToSearch.test(questionText) && $(li).has('p.deadline-date:contains("' + text + '")').length) {
+              count++;
+              $(li).css('display', 'block');
+            } else {
+              $(li).css('display', 'none');
+            }
+          });
+        }
+
+      };
+
+      var filterByRadioButton = function(section, text) {
+        var textToSearch = new RegExp(text, 'i');
+        var count = 0;
+
+        console.log('In function text: ' + text);
+        console.log('In function section: ' + section);
+
+        $('#dashboard ul li').each(function (i, li) {
+          var questionText = $(li).text();
+
+          console.log('Question text: ' + questionText);
+          console.log('Text to search: ' + textToSearch);
+          console.log('span.' + section + ':contains("' + text + '")');
+
+          if (textToSearch.test(questionText) && $(li).has('span.' + section + ':contains("' + text + '")').length) {
+            count++;
+            $(li).css('display', 'block');
+          }
+          else {
+            $(li).css('display', 'none');
+          }
+        });
+      }
+
+
+      var filterByDateRange = function (fromDate, toDate) {
+        var counter = 0;
+        $('#dashboard ul li').each(function (i, li) {
+          var dateForAnswer = $(this).find('.answer-date').text();
+          var mDateForAnswer = moment(dateForAnswer, "DD/MM/YYYY");
+          var mFromDate = moment(fromDate, "DD/MM/YYYY");
+          var mToDate = moment(toDate, "DD/MM/YYYY");
+
+          if (fromDate != '' && toDate == '') {
+            console.log("'To' date missing!");
+          }
+          else if (fromDate == '' && toDate != '') {
+            console.log("'From' date is missing!")
+          }
+          else if (fromDate != '' && toDate != '' && mDateForAnswer.isBetween(mFromDate, mToDate) || mDateForAnswer.isSame(mFromDate) || mDateForAnswer.isSame(mToDate)) {
+            $(this).closest('li').css('display', 'block');
+            counter++;
+          }
+          else {
+            $(this).closest('li').css('display', 'none');
+          }
+        });
+      };
+
+      // ==============================================================================================================
+      // = Populate Array with unique values
+      // ==============================================================================================================
+      var populateArray = function (foundValue, arrayName){
+        if ($.inArray(foundValue, arrayName) == -1) {
+          arrayName.push(foundValue);
+        }
+      }
+
+      // ==============================================================================================================
+      // = Get distinct values from rendered page.
+      // ==============================================================================================================
       $('div.col-md-2').find('span.flag').each(function () {
         var questionStatus = ($.trim($(this).text()));
-        //console.log("Statuses found: " + questionStatus);
-        if ($.inArray(questionStatus, in_progress_status) == -1) {
-          in_progress_status.push(questionStatus);
-        }
+        populateArray(questionStatus, inProgressStatus);
       });
-      //console.log("Status' in array: " + in_progress_status);
-
-      // Get distinct question types from rendered page.
       $('div.pq-header-flags').find('span.question-type').each(function () {
         var questionType = ($.trim($(this).text()));
-        //console.log(questionType);
-        if ($.inArray(questionType, in_progress_question_type) == -1) {
-          in_progress_question_type.push(questionType);
+        populateArray(questionType, inProgressQuestionType)
+      });
+      $('div').find('.replying-minister').each(function () {
+        var replyingMinister = ($.trim($(this).text()));
+        populateArray(replyingMinister, inProgressReplyingMinister)
+      });
+      $('div').find('.policy-minister').each(function () {
+        var policyMinister = ($.trim($(this).text()));
+        populateArray(policyMinister, inProgressPolicyMinister)
+      });
+
+      // ==============================================================================================================
+      // = Populate filters from the arrays.
+      // ==============================================================================================================
+      if (inProgressStatus.length > 1) {
+        $("#flag").html(inProgressStatus.map(function (value) {
+          return ('<input type="radio"></input><span>' + value + '</span><br>');
+        }).join(""));
+      }
+      else {
+        $("#status-list").text('N/A');
+      }
+
+      if (inProgressQuestionType.length > 1) {
+        $("#question-type-list").html(inProgressQuestionType.map(function (value) {
+          return ('<input type="radio"></input><span>' + value + '</span><br>');
+        }).join(""));
+      }
+      else {
+        $("#question-type-list").text('N/A');
+      }
+
+      if (inProgressReplyingMinister.length > 1) {
+        $("#replying-minister-list").html(inProgressReplyingMinister.map(function (value) {
+          return ('<input type="radio"></input><span>' + value + '</span><br>');
+        }).join(""));
+      }
+      else {
+        $("#replying-minister-list").text('N/A');
+      }
+
+      if (inProgressPolicyMinister.length > 1) {
+        $("#policy-minister-list").html(inProgressPolicyMinister.map(function (value) {
+          return ('<input type="radio"></input><span>' + value + '</span><br>');
+        }).join(""));
+      }
+      else {
+       $("#policy-minister-list").text('N/A');
+      }
+
+      // ==============================================================================================================
+      // Event listening
+      // ==============================================================================================================
+
+      $('#dashboard input').on('click', function(event) {
+        if ($(event.target).is(':checked')) {
+          $(event.target).siblings('input').attr('checked', false);
+          console.log('DIV name: ' + $(this).closest('div').attr('id'));
+          console.log('Radio button label: ' + $('#filters input[type="radio"]:checked').next().text());
+          filterByRadioButton($(this).closest('div').attr('id'), $('#filters input[type="radio"]:checked').next().text());
+
+        }
+        else if ($(event.target).is('#answer-today')) {
+          filterByToday('answer-today', today);
+        }
+        else if ($(event.target).is('#deadline-today')) {
+          filterByToday('deadline-today', today);
+        }
+        else if ($(event.target).is('#clear-answer-filter')) {
+          clearDateFilters('#clear-answer-filter');
+        }
+        else if ($(event.target).is('#clear-deadline-filter')) {
+          clearDateFilters('#clear-deadline-filter');
         }
       });
-      //console.log("Question types in array: " + in_progress_question_type);
 
-      // Populate the 'Status' filter.
-      $("#status-list").html(in_progress_status.map(function (value) {
-        var attribute = getOptionAttribute(value);
-        return(
-          '<label for="status-'
-          + attribute +
-          '"><input name="'
-          + attribute +
-          '[]" value="'
-          + attribute +
-          '" id="status-'
-          + attribute +
-          '" type="checkbox">'
-          + value +
-          '</label>'
-        );
-      }).join(""));
-
-      // Populate the 'Question type' filter.
-      $("#question-type-list").html(in_progress_question_type.map(function (value) {
-        var attribute = getOptionAttribute(value);
-        return (
-          '<label for="status-'
-          + attribute +
-          '"><input name="'
-          + attribute +
-          '[]" value="'
-          + attribute +
-          '" id="status-'
-          + attribute +
-          '" type="checkbox">'
-          + value +
-          '</label>'
-        );
-      }).join(""));
-
+      // Date range filter listener:
+      $('#dashboard input').change(function (event) {
+        //if ($(event.target).is('#answer-to')) {
+        if ($(event.target).is('#answer-from') || $(event.target).is('#answer-to')) {
+          console.log('#answer-from value = ' + $('#answer-from').val());
+          console.log('#answer-to value   = ' + $('#answer-to').val());
+          filterByDateRange($('#answer-from').val(), $('#answer-to').val());
+        }
+      });
     });
 
 

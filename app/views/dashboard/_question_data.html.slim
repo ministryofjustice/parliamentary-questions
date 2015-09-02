@@ -25,8 +25,9 @@
   .col-md-5
     - if !question.date_for_answer.nil? and !question.is_new?
       |  Date for answer&nbsp;
-      = question.date_for_answer.to_s(:date)
-      = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed?}
+      span.answer-date
+        = question.date_for_answer.to_s(:date)
+        = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed?}
 
   .col-md-2
     span class=("flag #{state_classname question.state}") = state_label question.state
@@ -44,3 +45,4 @@ p.pq-question
   = render partial: 'dashboard/question_data_commissioned', locals: { question: question }
 - else
   = render partial: 'dashboard/question_data_uncommissioned', locals: { question: question, action_officers: action_officers }
+

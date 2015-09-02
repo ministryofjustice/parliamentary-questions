@@ -148,24 +148,29 @@ var document, $, trimLink, ga;
       });
 
       $('#preview input[type="text"]').on('keyup', function() {
-        filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               $('#filters input[type="radio"]:checked').siblings('span').text());
+        filterPreviewQuestions(
+            $('#filters input[type="text"]').val(),
+            $('#filters input[type="radio"]:checked').siblings('span').text()
+        );
       });
 
       $('#preview #filters input').on('click', function(event) {
-        if($(event.target).is(':checked'))
-        {
+        if ($(event.target).is(':checked')) {
           $(event.target).siblings('input').attr('checked', false);
-          filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               $(event.target).next().text());
+          filterPreviewQuestions(
+              $('#filters input[type="text"]').val(),
+              $(event.target).next().text()
+          );
         }
         else{
-            filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               '');
+            filterPreviewQuestions(
+                $('#filters input[type="text"]').val(),
+                ''
+            );
         }
       });
 
-       $('#clearFilter').on('click', function(event) {
+       $('.clearFilter').on('click', function(event) {
         $('.filter-box div').children('input').attr('checked', false);
         $('#filters input[type="text"]').val(' ');
         filterPreviewQuestions($('#filters input[type="text"]').val(),
