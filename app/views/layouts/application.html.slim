@@ -75,10 +75,10 @@
       console.log("In filter function");
       console.log("Recieved - Text: " + text + " | State:" + state + " | Location: " + location);
 
-      // Allow titles in brackets to be passed
-      var escapedText = state.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      var escapedText = state.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"); // Allow titles in brackets to be passed
       var textToSearch = new RegExp(escapedText, 'i');
       var count = 0;
+      var stateString = state ? ' <strong>' + state + '</strong> ' : ' ';
 
       console.log("Escaped text: " + escapedText);
 
@@ -97,7 +97,14 @@
           $(li).css('display', 'none');
         }
       });
-    }
+
+      $('#count strong').text(count ? count : 'No');
+      if (text) {
+        $('#count span').html('new' + stateString + 'questions containing <strong>' + text + '</strong>');
+      } else {
+        $('#count span').html('new' + stateString + 'questions');
+      }
+    };
 
     var filterByDateRange = function (fromDate, toDate) {
       var counter = 0;

@@ -1061,7 +1061,14 @@ textarea.form-control {
   }
 }
 
-#dashboard {;
+#dashboard {
+  #count {
+    background-color: $highlight-colour;
+    margin: 1em 0 2em 0;
+    padding: .7em 0 .7em .7em;
+    border-left: 5px solid $border-colour;
+    max-width: 655px;
+  }
   #sidebar {
     padding: 0px;
     //display: inline-block;
