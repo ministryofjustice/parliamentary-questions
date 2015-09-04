@@ -70,18 +70,26 @@
     // = Filtering
     // ==============================================================================================================
 
-    var filterByRadioButton = function (section, text) {
+    var filterByCheckbox = function (text, state, location) {
+
       console.log("In filter function");
-      console.log("Section: " + section + " | Text:" + text);
+      console.log("Recieved - Text: " + text + " | State:" + state + " | Location: " + location);
 
       // Allow titles in brackets to be passed
-      var escapedText = text.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      var escapedText = state.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
       var textToSearch = new RegExp(escapedText, 'i');
       var count = 0;
 
+      console.log("Escaped text: " + escapedText);
+
       $('#dashboard ul li').each(function (i, li) {
         var questionText = $(li).text();
-        if (textToSearch.test(questionText) && $(li).has('span.' + section + ':contains("' + text + '")').length) {
+
+        //console.log("Search location = span." + location + " | and contains: " + state);
+        console.log("Search location = #" + location + " | and contains: " + text);
+
+        if (textToSearch.test(questionText) && $(li).has('span.' + location + ':contains("' + state + '")').length) {
+        //if (textToSearch.test(questionText) && $('li:contains("' + text + '")').length){
           count++;
           $(li).css('display', 'block');
         }
@@ -126,106 +134,54 @@
       // Get today's date
       var today = moment().format('DD/MM/YYYY').toString();
 
-      var inProgressStatus = [];
-      var inProgressQuestionType = [];
-      var inProgressReplyingMinister = [];
-      var inProgressPolicyMinister = [];
+      // Need to pass keywords (text) | checkbox label (state) | Div name (location)
+      $('#dashboard input[type="text"]').on('keyup', function () {
+        console.log("On 'keyup' - text: " + $('#filters #pq-frame input[type="text"]').val() + " | State: " + $('#filters input[type="radio"]:checked').siblings('span').text() + " | Location: " + $(this).closest('div').attr('id'));
+        filterByCheckbox(
+          $('#filters input[type="text"]').val(),
+          //$('#filters #pq-frame input[type="text"]').val(),
+          $('#filters input[type="radio"]:checked').siblings('span').text(),
+          $(this).closest('div').attr('id')
+        );
+      });
 
-      // ==============================================================================================================
-      // = Populate Array with unique values
-      // ==============================================================================================================
-      var populateArray = function (foundValue, arrayName){
-        if ($.inArray(foundValue, arrayName) == -1) {
-          arrayName.push(foundValue);
+      $('#dashboard #filters input').on('click', function (event) {
+
+        if ($(event.target).is('#answer-date')) {
+          filterByCheckbox('answer-date', today);
         }
-      }
 
-      // ==============================================================================================================
-      // = Get distinct values from rendered page.
-      // ==============================================================================================================
-      $('div.col-md-2').find('span.flag').each(function () {
-        var questionStatus = ($.trim($(this).text()));
-        populateArray(questionStatus, inProgressStatus);
-      });
-      $('div.pq-header-flags').find('span.question-type').each(function () {
-        var questionType = ($.trim($(this).text()));
-        populateArray(questionType, inProgressQuestionType)
-      });
-      $('div').find('.replying-minister').each(function () {
-        var replyingMinister = ($.trim($(this).text()));
-        populateArray(replyingMinister, inProgressReplyingMinister)
-      });
-      $('div').find('.policy-minister').each(function () {
-        var policyMinister = ($.trim($(this).text()));
-        populateArray(policyMinister, inProgressPolicyMinister)
-      });
-
-      // ==============================================================================================================
-      // = Populate filters from the arrays.
-      // ==============================================================================================================
-      if (inProgressStatus.length > 1) {
-        $("#flag").html(inProgressStatus.map(function (value) {
-          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
-        }).join(""));
-      }
-      else {
-        $("#flag").text('N/A');
-      }
-
-      if (inProgressQuestionType.length > 1) {
-        $("#question-type").html(inProgressQuestionType.map(function (value) {
-          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
-        }).join(""));
-      }
-      else {
-        $("#question-type").text('N/A');
-      }
-
-      if (inProgressReplyingMinister.length > 1) {
-        $("#replying-minister").html(inProgressReplyingMinister.map(function (value) {
-          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
-        }).join(""));
-      }
-      else {
-        $("#replying-minister").text('N/A');
-      }
-
-      if (inProgressPolicyMinister.length > 1) {
-        $("#policy-minister").html(inProgressPolicyMinister.map(function (value) {
-          return ('<input type="checkbox"></input><span>' + value + '</span><br>');
-        }).join(""));
-      }
-      else {
-       $("#policy-minister").text('N/A');
-      }
-
-      // ==============================================================================================================
-      // Event listening
-      // ==============================================================================================================
-
-      $('#dashboard input').on('click', function(event) {
         if ($(event.target).is(':checked')) {
-          $(event.target).siblings('input').attr('checked', false); // Simulate radio button behaviour
+          $(event.target).siblings('input').attr('checked', false);
+          console.log("On 'Click' - text: " + $('#filters input[type="text"]').val() + " | State: " + $(event.target).next().text() + " | Location: " + $(this).closest('div').attr('id'));
+          filterByCheckbox(
+            $('#filters input[type="text"]').val(),
+            $(event.target).next().text(),
+            $(this).closest('div').attr('id')
+          );
+        }
+        else {
+          console.log("On 'Else' - text: " + $('#filters input[type="text"]').val() + " | State: " + '' + " | Location: " + $(this).closest('div').attr('id'));
+          filterByCheckbox(
+            $('#filters input[type="text"]').val(),
+            '',
+            $(this).closest('div').attr('id')
+          );
+        }
+      });
 
-          console.log("Clicked DIV: " + $(event.target).closest('div').attr('id') + " | Checkbox text: " + $(event.target).next().text());
-
-          filterByRadioButton($(this).closest('div').attr('id'), $(event.target).next().text());
-        }
-        else if ($(event.target).is('#answer-date')) {
-          filterByRadioButton('answer-date', today);
-        }
-        else if ($(event.target).is('#deadline-date')) {
-          filterByRadioButton('deadline-date', today);
-        }
-        else if ($(event.target).is('#clear-answer-filter')) {
-          clearDateFilters('#clear-answer-filter');
-        }
-        else if ($(event.target).is('#clear-deadline-filter')) {
-          clearDateFilters('#clear-deadline-filter');
-        }
+      $('.clearFilter').on('click', function (event) {
+        $('.filter-box div').children('input').attr('checked', false);
+        $('#filters input[type="text"]').val(' ');
+        console.log("On 'Clear Filter' - text: " + $('#filters input[type="text"]').val() + " | State: " + $(event.target).next().text() + " | Location: " + $(this).closest('div').attr('id'));
+        filterByCheckbox(
+          $('#filters input[type="text"]').val(),
+          $(event.target).next().text()
+        );
       });
 
       // Date range filter listener:
+
       $('#dashboard input').change(function (event) {
         //if ($(event.target).is('#answer-to')) {
         if ($(event.target).is('#answer-from') || $(event.target).is('#answer-to')) {
@@ -234,6 +190,7 @@
           filterByDateRange($('#answer-from').val(), $('#answer-to').val());
         }
       });
+
     });
 
 

@@ -93,7 +93,6 @@ label {
 .fa-exclamation-triangle {
   color: $error-colour;
   margin-left: 4px;
-  vertical-align: -20%;
 }
 
 // specify the colour of input placeholders (eg search bar) for all browsers
@@ -653,6 +652,11 @@ textarea.form-control {
     font-weight: bold;
     margin: auto;
     color: $text-colour;
+  }
+
+  ul li h3 {
+    display: inline-block;
+    margin-right: 0.5em;
   }
 
   #status-filters {

@@ -11,10 +11,12 @@ var document, $, trimLink, ga;
 
     $('#main ul li').each(function(i, li) {
       var questionText = $(li).text();
-        if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
+      if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
+        console.log('In IF: '+ $(li).has('h2 span:contains("' + state + '")').length);
         count++;
         $(li).css('display', 'block');
       } else {
+          console.log('In ELSE: '+ $(li).has('h2 span:contains("' + state + '")').length);
         $(li).css('display', 'none');
       }
     });
@@ -150,6 +152,7 @@ var document, $, trimLink, ga;
       });
 
       $('#preview input[type="text"]').on('keyup', function() {
+          console.log("On 'keyup' - text: " + $('#filters input[type="text"]').val() + " | State: " + $('#filters input[type="radio"]:checked').siblings('span').text());
         filterPreviewQuestions(
             $('#filters input[type="text"]').val(),
             $('#filters input[type="radio"]:checked').siblings('span').text()
@@ -159,12 +162,14 @@ var document, $, trimLink, ga;
       $('#preview #filters input').on('click', function(event) {
         if ($(event.target).is(':checked')) {
           $(event.target).siblings('input').attr('checked', false);
+            console.log("On 'Click' - text: " + $('#filters input[type="text"]').val() + " | State: " + $(event.target).next().text());
           filterPreviewQuestions(
               $('#filters input[type="text"]').val(),
               $(event.target).next().text()
           );
         }
         else{
+            console.log("On 'Else' - text: " + $('#filters input[type="text"]').val() + " | State: " + '');
             filterPreviewQuestions(
                 $('#filters input[type="text"]').val(),
                 ''
@@ -175,6 +180,7 @@ var document, $, trimLink, ga;
        $('.clearFilter').on('click', function(event) {
         $('.filter-box div').children('input').attr('checked', false);
         $('#filters input[type="text"]').val(' ');
+           console.log("On 'Clear Filter' - text: " + $('#filters input[type="text"]').val() + " | State: " + $(event.target).next().text());
         filterPreviewQuestions($('#filters input[type="text"]').val(),
                                $(event.target).next().text());
       });

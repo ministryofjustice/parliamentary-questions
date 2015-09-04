@@ -41,30 +41,105 @@
           input type="text" name="deadline_to" value=""
           span.fa.fa-calendar title="select a date"
 
-        input#clear-deadline-filter.clearFilter type="button" value="Clear"
+        //input#clear-deadline-filter.clearFilter type="button" value="Clear"
 
     .filter-box
       h3 Status
       #flag
-      input#clear-status-filter.clearFilter type="button" value="Clear"
+        - if @statuses.count > 1
+          - @statuses.each do |question_status|
+            - if question_status == 'unassigned'
+              input type="checkbox"
+              span Unassigned
+              br
+            - if question_status == 'no_response'
+              input type="checkbox"
+              span No Response
+              br
+            - if question_status == 'rejected'
+              input type="checkbox"
+              span Rejected
+              br
+            - if question_status == 'draft_pending'
+              input type="checkbox"
+              span Draft Pending
+              br
+            - if question_status == 'with_pod'
+              input type="checkbox"
+              span With POD
+              br
+            - if question_status == 'pod_query'
+              input type="checkbox"
+              span POD Query
+              br
+            - if question_status == 'pod_cleared'
+              input type="checkbox"
+              span POD Cleared
+              br
+            - if question_status == 'with_minister'
+              input type="checkbox"
+              span With Minister
+              br
+            - if question_status == 'ministerial_query'
+              input type="checkbox"
+              span Ministerial Query
+              br
+            - if question_status == 'minister_cleared'
+              input type="checkbox"
+              span Minister Cleared
+              br
+            - if question_status == 'answered'
+              input type="checkbox"
+              span answered
+              br
+            - if question_status == 'transferred_out'
+              input type="checkbox"
+              span Transferred Out
+              br
+        - else
+          'N/A
 
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
       .filter-box
         h3 Replying minister
         #replying-minister
-        input#clear-replying-filter.clearFilter type="button" value="Clear"
+          - if @answering_minister_names.count > 1
+            - @answering_minister_names.each do |answering_minister|
+              input type="checkbox"
+              span= answering_minister
+              br
+          - else
+            'N/A
 
       .filter-box
         h3 Policy minister
         #policy-minister
-        input#clear-policy-filter.clearFilter type="button" value="Clear"
+          - if @policy_minister_names.count > 1
+            - @policy_minister_names.each do |policy_minister|
+              input type="checkbox"
+              span= policy_minister
+              br
+          - else
+            'N/A
 
       .filter-box
         h3 Question type
         #question-type
-        input#clear-question-filter.clearFilter type="button" value="Clear"
+          - if @question_types.count > 1
+            - @question_types.each do |question_type|
+              - if question_type == 'NamedDay'
+                input type="checkbox"
+                span Named day
+                br
+              - else
+                input type="checkbox"
+                span= question_type
+                br
+          - else
+            'N/A
 
-      #keywords.filter-box
+      .filter-box
         h3 Keywords
-        input#pq-question.form-control type="text" name="keywords" value=""
-        input#clear-keywords-filter.clearFilter type="button" value="Clear"
+        #pq-frame
+         input type="text"
+        //input#clear-keywords-filter.clearFilter type="button" value="Clear"
