@@ -31,7 +31,7 @@ describe MailService::Pq do
       'to'                => email_to,
       'reply_to'          => Settings.mail_reply_to,
     })
-  end  
+  end
 
   it '#acceptance_email - should create an acceptance email db record' do
     allow(Presenters::Email).to receive(:cc_list_hash).with(pq, ao).and_return(params)
@@ -42,10 +42,10 @@ describe MailService::Pq do
       'method' => 'acceptance_email',
       'params' => params
     })
-  end 
+  end
 
   it '#acceptance_reminder_email - should create an acceptance reminder email db record' do
-    allow(Presenters::Email).to receive(:default_hash).with(pq, ao).and_return(params)
+    allow(Presenters::Email).to receive(:cc_list_hash).with(pq, ao).and_return(params)
 
     service.acceptance_reminder_email(pq, ao)
 
@@ -53,7 +53,7 @@ describe MailService::Pq do
       'method' => 'acceptance_reminder_email',
       'params' => params
     })
-  end   
+  end
 
   it '#draft_reminder_email - should create a draft reminder email db record' do
     allow(Presenters::Email).to receive(:cc_list_hash).with(pq, ao).and_return(params)
@@ -64,7 +64,7 @@ describe MailService::Pq do
       'method' => 'draft_reminder_email',
       'params' => params
     })
-  end 
+  end
 
   it '#watchlist_email - should create a watchlist email db record' do
     Timecop.freeze(Date.today) do
@@ -76,5 +76,5 @@ describe MailService::Pq do
         'params' => params.merge({ date: Date.today.to_s(:date)})
       })
     end
-  end 
+  end
 end
