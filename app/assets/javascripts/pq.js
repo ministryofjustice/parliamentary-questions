@@ -112,7 +112,7 @@ var document, $, trimLink, ga;
   var filterByText = function (filter, value) {
 
     //console.log("Receiving Flag value: " + value);
-    
+
     var escapedText = value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     var textToSearch = new RegExp(escapedText, 'i');
     var count = 0;
@@ -134,7 +134,7 @@ var document, $, trimLink, ga;
     });
 
     $('#count strong').text(count ? count : 'No');
-    
+
     if (value) {
       if (count == '1'){
         $('#count span').html(" parliamentary question containing '<strong>" + value + "</strong>'");
@@ -156,10 +156,10 @@ var document, $, trimLink, ga;
 
     var count = 0;
     var searchDate = '';
-    
+
     if (fromDate == '') {fromDate = '01/01/2000';}
     if (toDate == '') {toDate = '01/01/2050';}
-    
+
     $('#dashboard ul li').each(function (i, li) {
 
       // Uncomissioned PQ - P for Answer Date
@@ -391,7 +391,7 @@ var document, $, trimLink, ga;
       }
     });
 
-    $('#dashboard #filters input').on('click', function (event) {
+/*    $('#dashboard #filters input').on('click', function (event) {
       $(event.target).siblings('input').attr('checked', false);
       if ($(event.target).is('#answer-date-today')) {
         $('#answer-from').val(today) && $('#answer-to').val(today);
@@ -409,7 +409,7 @@ var document, $, trimLink, ga;
         $('#keywords').val('');
       }
       getFilterValues();
-    });
+    });*/
 
     $('#dashboard #filters input').on('keyup', function (event) {
       if ($(event.target).is('#keywords')) {
