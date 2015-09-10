@@ -11,37 +11,42 @@
   #filters
     h2 Filter by
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
-      #date-for-answer.filter-box
-        h3 Date for answer
-        input#answer-date type="button" value="Today"
 
-        label.form-label for="answer_from" From
+      .filter-box
+
+        h3 Date for answer
+
+        input#answer-date-today type="button" value="Today"
+
+        h4 From
         .datepicker
-          input#answer-from type="text" name="answer_from" value=""
+          input#answer-from type="text"
           span.fa.fa-calendar title="select a date"
 
-        label.form-label for="answer_to" To
+        h4 To
         .datepicker
-          input#answer-to type="text" name="answer_to" value=""
+          input#answer-to type="text"
           span.fa.fa-calendar title="select a date"
 
         input#clear-answer-filter.clearFilter type="button" value="Clear"
 
-      #internal-deadline.filter-box
+      .filter-box
+
         h3 Internal deadline
-        input#deadline-date type="button" value="Today"
 
-        label.form-label for="deadline_from" From
+        input#deadline-date-today type="button" value="Today"
+
+        h4 From
         .datepicker
-          input type="text" name="deadline_from" value=""
+          input#deadline-from type="text"
           span.fa.fa-calendar title="select a date"
 
-        label.form-label for="deadline_to" To
+        h4 To
         .datepicker
-          input type="text" name="deadline_to" value=""
+          input#deadline-to type="text"
           span.fa.fa-calendar title="select a date"
 
-        //input#clear-deadline-filter.clearFilter type="button" value="Clear"
+        input#clear-deadline-filter.clearFilter type="button" value="Clear"
 
     .filter-box
       h3 Status
@@ -49,55 +54,56 @@
         - if @statuses.count > 1
           - @statuses.each do |question_status|
             - if question_status == 'unassigned'
-              input type="checkbox"
+              input.flag type="checkbox"
               span Unassigned
               br
             - if question_status == 'no_response'
-              input type="checkbox"
-              span No Response
+              input.flag type="checkbox"
+              span No response
               br
             - if question_status == 'rejected'
-              input type="checkbox"
+              input.flag type="checkbox"
               span Rejected
               br
             - if question_status == 'draft_pending'
-              input type="checkbox"
+              input.flag type="checkbox"
               span Draft Pending
               br
             - if question_status == 'with_pod'
-              input type="checkbox"
+              input.flag type="checkbox"
               span With POD
               br
             - if question_status == 'pod_query'
-              input type="checkbox"
+              input.flag type="checkbox"
               span POD Query
               br
             - if question_status == 'pod_cleared'
-              input type="checkbox"
+              input.flag type="checkbox"
               span POD Cleared
               br
             - if question_status == 'with_minister'
-              input type="checkbox"
+              input.flag type="checkbox"
               span With Minister
               br
             - if question_status == 'ministerial_query'
-              input type="checkbox"
+              input.flag type="checkbox"
               span Ministerial Query
               br
             - if question_status == 'minister_cleared'
-              input type="checkbox"
+              input.flag type="checkbox"
               span Minister Cleared
               br
             - if question_status == 'answered'
-              input type="checkbox"
+              input.flag type="checkbox"
               span answered
               br
             - if question_status == 'transferred_out'
-              input type="checkbox"
+              input.flag type="checkbox"
               span Transferred Out
               br
         - else
           'N/A
+
 
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
       .filter-box
@@ -105,7 +111,7 @@
         #replying-minister
           - if @answering_minister_names.count > 1
             - @answering_minister_names.each do |answering_minister|
-              input type="checkbox"
+              input.replying-minister type="checkbox"
               span= answering_minister
               br
           - else
@@ -116,30 +122,36 @@
         #policy-minister
           - if @policy_minister_names.count > 1
             - @policy_minister_names.each do |policy_minister|
-              input type="checkbox"
+              input.policy-minister type="checkbox"
               span= policy_minister
               br
           - else
             'N/A
-
       .filter-box
         h3 Question type
         #question-type
           - if @question_types.count > 1
             - @question_types.each do |question_type|
               - if question_type == 'NamedDay'
-                input type="checkbox"
+                input.question-type type="checkbox"
                 span Named Day
                 br
               - else
-                input type="checkbox"
+                input.question-type type="checkbox"
                 span= question_type
                 br
+          - if @transfers.count > 1
+            input.question-type type="checkbox"
+              span Transferred
+              br
+          - if @i_will_writes.count > 1
+            input.question-type type="checkbox"
+              span I will write
+              br
           - else
             'N/A
 
       .filter-box
         h3 Keywords
-        #pq-frame
-         input type="text"
-        //input#clear-keywords-filter.clearFilter type="button" value="Clear"
+        input#keywords type="text"
+        input#clear-keywords-filter.clearFilter type="button" value="Clear"
