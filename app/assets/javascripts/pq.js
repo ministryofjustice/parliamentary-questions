@@ -391,7 +391,7 @@ var document, $, trimLink, ga;
       }
     });
 
-/*    $('#dashboard #filters input').on('click', function (event) {
+   $('#dashboard #filters input').on('click', function (event) {
       $(event.target).siblings('input').attr('checked', false);
       if ($(event.target).is('#answer-date-today')) {
         $('#answer-from').val(today) && $('#answer-to').val(today);
@@ -409,7 +409,7 @@ var document, $, trimLink, ga;
         $('#keywords').val('');
       }
       getFilterValues();
-    });*/
+    });
 
     $('#dashboard #filters input').on('keyup', function (event) {
       if ($(event.target).is('#keywords')) {
