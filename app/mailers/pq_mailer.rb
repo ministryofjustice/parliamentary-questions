@@ -29,7 +29,11 @@ class PqMailer < PQBaseMailer
   end
 
   def early_bird_email(mail_data)
-    mail_with_subject('New PQs to be allocated today', mail_data)
+    if ENV['ASSET_HOST'] =~ /assets.staging.pq.dsd.io/
+      return true
+    else
+      mail_with_subject('New PQs to be allocated today', mail_data)
+    end
   end
 
   private
