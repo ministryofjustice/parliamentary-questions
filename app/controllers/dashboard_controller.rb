@@ -68,7 +68,7 @@ class DashboardController < ApplicationController
     #@questions       = paginate_collection(yield) if block_given?
     @questions       = (yield) if block_given?
     @statuses = @questions.all.map {|q| q.state}.uniq
-    @question_types = @questions.all.map {|q| q.question_type}.uniq
+    @question_types = @questions.where("question_type != 'Follow-up IWW'").map {|q| q.question_type}.uniq
     @transfers = @questions.all.map {|q| q.transferred}.uniq
     @i_will_writes = @questions.all.map {|q| q.i_will_write}.uniq
     @answering_minister_names = @questions.where('minister_id > 0').map {|q| q.minister.name}.uniq
