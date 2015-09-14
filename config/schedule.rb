@@ -19,8 +19,18 @@ end
 #
 # PQ Early Bird email (schedule after the first of the nightly imports)
 #
-every :weekday, :at => '5:30 am' do
+every 1.day, :at => '5:30 am' do
   rake 'pqa:early_bird'
+end
+#
+# Env Test to check if we can turn off earlybird here...
+#
+every :minute do
+  if ENV['ASSET_HOST'] =~ /assets.staging.pq.dsd.io/
+    `echo "it works too" >> /tmp/cron_check`
+  else
+    `echo "it works" >> /tmp/cron_check`
+  end
 end
 #
 # Sanitize imported staging data
