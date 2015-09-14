@@ -10,7 +10,7 @@
 
       input id="uin-#{question.id}" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
     h2
-      u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin})
+      u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin")
 
     .pq-header-flags
       span.question-type  = question.question_type_header

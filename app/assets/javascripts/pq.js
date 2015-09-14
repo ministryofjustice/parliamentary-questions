@@ -103,101 +103,162 @@ var document, $, trimLink, ga;
     $badge.text(nextval);
   };
 
-  var showAllInProgress = function() {
-    $('#dashboard ul li').each(function (i, li) {
-      $(li).css('display', 'block');
-    });
-  };
+//==========================================================================
+//= Dashboard filtering ====================================================
+//==========================================================================
 
-  var filterByText = function (filter, value) {
+var filterQuestions = function(){
 
-    //console.log("Receiving Flag value: " + value);
+    var showAllInProgress = function() {
+      $('#dashboard ul li').each(function (i, li) {
+        $(li).css('display', 'block');
+      });
+    };
 
-    var escapedText = value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    var textToSearch = new RegExp(escapedText, 'i');
-    var count = 0;
-    var stateString = value ? ' <strong>' + value + '</strong> ' : ' ';
+    var filterByDateRange = function (filter, filterDate) {
+      // ".answer-from" - "31/08/2015"
+      
+      var questionDate = "";
+      var questionDateLocation = "";
 
-    $('#dashboard ul li').each(function (i, li) {
-
-      if ($(this).find('.pq-header .flag').text() == 'Unassigned' && (filter == '.replying-minister' || filter == '.policy-minister') && $(li).css("display") != "none") {
-        filter = '.flag';
-      }
-
-      var questionText = $(li).text();
-      if (textToSearch.test(questionText) && $(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
-        count++;
+      if (filter == '.answer-from' || filter == '.answer-to') {
+        questionDateLocation = ".answer-date";
       }
       else {
-        $(li).css('display', 'none');
+        questionDateLocation = ".deadline-date";
       }
-    });
+      
+      $('#dashboard ul li').each(function (i, li){
+        // Check to see if there is an <span class="answer-date"> or <input class="answer-date">.
+        if ( $(li).has(questionDateLocation).length ) {
+          // Is there a text value for the date?
+          if ( $(this).find(questionDateLocation).text().length > 0 ) {
+            questionDate = $(this).find(questionDateLocation).text();
+            console.log(questionDateLocation + " .text() = " + questionDate + " | index: " + i);
+          }
+          // Is there a .val vlue for the date instead?
+          else if ( $(this).find(questionDateLocation).val().length > 0 ) {
+            questionDate = $(this).find(questionDateLocation).val();
+            console.log(questionDateLocation + " .val() = " + questionDate + " | index: " + i);
+          }
+        }
+        // There is no <span class="answer-date"> or <input class="answer-date"> element.
+        else if ( $(li).css("display") != "none" ) {
+          $(li).css('display', 'none');
+        }
 
-    $('#count strong').text(count ? count : 'No');
+        var mQuestionDate = moment(questionDate, "DD/MM/YYYY");
+        var mFilterDate = moment(filterDate, "DD/MM/YYYY");
 
-    if (value) {
-      if (count == '1'){
-        $('#count span').html(" parliamentary question containing '<strong>" + value + "</strong>'");
+        if ( (filter == ".answer-from") || (filter == ".deadline-from") && $(li).css("display") != "none" ) {
+          if ( mQuestionDate.isBefore(mFilterDate) ) {
+            $(li).css('display', 'none');
+          }
+          else { count++; }
+        }
+        else if ( (filter == ".answer-to") || (filter == ".deadline-to") && $(li).css("display") != "none" ) {
+          if ( mQuestionDate.isAfter(mFilterDate) ) { 
+            $(li).css('display', 'none');
+          }
+          else { count++; }
+        }
+      });
+    };
+
+    var filterByCheckbox = function (filter, value) {
+
+      //console.log("In the FilterByCheckbox function.")
+      //console.log('Filter: ' + filter + ' | Value: ' + value);
+
+      $('#dashboard ul li').each(function (i, li){
+        // Check span containing search term is present
+        if ( $(li).has(filter).length ) {
+          // Check search toerm is present
+          if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
+            count++;
+          }
+          else { $(li).css('display', 'none'); }
+        }
+        else { $(li).css('display', 'none'); }
+      });
+    };
+
+    var filterByKeyword = function (filter, value) {
+
+      console.log("In the FilterByKeyword function.")
+      console.log('Filter: ' + filter + ' | Value: ' + value);
+
+      $('#dashboard ul li').each(function (i, li) {
+        var questionText = $(li).text();
+        console.log("Question text: " + questionText);
+        if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
+          count++;
+        }
+        else { $(li).css('display', 'none'); }
+      });
+    };
+
+    var getFilterValues = function(){
+      
+      showAllInProgress();
+
+      console.log("==========================");
+      console.log(" Form values: ");
+      console.log("==========================");
+      console.log("DFA from: " + $('#answer-from').val());
+      console.log("DFA to:   " + $('#answer-to').val());
+      console.log("ID from:  " + $('#deadline-from').val());
+      console.log("ID to:    " + $('#deadline-to').val());
+      console.log("Status:   " + $('#flag-list input:checkbox:checked').val());
+      console.log("Replying: " + $('#replying-minister-list input:checkbox:checked').val());
+      console.log("Policy:   " + $('#policy-minister-list input:checkbox:checked').val());
+      console.log("Q type:   " + $('#question-type-list input:checkbox:checked').val());
+      console.log("Keywords: " + $('#keywords').val());
+      console.log("==========================");
+
+      if ( ( $('#answer-from').val() != undefined ) && ( $('#answer-from').val().trim().length > 0 ) ) {
+        console.log("1) Running Answer From Date filter");
+        filterByDateRange(".answer-from", $('#answer-from').val());
       }
-      else {
-        $('#count span').html(" parliamentary questions containing '<strong>" + value + "</strong>'");
-      }
-    } else {
-      if (count == '1') {
-        $('#count span').html('parliamentary question');
-      }
-      else {
-        $('#count span').html('parliamentary questions');
-      }
-    }
-  };
-
-  var filterByDateRange = function (filter, fromDate, toDate) {
-
-    var count = 0;
-    var searchDate = '';
-
-    if (fromDate == '') {fromDate = '01/01/2000';}
-    if (toDate == '') {toDate = '01/01/2050';}
-
-    $('#dashboard ul li').each(function (i, li) {
-
-      // Uncomissioned PQ - P for Answer Date
-      if ($(this).find('.pq-header .flag').text() == 'Unassigned' && filter == '.answer-date' && $(li).css("display") != "none") {
-        searchDate = $(this).find(filter).val();
-      }
-      // Uncomissioned PQ - Assign Dealine Date as same as Answer Date
-      else if  ($(this).find('.pq-header .flag').text() == 'Unassigned' && filter == '.deadline-date' && $(li).css("display") != "none") {
-        searchDate = "01/01/2000";
-        console.log("Deadline date: " + searchDate);
-      }
-      // Commissioned PQ - path for Answer and Deadline date
-      else {
-        searchDate = $(this).find(filter).text();
+      if ( ( $('#answer-to').val() != undefined ) && ( $('#answer-to').val().trim().length > 0) ) {
+        console.log("Running Answer To Date filter");
+        filterByDateRange(".answer-to", $('#answer-to').val());
       }
 
-      var mSearchDate = moment(searchDate, "DD/MM/YYYY");
-      var mFromDate = moment(fromDate, "DD/MM/YYYY");
-      var mToDate = moment(toDate, "DD/MM/YYYY");
-
-      if ((mSearchDate.isAfter(mFromDate) || mSearchDate.isSame(mFromDate)) && (mSearchDate.isBefore(mToDate) || mSearchDate.isSame(mToDate)) && $(li).css("display") != "none"){
-        count++;
+      if ( ( $('#deadline-from').val() != undefined ) && ( $('#deadline-from').val().trim().length > 0 ) ) {
+        console.log("Running Internal Deadline From filter");
+        filterByDateRange(".deadline-from", $('#deadline-from').val());
       }
-      else {
-        $(li).css('display', 'none');
+      if ( ( $('#deadline-to').val() != undefined ) && ( $('#deadline-to').val().trim().length > 0 ) ) {
+        console.log("Running Internal Deadline To filter");
+        filterByDateRange(".deadline-to", $('#deadline-to').val());
       }
-    });
-  };
 
-  var getFilterValues = function () {
-    showAllInProgress();
-    filterByDateRange('.answer-date', $('#answer-from').val(), $('#answer-to').val());
-    filterByDateRange('.deadline-date', $('#deadline-from').val(), $('#deadline-to').val());
-    filterByText('.flag', $('#filters #flag input[type="checkbox"]:checked').next().text());
-    filterByText('.replying-minister', $('#filters #replying-minister input[type="checkbox"]:checked').next().text());
-    filterByText('.policy-minister', $('#filters #policy-minister input[type="checkbox"]:checked').next().text());
-    filterByText('.question-type', $('#filters #question-type input[type="checkbox"]:checked').next().text());
-    filterByText('.pq-question', $('#filters #keywords').val());
+      if ( $('#flag-list input:checkbox:checked').val() != undefined ) {
+        console.log("Running Status filter");
+        filterByCheckbox(".flag", $('#flag-list input:checkbox:checked').val());
+      }
+      if ( $('#replying-minister-list input:checkbox:checked').val() != undefined ) {
+        console.log("Running Replying Minister filter");
+        filterByCheckbox(".replying-minister", $('#replying-minister-list input:checkbox:checked').val());
+      }
+      if ( $('#policy-minister-list input:checkbox:checked').val() != undefined) {
+        console.log("Running Policy Minister filter");
+        filterByCheckbox(".policy-minister", $('#policy-minister-list input:checkbox:checked').val());
+      }
+      if ( $('#question-type-list input:checkbox:checked').val() != undefined ) {
+        console.log("Running Question Type filter");
+        filterByCheckbox(".question-type", $('#question-type-list input:checkbox:checked').val());
+      }
+
+     if ( ( $('#keywords').val() != undefined ) && ( $('#keywords').val().trim().length > 0 ) ) {
+        console.log("Running Keyword filter");
+        filterByKeyword(".pq-question", $('#keywords').val());
+      }
+    };
+
+    getFilterValues();
+
   };
 
   //==========================================================================
@@ -380,6 +441,10 @@ var document, $, trimLink, ga;
 
     }
 
+    //==========================================================================
+    // = Dashboard filtering ====================================================
+    //==========================================================================
+
     $('#dashboard #filters input').change(function (event) {
       if (
               $(event.target).is('#answer-from') ||
@@ -387,7 +452,7 @@ var document, $, trimLink, ga;
               $(event.target).is('#deadline-from') ||
               $(event.target).is('#deadline-to')
       ) {
-        getFilterValues();
+        filterQuestions();
       }
     });
 
@@ -408,12 +473,12 @@ var document, $, trimLink, ga;
       else if ($(event.target).is('#clear-keywords-filter')) {
         $('#keywords').val('');
       }
-      getFilterValues();
+      filterQuestions();
     });
 
     $('#dashboard #filters input').on('keyup', function (event) {
       if ($(event.target).is('#keywords')) {
-        getFilterValues();
+        filterQuestions();
       }
     });
 
