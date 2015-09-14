@@ -11,7 +11,7 @@ Webapp to manage the workflow Parliamentary Questions
 
 - Ruby MRI 2.1.2
 - Postgresql 9.3
-- phantomjs (tests only)
+- phantomjs  (tests only)
 - coreutils (required by the `version_tag.sh` script)
 - graphviz (required by the `bin/generate-erd` script)
 
