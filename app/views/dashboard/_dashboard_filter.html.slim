@@ -67,7 +67,7 @@
               br
             - if question_status == 'draft_pending'
               input.question-status type="checkbox" value="Draft Pending"
-              span Draft pending
+              span Draft Pending
               br
             - if question_status == 'with_pod'
               input.question-status type="checkbox" value="With POD"
@@ -78,20 +78,20 @@
               span POD Query
               br
             - if question_status == 'pod_cleared'
-              input.question-status type="checkbox" value="POD cleared"
-              span POD cleared
+              input.question-status type="checkbox" value="POD Cleared"
+              span POD Cleared
               br
             - if question_status == 'with_minister'
-              input.question-status type="checkbox" value="With minister"
-              span With minister
+              input.question-status type="checkbox" value="With Minister"
+              span With Minister
               br
             - if question_status == 'ministerial_query'
-              input.question-status type="checkbox" value="Ministerial query"
-              span Ministerial query
+              input.question-status type="checkbox" value="Ministerial Query"
+              span Ministerial Query
               br
             - if question_status == 'minister_cleared'
-              input.question-status type="checkbox" value="Minister cleared"
-              span Minister cleared
+              input.question-status type="checkbox" value="Minister Cleared"
+              span Minister Cleared
               br
             - if question_status == 'answered'
               input.question-status type="checkbox" value="Answered"
@@ -127,6 +127,7 @@
               br
           - else
             'N/A
+
       .filter-box
         h3 Question type
         #question-type-list

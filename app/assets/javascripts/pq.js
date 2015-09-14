@@ -109,15 +109,34 @@ var document, $, trimLink, ga;
 
 var filterQuestions = function(){
 
+    var counter = function(value){
+      if ( value == "1") {
+        $('#count').html('<strong>' + value + '</strong> <span>parlimentary question found</span>');
+      }
+      else {
+        $('#count').html('<strong>' + value + '</strong> <span>parlimentary questions found</span>');
+      }
+    };
+
+    //==========================================================================
+
     var showAllInProgress = function() {
+
+      var count = 0;
+
       $('#dashboard ul li').each(function (i, li) {
         $(li).css('display', 'block');
+        count++;
       });
+      counter(count);
     };
+
+    //==========================================================================
 
     var filterByDateRange = function (filter, filterDate) {
       // ".answer-from" - "31/08/2015"
-      
+
+      var count = 0;
       var questionDate = "";
       var questionDateLocation = "";
 
@@ -163,12 +182,16 @@ var filterQuestions = function(){
           else { count++; }
         }
       });
+      counter(count);
     };
 
+    //==========================================================================
     var filterByCheckbox = function (filter, value) {
 
       //console.log("In the FilterByCheckbox function.")
       //console.log('Filter: ' + filter + ' | Value: ' + value);
+
+      var count = 0;
 
       $('#dashboard ul li').each(function (i, li){
         // Check span containing search term is present
@@ -181,12 +204,16 @@ var filterQuestions = function(){
         }
         else { $(li).css('display', 'none'); }
       });
+      counter(count);
     };
 
+    //==========================================================================
     var filterByKeyword = function (filter, value) {
 
       console.log("In the FilterByKeyword function.")
       console.log('Filter: ' + filter + ' | Value: ' + value);
+
+      var count = 0;
 
       $('#dashboard ul li').each(function (i, li) {
         var questionText = $(li).text();
@@ -196,12 +223,12 @@ var filterQuestions = function(){
         }
         else { $(li).css('display', 'none'); }
       });
+      counter(count);
     };
 
+    //==========================================================================
     var getFilterValues = function(){
       
-      showAllInProgress();
-
       console.log("==========================");
       console.log(" Form values: ");
       console.log("==========================");
@@ -224,7 +251,6 @@ var filterQuestions = function(){
         console.log("Running Answer To Date filter");
         filterByDateRange(".answer-to", $('#answer-to').val());
       }
-
       if ( ( $('#deadline-from').val() != undefined ) && ( $('#deadline-from').val().trim().length > 0 ) ) {
         console.log("Running Internal Deadline From filter");
         filterByDateRange(".deadline-from", $('#deadline-from').val());
@@ -233,7 +259,6 @@ var filterQuestions = function(){
         console.log("Running Internal Deadline To filter");
         filterByDateRange(".deadline-to", $('#deadline-to').val());
       }
-
       if ( $('#flag-list input:checkbox:checked').val() != undefined ) {
         console.log("Running Status filter");
         filterByCheckbox(".flag", $('#flag-list input:checkbox:checked').val());
@@ -250,13 +275,14 @@ var filterQuestions = function(){
         console.log("Running Question Type filter");
         filterByCheckbox(".question-type", $('#question-type-list input:checkbox:checked').val());
       }
-
      if ( ( $('#keywords').val() != undefined ) && ( $('#keywords').val().trim().length > 0 ) ) {
         console.log("Running Keyword filter");
         filterByKeyword(".pq-question", $('#keywords').val());
       }
     };
 
+    //==========================================================================
+    showAllInProgress();
     getFilterValues();
 
   };
