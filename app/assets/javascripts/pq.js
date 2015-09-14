@@ -109,26 +109,23 @@ var document, $, trimLink, ga;
 
 var filterQuestions = function(){
 
-    var counter = function(value){
-      if ( value == "1") {
-        $('#count').html('<strong>' + value + '</strong> <span>parlimentary question found</span>');
+    var counter = function(questionCount){
+      if ( questionCount == 1) {
+        $('#count').html('<strong>' + questionCount + '</strong> <span>parlimentary question found</span>');
       }
       else {
-        $('#count').html('<strong>' + value + '</strong> <span>parlimentary questions found</span>');
+        $('#count').html('<strong>' + questionCount + '</strong> <span>parlimentary questions found</span>');
       }
     };
 
     //==========================================================================
 
     var showAllInProgress = function() {
-
-      var count = 0;
-
       $('#dashboard ul li').each(function (i, li) {
         $(li).css('display', 'block');
-        count++;
       });
-      counter(count);
+      var questionCount = $('li').length;
+      counter(questionCount);
     };
 
     //==========================================================================
@@ -136,7 +133,7 @@ var filterQuestions = function(){
     var filterByDateRange = function (filter, filterDate) {
       // ".answer-from" - "31/08/2015"
 
-      var count = 0;
+      var questionDateCount = 0;
       var questionDate = "";
       var questionDateLocation = "";
 
@@ -173,16 +170,16 @@ var filterQuestions = function(){
           if ( mQuestionDate.isBefore(mFilterDate) ) {
             $(li).css('display', 'none');
           }
-          else { count++; }
+          else { questionDateCount++; }
         }
         else if ( (filter == ".answer-to") || (filter == ".deadline-to") && $(li).css("display") != "none" ) {
           if ( mQuestionDate.isAfter(mFilterDate) ) { 
             $(li).css('display', 'none');
           }
-          else { count++; }
+          else { questionDateCount++; }
         }
       });
-      counter(count);
+      counter(questionDateCount);
     };
 
     //==========================================================================
@@ -191,20 +188,20 @@ var filterQuestions = function(){
       //console.log("In the FilterByCheckbox function.")
       //console.log('Filter: ' + filter + ' | Value: ' + value);
 
-      var count = 0;
+      var checkboxCount = 0;
 
       $('#dashboard ul li').each(function (i, li){
         // Check span containing search term is present
         if ( $(li).has(filter).length ) {
           // Check search toerm is present
           if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
-            count++;
+            checkboxCount++;
           }
           else { $(li).css('display', 'none'); }
         }
         else { $(li).css('display', 'none'); }
       });
-      counter(count);
+      counter(checkboxCount);
     };
 
     //==========================================================================
@@ -213,17 +210,19 @@ var filterQuestions = function(){
       console.log("In the FilterByKeyword function.")
       console.log('Filter: ' + filter + ' | Value: ' + value);
 
-      var count = 0;
+      var keywordCount = 0;
+      var escapedText = value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      var textToSearch = new RegExp(escapedText, 'i');
 
       $('#dashboard ul li').each(function (i, li) {
         var questionText = $(li).text();
         console.log("Question text: " + questionText);
-        if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
-          count++;
+        if ( textToSearch.test(questionText) /*&& $(li).has(filter + ':contains("' + value + '")').length*/ && $(li).css("display") != "none") {
+          keywordCount++;
         }
         else { $(li).css('display', 'none'); }
       });
-      counter(count);
+      counter(keywordCount);
     };
 
     //==========================================================================
@@ -275,7 +274,7 @@ var filterQuestions = function(){
         console.log("Running Question Type filter");
         filterByCheckbox(".question-type", $('#question-type-list input:checkbox:checked').val());
       }
-     if ( ( $('#keywords').val() != undefined ) && ( $('#keywords').val().trim().length > 0 ) ) {
+      if ( ( $('#keywords').val() != undefined ) && ( $('#keywords').val().trim().length > 0 ) ) {
         console.log("Running Keyword filter");
         filterByKeyword(".pq-question", $('#keywords').val());
       }
