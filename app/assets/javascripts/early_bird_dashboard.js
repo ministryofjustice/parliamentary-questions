@@ -6,4 +6,3 @@ $(document).ready(function () {
     GOVUK.stopScrollingAtFooter.addEl($(footer), $(footer).height());
 });
 
-

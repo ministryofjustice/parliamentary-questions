@@ -3,98 +3,61 @@ require "#{Rails.root}/spec/support/features/session_helpers"
 
 describe DashboardController, type: :controller do
 
-
   context 'dashboard sorting' do
-
 
     describe 'GET index' do
       it 'should sort the new questions by date and state weight' do
-        Timecop.freeze(DateTime.new(2015, 5, 1, 14, 4, 45)) do
           setup_questions
           expect(PQUserFilter).to receive(:before).and_return(true)
           expect(controller).to receive(:authenticate_user!).and_return(true)
           get :index
           expect(response.status).to eq(200)
           expect(assigns(:questions).map(&:uin)).to eq expected_order_of_new_questions
-        end
       end
     end
 
 
     describe 'GET in_progress' do
-      it 'should sort the in-progress questions by date and state weight and return first fifteen' do
-        Timecop.freeze(DateTime.new(2015, 5, 1, 14, 4, 45)) do
+      it 'should sort the in-progress questions by date and state weight and return them all' do
           setup_questions
           expect(PQUserFilter).to receive(:before).and_return(true)
           expect(controller).to receive(:authenticate_user!).and_return(true)
           get :in_progress
           expect(response.status).to eq(200)
-          expect(assigns(:questions).map(&:uin)).to eq expected_order_in_progress_questions_first_page
-        end
-      end
-
-      it 'should sort the in-progress questions by date and state weight and return second fifteen' do
-        Timecop.freeze(DateTime.new(2015, 5, 1, 14, 4, 45)) do
-          setup_questions
-          expect(PQUserFilter).to receive(:before).and_return(true)
-          expect(controller).to receive(:authenticate_user!).and_return(true)
-          get :in_progress, page: 2
-          expect(response.status).to eq(200)
-          expect(assigns(:questions).map(&:uin)).to eq expected_order_in_progress_questions_second_page
-        end
-      end
-
-
-      it 'should sort the in-progress questions by date and state weight and return last five' do
-        Timecop.freeze(DateTime.new(2015, 5, 1, 14, 4, 45)) do
-          setup_questions
-          expect(PQUserFilter).to receive(:before).and_return(true)
-          expect(controller).to receive(:authenticate_user!).and_return(true)
-          get :in_progress, page: 3
-          expect(response.status).to eq(200)
-          expect(assigns(:questions).map(&:uin)).to eq expected_order_in_progress_questions_third_page
-        end
+          expect(assigns(:questions).map(&:uin)).to eq expected_order_in_progress_questions
       end
     end
 
+    describe 'GET backlog' do
+      it 'should sort the Backlog questions by date and state weight and return them all' do
+        setup_questions
+        expect(PQUserFilter).to receive(:before).and_return(true)
+        expect(controller).to receive(:authenticate_user!).and_return(true)
+        get :backlog
+        expect(response.status).to eq(200)
+        expect(assigns(:questions).map(&:uin)).to eq expected_order_of_overdue_questions
+      end
+    end
 
     describe 'GET by_status' do
       it 'should return all questions in unassigned status sorted for dashboard order' do
-       Timecop.freeze(DateTime.new(2015, 5, 1, 14, 4, 45)) do
           setup_questions
           expect(PQUserFilter).to receive(:before).and_return(true)
           expect(controller).to receive(:authenticate_user!).and_return(true)
           get :by_status, qstatus: 'unassigned'
           expect(response.status).to eq(200)
           expect(assigns(:questions).map(&:uin)).to eq expected_order_of_unassigned_questions
-        end
-      end
-    end
-
-
-    describe 'GET i_will_write' do
-      it 'should return the i-will-write questions in sorted_for_dashboard order' do
-        Timecop.freeze(DateTime.new(2015, 5, 1, 14, 4, 45)) do
-          setup_i_will_write_questions
-          expect(PQUserFilter).to receive(:before).and_return(true)
-          expect(controller).to receive(:authenticate_user!).and_return(true)
-          get :i_will_write
-          expect(response.status).to eq(200)
-          expect(assigns(:questions).map(&:uin)).to eq expected_order_of_i_will_write_questions
-        end
       end
     end
   end
 end
 
-
-
 def setup_questions
   Pq.delete_all
-  PQState::ALL.each_with_index do |state, index1|
+  PQState::ALL.each_with_index do |state, state_index|
     state_weight = PQState.state_weight(state)
-    pq_dates.each_with_index do |date, index2|
-      uin = "UIN-#{date.strftime('%m%d')}:#{state_weight}-#{index1}#{index2}"
+    pq_dates.each_with_index do |date, date_index|
+      uin = "UIN-#{date.strftime('%m%d')}:#{state}-#{state_index}#{date_index}"
       FactoryGirl.create(:pq, uin: uin, state: state, state_weight: state_weight, date_for_answer: date)
     end
   end
@@ -110,21 +73,17 @@ end
 
 def pq_dates
   [
-    Date.new(2015, 4, 29),
-    Date.new(2015, 4, 30),
-    Date.new(2015, 5, 1),
-    Date.new(2015, 5, 2),
-    Date.new(2015, 5, 3),
+    Date.yesterday,
+    Date.today,
+    Date.tomorrow,
   ]
 end
 
 def expected_order_of_unassigned_questions
   [
-    "UIN-0501:0-02",
-    "UIN-0502:0-03",
-    "UIN-0503:0-04",
-    "UIN-0430:0-01",
-    "UIN-0429:0-00"
+    "UIN-"+ Date.today.strftime('%m%d') + ":unassigned-01",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":unassigned-02",
+    "UIN-"+ Date.yesterday.strftime('%m%d') + ":unassigned-00"
   ]
 end
 
@@ -134,92 +93,37 @@ end
 
 def expected_order_of_new_questions
   [
-    "UIN-0501:1-12", 
-    "UIN-0501:1-22", 
-    "UIN-0501:0-02", 
-    "UIN-0502:1-13", 
-    "UIN-0502:1-23",
-    "UIN-0502:0-03", 
-    "UIN-0503:1-14", 
-    "UIN-0503:1-24", 
-    "UIN-0503:0-04", 
-    "UIN-0430:1-11", 
-    "UIN-0430:1-21", 
-    "UIN-0430:0-01", 
-    "UIN-0429:1-10", 
-    "UIN-0429:1-20", 
-    "UIN-0429:0-00"
+    "UIN-"+ Date.today.strftime('%m%d') + ":no_response-11",
+    "UIN-"+ Date.today.strftime('%m%d') + ":rejected-21",
+    "UIN-"+ Date.today.strftime('%m%d') + ":unassigned-01",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":no_response-12",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":rejected-22",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":unassigned-02",
+    "UIN-"+ Date.yesterday.strftime('%m%d') + ":no_response-10",
+    "UIN-"+ Date.yesterday.strftime('%m%d') + ":rejected-20",
+    "UIN-"+ Date.yesterday.strftime('%m%d') + ":unassigned-00"
   ]
 end
 
-def expected_order_in_progress_questions_first_page
+def expected_order_in_progress_questions
   [
-    "UIN-0501:6-92", 
-    "UIN-0501:5-62", 
-    "UIN-0501:4-72", 
-    "UIN-0501:4-82", 
-    "UIN-0501:3-42", 
-    "UIN-0501:3-52", 
-    "UIN-0501:2-32", 
-    "UIN-0502:6-93", 
-    "UIN-0502:5-63", 
-    "UIN-0502:4-73", 
-    "UIN-0502:4-83", 
-    "UIN-0502:3-43",
-    "UIN-0502:3-53",  
-    "UIN-0502:2-33", 
-    "UIN-0503:6-94"
+    "UIN-"+ Date.today.strftime('%m%d') + ":minister_cleared-91",
+    "UIN-"+ Date.today.strftime('%m%d') +":pod_cleared-61",
+    "UIN-"+ Date.today.strftime('%m%d') +":with_minister-71",
+    "UIN-"+ Date.today.strftime('%m%d') +":ministerial_query-81",
+    "UIN-"+ Date.today.strftime('%m%d') +":with_pod-41",
+    "UIN-"+ Date.today.strftime('%m%d') +":pod_query-51",
+    "UIN-"+ Date.today.strftime('%m%d') +":draft_pending-31",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') +":minister_cleared-92",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') +":pod_cleared-62",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') +":with_minister-72",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') +":ministerial_query-82",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') +":with_pod-42",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') +":pod_query-52",
+    "UIN-"+ Date.tomorrow.strftime('%m%d') +":draft_pending-32"
   ]
 end
+def expected_order_of_overdue_questions
+  ["UIN-"+ Date.yesterday.strftime('%m%d') + ":minister_cleared-90", "UIN-"+ Date.yesterday.strftime('%m%d') + ":pod_cleared-60", "UIN-"+ Date.yesterday.strftime('%m%d') + ":with_minister-70", "UIN-"+ Date.yesterday.strftime('%m%d') + ":ministerial_query-80", "UIN-"+ Date.yesterday.strftime('%m%d') + ":with_pod-40", "UIN-"+ Date.yesterday.strftime('%m%d') + ":pod_query-50", "UIN-"+ Date.yesterday.strftime('%m%d') + ":draft_pending-30", "UIN-"+ Date.yesterday.strftime('%m%d') + ":no_response-10", "UIN-"+ Date.yesterday.strftime('%m%d') + ":rejected-20", "UIN-"+ Date.yesterday.strftime('%m%d') + ":unassigned-00"]
 
-def expected_order_in_progress_questions_second_page
-  [
-    "UIN-0503:5-64", 
-    "UIN-0503:4-74", 
-    "UIN-0503:4-84", 
-    "UIN-0503:3-44", 
-    "UIN-0503:3-54", 
-    "UIN-0503:2-34", 
-    "UIN-0430:6-91", 
-    "UIN-0430:5-61", 
-    "UIN-0430:4-71", 
-    "UIN-0430:4-81", 
-    "UIN-0430:3-41", 
-    "UIN-0430:3-51", 
-    "UIN-0430:2-31", 
-    "UIN-0429:6-90", 
-    "UIN-0429:5-60"
-  ]
-end
-
-def expected_order_in_progress_questions_third_page
-  [
-    
-    "UIN-0429:4-70", 
-    "UIN-0429:4-80", 
-    "UIN-0429:3-40", 
-    "UIN-0429:3-50", 
-    "UIN-0429:2-30"
-  ]
-end
-
-
-def expected_order_of_i_will_write_questions
-  [
-   "UIN-0501:6-92",
-   "UIN-0501:5-62",
-   "UIN-0501:4-72",
-   "UIN-0501:4-82",
-   "UIN-0501:3-42",
-   "UIN-0501:3-52",
-   "UIN-0501:2-32",
-   "UIN-0501:1-12",
-   "UIN-0501:1-22",
-   "UIN-0501:0-02",
-   "UIN-0502:6-93",
-   "UIN-0502:5-63",
-   "UIN-0502:4-73",
-   "UIN-0502:4-83",
-   "UIN-0502:3-43",
-  ]
 end

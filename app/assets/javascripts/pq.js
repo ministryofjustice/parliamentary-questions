@@ -4,9 +4,11 @@ var document, $, trimLink, ga;
   'use strict';
 
   var filterPreviewQuestions = function(text, state) {
+
     var textToSearch = new RegExp(text, 'i');
     var count = 0;
     var stateString = state ? ' <strong>' + state + '</strong> ' : ' ';
+
     $('#main ul li').each(function(i, li) {
       var questionText = $(li).text();
       if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
@@ -101,9 +103,141 @@ var document, $, trimLink, ga;
     $badge.text(nextval);
   };
 
+  var filterQuestions = function(){
+
+    var questionCounter = function(){
+
+      var count = 0;
+
+      $('#dashboard ul li').each(function (i, li) {
+        if ( $(li).has('a.question-uin').length && $(li).css("display") != "none" ) {
+          count++;
+        }
+      });
+      if ( count == 1 ) {
+        $('#count').html('<strong>' + count + '</strong> <span>parlimentary question found</span>');
+      }
+      else {
+        $('#count').html('<strong>' + count + '</strong> <span>parlimentary questions found</span>');
+      }
+    };
+
+    var showAllInProgress = function() {
+      $('#dashboard ul li').each(function (i, li) {
+        $(li).css('display', 'block');
+      });
+    };
+
+    var filterByDateRange = function (filter, filterDate) {
+
+      var questionDate = "";
+      var questionDateLocation = "";
+
+      if (filter == '.answer-from' || filter == '.answer-to') {
+        questionDateLocation = ".answer-date";
+      }
+      else {
+        questionDateLocation = ".deadline-date";
+      }
+      
+      $('#dashboard ul li').each(function (i, li){
+        if ( $(li).has(questionDateLocation).length ) {
+          if ( $(this).find(questionDateLocation).text().length > 0 ) {
+            questionDate = $(this).find(questionDateLocation).text();
+          }
+          else if ( $(this).find(questionDateLocation).val().length > 0 ) {
+            questionDate = $(this).find(questionDateLocation).val();
+          }
+        }
+        else if ( $(li).css("display") != "none" ) {
+          $(li).css('display', 'none');
+        }
+
+        var mQuestionDate = moment(questionDate, "DD/MM/YYYY");
+        var mFilterDate = moment(filterDate, "DD/MM/YYYY");
+
+        if ( (filter == ".answer-from") || (filter == ".deadline-from") && $(li).css("display") != "none" ) {
+          if ( mQuestionDate.isBefore(mFilterDate) ) {
+            $(li).css('display', 'none');
+          }
+        }
+        else if ( (filter == ".answer-to") || (filter == ".deadline-to") && $(li).css("display") != "none" ) {
+          if ( mQuestionDate.isAfter(mFilterDate) ) { 
+            $(li).css('display', 'none');
+          }
+        }
+      });
+    };
+
+    var filterByCheckbox = function (filter, value) {
+
+      $('#dashboard ul li').each(function (i, li){
+        if ( $(li).has(filter).length ) {
+          if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
+            $(li).css('display', 'block');
+          }
+          else { $(li).css('display', 'none'); }
+        }
+        else { $(li).css('display', 'none'); }
+      });
+    };
+
+    var filterByKeyword = function (filter, value) {
+
+      var escapedText = value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      var textToSearch = new RegExp(escapedText, 'i');
+
+      $('#dashboard ul li').each(function (i, li) {
+        var questionText = $(li).text();
+        if ( textToSearch.test(questionText) && $(li).css("display") != "none") {
+          $(li).css('display', 'block');
+        }
+        else { $(li).css('display', 'none'); }
+      });
+    };
+
+    var getFilterValues = function(){
+
+      if ( ( $('#answer-from').val() != undefined ) && ( $('#answer-from').val().trim().length > 0 ) ) {
+        filterByDateRange(".answer-from", $('#answer-from').val());
+      }
+      if ( ( $('#answer-to').val() != undefined ) && ( $('#answer-to').val().trim().length > 0) ) {
+        filterByDateRange(".answer-to", $('#answer-to').val());
+      }
+      if ( ( $('#deadline-from').val() != undefined ) && ( $('#deadline-from').val().trim().length > 0 ) ) {
+        filterByDateRange(".deadline-from", $('#deadline-from').val());
+      }
+      if ( ( $('#deadline-to').val() != undefined ) && ( $('#deadline-to').val().trim().length > 0 ) ) {
+        filterByDateRange(".deadline-to", $('#deadline-to').val());
+      }
+      if ( $('#flag-list input:checkbox:checked').val() != undefined ) {
+        filterByCheckbox(".flag", $('#flag-list input:checkbox:checked').val());
+      }
+      if ( $('#replying-minister-list input:checkbox:checked').val() != undefined ) {
+        filterByCheckbox(".replying-minister", $('#replying-minister-list input:checkbox:checked').val());
+      }
+      if ( $('#policy-minister-list input:checkbox:checked').val() != undefined) {
+        filterByCheckbox(".policy-minister", $('#policy-minister-list input:checkbox:checked').val());
+      }
+      if ( $('#question-type-list input:checkbox:checked').val() != undefined ) {
+        filterByCheckbox(".question-type", $('#question-type-list input:checkbox:checked').val());
+      }
+      if ( ( $('#keywords').val() != undefined ) && ( $('#keywords').val().trim().length > 0 ) ) {
+        filterByKeyword(".pq-question", $('#keywords').val());
+      }
+    };
+
+    showAllInProgress();
+    getFilterValues();
+    questionCounter();
+  };
+
   //==========================================================================
 
   $(document).ready(function () {
+
+    // Set today's date
+    var today = moment().format('DD/MM/YYYY').toString();
 
     // if the page has rejection details, make them collapsible
     // applies to /assignment and /watchlist/preview pages
@@ -148,24 +282,29 @@ var document, $, trimLink, ga;
       });
 
       $('#preview input[type="text"]').on('keyup', function() {
-        filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               $('#filters input[type="radio"]:checked').siblings('span').text());
+        filterPreviewQuestions(
+            $('#filters input[type="text"]').val(),
+            $('#filters input[type="radio"]:checked').siblings('span').text()
+        );
       });
 
       $('#preview #filters input').on('click', function(event) {
-        if($(event.target).is(':checked'))
-        {
+        if ($(event.target).is(':checked')) {
           $(event.target).siblings('input').attr('checked', false);
-          filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               $(event.target).next().text());
+          filterPreviewQuestions(
+              $('#filters input[type="text"]').val(),
+              $(event.target).next().text()
+          );
         }
         else{
-            filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               '');
+            filterPreviewQuestions(
+                $('#filters input[type="text"]').val(),
+                ''
+            );
         }
       });
 
-       $('#clearFilter').on('click', function(event) {
+       $('.clearFilter').on('click', function(event) {
         $('.filter-box div').children('input').attr('checked', false);
         $('#filters input[type="text"]').val(' ');
         filterPreviewQuestions($('#filters input[type="text"]').val(),
@@ -272,5 +411,47 @@ var document, $, trimLink, ga;
       });
 
     }
+
+    //==========================================================================
+    // = Dashboard filtering ====================================================
+    //==========================================================================
+
+    $('#dashboard #filters input').change(function (event) {
+      if (
+              $(event.target).is('#answer-from') ||
+              $(event.target).is('#answer-to') ||
+              $(event.target).is('#deadline-from') ||
+              $(event.target).is('#deadline-to')
+      ) {
+        filterQuestions();
+      }
+    });
+
+   $('#dashboard #filters input').on('click', function (event) {
+      $(event.target).siblings('input').attr('checked', false);
+      if ($(event.target).is('#answer-date-today')) {
+        $('#answer-from').val(today) && $('#answer-to').val(today);
+      }
+      else if ($(event.target).is('#deadline-date-today')) {
+        $('#deadline-from').val(today) && $('#deadline-to').val(today);
+      }
+      else if ($(event.target).is('#clear-answer-filter')) {
+        $('#answer-from').val('') && $('#answer-to').val('');
+      }
+      else if ($(event.target).is('#clear-deadline-filter')) {
+        $('#deadline-from').val('') && $('#deadline-to').val('');
+      }
+      else if ($(event.target).is('#clear-keywords-filter')) {
+        $('#keywords').val('');
+      }
+      filterQuestions();
+    });
+
+    $('#dashboard #filters input').on('keyup', function (event) {
+      if ($(event.target).is('#keywords')) {
+        filterQuestions();
+      }
+    });
+
   });
 }());

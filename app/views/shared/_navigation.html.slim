@@ -10,7 +10,12 @@
       .collapse.navbar-collapse
         - if current_user.pq_user?
           ul.nav.navbar-nav
-            li= link_to 'Dashboard', dashboard_path
+            li class=('active' if @dashboard_state == 'New')
+              = link_to 'New', dashboard_path, action: 'index'
+            li class=('active' if @dashboard_state == 'In progress')
+              = link_to 'In progress', dashboard_in_progress_path, action: 'in_progress'
+            li class=('active' if @dashboard_state == 'Backlog')
+              = link_to 'Backlog', dashboard_backlog_path, action: 'backlog'
             li.dropdown
               a.dropdown-toggle data-toggle="dropdown" data-target="#-"
                 | Reports

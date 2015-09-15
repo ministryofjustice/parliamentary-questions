@@ -17,6 +17,7 @@ feature 'Parli-branch sends reminder email to action officer', js: true, suspend
     DatabaseCleaner.clean
   end
 
+=begin COMMENTED AS PLACE HOLDER FOR NEXT PART OF THIS EPIC
   scenario "PB commissions a question and sends 2 reminder emails" do
     create_pq_session
     commission_question(@pq.uin, [ao1], minister)
@@ -37,4 +38,5 @@ feature 'Parli-branch sends reminder email to action officer', js: true, suspend
     subjects = sent_mail_to(ao1.email).map(&:subject)
     expect(subjects.grep(/you need to accept or reject/i).size).to eq(2)
   end
+=end
 end

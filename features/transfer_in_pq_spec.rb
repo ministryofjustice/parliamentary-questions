@@ -45,14 +45,14 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
 
     expect(page.title).to have_text("Dashboard")
     expect(page).to have_content('Transferred PQ was successfully created')
-    expect_pq_status(uin, 'Transferred In')
+    expect_pq_status(uin, 'Transferred in')
   end
 
   scenario 'Whitespace is stripped from the manually entered UIN' do
     ws_uin = '   uin with space   '
     create_transferred_pq(ws_uin, 'question')
 
-    expect_pq_status('uin with space', 'Transferred In')
+    expect_pq_status('uin with space', 'Transferred in')
   end
 
   scenario 'If API import contains PQ with the same UIN as the transferred PQ, it updates the details' do
