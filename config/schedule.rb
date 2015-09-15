@@ -21,6 +21,26 @@ end
 #
 every 1.day, :at => '5:30 am' do
   rake 'pqa:early_bird'
+  if ENV['ENV'] =~ /prod/
+    if (Date.today < Date.new(2015, 9, 21)) or (Date.today > Date.new(2015, 10, 8))
+      rake 'pqa:early_bird'
+      `echo "Running Earlybird, environment is PROD" >> /tmp/cron_check`
+    else
+      `echo "Not running Earlybird, it's a recess" >> /tmp/cron_check`
+    end
+  else
+    `echo "Not running Earlybird, environment is not PROD" >> /tmp/cron_check`
+  end
+end
+#
+# Test for ENV ...
+#
+every :minute do
+  if ENV['ENV'] =~ /prod/
+    `echo "Environment is PROD" >> /tmp/cron_check`
+  else
+    `echo "Environment is not PROD" >> /tmp/cron_check`
+  end
 end
 #
 # Env Test to check if we can turn off earlybird here...
