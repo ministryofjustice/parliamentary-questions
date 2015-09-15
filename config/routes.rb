@@ -31,7 +31,7 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :directorates
 
   resources :watchlist_members
-  
+
   resources :early_bird_members
 
   resources :actionlist_members
@@ -57,6 +57,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get '/', to: 'root#index', as: :root
   get 'dashboard'             => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'
+  get 'dashboard/backlog' => 'dashboard#backlog'
 
   get 'search' => 'search#index'
 

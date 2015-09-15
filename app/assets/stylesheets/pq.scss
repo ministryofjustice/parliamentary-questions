@@ -93,7 +93,6 @@ label {
 .fa-exclamation-triangle {
   color: $error-colour;
   margin-left: 4px;
-  vertical-align: -20%;
 }
 
 // specify the colour of input placeholders (eg search bar) for all browsers
@@ -364,17 +363,22 @@ textarea.form-control {
 .pq-header {
     line-height: 27px;
     margin-bottom: 20px;
+    .col-md-5 { padding-left: 0px; }
+    input[type="checkbox"] { margin-right: 10px; }
 }
 .pq-header-flags {display: inline-block;}
 .question-type {
   color: $secondary-text-colour;
   font-size: 19px;
   font-weight: bold;
+  margin-left: 7px;
+  /*
   &:before {
     content: '|';
     margin-left: 17px;
     margin-right: 10px;
   }
+  */
 }
 
 
@@ -648,6 +652,11 @@ textarea.form-control {
     font-weight: bold;
     margin: auto;
     color: $text-colour;
+  }
+
+  ul li h3 {
+    display: inline-block;
+    margin-right: 0.5em;
   }
 
   #status-filters {
@@ -1015,6 +1024,10 @@ textarea.form-control {
           width: 100%;
           border: 0;
         }
+        input[type="checkbox"] {
+          margin: 0px 5px;
+          vertical-align: 10%;
+        }
         h3 {
           color: $text-colour;
           margin: 0 0 7px 0;
@@ -1028,7 +1041,7 @@ textarea.form-control {
           }
         }
       }
-      #clearFilter {
+      .clearFilter {
         font-size: 18px;
         background-color: $white;
         color: $link-colour;
@@ -1047,3 +1060,72 @@ textarea.form-control {
     display: block;
   }
 }
+
+
+/* = In-progress page ========================================================== */
+
+#dashboard {
+  #count {
+    max-width: 655px;
+    background-color: $highlight-colour;
+    padding: .7em 0 .7em .7em;
+    border-left: 5px solid $border-colour;
+    margin: 1em 0 2em 0;
+  }
+  .replying-minister { margin-right: .5em; }
+  #sidebar {
+    padding: 0px;
+    #filters {
+      background-color: $white;
+      h2 {
+        color: $text-colour;
+        font-size: 19px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .filter-box {
+        padding: 8px;
+        margin-bottom: 1em;
+        background-color: $panel-colour;
+        .datepicker,
+        .datetimepicker {
+          width: 100%;
+          input { font-size: 16px; }
+        }
+        input[type="text"] { border: 0; }
+        #keywords { width: 100%; }
+        input[type="radio"] {
+          margin: 0px 5px;
+          vertical-align: 10%;
+        }
+        input[type="button"] {
+          padding-left: 0px;
+          font-size: 18px;
+          background-color: inherit;
+          color: $link-colour;
+          border: none;
+          margin-top: 10px;
+        }
+        h3 {
+          color: $text-colour;
+          margin: 0 0 7px 0;
+        }
+        div {
+          margin-bottom: 2px;
+          padding: 5px;
+          background-color: $page-colour;
+          font-size: 16px;
+          span {
+            padding-left: 5px;
+          }
+        }
+        span { font-size: 16px; }
+      }
+
+      a {
+        display: block;
+      }
+    }
+  }
+}
+
