@@ -19,7 +19,7 @@ end
 #
 # PQ Early Bird email (schedule after the first of the nightly imports)
 #
-every 1.day, :at => '5:30 am' do
+every :weekday, :at => '5:30 am' do
   rake 'pqa:early_bird'
 end
 #

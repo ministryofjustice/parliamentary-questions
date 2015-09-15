@@ -5,3 +5,4 @@ $(document).ready(function () {
     GOVUK.stickAtTopWhenScrolling.init();
     GOVUK.stopScrollingAtFooter.addEl($(footer), $(footer).height());
 });
+
