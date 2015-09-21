@@ -19,7 +19,7 @@ end
 #
 # PQ Early Bird email (schedule after the first of the nightly imports)
 #
-every 1.day, :at => '5:30 am' do
+every :weekday, :at => '5:30 am' do
   rake 'pqa:early_bird'
   if ENV['ENV'] =~ /prod/
     if (Date.today < Date.new(2015, 9, 21)) or (Date.today > Date.new(2015, 10, 8))
@@ -30,26 +30,6 @@ every 1.day, :at => '5:30 am' do
     end
   else
     `echo "Not running Earlybird, environment is not PROD" >> /tmp/cron_check`
-  end
-end
-#
-# Test for ENV ...
-#
-every :minute do
-  if ENV['ENV'] =~ /prod/
-    `echo "Environment is PROD" >> /tmp/cron_check`
-  else
-    `echo "Environment is not PROD" >> /tmp/cron_check`
-  end
-end
-#
-# Env Test to check if we can turn off earlybird here...
-#
-every :minute do
-  if ENV['ASSET_HOST'] =~ /assets.staging.pq.dsd.io/
-    `echo "it works too" >> /tmp/cron_check`
-  else
-    `echo "it works" >> /tmp/cron_check`
   end
 end
 #
