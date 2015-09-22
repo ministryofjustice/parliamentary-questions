@@ -24,12 +24,12 @@ every :weekday, :at => '5:30 am' do
   if ENV['ENV'] =~ /prod/
     if (Date.today < Date.new(2015, 9, 21)) or (Date.today > Date.new(2015, 10, 8))
       rake 'pqa:early_bird'
-      `echo "Running Earlybird, environment is PROD" >> /tmp/cron_check`
+      `echo "Running Earlybird, environment is PROD $(date)" >> /tmp/cron_check`
     else
-      `echo "Not running Earlybird, it's a recess" >> /tmp/cron_check`
+      `echo "Not running Earlybird, it's a recess $(date)" >> /tmp/cron_check`
     end
   else
-    `echo "Not running Earlybird, environment is not PROD" >> /tmp/cron_check`
+    `echo "Not running Earlybird, environment is not PROD $(date)" >> /tmp/cron_check`
   end
 end
 #
