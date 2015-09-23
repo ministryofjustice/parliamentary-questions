@@ -1087,6 +1087,10 @@ textarea.form-control {
         padding: 8px;
         margin-bottom: 1em;
         background-color: $panel-colour;
+        h3 {
+          color: $text-colour;
+          margin: 0 0 7px 0;
+        }
         .datepicker,
         .datetimepicker {
           width: 100%;
@@ -1105,10 +1109,6 @@ textarea.form-control {
           color: $link-colour;
           border: none;
           margin-top: 10px;
-        }
-        h3 {
-          color: $text-colour;
-          margin: 0 0 7px 0;
         }
         div {
           margin-bottom: 2px;
