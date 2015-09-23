@@ -67,7 +67,7 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
       expectedCC = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
-     
+
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
@@ -109,6 +109,18 @@ describe 'PQAcceptedMailer' do
       expect(mail.text_part.body).to include 'HoL'
       expect(mail.html_part.body).to include 'HoL'
     end
+
+    it 'should contain the right guidance address ' do
+      pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+
+      trigger_acceptance_mail(pq, ao)
+
+      mail = ActionMailer::Base.deliveries.first
+
+      expect(mail.text_part.body).to include 'http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/written-pqs-guidance.pdf'
+      expect(mail.html_part.body).to include 'http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/written-pqs-guidance.pdf'
+    end
+
 
     it 'should add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question' do
 
