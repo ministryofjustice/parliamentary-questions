@@ -140,7 +140,7 @@ var document, $, trimLink, ga;
         questionDateLocation = ".deadline-date";
       }
       
-      $('#dashboard ul li').each(function (i, li){
+      $('#dashboard ul li.question').each(function (i, li){
         if ( $(li).has(questionDateLocation).length ) {
           if ( $(this).find(questionDateLocation).text().length > 0 ) {
             questionDate = $(this).find(questionDateLocation).text();
@@ -171,7 +171,7 @@ var document, $, trimLink, ga;
 
     var filterByCheckbox = function (filter, value) {
 
-      $('#dashboard ul li').each(function (i, li){
+      $('#dashboard ul li.question').each(function (i, li){
         if ( $(li).has(filter).length ) {
           if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
             $(li).css('display', 'block');
@@ -187,7 +187,7 @@ var document, $, trimLink, ga;
       var escapedText = value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
       var textToSearch = new RegExp(escapedText, 'i');
 
-      $('#dashboard ul li').each(function (i, li) {
+      $('#dashboard ul li.question').each(function (i, li) {
         var questionText = $(li).text();
         if ( textToSearch.test(questionText) && $(li).css("display") != "none") {
           $(li).css('display', 'block');
@@ -411,10 +411,6 @@ var document, $, trimLink, ga;
       });
 
     }
-
-    //==========================================================================
-    // = Dashboard filtering ====================================================
-    //==========================================================================
 
     $('#dashboard #filters input').change(function (event) {
       if (
