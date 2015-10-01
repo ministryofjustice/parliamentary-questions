@@ -1,6 +1,6 @@
 module RakeTaskHelpers
   class DBSanitizer
-    SANITIZABLE_TABLES = 
+    SANITIZABLE_TABLES =
     {
       'action_officers'    => 'ao',
       'actionlist_members' => 'alm',
@@ -8,13 +8,14 @@ module RakeTaskHelpers
       'minister_contacts'  => 'mc',
       'press_officers'     => 'po',
       'users'              => 'u',
-      'watchlist_members'  => 'wlm'
+      'watchlist_members'  => 'wlm',
+      'early_bird_members'  => 'ebm'
     }
 
     def run!
       SANITIZABLE_TABLES.each do |table, abbreviation|
         sanitize_email(table, abbreviation)
-      end 
+      end
     end
 
     private
