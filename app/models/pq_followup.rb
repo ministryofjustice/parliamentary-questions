@@ -18,7 +18,9 @@ module PqFollowup
         follow_up.update!(attrs)
 
         ao_pq = action_officers_pqs.find(&:accepted?)
-        ao_pq.update(pq_id: follow_up.id) if ao_pq
+        ActionOfficersPq.create!(
+          pq_id: follow_up.id,
+          action_officer_id: ao_pq.action_officer_id)
       end
 
       follow_up
