@@ -41,9 +41,10 @@ module Export
       'AO Email'
     ]
 
-    def initialize(date_from, date_to)
+    def initialize(date_from, date_to, pqs_comma_separated = nil)
       @date_from = rebase(date_from)
       @date_to   = rebase(date_to)
+      @pqs_list  = pqs_comma_separated
     end
 
     def to_csv
@@ -99,5 +100,6 @@ module Export
     def rebase(date)
       date + 1.day - 1.minutes
     end
+
   end
 end

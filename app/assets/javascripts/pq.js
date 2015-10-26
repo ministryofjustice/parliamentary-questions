@@ -139,7 +139,7 @@ var document, $, trimLink, ga;
       else {
         questionDateLocation = ".deadline-date";
       }
-      
+
       $('#dashboard ul li').each(function (i, li){
         if ( $(li).has(questionDateLocation).length ) {
           if ( $(this).find(questionDateLocation).text().length > 0 ) {
@@ -162,7 +162,7 @@ var document, $, trimLink, ga;
           }
         }
         else if ( (filter == ".answer-to") || (filter == ".deadline-to") && $(li).css("display") != "none" ) {
-          if ( mQuestionDate.isAfter(mFilterDate) ) { 
+          if ( mQuestionDate.isAfter(mFilterDate) ) {
             $(li).css('display', 'none');
           }
         }
@@ -339,6 +339,24 @@ var document, $, trimLink, ga;
       $('.form-commission').each(function() {
        setCommissionButtonStatus($(this));
       });
+
+
+      // Dashboard - Quick Action Export
+      $('#quick-action-export').on('ajax:success', function(e, data) {
+          alert("JS: quick-action-export returns Success!");
+        $(this).replaceWith(data);
+        //  $(this).after(data);
+      }).on('ajax:error', function(e, xhr) {
+          // the data passed to the backend was invalid
+          alert("JS: quick-action-export returns error!");
+          var errorText = xhr.status === 400 ?
+              'Invalid input. Bad Data.' :
+              'Very Bad data.';
+          $(this).find('.quick-action-export-error-message')
+              .text(errorText)
+              .css('display', 'inline-block');
+      });
+
 
       // commisioning a question and showing the success message on the dashboard page
       $('.form-commission')
