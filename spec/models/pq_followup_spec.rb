@@ -25,6 +25,7 @@ describe PqFollowup do
     service = AssignmentService.new
     service.accept(assignment)
     pq2 = pq.find_or_create_follow_up
+
     expect(pq2.uin).to eql('HL789-IWW')
   end
 

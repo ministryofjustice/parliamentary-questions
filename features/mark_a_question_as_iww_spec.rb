@@ -44,6 +44,7 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     expect_pq_in_progress_status(@iww_uin, 'Draft Pending')
 
     visit pq_path(@iww_uin)
+
     click_on "Answer"
     expect(page).not_to have_text("Create 'I will write' follow up")
     click_on "PQ commission"
