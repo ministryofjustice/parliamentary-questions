@@ -229,9 +229,9 @@ class Pq < ActiveRecord::Base
   end
 
   def question_type_header
-    header = '| '
-    header = header + 'Ordinary' if self.question_type == 'Ordinary'
-    header = header + 'Named Day' if self.question_type == 'NamedDay'
+    header = ''
+    header = header + '| Ordinary' if self.question_type == 'Ordinary'
+    header = header + '| Named Day' if self.question_type == 'NamedDay'
     header = header + ' | Transferred in' if self.transferred?
     header = header + ' | I will write' if self.i_will_write?
     header
