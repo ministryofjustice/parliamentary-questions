@@ -20,7 +20,7 @@ module PqFollowup
         ao_pq = action_officers_pqs.find(&:accepted?)
         ActionOfficersPq.create!(
           pq_id: follow_up.id,
-          action_officer_id: ao_pq.action_officer_id)
+          action_officer_id: ao_pq.action_officer_id).accept
       end
 
       follow_up
