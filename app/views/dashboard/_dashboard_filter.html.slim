@@ -6,11 +6,11 @@
       //input#draft_reminder.quick_action type="button" value="Draft reminder"
     //form#editDates
       //input#edit_dates.quick_action type="button" value="Edit PQ dates"
-    form#csvExport method="post" enctype="multipart/form-data" action="/" accept-charset="UTF-8"
+    form#csvExport method="post" enctype="multipart/form-data" action="/export" accept-charset="UTF-8"
       input#csvExportButton type="button" value="Export PQs to CSV"
       .content.collapsed
         #selectionCount.notice
-        input#chosenQestions type="hidden" name="csvExport" value=""
+        //input#chosenQestions type="hidden" name="csvExport" value=""
         input#do-export class="button" type="submit" value="Export"
         input#cancel-export class="button button-cancel button-secondary" type="reset" value="Cancel"
 

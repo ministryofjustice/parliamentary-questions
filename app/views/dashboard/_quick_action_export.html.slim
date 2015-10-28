@@ -9,6 +9,5 @@
       .form-group
         = hidden_field_tag :date_from, '04/06/2014'
         = hidden_field_tag :date_to, Date.today.to_s(:date)
-        = hidden_field :pqs_comma_separated, :value => 'DemoPQ-4,DemoPQ-3'
-        = hidden_field_tag :pqs_comma_separated2, 'DemoPQ-4,DemoPQ-3'
+        = hidden_field_tag :pqs_comma_separated, 'Uin1', :id =>'chosenQestions'
         = submit_tag 'Download CSV', class: 'button'
