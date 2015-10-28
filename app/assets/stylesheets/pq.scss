@@ -66,7 +66,7 @@ footer {
 label {
   display: block;
   font-weight: normal;
-  clear: both;
+  //clear: both;
 }
 
 //==============================================================================
@@ -339,6 +339,20 @@ textarea.form-control {
 
 // = linear list of questions (found on dashboard and filter views) =============
 
+#select-all-questions {
+  padding: 0px;
+  label {
+    max-width: 655px;
+    padding: .5em 0em;
+    border-bottom: 2px solid $grey-2;
+    input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+  }
+}
+
 .questions-list {
   padding: 0px 45px 20px 0px;
   > li {
@@ -361,10 +375,14 @@ textarea.form-control {
 }
 
 .pq-header {
-    line-height: 27px;
-    margin-bottom: 20px;
-    .col-md-5 { padding-left: 0px; }
-    input[type="checkbox"] { margin-right: 10px; }
+  line-height: 27px;
+  margin-bottom: 20px;
+  .col-md-5 { padding-left: 0px; }
+  input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
 }
 .pq-header-flags {display: inline-block;}
 .question-type {
@@ -490,15 +508,26 @@ textarea.form-control {
 
 // = Navigation bar ============================================================
 
-.navbar-default .navbar-nav li a {
-  color: $text-colour; // override bootstrap
+.navbar, .navbar-default { background-color: $page-colour; }
+
+.navbar-default { border: 1px solid #e6e6e6; background-color: #DEE0E2;}
+
+.navbar-default .navbar-nav > li > a {
+  color: #0b0c0c; // override bootstrap
   &::hover {
     color: $secondary-text-colour;
   }
 }
 
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  text-decoration: none;
+  color: #55555;
+  background-color: #e7e7e7;
+}
+
 .navbar {
-  background-color: $grey-3;
   border-radius: 0px;
   #settings { margin-right: 65px; }
   #search_field {
@@ -1072,65 +1101,131 @@ textarea.form-control {
 /* = In-progress page ========================================================== */
 
 #dashboard {
+
   #count {
     max-width: 655px;
     background-color: $highlight-colour;
     padding: .7em 0 .7em .7em;
     border-left: 5px solid $border-colour;
-    margin: 1em 0 2em 0;
+    margin: .5em 0;
+    @media screen and ( min-width: 991px ) {
+      strong { margin-left: -215px; }
+    }
   }
-  .replying-minister { margin-right: .5em; }
+
   #sidebar {
     padding: 0px;
-    #filters {
-      background-color: $white;
-      h2 {
-        color: $text-colour;
-        font-size: 19px;
-        font-weight: bold;
-        margin-bottom: 10px;
+
+    h2 {
+      color: $text-colour;
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    input[type="button"]{
+      padding-left: 0px;
+      border: none;
+      color: $link-colour;
+      background-color: $page-colour;
+    }
+
+    #quick-links, #filters { margin: 0.5em 0em; }
+
+    #quick-links {
+      h2 {}
+      form {}
+      padding-bottom: 30px;
+      border-bottom: 2px solid $grey-2;
+
+      input[type="submit"] { margin-right: 10px; }
+
+      // Copied from the filters area.
+      .content {
+        .notice {
+          background: $grey-4;
+          border-left: 5px solid $grey-2;
+          margin: 15px 0px;
+          padding: 0.7em 0px 0.7em 0.7em;
+        }
       }
+      .collapsed { display: none; }
+    }
+
+    #filters {
+
+      padding-top: 30px;
+
       .filter-box {
-        padding: 8px;
-        margin-bottom: 1em;
+        padding: 4px 8px;
         background-color: $panel-colour;
-        .datepicker,
-        .datetimepicker {
-          width: 100%;
-          input { font-size: 16px; }
-        }
-        input[type="text"] { border: 0; }
-        #keywords { width: 100%; }
-        input[type="radio"] {
-          margin: 0px 5px;
-          vertical-align: 10%;
-        }
-        input[type="button"] {
-          padding-left: 0px;
-          font-size: 18px;
-          background-color: inherit;
-          color: $link-colour;
-          border: none;
-          margin-top: 10px;
-        }
+        margin: 0.5em 0em;
+
         h3 {
           color: $text-colour;
-          margin: 0 0 7px 0;
+          display: inline-block;
+          margin: 4px 0px;
         }
-        div {
-          margin-bottom: 2px;
-          padding: 5px;
-          background-color: $page-colour;
-          font-size: 16px;
-          span {
-            padding-left: 5px;
-          }
+        
+        .notice {
+          display: none;
+          width: 100%;
+          span { color: #ff0000; }
         }
-        span { font-size: 16px; }
-      }
 
-      a {
-        display: block;
+        .right {
+          float: right;
+          background-color: inherit;
+          border: none;
+          margin-top: 4px;
+        }
+
+        .view {
+          width: 100%;
+          text-align: left;
+          color: $text-colour;
+          background-image: url('option-select-toggle-sprite.png');
+          background-repeat: no-repeat;
+          background-attachment: scroll;
+          background-clip: border-box;
+          background-origin: padding-box;
+          background-size: auto auto;
+          background-color: $panel-colour;
+        }
+
+        .open { background-position: right -82px; }
+        .closed { background-position: right 0px; }
+        .collapsed { display: none; }
+
+        .content {
+          .form-group { margin-bottom: 0px; }
+
+          .datepicker {
+            background-color: $page-colour;
+            width: 100%;
+          }
+
+          .list { 
+            background-color: $page-colour;
+            margin: 5px 0px;
+
+            label {
+              padding: 8px;
+              margin-bottom: 0px; // Override bootstrap
+              font-size: 16px;
+              &:not(:last-child) { border-bottom: 1px solid $panel-colour; }
+              input[type="radio"] {
+                margin-right: 8px;
+                width: 16px;
+                height: 16px;
+              }
+            }
+
+            label:hover { background: $yellow; }
+
+          }
+          #keywords { width: 100%; }
+          .clearFilter { height: 1.5em; }
+        }
       }
     }
   }
