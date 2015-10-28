@@ -1,6 +1,8 @@
 module Export
   class PqSelection < Base
 
+    DATE_FORMAT  = '%Y-%m-%d %H:%M'
+
     HEADINGS = [
       'PIN',
     'MP',
@@ -22,22 +24,29 @@ module Export
     def csv_fields(pq, ao)
       [ pq.uin,                                                         # 'PIN',
         pq.member_name,                                                 # 'MP',
-        pq.internal_deadline,                                           # 'Draft due to Parly Branch',
-        pq.date_for_answer,                                             # 'Date Due in Parliament',
+        empty_or_date(pq.internal_deadline),                     # 'Draft due to Parly Branch',
+        empty_or_date(pq.date_for_answer),                       # 'Date Due in Parliament',
         pq.question,                                                    # 'Full_PQ_subject',
         pq.minister && pq.minister.name,                                # 'Minister',
-        pq.state,
-        ao && ao.name,                                                   # 'Action Officer',
-        pq.original_division && pq.original_division.name,                                # 'Division',
+        PQState.state_label(pq.state),
+        ao && ao.name,                                                  # 'Action Officer',
+        pq.original_division && pq.original_division.name,              # 'Division',
         pq.question_type,                                               # 'Type of Question',
-        pq.tabled_date,                                                 # 'Date First Appeared in Parliament',
-        pq.draft_answer_received,                                       # 'Date Draft Returned to PB',
-        pq.sent_to_answering_minister,                                  # 'Date delivered to Minister',
-        pq.cleared_by_answering_minister,                                # 'Returned signed from Minister',
-        pq.answer_submitted                                            # 'Date response answered by Parly (dept)',
+        empty_or_date(pq.tabled_date),                           # 'Date First Appeared in Parliament',
+        empty_or_date(pq.draft_answer_received),                 # 'Date Draft Returned to PB',
+        empty_or_date(pq.sent_to_answering_minister),            # 'Date delivered to Minister',
+        empty_or_date(pq.cleared_by_answering_minister),         # 'Returned signed from Minister',
+        empty_or_date(pq.answer_submitted)                       # 'Date response answered by Parly (dept)',
       ]
     end
 
+    def empty_or_date(this_date)
+      if this_date.nil?
+         ''
+      else
+        this_date.strftime('%Y-%m-%d %H:%M')
+      end
+    end
 
     def to_csv
       CSV.generate do |csv|
