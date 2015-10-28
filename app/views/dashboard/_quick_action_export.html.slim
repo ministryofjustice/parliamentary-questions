@@ -1,0 +1,14 @@
+#csv-export
+  h1
+    ' Export PQs to
+    abbr title="Comma Separated Values" CSV
+  = render partial: 'shared/flash_messages'
+  h2 Select the range of dates to do the export
+  = form_tag controller: 'export', action: 'csv_quick' do
+    fieldset
+      .form-group
+        = hidden_field_tag :date_from, '04/06/2014'
+        = hidden_field_tag :date_to, Date.today.to_s(:date)
+        = hidden_field :pqs_comma_separated, :value => 'DemoPQ-4,DemoPQ-3'
+        = hidden_field_tag :pqs_comma_separated2, 'DemoPQ-4,DemoPQ-3'
+        = submit_tag 'Download CSV', class: 'button'

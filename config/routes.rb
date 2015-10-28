@@ -54,6 +54,10 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
   post 'commission'                  => 'commission#commission', as: :commission
 
+  get 'quick_action_export'     => 'quick_action_export#new'
+  post 'quick_action_export' => 'quick_action_export#new'
+  get 'quick_action_export/export' => 'quick_action_export#export'
+
   get '/', to: 'root#index', as: :root
   get 'dashboard'             => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'
@@ -103,6 +107,9 @@ ParliamentaryQuestions::Application.routes.draw do
 
   match 'export_pod/pq_pod.csv' => 'export#csv_for_pod', via: [:get, :post]
   get 'export_pod'              => 'export#index_for_pod'
+
+  match 'export/csv_quick' => 'export#csv_quick', via: [:get, :post]
+  get 'export'          => 'export#index'
 
   get 'reports/ministers_by_progress'  => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'

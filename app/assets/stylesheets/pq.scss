@@ -684,6 +684,13 @@ textarea.form-control {
     box-shadow: 0px 2px 0px darkblue;
   }
 
+  // errors that show when Quick Actions failed
+  .quick-action-export-error-message {
+    display: none;
+    color: $error-colour;
+    padding: 1em 0 0 2em;
+  }
+
   // errors that show when commissioning failed
   .commissioning-error-message {
     display: none;
