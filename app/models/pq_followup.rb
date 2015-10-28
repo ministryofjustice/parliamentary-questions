@@ -59,7 +59,6 @@ module PqFollowup
     'library_deposit',
     'pq_withdrawn',
     'holding_reply_flag',
-    'final_response_info_released',
     'round_robin_guidance_received',
     'transfer_out_ogd_id',
     'transfer_out_date',

@@ -55,7 +55,6 @@
 #  library_deposit                               :boolean
 #  pq_withdrawn                                  :datetime
 #  holding_reply_flag                            :boolean
-#  final_response_info_released                  :string(255)
 #  round_robin_guidance_received                 :datetime
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
