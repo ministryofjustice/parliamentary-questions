@@ -259,24 +259,25 @@ var document, $, trimLink, ga;
   var quickActionSelections = function(){
 
     var questionIDsSelected = "";
+    var uinSelected = "";
     var selectionCount = 0;
 
     $('#dashboard .question .pq-header input[type="checkbox"]:checked').each(function() {
-      questionIDsSelected = questionIDsSelected.concat($(this).val() + ",");
+      uinSelected = uinSelected.concat($(this).prop('id') + ",");
       selectionCount++;
     });
 
     if (selectionCount > '0') {
       // Remove trailing ',' from ID string;
-      questionIDsSelected = questionIDsSelected.slice(0,-1);
+      uinSelected = uinSelected.slice(0,-1);
 
-      $('#chosenQestions').val(questionIDsSelected);
+      $('#chosenQestions').val(uinSelected);
       $('#selectionCount').html("Export " + selectionCount + " selected PQs?");
     }
     else { $('#selectionCount').html("No PQs selected"); }
 
     console.log("===========================================");
-    console.log("questionIDsSelected: " + questionIDsSelected);
+    console.log("UINs Selected: " + uinSelected);
     console.log("===========================================");
     console.log("Number selected: " + selectionCount);
     console.log("===========================================");
