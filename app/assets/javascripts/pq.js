@@ -161,6 +161,7 @@ var document, $, trimLink, ga;
           }
         }
         else if ( $(li).css("display") != "none" ) {
+          $(this).find('input[type="checkbox"]').prop('checked', false);
           $(li).css('display', 'none');
         }
 
@@ -169,11 +170,13 @@ var document, $, trimLink, ga;
 
         if ( (filter == ".answer-from") || (filter == ".deadline-from") && $(li).css("display") != "none" ) {
           if ( mQuestionDate.isBefore(mFilterDate) ) {
+            $(this).find('input[type="checkbox"]').prop('checked', false);
             $(li).css('display', 'none');
           }
         }
         else if ( (filter == ".answer-to") || (filter == ".deadline-to") && $(li).css("display") != "none" ) {
           if ( mQuestionDate.isAfter(mFilterDate) ) {
+            $(this).find('input[type="checkbox"]').prop('checked', false);
             $(li).css('display', 'none');
           }
         }
@@ -189,9 +192,15 @@ var document, $, trimLink, ga;
           if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
             $(li).css('display', 'block');
           }
-          else { $(li).css('display', 'none'); }
+          else {
+            $(this).find('input[type="checkbox"]').prop('checked', false);
+            $(li).css('display', 'none');
+          }
         }
-        else { $(li).css('display', 'none'); }
+        else {
+          $(this).find('input[type="checkbox"]').prop('checked', false);
+          $(li).css('display', 'none');
+        }
       });
     };
 
@@ -207,7 +216,10 @@ var document, $, trimLink, ga;
         if ( textToSearch.test(questionText) && $(li).css("display") != "none") {
           $(li).css('display', 'block');
         }
-        else { $(li).css('display', 'none'); }
+        else {
+          $(this).find('input[type="checkbox"]').prop('checked', false);
+          $(li).css('display', 'none');
+        }
       });
     };
 
@@ -247,6 +259,7 @@ var document, $, trimLink, ga;
       }
     };
 
+    $('#select-all').prop('checked', false);
     showAllInProgress();
     getFilterValues();
     questionCounter();
@@ -273,8 +286,12 @@ var document, $, trimLink, ga;
 
       $('#chosenQestions').val(uinSelected);
       $('#selectionCount').html("Export " + selectionCount + " selected PQs?");
+      $('#do-export').removeAttr("disabled", "disabled");
     }
-    else { $('#selectionCount').html("No PQs selected"); }
+    else { 
+      $('#selectionCount').html("No PQs selected");
+      $('#do-export').attr("disabled", "disabled");
+    }
 
     console.log("===========================================");
     console.log("UINs Selected: " + uinSelected);
@@ -569,6 +586,7 @@ var document, $, trimLink, ga;
         console.log("This has been checked");
         $('#dashboard .question .pq-header').each(function() {
           $('input[type="checkbox"]').prop('checked', true);
+          selectionCount++;
         });
       }
       // Unchecked checked
