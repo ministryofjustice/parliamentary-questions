@@ -1,6 +1,6 @@
 #dashboard
   = render partial: "shared/flash_messages", flash: flash
-  = render partial: "dashboard/quick_action_export", locals: {total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated}
+  //= render partial: "dashboard/quick_action_export", locals: {total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated}
   = render partial: "dashboard_filter"
   = render partial: "dashboard/questions_list", locals: {questions: @questions, action_officers: @action_officers }
 
