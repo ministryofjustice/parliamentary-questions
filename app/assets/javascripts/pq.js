@@ -130,7 +130,7 @@ var document, $, trimLink, ga;
       selectionCount++;
     });
     if (selectionCount > '0') {
-      $('#selectionCount').html("Export " + selectionCount + " selected PQs?");
+      $('#selectionCount').html("Export " + selectionCount + " selected PQs?")
       $('#do-export').removeAttr("disabled", "disabled");
     }
     else {
@@ -267,6 +267,7 @@ var document, $, trimLink, ga;
       });
     };
 
+    // Trigger filtering only in inputs with a value.
     var getFilterValues = function(){
       if ( ( $answerFrom.val() != undefined ) && ( $answerFrom.val().trim().length > 0 ) ) {
         filterByDateRange(".answer-from", $('#answer-from').val());
@@ -505,11 +506,9 @@ var document, $, trimLink, ga;
 
     }
 
-
-
     var $dashboardFilters = $('#dashboard #filters input');
 
-      $dashboardFilters.change(function (event) {
+    $dashboardFilters.change(function (event) {
       if (
         $(event.target).is('#answer-from') ||
         $(event.target).is('#answer-to') ||
@@ -521,7 +520,7 @@ var document, $, trimLink, ga;
       }
     });
 
-      $dashboardFilters.on('click', function (event) {
+    $dashboardFilters.on('click', function (event) {
       if ($(event.target).is('#answer-date-today')) {
         $('#answer-from').val(today) && $('#answer-to').val(today);
       }
@@ -550,7 +549,7 @@ var document, $, trimLink, ga;
       filterQuestions();
     });
 
-      $dashboardFilters.on('keyup', function (event) {
+    $dashboardFilters.on('keyup', function (event) {
       if ($(event.target).is('#keywords')) {
         filterQuestions();
       }
