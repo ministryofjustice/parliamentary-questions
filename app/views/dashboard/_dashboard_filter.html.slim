@@ -2,19 +2,6 @@
 
   #quick-links
     h2 Quick actions
-    //form#draftReminder
-      //input#draft_reminder.quick_action type="button" value="Draft reminder"
-    //form#editDates
-      //input#edit_dates.quick_action type="button" value="Edit PQ dates"
-    //form#csvExport method="post" enctype="multipart/form-data" action="/export" accept-charset="UTF-8"
-      //input#csvExportButton type="button" value="Export PQs to CSV"
-      //.content.collapsed
-        //#selectionCount.notice
-        //input#chosenQestions type="hidden" name="csvExport" value=""
-        //input#do-export class="button" disabled="disabled" type="submit" value="Export"
-        //input#cancel-export class="button button-cancel button-secondary" type="reset" value="Cancel"
-
-    //br
 
     = render partial: "dashboard/quick_action_export", locals: {total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated}
 

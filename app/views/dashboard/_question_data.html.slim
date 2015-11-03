@@ -8,7 +8,7 @@
       html: {:id => "uin-#{question.id}", :class => 'in-progress-checkbox', :data => {pqid: question.id}},
       url: commission_path do |f|
 
-    input id="#{question.uin}" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
+    input id="#{question.uin}" class="pq-select" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
     h2
       u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin")
 
