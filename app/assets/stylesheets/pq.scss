@@ -1077,7 +1077,7 @@ textarea.form-control {
           }
         }
       }
-      .clearFilter {
+      #clearFilter {
         font-size: 18px;
         background-color: $white;
         color: $link-colour;
@@ -1165,7 +1165,7 @@ textarea.form-control {
           display: inline-block;
           margin: 4px 0px;
         }
-        
+
         .notice {
           display: none;
           width: 100%;
@@ -1204,7 +1204,7 @@ textarea.form-control {
             width: 100%;
           }
 
-          .list { 
+          .list {
             background-color: $page-colour;
             margin: 5px 0px;
 

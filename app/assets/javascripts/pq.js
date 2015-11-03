@@ -380,7 +380,7 @@ var document, $, trimLink, ga;
         }
       });
 
-      $('.clearFilter').on('click', function(event) {
+      $('#clearFilter').on('click', function(event) {
         $('.filter-box div').children('input').attr('checked', false);
         $('#filters input[type="text"]').val(' ');
         filterPreviewQuestions($('#filters input[type="text"]').val(),
@@ -505,7 +505,11 @@ var document, $, trimLink, ga;
 
     }
 
-    $('#dashboard #filters input').change(function (event) {
+
+
+    var $dashboardFilters = $('#dashboard #filters input');
+
+      $dashboardFilters.change(function (event) {
       if (
         $(event.target).is('#answer-from') ||
         $(event.target).is('#answer-to') ||
@@ -517,7 +521,7 @@ var document, $, trimLink, ga;
       }
     });
 
-    $('#dashboard #filters input').on('click', function (event) {
+      $dashboardFilters.on('click', function (event) {
       if ($(event.target).is('#answer-date-today')) {
         $('#answer-from').val(today) && $('#answer-to').val(today);
       }
@@ -546,7 +550,7 @@ var document, $, trimLink, ga;
       filterQuestions();
     });
 
-    $('#dashboard #filters input').on('keyup', function (event) {
+      $dashboardFilters.on('keyup', function (event) {
       if ($(event.target).is('#keywords')) {
         filterQuestions();
       }
