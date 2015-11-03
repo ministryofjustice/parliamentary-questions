@@ -16,7 +16,7 @@ feature "Parli-branch manages trim link" , js: true do
   before(:each) do
     DBHelpers.load_feature_fixtures
     @pq, _ = PQA::QuestionLoader.new.load_and_import
-    set_seen_by_finance
+
     create_pq_session
   end
 

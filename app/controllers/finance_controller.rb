@@ -3,15 +3,14 @@ class FinanceController < ApplicationController
 
   def questions
     @page_title = 'New PQs today'
-    @questions = Pq.not_seen_by_finance.order(:internal_deadline).load
+    @questions = Pq.new_questions.sorted_for_dashboard
   end
 
   def confirm
     params[:pq].each do |id, values|
-      seen_by_finance = values['seen_by_finance']
       finance_interest = values['finance_interest'] || false
       pq = Pq.find(id)
-      pq.update(seen_by_finance: seen_by_finance, finance_interest: finance_interest)
+      pq.update(finance_interest: finance_interest)
     end
 
     flash[:success] = 'Successfully registered interest in the questions'

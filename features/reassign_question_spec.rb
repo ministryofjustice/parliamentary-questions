@@ -11,7 +11,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     DBHelpers.load_feature_fixtures
     clear_sent_mail
     @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
-    set_seen_by_finance
+
   end
 
   after(:all) do

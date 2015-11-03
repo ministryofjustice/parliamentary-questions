@@ -24,7 +24,7 @@ feature 'Minister Report', js: true do
   before(:each) do
     DBHelpers.load_feature_fixtures
     @pq1, @pq2, _ = PQA::QuestionLoader.new.load_and_import(10)
-    set_seen_by_finance
+
     clear_sent_mail
     create_pq_session
   end

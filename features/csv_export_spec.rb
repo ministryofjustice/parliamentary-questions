@@ -9,7 +9,6 @@ feature 'Exporting PQ data to CSV' do
     DBHelpers.load_feature_fixtures
 
     @pqs =  PQA::QuestionLoader.new.load_and_import(3)
-    set_seen_by_finance
   end
 
   scenario 'Parli-branch can export pq data as CSV' do

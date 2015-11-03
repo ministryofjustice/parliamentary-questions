@@ -1,4 +1,5 @@
 # == Schema Information
+# == Schema Information
 #
 # Table name: pqs
 #
@@ -224,9 +225,6 @@ class Pq < ActiveRecord::Base
     end
   end
 
-  def deleted?
-    !seen_by_finance?
-  end
 
   def question_type_header
     header = '| '

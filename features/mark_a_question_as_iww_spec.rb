@@ -12,7 +12,6 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     @ao       = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister = Minister.first
 
-    set_seen_by_finance
   end
 
   before(:each) do

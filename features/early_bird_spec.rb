@@ -68,7 +68,6 @@ feature "Early bird member sees allocated questions", suspend_cleaner: true do
 
     q = Pq.first
     q.uin = "1"
-    q.seen_by_finance   = true
     q.minister          = Minister.find_by(name: 'Chris Grayling')
     #q.action_officers   = aos
     q.internal_deadline = Date.today + 1.day
