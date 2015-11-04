@@ -289,12 +289,6 @@ describe Pq do
     end
   end
 
-  describe '#not_seen_by_finance' do
-    subject! { create(:pq) }
-    before { create(:checked_by_finance_pq) }
-    it { expect(described_class.not_seen_by_finance).to eq [subject] }
-  end
-
   describe 'allocated_since' do
     let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days)}
     let!(:new_pq1) { create(:not_responded_pq, uin: '20001', action_officer_allocated_at: Time.now + 3.hours)}

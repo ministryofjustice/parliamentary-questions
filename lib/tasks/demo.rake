@@ -75,7 +75,6 @@ question = Pq.create!(
     :raising_member_id => old_pq.raising_member_id,
           :tabled_date => 1.days.ago,
              :question => old_pq.question,
-      :seen_by_finance => false,
                   :uin => new_uin,
           :member_name => old_pq.member_name,
   :member_constituency => old_pq.member_constituency,
@@ -89,10 +88,6 @@ question = Pq.create!(
          :state_weight => 0
   )
 end
-
-
-
-
 
 
 def delete_existing_demo_questions
@@ -111,13 +106,13 @@ end
 
 def create_question(i, seed_question)
   uin = (seed_question.uin.to_i + 600000).to_s
-  
+
   question = Pq.create!(
                                          :house_id => nil,
                                 :raising_member_id => 2479,
                                       :tabled_date => 1.days.ago,
                                          :question => seed_question.question,
-                                  :seen_by_finance => true,
+                                 # :seen_by_finance => true,
                                               :uin => uin,
                                       :member_name => seed_question.member_name,
                               :member_constituency => seed_question.member_constituency,

@@ -8,7 +8,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
 
     clear_sent_mail
     @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
-    set_seen_by_finance
+
   end
 
   after(:all) do

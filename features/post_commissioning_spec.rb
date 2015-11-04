@@ -12,7 +12,6 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     @minister           = Minister.first
     @uin1, @uin2, @uin3 = pq1.uin, pq2.uin, pq3.uin
 
-    set_seen_by_finance
   end
 
   before(:each) do

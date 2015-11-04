@@ -6,7 +6,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
   before(:all) do
     DBHelpers.load_feature_fixtures
     clear_sent_mail
-    @aos  = ActionOfficer.where("email like 'ao%@pq.com'") 
+    @aos  = ActionOfficer.where("email like 'ao%@pq.com'")
     @pq   = generate_dummy_pq(@aos)
   end
 
@@ -35,7 +35,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
 
     expect(mail.cc).to include('test-member-a@pq.com')
     expect(url).to_not be_blank
-  end 
+  end
 
   scenario "A watchlist member follows an email link to view the list of daily questions" do
     url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
@@ -63,7 +63,6 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     PQA::QuestionLoader.new.load_and_import
 
     q = Pq.first
-    q.seen_by_finance   = true
     q.minister          = Minister.find_by(name: 'Chris Grayling')
     q.action_officers   = aos
     q.internal_deadline = Date.today + 1.day

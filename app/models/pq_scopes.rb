@@ -11,10 +11,6 @@ module PqScopes
       .order(:uin)
   end
 
-  def not_seen_by_finance
-    where(seen_by_finance: false)
-  end
-
   def filter_for_report(state, minister_id, press_desk_id)
     q = order(:internal_deadline)
     q = join_press_desks.where('pd.id = ?', press_desk_id).distinct('pqs.uin') if press_desk_id.present?

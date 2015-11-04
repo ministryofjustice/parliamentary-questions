@@ -80,7 +80,6 @@ FactoryGirl.define do
     state PQState::UNASSIGNED
 
     factory :checked_by_finance_pq do
-      seen_by_finance true
       finance_interest false
 
       factory :not_responded_pq do

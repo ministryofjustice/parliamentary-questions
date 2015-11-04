@@ -87,7 +87,6 @@ class PqsController < ApplicationController
     :press_interest,
     :progress_id,
     :round_robin,
-    :seen_by_finance,
     :transfer_in_ogd_id,
     :transfer_out_ogd_id,
     :with_pod,
