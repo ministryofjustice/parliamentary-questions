@@ -39,7 +39,7 @@ h4 {
   color: $secondary-text-colour;
 }
 
-p { margin: 0px 0px 6px 0px; }
+p { margin: 0 0 6px 0; }
 
 body {
   font-size: 19px;
@@ -73,7 +73,7 @@ label {
 // = GLOBAL CLASSES ============================================================
 //==============================================================================
 
-.row { margin: 0px; }
+.row { margin: 0; }
 
 .open { color: $page-colour; }
 
@@ -114,15 +114,15 @@ label {
 
 
 #wrapper {
-  max-width: 1024px; // width and alignment are unspecified in govuk_template
+  max-width: 1024px; // width and alignment are unspecified in gov.uk_template
   margin-left: auto;
   margin-right: auto;
   border-bottom: none; // remove blue bar at bottom added by moj_template
-  padding: 0px 32px; // align to width of content
+  padding: 0 32px; // align to width of content
 }
 
 /*
-  both govuk_template and moj_template add a hover underline.
+  both gov.uk_template and moj_template add a hover underline.
   Until moj_template's border bottom is fixed
   (https://github.com/ministryofjustice/moj_template/pull/55) we need to cancel it.
 */
@@ -151,7 +151,7 @@ label {
   font-weight:bold;
 }
 
-// override govuk-template visited links colours,
+// override gov.uk-template visited links colours,
 // as this is an application, rather than a simple web page
 @media screen {
   a:visited {
@@ -171,7 +171,7 @@ button.close {
   padding: 3px 5px;
   text-align: center;
   white-space: nowrap;
-  margin: 0px 10px 0px 0px;
+  margin: 0 10px 0 0;
   color: white;
   &.finance-unchecked { background-color: #b10e1e; }
   &.no-response { background-color: #f47738; }
@@ -225,11 +225,11 @@ li.select2-search-field {border-bottom: none;}
   }
 }
 
-.allocation-info .button { margin: 30px 0px 0px 0px; }
+.allocation-info .button { margin: 30px 0 0 0; }
 
 #pq-columns {
   .date.datetimepicker, p, select, hr, label.block-label {
-    margin: 0px 0px 20px 0px;
+    margin: 0 0 20px 0;
   }
 }
 
@@ -258,14 +258,14 @@ textarea.form-control {
 
 .form-group {
   clear: both;
-  margin: 0px 0px 20px 0px;
-  .block-label { margin: 0px 0px 20px 0px; }
+  margin: 0 0 20px 0;
+  .block-label { margin: 0 0 20px 0; }
 }
 
 .form-control,
 .form-group select {
   border-style: solid;
-  border-radius: 0px;
+  border-radius: 0;
   width: auto;
   height: auto; // override bootstrap
 }
@@ -284,8 +284,7 @@ textarea.form-control {
   float: none;
   clear: left;
   position: relative;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid;
   padding: 18px 30px 15px 45px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -319,7 +318,7 @@ textarea.form-control {
 // on all the "return to..." links
 .admin-link {
   display: block;
-  margin: 7.5px 0px;
+  margin: 7.5px 0;
 }
 
 /* found in confirmation and assignment pages*/
@@ -340,10 +339,10 @@ textarea.form-control {
 // = linear list of questions (found on dashboard and filter views) =============
 
 #select-all-questions {
-  padding: 0px;
+  padding: 0;
   label {
     max-width: 655px;
-    padding: .5em 0em;
+    padding: .5em 0;
     border-bottom: 2px solid $grey-2;
     input[type="checkbox"] {
       width: 24px;
@@ -354,12 +353,11 @@ textarea.form-control {
 }
 
 .questions-list {
-  padding: 0px 45px 20px 0px;
+  padding: 0 45px 20px 0;
   > li {
     list-style: none;
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    padding: 30px 0px 30px 0px;
+    border-bottom: 2px solid $grey-2;
+    padding: 30px 0 30px 0;
   }
   .pq-question {
     margin: .5em 0 .5em;
@@ -368,37 +366,31 @@ textarea.form-control {
   .status-bar {
     line-height: 32px;
     margin-bottom: 26px;
-    padding: 0px;
+    padding: 0;
   }
-  .pq-columns .col-md-7 { padding-left: 0px; }
+  .pq-columns .col-md-7 { padding-left: 0; }
   .pq-inline-form { display: inline!important; }
 }
 
 .pq-header {
   line-height: 27px;
   margin-bottom: 20px;
-  .col-md-5 { padding-left: 0px; }
+  .col-md-5 { padding-left: 0; }
   input[type="checkbox"] {
     width: 24px;
     height: 24px;
     margin-right: 10px;
   }
 }
-.pq-header-flags {display: inline-block;}
+
+.pq-header-flags { display: inline-block; }
+
 .question-type {
   color: $secondary-text-colour;
   font-size: 19px;
   font-weight: bold;
   margin-left: 7px;
-  /*
-  &:before {
-    content: '|';
-    margin-left: 17px;
-    margin-right: 10px;
-  }
-  */
 }
-
 
 // = Alert messages ============================================================
 
@@ -422,10 +414,8 @@ textarea.form-control {
 // = Date-time pickers =========================================================
 
 .datepicker, .datetimepicker {
-  border-style: solid;
-  border-radius: 0px;
-  border-color: $border-colour;
-  border-width: 1px;
+  border-radius: 0;
+  border: 1px solid $border-colour;
   display: inline-block;
   width: 90%;
   max-width: 218px;
@@ -436,7 +426,7 @@ textarea.form-control {
   }
 }
 
-// override jquery.datepicker's colours to match the rest of the page
+// override jquery.date picker's colours to match the rest of the page
 .xdsoft_datetimepicker .xdsoft_calendar td:hover, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
   background-color: $yellow!important;
 }
@@ -452,7 +442,7 @@ textarea.form-control {
 .table {
   clear: both;
   thead tr th, tbody tr td {
-    padding-left: 0px; // bootstrap override
+    padding-left: 0; // bootstrap override
   }
 }
 
@@ -514,7 +504,7 @@ textarea.form-control {
 
 .navbar-default .navbar-nav > li > a {
   color: #0b0c0c; // override bootstrap
-  &::hover {
+  &:hover {
     color: $secondary-text-colour;
   }
 }
@@ -523,23 +513,23 @@ textarea.form-control {
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   text-decoration: none;
-  color: #55555;
+  color: #555555;
   background-color: #e7e7e7;
 }
 
 .navbar {
-  border-radius: 0px;
+  border-radius: 0;
   #settings { margin-right: 65px; }
   #search_field {
     width: 142px;
-    border-radius: 0px;
+    border-radius: 0;
     margin-right: -4px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-size: 16px;
     height: 34px;
   }
   #search_button {
-    border-radius: 0px;
+    border-radius: 0;
     width: 34px;
     height: 34px;
     font-size: 18px;
@@ -623,26 +613,26 @@ textarea.form-control {
   clear: both;
   display: block;
   width: 100%;
-  margin: 0px 15%;
+  margin: 0 15%;
 }
 
 .pagination > li > a,
 .pagination > li > span {
-  border-top: 0px;
+  border-top: 0;
   border-bottom: none;
 }
 
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
-  border-radius: 0px;
-  border-left: 0px;
-  border-right: 0px;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
 }
 
 .pagination > li:last-child > a,
 .pagination > li:last-child > span {
-  border-radius: 0px;
-  border-right: 0px;
+  border-radius: 0;
+  border-right: 0;
 }
 
 /* ============================================================================== */
@@ -663,11 +653,11 @@ textarea.form-control {
 }
 
 /* = finance/questions page ============================================== */
-#confirmation_button_bar { padding-left: 0px; }
+#confirmation_button_bar { padding-left: 0; }
 
 /* = Dashboard page (/dashboard) ============================================ */
 
-#dashboard {
+#dashboard, #preview {
 
   h1 {
     font-size: 19px;
@@ -710,7 +700,7 @@ textarea.form-control {
   button.button-choose{
     background-color: $light-blue;
     color: $page-colour;
-    box-shadow: 0px 2px 0px darkblue;
+    box-shadow: 0 2px 0 darkblue;
   }
 
   // errors that show when Quick Actions failed
@@ -730,19 +720,19 @@ textarea.form-control {
   .dashboard-column1-uncommissioned { margin-bottom: 20px; }
 
   .dashboard-column1-commissioned .col-md-6 {
-    padding-left: 0px;
-    margin: 0px 0px 10px 0px;
+    padding-left: 0;
+    margin: 0 0 10px 0;
   }
 
   .dashboard-column-2 .text {
     display: block;
-    margin: 0px 0px 6px 0px;
+    margin: 0 0 6px 0;
   }
 
-  //formatting of the action officers listed in the PQ's on the dashboard when commisioning
+  //formatting of the action officers listed in the PQ's on the dashboard when commissioning
   .select2-search-choice div { line-height: 1em; }
 
-  // make uncommissioned questions form labels look like
+  // make un-commissioned questions form labels look like
   // h3s used for commissioned questions
   label.form-label { color: $secondary-text-colour; }
 
@@ -756,7 +746,7 @@ textarea.form-control {
     font-size: 24px;
     font-weight: bold;
     display: inline-block;
-    margin: 0px 10px 0px 0px;
+    margin: 0 10px 0 0;
   }
 
   h2 {
@@ -767,7 +757,7 @@ textarea.form-control {
 
   #progress-panel {
     .date.datetimepicker, p, .text, hr, a, label {
-      &.block-label { margin: 0px 0px 20px 0px; }
+      &.block-label { margin: 0 0 20px 0; }
       &.form-label { color: #6F777B; }
     }
     #save { margin-top: 40px; }
@@ -775,8 +765,8 @@ textarea.form-control {
 
   #pq-details-header {
     #pq-details-ref {
-      padding: 11px 0px;
-      margin: 0px;
+      padding: 11px 0;
+      margin: 0;
       #pq-details-progress { margin-left: 26px; }
     }
   }
@@ -794,7 +784,7 @@ textarea.form-control {
   }
 
   #pq-detail-area {
-    margin: 15px 0px 0px 0px;
+    margin-top: 15px;
 
     #progress-menu {
       z-index: 1;
@@ -822,20 +812,19 @@ textarea.form-control {
     }
 
     #progress-panel {
-      margin: 0px;
-      padding: 0px;
+      margin: 0;
+      padding: 0;
 
       #choices {
         background-color: $light-blue;
         color: $page-colour;
-        box-shadow: 0px 2px 0px darkblue;
+        box-shadow: 0 2px 0 darkblue;
       }
       .button-cancel {
         margin: .5em .5em 0 0;
       }
       .progress-menu-form {
-        border-width: 1px;
-        border-style: solid;
+        border: 1px solid;
         padding: 15px 15px 15px 30px;
         margin-left: -1px;
         min-height: 350px;
@@ -875,7 +864,7 @@ textarea.form-control {
     margin: 20px 0 10px 0;
   }
 
-  .col-md-9 { padding: 0px; }
+  .col-md-9 { padding: 0; }
   .col-md-3 {
     select{
       width: 200px;
@@ -913,7 +902,7 @@ textarea.form-control {
   }
 
   .col-md-4 {
-    padding-left: 0px;
+    padding-left: 0;
     padding-right: 32px;
   }
 }
@@ -962,7 +951,7 @@ textarea.form-control {
 
 /* = Sign in page (/users/sign_in) ========================================== */
 
-#sign_in { margin: 30px 0px; }
+#sign_in { margin: 30px 0; }
 
 /* = Metrics dashboard (/metrics_dashboard) ================================= */
 
@@ -1005,102 +994,27 @@ textarea.form-control {
 /* = preview page ========================================================== */
 
 #preview {
-  #main {
-    width: 69%;
-    @media screen and ( min-width: 769px ) and ( max-width: 991px ) {width: 60%; }
-    display: inline-block;
-    float: left;
-    #count {
-      background-color: $highlight-colour;
-      padding: .7em 0 .7em .7em;
-      border-left: 5px solid $border-colour;
-      margin: 1em 0 2em 0;
-    }
-    #question { margin: .7em 0 .7em 0; }
-    ul {
-      font-size: 18px;
-      li {
-        h3 { display: inline-block; }
-        .question { margin-top: 10px; }
-      }
-    }
-    h2 {
-      font-size: 18px;
-      color: $text-colour;
-      span {
-        color: $secondary-text-colour;
-        font-size: 19px;
-        font-weight: 500;
-        &:before {
-          content: '|';
-          padding: 0 .4em 0 .4em;
-        }
-      }
-    }
 
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px 0;
   }
-  #sidebar {
-    display: inline-block;
-    max-width: 258px;
-    float: right;
-    @media screen and ( min-width: 320px ) and ( max-width: 768px ) { float: none; }
-    #filters {
-      background-color: $white;
-      height: 445px;
-      h2 {
-        color: $text-colour;
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-      .filter-box {
-        padding: 8px;
-        margin-bottom: 1em;
-        background-color: $panel-colour;
-        input[type="text"] {
-          width: 100%;
-          border: 0;
-        }
-        input[type="checkbox"] {
-          margin: 0px 5px;
-          vertical-align: 10%;
-        }
-        h3 {
-          color: $text-colour;
-          margin: 0 0 7px 0;
-        }
-        div {
-          margin-bottom: 2px;
-          padding: 5px;
-          background-color: $page-colour;
-          span {
-            padding-left: 5px;
-          }
-        }
-      }
-      #clearFilter {
-        font-size: 18px;
-        background-color: $white;
-        color: $link-colour;
-        border: none;
-      }
-      a {
-        display: block;
-      }
-    }
-  }
+
+  // Stick at top when scrolling.
   .content-fixed {
     position: fixed;
     top: 0;
   }
+
   .shim {
     display: block;
   }
 }
 
+/* = Filter sidebar ========================================================== */
 
-/* = In-progress page ========================================================== */
-
-#dashboard {
+#dashboard, #preview {
 
   #count {
     max-width: 655px;
@@ -1114,7 +1028,7 @@ textarea.form-control {
   }
 
   #sidebar {
-    padding: 0px;
+    padding: 0;
 
     h2 {
       color: $text-colour;
@@ -1123,13 +1037,13 @@ textarea.form-control {
     }
 
     input[type="button"]{
-      padding-left: 0px;
+      padding-left: 0;
       border: none;
       color: $link-colour;
       background-color: $page-colour;
     }
 
-    #quick-links, #filters { margin: 0.5em 0em; }
+    #quick-links, #filters { margin: 0.5em 0; }
 
     #quick-links {
       h2 {}
@@ -1144,8 +1058,8 @@ textarea.form-control {
         .notice {
           background: $grey-4;
           border-left: 5px solid $grey-2;
-          margin: 15px 0px;
-          padding: 0.7em 0px 0.7em 0.7em;
+          margin: 15px 0;
+          padding: 0.7em 0 0.7em 0.7em;
         }
       }
       .collapsed { display: none; }
@@ -1158,12 +1072,12 @@ textarea.form-control {
       .filter-box {
         padding: 4px 8px;
         background-color: $panel-colour;
-        margin: 0.5em 0em;
+        margin: 0.5em 0;
 
         h3 {
           color: $text-colour;
           display: inline-block;
-          margin: 4px 0px;
+          margin: 4px 0;
         }
 
         .notice {
@@ -1174,30 +1088,27 @@ textarea.form-control {
 
         .right {
           float: right;
-          background-color: inherit;
           border: none;
           margin-top: 4px;
+          background-color: inherit;
         }
 
         .view {
           width: 100%;
           text-align: left;
           color: $text-colour;
-          background-image: url('option-select-toggle-sprite.png');
-          background-repeat: no-repeat;
-          background-attachment: scroll;
           background-clip: border-box;
           background-origin: padding-box;
           background-size: auto auto;
-          background-color: $panel-colour;
+          background: $panel-colour url('option-select-toggle-sprite.png') no-repeat scroll;
         }
 
         .open { background-position: right -82px; }
-        .closed { background-position: right 0px; }
+        .closed { background-position: right 0; }
         .collapsed { display: none; }
 
         .content {
-          .form-group { margin-bottom: 0px; }
+          .form-group { margin-bottom: 0; }
 
           .datepicker {
             background-color: $page-colour;
@@ -1206,11 +1117,11 @@ textarea.form-control {
 
           .list {
             background-color: $page-colour;
-            margin: 5px 0px;
+            margin: 5px 0;
 
             label {
               padding: 8px;
-              margin-bottom: 0px; // Override bootstrap
+              margin-bottom: 0; // Override bootstrap
               font-size: 16px;
               &:not(:last-child) { border-bottom: 1px solid $panel-colour; }
               input[type="radio"] {

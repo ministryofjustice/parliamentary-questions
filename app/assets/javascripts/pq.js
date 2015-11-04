@@ -3,21 +3,7 @@ var document, $, trimLink, ga;
 (function() {
   'use strict';
 
-  var filterPreviewQuestions = function(text, state) {
-
-    var textToSearch = new RegExp(text, 'i');
-    var count = 0;
-    var stateString = state ? ' <strong>' + state + '</strong> ' : ' ';
-
-    $('#main ul li').each(function(i, li) {
-      var questionText = $(li).text();
-      if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
-        count++;
-        $(li).css('display', 'block');
-      } else {
-        $(li).css('display', 'none');
-      }
-    });
+/*  var filterPreviewQuestions = function(text, state) {
 
     $('#count strong').text(count ? count : 'No');
     if (text) {
@@ -25,7 +11,7 @@ var document, $, trimLink, ga;
     } else {
       $('#count span').html('new' + stateString + 'questions');
     }
-  };
+  };*/
 
   // make detail blocks toggleable
   var enableDetailsToggle = function(i, el) {
@@ -103,9 +89,9 @@ var document, $, trimLink, ga;
     $badge.text(nextval);
   };
 
-  //  +---------------------------------------------------------------------------+
-  //  |  Quick action filtering                                                   |
-  //  +---------------------------------------------------------------------------+
+  /*------------------------------------------------------------------------+
+  | Quick action filtering                                                  |
+  +------------------------------------------------------------------------*/
 
   var selectIndividualPQ = function(){
     if ( $('#select-all').prop('checked') ) {
@@ -130,7 +116,7 @@ var document, $, trimLink, ga;
       selectionCount++;
     });
     if (selectionCount > '0') {
-      $('#selectionCount').html("Export " + selectionCount + " selected PQs?")
+      $('#selectionCount').html("Export " + selectionCount + " selected PQs?");
       $('#do-export').removeAttr("disabled", "disabled");
     }
     else {
@@ -235,17 +221,22 @@ var document, $, trimLink, ga;
     };
 
     var filterByRadioButton = function (filter, value) {
+        console.log("in filter - filter: " + filter + " value: " + value);
       $question.each(function (i, li){
         if ( $(li).has(filter).length ) {
+            console.log("Class found");
           if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
+              console.log("Class contains value");
             $(li).css('display', 'block');
           }
           else {
             $(this).find($filterCheckbox).prop('checked', false);
+              console.log("Class does NOT contain value");
             $(li).css('display', 'none');
           }
         }
         else {
+            console.log("Class NOT found");
           $(this).find($filterCheckbox).prop('checked', false);
           $(li).css('display', 'none');
         }
@@ -295,6 +286,9 @@ var document, $, trimLink, ga;
       }
       if ( $typeRadioButton.val() != undefined) {
         $('#question-type .notice').show();
+          console.log("================================");
+          console.log("Value: " + $typeRadioButton.val());
+          console.log("================================");
         filterByRadioButton(".question-type", $typeRadioButton.val());
       }
       if ( ( $keywordSearch.val() != undefined ) && ( $keywordSearch.val().trim().length > 0 ) ) {
@@ -357,37 +351,6 @@ var document, $, trimLink, ga;
       $('#allocation_response_response_action_reject').on('click', function (){
         $('#reason-textarea').removeClass('hide');
       });
-
-      $('#preview input[type="text"]').on('keyup', function() {
-        filterPreviewQuestions(
-            $('#filters input[type="text"]').val(),
-            $('#filters input[type="radio"]:checked').siblings('span').text()
-        );
-      });
-
-      $('#preview #filters input').on('click', function(event) {
-        if ($(event.target).is(':checked')) {
-          $(event.target).siblings('input').attr('checked', false);
-          filterPreviewQuestions(
-              $('#filters input[type="text"]').val(),
-              $(event.target).next().text()
-          );
-        }
-        else{
-            filterPreviewQuestions(
-                $('#filters input[type="text"]').val(),
-                ''
-            );
-        }
-      });
-
-      $('#clearFilter').on('click', function(event) {
-        $('.filter-box div').children('input').attr('checked', false);
-        $('#filters input[type="text"]').val(' ');
-        filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               $(event.target).next().text());
-      });
-
 
     } else {
       // all other pages
@@ -506,7 +469,9 @@ var document, $, trimLink, ga;
 
     }
 
-    var $dashboardFilters = $('#dashboard #filters input');
+    //var $dashboardFilters = $('#dashboard #filters input');
+
+    var $dashboardFilters = $('#filters input');
 
     $dashboardFilters.change(function (event) {
       if (
@@ -536,7 +501,7 @@ var document, $, trimLink, ga;
       else if ( ($(event.target).prop('class') === "view open") || ($(event.target).prop('class') === "view closed")){
         // Toggle the radio button list show / hide.
         $('#' + $(event.target).closest('.filter-box').prop('id') + ' .collapsed').toggle();
-        // Toggle the v ^ button icon.
+        // Toggle show/hide button icon.
         $('#' + $(event.target).closest('.filter-box').prop('id') + ' input.view').toggleClass("open closed");
       }
       else if ($(event.target).is('#clear-keywords-filter')) {
@@ -546,6 +511,7 @@ var document, $, trimLink, ga;
         $('input[name="' + $(event.target).closest('.filter-box').prop('id') + '"]').removeAttr('checked');
         $('#' + $(event.target).closest('.filter-box').prop('id') + ' .notice').hide();
       }
+        console.log("Click event triggered");
       filterQuestions();
     });
 
