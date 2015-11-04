@@ -19,11 +19,18 @@ class ExportController < ApplicationController
     run_export(Export::PqPod, 'index_for_pod')
   end
 
+  def csv_quick
+    puts 'in Export'
+    puts params[:pqs_comma_separated]
+
+    run_export(Export::PqSelection, 'index')
+  end
+
   private
 
   def run_export(export_type, template)
     with_valid_dates(template) do |date_from, date_to|
-      export = export_type.new(date_from, date_to)
+      export = export_type.new(date_from, date_to, params[:pqs_comma_separated])
       send_data(export.to_csv, content_type: 'text/csv')
     end
   end

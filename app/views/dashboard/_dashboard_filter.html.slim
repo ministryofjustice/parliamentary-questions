@@ -1,158 +1,173 @@
 #sidebar.col-md-3.col-md-push-9
-  // #quick-links
-    //h2 Quick actions
-    //input#draft_reminder.quick_action type="button" value="Draft reminder"
-    //.counter
-    //input#edit_dates.quick_action type="button" value="Edit PQ date(s)"
-    //input#csv_export.quick_action type="button" value="Export PQ(s) to CSV"
 
-    //hr
+  #quick-links
+    h2 Quick actions
+
+    = render partial: "dashboard/quick_action_export", locals: {total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated}
 
   #filters
-    h2 Filter by
+    h2 Filter
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
 
       .filter-box
-
         h3 Date for answer
-
-        input#answer-date-today type="button" value="Today"
-
-        h4 From
-        .datepicker
-          input#answer-from type="text"
-          span.fa.fa-calendar title="select a date"
-
-        h4 To
-        .datepicker
-          input#answer-to type="text"
-          span.fa.fa-calendar title="select a date"
-
-        input#clear-answer-filter.clearFilter type="button" value="Clear"
+        input#answer-date-today.right type="button" value="Today"
+        .content
+          h4 From
+          .datepicker.form-group
+            input#answer-from.form-control type="text" placeholder="e.g. 20/06/2014"
+            span.fa.fa-calendar title="select a date"
+          h4 To
+          .datepicker.form-group
+            input#answer-to.form-control type="text" placeholder="e.g. 20/06/2014"
+            span.fa.fa-calendar title="select a date"
+          .clearFilter
+            input#clear-answer-filter.right type="button" value="Clear"
 
       .filter-box
-
         h3 Internal deadline
+        input#deadline-date-today.right type="button" value="Today"
+        .content
+          h4 From
+          .datepicker.form-group
+            input#deadline-from.form-control type="text" placeholder="e.g. 20/06/2014"
+            span.fa.fa-calendar title="select a date"
 
-        input#deadline-date-today type="button" value="Today"
+          h4 To
+          .datepicker.form-group
+            input#deadline-to.form-control type="text" placeholder="e.g. 20/06/2014"
+            span.fa.fa-calendar title="select a date"
 
-        h4 From
-        .datepicker
-          input#deadline-from type="text"
-          span.fa.fa-calendar title="select a date"
+          .clearFilter
+            input#clear-deadline-filter.right type="button" value="Clear"
 
-        h4 To
-        .datepicker
-          input#deadline-to type="text"
-          span.fa.fa-calendar title="select a date"
-
-        input#clear-deadline-filter.clearFilter type="button" value="Clear"
-
-    .filter-box
-      h3 Status
-      #flag-list
-        - if @statuses.count > 1
-          - @statuses.each do |question_status|
-            - if question_status == 'unassigned'
-              input.question-status type="checkbox" value="Unassigned"
-              span Unassigned
-              br
-            - if question_status == 'no_response'
-              input.question-status type="checkbox" value="No response"
-              span No response
-              br
-            - if question_status == 'rejected'
-              input.question-status type="checkbox" value="Rejected"
-              span Rejected
-              br
-            - if question_status == 'draft_pending'
-              input.question-status type="checkbox" value="Draft Pending"
-              span Draft Pending
-              br
-            - if question_status == 'with_pod'
-              input.question-status type="checkbox" value="With POD"
-              span With POD
-              br
-            - if question_status == 'pod_query'
-              input.question-status type="checkbox" value="POD Query"
-              span POD Query
-              br
-            - if question_status == 'pod_cleared'
-              input.question-status type="checkbox" value="POD Cleared"
-              span POD Cleared
-              br
-            - if question_status == 'with_minister'
-              input.question-status type="checkbox" value="With Minister"
-              span With Minister
-              br
-            - if question_status == 'ministerial_query'
-              input.question-status type="checkbox" value="Ministerial Query"
-              span Ministerial Query
-              br
-            - if question_status == 'minister_cleared'
-              input.question-status type="checkbox" value="Minister Cleared"
-              span Minister Cleared
-              br
-            - if question_status == 'answered'
-              input.question-status type="checkbox" value="Answered"
-              span Answered
-              br
-            - if question_status == 'transferred_out'
-              input.question-status type="checkbox" value="Transferred out"
-              span Transferred out
-              br
-        - else
-          'N/A
-
+    #flag.filter-box
+      input.view.open type="button" value="Status"
+      .notice
+        span 1 selected
+      .content.collapsed
+        .list
+          - if @statuses.count > 1
+            - @statuses.each do |question_status|
+              - if question_status == 'unassigned'
+                label
+                  input type="radio" name="flag" value="Unassigned"
+                  'Unassigned
+              - if question_status == 'no_response'
+                label
+                  input type="radio" name="flag" value="No response"
+                  'No response
+              - if question_status == 'rejected'
+                label
+                  input type="radio" name="flag" value="Rejected"
+                  'Rejected
+              - if question_status == 'draft_pending'
+                label
+                  input type="radio" name="flag" value="Draft Pending"
+                  'Draft Pending
+              - if question_status == 'with_pod'
+                label
+                  input type="radio" name="flag" value="With POD"
+                  'With POD
+              - if question_status == 'pod_query'
+                label
+                  input type="radio" name="flag" value="POD Query"
+                  'POD Query
+              - if question_status == 'pod_cleared'
+                label
+                  input type="radio" name="flag" value="POD Cleared"
+                  'POD Cleared
+              - if question_status == 'with_minister'
+                label
+                  input type="radio" name="flag" value="With Minister"
+                  'With Minister
+              - if question_status == 'ministerial_query'
+                label
+                  input type="radio" name="flag" value="Ministerial Query"
+                  'Ministerial Query
+              - if question_status == 'minister_cleared'
+                label
+                  input type="radio" name="flag" value="Minister Cleared"
+                  'Minister Cleared
+              - if question_status == 'answered'
+                label
+                  input type="radio" name="flag" value="Answered"
+                  'Answered
+              - if question_status == 'transferred_out'
+                label
+                  input type="radio" name="flag" value="Transferred out"
+                  'Transferred out
+          - else
+            'N/A
+        .clearFilter
+          input.clear.right type="button" value="Clear"
 
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
-      .filter-box
-        h3 Replying minister
-        #replying-minister-list
-          - if @answering_minister_names.count > 1
-            - @answering_minister_names.each do |answering_minister|
-              input.replying-minister type="checkbox" value= answering_minister
-              span= answering_minister
-              br
-          - else
-            'N/A
 
-      .filter-box
-        h3 Policy minister
-        #policy-minister-list
-          - if @policy_minister_names.count > 1
-            - @policy_minister_names.each do |policy_minister|
-              input.policy-minister type="checkbox" value= policy_minister
-              span= policy_minister
-              br
-          - else
-            'N/A
+      #replying-minister.filter-box
+        input.view.open type="button" value="Replying minister"
+        .notice
+          span 1 selected
+        .content.collapsed
+          .list
+            - if @answering_minister_names.count > 1
+              - @answering_minister_names.each do |answering_minister|
+                label
+                  input type="radio" name="replying-minister" value= answering_minister
+                  = answering_minister
+            - else
+              'N/A
+          .clearFilter
+            input.clear.right type="button" value="Clear"
 
-      .filter-box
-        h3 Question type
-        #question-type-list
-          - if @question_types.count > 1
-            - @question_types.each do |question_type|
-              - if question_type == 'NamedDay'
-                input.question-type type="checkbox" value="Named Day"
-                span Named Day
-                br
-              - else
-                input.question-type type="checkbox" value= question_type
-                span= question_type
-                br
-          - if @transfers.count > 1
-            input.question-type type="checkbox" value="Transferred"
-              span Transferred
-              br
-          - if @i_will_writes.count > 1
-            input.question-type type="checkbox" value="I will write"
-              span I will write
-              br
-          - else
-            'N/A
+      #policy-minister.filter-box
+        input.view.open type="button" value="Policy minister"
+        .notice
+          span 1 selected
+        .content.collapsed
+          .list
+            - if @policy_minister_names.count > 1
+              - @policy_minister_names.each do |policy_minister|
+                label
+                  input type="radio" name="policy-minister" value= policy_minister
+                  = policy_minister
+            - else
+              'N/A
+          .clearFilter
+            input#clear.right type="button" value="Clear"
+
+      #question-type.filter-box
+        input.view.open type="button" value="Question type"
+        .notice
+          span 1 selected
+        .content.collapsed
+          .list
+            - if @question_types.count > 1
+              - @question_types.each do |question_type|
+                - if question_type == 'NamedDay'
+                  label
+                    input type="radio" name="question-type" value="Named Day"
+                    'Named Day
+                - else
+                  label
+                    input type="radio" name="question-type" value= question_type
+                    = question_type
+            - if @transfers.count > 1
+              label
+                input type="radio" name="question-type" value="Transferred"
+                'Transferred
+            - if @i_will_writes.count > 1
+              label
+                input type="radio" name="question-type" value="I will write"
+                'I will write
+            - else
+              'N/A
+          .clearFilter
+            input#clear.right type="button" value="Clear"
 
       .filter-box
         h3 Keywords
-        input#keywords type="text"
-        input#clear-keywords-filter.clearFilter type="button" value="Clear"
+        .content
+          input#keywords.form-control type="text" placeholder="e.g. keywords, names"
+          .clearFilter
+            input#clear-keywords-filter.right type="button" value="Clear"

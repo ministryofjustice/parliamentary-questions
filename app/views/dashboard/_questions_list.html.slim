@@ -3,9 +3,14 @@
   = ' '
   span parliamentary questions
 
+#select-all-questions.col-md-9.col-md-pull-3
+	label
+		input id="select-all" type="checkbox" name="select-all" value="select all"
+		'Select all
+
 ul.questions-list.col-md-9.col-md-pull-3
   - questions.each do |question|
-    li id="pq-frame-#{question.id}" data-pquin=question.uin
+    li id="pq-frame-#{question.id}" data-pquin=question.uin class="question"
       = render partial: 'dashboard/question_data', locals: {question: question, action_officers: action_officers}
 #pages.row
 
