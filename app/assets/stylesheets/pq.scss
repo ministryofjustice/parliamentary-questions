@@ -824,7 +824,7 @@ textarea.form-control {
         margin: .5em .5em 0 0;
       }
       .progress-menu-form {
-        border: 1px solid;
+        border: 1px solid #c2c2c2;
         padding: 15px 15px 15px 30px;
         margin-left: -1px;
         min-height: 350px;
@@ -994,67 +994,51 @@ textarea.form-control {
 /* = preview page ========================================================== */
 
 #preview {
-
   h1 {
     font-size: 24px;
     font-weight: bold;
     margin: 15px 0;
   }
-
-  // Stick at top when scrolling.
-  .content-fixed {
-    position: fixed;
-    top: 0;
+  #sidebar {
+    .shim { display: block; }
   }
-
-  .shim {
-    display: block;
+  @media (max-width: 991px) {
+    #sidebar {
+      .shim { display: none; }
+      #filters { position: static; }
+    }
   }
 }
 
 /* = Filter sidebar ========================================================== */
 
 #dashboard, #preview {
-
   #count {
     max-width: 655px;
     background-color: $highlight-colour;
     padding: .7em 0 .7em .7em;
     border-left: 5px solid $border-colour;
     margin: .5em 0;
-    @media screen and ( min-width: 991px ) {
-      strong { margin-left: -215px; }
-    }
   }
-
   #sidebar {
     padding: 0;
-
     h2 {
       color: $text-colour;
       font-size: 19px;
       font-weight: bold;
     }
-
     input[type="button"]{
       padding-left: 0;
       border: none;
       color: $link-colour;
       background-color: $page-colour;
     }
-
-    #quick-links, #filters { margin: 0.5em 0; }
-
+    #quick-links, #filters { margin: 7.5px 0; }
     #quick-links {
-      h2 {}
-      form {}
-      padding-bottom: 30px;
+      padding-bottom: 15px;
       border-bottom: 2px solid $grey-2;
-
       input[type="submit"] { margin-right: 10px; }
-
-      // Copied from the filters area.
-      .content {
+     .content {
         .notice {
           background: $grey-4;
           border-left: 5px solid $grey-2;
@@ -1064,35 +1048,27 @@ textarea.form-control {
       }
       .collapsed { display: none; }
     }
-
     #filters {
-
-      padding-top: 30px;
-
       .filter-box {
         padding: 4px 8px;
         background-color: $panel-colour;
         margin: 0.5em 0;
-
         h3 {
           color: $text-colour;
           display: inline-block;
           margin: 4px 0;
         }
-
         .notice {
           display: none;
           width: 100%;
           span { color: #ff0000; }
         }
-
         .right {
           float: right;
           border: none;
           margin-top: 4px;
           background-color: inherit;
         }
-
         .view {
           width: 100%;
           text-align: left;
@@ -1102,23 +1078,18 @@ textarea.form-control {
           background-size: auto auto;
           background: $panel-colour url('option-select-toggle-sprite.png') no-repeat scroll;
         }
-
         .open { background-position: right -82px; }
         .closed { background-position: right 0; }
         .collapsed { display: none; }
-
         .content {
           .form-group { margin-bottom: 0; }
-
           .datepicker {
             background-color: $page-colour;
             width: 100%;
           }
-
           .list {
             background-color: $page-colour;
             margin: 5px 0;
-
             label {
               padding: 8px;
               margin-bottom: 0; // Override bootstrap
@@ -1130,13 +1101,18 @@ textarea.form-control {
                 height: 16px;
               }
             }
-
             label:hover { background: $yellow; }
-
           }
           #keywords { width: 100%; }
           .clearFilter { height: 1.5em; }
         }
+      }
+    }
+  }
+  @media (max-width: 991px) {
+    #sidebar {
+      #filters, #quick-links {
+        width: 235px;
       }
     }
   }

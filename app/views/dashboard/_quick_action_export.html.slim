@@ -2,6 +2,7 @@
   input#csvExportButton type="button" value="Export PQs to CSV"
   .content.collapsed
     #selectionCount.notice
+      'No PQs selected
     = hidden_field_tag :date_from, '04/06/2014'
     = hidden_field_tag :date_to, Date.today.to_s(:date)
     = hidden_field_tag :pqs_comma_separated
