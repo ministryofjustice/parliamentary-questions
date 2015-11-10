@@ -118,4 +118,41 @@ module PqScopes
   def backlog
     where('date_for_answer < CURRENT_DATE and state NOT IN (?)', PQState::CLOSED)
   end
+
+  def commons
+    where(house_name: 'House of Commons')
+  end
+
+  def lords
+    where(house_name: 'House of Lords')
+  end
+
+  def imported_this_week
+    where("created_at > ?", Date.today.beginning_of_week)
+  end
+
+  def imported_last_week
+    where("created_at BETWEEN ? AND ?", Date.today.beginning_of_week, ((Date.today)-7).beginning_of_week )
+  end
+
+  def ordinary
+    where(question_type: 'Ordinary')
+  end
+
+  def named_day
+    where(question_type: 'NamedDay')
+  end
+
+  def answered_by_deadline_last_week
+    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", Date.today.beginning_of_week, ((Date.today)-7).beginning_of_week )
+  end
+
+  def answered_by_deadline_ytd
+    where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", Date.today.beginning_of_year )
+  end
+
+  def draft_response_on_time_ytd
+    where("internal_deadline > draft_answer_received AND draft_answer_received > ?", Date.today.beginning_of_year)
+  end
+
 end
