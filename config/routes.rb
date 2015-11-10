@@ -108,7 +108,7 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'export_pod/pq_pod.csv' => 'export#csv_for_pod', via: [:get, :post]
   get 'export_pod'              => 'export#index_for_pod'
 
-  match 'export/csv_quick' => 'export#csv_quick', via: [:get, :post]
+  match 'export/csv_quick.csv' => 'export#csv_quick', via: [:get, :post]
   get 'export'          => 'export#index'
 
   get 'reports/ministers_by_progress'  => 'reports#ministers_by_progress'
