@@ -444,8 +444,7 @@ var document, $, trimLink, ga;
 
     }
 
-    //  Filtering events --
-
+    //  Filtering events
     var $quickActions = $('#quick-links input');
     var $dashboardFilters = $('#filters input');
 
