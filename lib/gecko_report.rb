@@ -1,6 +1,11 @@
 require 'json'
 class GeckoReport
   def initialize
+    @gecko_report = []
+
+    write_report
+
+=begin
     @commons  = Pq.commons.count
     @lords = Pq.lords.count
     @ordinary = Pq.ordinary.count
@@ -28,7 +33,16 @@ class GeckoReport
     @answered_by_deadline_ytd = Pq.answered_by_deadline_ytd.count
 
     @draft_response_on_time_ytd = Pq.draft_response_on_time_ytd.count
+=end
   end
 
+  def write_report
+    add_item('commons' => Pq.commons.count)
+    add_item('lords' => Pq.lords.count)
+  end
+
+  def add_item(item)
+   @gecko_report << item
+  end
 
 end
