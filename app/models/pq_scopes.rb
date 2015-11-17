@@ -143,8 +143,16 @@ module PqScopes
     where(question_type: 'NamedDay')
   end
 
+  def answered_last_week
+    where("answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+  end
+
   def answered_by_deadline_last_week
     where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+  end
+
+  def answered_prev_week
+    where("answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
   end
 
   def answered_by_deadline_prev_week
@@ -157,6 +165,10 @@ module PqScopes
 
   def draft_response_on_time_ytd
     where("internal_deadline > draft_answer_received AND draft_answer_received > ?", Date.today.beginning_of_year)
+  end
+
+  def answered_ytd
+    where("answer_submitted > ?", Date.today.beginning_of_year)
   end
 
   def total_questions_ytd
