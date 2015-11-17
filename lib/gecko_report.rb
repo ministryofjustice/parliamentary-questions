@@ -59,12 +59,20 @@ class GeckoReport
   def add_directorate_data
     directorate_return = []
     directorate_return << Pq.joins(:directorate).group("name").draft_response_on_time_ytd.count
-    @by_directorate = directorate_return[0].map{|key,value| {:name => key, :value => value} }
+    @by_directorate = directorate_return[0].map{|key,value| {:name => 'draft on time-' + key, :value => value} }
+    directorate_questions = []
+    directorate_questions << Pq.joins(:directorate).group("name").answered_ytd.count
+    @by_directorate = @by_directorate + directorate_questions[0].map{|key,value| {:name => 'answered ytd-' + key, :value => value} }
+
+
   end
 
   def add_ministerial_data
     ministerial_return = []
     ministerial_return << Pq.joins(:minister).group("name").answered_by_deadline_ytd.count
-    @ministerial = ministerial_return[0].map{|key,value| {:name => key, :value => value} }
+    @ministerial = ministerial_return[0].map{|key,value| {:name => 'answered by deadline-' + key, :value => value} }
+    ministerial_questions = []
+    ministerial_questions << Pq.joins(:minister).group("name").answered_ytd.count
+    @ministerial = @ministerial + ministerial_questions[0].map{|key,value| {:name => 'answered ytd-' + key, :value => value} }
   end
 end
