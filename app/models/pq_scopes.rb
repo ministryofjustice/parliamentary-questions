@@ -128,11 +128,11 @@ module PqScopes
   end
 
   def imported_last_week
-    where("created_at BETWEEN ? AND ?", ((Date.today)-7).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    where("created_at BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
   end
 
   def imported_prev_week
-    where("created_at BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-21).beginning_of_week )
+    where("created_at BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
   end
 
   def ordinary
@@ -144,11 +144,11 @@ module PqScopes
   end
 
   def answered_by_deadline_last_week
-    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-7).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
   end
 
   def answered_by_deadline_prev_week
-    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-21).beginning_of_week )
+    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
   end
 
   def answered_by_deadline_ytd
