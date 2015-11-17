@@ -127,12 +127,12 @@ module PqScopes
     where(house_name: 'House of Lords')
   end
 
-  def imported_this_week
-    where("created_at > ?", Date.today.beginning_of_week)
+  def imported_last_week
+    where("created_at BETWEEN ? AND ?", ((Date.today)-7).beginning_of_week, ((Date.today)-14).beginning_of_week )
   end
 
-  def imported_last_week
-    where("created_at BETWEEN ? AND ?", Date.today.beginning_of_week, ((Date.today)-7).beginning_of_week )
+  def imported_prev_week
+    where("created_at BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-21).beginning_of_week )
   end
 
   def ordinary
@@ -144,7 +144,11 @@ module PqScopes
   end
 
   def answered_by_deadline_last_week
-    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", Date.today.beginning_of_week, ((Date.today)-7).beginning_of_week )
+    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-7).beginning_of_week, ((Date.today)-14).beginning_of_week )
+  end
+
+  def answered_by_deadline_prev_week
+    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-21).beginning_of_week )
   end
 
   def answered_by_deadline_ytd
@@ -155,4 +159,7 @@ module PqScopes
     where("internal_deadline > draft_answer_received AND draft_answer_received > ?", Date.today.beginning_of_year)
   end
 
+  def total_questions_ytd
+    where("created_at > ?", Date.today.beginning_of_year)
+  end
 end

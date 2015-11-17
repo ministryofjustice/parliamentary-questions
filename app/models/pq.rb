@@ -112,7 +112,7 @@ class Pq < ActiveRecord::Base
   belongs_to :policy_minister, :class_name=>'Minister'
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
-  belongs_to :directorate
+  belongs_to :directorate, :class_name=>'Directorate'
   belongs_to :original_division, :class_name => 'Division'
 
   accepts_nested_attributes_for :trim_link
