@@ -12,17 +12,17 @@
             span 1 selected
           .content.collapsed
             .list
-              label
-                input type="radio" name="question-type" value="Named Day"
+              label for="named-day"
+                input id="named-day" type="radio" name="question-type" value="Named Day"
                 'Named Day
-              label
-                input type="radio" name="question-type" value="Transferred"
-                'Transferred
-              label
-                input type="radio" name="question-type" value="I will write"
-                'I will write
+              label for="ordinary"
+                input id="ordinary" type="radio" name="question-type" value="Ordinary"
+                'Ordinary
+              label for="transferred-in"
+                input id="transferred-in" type="radio" name="question-type" value="Transferred in"
+                'Transferred in
             .clearFilter
-              input.clear.right type="button" value="Clear"
+              input#clear-type-filter.clear.right type="button" value="Clear"
 
         .filter-box
           h3 Keywords

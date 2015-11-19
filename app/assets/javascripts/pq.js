@@ -129,18 +129,18 @@ var document, $, trimLink, ga;
  //  Question filtering --
 
   var filterQuestions = function(){
-      
+
     var $answerFrom = $('#answer-from');
     var $answerTo = $('#answer-to');
     var $deadlineFrom = $('#deadline-from');
     var $deadlineTo = $('#deadline-to');
     var $filterCheckbox = 'input[type="checkbox"]';
     var $keywordSearch = $('#keywords');
-    var $policyMinisterRadioButton = $('input[name="policy-minister"]:checked');
+    var $policyMinisterRdo = $('input[name="policy-minister"]:checked');
     var $question = $('li.question');
-    var $replyingMinisterRadioButton = $('input[name="replying-minister"]:checked');
-    var $statusRadioButton = $('input[name="flag"]:checked');
-    var $typeRadioButton = $('input[name="question-type"]:checked');
+    var $replyingMinisterRdo = $('input[name="replying-minister"]:checked');
+    var $statusRdo = $('input[name="flag"]:checked');
+    var $typeRdo = $('input[name="question-type"]:checked');
 
     var questionCounter = function(){
       var totalQuestionCount = 0;
@@ -253,21 +253,21 @@ var document, $, trimLink, ga;
       if ( ( $deadlineTo.val() != undefined ) && ( $deadlineTo.val().trim().length > 0 ) ) {
         filterByDateRange(".deadline-to", $('#deadline-to').val());
       }
-      if ($statusRadioButton.val() != undefined){
+      if ($statusRdo.val() != undefined){
         $('#flag .notice').show();
-        filterByRadioButton(".flag", $statusRadioButton.val());
+        filterByRadioButton(".flag", $statusRdo.val());
       }
-      if ($replyingMinisterRadioButton.val() != undefined){
+      if ($replyingMinisterRdo.val() != undefined){
         $('#replying-minister .notice').show();
-        filterByRadioButton(".replying-minister", $replyingMinisterRadioButton.val());
+        filterByRadioButton(".replying-minister", $replyingMinisterRdon.val());
       }
-      if ( $policyMinisterRadioButton.val() != undefined) {
+      if ( $policyMinisterRdo.val() != undefined) {
         $('#policy-minister .notice').show();
-        filterByRadioButton(".policy-minister", $policyMinisterRadioButton.val());
+        filterByRadioButton(".policy-minister", $policyMinisterRdo.val());
       }
-      if ( $typeRadioButton.val() != undefined) {
+      if ( $typeRdo.val() != undefined) {
         $('#question-type .notice').show();
-        filterByRadioButton(".question-type", $typeRadioButton.val());
+        filterByRadioButton(".question-type", $typeRdo.val());
       }
       if ( ( $keywordSearch.val() != undefined ) && ( $keywordSearch.val().trim().length > 0 ) ) {
         filterByKeyword(".pq-question", $keywordSearch.val());
