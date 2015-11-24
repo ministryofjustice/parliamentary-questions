@@ -34,9 +34,7 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
   scenario 'Check filter elements are present' do
     create_pq_session
 
-    click_link 'Settings'
-    click_link 'Early bird list'
-    click_link 'Early bird preview'
+    visit early_bird_preview_path #'/early_bird/preview'
 
     expect(page).to have_text(:visible, 'New parliamentary questions to be allocated today')
     expect(page).to have_text('3 new parliamentary questions')
