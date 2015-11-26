@@ -119,59 +119,64 @@ module PqScopes
     where('date_for_answer < CURRENT_DATE and state NOT IN (?)', PQState::CLOSED)
   end
 
+  def not_tx
+    where("transfer_out_ogd_id is null")
+  end
+
   def commons
-    where(house_name: 'House of Commons')
+    not_tx.where(house_name: 'House of Commons')
   end
 
   def lords
-    where(house_name: 'House of Lords')
+    not_tx.where(house_name: 'House of Lords')
   end
 
   def imported_last_week
-    where("created_at BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+    not_tx.where("created_at BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
   end
 
   def imported_prev_week
-    where("created_at BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    not_tx.where("created_at BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
   end
 
   def ordinary
-    where(question_type: 'Ordinary')
+    not_tx.where(question_type: 'Ordinary')
   end
 
   def named_day
-    where(question_type: 'NamedDay')
+    not_tx.where(question_type: 'NamedDay')
   end
 
   def answered_last_week
-    where("answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+    not_tx.where("answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
   end
 
   def answered_by_deadline_last_week
-    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
   end
 
   def answered_prev_week
-    where("answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    not_tx.where("answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
   end
 
   def answered_by_deadline_prev_week
-    where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
   end
 
-  def answered_by_deadline_ytd
-    where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", Date.today.beginning_of_year )
+  def answered_by_deadline_since
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }") )
   end
 
-  def draft_response_on_time_ytd
-    where("internal_deadline > draft_answer_received AND draft_answer_received > ?", Date.today.beginning_of_year)
+  def draft_response_on_time_since
+    not_tx.where("internal_deadline > draft_answer_received AND draft_answer_received > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
   end
 
-  def answered_ytd
-    where("answer_submitted > ?", Date.today.beginning_of_year)
+  def answered_since
+    not_tx.where("answer_submitted > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
   end
 
-  def total_questions_ytd
-    where("created_at > ?", Date.today.beginning_of_year)
+  def total_questions_since
+    not_tx.where("created_at > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
   end
+
 end
