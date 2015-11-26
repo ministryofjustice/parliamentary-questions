@@ -11,7 +11,7 @@ class GeckoReport
   end
 
   def write_report
-    add_item('total_questions_ytd', Pq.total_questions_ytd.count)
+    add_item('total_questions_since', Pq.total_questions_since.count)
 
     add_item('import_commons_last_week_ordinary', Pq.commons.imported_last_week.ordinary.count)
     add_item('import_commons_prev_week_ordinary', Pq.commons.imported_prev_week.ordinary.count)
@@ -35,20 +35,20 @@ class GeckoReport
     add_item('hoc_nmd_ans_last_week', Pq.commons.named_day.answered_last_week.count)
     add_item('hol_ord_ans_last_week', Pq.lords.ordinary.answered_last_week.count)
 
-    add_item('hoc_ord_ans_by_dead_ytd', Pq.commons.ordinary.answered_by_deadline_ytd.count)
-    add_item('hoc_nmd_ans_by_dead_ytd', Pq.commons.named_day.answered_by_deadline_ytd.count)
-    add_item('hol_ord_ans_by_dead_ytd', Pq.lords.ordinary.answered_by_deadline_ytd.count)
+    add_item('hoc_ord_ans_by_dead_since', Pq.commons.ordinary.answered_by_deadline_since.count)
+    add_item('hoc_nmd_ans_by_dead_since', Pq.commons.named_day.answered_by_deadline_since.count)
+    add_item('hol_ord_ans_by_dead_since', Pq.lords.ordinary.answered_by_deadline_since.count)
 
-    add_item('hoc_ord_ans_ytd', Pq.commons.ordinary.answered_ytd.count)
-    add_item('hoc_nmd_ans_ytd', Pq.commons.named_day.answered_ytd.count)
-    add_item('hol_ord_ans_ytd', Pq.lords.ordinary.answered_ytd.count)
+    add_item('hoc_ord_ans_since', Pq.commons.ordinary.answered_since.count)
+    add_item('hoc_nmd_ans_since', Pq.commons.named_day.answered_since.count)
+    add_item('hol_ord_ans_since', Pq.lords.ordinary.answered_since.count)
 
 
-    add_item('answered_by_deadline_ytd', Pq.answered_by_deadline_ytd.count)
+    add_item('answered_by_deadline_since', Pq.answered_by_deadline_since.count)
 
-    add_item('draft_response_on_time_ytd', Pq.draft_response_on_time_ytd.count)
+    add_item('draft_response_on_time_since', Pq.draft_response_on_time_since.count)
 
-    add_item('answered_ytd', Pq.answered_ytd.count)
+    add_item('answered_since', Pq.answered_since.count)
   end
 
   def add_item(name, value)
@@ -58,10 +58,10 @@ class GeckoReport
 
   def add_directorate_data
     directorate_return = []
-    directorate_return << Pq.joins(:directorate).group("name").draft_response_on_time_ytd.count
+    directorate_return << Pq.joins(:directorate).group("name").draft_response_on_time_since.count
     @by_directorate = directorate_return[0].map{|key,value| {:name => 'draft on time-' + key, :value => value} }
     directorate_questions = []
-    directorate_questions << Pq.joins(:directorate).group("name").answered_ytd.count
+    directorate_questions << Pq.joins(:directorate).group("name").answered_since.count
     @by_directorate = @by_directorate + directorate_questions[0].map{|key,value| {:name => 'answered ytd-' + key, :value => value} }
 
 
@@ -69,10 +69,10 @@ class GeckoReport
 
   def add_ministerial_data
     ministerial_return = []
-    ministerial_return << Pq.joins(:minister).group("name").answered_by_deadline_ytd.count
+    ministerial_return << Pq.joins(:minister).group("name").answered_by_deadline_since.count
     @ministerial = ministerial_return[0].map{|key,value| {:name => 'answered by deadline-' + key, :value => value} }
     ministerial_questions = []
-    ministerial_questions << Pq.joins(:minister).group("name").answered_ytd.count
+    ministerial_questions << Pq.joins(:minister).group("name").answered_since.count
     @ministerial = @ministerial + ministerial_questions[0].map{|key,value| {:name => 'answered ytd-' + key, :value => value} }
   end
 end
