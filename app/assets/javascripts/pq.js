@@ -89,12 +89,15 @@ var document, $, trimLink, ga;
       selectionCount++;
     });
     if (selectionCount > '0') {
-      $('#selectionCount').html("Export " + selectionCount + " selected PQs?");
+      var selectionMessage = ( selectionCount == 1 ) ? " PQ selected" : " PQs selected";
+      $('.selectionCount').html(selectionCount + selectionMessage);
       $('#do-export').removeAttr("disabled", "disabled");
+      $('#do-edit').removeAttr("disabled", "disabled");
     }
     else {
-      $('#selectionCount').html("No PQs selected");
+      $('.selectionCount').html("No PQs selected");
       $('#do-export').attr("disabled", "disabled");
+      $('#do-edit').attr("disabled", "disabled");
     }
   };
 
@@ -459,11 +462,16 @@ var document, $, trimLink, ga;
     });
 
     $quickActions.on('click', function (event) {
-      if ( $(event.target).is('#csvExportButton') ) {
-        $('#' + $(event.target).closest('form').prop('id') + ' .collapsed').toggle();
+      if ( $(event.target).is('#qa-edit-dates') ) {
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+        $('#' + $('#qa-export-csv').closest('form').prop('id') + ' .content.collapsed').hide();
       }
-      else if ( $(event.target).is('#cancel-export') ) {
-        $('#csvExport .content.collapsed').toggle();
+      else if ( $(event.target).is('#qa-export-csv') ) {
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+        $('#' + $('#qa-edit-dates').closest('form').prop('id') + ' .content.collapsed').hide();
+      }
+      else if ( $(event.target).is('.qa-cancel') ) {
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
       }
       else if ( $(event.target).is('#do-export') ) {
         getSelectedPQs();

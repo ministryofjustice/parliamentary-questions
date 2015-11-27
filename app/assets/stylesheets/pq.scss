@@ -1039,7 +1039,8 @@ textarea.form-control {
       padding-bottom: 15px;
       border-bottom: 2px solid $grey-2;
       input[type="submit"] { margin-right: 10px; }
-     .content {
+      form { margin: 8px 0; }
+      .content {
         .notice {
           background: $grey-4;
           border-left: 5px solid $grey-2;
@@ -1047,7 +1048,13 @@ textarea.form-control {
           padding: 0.7em 0 0.7em 0.7em;
         }
       }
-      .collapsed { display: none; }
+      .collapsed {
+        display: none;
+        hr {
+          height: 1px;
+          background: #d2d3d5;
+        }
+      }
     }
     #filters {
       .filter-box {
