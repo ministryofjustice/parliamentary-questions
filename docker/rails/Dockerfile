@@ -1,4 +1,4 @@
-FROM moj-ruby:latest
+FROM registry.service.dsd.io/moj-ruby:latest
 
 # Set correct environment variables.
 ENV HOME /root
