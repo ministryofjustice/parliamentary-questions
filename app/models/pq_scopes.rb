@@ -132,11 +132,11 @@ module PqScopes
   end
 
   def imported_last_week
-    not_tx.where("created_at BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+    not_tx.where("created_at BETWEEN ? AND ?", ((Date.today.beginning_of_week) - 8), ((Date.today.beginning_of_week)-2))
   end
 
   def imported_prev_week
-    not_tx.where("created_at BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    not_tx.where("created_at BETWEEN ? AND ?", ((Date.today.beginning_of_week)-15), ((Date.today.beginning_of_week)-9))
   end
 
   def ordinary
@@ -148,19 +148,20 @@ module PqScopes
   end
 
   def answered_last_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+#    not_tx.where("answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+    not_tx.where("answer_submitted BETWEEN ? AND ?", ((Date.today.beginning_of_week) - 8), ((Date.today.beginning_of_week)-2))
   end
 
   def answered_by_deadline_last_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-14).beginning_of_week, ((Date.today)-7).beginning_of_week )
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today.beginning_of_week) - 8), ((Date.today.beginning_of_week)-2))
   end
 
   def answered_prev_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    not_tx.where("answer_submitted BETWEEN ? AND ?",  ((Date.today.beginning_of_week)-15), ((Date.today.beginning_of_week)-9))
   end
 
   def answered_by_deadline_prev_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today)-21).beginning_of_week, ((Date.today)-14).beginning_of_week )
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", ((Date.today.beginning_of_week)-15), ((Date.today.beginning_of_week)-9))
   end
 
   def answered_by_deadline_since
@@ -179,4 +180,11 @@ module PqScopes
     not_tx.where("created_at > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
   end
 
+  def due_last_week
+    not_tx.where("date_for_answer BETWEEN ? AND ?", ((Date.today.beginning_of_week) - 8), ((Date.today.beginning_of_week)-2))
+  end
+
+  def on_time
+    not_tx.where("answer_submitted <= (date_for_answer + 1)")
+  end
 end

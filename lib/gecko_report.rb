@@ -49,6 +49,10 @@ class GeckoReport
     add_item('draft_response_on_time_since', Pq.draft_response_on_time_since.count)
 
     add_item('answered_since', Pq.answered_since.count)
+
+    add_item('due_last_week', Pq.due_last_week.count)
+
+    add_item('due_last_week_answered_on_time', Pq.due_last_week.on_time.count)
   end
 
   def add_item(name, value)
