@@ -91,8 +91,11 @@ var document, $, trimLink, ga;
     if (selectionCount > '0') {
       var selectionMessage = ( selectionCount == 1 ) ? " PQ selected" : " PQs selected";
       $('.selectionCount').html(selectionCount + selectionMessage);
+
       $('#do-export').removeAttr("disabled", "disabled");
-      $('#do-edit').removeAttr("disabled", "disabled");
+      if ( ( $('#qa-calendar').val().length == 10 ) && ( $('#editDates .selectionCount').text().trim() !== 'No PQs selected' ) ) {
+        $('#do-edit').removeAttr("disabled", "disabled");
+      }
     }
     else {
       $('.selectionCount').html("No PQs selected");
@@ -475,6 +478,15 @@ var document, $, trimLink, ga;
       }
       else if ( $(event.target).is('#do-export') ) {
         getSelectedPQs();
+      }
+    });
+
+    $quickActions.change(function (event) {
+      if ( ( $(event.target).is('#qa-calendar') ) && ( $('#qa-calendar').val().length == 10 ) && ( $('#editDates .selectionCount').text().trim() != 'No PQs selected' ) ) {
+        $('#do-edit').removeAttr("disabled", "disabled");
+      }
+      else {
+        $('#do-edit').attr("disabled", "disabled");
       }
     });
 
