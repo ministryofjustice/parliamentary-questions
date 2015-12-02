@@ -13,27 +13,28 @@ class GeckoReport
   def write_report
     add_item('total_questions_since', Pq.total_questions_since.count)
 
-    add_item('import_commons_last_week_ordinary', Pq.commons.imported_last_week.ordinary.count)
-    add_item('import_commons_prev_week_ordinary', Pq.commons.imported_prev_week.ordinary.count)
+    add_item('commons_due_last_week_ordinary', Pq.commons.due_last_week.ordinary.count)
+    add_item('commons_due_prev_week_ordinary', Pq.commons.due_prev_week.ordinary.count)
 
-    add_item('import_commons_last_week_named_day', Pq.commons.imported_last_week.named_day.count)
-    add_item('import_commons_prev_week_named_day', Pq.commons.imported_prev_week.named_day.count)
+    add_item('commons_last_week_named_day', Pq.commons.due_last_week.named_day.count)
+    add_item('commons_prev_week_named_day', Pq.commons.due_prev_week.named_day.count)
 
-    add_item('import_commons_last_week', Pq.commons.imported_last_week.count)
-    add_item('import_commons_prev_week', Pq.commons.imported_prev_week.count)
+    add_item('commons_due_last_week', Pq.commons.due_last_week.count)
+    add_item('commons_due_prev_week', Pq.commons.due_prev_week.count)
 
 
-    add_item('import_lords_last_week_ordinary', Pq.lords.imported_last_week.ordinary.count)
-    add_item('import_lords_prev_week_ordinary', Pq.lords.imported_prev_week.ordinary.count)
+    add_item('lords_due_last_week_ordinary', Pq.lords.due_last_week.ordinary.count)
+    add_item('lords_due_prev_week_ordinary', Pq.lords.due_prev_week.ordinary.count)
 
-    add_item('hoc_ord_ans_by_dead_last_week', Pq.commons.ordinary.answered_by_deadline_last_week.count)
-    add_item('hoc_nmd_ans_by_dead_last_week', Pq.commons.named_day.answered_by_deadline_last_week.count)
-    add_item('hol_ord_ans_by_dead_last_week', Pq.lords.ordinary.answered_by_deadline_last_week.count)
+    add_item('hoc_ord_due_last_week_on_time', Pq.commons.ordinary.due_last_week.on_time.count)
+    add_item('hoc_nmd_due_last_week_on_time', Pq.commons.named_day.due_last_week.on_time.count)
+    add_item('hol_ord_due_last_week_on_time', Pq.lords.ordinary.due_last_week.on_time.count)
+
     add_item('answered_by_deadline_last_week', Pq.answered_by_deadline_last_week.count)
 
-    add_item('hoc_ord_ans_last_week', Pq.commons.ordinary.answered_last_week.count)
-    add_item('hoc_nmd_ans_last_week', Pq.commons.named_day.answered_last_week.count)
-    add_item('hol_ord_ans_last_week', Pq.lords.ordinary.answered_last_week.count)
+    add_item('hoc_ord_ans_last_week - Deprecated', Pq.commons.ordinary.answered_last_week.count)
+    add_item('hoc_nmd_ans_last_week - Deprecated', Pq.commons.named_day.answered_last_week.count)
+    add_item('hol_ord_ans_last_week - Deprecated', Pq.lords.ordinary.answered_last_week.count)
 
     add_item('hoc_ord_ans_by_dead_since', Pq.commons.ordinary.answered_by_deadline_since.count)
     add_item('hoc_nmd_ans_by_dead_since', Pq.commons.named_day.answered_by_deadline_since.count)
