@@ -191,6 +191,14 @@ module PqScopes
     not_tx.where("answer_submitted > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
   end
 
+  def answer_due_since
+    not_tx.where("date_for_answer > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+  end
+
+  def draft_response_due_since
+    not_tx.where("internal_deadline > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+  end
+
   def total_questions_since
     not_tx.where("created_at > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
   end
