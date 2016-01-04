@@ -9,6 +9,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'statistics/ao_response_time' => 'statistics#ao_response_time'
   get 'statistics/ao_churn'         => 'statistics#ao_churn'
   get 'metrics_dashboard/'          => 'metrics_dashboard#index'
+  get 'gecko_report'                => 'gecko_report#index'
 
   resources :minister_contacts
   get 'minister_contacts/new/:id' => 'minister_contacts#new', :as => :new_minister_contact_withid
@@ -108,7 +109,7 @@ ParliamentaryQuestions::Application.routes.draw do
   match 'export_pod/pq_pod.csv' => 'export#csv_for_pod', via: [:get, :post]
   get 'export_pod'              => 'export#index_for_pod'
 
-  match 'export/csv_quick' => 'export#csv_quick', via: [:get, :post]
+  match 'export/csv_quick.csv' => 'export#csv_quick', via: [:get, :post]
   get 'export'          => 'export#index'
 
   get 'reports/ministers_by_progress'  => 'reports#ministers_by_progress'

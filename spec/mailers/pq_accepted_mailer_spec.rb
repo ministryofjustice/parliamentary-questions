@@ -117,8 +117,8 @@ describe 'PQAcceptedMailer' do
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include 'http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/written-pqs-guidance.pdf'
-      expect(mail.html_part.body).to include 'http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/downloads/written-pqs-guidance.pdf'
+      expect(mail.text_part.body).to include 'https://intranet.justice.gov.uk/documents/2015/09/parliamentary-questions-guidance.pdf'
+      expect(mail.html_part.body).to include 'https://intranet.justice.gov.uk/documents/2015/09/parliamentary-questions-guidance.pdf'
     end
 
 

@@ -56,7 +56,6 @@
 #  library_deposit                               :boolean
 #  pq_withdrawn                                  :datetime
 #  holding_reply_flag                            :boolean
-#  final_response_info_released                  :string(255)
 #  round_robin_guidance_received                 :datetime
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
@@ -113,7 +112,7 @@ class Pq < ActiveRecord::Base
   belongs_to :policy_minister, :class_name=>'Minister'
   belongs_to :transfer_out_ogd, :class_name=>'Ogd'
   belongs_to :transfer_in_ogd, :class_name=>'Ogd'
-  belongs_to :directorate
+  belongs_to :directorate, :class_name=>'Directorate'
   belongs_to :original_division, :class_name => 'Division'
 
   accepts_nested_attributes_for :trim_link
@@ -124,21 +123,6 @@ class Pq < ActiveRecord::Base
   validates :question, presence:true
   validate  :transfer_out_consistency
   validate  :sole_accepted_action_officer
-
-  RESPONSES = [
-    "Commercial in confidence",
-    "Disproportionate cost",
-    "Full disclosure",
-    "Holding reply [named day PQ only]",
-    "I will write",
-    "Information not held centrally",
-    "Information not recorded",
-    "Partial disclosure",
-    "Partial Disproportionate cost",
-    "Referral"
-  ]
-  validates :final_response_info_released, inclusion: RESPONSES, allow_nil: true, allow_blank: true
-
   before_update :set_pod_waiting, :set_state_weight
 
   def set_pod_waiting

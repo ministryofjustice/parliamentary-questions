@@ -74,7 +74,6 @@ class PqsController < ApplicationController
 
   PARAMS = [
     :answering_minister_query,
-    :final_response_info_released,
     :finance_interest,
     :holding_reply_flag,
     :i_will_write,

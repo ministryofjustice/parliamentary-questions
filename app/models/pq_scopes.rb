@@ -118,4 +118,100 @@ module PqScopes
   def backlog
     where('date_for_answer < CURRENT_DATE and state NOT IN (?)', PQState::CLOSED)
   end
+
+  def not_tx
+    where("transfer_out_ogd_id is null")
+  end
+
+  def commons
+    not_tx.where(house_name: 'House of Commons')
+  end
+
+  def lords
+    not_tx.where(house_name: 'House of Lords')
+  end
+
+  def beginning_of_last_week
+    (Date.today.beginning_of_week) - 8 #Sunday
+  end
+
+  def end_of_last_week
+    (Date.today.beginning_of_week) - 2 #Saturday
+  end
+
+  def beginning_of_prev_week
+    beginning_of_last_week - 7
+  end
+
+  def end_of_prev_week
+    end_of_last_week - 7
+  end
+
+  def imported_last_week
+    not_tx.where('created_at BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
+  end
+
+  def imported_prev_week
+    not_tx.where("created_at BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def ordinary
+    not_tx.where(question_type: 'Ordinary')
+  end
+
+  def named_day
+    not_tx.where(question_type: 'NamedDay')
+  end
+
+  def answered_last_week
+    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+  end
+
+  def answered_by_deadline_last_week
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+  end
+
+  def answered_prev_week
+    not_tx.where("answer_submitted BETWEEN ? AND ?",  beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def answered_by_deadline_prev_week
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def answered_by_deadline_since
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }") )
+  end
+
+  def draft_response_on_time_since
+    not_tx.where("internal_deadline > draft_answer_received AND draft_answer_received > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+  end
+
+  def answered_since
+    not_tx.where("answer_submitted > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+  end
+
+  def answer_due_since
+    not_tx.where("date_for_answer > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+  end
+
+  def draft_response_due_since
+    not_tx.where("internal_deadline > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+  end
+
+  def total_questions_since
+    not_tx.where("created_at > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+  end
+
+  def due_last_week
+    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+  end
+
+  def due_prev_week
+    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def on_time
+    not_tx.where("answer_submitted <= (date_for_answer + 1)")
+  end
 end
