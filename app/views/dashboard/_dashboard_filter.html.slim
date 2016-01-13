@@ -9,7 +9,7 @@
     h2 Filter
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
 
-      .filter-box
+      #date-for-answer.filter-box
         h3 Date for answer
         input#answer-date-today.right type="button" value="Today"
         .content
@@ -24,7 +24,7 @@
           .clearFilter
             input#clear-answer-filter.right type="button" value="Clear"
 
-      .filter-box
+      #deadline-date.filter-box
         h3 Internal deadline
         input#deadline-date-today.right type="button" value="Today"
         .content
@@ -100,7 +100,7 @@
           - else
             'N/A
         .clearFilter
-          input.clear.right type="button" value="Clear"
+          input.right type="button" value="Clear"
 
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
 
@@ -118,7 +118,7 @@
             - else
               'N/A
           .clearFilter
-            input.clear.right type="button" value="Clear"
+            input.right type="button" value="Clear"
 
       #policy-minister.filter-box
         input.view.open type="button" value="Policy minister"
@@ -134,7 +134,7 @@
             - else
               'N/A
           .clearFilter
-            input#clear.right type="button" value="Clear"
+            input.right type="button" value="Clear"
 
       #question-type.filter-box
         input.view.open type="button" value="Question type"
@@ -163,7 +163,7 @@
             - else
               'N/A
           .clearFilter
-            input#clear.right type="button" value="Clear"
+            input.right type="button" value="Clear"
 
       .filter-box
         h3 Keywords
