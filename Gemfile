@@ -49,6 +49,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'timecop'
-  gem "brakeman", :require => false
-  gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
+  gem 'brakeman', :require => false
 end

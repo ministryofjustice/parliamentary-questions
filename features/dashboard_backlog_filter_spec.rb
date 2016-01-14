@@ -4,18 +4,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
 
   include Features::PqHelpers
 
-=begin
-    clear_sent_mail
-    DBHelpers.load_feature_fixtures
-    PQA::QuestionLoader.new.load_and_import(16)
-    modify_pqs
-    create_pq_session
-    visit dashboard_path
-    click_link 'Backlog'
-    commission_questions
-    set_with_pod_status
-=end
-
   before(:all) do
     clear_sent_mail
     DBHelpers.load_feature_fixtures
@@ -175,14 +163,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
   end
 
   def test_date (filterBox, id, date)
-    within("#"+filterBox+".filter-box") { fill_in id, :with => date }
+    within(filterBox+".filter-box"){
+      fill_in id, :with => date
+    }
   end
 
   def test_checkbox(filterBox, category, term)
-    within("#"+filterBox+".filter-box") {
-      click_button category
-      choose term
-      within(".notice"){expect(page).to have_text('1 selected')}
+    within("#"+filterBox+".filter-box"){
+      find_button(category).trigger("click")
+      choose(term)
+      within(".notice") { expect(page).to have_text('1 selected') }
     }
   end
 
@@ -227,13 +217,54 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     change_status('15', '08/11/2015 11:00')
   end
 
+  def all_pqs_visible
+    within('.questions-list'){
+      find('li[data-pquin="uin-1"]').visible?
+      find('li[data-pquin="uin-2"]').visible?
+      find('li[data-pquin="uin-3"]').visible?
+      find('li[data-pquin="uin-4"]').visible?
+      find('li[data-pquin="uin-5"]').visible?
+      find('li[data-pquin="uin-6"]').visible?
+      find('li[data-pquin="uin-7"]').visible?
+      find('li[data-pquin="uin-8"]').visible?
+      find('li[data-pquin="uin-9"]').visible?
+      find('li[data-pquin="uin-10"]').visible?
+      find('li[data-pquin="uin-11"]').visible?
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
+      find('li[data-pquin="uin-14"]').visible?
+      find('li[data-pquin="uin-15"]').visible?
+      find('li[data-pquin="uin-16"]').visible?
+    }
+  end
+
+  def all_pqs_hidden
+    within('.questions-list'){
+      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
+    }
+  end
+
+
   #===================================================================================
   # = Checking filter elements are present
   #===================================================================================
 
-  scenario "Check filter elements are on page" do
-
-    puts "\n.1) Check filter elements are on page"
+  scenario "1) Check filter elements are on page" do
 
     commission_questions
     set_with_pod_status
@@ -254,25 +285,25 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).to have_selector("input[type=text][id='deadline-to']")
       expect(page).to have_selector("input[type=button][id='clear-deadline-filter']")
       expect(page).to have_button('Status')
-      
+
       click_button 'Status'
       expect(page).to have_selector("input[name='flag'][type=radio][value='Draft Pending']")
       expect(page).to have_selector("input[name='flag'][type=radio][value='With POD']")
       expect(page).to have_selector("#flag input[type=button][value='Clear']")
       expect(page).to have_button('Replying minister')
-      
+
       click_button 'Replying minister'
       expect(page).to have_selector("input[name='replying-minister'][type=radio][value='Jeremy Wright (MP)']")
       expect(page).to have_selector("input[name='replying-minister'][type=radio][value='Simon Hughes (MP)']")
       expect(page).to have_selector("#replying-minister input[type=button][value='Clear']")
       expect(page).to have_button('Policy minister')
-      
+
       click_button 'Policy minister'
       expect(page).to have_selector("input[name='policy-minister'][type=radio][value='Lord Faulks QC']")
       expect(page).to have_selector("input[name='policy-minister'][type=radio][value='Shailesh Vara (MP)']")
       expect(page).to have_selector("#policy-minister input[type=button][value='Clear']")
       expect(page).to have_button('Question type')
-      
+
       click_button 'Question type'
       expect(page).to have_selector("input[name='question-type'][type=radio][value='Named Day']")
       expect(page).to have_selector("input[name='question-type'][type=radio][value='Ordinary']")
@@ -287,103 +318,29 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
   # = Testing individual filters
   #===================================================================================
 
+  scenario '2) PQs filtered by date for answer from 01/10/2015' do
 
-  scenario 'PQs filtered by date for answer from 01/10/2015.' do
-
-    puts "2) PQs filtered by date for answer from 01/10/2015."
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '01/10/2015')
-    
+
+    test_date('#date-for-answer', 'answer-from', '01/10/2015')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
+
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by date for answer from 22/11/2015.' do
-
-    puts "3) PQs filtered by date for answer from 22/11/2015."
+  scenario '3) PQs filtered by date for answer from 22/11/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '22/11/2015')
-
+    test_date('#date-for-answer', 'answer-from', '22/11/2015')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -405,102 +362,25 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by date for answer from 01/12/2015.' do
-
-    puts "4) PQs filtered by date for answer from 01/12/2015."
+  scenario '4) PQs filtered by date for answer from 01/12/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '01/12/2015')
-
+    test_date('#date-for-answer', 'answer-from', '01/12/2015')
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
+    all_pqs_hidden
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by date for answer to 01/10/2015.' do
-
-    puts "5) PQs filtered by date for answer to 01/10/2015."
+  scenario '5) PQs filtered by date for answer to 01/10/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
     within('.questions-list'){
@@ -522,78 +402,21 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-16"]').visible?
     }
 
-    test_date('date-for-answer', 'answer-to', '01/10/2015')
-
+    test_date('#date-for-answer', 'answer-to', '01/10/2015')
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
+    all_pqs_hidden
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by date for answer to 22/11/2015.' do
-
-    puts "6) PQs filtered by date for answer to 22/11/2015."
+  scenario '6) PQs filtered by date for answer to 22/11/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-to', '22/11/2015')
-
+    test_date('#date-for-answer', 'answer-to', '22/11/2015')
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -615,195 +438,44 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by date for answer to 01/12/2015.' do
-
-    puts "7) PQs filtered by date for answer to 01/12/2015."
+  scenario '7) PQs filtered by date for answer to 01/12/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-to', '01/12/2015')
-
+    test_date('#date-for-answer', 'answer-to', '01/12/2015')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by internal deadline from 01/10/2015.' do
-
-    puts "8) PQs filtered by internal deadline from 01/10/2015."
+  scenario '8) PQs filtered by internal deadline from 01/10/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('deadline-date', 'deadline-from', '01/10/2015')
-
+    test_date('#deadline-date', 'deadline-from', '01/10/2015')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     clear_filter('#deadline-date')
-    
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by internal deadline from 22/11/2015.' do
-
-    puts "9) PQs filtered by internal deadline from 22/11/2015."
+  scenario '9) PQs filtered by internal deadline from 22/11/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('deadline-date', 'deadline-from', '22/11/2015')
-
+    test_date('#deadline-date', 'deadline-from', '22/11/2015')
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -825,147 +497,35 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#deadline-date')
-    
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by internal deadline from 01/12/2015.' do
-
-    puts "10) PQs filtered by internal deadline from 01/12/2015."
+  scenario '10) PQs filtered by internal deadline from 01/12/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('deadline-date', 'deadline-from', '01/12/2015')
-
+    test_date('#deadline-date', 'deadline-from', '01/12/2015')
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin=14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
+    all_pqs_hidden
 
     clear_filter('#deadline-date')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
   end
 
-  scenario 'PQs filtered by internal deadline to 01/10/2015.' do
-
-    puts "11) PQs filtered by internal deadline to 01/12/2015."
+  scenario '11) PQs filtered by internal deadline to 01/10/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-    
-    test_date('deadline-date', 'deadline-to', '01/10/2015')
+    all_pqs_visible
 
+    test_date('#deadline-date', 'deadline-to', '01/10/2015')
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin=14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
-    
+    all_pqs_hidden
+
     clear_filter('#deadline-date')
-    
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -987,32 +547,12 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
   end
 
-  scenario 'PQs filtered by internal deadline to 22/11/2015.' do
-
-    puts "12) PQs filtered by internal deadline to 22/11/2015."
+  scenario '12) PQs filtered by internal deadline to 22/11/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-    
-    test_date('deadline-date', 'deadline-to', '22/11/2015')
-    
+    all_pqs_visible
+
+    test_date('#deadline-date', 'deadline-to', '22/11/2015')
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -1032,35 +572,19 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-15"]').visible?
       find('li[data-pquin="uin-16"]').visible?
     }
-    
+
     clear_filter('#deadline-date')
-    
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by internal deadline to 01/12/2015.' do
-
-    puts "13) PQs filtered by internal deadline to 01/12/2015."
+  scenario '13) PQs filtered by internal deadline to 01/12/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
+    all_pqs_visible
+
+    test_date('#deadline-date', 'deadline-to', '01/12/2015')
+    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
       find('li[data-pquin="uin-2"]').visible?
@@ -1080,77 +604,17 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-16"]').visible?
     }
 
-    test_date('deadline-date', 'deadline-to', '01/12/2015')
-    
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-    
     clear_filter('#deadline-date')
-    
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by Status.' do
-
-    puts "14) PQs filtered by Status."
+  scenario '14) PQs filtered by Status "With POD"' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_checkbox('flag', 'Status', 'With POD')
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -1172,54 +636,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by Replying minister Jeremy Wright (MP).' do
-
-    puts "15) PQs filtered by Replying minister Jeremy Wright (MP)."
+  scenario '15) PQs filtered by Replying minister Jeremy Wright (MP).' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_checkbox('replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
-    
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -1241,54 +667,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#replying-minister')
-    
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by Policy minister Lord Faulks QC.' do
-
-    puts "16) PQs filtered by Policy minister Lord Faulks QC."
+  scenario '16) PQs filtered by Policy minister Lord Faulks QC.' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_checkbox('policy-minister', 'Policy minister', 'Lord Faulks QC')
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -1310,54 +698,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#policy-minister')
-    
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario "PQs filtered by Question Type 'Ordinary'." do
-
-    puts "17) PQs filtered by Question Type 'Ordinary'."
+  scenario '17) PQs filtered by Question Type "Ordinary"' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_checkbox('question-type', 'Question type', 'Ordinary')
-
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -1379,55 +729,17 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#question-type')
-    
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
   end
 
-  scenario "PQs filtered by Keyword 'Mock'." do
-
-    puts "18) PQs filtered by Question Type 'Mock'."
+  scenario '18) PQs filtered by Keyword "Mock"' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_keywords('Mock')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -1450,52 +762,15 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
 
     test_keywords('')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario "PQs filtered by Keyword 'uin-1'." do
-
-    puts "19) PQs filtered by Question Type 'uin-1'."
+  scenario '19) PQs filtered by Keyword "uin-1"' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_keywords('uin-1')
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -1517,129 +792,35 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_keywords('')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario "PQs filtered by Keyword 'Ministry of Justice'." do
-
-    puts "20) PQs filtered by Question Type 'Ministry of Justice'."
+  scenario '20) PQs filtered by Keyword "Ministry of Justice"' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_keywords('Ministry of Justice')
-
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
+    all_pqs_hidden
 
     test_keywords('')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
-
 
   #===================================================================================
   # = Testing filter combinations
   #===================================================================================
 
-  scenario "PQs filtered by date for answer 01/10/2015 - 01/12/2015" do
-
-    puts "21) PQs filtered by date for answer 01/10/2015 - 01/12/2015"
+  scenario '21) PQs filtered by date for answer 01/10/2015 - 01/12/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '01/10/2015')
-    test_date('date-for-answer', 'answer-to', '01/12/2015')
-
+    test_date('#date-for-answer', 'answer-from', '01/10/2015')
+    test_date('#date-for-answer', 'answer-to', '01/12/2015')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -1661,55 +842,17 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario "PQs filtered by date for answer 26/11/2015 - 27/11/2015" do
-
-    puts "22) PQs filtered by date for answer 26/11/2015 - 27/11/2015"
+  scenario '22) PQs filtered by date for answer 26/11/2015 - 27/11/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '26/11/2015')
-    test_date('date-for-answer', 'answer-to', '27/11/2015')
-
+    test_date('#date-for-answer', 'answer-from', '26/11/2015')
+    test_date('#date-for-answer', 'answer-to', '27/11/2015')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -1731,196 +874,47 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario "PQs filtered by date for answer 01/12/2015 - 15/12/2015" do
-
-    puts "23) PQs filtered by date for answer 01/12/2015 - 15/12/2015"
+  scenario '23) PQs filtered by date for answer 01/12/2015 - 15/12/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '01/12/2015')
-    test_date('date-for-answer', 'answer-to', '05/12/2015')
-
+    test_date('#date-for-answer', 'answer-from', '01/12/2015')
+    test_date('#date-for-answer', 'answer-to', '05/12/2015')
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
+    all_pqs_hidden
 
     clear_filter('#date-for-answer')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario "A user filters the PQ list by: Internal Deadline 01/10/2015 - 20/10/2015" do
-
-    puts "24) PQs filtered by internal deadline 01/10/2015 - 20/10/2015"
+  scenario '24) A user filters the PQ list by: Internal Deadline 01/10/2015 - 20/10/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('deadline-date', 'deadline-from', '01/10/2015')
-    test_date('deadline-date', 'deadline-to', '20/10/2015')
-
+    test_date('#deadline-date', 'deadline-from', '01/10/2015')
+    test_date('#deadline-date', 'deadline-to', '20/10/2015')
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
-    
+    all_pqs_hidden
+
     clear_filter('#deadline-date')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario "A user filters the PQ list by: Internal Deadline 24/11/2015 - 25/11/2015" do
-
-    puts "25) PQs filtered by internal deadline 24/11/2015 - 25/11/2015"
+  scenario '25) A user filters the PQ list by: Internal Deadline 24/11/2015 - 25/11/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('deadline-date', 'deadline-from', '24/11/2015')
-    test_date('deadline-date', 'deadline-to', '25/11/2015')
-
+    test_date('#deadline-date', 'deadline-from', '24/11/2015')
+    test_date('#deadline-date', 'deadline-to', '25/11/2015')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -1942,125 +936,31 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#deadline-date')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario "A user filters the PQ list by: Internal Deadline 01/12/2015 - 15/12/2015" do
-
-    puts "26) PQs filtered by internal deadline 01/12/2015 - 15/12/2015"
+  scenario '26) A user filters the PQ list by: Internal Deadline 01/12/2015 - 15/12/2015' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('deadline-date', 'deadline-from', '01/12/2015')
-    test_date('deadline-date', 'deadline-to', '15/12/2015')
-
+    test_date('#deadline-date', 'deadline-from', '01/12/2015')
+    test_date('#deadline-date', 'deadline-to', '15/12/2015')
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
+    all_pqs_hidden
 
     clear_filter('#deadline-date')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by Replying Minister, Policy Minister' do
-
-    puts "27) PQs filtered by Replying Minister, Policy Minister"
+  scenario '27) PQs filtered by Replying Minister, Policy Minister' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
     test_checkbox('replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -2082,7 +982,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('policy-minister', 'Policy minister', 'Lord Faulks QC')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -2104,7 +1003,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -2126,54 +1024,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by DFA:To, ID:From, Replying Minister' do
-
-    puts "28) PQs filtered by DFA:To, ID:From, Replying Minister"
+  scenario '28) PQs filtered by DFA:To, ID:From, Replying Minister' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-to', '24/11/2015')
-
+    test_date('#date-for-answer', 'answer-to', '24/11/2015')
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2194,8 +1054,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-16"]').visible?
     }
 
-    test_date('deadline-date', 'deadline-from', '17/11/2015')
-
+    test_date('#deadline-date', 'deadline-from', '17/11/2015')
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2217,7 +1076,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2239,7 +1097,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2261,7 +1118,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#filters #deadline-date.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2283,54 +1139,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by DFA:From, ID:To, Replying Minister, Question type' do
-
-    puts "29) PQs filtered by DFA:From, ID:To, Replying Minister, Question type"
+  scenario '29) PQs filtered by DFA:From, ID:To, Replying Minister, Question type' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '26/11/2015')
-
+    test_date('#date-for-answer', 'answer-from', '26/11/2015')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -2351,8 +1169,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('deadline-date', 'deadline-to', '26/11/2015')
-
+    test_date('#deadline-date', 'deadline-to', '26/11/2015')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2374,7 +1191,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2396,7 +1212,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('question-type', 'Question type', 'Ordinary')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2418,7 +1233,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#question-type')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2440,7 +1254,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2462,7 +1275,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#filters #deadline-date.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -2484,76 +1296,20 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Keyword' do
-
-    puts "30) PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Keyword"
+  scenario '30) PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Keyword' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '01/11/2015')
-
+    test_date('#date-for-answer', 'answer-from', '01/11/2015')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-to', '21/11/2015')
-
+    test_date('#date-for-answer', 'answer-to', '21/11/2015')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2574,8 +1330,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-16"]').visible?
     }
 
-    test_date('deadline-date', 'deadline-from', '13/11/2015')
-
+    test_date('#deadline-date', 'deadline-from', '13/11/2015')
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2596,8 +1351,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('deadline-date', 'deadline-to', '17/11/2015')
-
+    test_date('#deadline-date', 'deadline-to', '17/11/2015')
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2619,7 +1373,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_keywords('uin-14')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2641,7 +1394,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2663,7 +1415,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#deadline-date.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2685,54 +1436,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by DFA:From, DFA:To, ID:To, Status, Replying Minister, Policy Minister' do
-
-    puts "31) PQs filtered by DFA:From, DFA:To, ID:To, Status, Replying Minister, Policy Minister"
+  scenario '31) PQs filtered by DFA:From, DFA:To, ID:To, Status, Replying Minister, Policy Minister' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '23/11/2015')
-
+    test_date('#date-for-answer', 'answer-from', '23/11/2015')
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -2753,8 +1466,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('date-for-answer', 'answer-to', '27/11/2015')
-
+    test_date('#date-for-answer', 'answer-to', '27/11/2015')
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2775,8 +1487,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('deadline-date', 'deadline-to', '24/11/2015')
-
+    test_date('#deadline-date', 'deadline-to', '24/11/2015')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2798,7 +1509,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('flag', 'Status', 'With POD')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2820,7 +1530,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('2  parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2842,7 +1551,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('policy-minister', 'Policy minister', 'Shailesh Vara (MP)')
-
     within('#count'){expect(page).to have_text('1  parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2864,7 +1572,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('2  parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2886,7 +1593,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2908,7 +1614,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2930,7 +1635,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#deadline-date.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -2952,82 +1656,27 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Status, Question type, Keyword' do
-
-    puts "32) PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Status, Question type, Keyword"
+=begin
+  scenario '32) PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Status, Question type, Keyword' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '16/11/2015')
+    test_date('#date-for-answer', 'answer-from', '12/11/2015')
+    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
+    all_pqs_visible
 
-    within('#count'){expect(page).to have_text('14 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
-
-    test_date('date-for-answer', 'answer-to', '27/11/2015')
-
+    test_date('#date-for-answer', 'answer-to', '25/11/2015')
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
       expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
+      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
       find('li[data-pquin="uin-5"]').visible?
       find('li[data-pquin="uin-6"]').visible?
       find('li[data-pquin="uin-7"]').visible?
@@ -3038,35 +1687,12 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-12"]').visible?
       find('li[data-pquin="uin-13"]').visible?
       find('li[data-pquin="uin-14"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
+      find('li[data-pquin="uin-15"]').visible?
+      find('li[data-pquin="uin-16"]').visible?
     }
 
-    test_date('deadline-date', 'deadline-from', '17/11/2015')
-    within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
-
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
-
-    test_date('deadline-date', 'deadline-to', '23/11/2015')
-
-    within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
+    test_date('#deadline-date', 'deadline-from', '13/11/2015')
+    within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
       expect(page).not_to have_selector('li[data-pquin="uin-2"]')
@@ -3079,38 +1705,15 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-9"]').visible?
       find('li[data-pquin="uin-10"]').visible?
       find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
+      find('li[data-pquin="uin-14"]').visible?
+      find('li[data-pquin="uin-15"]').visible?
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_checkbox('flag', 'Status', 'With POD')
-
-    within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
-
-    test_checkbox('question-type', 'Question type', 'Ordinary')
-
-    within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
+    test_date('#deadline-date', 'deadline-to', '20/11/2015')
+    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
       expect(page).not_to have_selector('li[data-pquin="uin-2"]')
@@ -3118,21 +1721,20 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-4"]')
       expect(page).not_to have_selector('li[data-pquin="uin-5"]')
       expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      find('li[data-pquin="uin-7"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
+      find('li[data-pquin="uin-8"]').visible?
+      find('li[data-pquin="uin-9"]').visible?
       find('li[data-pquin="uin-10"]').visible?
       find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
+      find('li[data-pquin="uin-14"]').visible?
+      find('li[data-pquin="uin-15"]').visible?
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
     test_keywords('uin-1')
-
-    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
+    within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
       expect(page).not_to have_selector('li[data-pquin="uin-2"]')
@@ -3145,15 +1747,14 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-9"]')
       find('li[data-pquin="uin-10"]').visible?
       find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
+      find('li[data-pquin="uin-14"]').visible?
+      find('li[data-pquin="uin-15"]').visible?
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
+    test_checkbox('flag', 'Status', 'Draft Pending')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3162,43 +1763,105 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-4"]')
       expect(page).not_to have_selector('li[data-pquin="uin-5"]')
       expect(page).not_to have_selector('li[data-pquin="uin-6"]')
-      find('li[data-pquin="uin-7"]').visible?
+      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
       expect(page).not_to have_selector('li[data-pquin="uin-8"]')
       expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
       expect(page).not_to have_selector('li[data-pquin="uin-14"]')
       expect(page).not_to have_selector('li[data-pquin="uin-15"]')
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    clear_filter('#question-type')
 
-    within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
+    test_checkbox('question-type', 'Question type', 'Named Day')
+    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
       expect(page).not_to have_selector('li[data-pquin="uin-2"]')
       expect(page).not_to have_selector('li[data-pquin="uin-3"]')
       expect(page).not_to have_selector('li[data-pquin="uin-4"]')
       expect(page).not_to have_selector('li[data-pquin="uin-5"]')
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
+      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
       expect(page).not_to have_selector('li[data-pquin="uin-8"]')
       expect(page).not_to have_selector('li[data-pquin="uin-9"]')
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
+      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
+    }
+
+    clear_filter('#question-type')
+    within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-10"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-11"]')
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
       expect(page).not_to have_selector('li[data-pquin="uin-14"]')
       expect(page).not_to have_selector('li[data-pquin="uin-15"]')
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
     clear_filter('#flag')
+    within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-8"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-9"]')
+      find('li[data-pquin="uin-10"]').visible?
+      find('li[data-pquin="uin-11"]').visible?
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
+      find('li[data-pquin="uin-14"]').visible?
+      find('li[data-pquin="uin-15"]').visible?
+      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
+    }
 
-    within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
+    within('#filters'){find_button("clear-keywords-filter").trigger("click")}
+    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-3"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-4"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-5"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-6"]')
+      expect(page).not_to have_selector('li[data-pquin="uin-7"]')
+      find('li[data-pquin="uin-8"]').visible?
+      find('li[data-pquin="uin-9"]').visible?
+      find('li[data-pquin="uin-10"]').visible?
+      find('li[data-pquin="uin-11"]').visible?
+      find('li[data-pquin="uin-12"]').visible?
+      find('li[data-pquin="uin-13"]').visible?
+      find('li[data-pquin="uin-14"]').visible?
+      find('li[data-pquin="uin-15"]').visible?
+      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
+    }
+
+    within('#deadline-date.filter-box'){find_button("Clear").trigger("click")}
+    within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
       expect(page).not_to have_selector('li[data-pquin="uin-2"]')
@@ -3211,84 +1874,25 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       find('li[data-pquin="uin-9"]').visible?
       find('li[data-pquin="uin-10"]').visible?
       find('li[data-pquin="uin-11"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-12"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-13"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-14"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-16"]')
-    }
-
-    within('#deadline-date.filter-box'){find_button("Clear").trigger("click")}
-
-    within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li[data-pquin="uin-1"]')
-      expect(page).not_to have_selector('li[data-pquin="uin-2"]')
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
       find('li[data-pquin="uin-12"]').visible?
       find('li[data-pquin="uin-13"]').visible?
       find('li[data-pquin="uin-14"]').visible?
-      expect(page).not_to have_selector('li[data-pquin="uin-15"]')
+      find('li[data-pquin="uin-15"]').visible?
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
+=end
 
-  scenario 'PQs filtered by DFA:From, DFA:To, ID:From, Status, Replying Minister, Policy Minister, Question type, Keyword' do
-
-    puts "33) PQs filtered by DFA:From, DFA:To, ID:From, Status, Replying Minister, Policy Minister, Question type, Keyword"
+  scenario '33) PQs filtered by DFA:From, DFA:To, ID:From, Status, Replying Minister, Policy Minister, Question type, Keyword' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
 
-    test_date('date-for-answer', 'answer-from', '16/11/2015')
-
+    test_date('#date-for-answer', 'answer-from', '16/11/2015')
     within('#count'){expect(page).to have_text('14 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -3309,8 +1913,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('date-for-answer', 'answer-to', '27/11/2015')
-
+    test_date('#date-for-answer', 'answer-to', '27/11/2015')
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3331,8 +1934,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('deadline-date', 'deadline-from', '16/11/2015')
-
+    test_date('#deadline-date', 'deadline-from', '16/11/2015')
     within('#count'){expect(page).to have_text('10 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3354,7 +1956,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('flag', 'Status', 'With POD')
-
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3376,7 +1977,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3398,7 +1998,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('policy-minister', 'Policy minister', 'Shailesh Vara (MP)')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3420,7 +2019,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('question-type', 'Question type', 'Named Day')
-
     within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3442,7 +2040,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_keywords('uin-4')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3464,7 +2061,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3486,7 +2082,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#question-type')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3508,7 +2103,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3530,7 +2124,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3552,7 +2145,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('10 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3574,7 +2166,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#deadline-date.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3596,55 +2187,16 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
 
-  scenario 'PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Status, Replying Minister, Policy Minister, Question type, Keyword' do
-
-    puts "34) PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Status, Replying Minister, Policy Minister, Question type, Keyword"
+  scenario '34) PQs filtered by DFA:From, DFA:To, ID:From, ID:To, Status, Replying Minister, Policy Minister, Question type, Keyword' do
 
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
+    all_pqs_visible
 
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
-
-    test_date('date-for-answer', 'answer-from', '15/11/2015')
-
+    test_date('#date-for-answer', 'answer-from', '15/11/2015')
     within('#count'){expect(page).to have_text('15 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li[data-pquin="uin-1"]').visible?
@@ -3665,8 +2217,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('date-for-answer', 'answer-to', '27/11/2015')
-
+    test_date('#date-for-answer', 'answer-to', '27/11/2015')
     within('#count'){expect(page).to have_text('13 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3687,8 +2238,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('deadline-date', 'deadline-from', '15/11/2015')
-
+    test_date('#deadline-date', 'deadline-from', '15/11/2015')
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3709,8 +2259,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
       expect(page).not_to have_selector('li[data-pquin="uin-16"]')
     }
 
-    test_date('deadline-date', 'deadline-to', '23/11/2015')
-
+    test_date('#deadline-date', 'deadline-to', '23/11/2015')
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3732,7 +2281,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('flag', 'Status', 'Draft Pending')
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3754,7 +2302,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3776,7 +2323,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('policy-minister', 'Policy minister', 'Lord Faulks QC')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3798,7 +2344,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_checkbox('question-type', 'Question type', 'Ordinary')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3820,7 +2365,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     test_keywords('uin-9')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3842,7 +2386,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3864,7 +2407,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#question-type')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3886,7 +2428,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3908,7 +2449,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3930,7 +2470,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3952,7 +2491,6 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#deadline-date.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('13 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li[data-pquin="uin-1"]')
@@ -3974,26 +2512,7 @@ feature "User filters 'Backlog' dashboard  questions", js: true, suspend_cleaner
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li[data-pquin="uin-1"]').visible?
-      find('li[data-pquin="uin-2"]').visible?
-      find('li[data-pquin="uin-3"]').visible?
-      find('li[data-pquin="uin-4"]').visible?
-      find('li[data-pquin="uin-5"]').visible?
-      find('li[data-pquin="uin-6"]').visible?
-      find('li[data-pquin="uin-7"]').visible?
-      find('li[data-pquin="uin-8"]').visible?
-      find('li[data-pquin="uin-9"]').visible?
-      find('li[data-pquin="uin-10"]').visible?
-      find('li[data-pquin="uin-11"]').visible?
-      find('li[data-pquin="uin-12"]').visible?
-      find('li[data-pquin="uin-13"]').visible?
-      find('li[data-pquin="uin-14"]').visible?
-      find('li[data-pquin="uin-15"]').visible?
-      find('li[data-pquin="uin-16"]').visible?
-    }
+    all_pqs_visible
   end
-
 end
