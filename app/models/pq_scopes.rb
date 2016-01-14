@@ -120,7 +120,7 @@ module PqScopes
   end
 
   def not_tx
-    where("transfer_out_ogd_id is null")
+    where("transfer_out_ogd_id is null AND question_type != 'Follow-up IWW'")
   end
 
   def commons
@@ -184,7 +184,8 @@ module PqScopes
   end
 
   def draft_response_on_time_since
-    not_tx.where("internal_deadline > draft_answer_received AND draft_answer_received > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+    #For reporting purposes an half hour's grace period is allowed on the internal deadline.
+    not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
   end
 
   def answered_since
