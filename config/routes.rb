@@ -59,6 +59,8 @@ ParliamentaryQuestions::Application.routes.draw do
   post 'quick_action_export' => 'quick_action_export#new'
   get 'quick_action_export/export' => 'quick_action_export#export'
 
+  post 'quick_action_edit_dates' => 'quick_action#dates'
+
   get '/', to: 'root#index', as: :root
   get 'dashboard'             => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'

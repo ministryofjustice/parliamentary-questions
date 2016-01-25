@@ -18,7 +18,6 @@ class QuickActionExportController < ApplicationController
         @total_pqs = 0
       else
 
-        #pqs_array = pqs_comma_separated.split(',')
         @pqs_comma_separated.split(',').map { |p|
           if Pq.find_by(uin: p).nil?
             puts 'Failed to validate ' || p
@@ -36,8 +35,6 @@ class QuickActionExportController < ApplicationController
         total_pqs = @total_pqs
 
         send_data(pqs_array.to_csv, content_type: 'text/csv')
-
-        #run_export(Export::PqSelection, 'index')
 
       end
 

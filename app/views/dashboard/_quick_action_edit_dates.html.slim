@@ -1,5 +1,5 @@
-//= form_tag({controller: 'edit_dates', action: 'dates_quick'},{:id => 'editDates', multipart: true}) do
-form id="editDates" method="post" enctype="multipart/form-data" action="" accept-charset="UTF-8"
+//form id="editDates" method="post" enctype="multipart/form-data" action="" accept-charset="UTF-8"
+= form_tag({controller: 'quick_action', action: 'dates'},{:id => 'editDates', multipart: true}) do
   input#qa-edit-dates type="button" value="Edit PQ dates"
   .content.collapsed
     .selectionCount.notice
@@ -7,10 +7,11 @@ form id="editDates" method="post" enctype="multipart/form-data" action="" accept
     = hidden_field_tag :date_from, '04/06/2014'
     = hidden_field_tag :date_to, Date.today.to_s(:date)
     = hidden_field_tag :pqs_comma_separated
+    = hidden_field_tag :bob, 'Hello Bob'
 
     .datepicker.form-group
       input#qa-calendar.form-control type="text" placeholder="e.g. 20/06/2014"
       span.fa.fa-calendar title="select a date"
 
-    input#do-edit class="button" disabled="disabled" type="submit" value="Edit"
+    input#do-edit class="button" disabled="disabled" type="submit" value="Update"
     input.qa-cancel class="button button-cancel button-secondary" type="reset" value="Cancel"

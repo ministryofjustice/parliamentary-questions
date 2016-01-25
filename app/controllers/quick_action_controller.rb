@@ -71,10 +71,12 @@ class QuickActionController < ApplicationController
 
   def dates
     puts 'Im in the dates of QuickActionController'
-    params.permit(:total_pqs, :pqs_comma_separated)
+    params.permit(:total_pqs, :pqs_comma_separated, :utf8, :authenticity_token, :date_from, :date_to)
+
     render(partial: 'dashboard/quick_action_export',
            locals:  { total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated },
            status:  status)
+
   end
 
   private
