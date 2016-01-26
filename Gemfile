@@ -43,6 +43,7 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'selenium-webdriver', '~> 2.49'
   gem 'launchy'
   gem 'letter_opener'
   gem 'pry-rails'
