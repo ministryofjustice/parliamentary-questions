@@ -29,11 +29,19 @@ describe PressDesk do
     expect(duplicate).to be_invalid
   end
 
-  it 'exploses a press_officer_emails method' do
+  it 'exposes a press_officer_emails method' do
     pdesk.press_officers << build(:press_officer, name: 'PO one', email: 'po.one@po.com')
     pdesk.press_officers << build(:press_officer, name: 'PO two', email: 'po.two@po.com')
 
     expect(pdesk.press_officer_emails).to eql(['po.one@po.com', 'po.two@po.com'])
+  end
+
+
+  it 'exposes a press_officer_emails method to not include deleted ones' do
+    pdesk.press_officers << build(:press_officer, name: 'PO one', email: 'po.one@po.com', deleted: true)
+    pdesk.press_officers << build(:press_officer, name: 'PO two', email: 'po.two@po.com', deleted: false)
+
+    expect(pdesk.press_officer_emails).to eql(['po.two@po.com'])
   end
 
   describe "associations" do
