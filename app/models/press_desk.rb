@@ -20,6 +20,7 @@ class PressDesk < ActiveRecord::Base
 
   def press_officer_emails
     press_officers
+      .reject(&:deleted?)
       .map(&:email)
       .reject(&:blank?)
   end
