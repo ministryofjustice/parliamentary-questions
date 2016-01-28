@@ -18,17 +18,12 @@ class QuickActionController < ApplicationController
         @total_pqs = 0
       else
 
-        #pqs_array = pqs_comma_separated.split(',')
         @pqs_comma_separated.split(',').map { |p|
           if Pq.find_by(uin: p).nil?
-            puts 'Failed to validate ' || p
             errors.add(p, "False PQ UIN")
             return false
           else
-            puts 'Validated ' || p
             x = Pq.find_by(uin: p)
-            puts x
-
             pqs_array.push(x)
           end
         }
@@ -61,16 +56,12 @@ class QuickActionController < ApplicationController
   end
 
   def export
-    puts 'Im in the export of QuickActionController'
-
-
     render(partial: 'dashboard/quick_action_export',
            locals:  { total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated },
            status:  status)
   end
 
   def dates
-    puts 'Im in the dates of QuickActionController'
     params.permit(:total_pqs, :pqs_comma_separated, :utf8, :authenticity_token, :date_from, :date_to)
 
     render(partial: 'dashboard/quick_action_export',
