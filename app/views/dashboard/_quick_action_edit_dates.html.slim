@@ -4,10 +4,7 @@
     .selectionCount.notice
       'No PQs selected
 
-    = hidden_field_tag :date_from, '04/06/2014'
-    = hidden_field_tag :date_to, Date.today.to_s(:date)
     = hidden_field_tag :pqs_comma_separated
-    = hidden_field_tag :bob
 
     .filter-box
       label.form-label for="qa-edit-deadline-date"
@@ -16,28 +13,28 @@
         =text_field_tag 'qa_edit_deadline_date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
-      label.form-label for="qa-edit-draft-date"
+      label.form-label for="qa_edit_draft_date"
         'Draft received
       .datepicker.form-group
-        =text_field_tag 'qa-edit-draft-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
+        =text_field_tag 'qa_edit_draft_date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
-      label.form-label for="qa-edit-pod-date"
+      label.form-label for="qa_edit_pod_date"
         'POD cleared
       .datepicker.form-group
-        =text_field_tag 'qa-edit-pod-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
+        =text_field_tag 'qa_edit_pod_date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
-      label.form-label for="qa-edit-minister-date"
+      label.form-label for="qa_edit_minister_date"
         'Minister cleared
       .datepicker.form-group
-        =text_field_tag 'qa-edit-minister-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
+        =text_field_tag 'qa_edit_minister_date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
-      label.form-label for="qa-edit-answered-date"
+      label.form-label for="qa_edit_answered_date"
         'Answered
       .datepicker.form-group
-        =text_field_tag 'qa-edit-answered-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
+        =text_field_tag 'qa_edit_answered_date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
     input#do-edit class="button" disabled="disabled" type="submit" value="Edit"

@@ -33,31 +33,32 @@ class QuickActionsService
       return
     end
 
-    if internal_deadline
+    if internal_deadline and internal_deadline != ''
       pq_batch.each do |pq|
         pq.internal_deadline = internal_deadline
         pq.update_state!
+        pq.save!
       end
     end
-    if draft_received
+    if draft_received and draft_received != ''
       pq_batch.each do |pq|
         pq.draft_answer_received = draft_received
         pq.update_state!
       end
     end
-    if pod_clearance
+    if pod_clearance and pod_clearance != ''
       pq_batch.each do |pq|
         pq.pod_clearance = pod_clearance
         pq.update_state!
       end
     end
-    if cleared_by_minister
+    if cleared_by_minister and cleared_by_minister != ''
       pq_batch.each do |pq|
         pq.cleared_by_answering_minister = cleared_by_minister
         pq.update_state!
       end
     end
-    if answer_submitted
+    if answer_submitted and answer_submitted != ''
       pq_batch.each do |pq|
         pq.answer_submitted = answer_submitted
         pq.update_state!

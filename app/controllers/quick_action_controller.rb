@@ -62,9 +62,12 @@ class QuickActionController < ApplicationController
   end
 
   def dates
-    params.permit(:total_pqs, :pqs_comma_separated, :utf8, :authenticity_token, :date_from, :date_to)
+    params.permit(:total_pqs, :pqs_comma_separated, :utf8, :authenticity_token, :qa_edit_deadline_date, :qa_edit_draft_date, :qa_edit_pod_date, :qa_edit_minister_date, :qa_edit_answered_date)
 
-    render(partial: 'dashboard/quick_action_export',
+    @quick_actions_service               = QuickActionsService.new
+    @quick_actions_service.update_pq_list(params[:pqs_comma_separated], params[:qa_edit_deadline_date],params[:qa_edit_draft_date],params[:qa_edit_pod_date],params[:qa_edit_minister_date],params[:qa_edit_answered_date])
+
+    render(partial: 'dashboard/quick_action_edit_dates',
            locals:  { total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated },
            status:  status)
 
