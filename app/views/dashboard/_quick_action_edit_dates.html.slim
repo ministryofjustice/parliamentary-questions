@@ -13,31 +13,31 @@
       label.form-label for="qa-edit-deadline-date"
         'Internal deadline
       .datepicker.form-group
-        input#qa-edit-deadline-date.form-control type="text" placeholder="e.g. 20/06/2014"
+        =text_field_tag 'qa_edit_deadline_date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
       label.form-label for="qa-edit-draft-date"
         'Draft received
       .datepicker.form-group
-        input#qa-edit-draft-date.form-control type="text" placeholder="e.g. 20/06/2014"
+        =text_field_tag 'qa-edit-draft-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
       label.form-label for="qa-edit-pod-date"
         'POD cleared
       .datepicker.form-group
-        input#qa-edit-pod-date.form-control type="text" placeholder="e.g. 20/06/2014"
+        =text_field_tag 'qa-edit-pod-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
       label.form-label for="qa-edit-minister-date"
         'Minister cleared
       .datepicker.form-group
-        input#qa-edit-minister-date.form-control type="text" placeholder="e.g. 20/06/2014"
+        =text_field_tag 'qa-edit-minister-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
       label.form-label for="qa-edit-answered-date"
         'Answered
       .datepicker.form-group
-        input#qa-edit-answered-date.form-control type="text" placeholder="e.g. 20/06/2014"
+        =text_field_tag 'qa-edit-answered-date', nil, class: "form-control", type: "text", placeholder: "e.g. 20/06/2014"
         span.fa.fa-calendar title="select a date"
 
     input#do-edit class="button" disabled="disabled" type="submit" value="Edit"

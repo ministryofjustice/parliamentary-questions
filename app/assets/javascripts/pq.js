@@ -464,6 +464,7 @@ var document, $, trimLink, ga;
     });
 
     $quickActions.on('click', function (event) {
+      // collapse/expand quick actions
       if ( $(event.target).is('#qa-edit-dates') ) {
         $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
         $('#' + $('#qa-export-csv').closest('form').prop('id') + ' .content.collapsed').hide();
@@ -475,11 +476,13 @@ var document, $, trimLink, ga;
       else if ( $(event.target).is('.qa-cancel') ) {
         $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
       }
+
       else if ( $(event.target).is('#do-export') || $(event.target).is('#do-edit') ) {
         getSelectedPQs();
       }
     });
 
+/*
     $quickActions.change(function (event) {
       if ( ( $(event.target).is('#qa-calendar') ) && ( $('#qa-calendar').val().length == 10 ) && ( $('#editDates .selectionCount').text().trim() != 'No PQs selected' ) ) {
         $('#do-edit').removeAttr("disabled", "disabled");
@@ -488,6 +491,7 @@ var document, $, trimLink, ga;
         $('#do-edit').attr("disabled", "disabled");
       }
     });
+*/
 
     // Trigger date picker events
     $dashboardFilters.change(function () {
