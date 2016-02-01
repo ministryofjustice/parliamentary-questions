@@ -604,8 +604,8 @@ textarea.form-control {
 .tr5-message span:first-child,
 #status span:first-child {  margin-right: 4px;}
 #status #cancel {
- display: block;
- margin-top: 10px;
+  display: block;
+  margin-top: 10px;
 }
 
 /* = Pagination ================================================================= */
@@ -1034,12 +1034,32 @@ textarea.form-control {
       color: $link-colour;
       background-color: $page-colour;
     }
-    #quick-links, #filters { margin: 7.5px 0; }
+    #quick-links, #filters {
+      margin: 7.5px 0;
+      .filter-box {
+        padding: 4px 8px;
+        background-color: $panel-colour;
+        margin: 0.5em 0;
+        .collapsed { display: none; }
+        .content {
+          .form-group { margin-bottom: 0; }
+          .datepicker {
+            background-color: $page-colour;
+            width: 100%;
+          }
+        }
+      }
+    }
     #quick-links {
       padding-bottom: 15px;
       border-bottom: 2px solid $grey-2;
       input[type="submit"] { margin-right: 10px; }
       form { margin: 8px 0; }
+      #editDates .content{
+        padding-bottom: 10px;
+        margin-bottom: 22px;
+        border-bottom: 2px solid $grey-2;
+      }
       .content {
         .notice {
           background: $grey-4;
@@ -1058,9 +1078,9 @@ textarea.form-control {
     }
     #filters {
       .filter-box {
-        padding: 4px 8px;
-        background-color: $panel-colour;
-        margin: 0.5em 0;
+        //padding: 4px 8px;
+        //background-color: $panel-colour;
+        //margin: 0.5em 0;
         h3 {
           color: $text-colour;
           display: inline-block;
@@ -1088,13 +1108,13 @@ textarea.form-control {
         }
         .open { background-position: right -82px; }
         .closed { background-position: right 0; }
-        .collapsed { display: none; }
+        //.collapsed { display: none; }
         .content {
-          .form-group { margin-bottom: 0; }
-          .datepicker {
-            background-color: $page-colour;
-            width: 100%;
-          }
+          //.form-group { margin-bottom: 0; }
+          //.datepicker {
+          //background-color: $page-colour;
+          //width: 100%;
+          //}
           .list {
             background-color: $page-colour;
             margin: 5px 0;
@@ -1125,4 +1145,3 @@ textarea.form-control {
     }
   }
 }
-
