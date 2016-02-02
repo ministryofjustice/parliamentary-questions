@@ -18,25 +18,14 @@ class QuickActionController < ApplicationController
         @total_pqs = 0
       else
 
-        @pqs_comma_separated.split(',').map { |p|
-          if Pq.find_by(uin: p).nil?
-            errors.add(p, "False PQ UIN")
-            return false
-          else
-            x = Pq.find_by(uin: p)
-            pqs_array.push(x)
-          end
-        }
+        @quick_actions_service  = QuickActionsService.new
+        pqs_array = @quick_actions_service.valid_pq_list(@pqs_comma_separated)
+
         @total_pqs = pqs_array.count
         total_pqs = @total_pqs
 
         send_data(pqs_array.to_csv, content_type: 'text/csv')
-
-        #run_export(Export::PqSelection, 'index')
-
       end
-
-      #200
     else
       puts 'form invalid'
       flash[:error] = "Form was not completed"
@@ -67,9 +56,8 @@ class QuickActionController < ApplicationController
     @quick_actions_service               = QuickActionsService.new
     @quick_actions_service.update_pq_list(params[:pqs_comma_separated], params[:qa_edit_deadline_date],params[:qa_edit_draft_date],params[:qa_edit_pod_date],params[:qa_edit_minister_date],params[:qa_edit_answered_date])
 
-    render(partial: 'dashboard/quick_action_edit_dates',
-           locals:  { total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated },
-           status:  status)
+    flash[:Success] = "Question(s) updated with date(s)"
+    redirect_to :back
 
   end
 
