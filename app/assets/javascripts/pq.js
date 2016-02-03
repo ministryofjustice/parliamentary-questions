@@ -129,6 +129,7 @@ var document, $, trimLink, ga;
     });
     uinSelected = uinSelected.slice(0,-1);
     $('#pqs_comma_separated').val(uinSelected);
+    $('#pqs_comma_separated_for_dates').val(uinSelected);
   };
 
  //  Question filtering --

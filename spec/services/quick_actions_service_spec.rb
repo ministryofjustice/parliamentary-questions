@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'QuickActionsService' do
 
+=begin
   let(:minister) { create(:minister, name:'Bob', id: 100+rand(10))}
   let(:directorate) {create(:directorate, name: 'This Directorate', id: 1+rand(10))}
   let(:division) {create(:division,name: 'Division', directorate_id: directorate.id, id: 1+rand(10))}
@@ -9,6 +10,11 @@ describe 'QuickActionsService' do
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
   let!(:pq) { create(:pq, uin: 'HL789', question: 'test question?',minister:minister, house_name:'commons') }
   let!(:pq2) { create(:pq, uin: 'HC123', question: 'test question?',minister:minister, house_name:'commons') }
+
+=end
+  let!(:pq) { create(:pq) }
+  let!(:pq2) { create(:pq) }
+
   let!(:pq_with_state) { create(:draft_pending_pq) }
   let!(:pq_with_minister) { create(:with_minister_pq)}
 
@@ -44,11 +50,11 @@ describe 'QuickActionsService' do
     @pqs_array2 = Array.new
     @pqs_array2.push(pq)
     @pqs_array2.push(pq2)
-    @pq_list = 'HL789,HC123'
+    @pq_list = pq.uin + ',' + pq2.uin
     expect(@quick_actions_service.valid?(@pq_list, '01/10/2015', '01/10/2015', '01/10/2015', '01/10/2015', '01/10/2015')).to eq(@pqs_array2)
   end
   it "updates internal_deadline date for a list of valid pqs." do
-    pq_list = 'HL789,HC123' + ',' + pq_with_state.uin
+    pq_list = pq.uin + ',' + pq2.uin + ',' + pq_with_state.uin
     @quick_actions_service.update_pq_list(pq_list, '21/01/2016', '', '', '', '')
     result_pq = Pq.find_by(uin: pq_with_state.uin)
     expect(result_pq.internal_deadline).to eq("21/01/2016")
@@ -57,21 +63,21 @@ describe 'QuickActionsService' do
     #Internal deadline does not change question state - the following dates do...
 
   it "updates draft_answer_received date and therefore state for a list of valid pqs." do
-    pq_list = 'HL789,HC123' + ',' + pq_with_state.uin
+    pq_list = pq.uin + ',' + pq2.uin + ',' + pq_with_state.uin
     @quick_actions_service.update_pq_list(pq_list, '21/01/2016', '22/01/2016', '' ,'', '')
     result_pq = Pq.find_by(uin: pq_with_state.uin)
     expect(result_pq.draft_answer_received).to eq("22/01/2016")
     expect(result_pq.state).to eq('with_pod')
   end
   it "updates pod_clearance date and therefore state for a list of valid pqs." do
-    pq_list = 'HL789,HC123' + ',' + pq_with_state.uin
+    pq_list = pq.uin + ',' + pq2.uin + ',' + pq_with_state.uin
     @quick_actions_service.update_pq_list(pq_list, '21/01/2016', '22/01/2016', '23/01/2016' ,'', '')
     result_pq = Pq.find_by(uin: pq_with_state.uin)
     expect(result_pq.pod_clearance).to eq("23/01/2016")
     expect(result_pq.state).to eq('pod_cleared')
   end
   it "updates cleared_by_answering_minister date and therefore state for a list of valid pqs." do
-    pq_list = 'HL789,HC123' + ',' + pq_with_minister.uin
+    pq_list = pq.uin + ',' + pq2.uin + ',' + pq_with_minister.uin
     # Business rule - sent_to_answering_minister must be set before a state change to cleared_by_answering minister is possible
     @quick_actions_service.update_pq_list(pq_list, '21/01/2016', '22/01/2016', '23/01/2016' ,'24/01/2016', '')
     result_pq = Pq.find_by(uin: pq_with_minister.uin)
@@ -79,7 +85,7 @@ describe 'QuickActionsService' do
     expect(result_pq.state).to eq('minister_cleared')
   end
   it "updates answer_submitted date and therefore state for a list of valid pqs." do
-    pq_list = 'HL789,HC123' + ',' + pq_with_minister.uin
+    pq_list = pq.uin + ',' + pq2.uin + ',' + pq_with_minister.uin
     # Business rule - sent_to_answering_minister must be set before a state change to answered is possible
     @quick_actions_service.update_pq_list(pq_list, '21/01/2016', '22/01/2016', '23/01/2016' ,'24/01/2016', '25/01/2016')
     result_pq = Pq.find_by(uin: pq_with_minister.uin)

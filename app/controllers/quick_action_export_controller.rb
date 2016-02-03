@@ -18,19 +18,9 @@ class QuickActionExportController < ApplicationController
         @total_pqs = 0
       else
 
-        @pqs_comma_separated.split(',').map { |p|
-          if Pq.find_by(uin: p).nil?
-            puts 'Failed to validate ' || p
-            errors.add(p, "False PQ UIN")
-            return false
-          else
-            puts 'Validated ' || p
-            x = Pq.find_by(uin: p)
-            puts x
+        @quick_actions_service  = QuickActionsService.new
+        pqs_array = @quick_actions_service.valid_pq_list(@pqs_comma_separated)
 
-            pqs_array.push(x)
-          end
-        }
         @total_pqs = pqs_array.count
         total_pqs = @total_pqs
 
