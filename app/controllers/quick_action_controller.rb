@@ -8,7 +8,7 @@ class QuickActionController < ApplicationController
     @quick_actions_service               = QuickActionsService.new
     @quick_actions_service.update_pq_list(params[:pqs_comma_separated_for_dates], params[:qa_edit_deadline_date],params[:qa_edit_draft_date],params[:qa_edit_pod_date],params[:qa_edit_minister_date],params[:qa_edit_answered_date])
 
-    flash[:Success] = "Question date(s) updated"
+    flash[:Success] = "Date(s) updated"
     redirect_to :back
 
   end
