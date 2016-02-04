@@ -1021,6 +1021,7 @@ textarea.form-control {
     border-left: 5px solid $border-colour;
     margin: .5em 0;
   }
+
   #sidebar {
     padding: 0;
     h2 {
@@ -1034,24 +1035,28 @@ textarea.form-control {
       color: $link-colour;
       background-color: $page-colour;
     }
+
     #quick-links, #filters {
       margin: 7.5px 0;
       .filter-box {
         padding: 4px 8px;
         background-color: $panel-colour;
-        margin: 0.5em 0;
+        margin: 8px 0;
         .collapsed { display: none; }
-        .content {
-          .form-group { margin-bottom: 0; }
-          .datepicker {
-            background-color: $page-colour;
-            width: 100%;
-          }
-        }
+      }
+      .datepicker, .datetimepicker {
+        background-color: $white ;
+        width: 100%;
+      }
+      .button-area {
+        width: 100%;
+        display: block;
+        padding: 8px 0;
       }
     }
+
     #quick-links {
-      padding-bottom: 15px;
+      padding-bottom: 9px;
       border-bottom: 2px solid $grey-2;
       input[type="submit"] { margin-right: 10px; }
       form { margin: 8px 0; }
@@ -1076,11 +1081,12 @@ textarea.form-control {
         }
       }
     }
+
     #filters {
       .filter-box {
-        //padding: 4px 8px;
-        //background-color: $panel-colour;
-        //margin: 0.5em 0;
+        padding: 4px 8px;
+        background-color: $panel-colour;
+        margin: 0.5em 0;
         h3 {
           color: $text-colour;
           display: inline-block;
@@ -1108,13 +1114,9 @@ textarea.form-control {
         }
         .open { background-position: right -82px; }
         .closed { background-position: right 0; }
-        //.collapsed { display: none; }
+        .collapsed { display: none; }
         .content {
-          //.form-group { margin-bottom: 0; }
-          //.datepicker {
-          //background-color: $page-colour;
-          //width: 100%;
-          //}
+          .form-group { margin-bottom: 0; }
           .list {
             background-color: $page-colour;
             margin: 5px 0;

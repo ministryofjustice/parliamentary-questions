@@ -6,5 +6,7 @@
     = hidden_field_tag :date_from, '04/06/2014'
     = hidden_field_tag :date_to, Date.today.to_s(:date)
     = hidden_field_tag :pqs_comma_separated
-    input#do-export class="button" disabled="disabled" type="submit" value="Export"
-    input.qa-cancel class="button button-cancel button-secondary" type="reset" value="Cancel"
+
+    .buton-area
+      input#do-export class="button" disabled="disabled" type="submit" value="Export"
+      input.qa-cancel class="button button-cancel button-secondary" type="reset" value="Cancel"
