@@ -3,30 +3,6 @@ var document, $, trimLink, ga;
 (function() {
   'use strict';
 
-  var filterPreviewQuestions = function(text, state) {
-
-    var textToSearch = new RegExp(text, 'i');
-    var count = 0;
-    var stateString = state ? ' <strong>' + state + '</strong> ' : ' ';
-
-    $('#main ul li').each(function(i, li) {
-      var questionText = $(li).text();
-      if (textToSearch.test(questionText) && $(li).has('h2 span:contains("' + state + '")').length) {
-        count++;
-        $(li).css('display', 'block');
-      } else {
-        $(li).css('display', 'none');
-      }
-    });
-
-    $('#count strong').text(count ? count : 'No');
-    if (text) {
-      $('#count span').html('new' + stateString + 'questions containing <strong>' + text + '</strong>');
-    } else {
-      $('#count span').html('new' + stateString + 'questions');
-    }
-  };
-
   // make detail blocks toggleable
   var enableDetailsToggle = function(i, el) {
     var $root = $(el);
@@ -103,18 +79,46 @@ var document, $, trimLink, ga;
     $badge.text(nextval);
   };
 
-  //  +---------------------------------------------------------------------------+
-  //  |  Quick action filtering                                                   |
-  //  +---------------------------------------------------------------------------+
+  // Quick action filtering --
 
-  var selectIndividualPQ = function(){
-    if ( $('#select-all').prop('checked') ) {
-      $('#select-all').prop('checked', false);
+  var $selectAll = $('#select-all');
+
+  var selectedPQCount = function(){
+    var selectionCount = 0;
+    $('.pq-header input[type="checkbox"]:checked').each(function() {
+      selectionCount++;
+    });
+    if (selectionCount > '0') {
+      var selectionMessage = ( selectionCount == 1 ) ? " PQ selected" : " PQs selected";
+      $('.selectionCount').html(selectionCount + selectionMessage);
+      $('#do-export').removeAttr("disabled", "disabled");
+      if (
+        ($('#qa_edit_deadline_date').val().length == 10 ||
+        $('#qa_edit_draft_date').val().length == 10 ||
+        $('#qa_edit_pod_date').val().length == 10 ||
+        $('#qa_edit_minister_date').val().length == 10 ||
+        $('#qa_edit_answered_date').val().length == 10)
+        && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
+      ){
+        $('#do-edit').removeAttr("disabled", "disabled"); // Enable 'Edit' button.
+      }
+    }
+    else {
+      $('.selectionCount').html("No PQs selected");
+      $('#do-export').attr("disabled", "disabled");
+      $('#do-edit').attr("disabled", "disabled");
     }
   };
 
+  var selectIndividualPQ = function(){
+    if ( $selectAll.prop('checked') ) {
+      $selectAll.prop('checked', false);
+    }
+    selectedPQCount();
+  };
+
   var selectAllPQs = function(){
-    if ( $('#select-all').prop('checked') ) {
+    if ( $selectAll.prop('checked') ) {
       $('li.question').each(function (i, li) {
         if ( $(li).css("display") != "none" ) {
           $(this).find('.pq-select').prop('checked', true);
@@ -122,21 +126,7 @@ var document, $, trimLink, ga;
       });
     }
     else { $('.pq-select').prop('checked', false); }
-  };
-
-  var selectedPQCount = function(){
-    var selectionCount = 0;
-    $('#dashboard .question .pq-header input[type="checkbox"]:checked').each(function() {
-      selectionCount++;
-    });
-    if (selectionCount > '0') {
-      $('#selectionCount').html("Export " + selectionCount + " selected PQs?")
-      $('#do-export').removeAttr("disabled", "disabled");
-    }
-    else {
-      $('#selectionCount').html("No PQs selected");
-      $('#do-export').attr("disabled", "disabled");
-    }
+    selectedPQCount();
   };
 
   var getSelectedPQs = function(){
@@ -146,39 +136,42 @@ var document, $, trimLink, ga;
     });
     uinSelected = uinSelected.slice(0,-1);
     $('#pqs_comma_separated').val(uinSelected);
+    $('#pqs_comma_separated_for_dates').val(uinSelected);
   };
 
-  //  +---------------------------------------------------------------------------+
-  //  |  Question filtering                                                       |
-  //  +---------------------------------------------------------------------------+
+ //  Question filtering --
 
   var filterQuestions = function(){
 
-    // Cached selectors:
-    var $question = $('li.question');
     var $answerFrom = $('#answer-from');
     var $answerTo = $('#answer-to');
     var $deadlineFrom = $('#deadline-from');
     var $deadlineTo = $('#deadline-to');
-    var $replyingMinisterRadioButton = $('input[name="replying-minister"]:checked');
-    var $statusRadioButton = $('input[name="flag"]:checked');
-    var $policyMinisterRadioButton = $('input[name="policy-minister"]:checked');
-    var $typeRadioButton = $('input[name="question-type"]:checked');
-    var $keywordSearch = $('#keywords');
     var $filterCheckbox = 'input[type="checkbox"]';
+    var $keywordSearch = $('#keywords');
+    var $policyMinisterRdo = $('input[name="policy-minister"]:checked');
+    var $question = $('li.question');
+    var $replyingMinisterRdo = $('input[name="replying-minister"]:checked');
+    var $statusRdo = $('input[name="flag"]:checked');
+    var $typeRdo = $('input[name="question-type"]:checked');
 
     var questionCounter = function(){
-
-      var count = 0;
-
+      var totalQuestionCount = 0;
+      var filteredQuestionCount = 0;
       $question.each(function (i, li) {
-        if ( $(li).has('a.question-uin').length && $(li).css("display") != "none" ) {
-          count++;
+        // Count the total number of questions
+        if ( $(li).has('a.question-uin').length ) {
+          totalQuestionCount++;
         }
       });
-
-      var countMessage = ( count == 1 ) ? "parliamentary question found" : "parliamentary questions found";
-      $('#count').html("<strong>" + count + "</strong> <span>" + countMessage + "</span>");
+      $question.each(function (i, li) {
+        // Count the number of filtered questions
+        if ( $(li).has('a.question-uin').length && $(li).css("display") != "none" ) {
+          filteredQuestionCount++;
+        }
+      });
+      var countMessage = ( filteredQuestionCount == 1 ) ? "question" : "questions";
+      $('#count').html("<strong>" + filteredQuestionCount + "</strong> <span>parliamentary " + countMessage + " out of <strong>" + totalQuestionCount + "</strong>.</span>");
     };
 
     var showAllInProgress = function() {
@@ -188,17 +181,14 @@ var document, $, trimLink, ga;
     };
 
     var filterByDateRange = function (filter, filterDate) {
-
       var questionDate = "";
       var questionDateLocation = "";
-
       if (filter == '.answer-from' || filter == '.answer-to') {
         questionDateLocation = ".answer-date";
       }
       else {
         questionDateLocation = ".deadline-date";
       }
-
       $question.each(function (i, li){
         if ( $(li).has(questionDateLocation).length ) {
           if ( $(this).find(questionDateLocation).text().length > 0 ) {
@@ -208,29 +198,24 @@ var document, $, trimLink, ga;
             questionDate = $(this).find(questionDateLocation).val();
           }
         }
-
         else if ( $(li).css("display") != "none" ) {
           $(this).find($filterCheckbox).prop('checked', false);
           $(li).css('display', 'none');
         }
-
         var mQuestionDate = moment(questionDate, "DD/MM/YYYY");
         var mFilterDate = moment(filterDate, "DD/MM/YYYY");
-
         if ( (filter == ".answer-from") || (filter == ".deadline-from") && $(li).css("display") != "none" ) {
           if ( mQuestionDate.isBefore(mFilterDate) ) {
             $(this).find($filterCheckbox).prop('checked', false);
             $(li).css('display', 'none');
           }
         }
-
         else if ( (filter == ".answer-to") || (filter == ".deadline-to") && $(li).css("display") != "none" ) {
           if ( mQuestionDate.isAfter(mFilterDate) ) {
             $(this).find($filterCheckbox).prop('checked', false);
             $(li).css('display', 'none');
           }
         }
-
       });
     };
 
@@ -281,35 +266,34 @@ var document, $, trimLink, ga;
       if ( ( $deadlineTo.val() != undefined ) && ( $deadlineTo.val().trim().length > 0 ) ) {
         filterByDateRange(".deadline-to", $('#deadline-to').val());
       }
-      if ($statusRadioButton.val() != undefined){
+      if ($statusRdo.val() != undefined){
         $('#flag .notice').show();
-        filterByRadioButton(".flag", $statusRadioButton.val());
+        filterByRadioButton(".flag", $statusRdo.val());
       }
-      if ($replyingMinisterRadioButton.val() != undefined){
+      if ($replyingMinisterRdo.val() != undefined){
         $('#replying-minister .notice').show();
-        filterByRadioButton(".replying-minister", $replyingMinisterRadioButton.val());
+        filterByRadioButton(".replying-minister", $replyingMinisterRdon.val());
       }
-      if ( $policyMinisterRadioButton.val() != undefined) {
+      if ( $policyMinisterRdo.val() != undefined) {
         $('#policy-minister .notice').show();
-        filterByRadioButton(".policy-minister", $policyMinisterRadioButton.val());
+        filterByRadioButton(".policy-minister", $policyMinisterRdo.val());
       }
-      if ( $typeRadioButton.val() != undefined) {
+      if ( $typeRdo.val() != undefined) {
         $('#question-type .notice').show();
-        filterByRadioButton(".question-type", $typeRadioButton.val());
+        filterByRadioButton(".question-type", $typeRdo.val());
       }
       if ( ( $keywordSearch.val() != undefined ) && ( $keywordSearch.val().trim().length > 0 ) ) {
         filterByKeyword(".pq-question", $keywordSearch.val());
       }
     };
-
-    $('#select-all').prop('checked', false);
+    $selectAll.prop('checked', false);
     showAllInProgress();
     getFilterValues();
     questionCounter();
     selectedPQCount();
   };
 
-  //==========================================================================
+//  +---------------------------------------------------------------------------+
 
   $(document).ready(function () {
 
@@ -358,37 +342,6 @@ var document, $, trimLink, ga;
         $('#reason-textarea').removeClass('hide');
       });
 
-      $('#preview input[type="text"]').on('keyup', function() {
-        filterPreviewQuestions(
-            $('#filters input[type="text"]').val(),
-            $('#filters input[type="radio"]:checked').siblings('span').text()
-        );
-      });
-
-      $('#preview #filters input').on('click', function(event) {
-        if ($(event.target).is(':checked')) {
-          $(event.target).siblings('input').attr('checked', false);
-          filterPreviewQuestions(
-              $('#filters input[type="text"]').val(),
-              $(event.target).next().text()
-          );
-        }
-        else{
-            filterPreviewQuestions(
-                $('#filters input[type="text"]').val(),
-                ''
-            );
-        }
-      });
-
-      $('#clearFilter').on('click', function(event) {
-        $('.filter-box div').children('input').attr('checked', false);
-        $('#filters input[type="text"]').val(' ');
-        filterPreviewQuestions($('#filters input[type="text"]').val(),
-                               $(event.target).next().text());
-      });
-
-
     } else {
       // all other pages
 
@@ -417,7 +370,6 @@ var document, $, trimLink, ga;
        setCommissionButtonStatus($(this));
       });
 
-
       // Dashboard - Quick Action Export
       $('#quick-action-export').on('ajax:success', function(e, data) {
           alert("JS: quick-action-export returns Success!");
@@ -433,7 +385,6 @@ var document, $, trimLink, ga;
               .text(errorText)
               .css('display', 'inline-block');
       });
-
 
       // Commissioning a question and showing the success message on the dashboard page
       $('.form-commission')
@@ -506,45 +457,91 @@ var document, $, trimLink, ga;
 
     }
 
-    var $dashboardFilters = $('#dashboard #filters input');
+    //  Filtering events
+    var $quickActions = $('#quick-links input');
+    var $dashboardFilters = $('#filters input');
 
-    $dashboardFilters.change(function (event) {
-      if (
-        $(event.target).is('#answer-from') ||
-        $(event.target).is('#answer-to') ||
-        $(event.target).is('#deadline-from') ||
-        $(event.target).is('#deadline-to')
-      )
-      {
-        filterQuestions();
+    // Select individual questions for export
+    $('#select-all-questions input[type="checkbox"]').on('click', function () {
+      selectAllPQs();
+    });
+
+    // Select all questions for export
+    $('.pq-header input[type="checkbox"]').on('click', function () {
+      selectIndividualPQ();
+    });
+
+    $quickActions.on('click', function (event) {
+      // collapse/expand quick actions
+      if ( $(event.target).is('#qa-edit-dates') ) {
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+        $('#' + $('#qa-export-csv').closest('form').prop('id') + ' .content.collapsed').hide();
+      }
+      else if ( $(event.target).is('#qa-export-csv') ) {
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+        $('#' + $('#qa-edit-dates').closest('form').prop('id') + ' .content.collapsed').hide();
+      }
+      else if ( $(event.target).is('.qa-cancel') ) {
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+      }
+
+      else if ( $(event.target).is('#do-export') || $(event.target).is('#do-edit') ) {
+        getSelectedPQs();
       }
     });
 
-    $dashboardFilters.on('click', function (event) {
-      if ($(event.target).is('#answer-date-today')) {
-        $('#answer-from').val(today) && $('#answer-to').val(today);
+    $quickActions.change(function (event) {
+      //  Quick Action: Edit Dates ~ Check at least one date and PQ selected
+      if (
+        ($(event.target).is('#qa_edit_deadline_date') && $('#qa_edit_deadline_date').val().length == 10 ||
+        $(event.target).is('#qa_edit_draft_date') && $('#qa_edit_draft_date').val().length == 10 ||
+        $(event.target).is('#qa_edit_pod_date') && $('#qa_edit_pod_date').val().length == 10 ||
+        $(event.target).is('#qa_edit_minister_date') && $('#qa_edit_minister_date').val().length == 10 ||
+        $(event.target).is('#qa_edit_answered_date') && $('#qa_edit_answered_date').val().length == 10)
+        && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
+      ){
+        $('#do-edit').removeAttr("disabled", "disabled"); // Enable 'Edit' button.
       }
-      else if ($(event.target).is('#deadline-date-today')) {
+      else {
+        $('#do-edit').attr("disabled", "disabled"); // Disable 'Edit' button.
+      }
+    });
+
+    // Trigger date picker events
+    $dashboardFilters.change(function () {
+      filterQuestions();
+    });
+
+    $dashboardFilters.on('click', function (event) {
+      // Today date buttons clicked.
+      if ( $(event.target).is('#answer-date-today') ) {
+        $( '#answer-from').val(today) && $('#answer-to').val(today);
+      }
+      else if ( $(event.target).is('#deadline-date-today') ) {
         $('#deadline-from').val(today) && $('#deadline-to').val(today);
       }
+      // Clear button actions.
       else if ($(event.target).is('#clear-answer-filter')) {
         $('#answer-from').val('') && $('#answer-to').val('');
       }
       else if ($(event.target).is('#clear-deadline-filter')) {
         $('#deadline-from').val('') && $('#deadline-to').val('');
       }
-      else if ( ($(event.target).prop('class') === "view open") || ($(event.target).prop('class') === "view closed")){
-        // Toggle the radio button list show / hide.
-        $('#' + $(event.target).closest('.filter-box').prop('id') + ' .collapsed').toggle();
-        // Toggle the v ^ button icon.
-        $('#' + $(event.target).closest('.filter-box').prop('id') + ' input.view').toggleClass("open closed");
+      else if ( $(event.target).val() === "Clear" && $(event.target).prop('id') != "clear-keywords-filter" ){
+        // Uncheck radio buttons.
+        $('input[name="' + $(event.target).closest('.filter-box').prop('id') + '"]').removeAttr('checked');
+        // Hide the "1 selected" notice.
+        $('#' + $(event.target).closest('.filter-box').prop('id') + ' .notice').hide();
       }
       else if ($(event.target).is('#clear-keywords-filter')) {
         $('#keywords').val('');
       }
-      else if ( $(event.target).val() === "Clear" && $(event.target).prop('id') != "clear-keywords-filter" ){
-        $('input[name="' + $(event.target).closest('.filter-box').prop('id') + '"]').removeAttr('checked');
-        $('#' + $(event.target).closest('.filter-box').prop('id') + ' .notice').hide();
+      // Toggle filter box view
+      else if (($(event.target).prop('class') === "view open") || ($(event.target).prop('class') === "view closed")){
+        // Show/hide filter list.
+        $('#' + $(event.target).closest('.filter-box').prop('id') + ' .collapsed').toggle();
+        // Show/hide button icon.
+        $('#' + $(event.target).closest('.filter-box').prop('id') + ' input.view').toggleClass("open closed");
       }
       filterQuestions();
     });
@@ -553,29 +550,6 @@ var document, $, trimLink, ga;
       if ($(event.target).is('#keywords')) {
         filterQuestions();
       }
-    });
-
-    $('#select-all').on('click', function () {
-      selectAllPQs();
-      selectedPQCount();
-    });
-
-    $('.question .pq-header input[type="checkbox"]').on('click', function () {
-      selectIndividualPQ();
-      selectedPQCount();
-    });
-
-    $('#csvExportButton').on('click', function (event) {
-      $('#' + $(event.target).closest('form').prop('id') + ' .collapsed').toggle();
-      selectedPQCount();
-    });
-
-    $('#cancel-export').on('click', function () {
-      $('#csvExport .content.collapsed').toggle();
-    });
-
-    $('#do-export').on('click', function () {
-      getSelectedPQs();
     });
   });
 }());

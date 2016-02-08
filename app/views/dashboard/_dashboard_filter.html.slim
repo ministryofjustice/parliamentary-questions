@@ -2,7 +2,7 @@
 
   #quick-links
     h2 Quick actions
-
+    = render partial: "dashboard/quick_action_edit_dates", locals: {total_pqs: @total_pqs}
     = render partial: "dashboard/quick_action_export", locals: {total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated}
 
   #filters
@@ -50,52 +50,52 @@
           - if @statuses.count > 1
             - @statuses.each do |question_status|
               - if question_status == 'unassigned'
-                label
-                  input type="radio" name="flag" value="Unassigned"
+                label for="unassigned"
+                  input id="unassigned" type="radio" name="flag" value="Unassigned"
                   'Unassigned
               - if question_status == 'no_response'
-                label
-                  input type="radio" name="flag" value="No response"
+                label for="no_response"
+                  input id="no_response" type="radio" name="flag" value="No response"
                   'No response
               - if question_status == 'rejected'
-                label
-                  input type="radio" name="flag" value="Rejected"
+                label for="rejected"
+                  input id="rejected" type="radio" name="flag" value="Rejected"
                   'Rejected
               - if question_status == 'draft_pending'
-                label
-                  input type="radio" name="flag" value="Draft Pending"
+                label for="draft_pending"
+                  input id="draft_pending" type="radio" name="flag" value="Draft Pending"
                   'Draft Pending
               - if question_status == 'with_pod'
-                label
-                  input type="radio" name="flag" value="With POD"
+                label for="with_pod"
+                  input id="with_pod" type="radio" name="flag" value="With POD"
                   'With POD
               - if question_status == 'pod_query'
-                label
-                  input type="radio" name="flag" value="POD Query"
+                label for="pod_query"
+                  input id="pod_query" type="radio" name="flag" value="POD Query"
                   'POD Query
               - if question_status == 'pod_cleared'
-                label
-                  input type="radio" name="flag" value="POD Cleared"
+                label for="pod_cleared"
+                  input id="pod_cleared" type="radio" name="flag" value="POD Cleared"
                   'POD Cleared
               - if question_status == 'with_minister'
-                label
-                  input type="radio" name="flag" value="With Minister"
+                label for="with_minister"
+                  input id="with_minister" type="radio" name="flag" value="With Minister"
                   'With Minister
               - if question_status == 'ministerial_query'
-                label
-                  input type="radio" name="flag" value="Ministerial Query"
+                label for="minister_query"
+                  input id="minister_query" type="radio" name="flag" value="Ministerial Query"
                   'Ministerial Query
               - if question_status == 'minister_cleared'
-                label
-                  input type="radio" name="flag" value="Minister Cleared"
+                label for="minister_cleared"
+                  input id="minister_cleared" type="radio" name="flag" value="Minister Cleared"
                   'Minister Cleared
               - if question_status == 'answered'
-                label
-                  input type="radio" name="flag" value="Answered"
+                label for="answered"
+                  input id="answered" type="radio" name="flag" value="Answered"
                   'Answered
               - if question_status == 'transferred_out'
-                label
-                  input type="radio" name="flag" value="Transferred out"
+                label for="transferred_out"
+                  input id="transferred_out" type="radio" name="flag" value="Transferred out"
                   'Transferred out
           - else
             'N/A

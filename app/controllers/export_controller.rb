@@ -20,9 +20,6 @@ class ExportController < ApplicationController
   end
 
   def csv_quick
-    puts 'in Export'
-    puts params[:pqs_comma_separated]
-
     run_export(Export::PqSelection, 'index')
   end
 
