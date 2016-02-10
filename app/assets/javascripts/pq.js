@@ -92,6 +92,7 @@ var document, $, trimLink, ga;
       var selectionMessage = ( selectionCount == 1 ) ? " PQ selected" : " PQs selected";
       $('.selectionCount').html(selectionCount + selectionMessage);
       $('#do-export').removeAttr("disabled", "disabled");
+      $('#do-reminders').removeAttr("disabled", "disabled");
       if (
         ($('#qa_edit_deadline_date').val().length == 10 ||
         $('#qa_edit_draft_date').val().length == 10 ||
@@ -107,6 +108,7 @@ var document, $, trimLink, ga;
       $('.selectionCount').html("No PQs selected");
       $('#do-export').attr("disabled", "disabled");
       $('#do-edit').attr("disabled", "disabled");
+      $('#do-reminders').attr("disabled", "disabled");
     }
   };
 
@@ -137,6 +139,7 @@ var document, $, trimLink, ga;
     uinSelected = uinSelected.slice(0,-1);
     $('#pqs_comma_separated').val(uinSelected);
     $('#pqs_comma_separated_for_dates').val(uinSelected);
+    $('#pqs_comma_sep_for_drafts').val(uinSelected);
   };
 
  //  Question filtering --
@@ -476,16 +479,23 @@ var document, $, trimLink, ga;
       if ( $(event.target).is('#qa-edit-dates') ) {
         $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
         $('#' + $('#qa-export-csv').closest('form').prop('id') + ' .content.collapsed').hide();
+        $('#' + $('#qa-draft-reminders').closest('form').prop('id') + ' .content.collapsed').hide();
       }
       else if ( $(event.target).is('#qa-export-csv') ) {
         $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
         $('#' + $('#qa-edit-dates').closest('form').prop('id') + ' .content.collapsed').hide();
+        $('#' + $('#qa-draft-reminders').closest('form').prop('id') + ' .content.collapsed').hide();
+      }
+      else if ( $(event.target).is('#qa-draft-reminders') ) {
+          $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+          $('#' + $('#qa-edit-dates').closest('form').prop('id') + ' .content.collapsed').hide();
+          $('#' + $('#qa-export-csv').closest('form').prop('id') + ' .content.collapsed').hide();
       }
       else if ( $(event.target).is('.qa-cancel') ) {
         $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
       }
 
-      else if ( $(event.target).is('#do-export') || $(event.target).is('#do-edit') ) {
+      else if ( $(event.target).is('#do-export') || $(event.target).is('#do-edit') || $(event.target).is('#do-reminders') ) {
         getSelectedPQs();
       }
     });

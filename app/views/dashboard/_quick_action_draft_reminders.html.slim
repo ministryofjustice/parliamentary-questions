@@ -1,0 +1,11 @@
+= form_tag({controller: 'quick_action', action: 'draft_reminders'},{:id => 'draftReminders', multipart: true}) do
+  input#qa-draft-reminders type="button" value="Send Draft Reminders"
+  .content.collapsed
+    .selectionCount.notice
+      'No PQs selected
+
+    = hidden_field_tag :pqs_comma_sep_for_drafts
+
+    .button-area
+      input#do-reminders class="button" disabled="disabled" type="submit" value="Send"
+      input.qa-cancel class="button button-cancel button-secondary" type="reset" value="Cancel"

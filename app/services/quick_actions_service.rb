@@ -65,4 +65,23 @@ class QuickActionsService
       end
     end
   end
+  def get_action_officer_pqs_id(pq)
+    ao_pq = pq.action_officers_pqs.find(&:accepted?)
+    unless ao_pq.nil?
+      ao_pq.id
+    end
+  end
+  def mail_reminders(pqs)
+    pqs.each do |pq|
+      ao_pq_id = get_action_officer_pqs_id(pq)
+      unless ao_pq_id.nil?
+        ao_pq = ActionOfficersPq.find(ao_pq_id)
+        MailService::Pq.draft_reminder_email(pq, ao_pq.action_officer)
+        ao_pq.increment(:reminder_draft).save()
+      end
+    end
+  end
+  def mail_draft_list(pq_list)
+    mail_reminders(valid_pq_list(pq_list))
+  end
 end

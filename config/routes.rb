@@ -60,6 +60,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'quick_action_export/export' => 'quick_action_export#export'
 
   post 'quick_action_edit_dates' => 'quick_action#dates'
+  post 'quick_action_draft_reminders/draft_reminders' => 'quick_action#draft_reminders'
 
   get '/', to: 'root#index', as: :root
   get 'dashboard'             => 'dashboard#index'
