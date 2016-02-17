@@ -27,7 +27,7 @@
             - if !ao_pq.action_officer.nil? && ao_pq.action_officer_id!=@ao.id
               li
                 = render partial: 'shared/allocation_list', locals: { ao_pq: ao_pq }
-  
+
   - unless @question.state == PQState::DRAFT_PENDING
     .accept-reject-form
       .panel.panel-default
@@ -63,6 +63,7 @@
                   .form-group
                     = f.label :reason, 'Please explain why you reject the question, or if you are not the right person or Department, please tell us who we should contact'
                     = f.text_area  :reason,  class: 'form-control', rows: '10'
+                    = render partial: 'shared/rejected_reasons', locals: {question: @question}
                 .form-group
                   = submit_tag 'Save Response' , class: 'button'
     p
