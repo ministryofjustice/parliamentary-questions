@@ -1,23 +1,14 @@
 prefix: TEST
 
 full_testers:
-  - name: Jeremy
-    email: jeremy.fox
+  - name: Daniel
+    email: daniel.penny
     domain: digital.justice.gov.uk
   - name: Stephen
     email: stephen.richards
     domain: digital.justice.gov.uk
-  - name: Jon
-    email: jonathan.lind
-    domain: digital.justice.gov.uk
   - name: Max
     email: max.froumentin
-    domain: digital.justice.gov.uk
-  - name: Mel
-    email: mel.pierre
-    domain: digital.justice.gov.uk
-  - name: Rose
-    email: rose.waite
     domain: digital.justice.gov.uk
   - name: Ahana
     email: ahana.datta
@@ -31,5 +22,14 @@ restricted_testers:
     email: marcus.tucker-cooper
     domain: justice.gsi.gov.uk
   - name: PQ Support
-    email:  pqsupport
+    email: pqsupport
     domain: digital.justice.gov.uk
+  - name: James
+    email: james.wood1
+    domain: justice.gsi.gov.uk
+  - name: Duncan
+    email: duncan.rutty
+    domain: justice.gsi.gov.uk
+  - name: Sunil
+    email: sunil.patel
+    domain: justice.gsi.gov.uk
