@@ -30,7 +30,7 @@ hr/
         h3 Press Desk
         = ao_pq.action_officer.press_desk.name
         br/
-        - ao_pq.action_officer.press_desk.press_officers.each do |po|
+        - ao_pq.action_officer.press_desk.press_officers.reject(&:deleted?).each do |po|
           = link_to po.name, press_officer_path(po)
           br/
       - if ao_pq.awaiting_response?
