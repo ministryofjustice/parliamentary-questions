@@ -350,7 +350,7 @@ var document, $, trimLink, ga;
                                                  scrollMonth: false,
                                                  closeOnDateSelect: true,
                                                  dayOfWeekStart: 1,
-                                                 format: 'd/m/Y     H:i'});
+                                                 format: 'd/m/Y H:i'});
 
       // set up any datetime pickers on the page
       $('.datepicker input').datetimepicker({timepicker: false,
@@ -493,11 +493,11 @@ var document, $, trimLink, ga;
     $quickActions.change(function (event) {
       //  Quick Action: Edit Dates ~ Check at least one date and PQ selected
       if (
-        ($(event.target).is('#qa_edit_deadline_date') && $('#qa_edit_deadline_date').val().length == 10 ||
-        $(event.target).is('#qa_edit_draft_date') && $('#qa_edit_draft_date').val().length == 10 ||
-        $(event.target).is('#qa_edit_pod_date') && $('#qa_edit_pod_date').val().length == 10 ||
-        $(event.target).is('#qa_edit_minister_date') && $('#qa_edit_minister_date').val().length == 10 ||
-        $(event.target).is('#qa_edit_answered_date') && $('#qa_edit_answered_date').val().length == 10)
+        ($(event.target).is('#qa_edit_deadline_date') && $('#qa_edit_deadline_date').val().length == 16 ||
+        $(event.target).is('#qa_edit_draft_date') && $('#qa_edit_draft_date').val().length == 16 ||
+        $(event.target).is('#qa_edit_pod_date') && $('#qa_edit_pod_date').val().length == 16 ||
+        $(event.target).is('#qa_edit_minister_date') && $('#qa_edit_minister_date').val().length == 16 ||
+        $(event.target).is('#qa_edit_answered_date') && $('#qa_edit_answered_date').val().length == 16)
         && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
       ){
         $('#do-edit').removeAttr("disabled", "disabled"); // Enable 'Edit' button.
