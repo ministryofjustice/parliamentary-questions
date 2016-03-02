@@ -2,6 +2,7 @@
 
   #quick-links
     h2 Quick actions
+    = render partial: "dashboard/quick_action_draft_reminders", locals: {total_pqs: @total_pqs}
     = render partial: "dashboard/quick_action_edit_dates", locals: {total_pqs: @total_pqs}
     = render partial: "dashboard/quick_action_export", locals: {total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated}
 

@@ -63,7 +63,6 @@ module Export
             return pqs_array
           else
             x = Pq.find_by(uin: p)
-            puts x
             pqs_array.push(x)
           end
         } unless @pqs_list.nil?
