@@ -525,7 +525,7 @@ describe Pq do
         ao1 = pq.action_officers.order(:id).first
         ao1.deleted = true
         ao1.save!
-        ao2 = pq.action_officers[1]
+        ao2 = pq.action_officers.order(:id)[1]
         ao2.deleted = true
         ao2.save!
         pq.action_officers_pqs.each do |aopq|
