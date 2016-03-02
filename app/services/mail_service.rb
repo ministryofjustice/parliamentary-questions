@@ -5,16 +5,16 @@ module MailService
     mailer = email.mailer.constantize
     method = email.method.to_sym
 
-    mail_data = 
+    mail_data =
       MailData.new(
-        email.to, 
-        email.from, 
+        email.to,
+        email.from,
         email.cc,
         email.reply_to,
         email.params
       )
-      
-    mailer.public_send(method, mail_data).deliver
+
+    mailer.public_send(method, mail_data).deliver_now
     record_success(email)
   end
 
@@ -55,7 +55,7 @@ module MailService
 
   private_class_method
 
-  MailData = 
+  MailData =
     Struct.new(:to, :from, :cc, :reply_to, :params) do
       def addressees
         {
