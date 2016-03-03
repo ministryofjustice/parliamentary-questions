@@ -25,6 +25,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'whenever', :require => false
 gem 'will_paginate'
+gem 'responders', '~> 2.0'
 
 group :development do
   gem 'rails-erd'

@@ -356,6 +356,7 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rails-erd
   rails_db_info
+  responders (~> 2.0)
   rspec-rails
   sass-rails (~> 4.0.0)
   select2-rails
