@@ -1,10 +1,9 @@
 require 'spec_helper'
-require 'paper_trail/frameworks/rspec'
 
 describe AssignmentService do
   let(:minister) { build(:minister) }
 
-  let(:form) { 
+  let(:form) {
     CommissionForm.new({
       pq_id: pq.id,
       minister_id: minister.id,
@@ -39,28 +38,11 @@ describe AssignmentService do
       expect(pq.state).to eq(PQState::DRAFT_PENDING)
     end
 
-    with_versioning do
-      it 'should create an audit event storing the action officer name' do
-      PaperTrail.enabled = true
-      pq = commissioning_service.commission(form)
-
-      assignment_id = pq.action_officers_pqs.first.id
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-
-      subject.accept(assignment)
-
-      expect(assignment.versions.size).to eql(2) # Create and update
-      update = assignment.versions.last
-      expect(update.whodunnit).to eql('AO:ao name 1')
-      end
-    end
-
     it 'should sent an email with the accept data' do
       pq            = commissioning_service.commission(form)
       assignment_id = pq.action_officers_pqs.first.id
       assignment    = ActionOfficersPq.find(assignment_id)
-      
+
       expect(assignment).to_not be nil
 
       ActionMailer::Base.deliveries = []
@@ -68,7 +50,7 @@ describe AssignmentService do
       assignment = ActionOfficersPq.find(assignment_id)
       MailWorker.new.run!
       mail = ActionMailer::Base.deliveries.first
-      
+
       expect(mail.html_part.body).to include pq.question
       expect(mail.subject).to include pq.uin
     end
@@ -141,22 +123,5 @@ describe AssignmentService do
       expect(pq.state).to eq(PQState::REJECTED)
     end
 
-    it 'should create an audit event storing the action officer name' do
-      PaperTrail.enabled=true
-      pq = commissioning_service.commission(form)
-      assignment_id = pq.action_officers_pqs.first.id
-
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-
-      response = double('response')
-      allow(response).to receive(:reason) { 'Some reason' }
-      allow(response).to receive(:reason_option) { 'reason option' }
-      subject.reject(assignment, response)
-
-      expect(assignment.versions.size).to eql(2)
-      update = assignment.versions.last
-      expect(update.whodunnit).to eql('AO:ao name 1')
-    end
   end
 end
