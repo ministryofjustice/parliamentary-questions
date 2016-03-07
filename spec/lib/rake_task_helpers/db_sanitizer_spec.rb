@@ -20,5 +20,6 @@ describe RakeTaskHelpers::DBSanitizer do
     expect(po.reload.email).to eq "pqsupport+po#{po.id}@digital.justice.gov.uk"
     expect(u.reload.email).to eq "pqsupport+u#{u.id}@digital.justice.gov.uk"
     expect(wlm.reload.email).to eq "pqsupport+wlm#{wlm.id}@digital.justice.gov.uk"
-  end 
+    expect(ao.reload.group_ email).to eq "pqsupport+gm#{ao.id}@digital.justice.gov.uk"
+  end
 end
