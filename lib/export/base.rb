@@ -50,7 +50,28 @@ module Export
     def to_csv
       CSV.generate do |csv|
         csv << HEADINGS
-        pqs.each { |pq| csv << csv_fields(pq, pq.action_officer_accepted) }
+        pqs.each { |pq|
+          csv << csv_fields(pq, pq.action_officer_accepted) }
+      end
+    end
+
+    def empty_or_date(this_date)
+      if this_date.nil?
+        ''
+      else
+        this_date.strftime('%Y-%m-%d %H:%M')
+      end
+    end
+
+    def escape_equals_for_excel(item)
+      if item.nil?
+        item = ''
+      end
+
+      if item.to_s.start_with?("=")
+        item = "'" + item
+      else
+        item
       end
     end
 
@@ -62,9 +83,9 @@ module Export
 
     def csv_fields(pq, ao)
       [
-        pq.member_name,                                                 # 'MP',
+        escape_equals_for_excel(pq.member_name),                                                 # 'MP',
         nil,                                                            # 'Record Number',
-        ao && ao.name                                                   # 'Action Officer',
+        escape_equals_for_excel(ao && ao.name)                                                   # 'Action Officer',
       ] +
       [
         pq.answer_submitted,                                            # 'Date response answered by Parly (dept)',
@@ -76,24 +97,24 @@ module Export
         pq.draft_answer_received,                                       # 'Date Draft Returned to PB',
         pq.answering_minister_to_action_officer,                        # 'Date sent back to AO (if applicable)',
         pq.sent_to_answering_minister,                                  # 'Date delivered to Minister',
-        pq.cleared_by_answering_minister                                # 'Returned signed from Minister',
+        pq.cleared_by_answering_minister                               # 'Returned signed from Minister',
       ].map { |date| date && date.strftime(DATE_FORMAT) }  +
       [
-        pq.directorate && pq.directorate.name,                          # 'Directorate',
-        pq.original_division && pq.original_division.name,                                # 'Division',
-        pq.answer,                                                      # 'Final Response',
-        pq.question,                                                    # 'Full_PQ_subject',
+        escape_equals_for_excel(pq.directorate && pq.directorate.name),                          # 'Directorate',
+        escape_equals_for_excel(pq.original_division && pq.original_division.name),                                # 'Division',
+        escape_equals_for_excel(pq.answer),                                                      # 'Final Response',
+        escape_equals_for_excel(pq.question),                                                    # 'Full_PQ_subject',
         nil,                                                            # 'Delay Reason',
-        pq.minister && pq.minister.name,                                # 'Minister',
-        pq.answering_minister_query,                                    # 'Ministerial Query? (if applicable)',
-        pq.uin,                                                         # 'PIN',
+        escape_equals_for_excel(pq.minister && pq.minister.name),                                # 'Minister',
+        escape_equals_for_excel(pq.answering_minister_query),                                    # 'Ministerial Query? (if applicable)',
+        escape_equals_for_excel(pq.uin),                                                         # 'PIN',
         pq.pod_clearance && pq.pod_clearance.strftime(DATE_FORMAT),     # '"Date/time of POD clearance"',
-        pq.pod_query_flag,                                              # 'PODquery',
-        pq.finance_interest,                                            # 'Requested by finance',
+        escape_equals_for_excel(pq.pod_query_flag),                                              # 'PODquery',
+        escape_equals_for_excel(pq.finance_interest),                                            # 'Requested by finance',
         nil,                                                            # 'Requested by HR',
         nil,                                                            # 'Requested by Press',
-        pq.question_type,                                               # 'Type of Question',
-        ao && ao.email                                                  # 'AO Email'
+        escape_equals_for_excel(pq.question_type),                                               # 'Type of Question',
+        escape_equals_for_excel(ao && ao.email)                                                  # 'AO Email'
       ]
     end
 

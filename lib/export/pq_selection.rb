@@ -22,16 +22,16 @@ module Export
     ]
 
     def csv_fields(pq, ao)
-      [ pq.uin,                                                         # 'PIN',
-        pq.member_name,                                                 # 'MP',
+      [ escape_equals_for_excel(pq.uin),                                                         # 'PIN',
+        escape_equals_for_excel(pq.member_name),                                                 # 'MP',
         empty_or_date(pq.internal_deadline),                     # 'Draft due to Parly Branch',
         empty_or_date(pq.date_for_answer),                       # 'Date Due in Parliament',
-        pq.question,                                                    # 'Full_PQ_subject',
-        pq.minister && pq.minister.name,                                # 'Minister',
-        PQState.state_label(pq.state),
-        ao && ao.name,                                                  # 'Action Officer',
-        pq.original_division && pq.original_division.name,              # 'Division',
-        pq.question_type,                                               # 'Type of Question',
+        escape_equals_for_excel(pq.question),                                                    # 'Full_PQ_subject',
+        escape_equals_for_excel(pq.minister && pq.minister.name),                                # 'Minister',
+        escape_equals_for_excel(PQState.state_label(pq.state)),
+        escape_equals_for_excel(ao && ao.name),                                                  # 'Action Officer',
+        escape_equals_for_excel(pq.original_division && pq.original_division.name),              # 'Division',
+        escape_equals_for_excel(pq.question_type),                                               # 'Type of Question',
         empty_or_date(pq.tabled_date),                           # 'Date First Appeared in Parliament',
         empty_or_date(pq.draft_answer_received),                 # 'Date Draft Returned to PB',
         empty_or_date(pq.sent_to_answering_minister),            # 'Date delivered to Minister',
@@ -40,6 +40,7 @@ module Export
       ]
     end
 
+=begin
     def empty_or_date(this_date)
       if this_date.nil?
          ''
@@ -47,6 +48,7 @@ module Export
         this_date.strftime('%Y-%m-%d %H:%M')
       end
     end
+=end
 
     def to_csv
       CSV.generate do |csv|
