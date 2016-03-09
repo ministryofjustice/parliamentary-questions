@@ -224,18 +224,26 @@ var document, $, trimLink, ga;
 
     var filterByRadioButton = function (filter, value) {
       $question.each(function (i, li){
-        if ( $(li).has(filter).length ) {
-          if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
-            $(li).css('display', 'block');
-          }
-          else {
+        if( value == "None" ) {
+          if ( $(li).has(filter).length && $(li).css("display") != "none" ) {
             $(this).find($filterCheckbox).prop('checked', false);
             $(li).css('display', 'none');
           }
         }
         else {
-          $(this).find($filterCheckbox).prop('checked', false);
-          $(li).css('display', 'none');
+          if ( $(li).has(filter).length ) {
+            if ($(li).has(filter + ':contains("' + value + '")').length && $(li).css("display") != "none") {
+              $(li).css('display', 'block');
+            }
+            else {
+              $(this).find($filterCheckbox).prop('checked', false);
+              $(li).css('display', 'none');
+            }
+          }
+          else {
+            $(this).find($filterCheckbox).prop('checked', false);
+            $(li).css('display', 'none');
+          }
         }
       });
     };
@@ -275,7 +283,7 @@ var document, $, trimLink, ga;
       }
       if ($replyingMinisterRdo.val() != undefined){
         $('#replying-minister .notice').show();
-        filterByRadioButton(".replying-minister", $replyingMinisterRdon.val());
+        filterByRadioButton(".replying-minister", $replyingMinisterRdo.val());
       }
       if ( $policyMinisterRdo.val() != undefined) {
         $('#policy-minister .notice').show();
@@ -327,7 +335,6 @@ var document, $, trimLink, ga;
       var target = $('input:checked').parent().attr('data-target');
       $('#' + target).show();
     });
-
 
     if (document.getElementById('assignment') || document.getElementById('preview')) {
       // This is the assignment page. As it is typically seen on IE7
@@ -537,7 +544,7 @@ var document, $, trimLink, ga;
       else if ($(event.target).is('#clear-deadline-filter')) {
         $('#deadline-from').val('') && $('#deadline-to').val('');
       }
-      else if ( $(event.target).val() === "Clear" && $(event.target).prop('id') != "clear-keywords-filter" ){
+      else if ( $(event.target).val() == "Clear" && $(event.target).prop('id') != "clear-keywords-filter" ){
         // Uncheck radio buttons.
         $('input[name="' + $(event.target).closest('.filter-box').prop('id') + '"]').removeAttr('checked');
         // Hide the "1 selected" notice.
