@@ -38,6 +38,10 @@ ParliamentaryQuestions::Application.configure do
   # See https://developer.geckoboard.com/#polling-overview
   config.gecko_auth_username = 'test_username'
 
+  config.active_record.raise_in_transactional_callbacks = true
+  config.after_initialize do
+    PaperTrail.enabled = false
+  end
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
 

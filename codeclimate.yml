@@ -1,0 +1,8 @@
+languages:
+  Ruby: true
+  JavaScript: true
+  PHP: true
+exclude_paths:
+- "app/assets/javascripts/bootstrap.js"
+- "app/assets/javascripts/jquery.datetimepicker.js"
+- "lib/gecko_report.rb"
