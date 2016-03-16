@@ -275,7 +275,7 @@ var document, $, trimLink, ga;
       }
       if ($replyingMinisterRdo.val() != undefined){
         $('#replying-minister .notice').show();
-        filterByRadioButton(".replying-minister", $replyingMinisterRdon.val());
+        filterByRadioButton(".replying-minister", $replyingMinisterRdo.val());
       }
       if ( $policyMinisterRdo.val() != undefined) {
         $('#policy-minister .notice').show();
