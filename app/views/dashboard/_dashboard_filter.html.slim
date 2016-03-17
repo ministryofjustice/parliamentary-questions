@@ -10,7 +10,7 @@
     h2 Filter
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
 
-      .filter-box
+      #date-for-answer.filter-box
         h3 Date for answer
         input#answer-date-today.right type="button" value="Today"
         .content
@@ -25,7 +25,7 @@
           .clearFilter
             input#clear-answer-filter.right type="button" value="Clear"
 
-      .filter-box
+      #internal-deadline.filter-box
         h3 Internal deadline
         input#deadline-date-today.right type="button" value="Today"
         .content
@@ -127,7 +127,10 @@
           span 1 selected
         .content.collapsed
           .list
-            - if @policy_minister_names.count > 1
+            - if @policy_minister_names.count > 0
+              label
+                input type="radio" name="policy-minister" value="None"
+                  'None
               - @policy_minister_names.each do |policy_minister|
                 label
                   input type="radio" name="policy-minister" value= policy_minister
