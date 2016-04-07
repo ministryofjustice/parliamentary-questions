@@ -15,7 +15,7 @@ gem 'momentjs-rails', '~> 2.5.0'
 gem 'nokogiri'
 gem 'paper_trail', '~> 3.0.5'
 gem 'pg'
-gem 'rails', '~> 4.1.7'
+gem 'rails', '~> 4.2.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'select2-rails'
 gem 'slim'
@@ -25,6 +25,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'whenever', :require => false
 gem 'will_paginate'
+gem 'responders', '~> 2.0'
 
 group :development do
   gem 'rails-erd'

@@ -12,6 +12,27 @@ require './spec/support/features/email_helpers'
 require './spec/support/unit/question_factory'
 require './spec/support/csv_helpers'
 require 'shoulda/matchers'
+require 'paper_trail/frameworks/rspec'
+
+require "bundler/setup"
+::Bundler.require(:default, :test)
+
+::Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+    #with.test_framework :minitest
+    #with.test_framework :minitest_4
+    #with.test_framework :test_unit
+
+    # Choose one or more libraries:
+    with.library :active_record
+    with.library :active_model
+    #with.library :action_controller
+    # Or, choose the following (which implies all of the above):
+    #with.library :rails
+  end
+end
 
 RSpec.configure do |config|
   # ## Mock Framework

@@ -87,7 +87,7 @@ FactoryGirl.define do
         date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
         minister
 
-        ignore do
+        transient do
           action_officer { create(:action_officer) }
           action_officer_allocated_at { Time.now }
         end

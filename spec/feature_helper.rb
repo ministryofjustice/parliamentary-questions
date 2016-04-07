@@ -7,6 +7,7 @@ require './spec/support/features/email_helpers'
 require './spec/support/features/pq_helpers'
 require './spec/support/db_helpers'
 require 'rspec/rails'
+require 'paper_trail/frameworks/rspec'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 

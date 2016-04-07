@@ -13,7 +13,7 @@ ParliamentaryQuestions::Application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
+  config.serve_static_files  = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.
@@ -38,6 +38,10 @@ ParliamentaryQuestions::Application.configure do
   # See https://developer.geckoboard.com/#polling-overview
   config.gecko_auth_username = 'test_username'
 
+  config.active_record.raise_in_transactional_callbacks = true
+  config.after_initialize do
+    PaperTrail.enabled = false
+  end
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
 
