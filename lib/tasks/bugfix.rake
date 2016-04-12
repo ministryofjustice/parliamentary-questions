@@ -32,4 +32,19 @@ namespace :bugfix do
       end
     end
   end
+
+  desc 'Remove Follow up created in error'
+  task :delete_25231_IWW => :environment do
+    pq = Pq.find_by_uin("25231-IWW")
+    ActionOfficersPq.where("pq_id = ?", pq.id).map(&:destroy)
+    puts "Deleted AO Link(s)"
+
+    Pq.where("uin like '25231-IWW'").map(&:destroy)
+    puts "Deleted UIN"
+
+    pq_original = Pq.find_by_uin("25231")
+    pq_original.i_will_write = FALSE
+    pq_original.save!
+    puts "Saved Original UIN as non IWW"
+  end
 end
