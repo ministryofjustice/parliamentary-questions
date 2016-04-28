@@ -403,7 +403,9 @@ var document, $, trimLink, ga;
           // a success message
           var pqid = $(this).data('pqid');
           var uin = $(this).parents('*[data-pquin]').data('pquin');
-          $('#pq-frame-' + pqid).replaceWith('<div class="pq-msg-success fade in">' + uin + ' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
+
+          $('#pq-frame-' + pqid).html('<div class="pq-msg-success fade in">' + uin + ' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
+
           // on the right-hand filter panel, increment the number of No Response questions
           incrementBadge('#db-filter-alloc-pend');
           // and decrement the number of unallocated
