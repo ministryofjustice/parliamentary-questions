@@ -33,7 +33,16 @@ describe PqMailer do
         expect(mail.cc).to eq ["kulsgroupmail@digital.justice.gov.uk"]
         expect(mail.to_s).to include 'From: PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>'
         expect(mail.to_s).to include 'Reply-To: pqs@justice.gsi.gov.uk'
+        expect(mail.text_part.body).to include 3.days.from_now
       end
+      it 'should have the correct internal_deadline' do
+        MailService::Pq.commission_email(@template_params)
+        MailWorker.new.run!
+
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.text_part.body).to include 3.days.from_now
+      end
+
     end
   end
 
