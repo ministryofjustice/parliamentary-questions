@@ -23,10 +23,11 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     commission_question(@pq.uin, [ao1], minister)
   end
 
-  scenario 'Parli-branch cannot reasign before AO accepts question' do
+  scenario 'Parli-branch cannot re-assign before AO accepts question' do
     create_pq_session
     visit pq_path(@pq.uin)
     click_on "PQ commission"
+
     expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).not_to have_content('Reassign action officer')
     expect(page).not_to have_content('Action officer(s)')
@@ -41,16 +42,19 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     visit pq_path(@pq.uin)
     click_on "PQ commission"
 
-    find('select[name="commission_form[action_officer_id]"]')
-      .find(:xpath, "option[3]")
-      .select_option
+    expect(page).to have_content(ao1.email)
+    expect(page).not_to have_content(ao2.email)
 
-    click_button 'Save'
-    click_on 'PQ commission'
+    click_on 'Manually reject this action officer'
 
-    expect(page.title).to have_text("PQ #{@pq.uin}")
-    expect(page).to have_content(ao2.email)
+    commission_question(@pq.uin, [ao2], minister)
+    accept_assignment(ao2)
+
+    visit pq_path(@pq.uin)
+    click_on "PQ commission"
+
     expect(page).not_to have_content(ao1.email)
+    expect(page).to have_content(ao2.email)
   end
 
 end
