@@ -372,6 +372,3 @@ DEPENDENCIES
   unicorn
   whenever
   will_paginate
-
-BUNDLED WITH
-   1.12.3

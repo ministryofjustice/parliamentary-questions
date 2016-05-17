@@ -47,4 +47,14 @@ namespace :bugfix do
     pq_original.save!
     puts "Saved Original UIN as non IWW"
   end
+
+  desc 'Prefix uins for previous session'
+  task :prefix_uins => :environment do
+    puts "Number of non-prefixed uins #{(Pq.where.not("uin like ?","#%").count)} "
+      Pq.where.not("uin like ?","#%").update_all("uin='*'||uin")
+    puts "Number of uins with * prefix #{(Pq.where("uin like ?","*%").count)} "
+  end
+
+
 end
+
