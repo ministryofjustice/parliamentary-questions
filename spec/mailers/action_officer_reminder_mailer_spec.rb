@@ -42,6 +42,14 @@ describe 'ActionOfficerReminderMailer' do
         expect(mail.to).to include ao.email
         expect(mail.subject).to include 'URGENT'
       end
+      it 'should have the internal deadline in the body' do
+        MailService::Pq.draft_reminder_email(@pq, ao)
+        MailWorker.new.run!
+
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.text_part.body).to include @pq.internal_deadline
+      end
+
     end
   end
 end
