@@ -63,46 +63,50 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   end
 
   def all_pqs_visible
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
   end
 
   def all_pqs_hidden
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
   end
 
   # ======================================================================== #
@@ -123,24 +127,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '2) Test Date for Answer: From today +9 days.' do
     test_date('#date-for-answer', 'answer-from', Date.today+9)
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     clear_filter('#date-for-answer')
 
@@ -173,24 +179,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '5) Test Date for Answer: To today +9 days.' do
     test_date('#date-for-answer', 'answer-to', Date.today+9)
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#date-for-answer')
 
@@ -223,24 +231,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '8) Test Internal Deadline: From today +9 days.' do
     test_date('#internal-deadline', 'deadline-from', Date.today+9)
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     clear_filter('#internal-deadline')
 
@@ -273,24 +283,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '11) Test Internal Deadline: To today +9 days.' do
     test_date('#internal-deadline', 'deadline-to',  Date.today+9)
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#internal-deadline')
 
@@ -312,24 +324,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '13) Test the Status filter.' do
     test_checkbox('#flag', 'Status', 'With POD')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      find('li#pq-frame-15').visible?
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      expect(page).not_to have_selector('li#pq-frame-2')
-      find('li#pq-frame-1').visible?
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        find('li#pq-frame-15').visible?
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        expect(page).not_to have_selector('li#pq-frame-2')
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     clear_filter('#flag')
 
@@ -340,24 +354,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '14) Test the Replying Minister filter.' do
     test_checkbox('#replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      expect(page).not_to have_selector('li#pq-frame-15')
-      find('li#pq-frame-14').visible?
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      find('li#pq-frame-8').visible?
-      expect(page).not_to have_selector('li#pq-frame-7')
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        expect(page).not_to have_selector('li#pq-frame-15')
+        find('li#pq-frame-14').visible?
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        find('li#pq-frame-8').visible?
+        expect(page).not_to have_selector('li#pq-frame-7')
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     clear_filter('#replying-minister')
 
@@ -368,24 +384,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '15) Test the Policy Minister filter.' do
     test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      expect(page).not_to have_selector('li#pq-frame-14')
-      find('li#pq-frame-13').visible?
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      find('li#pq-frame-1').visible?
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        expect(page).not_to have_selector('li#pq-frame-14')
+        find('li#pq-frame-13').visible?
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     clear_filter('#policy-minister')
 
@@ -396,24 +414,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '16) Test the Question Type filter.' do
     test_checkbox('#question-type', 'Question type', 'Ordinary')
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      find('li#pq-frame-14').visible?
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      expect(page).not_to have_selector('li#pq-frame-6')
-      find('li#pq-frame-5').visible?
-      expect(page).not_to have_selector('li#pq-frame-4')
-      find('li#pq-frame-3').visible?
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        find('li#pq-frame-14').visible?
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        expect(page).not_to have_selector('li#pq-frame-6')
+        find('li#pq-frame-5').visible?
+        expect(page).not_to have_selector('li#pq-frame-4')
+        find('li#pq-frame-3').visible?
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#question-type')
 
@@ -434,24 +454,26 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '18) Test the Keywords filter: Eight questions returned.' do
     test_keywords('uin-1')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      find('li#pq-frame-1').visible?
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     test_keywords('')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
@@ -482,24 +504,27 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#date-for-answer', 'answer-from', Date.today+13)
     test_date('#date-for-answer', 'answer-to', Date.today+14)
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#date-for-answer')
 
@@ -535,24 +560,27 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#internal-deadline', 'deadline-from', Date.today+11)
     test_date('#internal-deadline', 'deadline-to', Date.today+12)
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#internal-deadline')
 
@@ -574,67 +602,76 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '26) Testing 2 options: Replying Minister, Policy Minister.' do
     test_checkbox('#replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      expect(page).not_to have_selector('li#pq-frame-15')
-      find('li#pq-frame-14').visible?
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      find('li#pq-frame-8').visible?
-      expect(page).not_to have_selector('li#pq-frame-7')
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        expect(page).not_to have_selector('li#pq-frame-15')
+        find('li#pq-frame-14').visible?
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        find('li#pq-frame-8').visible?
+        expect(page).not_to have_selector('li#pq-frame-7')
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      find('li#pq-frame-8').visible?
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      find('li#pq-frame-1').visible?
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        find('li#pq-frame-8').visible?
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     clear_filter('#policy-minister')
 
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      expect(page).not_to have_selector('li#pq-frame-15')
-      find('li#pq-frame-14').visible?
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      find('li#pq-frame-8').visible?
-      expect(page).not_to have_selector('li#pq-frame-7')
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        expect(page).not_to have_selector('li#pq-frame-15')
+        find('li#pq-frame-14').visible?
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        find('li#pq-frame-8').visible?
+        expect(page).not_to have_selector('li#pq-frame-7')
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     clear_filter('#replying-minister')
 
@@ -645,108 +682,124 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '27) Testing 3 options: DFA(To), ID(From), Replying Minister.' do
     test_date('#date-for-answer', 'answer-to', Date.today+11)
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
+
 
     test_date('#internal-deadline', 'deadline-from', Date.today+4)
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
+
 
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#replying-minister')
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#filters #internal-deadline.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
@@ -756,150 +809,171 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '28) Testing 4 options: DFA(From), ID(To), Replying Minister, Question type.' do
     test_date('#date-for-answer', 'answer-from', Date.today+13)
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     test_date('#internal-deadline', 'deadline-to', Date.today+13)
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#question-type', 'Question type', 'Ordinary')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      find('li#pq-frame-3').visible?
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        find('li#pq-frame-3').visible?
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#question-type')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#replying-minister')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#filters #internal-deadline.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
@@ -913,129 +987,147 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
 
     test_date('#date-for-answer', 'answer-to', Date.today+8)
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_date('#internal-deadline', 'deadline-from', Date.today)
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16')
-      find('li#pq-frame-15', wait: 5).visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_date('#internal-deadline', 'deadline-to', Date.today+4)
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16')
-      find('li#pq-frame-15', wait: 5).visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_keywords('uin-14')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      find('li#pq-frame-14').visible?
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        find('li#pq-frame-14').visible?
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
 
@@ -1046,213 +1138,243 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   scenario '30) Testing 6 options: DFA(From), DFA(To), ID(To), Status, Replying Minister, Policy Minister.' do
     test_date('#date-for-answer', 'answer-from', Date.today+10)
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        find('li#pq-frame-2').visible?
+        find('li#pq-frame-1').visible?
+      }
+    end
 
     test_date('#date-for-answer', 'answer-to', Date.today+14)
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_date('#internal-deadline', 'deadline-to', Date.today+11)
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#flag', 'Status', 'With POD')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#policy-minister', 'Policy minister', 'Shailesh Vara (MP)')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#policy-minister')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#replying-minister')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      expect(page).not_to have_selector('li#pq-frame-5')
-      find('li#pq-frame-4').visible?
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        expect(page).not_to have_selector('li#pq-frame-5')
+        find('li#pq-frame-4').visible?
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#flag')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      expect(page).not_to have_selector('li#pq-frame-9')
-      expect(page).not_to have_selector('li#pq-frame-8')
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        expect(page).not_to have_selector('li#pq-frame-9')
+        expect(page).not_to have_selector('li#pq-frame-8')
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        find('li#pq-frame-4').visible?
+        find('li#pq-frame-3').visible?
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
@@ -1266,234 +1388,267 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
 
     test_date('#date-for-answer', 'answer-to', Date.today+12)
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#flag', 'Status', 'Draft Pending')
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      expect(page).not_to have_selector('li#pq-frame-15')
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      find('li#pq-frame-5').visible?
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        expect(page).not_to have_selector('li#pq-frame-15')
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        find('li#pq-frame-5').visible?
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      find('li#pq-frame-5').visible?
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        find('li#pq-frame-5').visible?
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      find('li#pq-frame-13').visible?
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        find('li#pq-frame-13').visible?
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_checkbox('#question-type', 'Question type', 'Ordinary')
     within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     test_keywords('uin-9')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
     within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      expect(page).not_to have_selector('li#pq-frame-13')
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        expect(page).not_to have_selector('li#pq-frame-13')
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#question-type')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      find('li#pq-frame-13').visible?
-      expect(page).not_to have_selector('li#pq-frame-12')
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      expect(page).not_to have_selector('li#pq-frame-5')
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        find('li#pq-frame-13').visible?
+        expect(page).not_to have_selector('li#pq-frame-12')
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        expect(page).not_to have_selector('li#pq-frame-5')
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#policy-minister')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
-      expect(page).not_to have_selector('li#pq-frame-15')
-      expect(page).not_to have_selector('li#pq-frame-14')
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      expect(page).not_to have_selector('li#pq-frame-8')
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      find('li#pq-frame-5').visible?
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        expect(page).not_to have_selector('li#pq-frame-16')
+        expect(page).not_to have_selector('li#pq-frame-15')
+        expect(page).not_to have_selector('li#pq-frame-14')
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        expect(page).not_to have_selector('li#pq-frame-8')
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        find('li#pq-frame-5').visible?
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#replying-minister')
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      expect(page).not_to have_selector('li#pq-frame-15')
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      expect(page).not_to have_selector('li#pq-frame-11')
-      expect(page).not_to have_selector('li#pq-frame-10')
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      expect(page).not_to have_selector('li#pq-frame-7')
-      expect(page).not_to have_selector('li#pq-frame-6')
-      find('li#pq-frame-5').visible?
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        expect(page).not_to have_selector('li#pq-frame-15')
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        expect(page).not_to have_selector('li#pq-frame-11')
+        expect(page).not_to have_selector('li#pq-frame-10')
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        expect(page).not_to have_selector('li#pq-frame-7')
+        expect(page).not_to have_selector('li#pq-frame-6')
+        find('li#pq-frame-5').visible?
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     clear_filter('#flag')
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16', wait: 5).visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      expect(page).not_to have_selector('li#pq-frame-4')
-      expect(page).not_to have_selector('li#pq-frame-3')
-      expect(page).not_to have_selector('li#pq-frame-2')
-      expect(page).not_to have_selector('li#pq-frame-1')
-    }
+
+    Capybara.using_wait_time 10 do
+      within('.questions-list'){
+        find('li#pq-frame-16').visible?
+        find('li#pq-frame-15').visible?
+        find('li#pq-frame-14').visible?
+        find('li#pq-frame-13').visible?
+        find('li#pq-frame-12').visible?
+        find('li#pq-frame-11').visible?
+        find('li#pq-frame-10').visible?
+        find('li#pq-frame-9').visible?
+        find('li#pq-frame-8').visible?
+        find('li#pq-frame-7').visible?
+        find('li#pq-frame-6').visible?
+        find('li#pq-frame-5').visible?
+        expect(page).not_to have_selector('li#pq-frame-4')
+        expect(page).not_to have_selector('li#pq-frame-3')
+        expect(page).not_to have_selector('li#pq-frame-2')
+        expect(page).not_to have_selector('li#pq-frame-1')
+      }
+    end
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
@@ -1504,7 +1659,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#date-for-answer', 'answer-from', Date.today+3)
     within('#count'){expect(page).to have_text('14 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       find('li#pq-frame-14').visible?
       find('li#pq-frame-13').visible?
@@ -1525,7 +1680,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#date-for-answer', 'answer-to', Date.today+14)
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       find('li#pq-frame-14').visible?
       find('li#pq-frame-13').visible?
@@ -1546,7 +1701,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#internal-deadline', 'deadline-from', Date.today+3)
     within('#count'){expect(page).to have_text('10 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1567,7 +1722,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#flag', 'Status', 'With POD')
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1588,7 +1743,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1609,7 +1764,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#policy-minister', 'Policy minister', 'Shailesh Vara (MP)')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1630,7 +1785,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#question-type', 'Question type', 'Named Day')
     within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1651,7 +1806,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_keywords('uin-4')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1672,7 +1827,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1693,7 +1848,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#question-type')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1714,7 +1869,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#policy-minister')
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1735,7 +1890,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#replying-minister')
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1756,7 +1911,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#flag')
     within('#count'){expect(page).to have_text('10 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1777,7 +1932,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       find('li#pq-frame-14').visible?
       find('li#pq-frame-13').visible?
@@ -1804,7 +1959,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#date-for-answer', 'answer-from', Date.today+2)
     within('#count'){expect(page).to have_text('15 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       find('li#pq-frame-15').visible?
       find('li#pq-frame-14').visible?
       find('li#pq-frame-13').visible?
@@ -1825,7 +1980,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#date-for-answer', 'answer-to', Date.today+14)
     within('#count'){expect(page).to have_text('13 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       find('li#pq-frame-15').visible?
       find('li#pq-frame-14').visible?
       find('li#pq-frame-13').visible?
@@ -1846,7 +2001,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#internal-deadline', 'deadline-from', Date.today+2)
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       find('li#pq-frame-13').visible?
@@ -1867,7 +2022,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_date('#internal-deadline', 'deadline-to', Date.today+10)
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       find('li#pq-frame-13').visible?
@@ -1888,7 +2043,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#flag', 'Status', 'With POD')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1909,7 +2064,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1930,7 +2085,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1951,7 +2106,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_checkbox('#question-type', 'Question type', 'Ordinary')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1972,7 +2127,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     test_keywords('uin-7')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -1993,7 +2148,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -2014,7 +2169,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#question-type')
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -2035,7 +2190,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#policy-minister')
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -2056,7 +2211,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#replying-minister')
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       expect(page).not_to have_selector('li#pq-frame-13')
@@ -2077,7 +2232,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     clear_filter('#flag')
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       expect(page).not_to have_selector('li#pq-frame-15')
       expect(page).not_to have_selector('li#pq-frame-14')
       find('li#pq-frame-13').visible?
@@ -2098,7 +2253,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     within('#internal-deadline.filter-box'){find_button('Clear').trigger('click')}
     within('#count'){expect(page).to have_text('13 parliamentary questions out of 16.')}
     within('.questions-list'){
-      expect(page).not_to have_selector('li#pq-frame-16', wait: 5)
+      expect(page).not_to have_selector('li#pq-frame-16')
       find('li#pq-frame-15').visible?
       find('li#pq-frame-14').visible?
       find('li#pq-frame-13').visible?
