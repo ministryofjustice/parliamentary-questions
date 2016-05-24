@@ -22,20 +22,17 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
 
   scenario '1) Test Date for Answer: From today -10 days.' do
     within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    sleep(1.second)
     all_pqs_visible
 
     test_date('#date-for-answer', 'answer-from', Date.today-10)
-    sleep(1.second)
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
 
     clear_filter('#date-for-answer')
-    sleep(1.second)
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
   end
-=begin
+
   scenario '2) Test Date for Answer: From today +9 days.' do
     test_date('#date-for-answer', 'answer-from', Date.today+9)
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
@@ -692,7 +689,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#internal-deadline', 'deadline-to', Date.today+13)
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -714,7 +710,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -736,7 +731,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#question-type', 'Question type', 'Ordinary')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -758,7 +752,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#question-type')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -780,7 +773,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -802,7 +794,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#filters #internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -824,19 +815,16 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
   end
 
   scenario '29) Testing 5 options: DFA(From), DFA(To), ID(From), ID(To), Keyword.' do
     test_date('#date-for-answer', 'answer-from', Date.today-2)
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
 
     test_date('#date-for-answer', 'answer-to', Date.today+8)
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li#pq-frame-16').visible?
@@ -858,7 +846,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#internal-deadline', 'deadline-from', Date.today)
-
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -880,7 +867,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#internal-deadline', 'deadline-to', Date.today+4)
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -902,7 +888,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_keywords('uin-14')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -924,7 +909,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -946,7 +930,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li#pq-frame-16').visible?
@@ -975,7 +958,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
 
   scenario '30) Testing 6 options: DFA(From), DFA(To), ID(To), Status, Replying Minister, Policy Minister.' do
     test_date('#date-for-answer', 'answer-from', Date.today+10)
-
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -997,7 +979,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#date-for-answer', 'answer-to', Date.today+14)
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1019,7 +1000,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#internal-deadline', 'deadline-to', Date.today+11)
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1041,7 +1021,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#flag', 'Status', 'With POD')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1063,7 +1042,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1085,7 +1063,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#policy-minister', 'Policy minister', 'Shailesh Vara (MP)')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1107,7 +1084,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1129,7 +1105,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1151,7 +1126,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1173,7 +1147,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1195,20 +1168,16 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-
     all_pqs_visible
   end
 
   scenario '31) Testing 7 options: DFA(From), DFA(To), Status, Replying Minister, Policy Minister, Question type, Keyword.' do
     test_date('#date-for-answer', 'answer-from', Date.today-10)
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
 
     test_date('#date-for-answer', 'answer-to', Date.today+12)
-
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li#pq-frame-16').visible?
@@ -1230,7 +1199,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#flag', 'Status', 'Draft Pending')
-
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li#pq-frame-16').visible?
@@ -1252,7 +1220,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1274,7 +1241,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1296,7 +1262,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#question-type', 'Question type', 'Ordinary')
-
     within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1318,7 +1283,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_keywords('uin-9')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1340,7 +1304,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
     within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1362,7 +1325,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#question-type')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1384,7 +1346,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1406,7 +1367,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li#pq-frame-16').visible?
@@ -1428,7 +1388,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
       find('li#pq-frame-16').visible?
@@ -1450,14 +1409,12 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
   end
 
   scenario '32) Testing 8 options: DFA(From), DFA(To), ID(From), Status, Replying Minister, Policy Minister, Question type, Keyword.' do
     test_date('#date-for-answer', 'answer-from', Date.today+3)
-
     within('#count'){expect(page).to have_text('14 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1479,7 +1436,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#date-for-answer', 'answer-to', Date.today+14)
-
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1501,7 +1457,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#internal-deadline', 'deadline-from', Date.today+3)
-
     within('#count'){expect(page).to have_text('10 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1523,7 +1478,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#flag', 'Status', 'With POD')
-
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1545,7 +1499,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1567,7 +1520,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#policy-minister', 'Policy minister', 'Shailesh Vara (MP)')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1589,7 +1541,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#question-type', 'Question type', 'Named Day')
-
     within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1611,7 +1562,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_keywords('uin-4')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1633,7 +1583,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1655,7 +1604,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#question-type')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1677,7 +1625,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1699,7 +1646,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1721,7 +1667,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('10 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1743,7 +1688,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1765,14 +1709,12 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
   end
 
   scenario '33) Testing 9 options: DFA(From), DFA(To), ID(From), ID(To), Status, Replying Minister, Policy Minister, Question type, Keyword.' do
     test_date('#date-for-answer', 'answer-from', Date.today+2)
-
     within('#count'){expect(page).to have_text('15 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1794,7 +1736,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#date-for-answer', 'answer-to', Date.today+14)
-
     within('#count'){expect(page).to have_text('13 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1816,7 +1757,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#internal-deadline', 'deadline-from', Date.today+2)
-
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1838,7 +1778,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_date('#internal-deadline', 'deadline-to', Date.today+10)
-
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1860,7 +1799,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#flag', 'Status', 'With POD')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1882,7 +1820,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1904,7 +1841,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1926,7 +1862,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_checkbox('#question-type', 'Question type', 'Ordinary')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1948,7 +1883,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     test_keywords('uin-7')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1970,7 +1904,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -1992,7 +1925,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#question-type')
-
     within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -2014,7 +1946,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#policy-minister')
-
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -2036,7 +1967,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#replying-minister')
-
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -2058,7 +1988,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     clear_filter('#flag')
-
     within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -2080,7 +2009,6 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#internal-deadline.filter-box'){find_button('Clear').trigger('click')}
-
     within('#count'){expect(page).to have_text('13 parliamentary questions out of 16.')}
     within('.questions-list'){
       expect(page).not_to have_selector('li#pq-frame-16')
@@ -2102,11 +2030,10 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     }
 
     within('#date-for-answer.filter-box'){find_button('Clear').trigger('click')}
-
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
   end
-=end
+
   def setup_questions
     pq1 = FactoryGirl.create( :with_pod_pq, uin: 'UIN-1', date_for_answer: Date.today+16, internal_deadline: Date.today+14, minister_id: 3, policy_minister_id: 6, question_type: 'NamedDay' )
     pq2 = FactoryGirl.create( :draft_pending_pq, uin: 'UIN-2', date_for_answer: Date.today+15, internal_deadline: Date.today+13, minister_id: 3, policy_minister_id: 4, question_type: 'NamedDay' )
