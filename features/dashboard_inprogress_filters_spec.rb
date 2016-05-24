@@ -123,7 +123,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
   end
-
+=begin
   scenario '2) Test Date for Answer: From today +9 days.' do
     test_date('#date-for-answer', 'answer-from', Date.today+9)
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
@@ -2275,5 +2275,5 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs_visible
   end
-
+=end
 end
