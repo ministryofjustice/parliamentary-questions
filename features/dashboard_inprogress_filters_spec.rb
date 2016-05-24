@@ -63,7 +63,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   end
 
   def all_pqs_visible
-    Capybara.using_wait_time 10 do
+    Capybara.using_wait_time 30 do
       within('.questions-list'){
         find('li#pq-frame-16').visible?
         find('li#pq-frame-16').visible?
@@ -87,7 +87,7 @@ feature "dashboard/in_progress filtering:", js: true, suspend_cleaner: true do
   end
 
   def all_pqs_hidden
-    Capybara.using_wait_time 10 do
+    Capybara.using_wait_time 30 do
       within('.questions-list'){
         expect(page).not_to have_selector('li#pq-frame-16')
         expect(page).not_to have_selector('li#pq-frame-15')
