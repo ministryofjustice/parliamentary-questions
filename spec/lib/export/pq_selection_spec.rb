@@ -18,7 +18,7 @@ describe Export::PqSelection do
     before(:each) do
       mk_pq('uin-1', answer_submitted: nil, date_for_answer: Date.yesterday - 3)   # Expected result
       mk_pq('uin-2', tabled_date: Date.today - 5)
-      mk_pq('uin-3', answer_submitted: Date.today, answer_submitted: nil, date_for_answer: Date.yesterday)   # Expected result
+      mk_pq('uin-3', answer_submitted: Date.today, date_for_answer: Date.yesterday)   # Expected result
       mk_pq('uin-4', pod_clearance: Date.today)
       mk_pq('uin-z', answer_submitted: nil, date_for_answer: Date.today)
       mk_pq('uin-c', answer_submitted: nil, date_for_answer: Date.yesterday)
