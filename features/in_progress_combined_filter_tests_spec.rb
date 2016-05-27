@@ -20,270 +20,14 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
-  scenario '1) by Date for Answer (From: 10 days ago).' do
-    within('#count'){expect(page).to have_text('16 parliamentary questions')}
-    all_pqs(16, 'visible')
-    test_date('#date-for-answer', 'answer-from', Date.today-10)
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '2) by Date for Answer (From: 9 days time).' do
-    test_date('#date-for-answer', 'answer-from', Date.today+9)
-    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '3) by Date for Answer (From: 20 days time).' do
-    test_date('#date-for-answer', 'answer-from', Date.today+20)
-    within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    all_pqs(16, 'hidden')
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '4) by Date for Answer (To: 10 days ago).' do
-    test_date('#date-for-answer', 'answer-to', Date.today-10)
-    within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    all_pqs(16, 'hidden')
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '5) by Date for Answer (To: 9 days time).' do
-    test_date('#date-for-answer', 'answer-to', Date.today+9)
-    within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-    }
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '6) by Date for Answer (To: 20 days time).' do
-    test_date('#date-for-answer', 'answer-to', Date.today+20)
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '7) by Internal Deadline (From: 10 days ago).' do
-    test_date('#internal-deadline', 'deadline-from', Date.today-10)
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '8) by Internal Deadline (From: 9 days time).' do
-    test_date('#internal-deadline', 'deadline-from', Date.today+9)
-    within('#count'){expect(page).to have_text('6 parliamentary questions out of 16')}
-    within('.questions-list'){
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '9) by Internal Deadline (From: 20 days time).' do
-    test_date('#internal-deadline', 'deadline-from', Date.today+20)
-    within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    all_pqs(16, 'hidden')
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '10) by Internal Deadline (To: 10 days ago).' do
-    test_date('#internal-deadline', 'deadline-to', Date.today-10)
-    within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    all_pqs(16, 'hidden')
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '11) by Internal Deadline (To: 9 days time).' do
-    test_date('#internal-deadline', 'deadline-to',  Date.today+9)
-    within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-    }
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '12) by Internal Deadline (To: 20 days time.' do
-    test_date('#internal-deadline', 'deadline-to', Date.today+20)
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '13) by the Status filter.' do
-    test_checkbox('#flag', 'Status', 'With POD')
-    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-1').visible?
-    }
-    clear_filter('#flag')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '14) by the Replying Minister filter.' do
-    test_checkbox('#replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
-    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '15) by the Policy Minister filter.' do
-    test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
-    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-1').visible?
-    }
-    clear_filter('#policy-minister')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '16) by the Question Type filter.' do
-    test_checkbox('#question-type', 'Question type', 'Ordinary')
-    within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list'){
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-3').visible?
-    }
-    clear_filter('#question-type')
-    within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
-    all_pqs(16, 'visible')
-  end
-
-  scenario '17) by the Keywords filter: All questions returned.' do
-    test_keywords('UIN')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-    test_keywords('')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '18) by the Keywords filter: Eight questions returned.' do
-    test_keywords('UIN-1')
-    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-1').visible?
-    }
-    test_keywords('')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '19) by the Keywords filter: No questions returned.' do
-    test_keywords('Ministry of Justice')
-    within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
-    all_pqs(16, 'hidden')
-    test_keywords('')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-  end
-
-  scenario '20) Testing Date for Answer ranges: All questions returned.' do
+  scenario '1) by Date for Answer ranges: All questions returned.' do
     test_date('#date-for-answer', 'answer-from', Date.today-10)
     test_date('#date-for-answer', 'answer-to', Date.today+20)
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs(16, 'visible')
   end
 
-  scenario '21) Testing Date for Answer ranges: Two questions returned.' do
+  scenario '2) by for Answer ranges: Two questions returned.' do
     test_date('#date-for-answer', 'answer-from', Date.today+13)
     test_date('#date-for-answer', 'answer-to', Date.today+14)
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
@@ -293,21 +37,21 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '22) by Date for Answer ranges: No questions returned.' do
+  scenario '3) by Date for Answer ranges: No questions returned.' do
     test_date('#date-for-answer', 'answer-from', Date.today+18)
     test_date('#date-for-answer', 'answer-to', Date.today+20)
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
     all_pqs(16, 'hidden')
   end
 
-  scenario '23) by Internal Deadline ranges: All questions returned.' do
+  scenario '4) by Internal Deadline ranges: All questions returned.' do
     test_date('#internal-deadline', 'deadline-from', Date.today-10)
     test_date('#internal-deadline', 'deadline-to', Date.today+20)
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs(16, 'visible')
   end
 
-  scenario '24) by Internal Deadline ranges: Two questions returned.' do
+  scenario '5) by Internal Deadline ranges: Two questions returned.' do
     test_date('#internal-deadline', 'deadline-from', Date.today+11)
     test_date('#internal-deadline', 'deadline-to', Date.today+12)
     within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
@@ -317,14 +61,14 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '25) by Internal Deadline ranges: No questions returned.' do
+  scenario '6) by Internal Deadline ranges: No questions returned.' do
     test_date('#internal-deadline', 'deadline-from', Date.today+18)
     test_date('#internal-deadline', 'deadline-to', Date.today+20)
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
     all_pqs(16, 'hidden')
   end
 
-  scenario '26) by Replying Minister & Policy Minister' do
+  scenario '7) by Replying Minister & Policy Minister' do
     test_checkbox('#replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
     within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
     within('.questions-list'){
@@ -347,7 +91,7 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '27) by Date for Answer (To), Internal Deadline (From) & Replying Minister' do
+  scenario '8) by Date for Answer (To), Internal Deadline (From) & Replying Minister' do
     test_date('#date-for-answer', 'answer-to', Date.today+11)
     within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
     within('.questions-list'){
@@ -382,7 +126,7 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '28) by Date for Answer (From), Internal Deadline (To), Replying Minister & Question type' do
+  scenario '9) by Date for Answer (From), Internal Deadline (To), Replying Minister & Question type' do
     test_date('#date-for-answer', 'answer-from', Date.today+13)
     within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
     within('.questions-list'){
@@ -411,7 +155,7 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '29) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Internal Deadline (To) & Keyword' do
+  scenario '10) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Internal Deadline (To) & Keyword' do
     test_date('#date-for-answer', 'answer-from', Date.today-2)
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs(16, 'visible')
@@ -454,7 +198,7 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '30) by Date for Answer (From), Date for Answer (To), Internal Deadline (To), Status, Replying Minister & Policy Minister' do
+  scenario '11) by Date for Answer (From), Date for Answer (To), Internal Deadline (To), Status, Replying Minister & Policy Minister' do
     test_date('#date-for-answer', 'answer-from', Date.today+10)
     within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
     within('.questions-list'){
@@ -503,7 +247,7 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '31) by Date for Answer (From), Date for Answer (To), Status, Replying Minister, Policy Minister, Question type & Keyword' do
+  scenario '12) by Date for Answer (From), Date for Answer (To), Status, Replying Minister, Policy Minister, Question type & Keyword' do
     test_date('#date-for-answer', 'answer-from', Date.today-10)
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs(16, 'visible')
@@ -560,7 +304,7 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '32) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Status, Replying Minister, Policy Minister, Question type & Keyword' do
+  scenario '13) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Status, Replying Minister, Policy Minister, Question type & Keyword' do
     test_date('#date-for-answer', 'answer-from', Date.today+3)
     within('#count'){expect(page).to have_text('14 parliamentary questions out of 16.')}
     within('.questions-list'){
@@ -644,7 +388,7 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     }
   end
 
-  scenario '33) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Internal Deadline (To), Status, Replying Minister, Policy Minister, Question type & Keyword' do
+  scenario '14) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Internal Deadline (To), Status, Replying Minister, Policy Minister, Question type & Keyword' do
     test_date('#date-for-answer', 'answer-from', Date.today+2)
     within('#count'){expect(page).to have_text('15 parliamentary questions out of 16.')}
     within('.questions-list'){
