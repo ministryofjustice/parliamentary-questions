@@ -346,6 +346,50 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     all_pqs(16, 'visible')
   end
 
+  scenario '20) Testing Date for Answer ranges: All questions returned.' do
+    test_date('#date-for-answer', 'answer-from', Date.today-10)
+    test_date('#date-for-answer', 'answer-to', Date.today+20)
+    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
+    all_pqs(16, 'visible')
+  end
+
+  scenario '21) Testing Date for Answer ranges: Two questions returned.' do
+    test_date('#date-for-answer', 'answer-from', Date.today+13)
+    test_date('#date-for-answer', 'answer-to', Date.today+14)
+    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      expect(page).not_to have_selector('li#pq-frame-16')
+      expect(page).not_to have_selector('li#pq-frame-15')
+      expect(page).not_to have_selector('li#pq-frame-14')
+      expect(page).not_to have_selector('li#pq-frame-13')
+      expect(page).not_to have_selector('li#pq-frame-12')
+      expect(page).not_to have_selector('li#pq-frame-11')
+      expect(page).not_to have_selector('li#pq-frame-10')
+      expect(page).not_to have_selector('li#pq-frame-9')
+      expect(page).not_to have_selector('li#pq-frame-8')
+      expect(page).not_to have_selector('li#pq-frame-7')
+      expect(page).not_to have_selector('li#pq-frame-6')
+      expect(page).not_to have_selector('li#pq-frame-5')
+      find('li#pq-frame-4').visible?
+      find('li#pq-frame-3').visible?
+      expect(page).not_to have_selector('li#pq-frame-2')
+      expect(page).not_to have_selector('li#pq-frame-1')
+    }
+    clear_filter('#date-for-answer')
+    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
+    all_pqs(16, 'visible')
+  end
+
+  scenario '22) by Date for Answer ranges: No questions returned.' do
+    test_date('#date-for-answer', 'answer-from', Date.today+18)
+    test_date('#date-for-answer', 'answer-to', Date.today+20)
+    within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
+    all_pqs(16, 'hidden')
+    clear_filter('#date-for-answer')
+    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
+    all_pqs(16, 'visible')
+  end
+
   def setup_questions
     pq1 = FactoryGirl.create( :with_pod_pq, uin: 'UIN-1', date_for_answer: Date.today+16, internal_deadline: Date.today+14, minister_id: 3, policy_minister_id: 6, question_type: 'NamedDay' )
     pq2 = FactoryGirl.create( :draft_pending_pq, uin: 'UIN-2', date_for_answer: Date.today+15, internal_deadline: Date.today+13, minister_id: 3, policy_minister_id: 4, question_type: 'NamedDay' )
