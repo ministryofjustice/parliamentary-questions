@@ -291,9 +291,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-4').visible?
       find('li#pq-frame-3').visible?
     }
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '22) by Date for Answer ranges: No questions returned.' do
@@ -301,17 +298,11 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     test_date('#date-for-answer', 'answer-to', Date.today+20)
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
     all_pqs(16, 'hidden')
-    clear_filter('#date-for-answer')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '23) by Internal Deadline ranges: All questions returned.' do
     test_date('#internal-deadline', 'deadline-from', Date.today-10)
     test_date('#internal-deadline', 'deadline-to', Date.today+20)
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
-    clear_filter('#internal-deadline')
     within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
     all_pqs(16, 'visible')
   end
@@ -324,9 +315,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-4').visible?
       find('li#pq-frame-3').visible?
     }
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '25) by Internal Deadline ranges: No questions returned.' do
@@ -334,9 +322,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     test_date('#internal-deadline', 'deadline-to', Date.today+20)
     within('#count'){expect(page).to have_text('0 parliamentary questions out of 16.')}
     all_pqs(16, 'hidden')
-    clear_filter('#internal-deadline')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '26) by Replying Minister & Policy Minister' do
@@ -360,21 +345,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-8').visible?
       find('li#pq-frame-1').visible?
     }
-    clear_filter('#policy-minister')
-    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '27) by Date for Answer (To), Internal Deadline (From) & Replying Minister' do
@@ -410,34 +380,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-9').visible?
       find('li#pq-frame-7').visible?
     }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-    }
-    within('#filters #internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-    }
-    within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '28) by Date for Answer (From), Internal Deadline (To), Replying Minister & Question type' do
@@ -467,30 +409,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     within('.questions-list'){
       find('li#pq-frame-3').visible?
     }
-    clear_filter('#question-type')
-    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-    }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-    }
-    within('#filters #internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-      find('li#pq-frame-2').visible?
-      find('li#pq-frame-1').visible?
-    }
-    within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '29) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Internal Deadline (To) & Keyword' do
@@ -534,30 +452,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     within('.questions-list'){
       find('li#pq-frame-14').visible?
     }
-    within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-    within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-    }
-    within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('8 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-    }
-    within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '30) by Date for Answer (From), Date for Answer (To), Internal Deadline (To), Status, Replying Minister & Policy Minister' do
@@ -607,39 +501,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     within('.questions-list'){
       find('li#pq-frame-4').visible?
     }
-    clear_filter('#policy-minister')
-    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-4').visible?
-    }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-4').visible?
-    }
-    clear_filter('#flag')
-    within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-    }
-    within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('5 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-    }
-    within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '31) by Date for Answer (From), Date for Answer (To), Status, Replying Minister, Policy Minister, Question type & Keyword' do
@@ -697,55 +558,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     within('.questions-list'){
       find('li#pq-frame-9').visible?
     }
-    within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-    within('#count'){expect(page).to have_text('1 parliamentary question  out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-9').visible?
-    }
-    clear_filter('#question-type')
-    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-9').visible?
-    }
-    clear_filter('#policy-minister')
-    within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-5').visible?
-    }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('7 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-5').visible?
-    }
-    clear_filter('#flag')
-    within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-16').visible?
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-    }
-    within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '32) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Status, Replying Minister, Policy Minister, Question type & Keyword' do
@@ -830,67 +642,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     within('.questions-list'){
       find('li#pq-frame-4').visible?
     }
-    within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-    within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-4').visible?
-    }
-    clear_filter('#question-type')
-    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-4').visible?
-    }
-    clear_filter('#policy-minister')
-    within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-4').visible?
-    }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-    }
-    clear_filter('#flag')
-    within('#count'){expect(page).to have_text('10 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-    }
-    within('#internal-deadline.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('12 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-    }
-    within('#date-for-answer.filter-box'){find_button("Clear").trigger("click")}
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   scenario '33) by Date for Answer (From), Date for Answer (To), Internal Deadline (From), Internal Deadline (To), Status, Replying Minister, Policy Minister, Question type & Keyword' do
@@ -987,63 +738,6 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     within('.questions-list'){
       find('li#pq-frame-7').visible?
     }
-    within('#filters'){find_button("clear-keywords-filter").trigger("click")}
-    within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-7').visible?
-    }
-    clear_filter('#question-type')
-    within('#count'){expect(page).to have_text('1 parliamentary question out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-7').visible?
-    }
-    clear_filter('#policy-minister')
-    within('#count'){expect(page).to have_text('2 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-7').visible?
-    }
-    clear_filter('#replying-minister')
-    within('#count'){expect(page).to have_text('4 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-    }
-    clear_filter('#flag')
-    within('#count'){expect(page).to have_text('9 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-    }
-    within('#internal-deadline.filter-box'){find_button('Clear').trigger('click')}
-    within('#count'){expect(page).to have_text('13 parliamentary questions out of 16.')}
-    within('.questions-list'){
-      find('li#pq-frame-15').visible?
-      find('li#pq-frame-14').visible?
-      find('li#pq-frame-13').visible?
-      find('li#pq-frame-12').visible?
-      find('li#pq-frame-11').visible?
-      find('li#pq-frame-10').visible?
-      find('li#pq-frame-9').visible?
-      find('li#pq-frame-8').visible?
-      find('li#pq-frame-7').visible?
-      find('li#pq-frame-6').visible?
-      find('li#pq-frame-5').visible?
-      find('li#pq-frame-4').visible?
-      find('li#pq-frame-3').visible?
-    }
-    within('#date-for-answer.filter-box'){find_button('Clear').trigger('click')}
-    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
-    all_pqs(16, 'visible')
   end
 
   def setup_questions
