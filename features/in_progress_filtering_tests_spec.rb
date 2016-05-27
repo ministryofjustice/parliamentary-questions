@@ -503,6 +503,113 @@ feature "In progress page filtering:", js: true, suspend_cleaner: true do
     all_pqs(16, 'visible')
   end
 
+  scenario '27) by Date for Answer (To), Internal Deadline (From) & Replying Minister' do
+    test_date('#date-for-answer', 'answer-to', Date.today+11)
+    within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      find('li#pq-frame-16').visible?
+      find('li#pq-frame-15').visible?
+      find('li#pq-frame-14').visible?
+      find('li#pq-frame-13').visible?
+      find('li#pq-frame-12').visible?
+      find('li#pq-frame-11').visible?
+      find('li#pq-frame-10').visible?
+      find('li#pq-frame-9').visible?
+      find('li#pq-frame-8').visible?
+      find('li#pq-frame-7').visible?
+      find('li#pq-frame-6').visible?
+      expect(page).not_to have_selector('li#pq-frame-5')
+      expect(page).not_to have_selector('li#pq-frame-4')
+      expect(page).not_to have_selector('li#pq-frame-3')
+      expect(page).not_to have_selector('li#pq-frame-2')
+      expect(page).not_to have_selector('li#pq-frame-1')
+    }
+    test_date('#internal-deadline', 'deadline-from', Date.today+4)
+    within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      expect(page).not_to have_selector('li#pq-frame-16')
+      expect(page).not_to have_selector('li#pq-frame-15')
+      expect(page).not_to have_selector('li#pq-frame-14')
+      expect(page).not_to have_selector('li#pq-frame-13')
+      expect(page).not_to have_selector('li#pq-frame-12')
+      find('li#pq-frame-11').visible?
+      find('li#pq-frame-10').visible?
+      find('li#pq-frame-9').visible?
+      find('li#pq-frame-8').visible?
+      find('li#pq-frame-7').visible?
+      find('li#pq-frame-6').visible?
+      expect(page).not_to have_selector('li#pq-frame-5')
+      expect(page).not_to have_selector('li#pq-frame-4')
+      expect(page).not_to have_selector('li#pq-frame-3')
+      expect(page).not_to have_selector('li#pq-frame-2')
+      expect(page).not_to have_selector('li#pq-frame-1')
+    }
+    test_checkbox('#replying-minister', 'Replying minister', 'Simon Hughes (MP)')
+    within('#count'){expect(page).to have_text('3 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      expect(page).not_to have_selector('li#pq-frame-16')
+      expect(page).not_to have_selector('li#pq-frame-15')
+      expect(page).not_to have_selector('li#pq-frame-14')
+      expect(page).not_to have_selector('li#pq-frame-13')
+      expect(page).not_to have_selector('li#pq-frame-12')
+      expect(page).not_to have_selector('li#pq-frame-11')
+      find('li#pq-frame-10').visible?
+      find('li#pq-frame-9').visible?
+      expect(page).not_to have_selector('li#pq-frame-8')
+      find('li#pq-frame-7').visible?
+      expect(page).not_to have_selector('li#pq-frame-6')
+      expect(page).not_to have_selector('li#pq-frame-5')
+      expect(page).not_to have_selector('li#pq-frame-4')
+      expect(page).not_to have_selector('li#pq-frame-3')
+      expect(page).not_to have_selector('li#pq-frame-2')
+      expect(page).not_to have_selector('li#pq-frame-1')
+    }
+    clear_filter('#replying-minister')
+    within('#count'){expect(page).to have_text('6 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      expect(page).not_to have_selector('li#pq-frame-16')
+      expect(page).not_to have_selector('li#pq-frame-15')
+      expect(page).not_to have_selector('li#pq-frame-14')
+      expect(page).not_to have_selector('li#pq-frame-13')
+      expect(page).not_to have_selector('li#pq-frame-12')
+      find('li#pq-frame-11').visible?
+      find('li#pq-frame-10').visible?
+      find('li#pq-frame-9').visible?
+      find('li#pq-frame-8').visible?
+      find('li#pq-frame-7').visible?
+      find('li#pq-frame-6').visible?
+      expect(page).not_to have_selector('li#pq-frame-5')
+      expect(page).not_to have_selector('li#pq-frame-4')
+      expect(page).not_to have_selector('li#pq-frame-3')
+      expect(page).not_to have_selector('li#pq-frame-2')
+      expect(page).not_to have_selector('li#pq-frame-1')
+    }
+    within('#filters #internal-deadline.filter-box'){find_button("Clear").trigger("click")}
+    within('#count'){expect(page).to have_text('11 parliamentary questions out of 16.')}
+    within('.questions-list'){
+      find('li#pq-frame-16').visible?
+      find('li#pq-frame-15').visible?
+      find('li#pq-frame-14').visible?
+      find('li#pq-frame-13').visible?
+      find('li#pq-frame-12').visible?
+      find('li#pq-frame-11').visible?
+      find('li#pq-frame-10').visible?
+      find('li#pq-frame-9').visible?
+      find('li#pq-frame-8').visible?
+      find('li#pq-frame-7').visible?
+      find('li#pq-frame-6').visible?
+      expect(page).not_to have_selector('li#pq-frame-5')
+      expect(page).not_to have_selector('li#pq-frame-4')
+      expect(page).not_to have_selector('li#pq-frame-3')
+      expect(page).not_to have_selector('li#pq-frame-2')
+      expect(page).not_to have_selector('li#pq-frame-1')
+    }
+    within('#filters #date-for-answer.filter-box'){find_button("Clear").trigger("click")}
+    within('#count'){expect(page).to have_text('16 parliamentary questions out of 16.')}
+    all_pqs(16, 'visible')
+  end
+
+
   def setup_questions
     pq1 = FactoryGirl.create( :with_pod_pq, uin: 'UIN-1', date_for_answer: Date.today+16, internal_deadline: Date.today+14, minister_id: 3, policy_minister_id: 6, question_type: 'NamedDay' )
     pq2 = FactoryGirl.create( :draft_pending_pq, uin: 'UIN-2', date_for_answer: Date.today+15, internal_deadline: Date.today+13, minister_id: 3, policy_minister_id: 4, question_type: 'NamedDay' )
