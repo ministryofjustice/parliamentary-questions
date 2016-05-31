@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-feature "In progress page filtering:", js: true, suspend_cleaner: true do
+feature "In progress page individual filtering:", js: true, suspend_cleaner: true do
 
   include Features::PqHelpers
 

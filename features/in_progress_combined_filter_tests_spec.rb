@@ -1,12 +1,12 @@
 require 'feature_helper'
 
-feature "In progress page filtering:", js: true, suspend_cleaner: true do
+feature "In progress page filtering combinations:", js: true, suspend_cleaner: true do
 
   include Features::PqHelpers
 
   before(:all) do
     Capybara.default_driver = :selenium
-    Capybara.default_max_wait_time = 15
+    Capybara.default_max_wait_time = 60
     clear_sent_mail
     DBHelpers.load_feature_fixtures
     setup_questions
