@@ -5,7 +5,6 @@ feature "In progress page individual filtering:", js: true, suspend_cleaner: tru
   include Features::PqHelpers
 
   before(:all) do
-    Capybara.default_driver = :selenium
     Capybara.default_max_wait_time = 15
     clear_sent_mail
     DBHelpers.load_feature_fixtures
