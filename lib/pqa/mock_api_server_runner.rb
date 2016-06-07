@@ -8,8 +8,16 @@ module PQA
     CWD                = File.expand_path('../../', __dir__)
     HEARTBEAT_ENDPOINT = '/'
 
+    def initialize
+      @bind_addr = HOST
+      @bind_port = PORT 
+      if ENV.has_key?('PQ_REST_API_HOST')
+        @bind_addr, @bind_port = URI.parse(ENV['PQ_REST_API_HOST']).select(:host, :port) 
+      end
+    end
+
     def start
-      cmd = "bundle exec rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
+      cmd = "bundle exec rackup -o #{@bind_addr} -p #{@bind_port} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
 
       if File.exists?(PID_FILEPATH)
         pid  = File.read(PID_FILEPATH)
@@ -45,7 +53,7 @@ module PQA
     end
 
     def app_uri
-      URI.parse("http://#{HOST}:#{PORT}#{HEARTBEAT_ENDPOINT}")
+      URI.parse("http://#{@bind_addr}:#{@bind_port}#{HEARTBEAT_ENDPOINT}")
     end
 
     class ServerAlreadyRunning < StandardError
