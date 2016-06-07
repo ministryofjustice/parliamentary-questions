@@ -44,7 +44,7 @@ RUN    cd /usr/src/app  && \
     install -m 755 docker-ng/rails/run-pq.sh /run.sh
 #    chown -R $APPUSER /rails && \
 #    source /atet/jenkins-vars-censored.sh && \
-#    bundle exec rake assets:precompile RAILS_ENV=production
+RUN   bundle exec rake assets:precompile RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret
 
 ####RUN GEM_HOME=/rails/vendor/bundle/ruby/2.3.0/ gem install bundler
 
