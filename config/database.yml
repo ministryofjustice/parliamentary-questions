@@ -3,7 +3,9 @@ development:
   adapter: postgresql
   encoding: unicode
   database: parliamentary-questions_dev
-  host: localhost
+  username: <%= ENV['DB_USERNAME'] || ENV['PGUSER'] || 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] || ENV['PGPASSWORD'] || 'postgres' %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   pool: 10
 
 
@@ -12,7 +14,7 @@ test: &test
   adapter: postgresql
   encoding: unicode
   database: parliamentary-questions_test
-  host: localhost
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   pool: 10
 
 production:

@@ -9,7 +9,7 @@ module PQA
     HEARTBEAT_ENDPOINT = '/'
 
     def start
-      cmd = "bundle exec rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
+      cmd = "rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
 
       if File.exists?(PID_FILEPATH)
         pid  = File.read(PID_FILEPATH)
