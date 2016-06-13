@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def ssl_excepted?
-    Settings.excepted_from_ssl.any? do |excepted_path| 
+    Settings.excepted_from_ssl.any? do |excepted_path|
       !!(request.fullpath =~ Regexp.new(excepted_path))
     end
   end
@@ -71,12 +71,20 @@ class ApplicationController < ActionController::Base
     "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
   end
 
+=begin
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:invite).concat [:name, :roles]
     devise_parameter_sanitizer.for(:accept_invitation).concat [:name, :roles, :invitation_token, :password, :password_confirmation]
     devise_parameter_sanitizer.for(:accept_invitation) do |u|
       u.permit(:name, :roles, :password, :password_confirmation, :invitation_token)
     end
+  end
+=end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:invite, keys: [:param1, :param2, :param3])
+    devise_parameter_sanitizer.permit(:invite, keys: [:name, :roles])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name, :roles, :invitation_token, :password, :password_confirmation])
   end
 
   def show_error_page_and_increment_statsd(err_number, exception = nil)
