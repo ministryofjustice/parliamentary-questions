@@ -1,0 +1,28 @@
+version: '2'
+services:
+  web:
+    env_file:
+      # add censored vars file, with the full path
+      # eg:
+      - ./docker-compose.env
+    volumes:
+      # mount the above censored vars into the docker image
+      # eg:
+      # - /Users/alex/dev/moj/jenkins-vars-censored.sh:/etc/envvars
+      - ./:/rails
+    build:
+      context: .
+      dockerfile: ./docker-ng/rails/Dockerfile
+#    command: [ /bin/bash, -c, /run.sh ]
+    volumes:
+      - .:/rails
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    links:
+      - db:database
+  db:
+    image: 'postgres:9.3'
+    ports:
+      - '5432'
