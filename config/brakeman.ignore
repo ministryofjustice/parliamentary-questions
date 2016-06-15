@@ -8,7 +8,7 @@
       "file": "lib/pqa/mock_api_server_runner.rb",
       "line": 20,
       "link": "http://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "Process.spawn(\"bundle exec rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}\", :chdir => (CWD))",
+      "code": "Process.spawn(\"rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}\", :chdir => (CWD))",
       "render_path": null,
       "location": {
         "type": "method",
@@ -35,6 +35,25 @@
         "method": "pq_data"
       },
       "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "4c8abd2e60c229fa01041f3a6f4e90d3ca4a81c577cb6f44948e244652249a6f",
+      "message": "Possible command injection",
+      "file": "lib/pqa/mock_api_server_runner.rb",
+      "line": 20,
+      "link": "http://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Process.spawn(\"rackup -p #{\"8888\"} -P #{\"/tmp/mock_api_server.pid\"} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}\", :chdir => (CWD))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PQA::MockApiServerRunner",
+        "method": "start"
+      },
+      "user_input": "RACK_CONFIG_PATH",
       "confidence": "Medium",
       "note": ""
     },
@@ -134,6 +153,6 @@
       "note": ""
     }
   ],
-  "updated": "2016-04-12 10:52:40 +0100",
-  "brakeman_version": "3.2.1"
+  "updated": "2016-06-15 10:24:06 +0100",
+  "brakeman_version": "3.3.0"
 }
