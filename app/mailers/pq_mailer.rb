@@ -29,7 +29,8 @@ class PqMailer < PQBaseMailer
   end
 
   def early_bird_email(mail_data)
-    if ENV['ASSET_HOST'] =~ /assets.staging.pq.dsd.io/
+    if HostEnv.is_staging?
+      LogStuff.info { 'Skipped early_bird email because this is the staging environment' }
       return true
     else
       mail_with_subject('New PQs to be allocated today', mail_data)
