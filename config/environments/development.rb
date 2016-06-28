@@ -29,6 +29,8 @@ ParliamentaryQuestions::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.log_level = :debug
+
   # Custom Logging - unocmment this block if you want to see logstash-style logs written
   # to log/logstash_development.json.
   # A side effect of this is that the normal log/development.log will just contain SQL actions and
