@@ -3,7 +3,7 @@ namespace :pqa do
   task :early_bird, [] => :environment do
   begin
     if PqaImportRun.ready_for_early_bird
-      if (Date.today < Date.new(2016, 5, 11)) or (Date.today > Date.new(2016, 5, 18))
+      if (Date.today < Date.new(2016, 7, 23)) or (Date.today > Date.new(2016, 9, 4))
         LogStuff.info { "Early Bird: Preparing to queue early bird mails" }
         service = EarlyBirdReportService.new
         service.notify_early_bird
