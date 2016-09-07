@@ -43,8 +43,8 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rrAh OK
   config.include FactoryGirl::Syntax::Methods
-  config.include Devise::TestHelpers, type: :controller
-
+ # config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Features::EmailHelpers
   config.include Features::SessionHelpers, type: :feature
   # config.include Features::DecisionHelpers, type: :feature
