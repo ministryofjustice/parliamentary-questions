@@ -6,6 +6,12 @@ echo "rails startup"              | tee -a /usr/src/app/log/unicorn.log
 
 export PATH=/usr/src/app/bin:$PATH
 
+
+if [ -n "$CREATE_USER_FROM_TEST" ]; then
+    echo rails user changed to: ${TEST_USER%@*}
+    RAILS_USER="${TEST_USER}, ${TEST_USER_PASS}, ${TEST_USER%@*}"
+fi
+
 # We want to run scheduling and db tasks only on the master. For single box environments
 # APP_MASTER_SERVER will not be set so run all the time
 if [ -z "$APP_MASTER_SERVER" -o "$APPHOST" == "$APP_MASTER_SERVER" ]; then
