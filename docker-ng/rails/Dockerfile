@@ -42,7 +42,8 @@ RUN    cd /usr/src/app  && \
     bundle config --global without build && \
     bundle  install -j 5 && \
     install -m 755 docker-ng/rails/run-pq.sh /run.sh && \
-    install -m 755 docker-ng/rails/entrypoint.sh /entrypoint.sh
+    install -m 755 docker-ng/rails/entrypoint.sh /entrypoint.sh && \
+    echo 'export PATH=${APP_HOME}/bin:$PATH' >> /etc/bash.bashrc
 #    chown -R $APPUSER /rails
 
 RUN   bundle exec rake assets:precompile RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret
