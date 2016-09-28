@@ -31,6 +31,8 @@ group :development do
   gem 'rails-erd'
   gem 'annotate'
   gem 'rails_db_info'
+  gem 'guard-livereload', '>= 2.5.2'
+  gem 'guard-rspec'
 end
 
 group :test do
