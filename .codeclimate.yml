@@ -5,4 +5,6 @@ languages:
 exclude_paths:
 - "app/assets/javascripts/bootstrap.js"
 - "app/assets/javascripts/jquery.datetimepicker.js"
+- "app/assets/javascripts/moment.js"
+- "app/assets/javascripts/chart.js"
 - "lib/gecko_report.rb"

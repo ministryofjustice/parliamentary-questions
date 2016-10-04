@@ -1,19 +1,28 @@
 module Presenters
+  # Here the statistics
   module Statistics
+
     module_function
+
     Link = Struct.new(:name, :path, :description)
-    
+
     def report_links
       [
-        Link.new('Stages Time', '/stages_time', 'Average time taken to complete each stage of the PQ process'),
-        Link.new('On Time', '/on_time', 'Percentage of questions on answered time'),
-        Link.new('Time to Assign', '/time_to_assign', 'Average time to assign a question to an Action Officer'),
-        Link.new('AO Response Time', '/ao_response_time', 'Average time for an Action Officer to respond with accept/reject'),
-        Link.new('AO Churn', '/ao_churn', 'Average number of times a different set of Action Officers are assigned')
+        Link.new('Stages Time', '/stages_time',
+                 'Average time taken to complete each stage of the PQ process'),
+        Link.new('On Time',
+                 '/on_time', 'Percentage of questions on answered time'),
+        Link.new('Time to Assign',
+                 '/time_to_assign', 'Average time to assign a question to an Action Officer'),
+        Link.new('AO Response Time',
+                 '/ao_response_time', 'Average time for an Action Officer to respond with accept/reject'),
+        Link.new('AO Churn',
+                 '/ao_churn', 'Average number of times a different set of Action Officers are assigned')
       ]
     end
 
     class Report
+      # Comment for rubocop
       attr_reader :title, :headers, :rows
 
       protected
@@ -27,7 +36,7 @@ module Presenters
       DataPoint = Struct.new(:start_date, :data, :arrow)
 
       def self.format(data)
-        data[0...-1].map.with_index do |item, i| 
+        data[0...-1].map.with_index do |item, i|
           DataPoint.new(
             *format_item(item, data, i)
           )
@@ -39,16 +48,16 @@ module Presenters
           item.start_date.to_s(:date),
           sprintf('%.1f', item.mean / (60 * 60)),
           arrow_for(item.mean - data[i + 1].mean)
-        ]        
+        ]
       end
 
       def self.arrow_for(n)
-        if n > 0
-          "↑"
-        elsif n < 0
-          "↓"
-        else 
-          "↔"
+        if n.positive?
+          '↑'
+        elsif n.negative?
+          '↓'
+        else
+          '↔'
         end
       end
     end
@@ -114,7 +123,7 @@ module Presenters
     end
 
     class StagesTimeReport
-      def self.build(data) 
+      def self.build(data)
         new(
           'PQ Statistics: stages time',
           data.first,

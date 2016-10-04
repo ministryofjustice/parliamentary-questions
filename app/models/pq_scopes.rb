@@ -180,28 +180,28 @@ module PqScopes
   end
 
   def answered_by_deadline_since
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }") )
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", parliament_session_start)
   end
 
   def draft_response_on_time_since
     #For reporting purposes an half hour's grace period is allowed on the internal deadline.
-    not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+    not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", parliament_session_start)
   end
 
   def answered_since
-    not_tx.where("answer_submitted > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+    not_tx.where("answer_submitted > ?", parliament_session_start)
   end
 
   def answer_due_since
-    not_tx.where("date_for_answer > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+    not_tx.where("date_for_answer > ?", parliament_session_start)
   end
 
   def draft_response_due_since
-    not_tx.where("internal_deadline > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+    not_tx.where("internal_deadline > ?", parliament_session_start)
   end
 
   def total_questions_since
-    not_tx.where("created_at > ?", Date.strptime("{ 2015, 5, 27 }", "{ %Y, %m, %d }"))
+    not_tx.where("created_at > ?", parliament_session_start)
   end
 
   def due_last_week
