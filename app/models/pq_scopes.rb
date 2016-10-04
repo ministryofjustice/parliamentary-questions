@@ -147,10 +147,6 @@ module PqScopes
     end_of_last_week - 7
   end
 
-  # def start_of_session
-  #   Date.strptime("{ 2016, 5, 19 }", "{ %Y, %m, %d }")
-  # end
-
   def imported_last_week
     not_tx.where('created_at BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
   end
