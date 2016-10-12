@@ -98,8 +98,7 @@ var document, $, trimLink, ga;
         $('#qa_edit_draft_date').val().length == 10 ||
         $('#qa_edit_pod_date').val().length == 10 ||
         $('#qa_edit_minister_date').val().length == 10 ||
-        $('#qa_edit_answered_date').val().length == 10)
-        && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
+        $('#qa_edit_answered_date').val().length == 10) && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
       ){
         $('#do-edit').removeAttr("disabled", "disabled"); // Enable 'Edit' button.
       }
@@ -516,8 +515,7 @@ var document, $, trimLink, ga;
         $(event.target).is('#qa_edit_draft_date') && $('#qa_edit_draft_date').val().length == 16 ||
         $(event.target).is('#qa_edit_pod_date') && $('#qa_edit_pod_date').val().length == 16 ||
         $(event.target).is('#qa_edit_minister_date') && $('#qa_edit_minister_date').val().length == 16 ||
-        $(event.target).is('#qa_edit_answered_date') && $('#qa_edit_answered_date').val().length == 16)
-        && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
+        $(event.target).is('#qa_edit_answered_date') && $('#qa_edit_answered_date').val().length == 16) && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
       ){
         $('#do-edit').removeAttr("disabled", "disabled"); // Enable 'Edit' button.
       }
