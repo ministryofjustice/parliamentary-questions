@@ -2,7 +2,7 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM moj-nginx:latest
+FROM registry.service.dsd.io/moj-nginx:latest
 
 # Set correct environment variables.
 ENV HOME /root
