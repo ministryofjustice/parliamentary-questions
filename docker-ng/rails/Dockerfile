@@ -24,7 +24,7 @@ ENTRYPOINT ["/tini", "--", "/entrypoint.sh"]
 # E: The method driver /usr/lib/apt/methods/https could not be found.
 # N: Is the package apt-transport-https installed?
 RUN apt-get update && \
-    apt-get install apt-transport-https && \
+    apt-get -y install apt-transport-https && \
     curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     echo 'deb https://deb.nodesource.com/node jessie main' > /etc/apt/sources.list.d/nodesource.list && \
     apt-get update
