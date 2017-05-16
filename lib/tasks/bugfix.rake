@@ -50,9 +50,10 @@ namespace :bugfix do
 
   desc 'Prefix uins for previous session'
   task :prefix_uins => :environment do
-    puts "Number of non-prefixed uins #{(Pq.where.not("uin like ?","#%").count)} "
-      Pq.where.not("uin like ?","#%").update_all("uin='*'||uin")
-    puts "Number of uins with * prefix #{(Pq.where("uin like ?","*%").count)} "
+    puts "Number of non-prefixed uins #{(Pq.where.not(("uin SIMILAR TO '(#|[ESCAPE *])%'")).count)} "
+    Pq.where.not(("uin SIMILAR TO '(#|[ESCAPE *])%'")).update_all("uin='$'||uin")
+    puts "Number of uins with $ prefix #{(Pq.where("uin like ?","$%").count)} "
+    puts "Post-update: Number of non-prefixed uins #{(Pq.where.not(("uin SIMILAR TO '(#|[ESCAPE *]|$)%'")).count)} "
   end
 
 
