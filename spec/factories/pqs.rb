@@ -67,7 +67,7 @@
 #  state_weight                                  :integer          default(0)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :pq do
     uin { Faker::Lorem.characters(10) }
     house_id 1

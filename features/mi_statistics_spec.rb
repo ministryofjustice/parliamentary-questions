@@ -7,7 +7,7 @@ end
 feature 'Statistics: PQs answered on time' do
   before(:each) do
     Timecop.freeze(Date.yesterday) do
-      pqs = (1..6).to_a.map{ FactoryGirl.create(:answered_pq) }
+      pqs = (1..6).to_a.map{ FactoryBot.create(:answered_pq) }
 
       pqs.first(4).each do |pq|
         pq.update(
@@ -52,7 +52,7 @@ end
 feature 'Statistics: Time to assign PQs' do
   before(:each) do
     Timecop.freeze(1.business_days.before(Date.today)) do
-      pqs = (1..4).to_a.map{ FactoryGirl.create(:not_responded_pq) }
+      pqs = (1..4).to_a.map{ FactoryBot.create(:not_responded_pq) }
 
       pqs.first(2).each do |pq|
         pq.update(
@@ -72,7 +72,7 @@ end
 feature 'Statistics: Time for AO response' do
   before(:each) do
     Timecop.freeze(1.business_days.before(Date.today)) do
-      pqs = (1..4).to_a.map{ FactoryGirl.create(:draft_pending_pq) }
+      pqs = (1..4).to_a.map{ FactoryBot.create(:draft_pending_pq) }
 
       pqs.first(2).each do |pq|
         pq.action_officers_pqs.first.update(
@@ -85,11 +85,11 @@ end
 
 feature 'Statistics: AO churn' do
   before(:each) do
-    ao  = FactoryGirl.create(:action_officer)
+    ao  = FactoryBot.create(:action_officer)
     pqs = []
 
     Timecop.freeze(Date.yesterday) do
-     pqs = (1..4).to_a.map{ FactoryGirl.create(:draft_pending_pq) }
+     pqs = (1..4).to_a.map{ FactoryBot.create(:draft_pending_pq) }
     end
 
     (1..4).each do |n|
@@ -111,7 +111,7 @@ feature 'Statistics: Stages Time' do
   let(:past_base) { 9.business_days.ago }
 
   before(:each) do
-    pq1, pq2 = (1..2).map{ FactoryGirl.create(:answered_pq) }
+    pq1, pq2 = (1..2).map{ FactoryBot.create(:answered_pq) }
 
     update_stage_times(pq1, [8, 6, 5, 2], base)
     update_stage_times(pq2, [12, 8, 5, 2], past_base)

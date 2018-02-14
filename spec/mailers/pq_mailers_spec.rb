@@ -5,7 +5,7 @@ describe PqMailer do
   describe 'commission_email' do
 
     before(:each) do
-      pq = FactoryGirl.create :pq
+      pq = FactoryBot.create :pq
       @template_params = {
         :uin                  => pq.uin,
         :question             => pq.question,

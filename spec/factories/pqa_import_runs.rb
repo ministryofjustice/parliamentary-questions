@@ -15,7 +15,7 @@
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :pqa_import_run do
     start_time      120.seconds.ago
     end_time        115.seconds.ago

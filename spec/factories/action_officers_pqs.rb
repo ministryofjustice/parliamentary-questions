@@ -14,7 +14,7 @@
 #  response          :string(255)      default("awaiting")
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :action_officers_pq do
     action_officer
 

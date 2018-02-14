@@ -14,7 +14,7 @@
 #
 
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :token do
     
     sequence(:path)       { |n|  "assignment/uin-#{n}" }
