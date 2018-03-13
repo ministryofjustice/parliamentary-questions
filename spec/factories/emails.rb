@@ -20,7 +20,7 @@
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :pq_email, class: Email do
     mailer                  'PqMailer'
     add_attribute(:method)  { 'commission_email'         }
@@ -34,10 +34,10 @@ FactoryGirl.define do
     factory :pq_email_sent, class: Email do
       num_send_attempts     1
       status                'sent'
-      sent_at               { Faker::Time.between(DateTime.yesterday, DateTime.now) }  
+      sent_at               { Faker::Time.between(DateTime.yesterday, DateTime.now) }
     end
 
-    factory :pq_email_failed, class: Email do           
+    factory :pq_email_failed, class: Email do
       num_send_attempts     2
       status                'failed'
     end

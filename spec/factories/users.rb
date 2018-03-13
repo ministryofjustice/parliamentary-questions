@@ -33,7 +33,7 @@
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name 'user one'
     email 'user.one@admin.com'

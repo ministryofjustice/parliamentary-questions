@@ -58,7 +58,7 @@ def setup_questions
     state_weight = PQState.state_weight(state)
     pq_dates.each_with_index do |date, date_index|
       uin = "UIN-#{date.strftime('%m%d')}:#{state}-#{state_index}#{date_index}"
-      FactoryGirl.create(:pq, uin: uin, state: state, state_weight: state_weight, date_for_answer: date)
+      FactoryBot.create(:pq, uin: uin, state: state, state_weight: state_weight, date_for_answer: date)
     end
   end
 end

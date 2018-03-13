@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :commission_form do
   end
 end

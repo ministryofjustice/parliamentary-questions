@@ -21,23 +21,23 @@ describe PqaImportRun, :type => :model do
   context 'validation' do
 
     it 'should error if status is not ok or failure or ok_with_errors' do
-      pir = FactoryGirl.build(:pqa_import_run, status: 'gobbledygook')
+      pir = FactoryBot.build(:pqa_import_run, status: 'gobbledygook')
       expect(pir).not_to be_valid
       expect(pir.errors[:status]).to eq ["Status must be 'OK', 'Failure' or 'OK_with_errors': was 'gobbledygook'"]
     end
 
     it 'should not error if status ok' do
-      pir = FactoryGirl.build(:pqa_import_run)
+      pir = FactoryBot.build(:pqa_import_run)
       expect(pir).to be_valid
     end
 
     it 'should not error is status failure' do
-      pir = FactoryGirl.build(:pqa_import_run, status: "Failure")
+      pir = FactoryBot.build(:pqa_import_run, status: "Failure")
       expect(pir).to be_valid
     end
 
     it 'should not error is status ok_with_errors' do
-      pir = FactoryGirl.build(:pqa_import_run, status: "OK_with_errors")
+      pir = FactoryBot.build(:pqa_import_run, status: "OK_with_errors")
       expect(pir).to be_valid
     end
 
@@ -57,7 +57,7 @@ describe PqaImportRun, :type => :model do
       times = [  10.seconds.ago, 1.day.ago, 2.days.ago ]
       latest_time = times.first
 
-      times.each { |t| FactoryGirl.create(:pqa_import_run, start_time: t, end_time: t + 3.seconds) }
+      times.each { |t| FactoryBot.create(:pqa_import_run, start_time: t, end_time: t + 3.seconds) }
       expect(times_equal?(PqaImportRun.last_import_time_utc, latest_time)).to be true
       expect(PqaImportRun.last_import_time_utc.zone).to eq 'UTC'
     end
@@ -72,7 +72,7 @@ describe PqaImportRun, :type => :model do
           3.days.ago      => 'Failure'}
 
         records.each do |start_time, status|
-          FactoryGirl.create(:pqa_import_run, start_time: start_time, end_time: start_time + 3.seconds, status: status)
+          FactoryBot.create(:pqa_import_run, start_time: start_time, end_time: start_time + 3.seconds, status: status)
         end
 
         expect(times_equal?(PqaImportRun.last_import_time_utc, 2.minutes.ago)).to be true
@@ -144,7 +144,7 @@ describe PqaImportRun, :type => :model do
 
 
     it 'should return zero if there are no matching records' do
-      FactoryGirl.create(:pqa_import_run, start_time: 1.year.ago, end_time: 1.year.ago, num_created: 3, num_updated: 4 )
+      FactoryBot.create(:pqa_import_run, start_time: 1.year.ago, end_time: 1.year.ago, num_created: 3, num_updated: 4 )
       expect(PqaImportRun.sum_pqs_imported(:day)).to eq 0
       expect(PqaImportRun.sum_pqs_imported(:week)).to eq 0
       expect(PqaImportRun.sum_pqs_imported(:month)).to eq 0
@@ -152,12 +152,12 @@ describe PqaImportRun, :type => :model do
 
     it 'should return appropriate figures' do
       Timecop.freeze(freeze_time) do
-        FactoryGirl.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4 )       # today
-        FactoryGirl.create(:pqa_import_run, start_time: 2.hours.ago, end_time: 2.hours.ago, num_created: 2, num_updated: 5 )     # today
-        FactoryGirl.create(:pqa_import_run, start_time: 25.hours.ago, end_time: 25.hours.ago, num_created: 3, num_updated: 4 )   # this week
-        FactoryGirl.create(:pqa_import_run, start_time: 72.hour.ago, end_time: 72.hour.ago, num_created: 3, num_updated: 4 )     # this week
-        FactoryGirl.create(:pqa_import_run, start_time: 9.days.ago, end_time: 9.days.ago, num_created: 23, num_updated: 14 )     # this week
-        FactoryGirl.create(:pqa_import_run, start_time: 10.days.ago, end_time: 10.days.ago, num_created: 35, num_updated: 7 )     # this week
+        FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4 )       # today
+        FactoryBot.create(:pqa_import_run, start_time: 2.hours.ago, end_time: 2.hours.ago, num_created: 2, num_updated: 5 )     # today
+        FactoryBot.create(:pqa_import_run, start_time: 25.hours.ago, end_time: 25.hours.ago, num_created: 3, num_updated: 4 )   # this week
+        FactoryBot.create(:pqa_import_run, start_time: 72.hour.ago, end_time: 72.hour.ago, num_created: 3, num_updated: 4 )     # this week
+        FactoryBot.create(:pqa_import_run, start_time: 9.days.ago, end_time: 9.days.ago, num_created: 23, num_updated: 14 )     # this week
+        FactoryBot.create(:pqa_import_run, start_time: 10.days.ago, end_time: 10.days.ago, num_created: 35, num_updated: 7 )     # this week
 
         expect(PqaImportRun.sum_pqs_imported(:day)).to eq 14
         expect(PqaImportRun.sum_pqs_imported(:week)).to eq 28
@@ -168,22 +168,22 @@ describe PqaImportRun, :type => :model do
 
   describe '.ready_for_early_bird' do
     it 'should return true when last import was today and valid' do
-      FactoryGirl.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK' )       # today, valid
+      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK' )       # today, valid
       expect(PqaImportRun.ready_for_early_bird).to be true
     end
 
     it 'should return false when last import was not today' do
-      FactoryGirl.create(:pqa_import_run, start_time: 1.day.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK' )       # yesterday, valid
+      FactoryBot.create(:pqa_import_run, start_time: 1.day.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK' )       # yesterday, valid
       expect(PqaImportRun.ready_for_early_bird).to be false
     end
 
     it 'should return false when last import was not valid' do
-      FactoryGirl.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'Failure' )       # today, failed
+      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'Failure' )       # today, failed
       expect(PqaImportRun.ready_for_early_bird).to be false
     end
 
     it 'should return false when last import was OK_with_errors' do
-      FactoryGirl.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK_with_errors' )       # today, failed
+      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK_with_errors' )       # today, failed
       expect(PqaImportRun.ready_for_early_bird).to be false
     end
 

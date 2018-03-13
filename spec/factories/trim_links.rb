@@ -14,7 +14,7 @@
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :trim_link do
     filename "trim_link.tr5"
     size 1
