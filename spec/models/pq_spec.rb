@@ -498,9 +498,9 @@ describe Pq do
     context 'multiple action officers'
 
       let(:pq) do
-        pq = FactoryGirl.create(:pq)
+        pq = FactoryBot.create(:pq)
         3.times do
-          ao = FactoryGirl.create(:action_officer)
+          ao = FactoryBot.create(:action_officer)
           pq.action_officers << ao
         end
         pq.save

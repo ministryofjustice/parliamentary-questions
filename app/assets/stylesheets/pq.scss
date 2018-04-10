@@ -126,6 +126,7 @@ label {
   Until moj_template's border bottom is fixed
   (https://github.com/ministryofjustice/moj_template/pull/55) we need to cancel it.
 */
+
 #global-header.with-proposition .header-wrapper .header-proposition #proposition-name:hover {
   border-bottom: none;
 }
@@ -216,6 +217,11 @@ button, input[type="submit"] {
 .select2-arrow {display:none!important;}
 li.select2-search-field {border-bottom: none;}
 
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple { border-radius: 0px; }
+.select2-container--default.select2-container--focus .select2-selection--multiple { border: 1px solid #aaa; }
+
+.select2-results__option { min-height: 2em; }
 
 .question-allocation-list {
   list-style: none;

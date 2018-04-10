@@ -3,13 +3,13 @@ require "#{Rails.root}/lib/rake_task_helpers/db_sanitizer.rb"
 
 describe RakeTaskHelpers::DBSanitizer do
   it 'should sanitize email in the selected tables of the database' do
-    ao  = FactoryGirl.create(:action_officer)
-    alm = FactoryGirl.create(:actionlist_member)
-    dd  = FactoryGirl.create(:deputy_director)
-    mc  = FactoryGirl.create(:minister_contact)
-    po  = FactoryGirl.create(:press_officer)
-    u   = FactoryGirl.create(:user)
-    wlm = FactoryGirl.create(:watchlist_member)
+    ao  = FactoryBot.create(:action_officer)
+    alm = FactoryBot.create(:actionlist_member)
+    dd  = FactoryBot.create(:deputy_director)
+    mc  = FactoryBot.create(:minister_contact)
+    po  = FactoryBot.create(:press_officer)
+    u   = FactoryBot.create(:user)
+    wlm = FactoryBot.create(:watchlist_member)
 
     RakeTaskHelpers::DBSanitizer.new.run!
 

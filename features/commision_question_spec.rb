@@ -17,15 +17,17 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
-  scenario 'Parli-branch members tries to allocate a question without an answering minister' do
+  scenario 'Parli-branch member tries to allocate a question without an AO' do
     create_pq_session
     visit dashboard_path
     within_pq(@pq.uin) do
       select_option('commission_form[policy_minister_id]', minister.name) if minister
       select ao.name, from: 'Action officer(s)'
-      find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y 12:00')
+      find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
     end
-    expect(page).not_to have_button("Commission")
+
+    within ('#pq-frame-1') { expect(page).to have_button('Commission') }
+    within ('#pq-frame-2') { expect(page).not_to have_button('Commission') }
   end
 
   scenario 'Parli-branch member allocates a question to selected AOs' do
@@ -37,13 +39,13 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.text_part.body).to include "your team is responsible for answering PQ #{@pq.uin}"
-
   end
 
   scenario 'Following the email link should let the AO accept the question' do
     visit_assignment_url(ao)
     choose 'Accept'
     click_on "Save"
+
     expect(page.title).to have_content("PQ assigned")
     expect(page).to have_content(/thank you for your response/i)
     expect(page).to have_content("PQ #{@pq.uin}")
@@ -51,6 +53,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   scenario 'The PQ status should then change to draft pending' do
     create_pq_session
+
     expect_pq_in_progress_status(@pq.uin, 'Draft Pending')
   end
 
@@ -86,7 +89,9 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     ao_mail, _ = sent_mail.last
     url = extract_url_like('/assignment', ao_mail)
     visit url
+
     expect(page.title).to have_content("Unauthorised (401)")
     expect(page).to have_content(/Link expired/i)
   end
+
 end
