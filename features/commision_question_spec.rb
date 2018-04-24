@@ -5,7 +5,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   let(:ao)         { ActionOfficer.find_by(email: 'ao1@pq.com') }
   let(:ao2)        { ActionOfficer.find_by(email: 'ao2@pq.com') }
-  let(:minister)   { Minister.first                             }
+  let(:minister)   { Minister.second                             }
 
   before(:all) do
     clear_sent_mail
@@ -21,6 +21,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     create_pq_session
     visit dashboard_path
     within_pq(@pq.uin) do
+      select_option('commission_form[minister_id]', minister.name) if minister
       select_option('commission_form[policy_minister_id]', minister.name) if minister
       select ao.name, from: 'Action officer(s)'
       find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
