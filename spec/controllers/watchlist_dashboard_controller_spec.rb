@@ -15,11 +15,10 @@ describe WatchlistDashboardController, type: :controller do
       expect(response.status).to eq(200)
       expect(token.reload).to be_acknowledged
     end
+
   end
 
-
 end
-
 
 def params
   {

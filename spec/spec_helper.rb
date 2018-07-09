@@ -19,18 +19,20 @@ require "bundler/setup"
 
 ::Shoulda::Matchers.configure do |config|
   config.integrate do |with|
+
     # Choose a test framework:
     with.test_framework :rspec
-    #with.test_framework :minitest
-    #with.test_framework :minitest_4
-    #with.test_framework :test_unit
+    # with.test_framework :minitest
+    # with.test_framework :minitest_4
+    # with.test_framework :test_unit
 
     # Choose one or more libraries:
     with.library :active_record
     with.library :active_model
-    #with.library :action_controller
+    # with.library :action_controller
+
     # Or, choose the following (which implies all of the above):
-    #with.library :rails
+    # with.library :rails
   end
 end
 
@@ -44,17 +46,19 @@ RSpec.configure do |config|
   # config.mock_with :rrAh OK
   config.include FactoryBot::Syntax::Methods
  # config.include Devise::TestHelpers, type: :controller
+
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Features::EmailHelpers
   config.include Features::SessionHelpers, type: :feature
+
   # config.include Features::DecisionHelpers, type: :feature
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-
   # Set to false to enable Poltergeist
   config.use_transactional_fixtures = true
 
@@ -88,15 +92,14 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-end
 
+end
 
 RSpec::Matchers.define :be_a_multiple_of do |expected|
   match do |actual|
     actual % expected == 0
   end
 end
-
 
 # match a GeckoStatus object with ['Component Name', "label", 'color', message]
 # message parameter can either be a string or a regex

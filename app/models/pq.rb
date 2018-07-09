@@ -96,15 +96,15 @@ class Pq < ActiveRecord::Base
   has_many :action_officers, :through => :action_officers_pqs do
 
     def all_accepted
-      where(action_officers_pqs: {response: 'accepted'})
+      where(action_officers_pqs: { response: 'accepted' })
     end
 
     def accepted
-      where(action_officers_pqs: {response: 'accepted'}).first
+      where(action_officers_pqs: { response: 'accepted' }).first
     end
 
     def rejected
-      where(action_officers_pqs: {response: 'rejected'})
+      where(action_officers_pqs: { response: 'rejected' })
     end
   end
 
@@ -208,7 +208,6 @@ class Pq < ActiveRecord::Base
       'HoC'
     end
   end
-
 
   def question_type_header
     header = ''

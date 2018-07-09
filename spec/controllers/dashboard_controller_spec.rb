@@ -16,7 +16,6 @@ describe DashboardController, type: :controller do
       end
     end
 
-
     describe 'GET in_progress' do
       it 'should sort the in-progress questions by date and state weight and return them all' do
           setup_questions

@@ -19,6 +19,10 @@ describe 'WatchlistReportService' do
     expect(token.token_digest).to_not be nil
 
     end_of_day = DateTime.now.end_of_day
+
+    # puts "token expires on = " + token.expire.to_s
+    # puts "days end = " + end_of_day.utc.to_s
+
     expect(token.expire).to eq(end_of_day)
 
     expect(
@@ -59,7 +63,7 @@ describe 'WatchlistReportService' do
 
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    
+
     sentToken   = result[watchlist_one.id]
     token_param = {token: sentToken}.to_query
     entity      = {entity: entity = testid }.to_query

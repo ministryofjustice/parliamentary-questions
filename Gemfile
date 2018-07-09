@@ -35,10 +35,6 @@ group :development do
   gem 'guard-rspec'
 end
 
-group :test do
-  gem 'codeclimate-test-reporter', require: false
-end
-
 group :test, :development do
   gem 'awesome_print'
   gem 'brakeman', :require => false
@@ -49,9 +45,14 @@ group :test, :development do
   gem 'letter_opener'
   gem 'poltergeist'
   gem 'pry-rails'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
   gem 'rspec-rails'
   gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
   gem 'shoulda-matchers', require: false
   gem 'sinatra'
   gem 'timecop'
+end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: false
 end

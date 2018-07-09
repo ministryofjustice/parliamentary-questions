@@ -1,14 +1,91 @@
 module PqScopes
 
-  def uin(uin_to_search)
-    where("uin = ?", uin_to_search).first
-  end
-
   def allocated_since(since)
     joins(:action_officers_pqs)
       .where('action_officers_pqs.updated_at >= ?', since)
       .group('pqs.id')
       .order(:uin)
+  end
+
+  def answered
+    by_status(PQState::ANSWERED)
+  end
+
+  def answered_by_deadline_last_week
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+  end
+
+  def answered_by_deadline_prev_week
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def answered_by_deadline_since
+    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", parliament_session_start)
+  end
+
+  def answer_due_since
+    not_tx.where("date_for_answer > ?", parliament_session_start)
+  end
+
+  def answered_prev_week
+    not_tx.where("answer_submitted BETWEEN ? AND ?",  beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def answered_last_week
+    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+  end
+
+  def answered_since
+    not_tx.where("answer_submitted > ?", parliament_session_start)
+  end
+
+  def backlog
+    where('date_for_answer < CURRENT_DATE and state NOT IN (?)', PQState::CLOSED)
+  end
+
+  def beginning_of_last_week
+    (Date.today.beginning_of_week) - 8 #Sunday
+  end
+
+  def beginning_of_prev_week
+    beginning_of_last_week - 7
+  end
+
+  def by_status(states)
+    where(state: states)
+  end
+
+  def commons
+    not_tx.where(house_name: 'House of Commons')
+  end
+
+  def draft_pending
+    by_status(PQState::DRAFT_PENDING)
+  end
+
+  def draft_response_on_time_since
+    #For reporting purposes an half hour's grace period is allowed on the internal deadline.
+    not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", parliament_session_start)
+  end
+
+  def draft_response_due_since
+    not_tx.where("internal_deadline > ?", parliament_session_start)
+  end
+
+  def due_last_week
+    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+  end
+
+  def due_prev_week
+    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def end_of_last_week
+    (Date.today.beginning_of_week) - 2 #Saturday
+  end
+
+  def end_of_prev_week
+    end_of_last_week - 7
   end
 
   def filter_for_report(state, minister_id, press_desk_id)
@@ -19,6 +96,22 @@ module PqScopes
     q
   end
 
+  def i_will_write_flag
+    where('i_will_write = true AND state NOT IN (?)', PQState::CLOSED)
+  end
+
+  def imported_last_week
+    not_tx.where('created_at BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
+  end
+
+  def imported_prev_week
+    not_tx.where("created_at BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+  end
+
+  def in_progress
+    where('date_for_answer >= CURRENT_DATE and state IN (?)', PQState::IN_PROGRESS)
+  end
+
   def join_press_desks
     joins('JOIN action_officers_pqs aopq ON aopq.pq_id = pqs.id')
       .joins('JOIN action_officers ao ON ao.id = aopq.action_officer_id')
@@ -26,6 +119,53 @@ module PqScopes
       .where("aopq.response = 'accepted' AND pd.deleted = false")
   end
 
+  def lords
+    not_tx.where(house_name: 'House of Lords')
+  end
+
+  def minister_cleared
+    by_status(PQState::MINISTER_CLEARED)
+  end
+
+  def ministerial_query
+    by_status(PQState::MINISTERIAL_QUERY)
+  end
+
+  def named_day
+    not_tx.where(question_type: 'NamedDay')
+  end
+
+  def new_questions
+    by_status(PQState::NEW)
+  end
+
+  def no_response()
+    by_status(PQState::NO_RESPONSE)
+  end
+
+  def not_tx
+    where("transfer_out_ogd_id is null AND question_type != 'Follow-up IWW'")
+  end
+
+  def on_time
+    not_tx.where("answer_submitted <= (date_for_answer + 1)")
+  end
+
+  def ordinary
+    not_tx.where(question_type: 'Ordinary')
+  end
+
+  def pod_cleared
+    by_status(PQState::POD_CLEARED)
+  end
+
+  def pod_query
+    by_status(PQState::POD_QUERY)
+  end
+
+  def rejected
+    by_status(PQState::REJECTED)
+  end
 
   # dashboard sorting order:
   #
@@ -38,181 +178,42 @@ module PqScopes
   # We use Date.today.strftime('%Y-%m-%d') here instead of the postgres function CURRENT_DATE in order to be able to get
   # consistent results using Timecop in the tests
   #
+
   def sorted_for_dashboard
     current_date = "'#{Date.today.strftime('%Y-%m-%d')}'"
-    order("date_for_answer >= #{current_date} DESC")
-      .order("ABS(DATE_PART('day', date_for_answer::timestamp - #{current_date}::timestamp)) ASC")
+    order(Arel.sql("date_for_answer >= #{current_date} DESC"))
+      .order(Arel.sql("ABS(DATE_PART('day', date_for_answer::timestamp - #{current_date}::timestamp)) ASC"))
       .order('state_weight DESC')
       .order('updated_at ASC')
       .order('id')
-  end
-
-  def new_questions
-    by_status(PQState::NEW)
-  end
-
-  def in_progress
-    where('date_for_answer >= CURRENT_DATE and state IN (?)', PQState::IN_PROGRESS)
-  end
-
-  def visibles
-    by_status(PQState::VISIBLE)
-  end
-
-  def by_status(states)
-    where(state: states)
-  end
-
-  def no_response()
-    by_status(PQState::NO_RESPONSE)
-  end
-
-  def unassigned()
-    by_status(PQState::UNASSIGNED)
-  end
-
-  def rejected
-    by_status(PQState::REJECTED)
-  end
-
-  def draft_pending
-    by_status(PQState::DRAFT_PENDING)
-  end
-
-  def with_pod
-    by_status(PQState::WITH_POD)
-  end
-
-  def pod_query
-    by_status(PQState::POD_QUERY)
-  end
-
-  def pod_cleared
-    by_status(PQState::POD_CLEARED)
-  end
-
-  def with_minister
-    by_status(PQState::WITH_MINISTER)
-  end
-
-  def ministerial_query
-    by_status(PQState::MINISTERIAL_QUERY)
-  end
-
-  def minister_cleared
-    by_status(PQState::MINISTER_CLEARED)
-  end
-
-  def answered
-    by_status(PQState::ANSWERED)
-  end
-
-  def transferred
-    where(state: PQState::NEW, transferred: true)
-  end
-
-  def i_will_write_flag
-    where('i_will_write = true AND state NOT IN (?)', PQState::CLOSED)
-  end
-
-  def backlog
-    where('date_for_answer < CURRENT_DATE and state NOT IN (?)', PQState::CLOSED)
-  end
-
-  def not_tx
-    where("transfer_out_ogd_id is null AND question_type != 'Follow-up IWW'")
-  end
-
-  def commons
-    not_tx.where(house_name: 'House of Commons')
-  end
-
-  def lords
-    not_tx.where(house_name: 'House of Lords')
-  end
-
-  def beginning_of_last_week
-    (Date.today.beginning_of_week) - 8 #Sunday
-  end
-
-  def end_of_last_week
-    (Date.today.beginning_of_week) - 2 #Saturday
-  end
-
-  def beginning_of_prev_week
-    beginning_of_last_week - 7
-  end
-
-  def end_of_prev_week
-    end_of_last_week - 7
-  end
-
-  def imported_last_week
-    not_tx.where('created_at BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
-  end
-
-  def imported_prev_week
-    not_tx.where("created_at BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
-  end
-
-  def ordinary
-    not_tx.where(question_type: 'Ordinary')
-  end
-
-  def named_day
-    not_tx.where(question_type: 'NamedDay')
-  end
-
-  def answered_last_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
-  end
-
-  def answered_by_deadline_last_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
-  end
-
-  def answered_prev_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?",  beginning_of_prev_week, end_of_prev_week)
-  end
-
-  def answered_by_deadline_prev_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
-  end
-
-  def answered_by_deadline_since
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", parliament_session_start)
-  end
-
-  def draft_response_on_time_since
-    #For reporting purposes an half hour's grace period is allowed on the internal deadline.
-    not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", parliament_session_start)
-  end
-
-  def answered_since
-    not_tx.where("answer_submitted > ?", parliament_session_start)
-  end
-
-  def answer_due_since
-    not_tx.where("date_for_answer > ?", parliament_session_start)
-  end
-
-  def draft_response_due_since
-    not_tx.where("internal_deadline > ?", parliament_session_start)
   end
 
   def total_questions_since
     not_tx.where("created_at > ?", parliament_session_start)
   end
 
-  def due_last_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+  def transferred
+    where(state: PQState::NEW, transferred: true)
   end
 
-  def due_prev_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+  def uin(uin_to_search)
+    where("uin = ?", uin_to_search).first
   end
 
-  def on_time
-    not_tx.where("answer_submitted <= (date_for_answer + 1)")
+  def unassigned()
+    by_status(PQState::UNASSIGNED)
   end
+
+  def visibles
+    by_status(PQState::VISIBLE)
+  end
+
+  def with_minister
+    by_status(PQState::WITH_MINISTER)
+  end
+
+  def with_pod
+    by_status(PQState::WITH_POD)
+  end
+
 end
