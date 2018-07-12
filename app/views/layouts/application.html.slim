@@ -11,12 +11,13 @@
   main#wrapper(role="main")
     .phase-banner
       / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
-      span This is a new service - Your&nbsp;
+      <span>This is a new service - Your&nbsp;
       - if ! user_signed_in?
         <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Feedback">feedback</a>&nbsp;
       - else
         <a href="mailto:PQFeedback@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a>&nbsp;
       | will help us to improve it.
+      </span>
 
     - if HostEnv.is_staging?
       .staging_banner
@@ -49,4 +50,4 @@
     ga('create', '#{Settings.ga_tracker_id}', 'auto');
     ga('send', 'pageview');
 
-= render template: "layouts/govuk_template"
+= render template: "layouts/moj_template"
