@@ -18,32 +18,20 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'find_ogd' => 'ogds#find'
 
   resources :press_desks
-
   resources :press_officers
-
   resources :progresses
-
   resources :ministers
-
   resources :deputy_directors
-
   resources :divisions
-
   resources :directorates
-
   resources :watchlist_members
-
   resources :early_bird_members
-
   resources :actionlist_members
-
   resources :action_officers
 
   devise_for :users, :controllers => { :invitations => 'users/invitations', sessions: 'users/sessions' }
   resources  :users
-
   resources :pqs, only: [ :index, :show, :update ]
-
   resources :trim_links
 
   get 'trim_links/new/:id' => 'trim_links#new'
@@ -55,8 +43,8 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'commission_reject_manual/:id' => 'manual_reject_commission#reject_manual'
   post 'commission'                  => 'commission#commission', as: :commission
 
-  get 'quick_action_export'     => 'quick_action_export#new'
-  post 'quick_action_export' => 'quick_action_export#new'
+  get 'quick_action_export'        => 'quick_action_export#new'
+  post 'quick_action_export'       => 'quick_action_export#new'
   get 'quick_action_export/export' => 'quick_action_export#export'
 
   post 'quick_action_edit_dates' => 'quick_action#dates'
@@ -65,7 +53,8 @@ ParliamentaryQuestions::Application.routes.draw do
   get '/', to: 'root#index', as: :root
   get 'dashboard'             => 'dashboard#index'
   get 'dashboard/in_progress' => 'dashboard#in_progress'
-  get 'dashboard/backlog' => 'dashboard#backlog'
+  get 'dashboard/backlog'     => 'dashboard#backlog'
+  get 'dashboard/unassigned'  => 'dashboard#unassigned'
 
   get 'search' => 'search#index'
 
@@ -113,15 +102,17 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'export_pod'              => 'export#index_for_pod'
 
   match 'export/csv_quick.csv' => 'export#csv_quick', via: [:get, :post]
-  get 'export'          => 'export#index'
+  get 'export'                 => 'export#index'
 
   get 'reports/ministers_by_progress'  => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
   match 'reports/filter_all'           => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
+
   if Rails.env.development?
     mount_rails_db_info as: 'rails_db_info_engine'
     # mount_rails_db_info is enough for rails version < 4
   end
+
   match "*path", to: "application#page_not_found", via: :all
 
   if Rails.env.production?

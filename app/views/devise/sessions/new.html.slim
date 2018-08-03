@@ -1,5 +1,5 @@
 = render partial: "shared/flash_messages", flash: flash
-h1 Sign in
+h1.heading-large Sign in
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   fieldset
     = devise_error_messages!
@@ -11,7 +11,7 @@ h1 Sign in
       = f.password_field :password, class: 'form-control', autocomplete: "off"
     .form-group
       - if devise_mapping.rememberable?
-        label.block-label for="chk-remember-me" 
+        label.block-label for="chk-remember-me"
           = f.check_box :remember_me, {id: 'chk-remember-me'}
           | Remember me
     .form-group

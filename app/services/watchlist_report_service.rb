@@ -1,9 +1,9 @@
 class WatchlistReportService
   include Rails.application.routes.url_helpers
-  
+
   def initialize(tokenService = nil, current_time = nil)
     @tokenService = tokenService || TokenService.new
-    @current_time = current_time || DateTime.now
+    @current_time = current_time || DateTime.now.utc
   end
 
   def entity

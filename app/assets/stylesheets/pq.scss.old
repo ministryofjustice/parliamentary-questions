@@ -503,6 +503,47 @@ textarea.form-control {
   }
 }
 
+// = Navigation bar ============================================================
+
+.navbar, .navbar-default { background-color: $page-colour; }
+
+.navbar-default { border: 1px solid #e6e6e6; background-color: #DEE0E2;}
+
+.navbar-default .navbar-nav > li > a {
+  color: #0b0c0c; // override bootstrap
+  &:hover {
+    color: $secondary-text-colour;
+  }
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  text-decoration: none;
+  color: #555555;
+  background-color: #e7e7e7;
+}
+
+.navbar {
+  border-radius: 0;
+  #settings { margin-right: 65px; }
+  #search_field {
+    width: 142px;
+    border-radius: 0;
+    margin-right: -4px;
+    margin-bottom: 0;
+    font-size: 16px;
+    height: 34px;
+  }
+  #search_button {
+    border-radius: 0;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+    padding: 4px;
+  }
+}
+
 /* = New / In Progress Tabs ===================================================== */
 
 .nav-tabs {

@@ -26,7 +26,7 @@ describe CommissioningService do
     policy_minister_id: policy_minister.id,
     action_officer_id: [ao1.id, ao2.id],
     date_for_answer: Date.tomorrow,
-    internal_deadline: Date.today
+    internal_deadline: Date.today.midnight
   }}
 
   let(:invalid_form_params) {
@@ -40,7 +40,6 @@ describe CommissioningService do
   let(:invalid_form) {
     CommissionForm.new(invalid_form_params)
   }
-
 
   describe "#commission" do
     context "when the supplied form data is not valid" do
@@ -62,7 +61,7 @@ describe CommissioningService do
         expect(@pq).to be_valid
         expect(@pq.minister).to eq(minister)
         expect(@pq.policy_minister).to eq(policy_minister)
-        expect(@pq.internal_deadline).to eq(form.internal_deadline)
+        expect(@pq.internal_deadline.to_s).to eq(form.internal_deadline.to_s)
         expect(@pq.date_for_answer).to eq(form.date_for_answer)
       end
 
@@ -76,10 +75,8 @@ describe CommissioningService do
       it "notifies the action officers" do
         MailWorker.new.run!
         ao1_mail,  ao2_mail = ActionMailer::Base.deliveries
-
         expect(ao1_mail.to).to eq([ao1.email])
         expect(ao1_mail.subject).to match(/you have been allocated PQ #{pq.uin}/i)
-
         expect(ao2_mail.to).to eq([ao2.email])
         expect(ao2_mail.subject).to match(/you have been allocated PQ #{pq.uin}/i)
       end

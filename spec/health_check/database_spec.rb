@@ -16,7 +16,7 @@ describe HealthCheck::Database do
 
   context '#accessible?' do
     it 'returns true if the database is accessible with our credentials' do
-      expect(db).to be_accessible
+      expect(db).to be { :accessible? }
     end
 
     it 'returns false if the database is not accessible with our credentials' do

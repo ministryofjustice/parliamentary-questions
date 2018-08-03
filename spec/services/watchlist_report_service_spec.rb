@@ -18,12 +18,9 @@ describe 'WatchlistReportService' do
     token = Token.find_by(entity: @report_service.entity, path: '/watchlist/dashboard')
     expect(token.token_digest).to_not be nil
 
-    end_of_day = DateTime.now.end_of_day
+    end_of_day = DateTime.current.end_of_day
 
-    # puts "token expires on = " + token.expire.to_s
-    # puts "days end = " + end_of_day.utc.to_s
-
-    expect(token.expire).to eq(end_of_day)
+    expect(token.expire.to_s).to eq(end_of_day.to_s)
 
     expect(
       Token.exists?(entity: "watchlist:#{watchlist_deleted.id}", path: '/watchlist/dashboard')

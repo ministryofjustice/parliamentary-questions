@@ -26,19 +26,19 @@ module HealthCheck
     private
 
     def execute_simple_select_on_database
-      tuple = ActiveRecord::Base.connection.execute('select 1 as result') 
+      tuple = ActiveRecord::Base.connection.execute('select 1 as result')
     end
 
     def log_error
-      @errors = [ 
-        "Database Error: could not connect to #{config.database} " + 
-        "on #{config.host} using #{config.adapter}" 
+      @errors = [
+        "Database Error: could not connect to #{config.database} " +
+        "on #{config.host} using #{config.adapter}"
       ]
     end
 
     def config
       OpenStruct.new(Rails.configuration.database_configuration[Rails.env])
-    end 
-    
+    end
+
   end
 end

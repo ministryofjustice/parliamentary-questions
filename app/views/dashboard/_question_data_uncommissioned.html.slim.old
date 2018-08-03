@@ -1,11 +1,9 @@
 .pq-columns.row
-
   = form_for CommissionForm.new(minister_id: question.minister_id, policy_minister_id: question.policy_minister_id),
-    remote: true,
-    authenticity_token: true,
-    html: {:id => "form-commission#{question.id}", :class => 'form-commission', :data => {pqid: question.id}},
-    url: commission_path do |f|
-
+  remote: true,
+  authenticity_token: true,
+  html: {:id => "form-commission#{question.id}", :class => 'form-commission', :data => {pqid: question.id}},
+  url: commission_path do |f|
     /! start of 'sub column 1'
     .col-md-7
       .dashboard-column1-uncommissioned
@@ -16,8 +14,8 @@
             = f.hidden_field(:pq_id , :value => question.id)
             br/
             = f.submit 'Commission', :class => 'button commission-button'
-    /!, :disabled => disabled, data: {disable_with: 'Commissioning...'} .commissioning-error-message
-
+            /!, :disabled => disabled, data: {disable_with: 'Commissioning...'} .commissioning-error-message
+    /! end of column 1
     /! start of sub column 2
     .col-md-5
       .dashboard-column-2

@@ -9,7 +9,7 @@ describe 'AOTokenFilter' do
   describe '.validate_token' do
     it 'the filter should say no access if you dont have a valid token' do
       controller = double('ApplicationController')
-      request = double('request')
+      request    = double('request')
 
       allow(request).to receive(:path) { '/test/this' }
       allow(controller).to receive(:params) { {token: 'mytoken', entity: 'test'} }
@@ -20,12 +20,10 @@ describe 'AOTokenFilter' do
 
     it 'the filter should pass if you have a valid token' do
       controller = double('ApplicationController')
-      request = double('request')
-
-      path = '/my/valid/path'
-      entity = 'ao@justice.com'
-
-      token = @token_service.generate_token(path, entity, DateTime.now.at_end_of_day)
+      entity     = 'ao@justice.com'
+      path       = '/my/valid/path'
+      request    = double('request')
+      token      = @token_service.generate_token(path, entity, DateTime.now.at_end_of_day)
 
       allow(request).to receive(:path) { path }
       allow(controller).to receive(:params) { {token: token, entity: entity} }
@@ -34,15 +32,12 @@ describe 'AOTokenFilter' do
       expect(AOTokenFilter.validate_token(controller)).to eq :valid
     end
 
-
     it 'the filter should fail if the token is expired' do
       controller = double('ApplicationController')
-      request = double('request')
-
-      path = '/my/valid/path'
-      entity = 'ao@justice.com'
-
-      token = @token_service.generate_token(path, entity, 20.minutes.ago)
+      entity     = 'ao@justice.com'
+      path       = '/my/valid/path'
+      request    = double('request')
+      token      = @token_service.generate_token(path, entity, 20.minutes.ago)
 
       allow(request).to receive(:path) { path }
       allow(controller).to receive(:params) { {token: token, entity: entity} }
@@ -53,7 +48,7 @@ describe 'AOTokenFilter' do
 
     it 'the filter should say no access if you provide empty token' do
       controller = double('ApplicationController')
-      request = double('request')
+      request    = double('request')
 
       allow(request).to receive(:path) { '/test/this' }
       allow(controller).to receive(:params) { { entity: 'test'} }
@@ -64,22 +59,19 @@ describe 'AOTokenFilter' do
 
     it 'the filter should say no access if you provide empty entity' do
       controller = double('ApplicationController')
-      request = double('request')
+      request    = double('request')
 
       allow(request).to receive(:path) { '/test/this' }
       allow(controller).to receive(:params) { { token: 'test'} }
       allow(controller).to receive(:request) { request }
     end
-      
 
     it 'the filter should say no access if you have a are in the wrong path' do
       controller = double('ApplicationController')
-      request = double('request')
-
-      path = '/my/valid/path'
-      entity = 'ao@justice.com'
-
-      token = @token_service.generate_token(path, entity, DateTime.now.at_end_of_day)
+      entity     = 'ao@justice.com'
+      path       = '/my/valid/path'
+      request    = double('request')
+      token      = @token_service.generate_token(path, entity, DateTime.now.at_end_of_day)
 
       allow(request).to receive(:path) { '/other' }
       allow(controller).to receive(:params) { {token: token, entity: entity} }
@@ -89,12 +81,11 @@ describe 'AOTokenFilter' do
     end
   end
 
-
   describe '.before' do
 
-    let(:controller)      { double('controller') }
-    let(:user)            { double(User) }
-    let(:request)         { double('request') }
+    let(:controller) { double('controller') }
+    let(:user)       { double(User) }
+    let(:request)    { double('request') }
 
     it 'should not write an error log if valid' do
       expect(AOTokenFilter).to receive(:validate_token).and_return(:valid)
@@ -102,11 +93,10 @@ describe 'AOTokenFilter' do
       AOTokenFilter.before(controller)
     end
 
-
     it 'should write an error log if invalid' do
       set_logging_expectations
       expect(AOTokenFilter).to receive(:validate_token).and_return(:invalid)
-      
+
       expect(LogStuff).to receive(:error).with(
           :token_error,
           type: "invalid_token",
@@ -124,7 +114,7 @@ describe 'AOTokenFilter' do
     it 'should write an error log if expired' do
       set_logging_expectations
       expect(AOTokenFilter).to receive(:validate_token).and_return(:expired)
-      
+
       expect(LogStuff).to receive(:error).with(
           :token_error,
           type: "expired_token",
@@ -142,13 +132,12 @@ describe 'AOTokenFilter' do
 
 end
 
-
 def set_logging_expectations
-  allow(controller).to receive(:env).and_return( 
-    { 
+  allow(controller).to receive(:env).and_return(
+    {
       'REQUEST_URI' => 'http://pq.com/uri',
       'REQUEST_PATH' => '/assignment/uin-999',
-    } 
+    }
   )
   allow(controller).to receive(:current_user).and_return(user)
   expect(user).to receive(:name).and_return('Joe Blow')
