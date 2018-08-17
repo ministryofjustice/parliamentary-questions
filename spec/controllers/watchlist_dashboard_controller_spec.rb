@@ -14,7 +14,6 @@ describe WatchlistDashboardController, type: :controller do
     it 'The token should not be marked as acknowledged' do
       expect(token).to_not be_acknowledged
     end
-
   end
 
 end

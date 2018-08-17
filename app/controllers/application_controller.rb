@@ -97,4 +97,5 @@ class ApplicationController < ActionController::Base
     message = exception.nil? ? nil: exception.message
     LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}, message:#{message}, backtrace:#{backtrace}" }
   end
+
 end

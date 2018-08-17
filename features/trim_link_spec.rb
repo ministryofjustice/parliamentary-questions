@@ -25,6 +25,7 @@ feature "Parli-branch manages trim link" , js: true do
       visit pq_path(@pq.uin)
       expect(page).not_to have_link 'Open trim link'
       add_trim_link
+
       expect(page.title).to have_text("PQ #{@pq.uin}")
       expect(page).to have_link 'Open trim link'
     end
@@ -43,10 +44,13 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'change a trim link' do
       visit pq_path(@pq.uin)
       add_trim_link
+
       expect(page.title).to have_text("PQ #{@pq.uin}")
       expect(page).to have_content 'Change trim link'
+
       add_trim_link('spec/fixtures/another_trimlink.tr5')
       pq = Pq.find_by(uin: @pq.uin)
+
       expect(pq.trim_link.filename).to eq('another_trimlink.tr5')
     end
 
@@ -55,6 +59,7 @@ feature "Parli-branch manages trim link" , js: true do
       add_trim_link
       click_button 'Delete'
       click_link 'Trim link'
+
       expect(page.title).to have_text("PQ #{@pq.uin}")
       expect(page).not_to have_link 'Open trim link'
     end
@@ -64,10 +69,13 @@ feature "Parli-branch manages trim link" , js: true do
       add_trim_link
       click_button 'Delete'
       click_link 'Trim link'
+
       expect(page.title).to have_text("PQ #{@pq.uin}")
       expect(page).to have_content 'Trim link deleted'
+
       click_button 'Undo'
       click_link 'Trim link'
+
       expect(page.title).to have_text("PQ #{@pq.uin}")
       expect(page).to have_link 'Open trim link'
     end
@@ -79,11 +87,15 @@ feature "Parli-branch manages trim link" , js: true do
       fill_in 'Date for answer back to Parliament', with: '01/01/2001'
       click_link 'Trim link'
       add_trim_link('spec/fixtures/invalid_trimlink.tr5')
+
       expect(page.title).to have_text("PQ #{@pq.uin}")
       expect(page).to have_content 'Invalid file selected!'
+
       click_link 'PQ Details'
+
       expect(page).to have_field 'Date for answer back to Parliament', with: '01/01/2001'
     end
+
   end
 
   feature 'from the dashboard', js: true do
@@ -111,16 +123,21 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'server error when uploading a trim' do
       ENV['TRAP_ERRORS_IN_TEST'] = '1'
       load "#{Rails.root}/app/controllers/application_controller.rb"
+
       expect_any_instance_of(TrimLinksController).to receive(:create).and_raise(RuntimeError)
+
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       click_button 'Upload'
+
       expect(page).to have_content('Server error')
+
       ENV['TRAP_ERRORS_IN_TEST'] = nil
       load "#{Rails.root}/app/controllers/application_controller.rb"
     end
 
     scenario 'selecting a file to upload to trim'  do
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
+
       expect(page).to have_content 'File selected'
       expect(page).to have_css 'span.fa-file-o'
     end
@@ -128,6 +145,7 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'cancel after selecting' do
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       click_button 'Cancel'
+
       expect(page).to have_css 'button.button-choose'
       expect(page).not_to have_css 'button.button-cancel'
     end
@@ -135,6 +153,7 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'upload a file after selecting' do
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
       click_button 'Upload'
+
       expect(page).to have_content 'Trim link created'
       expect(page).to have_css 'span.fa-check-circle'
       expect(page).to have_content 'Open trim link'
@@ -143,12 +162,14 @@ feature "Parli-branch manages trim link" , js: true do
     scenario 'upload an invalid file to trim' do
       select_file_to_upload 'spec/fixtures/invalid_trimlink.tr5'
       click_button 'Upload'
+
       expect(page).to have_content 'Invalid file selected!'
       expect(page).to have_css 'span.fa-warning'
     end
 
     scenario 'select a too big file to trim' do
       select_file_to_upload 'spec/fixtures/trimlink_too_large.tr5'
+
       expect(page).to have_content 'This file is too large'
       expect(page).to have_css 'span.fa-warning'
     end

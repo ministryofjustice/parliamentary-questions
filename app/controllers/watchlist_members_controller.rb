@@ -2,7 +2,7 @@ class WatchlistMembersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @watchlist_members = WatchlistMember.all.order('lower(name)')
+    @watchlist_members = WatchlistMember.all.order(Arel.sql('lower(name)'))
     update_page_title('Watchlist members')
   end
 

@@ -12,15 +12,15 @@ class ExportController < ApplicationController
   end
 
   def csv
-    run_export(Export::PqDefault, 'index')
+    run_export(Export::PqDefault, 'index.html.slim')
   end
 
   def csv_for_pod
-    run_export(Export::PqPod, 'index_for_pod')
+    run_export(Export::PqPod, 'index_for_pod.html.slim')
   end
 
   def csv_quick
-    run_export(Export::PqSelection, 'index')
+    run_export(Export::PqSelection, 'index.html.slim')
   end
 
   private
@@ -41,6 +41,6 @@ class ExportController < ApplicationController
     rescue DateTimeInputError
       flash[:error] = 'Invalid date input!'
       update_page_title('Export PQs to CSV')
-      render(form_template, status: 422)
+      render form_template, status: 422
   end
 end

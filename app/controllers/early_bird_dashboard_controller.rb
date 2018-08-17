@@ -4,9 +4,8 @@ class EarlyBirdDashboardController < ApplicationController
 
   def index
   	update_page_title('Early bird preview')
-    @now = Time.now.strftime("%d/%m/%Y")
-   # @questions = Pq.with_pod
-    @questions = Pq.new_questions.order(:uin)
+    @now            = Time.now.strftime("%d/%m/%Y")
+    @questions      = Pq.new_questions.order(:uin)
     @parliament_url = PQA::RecentQuestionsURL.url(Date.today())
   end
 
@@ -17,19 +16,6 @@ class EarlyBirdDashboardController < ApplicationController
 
   NEW      = 'New'
   PER_PAGE = 200
-
-  #def index
-  #   @preview_state = NEW
-   # @now = Time.now.strftime("%d/%m/%Y")
-   # update_page_title "Early bird preview"
-    #load_pq_with_counts { Pq.new_questions.sorted_for_dashboard }
-    #load_pq_with_counts { Pq.with_pod.sorted_for_dashboard }
-  #end
-
-  #def preview
-  #  index
-  #  render 'index'
- # end
 
   private
 

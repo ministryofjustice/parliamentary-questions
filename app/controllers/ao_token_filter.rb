@@ -21,7 +21,7 @@ class AOTokenFilter
 
   def self.log_and_redirect(controller, token_state)
     params         = OpenStruct.new
-    params.uri     = controller.env['REQUEST_URI']
+    params.uri     = controller.request.env['REQUEST_URI']
     params.referer = controller.request.referer
     params.uin     = extract_uin(controller)
     params.user    = extract_user_name(controller)
@@ -42,14 +42,15 @@ class AOTokenFilter
   end
 
   def self.extract_uin(controller)
-    request_path  = controller.env['REQUEST_PATH']
+    # request_path = controller.env['REQUEST_PATH']
+    request_path = controller.request.path
 
     if request_path =~ /^\/assignment\//
-      controller.env['REQUEST_PATH'].split('/').last
+      # controller.env['REQUEST_PATH'].split('/').last
+      controller.request.path.split('/').last
     else
       nil
     end
-
   end
 
   def self.extract_user_name(controller)
@@ -59,5 +60,4 @@ class AOTokenFilter
       controller.current_user.name
     end
   end
-
 end

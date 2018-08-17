@@ -183,9 +183,9 @@ module PqScopes
     current_date = "'#{Date.today.strftime('%Y-%m-%d')}'"
     order(Arel.sql("date_for_answer >= #{current_date} DESC"))
       .order(Arel.sql("ABS(DATE_PART('day', date_for_answer::timestamp - #{current_date}::timestamp)) ASC"))
-      .order('state_weight DESC')
-      .order('updated_at ASC')
-      .order('id')
+      .order(Arel.sql('state_weight DESC'))
+      .order(Arel.sql('updated_at ASC'))
+      .order(Arel.sql('id'))
   end
 
   def total_questions_since

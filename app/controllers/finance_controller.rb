@@ -3,7 +3,7 @@ class FinanceController < ApplicationController
 
   def questions
     @page_title = 'New PQs today'
-    @questions = Pq.new_questions.sorted_for_dashboard
+    @questions  = Pq.new_questions.sorted_for_dashboard
   end
 
   def confirm

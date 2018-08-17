@@ -6,8 +6,8 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
   before(:all) do
     DBHelpers.load_feature_fixtures
     clear_sent_mail
-    @aos  = ActionOfficer.where("email like 'ao%@pq.com'")
-    @pq   = generate_dummy_pq(@aos)
+    @aos = ActionOfficer.where("email like 'ao%@pq.com'")
+    @pq  = generate_dummy_pq(@aos)
   end
 
   after(:all) do
@@ -49,7 +49,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     end
   end
 
-  scenario 'The URL token sent to the watchlist member expires after 24 hours' do
+  scenario "The URL token sent to the watchlist member expires after 24 hours" do
     WatchlistReportService.new(nil, DateTime.now - 2.days).notify_watchlist
     url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
     visit url
@@ -62,13 +62,12 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
   def generate_dummy_pq(aos)
     PQA::QuestionLoader.new.load_and_import
 
-    q = Pq.first
+    q                   = Pq.first
     q.minister          = Minister.find_by(name: 'Chris Grayling')
     q.action_officers   = aos
     q.internal_deadline = Date.today + 1.day
     q.internal_deadline = Date.today + 2.day
     q.update_state!
-
     q
   end
 end
