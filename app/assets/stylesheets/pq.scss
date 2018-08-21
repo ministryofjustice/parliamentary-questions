@@ -132,14 +132,9 @@ label {
 }
 
 .phase-banner {
-  @include phase-banner($phase);
   a {
     text-decoration: underline; // override bootstrap
   }
-}
-
-.phase-tag {
-  @include phase-tag($phase);
 }
 
 // only visible on the staging server to warn that it is not the live system
