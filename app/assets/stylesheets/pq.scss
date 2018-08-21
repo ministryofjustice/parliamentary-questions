@@ -92,7 +92,7 @@ label {
 }
 .fa-exclamation-triangle {
   color: $error-colour;
-  margin-left: 4px;
+  margin-left: 5px;
 }
 
 // specify the colour of input placeholders (eg search bar) for all browsers
@@ -419,11 +419,10 @@ textarea.form-control {
   border-radius: 0;
   border: 1px solid $border-colour;
   display: inline-block;
-  width: 90%;
-  max-width: 218px;
+  width: 194px;
   input {
     display: inline;
-    width: 90%;
+    width: 88%;
     border: none;
   }
 }
