@@ -27,7 +27,7 @@
 @import 'elements/layout';
 
 // Components (chunks of UI)
-// @import "elements/breadcrumbs"
+// @import 'elements/breadcrumbs';
 @import 'elements/buttons';
 @import 'elements/components';
 @import 'elements/details';
@@ -40,30 +40,28 @@
 @import 'elements/lists';
 @import 'elements/panels';
 @import 'elements/phase-banner';
-// @import "elements/shame"
+// @import 'elements/shame';
 @import 'elements/tables';
 
 // grid system
 @import "susy";
-//@import "moj/config";
+// @import 'moj/config';
 
 // custom mixins & helpers
-//@import "moj/mixins";
-//@import "moj/helpers";
+// @import 'moj/mixins';
+// @import 'moj/helpers';
 
 //project specific
-//@import "accessible-autocomplete.min";
-//@import "moj/autocomplete";
-//@import "moj/buttons";
+// @import 'accessible-autocomplete.min';
+// @import 'moj/autocomplete';
+// @import 'moj/buttons';
 @import "moj/forms";
-//@import "moj/govuk_overrides";
-@import "moj/layout";
-//@import "moj/logo";
+// @import 'moj/govuk_overrides';
+// @import 'moj/logo';
 @import "moj/navigation";
-//@import "moj/shame";
-//@import "moj/tables";
-//@import "moj/typography";
-
-@import "vendor/bootstrap.css";
-
+// @import 'moj/shame';
+// @import 'moj/tables';
+// @import 'moj/typography';
+@import "vendor/bootstrap";
+@import "vendor/pq-select2";
 @import "pq";
