@@ -657,12 +657,6 @@ textarea.form-control {
     }
   }
 
-  button.button-choose{
-    background-color: $light-blue;
-    color: $page-colour;
-    box-shadow: 0 2px 0 darkblue;
-  }
-
   // errors that show when Quick Actions failed
   .quick-action-export-error-message {
     display: none;
@@ -697,7 +691,6 @@ textarea.form-control {
   label.form-label { color: $secondary-text-colour; }
 
 }
-
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
 
