@@ -1,0 +1,39 @@
+.navbar.navbar-default {
+  background-color: $panel-colour;
+  border-right: 1px solid $border-colour;
+  border-bottom: 1px solid $border-colour;
+  border-left: 1px solid $border-colour;
+  border-radius: 0;
+  .navbar-nav {
+    li {
+      a {
+        color: $text-colour
+      }
+      a:hover, a:focus {
+        color: $secondary-text-colour;
+      }
+    }
+    li.active {
+      background-color: #e7e7e7;
+      a {
+        color: $secondary-text-colour;
+        padding-bottom: 18px;
+      }
+    }
+  }
+  #search_field {
+    width: 142px;
+    border-radius: 0;
+    margin-right: -4px;
+    margin-bottom: 0;
+    font-size: 16px;
+    height: 34px;
+  }
+  #search_button {
+    border-radius: 0;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+    padding: 4px;
+  }
+}

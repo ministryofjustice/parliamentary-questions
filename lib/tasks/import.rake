@@ -4,7 +4,6 @@ namespace :pqa do
     ImportWorker.new.perform
   end
 
-
   desc "Import individual questions identified by UIN (rake pqa:import_uins['uin-1 uin-2 uin-3'])"
   task :import_uins, [:uins] => :environment do |_, args|
     uins = args[:uins].split
@@ -21,6 +20,7 @@ namespace :pqa do
   end
 
   desc "Generate and import 'n' dummy questions by name"
+  # Console syntax: bundle exec rake pqa:import_dummy_data['Question',5]
   task :import_dummy_data, [:uin_prefix, :n_records] => :environment do |_, args|
     args.with_defaults(:uin_prefix => "uin", :n_records => 1)
     n_records = args[:n_records]
@@ -34,14 +34,13 @@ namespace :pqa do
   end
 
   desc "Import questions from XML file"
+  # Console syntax: bundle exec rake pqa:import_from_xml['questions.xml']
   task :import_from_xml, [:xml_path] => :environment do |_, args|
     fpath = args[:xml_path]
     raise ArgumentError, "Cannot find file #{fpath}" unless File.exists?(fpath)
-
     min_date  = Date.parse('1/1/2000')
     max_date  = Date.parse('1/1/2020')
     questions = PQA::XMLDecoder.decode_questions(File.read(fpath))
-
     import_from_mock_server(questions, min_date, max_date)
   end
 
@@ -58,7 +57,6 @@ namespace :pqa do
       loader.load_and_import(n_records, true)
       puts "Mock API loaded with #{n_records} questions"
     end
-
 
     desc 'stops the mock api server if running'
     task :api_stop => :environment do
@@ -80,13 +78,12 @@ namespace :pqa do
 
   end
 
-
   private
 
   def import_from_mock_server(questions, date_from, date_to)
-    runner    = PQA::MockApiServerRunner.new
-    import    = PQA::Import.new
-    loader    = PQA::QuestionLoader.new
+    runner = PQA::MockApiServerRunner.new
+    import = PQA::Import.new
+    loader = PQA::QuestionLoader.new
     begin
       runner.start
       loader.load(questions)
@@ -96,7 +93,6 @@ namespace :pqa do
       runner.stop
     end
   end
-
 
   def analyse_report(uin, report)
     if report[:created] == 1

@@ -21,14 +21,18 @@ module ParliamentaryQuestions
   class Application < Rails::Application
     # Application Title (Populates <title>)
     config.app_title = 'Parliamentary Questions'
+
     # Proposition Title (Populates proposition header)
     config.proposition_title = 'PQ Tracker'
+
     # Current Phase (Sets the current phase and the colour of phase tags)
     # Presumed values: alpha, beta, live
     config.phase = 'live'
+
     # Product Type (Adds class to body based on service type)
     # Presumed values: information, service
     config.product_type = 'service'
+
     # Feedback URL (URL for feedback link in phase banner)
     config.feedback_url = '#'
 
@@ -48,7 +52,6 @@ module ParliamentaryQuestions
     end
 
     config.exceptions_app = self.routes
-
 
     # Statsd
     $statsd = Statsd.new 'localhost', 8125

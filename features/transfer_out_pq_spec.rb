@@ -20,11 +20,7 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     visit dashboard_path
     click_on uin
     click_on "PQ commission"
-
-    find("select[name = 'pq[transfer_out_ogd_id]']")
-      .find(:xpath, "option[2]")
-      .select_option
-
+    find("select[name = 'pq[transfer_out_ogd_id]']").find(:xpath, "option[2]").select_option
     find('#transfer_out_date').set(date || Date.today.strftime('%d/%m/%Y'))
     click_on 'Save'
   end

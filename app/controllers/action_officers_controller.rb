@@ -5,8 +5,8 @@ class ActionOfficersController < ApplicationController
     @action_officers =
       ActionOfficer.all
         .joins(:deputy_director => :division)
-        .order('lower(divisions.name)')
-        .order('lower(action_officers.name)')
+        .order(Arel.sql('lower(divisions.name)'))
+        .order(Arel.sql('lower(action_officers.name)'))
     update_page_title 'Action officers'
   end
 

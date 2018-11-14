@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :set_page_title
 
   protect_from_forgery with: :exception
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   # SSL Production Config
   if Rails.env.production? && !HostEnv.is_dev?
@@ -97,4 +97,5 @@ class ApplicationController < ActionController::Base
     message = exception.nil? ? nil: exception.message
     LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}, message:#{message}, backtrace:#{backtrace}" }
   end
+
 end

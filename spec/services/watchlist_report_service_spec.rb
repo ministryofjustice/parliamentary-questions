@@ -18,8 +18,9 @@ describe 'WatchlistReportService' do
     token = Token.find_by(entity: @report_service.entity, path: '/watchlist/dashboard')
     expect(token.token_digest).to_not be nil
 
-    end_of_day = DateTime.now.end_of_day
-    expect(token.expire).to eq(end_of_day)
+    end_of_day = DateTime.current.end_of_day
+
+    expect(token.expire.to_s).to eq(end_of_day.to_s)
 
     expect(
       Token.exists?(entity: "watchlist:#{watchlist_deleted.id}", path: '/watchlist/dashboard')
@@ -59,7 +60,7 @@ describe 'WatchlistReportService' do
 
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    
+
     sentToken   = result[watchlist_one.id]
     token_param = {token: sentToken}.to_query
     entity      = {entity: entity = testid }.to_query

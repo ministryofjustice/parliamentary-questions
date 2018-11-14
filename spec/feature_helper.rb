@@ -56,4 +56,3 @@ RSpec.configure do |config|
     mock_api_runner.stop
   end
 end
-

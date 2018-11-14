@@ -16,7 +16,7 @@ describe HealthCheck::Database do
 
   context '#accessible?' do
     it 'returns true if the database is accessible with our credentials' do
-      expect(db).to be_accessible
+      expect(db).to be { :accessible? }
     end
 
     it 'returns false if the database is not accessible with our credentials' do
@@ -32,7 +32,7 @@ describe HealthCheck::Database do
       db.available?
 
       expect(db.error_messages).to eq([
-        'Database Error: could not connect to parliamentary-questions_test ' + 
+        'Database Error: could not connect to parliamentary-questions_test ' +
         'on localhost using postgresql'
       ])
     end

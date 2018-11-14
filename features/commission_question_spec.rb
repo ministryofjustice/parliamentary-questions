@@ -20,6 +20,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   scenario 'Parli-branch member tries to allocate a question without an AO' do
     create_pq_session
     visit dashboard_path
+
     within_pq(@pq.uin) do
       select_option('commission_form[minister_id]', minister.name) if minister
       select_option('commission_form[policy_minister_id]', minister.name) if minister
@@ -62,14 +63,13 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     ao_mail = sent_mail.last
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.text_part.body).to include(
-      "Thank you for agreeing to draft an answer to PQ #{@pq.uin}"
-    )
+    expect(ao_mail.text_part.body).to include( "Thank you for agreeing to draft an answer to PQ #{@pq.uin}" )
   end
 
   scenario 'After an AO has accepted a question, another AO cannot accept the question' do
     ao2_mail = sent_mail_to(ao2.email).first
     ao2_link = extract_url_like('/assignment', ao2_mail)
+
     visit ao2_link
 
     expect(page.title).to have_content("PQ assignment")
@@ -85,6 +85,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       date_for_answer: Date.tomorrow,
       internal_deadline: Date.today
     }
+
     form = CommissionForm.new(form_params)
     CommissioningService.new(nil, Date.today - 4.days).commission(form)
     ao_mail, _ = sent_mail.last
@@ -93,6 +94,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     expect(page.title).to have_content("Unauthorised (401)")
     expect(page).to have_content(/Link expired/i)
+
   end
 
 end

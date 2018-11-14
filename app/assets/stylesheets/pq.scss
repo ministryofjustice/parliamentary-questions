@@ -92,7 +92,7 @@ label {
 }
 .fa-exclamation-triangle {
   color: $error-colour;
-  margin-left: 4px;
+  margin-left: 5px;
 }
 
 // specify the colour of input placeholders (eg search bar) for all browsers
@@ -132,14 +132,9 @@ label {
 }
 
 .phase-banner {
-  @include phase-banner($phase);
   a {
     text-decoration: underline; // override bootstrap
   }
-}
-
-.phase-tag {
-  @include phase-tag($phase);
 }
 
 // only visible on the staging server to warn that it is not the live system
@@ -424,11 +419,10 @@ textarea.form-control {
   border-radius: 0;
   border: 1px solid $border-colour;
   display: inline-block;
-  width: 90%;
-  max-width: 218px;
+  width: 194px;
   input {
     display: inline;
-    width: 90%;
+    width: 88%;
     border: none;
   }
 }
@@ -500,47 +494,6 @@ textarea.form-control {
         content: '▼ ';
       }
     }
-  }
-}
-
-// = Navigation bar ============================================================
-
-.navbar, .navbar-default { background-color: $page-colour; }
-
-.navbar-default { border: 1px solid #e6e6e6; background-color: #DEE0E2;}
-
-.navbar-default .navbar-nav > li > a {
-  color: #0b0c0c; // override bootstrap
-  &:hover {
-    color: $secondary-text-colour;
-  }
-}
-
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  text-decoration: none;
-  color: #555555;
-  background-color: #e7e7e7;
-}
-
-.navbar {
-  border-radius: 0;
-  #settings { margin-right: 65px; }
-  #search_field {
-    width: 142px;
-    border-radius: 0;
-    margin-right: -4px;
-    margin-bottom: 0;
-    font-size: 16px;
-    height: 34px;
-  }
-  #search_button {
-    border-radius: 0;
-    width: 34px;
-    height: 34px;
-    font-size: 18px;
-    padding: 4px;
   }
 }
 
@@ -704,12 +657,6 @@ textarea.form-control {
     }
   }
 
-  button.button-choose{
-    background-color: $light-blue;
-    color: $page-colour;
-    box-shadow: 0 2px 0 darkblue;
-  }
-
   // errors that show when Quick Actions failed
   .quick-action-export-error-message {
     display: none;
@@ -744,7 +691,6 @@ textarea.form-control {
   label.form-label { color: $secondary-text-colour; }
 
 }
-
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
 

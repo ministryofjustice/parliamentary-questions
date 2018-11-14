@@ -1,8 +1,6 @@
 class AssignmentController < ApplicationController
   before_action AOTokenFilter
 
-
-
   def show
     update_page_title 'PQ assignment'
     loading_question_and_assignment do

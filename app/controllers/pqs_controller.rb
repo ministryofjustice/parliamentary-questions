@@ -22,7 +22,6 @@ class PqsController < ApplicationController
           reassign_ao_if_present(@pq)
           flash[:success] = 'Successfully updated'
         else
-          @pq.trim_link(true)
           flash[:error] = 'Update failed'
         end
         set_dashboard_title

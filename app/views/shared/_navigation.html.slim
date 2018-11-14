@@ -2,21 +2,27 @@
   nav.navbar.navbar-default role="navigation"
     .container-fluid
       .navbar-header
+
         button.navbar-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button"
           span.sr-only Toggle navigation
           span.icon-bar
           span.icon-bar
           span.icon-bar
+
       .collapse.navbar-collapse
         - if current_user.pq_user?
+
           ul.nav.navbar-nav
             li class=('active' if @dashboard_state == 'New')
               = link_to 'New', dashboard_path, action: 'index'
+
             li class=('active' if @dashboard_state == 'In progress')
               = link_to 'In progress', dashboard_in_progress_path, action: 'in_progress'
+
             li class=('active' if @dashboard_state == 'Backlog')
               = link_to 'Backlog', dashboard_backlog_path, action: 'backlog'
-            li.dropdown
+
+            li.dropdown class=('active' if @page_title == 'Minister report - MOJ Parliamentary Questions' || @page_title == 'Press desk report - MOJ Parliamentary Questions')
               a.dropdown-toggle data-toggle="dropdown" data-target="#-"
                 | Reports
                 span.caret
@@ -26,13 +32,18 @@
                   = link_to 'Minister report', reports_ministers_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Minister Report')"
                 li
                   = link_to 'Press desk report', reports_press_desk_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Press Desk Report')"
-            li#settings= link_to 'Settings', admin_path
+
+            li#settings class=('active' if @page_title == 'Settings - MOJ Parliamentary Questions')
+              = link_to 'Settings', admin_path
+
             li= link_to 'Sign out', destroy_user_session_path
+
           = form_tag(search_path, { :method => 'get', :id => 'search_form', :class => 'navbar-form navbar-right', :role => 'search'}) do
-            .form-group
+            .form-group.search
               = text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control', :placeholder => 'Search by UIN' }
-            = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
-              span.fa.fa-search
+              = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
+                span.fa.fa-search
+
         - elsif current_user.finance_user?
           ul.nav.navbar-nav
             li= link_to 'Sign out', destroy_user_session_path
