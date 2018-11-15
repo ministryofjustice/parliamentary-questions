@@ -38,14 +38,14 @@ module ParliamentaryQuestions
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.eager_load_paths << Rails.root.join('lib')
-    
+
     config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
     #config.assets.paths << "#{Rails}/vendor/assets/fonts"
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.eager_load_paths << Rails.root.join("app", "assets", "fonts")
 
     config.generators do |g|
       g.template_engine :erb
