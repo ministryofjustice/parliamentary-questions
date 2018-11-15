@@ -37,8 +37,8 @@ module ParliamentaryQuestions
     config.feedback_url = '#'
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib)
-
+    config.eager_load_paths << Rails.root.join('lib')
+    
     config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
