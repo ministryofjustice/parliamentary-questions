@@ -31,6 +31,7 @@ ParliamentaryQuestions::Application.configure do
 
   config.assets.enabled = true
   config.serve_static_files = true
+  config.public_file_server.enabled = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
