@@ -45,7 +45,8 @@
 - content_for :body_end
 
   <!--[if gt IE ]><!-->
-    script type="text/javascript" src="/assets/application.js"
+    / script type="text/javascript" src="/assets/application.js"
+    = javascript_include_tag('application.js')
   <!--<![endif]-->
 
   javascript:
