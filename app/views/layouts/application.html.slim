@@ -3,7 +3,12 @@
 
 - content_for :head do
 
-  = stylesheet_link_tag('application.css')
+  = stylesheet_link_tag('font-awesome.css', media: 'all')
+  = stylesheet_link_tag('select2.css', media: 'all')
+  = stylesheet_link_tag('select2-bootstrap.css', media: 'all')
+  = stylesheet_link_tag('vendor/jquery.datetimepicker.css', media: 'all')
+  = stylesheet_link_tag('vendor/pq-select2.css', media: 'all')
+  = stylesheet_link_tag('application.css', media: 'all')
 
 - content_for :header_class do
   = "with-proposition"
