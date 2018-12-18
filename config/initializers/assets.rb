@@ -10,7 +10,3 @@ Rails.application.config.assets.precompile += %w( select2.css )
 Rails.application.config.assets.precompile += %w( select2-bootstrap.css )
 Rails.application.config.assets.precompile += %w( vendor/jquery.datetimepicker.css )
 Rails.application.config.assets.precompile += %w( vendor/pq-select2.css )
-
-# Rails.application.config.assets.precompile += %w( application.css )
-# Rails.application.config.assets.precompile += %w( application.js )
-# Rails.application.config.assets.precompile += %w( .svg .eot .woff .ttf .js .scss .css )
