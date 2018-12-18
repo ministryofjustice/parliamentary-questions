@@ -1,4 +1,4 @@
-class AddAdditionalPqFieldsForImport < ActiveRecord::Migration
+class AddAdditionalPqFieldsForImport < ActiveRecord::Migration[5.0]
   def change
   	change_table :pqs do |t|
   		t.string :member_name

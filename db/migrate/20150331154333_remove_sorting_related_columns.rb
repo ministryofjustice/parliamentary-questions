@@ -1,4 +1,4 @@
-class RemoveSortingRelatedColumns < ActiveRecord::Migration
+class RemoveSortingRelatedColumns < ActiveRecord::Migration[5.0]
   def up
     remove_column(:pqs, :date_for_answer_has_passed)
     remove_column(:pqs, :days_from_date_for_answer)

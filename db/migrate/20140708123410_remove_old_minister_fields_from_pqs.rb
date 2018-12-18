@@ -1,4 +1,4 @@
-class RemoveOldMinisterFieldsFromPqs < ActiveRecord::Migration
+class RemoveOldMinisterFieldsFromPqs < ActiveRecord::Migration[5.0]
   def change
    remove_column :pqs, :sent_to_answering_minister, :datetime
    remove_column :pqs, :ministerial_waiting, :datetime

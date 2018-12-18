@@ -1,4 +1,4 @@
-class FollowUpTo < ActiveRecord::Migration
+class FollowUpTo < ActiveRecord::Migration[5.0]
   def up
     add_column :pqs, "follow_up_to", :string
 

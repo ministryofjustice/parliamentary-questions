@@ -1,4 +1,4 @@
-class AddPqDraftAndPodFieldsToPqs < ActiveRecord::Migration
+class AddPqDraftAndPodFieldsToPqs < ActiveRecord::Migration[5.0]
   def change
     add_column :pqs, :i_will_write, :boolean
     add_column :pqs, :pq_correction_received, :boolean

@@ -1,4 +1,4 @@
-class CreateOgds < ActiveRecord::Migration
+class CreateOgds < ActiveRecord::Migration[5.0]
   def change
     create_table :ogds do |t|
       t.string :name

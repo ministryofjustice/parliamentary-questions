@@ -1,4 +1,4 @@
-class CreatePqs < ActiveRecord::Migration
+class CreatePqs < ActiveRecord::Migration[5.0]
   def change
     create_table :pqs do |t|
       t.integer :PIN

@@ -1,4 +1,4 @@
-class CreateDeputyDirectors < ActiveRecord::Migration
+class CreateDeputyDirectors < ActiveRecord::Migration[5.0]
   def change
     create_table :deputy_directors do |t|
       t.string :name

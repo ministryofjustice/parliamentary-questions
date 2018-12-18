@@ -1,4 +1,4 @@
-class ChangeTypeOfStringToText < ActiveRecord::Migration
+class ChangeTypeOfStringToText < ActiveRecord::Migration[5.0]
   def up
     change_column :pqs, :question, :text
     change_column :action_officers_pqs, :reason, :text

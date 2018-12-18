@@ -1,4 +1,4 @@
-class RemoveProgress < ActiveRecord::Migration
+class RemoveProgress < ActiveRecord::Migration[5.0]
   def up
     add_column(:pqs, :state, :string, default: 'unassigned')
     add_column(:pqs, :state_weight, :integer, default: 0)

@@ -1,4 +1,4 @@
-class AddMinisterialFieldsToPqs < ActiveRecord::Migration
+class AddMinisterialFieldsToPqs < ActiveRecord::Migration[5.0]
   def change
     add_column :pqs, :sent_to_answering_minister, :datetime
     add_column :pqs, :ministerial_waiting, :datetime
