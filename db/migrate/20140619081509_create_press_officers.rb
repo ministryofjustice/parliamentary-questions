@@ -1,4 +1,4 @@
-class CreatePressOfficers < ActiveRecord::Migration
+class CreatePressOfficers < ActiveRecord::Migration[5.0]
   def change
     create_table :press_officers do |t|
       t.string :name

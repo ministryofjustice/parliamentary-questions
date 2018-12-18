@@ -1,4 +1,4 @@
-class CreateJoinTablePqAo < ActiveRecord::Migration
+class CreateJoinTablePqAo < ActiveRecord::Migration[5.0]
   def change
     create_join_table :pqs, :action_officers do |t|
       # t.index [:pq_id, :action_officer_id]

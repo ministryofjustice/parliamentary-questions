@@ -1,4 +1,4 @@
-class AddAcceptanceFieldsToPqAo < ActiveRecord::Migration
+class AddAcceptanceFieldsToPqAo < ActiveRecord::Migration[5.0]
   def change
     	change_table :action_officers_pqs do |t|
     		t.boolean :accept

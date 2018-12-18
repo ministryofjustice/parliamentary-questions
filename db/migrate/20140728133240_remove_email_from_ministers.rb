@@ -1,4 +1,4 @@
-class RemoveEmailFromMinisters < ActiveRecord::Migration
+class RemoveEmailFromMinisters < ActiveRecord::Migration[5.0]
   def change
     remove_column :ministers, :email, :string
   end

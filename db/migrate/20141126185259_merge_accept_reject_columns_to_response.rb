@@ -1,4 +1,4 @@
-class MergeAcceptRejectColumnsToResponse < ActiveRecord::Migration
+class MergeAcceptRejectColumnsToResponse < ActiveRecord::Migration[5.0]
   def up
     add_column :action_officers_pqs, :response, :string, default: 'awaiting'
 

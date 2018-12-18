@@ -1,4 +1,4 @@
-class AddFlagsToPq < ActiveRecord::Migration
+class AddFlagsToPq < ActiveRecord::Migration[5.0]
   def change
   	change_table :pqs do |t|
   		t.boolean :press_interest

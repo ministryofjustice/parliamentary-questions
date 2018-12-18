@@ -1,4 +1,4 @@
-class SetDefaultForAllDeletableModels < ActiveRecord::Migration
+class SetDefaultForAllDeletableModels < ActiveRecord::Migration[5.0]
   TABLES_WITH_DELETED = %w(action_officers
     actionlist_members
     deputy_directors

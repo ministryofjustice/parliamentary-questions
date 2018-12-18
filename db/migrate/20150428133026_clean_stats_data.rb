@@ -1,4 +1,4 @@
-class CleanStatsData < ActiveRecord::Migration
+class CleanStatsData < ActiveRecord::Migration[5.0]
   def change
     ActiveRecord::Base.connection.execute(
       "UPDATE action_officers_pqs " +

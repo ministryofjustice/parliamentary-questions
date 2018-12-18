@@ -1,4 +1,4 @@
-class AddRoundRobinToPQs < ActiveRecord::Migration
+class AddRoundRobinToPQs < ActiveRecord::Migration[5.0]
   def change
     change_table :pqs do |t|
       t.boolean :round_robin

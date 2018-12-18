@@ -1,4 +1,4 @@
-class AddNewMinisterialFieldsToPqs < ActiveRecord::Migration
+class AddNewMinisterialFieldsToPqs < ActiveRecord::Migration[5.0]
   def change
     add_column :pqs, :sent_to_policy_minister, :datetime
     add_column :pqs, :policy_minister_query, :boolean

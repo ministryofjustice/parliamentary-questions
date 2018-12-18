@@ -37,7 +37,7 @@ module ParliamentaryQuestions
     config.feedback_url = '#'
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths << Rails.root.join('lib')
 
     config.encoding = 'utf-8'
 
@@ -45,7 +45,13 @@ module ParliamentaryQuestions
     config.filter_parameters += [:password]
 
     #config.assets.paths << "#{Rails}/vendor/assets/fonts"
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.eager_load_paths << Rails.root.join("app", "assets", "fonts")
+    config.eager_load_paths += %w[ app/assets/images ]
+    config.eager_load_paths += %w[ app/assets/javascripts ]
+    config.eager_load_paths += %w[ app/assets/stylesheets ]
+    config.eager_load_paths += %w[ app/assets/stylesheets/moj ]
+    config.eager_load_paths += %w[ app/assets/stylesheets/vendor ]
+
 
     config.generators do |g|
       g.template_engine :erb

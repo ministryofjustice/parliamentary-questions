@@ -1,4 +1,4 @@
-class ChangePqsTable < ActiveRecord::Migration
+class ChangePqsTable < ActiveRecord::Migration[5.0]
   def change
   	change_table :pqs do |t|
 	  t.rename :PIN, :pin

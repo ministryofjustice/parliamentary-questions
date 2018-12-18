@@ -22,12 +22,9 @@
 // These are predefined by govuk_template
 // If you're not using govuk_template, uncomment the line below.
 // HTML elements, set by the GOV.UK template
-// @import 'elements/base';
-
 @import 'elements/layout';
 
 // Components (chunks of UI)
-// @import 'elements/breadcrumbs';
 @import 'elements/buttons';
 @import 'elements/components';
 @import 'elements/details';
@@ -36,32 +33,16 @@
 @import 'elements/forms/form-date';
 @import 'elements/forms/form-multiple-choice';
 @import 'elements/forms/form-validation';
-// @import 'elements/icons';
 @import 'elements/lists';
 @import 'elements/panels';
 @import 'elements/phase-banner';
-// @import 'elements/shame';
 @import 'elements/tables';
 
 // grid system
 @import "susy";
-// @import 'moj/config';
-
-// custom mixins & helpers
-// @import 'moj/mixins';
-// @import 'moj/helpers';
 
 //project specific
-// @import 'accessible-autocomplete.min';
-// @import 'moj/autocomplete';
-// @import 'moj/buttons';
 @import "moj/forms";
-// @import 'moj/govuk_overrides';
-// @import 'moj/logo';
 @import "moj/navigation";
-// @import 'moj/shame';
-// @import 'moj/tables';
-// @import 'moj/typography';
 @import "vendor/bootstrap";
-@import "vendor/pq-select2";
 @import "pq";

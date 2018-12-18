@@ -1,4 +1,4 @@
-class AddAnswerTabFieldsToPqs < ActiveRecord::Migration
+class AddAnswerTabFieldsToPqs < ActiveRecord::Migration[5.0]
   def change
     add_column :pqs, :answer_submitted, :datetime
     add_column :pqs, :library_deposit, :boolean
