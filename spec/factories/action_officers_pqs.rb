@@ -19,11 +19,11 @@ FactoryBot.define do
     action_officer
 
     factory :accepted_action_officers_pq do
-      response 'accepted'
+      response { 'accepted' }
     end
 
     factory :rejected_action_officers_pq do
-      response 'rejected'
+      response { 'rejected' }
     end
   end
 end

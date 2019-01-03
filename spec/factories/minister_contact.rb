@@ -5,10 +5,10 @@ FactoryBot.define do
     name { Faker::Lorem.word }
     email { Faker::Internet.email }
     phone { Faker::PhoneNumber.phone_number }
-    deleted false
+    deleted { false }
 
     factory :deleted_minister_contact do
-      deleted true
+      deleted { true }
     end
   end
 end

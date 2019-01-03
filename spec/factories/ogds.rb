@@ -14,7 +14,7 @@
 
 FactoryBot.define do
   factory :ogd do
-    name "Ministry of Defence"
-    acronym "MOD"
+    name { "Ministry of Defence" }
+    acronym { "MOD" }
   end
 end

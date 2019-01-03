@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gem 'bootstrap-will_paginate'
 gem 'business_time'
-gem 'devise_invitable'
 gem 'devise'
+gem 'devise_invitable'
 gem 'font-awesome-rails'
 gem 'govuk_elements_rails', '~> 3.1', '>= 3.1.3'
 gem 'govuk_frontend_toolkit', '~> 7.5'
@@ -32,10 +32,10 @@ gem 'will_paginate'
 
 group :development do
   gem 'annotate'
-  gem 'rails-erd'
-  gem 'rails_db_info'
   gem 'guard-livereload', '>= 2.5.2'
   gem 'guard-rspec'
+  gem 'rails_db_info'
+  gem 'rubocop-rspec', '~> 1.30', '>= 1.30.1'
 end
 
 group :test, :development do
