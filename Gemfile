@@ -34,7 +34,6 @@ group :development do
   gem 'annotate'
   gem 'guard-livereload', '>= 2.5.2'
   gem 'guard-rspec'
-  gem 'rails-erd'
   gem 'rails_db_info'
   gem 'rubocop-rspec', '~> 1.30', '>= 1.30.1'
 end
