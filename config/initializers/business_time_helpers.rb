@@ -26,6 +26,6 @@ module BusinessTimeHelpers
   end
 
   def convert_to_dates(holidays)
-    holidays.map { |holiday_s| Date.parse(holiday_s) } 
+    holidays.map { |holiday_s| Date.parse(holiday_s) }
   end
 end

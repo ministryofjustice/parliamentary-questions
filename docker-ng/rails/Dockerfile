@@ -1,7 +1,7 @@
 #FROM ministryofjustice/ruby:2.2.3-webapp-onbuild
 #FROM ministryofjustice/ruby:2-webapp-onbuild
-#FROM registry.service.dsd.io/ministryofjustice/ruby:2.3.1
-FROM ruby:2.3.1
+#FROM registry.service.dsd.io/ministryofjustice/ruby:2.4.5
+FROM ruby:2.4.5
 
 RUN touch /etc/inittab
 
