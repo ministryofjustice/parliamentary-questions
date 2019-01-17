@@ -1,28 +1,28 @@
 module Export
   class PqSelection < Base
-
-    DATE_FORMAT  = '%Y-%m-%d %H:%M'
+    DATE_FORMAT = '%Y-%m-%d %H:%M'
 
     HEADINGS = [
       'PIN',
-    'MP',
-    'Draft due to Parly Branch',
-    'Date Due in Parliament',
-    'Full_PQ_subject',
-    'Minister',
-    'Status',
-    'Action Officer',
-    'Division',
-    'Type of Question',
-    'Date First Appeared in Parliament',
-    'Date Draft Returned to PB',
-    'Date delivered to Minister',
-    'Returned signed from Minister',
-    'Date response answered by Parly (dept)'
+      'MP',
+      'Draft due to Parly Branch',
+      'Date Due in Parliament',
+      'Full_PQ_subject',
+      'Minister',
+      'Status',
+      'Action Officer',
+      'Division',
+      'Type of Question',
+      'Date First Appeared in Parliament',
+      'Date Draft Returned to PB',
+      'Date delivered to Minister',
+      'Returned signed from Minister',
+      'Date response answered by Parly (dept)'
     ]
 
     def csv_fields(pq, ao)
-      [ escape_equals_for_excel(pq.uin),                                                         # 'PIN',
+      [
+        escape_equals_for_excel(pq.uin),                                                         # 'PIN',
         escape_equals_for_excel(pq.member_name),                                                 # 'MP',
         empty_or_date(pq.internal_deadline),                     # 'Draft due to Parly Branch',
         empty_or_date(pq.date_for_answer),                       # 'Date Due in Parliament',
@@ -40,16 +40,6 @@ module Export
       ]
     end
 
-=begin
-    def empty_or_date(this_date)
-      if this_date.nil?
-         ''
-      else
-        this_date.strftime('%Y-%m-%d %H:%M')
-      end
-    end
-=end
-
     def to_csv
       CSV.generate do |csv|
         csv << HEADINGS
@@ -58,18 +48,18 @@ module Export
     end
 
     private
-    def pqs
-        pqs_array = Array.new
-        @pqs_list.split(',').map { |p|
-          if Pq.find_by(uin: p).nil?
-            return pqs_array
-          else
-            x = Pq.find_by(uin: p)
-            pqs_array.push(x)
-          end
-        } unless @pqs_list.nil?
-        pqs_array
 
+    def pqs
+      pqs_array = Array.new
+      @pqs_list.split(',').map { |p|
+        if Pq.find_by(uin: p).nil?
+          return pqs_array
+        else
+          x = Pq.find_by(uin: p)
+          pqs_array.push(x)
+        end
+      } unless @pqs_list.nil?
+      pqs_array
     end
   end
 end

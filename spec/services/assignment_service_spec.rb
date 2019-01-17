@@ -5,21 +5,21 @@ describe AssignmentService do
 
   let(:form) {
     CommissionForm.new({
-      pq_id: pq.id,
-      minister_id: minister.id,
-      action_officer_id: [action_officer.id],
-      date_for_answer: Date.tomorrow,
-      internal_deadline: Date.today
-    })
+                         pq_id: pq.id,
+                         minister_id: minister.id,
+                         action_officer_id: [action_officer.id],
+                         date_for_answer: Date.tomorrow,
+                         internal_deadline: Date.today
+                       })
   }
 
-  let(:directorate) {create(:directorate, name: 'This Directorate', id: 1+rand(10))}
-  let(:division) {create(:division,name: 'Division', directorate_id: directorate.id, id: 1+rand(10))}
-  let(:deputy_director) { create(:deputy_director, name: 'dd name', division_id: division.id, id: 1+rand(10))}
+  let(:directorate) { create(:directorate, name: 'This Directorate', id: 1 + rand(10)) }
+  let(:division) { create(:division, name: 'Division', directorate_id: directorate.id, id: 1 + rand(10)) }
+  let(:deputy_director) { create(:deputy_director, name: 'dd name', division_id: division.id, id: 1 + rand(10)) }
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
   let(:commissioning_service) { CommissioningService.new }
 
-  let(:pq) { create(:pq, uin: 'HL789', question: 'test question?',minister:minister, house_name:'commons') }
+  let(:pq) { create(:pq, uin: 'HL789', question: 'test question?', minister: minister, house_name: 'commons') }
 
   before(:each) do
     ActionMailer::Base.deliveries = []
@@ -83,9 +83,9 @@ describe AssignmentService do
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)
       expect(pq.directorate_id).to eq(directorate.id)
-      new_dir = create(:directorate, name: 'New Directorate', id:  Directorate.maximum(:id).next)
-      new_div = create(:division,name: 'New Division', directorate_id: new_dir.id, id:  Division.maximum(:id).next)
-      new_dd = create(:deputy_director, name: 'dd name', division_id: new_div.id, id:   10+DeputyDirector.maximum(:id).next)
+      new_dir = create(:directorate, name: 'New Directorate', id: Directorate.maximum(:id).next)
+      new_div = create(:division, name: 'New Division', directorate_id: new_dir.id, id: Division.maximum(:id).next)
+      new_dd = create(:deputy_director, name: 'dd name', division_id: new_div.id, id: 10 + DeputyDirector.maximum(:id).next)
       action_officer.update(:deputy_director_id => new_dd.id)
       expect(pq.directorate_id).to eql(directorate.id)
       expect(assignment.action_officer.deputy_director_id).to eql(new_dd.id)
@@ -105,6 +105,5 @@ describe AssignmentService do
       subject.reject(assignment, reason)
       expect(pq.state).to eq(PQState::REJECTED)
     end
-
   end
 end

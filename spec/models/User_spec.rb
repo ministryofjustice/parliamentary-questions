@@ -34,7 +34,7 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) {build(:user)}
+  let(:user) { build(:user) }
 
   it 'should pass factory build' do
     expect(user).to be_valid

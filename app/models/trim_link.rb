@@ -35,6 +35,7 @@ class TrimLink < ActiveRecord::Base
 
   def extract_details
     return unless file
+
     self.filename = file.original_filename
     self.data = file.read
     self.size = data.size

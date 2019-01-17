@@ -27,6 +27,7 @@ module Settings
   end
 
   module_function
+
   filepath         = File.expand_path('../config/settings.yml', __dir__)
   @h               = YAML::load_file(filepath)
   @config_keys     = @h.keys.map { |k| k.to_sym }

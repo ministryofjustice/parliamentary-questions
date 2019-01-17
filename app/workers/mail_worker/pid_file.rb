@@ -3,7 +3,7 @@ class MailWorker
     attr_reader :path
 
     def initialize(path)
-      @path    = path
+      @path = path
     end
 
     def present?
@@ -21,7 +21,7 @@ class MailWorker
 
     def delete(pid_s)
       if present? && pid == pid_s
-        File.delete(path) 
+        File.delete(path)
       end
     end
   end

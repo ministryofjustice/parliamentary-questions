@@ -2,7 +2,6 @@ require 'spec_helper'
 require "#{Rails.root}/spec/support/features/session_helpers"
 
 describe WatchlistDashboardController, type: :controller do
-
   before(:each) do
     @token_service = TokenService.new
   end
@@ -15,5 +14,4 @@ describe WatchlistDashboardController, type: :controller do
       expect(token).to_not be_acknowledged
     end
   end
-
 end

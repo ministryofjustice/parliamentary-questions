@@ -26,9 +26,10 @@ namespace :pqa do
     n_records = args[:n_records]
     uin_prefix = args[:uin_prefix]
 
-    questions = (1..n_records.to_i).map do |n|
-      PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
-    end
+    questions =
+      (1..n_records.to_i).map do |n|
+        PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
+      end
 
     import_from_mock_server(questions, Date.yesterday, Date.tomorrow)
   end
@@ -38,6 +39,7 @@ namespace :pqa do
   task :import_from_xml, [:xml_path] => :environment do |_, args|
     fpath = args[:xml_path]
     raise ArgumentError, "Cannot find file #{fpath}" unless File.exists?(fpath)
+
     min_date  = Date.parse('1/1/2000')
     max_date  = Date.parse('1/1/2020')
     questions = PQA::XMLDecoder.decode_questions(File.read(fpath))
@@ -62,7 +64,7 @@ namespace :pqa do
     task :api_stop => :environment do
       pid_filepath = "/tmp/mock_api_server.pid"
       if File.exists?(pid_filepath)
-        pid  = File.read(pid_filepath)
+        pid = File.read(pid_filepath)
         puts "pid file for process #{pid} found - attempting to kill"
         result = Process.kill("INT", pid.to_i)
         case result
@@ -75,7 +77,6 @@ namespace :pqa do
         puts "No pid file found for mock-api server - nothing to kill."
       end
     end
-
   end
 
   private

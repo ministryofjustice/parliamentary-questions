@@ -6,7 +6,7 @@ module HostEnv
   end
 
   def is_staging?
-   ENV['SENDING_HOST'] =~ /staging.pq.dsd.io/
+    ENV['SENDING_HOST'] =~ /staging.pq.dsd.io/
   end
 
   def is_dev?

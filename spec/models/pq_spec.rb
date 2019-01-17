@@ -70,7 +70,7 @@
 require 'spec_helper'
 
 describe Pq do
-  let(:subject) {build(:pq)}
+  let(:subject) { build(:pq) }
 
   describe "associations" do
     it { is_expected.to belong_to :minister }
@@ -160,13 +160,13 @@ describe Pq do
 
       it "returns a hash with states as keys and press-desk/counts as values" do
         expect(Pq.count_accepted_by_press_desk).to eq({
-          PQState::NO_RESPONSE => {
-            @pd1.id => 1
-          },
-          PQState::WITH_POD => {
-            @pd2.id => 2
-          }
-        })
+                                                        PQState::NO_RESPONSE => {
+                                                          @pd1.id => 1
+                                                        },
+                                                        PQState::WITH_POD => {
+                                                          @pd2.id => 2
+                                                        }
+                                                      })
       end
 
       context "when a press desk gets deleted" do
@@ -176,10 +176,10 @@ describe Pq do
 
         it "omits the associated questions from the results" do
           expect(Pq.count_accepted_by_press_desk).to eq({
-            PQState::WITH_POD => {
-              @pd2.id => 2
-            }
-          })
+                                                          PQState::WITH_POD => {
+                                                            @pd2.id => 2
+                                                          }
+                                                        })
         end
       end
     end
@@ -206,14 +206,14 @@ describe Pq do
 
       it "returns a hash with states as keys and minister counts as values" do
         expect(Pq.count_in_progress_by_minister).to eq({
-          PQState::DRAFT_PENDING => {
-            @minister1.id => 1,
-            @minister2.id => 1,
-          },
-          PQState::WITH_MINISTER => {
-            @minister2.id => 1
-          }
-        })
+                                                         PQState::DRAFT_PENDING => {
+                                                           @minister1.id => 1,
+                                                           @minister2.id => 1,
+                                                         },
+                                                         PQState::WITH_MINISTER => {
+                                                           @minister2.id => 1
+                                                         }
+                                                       })
       end
 
       context "when a minister becomes inactive" do
@@ -223,13 +223,13 @@ describe Pq do
 
         it "omits the minister and its related PQ count from the results" do
           expect(Pq.count_in_progress_by_minister).to eq({
-            PQState::DRAFT_PENDING => {
-              @minister2.id => 1,
-            },
-            PQState::WITH_MINISTER => {
-              @minister2.id => 1
-            }
-          })
+                                                           PQState::DRAFT_PENDING => {
+                                                             @minister2.id => 1,
+                                                           },
+                                                           PQState::WITH_MINISTER => {
+                                                             @minister2.id => 1
+                                                           }
+                                                         })
         end
       end
     end
@@ -289,10 +289,10 @@ describe Pq do
   end
 
   describe 'allocated_since' do
-    let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days)}
-    let!(:new_pq1) { create(:not_responded_pq, uin: '20001', action_officer_allocated_at: Time.now + 3.hours)}
-    let!(:new_pq2) { create(:not_responded_pq, uin: 'HL01',  action_officer_allocated_at: Time.now + 5.hours)}
-    let!(:new_pq3) { create(:not_responded_pq, uin: '15000', action_officer_allocated_at: Time.now + 5.hours)}
+    let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days) }
+    let!(:new_pq1) { create(:not_responded_pq, uin: '20001', action_officer_allocated_at: Time.now + 3.hours) }
+    let!(:new_pq2) { create(:not_responded_pq, uin: 'HL01',  action_officer_allocated_at: Time.now + 5.hours) }
+    let!(:new_pq3) { create(:not_responded_pq, uin: '15000', action_officer_allocated_at: Time.now + 5.hours) }
 
     subject { Pq.allocated_since(Time.now) }
 
@@ -403,7 +403,7 @@ describe Pq do
     subject { create(:pq) }
 
     context 'when no officer is assigned' do
-      it { is_expected.not_to be_commissioned}
+      it { is_expected.not_to be_commissioned }
     end
 
     context 'when all assigned officers are rejected' do
@@ -411,7 +411,7 @@ describe Pq do
         subject.action_officers_pqs.create(action_officer: create(:action_officer), response: 'rejected')
       end
 
-      it { is_expected.not_to be_commissioned}
+      it { is_expected.not_to be_commissioned }
     end
 
     context 'when some assigned officers are not rejected' do
@@ -420,7 +420,7 @@ describe Pq do
         subject.action_officers_pqs.create(action_officer: create(:action_officer), response: 'rejected')
       end
 
-      it { is_expected.to be_commissioned}
+      it { is_expected.to be_commissioned }
     end
   end
 
@@ -450,14 +450,14 @@ describe Pq do
 
   it 'should set pod_waiting when users set draft_answer_received' do
     expect(subject).to receive(:set_pod_waiting)
-    subject.update(draft_answer_received: Date.new(2014,9,4))
+    subject.update(draft_answer_received: Date.new(2014, 9, 4))
     subject.save
   end
 
   it '#set_pod_waiting should work as expected' do
     expect(subject.draft_answer_received).to be_nil
     expect(subject.pod_waiting).to be_nil
-    dar = Date.new(2014,9,4)
+    dar = Date.new(2014, 9, 4)
     subject.draft_answer_received = dar
     subject.set_pod_waiting
     expect(subject.pod_waiting).to eq(dar)
@@ -469,93 +469,92 @@ describe Pq do
     end
 
     it 'should have a Uin' do
-      subject.uin=nil
+      subject.uin = nil
       expect(subject).to be_invalid
     end
 
     it 'should have a Raising MP ID' do
-      subject.raising_member_id=nil
+      subject.raising_member_id = nil
       expect(subject).to be_invalid
     end
 
     it 'should have text' do
-      subject.question=nil
+      subject.question = nil
       expect(subject).to be_invalid
     end
 
     it 'should strip any whitespace from uins' do
-      subject.update(uin: ' hl1234' )
+      subject.update(uin: ' hl1234')
       expect(subject).to be_valid
       expect(subject.uin).to eql('hl1234')
-      subject.update(uin: 'hl1234 ' )
+      subject.update(uin: 'hl1234 ')
       expect(subject).to be_valid
       expect(subject.uin).to eql('hl1234')
-      subject.update(uin: ' hl1 234' )
+      subject.update(uin: ' hl1 234')
       expect(subject).to be_valid
       expect(subject.uin).to eql('hl1 234')
     end
 
     context 'multiple action officers'
 
-      let(:pq) do
-        pq = FactoryBot.create(:pq)
-        3.times do
-          ao = FactoryBot.create(:action_officer)
-          pq.action_officers << ao
-        end
-        pq.save
-        pq
+    let(:pq) do
+      pq = FactoryBot.create(:pq)
+      3.times do
+        ao = FactoryBot.create(:action_officer)
+        pq.action_officers << ao
       end
+      pq.save
+      pq
+    end
 
-      it 'should be valid if none accepted' do
-        expect(pq.action_officers_pqs.map(&:response)).to eq([:awaiting, :awaiting, :awaiting])
-        expect(pq).to be_valid
-      end
+    it 'should be valid if none accepted' do
+      expect(pq.action_officers_pqs.map(&:response)).to eq([:awaiting, :awaiting, :awaiting])
+      expect(pq).to be_valid
+    end
 
-      it 'should be valid if only one accepted' do
-        aopq = pq.action_officers_pqs.first
+    it 'should be valid if only one accepted' do
+      aopq = pq.action_officers_pqs.first
+      aopq.response = :accepted
+      aopq.save!
+
+      expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :awaiting, :awaiting])
+      expect(pq).to be_valid
+    end
+
+    it 'should not be valid if multiple accepted but only one of those is active' do
+      ao1 = pq.action_officers.order(:id).first
+      ao1.deleted = true
+      ao1.save!
+      ao2 = pq.action_officers.order(:id)[1]
+      ao2.deleted = true
+      ao2.save!
+      pq.action_officers_pqs.each do |aopq|
         aopq.response = :accepted
         aopq.save!
-
-        expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :awaiting, :awaiting])
-        expect(pq).to be_valid
       end
+      expect(pq.action_officers.order(:id).map(&:deleted)).to eq([true, true, false])
+      expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
+      expect(pq).not_to be_valid
+      expect(pq.errors[:base]).to eq(['Unable to have two action officers accepted on the same question'])
+    end
 
-      it 'should not be valid if multiple accepted but only one of those is active' do
-        ao1 = pq.action_officers.order(:id).first
-        ao1.deleted = true
-        ao1.save!
-        ao2 = pq.action_officers.order(:id)[1]
-        ao2.deleted = true
-        ao2.save!
-        pq.action_officers_pqs.each do |aopq|
-          aopq.response = :accepted
-          aopq.save!
-        end
-        expect(pq.action_officers.order(:id).map(&:deleted)).to eq( [ true, true, false ] )
-        expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
-        expect(pq).not_to be_valid
-        expect(pq.errors[:base]).to eq([ 'Unable to have two action officers accepted on the same question'])
+    it 'should not be valid if multiple accepted active' do
+      pq.action_officers_pqs.each do |aopq|
+        aopq.response = :accepted
+        aopq.save!
       end
-
-
-      it 'should not be valid if multiple accepted active' do
-        pq.action_officers_pqs.each do |aopq|
-          aopq.response = :accepted
-          aopq.save!
-        end
-        expect(pq.action_officers.order(:id).map(&:deleted)).to eq( [ false, false, false ] )
-        expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
-        expect(pq).not_to be_valid
-        expect(pq.errors[:base]).to eq([ 'Unable to have two action officers accepted on the same question'])
-      end
+      expect(pq.action_officers.order(:id).map(&:deleted)).to eq([false, false, false])
+      expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq([:accepted, :accepted, :accepted])
+      expect(pq).not_to be_valid
+      expect(pq.errors[:base]).to eq(['Unable to have two action officers accepted on the same question'])
+    end
   end
 
   describe 'item' do
     it 'should allow finance interest to be set' do
-      subject.finance_interest=true
+      subject.finance_interest = true
       expect(subject).to be_valid
-      subject.finance_interest=false
+      subject.finance_interest = false
       expect(subject).to be_valid
     end
   end

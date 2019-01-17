@@ -9,7 +9,7 @@ feature 'Parli-branch sends reminder email to action officer', js: true, suspend
   before(:all) do
     DBHelpers.load_feature_fixtures
     clear_sent_mail
-    @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
+    @pq, _ = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do

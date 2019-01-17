@@ -1,9 +1,10 @@
 module PQA
   module XMLEncoder
-    XML_NS    = {
+    XML_NS = {
       'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-      'xmlns'     => 'http://data.parliament.uk/QnA/2013/02'
+      'xmlns' => 'http://data.parliament.uk/QnA/2013/02'
     }
+
     module_function
 
     def encode_answer(answer)

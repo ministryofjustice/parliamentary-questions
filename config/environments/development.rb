@@ -35,11 +35,11 @@ ParliamentaryQuestions::Application.configure do
   # to log/logstash_development.json.
   # A side effect of this is that the normal log/development.log will just contain SQL actions and
   # no details of the controller action or parameters.
-      # config.logstasher.enabled = true
-      # config.logstasher.suppress_app_log = true
-      # config.logstasher.log_level = Logger::INFO
-      # config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
-      # config.logstasher.source = 'logstasher'
+  # config.logstasher.enabled = true
+  # config.logstasher.suppress_app_log = true
+  # config.logstasher.log_level = Logger::INFO
+  # config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
+  # config.logstasher.source = 'logstasher'
   # End of custom logging block
 
   # For routes accessed by gecko, we require HTTP basic auth
@@ -51,15 +51,15 @@ ParliamentaryQuestions::Application.configure do
     ActionMailer::Base.delivery_method = :sendmail
     ActionMailer::Base.default :from => Settings.mail_from
     ActionMailer::Base.default :reply_to => Settings.mail_reply_to
-    ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'http', port: '3000'}
+    ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'http', port: '3000' }
     ActionMailer::Base.smtp_settings = {
-        address: ENV['SMTP_HOSTNAME'] || 'localhost',
-        port: ENV['SMTP_PORT'] || 587,
-        domain: sending_host,
-        user_name: ENV['SMTP_USERNAME'] || '',
-        password: ENV['SMTP_PASSWORD'] || '',
-        authentication: :login,
-        enable_starttls_auto: true
+      address: ENV['SMTP_HOSTNAME'] || 'localhost',
+      port: ENV['SMTP_PORT'] || 587,
+      domain: sending_host,
+      user_name: ENV['SMTP_USERNAME'] || '',
+      password: ENV['SMTP_PASSWORD'] || '',
+      authentication: :login,
+      enable_starttls_auto: true
     }
   end
 end

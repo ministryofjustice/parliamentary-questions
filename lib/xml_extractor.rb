@@ -1,5 +1,6 @@
 module XMLExtractor
   module_function
+
   def datetime(node, xpath)
     v = text(node, xpath)
     v && DateTime.parse(v)

@@ -7,7 +7,7 @@ describe 'PQAcceptedMailer' do
   let(:minister_1)     { create(:minister, name: 'Mr Name1 for Test')                          }
   let(:minister_2)     { create(:minister, name: 'Mr Name2 for Test')                          }
   let(:minister_simon) { create(:minister, name: 'Simon Hughes (MP)')                          }
-  let(:dd)             { create(:deputy_director, name: 'Deputy Director', email:'dep@dep.gov')}
+  let(:dd)             { create(:deputy_director, name: 'Deputy Director', email: 'dep@dep.gov') }
 
   before(:each) do
     ActionMailer::Base.deliveries = []
@@ -88,7 +88,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should contain the asking minister ' do
-      member_name =  'Jeremy Snodgrass'
+      member_name = 'Jeremy Snodgrass'
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: member_name, house_name: 'HoL')
 
       trigger_acceptance_mail(pq, ao)
@@ -121,15 +121,12 @@ describe 'PQAcceptedMailer' do
       expect(mail.html_part.body).to include 'https://intranet.justice.gov.uk/documents/2015/09/parliamentary-questions-guidance.pdf'
     end
 
-
     it 'should add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question' do
-
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
 
-      my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: false, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
-      create(:user, name:'Finance Guy2', roles:'FINANCE', deleted: true, email:'financePQ2@wibble.com', password:'bloib2bloib2bloib2bloib2')
-
+      my_finance_email = 'financepq@wibble.com'
+      create(:user, name: 'Finance Guy1', roles: 'FINANCE', deleted: false, email: my_finance_email, password: 'bloibbloibbloibbloibbloib')
+      create(:user, name: 'Finance Guy2', roles: 'FINANCE', deleted: true, email: 'financePQ2@wibble.com', password: 'bloib2bloib2bloib2bloib2')
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
@@ -145,8 +142,8 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
-      my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: false, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      my_finance_email = 'financepq@wibble.com'
+      create(:user, name: 'Finance Guy1', roles: 'FINANCE', deleted: false, email: my_finance_email, password: 'bloibbloibbloibbloibbloib')
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: false)
 
@@ -159,12 +156,11 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should not add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question but is inactive' do
-
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
-      my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: true, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      my_finance_email = 'financepq@wibble.com'
+      create(:user, name: 'Finance Guy1', roles: 'FINANCE', deleted: true, email: my_finance_email, password: 'bloibbloibbloibbloibbloib')
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
@@ -177,7 +173,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should show the date for answer if set' do
-      pq = create(:pq, uin: 'HL789', date_for_answer: Date.new(2014,9,4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+      pq = create(:pq, uin: 'HL789', date_for_answer: Date.new(2014, 9, 4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
       trigger_acceptance_mail(pq, ao)
 

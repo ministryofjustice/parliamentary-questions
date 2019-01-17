@@ -10,7 +10,7 @@ describe Export::PqDefault do
 
   context "For output to Excel" do
     it "Inserts a single quote to escape a formula in Excel" do
-      expect(export.escape_equals_for_excel('=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')).to eq ("'"+'=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')
+      expect(export.escape_equals_for_excel('=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')).to eq ("'" + '=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')
     end
     it "Doesn't alter a value if it doesn't start with an equals" do
       expect(export.escape_equals_for_excel('HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')).to eq ('HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')
@@ -39,20 +39,21 @@ describe Export::PqDefault do
     it "returns unanswered, and non transfered-out pqs, within the supplied date range ordered by UIN" do
       today        = date_s(Date.today)
       yesterday    = date_s(Date.yesterday)
-      exported_pqs = decode_csv(export.to_csv).map do |h|
-        [
-          h['PIN'],
-          h['Full_PQ_subject'],
-          h['Date First Appeared in Parliament'],
-          h['Date response answered by Parly (dept)'],
-        ]
-      end
+      exported_pqs =
+        decode_csv(export.to_csv).map do |h|
+          [
+            h['PIN'],
+            h['Full_PQ_subject'],
+            h['Date First Appeared in Parliament'],
+            h['Date response answered by Parly (dept)'],
+          ]
+        end
 
       expect(exported_pqs).to eq([
-        ['uin-a', 'uin-a body text', yesterday, today],
-        ['uin-c', 'uin-c body text', yesterday, today],
-        ['uin-z', 'uin-z body text', yesterday, today]
-      ])
+                                   ['uin-a', 'uin-a body text', yesterday, today],
+                                   ['uin-c', 'uin-c body text', yesterday, today],
+                                   ['uin-z', 'uin-z body text', yesterday, today]
+                                 ])
     end
   end
 end

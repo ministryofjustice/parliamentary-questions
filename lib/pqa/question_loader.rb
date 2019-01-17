@@ -7,9 +7,10 @@ module PQA
 
     def load_and_import(n = 1, skip_import = false)
       import    = Import.new
-      questions = (1..n).map do |i|
-        QuestionBuilder.default("uin-#{i}")
-      end
+      questions =
+        (1..n).map do |i|
+          QuestionBuilder.default("uin-#{i}")
+        end
       load(questions)
       unless skip_import
         import.run(Date.yesterday, Date.tomorrow)

@@ -1,7 +1,6 @@
 require 'feature_helper'
 
 feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: true do
-
   include Features::PqHelpers
 
   before(:each) do
@@ -19,20 +18,20 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
 
   scenario "Check page elements" do
     initialise
-    within('#count'){
+    within('#count') {
       expect(page).to have_text("3 parliamentary questions")
     }
-    within('#draftReminders'){
+    within('#draftReminders') {
       click_on 'Send Draft Reminders'
       expect(page).to have_text("No PQs selected")
       find(:button, 'Send', disabled: true)
     }
-    within('#editDates'){
+    within('#editDates') {
       click_on 'Edit PQ dates'
       expect(page).to have_text("No PQs selected")
       find(:button, 'Edit', disabled: true)
     }
-    within('#csvExport'){
+    within('#csvExport') {
       click_on 'Export PQs to CSV'
       expect(page).to have_text("No PQs selected")
       find(:button, 'Export', disabled: true)
@@ -42,22 +41,22 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
   scenario "A user selects and de-selects PQs with the 'Select all' checkbox" do
     initialise
     check 'select-all'
-    within('#draftReminders'){
+    within('#draftReminders') {
       click_on 'Send Draft Reminders'
       expect(page).to have_text("3 PQs selected")
       find(:button, 'Send', disabled: false)
     }
-    within('#editDates'){
+    within('#editDates') {
       click_on 'Edit PQ dates'
       expect(page).to have_text("3 PQs selected")
       find(:button, 'Edit', disabled: true)
     }
-    within('#csvExport'){
+    within('#csvExport') {
       click_on 'Export PQs to CSV'
       expect(page).to have_text("3 PQs selected")
       find(:button, 'Export', disabled: false)
     }
-    within('.questions-list'){
+    within('.questions-list') {
       find(:checkbox, 'uin-1', checked: true)
       find(:checkbox, 'uin-2', checked: true)
       find(:checkbox, 'uin-3', checked: true)
@@ -65,24 +64,24 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
 
     # A user de-selects all by clicking 'Select all' checkbox do
     uncheck 'select-all'
-    within('.questions-list'){
+    within('.questions-list') {
       find(:checkbox, 'uin-1', checked: false)
       find(:checkbox, 'uin-2', checked: false)
       find(:checkbox, 'uin-3', checked: false)
     }
 
     # Check the No. of selected PQs is correct
-    within('#draftReminders'){
+    within('#draftReminders') {
       click_on 'Send Draft Reminders'
       expect(page).to have_text("No PQs selected")
       find(:button, 'Send', disabled: true)
     }
-    within('#editDates'){
+    within('#editDates') {
       click_on 'Edit PQ dates'
       expect(page).to have_text("No PQs selected")
       find(:button, 'Edit', disabled: true)
     }
-    within('#csvExport'){
+    within('#csvExport') {
       click_on 'Export PQs to CSV'
       expect(page).to have_text("No PQs selected")
       find(:button, 'Export', disabled: true)
@@ -93,40 +92,40 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
     initialise
 
     # One question
-    within('.questions-list'){
+    within('.questions-list') {
       check 'uin-3'
     }
-    within('#draftReminders'){
+    within('#draftReminders') {
       click_on 'Send Draft Reminders'
       expect(page).to have_text("1 PQ selected")
       find(:button, 'Send', disabled: false)
     }
-    within('#editDates'){
+    within('#editDates') {
       click_on 'Edit PQ dates'
       expect(page).to have_text("1 PQ selected")
       find(:button, 'Edit', disabled: false)
     }
-    within('#csvExport'){
+    within('#csvExport') {
       click_on 'Export PQs to CSV'
       expect(page).to have_text("1 PQ selected")
       find(:button, 'Export', disabled: false)
     }
 
     # Second question
-    within('.questions-list'){
+    within('.questions-list') {
       check 'uin-2'
     }
-    within('#draftReminders'){
+    within('#draftReminders') {
       click_on 'Send Draft Reminders'
       expect(page).to have_text("2 PQs selected")
       find(:button, 'Send', disabled: false)
     }
-    within('#editDates'){
+    within('#editDates') {
       click_on 'Edit PQ dates'
       expect(page).to have_text("2 PQs selected")
       find(:button, 'Edit', disabled: false)
     }
-    within('#csvExport'){
+    within('#csvExport') {
       click_on 'Export PQs to CSV'
       expect(page).to have_text("2 PQs selected")
       find(:button, 'Export', disabled: false)
@@ -152,5 +151,4 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
     accept_commission
     click_link 'In progress'
   end
-
 end

@@ -11,7 +11,6 @@ namespace :bugfix do
     end
   end
 
-
   desc 'fix PQs with multiple action accepted AOs'
   task :ao_fix => :environment do
     uins_to_fix = {
@@ -52,10 +51,7 @@ namespace :bugfix do
   task :prefix_uins => :environment do
     puts "Number of non-prefixed uins #{(Pq.where.not(("uin SIMILAR TO '(#|[ESCAPE *])%'")).count)} "
     Pq.where.not(("uin SIMILAR TO '(#|[ESCAPE *])%'")).update_all("uin='$'||uin")
-    puts "Number of uins with $ prefix #{(Pq.where("uin like ?","$%").count)} "
+    puts "Number of uins with $ prefix #{(Pq.where("uin like ?", "$%").count)} "
     puts "Post-update: Number of non-prefixed uins #{(Pq.where.not(("uin SIMILAR TO '(#|[ESCAPE *]|$)%'")).count)} "
   end
-
-
 end
-

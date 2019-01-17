@@ -23,7 +23,7 @@ class DirectoratesController < ApplicationController
   def create
     @directorate = Directorate.new(directorate_params)
     if @directorate.save
-      flash[:success] ='Directorate was successfully created.'
+      flash[:success] = 'Directorate was successfully created.'
       redirect_to @directorate
     else
       render action: 'new'
@@ -39,8 +39,8 @@ class DirectoratesController < ApplicationController
     end
   end
 
+  private
 
-private
   def set_directorate
     @directorate = Directorate.find(params[:id])
   end

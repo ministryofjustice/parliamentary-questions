@@ -1,0 +1,195 @@
+# Documentation: http://rubocop.readthedocs.io/en/latest/
+
+AllCops:
+  EnabledByDefault: true
+
+  Exclude:
+    - db/schema.rb # Because it's generated.
+
+# Bundler Cops ============================================================================
+
+Bundler/GemComment:
+  Description: Add a comment describing each gem in your Gemfile.
+  Enabled: false
+
+# Layout Cops =============================================================================
+
+Layout/ClassStructure:
+  Description: 'Checks if the code style follows the ExpectedOrder configuration.'
+  Enabled: false
+
+Layout/FirstMethodArgumentLineBreak:
+  Description: 'This cop checks for a line break before the first argument in a multi-line method call.'
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
+  Description: 'This cop checks that the closing brace in a method definition is either on the same line as the last method parameter, or a new line.'
+  Enabled: false
+
+# Lint Cops ===============================================================================
+
+# Naming Cops =============================================================================
+
+Metrics/AbcSize:
+  Description: 'A calculated magnitude based on number of assignments, branches, and conditions.'
+  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
+  Enabled: false
+
+Metrics/BlockLength:
+  Description: 'This cop checks if the length of a block exceeds some maximum value. Comment lines can optionally be ignored. The maximum allowed length is configurable. The cop can be configured to ignore blocks passed to certain methods.'
+  Enabled: false
+
+Metrics/BlockNesting:
+  Description: 'Avoid excessive block nesting'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#three-is-the-number-thou-shalt-count'
+  Max: 4
+
+Metrics/ClassLength:
+  Description: 'Avoid classes longer than 250 lines of code.'
+  Max: 250
+
+Metrics/LineLength:
+  Description: 'Limit lines to 80 characters.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
+  Enabled: false
+
+Metrics/MethodLength:
+  Description: 'Avoid methods longer than 30 lines of code.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
+  Max: 30
+
+Metrics/ModuleLength:
+  Description: 'Avoid modules longer than 250 lines of code.'
+  Max: 250
+
+Metrics/PerceivedComplexity:
+  Description: 'A complexity metric geared towards measuring complexity for a human reader.'
+  Enabled: false
+
+# Naming Cops =============================================================================
+
+# Rails Cops ==============================================================================
+
+Performance/FlatMap:
+  Description: 'Use `Enumerable#flat_map` instead of `Enumerable#map...Array#flatten(1)` or `Enumberable#collect..Array#flatten(1)`'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablemaparrayflatten-vs-enumerableflat_map-code'
+  Enabled: true
+  EnabledForFlattenWithoutParams: false
+  # If enabled, this cop will warn about usages of
+  # `flatten` being called without any parameters.
+  # This can be dangerous since `flat_map` will only flatten 1 level, and
+  # `flatten` without any parameters can flatten multiple levels.
+
+# Rails Cops ==============================================================================
+
+Rails/ApplicationRecord:
+  Description: 'This cop checks that models subclass ApplicationRecord with Rails 5.0.'
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Description: 'This cop checks the migration for which timestamps are not included when creating a new table. In many cases, timestamps are useful information and should be added.'
+  Enabled: false
+
+Rails/FilePath:
+  Description: 'This cop is used to identify usages of file path joining process to use Rails.root.join clause.'
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Description: 'Prefer has_many :through to has_and_belongs_to_many.'
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#has-many-through'
+  Enabled: false # Followed 'rails guide' advice instead http://guides.rubyonrails.org/association_basics.html#choosing-between-has-many-through-and-has-and-belongs-to-many
+
+Rails/HasManyOrHasOneDependent:
+  Description: "This cop looks for has_many or has_one associations that don't specify a :dependent option. It doesn't register an offense if :through option was specified."
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#has_many-has_one-dependent-option'
+  Enabled: false
+
+Rails/InverseOf:
+  Description: "This cop looks for has_(one|many) and belongs_to associations where ActiveRecord can't automatically determine the inverse association because of a scope or the options used. This can result in unnecessary queries in some circumstances. :inverse_of must be manually specified for associations to work in both ways, or set to false or nil to opt-out."
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Description: "This cop checks that methods specified in the filter's only or except options are explicitly defined in the class or module."
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#lexically-scoped-action-filter'
+  Enabled: false
+
+Rails/Output:
+  Description: 'This cop checks for the use of output safety calls like html_safe, raw, and safe_concat. These methods do not escape content. They simply return a SafeBuffer containing the content as is. Instead, use safe_join to join content and escape it and concat to concatenate content and escape it, ensuring its safety.'
+  Enabled: false
+
+Rails/Present:
+  Description: 'This cops checks for code that can be changed to blank?. Settings: NotNilAndNotEmpty: Convert checks for not nil and not empty? to present? NotBlank: Convert usages of not blank? to present? UnlessBlank: Convert usages of unless blank? to if present?'
+  Enabled: false
+
+Rails/SaveBang:
+  Description: 'This cop identifies possible cases where Active Record save! or related should be used instead of save because the model might have failed to save and an exception is better than unhandled failure.'
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#save-bang'
+  Enabled: false
+
+# Security Cops ===========================================================================
+
+# Style Cops ==============================================================================
+
+Style/ConditionalAssignment:
+  Description: 'Check for if and case statements where each branch is used for assignment to the same variable when using the return of the condition can be used instead.'
+  Enabled: false
+
+Style/Copyright:
+  Description: 'Check that a copyright notice was given in each source file.'
+  Enabled: false
+
+Style/Documentation:
+  Description: 'This cop checks for missing top-level documentation of classes and modules. Classes with no body are exempt from the check and so are namespace modules - modules that have nothing in their bodies except classes, other modules, or constant definitions.'
+  Enabled: false
+
+Style/DocumentationMethod:
+  Description: 'This cop checks for missing documentation comment for public methods. It can optionally be configured to also require documentation for non-public methods.'
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Description: 'This cop is designed to help upgrade to Ruby 3.0. It will add the comment # frozen_string_literal: true to the top of files to enable frozen string literals. Frozen string literals may be default in Ruby 3.0. The comment will be added below a shebang and encoding comment. The frozen string literal comment is only valid in Ruby 2.3+.'
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Description: "This cop checks for methods called on a do...end block. The point of this check is that it's easy to miss the call tacked on to the block when reading code."
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Description: 'This cop checks presence of parentheses in method calls containing parameters. By default, macro methods are ignored. Additional methods can be added to the IgnoredMethods list.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#method-invocation-parens'
+  Enabled: false
+
+Style/MissingElse:
+  Description: 'Checks for if expressions that do not have an else branch.'
+  Enabled: false
+
+Style/MixinUsage:
+  Description: 'This cop checks that include, extend and prepend statements appear inside classes and modules, not at the top level, so as to not affect the behavior of Object.'
+  Enabled: false
+
+Style/MutableConstant:
+  Description: "This cop checks whether some constant value isn't a mutable literal (e.g. array or hash)."
+  Enabled: false
+
+Style/RedundantParentheses:
+  Description: 'This cop checks for redundant parentheses.'
+  Enabled: false
+
+Style/RescueStandardError:
+  Description: 'This cop checks for rescuing StandardError. There are two supported styles implicit and explicit. This cop will not register an offense if any error other than StandardError is specified.'
+  Enabled: false
+
+Style/StringHashKeys:
+  Description: 'This cop checks for the use of strings as keys in hashes. The use of symbols is preferred instead.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#symbols-as-keys'
+  Enabled: false
+
+Style/SymbolArray:
+  Description: 'This cop can check for array literals made up of symbols that are not using the %i() syntax.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-i'
+  Enabled: false
+
+Style/UnneededInterpolation:
+  Description: 'This cop checks for strings that are just an interpolated expression.'
+  Enabled: false

@@ -12,12 +12,13 @@ class CommissioningService
 
     ActiveRecord::Base.transaction do
       pq     = build_pq(form)
-      ao_pqs = form.action_officer_id.uniq.map do |ao_id|
-        ActionOfficersPq.create!(
-          pq_id: pq.id,
-          action_officer_id: ao_id
-        )
-      end
+      ao_pqs =
+        form.action_officer_id.uniq.map do |ao_id|
+          ActionOfficersPq.create!(
+            pq_id: pq.id,
+            action_officer_id: ao_id
+          )
+        end
 
       pq.action_officers_pqs << ao_pqs
       pq.update_state!
@@ -60,6 +61,5 @@ class CommissioningService
 
       MailService::Pq.commission_email(mail_params)
     end
-
   end
 end

@@ -12,7 +12,7 @@
 require 'spec_helper'
 
 describe PressDesk do
-  let(:pdesk) {build(:press_desk)}
+  let(:pdesk) { build(:press_desk) }
 
   it 'should pass factory build' do
     expect(pdesk).to be_valid
@@ -35,7 +35,6 @@ describe PressDesk do
 
     expect(pdesk.press_officer_emails).to eql(['po.one@po.com', 'po.two@po.com'])
   end
-
 
   it 'exposes a press_officer_emails method to not include deleted ones' do
     pdesk.press_officers << build(:press_officer, name: 'PO one', email: 'po.one@po.com', deleted: true)

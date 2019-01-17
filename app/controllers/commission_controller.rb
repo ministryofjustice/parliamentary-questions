@@ -5,48 +5,49 @@ class CommissionController < ApplicationController
 
   def commission
     pq     = Pq.find(params[:commission_form][:pq_id])
-    status = checking_valid_dates do
-      form = CommissionForm.new(commission_form_params)
-      if form.valid?
-        CommissioningService.new.commission(form)
-        200
-      else
-        400
+    status =
+      checking_valid_dates do
+        form = CommissionForm.new(commission_form_params)
+        if form.valid?
+          CommissioningService.new.commission(form)
+          200
+        else
+          400
+        end
       end
-    end
 
     flash.now[:error] =
       case status
       when 400
-         'Error in commissioning question' 
-      when 422 
+        'Error in commissioning question'
+      when 422
         'Invalid date input!'
       end
 
     render(partial: 'shared/question_assigned',
-           locals:  { question: pq },
-           status:  status)
+           locals: { question: pq },
+           status: status)
   end
 
   def complete
     @pq = Pq.find_by!(uin: params[:id])
-    render :partial => 'shared/commissioned', :locals => {uin: @pq}
+    render :partial => 'shared/commissioned', :locals => { uin: @pq }
   end
 
   private
 
   def commission_form_params
     params.require(:commission_form)
-      .permit(:pq_id, :minister_id, :policy_minister_id,
-             { action_officer_id: [] },
-             :date_for_answer, :internal_deadline)
+          .permit(:pq_id, :minister_id, :policy_minister_id,
+                  { action_officer_id: [] },
+                  :date_for_answer, :internal_deadline)
   end
 
   def checking_valid_dates
     parse_datetime(params[:commission_form][:date_for_answer])
     parse_datetime(params[:commission_form][:internal_deadline])
     yield
-    rescue DateTimeInputError
-      422
+  rescue DateTimeInputError
+    422
   end
 end

@@ -1,6 +1,5 @@
 module Unit
   module QuestionFactory
-
     def mk_pq(uin, h = {})
       default_h = {
         uin: uin,

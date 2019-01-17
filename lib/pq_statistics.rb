@@ -27,7 +27,7 @@ module PqStatistics
     attr_accessor :start_date, :count, :total
 
     def self.build_from(dates)
-      dates.map { |date| new(date, 0, 0) } 
+      dates.map { |date| new(date, 0, 0) }
     end
 
     def percentage
@@ -53,10 +53,10 @@ module PqStatistics
   end
 
   def bucket_dates
-    @bucket_dates ||= 
+    @bucket_dates ||=
       (BUS_DAY_INTERVAL..WINDOW)
-        .step(BUS_DAY_INTERVAL)
-        .map{ |i| i.business_days.before(bucket_date_0) }
+      .step(BUS_DAY_INTERVAL)
+      .map { |i| i.business_days.before(bucket_date_0) }
   end
 
   def bucket_date_0
@@ -65,7 +65,6 @@ module PqStatistics
 
   def result_by_bucket(events, buckets)
     events.reduce(buckets) do |result, event|
-
       upper_bound = bucket_date_0
 
       result.each do |bucket|
@@ -73,11 +72,10 @@ module PqStatistics
           bucket.update(event)
           break
         end
-        upper_bound = bucket.start_date 
+        upper_bound = bucket.start_date
       end
-      
+
       result
     end
   end
 end
-

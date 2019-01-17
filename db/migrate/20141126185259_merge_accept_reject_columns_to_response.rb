@@ -19,4 +19,3 @@ class MergeAcceptRejectColumnsToResponse < ActiveRecord::Migration[5.0]
     remove_column :action_officers_pqs, :response
   end
 end
-

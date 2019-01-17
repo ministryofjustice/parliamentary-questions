@@ -3,7 +3,7 @@ class EarlyBirdDashboardController < ApplicationController
   before_action :authenticate_user!, PQUserFilter, only: [:preview]
 
   def index
-  	update_page_title('Early bird preview')
+    update_page_title('Early bird preview')
     @now            = Time.now.strftime("%d/%m/%Y")
     @questions      = Pq.new_questions.order(:uin)
     @parliament_url = PQA::RecentQuestionsURL.url(Date.today())
@@ -27,5 +27,4 @@ class EarlyBirdDashboardController < ApplicationController
     page = params.fetch(:page, 1)
     pqs.paginate(page: page, per_page: PER_PAGE)
   end
-
 end

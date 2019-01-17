@@ -9,11 +9,11 @@ module PqFollowup
 
       if follow_up.new_record?
         attrs = attributes
-                  .reject { |k,_| FOLLOW_UP_ATTR_RESET.include?(k) }
-                  .merge('question_type' => 'Follow-up IWW',
-                         'i_will_write'  => true,
-                         'follow_up_to'  => uin,
-                         'state'      => PQState::DRAFT_PENDING)
+                .reject { |k, _| FOLLOW_UP_ATTR_RESET.include?(k) }
+                .merge('question_type' => 'Follow-up IWW',
+                       'i_will_write' => true,
+                       'follow_up_to' => uin,
+                       'state' => PQState::DRAFT_PENDING)
 
         follow_up.update!(attrs)
 
@@ -25,7 +25,6 @@ module PqFollowup
       follow_up
     end
   end
-
 
   def has_follow_up?
     self.class.exists?(follow_up_to: uin)

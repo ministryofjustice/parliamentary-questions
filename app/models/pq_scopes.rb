@@ -1,5 +1,4 @@
 module PqScopes
-
   def allocated_since(since)
     joins(:action_officers_pqs)
       .where('action_officers_pqs.updated_at >= ?', since)
@@ -28,7 +27,7 @@ module PqScopes
   end
 
   def answered_prev_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?",  beginning_of_prev_week, end_of_prev_week)
+    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
   end
 
   def answered_last_week
@@ -44,7 +43,7 @@ module PqScopes
   end
 
   def beginning_of_last_week
-    (Date.today.beginning_of_week) - 8 #Sunday
+    (Date.today.beginning_of_week) - 8 # Sunday
   end
 
   def beginning_of_prev_week
@@ -64,7 +63,7 @@ module PqScopes
   end
 
   def draft_response_on_time_since
-    #For reporting purposes an half hour's grace period is allowed on the internal deadline.
+    # For reporting purposes an half hour's grace period is allowed on the internal deadline.
     not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", parliament_session_start)
   end
 
@@ -81,7 +80,7 @@ module PqScopes
   end
 
   def end_of_last_week
-    (Date.today.beginning_of_week) - 2 #Saturday
+    (Date.today.beginning_of_week) - 2 # Saturday
   end
 
   def end_of_prev_week
@@ -215,5 +214,4 @@ module PqScopes
   def with_pod
     by_status(PQState::WITH_POD)
   end
-
 end

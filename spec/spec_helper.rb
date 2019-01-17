@@ -19,7 +19,6 @@ require "bundler/setup"
 
 ::Shoulda::Matchers.configure do |config|
   config.integrate do |with|
-
     # Choose a test framework:
     with.test_framework :rspec
     # with.test_framework :minitest
@@ -45,7 +44,7 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rrAh OK
   config.include FactoryBot::Syntax::Methods
- # config.include Devise::TestHelpers, type: :controller
+  # config.include Devise::TestHelpers, type: :controller
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Features::EmailHelpers
@@ -92,7 +91,6 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
 end
 
 RSpec::Matchers.define :be_a_multiple_of do |expected|
@@ -117,5 +115,3 @@ RSpec::Matchers.define :eq_gecko_status do |component_name, label, color, messag
     result
   end
 end
-
-

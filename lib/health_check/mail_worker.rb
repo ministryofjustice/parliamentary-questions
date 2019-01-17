@@ -10,7 +10,6 @@ module HealthCheck
       else
         true
       end
-
     rescue => e
       log_unknown_error(e)
       false
@@ -25,7 +24,6 @@ module HealthCheck
       else
         true
       end
-
     rescue => e
       log_unknown_error(e)
       false

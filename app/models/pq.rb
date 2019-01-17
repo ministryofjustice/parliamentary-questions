@@ -69,7 +69,6 @@
 #
 
 class Pq < ActiveRecord::Base
-
   belongs_to :progress
 
   has_paper_trail
@@ -89,12 +88,11 @@ class Pq < ActiveRecord::Base
     end
 
     def all_rejected?
-      all.find{ |assignment| !assignment.rejected? }.nil?
+      all.find { |assignment| !assignment.rejected? }.nil?
     end
   end
 
   has_many :action_officers, :through => :action_officers_pqs do
-
     def all_accepted
       where(action_officers_pqs: { response: 'accepted' })
     end
@@ -109,18 +107,18 @@ class Pq < ActiveRecord::Base
   end
 
   belongs_to :minister
-  belongs_to :policy_minister, :class_name=>'Minister'
-  belongs_to :transfer_out_ogd, :class_name=>'Ogd'
-  belongs_to :transfer_in_ogd, :class_name=>'Ogd'
-  belongs_to :directorate, :class_name=>'Directorate'
+  belongs_to :policy_minister, :class_name => 'Minister'
+  belongs_to :transfer_out_ogd, :class_name => 'Ogd'
+  belongs_to :transfer_in_ogd, :class_name => 'Ogd'
+  belongs_to :directorate, :class_name => 'Directorate'
   belongs_to :original_division, :class_name => 'Division'
 
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
 
-  validates :uin , presence: true, uniqueness:true
-  validates :raising_member_id, presence:true
-  validates :question, presence:true
+  validates :uin, presence: true, uniqueness: true
+  validates :raising_member_id, presence: true
+  validates :question, presence: true
   validate  :transfer_out_consistency
   validate  :sole_accepted_action_officer
   before_update :set_pod_waiting, :set_state_weight
@@ -227,7 +225,7 @@ class Pq < ActiveRecord::Base
   end
 
   def transfer_out_consistency
-    if ( !!transfer_out_date ^ !!transfer_out_ogd_id )
+    if (!!transfer_out_date ^ !!transfer_out_ogd_id)
       errors[:base] << 'Invalid transfer out submission - requires BOTH date and department'
     end
   end

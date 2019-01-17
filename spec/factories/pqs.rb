@@ -84,7 +84,7 @@ FactoryBot.define do
       factory :not_responded_pq do
         state { PQState::NO_RESPONSE }
         internal_deadline { Faker::Date.forward(14) }
-        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
+        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days) }
         minister
 
         transient do
@@ -104,7 +104,7 @@ FactoryBot.define do
       factory :draft_pending_pq do
         state { PQState::DRAFT_PENDING }
         internal_deadline { Faker::Date.forward(14) }
-        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
+        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days) }
         minister
 
         after(:create) do |pq, _|

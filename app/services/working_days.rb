@@ -5,12 +5,13 @@ class WorkingDays
     result = d + v.days
     loop do
       break unless weekend?(result)
+
       result += 1
     end
     result
   end
 
-private
+  private
 
   def self.weekend?(day)
     day.saturday? || day.sunday?

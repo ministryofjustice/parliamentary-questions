@@ -1,12 +1,12 @@
 require_relative 'gecko_status'
 
 class GeckoCollection
-  attr_reader :key_metric, 
-              :db, 
-              :sendgrid, 
-              :pqa_api, 
-              :mail, 
-              :pqa_import, 
+  attr_reader :key_metric,
+              :db,
+              :sendgrid,
+              :pqa_api,
+              :mail,
+              :pqa_import,
               :smoke_tests
 
   def initialize
@@ -15,7 +15,7 @@ class GeckoCollection
     @sendgrid    = SendgridStatus.new
     @pqa_api     = PqaApiStatus.new
     @mail        = MailStatus.new
-    @pqa_import  = PqaImportStatus.new 
+    @pqa_import  = PqaImportStatus.new
     @smoke_tests = SmokeTestStatus.new
   end
 

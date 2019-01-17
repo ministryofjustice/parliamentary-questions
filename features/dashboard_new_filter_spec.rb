@@ -1,7 +1,6 @@
 require 'feature_helper'
 
 feature "User filters 'New' dashboard  questions", js: true, suspend_cleaner: true do
-
   include Features::PqHelpers
 
   before(:all) do
@@ -121,5 +120,4 @@ feature "User filters 'New' dashboard  questions", js: true, suspend_cleaner: tr
       expect(page).not_to have_text(q3)
     }
   end
-
 end

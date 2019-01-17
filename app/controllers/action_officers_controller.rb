@@ -4,9 +4,9 @@ class ActionOfficersController < ApplicationController
   def index
     @action_officers =
       ActionOfficer.all
-        .joins(:deputy_director => :division)
-        .order(Arel.sql('lower(divisions.name)'))
-        .order(Arel.sql('lower(action_officers.name)'))
+                   .joins(:deputy_director => :division)
+                   .order(Arel.sql('lower(divisions.name)'))
+                   .order(Arel.sql('lower(action_officers.name)'))
     update_page_title 'Action officers'
   end
 
@@ -34,8 +34,8 @@ class ActionOfficersController < ApplicationController
   end
 
   def edit
-   loading_existing_records
-   update_page_title 'Edit action officer'
+    loading_existing_records
+    update_page_title 'Edit action officer'
   end
 
   def update

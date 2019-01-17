@@ -4,12 +4,12 @@ module SmokeTest
   #
   extend self
 
-  ALL = 
-  [ 
-    SmokeTest::Dashboard,
-    SmokeTest::Report,
-    SmokeTest::Statistics
-  ]
+  ALL =
+    [
+      SmokeTest::Dashboard,
+      SmokeTest::Report,
+      SmokeTest::Statistics
+    ]
 
   def factory
     ALL.map(&:from_env)

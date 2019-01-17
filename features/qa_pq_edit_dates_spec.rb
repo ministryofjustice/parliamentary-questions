@@ -1,7 +1,6 @@
 require 'feature_helper'
 
 feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true do
-
   include Features::PqHelpers
 
   before(:each) do
@@ -17,7 +16,7 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     DatabaseCleaner.clean
   end
 
-  let(:testDate) { (Date.today+3).to_s + ' 12:00' }
+  let(:testDate) { (Date.today + 3).to_s + ' 12:00' }
 
   scenario "Check all elements are present" do
     initialise
@@ -107,15 +106,15 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     expect(page).to have_css('.pq-msg-success.fade.in', text: 'Date(s) updated')
     within('#pq-frame-1') { click_link('uin-1') }
     click_link(tabLink)
-    expect(page).to have_field('pq['+dateField+']', with: '')
+    expect(page).to have_field('pq[' + dateField + ']', with: '')
     click_link 'In progress'
     within('#pq-frame-2') { click_link('uin-2') }
     click_link(tabLink)
-    expect(page).to have_field('pq['+dateField+']', with: '')
+    expect(page).to have_field('pq[' + dateField + ']', with: '')
     click_link 'In progress'
     within('#pq-frame-3') { click_link('uin-3') }
     click_link(tabLink)
-    expect(page).to have_field('pq['+dateField+']', with: testDate)
+    expect(page).to have_field('pq[' + dateField + ']', with: testDate)
     click_link 'In progress'
   end
 end

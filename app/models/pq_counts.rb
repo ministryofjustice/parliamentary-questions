@@ -26,7 +26,7 @@ module PqCounts
       .group(:state, :minister_id)
       .reduce({}) { |acc, r|
         h = { r.minister_id => r.count }
-        acc.merge(r.state => h ) { |_, old_v, new_v| old_v.merge(new_v) }
+        acc.merge(r.state => h) { |_, old_v, new_v| old_v.merge(new_v) }
       }
   end
 
@@ -45,24 +45,25 @@ module PqCounts
       .group('state, ao.press_desk_id')
       .reduce({}) { |acc, r|
         h = { r.press_desk_id => r.count }
-        acc.merge(r.state => h ) { |_, old_v, new_v| old_v.merge(new_v) }
+        acc.merge(r.state => h) { |_, old_v, new_v| old_v.merge(new_v) }
       }
   end
 
   # Returns a hash of PQ counts by state
   #
   # @returns [Hash[String, Fixnum]]
-  # 
+  #
   def counts_by_state
-    state_counts = select('state', 'count(*)')
-                     .group('state')
-                     .reduce({}) { |acc, r| acc.merge(r.state => r.count) }
+    state_counts =
+      select('state', 'count(*)')
+      .group('state')
+      .reduce({}) { |acc, r| acc.merge(r.state => r.count) }
 
     state_counts.merge({
-      'view_all'             => Pq.new_questions.count,
-      'view_all_in_progress' => Pq.in_progress.count,
-      'transferred_in'       => Pq.transferred.count,
-      'iww'                  => Pq.i_will_write_flag.count
-    })
+                         'view_all' => Pq.new_questions.count,
+                         'view_all_in_progress' => Pq.in_progress.count,
+                         'transferred_in' => Pq.transferred.count,
+                         'iww' => Pq.i_will_write_flag.count
+                       })
   end
 end

@@ -21,14 +21,16 @@ module Presenters
 
     def self.build(report_h, records, states, title)
       header_cells = records.map { |r| present_cell(r) }
-      rows         = states.map do |state|
-        counts = report_h.fetch(state, {})
-        cells  = records.map do |r|
-          count = counts.fetch(r.id, 0)
-          present_count_cell(count, r, state)
+      rows         =
+        states.map do |state|
+          counts = report_h.fetch(state, {})
+          cells =
+            records.map do |r|
+              count = counts.fetch(r.id, 0)
+              present_count_cell(count, r, state)
+            end
+          Row.new(state, cells)
         end
-        Row.new(state, cells)
-      end
 
       new(header_cells, rows, title)
     end

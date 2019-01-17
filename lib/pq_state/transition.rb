@@ -21,7 +21,7 @@ module PQState
     end
 
     def self.factory(state_froms, state_tos, &block)
-      state_froms.product(state_tos).map do | from, to|
+      state_froms.product(state_tos).map do |from, to|
         new(from, to, block)
       end
     end

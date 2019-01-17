@@ -10,24 +10,24 @@ module RakeTaskHelpers
 
     def self.from_config(path = DEFAULT_CONFIG_PATH)
       unless ENV['TEST_USER_PASS']
-        raise 'TEST_USER_PASS environment variable not set - please set it first' 
+        raise 'TEST_USER_PASS environment variable not set - please set it first'
       end
 
       config       = YAML.load(File.read(path))
       default_pass = ENV['TEST_USER_PASS']
       prefix       = config['prefix']
-      
+
       new(
         FullTester.factory(
-          config['full_testers'], 
+          config['full_testers'],
           default_pass,
           prefix
-        ) + 
+        ) +
         RestrictedTester.factory(
-          config['restricted_testers'], 
+          config['restricted_testers'],
           default_pass,
           prefix
-        ) 
+        )
       )
     end
 
@@ -35,7 +35,7 @@ module RakeTaskHelpers
       testers.each { |tester| tester.create_fixtures! }
     end
 
-    private 
+    private
 
     def initialize(testers)
       @testers = testers

@@ -15,18 +15,18 @@ class MetricsDashboard
 
   private
 
-  def collect_metrics!  
-    @metrics.to_h.values.each(&:collect!)    
+  def collect_metrics!
+    @metrics.to_h.values.each(&:collect!)
   end
 
   def metric_factory
     OpenStruct.new({
-      key_metric:  Metrics::KeyMetric.new,
-      health:      Metrics::Health.new,
-      application: Metrics::Application.new,
-      smoke_tests: Metrics::SmokeTests.new,
-      mail:        Metrics::Mail.new,
-      pqa_import:  Metrics::PqaImport.new
-    })
+                     key_metric: Metrics::KeyMetric.new,
+                     health: Metrics::Health.new,
+                     application: Metrics::Application.new,
+                     smoke_tests: Metrics::SmokeTests.new,
+                     mail: Metrics::Mail.new,
+                     pqa_import: Metrics::PqaImport.new
+                   })
   end
 end

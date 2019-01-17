@@ -1,6 +1,5 @@
 module Redeploy
   class PqStateComparer
-
     def initialize
       @results = []
     end
@@ -10,9 +9,9 @@ module Redeploy
     end
 
     def run
-      record_set = Pq.joins(:progress).
-        where("replace(upper(pqs.state), ' ', '_') != replace(upper(progresses.name), ' ', '_')").
-        order(:id)
+      record_set = Pq.joins(:progress)
+                     .where("replace(upper(pqs.state), ' ', '_') != replace(upper(progresses.name), ' ', '_')")
+                     .order(:id)
 
       record_set.each do |r|
         @results << OpenStruct.new(id: r.id, uin: r.uin, state: r.state, progress: r.progress.name)

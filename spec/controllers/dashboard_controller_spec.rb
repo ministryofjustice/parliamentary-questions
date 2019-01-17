@@ -2,9 +2,7 @@ require 'spec_helper'
 require "#{Rails.root}/spec/support/features/session_helpers"
 
 describe DashboardController, type: :controller do
-
   context 'dashboard sorting' do
-
     describe 'GET backlog' do
       it 'should sort the Backlog questions by date and state weight and return them all' do
         setup_questions
@@ -48,7 +46,6 @@ describe DashboardController, type: :controller do
         expect(assigns(:questions).map(&:uin)).to eq expected_order_of_new_questions
       end
     end
-
   end
 end
 
@@ -63,7 +60,7 @@ end
 def setup_i_will_write_questions
   setup_questions
   questions = Pq.where('state NOT IN (?)', PQState::CLOSED)
-  questions.each { |q| q.update_attributes( { i_will_write: true} ) }
+  questions.each { |q| q.update_attributes({ i_will_write: true }) }
 end
 
 def setup_questions
@@ -81,56 +78,56 @@ end
 
 def expected_order_of_new_questions
   [
-    "UIN-"+ Date.today.strftime('%m%d') + ":no_response-11",
-    "UIN-"+ Date.today.strftime('%m%d') + ":rejected-21",
-    "UIN-"+ Date.today.strftime('%m%d') + ":unassigned-01",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":no_response-12",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":rejected-22",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":unassigned-02",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":no_response-10",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":rejected-20",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":unassigned-00"
+    "UIN-" + Date.today.strftime('%m%d') + ":no_response-11",
+    "UIN-" + Date.today.strftime('%m%d') + ":rejected-21",
+    "UIN-" + Date.today.strftime('%m%d') + ":unassigned-01",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":no_response-12",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":rejected-22",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":unassigned-02",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":no_response-10",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":rejected-20",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":unassigned-00"
   ]
 end
 
 def expected_order_of_overdue_questions
   [
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":minister_cleared-90",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":pod_cleared-60",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":with_minister-70",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":ministerial_query-80",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":with_pod-40",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":pod_query-50",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":draft_pending-30",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":no_response-10",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":rejected-20",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":unassigned-00"
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":minister_cleared-90",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":pod_cleared-60",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":with_minister-70",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":ministerial_query-80",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":with_pod-40",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":pod_query-50",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":draft_pending-30",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":no_response-10",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":rejected-20",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":unassigned-00"
   ]
 end
 
 def expected_order_in_progress_questions
   [
-    "UIN-"+ Date.today.strftime('%m%d') +":minister_cleared-91",
-    "UIN-"+ Date.today.strftime('%m%d') +":pod_cleared-61",
-    "UIN-"+ Date.today.strftime('%m%d') +":with_minister-71",
-    "UIN-"+ Date.today.strftime('%m%d') +":ministerial_query-81",
-    "UIN-"+ Date.today.strftime('%m%d') +":with_pod-41",
-    "UIN-"+ Date.today.strftime('%m%d') +":pod_query-51",
-    "UIN-"+ Date.today.strftime('%m%d') +":draft_pending-31",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') +":minister_cleared-92",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') +":pod_cleared-62",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') +":with_minister-72",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') +":ministerial_query-82",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') +":with_pod-42",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') +":pod_query-52",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') +":draft_pending-32"
+    "UIN-" + Date.today.strftime('%m%d') + ":minister_cleared-91",
+    "UIN-" + Date.today.strftime('%m%d') + ":pod_cleared-61",
+    "UIN-" + Date.today.strftime('%m%d') + ":with_minister-71",
+    "UIN-" + Date.today.strftime('%m%d') + ":ministerial_query-81",
+    "UIN-" + Date.today.strftime('%m%d') + ":with_pod-41",
+    "UIN-" + Date.today.strftime('%m%d') + ":pod_query-51",
+    "UIN-" + Date.today.strftime('%m%d') + ":draft_pending-31",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":minister_cleared-92",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":pod_cleared-62",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":with_minister-72",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":ministerial_query-82",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":with_pod-42",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":pod_query-52",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":draft_pending-32"
   ]
 end
 
 def expected_order_of_unassigned_questions
   [
-    "UIN-"+ Date.today.strftime('%m%d') + ":unassigned-01",
-    "UIN-"+ Date.tomorrow.strftime('%m%d') + ":unassigned-02",
-    "UIN-"+ Date.yesterday.strftime('%m%d') + ":unassigned-00"
+    "UIN-" + Date.today.strftime('%m%d') + ":unassigned-01",
+    "UIN-" + Date.tomorrow.strftime('%m%d') + ":unassigned-02",
+    "UIN-" + Date.yesterday.strftime('%m%d') + ":unassigned-00"
   ]
 end

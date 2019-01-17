@@ -15,7 +15,7 @@ class HTTPClient
     req  = build_request(method, uri, body)
     http = handle_https(uri, Net::HTTP.new(uri.hostname, uri.port))
     res  = http.request(req)
-    
+
     case res.code
     when /^2/
       res
@@ -27,7 +27,7 @@ class HTTPClient
   class FailureResponse < StandardError
     def initialize(request, response)
       super("PQ rest API responded with non success code: #{response.code}," +
-            " response: #{response.body} (request: #{request.inspect})")
+        " response: #{response.body} (request: #{request.inspect})")
     end
   end
 
@@ -49,14 +49,15 @@ class HTTPClient
   end
 
   def build_request(method, uri, body)
-    req = case method
-          when :put
-            r = Net::HTTP::Put.new(uri)
-            r.body = body
-            r
-          else
-            Net::HTTP::Get.new(uri)
-          end
+    req =
+      case method
+      when :put
+        r = Net::HTTP::Put.new(uri)
+        r.body = body
+        r
+      else
+        Net::HTTP::Get.new(uri)
+      end
 
     req.basic_auth(@username, @password) if @username && @password
     req

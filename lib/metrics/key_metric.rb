@@ -1,7 +1,7 @@
 module Metrics
   class KeyMetric < Component
     attr_reader :alert
-    
+
     def initialize
       @alert = false
     end

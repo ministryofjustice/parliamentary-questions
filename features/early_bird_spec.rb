@@ -29,7 +29,7 @@ feature "Early bird member sees allocated questions", suspend_cleaner: true do
 
   scenario 'Early bird members can view the new questions for today' do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+    visit early_bird_preview_path # '/early_bird/preview'
 
     expect(page).to have_text(/1 new parliamentary questions/i)
   end

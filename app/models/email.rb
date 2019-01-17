@@ -38,9 +38,9 @@ class Email < ActiveRecord::Base
 
   serialize :params
 
-  scope :new_only,  -> { where(status: 'new' ).order(:id)             }
-  scope :waiting,   -> { where(status: ['new', 'failed']).order(:id)  }
-  scope :abandoned, -> { where(status: 'abandoned' ).order(:id)       }
+  scope :new_only,  -> { where(status: 'new').order(:id) }
+  scope :waiting,   -> { where(status: ['new', 'failed']).order(:id) }
+  scope :abandoned, -> { where(status: 'abandoned').order(:id) }
 
   private
 
@@ -65,6 +65,6 @@ class Email < ActiveRecord::Base
   end
 
   def all_valid_emails?(emails)
-    emails.all?{ |email| email.strip =~ EMAIL_REGEXP } 
+    emails.all? { |email| email.strip =~ EMAIL_REGEXP }
   end
 end

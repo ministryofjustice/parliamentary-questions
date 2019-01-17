@@ -7,7 +7,7 @@ feature 'Exporting PQ data to CSV' do
 
   before(:all) do
     DBHelpers.load_feature_fixtures
-    @pqs =  PQA::QuestionLoader.new.load_and_import(3)
+    @pqs = PQA::QuestionLoader.new.load_and_import(3)
   end
 
   scenario 'Parli-branch can export pq data as CSV' do

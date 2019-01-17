@@ -6,7 +6,6 @@ before(:each) do
 end
 
 describe 'geturl' do
-
   it 'gives Friday-Monday url on a Monday' do
     this_day = Date.today.beginning_of_week
     previous_day = 1.business_days.before(this_day)
@@ -21,5 +20,4 @@ describe 'geturl' do
     expect(url).to include(this_day.strftime("%F"))
     expect(url).to include(previous_day.strftime("%F"))
   end
-
 end

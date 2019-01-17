@@ -1,8 +1,8 @@
 module Metrics
   class Health < Component
-    attr_reader :db_status, 
-                :sendgrid_status, 
-                :pqa_api_status, 
+    attr_reader :db_status,
+                :sendgrid_status,
+                :pqa_api_status,
                 :pqa_api_error_message
 
     def collect!
@@ -66,7 +66,7 @@ module Metrics
 
       def initialize(path)
         timestamp, status, _ = File.read(path).split('::')
-        
+
         @last_run_time = Time.at(timestamp.to_i).utc
         @status        = status
       end

@@ -50,7 +50,6 @@ class User < ActiveRecord::Base
          :lockable, :timeoutable,
          :validatable, :validate_on_invite => true
 
-
   validates :name, presence: true
   validates :roles, presence: true
 

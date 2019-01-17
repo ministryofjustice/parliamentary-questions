@@ -33,7 +33,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
 
   scenario 'Attempting to transfer a PQ with invalid inputs shows an error on the page' do
     invalid_date = 'A' * 51
-    create_transferred_pq('invalid-uin-1', 'question_text', invalid_date )
+    create_transferred_pq('invalid-uin-1', 'question_text', invalid_date)
 
     expect(page.title).to have_text("")
     expect(page).not_to have_content('Transferred PQ was successfully created')

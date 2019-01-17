@@ -3,7 +3,6 @@ require 'feature_helper'
 describe HealthCheck::PqaApi do
   let(:pqa) { HealthCheck::PqaApi.new }
 
-
   describe '.time_to_run?' do
     it 'should be true if the timestamp file does not exist' do
       delete_timestamp_file
@@ -68,11 +67,10 @@ describe HealthCheck::PqaApi do
         .and_raise(StandardError)
 
       pqa.available?
-      
+
       expect(pqa.error_messages.first).to match /Error: StandardError\nDetails/
     end
   end
-
 
   context '#record_result' do
     it 'should write timestamp and OK if no error messages' do
@@ -81,10 +79,10 @@ describe HealthCheck::PqaApi do
         expect(contents_of_timestamp_file).to eq "1431099345::OK::[]\n"
       end
     end
-    
+
     it 'should write timestamp and FAIL and error messages if any errors' do
       Timecop.freeze(Time.utc(2015, 5, 8, 15, 35, 45)) do
-        pqa.instance_variable_set(:@errors, [ 'First error message', 'Second error message' ] )
+        pqa.instance_variable_set(:@errors, ['First error message', 'Second error message'])
         pqa.record_result
         expect(contents_of_timestamp_file).to eq "1431099345::FAIL::[\"First error message\",\"Second error message\"]\n"
       end
@@ -92,13 +90,11 @@ describe HealthCheck::PqaApi do
   end
 end
 
-
 def contents_of_timestamp_file
   File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, 'r') do |fp|
     fp.gets
   end
 end
-
 
 def delete_timestamp_file
   if File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)

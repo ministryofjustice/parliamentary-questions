@@ -1,5 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
-private
+  private
 
   def invite_resource
     resource_class.invite!(invite_params, current_inviter) do |u|
@@ -20,5 +20,3 @@ private
     params.require(:user).permit(:password, :password_confirmation, :name, :email, :roles, :invitation_token)
   end
 end
-
-

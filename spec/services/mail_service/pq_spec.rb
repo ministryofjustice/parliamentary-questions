@@ -11,26 +11,26 @@ describe MailService::Pq do
     service.commission_email(params)
 
     expect(Email.first.attributes).to include({
-      'mailer'            => 'PqMailer',
-      'method'            => 'commission_email',
-      'params'            => params,
-      'from'              => Settings.commission_mail_from,
-      'to'                => email_to,
-      'reply_to'          => Settings.mail_reply_to,
-    })
+                                                'mailer' => 'PqMailer',
+                                                'method' => 'commission_email',
+                                                'params' => params,
+                                                'from' => Settings.commission_mail_from,
+                                                'to' => email_to,
+                                                'reply_to' => Settings.mail_reply_to,
+                                              })
   end
 
   it '#notify_dd_email - should create a dd notification email db record' do
     service.notify_dd_email(params)
 
     expect(Email.first.attributes).to include({
-      'mailer'            => 'PqMailer',
-      'method'            => 'notify_dd_email',
-      'params'            => params,
-      'from'              => Settings.mail_from,
-      'to'                => email_to,
-      'reply_to'          => Settings.mail_reply_to,
-    })
+                                                'mailer' => 'PqMailer',
+                                                'method' => 'notify_dd_email',
+                                                'params' => params,
+                                                'from' => Settings.mail_from,
+                                                'to' => email_to,
+                                                'reply_to' => Settings.mail_reply_to,
+                                              })
   end
 
   it '#acceptance_email - should create an acceptance email db record' do
@@ -39,9 +39,9 @@ describe MailService::Pq do
     service.acceptance_email(pq, ao)
 
     expect(Email.first.attributes).to include({
-      'method' => 'acceptance_email',
-      'params' => params
-    })
+                                                'method' => 'acceptance_email',
+                                                'params' => params
+                                              })
   end
 
   it '#acceptance_reminder_email - should create an acceptance reminder email db record' do
@@ -50,9 +50,9 @@ describe MailService::Pq do
     service.acceptance_reminder_email(pq, ao)
 
     expect(Email.first.attributes).to include({
-      'method' => 'acceptance_reminder_email',
-      'params' => params
-    })
+                                                'method' => 'acceptance_reminder_email',
+                                                'params' => params
+                                              })
   end
 
   it '#draft_reminder_email - should create a draft reminder email db record' do
@@ -61,9 +61,9 @@ describe MailService::Pq do
     service.draft_reminder_email(pq, ao)
 
     expect(Email.first.attributes).to include({
-      'method' => 'draft_reminder_email',
-      'params' => params
-    })
+                                                'method' => 'draft_reminder_email',
+                                                'params' => params
+                                              })
   end
 
   it '#watchlist_email - should create a watchlist email db record' do
@@ -71,10 +71,10 @@ describe MailService::Pq do
       service.watchlist_email(params)
 
       expect(Email.first.attributes).to include({
-        'method' => 'watchlist_email',
-        'cc'     => email_to,
-        'params' => params.merge({ date: Date.today.to_s(:date)})
-      })
+                                                  'method' => 'watchlist_email',
+                                                  'cc' => email_to,
+                                                  'params' => params.merge({ date: Date.today.to_s(:date) })
+                                                })
     end
   end
 end

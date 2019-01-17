@@ -64,7 +64,7 @@ describe Metrics::Health do
 
     context 'PQA API' do
       let(:pqa_file) { Metrics::Health::PqaFile }
-      let(:pqa_data) {  "1431099345::OK::[]\n"  }
+      let(:pqa_data) { "1431099345::OK::[]\n" }
 
       before(:each) do
         allow(subject).to receive(:get_db_status).and_return(true)
@@ -78,7 +78,7 @@ describe Metrics::Health do
         allow_any_instance_of(pqa_file).to receive(:status).and_return(status)
       end
 
-      it 'should set the pqa api status to false if the api status check is not OK' do        
+      it 'should set the pqa api status to false if the api status check is not OK' do
         set_properties(true, false, 'Not OK')
         subject.collect!
 

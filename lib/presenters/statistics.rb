@@ -1,7 +1,6 @@
 module Presenters
   # Here the statistics
   module Statistics
-
     module_function
 
     Link = Struct.new(:name, :path, :description)
@@ -154,5 +153,3 @@ module Presenters
     end
   end
 end
-
-

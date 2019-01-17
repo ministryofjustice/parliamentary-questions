@@ -11,7 +11,6 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     @ao                 = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister           = Minister.first
     @uin1, @uin2, @uin3 = pq1.uin, pq2.uin, pq3.uin
-
   end
 
   before(:each) do
@@ -75,7 +74,6 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     clear_sent_mail
     commission_question(@uin2, [@ao], @minister)
     accept_assignment(@ao)
-
 
     in_pq_detail(@uin2, "PQ draft")       { fillin_date('#draft_answer_received') }
     in_pq_detail(@uin2, "POD check")      { check "POD query flag" }

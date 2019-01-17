@@ -1,4 +1,4 @@
-class PingController  < ApplicationController
+class PingController < ApplicationController
   respond_to :json
 
   def index

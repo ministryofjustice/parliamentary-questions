@@ -7,8 +7,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
     DBHelpers.load_feature_fixtures
 
     clear_sent_mail
-    @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
-
+    @pq, _ = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do
@@ -33,7 +32,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
     create_pq_session
     visit pq_path(@pq.uin)
     click_on "PQ commission"
-    first('a', text:'Manually reject this action officer').click
+    first('a', text: 'Manually reject this action officer').click
     expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).to have_content("#{@pq.uin} manually rejected")
 
@@ -48,7 +47,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
     create_pq_session
     visit pq_path(@pq.uin)
     click_on "PQ commission"
-    first('a', text:'Manually reject this action officer').click
+    first('a', text: 'Manually reject this action officer').click
     expect_pq_status(@pq.uin, "Rejected")
 
     within_pq(@pq.uin) do

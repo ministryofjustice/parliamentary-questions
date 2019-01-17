@@ -44,8 +44,8 @@ class PqMailer < PQBaseMailer
 
     mail(
       mail_data.addressees.merge({
-        subject:  subject
-      })
+                                   subject: subject
+                                 })
     )
   end
 end

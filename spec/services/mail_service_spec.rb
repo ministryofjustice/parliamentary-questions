@@ -4,7 +4,7 @@ describe MailService do
   let(:service)  { MailService               }
   let!(:default) { create(:pq_email)         }
   let!(:sent)    { create(:pq_email_sent)    }
-  let!(:failed)  { create(:pq_email_failed)  }  
+  let!(:failed)  { create(:pq_email_failed)  }
 
   it '#mail_to_send - returns email in new/failed states' do
     expect(service.mail_to_send).to eq [default, failed]
@@ -21,7 +21,6 @@ describe MailService do
 
     expect(service.new_mail).to eq [default]
   end
-
 
   it '#record_attempt - updates db fields for a send attempt' do
     service.record_attempt(default)
@@ -51,10 +50,10 @@ describe MailService do
   end
 
   it '#send_mail - calls the relevant mailer to send a db record' do
-    mail_data = 
+    mail_data =
       MailService::MailData.new(
-        default.to, 
-        default.from, 
+        default.to,
+        default.from,
         default.cc,
         default.reply_to,
         default.params
@@ -65,4 +64,3 @@ describe MailService do
     service.send_mail(default)
   end
 end
-

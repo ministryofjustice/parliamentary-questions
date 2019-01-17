@@ -6,9 +6,11 @@ describe PQState do
   let(:transitions) {
     pred = proc { true }
 
-    [PQState::Transition.new('a', 'b', pred),
-     PQState::Transition.new('b', 'c', pred),
-     PQState::Transition.new('c', 'final_state', pred)]
+    [
+      PQState::Transition.new('a', 'b', pred),
+      PQState::Transition.new('b', 'c', pred),
+      PQState::Transition.new('c', 'final_state', pred)
+    ]
   }
 
   let(:state_machine) {

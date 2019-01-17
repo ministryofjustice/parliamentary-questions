@@ -11,7 +11,6 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     @iww_uin  = "#{@uin}-IWW"
     @ao       = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister = Minister.first
-
   end
 
   before(:each) do

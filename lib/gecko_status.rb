@@ -42,7 +42,7 @@ class KeyMetricStatus < GeckoStatus
     super('Key Metric')
   end
 
-  def update(metrics) 
+  def update(metrics)
     metrics.key_metric.alert ? error('Key metric below threshold') : ok
     self
   end
@@ -53,7 +53,7 @@ class DbStatus < GeckoStatus
     super('Database')
   end
 
-  def update(metrics) 
+  def update(metrics)
     metrics.health.db_status ? ok : error('Database inaccessible')
     self
   end
@@ -64,7 +64,7 @@ class SendgridStatus < GeckoStatus
     super('Sendgrid')
   end
 
-  def update(metrics) 
+  def update(metrics)
     metrics.health.sendgrid_status ? ok : error("Unable to contact sendgrid")
     self
   end
@@ -89,7 +89,7 @@ class MailStatus < GeckoStatus
   def update(metrics)
     if metrics.mail.email_error?
       error(
-        "Mails Waiting: #{metrics.mail.num_waiting} :: " + 
+        "Mails Waiting: #{metrics.mail.num_waiting} :: " +
         "Mails Abandoned: #{metrics.mail.num_abandoned}"
       )
     elsif metrics.mail.token_error?
@@ -107,7 +107,7 @@ end
 
 class PqaImportStatus < GeckoStatus
   def initialize
-    super('PQ Import') 
+    super('PQ Import')
   end
 
   def update(metrics)

@@ -39,7 +39,7 @@ module MailService
 
   def record_attempt(email)
     email.update(
-      status:            'sending',
+      status: 'sending',
       send_attempted_at: DateTime.now,
       num_send_attempts: email.num_send_attempts + 1
     )
@@ -59,9 +59,9 @@ module MailService
     Struct.new(:to, :from, :cc, :reply_to, :params) do
       def addressees
         {
-          to:       to,
-          from:     from,
-          cc:       cc,
+          to: to,
+          from: from,
+          cc: cc,
           reply_to: reply_to
         }
       end

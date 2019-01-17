@@ -1,14 +1,13 @@
 require 'spec_helper'
 
 describe 'ActionOfficerReminderMailer' do
-  let(:ao) { create(:action_officer,  name: 'ao name 1', email: 'ao@ao.gov') }
+  let(:ao) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov') }
   let(:minister_1) { create(:minister, name: 'Mr Name1 for Test') }
 
   before(:each) do
     ActionMailer::Base.deliveries = []
-    @pq = create(:pq, uin: 'HL789', question: 'test question?', member_name:'Asking MP', minister_id: minister_1.id, house_name: 'House of Lords')
+    @pq = create(:pq, uin: 'HL789', question: 'test question?', member_name: 'Asking MP', minister_id: minister_1.id, house_name: 'House of Lords')
     @ao_pq = ActionOfficersPq.new(action_officer_id: ao.id, pq_id: @pq.id)
-
   end
 
   describe 'Accept reminder' do
@@ -49,7 +48,6 @@ describe 'ActionOfficerReminderMailer' do
         mail = ActionMailer::Base.deliveries.first
         expect(mail.text_part.body).to include @pq.internal_deadline
       end
-
     end
   end
 end

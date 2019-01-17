@@ -31,7 +31,7 @@ ParliamentaryQuestions::Application.routes.draw do
 
   devise_for :users, :controllers => { :invitations => 'users/invitations', sessions: 'users/sessions' }
   resources  :users
-  resources :pqs, only: [ :index, :show, :update ]
+  resources :pqs, only: [:index, :show, :update]
   resources :trim_links
 
   get 'trim_links/new/:id' => 'trim_links#new'
@@ -80,7 +80,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'early_bird/preview'     => 'early_bird_dashboard#preview'
   get 'early_bird/send_emails' => 'early_bird_send_emails#send_emails'
 
-  #get 'preview' => 'preview#index'
+  # get 'preview' => 'preview#index'
 
   get 'find_action_officers' => 'action_officers#find'
 

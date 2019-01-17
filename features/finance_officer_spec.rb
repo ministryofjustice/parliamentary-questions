@@ -71,7 +71,7 @@ feature 'Registering interest in PQs as a Finance Officer', js: true do
 
   scenario 'FO can register interest in PQs' do
     @pqs.each do |pq|
-    expect(page.title).to have_content("New PQs today")
+      expect(page.title).to have_content("New PQs today")
       expect(page).to have_content(pq.text)
     end
 

@@ -29,7 +29,6 @@ class MailWorker
     end
 
     yield
-
   ensure
     @pid_file.delete(pid)
   end
@@ -46,7 +45,7 @@ class MailWorker
       begin
         email = @queue.shift
         process_mail(email)
-      rescue 
+      rescue
         @service.record_fail(email)
       end
     end

@@ -1,14 +1,13 @@
 class QuickActionsService
   include Validators::DateInput
 
-  def valid?(pq_list, internal_deadline = "01/01/2000", draft_received = "01/01/2000" , pod_clearance = "01/01/2000", cleared_by_minister = "01/01/2000", answer_submitted = "01/01/2000")
+  def valid?(pq_list, internal_deadline = "01/01/2000", draft_received = "01/01/2000", pod_clearance = "01/01/2000", cleared_by_minister = "01/01/2000", answer_submitted = "01/01/2000")
     parse_datetime(internal_deadline) unless internal_deadline == ""
     parse_datetime(draft_received) unless draft_received == ""
     parse_datetime(pod_clearance) unless pod_clearance == ""
     parse_datetime(cleared_by_minister) unless cleared_by_minister == ""
     parse_datetime(answer_submitted) unless answer_submitted == ""
     valid_pq_list(pq_list)
-
   rescue DateTimeInputError
     false
   end
@@ -27,7 +26,6 @@ class QuickActionsService
   end
 
   def update_pq_list(pq_list, internal_deadline, draft_received, pod_clearance, cleared_by_minister, answer_submitted)
-
     pq_batch = valid?(pq_list, internal_deadline, draft_received, pod_clearance, cleared_by_minister, answer_submitted)
     if pq_batch == false
       return
@@ -65,12 +63,14 @@ class QuickActionsService
       end
     end
   end
+
   def get_action_officer_pqs_id(pq)
     ao_pq = pq.action_officers_pqs.find(&:accepted?)
     unless ao_pq.nil?
       ao_pq.id
     end
   end
+
   def mail_reminders(pqs)
     pqs.each do |pq|
       ao_pq_id = get_action_officer_pqs_id(pq)
@@ -81,6 +81,7 @@ class QuickActionsService
       end
     end
   end
+
   def mail_draft_list(pq_list)
     mail_reminders(valid_pq_list(pq_list))
   end

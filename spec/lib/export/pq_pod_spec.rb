@@ -29,20 +29,21 @@ describe Export::PqPod do
     end
 
     it "returns unanswered, and non transfered-out pqs, within the supplied date range ordered by date for answer" do
-      exported_pqs = decode_csv(export.to_csv).map do |h|
-        [
-          h['PIN'],
-          h['Full_PQ_subject'],
-          h['Date First Appeared in Parliament'],
-          h['Date Due in Parliament'],
-        ]
-      end
+      exported_pqs =
+        decode_csv(export.to_csv).map do |h|
+          [
+            h['PIN'],
+            h['Full_PQ_subject'],
+            h['Date First Appeared in Parliament'],
+            h['Date Due in Parliament'],
+          ]
+        end
 
       expect(exported_pqs).to eq([
-        ['uin-a', 'uin-a body text', date_s(Date.yesterday), date_s(Date.yesterday - 3)],
-        ['uin-c', 'uin-c body text', date_s(Date.yesterday), date_s(Date.yesterday)],
-        ['uin-z', 'uin-z body text', date_s(Date.yesterday), date_s(Date.today)]
-      ])
+                                   ['uin-a', 'uin-a body text', date_s(Date.yesterday), date_s(Date.yesterday - 3)],
+                                   ['uin-c', 'uin-c body text', date_s(Date.yesterday), date_s(Date.yesterday)],
+                                   ['uin-z', 'uin-z body text', date_s(Date.yesterday), date_s(Date.today)]
+                                 ])
     end
   end
 end

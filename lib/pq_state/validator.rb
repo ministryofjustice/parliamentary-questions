@@ -16,9 +16,10 @@ module PQState
     end
 
     def check_consistent_state_graph!
-      dead_ends = remove_cyclic_transitions(@transitions).select do |t|
-        has_dead_end?(t.state_from)
-      end
+      dead_ends =
+        remove_cyclic_transitions(@transitions).select do |t|
+          has_dead_end?(t.state_from)
+        end
       raise InconsistentStateGraph.new(@final_states, dead_ends) unless dead_ends.empty?
     end
 
@@ -28,12 +29,13 @@ module PQState
       t = @transitions.find { |_t| _t.state_from == state_from }
 
       if t && is_cyclic_link?(visited, t)
-        t = next_transition(t) 
+        t = next_transition(t)
       end
 
       unless t
         return true
       end
+
       case [@final_states.include?(t.state_to), visited.size < @max_iterations]
       when [true, true]
         false
@@ -73,7 +75,7 @@ module PQState
     end
 
     def is_cyclic_link?(ts, t2)
-      ts.any? { |t| t.to_pair.reverse == t2.to_pair  }
+      ts.any? { |t| t.to_pair.reverse == t2.to_pair }
     end
 
     class InconsistentStateGraph < StandardError

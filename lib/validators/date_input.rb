@@ -17,10 +17,11 @@ module Validators
 
     def secure_parse(date_s)
       raise DateTimeInputError unless date_s.size < MAX_LEN
+
       d = @date_class.parse(date_s)
       raise DateTimeInputError unless d.between?(min_date, max_date)
-      d
 
+      d
     rescue ArgumentError
       raise DateTimeInputError
     end

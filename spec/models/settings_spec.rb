@@ -8,7 +8,7 @@ describe Settings do
   end
 
   context 'PQ Rest API' do
-    describe '.from_env' do 
+    describe '.from_env' do
       it 'should call new with environment variables' do
         expect(Settings::PqRestApi).to receive(:new).with('api_host', 'username', 'password')
         Settings::PqRestApi.from_env
@@ -18,7 +18,7 @@ describe Settings do
         ENV['PQ_REST_API_HOST'] = nil
         expect {
           Settings::PqRestApi.from_env
-          }.to raise_error RuntimeError, 'Cannot find environment variable PQ_REST_API_HOST. Please set it first'
+        }.to raise_error RuntimeError, 'Cannot find environment variable PQ_REST_API_HOST. Please set it first'
       end
     end
   end

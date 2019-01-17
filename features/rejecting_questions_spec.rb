@@ -7,8 +7,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     DBHelpers.load_feature_fixtures
 
     clear_sent_mail
-    @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
-
+    @pq, _ = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do
@@ -18,7 +17,6 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
   let(:ao1)        { ActionOfficer.find_by(email: 'ao1@pq.com') }
   let(:ao2)        { ActionOfficer.find_by(email: 'ao2@pq.com') }
   let(:minister)   { Minister.first                             }
-
 
   scenario 'Parli-branch member allocates a question to selected AOs' do
     commission_question(@pq.uin, [ao1, ao2], minister)

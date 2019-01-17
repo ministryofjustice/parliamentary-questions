@@ -1,17 +1,17 @@
 class HealthCheckService
-  COMPONENT_CLASSES = 
-  [
-    HealthCheck::Database,
-    HealthCheck::MailWorker,
-    HealthCheck::PqaApi,
-    HealthCheck::SendGrid
-  ]
+  COMPONENT_CLASSES =
+    [
+      HealthCheck::Database,
+      HealthCheck::MailWorker,
+      HealthCheck::PqaApi,
+      HealthCheck::SendGrid
+    ]
 
   def initialize
-    @components = 
+    @components =
       COMPONENT_CLASSES
-        .select(&:time_to_run?)
-        .map(&:new)
+      .select(&:time_to_run?)
+      .map(&:new)
   end
 
   def report
@@ -27,8 +27,8 @@ class HealthCheckService
 
   private
 
-  HealthCheckReport = 
-    Struct.new(:status, :messages) do 
+  HealthCheckReport =
+    Struct.new(:status, :messages) do
       def self.ok
         new('200', 'All Components OK')
       end
@@ -36,5 +36,5 @@ class HealthCheckService
       def self.fail(errors)
         new('500', errors)
       end
-    end   
+    end
 end

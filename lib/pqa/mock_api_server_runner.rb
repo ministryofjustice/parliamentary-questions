@@ -12,7 +12,7 @@ module PQA
       cmd = "rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
 
       if File.exists?(PID_FILEPATH)
-        pid  = File.read(PID_FILEPATH)
+        pid = File.read(PID_FILEPATH)
         error = "Found pid file #{PID_FILEPATH}. " +
                 "Please kill process #{pid} and make sure the pid file is deleted"
         raise ServerAlreadyRunning, error
@@ -34,6 +34,7 @@ module PQA
 
     def wait_for_app(attempts_left = 100)
       raise "Mock PQA API timed out! Please try starting it manually" if attempts_left < 1
+
       resp_code =
         begin
           sleep 0.1

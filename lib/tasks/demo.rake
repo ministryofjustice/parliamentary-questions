@@ -1,6 +1,4 @@
-
 namespace :demo do
-
   desc 'setup demonstration questions'
   task :setup => :environment do
     delete_existing_demo_questions
@@ -9,7 +7,6 @@ namespace :demo do
       create_question(i, seed_questions[i - 1])
     end
   end
-
 
   desc 'set up staging database for training demo'
   task :training_setup => :environment do
@@ -41,14 +38,10 @@ def setup_training_action_officers
   end
 end
 
-
 def allocate_division_to_ao(ao, division_id)
   division = Division.find(division_id)
   ao.update_attribute(:deputy_director_id, division.deputy_directors.active.first.id)
 end
-
-
-
 
 def setup_training_questions
   dupe_pqs = {
@@ -68,61 +61,57 @@ def setup_training_questions
   end
 end
 
-
 def duplicate_question(old_pq, new_uin)
-question = Pq.create!(
-             :house_id => old_pq.house_id,
+  question = Pq.create!(
+    :house_id => old_pq.house_id,
     :raising_member_id => old_pq.raising_member_id,
-          :tabled_date => 1.days.ago,
-             :question => old_pq.question,
-                  :uin => new_uin,
-          :member_name => old_pq.member_name,
-  :member_constituency => old_pq.member_constituency,
-           :house_name => old_pq.house_name,
-      :date_for_answer => 2.days.from_now,
-  :registered_interest => old_pq.registered_interest,
-        :question_type => old_pq.question_type,
-          :transferred => old_pq.transferred,
-      :question_status => "Tabled",
-                :state => "unassigned",
-         :state_weight => 0
+    :tabled_date => 1.days.ago,
+    :question => old_pq.question,
+    :uin => new_uin,
+    :member_name => old_pq.member_name,
+    :member_constituency => old_pq.member_constituency,
+    :house_name => old_pq.house_name,
+    :date_for_answer => 2.days.from_now,
+    :registered_interest => old_pq.registered_interest,
+    :question_type => old_pq.question_type,
+    :transferred => old_pq.transferred,
+    :question_status => "Tabled",
+    :state => "unassigned",
+    :state_weight => 0
   )
 end
-
 
 def delete_existing_demo_questions
   Pq.where("uin like 'uin-%'").map(&:destroy)
   Pq.where("uin like '8%'").map(&:destroy)
 end
 
-
 def populate_seeds
-  seed_question_uins = %w{ 201828 208682 209418 209416 210144 }
+  seed_question_uins = %w{201828 208682 209418 209416 210144}
   seed_questions = []
   seed_question_uins.each { |uin| seed_questions << Pq.find_by(uin: uin) }
   seed_questions
 end
 
-
 def create_question(i, seed_question)
   uin = (seed_question.uin.to_i + 600000).to_s
 
   question = Pq.create!(
-                                         :house_id => nil,
-                                :raising_member_id => 2479,
-                                      :tabled_date => 1.days.ago,
-                                         :question => seed_question.question,
-                                 # :seen_by_finance => true,
-                                              :uin => uin,
-                                      :member_name => seed_question.member_name,
-                              :member_constituency => seed_question.member_constituency,
-                                       :house_name => "House of Commons",
-                                  :date_for_answer => 2.days.from_now,
-                              :registered_interest => false,
-                                    :question_type => seed_question.question_type,
-                                      :transferred => false,
-                                  :question_status => "Tabled",
-                                            :state => "unassigned",
-                                     :state_weight => 0
+    :house_id => nil,
+    :raising_member_id => 2479,
+    :tabled_date => 1.days.ago,
+    :question => seed_question.question,
+    # :seen_by_finance => true,
+    :uin => uin,
+    :member_name => seed_question.member_name,
+    :member_constituency => seed_question.member_constituency,
+    :house_name => "House of Commons",
+    :date_for_answer => 2.days.from_now,
+    :registered_interest => false,
+    :question_type => seed_question.question_type,
+    :transferred => false,
+    :question_status => "Tabled",
+    :state => "unassigned",
+    :state_weight => 0
   )
 end

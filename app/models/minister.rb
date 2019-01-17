@@ -22,7 +22,7 @@ class Minister < ActiveRecord::Base
   has_many :minister_contacts
   accepts_nested_attributes_for :minister_contacts,
                                 :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                :reject_if => :all_blank
 
   def contact_emails
     minister_contacts.active.pluck('email')

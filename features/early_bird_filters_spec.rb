@@ -1,7 +1,6 @@
 require 'feature_helper'
 
 feature "User filters early bird questions", js: true, suspend_cleaner: true do
-
   before(:all) do
     DBHelpers.load_feature_fixtures
     generate_dummy_pq()
@@ -34,7 +33,7 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
   scenario 'Check filter elements are present' do
     create_pq_session
 
-    visit early_bird_preview_path #'/early_bird/preview'
+    visit early_bird_preview_path # '/early_bird/preview'
 
     expect(page).to have_text(:visible, 'New parliamentary questions to be allocated today')
     expect(page).to have_text('3 new parliamentary questions')
@@ -53,7 +52,7 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
   scenario 'Filter questions by question type' do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+    visit early_bird_preview_path # '/early_bird/preview'
 
     click_button 'Question type'
 
@@ -84,7 +83,7 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
   scenario 'Filter questions by keyword' do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+    visit early_bird_preview_path # '/early_bird/preview'
 
     expect(page).to have_text('3 new parliamentary questions')
 
@@ -114,12 +113,11 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
     click_button('clear-keywords-filter')
     expect(page).to have_text('3 parliamentary questions out of 3.')
-
   end
 
   scenario "Filter by question type 'Named Day' & keywords" do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+    visit early_bird_preview_path # '/early_bird/preview'
     expect(page).to have_text('3 new parliamentary questions')
 
     click_button 'Question type'
@@ -156,7 +154,7 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
   scenario "Filter by question type 'Transferred in' & keywords" do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+    visit early_bird_preview_path # '/early_bird/preview'
     expect(page).to have_text('3 new parliamentary questions')
 
     click_button 'Question type'
@@ -190,14 +188,11 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
     click_button('clear-keywords-filter')
     expect(page).to have_text('1 parliamentary question out of 3.')
-
   end
 
-
   scenario "Filter by question type 'Ordinary' & keywords" do
-
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+    visit early_bird_preview_path # '/early_bird/preview'
     expect(page).to have_text('3 new parliamentary questions')
 
     click_button 'Question type'
@@ -230,7 +225,6 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
     click_button('clear-keywords-filter')
     expect(page).to have_text('1 parliamentary question out of 3.')
-
   end
 
   private
@@ -238,5 +232,4 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
   def generate_dummy_pq()
     PQA::QuestionLoader.new.load_and_import(3) # Generate three questions.
   end
-
 end

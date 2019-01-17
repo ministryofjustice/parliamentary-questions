@@ -8,6 +8,7 @@ describe CommissioningService do
   let(:minister) {
     DBHelpers.ministers[0]
   }
+
   let(:policy_minister) {
     DBHelpers.ministers[1]
   }
@@ -20,14 +21,16 @@ describe CommissioningService do
     DBHelpers.action_officers[1]
   }
 
-  let(:form_params) {{
-    pq_id: pq.id,
-    minister_id: minister.id,
-    policy_minister_id: policy_minister.id,
-    action_officer_id: [ao1.id, ao2.id],
-    date_for_answer: Date.tomorrow,
-    internal_deadline: Date.today.midnight
-  }}
+  let(:form_params) {
+    {
+      pq_id: pq.id,
+      minister_id: minister.id,
+      policy_minister_id: policy_minister.id,
+      action_officer_id: [ao1.id, ao2.id],
+      date_for_answer: Date.tomorrow,
+      internal_deadline: Date.today.midnight
+    }
+  }
 
   let(:invalid_form_params) {
     form_params.merge(date_for_answer: nil)
@@ -54,7 +57,7 @@ describe CommissioningService do
     context "when the supplied data is valid" do
       before do
         valid_form = CommissionForm.new(form_params)
-        @pq        = CommissioningService.new.commission(valid_form)
+        @pq = CommissioningService.new.commission(valid_form)
       end
 
       it "returns an updated PQ" do
@@ -66,15 +69,12 @@ describe CommissioningService do
       end
 
       it "sets the pqs' action officers" do
-        expect(@pq.action_officers).to eq([
-          ao1,
-          ao2
-        ])
+        expect(@pq.action_officers).to eq([ao1, ao2])
       end
 
       it "notifies the action officers" do
         MailWorker.new.run!
-        ao1_mail,  ao2_mail = ActionMailer::Base.deliveries
+        ao1_mail, ao2_mail = ActionMailer::Base.deliveries
         expect(ao1_mail.to).to eq([ao1.email])
         expect(ao1_mail.subject).to match(/you have been allocated PQ #{pq.uin}/i)
         expect(ao2_mail.to).to eq([ao2.email])

@@ -65,6 +65,7 @@ class Progress < ActiveRecord::Base
   def self.answered
     find_by_status(self.ANSWERED)
   end
+
   def self.transferred_out
     find_by_status(self.TRANSFERRED_OUT)
   end

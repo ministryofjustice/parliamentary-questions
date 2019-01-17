@@ -1,5 +1,4 @@
 class AOTokenFilter
-
   def self.before(controller)
     token_state = validate_token(controller)
     log_and_redirect(controller, token_state) unless token_state == :valid
@@ -34,11 +33,11 @@ class AOTokenFilter
 
   def self.log_error(token_state, params)
     LogStuff.error(:token_error,
-                    type: "#{token_state}_token",
-                    uri: params.uri,
-                    referer: params.referer,
-                    uin: params.uin,
-                    user: params.user) { "Access Token Error - #{token_state.to_s.humanize} Token" }
+                   type: "#{token_state}_token",
+                   uri: params.uri,
+                   referer: params.referer,
+                   uin: params.uin,
+                   user: params.user) { "Access Token Error - #{token_state.to_s.humanize} Token" }
   end
 
   def self.extract_uin(controller)

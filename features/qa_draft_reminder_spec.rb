@@ -1,26 +1,25 @@
 require 'feature_helper'
 
 feature 'Send draft reminders from the dashboard', js: true, suspend_cleaner: true do
+  include Features::PqHelpers
 
-	include Features::PqHelpers
-
-	before(:each) do
-		clear_sent_mail
-		DBHelpers.load_feature_fixtures
+  before(:each) do
+    clear_sent_mail
+    DBHelpers.load_feature_fixtures
     pq1, pq2, pq3 = PQA::QuestionLoader.new.load_and_import(3)
     @uin1, @uin2, @uin3 = pq1.uin, pq2.uin, pq3.uin
     @ao = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister = Minister.first
   end
 
-	after(:each) do
-		DatabaseCleaner.clean
+  after(:each) do
+    DatabaseCleaner.clean
   end
 
   scenario "A user sends draft reminders for all PQs" do
     initialise
     check 'select-all'
-    within('#draftReminders'){
+    within('#draftReminders') {
       click_on 'Send Draft Reminders'
       expect(page).to have_text("3 PQs selected")
       expect(page).to have_button('Cancel')
@@ -28,7 +27,7 @@ feature 'Send draft reminders from the dashboard', js: true, suspend_cleaner: tr
       click_button('Send')
       expect(page).to have_selector('#draftReminders .content', visible: false)
     }
-    within('.pq-msg-success.fade.in'){
+    within('.pq-msg-success.fade.in') {
       expect(page).to have_text("Draft Reminder(s) Sent")
     }
   end
@@ -36,7 +35,7 @@ feature 'Send draft reminders from the dashboard', js: true, suspend_cleaner: tr
   scenario "A user cancels draft reminders for all PQs" do
     initialise
     check 'select-all'
-    within('#draftReminders'){
+    within('#draftReminders') {
       click_on 'Send Draft Reminders'
       expect(page).to have_text("3 PQs selected")
       expect(page).to have_button('Cancel')
@@ -65,5 +64,4 @@ feature 'Send draft reminders from the dashboard', js: true, suspend_cleaner: tr
     accept_commission
     click_link 'In progress'
   end
-
 end

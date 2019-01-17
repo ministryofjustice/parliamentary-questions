@@ -38,9 +38,9 @@ class ExportController < ApplicationController
       parse_datetime(params[:date_to])
     ]
     yield(date_from, date_to)
-    rescue DateTimeInputError
-      flash[:error] = 'Invalid date input!'
-      update_page_title('Export PQs to CSV')
-      render form_template, status: 422
+  rescue DateTimeInputError
+    flash[:error] = 'Invalid date input!'
+    update_page_title('Export PQs to CSV')
+    render form_template, status: 422
   end
 end

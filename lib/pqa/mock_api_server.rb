@@ -35,7 +35,7 @@ module PQA
       unless errors.empty?
         status 400
         msg = (
-          ["Invalid XML message"] + 
+          ["Invalid XML message"] +
           errors.map { |err| "- #{err.inspect}" }
         ).join("\n")
         body msg
@@ -63,12 +63,12 @@ module PQA
       XMLEncoder.encode_questions(questions)
     end
 
-    get '/api/qais/questions/:uin' do 
+    get '/api/qais/questions/:uin' do
       my_uin = QUESTIONS[params['uin']]
       if my_uin.nil?
         "Not found"
       else
-        XMLEncoder.encode_questions( [my_uin] )
+        XMLEncoder.encode_questions([my_uin])
       end
     end
   end

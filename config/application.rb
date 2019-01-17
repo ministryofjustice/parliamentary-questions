@@ -44,14 +44,13 @@ module ParliamentaryQuestions
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    #config.assets.paths << "#{Rails}/vendor/assets/fonts"
+    # config.assets.paths << "#{Rails}/vendor/assets/fonts"
     config.eager_load_paths << Rails.root.join("app", "assets", "fonts")
-    config.eager_load_paths += %w[ app/assets/images ]
-    config.eager_load_paths += %w[ app/assets/javascripts ]
-    config.eager_load_paths += %w[ app/assets/stylesheets ]
-    config.eager_load_paths += %w[ app/assets/stylesheets/moj ]
-    config.eager_load_paths += %w[ app/assets/stylesheets/vendor ]
-
+    config.eager_load_paths += %w[app/assets/images]
+    config.eager_load_paths += %w[app/assets/javascripts]
+    config.eager_load_paths += %w[app/assets/stylesheets]
+    config.eager_load_paths += %w[app/assets/stylesheets/moj]
+    config.eager_load_paths += %w[app/assets/stylesheets/vendor]
 
     config.generators do |g|
       g.template_engine :erb

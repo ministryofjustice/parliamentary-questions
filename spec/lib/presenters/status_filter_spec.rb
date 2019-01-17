@@ -3,11 +3,13 @@ require 'spec_helper'
 describe Presenters::StatusFilter do
   include Rails.application.routes.url_helpers
 
-  let(:params) {{
-    :qstatus    => 'test_key',
-    :controller => 'dashboard',
-    :action     => 'by_status'
-  }}
+  let(:params) {
+    {
+      :qstatus => 'test_key',
+      :controller => 'dashboard',
+      :action => 'by_status'
+    }
+  }
 
   let(:label) {
     'test label'
@@ -31,11 +33,13 @@ describe Presenters::StatusFilter do
     end
 
     context "when key and active_key do not match" do
-      let(:params) {{
-        :qstatus    => 'other-key',
-        :controller => 'dashboard',
-        :action     => 'by_status'
-      }}
+      let(:params) {
+        {
+          :qstatus => 'other-key',
+          :controller => 'dashboard',
+          :action => 'by_status'
+        }
+      }
 
       it "returns false" do
         expect(filter).to_not be_active

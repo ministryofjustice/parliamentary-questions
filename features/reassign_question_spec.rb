@@ -10,8 +10,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
   before(:all) do
     DBHelpers.load_feature_fixtures
     clear_sent_mail
-    @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
-
+    @pq, _ = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do
@@ -56,5 +55,4 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     expect(page).not_to have_content(ao1.email)
     expect(page).to have_content(ao2.email)
   end
-
 end

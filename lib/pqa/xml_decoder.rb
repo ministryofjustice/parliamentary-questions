@@ -12,7 +12,7 @@ module PQA
     end
 
     def decode_questions(xml)
-       parse_doc(xml).xpath('//Question').map do |el|
+      parse_doc(xml).xpath('//Question').map do |el|
         Question.from_xml(el)
       end
     end

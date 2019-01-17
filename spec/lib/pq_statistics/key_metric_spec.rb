@@ -9,21 +9,21 @@ describe 'PqStatistics' do
       # Create PQs for the latest date bucket with n% on time
       n    = (n.round(1) * 10).to_i
       date = 2.business_days.before(Date.today)
-      pqs  = (1..10).to_a.map{ create(:answered_pq) }
+      pqs  = (1..10).to_a.map { create(:answered_pq) }
 
-      pqs.first(n).each do |pq| 
+      pqs.first(n).each do |pq|
         pq.update(
-          date_for_answer:  1.business_days.after(date), 
+          date_for_answer: 1.business_days.after(date),
           answer_submitted: date,
-          state:            PQState::ANSWERED
+          state: PQState::ANSWERED
         )
       end
 
-      pqs.last(10 - n).each do |pq| 
+      pqs.last(10 - n).each do |pq|
         pq.update(
-          date_for_answer:  1.business_days.before(date), 
+          date_for_answer: 1.business_days.before(date),
           answer_submitted: date,
-          state:            PQState::ANSWERED
+          state: PQState::ANSWERED
         )
       end
     end

@@ -4,7 +4,7 @@ class CreateEarlyBirdMembers < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :email
       t.boolean :deleted
-      
+
       t.timestamps
     end
   end

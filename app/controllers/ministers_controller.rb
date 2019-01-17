@@ -48,6 +48,6 @@ class MinistersController < ApplicationController
   end
 
   def minister_params
-    params.require(:minister).permit(:name, :title, :email, :deleted, :member_id, minister_contacts_attributes: [ :id, :name, :email, :phone, :deleted, :minister_id ])
+    params.require(:minister).permit(:name, :title, :email, :deleted, :member_id, minister_contacts_attributes: [:id, :name, :email, :phone, :deleted, :minister_id])
   end
 end

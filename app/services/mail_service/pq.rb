@@ -1,15 +1,16 @@
 module MailService
   module Pq
     module_function
+
     extend Base
 
     def commission_email(params)
       details_h =
-      {
-        method: 'commission_email',
-        from:   Settings.commission_mail_from,
-        cc:     params[:cc],
-      }
+        {
+          method: 'commission_email',
+          from: Settings.commission_mail_from,
+          cc: params[:cc],
+        }
 
       generate_email(details_h, base_h(params))
     end
@@ -31,13 +32,10 @@ module MailService
       details_h =
         {
           method: 'acceptance_email',
-          cc:     params[:cc],
+          cc: params[:cc],
         }
 
       generate_email(details_h, base_h(params))
-
-
-
     end
 
     def acceptance_reminder_email(pq, ao)
@@ -51,11 +49,10 @@ module MailService
       details_h =
         {
           method: 'acceptance_reminder_email',
-          cc:     params[:cc],
+          cc: params[:cc],
         }
 
       generate_email(details_h, base_h(params))
-
     end
 
     def draft_reminder_email(pq, ao)
@@ -69,7 +66,7 @@ module MailService
       details_h =
         {
           method: 'draft_reminder_email',
-          cc:     params[:cc],
+          cc: params[:cc],
         }
 
       generate_email(details_h, base_h(params))
@@ -77,22 +74,22 @@ module MailService
 
     def watchlist_email(params)
       details_h =
-      {
-        method: 'watchlist_email',
-        cc:     params[:cc],
-        params: params.merge({ date: Date.today.to_s(:date)})
-      }
+        {
+          method: 'watchlist_email',
+          cc: params[:cc],
+          params: params.merge({ date: Date.today.to_s(:date) })
+        }
 
       generate_email(details_h, base_h(params))
     end
 
     def early_bird_email(params)
       details_h =
-      {
-        method: 'early_bird_email',
-        cc:     params[:cc],
-        params: params.merge({ date: Date.today.to_s(:date)})
-      }
+        {
+          method: 'early_bird_email',
+          cc: params[:cc],
+          params: params.merge({ date: Date.today.to_s(:date) })
+        }
 
       generate_email(details_h, base_h(params))
     end
@@ -101,11 +98,11 @@ module MailService
 
     def base_h(params)
       {
-        mailer:   'PqMailer',
-        to:       params[:email],
-        from:     default_sender,
+        mailer: 'PqMailer',
+        to: params[:email],
+        from: default_sender,
         reply_to: default_reply_to,
-        params:   params
+        params: params
       }
     end
   end

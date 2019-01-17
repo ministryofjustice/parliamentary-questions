@@ -50,7 +50,7 @@ describe KeyMetricStatus do
 
     it 'calls error when there is an alert' do
       allow(key_metric).to receive(:alert).and_return(true)
-      
+
       expect(status).to receive(:error)
       status.update(metrics)
     end
@@ -72,7 +72,7 @@ describe DbStatus do
 
     it 'calls error when there is a DB error' do
       allow(health).to receive(:db_status).and_return(false)
-      
+
       expect(status).to receive(:error)
       status.update(metrics)
     end
@@ -94,7 +94,7 @@ describe SendgridStatus do
 
     it 'calls error when there is a Send Grid error' do
       allow(health).to receive(:sendgrid_status).and_return(false)
-      
+
       expect(status).to receive(:error)
       status.update(metrics)
     end
@@ -116,7 +116,7 @@ describe PqaApiStatus do
 
     it 'calls error when there is a PQA API error' do
       allow(health).to receive(:pqa_api_status).and_return(false)
-      
+
       expect(status).to receive(:error)
       status.update(metrics)
     end
@@ -139,7 +139,7 @@ describe MailStatus do
 
     it 'calls error when there is a email error' do
       allow(mail_info).to receive(:email_error?).and_return(true)
-      
+
       expect(status).to receive(:error)
       status.update(metrics)
     end
@@ -147,7 +147,7 @@ describe MailStatus do
     it 'calls warn when there is a token error' do
       allow(mail_info).to receive(:email_error?).and_return(false)
       allow(mail_info).to receive(:token_error?).and_return(true)
-      
+
       expect(status).to receive(:warn)
       status.update(metrics)
     end

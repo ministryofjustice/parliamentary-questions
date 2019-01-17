@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe 'WatchlistReportService' do
-
-  let!(:watchlist_one) { create(:watchlist_member, name: 'member 1', email: 'm1@ao.gov',  deleted: false) }
+  let!(:watchlist_one) { create(:watchlist_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
   let!(:watchlist_two) { create(:watchlist_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:watchlist_deleted) { create(:watchlist_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
   let(:testid) { "watchlist-" + DateTime.now.to_s }
@@ -28,7 +27,7 @@ describe 'WatchlistReportService' do
   end
 
   it 'should send an email with the right data' do
-    pqtest_mail ='pqtest@digital.justice.gov.uk'
+    pqtest_mail = 'pqtest@digital.justice.gov.uk'
 
     allow(@report_service).to receive(:entity).and_return testid
     result = @report_service.notify_watchlist
@@ -37,21 +36,19 @@ describe 'WatchlistReportService' do
     mail = ActionMailer::Base.deliveries.first
 
     sentToken   = result[pqtest_mail]
-    token_param = {token: sentToken}.to_query
-    entity      = {entity: entity = testid }.to_query
+    token_param = { token: sentToken }.to_query
+    entity      = { entity: entity = testid }.to_query
     url         = '/watchlist/dashboard'
 
     expect(mail.html_part.body).to include url
     expect(mail.html_part.body).to include token_param
     expect(mail.html_part.body).to include entity
 
-
     expect(mail.text_part.body).to include url
     expect(mail.text_part.body).to include token_param
     expect(mail.text_part.body).to include entity
 
     expect(mail.to).to include pqtest_mail
-
   end
 
   it 'should add the people from the Watchlist to the CC' do
@@ -62,8 +59,8 @@ describe 'WatchlistReportService' do
     mail = ActionMailer::Base.deliveries.first
 
     sentToken   = result[watchlist_one.id]
-    token_param = {token: sentToken}.to_query
-    entity      = {entity: entity = testid }.to_query
+    token_param = { token: sentToken }.to_query
+    entity      = { entity: entity = testid }.to_query
     url         = '/watchlist/dashboard'
 
     expect(mail.cc).to include watchlist_one.email

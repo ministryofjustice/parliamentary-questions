@@ -11,12 +11,13 @@ feature 'Minister Report', js: true do
   end
 
   def expect_report_to_have(record, state, count)
-    param_name = case record
-                 when Minister  then "minister_id"
-                 when PressDesk then "press_desk_id"
-                 else
-                   raise ArgumentError, "record must be either minister or press desk"
-                 end
+    param_name =
+      case record
+      when Minister  then "minister_id"
+      when PressDesk then "press_desk_id"
+      else
+        raise ArgumentError, "record must be either minister or press desk"
+      end
     el = find("a[href=\"/reports/filter_all?#{param_name}=#{record.id}&state=#{state}\"]")
     expect(el.text).to eq(count.to_s)
   end

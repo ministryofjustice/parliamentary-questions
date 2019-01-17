@@ -35,7 +35,7 @@ class AssignmentController < ApplicationController
         else
           msg = "AllocationResponse.response_action must be set to either 'accept' or 'reject'. Got #{response_action}"
           raise ArgumentError, msg
-          #TODO: log unexpected input
+          # TODO: log unexpected input
         end
         render 'confirmation'
       end

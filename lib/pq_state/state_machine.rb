@@ -34,6 +34,7 @@ module PQState
       loop do
         transition_onwards = available_transition(state, pq)
         break unless transition_onwards
+
         state = transition_onwards.state_to
       end
 
@@ -51,13 +52,15 @@ module PQState
       unless states.include?(from_state)
         raise(ArgumentError, "Cannot find a transition from state '#{from_state}'. Valid states are: #{states}")
       end
+
       @transitions.select { |t| t.state_from == from_state }
     end
 
     def states
-      @states ||= @transitions.reduce(Set.new) do |acc, t|
-        acc + Set.new([t.state_from, t.state_to])
-      end
+      @states ||=
+        @transitions.reduce(Set.new) do |acc, t|
+          acc + Set.new([t.state_from, t.state_to])
+        end
     end
   end
 end

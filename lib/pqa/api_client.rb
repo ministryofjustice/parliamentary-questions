@@ -25,8 +25,8 @@ module PQA
       uri       = URI.parse(File.join(@base_url, 'api/qais/questions'))
       params    = {
         'dateFrom' => date_from.xmlschema,
-        'dateTo'   => date_to && date_to.xmlschema,
-        'status'   => status
+        'dateTo' => date_to && date_to.xmlschema,
+        'status' => status
       }
       uri.query = URI.encode_www_form(params)
       issue_request(:get, uri.to_s)
@@ -44,7 +44,6 @@ module PQA
       uri = URI.parse(File.join(@base_url, "api/qais/questions/#{uin}"))
       issue_request(:get, uri.to_s)
     end
-
 
     # Loads a question in the Mock API server.
     #

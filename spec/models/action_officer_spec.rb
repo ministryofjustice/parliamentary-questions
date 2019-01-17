@@ -17,15 +17,15 @@
 require 'spec_helper'
 
 describe ActionOfficer do
-	let(:officer) {build(:action_officer)}
+  let(:officer) { build(:action_officer) }
 
-	it 'should pass factory build' do
-		expect(officer).to be_valid
-	end
+  it 'should pass factory build' do
+    expect(officer).to be_valid
+  end
 
-	it 'should have a deputy director' do
-		officer.deputy_director_id = nil
-		expect(officer).to be_invalid
+  it 'should have a deputy director' do
+    officer.deputy_director_id = nil
+    expect(officer).to be_invalid
   end
 
   it 'should have a press desk' do
@@ -34,7 +34,7 @@ describe ActionOfficer do
   end
 
   it 'should strip whitespace from emails' do
-    officer.update(email:' action.officer@new.email.com')
+    officer.update(email: ' action.officer@new.email.com')
     expect(officer.email).to eql('action.officer@new.email.com')
   end
 
@@ -43,7 +43,7 @@ describe ActionOfficer do
       expect(officer).to respond_to(:deputy_director)
     end
 
-		it 'should have a collection of assignments' do
+    it 'should have a collection of assignments' do
       expect(officer).to respond_to(:action_officers_pqs)
     end
   end

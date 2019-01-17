@@ -45,7 +45,6 @@ class ApplicationController < ActionController::Base
     show_error_page_and_increment_statsd(401)
   end
 
-
   def server_error(exception)
     update_page_title 'Server Error (500)'
     show_error_page_and_increment_statsd(500, exception)
@@ -93,9 +92,8 @@ class ApplicationController < ActionController::Base
       format.html { render file: "public/#{err_number}", status: err_number }
       format.all  { render nothing: true, status: err_number }
     end
-    backtrace = exception.nil? ? nil: exception.backtrace
-    message = exception.nil? ? nil: exception.message
+    backtrace = exception.nil? ? nil : exception.backtrace
+    message = exception.nil? ? nil : exception.message
     LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}, message:#{message}, backtrace:#{backtrace}" }
   end
-
 end

@@ -34,7 +34,6 @@ group :development do
   gem 'guard-livereload', '>= 2.5.2'
   gem 'guard-rspec'
   gem 'rails_db_info'
-  gem 'rubocop-rspec', '~> 1.30', '>= 1.30.1'
 end
 
 group :test, :development do
@@ -49,6 +48,8 @@ group :test, :development do
   gem 'pry-rails'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
   gem 'rspec-rails'
+  gem 'rubocop', '~> 0.62.0'
+  gem 'rubocop-rspec', '~> 1.30', '>= 1.30.1'
   gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
   gem 'shoulda-matchers', require: false
   gem 'sinatra'

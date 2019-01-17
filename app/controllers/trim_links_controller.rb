@@ -13,7 +13,7 @@ class TrimLinksController < ApplicationController
                                 filename: upload.original_filename,
                                 size: upload.size,
                                 pq_id: trim_link_params[:pq_id])
-        link_url  = url_for trim_link_path(trim.id)
+        link_url = url_for trim_link_path(trim.id)
         success_data('Trim link created', link_url)
       end
 

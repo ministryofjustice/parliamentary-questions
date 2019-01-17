@@ -1,7 +1,7 @@
 module SmokeTest
   class Report < Base
     private
-    
+
     def all_checks_succeed?
       agent.get reports_press_desk_by_progress_path
 

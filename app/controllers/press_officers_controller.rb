@@ -21,7 +21,6 @@ class PressOfficersController < ApplicationController
     update_page_title('Edit press officer')
   end
 
-
   def create
     @press_officer = PressOfficer.new(press_officer_params)
 

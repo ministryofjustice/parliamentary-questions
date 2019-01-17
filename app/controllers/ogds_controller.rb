@@ -24,7 +24,7 @@ class OgdsController < ApplicationController
     @ogd = Ogd.new(ogd_params)
 
     if @ogd.save
-      flash[:success] ='OGD was successfully created.'
+      flash[:success] = 'OGD was successfully created.'
       redirect_to @ogd
     else
       render action: 'new'
@@ -45,7 +45,7 @@ class OgdsController < ApplicationController
     render json: @results
   end
 
-private
+  private
 
   def set_ogd
     @ogd = Ogd.find(params[:id])

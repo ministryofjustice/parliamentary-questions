@@ -4,9 +4,10 @@ describe PQA::XMLDecoder do
   describe "#decode_questions" do
     let(:xml) {
       date      = DateTime.parse('28/02/2014')
-      questions = 3.times.map { |n|
-        PQA::QuestionBuilder.updated("q-#{n}", date + n.day)
-      }
+      questions =
+        3.times.map { |n|
+          PQA::QuestionBuilder.updated("q-#{n}", date + n.day)
+        }
       PQA::XMLEncoder.encode_questions(questions)
     }
 
@@ -27,8 +28,8 @@ describe PQA::XMLDecoder do
     context "when the supplied XML contains some <question> elements" do
       it "parses questions with the correct uin values" do
         expect(questions.map(&:uin)).to eq([
-          'q-0','q-1','q-2'
-        ])
+                                             'q-0', 'q-1', 'q-2'
+                                           ])
       end
 
       it "correctly parses dates" do
@@ -38,10 +39,10 @@ describe PQA::XMLDecoder do
             [d.day, d.month, d.year]
           end
         ).to eq([
-          [28, 2, 2014],
-          [1,  3, 2014],
-          [2,  3, 2014]
-        ])
+                  [28, 2, 2014],
+                  [1,  3, 2014],
+                  [2,  3, 2014]
+                ])
       end
     end
 

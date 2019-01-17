@@ -43,7 +43,7 @@ class ActionlistMembersController < ApplicationController
     end
   end
 
-private
+  private
 
   def set_actionlist_member
     @actionlist_member = ActionlistMember.find(params[:id])

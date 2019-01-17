@@ -47,4 +47,3 @@ end
 every 1.hour do
   rake 'smoke_test:run'
 end
-

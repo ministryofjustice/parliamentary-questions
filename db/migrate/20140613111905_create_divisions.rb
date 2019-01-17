@@ -3,7 +3,7 @@ class CreateDivisions < ActiveRecord::Migration[5.0]
     create_table :divisions do |t|
       t.string :name
       t.integer :directorate_id
-      t.boolean	:deleted
+      t.boolean :deleted
       t.timestamps
     end
   end

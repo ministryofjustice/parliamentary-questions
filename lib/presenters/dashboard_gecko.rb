@@ -10,9 +10,9 @@ module Presenters
 
     def list(gecko_object)
       gecko_object.map do |fields|
-        { 
-          "title"       => { "text" => fields.name },
-          "label"       => { "name" => fields.label, "color" => fields.color },
+        {
+          "title" => { "text" => fields.name },
+          "label" => { "name" => fields.label, "color" => fields.color },
           "description" => fields.message,
         }
       end

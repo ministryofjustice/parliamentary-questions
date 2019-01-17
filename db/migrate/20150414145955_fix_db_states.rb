@@ -5,8 +5,6 @@ class FixDbStates < ActiveRecord::Migration[5.0]
     Redeploy::PqDatabaseFixer.new.run
   end
 
-
   def down
-
   end
 end

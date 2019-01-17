@@ -10,11 +10,11 @@ class CommissionForm
   attr_accessor :internal_deadline
 
   before_validation :remove_blank_action_officer
-  validates :pq_id, presence: {message: 'Please provide question id to commission'}
-  validates :minister_id, presence: {message: 'Please select answering minister'}
-  validates :action_officer_id, presence: {message: 'Please select at least one action officer'}
-  validates :date_for_answer, presence: {message: 'Please choose date for answer'}
-  validates :internal_deadline, presence: {message: 'Please choose internal deadline'}
+  validates :pq_id, presence: { message: 'Please provide question id to commission' }
+  validates :minister_id, presence: { message: 'Please select answering minister' }
+  validates :action_officer_id, presence: { message: 'Please select at least one action officer' }
+  validates :date_for_answer, presence: { message: 'Please choose date for answer' }
+  validates :internal_deadline, presence: { message: 'Please choose internal deadline' }
 
   def persisted?
     false

@@ -38,7 +38,7 @@ describe HealthCheck::MailWorker do
 
     it 'returns false if there are abandoned emails' do
       allow(MailService).to receive(:abandoned_mail).and_return([mail])
-      
+
       expect(worker).not_to be_accessible
     end
   end

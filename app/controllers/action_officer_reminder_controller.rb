@@ -1,4 +1,4 @@
-class ActionOfficerReminderController  < ApplicationController
+class ActionOfficerReminderController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def accept_reject

@@ -21,17 +21,15 @@ class DeputyDirectorsController < ApplicationController
     update_page_title('Edit deputy director')
   end
 
-
-
   def create
     @deputy_director = DeputyDirector.new(deputy_director_params)
 
-      if @deputy_director.save
-        flash[:success] = 'Deputy director was successfully created.'
-        redirect_to @deputy_director
-      else
-        render action: 'new'
-      end
+    if @deputy_director.save
+      flash[:success] = 'Deputy director was successfully created.'
+      redirect_to @deputy_director
+    else
+      render action: 'new'
+    end
   end
 
   def update
@@ -43,7 +41,7 @@ class DeputyDirectorsController < ApplicationController
     end
   end
 
-private
+  private
 
   def set_deputy_director
     @deputy_director = DeputyDirector.find(params[:id])

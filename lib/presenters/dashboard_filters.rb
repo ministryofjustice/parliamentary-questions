@@ -12,9 +12,9 @@ module Presenters
 
     def self.build(counts, params)
       all_filter = ViewAllFilter.new(counts['view_all'],
-                                         'view_all',
-                                         'View all',
-                                         params)
+                                     'view_all',
+                                     'View all',
+                                     params)
 
       transferred_in = TransferedInFilter.new(counts['transferred_in'],
                                               'transferred_in',
@@ -31,9 +31,9 @@ module Presenters
                                                 params)
 
       iww = IwwFilter.new(counts['iww'],
-                                  'iww',
-                                  'I will write',
-                                  params)
+                          'iww',
+                          'I will write',
+                          params)
 
       new([in_progress] + in_progress_statuses(counts, params) + [iww])
     end
