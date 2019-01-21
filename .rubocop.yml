@@ -128,6 +128,10 @@ Rails/SaveBang:
 
 # Security Cops ===========================================================================
 
+Security/Eval:
+  Description: 'This cop checks for the use of Kernel#eval and Binding#eval.'
+  Enabled: false
+
 # Style Cops ==============================================================================
 
 Style/ConditionalAssignment:
