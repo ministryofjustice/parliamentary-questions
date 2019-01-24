@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-feature "Watch list member sees allocated questions", suspend_cleaner: true do
+feature 'Watch list member sees allocated questions', suspend_cleaner: true do
   include Features::EmailHelpers
 
   before(:all) do
@@ -14,7 +14,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
-  scenario "An admin can create a new watchlist member" do
+  scenario 'An admin can create a new watchlist member' do
     create_pq_session
     click_link 'Settings'
     click_link 'Watch list'
@@ -26,7 +26,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     expect(page).to have_text(/watchlist member was successfully created/i)
   end
 
-  scenario "An admin can trigger an email notification to the watchlist members with a link to the daily question list" do
+  scenario 'An admin can trigger an email notification to the watchlist members with a link to the daily question list' do
     create_pq_session
     visit watchlist_members_path
     click_link_or_button 'Send allocation info'
@@ -37,7 +37,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     expect(url).to_not be_blank
   end
 
-  scenario "A watchlist member follows an email link to view the list of daily questions" do
+  scenario 'A watchlist member follows an email link to view the list of daily questions' do
     url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
     visit url
     expect(page).to have_text(/allocated today 1/i)
@@ -49,7 +49,7 @@ feature "Watch list member sees allocated questions", suspend_cleaner: true do
     end
   end
 
-  scenario "The URL token sent to the watchlist member expires after 24 hours" do
+  scenario 'The URL token sent to the watchlist member expires after 24 hours' do
     WatchlistReportService.new(nil, DateTime.now - 2.days).notify_watchlist
     url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
     visit url

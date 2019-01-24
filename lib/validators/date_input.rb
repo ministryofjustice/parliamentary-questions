@@ -28,7 +28,7 @@ module Validators
 
     class DateTimeInputError < StandardError
       def initialize
-        super("The date provided was out of the expected range for the application")
+        super('The date provided was out of the expected range for the application')
       end
     end
 

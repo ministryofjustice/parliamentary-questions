@@ -4,9 +4,9 @@ class EarlyBirdDashboardController < ApplicationController
 
   def index
     update_page_title('Early bird preview')
-    @now            = Time.now.strftime("%d/%m/%Y")
+    @now            = Time.now.strftime('%d/%m/%Y')
     @questions      = Pq.new_questions.order(:uin)
-    @parliament_url = PQA::RecentQuestionsURL.url(Date.today())
+    @parliament_url = PQA::RecentQuestionsURL.url(Date.today)
   end
 
   def preview

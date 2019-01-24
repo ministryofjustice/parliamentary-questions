@@ -16,9 +16,9 @@ describe Settings do
 
       it 'should raise if the api-host environment var is not set' do
         ENV['PQ_REST_API_HOST'] = nil
-        expect {
+        expect do
           Settings::PqRestApi.from_env
-        }.to raise_error RuntimeError, 'Cannot find environment variable PQ_REST_API_HOST. Please set it first'
+        end.to raise_error RuntimeError, 'Cannot find environment variable PQ_REST_API_HOST. Please set it first'
       end
     end
   end
@@ -62,9 +62,9 @@ describe Settings do
 
     describe 'non existent config key' do
       it 'should raise NoMethodError' do
-        expect {
+        expect do
           Settings.unknown_config_key
-        }.to raise_error NoMethodError, "undefined method `unknown_config_key' for Settings:Module"
+        end.to raise_error NoMethodError, "undefined method `unknown_config_key' for Settings:Module"
       end
     end
 

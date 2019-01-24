@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-feature "Parli-branch manages trim link", js: true do
+feature 'Parli-branch manages trim link', js: true do
   include Features::PqHelpers
 
   def add_trim_link(trim_file_name = 'spec/fixtures/trimlink.tr5')
@@ -15,7 +15,7 @@ feature "Parli-branch manages trim link", js: true do
 
   before(:each) do
     DBHelpers.load_feature_fixtures
-    @pq, _ = PQA::QuestionLoader.new.load_and_import
+    @pq, = PQA::QuestionLoader.new.load_and_import
 
     create_pq_session
   end

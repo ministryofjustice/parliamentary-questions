@@ -1,6 +1,6 @@
 module MailService
   module Import
-    module_function
+    extend self
 
     extend Base
 
@@ -8,7 +8,7 @@ module MailService
       details_h =
         {
           method: 'notify_fail',
-          params: err_msg,
+          params: err_msg
         }
 
       generate_email(details_h, base_h)
@@ -18,7 +18,7 @@ module MailService
       details_h =
         {
           method: 'notify_success',
-          params: report,
+          params: report
         }
 
       generate_email(details_h, base_h)

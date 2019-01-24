@@ -26,8 +26,8 @@ describe Division do
     expect(div).to be_invalid
   end
 
-  describe "associations" do
-    it "should have a directorate attribute" do
+  describe 'associations' do
+    it 'should have a directorate attribute' do
       expect(div).to respond_to(:directorate)
     end
 

@@ -4,17 +4,15 @@ describe Export::PqPod do
   include Unit::QuestionFactory
   include CSVHelpers
 
-  let(:export) {
-    Export::PqPod.new(Date.yesterday - 2.days, Date.today)
-  }
+  let(:export) { Export::PqPod.new(Date.yesterday - 2.days, Date.today) }
 
-  context "when no records are present" do
-    it "returns a blank CSV" do
+  context 'when no records are present' do
+    it 'returns a blank CSV' do
       expect(decode_csv(export.to_csv)).to eq []
     end
   end
 
-  context "when some records are present" do
+  context 'when some records are present' do
     before(:each) do
       # Expected exclusions
       mk_pq('uin-1', tabled_date: Date.today + 5)
@@ -28,14 +26,14 @@ describe Export::PqPod do
       mk_pq('uin-a', answer_submitted: nil, date_for_answer: Date.yesterday - 3)
     end
 
-    it "returns unanswered, and non transfered-out pqs, within the supplied date range ordered by date for answer" do
+    it 'returns unanswered, and non transfered-out pqs, within the supplied date range ordered by date for answer' do
       exported_pqs =
         decode_csv(export.to_csv).map do |h|
           [
             h['PIN'],
             h['Full_PQ_subject'],
             h['Date First Appeared in Parliament'],
-            h['Date Due in Parliament'],
+            h['Date Due in Parliament']
           ]
         end
 

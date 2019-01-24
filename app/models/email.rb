@@ -27,33 +27,29 @@ class Email < ActiveRecord::Base
   validates :to, presence: true
   validates :reply_to, presence: true
 
-  validates_format_of :from, :with => EMAIL_REGEXP
-  validates_format_of :reply_to, :with => EMAIL_REGEXP
+  validates_format_of :from, with: EMAIL_REGEXP
+  validates_format_of :reply_to, with: EMAIL_REGEXP
 
   validate :concatenated_email_to_format
   validate :concatenated_email_cc_format
 
-  validates :mailer, inclusion: { in: %w(DbSyncMailer ImportMailer PqMailer) }
-  validates :status, inclusion: { in: %w(new sending sent failed abandoned)  }
+  validates :mailer, inclusion: { in: %w[DbSyncMailer ImportMailer PqMailer] }
+  validates :status, inclusion: { in: %w[new sending sent failed abandoned]  }
 
   serialize :params
 
   scope :new_only,  -> { where(status: 'new').order(:id) }
-  scope :waiting,   -> { where(status: ['new', 'failed']).order(:id) }
+  scope :waiting,   -> { where(status: %w[new failed]).order(:id) }
   scope :abandoned, -> { where(status: 'abandoned').order(:id) }
 
   private
 
   def concatenated_email_to_format
-    unless concatenated_email_format(:to)
-      errors.add(:to, 'invalid')
-    end
+    errors.add(:to, 'invalid') unless concatenated_email_format(:to)
   end
 
   def concatenated_email_cc_format
-    unless concatenated_email_format(:cc)
-      errors.add(:cc, 'invalid')
-    end
+    errors.add(:cc, 'invalid') unless concatenated_email_format(:cc)
   end
 
   def concatenated_email_format(field)

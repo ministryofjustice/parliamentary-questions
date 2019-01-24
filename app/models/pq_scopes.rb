@@ -11,31 +11,31 @@ module PqScopes
   end
 
   def answered_by_deadline_last_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+    not_tx.where('answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
   end
 
   def answered_by_deadline_prev_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def answered_by_deadline_since
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", parliament_session_start)
+    not_tx.where('answer_submitted < date_for_answer + 1 AND answer_submitted > ?', parliament_session_start)
   end
 
   def answer_due_since
-    not_tx.where("date_for_answer > ?", parliament_session_start)
+    not_tx.where('date_for_answer > ?', parliament_session_start)
   end
 
   def answered_prev_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('answer_submitted BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def answered_last_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+    not_tx.where('answer_submitted BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
   end
 
   def answered_since
-    not_tx.where("answer_submitted > ?", parliament_session_start)
+    not_tx.where('answer_submitted > ?', parliament_session_start)
   end
 
   def backlog
@@ -43,7 +43,8 @@ module PqScopes
   end
 
   def beginning_of_last_week
-    (Date.today.beginning_of_week) - 8 # Sunday
+    # Sunday
+    (Date.today.beginning_of_week) - 8
   end
 
   def beginning_of_prev_week
@@ -68,19 +69,20 @@ module PqScopes
   end
 
   def draft_response_due_since
-    not_tx.where("internal_deadline > ?", parliament_session_start)
+    not_tx.where('internal_deadline > ?', parliament_session_start)
   end
 
   def due_last_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+    not_tx.where('date_for_answer BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
   end
 
   def due_prev_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('date_for_answer BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def end_of_last_week
-    (Date.today.beginning_of_week) - 2 # Saturday
+    # Saturday
+    (Date.today.beginning_of_week) - 2
   end
 
   def end_of_prev_week
@@ -104,7 +106,7 @@ module PqScopes
   end
 
   def imported_prev_week
-    not_tx.where("created_at BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('created_at BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def in_progress
@@ -138,7 +140,7 @@ module PqScopes
     by_status(PQState::NEW)
   end
 
-  def no_response()
+  def no_response
     by_status(PQState::NO_RESPONSE)
   end
 
@@ -147,7 +149,7 @@ module PqScopes
   end
 
   def on_time
-    not_tx.where("answer_submitted <= (date_for_answer + 1)")
+    not_tx.where('answer_submitted <= (date_for_answer + 1)')
   end
 
   def ordinary
@@ -188,7 +190,7 @@ module PqScopes
   end
 
   def total_questions_since
-    not_tx.where("created_at > ?", parliament_session_start)
+    not_tx.where('created_at > ?', parliament_session_start)
   end
 
   def transferred
@@ -196,10 +198,10 @@ module PqScopes
   end
 
   def uin(uin_to_search)
-    where("uin = ?", uin_to_search).first
+    where('uin = ?', uin_to_search).first
   end
 
-  def unassigned()
+  def unassigned
     by_status(PQState::UNASSIGNED)
   end
 

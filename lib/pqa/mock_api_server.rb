@@ -22,7 +22,7 @@ module PQA
     # Note: Internal to the Mock API server
     put '/reset' do
       QUESTIONS.clear
-      "ok"
+      'ok'
     end
 
     # Note: Internal to the Mock API server
@@ -32,16 +32,16 @@ module PQA
       errors = SCHEMA.validate(doc)
       q      = XMLDecoder.decode_question(xml)
 
-      unless errors.empty?
+      if errors.empty?
+        QUESTIONS[q.uin] = q
+        body "Uin: #{q.uin}, tabled date: #{q.tabled_date}, status: #{q.question_status} => OK"
+      else
         status 400
         msg = (
-          ["Invalid XML message"] +
+          ['Invalid XML message'] +
           errors.map { |err| "- #{err.inspect}" }
         ).join("\n")
         body msg
-      else
-        QUESTIONS[q.uin] = q
-        body "Uin: #{q.uin}, tabled date: #{q.tabled_date}, status: #{q.question_status} => OK"
       end
     end
 
@@ -66,7 +66,7 @@ module PQA
     get '/api/qais/questions/:uin' do
       my_uin = QUESTIONS[params['uin']]
       if my_uin.nil?
-        "Not found"
+        'Not found'
       else
         XMLEncoder.encode_questions([my_uin])
       end

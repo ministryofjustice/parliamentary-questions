@@ -4,10 +4,7 @@ class ManualRejectCommissionController < ApplicationController
   def reject_manual
     ao_pq = ActionOfficersPq.where(id: params[:id]).first
 
-    unless ao_pq
-      flash[:error] = 'Commission data not found'
-      redirect_to({ controller: 'dashboard', action: 'index' })
-    else
+    if ao_pq
       response = AllocationResponse.new(
         reason_option: 'Other Reason',
         reason: "This question was rejected manually by #{current_user.email}"
@@ -16,7 +13,10 @@ class ManualRejectCommissionController < ApplicationController
 
       uin = ao_pq.pq.uin
       flash[:success] = "#{uin} manually rejected, check if you have to do the commissioning again"
-      redirect_to({ controller: 'pqs', action: 'show', id: uin })
+      redirect_to(controller: 'pqs', action: 'show', id: uin)
+    else
+      flash[:error] = 'Commission data not found'
+      redirect_to(controller: 'dashboard', action: 'index')
     end
   end
 end

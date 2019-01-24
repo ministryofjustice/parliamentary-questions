@@ -27,14 +27,9 @@ module PQState
 
     def has_dead_end?(state_from, visited = [])
       t = @transitions.find { |_t| _t.state_from == state_from }
+      t = next_transition(t) if t && is_cyclic_link?(visited, t)
 
-      if t && is_cyclic_link?(visited, t)
-        t = next_transition(t)
-      end
-
-      unless t
-        return true
-      end
+      return true unless t
 
       case [@final_states.include?(t.state_to), visited.size < @max_iterations]
       when [true, true]

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @users = User.order(Arel.sql("lower(name)")).page(params[:page]).per_page(15)
+    @users = User.order(Arel.sql('lower(name)')).page(params[:page]).per_page(15)
     update_page_title('Users')
   end
 

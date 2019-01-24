@@ -30,9 +30,9 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
     expect(page).to have_text('I will write')
   end
 
-  scenario "Parli-branch creates an IWW follow-up question" do
+  scenario 'Parli-branch creates an IWW follow-up question' do
     visit pq_path(@uin)
-    click_on "Answer"
+    click_on 'Answer'
     click_on "Create 'I will write' follow up"
 
     visit dashboard_path
@@ -43,16 +43,16 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
 
     visit pq_path(@iww_uin)
 
-    click_on "Answer"
+    click_on 'Answer'
     expect(page).not_to have_text("Create 'I will write' follow up")
-    click_on "PQ commission"
+    click_on 'PQ commission'
     expect(page.title).to have_text("PQ #{@iww_uin}")
     expect(page).to have_text(@ao.email)
   end
 
   scenario "Parli-branch clicks on the 'create IWW follow up button' for a second time" do
     visit pq_path(@uin)
-    click_on "Answer"
+    click_on 'Answer'
     click_on "Create 'I will write' follow up"
     expect(page.title).to have_text("PQ #{@iww_uin}")
     expect(page).to have_content(@iww_uin)

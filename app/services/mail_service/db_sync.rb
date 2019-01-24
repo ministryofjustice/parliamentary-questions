@@ -1,6 +1,6 @@
 module MailService
   module DbSync
-    module_function
+    extend self
 
     extend Base
 

@@ -49,9 +49,7 @@ module PQState
     end
 
     def transitions_permitted(from_state)
-      unless states.include?(from_state)
-        raise(ArgumentError, "Cannot find a transition from state '#{from_state}'. Valid states are: #{states}")
-      end
+      raise(ArgumentError, "Cannot find a transition from state '#{from_state}'. Valid states are: #{states}") unless states.include?(from_state)
 
       @transitions.select { |t| t.state_from == from_state }
     end

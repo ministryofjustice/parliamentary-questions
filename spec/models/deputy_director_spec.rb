@@ -27,8 +27,8 @@ describe DeputyDirector do
     expect(depdir).to be_invalid
   end
 
-  describe "associations" do
-    it "should have a division attribute" do
+  describe 'associations' do
+    it 'should have a division attribute' do
       expect(depdir).to respond_to(:division)
     end
 

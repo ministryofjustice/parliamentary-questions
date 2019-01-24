@@ -41,7 +41,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.html_part.body).to include CGI.escape(expectedCC)
     end
 
     it 'should cc minister contacts when present' do
@@ -57,7 +57,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.html_part.body).to include CGI.escape(expectedCC)
     end
 
     it 'should add the people from the Actionlist to the CC on the draft email link' do
@@ -73,7 +73,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.html_part.body).to include CGI.escape(expectedCC)
     end
 
     it 'should contain the name of the minister' do
@@ -135,7 +135,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to include my_finance_email
-      expect(mail.html_part.body).to include CGI::escape(my_finance_email)
+      expect(mail.html_part.body).to include CGI.escape(my_finance_email)
     end
 
     it 'should not add the Finance email to the CC list on the draft email link if Finance has not registered an interest in the question' do
@@ -152,7 +152,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to_not include my_finance_email
-      expect(mail.html_part.body).to_not include CGI::escape(my_finance_email)
+      expect(mail.html_part.body).to_not include CGI.escape(my_finance_email)
     end
 
     it 'should not add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question but is inactive' do
@@ -169,7 +169,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to_not include my_finance_email
-      expect(mail.html_part.body).to_not include CGI::escape(my_finance_email)
+      expect(mail.html_part.body).to_not include CGI.escape(my_finance_email)
     end
 
     it 'should show the date for answer if set' do
@@ -204,7 +204,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.html_part.body).to include CGI.escape(expectedCC)
     end
 
     it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
@@ -216,7 +216,7 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to_not include expectedCC
-      expect(mail.html_part.body).to_not include CGI::escape(expectedCC)
+      expect(mail.html_part.body).to_not include CGI.escape(expectedCC)
     end
   end
 end

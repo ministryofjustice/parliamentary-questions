@@ -44,7 +44,7 @@ describe ActionOfficersPq do
 
   describe '#reset' do
     before do
-      subject.response = :accepted;
+      subject.response = :accepted
       subject.reset
     end
 

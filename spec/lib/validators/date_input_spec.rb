@@ -7,7 +7,7 @@ describe Validators::DateInput do
   let(:max_len) { Validators::DateInput::MAX_LEN }
 
   it 'should raise an error if the input is above the maximum size' do
-    buffer = "1" * (max_len + 1)
+    buffer = '1' * (max_len + 1)
 
     expect { parse_date(buffer) }.to raise_error(Validators::DateInput::DateTimeInputError)
   end

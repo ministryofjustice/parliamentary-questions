@@ -10,7 +10,7 @@ describe RakeTaskHelpers::StagingSync do
   it 'should not run unless the host env is staging ' do
     allow(HostEnv).to receive(:is_staging?).and_return(false)
     msg =
-      "[-] This task should only be run in the staging environment\n" +
+      "[-] This task should only be run in the staging environment\n" \
       "[-] Database has NOT been modified\n"
 
     expect_any_instance_of(RakeTaskHelpers::DBSanitizer).not_to receive(:run!)

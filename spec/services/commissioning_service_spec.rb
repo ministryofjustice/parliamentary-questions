@@ -1,66 +1,36 @@
 require 'spec_helper'
 
 describe CommissioningService do
-  let(:pq) {
-    DBHelpers.pqs.first
-  }
+  shared_context 'test_values' do
+    let(:ao1) { DBHelpers.action_officers[0] }
+    let(:ao2) { DBHelpers.action_officers[1] }
+    let(:form_params) { { pq_id: pq.id, minister_id: minister.id, policy_minister_id: policy_minister.id, action_officer_id: [ao1.id, ao2.id], date_for_answer: Date.tomorrow, internal_deadline: Date.today.midnight } }
+    let(:form) { CommissionForm.new(form_params) }
+    let(:invalid_form_params) { form_params.merge(date_for_answer: nil) }
+    let(:invalid_form) { CommissionForm.new(invalid_form_params) }
+    let(:minister) { DBHelpers.ministers[0] }
+    let(:policy_minister) { DBHelpers.ministers[1] }
+    let(:pq) { DBHelpers.pqs.first }
+  end
 
-  let(:minister) {
-    DBHelpers.ministers[0]
-  }
-
-  let(:policy_minister) {
-    DBHelpers.ministers[1]
-  }
-
-  let(:ao1) {
-    DBHelpers.action_officers[0]
-  }
-
-  let(:ao2) {
-    DBHelpers.action_officers[1]
-  }
-
-  let(:form_params) {
-    {
-      pq_id: pq.id,
-      minister_id: minister.id,
-      policy_minister_id: policy_minister.id,
-      action_officer_id: [ao1.id, ao2.id],
-      date_for_answer: Date.tomorrow,
-      internal_deadline: Date.today.midnight
-    }
-  }
-
-  let(:invalid_form_params) {
-    form_params.merge(date_for_answer: nil)
-  }
-
-  let(:form) {
-    CommissionForm.new(form_params)
-  }
-
-  let(:invalid_form) {
-    CommissionForm.new(invalid_form_params)
-  }
-
-  describe "#commission" do
-    context "when the supplied form data is not valid" do
-      it "raises an error" do
-        expect {
+  describe '#commission' do
+    include_context 'test_values'
+    context 'when the supplied form data is not valid' do
+      it 'raises an error' do
+        expect do
           invalid_form = CommissionForm.new(invalid_form_params)
           CommissioningService.new.commission(invalid_form)
-        }.to raise_error(ArgumentError)
+        end.to raise_error(ArgumentError)
       end
     end
 
-    context "when the supplied data is valid" do
+    context 'when the supplied data is valid' do
       before do
         valid_form = CommissionForm.new(form_params)
         @pq = CommissioningService.new.commission(valid_form)
       end
 
-      it "returns an updated PQ" do
+      it 'returns an updated PQ' do
         expect(@pq).to be_valid
         expect(@pq.minister).to eq(minister)
         expect(@pq.policy_minister).to eq(policy_minister)
@@ -72,7 +42,7 @@ describe CommissioningService do
         expect(@pq.action_officers).to eq([ao1, ao2])
       end
 
-      it "notifies the action officers" do
+      it 'notifies the action officers' do
         MailWorker.new.run!
         ao1_mail, ao2_mail = ActionMailer::Base.deliveries
         expect(ao1_mail.to).to eq([ao1.email])

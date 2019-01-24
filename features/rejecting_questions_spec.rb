@@ -7,7 +7,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     DBHelpers.load_feature_fixtures
 
     clear_sent_mail
-    @pq, _ = PQA::QuestionLoader.new.load_and_import(2)
+    @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do
@@ -24,7 +24,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
 
   scenario 'Following the email link should let an AO reject the question' do
     reject_assignment(ao1, 2, 'going to the cinema')
-    expect(page.title).to have_text("PQ rejected")
+    expect(page.title).to have_text('PQ rejected')
     expect(page).to have_content(/thank you for your response/i)
   end
 
@@ -33,7 +33,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
     visit dashboard_path
 
     within_pq(@pq.uin) do
-      expect(page.title).to have_text("Dashboard")
+      expect(page.title).to have_text('Dashboard')
       expect(page).to have_text("#{ao1.name} rejected at:")
       expect(page).to have_text('going to the cinema')
     end
@@ -63,7 +63,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
   scenario 'If an AO rejects without selecting from the dropdown, show an error' do
     visit_assignment_url(ao2)
     choose 'Reject'
-    fill_in 'allocation_response_reason', with: "no time"
+    fill_in 'allocation_response_reason', with: 'no time'
     click_on 'Save Response'
     expect(page).to have_content('Form was not completed')
     expect(page).to have_content('Please select one of the reasons to reject the question')
@@ -88,7 +88,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
       expect(page).to have_text('going to the cinema')
 
       expect(page).to have_text("#{ao2.name} rejected at:")
-      expect(page).to have_text("too busy!")
+      expect(page).to have_text('too busy!')
     end
   end
 end

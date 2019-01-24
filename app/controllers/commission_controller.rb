@@ -31,7 +31,7 @@ class CommissionController < ApplicationController
 
   def complete
     @pq = Pq.find_by!(uin: params[:id])
-    render :partial => 'shared/commissioned', :locals => { uin: @pq }
+    render partial: 'shared/commissioned', locals: { uin: @pq }
   end
 
   private

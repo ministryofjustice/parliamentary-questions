@@ -30,10 +30,12 @@ module RakeTaskHelpers
           roles: 'PQUSER'
         )
 
-      u.update(
-        password: pass,
-        password_confirmation: pass
-      ) if u.new_record?
+      if u.new_record?
+        u.update(
+          password: pass,
+          password_confirmation: pass
+        )
+      end
     end
 
     protected

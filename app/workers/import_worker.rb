@@ -11,7 +11,7 @@ class ImportWorker
       begin
         LogStuff.info { "Import: starting scheduled import from #{date_from} to #{date_to}" }
         report = @import.run(date_from, date_to)
-        LogStuff.info { "Import: completed scheduled import" }
+        LogStuff.info { 'Import: completed scheduled import' }
 
         MailService::Import.notify_success(report)
         PqaImportRun.record_success(start_time, report)

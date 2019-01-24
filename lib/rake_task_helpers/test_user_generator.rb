@@ -9,9 +9,7 @@ module RakeTaskHelpers
     attr_reader :testers
 
     def self.from_config(path = DEFAULT_CONFIG_PATH)
-      unless ENV['TEST_USER_PASS']
-        raise 'TEST_USER_PASS environment variable not set - please set it first'
-      end
+      raise 'TEST_USER_PASS environment variable not set - please set it first' unless ENV['TEST_USER_PASS']
 
       config       = YAML.safe_load(File.read(path))
       default_pass = ENV['TEST_USER_PASS']
@@ -32,7 +30,7 @@ module RakeTaskHelpers
     end
 
     def run!
-      testers.each { |tester| tester.create_fixtures! }
+      testers.each(&:create_fixtures!)
     end
 
     private

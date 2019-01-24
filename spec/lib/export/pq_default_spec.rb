@@ -4,12 +4,10 @@ describe Export::PqDefault do
   include Unit::QuestionFactory
   include CSVHelpers
 
-  let(:export) {
-    Export::PqDefault.new(Date.yesterday, Date.today)
-  }
+  let(:export) { Export::PqDefault.new(Date.yesterday, Date.today) }
 
-  context "For output to Excel" do
-    it "Inserts a single quote to escape a formula in Excel" do
+  context 'For output to Excel' do
+    it 'Inserts a single quote to escape a formula in Excel' do
       expect(export.escape_equals_for_excel('=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')).to eq ("'" + '=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')
     end
     it "Doesn't alter a value if it doesn't start with an equals" do
@@ -17,13 +15,13 @@ describe Export::PqDefault do
     end
   end
 
-  context "when no records are present" do
-    it "returns a blank CSV" do
+  context 'when no records are present' do
+    it 'returns a blank CSV' do
       expect(decode_csv(export.to_csv)).to eq []
     end
   end
 
-  context "when some records are present" do
+  context 'when some records are present' do
     before(:each) do
       # Expected exclusions
       mk_pq('uin-1', answer_submitted: Date.today - 5)
@@ -36,7 +34,7 @@ describe Export::PqDefault do
       mk_pq('uin-c')
     end
 
-    it "returns unanswered, and non transfered-out pqs, within the supplied date range ordered by UIN" do
+    it 'returns unanswered, and non transfered-out pqs, within the supplied date range ordered by UIN' do
       today        = date_s(Date.today)
       yesterday    = date_s(Date.yesterday)
       exported_pqs =
@@ -45,7 +43,7 @@ describe Export::PqDefault do
             h['PIN'],
             h['Full_PQ_subject'],
             h['Date First Appeared in Parliament'],
-            h['Date response answered by Parly (dept)'],
+            h['Date response answered by Parly (dept)']
           ]
         end
 

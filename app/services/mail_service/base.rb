@@ -1,6 +1,6 @@
 module MailService
   module Base
-    module_function
+    extend self
 
     protected
 

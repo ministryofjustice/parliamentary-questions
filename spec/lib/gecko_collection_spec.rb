@@ -23,7 +23,7 @@ describe GeckoCollection do
   end
 
   it '#map - should iterate through the GeckoStatus objects in the expected order' do
-    component_names = subject.map { |status| status.name }
+    component_names = subject.map(&:name)
 
     expect(component_names).to eq ['Key Metric', 'Database', 'Sendgrid', 'PQA API', 'Email', 'PQ Import', 'Smoke Tests']
   end

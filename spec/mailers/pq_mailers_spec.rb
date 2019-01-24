@@ -5,19 +5,19 @@ describe PqMailer do
     before(:each) do
       pq = FactoryBot.create :pq
       @template_params = {
-        :uin => pq.uin,
-        :question => pq.question,
-        :ao_name => "Colin Bruce",
-        :member_constituency => "Kingston upon Hull North",
-        :member_name => "Diana Johnson",
-        :house_name => "House of Commons",
-        :answer_by => "Damian Green (MP)",
-        :internal_deadline => 3.days.from_now,
-        :date_to_parliament => 5.days.from_now,
-        :email => "colin.bruce@digital.justice.gov.uk",
-        :cc => "kulsgroupmail@digital.justice.gov.uk",
-        :token => "KL7g57Y-7ZFgBBGvWq9o",
-        :entity => "assignment:4"
+        uin: pq.uin,
+        question: pq.question,
+        ao_name: 'Colin Bruce',
+        member_constituency: 'Kingston upon Hull North',
+        member_name: 'Diana Johnson',
+        house_name: 'House of Commons',
+        answer_by: 'Damian Green (MP)',
+        internal_deadline: 3.days.from_now,
+        date_to_parliament: 5.days.from_now,
+        email: 'colin.bruce@digital.justice.gov.uk',
+        cc: 'kulsgroupmail@digital.justice.gov.uk',
+        token: 'KL7g57Y-7ZFgBBGvWq9o',
+        entity: 'assignment:4'
       }
     end
     describe 'deliver' do
@@ -26,10 +26,10 @@ describe PqMailer do
         MailWorker.new.run!
 
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.to).to eq ["colin.bruce@digital.justice.gov.uk"]
-        expect(mail.from).to eq ["no-reply@trackparliamentaryquestions.service.gov.uk"]
-        expect(mail.reply_to).to eq ["pqs@justice.gsi.gov.uk"]
-        expect(mail.cc).to eq ["kulsgroupmail@digital.justice.gov.uk"]
+        expect(mail.to).to eq ['colin.bruce@digital.justice.gov.uk']
+        expect(mail.from).to eq ['no-reply@trackparliamentaryquestions.service.gov.uk']
+        expect(mail.reply_to).to eq ['pqs@justice.gsi.gov.uk']
+        expect(mail.cc).to eq ['kulsgroupmail@digital.justice.gov.uk']
         expect(mail.to_s).to include 'From: PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>'
         expect(mail.to_s).to include 'Reply-To: pqs@justice.gsi.gov.uk'
         expect(mail.text_part.body).to include 3.days.from_now

@@ -1,5 +1,5 @@
 class SetDefaultForAllDeletableModels < ActiveRecord::Migration[5.0]
-  TABLES_WITH_DELETED = %w(
+  TABLES_WITH_DELETED = %w[
     action_officers
     actionlist_members
     deputy_directors
@@ -13,7 +13,7 @@ class SetDefaultForAllDeletableModels < ActiveRecord::Migration[5.0]
     trim_links
     users
     watchlist_members
-  )
+  ]
 
   def up
     TABLES_WITH_DELETED.each do |table|

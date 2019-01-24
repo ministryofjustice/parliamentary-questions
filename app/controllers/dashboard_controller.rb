@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
   def backlog
     @dashboard_state = BACKLOG
     load_pq_with_counts(@dashboard_state) { Pq.backlog.sorted_for_dashboard }
-    update_page_title "Backlog"
+    update_page_title 'Backlog'
     render 'index'
   end
 
@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
 
   def in_progress
     @dashboard_state = IN_PROGRESS
-    update_page_title "In progress"
+    update_page_title 'In progress'
     load_pq_with_counts(IN_PROGRESS) { Pq.in_progress.sorted_for_dashboard }
     render 'index'
   end
@@ -37,7 +37,7 @@ class DashboardController < ApplicationController
 
   def index
     @dashboard_state = NEW
-    update_page_title "Dashboard"
+    update_page_title 'Dashboard'
     load_pq_with_counts(@dashboard_state) { Pq.new_questions.sorted_for_dashboard }
   end
 
@@ -54,10 +54,10 @@ class DashboardController < ApplicationController
     @action_officers          = ActionOfficer.active
     @dashboard_state          = dashboard_state
     @questions                = (yield) if block_given?
-    @statuses                 = @questions.all.map { |q| q.state }.uniq
-    @question_types           = @questions.where("question_type != 'Follow-up IWW'").map { |q| q.question_type }.uniq
-    @transfers                = @questions.all.map { |q| q.transferred }.uniq
-    @i_will_writes            = @questions.all.map { |q| q.i_will_write }.uniq
+    @statuses                 = @questions.all.map(&:state).uniq
+    @question_types           = @questions.where("question_type != 'Follow-up IWW'").map(&:question_type).uniq
+    @transfers                = @questions.all.map(&:transferred).uniq
+    @i_will_writes            = @questions.all.map(&:i_will_write).uniq
     @answering_minister_names = @questions.where('minister_id > 0').map { |q| q.minister.name }.uniq
     @policy_minister_names    = @questions.where('policy_minister_id > 0').map { |q| q.policy_minister.name }.uniq
     @filters =

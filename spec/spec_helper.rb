@@ -1,9 +1,9 @@
 require 'codeclimate-test-reporter'
 # CodeClimate::TestReporter.start
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 require 'rspec/rails'
 require './spec/support/db_helpers'
@@ -14,7 +14,7 @@ require './spec/support/csv_helpers'
 require 'shoulda/matchers'
 require 'paper_trail/frameworks/rspec'
 
-require "bundler/setup"
+require 'bundler/setup'
 ::Bundler.require(:default, :test)
 
 ::Shoulda::Matchers.configure do |config|
@@ -70,7 +70,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you  can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  config.order = 'random'
 
   config.infer_spec_type_from_file_location!
 
@@ -109,8 +109,8 @@ RSpec::Matchers.define :eq_gecko_status do |component_name, label, color, messag
     result = false if actual.color != color
     if message.is_a?(Regexp)
       result = false if actual.message !~ message
-    else
-      result = false if actual.message != message
+    elsif actual.message != message
+      result = false
     end
     result
   end

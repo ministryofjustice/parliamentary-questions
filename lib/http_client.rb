@@ -26,7 +26,7 @@ class HTTPClient
 
   class FailureResponse < StandardError
     def initialize(request, response)
-      super("PQ rest API responded with non success code: #{response.code}," +
+      super("PQ rest API responded with non success code: #{response.code}," \
         " response: #{response.body} (request: #{request.inspect})")
     end
   end

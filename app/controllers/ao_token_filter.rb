@@ -15,7 +15,7 @@ class AOTokenFilter
     result        = :valid if token_service.valid?(token, path, entity)
     result        = :expired if result == :valid && token_service.expired?(token, path, entity)
 
-    return result
+    result
   end
 
   def self.log_and_redirect(controller, token_state)
@@ -27,28 +27,25 @@ class AOTokenFilter
 
     log_error(token_state, params)
 
-    controller.update_page_title "Unauthorised (401)"
-    controller.render :file => "shared/token_#{token_state.to_s}.html.slim", status: :unauthorized
+    controller.update_page_title 'Unauthorised (401)'
+    controller.render file: "shared/token_#{token_state.to_s}.html.slim", status: :unauthorized
   end
 
   def self.log_error(token_state, params)
-    LogStuff.error(:token_error,
-                   type: "#{token_state}_token",
-                   uri: params.uri,
-                   referer: params.referer,
-                   uin: params.uin,
-                   user: params.user) { "Access Token Error - #{token_state.to_s.humanize} Token" }
+    LogStuff.error(
+      :token_error,
+      type: "#{token_state}_token",
+      uri: params.uri,
+      referer: params.referer,
+      uin: params.uin,
+      user: params.user
+    ) { "Access Token Error - #{token_state.to_s.humanize} Token" }
   end
 
   def self.extract_uin(controller)
-    # request_path = controller.env['REQUEST_PATH']
     request_path = controller.request.path
-
-    if request_path =~ /^\/assignment\//
-      # controller.env['REQUEST_PATH'].split('/').last
+    if request_path =~ %r{^/assignment/}
       controller.request.path.split('/').last
-    else
-      nil
     end
   end
 

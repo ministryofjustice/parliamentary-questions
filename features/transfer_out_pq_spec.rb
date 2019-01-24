@@ -18,8 +18,8 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
     create_pq_session
     visit dashboard_path
     click_on uin
-    click_on "PQ commission"
-    find("select[name = 'pq[transfer_out_ogd_id]']").find(:xpath, "option[2]").select_option
+    click_on 'PQ commission'
+    find("select[name = 'pq[transfer_out_ogd_id]']").find(:xpath, 'option[2]').select_option
     find('#transfer_out_date').set(date || Date.today.strftime('%d/%m/%Y'))
     click_on 'Save'
   end
@@ -62,7 +62,7 @@ feature 'Transferring OUT questions', js: true, suspend_cleaner: true do
 
     expect(page).not_to have_content(uin)
     Pq.order(:uin).drop(1).each do |pq|
-      expect(page.title).to have_text("Dashboard")
+      expect(page.title).to have_text('Dashboard')
       expect(page).to have_content(pq.uin)
     end
   end

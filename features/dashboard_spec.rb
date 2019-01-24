@@ -24,10 +24,10 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
     visit dashboard_path
 
     @pqs.each do |pq|
-      within_pq(pq.uin) {
-        expect(page.title).to have_content("Dashboard")
+      within_pq(pq.uin) do
+        expect(page.title).to have_content('Dashboard')
         expect(page).to have_content(pq.text)
-      }
+      end
     end
   end
 
@@ -43,7 +43,7 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
   scenario 'Parli-branch sees an error message if no question matches the uin' do
     search_for('gibberish')
 
-    expect(page.title).to have_content("Dashboard")
+    expect(page.title).to have_content('Dashboard')
     expect(page.current_path).to eq dashboard_path
     expect(page).to have_content "Question with UIN 'gibberish' not found"
   end

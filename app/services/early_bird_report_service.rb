@@ -7,7 +7,7 @@ class EarlyBirdReportService
   end
 
   def entity
-    "early_bird-" + @current_time.to_s
+    'early_bird-' + @current_time.to_s
   end
 
   def notify_early_bird
@@ -15,11 +15,11 @@ class EarlyBirdReportService
     token      = @tokenService.generate_token(early_bird_dashboard_path, entity, end_of_day)
     cc         = EarlyBirdMember.active.pluck(:email).join(';')
     template   = {
-      :name => 'early_bird',
-      :entity => entity,
-      :email => 'pqtest@digital.justice.gov.uk',
-      :token => token,
-      :cc => cc
+      name: 'early_bird',
+      entity: entity,
+      email: 'pqtest@digital.justice.gov.uk',
+      token: token,
+      cc: cc
     }
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.earlybird"

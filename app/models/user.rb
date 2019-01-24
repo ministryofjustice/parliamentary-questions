@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable,
          :lockable, :timeoutable,
-         :validatable, :validate_on_invite => true
+         :validatable, validate_on_invite: true
 
   validates :name, presence: true
   validates :roles, presence: true
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    !self.deleted? && super
+    !deleted? && super
   end
 
   def set_defaults

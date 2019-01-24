@@ -56,9 +56,7 @@ ParliamentaryQuestions::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  if ENV['ASSET_HOST']
-    config.action_controller.asset_host = ENV['ASSET_HOST']
-  end
+  config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST']
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -100,8 +98,8 @@ ParliamentaryQuestions::Application.configure do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
 
     ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'http' }
-    ActionMailer::Base.default :from => Settings.mail_from
-    ActionMailer::Base.default :reply_to => Settings.mail_reply_to
+    ActionMailer::Base.default from: Settings.mail_from
+    ActionMailer::Base.default reply_to: Settings.mail_reply_to
     ActionMailer::Base.smtp_settings = {
       address: ENV['SMTP_HOSTNAME'] || 'localhost',
       port: ENV['SMTP_PORT'] || 587,

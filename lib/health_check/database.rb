@@ -3,7 +3,7 @@ module HealthCheck
     def accessible?
       begin
         tuple = execute_simple_select_on_database
-        result = tuple.to_a == [{ "result" => "1" }]
+        result = tuple.to_a == [{ 'result' => '1' }]
       rescue => e
         log_unknown_error(e)
         result = false
@@ -30,7 +30,7 @@ module HealthCheck
 
     def log_error
       @errors = [
-        "Database Error: could not connect to #{config.database} " +
+        "Database Error: could not connect to #{config.database} " \
           "on #{config.host} using #{config.adapter}"
       ]
     end

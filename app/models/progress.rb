@@ -11,7 +11,7 @@
 
 class Progress < ActiveRecord::Base
   def classname
-    self.name.downcase.sub ' ', '-'
+    name.downcase.sub ' ', '-'
   end
 
   def self.find_by_status(status)

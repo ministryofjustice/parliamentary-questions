@@ -1,5 +1,5 @@
 module DBHelpers
-  module_function
+  extend self
 
   USER_PASSWORD = '123456789'
 
@@ -15,8 +15,7 @@ module DBHelpers
     :pqs
   ]
 
-  def load_spec_fixtures
-  end
+  def load_spec_fixtures; end
 
   def load_feature_fixtures
     load_fixtures(:ministers,
@@ -40,9 +39,7 @@ module DBHelpers
       ['fin@fin.com', 'finance-user', User::ROLE_FINANCE]
     ].map do |email, name, role|
       u = User.find_or_create_by(email: email, name: name, roles: role)
-      if u.new_record?
-        u.update(password: USER_PASSWORD, password_confirmation: USER_PASSWORD)
-      end
+      u.update(password: USER_PASSWORD, password_confirmation: USER_PASSWORD) if u.new_record?
       u
     end
   end
@@ -79,7 +76,7 @@ module DBHelpers
       { name: 'Law and Access to Justice' },
       { name: 'NOMS' },
       { name: 'HMCTS' },
-      { name: 'LAA and Corporate Services' },
+      { name: 'LAA and Corporate Services' }
     ].map { |h| Directorate.find_or_create_by(h) }
   end
 
@@ -110,7 +107,7 @@ module DBHelpers
   def deputy_directors
     [
       { division: divisions[0], email: 'dd1@pq.com', name: 'deputy director 1' },
-      { division: divisions[0], email: 'dd2@pq.com', name: 'deputy director 2' },
+      { division: divisions[0], email: 'dd2@pq.com', name: 'deputy director 2' }
     ].map { |h| DeputyDirector.find_or_create_by(h) }
   end
 
@@ -124,7 +121,7 @@ module DBHelpers
   def press_officers
     [
       { name: 'press officer 1', email: 'one@press.office.com', press_desk: press_desks[0] },
-      { name: 'press officer 2', email: 'two@press.office.com', press_desk: press_desks[1] },
+      { name: 'press officer 2', email: 'two@press.office.com', press_desk: press_desks[1] }
     ].map { |h| PressOfficer.find_or_create_by(h) }
   end
 
@@ -132,7 +129,7 @@ module DBHelpers
     [
       { deputy_director: deputy_directors[0], name: 'action officer 1', email: 'ao1@pq.com', press_desk: press_desks[0] },
       { deputy_director: deputy_directors[1], name: 'action officer 2', email: 'ao2@pq.com', press_desk: press_desks[1] },
-      { deputy_director: deputy_directors[1], name: 'action officer 3', email: 'ao3@pq.com', press_desk: press_desks[1] },
+      { deputy_director: deputy_directors[1], name: 'action officer 3', email: 'ao3@pq.com', press_desk: press_desks[1] }
     ].map { |h| ActionOfficer.find_or_create_by(h) }
   end
 

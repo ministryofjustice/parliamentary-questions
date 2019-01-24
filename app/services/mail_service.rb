@@ -1,5 +1,5 @@
 module MailService
-  module_function
+  extend self
 
   def send_mail(email)
     mailer = email.mailer.constantize

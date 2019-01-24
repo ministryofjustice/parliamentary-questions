@@ -15,7 +15,7 @@
 
 require 'spec_helper'
 
-describe PqaImportRun, :type => :model do
+describe PqaImportRun, type: :model do
   context 'validation' do
     it 'should error if status is not ok or failure or ok_with_errors' do
       pir = FactoryBot.build(:pqa_import_run, status: 'gobbledygook')
@@ -29,12 +29,12 @@ describe PqaImportRun, :type => :model do
     end
 
     it 'should not error is status failure' do
-      pir = FactoryBot.build(:pqa_import_run, status: "Failure")
+      pir = FactoryBot.build(:pqa_import_run, status: 'Failure')
       expect(pir).to be_valid
     end
 
     it 'should not error is status ok_with_errors' do
-      pir = FactoryBot.build(:pqa_import_run, status: "OK_with_errors")
+      pir = FactoryBot.build(:pqa_import_run, status: 'OK_with_errors')
       expect(pir).to be_valid
     end
   end
@@ -102,7 +102,10 @@ describe PqaImportRun, :type => :model do
       expect(pir.status).to eq 'OK_with_errors'
       expect(pir.num_created).to eq 7
       expect(pir.num_updated).to eq 15
-      expect(pir.error_messages).to eq({ "UIN1234" => "Invalid Record", "UIN666" => "Really, really invalid" })
+      expect(pir.error_messages).to eq(
+        'UIN1234' => 'Invalid Record',
+        'UIN666' => 'Really, really invalid'
+      )
     end
   end
 
@@ -126,9 +129,9 @@ describe PqaImportRun, :type => :model do
     let(:freeze_time) { Time.utc(2015, 5, 11, 9, 33, 45) }
 
     it 'should raise an exception if invalid argument given' do
-      expect {
+      expect do
         PqaImportRun.sum_pqs_imported(:leap_year)
-      }.to raise_error ArgumentError, 'invalid range for sum_pqs_imported'
+      end.to raise_error ArgumentError, 'invalid range for sum_pqs_imported'
     end
 
     it 'should return zero if there are no matching records' do
@@ -140,12 +143,18 @@ describe PqaImportRun, :type => :model do
 
     it 'should return appropriate figures' do
       Timecop.freeze(freeze_time) do
-        FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4)       # today
-        FactoryBot.create(:pqa_import_run, start_time: 2.hours.ago, end_time: 2.hours.ago, num_created: 2, num_updated: 5)     # today
-        FactoryBot.create(:pqa_import_run, start_time: 25.hours.ago, end_time: 25.hours.ago, num_created: 3, num_updated: 4)   # this week
-        FactoryBot.create(:pqa_import_run, start_time: 72.hour.ago, end_time: 72.hour.ago, num_created: 3, num_updated: 4)     # this week
-        FactoryBot.create(:pqa_import_run, start_time: 9.days.ago, end_time: 9.days.ago, num_created: 23, num_updated: 14)     # this week
-        FactoryBot.create(:pqa_import_run, start_time: 10.days.ago, end_time: 10.days.ago, num_created: 35, num_updated: 7) # this week
+        # today
+        FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4)
+        # today
+        FactoryBot.create(:pqa_import_run, start_time: 2.hours.ago, end_time: 2.hours.ago, num_created: 2, num_updated: 5)
+        # this week
+        FactoryBot.create(:pqa_import_run, start_time: 25.hours.ago, end_time: 25.hours.ago, num_created: 3, num_updated: 4)
+        # this week
+        FactoryBot.create(:pqa_import_run, start_time: 72.hour.ago, end_time: 72.hour.ago, num_created: 3, num_updated: 4)
+        # this week
+        FactoryBot.create(:pqa_import_run, start_time: 9.days.ago, end_time: 9.days.ago, num_created: 23, num_updated: 14)
+        # this week
+        FactoryBot.create(:pqa_import_run, start_time: 10.days.ago, end_time: 10.days.ago, num_created: 35, num_updated: 7)
 
         expect(PqaImportRun.sum_pqs_imported(:day)).to eq 14
         expect(PqaImportRun.sum_pqs_imported(:week)).to eq 28
@@ -156,22 +165,26 @@ describe PqaImportRun, :type => :model do
 
   describe '.ready_for_early_bird' do
     it 'should return true when last import was today and valid' do
-      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK') # today, valid
+      # today, valid
+      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK')
       expect(PqaImportRun.ready_for_early_bird).to be true
     end
 
     it 'should return false when last import was not today' do
-      FactoryBot.create(:pqa_import_run, start_time: 1.day.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK') # yesterday, valid
+      # yesterday, valid
+      FactoryBot.create(:pqa_import_run, start_time: 1.day.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK')
       expect(PqaImportRun.ready_for_early_bird).to be false
     end
 
     it 'should return false when last import was not valid' do
-      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'Failure') # today, failed
+      # today, failed
+      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'Failure')
       expect(PqaImportRun.ready_for_early_bird).to be false
     end
 
     it 'should return false when last import was OK_with_errors' do
-      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK_with_errors') # today, failed
+      # today, failed
+      FactoryBot.create(:pqa_import_run, start_time: 1.hour.ago, end_time: 1.hour.ago, num_created: 3, num_updated: 4, status: 'OK_with_errors')
       expect(PqaImportRun.ready_for_early_bird).to be false
     end
   end
@@ -196,8 +209,8 @@ def ok_with_errors_report
     created: 7,
     updated: 15,
     errors: {
-      "UIN1234" => "Invalid Record",
-      "UIN666" => "Really, really invalid"
+      'UIN1234' => 'Invalid Record',
+      'UIN666' => 'Really, really invalid'
     }
   }
 end

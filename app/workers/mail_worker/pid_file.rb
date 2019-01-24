@@ -20,9 +20,7 @@ class MailWorker
     end
 
     def delete(pid_s)
-      if present? && pid == pid_s
-        File.delete(path)
-      end
+      File.delete(path) if present? && pid == pid_s
     end
   end
 end

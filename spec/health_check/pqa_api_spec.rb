@@ -91,13 +91,9 @@ describe HealthCheck::PqaApi do
 end
 
 def contents_of_timestamp_file
-  File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, 'r') do |fp|
-    fp.gets
-  end
+  File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, 'r', &:gets)
 end
 
 def delete_timestamp_file
-  if File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
-    File.unlink(HealthCheck::PqaApi::TIMESTAMP_FILE)
-  end
+  File.unlink(HealthCheck::PqaApi::TIMESTAMP_FILE) if File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
 end

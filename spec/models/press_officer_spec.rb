@@ -27,7 +27,7 @@ describe PressOfficer do
     expect(pofficer).to be_invalid
   end
 
-  describe "associations" do
+  describe 'associations' do
     it { is_expected.to belong_to :press_desk }
   end
 end

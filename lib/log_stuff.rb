@@ -9,16 +9,16 @@ class LogStuff
 
   def self.get_thread_current(name)
     Thread.current[NAMESPACE] ||= {
-      :current_fields => {},
-      :current_tags => Set.new
+      current_fields: {},
+      current_tags: Set.new
     }
     Thread.current[NAMESPACE][name].dup
   end
 
   def self.set_thread_current(name, value)
     Thread.current[NAMESPACE] ||= {
-      :current_fields => {},
-      :current_tags => Set.new
+      current_fields: {},
+      current_tags: Set.new
     }
     Thread.current[NAMESPACE][name] = value.dup
   end
@@ -26,7 +26,7 @@ class LogStuff
   def self.log(severity = 'info', *args, &block)
     return unless block_given?
 
-    if self.use_logstasher?
+    if use_logstasher?
       return unless LogStasher.logger.send("#{severity}?")
     else
       return unless Rails.logger.send("#{severity}?")
@@ -45,7 +45,7 @@ class LogStuff
       end
     end
 
-    if self.use_logstasher?
+    if use_logstasher?
       msg = yield
 
       event = LogStash::Event.new('@source' => LogStasher.source,
@@ -60,7 +60,7 @@ class LogStuff
     end
   end
 
-  %w(fatal error warn info debug).each do |severity|
+  %w[fatal error warn info debug].each do |severity|
     eval <<-EOM, nil, __FILE__, __LINE__ + 1
       def self.#{severity}(*args, &block)
         self.log(:#{severity}, *args, &block )

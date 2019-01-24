@@ -9,8 +9,7 @@ class RemoveProgress < ActiveRecord::Migration[5.0]
     end
   end
 
-  def down
-  end
+  def down; end
 
   private
 

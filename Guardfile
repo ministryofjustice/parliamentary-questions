@@ -14,7 +14,7 @@ end
 # end
 # end
 
-guard :rspec, cmd: "bundle exec rspec -fd" do
+guard :rspec, cmd: 'bundle exec rspec -fd' do
   watch(%r{^config/initializers/.+\.rb}) { |m| 'spec' }
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^app/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }

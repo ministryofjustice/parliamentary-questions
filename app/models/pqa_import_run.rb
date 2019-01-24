@@ -16,12 +16,12 @@
 class PqaImportRun < ActiveRecord::Base
   scope :successful, -> { where("status != 'Failure'") }
 
-  validates :status, inclusion: { in: %w(OK Failure OK_with_errors), message: "Status must be 'OK', 'Failure' or 'OK_with_errors': was '%{value}'" }
+  validates :status, inclusion: { in: %w[OK Failure OK_with_errors], message: "Status must be 'OK', 'Failure' or 'OK_with_errors': was '%{value}'" }
 
   serialize :error_messages
 
   def self.last_import_time_utc
-    rec = self.successful.order(:start_time).last
+    rec = successful.order(:start_time).last
     if rec.nil?
       3.days.ago
     else
@@ -30,7 +30,7 @@ class PqaImportRun < ActiveRecord::Base
   end
 
   def self.record_success(start_time, import_run_report)
-    self.create!(
+    create!(
       start_time: start_time,
       end_time: Time.now,
       num_created: import_run_report[:created],
@@ -40,7 +40,7 @@ class PqaImportRun < ActiveRecord::Base
   end
 
   def self.record_failure(start_time, error_message)
-    self.create!(
+    create!(
       start_time: start_time,
       end_time: Time.now,
       num_created: 0,
@@ -51,31 +51,29 @@ class PqaImportRun < ActiveRecord::Base
 
   def self.sum_pqs_imported(range)
     valid_ranges = {
-      :day => Date.today.beginning_of_day,
-      :week => 7.days.ago.beginning_of_day,
-      :month => 30.days.ago.beginning_of_day
+      day: Date.today.beginning_of_day,
+      week: 7.days.ago.beginning_of_day,
+      month: 30.days.ago.beginning_of_day
     }
-    raise ArgumentError.new("invalid range for sum_pqs_imported") unless valid_ranges.keys.include?(range)
+    raise ArgumentError, 'invalid range for sum_pqs_imported' unless valid_ranges.keys.include?(range)
 
-    recs = self.where('start_time >= ?', valid_ranges[range])
-    recs.inject(0) { |n, rec| n + rec.num_updated + rec.num_created }
+    recs = where('start_time >= ?', valid_ranges[range])
+    recs.reduce(0) { |n, rec| n + rec.num_updated + rec.num_created }
   end
 
   def self.ready_for_early_bird
-    if last_import_time_utc < Date.today()
-      return false
+    return false if last_import_time_utc < Date.today
+
+    rec = successful.order(:start_time).last
+    case rec.status
+    when 'Failed'
+      false
+    when 'OK_with_errors'
+      false
+    when 'OK'
+      true
     else
-      rec = self.successful.order(:start_time).last
-      case rec.status
-      when "Failed"
-        false
-      when "OK_with_errors"
-        false
-      when "OK"
-        true
-      else
-        false
-      end
+      false
     end
   end
 end

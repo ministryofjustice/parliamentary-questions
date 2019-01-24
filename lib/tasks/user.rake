@@ -4,7 +4,9 @@ namespace :user do
     raise 'This task should NOT be run in a production environment' if HostEnv.is_live?
 
     args.with_defaults(email: 'admin@admin.com', password: '123456789', name: 'User name')
-    email, password, name = args[:email], args[:password], args[:name]
+    email = args[:email]
+    password = args[:password]
+    name = args[:name]
 
     puts "Creating user with name: #{name} and email: #{email} with password: #{password}"
     User.create(email: email, password: password, name: name, roles: User::ROLE_PQ_USER)

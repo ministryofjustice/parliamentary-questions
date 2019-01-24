@@ -100,11 +100,11 @@ describe TokenService do
 
       subject.generate_token('/path/three', 'assignment:3', expire_in_future)
 
-      tokens = Token.where("entity like ?", 'assignment:%')
+      tokens = Token.where('entity like ?', 'assignment:%')
       expect(tokens.size).to eq(3)
 
       subject.delete_expired
-      tokens = Token.where("entity like ?", 'assignment:%')
+      tokens = Token.where('entity like ?', 'assignment:%')
       expect(tokens.size).to eq(1)
     end
   end

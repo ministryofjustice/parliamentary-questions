@@ -1,5 +1,5 @@
 module XMLExtractor
-  module_function
+  extend self
 
   def datetime(node, xpath)
     v = text(node, xpath)
@@ -8,12 +8,12 @@ module XMLExtractor
 
   def int(node, xpath)
     v = text(node, xpath)
-    v && v.to_i
+    v&.to_i
   end
 
   def text(node, xpath)
     el = node.at(xpath)
-    el && el.text
+    el&.text
   end
 
   def bool(node, xpath)

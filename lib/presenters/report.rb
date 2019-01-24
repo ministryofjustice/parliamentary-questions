@@ -42,7 +42,7 @@ module Presenters
       when PressDesk
         ClickableCell.press_desk(r.name, r.id)
       else
-        raise ArgumentError, "record should be a Minister or a PressDesk"
+        raise ArgumentError, 'record should be a Minister or a PressDesk'
       end
     end
 
@@ -53,7 +53,7 @@ module Presenters
       when PressDesk
         CountCell.press_desk(count, r.id, state)
       else
-        raise ArgumentError, "record should be a Minister or a PressDesk"
+        raise ArgumentError, 'record should be a Minister or a PressDesk'
       end
     end
   end

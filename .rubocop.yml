@@ -9,7 +9,7 @@ AllCops:
 # Bundler Cops ============================================================================
 
 Bundler/GemComment:
-  Description: Add a comment describing each gem in your Gemfile.
+  Description: 'Add a comment describing each gem in your Gemfile.'
   Enabled: false
 
 # Layout Cops =============================================================================
@@ -134,12 +134,29 @@ Security/Eval:
 
 # Style Cops ==============================================================================
 
+Style/Alias:
+  Description: 'This cop enforces the use of either #alias or #alias_method depending on configuration. It also flags uses of alias :symbol rather than alias bareword.'
+  EnforcedStyle: prefer_alias_method
+
+Style/ClassAndModuleChildren:
+  Description: 'This cop checks the style of children definitions at classes and modules.'
+  Enabled: false
+
 Style/ConditionalAssignment:
   Description: 'Check for if and case statements where each branch is used for assignment to the same variable when using the return of the condition can be used instead.'
   Enabled: false
 
 Style/Copyright:
   Description: 'Check that a copyright notice was given in each source file.'
+  Enabled: false
+
+Style/DateTime:
+  Description: 'This cop checks for consistent usage of the DateTime class over the Time class. This cop is disabled by default since these classes, although highly overlapping, have particularities that make them not replaceable in certain situations when dealing with multiple timezones and/or DST.'
+  Enabled: false
+
+Style/DoubleNegation:
+  Description: 'This cop checks for uses of double negation (!!) to convert something to a boolean value. As this is both cryptic and usually redundant, it should be avoided.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#no-bang-bang'
   Enabled: false
 
 Style/Documentation:
@@ -150,8 +167,37 @@ Style/DocumentationMethod:
   Description: 'This cop checks for missing documentation comment for public methods. It can optionally be configured to also require documentation for non-public methods.'
   Enabled: false
 
+Style/EachWithObject:
+  Description: 'This cop looks for inject / reduce calls where the passed in object is returned at the end and so could be replaced by each_with_object without the need to return the object at the end.'
+  Enabled: false
+
+Style/FormatString:
+  Description: 'This cop enforces the use of a single string formatting utility. Valid options include Kernel#format, Kernel#sprintf and String#%.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#sprintf'
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Description: 'This cop is designed to help upgrade to Ruby 3.0. It will add the comment # frozen_string_literal: true to the top of files to enable frozen string literals. Frozen string literals may be default in Ruby 3.0. The comment will be added below a shebang and encoding comment. The frozen string literal comment is only valid in Ruby 2.3+.'
+  Enabled: false
+
+Style/GlobalVars:
+  Description: 'This cop looks for uses of global variables. It does not report offenses for built-in global variables. Built-in global variables are allowed by default. Additionally users can allow additional variables via the AllowedVariables option.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#instance-vars
+               https://www.zenspider.com/ruby/quickref.html'
+  Enabled: false
+
+Style/GuardClause:
+  Description: 'Use a guard clause instead of wrapping the code inside a conditional expression'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#no-nested-conditionals'
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Description: 'Checks for if and unless statements that would fit on one line if written as a modifier if/unless. The maximum line length is configured in the Metrics/LineLength cop. The tab size is configured in the IndentationWidth of the Layout/Tab cop.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#if-as-a-modifier'
+  Enabled: false
+
+Style/ImplicitRuntimeError:
+  Description: 'This cop checks for raise or fail statements which do not specify an explicit exception class.'
   Enabled: false
 
 Style/MethodCalledOnDoEndBlock:
@@ -172,8 +218,22 @@ Style/MixinUsage:
   Description: 'This cop checks that include, extend and prepend statements appear inside classes and modules, not at the top level, so as to not affect the behavior of Object.'
   Enabled: false
 
+Style/ModuleFunction:
+  Description: 'This cop checks for use of extend self or module_function in a module.'
+  EnforcedStyle: extend_self
+
 Style/MutableConstant:
   Description: "This cop checks whether some constant value isn't a mutable literal (e.g. array or hash)."
+  Enabled: false
+
+Style/NumericLiterals:
+  Description: 'This cop checks for big numeric literals without _ between groups of digits in them.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#underscores-in-numerics'
+  Enabled: false
+
+Style/NumericLiteralPrefix:
+  Description: 'This cop checks for octal, hex, binary, and decimal literals using uppercase prefixes and corrects them to lowercase prefix or no prefix (in case of decimals).'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#numeric-literal-prefixes'
   Enabled: false
 
 Style/RedundantParentheses:
@@ -182,6 +242,15 @@ Style/RedundantParentheses:
 
 Style/RescueStandardError:
   Description: 'This cop checks for rescuing StandardError. There are two supported styles implicit and explicit. This cop will not register an offense if any error other than StandardError is specified.'
+  Enabled: false
+
+Style/Send:
+  Description: 'This cop checks for the use of the send method.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#prefer-public-send'
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Description: 'This cop checks whether the block parameters of a single-line method accepting a block match the names specified via configuration.'
   Enabled: false
 
 Style/StringHashKeys:

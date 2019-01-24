@@ -12,6 +12,5 @@ class RemoveSortingRelatedColumns < ActiveRecord::Migration[5.0]
     add_index(:pqs, :minister_id)
   end
 
-  def down
-  end
+  def down; end
 end

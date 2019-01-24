@@ -26,7 +26,7 @@ gem 'susy', '~> 2.2', '>= 2.2.14'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
-gem 'whenever', :require => false
+gem 'whenever', require: false
 gem 'will_paginate'
 
 group :development do
@@ -38,7 +38,7 @@ end
 
 group :test, :development do
   gem 'awesome_print'
-  gem 'brakeman', :require => false
+  gem 'brakeman', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'faker'

@@ -13,7 +13,7 @@ module SmokeTestRunner
   end
 
   def run_success?
-    File.exists?(out_file) && File.read(out_file).to_i == 0
+    File.exists?(out_file) && File.read(out_file).to_i.zero?
   end
 
   private

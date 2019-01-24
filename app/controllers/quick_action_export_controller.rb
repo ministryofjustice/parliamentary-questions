@@ -6,7 +6,7 @@ class QuickActionExportController < ApplicationController
     @pqs_comma_separated = params[:pqs_comma_separated]
     @total_pqs = params[:total_pqs]
     @total_pqs = form.total_pqs unless form.total_pqs.nil?
-    pqs_array = Array.new
+    pqs_array = []
 
     if form.valid?
       @total_pqs = form.total_pqs
@@ -29,7 +29,7 @@ class QuickActionExportController < ApplicationController
       # 200
     else
       puts 'form invalid'
-      flash[:error] = "Form was not completed"
+      flash[:error] = 'Form was not completed'
       status = 400
       400
     end

@@ -7,12 +7,8 @@ module PQState
         pq.action_officers_pqs.any?
       end,
       ## Rejecting
-      Transition(NO_RESPONSE, REJECTED) do |pq|
-        pq.rejected?
-      end,
-      Transition(REJECTED, NO_RESPONSE) do |pq|
-        pq.no_response?
-      end,
+      Transition(NO_RESPONSE, REJECTED, &:rejected?),
+      Transition(REJECTED, NO_RESPONSE, &:no_response?),
       ## Draft Pending
       Transition(NO_RESPONSE, DRAFT_PENDING) do |pq|
         pq.action_officer_accepted.present?

@@ -25,7 +25,7 @@ module PQA
       uri       = URI.parse(File.join(@base_url, 'api/qais/questions'))
       params    = {
         'dateFrom' => date_from.xmlschema,
-        'dateTo' => date_to && date_to.xmlschema,
+        'dateTo' => date_to&.xmlschema,
         'status' => status
       }
       uri.query = URI.encode_www_form(params)

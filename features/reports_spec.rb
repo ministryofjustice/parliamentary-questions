@@ -13,10 +13,10 @@ feature 'Minister Report', js: true do
   def expect_report_to_have(record, state, count)
     param_name =
       case record
-      when Minister  then "minister_id"
-      when PressDesk then "press_desk_id"
+      when Minister  then 'minister_id'
+      when PressDesk then 'press_desk_id'
       else
-        raise ArgumentError, "record must be either minister or press desk"
+        raise ArgumentError, 'record must be either minister or press desk'
       end
     el = find("a[href=\"/reports/filter_all?#{param_name}=#{record.id}&state=#{state}\"]")
     expect(el.text).to eq(count.to_s)
@@ -24,7 +24,7 @@ feature 'Minister Report', js: true do
 
   before(:each) do
     DBHelpers.load_feature_fixtures
-    @pq1, @pq2, _ = PQA::QuestionLoader.new.load_and_import(10)
+    @pq1, @pq2, = PQA::QuestionLoader.new.load_and_import(10)
 
     clear_sent_mail
     create_pq_session

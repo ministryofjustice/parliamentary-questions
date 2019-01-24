@@ -7,7 +7,9 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     clear_sent_mail
     DBHelpers.load_feature_fixtures
     pq1, pq2, pq3 = PQA::QuestionLoader.new.load_and_import(3)
-    @uin1, @uin2, @uin3 = pq1.uin, pq2.uin, pq3.uin
+    @uin1 = pq1.uin
+    @uin2 = pq2.uin
+    @uin3 = pq3.uin
     @ao = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister = Minister.first
   end
@@ -18,12 +20,12 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
 
   let(:testDate) { (Date.today + 3).to_s + ' 12:00' }
 
-  scenario "Check all elements are present" do
+  scenario 'Check all elements are present' do
     initialise
-    expect(page).to have_css("#count", text: "3 parliamentary questions")
-    within('#editDates') {
+    expect(page).to have_css('#count', text: '3 parliamentary questions')
+    within('#editDates') do
       click_on 'Edit PQ dates'
-      expect(page).to have_text("No PQs selected")
+      expect(page).to have_text('No PQs selected')
       find(:css, "input[id$='qa_edit_deadline_date']")
       find(:css, "input[id$='qa_edit_draft_date']")
       find(:css, "input[id$='qa_edit_pod_date']")
@@ -31,28 +33,28 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
       find(:css, "input[id$='qa_edit_answered_date']")
       find(:button, 'Edit', disabled: true)
       expect(page).to have_button('Cancel')
-    }
+    end
     within('#select-all-questions') { check 'select-all' }
-    within('#editDates') {
+    within('#editDates') do
       expect(page).to have_text('3 PQs selected')
       find(:button, 'Edit', disabled: false)
       expect(page).to have_button('Cancel')
-    }
+    end
   end
 
-  scenario "A user sets the deadline date for all PQs" do
+  scenario 'A user sets the deadline date for all PQs' do
     initialise
     within('#select-all-questions') { check 'select-all' }
-    within('#editDates') {
+    within('#editDates') do
       click_on 'Edit PQ dates'
       expect(page).to have_text('3 PQs selected')
       fill_in 'qa_edit_deadline_date', with: testDate
       click_on 'Edit'
-    }
-    expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    expect(page).to have_css("#pq-frame-1 .deadline-date.text", text: testDate)
-    expect(page).to have_css("#pq-frame-2 .deadline-date.text", text: testDate)
-    expect(page).to have_css("#pq-frame-3 .deadline-date.text", text: testDate)
+    end
+    expect(page).to have_css('.pq-msg-success.fade.in', text: 'Date(s) updated')
+    expect(page).to have_css('#pq-frame-1 .deadline-date.text', text: testDate)
+    expect(page).to have_css('#pq-frame-2 .deadline-date.text', text: testDate)
+    expect(page).to have_css('#pq-frame-3 .deadline-date.text', text: testDate)
   end
 
   scenario "A user sets a PQ's draft date" do
@@ -75,7 +77,7 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     setDate('qa_edit_answered_date', 'Answer', 'answer_submitted')
   end
 
-  def accept_commission()
+  def accept_commission
     ao_mail = sent_mail.first
     visit_assignment_url(@ao)
     choose 'Accept'
@@ -84,7 +86,7 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     clear_sent_mail
   end
 
-  def initialise()
+  def initialise
     create_pq_session
     commission_question(@uin1, [@ao], @minister)
     accept_commission
@@ -97,12 +99,12 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
 
   def setDate(dateType, tabLink, dateField)
     within('#pq-frame-3') { check 'uin-3' }
-    within('#editDates') {
+    within('#editDates') do
       click_on 'Edit PQ dates'
       expect(page).to have_text('1 PQ selected')
       fill_in dateType, with: testDate
       click_on 'Edit'
-    }
+    end
     expect(page).to have_css('.pq-msg-success.fade.in', text: 'Date(s) updated')
     within('#pq-frame-1') { click_link('uin-1') }
     click_link(tabLink)

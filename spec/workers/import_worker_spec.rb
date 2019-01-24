@@ -60,12 +60,12 @@ describe ImportWorker do
       expect(email.to).to include Settings.mail_tech_support
       expect(email.subject).to match /API import succeeded/
       expect(email.body.raw_source).to eq(
-        "Information\r\n===========\r\n\r\n" +
-        "The scheduled import from the API @ #{Settings.pq_rest_api.host} succeeded.\r\n\r\n" +
-        "[+] Questions retrieved:  18\r\n" +
-        "[+] New questions saved:  15\r\n" +
-        "[+] Questions updated:    3\r\n\r\n" +
-        "No further action is required."
+        "Information\r\n===========\r\n\r\n" \
+        "The scheduled import from the API @ #{Settings.pq_rest_api.host} succeeded.\r\n\r\n" \
+        "[+] Questions retrieved:  18\r\n" \
+        "[+] New questions saved:  15\r\n" \
+        "[+] Questions updated:    3\r\n\r\n" \
+        'No further action is required.'
       )
     end
 
@@ -76,11 +76,11 @@ describe ImportWorker do
       expect(email.to).to include Settings.mail_tech_support
       expect(email.subject).to match /API import failed/
       expect(email.body.raw_source).to eq(
-        "Alert\r\n=====\r\n\r\n" +
-        "The scheduled import from the API @ #{Settings.pq_rest_api.host} " +
-        "failed with the following message:\r\n\r\n" +
-        "Connection refused - details\r\n\r\n" +
-        "Please check the logs to diagnose the issue."
+        "Alert\r\n=====\r\n\r\n" \
+        "The scheduled import from the API @ #{Settings.pq_rest_api.host} " \
+        "failed with the following message:\r\n\r\n" \
+        "Connection refused - details\r\n\r\n" \
+        'Please check the logs to diagnose the issue.'
       )
     end
   end

@@ -7,7 +7,7 @@ class WatchlistReportService
   end
 
   def entity
-    "watchlist-" + @current_time.to_s
+    'watchlist-' + @current_time.to_s
   end
 
   def notify_watchlist
@@ -15,11 +15,11 @@ class WatchlistReportService
     token      = @tokenService.generate_token(watchlist_dashboard_path, entity, end_of_day)
     cc         = WatchlistMember.active.pluck(:email).join(' ;')
     template   = {
-      :name => 'Watchlist',
-      :entity => entity,
-      :email => 'pqtest@digital.justice.gov.uk',
-      :token => token,
-      :cc => cc
+      name: 'Watchlist',
+      entity: entity,
+      email: 'pqtest@digital.justice.gov.uk',
+      token: token,
+      cc: cc
     }
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"

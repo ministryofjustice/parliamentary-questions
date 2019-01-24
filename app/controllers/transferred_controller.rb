@@ -42,11 +42,11 @@ class TransferredController < ApplicationController
         :transfer_in_ogd_id,
         :transfer_in_date
       )
-      .merge({
-               transferred: true,
-               raising_member_id: '0',
-               state: PQState::UNASSIGNED
-             })
+      .merge(
+        transferred: true,
+        raising_member_id: '0',
+        state: PQState::UNASSIGNED
+      )
   end
 
   def with_valid_dates

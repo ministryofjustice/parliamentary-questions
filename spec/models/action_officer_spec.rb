@@ -38,8 +38,8 @@ describe ActionOfficer do
     expect(officer.email).to eql('action.officer@new.email.com')
   end
 
-  describe "associations" do
-    it "should have a deputy director attribute" do
+  describe 'associations' do
+    it 'should have a deputy director attribute' do
       expect(officer).to respond_to(:deputy_director)
     end
 

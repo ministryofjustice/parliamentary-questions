@@ -1,6 +1,6 @@
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 require './spec/support/features/session_helpers'
 require './spec/support/features/email_helpers'
@@ -12,10 +12,10 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-                                      phantomjs_logger: File.new('/dev/null', 'a'),
-                                      window_size: [1024, 1500]
-                                    })
+  Capybara::Poltergeist::Driver.new(app,
+                                    phantomjs_logger: File.new('/dev/null', 'a'),
+                                    window_size: [1024, 1500]
+                                   )
 end
 
 Capybara.javascript_driver = :poltergeist

@@ -72,7 +72,7 @@ require 'spec_helper'
 describe Pq do
   let(:subject) { build(:pq) }
 
-  describe "associations" do
+  describe 'associations' do
     it { is_expected.to belong_to :minister }
     it { is_expected.to belong_to :policy_minister }
     it { is_expected.to have_one :trim_link }
@@ -80,17 +80,17 @@ describe Pq do
     it { is_expected.to belong_to :original_division }
   end
 
-  describe ".before_update" do
-    it "sets the state weight" do
-      state    = PQState::DRAFT_PENDING
-      pq, _    = DBHelpers.pqs
+  describe '.before_update' do
+    it 'sets the state weight' do
+      state = PQState::DRAFT_PENDING
+      pq, = DBHelpers.pqs
       pq.update(state: state)
       expect(pq.state_weight).to eq(PQState.state_weight(state))
     end
   end
 
-  describe ".sorted_for_dashboard" do
-    it "sorts pqs in the expected order" do
+  describe '.sorted_for_dashboard' do
+    it 'sorts pqs in the expected order' do
       # Start with randomly ordered PQs
       pqs = DBHelpers.pqs(8).shuffle
 
@@ -129,7 +129,7 @@ describe Pq do
     end
   end
 
-  describe ".count_accepted_by_press_desk" do
+  describe '.count_accepted_by_press_desk' do
     def accept_pq(pq, ao)
       pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
                                                      response: 'accepted',
@@ -137,13 +137,13 @@ describe Pq do
       pq.save
     end
 
-    context "when no data exist" do
-      it "returns an empty hash" do
+    context 'when no data exist' do
+      it 'returns an empty hash' do
         expect(Pq.count_accepted_by_press_desk).to eq({})
       end
     end
 
-    context "when some data exist" do
+    context 'when some data exist' do
       before do
         @pd1, @pd2             = DBHelpers.press_desks
         @ao1, @ao2, @ao3       = DBHelpers.action_officers
@@ -158,44 +158,44 @@ describe Pq do
         accept_pq(@pq3, @ao3)
       end
 
-      it "returns a hash with states as keys and press-desk/counts as values" do
-        expect(Pq.count_accepted_by_press_desk).to eq({
-                                                        PQState::NO_RESPONSE => {
-                                                          @pd1.id => 1
-                                                        },
-                                                        PQState::WITH_POD => {
-                                                          @pd2.id => 2
-                                                        }
-                                                      })
+      it 'returns a hash with states as keys and press-desk/counts as values' do
+        expect(Pq.count_accepted_by_press_desk).to eq(
+          PQState::NO_RESPONSE => {
+            @pd1.id => 1
+          },
+          PQState::WITH_POD => {
+            @pd2.id => 2
+          }
+        )
       end
 
-      context "when a press desk gets deleted" do
+      context 'when a press desk gets deleted' do
         before do
           @pd1.deactivate!
         end
 
-        it "omits the associated questions from the results" do
-          expect(Pq.count_accepted_by_press_desk).to eq({
-                                                          PQState::WITH_POD => {
-                                                            @pd2.id => 2
-                                                          }
-                                                        })
+        it 'omits the associated questions from the results' do
+          expect(Pq.count_accepted_by_press_desk).to eq(
+            PQState::WITH_POD => {
+              @pd2.id => 2
+            }
+          )
         end
       end
     end
   end
 
-  describe ".count_in_progress_by_minister" do
-    context "when no data exist" do
-      it "returns an empty hash" do
+  describe '.count_in_progress_by_minister' do
+    context 'when no data exist' do
+      it 'returns an empty hash' do
         expect(Pq.count_in_progress_by_minister).to eq({})
       end
     end
 
-    context "when some data exist" do
+    context 'when some data exist' do
       before do
-        @minister1, @minister2, _ = DBHelpers.ministers
-        @pq1, @pq2, @pq3, @pq4    = DBHelpers.pqs
+        @minister1, @minister2, = DBHelpers.ministers
+        @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
 
         @pq1.update(state: PQState::DRAFT_PENDING, minister: @minister1)
         @pq2.update(state: PQState::WITH_MINISTER, minister: @minister2)
@@ -204,50 +204,52 @@ describe Pq do
         @pq4.update(state: PQState::DRAFT_PENDING, minister: @minister2)
       end
 
-      it "returns a hash with states as keys and minister counts as values" do
-        expect(Pq.count_in_progress_by_minister).to eq({
-                                                         PQState::DRAFT_PENDING => {
-                                                           @minister1.id => 1,
-                                                           @minister2.id => 1,
-                                                         },
-                                                         PQState::WITH_MINISTER => {
-                                                           @minister2.id => 1
-                                                         }
-                                                       })
+      it 'returns a hash with states as keys and minister counts as values' do
+        expect(Pq.count_in_progress_by_minister).to eq(
+          PQState::DRAFT_PENDING => {
+            @minister1.id => 1,
+            @minister2.id => 1
+          },
+          PQState::WITH_MINISTER => {
+            @minister2.id => 1
+          }
+        )
       end
 
-      context "when a minister becomes inactive" do
+      context 'when a minister becomes inactive' do
         before do
           @minister1.deactivate!
         end
 
-        it "omits the minister and its related PQ count from the results" do
-          expect(Pq.count_in_progress_by_minister).to eq({
-                                                           PQState::DRAFT_PENDING => {
-                                                             @minister2.id => 1,
-                                                           },
-                                                           PQState::WITH_MINISTER => {
-                                                             @minister2.id => 1
-                                                           }
-                                                         })
+        it 'omits the minister and its related PQ count from the results' do
+          expect(Pq.count_in_progress_by_minister).to eq(
+            PQState::DRAFT_PENDING => {
+              @minister2.id => 1
+            },
+            PQState::WITH_MINISTER => {
+              @minister2.id => 1
+            }
+          )
         end
       end
     end
   end
 
-  describe ".filter_for_report" do
+  describe '.filter_for_report' do
     def commission_and_accept(pq, ao, minister)
       pq.state    = PQState::WITH_POD
       pq.minister = minister
-      pq.action_officers_pqs << ActionOfficersPq.new(pq: pq,
-                                                     response: 'accepted',
-                                                     action_officer: ao,)
+      pq.action_officers_pqs << ActionOfficersPq.new(
+        pq: pq,
+        response: 'accepted',
+        action_officer: ao
+      )
       pq.save
     end
 
     before do
-      @ao1, @ao2             = DBHelpers.action_officers
-      @min1, _               = DBHelpers.ministers
+      @ao1, @ao2 = DBHelpers.action_officers
+      @min1, = DBHelpers.ministers
       @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
 
       expect(@ao1.press_desk).to_not eq(@ao2.press_desk)
@@ -255,15 +257,15 @@ describe Pq do
       commission_and_accept(@pq4, @ao2, @min1)
     end
 
-    context "when state, minister or press desk are all nil" do
-      it "returns all the records" do
+    context 'when state, minister or press desk are all nil' do
+      it 'returns all the records' do
         expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq([
           'uin-1', 'uin-2', 'uin-3', 'uin-4'
         ].to_set)
       end
     end
-    context "when state, minister or press desk are all present" do
-      it "returns the expected records" do
+    context 'when state, minister or press desk are all present' do
+      it 'returns the expected records' do
         uins = Pq.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
                  .pluck(:uin)
 
@@ -301,7 +303,7 @@ describe Pq do
     end
 
     it 'returns questions ordered by uin' do
-      expect(subject.map(&:uin)).to eql(%w(15000 20001 HL01))
+      expect(subject.map(&:uin)).to eql(%w[15000 20001 HL01])
     end
   end
 

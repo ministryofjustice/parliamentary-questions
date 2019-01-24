@@ -11,9 +11,7 @@ module SmokeTest
     attr_reader :app_uri, :agent
 
     def self.from_env
-      unless ENV['TEST_USER_PASS'] && ENV['TEST_USER']
-        raise 'TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests'
-      end
+      raise 'TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests' unless ENV['TEST_USER_PASS'] && ENV['TEST_USER']
 
       new(
         Settings.live_url,

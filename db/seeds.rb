@@ -6,15 +6,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 puts 'Clear tables'
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE progresses RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE ministers RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE directorates RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE divisions RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE deputy_directors RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE action_officers RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE ogds RESTART IDENTITY;")
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE progresses RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE ministers RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE directorates RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE divisions RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE deputy_directors RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE action_officers RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE press_desks RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE press_officers RESTART IDENTITY;')
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE ogds RESTART IDENTITY;')
 
 puts '-populate'
 progresses = Progress.create([
@@ -47,7 +47,7 @@ directorates = Directorate.create!([
                                      { name: 'Law and Access to Justice' },
                                      { name: 'NOMS' },
                                      { name: 'HMCTS' },
-                                     { name: 'LAA and Corporate Services' },
+                                     { name: 'LAA and Corporate Services' }
                                    ])
 
 divisions = Division.create!([
@@ -103,7 +103,7 @@ PressOfficer.create!([
                        { name: 'press officer one', email: 'one@press.office.com', press_desk_id: 1 },
                        { name: 'press officer two', email: 'two@press.office.com', press_desk_id: 1 },
                        { name: 'press officer three', email: 'three@press.office.com', press_desk_id: 2 },
-                       { name: 'press officer four', email: 'four@press.office.com', press_desk_id: 2 },
+                       { name: 'press officer four', email: 'four@press.office.com', press_desk_id: 2 }
                      ])
 
 action_officers = ActionOfficer.create!([

@@ -22,21 +22,35 @@ module Export
 
     def csv_fields(pq, ao)
       [
-        escape_equals_for_excel(pq.uin),                                                         # 'PIN',
-        escape_equals_for_excel(pq.member_name),                                                 # 'MP',
-        empty_or_date(pq.internal_deadline),                     # 'Draft due to Parly Branch',
-        empty_or_date(pq.date_for_answer),                       # 'Date Due in Parliament',
-        escape_equals_for_excel(pq.question),                                                    # 'Full_PQ_subject',
-        escape_equals_for_excel(pq.minister && pq.minister.name),                                # 'Minister',
+        # 'PIN',
+        escape_equals_for_excel(pq.uin),
+        # 'MP',
+        escape_equals_for_excel(pq.member_name),
+        # 'Draft due to Parly Branch',
+        empty_or_date(pq.internal_deadline),
+        # 'Date Due in Parliament',
+        empty_or_date(pq.date_for_answer),
+        # 'Full_PQ_subject',
+        escape_equals_for_excel(pq.question),
+        # 'Minister',
+        escape_equals_for_excel(pq.minister && pq.minister.name),
         escape_equals_for_excel(PQState.state_label(pq.state)),
-        escape_equals_for_excel(ao && ao.name),                                                  # 'Action Officer',
-        escape_equals_for_excel(pq.original_division && pq.original_division.name),              # 'Division',
-        escape_equals_for_excel(pq.question_type),                                               # 'Type of Question',
-        empty_or_date(pq.tabled_date),                           # 'Date First Appeared in Parliament',
-        empty_or_date(pq.draft_answer_received),                 # 'Date Draft Returned to PB',
-        empty_or_date(pq.sent_to_answering_minister),            # 'Date delivered to Minister',
-        empty_or_date(pq.cleared_by_answering_minister),         # 'Returned signed from Minister',
-        empty_or_date(pq.answer_submitted)                       # 'Date response answered by Parly (dept)',
+        # 'Action Officer',
+        escape_equals_for_excel(ao && ao.name),
+        # 'Division',
+        escape_equals_for_excel(pq.original_division && pq.original_division.name),
+        # 'Type of Question',
+        escape_equals_for_excel(pq.question_type),
+        # 'Date First Appeared in Parliament',
+        empty_or_date(pq.tabled_date),
+        # 'Date Draft Returned to PB',
+        empty_or_date(pq.draft_answer_received),
+        # 'Date delivered to Minister',
+        empty_or_date(pq.sent_to_answering_minister),
+        # 'Returned signed from Minister',
+        empty_or_date(pq.cleared_by_answering_minister),
+        # 'Date response answered by Parly (dept)',
+        empty_or_date(pq.answer_submitted)
       ]
     end
 
@@ -50,15 +64,15 @@ module Export
     private
 
     def pqs
-      pqs_array = Array.new
-      @pqs_list.split(',').map { |p|
+      pqs_array = []
+      @pqs_list&.split(',')&.map do |p|
         if Pq.find_by(uin: p).nil?
           return pqs_array
         else
           x = Pq.find_by(uin: p)
           pqs_array.push(x)
         end
-      } unless @pqs_list.nil?
+      end
       pqs_array
     end
   end

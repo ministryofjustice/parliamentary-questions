@@ -15,7 +15,7 @@
 
 require 'spec_helper'
 
-describe Token, :type => :model do
+describe Token, type: :model do
   context 'validations' do
     it { should validate_inclusion_of(:acknowledged).in_array(['accept', 'reject', nil]) }
   end
@@ -45,12 +45,12 @@ describe Token, :type => :model do
 
   describe 'acknowledged?' do
     it 'should return true if accepted' do
-      t = FactoryBot.build(:token, :acknowledged => 'accept')
+      t = FactoryBot.build(:token, acknowledged: 'accept')
       expect(t.acknowledged?).to be true
     end
 
     it 'should return true if rejected' do
-      t = FactoryBot.build(:token, :acknowledged => 'reject')
+      t = FactoryBot.build(:token, acknowledged: 'reject')
       expect(t.acknowledged?).to be true
     end
 
@@ -88,7 +88,12 @@ describe Token, :type => :model do
       FactoryBot.create :token, created_at: start_of_day - 100.minutes, acknowledged: 'accept', ack_time: start_of_day + 400.minutes
       FactoryBot.create :token, created_at: start_of_day - 100.minutes, acknowledged: 'reject', ack_time: start_of_day + 400.minutes
 
-      expect(Token.assignment_stats).to eq({ total: 6, ack: 2, open: 4, pctg: 33.33 })
+      expect(Token.assignment_stats).to eq(
+        total: 6,
+        ack: 2,
+        open: 4,
+        pctg: 33.33
+      )
     end
   end
 end

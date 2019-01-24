@@ -6,43 +6,41 @@ module Redeploy
     end
 
     def fix!
-      begin
-        log("fixing PQID")
+      log('fixing PQID')
 
-        if %w{unassigned no_response rejected}.include?(@pq.state)
-          # for unassigned and no response
-          #   create an "Unknown" action officer, with deleted false and assign to question
-          #   create ActionOfficersPq object with the question id and action officer id
-          #   set ActionOfficersPq response to 'accepted'
-          fix_uncommissioned
-        end
-
-        if %w{pod_query with_pod}.include?(@pq.state)
-          #   for pod_query, pod_clearance,
-          #   set pod_clearance to answer submitted date
-          fix_pod_clearance
-        end
-
-        if @pq.state == 'pod_cleared'
-          # for pod_cleared
-          #   set sent_to_answering_minister to answer_submitted
-          #   set sent_to_policy_miniser to answer_submitted if policy_minister not nil
-          fix_minister_submitted
-        end
-
-        if @pq.state == 'with_minister'
-          # for with minister
-          #   when there is a policy minister
-          #     set cleared_by_policy_minister to answer_submitted
-          fix_cleared_by_minister
-        end
-
-        @pq.update_state!
-      rescue => err
-        puts "ERROR: #{err.class}  #{err.message}"
-      ensure
-        print_log_messages
+      if %w[unassigned no_response rejected].include?(@pq.state)
+        # for unassigned and no response
+        #   create an "Unknown" action officer, with deleted false and assign to question
+        #   create ActionOfficersPq object with the question id and action officer id
+        #   set ActionOfficersPq response to 'accepted'
+        fix_uncommissioned
       end
+
+      if %w[pod_query with_pod].include?(@pq.state)
+        #   for pod_query, pod_clearance,
+        #   set pod_clearance to answer submitted date
+        fix_pod_clearance
+      end
+
+      if @pq.state == 'pod_cleared'
+        # for pod_cleared
+        #   set sent_to_answering_minister to answer_submitted
+        #   set sent_to_policy_miniser to answer_submitted if policy_minister not nil
+        fix_minister_submitted
+      end
+
+      if @pq.state == 'with_minister'
+        # for with minister
+        #   when there is a policy minister
+        #     set cleared_by_policy_minister to answer_submitted
+        fix_cleared_by_minister
+      end
+
+      @pq.update_state!
+    rescue => err
+      puts "ERROR: #{err.class}  #{err.message}"
+    ensure
+      print_log_messages
     end
 
     private
@@ -89,13 +87,13 @@ module Redeploy
     def fix_uncommissioned
       ao_pq = ActionOfficersPq.create(
         pq_id: @pq.id,
-        action_officer_id: ao_placeholder.id,
+        action_officer_id: ao_placeholder.id
       )
 
       ao_pq.accept
 
       log(
-        "assigned to and accepted by ActionOfficer with id: " +
+        'assigned to and accepted by ActionOfficer with id: ' \
         "#{ao_placeholder.id}, through ActionOfficersPq with id: #{ao_pq.id} "
       )
 

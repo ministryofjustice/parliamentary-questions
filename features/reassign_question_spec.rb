@@ -10,7 +10,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
   before(:all) do
     DBHelpers.load_feature_fixtures
     clear_sent_mail
-    @pq, _ = PQA::QuestionLoader.new.load_and_import(2)
+    @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do
@@ -25,7 +25,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
   scenario 'Parli-branch cannot re-assign before AO accepts question' do
     create_pq_session
     visit pq_path(@pq.uin)
-    click_on "PQ commission"
+    click_on 'PQ commission'
 
     expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).not_to have_content('Reassign action officer')
@@ -39,7 +39,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
   scenario 'Parli-branch re-assigns question to another action officer' do
     create_pq_session
     visit pq_path(@pq.uin)
-    click_on "PQ commission"
+    click_on 'PQ commission'
 
     expect(page).to have_content(ao1.email)
     expect(page).not_to have_content(ao2.email)
@@ -50,7 +50,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     accept_assignment(ao2)
 
     visit pq_path(@pq.uin)
-    click_on "PQ commission"
+    click_on 'PQ commission'
 
     expect(page).not_to have_content(ao1.email)
     expect(page).to have_content(ao2.email)

@@ -24,7 +24,7 @@ module HealthCheck
     def record_result
       tmpdir = "#{Rails.root}/tmp"
       Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
-      status = @errors.any? ? "FAIL" : "OK"
+      status = @errors.any? ? 'FAIL' : 'OK'
 
       File.open(TIMESTAMP_FILE, 'w') do |fp|
         t = Time.now.utc

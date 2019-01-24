@@ -65,7 +65,7 @@ module Metrics
       private
 
       def initialize(path)
-        timestamp, status, _ = File.read(path).split('::')
+        timestamp, status, = File.read(path).split('::')
 
         @last_run_time = Time.at(timestamp.to_i).utc
         @status        = status

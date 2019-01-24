@@ -18,18 +18,15 @@ class AssignmentController < ApplicationController
       response_action = @response.response_action
       update_page_title 'PQ assignment'
 
-      unless @response.valid?
-        flash[:error] = "Form was not completed"
-        render 'show'
-      else
+      if @response.valid?
         service = AssignmentService.new
         case response_action
         when 'accept'
-          update_page_title "PQ assigned"
+          update_page_title 'PQ assigned'
           service.accept(@assignment)
           @token.accept
         when 'reject'
-          update_page_title "PQ rejected"
+          update_page_title 'PQ rejected'
           service.reject(@assignment, @response)
           @token.reject
         else
@@ -38,6 +35,9 @@ class AssignmentController < ApplicationController
           # TODO: log unexpected input
         end
         render 'confirmation'
+      else
+        flash[:error] = 'Form was not completed'
+        render 'show'
       end
     end
   end
@@ -54,7 +54,7 @@ class AssignmentController < ApplicationController
       @token      = Token.entity(entity_param_value)
       yield
     else
-      render :file => 'public/404.html', :status => :not_found
+      render file: 'public/404.html', status: :not_found
     end
   end
 

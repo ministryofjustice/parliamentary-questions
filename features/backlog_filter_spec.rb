@@ -33,7 +33,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '2) by Date for Answer (From: 8 days ago).' do
     test_date('#date-for-answer', 'answer-from', Date.today - 8)
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-8').visible?
       find('li#pq-frame-7').visible?
       find('li#pq-frame-6').visible?
@@ -42,7 +42,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-3').visible?
       find('li#pq-frame-2').visible?
       find('li#pq-frame-1').visible?
-    }
+    end
     clear_filter('#date-for-answer')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -69,7 +69,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '5) by Date for Answer (To: 8 days ago).' do
     test_date('#date-for-answer', 'answer-to', Date.today - 8)
     within('#count') { expect(page).to have_text('9 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-16').visible?
       find('li#pq-frame-15').visible?
       find('li#pq-frame-14').visible?
@@ -79,7 +79,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-10').visible?
       find('li#pq-frame-9').visible?
       find('li#pq-frame-8').visible?
-    }
+    end
     clear_filter('#date-for-answer')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -106,14 +106,14 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '8) by Internal Deadline (From: 7 days ago).' do
     test_date('#internal-deadline', 'deadline-from', Date.today - 7)
     within('#count') { expect(page).to have_text('6 parliamentary questions out of 16') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-6').visible?
       find('li#pq-frame-5').visible?
       find('li#pq-frame-4').visible?
       find('li#pq-frame-3').visible?
       find('li#pq-frame-2').visible?
       find('li#pq-frame-1').visible?
-    }
+    end
     clear_filter('#internal-deadline')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -140,7 +140,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '11) by Internal Deadline (To: 7 days ago).' do
     test_date('#internal-deadline', 'deadline-to', Date.today - 7)
     within('#count') { expect(page).to have_text('11 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-16').visible?
       find('li#pq-frame-15').visible?
       find('li#pq-frame-14').visible?
@@ -152,7 +152,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-8').visible?
       find('li#pq-frame-7').visible?
       find('li#pq-frame-6').visible?
-    }
+    end
     clear_filter('#internal-deadline')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -170,7 +170,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '13) by Status filter' do
     test_checkbox('#flag', 'Status', 'With POD')
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-15').visible?
       find('li#pq-frame-11').visible?
       find('li#pq-frame-10').visible?
@@ -179,7 +179,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-4').visible?
       find('li#pq-frame-3').visible?
       find('li#pq-frame-1').visible?
-    }
+    end
     clear_filter('#flag')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -188,7 +188,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '14) by the Replying Minister filter' do
     test_checkbox('#replying-minister', 'Replying minister', 'Jeremy Wright (MP)')
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-16').visible?
       find('li#pq-frame-14').visible?
       find('li#pq-frame-11').visible?
@@ -197,7 +197,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-3').visible?
       find('li#pq-frame-2').visible?
       find('li#pq-frame-1').visible?
-    }
+    end
     clear_filter('#replying-minister')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -206,7 +206,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '15) by Policy Minister filter' do
     test_checkbox('#policy-minister', 'Policy minister', 'Lord Faulks QC')
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-16').visible?
       find('li#pq-frame-15').visible?
       find('li#pq-frame-13').visible?
@@ -215,7 +215,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-8').visible?
       find('li#pq-frame-7').visible?
       find('li#pq-frame-1').visible?
-    }
+    end
     clear_filter('#policy-minister')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -224,7 +224,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '16) by Question Type filter' do
     test_checkbox('#question-type', 'Question type', 'Ordinary')
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-14').visible?
       find('li#pq-frame-11').visible?
       find('li#pq-frame-10').visible?
@@ -233,7 +233,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-7').visible?
       find('li#pq-frame-5').visible?
       find('li#pq-frame-3').visible?
-    }
+    end
     clear_filter('#question-type')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -251,7 +251,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   scenario '18) by the Keywords filter: Eight questions returned.' do
     test_keywords('UIN-1')
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
-    within('.questions-list') {
+    within('.questions-list') do
       find('li#pq-frame-16').visible?
       find('li#pq-frame-15').visible?
       find('li#pq-frame-14').visible?
@@ -260,7 +260,7 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
       find('li#pq-frame-11').visible?
       find('li#pq-frame-10').visible?
       find('li#pq-frame-1').visible?
-    }
+    end
     test_keywords('')
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
@@ -295,39 +295,39 @@ feature "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   end
 
   def test_date(filter_box, id, date)
-    within("#{filter_box}.filter-box") { fill_in id, :with => date }
+    within("#{filter_box}.filter-box") { fill_in id, with: date }
   end
 
   def test_checkbox(filter_box, category, term)
-    within("#{filter_box}.filter-box") {
+    within("#{filter_box}.filter-box") do
       find_button(category).trigger('click')
       choose(term)
       within('.notice') { expect(page).to have_text('1 selected') }
-    }
+    end
   end
 
   def test_keywords(term)
-    fill_in 'keywords', :with => term
+    fill_in 'keywords', with: term
   end
 
   def clear_filter(filter_name)
-    within("#{filter_name}.filter-box") {
+    within("#{filter_name}.filter-box") do
       find_button('Clear').trigger('click')
       expect(page).not_to have_text('1 selected')
-    }
+    end
   end
 
   def all_pqs(number_of_questions, visibility)
     counter = 1
-    within('.questions-list') {
-      while number_of_questions > counter do
-        if visibility == 'hidden' then
+    within('.questions-list') do
+      while number_of_questions > counter
+        if visibility == 'hidden'
           expect(page).not_to have_selector("li#pq-frame-#{counter}")
         else
           find("li#pq-frame-#{counter}").visible?
         end
         counter += 1
       end
-    }
+    end
   end
 end

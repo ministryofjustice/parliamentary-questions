@@ -33,10 +33,8 @@ class ExportController < ApplicationController
   end
 
   def with_valid_dates(form_template)
-    date_from, date_to = [
-      parse_datetime(params[:date_from]),
-      parse_datetime(params[:date_to])
-    ]
+    date_from = parse_datetime(params[:date_from])
+    date_to = parse_datetime(params[:date_to])
     yield(date_from, date_to)
   rescue DateTimeInputError
     flash[:error] = 'Invalid date input!'

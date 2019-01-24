@@ -72,8 +72,8 @@ FactoryBot.define do
     uin { Faker::Lorem.characters(10) }
     house_id { 1 }
     raising_member_id { 1 }
-    tabled_date { "2014-05-08 13:45:31" }
-    response_due { "2014-05-08 13:45:31" }
+    tabled_date { '2014-05-08 13:45:31' }
+    response_due { '2014-05-08 13:45:31' }
     question { Faker::Lorem.sentence(10) }
     answer { nil }
     state { PQState::UNASSIGNED }

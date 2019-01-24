@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     request = self.request
     opts = ::ActionMailer::Base.default_url_options
     opts[:host] = request.host
-    protocol = /(.*):\/\//.match(request.protocol)[1] if request.protocol.ends_with?("://")
+    protocol = %r{(.*)://}.match(request.protocol)[1] if request.protocol.ends_with?('://')
     opts[:protocol] = protocol
   end
 
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     show_error_page_and_increment_statsd(500, exception)
   end
 
-  def update_page_title(prefix, suffix = "MOJ Parliamentary Questions")
+  def update_page_title(prefix, suffix = 'MOJ Parliamentary Questions')
     @page_title = "#{prefix} - #{suffix}"
   end
 
@@ -69,16 +69,6 @@ class ApplicationController < ActionController::Base
   def request_url
     "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
   end
-
-=begin
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:invite).concat [:name, :roles]
-    devise_parameter_sanitizer.for(:accept_invitation).concat [:name, :roles, :invitation_token, :password, :password_confirmation]
-    devise_parameter_sanitizer.for(:accept_invitation) do |u|
-      u.permit(:name, :roles, :password, :password_confirmation, :invitation_token)
-    end
-  end
-=end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:invite, keys: [:param1, :param2, :param3])

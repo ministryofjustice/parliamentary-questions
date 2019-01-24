@@ -29,7 +29,7 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :actionlist_members
   resources :action_officers
 
-  devise_for :users, :controllers => { :invitations => 'users/invitations', sessions: 'users/sessions' }
+  devise_for :users, controllers: { invitations: 'users/invitations', sessions: 'users/sessions' }
   resources  :users
   resources :pqs, only: [:index, :show, :update]
   resources :trim_links
@@ -113,11 +113,11 @@ ParliamentaryQuestions::Application.routes.draw do
     # mount_rails_db_info is enough for rails version < 4
   end
 
-  match "*path", to: "application#page_not_found", via: :all
+  match '*path', to: 'application#page_not_found', via: :all
 
   if Rails.env.production?
-    get '401', :to => 'application#unauthorized'
-    get '404', :to => 'application#page_not_found'
-    get '500', :to => 'application#server_error'
+    get '401', to: 'application#unauthorized'
+    get '404', to: 'application#page_not_found'
+    get '500', to: 'application#server_error'
   end
 end

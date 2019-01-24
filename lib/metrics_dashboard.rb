@@ -20,13 +20,13 @@ class MetricsDashboard
   end
 
   def metric_factory
-    OpenStruct.new({
-                     key_metric: Metrics::KeyMetric.new,
-                     health: Metrics::Health.new,
-                     application: Metrics::Application.new,
-                     smoke_tests: Metrics::SmokeTests.new,
-                     mail: Metrics::Mail.new,
-                     pqa_import: Metrics::PqaImport.new
-                   })
+    OpenStruct.new(
+      key_metric: Metrics::KeyMetric.new,
+      health: Metrics::Health.new,
+      application: Metrics::Application.new,
+      smoke_tests: Metrics::SmokeTests.new,
+      mail: Metrics::Mail.new,
+      pqa_import: Metrics::PqaImport.new
+    )
   end
 end

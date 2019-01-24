@@ -43,8 +43,8 @@ describe PressDesk do
     expect(pdesk.press_officer_emails).to eql(['po.two@po.com'])
   end
 
-  describe "associations" do
-    it "should have a collection of press officers" do
+  describe 'associations' do
+    it 'should have a collection of press officers' do
       expect(pdesk).to respond_to(:press_officers)
     end
 
