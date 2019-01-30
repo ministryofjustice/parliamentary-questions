@@ -5,7 +5,7 @@ describe 'PqStatistics' do
   let(:threshold) { Settings.key_metric_threshold }
 
   context '#key_metric_alert' do
-    def set_on_time_percentage(n)
+    def on_time_percentage(n)
       # Create PQs for the latest date bucket with n% on time
       n    = (n.round(1) * 10).to_i
       date = 2.business_days.before(Date.today)
@@ -29,8 +29,7 @@ describe 'PqStatistics' do
     end
 
     it 'should return false if the key metric is above the threshold' do
-      set_on_time_percentage(threshold + 0.1)
-
+      on_time_percentage(threshold + 0.1)
       expect(PqStatistics.key_metric_alert?).to be false
     end
 
@@ -40,8 +39,7 @@ describe 'PqStatistics' do
     end
 
     it 'should return true if the key metric is below the threshold' do
-      set_on_time_percentage(threshold - 0.1)
-
+      on_time_percentage(threshold - 0.1)
       expect(PqStatistics.key_metric_alert?).to be true
     end
   end

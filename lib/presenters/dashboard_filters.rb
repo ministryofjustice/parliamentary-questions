@@ -52,7 +52,7 @@ module Presenters
       new([in_progress] + in_progress_statuses(counts, params) + [iww])
     end
 
-    private_class_method
+    # private_class_method
 
     def self.statuses(counts, params)
       PQState::NEW.map do |key|

@@ -11,7 +11,7 @@ class WorkingDays
     result
   end
 
-  private
+  # private
 
   def self.weekend?(day)
     day.saturday? || day.sunday?

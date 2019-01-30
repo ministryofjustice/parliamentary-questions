@@ -34,14 +34,14 @@ describe 'PQAcceptedMailer' do
 
     it 'should set the right cc with minister ' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
-      expectedCC = 'test1@tesk.uk'
+      expected_cc = 'test1@tesk.uk'
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI.escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should cc minister contacts when present' do
@@ -50,14 +50,14 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
       contact_emails = minister_simon.minister_contacts.map(&:email)
-      expectedCC = contact_emails.join(';')
+      expected_cc = contact_emails.join(';')
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI.escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should add the people from the Actionlist to the CC on the draft email link' do
@@ -66,14 +66,14 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
+      expected_cc = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI.escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should contain the name of the minister' do
@@ -196,27 +196,27 @@ describe 'PQAcceptedMailer' do
 
     it 'should add the deputy director of the AO to the CC on the draft email link' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'dep@dep.gov'
+      expected_cc = 'dep@dep.gov'
       ao.deputy_director = dd
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI.escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'dep@dep.gov'
+      expected_cc = 'dep@dep.gov'
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to_not include expectedCC
-      expect(mail.html_part.body).to_not include CGI.escape(expectedCC)
+      expect(mail.text_part.body).to_not include expected_cc
+      expect(mail.html_part.body).to_not include CGI.escape(expected_cc)
     end
   end
 end

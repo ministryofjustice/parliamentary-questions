@@ -70,7 +70,7 @@ module Presenters
         )
       end
 
-      private
+      # private
 
       def self.format_item(item, data, i)
         [
@@ -110,7 +110,7 @@ module Presenters
         )
       end
 
-      private
+      # private
 
       def self.format_item(item, data, i)
         [

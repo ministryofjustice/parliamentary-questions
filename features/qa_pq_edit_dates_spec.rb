@@ -97,26 +97,26 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     click_link 'In progress'
   end
 
-  def setDate(dateType, tabLink, dateField)
+  def setDate(datetype, tablink, datefield)
     within('#pq-frame-3') { check 'uin-3' }
     within('#editDates') do
       click_on 'Edit PQ dates'
       expect(page).to have_text('1 PQ selected')
-      fill_in dateType, with: testDate
+      fill_in datetype, with: testDate
       click_on 'Edit'
     end
     expect(page).to have_css('.pq-msg-success.fade.in', text: 'Date(s) updated')
     within('#pq-frame-1') { click_link('uin-1') }
-    click_link(tabLink)
-    expect(page).to have_field('pq[' + dateField + ']', with: '')
+    click_link(tablink)
+    expect(page).to have_field('pq[' + datefield + ']', with: '')
     click_link 'In progress'
     within('#pq-frame-2') { click_link('uin-2') }
-    click_link(tabLink)
-    expect(page).to have_field('pq[' + dateField + ']', with: '')
+    click_link(tablink)
+    expect(page).to have_field('pq[' + datefield + ']', with: '')
     click_link 'In progress'
     within('#pq-frame-3') { click_link('uin-3') }
-    click_link(tabLink)
-    expect(page).to have_field('pq[' + dateField + ']', with: testDate)
+    click_link(tablink)
+    expect(page).to have_field('pq[' + datefield + ']', with: testDate)
     click_link 'In progress'
   end
 end

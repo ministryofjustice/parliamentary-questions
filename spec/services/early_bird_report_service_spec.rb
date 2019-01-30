@@ -28,8 +28,8 @@ describe 'EarlyBirdReportService' do
     result = @report_service.notify_early_bird
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    sentToken = result[pqtest_mail]
-    token_param = { token: sentToken }.to_query
+    sent_token = result[pqtest_mail]
+    token_param = { token: sent_token }.to_query
     entity = { entity: entity = testid }.to_query
     url = '/early_bird/dashboard'
     expect(mail.to_s).to include url
@@ -43,8 +43,8 @@ describe 'EarlyBirdReportService' do
     result = @report_service.notify_early_bird
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    sentToken = result[early_bird_one.id]
-    token_param = { token: sentToken }.to_query
+    sent_token = result[early_bird_one.id]
+    token_param = { token: sent_token }.to_query
     entity = { entity: entity = testid }.to_query
     url = '/early_bird/dashboard'
     expect(mail.cc).to include early_bird_one.email

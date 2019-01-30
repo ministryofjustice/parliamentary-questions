@@ -24,7 +24,7 @@ module MailService
       generate_email(details_h, base_h)
     end
 
-    private_class_method
+    # private_class_method
 
     def base_h
       @base_h ||=

@@ -2,8 +2,8 @@ class CommissioningService
   include Rails.application.routes.url_helpers
   AO_TOKEN_LIFETIME = 3
 
-  def initialize(tokenService = nil, current_time = nil)
-    @tokenService = tokenService || TokenService.new
+  def initialize(token_service = nil, current_time = nil)
+    @token_service = token_service || TokenService.new
     @current_time = current_time || DateTime.now.utc
   end
 
@@ -47,7 +47,7 @@ class CommissioningService
     path    = assignment_path(uin: pq.uin.encode)
     entity  = "assignment:#{ao_pq.id}"
     expires = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
-    token   = @tokenService.generate_token(path, entity, expires)
+    token   = @token_service.generate_token(path, entity, expires)
     dd      = ao.deputy_director
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"

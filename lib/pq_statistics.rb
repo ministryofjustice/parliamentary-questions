@@ -56,16 +56,16 @@ module PqStatistics
     @bucket_dates ||=
       (BUS_DAY_INTERVAL..WINDOW)
       .step(BUS_DAY_INTERVAL)
-      .map { |i| i.business_days.before(bucket_date_0) }
+      .map { |i| i.business_days.before(bucket_date0) }
   end
 
-  def bucket_date_0
-    @bucket_date_0 ||= Date.today
+  def bucket_date0
+    @bucket_date0 ||= Date.today
   end
 
   def result_by_bucket(events, buckets)
     events.reduce(buckets) do |result, event|
-      upper_bound = bucket_date_0
+      upper_bound = bucket_date0
 
       result.each do |bucket|
         if event.date <= upper_bound && event.date > bucket.start_date

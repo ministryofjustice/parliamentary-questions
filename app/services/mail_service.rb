@@ -53,7 +53,7 @@ module MailService
     email.update(status: 'abandoned')
   end
 
-  private_class_method
+  # private_class_method
 
   MailData =
     Struct.new(:to, :from, :cc, :reply_to, :params) do

@@ -68,6 +68,15 @@ Metrics/PerceivedComplexity:
 
 # Naming Cops =============================================================================
 
+Naming/MethodName:
+  Description: 'This cop makes sure that all methods use the configured style, snake_case or camelCase, for their names.'
+  Enabled: false
+
+Naming/PredicateName:
+  Description: 'This cop makes sure that predicates are named properly.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#bool-methods-qmark'
+  Enabled: false
+
 Naming/UncommunicativeMethodParamName:
   Description: 'This cop checks method parameter names for how descriptive they are. It is highly configurable.'
   Enabled: false

@@ -25,7 +25,7 @@ class HealthCheckService
     errors.empty? ? HealthCheckReport.ok : HealthCheckReport.fail(errors)
   end
 
-  private
+  # private
 
   HealthCheckReport =
     Struct.new(:status, :messages) do

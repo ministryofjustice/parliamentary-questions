@@ -6,7 +6,7 @@ module Presenters
       list(gecko_object).to_json
     end
 
-    private_class_method
+    # private_class_method
 
     def list(gecko_object)
       gecko_object.map do |fields|

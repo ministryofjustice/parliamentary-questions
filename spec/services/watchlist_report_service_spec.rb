@@ -35,8 +35,8 @@ describe 'WatchlistReportService' do
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
 
-    sentToken   = result[pqtest_mail]
-    token_param = { token: sentToken }.to_query
+    sent_token   = result[pqtest_mail]
+    token_param = { token: sent_token }.to_query
     entity      = { entity: entity = testid }.to_query
     url         = '/watchlist/dashboard'
 
@@ -58,8 +58,8 @@ describe 'WatchlistReportService' do
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
 
-    sentToken   = result[watchlist_one.id]
-    token_param = { token: sentToken }.to_query
+    sent_token   = result[watchlist_one.id]
+    token_param = { token: sent_token }.to_query
     entity      = { entity: entity = testid }.to_query
     url         = '/watchlist/dashboard'
 

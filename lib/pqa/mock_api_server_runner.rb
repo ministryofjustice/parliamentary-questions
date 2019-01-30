@@ -4,7 +4,7 @@ module PQA
     HOST               = 'localhost'
     PID_FILEPATH       = '/tmp/mock_api_server.pid'
     LOG_FILEPATH       = File.expand_path('../../log/mock-api.log', __dir__)
-    RACK_CONFIG_PATH   = File.expand_path('../../mock-api-config.ru', __dir__)
+    RACK_CONFIG_PATH   = File.expand_path('../../mock_api_config.ru', __dir__)
     CWD                = File.expand_path('../../', __dir__)
     HEARTBEAT_ENDPOINT = '/'
 

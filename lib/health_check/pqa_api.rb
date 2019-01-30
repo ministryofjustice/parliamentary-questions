@@ -11,9 +11,9 @@ module HealthCheck
       ]
 
     def self.time_to_run?
-      interval = get_minimum_interval_in_seconds
-      time_last_run = get_time_last_run
-      Time.now.to_i > interval + time_last_run
+      interval = minimum_interval_in_seconds
+      last_run = time_last_run
+      Time.now.to_i > interval + last_run
     end
 
     def initialize
@@ -56,11 +56,11 @@ module HealthCheck
 
     private
 
-    def self.get_minimum_interval_in_seconds
+    def self.minimum_interval_in_seconds
       Settings.healthcheck_pqa_api_interval * 60
     end
 
-    def self.get_time_last_run
+    def self.time_last_run
       if File.exist?(TIMESTAMP_FILE)
         File.open(TIMESTAMP_FILE, 'r') do |fp|
           interval, status, error_messages_as_json = fp.gets.chomp.split('::')

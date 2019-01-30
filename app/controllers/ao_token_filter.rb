@@ -4,7 +4,7 @@ class AOTokenFilter
     log_and_redirect(controller, token_state) unless token_state == :valid
   end
 
-  private
+  # private
 
   def self.validate_token(controller)
     result        = :invalid

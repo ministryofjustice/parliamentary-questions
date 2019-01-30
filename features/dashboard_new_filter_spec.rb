@@ -39,25 +39,25 @@ feature "User filters 'New' dashboard  questions", js: true, suspend_cleaner: tr
 
   scenario "filter questions by status 'Unassigned'" do
     initialise
-    set_status('Unassigned')
+    status('Unassigned')
     check_visible_pqs('uin-1', 'uin-2', 'uin-3')
   end
 
   scenario "filter qustions by status 'No response'" do
     initialise
-    set_status('No response')
+    status('No response')
     check_visible_pqs('uin-2', 'uin-1', 'uin-3')
   end
 
   scenario "filter qustions by status 'Rejected'" do
     initialise
-    set_status('Rejected')
+    status('Rejected')
     check_visible_pqs('uin-3', 'uin-2', 'uin-1')
   end
 
   scenario 'Clear all filters' do
     initialise
-    set_status('No response')
+    status('No response')
     within('#flag') do
       click_button 'Clear'
       expect(page).not_to have_text('1 selected')
@@ -105,7 +105,7 @@ feature "User filters 'New' dashboard  questions", js: true, suspend_cleaner: tr
     select 'action officer 1 (Corporate Finance)', from: 'action_officers_pqs_action_officer_id_3'
   end
 
-  def set_status(state)
+  def status(state)
     within('#flag') do
       click_button 'Status'
       choose(state)

@@ -89,7 +89,7 @@ module MailService
       generate_email(details_h, base_h(params))
     end
 
-    private_class_method
+    # private_class_method
 
     def base_h(params)
       {

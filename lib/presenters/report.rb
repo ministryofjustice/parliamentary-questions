@@ -17,7 +17,7 @@ module Presenters
       build(report_h, press_desks, states, 'Press desk report')
     end
 
-    private_class_method
+    # private_class_method
 
     def self.build(report_h, records, states, title)
       header_cells = records.map { |r| present_cell(r) }
