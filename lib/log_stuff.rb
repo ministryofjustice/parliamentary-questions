@@ -61,11 +61,11 @@ class LogStuff
   end
 
   %w[fatal error warn info debug].each do |severity|
-    eval <<-EOM, nil, __FILE__, __LINE__ + 1
+    eval <<-ERROR, nil, __FILE__, __LINE__ + 1
       def self.#{severity}(*args, &block)
         self.log(:#{severity}, *args, &block )
       end
-    EOM
+    ERROR
   end
 
   def self.tag(*tags, &block)

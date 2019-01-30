@@ -150,7 +150,7 @@ describe PqaImportRun, type: :model do
         # this week
         FactoryBot.create(:pqa_import_run, start_time: 25.hours.ago, end_time: 25.hours.ago, num_created: 3, num_updated: 4)
         # this week
-        FactoryBot.create(:pqa_import_run, start_time: 72.hour.ago, end_time: 72.hour.ago, num_created: 3, num_updated: 4)
+        FactoryBot.create(:pqa_import_run, start_time: 72.hours.ago, end_time: 72.hours.ago, num_created: 3, num_updated: 4)
         # this week
         FactoryBot.create(:pqa_import_run, start_time: 9.days.ago, end_time: 9.days.ago, num_created: 23, num_updated: 14)
         # this week

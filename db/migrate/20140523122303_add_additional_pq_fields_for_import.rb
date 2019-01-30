@@ -1,6 +1,6 @@
 class AddAdditionalPqFieldsForImport < ActiveRecord::Migration[5.0]
   def change
-    change_table :pqs do |t|
+    change_table :pqs, bulk: true do |t|
       t.string :member_name
       t.string :member_constituency
       t.string :house_name

@@ -45,10 +45,10 @@ module PqStatistics
     end
   end
 
-  def delta_t(time_1, time_2)
+  def delta_t(time1, time2)
     Time
-      .first_business_day(time_1)
-      .business_time_until(time_2)
+      .first_business_day(time1)
+      .business_time_until(time2)
       .to_f
   end
 

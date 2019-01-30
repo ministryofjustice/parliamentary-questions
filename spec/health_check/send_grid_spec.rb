@@ -55,7 +55,7 @@ describe HealthCheck::SendGrid do
       allow(Net::SMTP).to receive(:start).and_raise(StandardError)
       send_grid.accessible?
 
-      expect(send_grid.error_messages.first).to match /Error: StandardError\nDetails/
+      expect(send_grid.error_messages.first).to match(/Error: StandardError\nDetails/)
     end
   end
 end

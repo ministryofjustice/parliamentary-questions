@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Validators::DateInput do
   include Validators::DateInput
 
-  let(:window)  { Validators::DateInput::WINDOW + 1.days }
+  let(:window)  { Validators::DateInput::WINDOW + 1.day }
   let(:max_len) { Validators::DateInput::MAX_LEN }
 
   it 'should raise an error if the input is above the maximum size' do

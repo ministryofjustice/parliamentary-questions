@@ -136,7 +136,7 @@ module Redeploy
     end
 
     def div_placeholder
-      @div_placholder ||=
+      @div_placeholder ||=
         Division.find_or_create_by(
           name: 'Unknown',
           directorate: dir_placeholder

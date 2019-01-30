@@ -31,7 +31,7 @@ feature 'Minister Report', js: true do
   end
 
   let(:action_officer) { ActionOfficer.first }
-  let(:minister)       { Minister.find_by_name('Chris Grayling') }
+  let(:minister)       { Minister.find_by(name: 'Chris Grayling') }
 
   scenario 'Parli-branch accesses the minister report and follows a link to the filter results page' do
     uins = [@pq1, @pq2].map(&:uin)

@@ -11,7 +11,7 @@ module PQA
     def start
       cmd = "rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
 
-      if File.exists?(PID_FILEPATH)
+      if File.exist?(PID_FILEPATH)
         pid = File.read(PID_FILEPATH)
         error = "Found pid file #{PID_FILEPATH}. " \
                 "Please kill process #{pid} and make sure the pid file is deleted"
@@ -23,7 +23,7 @@ module PQA
     end
 
     def stop
-      if File.exists?(PID_FILEPATH)
+      if File.exist?(PID_FILEPATH)
         Process.kill(:SIGINT, File.read(PID_FILEPATH).to_i)
       else
         warn "#{self.class}#stop: No process running"

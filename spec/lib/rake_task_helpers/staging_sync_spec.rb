@@ -35,7 +35,7 @@ describe RakeTaskHelpers::StagingSync do
     email = sent_mail.first
 
     expect(email.to).to include Settings.mail_tech_support
-    expect(email.subject).to match /Staging DB sanitization failed/
-    expect(email.body).to match /StandardError/
+    expect(email.subject).to match(/Staging DB sanitization failed/)
+    expect(email.body).to match(/StandardError/)
   end
 end

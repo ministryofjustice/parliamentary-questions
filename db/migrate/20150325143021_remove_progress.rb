@@ -1,7 +1,9 @@
 class RemoveProgress < ActiveRecord::Migration[5.0]
   def up
-    add_column(:pqs, :state, :string, default: 'unassigned')
-    add_column(:pqs, :state_weight, :integer, default: 0)
+    change_table :pqs, bulk: true do |t|
+      t.string  :state,        default: 'unassigned'
+      t.integer :state_weight, default: 0
+    end
 
     Pq.find_in_batches.each do |pq, _|
       state = progress2state(pq.progress && pq.progress.name)

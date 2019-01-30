@@ -18,7 +18,7 @@ describe MailWorker::PidFile do
 
     pidfile = MailWorker::PidFile.new(x_pid_path)
     pidfile.pid = '777'
-    expect(File.exist?(x_pid_path)).to be true
+    expect(File.exists?(x_pid_path)).to be true
     FileUtils.remove_entry_secure(x_parent_dir)
   end
 

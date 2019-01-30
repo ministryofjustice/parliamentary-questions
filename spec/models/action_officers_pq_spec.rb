@@ -60,7 +60,7 @@ describe ActionOfficersPq do
         it { is_expected.to send("be_#{check}") }
       end
 
-      context 'when not #{state}' do
+      context "when not #{state}" do
         subject { described_class.new response: :other_state }
         it { is_expected.not_to send("be_#{check}") }
       end

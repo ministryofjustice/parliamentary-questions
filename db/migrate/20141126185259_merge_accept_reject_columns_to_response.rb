@@ -1,21 +1,24 @@
 class MergeAcceptRejectColumnsToResponse < ActiveRecord::Migration[5.0]
   def up
-    add_column :action_officers_pqs, :response, :string, default: 'awaiting'
-
+    change_table :action_officers_pqs, bulk: true do |t|
+      t.string :response, default: 'awaiting'
+    end
     execute("UPDATE action_officers_pqs SET response='rejected' WHERE reject=true")
     execute("UPDATE action_officers_pqs SET response='accepted' WHERE accept=true")
-
-    remove_column :action_officers_pqs, :accept
-    remove_column :action_officers_pqs, :reject
+    change_table :action_officers_pqs, bulk: true do |t|
+      t.remove :accept, :reject
+    end
   end
 
   def down
-    add_column :action_officers_pqs, :accept, :boolean
-    add_column :action_officers_pqs, :reject, :boolean
-
+    change_table :action_officers_pqs, bulk: true do |t|
+      t.boolean :accept
+      t.boolean :reject
+    end
     execute("UPDATE action_officers_pqs SET accept=true WHERE response='accepted'")
     execute("UPDATE action_officers_pqs SET reject=true WHERE response='rejected'")
-
-    remove_column :action_officers_pqs, :response
+    change_table :action_officers_pqs, bulk: true do |t|
+      t.remove :response
+    end
   end
 end

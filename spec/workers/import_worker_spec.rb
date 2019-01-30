@@ -58,7 +58,7 @@ describe ImportWorker do
       worker.perform
 
       expect(email.to).to include Settings.mail_tech_support
-      expect(email.subject).to match /API import succeeded/
+      expect(email.subject).to match(/API import succeeded/)
       expect(email.body.raw_source).to eq(
         "Information\r\n===========\r\n\r\n" \
         "The scheduled import from the API @ #{Settings.pq_rest_api.host} succeeded.\r\n\r\n" \
@@ -74,7 +74,7 @@ describe ImportWorker do
       worker.perform
 
       expect(email.to).to include Settings.mail_tech_support
-      expect(email.subject).to match /API import failed/
+      expect(email.subject).to match(/API import failed/)
       expect(email.body.raw_source).to eq(
         "Alert\r\n=====\r\n\r\n" \
         "The scheduled import from the API @ #{Settings.pq_rest_api.host} " \

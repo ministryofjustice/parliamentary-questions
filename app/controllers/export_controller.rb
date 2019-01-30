@@ -39,6 +39,6 @@ class ExportController < ApplicationController
   rescue DateTimeInputError
     flash[:error] = 'Invalid date input!'
     update_page_title('Export PQs to CSV')
-    render form_template, status: 422
+    render form_template, status: :unprocessable_entity
   end
 end

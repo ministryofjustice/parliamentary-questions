@@ -66,7 +66,7 @@ describe HealthCheck::MailWorker do
       allow(worker).to receive(:stale_pid_file?).and_raise(StandardError)
       worker.available?
 
-      expect(worker.error_messages.first).to match /Error: StandardError\nDetails/
+      expect(worker.error_messages.first).to match(/Error: StandardError\nDetails/)
     end
   end
 end

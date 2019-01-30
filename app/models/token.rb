@@ -56,6 +56,6 @@ class Token < ActiveRecord::Base
   private
 
   def acknowledge(text)
-    update_attributes acknowledged: text, ack_time: Time.now
+    update acknowledged: text, ack_time: Time.now
   end
 end

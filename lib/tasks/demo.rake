@@ -65,7 +65,7 @@ def duplicate_question(old_pq, new_uin)
   question = Pq.create!(
     house_id: old_pq.house_id,
     raising_member_id: old_pq.raising_member_id,
-    tabled_date: 1.days.ago,
+    tabled_date: 1.day.ago,
     question: old_pq.question,
     uin: new_uin,
     member_name: old_pq.member_name,
@@ -99,7 +99,7 @@ def create_question(i, seed_question)
   question = Pq.create!(
     house_id: nil,
     raising_member_id: 2479,
-    tabled_date: 1.days.ago,
+    tabled_date: 1.day.ago,
     question: seed_question.question,
     # :seen_by_finance => true,
     uin: uin,

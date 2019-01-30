@@ -1,6 +1,6 @@
 class CreateVersions < ActiveRecord::Migration[5.0]
   def change
-    create_table :versions do |t|
+    create_table :versions, bulk: true do |t|
       t.string   :item_type, null: false
       t.integer  :item_id,   null: false
       t.string   :event,     null: false

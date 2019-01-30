@@ -41,7 +41,7 @@ describe HealthCheck::Database do
       allow(ActiveRecord::Base).to receive(:connected?).and_raise(StandardError)
       db.available?
 
-      expect(db.error_messages.first).to match /Error: StandardError\nDetails/
+      expect(db.error_messages.first).to match(/Error: StandardError\nDetails/)
     end
   end
 end

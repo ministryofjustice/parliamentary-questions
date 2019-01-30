@@ -1,8 +1,8 @@
 class RemoveSortingRelatedColumns < ActiveRecord::Migration[5.0]
   def up
-    remove_column(:pqs, :date_for_answer_has_passed)
-    remove_column(:pqs, :days_from_date_for_answer)
-
+    change_table :pqs, bulk: true do |t|
+      t.remove :date_for_answer_has_passed, :days_from_date_for_answer
+    end
     add_index(:pqs, :date_for_answer)
     execute "CREATE INDEX days_from_date_for_answer ON pqs (DATE_PART('day', date_for_answer::timestamp))"
     add_index(:pqs, :state_weight)

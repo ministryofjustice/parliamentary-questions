@@ -38,7 +38,7 @@ namespace :pqa do
   # Console syntax: bundle exec rake pqa:import_from_xml['questions.xml']
   task :import_from_xml, [:xml_path] => :environment do |_, args|
     fpath = args[:xml_path]
-    raise ArgumentError, "Cannot find file #{fpath}" unless File.exists?(fpath)
+    raise ArgumentError, "Cannot find file #{fpath}" unless File.exist?(fpath)
 
     min_date  = Date.parse('1/1/2000')
     max_date  = Date.parse('1/1/2020')
@@ -63,7 +63,7 @@ namespace :pqa do
     desc 'stops the mock api server if running'
     task api_stop: :environment do
       pid_filepath = '/tmp/mock_api_server.pid'
-      if File.exists?(pid_filepath)
+      if File.exist?(pid_filepath)
         pid = File.read(pid_filepath)
         puts "pid file for process #{pid} found - attempting to kill"
         result = Process.kill('INT', pid.to_i)

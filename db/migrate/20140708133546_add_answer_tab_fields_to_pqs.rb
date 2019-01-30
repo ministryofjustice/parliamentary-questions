@@ -1,9 +1,11 @@
 class AddAnswerTabFieldsToPqs < ActiveRecord::Migration[5.0]
   def change
-    add_column :pqs, :answer_submitted, :datetime
-    add_column :pqs, :library_deposit, :boolean
-    add_column :pqs, :pq_withdrawn, :datetime
-    add_column :pqs, :holding_reply_flag, :boolean
-    add_column :pqs, :final_response_info_released, :string
+    change_table :pqs, bulk: true do |t|
+      t.datetime :answer_submitted
+      t.boolean  :library_deposit
+      t.datetime :pq_withdrawn
+      t.boolean  :holding_reply_flag
+      t.string   :final_response_info_released
+    end
   end
 end

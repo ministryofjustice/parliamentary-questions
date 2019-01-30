@@ -11,11 +11,11 @@ module MailService
     end
 
     def default_sender
-      @sender ||= Settings.mail_from
+      @default_sender ||= Settings.mail_from
     end
 
     def default_reply_to
-      @reply_to ||= Settings.mail_reply_to
+      @default_reply_to ||= Settings.mail_reply_to
     end
   end
 end

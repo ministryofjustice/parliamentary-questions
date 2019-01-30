@@ -15,59 +15,59 @@ class Progress < ActiveRecord::Base
   end
 
   def self.find_by_status(status)
-    Progress.find_by_name(status)
+    Progress.find_by(name: status)
   end
 
   def self.unassigned
-    find_by_status(self.UNASSIGNED)
+    find_by(status: self.UNASSIGNED)
   end
 
   def self.no_response
-    find_by_status(self.NO_RESPONSE)
+    find_by(status: self.NO_RESPONSE)
   end
 
   def self.draft_pending
-    find_by_status(self.DRAFT_PENDING)
+    find_by(status: self.DRAFT_PENDING)
   end
 
   def self.rejected
-    find_by_status(self.REJECTED)
+    find_by(status: self.REJECTED)
   end
 
   def self.with_pod
-    find_by_status(self.WITH_POD)
+    find_by(status: self.WITH_POD)
   end
 
   def self.pod_query
-    find_by_status(self.POD_QUERY)
+    find_by(status: self.POD_QUERY)
   end
 
   def self.pod_cleared
-    find_by_status(self.POD_CLEARED)
+    find_by(status: self.POD_CLEARED)
   end
 
   def self.with_minister
-    find_by_status(self.WITH_MINISTER)
+    find_by(status: self.WITH_MINISTER)
   end
 
   def self.ministerial_query
-    find_by_status(self.MINISTERIAL_QUERY)
+    find_by(status: self.MINISTERIAL_QUERY)
   end
 
   def self.minister_cleared
-    find_by_status(self.MINISTER_CLEARED)
+    find_by(status: self.MINISTER_CLEARED)
   end
 
   def self.transfer
-    find_by_status(self.TRANSFER)
+    find_by(status: self.TRANSFER)
   end
 
   def self.answered
-    find_by_status(self.ANSWERED)
+    find_by(status: self.ANSWERED)
   end
 
   def self.transferred_out
-    find_by_status(self.TRANSFERRED_OUT)
+    find_by(status: self.TRANSFERRED_OUT)
   end
 
   def self.UNASSIGNED

@@ -68,7 +68,7 @@ describe HealthCheck::PqaApi do
 
       pqa.available?
 
-      expect(pqa.error_messages.first).to match /Error: StandardError\nDetails/
+      expect(pqa.error_messages.first).to match(/Error: StandardError\nDetails/)
     end
   end
 

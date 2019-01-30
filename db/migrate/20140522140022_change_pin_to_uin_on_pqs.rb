@@ -1,6 +1,8 @@
 class ChangePinToUinOnPqs < ActiveRecord::Migration[5.0]
   def change
-    remove_column :pqs, :pin, :string
-    add_column :pqs, :uin, :string
+    change_table :pqs, bulk: true do |t|
+      t.remove :pin
+      t.string :uin
+    end
   end
 end

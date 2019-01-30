@@ -28,8 +28,8 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
     end
 
-    within ('#pq-frame-1') { expect(page).to have_button('Commission') }
-    within ('#pq-frame-2') { expect(page).not_to have_button('Commission') }
+    within('#pq-frame-1') { expect(page).to have_button('Commission') }
+    within('#pq-frame-2') { expect(page).not_to have_button('Commission') }
   end
 
   scenario 'Parli-branch member allocates a question to selected AOs' do

@@ -97,12 +97,12 @@ describe Pq do
       # Update to cover all sorting criteria
       pqs[0].update(date_for_answer: Date.tomorrow, state: PQState::POD_CLEARED)
       pqs[1].update(date_for_answer: Date.tomorrow)
-      pqs[2].update(date_for_answer: Date.tomorrow  + 1.days, state: PQState::POD_QUERY)
-      pqs[3].update(date_for_answer: Date.tomorrow  + 1.days)
+      pqs[2].update(date_for_answer: Date.tomorrow  + 1.day, state: PQState::POD_QUERY)
+      pqs[3].update(date_for_answer: Date.tomorrow  + 1.day)
       pqs[4].update(date_for_answer: Date.yesterday, state: PQState::POD_CLEARED)
       pqs[5].update(date_for_answer: Date.yesterday)
-      pqs[6].update(date_for_answer: Date.yesterday - 1.days, state: PQState::WITH_MINISTER)
-      pqs[7].update(date_for_answer: Date.yesterday - 1.days) && pqs[7]
+      pqs[6].update(date_for_answer: Date.yesterday - 1.day, state: PQState::WITH_MINISTER)
+      pqs[7].update(date_for_answer: Date.yesterday - 1.day) && pqs[7]
 
       # Late PQs are pushed to the bottom regardless
       late_due_sooner_higher_weight = pqs[4]

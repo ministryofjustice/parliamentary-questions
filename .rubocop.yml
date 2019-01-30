@@ -68,6 +68,10 @@ Metrics/PerceivedComplexity:
 
 # Naming Cops =============================================================================
 
+Naming/UncommunicativeMethodParamName:
+  Description: 'This cop checks method parameter names for how descriptive they are. It is highly configurable.'
+  Enabled: false
+
 # Rails Cops ==============================================================================
 
 Performance/FlatMap:

@@ -1,6 +1,6 @@
 class AddFlagsToPq < ActiveRecord::Migration[5.0]
   def change
-    change_table :pqs do |t|
+    change_table :pqs, bulk: true do |t|
       t.boolean :press_interest
       t.boolean :finance_interest
       t.boolean :seen_by_press

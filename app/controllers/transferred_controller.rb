@@ -57,6 +57,6 @@ class TransferredController < ApplicationController
     yield
   rescue DateTimeInputError
     flash.now[:error] = 'Invalid date input!'
-    render(:new, status: 422)
+    render(:new, status: :unprocessable_entity)
   end
 end

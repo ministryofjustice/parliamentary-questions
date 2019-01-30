@@ -7,7 +7,8 @@ describe PQA::XMLDecoder do
     let(:xml) do
       date = DateTime.parse('28/02/2014')
       questions =
-        3.times.map do |n|
+        # 3.times.map do |n|
+        Array.new(3) do |n|
           PQA::QuestionBuilder.updated("q-#{n}", date + n.day)
         end
       PQA::XMLEncoder.encode_questions(questions)
@@ -42,12 +43,12 @@ describe PQA::XMLDecoder do
 
     describe '#decode_answer_response' do
       let(:xml) do
-        <<-EOS
+        <<-ANSWER
         <?xml version="1.0" encoding="utf-8"?>
         <AnswerResponse xmlns="http://data.parliament.uk/QnA/2013/02">
           <AnswerPreviewUrl>https://wqa.parliament.uk/Questions/Details/33367</AnswerPreviewUrl>
         </AnswerResponse>
-        EOS
+        ANSWER
       end
 
       describe '#response' do

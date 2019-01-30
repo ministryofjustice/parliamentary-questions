@@ -145,7 +145,7 @@ module Export
     end
 
     def rebase(date)
-      date + 1.day - 1.minutes
+      date + 1.day - 1.minute
     end
   end
 end
