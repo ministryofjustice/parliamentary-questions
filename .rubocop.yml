@@ -130,13 +130,32 @@ Rails/Output:
   Description: 'This cop checks for the use of output safety calls like html_safe, raw, and safe_concat. These methods do not escape content. They simply return a SafeBuffer containing the content as is. Instead, use safe_join to join content and escape it and concat to concatenate content and escape it, ensuring its safety.'
   Enabled: false
 
+Rails/OutputSafety:
+  Description: 'This cop checks for the use of output safety calls like html_safe, raw, and safe_concat. These methods do not escape content. They simply return a SafeBuffer containing the content as is. Instead, use safe_join to join content and escape it and concat to concatenate content and escape it, ensuring its safety.'
+  Enabled: false
+
 Rails/Present:
   Description: 'This cops checks for code that can be changed to blank?. Settings: NotNilAndNotEmpty: Convert checks for not nil and not empty? to present? NotBlank: Convert usages of not blank? to present? UnlessBlank: Convert usages of unless blank? to if present?'
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Description: 'This cop checks whether the change method of the migration file is reversible.'
   Enabled: false
 
 Rails/SaveBang:
   Description: 'This cop identifies possible cases where Active Record save! or related should be used instead of save because the model might have failed to save and an exception is better than unhandled failure.'
   StyleGuide: 'https://github.com/bbatsov/rails-style-guide#save-bang'
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Description: 'This cop checks for the use of methods which skip validations which are listed in https://guides.rubyonrails.org/active_record_validations.html#skipping-validations.'
+  StyleGuide: 'https://guides.rubyonrails.org/active_record_validations.html#skipping-validations'
+  Whitelist: [update_all, update_attribute, update_column]
+
+Rails/TimeZone:
+  Description: 'This cop checks for the use of Time methods without zone.'
+  StyleGuide: 'https://github.com/rubocop-hq/rails-style-guide#time
+               http://danilenko.org/2012/7/6/rails_timezones'
   Enabled: false
 
 # Security Cops ===========================================================================

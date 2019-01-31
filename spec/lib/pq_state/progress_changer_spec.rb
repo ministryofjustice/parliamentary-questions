@@ -52,7 +52,7 @@ describe 'PQState#progress_changer' do
                      policy_minister: nil,
                      answering_minister_query: false,
                      policy_minister_query: false,
-                     sent_to_answering_minister: Date.today,
+                     sent_to_answering_minister: Time.zone.today,
                      cleared_by_answering_minister: true,
                      pq_withdrawn: true
                     )

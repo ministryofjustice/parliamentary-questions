@@ -50,7 +50,7 @@ module DBHelpers
         uin: "uin-#{n}",
         house_id: 1,
         raising_member_id: 1,
-        tabled_date: Date.today,
+        tabled_date: Time.zone.today,
         response_due: Date.tomorrow,
         question: "test question #{n}",
         state: PQState::UNASSIGNED

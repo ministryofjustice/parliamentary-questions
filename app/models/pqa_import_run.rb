@@ -51,7 +51,7 @@ class PqaImportRun < ActiveRecord::Base
 
   def self.sum_pqs_imported(range)
     valid_ranges = {
-      day: Date.today.beginning_of_day,
+      day: Time.zone.today.beginning_of_day,
       week: 7.days.ago.beginning_of_day,
       month: 30.days.ago.beginning_of_day
     }
@@ -62,7 +62,7 @@ class PqaImportRun < ActiveRecord::Base
   end
 
   def self.ready_for_early_bird
-    return false if last_import_time_utc < Date.today
+    return false if last_import_time_utc < Time.zone.today
 
     rec = successful.order(:start_time).last
     case rec.status

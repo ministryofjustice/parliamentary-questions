@@ -42,7 +42,7 @@ describe Validators::DateInput do
 
   context '#parse_date' do
     it 'should return a date if input is correct' do
-      d = Date.today
+      d = Time.zone.today
       expect(parse_date(d.to_s)).to eq d
     end
   end

@@ -5,7 +5,8 @@ class AllocationResponse
 
   attr_accessor :response_action, :reason_option, :reason
 
-  validates_presence_of :response_action
+  # validates_presence_of :response_action
+  validates :response_action, presence: true
   validates :reason_option, presence: true, if: :rejected?
   validates :reason, presence: true, if: :rejected?
 

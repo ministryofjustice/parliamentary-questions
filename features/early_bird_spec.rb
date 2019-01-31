@@ -72,8 +72,8 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     q.uin               = '1'
     q.minister          = Minister.find_by(name: 'Chris Grayling')
     # q.action_officers   = aos
-    q.internal_deadline = Date.today + 1.day
-    q.internal_deadline = Date.today + 2.days
+    q.internal_deadline = Time.zone.today + 1.day
+    q.internal_deadline = Time.zone.today + 2.days
     q.update_state!
     q
   end

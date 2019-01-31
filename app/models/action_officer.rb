@@ -20,8 +20,10 @@ class ActionOfficer < ActiveRecord::Base
 
   has_paper_trail
   validates :name, presence: true
-  validates_format_of :email, with: Devise.email_regexp
-  validates_format_of :group_email, with: Devise.email_regexp, allow_blank: true
+  # validates_format_of :email, with: Devise.email_regexp
+  # validates_format_of :group_email, with: Devise.email_regexp, allow_blank: true
+  validates :email, format: { with: Devise.email_regexp }
+  validates :group_email, format: { with: Devise.email_regexp, allow_blank: true }
   validates :deputy_director_id, presence: true
   validates :press_desk_id, presence: true
   validates :email, uniqueness: {

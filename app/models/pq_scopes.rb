@@ -44,7 +44,7 @@ module PqScopes
 
   def beginning_of_last_week
     # Sunday
-    (Date.today.beginning_of_week) - 8
+    (Time.zone.today.beginning_of_week) - 8
   end
 
   def beginning_of_prev_week
@@ -82,7 +82,7 @@ module PqScopes
 
   def end_of_last_week
     # Saturday
-    (Date.today.beginning_of_week) - 2
+    (Time.zone.today.beginning_of_week) - 2
   end
 
   def end_of_prev_week
@@ -176,12 +176,12 @@ module PqScopes
   # - then PQs due yesterday, ordered by state-weight in descending order
   # - then PQs due the day before yesterday, ordered by state-weight in descending order
   #
-  # We use Date.today.strftime('%Y-%m-%d') here instead of the postgres function CURRENT_DATE in order to be able to get
+  # We use Time.zone.today.strftime('%Y-%m-%d') here instead of the postgres function CURRENT_DATE in order to be able to get
   # consistent results using Timecop in the tests
   #
 
   def sorted_for_dashboard
-    current_date = "'#{Date.today.strftime('%Y-%m-%d')}'"
+    current_date = "'#{Time.zone.today.strftime('%Y-%m-%d')}'"
     order(Arel.sql("date_for_answer >= #{current_date} DESC"))
       .order(Arel.sql("ABS(DATE_PART('day', date_for_answer::timestamp - #{current_date}::timestamp)) ASC"))
       .order(Arel.sql('state_weight DESC'))
@@ -198,7 +198,7 @@ module PqScopes
   end
 
   def uin(uin_to_search)
-    where('uin = ?', uin_to_search).first
+    find_by('uin = ?', uin_to_search)
   end
 
   def unassigned

@@ -67,13 +67,13 @@ describe MailService::Pq do
   end
 
   it '#watchlist_email - should create a watchlist email db record' do
-    Timecop.freeze(Date.today) do
+    Timecop.freeze(Time.zone.today) do
       service.watchlist_email(params)
 
       expect(Email.first.attributes).to include(
         'method' => 'watchlist_email',
         'cc' => email_to,
-        'params' => params.merge(date: Date.today.to_s(:date))
+        'params' => params.merge(date: Time.zone.today.to_s(:date))
       )
     end
   end

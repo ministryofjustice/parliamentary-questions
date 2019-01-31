@@ -14,7 +14,7 @@ feature 'Exporting PQ data to CSV' do
     create_pq_session
     visit export_path
 
-    fill_in 'Date from', with: Date.today.strftime('%d/%m/%Y')
+    fill_in 'Date from', with: Time.zone.today.strftime('%d/%m/%Y')
     fill_in 'Date to', with: Date.tomorrow.strftime('%d/%m/%Y')
     click_on 'Download CSV'
 
@@ -27,7 +27,7 @@ feature 'Exporting PQ data to CSV' do
     create_pq_session
     visit export_path
 
-    fill_in 'Date from', with: Date.today.strftime('%d/%m/%Y')
+    fill_in 'Date from', with: Time.zone.today.strftime('%d/%m/%Y')
     fill_in 'Date to', with: 'A' * 100
     click_on 'Download CSV'
 

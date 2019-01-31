@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Metrics::Application do
   let(:version) { 1.0        }
-  let(:date)    { Date.today }
+  let(:date)    { Time.zone.today }
   let(:tag)     { 2          }
   let(:id)      { 'fhjsvbk'  }
   let(:info) do

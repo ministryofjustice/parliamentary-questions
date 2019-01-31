@@ -4,7 +4,7 @@ describe Export::PqDefault do
   include Unit::QuestionFactory
   include CSVHelpers
 
-  let(:export) { Export::PqDefault.new(Date.yesterday, Date.today) }
+  let(:export) { Export::PqDefault.new(Date.yesterday, Time.zone.today) }
 
   context 'For output to Excel' do
     it 'Inserts a single quote to escape a formula in Excel' do
@@ -24,9 +24,9 @@ describe Export::PqDefault do
   context 'when some records are present' do
     before(:each) do
       # Expected exclusions
-      mk_pq('uin-1', answer_submitted: Date.today - 5)
-      mk_pq('uin-2', tabled_date: Date.today + 1)
-      mk_pq('uin-3', transfer_out_ogd_id: 1, transfer_out_date: Date.today)
+      mk_pq('uin-1', answer_submitted: Time.zone.today - 5)
+      mk_pq('uin-2', tabled_date: Time.zone.today + 1)
+      mk_pq('uin-3', transfer_out_ogd_id: 1, transfer_out_date: Time.zone.today)
 
       # Expected inclusions
       mk_pq('uin-z')
@@ -35,7 +35,7 @@ describe Export::PqDefault do
     end
 
     it 'returns unanswered, and non transfered-out pqs, within the supplied date range ordered by UIN' do
-      today        = date_s(Date.today)
+      today        = date_s(Time.zone.today)
       yesterday    = date_s(Date.yesterday)
       exported_pqs =
         decode_csv(export.to_csv).map do |h|

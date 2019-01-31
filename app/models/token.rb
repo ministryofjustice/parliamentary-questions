@@ -19,10 +19,11 @@ class Token < ActiveRecord::Base
   validates :acknowledged, inclusion: { in: %w[accept reject], message: '%{value} is not a valid value for acknowledged' }, allow_nil: true
 
   def self.entity(entity_value)
-    where(entity: entity_value).first
+    # where(entity: entity_value).first
+    find_by(entity: entity_value)
   end
 
-  def self.assignment_stats(date = Date.today)
+  def self.assignment_stats(date = Time.zone.today)
     recs = where('created_at > ? and created_at < ?', date.beginning_of_day, date.end_of_day)
     acks = recs.select(&:acknowledged?)
 
@@ -35,9 +36,13 @@ class Token < ActiveRecord::Base
   end
 
   # returns true if at least one person has acknowledged the watchlist token for the specified date, otherwise false
-  def self.watchlist_status(date = Date.today)
-    rec = where('path = ? and created_at >= ? and created_at <= ?',
-                '/watchlist/dashboard', Date.today.beginning_of_day, Date.today.end_of_day).first
+  def self.watchlist_status(date = Time.zone.today)
+    rec = find_by(
+      'path = ? and created_at >= ? and created_at <= ?',
+      '/watchlist/dashboard',
+      Time.zone.today.beginning_of_day,
+      Time.zone.today.end_of_day
+    )
     rec.acknowledged?
   end
 

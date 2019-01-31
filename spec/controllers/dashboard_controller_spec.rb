@@ -52,7 +52,7 @@ end
 def pq_dates
   [
     Date.yesterday,
-    Date.today,
+    Time.zone.today,
     Date.tomorrow
   ]
 end
@@ -78,9 +78,9 @@ end
 
 def expected_order_of_new_questions
   [
-    'UIN-' + Date.today.strftime('%m%d') + ':no_response-11',
-    'UIN-' + Date.today.strftime('%m%d') + ':rejected-21',
-    'UIN-' + Date.today.strftime('%m%d') + ':unassigned-01',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':no_response-11',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':rejected-21',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':unassigned-01',
     'UIN-' + Date.tomorrow.strftime('%m%d') + ':no_response-12',
     'UIN-' + Date.tomorrow.strftime('%m%d') + ':rejected-22',
     'UIN-' + Date.tomorrow.strftime('%m%d') + ':unassigned-02',
@@ -107,13 +107,13 @@ end
 
 def expected_order_in_progress_questions
   [
-    'UIN-' + Date.today.strftime('%m%d') + ':minister_cleared-91',
-    'UIN-' + Date.today.strftime('%m%d') + ':pod_cleared-61',
-    'UIN-' + Date.today.strftime('%m%d') + ':with_minister-71',
-    'UIN-' + Date.today.strftime('%m%d') + ':ministerial_query-81',
-    'UIN-' + Date.today.strftime('%m%d') + ':with_pod-41',
-    'UIN-' + Date.today.strftime('%m%d') + ':pod_query-51',
-    'UIN-' + Date.today.strftime('%m%d') + ':draft_pending-31',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':minister_cleared-91',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':pod_cleared-61',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':with_minister-71',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':ministerial_query-81',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':with_pod-41',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':pod_query-51',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':draft_pending-31',
     'UIN-' + Date.tomorrow.strftime('%m%d') + ':minister_cleared-92',
     'UIN-' + Date.tomorrow.strftime('%m%d') + ':pod_cleared-62',
     'UIN-' + Date.tomorrow.strftime('%m%d') + ':with_minister-72',
@@ -126,7 +126,7 @@ end
 
 def expected_order_of_unassigned_questions
   [
-    'UIN-' + Date.today.strftime('%m%d') + ':unassigned-01',
+    'UIN-' + Time.zone.today.strftime('%m%d') + ':unassigned-01',
     'UIN-' + Date.tomorrow.strftime('%m%d') + ':unassigned-02',
     'UIN-' + Date.yesterday.strftime('%m%d') + ':unassigned-00'
   ]

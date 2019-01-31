@@ -4,7 +4,7 @@ describe CommissioningService do
   shared_context 'test_values' do
     let(:ao1) { DBHelpers.action_officers[0] }
     let(:ao2) { DBHelpers.action_officers[1] }
-    let(:form_params) { { pq_id: pq.id, minister_id: minister.id, policy_minister_id: policy_minister.id, action_officer_id: [ao1.id, ao2.id], date_for_answer: Date.tomorrow, internal_deadline: Date.today.midnight } }
+    let(:form_params) { { pq_id: pq.id, minister_id: minister.id, policy_minister_id: policy_minister.id, action_officer_id: [ao1.id, ao2.id], date_for_answer: Date.tomorrow, internal_deadline: Time.zone.today.midnight } }
     let(:form) { CommissionForm.new(form_params) }
     let(:invalid_form_params) { form_params.merge(date_for_answer: nil) }
     let(:invalid_form) { CommissionForm.new(invalid_form_params) }

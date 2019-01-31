@@ -4,7 +4,7 @@ describe Export::PqPod do
   include Unit::QuestionFactory
   include CSVHelpers
 
-  let(:export) { Export::PqPod.new(Date.yesterday - 2.days, Date.today) }
+  let(:export) { Export::PqPod.new(Date.yesterday - 2.days, Time.zone.today) }
 
   context 'when no records are present' do
     it 'returns a blank CSV' do
@@ -15,13 +15,13 @@ describe Export::PqPod do
   context 'when some records are present' do
     before(:each) do
       # Expected exclusions
-      mk_pq('uin-1', tabled_date: Date.today + 5)
-      mk_pq('uin-2', tabled_date: Date.today - 5)
-      mk_pq('uin-3', answer_submitted: Date.today)
-      mk_pq('uin-4', pod_clearance: Date.today)
+      mk_pq('uin-1', tabled_date: Time.zone.today + 5)
+      mk_pq('uin-2', tabled_date: Time.zone.today - 5)
+      mk_pq('uin-3', answer_submitted: Time.zone.today)
+      mk_pq('uin-4', pod_clearance: Time.zone.today)
 
       # Expected inclusions
-      mk_pq('uin-z', answer_submitted: nil, date_for_answer: Date.today)
+      mk_pq('uin-z', answer_submitted: nil, date_for_answer: Time.zone.today)
       mk_pq('uin-c', answer_submitted: nil, date_for_answer: Date.yesterday)
       mk_pq('uin-a', answer_submitted: nil, date_for_answer: Date.yesterday - 3)
     end
@@ -40,7 +40,7 @@ describe Export::PqPod do
       expect(exported_pqs).to eq([
                                    ['uin-a', 'uin-a body text', date_s(Date.yesterday), date_s(Date.yesterday - 3)],
                                    ['uin-c', 'uin-c body text', date_s(Date.yesterday), date_s(Date.yesterday)],
-                                   ['uin-z', 'uin-z body text', date_s(Date.yesterday), date_s(Date.today)]
+                                   ['uin-z', 'uin-z body text', date_s(Date.yesterday), date_s(Time.zone.today)]
                                  ])
     end
   end

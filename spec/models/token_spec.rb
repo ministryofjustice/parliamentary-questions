@@ -61,7 +61,7 @@ describe Token, type: :model do
   end
 
   describe '.watchlist_status' do
-    let(:entity) { "watchlist-#{Date.today.strftime('%d/%m/%Y')} 11:37" }
+    let(:entity) { "watchlist-#{Time.zone.today.strftime('%d/%m/%Y')} 11:37" }
     let!(:token) { FactoryBot.create :token, path: '/watchlist/dashboard', entity: entity }
 
     it 'should return false if the token has not been acknowledged' do

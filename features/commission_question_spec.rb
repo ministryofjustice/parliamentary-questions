@@ -83,11 +83,11 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       minister_id: minister.id,
       action_officer_id: [ao.id],
       date_for_answer: Date.tomorrow,
-      internal_deadline: Date.today
+      internal_deadline: Time.zone.today
     }
 
     form = CommissionForm.new(form_params)
-    CommissioningService.new(nil, Date.today - 4.days).commission(form)
+    CommissioningService.new(nil, Time.zone.today - 4.days).commission(form)
     ao_mail, = sent_mail.last
     url = extract_url_like('/assignment', ao_mail)
     visit url

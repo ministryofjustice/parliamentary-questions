@@ -60,7 +60,7 @@ module PqStatistics
   end
 
   def bucket_date0
-    @bucket_date0 ||= Date.today
+    @bucket_date0 ||= Time.zone.today
   end
 
   def result_by_bucket(events, buckets)

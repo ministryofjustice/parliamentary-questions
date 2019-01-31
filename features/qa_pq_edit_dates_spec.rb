@@ -18,7 +18,7 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     DatabaseCleaner.clean
   end
 
-  let(:testDate) { (Date.today + 3).to_s + ' 12:00' }
+  let(:testDate) { (Time.zone.today + 3).to_s + ' 12:00' }
 
   scenario 'Check all elements are present' do
     initialise

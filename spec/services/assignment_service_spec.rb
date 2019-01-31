@@ -14,7 +14,7 @@ describe AssignmentService do
       minister_id: minister.id,
       action_officer_id: [action_officer.id],
       date_for_answer: Date.tomorrow,
-      internal_deadline: Date.today
+      internal_deadline: Time.zone.today
     )
   end
 

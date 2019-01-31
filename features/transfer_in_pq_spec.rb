@@ -16,7 +16,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
       .find(:xpath, 'option[2]')
       .select_option
 
-    find('#transfer_in_date').set Date.today.strftime('%d/%m/%Y')
+    find('#transfer_in_date').set Time.zone.today.strftime('%d/%m/%Y')
     click_on 'Create PQ'
   end
 

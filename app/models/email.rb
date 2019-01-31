@@ -27,8 +27,10 @@ class Email < ActiveRecord::Base
   validates :to, presence: true
   validates :reply_to, presence: true
 
-  validates_format_of :from, with: EMAIL_REGEXP
-  validates_format_of :reply_to, with: EMAIL_REGEXP
+  # validates_format_of :from, with: EMAIL_REGEXP
+  # validates_format_of :reply_to, with: EMAIL_REGEXP
+  validates :from, format: { with: EMAIL_REGEXP, format: true }
+  validates :reply_to, format: { with: EMAIL_REGEXP, format: true }
 
   validate :concatenated_email_to_format
   validate :concatenated_email_cc_format

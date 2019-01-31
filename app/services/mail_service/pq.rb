@@ -72,7 +72,7 @@ module MailService
         {
           method: 'watchlist_email',
           cc: params[:cc],
-          params: params.merge(date: Date.today.to_s(:date))
+          params: params.merge(date: Time.zone.today.to_s(:date))
         }
 
       generate_email(details_h, base_h(params))
@@ -83,7 +83,7 @@ module MailService
         {
           method: 'early_bird_email',
           cc: params[:cc],
-          params: params.merge(date: Date.today.to_s(:date))
+          params: params.merge(date: Time.zone.today.to_s(:date))
         }
 
       generate_email(details_h, base_h(params))

@@ -5,7 +5,8 @@ class PQAnswer
 
   attr_accessor :text, :is_holding_answer, :pq_id
 
-  validates_presence_of :text, :is_holding_answer
+  # validates_presence_of :text, :is_holding_answer
+  validates :text, :is_holding_answer, presence: true
 
   def initialize(attributes = {})
     attributes.each do |name, value|

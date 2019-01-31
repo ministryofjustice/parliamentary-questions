@@ -80,7 +80,7 @@ class Pq < ActiveRecord::Base
   has_one :trim_link, dependent: :destroy
   has_many :action_officers_pqs do
     def accepted
-      where(response: 'accepted').first
+      find_by(response: 'accepted')
     end
 
     def rejected
@@ -98,7 +98,7 @@ class Pq < ActiveRecord::Base
     end
 
     def accepted
-      where(action_officers_pqs: { response: 'accepted' }).first
+      find_by(action_officers_pqs: { response: 'accepted' })
     end
 
     def rejected

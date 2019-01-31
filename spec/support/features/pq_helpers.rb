@@ -90,7 +90,7 @@ module Features
     end
 
     def fillin_date(css_sel)
-      find(css_sel).set(Date.today.strftime('%d/%m/%Y'))
+      find(css_sel).set(Time.zone.today.strftime('%d/%m/%Y'))
     end
   end
 end

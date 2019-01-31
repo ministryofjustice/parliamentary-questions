@@ -8,7 +8,7 @@ describe 'PqStatistics' do
     def on_time_percentage(n)
       # Create PQs for the latest date bucket with n% on time
       n    = (n.round(1) * 10).to_i
-      date = 2.business_days.before(Date.today)
+      date = 2.business_days.before(Time.zone.today)
       pqs  = (1..10).to_a.map { create(:answered_pq) }
 
       pqs.first(n).each do |pq|

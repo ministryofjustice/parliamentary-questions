@@ -22,7 +22,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   scenario '1) by Date for Answer (From: 10 days ago).' do
     within('#count') { expect(page).to have_text('16 parliamentary questions') }
     all_pqs(16, 'visible')
-    test_date('#date-for-answer', 'answer-from', Date.today - 10)
+    test_date('#date-for-answer', 'answer-from', Time.zone.today - 10)
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
     clear_filter('#date-for-answer')
@@ -31,7 +31,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '2) by Date for Answer (From: 9 days time).' do
-    test_date('#date-for-answer', 'answer-from', Date.today + 9)
+    test_date('#date-for-answer', 'answer-from', Time.zone.today + 9)
     within('#count') { expect(page).to have_text('8 parliamentary questions out of 16.') }
     within('.questions-list') do
       find('li#pq-frame-8').visible?
@@ -49,7 +49,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '3) by Date for Answer (From: 20 days time).' do
-    test_date('#date-for-answer', 'answer-from', Date.today + 20)
+    test_date('#date-for-answer', 'answer-from', Time.zone.today + 20)
     within('#count') { expect(page).to have_text('0 parliamentary questions out of 16.') }
     all_pqs(16, 'hidden')
     clear_filter('#date-for-answer')
@@ -58,7 +58,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '4) by Date for Answer (To: 10 days ago).' do
-    test_date('#date-for-answer', 'answer-to', Date.today - 10)
+    test_date('#date-for-answer', 'answer-to', Time.zone.today - 10)
     within('#count') { expect(page).to have_text('0 parliamentary questions out of 16.') }
     all_pqs(16, 'hidden')
     clear_filter('#date-for-answer')
@@ -67,7 +67,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '5) by Date for Answer (To: 9 days time).' do
-    test_date('#date-for-answer', 'answer-to', Date.today + 9)
+    test_date('#date-for-answer', 'answer-to', Time.zone.today + 9)
     within('#count') { expect(page).to have_text('9 parliamentary questions out of 16.') }
     within('.questions-list') do
       find('li#pq-frame-16').visible?
@@ -86,7 +86,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '6) by Date for Answer (To: 20 days time).' do
-    test_date('#date-for-answer', 'answer-to', Date.today + 20)
+    test_date('#date-for-answer', 'answer-to', Time.zone.today + 20)
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
     clear_filter('#date-for-answer')
@@ -95,7 +95,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '7) by Internal Deadline (From: 10 days ago).' do
-    test_date('#internal-deadline', 'deadline-from', Date.today - 10)
+    test_date('#internal-deadline', 'deadline-from', Time.zone.today - 10)
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
     clear_filter('#internal-deadline')
@@ -104,7 +104,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '8) by Internal Deadline (From: 9 days time).' do
-    test_date('#internal-deadline', 'deadline-from', Date.today + 9)
+    test_date('#internal-deadline', 'deadline-from', Time.zone.today + 9)
     within('#count') { expect(page).to have_text('6 parliamentary questions out of 16') }
     within('.questions-list') do
       find('li#pq-frame-6').visible?
@@ -120,7 +120,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '9) by Internal Deadline (From: 20 days time).' do
-    test_date('#internal-deadline', 'deadline-from', Date.today + 20)
+    test_date('#internal-deadline', 'deadline-from', Time.zone.today + 20)
     within('#count') { expect(page).to have_text('0 parliamentary questions out of 16.') }
     all_pqs(16, 'hidden')
     clear_filter('#internal-deadline')
@@ -129,7 +129,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '10) by Internal Deadline (To: 10 days ago).' do
-    test_date('#internal-deadline', 'deadline-to', Date.today - 10)
+    test_date('#internal-deadline', 'deadline-to', Time.zone.today - 10)
     within('#count') { expect(page).to have_text('0 parliamentary questions out of 16.') }
     all_pqs(16, 'hidden')
     clear_filter('#internal-deadline')
@@ -138,7 +138,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '11) by Internal Deadline (To: 9 days time).' do
-    test_date('#internal-deadline', 'deadline-to', Date.today + 9)
+    test_date('#internal-deadline', 'deadline-to', Time.zone.today + 9)
     within('#count') { expect(page).to have_text('11 parliamentary questions out of 16.') }
     within('.questions-list') do
       find('li#pq-frame-16').visible?
@@ -159,7 +159,7 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   scenario '12) by Internal Deadline (To: 20 days time.' do
-    test_date('#internal-deadline', 'deadline-to', Date.today + 20)
+    test_date('#internal-deadline', 'deadline-to', Time.zone.today + 20)
     within('#count') { expect(page).to have_text('16 parliamentary questions out of 16.') }
     all_pqs(16, 'visible')
     clear_filter('#internal-deadline')
@@ -276,22 +276,22 @@ feature "'In progress' page filtering:", js: true, suspend_cleaner: true do
   end
 
   def setup_questions
-    pq1 = FactoryBot.create(:with_pod_pq, uin: 'UIN-1', date_for_answer: Date.today + 16, internal_deadline: Date.today + 14, minister_id: 3, policy_minister_id: 6, question_type: 'NamedDay')
-    pq2 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-2', date_for_answer: Date.today + 15, internal_deadline: Date.today + 13, minister_id: 3, policy_minister_id: 4, question_type: 'NamedDay')
-    pq3 = FactoryBot.create(:with_pod_pq, uin: 'UIN-3', date_for_answer: Date.today + 14, internal_deadline: Date.today + 12, minister_id: 3, policy_minister_id: 4, question_type: 'Ordinary')
-    pq4 = FactoryBot.create(:with_pod_pq, uin: 'UIN-4', date_for_answer: Date.today + 13, internal_deadline: Date.today + 11, minister_id: 5, policy_minister_id: 4, question_type: 'NamedDay')
-    pq5 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-5', date_for_answer: Date.today + 12, internal_deadline: Date.today + 10, minister_id: 5, policy_minister_id: 4, question_type: 'Ordinary')
-    pq6 = FactoryBot.create(:with_pod_pq, uin: 'UIN-6', date_for_answer: Date.today + 11, internal_deadline: Date.today + 9, minister_id: 3, policy_minister_id: 4, question_type: 'NamedDay')
-    pq7 = FactoryBot.create(:with_pod_pq, uin: 'UIN-7', date_for_answer: Date.today + 10, internal_deadline: Date.today + 8, minister_id: 5, policy_minister_id: 6, question_type: 'Ordinary')
-    pq8 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-8', date_for_answer: Date.today + 9, internal_deadline: Date.today + 7, minister_id: 3, policy_minister_id: 6, question_type: 'Ordinary')
-    pq9 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-9', date_for_answer: Date.today + 8, internal_deadline: Date.today + 6, minister_id: 5, policy_minister_id: 6, question_type: 'Ordinary')
-    pq10 = FactoryBot.create(:with_pod_pq, uin: 'UIN-10', date_for_answer: Date.today + 7, internal_deadline: Date.today + 5, minister_id: 5, policy_minister_id: 4, question_type: 'Ordinary')
-    pq11 = FactoryBot.create(:with_pod_pq, uin: 'UIN-11', date_for_answer: Date.today + 6, internal_deadline: Date.today + 4, minister_id: 3, policy_minister_id: 6, question_type: 'Ordinary')
-    pq12 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-12', date_for_answer: Date.today + 5, internal_deadline: Date.today + 3, minister_id: 5, policy_minister_id: 4, question_type: 'NamedDay')
-    pq13 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-13', date_for_answer: Date.today + 4, internal_deadline: Date.today + 2, minister_id: 5, policy_minister_id: 6, question_type: 'NamedDay')
-    pq14 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-14', date_for_answer: Date.today + 3, internal_deadline: Date.today + 1, minister_id: 3, policy_minister_id: 4, question_type: 'Ordinary')
-    pq15 = FactoryBot.create(:with_pod_pq, uin: 'UIN-15', date_for_answer: Date.today + 2, internal_deadline: Date.today, minister_id: 5, policy_minister_id: 6, question_type: 'NamedDay')
-    pq16 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-16', date_for_answer: Date.today + 1, internal_deadline: Date.today - 1, minister_id: 3, policy_minister_id: 6, question_type: 'NamedDay')
+    pq1 = FactoryBot.create(:with_pod_pq, uin: 'UIN-1', date_for_answer: Time.zone.today + 16, internal_deadline: Time.zone.today + 14, minister_id: 3, policy_minister_id: 6, question_type: 'NamedDay')
+    pq2 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-2', date_for_answer: Time.zone.today + 15, internal_deadline: Time.zone.today + 13, minister_id: 3, policy_minister_id: 4, question_type: 'NamedDay')
+    pq3 = FactoryBot.create(:with_pod_pq, uin: 'UIN-3', date_for_answer: Time.zone.today + 14, internal_deadline: Time.zone.today + 12, minister_id: 3, policy_minister_id: 4, question_type: 'Ordinary')
+    pq4 = FactoryBot.create(:with_pod_pq, uin: 'UIN-4', date_for_answer: Time.zone.today + 13, internal_deadline: Time.zone.today + 11, minister_id: 5, policy_minister_id: 4, question_type: 'NamedDay')
+    pq5 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-5', date_for_answer: Time.zone.today + 12, internal_deadline: Time.zone.today + 10, minister_id: 5, policy_minister_id: 4, question_type: 'Ordinary')
+    pq6 = FactoryBot.create(:with_pod_pq, uin: 'UIN-6', date_for_answer: Time.zone.today + 11, internal_deadline: Time.zone.today + 9, minister_id: 3, policy_minister_id: 4, question_type: 'NamedDay')
+    pq7 = FactoryBot.create(:with_pod_pq, uin: 'UIN-7', date_for_answer: Time.zone.today + 10, internal_deadline: Time.zone.today + 8, minister_id: 5, policy_minister_id: 6, question_type: 'Ordinary')
+    pq8 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-8', date_for_answer: Time.zone.today + 9, internal_deadline: Time.zone.today + 7, minister_id: 3, policy_minister_id: 6, question_type: 'Ordinary')
+    pq9 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-9', date_for_answer: Time.zone.today + 8, internal_deadline: Time.zone.today + 6, minister_id: 5, policy_minister_id: 6, question_type: 'Ordinary')
+    pq10 = FactoryBot.create(:with_pod_pq, uin: 'UIN-10', date_for_answer: Time.zone.today + 7, internal_deadline: Time.zone.today + 5, minister_id: 5, policy_minister_id: 4, question_type: 'Ordinary')
+    pq11 = FactoryBot.create(:with_pod_pq, uin: 'UIN-11', date_for_answer: Time.zone.today + 6, internal_deadline: Time.zone.today + 4, minister_id: 3, policy_minister_id: 6, question_type: 'Ordinary')
+    pq12 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-12', date_for_answer: Time.zone.today + 5, internal_deadline: Time.zone.today + 3, minister_id: 5, policy_minister_id: 4, question_type: 'NamedDay')
+    pq13 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-13', date_for_answer: Time.zone.today + 4, internal_deadline: Time.zone.today + 2, minister_id: 5, policy_minister_id: 6, question_type: 'NamedDay')
+    pq14 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-14', date_for_answer: Time.zone.today + 3, internal_deadline: Time.zone.today + 1, minister_id: 3, policy_minister_id: 4, question_type: 'Ordinary')
+    pq15 = FactoryBot.create(:with_pod_pq, uin: 'UIN-15', date_for_answer: Time.zone.today + 2, internal_deadline: Time.zone.today, minister_id: 5, policy_minister_id: 6, question_type: 'NamedDay')
+    pq16 = FactoryBot.create(:draft_pending_pq, uin: 'UIN-16', date_for_answer: Time.zone.today + 1, internal_deadline: Time.zone.today - 1, minister_id: 3, policy_minister_id: 6, question_type: 'NamedDay')
   end
 
   def test_date(filter_box, id, date)

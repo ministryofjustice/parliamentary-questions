@@ -1,7 +1,7 @@
 require 'feature_helper'
 
 def date
-  PqStatistics::BUS_DAY_INTERVAL.business_days.before(Date.today)
+  PqStatistics::BUS_DAY_INTERVAL.business_days.before(Time.zone.today)
 end
 
 feature 'Statistics: PQs answered on time' do
@@ -11,7 +11,7 @@ feature 'Statistics: PQs answered on time' do
 
       pqs.first(4).each do |pq|
         pq.update(
-          date_for_answer: Date.today,
+          date_for_answer: Time.zone.today,
           answer_submitted: Date.tomorrow,
           state: PQState::ANSWERED
         )
@@ -19,7 +19,7 @@ feature 'Statistics: PQs answered on time' do
 
       pqs.last(2).each do |pq|
         pq.update(
-          date_for_answer: Date.today,
+          date_for_answer: Time.zone.today,
           answer_submitted: Date.yesterday,
           state: PQState::ANSWERED
         )
@@ -51,18 +51,18 @@ end
 
 feature 'Statistics: Time to assign PQs' do
   before(:each) do
-    Timecop.freeze(1.business_days.before(Date.today)) do
+    Timecop.freeze(1.business_days.before(Time.zone.today)) do
       pqs = (1..4).to_a.map { FactoryBot.create(:not_responded_pq) }
 
       pqs.first(2).each do |pq|
         pq.update(
-          created_at: 1.business_days.before(Date.today)
+          created_at: 1.business_days.before(Time.zone.today)
         )
       end
 
       pqs.last(2).each do |pq|
         pq.update(
-          created_at: 2.business_days.before(Date.today)
+          created_at: 2.business_days.before(Time.zone.today)
         )
       end
     end
@@ -71,12 +71,12 @@ end
 
 feature 'Statistics: Time for AO response' do
   before(:each) do
-    Timecop.freeze(1.business_days.before(Date.today)) do
+    Timecop.freeze(1.business_days.before(Time.zone.today)) do
       pqs = (1..4).to_a.map { FactoryBot.create(:draft_pending_pq) }
 
       pqs.first(2).each do |pq|
         pq.action_officers_pqs.first.update(
-          created_at: 2.business_days.before(Date.today)
+          created_at: 2.business_days.before(Time.zone.today)
         )
       end
     end
