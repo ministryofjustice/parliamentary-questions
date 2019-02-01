@@ -36,7 +36,7 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
-  Description: 'This cop checks if the length of a block exceeds some maximum value. Comment lines can optionally be ignored. The maximum allowed length is configurable. The cop can be configured to ignore blocks passed to certain methods.'
+  Description: 'This cop checks if the length of a block exceeds some maximum value.'
   Enabled: false
 
 Metrics/BlockNesting:
@@ -48,19 +48,27 @@ Metrics/ClassLength:
   Description: 'Avoid classes longer than 250 lines of code.'
   Max: 250
 
+Metrics/CyclomaticComplexity:
+  Description: 'The cyclomatic complexity is the number of linearly independent paths through a method. The algorithm counts decision points and adds one.'
+  Max: 13
+
 Metrics/LineLength:
   Description: 'Limit lines to 80 characters.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
   Enabled: false
 
 Metrics/MethodLength:
-  Description: 'Avoid methods longer than 30 lines of code.'
+  Description: 'Avoid methods longer than 40 lines of code.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
-  Max: 30
+  Max: 40
 
 Metrics/ModuleLength:
   Description: 'Avoid modules longer than 250 lines of code.'
   Max: 250
+
+Metrics/ParameterLists:
+  Description: 'Allow up to 6 method parameters.'
+  Max: 6
 
 Metrics/PerceivedComplexity:
   Description: 'A complexity metric geared towards measuring complexity for a human reader.'
