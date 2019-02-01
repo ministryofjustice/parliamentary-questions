@@ -55,7 +55,7 @@ class PqaImportRun < ActiveRecord::Base
       week: 7.days.ago.beginning_of_day,
       month: 30.days.ago.beginning_of_day
     }
-    raise ArgumentError, 'invalid range for sum_pqs_imported' unless valid_ranges.keys.include?(range)
+    raise ArgumentError, 'invalid range for sum_pqs_imported' unless valid_ranges.key?(range)
 
     recs = where('start_time >= ?', valid_ranges[range])
     recs.reduce(0) { |n, rec| n + rec.num_updated + rec.num_created }

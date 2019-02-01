@@ -83,6 +83,11 @@ Naming/UncommunicativeMethodParamName:
 
 # Rails Cops ==============================================================================
 
+Performance/ChainArrayAllocation:
+  Description: "This cop is used to identify usages of Each of these methods (compact, flatten, map) will generate a new intermediate array that is promptly thrown away. Instead it is faster to mutate when we know it's safe."
+  StyleGuide: 'https://twitter.com/schneems/status/1034123879978029057'
+  Enabled: false
+
 Performance/FlatMap:
   Description: 'Use `Enumerable#flat_map` instead of `Enumerable#map...Array#flatten(1)` or `Enumberable#collect..Array#flatten(1)`'
   Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablemaparrayflatten-vs-enumerableflat_map-code'
@@ -92,6 +97,20 @@ Performance/FlatMap:
   # `flatten` being called without any parameters.
   # This can be dangerous since `flat_map` will only flatten 1 level, and
   # `flatten` without any parameters can flatten multiple levels.
+
+Performance/OpenStruct:
+  Description: 'This cop checks for OpenStruct.new calls. Instantiation of an OpenStruct invalidates Ruby global method cache as it causes dynamic method definition during program runtime. This could have an effect on performance, especially in case of single-threaded applications with multiple OpenStruct instantiations.'
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  Description: 'This cop identifies the use of a &block parameter and block.call where yield would do just as well.'
+  StyleGuide: 'https://github.com/JuanitoFatas/fast-ruby#proccall-and-block-arguments-vs-yieldcode'
+  Enabled: false
+
+Performance/RegexpMatch:
+  Description: 'In Ruby 2.4, String#match?, Regexp#match?, and Symbol#match? have been added. The methods are faster than match. Because the methods avoid creating a MatchData object or saving backref. So, when MatchData is not used, use match? instead of match.'
+  StyleGuide: 'https://github.com/JuanitoFatas/fast-ruby#regexp-vs-stringmatch-vs-string-vs-stringmatch-code-'
+  Enabled: false
 
 # Rails Cops ==============================================================================
 

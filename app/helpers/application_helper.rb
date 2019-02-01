@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def state_classname(s)
-    s.gsub('_', '-')
+    s.tr('_', '-')
   end
 
   def state_label(s)
