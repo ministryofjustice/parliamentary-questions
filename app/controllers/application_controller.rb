@@ -31,7 +31,8 @@ class ApplicationController < ActionController::Base
     opts[:protocol] = protocol
   end
 
-  def after_invite_path_for(resource)
+  # def after_invite_path_for(resource)
+  def after_invite_path_for(_resource)
     users_path
   end
 

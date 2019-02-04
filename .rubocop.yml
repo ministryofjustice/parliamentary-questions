@@ -28,6 +28,38 @@ Layout/MultilineMethodCallBraceLayout:
 
 # Lint Cops ===============================================================================
 
+Lint/AmbiguousBlockAssociation:
+  Description: 'This cop checks for ambiguous block association with method when param passed without parentheses.'
+  Enabled: false
+
+Lint/DeprecatedClassMethods:
+  Description: 'This cop checks for uses of the deprecated class method usages.'
+  Enabled: false
+
+Lint/HandleExceptions:
+  Description: 'This cop checks for rescue blocks with no body.'
+  Enabled: false
+
+Lint/IneffectiveAccessModifier:
+  Description: 'This cop checks for private or protected access modifiers which are applied to a singleton method. These access modifiers do not make singleton methods private/protected. private_class_method can be used for that.'
+  Enabled: false
+
+Lint/NumberConversion:
+  Description: 'This cop warns the usage of unsafe number conversions. Unsafe number conversion can cause unexpected error if auto type conversion fails. Cop prefer parsing with number class instead.'
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Description: 'This cop looks for use of the same name as outer local variables for block arguments or block local variables. This is a mimic of the warning "shadowing outer local variable - foo" from ruby -cw.'
+  Enabled: false
+
+Lint/UnderscorePrefixedVariableName:
+  Description: 'This cop checks for underscore-prefixed variables that are actually used.'
+  Enabled: false
+
+Lint/UselessAssignment:
+  Description: 'This cop checks for every useless assignment to local variable in every scope.'
+  Enabled: false
+
 # Naming Cops =============================================================================
 
 Metrics/AbcSize:

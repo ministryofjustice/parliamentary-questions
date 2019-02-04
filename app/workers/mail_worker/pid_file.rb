@@ -7,6 +7,7 @@ class MailWorker
     end
 
     def present?
+      # File.exists?(path)
       File.exists?(path)
     end
 

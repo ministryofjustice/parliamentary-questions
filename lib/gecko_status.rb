@@ -27,7 +27,8 @@ class GeckoStatus
     @message = message
   end
 
-  def update(metrics)
+  # def update(metrics)
+  def update(_metrics)
     #
     # Update the gecko status from a metrics dashboard component
     #

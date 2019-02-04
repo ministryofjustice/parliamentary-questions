@@ -60,7 +60,7 @@ class QuickActionExportController < ApplicationController
     params.permit(:total_pqs, :pqs_comma_separated)
   end
 
-  def run_export(export_type, template)
+  def run_export(export_type, _template)
     my_export = export_type.new(pqs_array)
     send_data(my_export.to_csv, content_type: 'text/csv')
   end

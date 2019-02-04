@@ -65,7 +65,8 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
 
   private
 
-  def generate_dummy_pq(aos)
+  # def generate_dummy_pq(aos)
+  def generate_dummy_pq(_aos)
     PQA::QuestionLoader.new.load_and_import
 
     q                   = Pq.first

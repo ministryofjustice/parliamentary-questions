@@ -106,15 +106,17 @@ PressOfficer.create!([
                        { name: 'press officer four', email: 'four@press.office.com', press_desk_id: 2 }
                      ])
 
-action_officers = ActionOfficer.create!([
-                                          { deputy_director_id: 17, name: 'Colin Bruce', email: 'colin.bruce@digital.justice.gov.uk', press_desk_id: 1 },
-                                          { deputy_director_id: 19, name: 'Daniel Penny', email: 'daniel.penny@digital.justice.gov.uk', press_desk_id: 1 },
-                                          { deputy_director_id: 6, name: 'David Hernandez', email: 'david.hernandez@digital.justice.gov.uk', press_desk_id: 1 },
-                                          { deputy_director_id: 7, name: 'Tehseen Udin', email: 'tehseen.udin@digital.justice.gov.uk', press_desk_id: 1 },
-                                          { deputy_director_id: 8, name: 'Tom Wynne-Morgan', email: 'tom.wynne-morgan@digital.justice.gov.uk', press_desk_id: 2 },
-                                          { deputy_director_id: 9, name: 'Tom Norman', email: 'tom.norman@digital.justice.gov.uk', press_desk_id: 2 },
-                                          { deputy_director_id: 10, name: 'Mary Henley', email: 'mary.henley@digital.justice.gov.uk', press_desk_id: 2 }
-                                        ])
+action_officers = ActionOfficer.create!(
+  [
+    { deputy_director_id: 17, name: 'Colin Bruce', email: 'colin.bruce@digital.justice.gov.uk', press_desk_id: 1 },
+    { deputy_director_id: 19, name: 'Daniel Penny', email: 'daniel.penny@digital.justice.gov.uk', press_desk_id: 1 },
+    { deputy_director_id: 6, name: 'David Hernandez', email: 'david.hernandez@digital.justice.gov.uk', press_desk_id: 1 },
+    { deputy_director_id: 7, name: 'Tehseen Udin', email: 'tehseen.udin@digital.justice.gov.uk', press_desk_id: 1 },
+    { deputy_director_id: 8, name: 'Tom Wynne-Morgan', email: 'tom.wynne-morgan@digital.justice.gov.uk', press_desk_id: 2 },
+    { deputy_director_id: 9, name: 'Tom Norman', email: 'tom.norman@digital.justice.gov.uk', press_desk_id: 2 },
+    { deputy_director_id: 10, name: 'Mary Henley', email: 'mary.henley@digital.justice.gov.uk', press_desk_id: 2 }
+  ]
+)
 
 Ogd.create!([
               { name: 'Ministry of Defence', acronym: 'MOD' }

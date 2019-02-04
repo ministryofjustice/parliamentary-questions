@@ -93,7 +93,8 @@ def populate_seeds
   seed_questions
 end
 
-def create_question(i, seed_question)
+# def create_question(i, seed_question)
+def create_question(_i, seed_question)
   uin = (seed_question.uin.to_i + 600000).to_s
 
   question = Pq.create!(

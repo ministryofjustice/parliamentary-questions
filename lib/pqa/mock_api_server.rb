@@ -56,7 +56,7 @@ module PQA
       date_from    = DateTime.parse(params[:dateFrom] || DateTime.commercial(1000).to_s)
       date_to      = DateTime.parse(params[:dateTo]   || DateTime.commercial(3000).to_s)
       match_status = proc { |q| !status || q.question_status == status }
-      questions    = QUESTIONS.select do |uin, q|
+      questions    = QUESTIONS.select do |_uin, q|
         q.tabled_date >= date_from && q.tabled_date <= date_to && match_status.call(q)
       end.values
 

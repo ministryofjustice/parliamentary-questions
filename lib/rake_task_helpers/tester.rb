@@ -52,7 +52,7 @@ module RakeTaskHelpers
   class RestrictedTester < Tester
     private
 
-    def email_for(abbreviation)
+    def email_for(_abbreviation)
       "#{email}@#{domain}"
     end
   end

@@ -1,4 +1,4 @@
-require 'thread'
+# require 'thread'
 
 class LogStuff
   NAMESPACE = :log
@@ -68,7 +68,8 @@ class LogStuff
     ERROR
   end
 
-  def self.tag(*tags, &block)
+  # def self.tag(*tags, &block)
+  def self.tag(*tags)
     original_tags = get_thread_current(:current_tags)
     current_tags = original_tags.dup + tags.flatten
     set_thread_current(:current_tags, current_tags)
@@ -76,7 +77,8 @@ class LogStuff
     set_thread_current(:current_tags, original_tags)
   end
 
-  def self.metadata(*pairs, &block)
+  # def self.metadata(*pairs, &block)
+  def self.metadata(*pairs)
     original_fields = get_thread_current(:current_fields) || {}
     current_fields = original_fields.dup
     pairs.flatten.each do |pair|

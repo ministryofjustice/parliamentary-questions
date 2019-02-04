@@ -1,6 +1,6 @@
 namespace :user do
   desc 'Creates an user with given name, email and password.'
-  task :create, [:email, :password, :name] => :environment do |t, args|
+  task :create, [:email, :password, :name] => :environment do |_t, args|
     raise 'This task should NOT be run in a production environment' if HostEnv.is_live?
 
     args.with_defaults(email: 'admin@admin.com', password: '123456789', name: 'User name')

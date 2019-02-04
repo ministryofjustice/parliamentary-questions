@@ -26,7 +26,6 @@ class Token < ActiveRecord::Base
   def self.assignment_stats(date = Time.zone.today)
     recs = where('created_at > ? and created_at < ?', date.beginning_of_day, date.end_of_day)
     acks = recs.select(&:acknowledged?)
-
     {
       total: recs.size,
       ack: acks.size,
@@ -36,7 +35,8 @@ class Token < ActiveRecord::Base
   end
 
   # returns true if at least one person has acknowledged the watchlist token for the specified date, otherwise false
-  def self.watchlist_status(date = Time.zone.today)
+  # def self.watchlist_status(date = Time.zone.today)
+  def self.watchlist_status
     rec = find_by(
       'path = ? and created_at >= ? and created_at <= ?',
       '/watchlist/dashboard',
