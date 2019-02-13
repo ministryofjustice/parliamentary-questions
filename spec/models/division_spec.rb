@@ -13,7 +13,8 @@
 require 'spec_helper'
 
 describe Division do
-	let(:div) { build(:division) }
+	# let(:div) { build(:division) }
+	let(:div) { create(:division) }
 
 	it { should validate_presence_of(:name) }
 
