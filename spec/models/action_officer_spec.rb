@@ -17,7 +17,8 @@
 require 'spec_helper'
 
 describe ActionOfficer do
-	let(:officer) {build(:action_officer)}
+  # let(:officer) {build(:action_officer)}
+  let(:officer) { create(:action_officer) }
 
 	it 'should pass factory build' do
 		expect(officer).to be_valid
