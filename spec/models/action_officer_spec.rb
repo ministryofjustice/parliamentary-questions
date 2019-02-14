@@ -17,6 +17,7 @@
 require 'spec_helper'
 
 describe ActionOfficer do
+
   # let(:officer) {build(:action_officer)}
   let(:officer) { create(:action_officer) }
 
