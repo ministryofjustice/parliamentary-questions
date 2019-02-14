@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+ruby '2.4.5'
+gem 'rails', '~> 5.2'
+
 gem 'bootstrap-will_paginate'
 gem 'business_time'
 gem 'devise'
@@ -17,7 +20,6 @@ gem 'nokogiri', '~> 1.8.2'
 gem 'paper_trail', '~> 4.1.0'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.12'
-gem 'rails', '~> 5.2'
 gem 'responders', '~> 2.0'
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'select2-rails'

@@ -14,7 +14,8 @@
 require 'spec_helper'
 
 describe PressOfficer do
-	let(:pofficer) {build(:press_officer)}
+	# let(:pofficer) {build(:press_officer)}
+	let(:pofficer) { create(:press_officer) }
 
 	it { should validate_presence_of(:name) }
 

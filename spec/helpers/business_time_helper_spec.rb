@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BusinessTimeHelpers  do 
+describe BusinessTimeHelpers  do
   context '#calendar' do
     it 'should return an instance of a UK HolidayCalendar' do
       expect(BusinessTimeHelpers.calendar).to be_an_instance_of HolidayCalendar

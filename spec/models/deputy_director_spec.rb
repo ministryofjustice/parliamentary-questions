@@ -14,8 +14,9 @@
 require 'spec_helper'
 
 describe DeputyDirector do
-	let(:depdir) {build(:deputy_director)}
-	
+	# let(:depdir) {build(:deputy_director)}
+	let(:depdir) { create(:deputy_director) }
+
 	it { should validate_presence_of(:name) }
 
 	it 'should pass factory build' do
