@@ -1,0 +1,359 @@
+# Documentation: http://rubocop.readthedocs.io/en/latest/
+
+AllCops:
+  EnabledByDefault: true
+
+  Exclude:
+    - db/schema.rb # Because it's generated.
+
+# Bundler Cops ============================================================================
+
+Bundler/GemComment:
+  Description: 'Add a comment describing each gem in your Gemfile.'
+  Enabled: false
+
+# Layout Cops =============================================================================
+
+Layout/ClassStructure:
+  Description: 'Checks if the code style follows the ExpectedOrder configuration.'
+  Enabled: false
+
+Layout/FirstMethodArgumentLineBreak:
+  Description: 'This cop checks for a line break before the first argument in a multi-line method call.'
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
+  Description: 'This cop checks that the closing brace in a method definition is either on the same line as the last method parameter, or a new line.'
+  Enabled: false
+
+# Lint Cops ===============================================================================
+
+Lint/AmbiguousBlockAssociation:
+  Description: 'This cop checks for ambiguous block association with method when param passed without parentheses.'
+  Enabled: false
+
+Lint/DeprecatedClassMethods:
+  Description: 'This cop checks for uses of the deprecated class method usages.'
+  Enabled: false
+
+Lint/HandleExceptions:
+  Description: 'This cop checks for rescue blocks with no body.'
+  Enabled: false
+
+Lint/IneffectiveAccessModifier:
+  Description: 'This cop checks for private or protected access modifiers which are applied to a singleton method. These access modifiers do not make singleton methods private/protected. private_class_method can be used for that.'
+  Enabled: false
+
+Lint/NumberConversion:
+  Description: 'This cop warns the usage of unsafe number conversions. Unsafe number conversion can cause unexpected error if auto type conversion fails. Cop prefer parsing with number class instead.'
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Description: 'This cop looks for use of the same name as outer local variables for block arguments or block local variables. This is a mimic of the warning "shadowing outer local variable - foo" from ruby -cw.'
+  Enabled: false
+
+Lint/UnderscorePrefixedVariableName:
+  Description: 'This cop checks for underscore-prefixed variables that are actually used.'
+  Enabled: false
+
+Lint/UselessAssignment:
+  Description: 'This cop checks for every useless assignment to local variable in every scope.'
+  Enabled: false
+
+# Naming Cops =============================================================================
+
+Metrics/AbcSize:
+  Description: 'A calculated magnitude based on number of assignments, branches, and conditions.'
+  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
+  Enabled: false
+
+Metrics/BlockLength:
+  Description: 'This cop checks if the length of a block exceeds some maximum value.'
+  Enabled: false
+
+Metrics/BlockNesting:
+  Description: 'Avoid excessive block nesting'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#three-is-the-number-thou-shalt-count'
+  Max: 4
+
+Metrics/ClassLength:
+  Description: 'Avoid classes longer than 250 lines of code.'
+  Max: 250
+
+Metrics/CyclomaticComplexity:
+  Description: 'The cyclomatic complexity is the number of linearly independent paths through a method. The algorithm counts decision points and adds one.'
+  Max: 13
+
+Metrics/LineLength:
+  Description: 'Limit lines to 80 characters.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
+  Enabled: false
+
+Metrics/MethodLength:
+  Description: 'Avoid methods longer than 40 lines of code.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
+  Max: 40
+
+Metrics/ModuleLength:
+  Description: 'Avoid modules longer than 250 lines of code.'
+  Max: 250
+
+Metrics/ParameterLists:
+  Description: 'Allow up to 6 method parameters.'
+  Max: 6
+
+Metrics/PerceivedComplexity:
+  Description: 'A complexity metric geared towards measuring complexity for a human reader.'
+  Enabled: false
+
+# Naming Cops =============================================================================
+
+Naming/MethodName:
+  Description: 'This cop makes sure that all methods use the configured style, snake_case or camelCase, for their names.'
+  Enabled: false
+
+Naming/PredicateName:
+  Description: 'This cop makes sure that predicates are named properly.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#bool-methods-qmark'
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Description: 'This cop checks method parameter names for how descriptive they are. It is highly configurable.'
+  Enabled: false
+
+# Rails Cops ==============================================================================
+
+Performance/ChainArrayAllocation:
+  Description: "This cop is used to identify usages of Each of these methods (compact, flatten, map) will generate a new intermediate array that is promptly thrown away. Instead it is faster to mutate when we know it's safe."
+  StyleGuide: 'https://twitter.com/schneems/status/1034123879978029057'
+  Enabled: false
+
+Performance/FlatMap:
+  Description: 'Use `Enumerable#flat_map` instead of `Enumerable#map...Array#flatten(1)` or `Enumberable#collect..Array#flatten(1)`'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablemaparrayflatten-vs-enumerableflat_map-code'
+  Enabled: true
+  EnabledForFlattenWithoutParams: false
+  # If enabled, this cop will warn about usages of
+  # `flatten` being called without any parameters.
+  # This can be dangerous since `flat_map` will only flatten 1 level, and
+  # `flatten` without any parameters can flatten multiple levels.
+
+Performance/OpenStruct:
+  Description: 'This cop checks for OpenStruct.new calls. Instantiation of an OpenStruct invalidates Ruby global method cache as it causes dynamic method definition during program runtime. This could have an effect on performance, especially in case of single-threaded applications with multiple OpenStruct instantiations.'
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  Description: 'This cop identifies the use of a &block parameter and block.call where yield would do just as well.'
+  StyleGuide: 'https://github.com/JuanitoFatas/fast-ruby#proccall-and-block-arguments-vs-yieldcode'
+  Enabled: false
+
+Performance/RegexpMatch:
+  Description: 'In Ruby 2.4, String#match?, Regexp#match?, and Symbol#match? have been added. The methods are faster than match. Because the methods avoid creating a MatchData object or saving backref. So, when MatchData is not used, use match? instead of match.'
+  StyleGuide: 'https://github.com/JuanitoFatas/fast-ruby#regexp-vs-stringmatch-vs-string-vs-stringmatch-code-'
+  Enabled: false
+
+# Rails Cops ==============================================================================
+
+Rails/ApplicationRecord:
+  Description: 'This cop checks that models subclass ApplicationRecord with Rails 5.0.'
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Description: 'This cop checks the migration for which timestamps are not included when creating a new table. In many cases, timestamps are useful information and should be added.'
+  Enabled: false
+
+Rails/FilePath:
+  Description: 'This cop is used to identify usages of file path joining process to use Rails.root.join clause.'
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Description: 'Prefer has_many :through to has_and_belongs_to_many.'
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#has-many-through'
+  Enabled: false # Followed 'rails guide' advice instead http://guides.rubyonrails.org/association_basics.html#choosing-between-has-many-through-and-has-and-belongs-to-many
+
+Rails/HasManyOrHasOneDependent:
+  Description: "This cop looks for has_many or has_one associations that don't specify a :dependent option. It doesn't register an offense if :through option was specified."
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#has_many-has_one-dependent-option'
+  Enabled: false
+
+Rails/InverseOf:
+  Description: "This cop looks for has_(one|many) and belongs_to associations where ActiveRecord can't automatically determine the inverse association because of a scope or the options used. This can result in unnecessary queries in some circumstances. :inverse_of must be manually specified for associations to work in both ways, or set to false or nil to opt-out."
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Description: "This cop checks that methods specified in the filter's only or except options are explicitly defined in the class or module."
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#lexically-scoped-action-filter'
+  Enabled: false
+
+Rails/Output:
+  Description: 'This cop checks for the use of output safety calls like html_safe, raw, and safe_concat. These methods do not escape content. They simply return a SafeBuffer containing the content as is. Instead, use safe_join to join content and escape it and concat to concatenate content and escape it, ensuring its safety.'
+  Enabled: false
+
+Rails/OutputSafety:
+  Description: 'This cop checks for the use of output safety calls like html_safe, raw, and safe_concat. These methods do not escape content. They simply return a SafeBuffer containing the content as is. Instead, use safe_join to join content and escape it and concat to concatenate content and escape it, ensuring its safety.'
+  Enabled: false
+
+Rails/Present:
+  Description: 'This cops checks for code that can be changed to blank?. Settings: NotNilAndNotEmpty: Convert checks for not nil and not empty? to present? NotBlank: Convert usages of not blank? to present? UnlessBlank: Convert usages of unless blank? to if present?'
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Description: 'This cop checks whether the change method of the migration file is reversible.'
+  Enabled: false
+
+Rails/SaveBang:
+  Description: 'This cop identifies possible cases where Active Record save! or related should be used instead of save because the model might have failed to save and an exception is better than unhandled failure.'
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#save-bang'
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Description: 'This cop checks for the use of methods which skip validations which are listed in https://guides.rubyonrails.org/active_record_validations.html#skipping-validations.'
+  StyleGuide: 'https://guides.rubyonrails.org/active_record_validations.html#skipping-validations'
+  Whitelist: [update_all, update_attribute, update_column]
+
+Rails/TimeZone:
+  Description: 'This cop checks for the use of Time methods without zone.'
+  StyleGuide: 'https://github.com/rubocop-hq/rails-style-guide#time
+               http://danilenko.org/2012/7/6/rails_timezones'
+  Enabled: false
+
+# Security Cops ===========================================================================
+
+Security/Eval:
+  Description: 'This cop checks for the use of Kernel#eval and Binding#eval.'
+  Enabled: false
+
+# Style Cops ==============================================================================
+
+Style/Alias:
+  Description: 'This cop enforces the use of either #alias or #alias_method depending on configuration. It also flags uses of alias :symbol rather than alias bareword.'
+  EnforcedStyle: prefer_alias_method
+
+Style/ClassAndModuleChildren:
+  Description: 'This cop checks the style of children definitions at classes and modules.'
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Description: 'Check for if and case statements where each branch is used for assignment to the same variable when using the return of the condition can be used instead.'
+  Enabled: false
+
+Style/Copyright:
+  Description: 'Check that a copyright notice was given in each source file.'
+  Enabled: false
+
+Style/DateTime:
+  Description: 'This cop checks for consistent usage of the DateTime class over the Time class. This cop is disabled by default since these classes, although highly overlapping, have particularities that make them not replaceable in certain situations when dealing with multiple timezones and/or DST.'
+  Enabled: false
+
+Style/DoubleNegation:
+  Description: 'This cop checks for uses of double negation (!!) to convert something to a boolean value. As this is both cryptic and usually redundant, it should be avoided.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#no-bang-bang'
+  Enabled: false
+
+Style/Documentation:
+  Description: 'This cop checks for missing top-level documentation of classes and modules. Classes with no body are exempt from the check and so are namespace modules - modules that have nothing in their bodies except classes, other modules, or constant definitions.'
+  Enabled: false
+
+Style/DocumentationMethod:
+  Description: 'This cop checks for missing documentation comment for public methods. It can optionally be configured to also require documentation for non-public methods.'
+  Enabled: false
+
+Style/EachWithObject:
+  Description: 'This cop looks for inject / reduce calls where the passed in object is returned at the end and so could be replaced by each_with_object without the need to return the object at the end.'
+  Enabled: false
+
+Style/FormatString:
+  Description: 'This cop enforces the use of a single string formatting utility. Valid options include Kernel#format, Kernel#sprintf and String#%.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#sprintf'
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Description: 'This cop is designed to help upgrade to Ruby 3.0. It will add the comment # frozen_string_literal: true to the top of files to enable frozen string literals. Frozen string literals may be default in Ruby 3.0. The comment will be added below a shebang and encoding comment. The frozen string literal comment is only valid in Ruby 2.3+.'
+  Enabled: false
+
+Style/GlobalVars:
+  Description: 'This cop looks for uses of global variables. It does not report offenses for built-in global variables. Built-in global variables are allowed by default. Additionally users can allow additional variables via the AllowedVariables option.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#instance-vars
+               https://www.zenspider.com/ruby/quickref.html'
+  Enabled: false
+
+Style/GuardClause:
+  Description: 'Use a guard clause instead of wrapping the code inside a conditional expression'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#no-nested-conditionals'
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Description: 'Checks for if and unless statements that would fit on one line if written as a modifier if/unless. The maximum line length is configured in the Metrics/LineLength cop. The tab size is configured in the IndentationWidth of the Layout/Tab cop.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#if-as-a-modifier'
+  Enabled: false
+
+Style/ImplicitRuntimeError:
+  Description: 'This cop checks for raise or fail statements which do not specify an explicit exception class.'
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Description: "This cop checks for methods called on a do...end block. The point of this check is that it's easy to miss the call tacked on to the block when reading code."
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Description: 'This cop checks presence of parentheses in method calls containing parameters. By default, macro methods are ignored. Additional methods can be added to the IgnoredMethods list.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#method-invocation-parens'
+  Enabled: false
+
+Style/MissingElse:
+  Description: 'Checks for if expressions that do not have an else branch.'
+  Enabled: false
+
+Style/MixinUsage:
+  Description: 'This cop checks that include, extend and prepend statements appear inside classes and modules, not at the top level, so as to not affect the behavior of Object.'
+  Enabled: false
+
+Style/ModuleFunction:
+  Description: 'This cop checks for use of extend self or module_function in a module.'
+  EnforcedStyle: extend_self
+
+Style/MutableConstant:
+  Description: "This cop checks whether some constant value isn't a mutable literal (e.g. array or hash)."
+  Enabled: false
+
+Style/NumericLiterals:
+  Description: 'This cop checks for big numeric literals without _ between groups of digits in them.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#underscores-in-numerics'
+  Enabled: false
+
+Style/NumericLiteralPrefix:
+  Description: 'This cop checks for octal, hex, binary, and decimal literals using uppercase prefixes and corrects them to lowercase prefix or no prefix (in case of decimals).'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#numeric-literal-prefixes'
+  Enabled: false
+
+Style/RedundantParentheses:
+  Description: 'This cop checks for redundant parentheses.'
+  Enabled: false
+
+Style/RescueStandardError:
+  Description: 'This cop checks for rescuing StandardError. There are two supported styles implicit and explicit. This cop will not register an offense if any error other than StandardError is specified.'
+  Enabled: false
+
+Style/Send:
+  Description: 'This cop checks for the use of the send method.'
+  StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#prefer-public-send'
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Description: 'This cop checks whether the block parameters of a single-line method accepting a block match the names specified via configuration.'
+  Enabled: false
+
+Style/StringHashKeys:
+  Description: 'This cop checks for the use of strings as keys in hashes. The use of symbols is preferred instead.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#symbols-as-keys'
+  Enabled: false
+
+Style/SymbolArray:
+  Description: 'This cop can check for array literals made up of symbols that are not using the %i() syntax.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-i'
+  Enabled: false
+
+Style/UnneededInterpolation:
+  Description: 'This cop checks for strings that are just an interpolated expression.'
+  Enabled: false

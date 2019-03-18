@@ -41,7 +41,7 @@ class DivisionsController < ApplicationController
     end
   end
 
-private
+  private
 
   def set_division
     @division = Division.find(params[:id])
@@ -50,6 +50,7 @@ private
   def division_params
     params.require(:division).permit(:name, :deleted, :directorate_id)
   end
+
   def prepare_directorates
     @directorates = Directorate.active.order('lower(name)')
   end

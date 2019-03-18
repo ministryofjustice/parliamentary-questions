@@ -1,4 +1,4 @@
-class HealthCheckController  < ApplicationController
+class HealthCheckController < ApplicationController
   respond_to :json
 
   def index

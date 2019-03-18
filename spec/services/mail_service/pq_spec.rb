@@ -1,36 +1,36 @@
 require 'spec_helper'
 
 describe MailService::Pq do
-  let(:service)  { MailService::Pq                    }
-  let(:email_to) { 'to@domain.com'                    }
-  let(:params)   { { email: email_to, cc: email_to }  }
-  let(:ao)       { double ActionOfficer               }
-  let(:pq)       { double Pq                          }
+  let(:service) { MailService::Pq }
+  let(:email_to) { 'to@domain.com' }
+  let(:params) { { email: email_to, cc: email_to } }
+  let(:ao) { double ActionOfficer }
+  let(:pq) { double Pq }
 
   it '#commission_email - should create a commission email db record' do
     service.commission_email(params)
 
-    expect(Email.first.attributes).to include({
-      'mailer'            => 'PqMailer',
-      'method'            => 'commission_email',
-      'params'            => params,
-      'from'              => Settings.commission_mail_from,
-      'to'                => email_to,
-      'reply_to'          => Settings.mail_reply_to,
-    })
+    expect(Email.first.attributes).to include(
+      'mailer' => 'PqMailer',
+      'method' => 'commission_email',
+      'params' => params,
+      'from' => Settings.commission_mail_from,
+      'to' => email_to,
+      'reply_to' => Settings.mail_reply_to
+    )
   end
 
   it '#notify_dd_email - should create a dd notification email db record' do
     service.notify_dd_email(params)
 
-    expect(Email.first.attributes).to include({
-      'mailer'            => 'PqMailer',
-      'method'            => 'notify_dd_email',
-      'params'            => params,
-      'from'              => Settings.mail_from,
-      'to'                => email_to,
-      'reply_to'          => Settings.mail_reply_to,
-    })
+    expect(Email.first.attributes).to include(
+      'mailer' => 'PqMailer',
+      'method' => 'notify_dd_email',
+      'params' => params,
+      'from' => Settings.mail_from,
+      'to' => email_to,
+      'reply_to' => Settings.mail_reply_to
+    )
   end
 
   it '#acceptance_email - should create an acceptance email db record' do
@@ -38,10 +38,10 @@ describe MailService::Pq do
 
     service.acceptance_email(pq, ao)
 
-    expect(Email.first.attributes).to include({
+    expect(Email.first.attributes).to include(
       'method' => 'acceptance_email',
       'params' => params
-    })
+    )
   end
 
   it '#acceptance_reminder_email - should create an acceptance reminder email db record' do
@@ -49,10 +49,10 @@ describe MailService::Pq do
 
     service.acceptance_reminder_email(pq, ao)
 
-    expect(Email.first.attributes).to include({
+    expect(Email.first.attributes).to include(
       'method' => 'acceptance_reminder_email',
       'params' => params
-    })
+    )
   end
 
   it '#draft_reminder_email - should create a draft reminder email db record' do
@@ -60,21 +60,21 @@ describe MailService::Pq do
 
     service.draft_reminder_email(pq, ao)
 
-    expect(Email.first.attributes).to include({
+    expect(Email.first.attributes).to include(
       'method' => 'draft_reminder_email',
       'params' => params
-    })
+    )
   end
 
   it '#watchlist_email - should create a watchlist email db record' do
-    Timecop.freeze(Date.today) do
+    Timecop.freeze(Time.zone.today) do
       service.watchlist_email(params)
 
-      expect(Email.first.attributes).to include({
+      expect(Email.first.attributes).to include(
         'method' => 'watchlist_email',
-        'cc'     => email_to,
-        'params' => params.merge({ date: Date.today.to_s(:date)})
-      })
+        'cc' => email_to,
+        'params' => params.merge(date: Time.zone.today.to_s(:date))
+      )
     end
   end
 end

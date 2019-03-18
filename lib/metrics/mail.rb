@@ -1,7 +1,7 @@
 module Metrics
   class Mail < Component
-    attr_reader :num_waiting, 
-                :num_abandoned, 
+    attr_reader :num_waiting,
+                :num_abandoned,
                 :num_unanswered_tokens,
                 :pctg_answered_tokens
 
@@ -13,7 +13,7 @@ module Metrics
     end
 
     def email_error?
-      num_waiting >= Settings.gecko_warning_levels.num_emails_waiting || 
+      num_waiting >= Settings.gecko_warning_levels.num_emails_waiting ||
         num_abandoned >= Settings.gecko_warning_levels.num_emails_abandoned
     end
 

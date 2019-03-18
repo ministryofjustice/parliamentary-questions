@@ -1,18 +1,18 @@
 module StatsHelper
-  METRIC_DASHBOARD_HITS = "dashboard.hits"
+  METRIC_DASHBOARD_HITS = 'dashboard.hits'
 
-  MAIL_TIMING   = "mails.timing"
-  MAIL_SUCCESS  = "mails.success"
-  MAIL_FAILURE  = "mails.failed"
+  MAIL_TIMING   = 'mails.timing'
+  MAIL_SUCCESS  = 'mails.success'
+  MAIL_FAILURE  = 'mails.failed'
 
-  PAGES_TIMING   = "pages.timing"
-  PAGES_ERRORS   = "pages.errors"
+  PAGES_TIMING   = 'pages.timing'
+  PAGES_ERRORS   = 'pages.errors'
 
-  TOKENS_GENERATE = "tokens.generate"
-  TOKENS_VALID = "tokens.validation.valid"
-  TOKENS_INVALID = "tokens.validation.invalid"
+  TOKENS_GENERATE = 'tokens.generate'
+  TOKENS_VALID = 'tokens.validation.valid'
+  TOKENS_INVALID = 'tokens.validation.invalid'
 
-  IMPORT = "questions.import"
-  PROGRESS = "questions.progress"
+  IMPORT = 'questions.import'
+  PROGRESS = 'questions.progress'
   IMPORT_ERROR = 'questions.import.fail'
 end

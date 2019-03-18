@@ -1,6 +1,6 @@
 module PQA
   module XMLDecoder
-    module_function
+    extend self
 
     def decode_answer_response(xml)
       doc = parse_doc(xml)
@@ -12,7 +12,7 @@ module PQA
     end
 
     def decode_questions(xml)
-       parse_doc(xml).xpath('//Question').map do |el|
+      parse_doc(xml).xpath('//Question').map do |el|
         Question.from_xml(el)
       end
     end

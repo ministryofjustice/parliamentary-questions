@@ -1,25 +1,25 @@
 module Presenters
   module Email
-    module_function
+    extend self
 
     def default_hash(pq, ao)
       {
-        ao_name:              ao.name,
-        email:                ao.email,
-        cc:                   ao.group_email,
-        uin:                  pq.uin,
-        question:             pq.question,
-        answer_by:            pq.minister && pq.minister.name,
-        policy_mpname:        pq.policy_minister && pq.policy_minister.name,
-        policy_mpemail:       policy_mpemails(pq).join(';'),
-        press_email:          press_emails(ao).join(';'),
-        mpemail:              mp_emails(pq).join(';'),
-        member_name:          pq.member_name,
-        member_constituency:  pq.member_constituency,
-        house_name:           pq.house_name,
-        internal_deadline:    format_internal_deadline(pq),
-        date_to_parliament:   pq.date_for_answer.try(:to_s, :date),
-        finance_users_emails: finance_users_emails(pq).join(';'),
+        ao_name: ao.name,
+        email: ao.email,
+        cc: ao.group_email,
+        uin: pq.uin,
+        question: pq.question,
+        answer_by: pq.minister&.name,
+        policy_mpname: pq.policy_minister&.name,
+        policy_mpemail: policy_mpemails(pq).join(';'),
+        press_email: press_emails(ao).join(';'),
+        mpemail: mp_emails(pq).join(';'),
+        member_name: pq.member_name,
+        member_constituency: pq.member_constituency,
+        house_name: pq.house_name,
+        internal_deadline: format_internal_deadline(pq),
+        date_to_parliament: pq.date_for_answer.try(:to_s, :date),
+        finance_users_emails: finance_users_emails(pq).join(';')
       }
     end
 
@@ -28,10 +28,10 @@ module Presenters
         .merge(cc_list: cc_list(pq, ao))
     end
 
-    private_class_method
+    # private_class_method
 
     def cc_list(pq, ao)
-      deputy_director_email = ao.deputy_director && ao.deputy_director.email
+      deputy_director_email = ao.deputy_director&.email
 
       cc_list =
         Set.new([deputy_director_email]) +
@@ -58,7 +58,6 @@ module Presenters
       Array(ao.press_desk && ao.press_desk.press_officer_emails)
     end
 
-
     def action_list_emails
       ActionlistMember.active.pluck(:email)
     end
@@ -72,7 +71,7 @@ module Presenters
     end
 
     def format_internal_deadline(pq)
-      pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date) } - #{pq.internal_deadline.strftime("%I").to_i}#{pq.internal_deadline.strftime("%p").downcase} " : ''
+      pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date)} - #{pq.internal_deadline.strftime('%I').to_i}#{pq.internal_deadline.strftime('%p').downcase} " : ''
     end
   end
 end

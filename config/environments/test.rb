@@ -13,8 +13,8 @@ ParliamentaryQuestions::Application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_files  = true
-  config.static_cache_control = "public, max-age=3600"
+  config.serve_static_files = true
+  config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -47,15 +47,15 @@ ParliamentaryQuestions::Application.configure do
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
 
-    ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'https', port:'3000'}
+    ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'https', port: '3000' }
     ActionMailer::Base.smtp_settings = {
-        address: ENV['SMTP_HOSTNAME'] || 'localhost',
-        port: ENV['SMTP_PORT'] || 587,
-        domain: sending_host,
-        user_name: ENV['SMTP_USERNAME'] || '',
-        password: ENV['SMTP_PASSWORD'] || '',
-        authentication: :login,
-        enable_starttls_auto: true
+      address: ENV['SMTP_HOSTNAME'] || 'localhost',
+      port: ENV['SMTP_PORT'] || 587,
+      domain: sending_host,
+      user_name: ENV['SMTP_USERNAME'] || '',
+      password: ENV['SMTP_PASSWORD'] || '',
+      authentication: :login,
+      enable_starttls_auto: true
     }
   end
 end

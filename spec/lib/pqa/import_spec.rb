@@ -27,94 +27,92 @@ describe PQA::Import do
     end
   end
 
-  feature "importing PQA data into the app" do
+  feature 'importing PQA data into the app' do
     before(:all) do
       DBHelpers.load_spec_fixtures
     end
 
-    context "when no questions exist in the db" do
+    context 'when no questions exist in the db' do
       before do
         ds = {
-          'uin-0' => ["2/2/2015", "3/2/2015"],
-          'uin-1' => ["3/2/2015", "4/2/2015"],
-          'uin-2' => ["3/2/2015", "4/2/2015"]
+          'uin-0' => ['2/2/2015', '3/2/2015'],
+          'uin-1' => ['3/2/2015', '4/2/2015'],
+          'uin-2' => ['3/2/2015', '4/2/2015']
         }
         loader.load(questions(ds))
       end
 
-      it "reports that new records have been created" do
+      it 'reports that new records have been created' do
         report = import.run(from_date, to_date)
-        expect(report).to eq({
+        expect(report).to eq(
           total: 3,
           created: 3,
           updated: 0,
           errors: {}
-        })
+        )
       end
 
       it "saves the records and flags them as 'unassigned'" do
         import.run(from_date, to_date)
         expect(Pq.order(:uin).map { |pq| [pq.uin, pq.state] }).to eq([
-          ['uin-0', PQState::UNASSIGNED],
-          ['uin-1', PQState::UNASSIGNED],
-          ['uin-2', PQState::UNASSIGNED]
-        ])
+                                                                       ['uin-0', PQState::UNASSIGNED],
+                                                                       ['uin-1', PQState::UNASSIGNED],
+                                                                       ['uin-2', PQState::UNASSIGNED]
+                                                                     ])
       end
     end
 
-    context "when some questions already exist" do
+    context 'when some questions already exist' do
       before do
         # first import
-        loader.load(questions({
-          'uin-0' => ["2/2/2015", "3/2/2015"],
-          'uin-1' => ["3/2/2015", "4/2/2015"]
-        }))
+        loader.load(questions(
+                      'uin-0' => ['2/2/2015', '3/2/2015'],
+                      'uin-1' => ['3/2/2015', '4/2/2015']
+                    ))
 
         import.run(from_date, to_date)
         # second import
-        loader.load(questions({
-          'uin-0' => ["1/2/2015","2/2/2015"],
-          'uin-1' => ["3/2/2015","4/2/2015"],
-          'uin-2' => ["4/2/2015","7/2/2015"]
-        }))
+        loader.load(questions(
+                      'uin-0' => ['1/2/2015', '2/2/2015'],
+                      'uin-1' => ['3/2/2015', '4/2/2015'],
+                      'uin-2' => ['4/2/2015', '7/2/2015']
+                    ))
       end
 
-      it "reports created and updated records" do
+      it 'reports created and updated records' do
         report = import.run(from_date, to_date)
-        expect(report).to eq({
+        expect(report).to eq(
           total: 3,
           created: 1,
           updated: 2,
           errors: {}
-        })
+        )
       end
 
-      it "saves the new records, updating the existing ones, without changing the state" do
+      it 'saves the new records, updating the existing ones, without changing the state' do
         import.run(from_date, to_date)
         pq = Pq.find_by(uin: 'uin-1')
         pq.update(state: PQState::REJECTED)
 
-        expect(Pq.order(:uin).map { |pq|
-          d      = pq.tabled_date
-          state  = pq.state
-
+        expect(Pq.order(:uin).map do |pq|
+          d = pq.tabled_date
+          state = pq.state
           [pq.uin, [d.day, d.month, d.year], state]
-        }).to eq([
-          ['uin-0', [1, 2, 2015], PQState::UNASSIGNED],
-          ['uin-1', [3, 2, 2015], PQState::REJECTED],
-          ['uin-2', [4, 2, 2015], PQState::UNASSIGNED]
-        ])
+        end).to eq([
+                     ['uin-0', [1, 2, 2015], PQState::UNASSIGNED],
+                     ['uin-1', [3, 2, 2015], PQState::REJECTED],
+                     ['uin-2', [4, 2, 2015], PQState::UNASSIGNED]
+                   ])
       end
     end
 
     context 'importing a single question' do
-      
       before(:each) do
         # first import
-        loader.load(questions({
-          'uin-0' => ["2/2/2015", "3/2/2015"],
-          'uin-1' => ["3/2/2015", "4/2/2015"]
-        }))
+        loader.load(questions(
+                      'uin-0' => ['2/2/2015', '3/2/2015'],
+                      'uin-1' => ['3/2/2015', '4/2/2015']
+                    ))
       end
 
       context 'specifying a question that does exist' do

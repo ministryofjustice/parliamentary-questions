@@ -9,11 +9,11 @@ module Settings
       username = ENV['PQ_REST_API_USERNAME']
       password = ENV['PQ_REST_API_PASSWORD']
 
-      raise "Cannot find environment variable PQ_REST_API_HOST. Please set it first" unless host
+      raise 'Cannot find environment variable PQ_REST_API_HOST. Please set it first' unless host
 
       if ENV['RAILS_ENV'] == 'production'
-        raise "Cannot find environment variable PQ_REST_API_USERNAME. Please set it first" unless username
-        raise "Cannot find environment variable PQ_REST_API_PASSWORD. Please set it first" unless password
+        raise 'Cannot find environment variable PQ_REST_API_USERNAME. Please set it first' unless username
+        raise 'Cannot find environment variable PQ_REST_API_PASSWORD. Please set it first' unless password
       end
 
       new(host, username, password)
@@ -26,10 +26,11 @@ module Settings
     end
   end
 
-  module_function
+  extend self
+
   filepath         = File.expand_path('../config/settings.yml', __dir__)
-  @h               = YAML::load_file(filepath)
-  @config_keys     = @h.keys.map { |k| k.to_sym }
+  @h               = YAML.load_file(filepath)
+  @config_keys     = @h.keys.map(&:to_sym)
   @pq_rest_api     = PqRestApi.from_env
 
   def pq_rest_api

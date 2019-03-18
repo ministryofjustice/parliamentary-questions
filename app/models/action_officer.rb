@@ -20,15 +20,19 @@ class ActionOfficer < ActiveRecord::Base
 
   has_paper_trail
   validates :name, presence: true
-  validates_format_of :email,:with => Devise::email_regexp
-  validates_format_of :group_email,:with => Devise::email_regexp, :allow_blank =>true
+  # validates_format_of :email, with: Devise.email_regexp
+  # validates_format_of :group_email, with: Devise.email_regexp, allow_blank: true
+  validates :email, format: { with: Devise.email_regexp }
+  validates :group_email, format: { with: Devise.email_regexp, allow_blank: true }
   validates :deputy_director_id, presence: true
   validates :press_desk_id, presence: true
-  validates :email, uniqueness: { scope: :deputy_director_id,
-    message: "an action officer cannot be assigned twice to the same deputy director" }
+  validates :email, uniqueness: {
+    scope: :deputy_director_id,
+    message: 'an action officer cannot be assigned twice to the same deputy director'
+  }
 
   has_many :action_officers_pqs
-  has_many :pqs, :through => :action_officers_pqs
+  has_many :pqs, through: :action_officers_pqs
 
   belongs_to :deputy_director
   belongs_to :press_desk
@@ -36,7 +40,7 @@ class ActionOfficer < ActiveRecord::Base
   before_validation Validators::Whitespace.new
 
   def self.by_name(name)
-    active.where("name ILIKE ?","%#{name}%")
+    active.where('name ILIKE ?', "%#{name}%")
   end
 
   def name_with_div

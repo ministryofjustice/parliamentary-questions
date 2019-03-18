@@ -20,7 +20,7 @@
 
 require 'spec_helper'
 
-describe Email, :type => :model do
+describe Email, type: :model do
   let(:email)       { 'user@domain.com'                     }
   let(:emails)      { 'user1@domain.com; user2@domain.com'  }
   let(:named_email) { 'A User <user@domain.com>'            }
@@ -31,7 +31,7 @@ describe Email, :type => :model do
     expect(mail).to be_valid
   end
 
-  it { should validate_inclusion_of(:mailer).in_array(%w(DbSyncMailer ImportMailer PqMailer)) }
+  it { should validate_inclusion_of(:mailer).in_array(%w[DbSyncMailer ImportMailer PqMailer]) }
 
   it { should validate_presence_of(:method) }
 
@@ -52,7 +52,7 @@ describe Email, :type => :model do
   it { should allow_value(named_email).for(:cc) }
   it { should allow_value(emails).for(:cc) }
   it { should_not allow_value(not_email).for(:cc) }
-  
+
   it { should validate_presence_of(:reply_to) }
   it { should allow_value(email).for(:reply_to) }
   it { should allow_value(named_email).for(:reply_to) }
@@ -67,5 +67,5 @@ describe Email, :type => :model do
     expect(mail.status).to eq 'new'
   end
 
-  it { should validate_inclusion_of(:status).in_array(%w(new sending sent failed abandoned)) }
+  it { should validate_inclusion_of(:status).in_array(%w[new sending sent failed abandoned]) }
 end

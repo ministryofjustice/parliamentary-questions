@@ -7,8 +7,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
     DBHelpers.load_feature_fixtures
 
     clear_sent_mail
-    @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
-
+    @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do
@@ -25,31 +24,31 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
     find("select[name='#{field_name}'] option[selected='selected']").text
   end
 
-  scenario "PB commissions a question to two AOs" do
+  scenario 'PB commissions a question to two AOs' do
     commission_question(@pq.uin, [ao1, ao2], minister, policy_minister)
   end
 
-  scenario "PB manually rejects the first AO" do
+  scenario 'PB manually rejects the first AO' do
     create_pq_session
     visit pq_path(@pq.uin)
-    click_on "PQ commission"
-    first('a', text:'Manually reject this action officer').click
+    click_on 'PQ commission'
+    first('a', text: 'Manually reject this action officer').click
     expect(page.title).to have_text("PQ #{@pq.uin}")
     expect(page).to have_content("#{@pq.uin} manually rejected")
 
     visit pq_path(@pq.uin)
-    click_on "PQ commission"
+    click_on 'PQ commission'
     expect(page.title).to have_text("PQ #{@pq.uin}")
-    expect(page).to have_content("rejected manually by pq@pq.com")
-    expect_pq_status(@pq.uin, "No response")
+    expect(page).to have_content('rejected manually by pq@pq.com')
+    expect_pq_status(@pq.uin, 'No response')
   end
 
-  scenario "PB manually rejects the last AO" do
+  scenario 'PB manually rejects the last AO' do
     create_pq_session
     visit pq_path(@pq.uin)
-    click_on "PQ commission"
-    first('a', text:'Manually reject this action officer').click
-    expect_pq_status(@pq.uin, "Rejected")
+    click_on 'PQ commission'
+    first('a', text: 'Manually reject this action officer').click
+    expect_pq_status(@pq.uin, 'Rejected')
 
     within_pq(@pq.uin) do
       selected_minister        = selected_option_text('commission_form[minister_id]')

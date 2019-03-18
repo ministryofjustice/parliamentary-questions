@@ -1,5 +1,5 @@
 module MailService
-  module_function
+  extend self
 
   def send_mail(email)
     mailer = email.mailer.constantize
@@ -39,7 +39,7 @@ module MailService
 
   def record_attempt(email)
     email.update(
-      status:            'sending',
+      status: 'sending',
       send_attempted_at: DateTime.now,
       num_send_attempts: email.num_send_attempts + 1
     )
@@ -53,15 +53,15 @@ module MailService
     email.update(status: 'abandoned')
   end
 
-  private_class_method
+  # private_class_method
 
   MailData =
     Struct.new(:to, :from, :cc, :reply_to, :params) do
       def addressees
         {
-          to:       to,
-          from:     from,
-          cc:       cc,
+          to: to,
+          from: from,
+          cc: cc,
           reply_to: reply_to
         }
       end

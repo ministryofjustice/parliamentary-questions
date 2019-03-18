@@ -18,14 +18,13 @@ module PQA
       end
     end
 
-
     private
 
     def query_api_and_update(&block)
       init_state!
       questions = block.call
       @total    = questions.size
-      questions.each { |q| insert_or_update(q)  }
+      questions.each { |q| insert_or_update(q) }
       report
     end
 
@@ -77,8 +76,6 @@ module PQA
         @logger.debug { "Updating record (uin: #{uin})" }
         pq.save
       end
-
-
 
       LogStuff.tag(:import) do
         @logger.info { "Completed import: questions downloaded #{@total}, new #{@created}, updated #{@updated}, invalid: #{@errors.size}" }

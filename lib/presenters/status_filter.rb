@@ -5,7 +5,7 @@ module Presenters
     def active?
       @params[:controller] == 'dashboard' &&
         @params[:action] == 'by_status' &&
-          @params[:qstatus] == @key
+        @params[:qstatus] == @key
     end
 
     def path

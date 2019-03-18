@@ -2,22 +2,23 @@ class CommissioningService
   include Rails.application.routes.url_helpers
   AO_TOKEN_LIFETIME = 3
 
-  def initialize(tokenService = nil, current_time = nil)
-    @tokenService = tokenService || TokenService.new
+  def initialize(token_service = nil, current_time = nil)
+    @token_service = token_service || TokenService.new
     @current_time = current_time || DateTime.now.utc
   end
 
   def commission(form)
-    raise ArgumentError, "form is invalid" unless form.valid?
+    raise ArgumentError, 'form is invalid' unless form.valid?
 
     ActiveRecord::Base.transaction do
       pq     = build_pq(form)
-      ao_pqs = form.action_officer_id.uniq.map do |ao_id|
-        ActionOfficersPq.create!(
-          pq_id: pq.id,
-          action_officer_id: ao_id
-        )
-      end
+      ao_pqs =
+        form.action_officer_id.uniq.map do |ao_id|
+          ActionOfficersPq.create!(
+            pq_id: pq.id,
+            action_officer_id: ao_id
+          )
+        end
 
       pq.action_officers_pqs << ao_pqs
       pq.update_state!
@@ -46,7 +47,7 @@ class CommissioningService
     path    = assignment_path(uin: pq.uin.encode)
     entity  = "assignment:#{ao_pq.id}"
     expires = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
-    token   = @tokenService.generate_token(path, entity, expires)
+    token   = @token_service.generate_token(path, entity, expires)
     dd      = ao.deputy_director
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
@@ -60,6 +61,5 @@ class CommissioningService
 
       MailService::Pq.commission_email(mail_params)
     end
-
   end
 end

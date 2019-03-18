@@ -1,8 +1,6 @@
 class PQUserFilter
   def self.before(controller)
-    if !has_access(controller)
-      controller.render :file => "public/401.html", :status => :unauthorized
-    end
+    controller.render file: 'public/401.html', status: :unauthorized unless has_access(controller)
   end
 
   def self.has_access(controller)

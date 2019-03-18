@@ -4,17 +4,15 @@ class MetricsDashboardController < ApplicationController
     @dashboard.update
 
     respond_to do |format|
-      format.html {
-        authenticate_user!
-      }
+      format.html { authenticate_user! }
 
-      format.json {
-        if request.headers["Authorization"] == token
-          render :json => Presenters::DashboardGecko.json_report(@dashboard.gecko)
+      format.json do
+        if request.headers['Authorization'] == token
+          render json: Presenters::DashboardGecko.json_report(@dashboard.gecko)
         else
-          render :file => "public/401.html", :status => :unauthorized
+          render file: 'public/401.html', status: :unauthorized
         end
-      }
+      end
     end
   end
 
@@ -22,6 +20,6 @@ class MetricsDashboardController < ApplicationController
 
   def token
     ActionController::HttpAuthentication::Basic
-      .encode_credentials(Rails.application.config.gecko_auth_username, "X")
+      .encode_credentials(Rails.application.config.gecko_auth_username, 'X')
   end
 end

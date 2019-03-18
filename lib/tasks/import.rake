@@ -1,5 +1,5 @@
 namespace :pqa do
-  desc "Perform nightly import"
+  desc 'Perform nightly import'
   task :nightly_import, [] => :environment do
     ImportWorker.new.perform
   end
@@ -22,22 +22,24 @@ namespace :pqa do
   desc "Generate and import 'n' dummy questions by name"
   # Console syntax: bundle exec rake pqa:import_dummy_data['Question',5]
   task :import_dummy_data, [:uin_prefix, :n_records] => :environment do |_, args|
-    args.with_defaults(:uin_prefix => "uin", :n_records => 1)
+    args.with_defaults(uin_prefix: 'uin', n_records: 1)
     n_records = args[:n_records]
     uin_prefix = args[:uin_prefix]
 
-    questions = (1..n_records.to_i).map do |n|
-      PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
-    end
+    questions =
+      (1..n_records.to_i).map do |n|
+        PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
+      end
 
     import_from_mock_server(questions, Date.yesterday, Date.tomorrow)
   end
 
-  desc "Import questions from XML file"
+  desc 'Import questions from XML file'
   # Console syntax: bundle exec rake pqa:import_from_xml['questions.xml']
   task :import_from_xml, [:xml_path] => :environment do |_, args|
     fpath = args[:xml_path]
-    raise ArgumentError, "Cannot find file #{fpath}" unless File.exists?(fpath)
+    raise ArgumentError, "Cannot find file #{fpath}" unless File.exist?(fpath)
+
     min_date  = Date.parse('1/1/2000')
     max_date  = Date.parse('1/1/2020')
     questions = PQA::XMLDecoder.decode_questions(File.read(fpath))
@@ -59,23 +61,22 @@ namespace :pqa do
     end
 
     desc 'stops the mock api server if running'
-    task :api_stop => :environment do
-      pid_filepath = "/tmp/mock_api_server.pid"
-      if File.exists?(pid_filepath)
-        pid  = File.read(pid_filepath)
+    task api_stop: :environment do
+      pid_filepath = '/tmp/mock_api_server.pid'
+      if File.exist?(pid_filepath)
+        pid = File.read(pid_filepath)
         puts "pid file for process #{pid} found - attempting to kill"
-        result = Process.kill("INT", pid.to_i)
+        result = Process.kill('INT', pid.to_i)
         case result
         when 1
-          puts "Process killed"
+          puts 'Process killed'
         else
-          puts "Unable to kill process - try manually"
+          puts 'Unable to kill process - try manually'
         end
       else
-        puts "No pid file found for mock-api server - nothing to kill."
+        puts 'No pid file found for mock-api server - nothing to kill.'
       end
     end
-
   end
 
   private

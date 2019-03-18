@@ -14,7 +14,6 @@ class PQAService
     end
   end
 
-
   def question(uin)
     $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
       response = @client.question(uin)

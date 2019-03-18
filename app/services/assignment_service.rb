@@ -28,5 +28,4 @@ class AssignmentService
 
     pq.update_state!
   end
-
 end

@@ -27,7 +27,7 @@ module PqStatistics
     attr_accessor :start_date, :count, :total
 
     def self.build_from(dates)
-      dates.map { |date| new(date, 0, 0) } 
+      dates.map { |date| new(date, 0, 0) }
     end
 
     def percentage
@@ -45,39 +45,37 @@ module PqStatistics
     end
   end
 
-  def delta_t(time_1, time_2)
+  def delta_t(time1, time2)
     Time
-      .first_business_day(time_1)
-      .business_time_until(time_2)
+      .first_business_day(time1)
+      .business_time_until(time2)
       .to_f
   end
 
   def bucket_dates
-    @bucket_dates ||= 
+    @bucket_dates ||=
       (BUS_DAY_INTERVAL..WINDOW)
-        .step(BUS_DAY_INTERVAL)
-        .map{ |i| i.business_days.before(bucket_date_0) }
+      .step(BUS_DAY_INTERVAL)
+      .map { |i| i.business_days.before(bucket_date0) }
   end
 
-  def bucket_date_0
-    @bucket_date_0 ||= Date.today
+  def bucket_date0
+    @bucket_date0 ||= Time.zone.today
   end
 
   def result_by_bucket(events, buckets)
     events.reduce(buckets) do |result, event|
-
-      upper_bound = bucket_date_0
+      upper_bound = bucket_date0
 
       result.each do |bucket|
         if event.date <= upper_bound && event.date > bucket.start_date
           bucket.update(event)
           break
         end
-        upper_bound = bucket.start_date 
+        upper_bound = bucket.start_date
       end
-      
+
       result
     end
   end
 end
-

@@ -45,7 +45,7 @@ module PQState
     MINISTERIAL_QUERY,
     MINISTER_CLEARED,
     ANSWERED,
-    TRANSFERRED_OUT,
+    TRANSFERRED_OUT
   ]
 
   VISIBLE = NEW + IN_PROGRESS
@@ -90,4 +90,3 @@ module PQState
     end
   end
 end
-

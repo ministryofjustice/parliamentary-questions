@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-feature "Parli-branch manages trim link" , js: true do
+feature 'Parli-branch manages trim link', js: true do
   include Features::PqHelpers
 
   def add_trim_link(trim_file_name = 'spec/fixtures/trimlink.tr5')
@@ -15,7 +15,7 @@ feature "Parli-branch manages trim link" , js: true do
 
   before(:each) do
     DBHelpers.load_feature_fixtures
-    @pq, _ = PQA::QuestionLoader.new.load_and_import
+    @pq, = PQA::QuestionLoader.new.load_and_import
 
     create_pq_session
   end
@@ -95,7 +95,6 @@ feature "Parli-branch manages trim link" , js: true do
 
       expect(page).to have_field 'Date for answer back to Parliament', with: '01/01/2001'
     end
-
   end
 
   feature 'from the dashboard', js: true do
@@ -135,7 +134,7 @@ feature "Parli-branch manages trim link" , js: true do
       load "#{Rails.root}/app/controllers/application_controller.rb"
     end
 
-    scenario 'selecting a file to upload to trim'  do
+    scenario 'selecting a file to upload to trim' do
       select_file_to_upload 'spec/fixtures/trimlink.tr5'
 
       expect(page).to have_content 'File selected'
@@ -186,6 +185,5 @@ feature "Parli-branch manages trim link" , js: true do
       expect(page).to have_css 'span.fa-check-circle'
       expect(page).to have_content 'Open trim link'
     end
-
   end
 end

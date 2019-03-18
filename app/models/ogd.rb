@@ -20,6 +20,6 @@ class Ogd < ActiveRecord::Base
   has_many :pqs
 
   def self.by_name(name)
-    where("name ILIKE :search OR acronym ILIKE :search", search: "%#{name.strip}%")
+    where('name ILIKE :search OR acronym ILIKE :search', search: "%#{name.strip}%")
   end
 end

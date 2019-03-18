@@ -8,7 +8,7 @@ describe Metrics::Mail do
     allow(Email).to receive(:abandoned).and_return([])
 
     subject.collect!
-  end 
+  end
 
   it '#collect! - updates the email and token metrics' do
     expect(subject.num_waiting).to be 1
@@ -21,7 +21,7 @@ describe Metrics::Mail do
     end
 
     it 'returns true if abandoned/waiting emails within threshold' do
-      threshold = Settings.gecko_warning_levels.num_emails_waiting 
+      threshold = Settings.gecko_warning_levels.num_emails_waiting
       allow(subject).to receive(:num_waiting).and_return(threshold + 1)
 
       expect(subject.email_error?).to be true
@@ -32,7 +32,7 @@ describe Metrics::Mail do
     it 'returns false if answered tokens within threshold' do
       allow(Token)
         .to receive(:assignment_stats)
-        .and_return({ total: 6, ack: 6, open: 0, pctg: 100.00 })
+        .and_return(total: 6, ack: 6, open: 0, pctg: 100.00)
       subject.collect!
 
       expect(subject.token_error?).to be false
@@ -41,7 +41,7 @@ describe Metrics::Mail do
     it 'returns true if answered tokens outside threshold' do
       allow(Token)
         .to receive(:assignment_stats)
-        .and_return({ total: 6, ack: 2, open: 4, pctg: 33.33 })
+        .and_return(total: 6, ack: 2, open: 4, pctg: 33.33)
       subject.collect!
 
       expect(subject.token_error?).to be true

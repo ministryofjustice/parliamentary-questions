@@ -10,7 +10,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   before(:all) do
     clear_sent_mail
     DBHelpers.load_feature_fixtures
-    @pq, _ =  PQA::QuestionLoader.new.load_and_import(2)
+    @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after(:all) do
@@ -28,8 +28,8 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
     end
 
-    within ('#pq-frame-1') { expect(page).to have_button('Commission') }
-    within ('#pq-frame-2') { expect(page).not_to have_button('Commission') }
+    within('#pq-frame-1') { expect(page).to have_button('Commission') }
+    within('#pq-frame-2') { expect(page).not_to have_button('Commission') }
   end
 
   scenario 'Parli-branch member allocates a question to selected AOs' do
@@ -46,9 +46,9 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   scenario 'Following the email link should let the AO accept the question' do
     visit_assignment_url(ao)
     choose 'Accept'
-    click_on "Save"
+    click_on 'Save'
 
-    expect(page.title).to have_content("PQ assigned")
+    expect(page.title).to have_content('PQ assigned')
     expect(page).to have_content(/thank you for your response/i)
     expect(page).to have_content("PQ #{@pq.uin}")
   end
@@ -63,7 +63,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     ao_mail = sent_mail.last
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.text_part.body).to include( "Thank you for agreeing to draft an answer to PQ #{@pq.uin}" )
+    expect(ao_mail.text_part.body).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")
   end
 
   scenario 'After an AO has accepted a question, another AO cannot accept the question' do
@@ -72,7 +72,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     visit ao2_link
 
-    expect(page.title).to have_content("PQ assignment")
+    expect(page.title).to have_content('PQ assignment')
     expect(page).to have_content(/this pq has already been accepted/i)
     expect(page).to have_content("#{ao.name} accepted PQ #{@pq.uin}")
   end
@@ -83,18 +83,16 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
       minister_id: minister.id,
       action_officer_id: [ao.id],
       date_for_answer: Date.tomorrow,
-      internal_deadline: Date.today
+      internal_deadline: Time.zone.today
     }
 
     form = CommissionForm.new(form_params)
-    CommissioningService.new(nil, Date.today - 4.days).commission(form)
-    ao_mail, _ = sent_mail.last
+    CommissioningService.new(nil, Time.zone.today - 4.days).commission(form)
+    ao_mail, = sent_mail.last
     url = extract_url_like('/assignment', ao_mail)
     visit url
 
-    expect(page.title).to have_content("Unauthorised (401)")
+    expect(page.title).to have_content('Unauthorised (401)')
     expect(page).to have_content(/Link expired/i)
-
   end
-
 end

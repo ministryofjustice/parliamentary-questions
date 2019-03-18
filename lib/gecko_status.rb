@@ -4,7 +4,7 @@ class GeckoStatus
 
   def initialize(name)
     @name    = name
-    @label   = "n/a"
+    @label   = 'n/a'
     @color   = 'red'
     @message = 'unitialized'
   end
@@ -21,13 +21,14 @@ class GeckoStatus
     @message = message
   end
 
-  def ok(message = "")
+  def ok(message = '')
     @label   = 'OK'
     @color   = 'green'
     @message = message
   end
 
-  def update(metrics)
+  # def update(metrics)
+  def update(_metrics)
     #
     # Update the gecko status from a metrics dashboard component
     #
@@ -42,7 +43,7 @@ class KeyMetricStatus < GeckoStatus
     super('Key Metric')
   end
 
-  def update(metrics) 
+  def update(metrics)
     metrics.key_metric.alert ? error('Key metric below threshold') : ok
     self
   end
@@ -53,7 +54,7 @@ class DbStatus < GeckoStatus
     super('Database')
   end
 
-  def update(metrics) 
+  def update(metrics)
     metrics.health.db_status ? ok : error('Database inaccessible')
     self
   end
@@ -64,8 +65,8 @@ class SendgridStatus < GeckoStatus
     super('Sendgrid')
   end
 
-  def update(metrics) 
-    metrics.health.sendgrid_status ? ok : error("Unable to contact sendgrid")
+  def update(metrics)
+    metrics.health.sendgrid_status ? ok : error('Unable to contact sendgrid')
     self
   end
 end
@@ -89,12 +90,12 @@ class MailStatus < GeckoStatus
   def update(metrics)
     if metrics.mail.email_error?
       error(
-        "Mails Waiting: #{metrics.mail.num_waiting} :: " + 
+        "Mails Waiting: #{metrics.mail.num_waiting} :: " \
         "Mails Abandoned: #{metrics.mail.num_abandoned}"
       )
     elsif metrics.mail.token_error?
       warn(
-        "Unanswered Tokens: #{metrics.mail.num_unanswered_tokens} ::" +
+        "Unanswered Tokens: #{metrics.mail.num_unanswered_tokens} ::" \
         "#{100 - (metrics.mail.pctg_answered_tokens || 0)}% of total"
       )
     else
@@ -107,7 +108,7 @@ end
 
 class PqaImportStatus < GeckoStatus
   def initialize
-    super('PQ Import') 
+    super('PQ Import')
   end
 
   def update(metrics)
@@ -134,7 +135,7 @@ class SmokeTestStatus < GeckoStatus
     elsif metrics.smoke_tests.run_success?
       ok
     else
-      error("Smoke Test Run Failure")
+      error('Smoke Test Run Failure')
     end
 
     self

@@ -1,31 +1,31 @@
 module Metrics
   class Health < Component
-    attr_reader :db_status, 
-                :sendgrid_status, 
-                :pqa_api_status, 
+    attr_reader :db_status,
+                :sendgrid_status,
+                :pqa_api_status,
                 :pqa_api_error_message
 
     def collect!
-      @db_status       = get_db_status
-      @sendgrid_status = get_sendgrid_status
-      @pqa_api_status  = get_pqa_api_status
+      @db_status       = current_db_status
+      @sendgrid_status = current_sendgrid_status
+      @pqa_api_status  = current_pqa_api_status
     end
 
     private
 
-    def get_db_status
+    def current_db_status
       checker = HealthCheck::Database.new
 
       checker.accessible? && checker.available?
     end
 
-    def get_sendgrid_status
+    def current_sendgrid_status
       checker = HealthCheck::SendGrid.new
 
       checker.accessible? && checker.available?
     end
 
-    def get_pqa_api_status
+    def current_pqa_api_status
       pqa_check = PqaFile.default
 
       if !pqa_check
@@ -65,8 +65,8 @@ module Metrics
       private
 
       def initialize(path)
-        timestamp, status, _ = File.read(path).split('::')
-        
+        timestamp, status, = File.read(path).split('::')
+
         @last_run_time = Time.at(timestamp.to_i).utc
         @status        = status
       end

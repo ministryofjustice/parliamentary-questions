@@ -19,7 +19,7 @@ describe Minister do
   it { should have_many(:pqs) }
   it { should have_many(:minister_contacts) }
 
-  it { should accept_nested_attributes_for(:minister_contacts)}
+  it { should accept_nested_attributes_for(:minister_contacts) }
 
   it 'should strip whitespace from name' do
     minister = create(:minister, name: '            person     ')
@@ -33,9 +33,9 @@ describe Minister do
 
     it 'returns the active minister contacts emails' do
       expect(subject.contact_emails).to eql([
-        minister_contact1.email,
-        minister_contact2.email
-      ])
+                                              minister_contact1.email,
+                                              minister_contact2.email
+                                            ])
     end
   end
 
@@ -49,7 +49,7 @@ describe Minister do
     end
 
     context 'for deleted minister' do
-      let(:minister) { create(:deleted_minister)}
+      let(:minister) { create(:deleted_minister) }
       it 'should have the inactive suffix' do
         is_expected.to eql(minister.name + ' - Inactive')
       end

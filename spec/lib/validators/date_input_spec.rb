@@ -3,11 +3,11 @@ require 'spec_helper'
 describe Validators::DateInput do
   include Validators::DateInput
 
-  let(:window)  { Validators::DateInput::WINDOW  + 1.days }
-  let(:max_len) { Validators::DateInput::MAX_LEN          }
+  let(:window)  { Validators::DateInput::WINDOW + 1.day }
+  let(:max_len) { Validators::DateInput::MAX_LEN }
 
   it 'should raise an error if the input is above the maximum size' do
-    buffer = "1" *  (max_len + 1)
+    buffer = '1' * (max_len + 1)
 
     expect { parse_date(buffer) }.to raise_error(Validators::DateInput::DateTimeInputError)
   end
@@ -42,7 +42,7 @@ describe Validators::DateInput do
 
   context '#parse_date' do
     it 'should return a date if input is correct' do
-      d = Date.today
+      d = Time.zone.today
       expect(parse_date(d.to_s)).to eq d
     end
   end

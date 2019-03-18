@@ -69,7 +69,6 @@
 #
 
 class Pq < ActiveRecord::Base
-
   belongs_to :progress
 
   has_paper_trail
@@ -81,7 +80,7 @@ class Pq < ActiveRecord::Base
   has_one :trim_link, dependent: :destroy
   has_many :action_officers_pqs do
     def accepted
-      where(response: 'accepted').first
+      find_by(response: 'accepted')
     end
 
     def rejected
@@ -89,18 +88,17 @@ class Pq < ActiveRecord::Base
     end
 
     def all_rejected?
-      all.find{ |assignment| !assignment.rejected? }.nil?
+      all.find { |assignment| !assignment.rejected? }.nil?
     end
   end
 
-  has_many :action_officers, :through => :action_officers_pqs do
-
+  has_many :action_officers, through: :action_officers_pqs do
     def all_accepted
       where(action_officers_pqs: { response: 'accepted' })
     end
 
     def accepted
-      where(action_officers_pqs: { response: 'accepted' }).first
+      find_by(action_officers_pqs: { response: 'accepted' })
     end
 
     def rejected
@@ -109,18 +107,18 @@ class Pq < ActiveRecord::Base
   end
 
   belongs_to :minister
-  belongs_to :policy_minister, :class_name=>'Minister'
-  belongs_to :transfer_out_ogd, :class_name=>'Ogd'
-  belongs_to :transfer_in_ogd, :class_name=>'Ogd'
-  belongs_to :directorate, :class_name=>'Directorate'
-  belongs_to :original_division, :class_name => 'Division'
+  belongs_to :policy_minister, class_name: 'Minister'
+  belongs_to :transfer_out_ogd, class_name: 'Ogd'
+  belongs_to :transfer_in_ogd, class_name: 'Ogd'
+  belongs_to :directorate, class_name: 'Directorate'
+  belongs_to :original_division, class_name: 'Division'
 
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
 
-  validates :uin , presence: true, uniqueness:true
-  validates :raising_member_id, presence:true
-  validates :question, presence:true
+  validates :uin, presence: true, uniqueness: true
+  validates :raising_member_id, presence: true
+  validates :question, presence: true
   validate  :transfer_out_consistency
   validate  :sole_accepted_action_officer
   before_update :set_pod_waiting, :set_state_weight
@@ -135,7 +133,7 @@ class Pq < ActiveRecord::Base
 
   def update_state!
     self.state = PQState.progress_changer.next_state(PQState::UNASSIGNED, self)
-    self.save!
+    save!
   end
 
   def reassign(action_officer)
@@ -157,11 +155,11 @@ class Pq < ActiveRecord::Base
   end
 
   def strip_uin_whitespace
-    uin && self.uin.strip!
+    uin&.strip!
   end
 
   def commissioned?
-    action_officers.size > 0 &&
+    !action_officers.empty? &&
       action_officers.rejected.size != action_officers.size
   end
 
@@ -190,7 +188,7 @@ class Pq < ActiveRecord::Base
   end
 
   def is_unallocated?
-    action_officers_pqs.count == 0
+    action_officers_pqs.count.zero?
   end
 
   def action_officer_accepted
@@ -211,25 +209,21 @@ class Pq < ActiveRecord::Base
 
   def question_type_header
     header = ''
-    header = header + '| Ordinary' if self.question_type == 'Ordinary'
-    header = header + '| Named Day' if self.question_type == 'NamedDay'
-    header = header + ' | Transferred in' if self.transferred?
-    header = header + ' | I will write' if self.i_will_write?
+    header += '| Ordinary' if question_type == 'Ordinary'
+    header += '| Named Day' if question_type == 'NamedDay'
+    header += ' | Transferred in' if transferred?
+    header += ' | I will write' if i_will_write?
     header
   end
 
   private
 
   def sole_accepted_action_officer
-    if action_officers.all_accepted.size > 1
-      errors[:base] << "Unable to have two action officers accepted on the same question"
-    end
+    errors[:base] << 'Unable to have two action officers accepted on the same question' if action_officers.all_accepted.size > 1
   end
 
   def transfer_out_consistency
-    if ( !!transfer_out_date ^ !!transfer_out_ogd_id )
-      errors[:base] << 'Invalid transfer out submission - requires BOTH date and department'
-    end
+    errors[:base] << 'Invalid transfer out submission - requires BOTH date and department' if !!transfer_out_date ^ !!transfer_out_ogd_id
   end
 
   def iww_uin

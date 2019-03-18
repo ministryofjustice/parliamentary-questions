@@ -21,15 +21,15 @@ class Minister < ActiveRecord::Base
   has_many :pqs
   has_many :minister_contacts
   accepts_nested_attributes_for :minister_contacts,
-                                :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
 
   def contact_emails
     minister_contacts.active.pluck('email')
   end
 
   def name_with_inactive_status
-    self.name + (self.deleted ? ' - Inactive' : '')
+    name + (deleted ? ' - Inactive' : '')
   end
 
   def self.active_or_having_id(minister_id = nil)
@@ -42,6 +42,6 @@ class Minister < ActiveRecord::Base
   private
 
   def strip_whitespace!
-    self.name = self.name.strip if self.name
+    self.name = name.strip if name
   end
 end

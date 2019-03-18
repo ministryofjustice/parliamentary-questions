@@ -9,11 +9,9 @@ module SmokeTest
     SSL_CERT_FILE = File.expand_path('resources/pq.dsd.io.pem', __dir__)
 
     attr_reader :app_uri, :agent
-    
+
     def self.from_env
-      unless ENV['TEST_USER_PASS'] && ENV['TEST_USER']
-        raise 'TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests' 
-      end
+      raise 'TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests' unless ENV['TEST_USER_PASS'] && ENV['TEST_USER']
 
       new(
         Settings.live_url,
@@ -24,7 +22,7 @@ module SmokeTest
 
     def passed?
       login_to_app
-      
+
       all_checks_succeed?
     rescue
       false
@@ -38,7 +36,7 @@ module SmokeTest
 
     def login_to_app
       agent.get app_uri.to_s
-    
+
       agent.page.forms.first.tap do |f|
         f['user[email]']    = @user
         f['user[password]'] = @pass
@@ -58,7 +56,7 @@ module SmokeTest
     def mechanize_instance
       Mechanize.new do |m|
         if app_uri.scheme == 'https'
-          m.agent.http.verify_mode = OpenSSL::SSL::VERIFY_PEER  
+          m.agent.http.verify_mode = OpenSSL::SSL::VERIFY_PEER
           m.agent.cert_store       = cert_store
         end
       end

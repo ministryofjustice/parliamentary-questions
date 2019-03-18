@@ -14,22 +14,21 @@
 require 'spec_helper'
 
 describe DeputyDirector do
-	# let(:depdir) {build(:deputy_director)}
-	let(:depdir) { create(:deputy_director) }
+  let(:depdir) { build(:deputy_director) }
 
-	it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:name) }
 
-	it 'should pass factory build' do
-		expect(depdir).to be_valid
-	end
+  it 'should pass factory build' do
+    expect(depdir).to be_valid
+  end
 
-	it 'should have a division' do
-		depdir.division_id = nil
-		expect(depdir).to be_invalid
-	end
+  it 'should have a division' do
+    depdir.division_id = nil
+    expect(depdir).to be_invalid
+  end
 
-  describe "associations" do
-    it "should have a division attribute" do
+  describe 'associations' do
+    it 'should have a division attribute' do
       expect(depdir).to respond_to(:division)
     end
 

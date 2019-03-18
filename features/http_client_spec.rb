@@ -1,14 +1,16 @@
 require 'feature_helper'
 
 describe HTTPClient do
-  let(:default_settings) {[ 
+  let(:default_settings) do
+    [
       Settings.pq_rest_api.host,
       'username',
       'password',
       File.expand_path('resources/certs/wqa.parliament.uk.pem', __dir__)
-  ]}
+    ]
+  end
 
-  let(:client)      { HTTPClient.new(*default_settings)                  }
+  let(:client) { HTTPClient.new(*default_settings) }
 
   context 'issuing requests' do
     it 'should send a get request to the server' do
@@ -26,7 +28,7 @@ describe HTTPClient do
     end
 
     it 'the put request can accept a request body as input' do
-      q   = PQA::QuestionBuilder.default("uin-1")
+      q   = PQA::QuestionBuilder.default('uin-1')
       xml = PQA::XMLEncoder.encode_questions([q])
       uri = File.join(client.base_url, 'api/qais/questions', q.uin)
       res = client.issue_request(:put, uri, xml)

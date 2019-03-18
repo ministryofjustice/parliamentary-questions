@@ -55,10 +55,10 @@ describe HealthCheckService do
 
       expect(result.status).to eq '500'
       expect(result.messages.sort).to eq([
-        "DB message 1", "DB Message 2",
-        "SG message 1", "SG Message 2",
-        "MW message 1", "MW Message 2",
-        "API message 1", "API Message 2"
+        'DB message 1', 'DB Message 2',
+        'SG message 1', 'SG Message 2',
+        'MW message 1', 'MW Message 2',
+        'API message 1', 'API Message 2'
       ].sort)
     end
   end

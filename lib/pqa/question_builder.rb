@@ -1,6 +1,6 @@
 module PQA
   module QuestionBuilder
-    module_function
+    extend self
 
     def updated(uin, updated)
       q = default(uin)
@@ -18,7 +18,7 @@ module PQA
       q.tabled_date               = q.updated_date
 
       q.answering_body_id         = '14'
-      q.answering_body_name       = "Department of Environment, Food and Rural Affairs"
+      q.answering_body_name       = 'Department of Environment, Food and Rural Affairs'
       q.answering_body_short_name = q.answering_body_name
       q.house_id                  = '1'
       q.house_name                = 'House of Commons'

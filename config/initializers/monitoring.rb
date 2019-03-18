@@ -1,4 +1,4 @@
-ActiveSupport::Notifications.subscribe /process_action.action_controller/ do |*args|
+ActiveSupport::Notifications.subscribe(/process_action.action_controller/) do |*args|
   event = ActiveSupport::Notifications::Event.new(*args)
 
   controller = event.payload[:controller]

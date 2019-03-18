@@ -1,4 +1,4 @@
-require 'spec_helper' 
+require 'spec_helper'
 
 describe MailWorker do
   let(:worker)   { MailWorker.new            }
@@ -6,7 +6,7 @@ describe MailWorker do
   let(:pid_path) { MailWorker::PID_FILEPATH  }
   let!(:default) { create(:pq_email)         }
   let!(:sent)    { create(:pq_email_sent)    }
-  let!(:failed)  { create(:pq_email_failed)  } 
+  let!(:failed)  { create(:pq_email_failed)  }
 
   context '#run!' do
     it 'should send all eligible emails in the db' do
@@ -33,7 +33,7 @@ describe MailWorker do
       expect(MailService).to receive(:record_fail).with(default)
       expect(MailService).to receive(:record_fail).with(failed)
 
-      worker.run!      
+      worker.run!
     end
 
     it 'should set the state of an email to abandoned if it fails to send repeatedly' do
@@ -41,7 +41,7 @@ describe MailWorker do
       allow(MailService).to receive(:send_mail).with(failed).and_raise(RuntimeError)
 
       (MailWorker::MAX_FAIL_COUNT + 1).times { worker.run! }
-      
+
       expect(default.reload.status).not_to eq 'abandoned'
       expect(failed.reload.status).to eq 'abandoned'
     end
@@ -72,7 +72,7 @@ describe MailWorker do
 
     it 'should clear the pid file even if an error occurs' do
       allow(MailService).to receive(:mail_to_send).and_raise(RuntimeError)
-      
+
       expect(File).to receive(:delete).with(pid_path).and_call_original
       expect { worker.run! }.to raise_error(RuntimeError)
     end

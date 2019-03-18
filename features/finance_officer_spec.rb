@@ -20,7 +20,7 @@ feature 'Creating finance officers', js: true, suspend_cleaner: true do
     fill_in 'Name', with: name
     select 'FINANCE', from: 'Role'
     click_on 'Send an invitation'
-    expect(page.title).to have_content("Users")
+    expect(page.title).to have_content('Users')
     expect(page).to have_content "An invitation email has been sent to #{email}"
   end
 
@@ -40,7 +40,7 @@ feature 'Creating finance officers', js: true, suspend_cleaner: true do
     fill_in 'Password confirmation', with: pass
     click_on 'Set my password'
 
-    expect(page.title).to have_content("New PQs today")
+    expect(page.title).to have_content('New PQs today')
     expect(page).to have_content 'Your password was set successfully. You are now signed in'
   end
 
@@ -51,8 +51,8 @@ feature 'Creating finance officers', js: true, suspend_cleaner: true do
     fill_in 'Password', with: pass
     click_on 'Sign in'
 
-    expect(page.title).to have_content("New PQs today")
-    expect(page).to have_content "New PQs today"
+    expect(page.title).to have_content('New PQs today')
+    expect(page).to have_content 'New PQs today'
   end
 end
 
@@ -71,13 +71,13 @@ feature 'Registering interest in PQs as a Finance Officer', js: true do
 
   scenario 'FO can register interest in PQs' do
     @pqs.each do |pq|
-    expect(page.title).to have_content("New PQs today")
+      expect(page.title).to have_content('New PQs today')
       expect(page).to have_content(pq.text)
     end
 
     check 'pq[2][finance_interest]'
     click_link_or_button 'btn_finance_visibility'
-    expect(page.title).to have_content("New PQs today")
+    expect(page.title).to have_content('New PQs today')
     expect(page).to have_content(/successfully registered interest/i)
   end
 end

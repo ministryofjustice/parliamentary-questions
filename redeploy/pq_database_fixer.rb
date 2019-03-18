@@ -3,7 +3,6 @@ require "#{Rails.root}/redeploy/pq_fixer.rb"
 
 module Redeploy
   class PqDatabaseFixer
-
     def run
       comparer = PqStateComparer.new
       comparer.update_all_states!
@@ -17,7 +16,6 @@ module Redeploy
       comparer = PqStateComparer.new
       comparer.run
       comparer.display_results
-
     end
   end
 end

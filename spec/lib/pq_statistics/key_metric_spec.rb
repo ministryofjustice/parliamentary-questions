@@ -5,32 +5,32 @@ describe 'PqStatistics' do
   let(:threshold) { Settings.key_metric_threshold }
 
   context '#key_metric_alert' do
-    def set_on_time_percentage(n)
+    def on_time_percentage(n)
       # Create PQs for the latest date bucket with n% on time
-      n    = (n.round(1) * 10).to_i
-      date = 2.business_days.before(Date.today)
-      pqs  = (1..10).to_a.map{ create(:answered_pq) }
+      # n    = (n.round(1) * 10).to_i
+      n    = Integer(n.round(1) * 10)
+      date = 2.business_days.before(Time.zone.today)
+      pqs  = (1..10).to_a.map { create(:answered_pq) }
 
-      pqs.first(n).each do |pq| 
+      pqs.first(n).each do |pq|
         pq.update(
-          date_for_answer:  1.business_days.after(date), 
+          date_for_answer: 1.business_days.after(date),
           answer_submitted: date,
-          state:            PQState::ANSWERED
+          state: PQState::ANSWERED
         )
       end
 
-      pqs.last(10 - n).each do |pq| 
+      pqs.last(10 - n).each do |pq|
         pq.update(
-          date_for_answer:  1.business_days.before(date), 
+          date_for_answer: 1.business_days.before(date),
           answer_submitted: date,
-          state:            PQState::ANSWERED
+          state: PQState::ANSWERED
         )
       end
     end
 
     it 'should return false if the key metric is above the threshold' do
-      set_on_time_percentage(threshold + 0.1)
-
+      on_time_percentage(threshold + 0.1)
       expect(PqStatistics.key_metric_alert?).to be false
     end
 
@@ -40,8 +40,7 @@ describe 'PqStatistics' do
     end
 
     it 'should return true if the key metric is below the threshold' do
-      set_on_time_percentage(threshold - 0.1)
-
+      on_time_percentage(threshold - 0.1)
       expect(PqStatistics.key_metric_alert?).to be true
     end
   end

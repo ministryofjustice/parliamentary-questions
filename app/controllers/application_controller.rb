@@ -27,11 +27,12 @@ class ApplicationController < ActionController::Base
     request = self.request
     opts = ::ActionMailer::Base.default_url_options
     opts[:host] = request.host
-    protocol = /(.*):\/\//.match(request.protocol)[1] if request.protocol.ends_with?("://")
+    protocol = %r{(.*)://}.match(request.protocol)[1] if request.protocol.ends_with?('://')
     opts[:protocol] = protocol
   end
 
-  def after_invite_path_for(resource)
+  # def after_invite_path_for(resource)
+  def after_invite_path_for(_resource)
     users_path
   end
 
@@ -45,13 +46,12 @@ class ApplicationController < ActionController::Base
     show_error_page_and_increment_statsd(401)
   end
 
-
   def server_error(exception)
     update_page_title 'Server Error (500)'
     show_error_page_and_increment_statsd(500, exception)
   end
 
-  def update_page_title(prefix, suffix = "MOJ Parliamentary Questions")
+  def update_page_title(prefix, suffix = 'MOJ Parliamentary Questions')
     @page_title = "#{prefix} - #{suffix}"
   end
 
@@ -71,16 +71,6 @@ class ApplicationController < ActionController::Base
     "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
   end
 
-=begin
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:invite).concat [:name, :roles]
-    devise_parameter_sanitizer.for(:accept_invitation).concat [:name, :roles, :invitation_token, :password, :password_confirmation]
-    devise_parameter_sanitizer.for(:accept_invitation) do |u|
-      u.permit(:name, :roles, :password, :password_confirmation, :invitation_token)
-    end
-  end
-=end
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:invite, keys: [:param1, :param2, :param3])
     devise_parameter_sanitizer.permit(:invite, keys: [:name, :roles])
@@ -93,9 +83,8 @@ class ApplicationController < ActionController::Base
       format.html { render file: "public/#{err_number}", status: err_number }
       format.all  { render nothing: true, status: err_number }
     end
-    backtrace = exception.nil? ? nil: exception.backtrace
-    message = exception.nil? ? nil: exception.message
+    backtrace = exception.nil? ? nil : exception.backtrace
+    message = exception.nil? ? nil : exception.message
     LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}, message:#{message}, backtrace:#{backtrace}" }
   end
-
 end

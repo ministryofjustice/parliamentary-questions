@@ -25,7 +25,7 @@ describe HealthCheck::SendGrid do
 
     it 'returns true if the component is accessible with our credentials' do
       expect(smtp).to receive(:authenticate)
-        .with('','', :login)
+        .with('', '', :login)
         .and_return('OK')
 
       expect(send_grid).to be_accessible
@@ -33,7 +33,7 @@ describe HealthCheck::SendGrid do
 
     it 'returns false if the component is not accessible with our credentials' do
       expect(smtp).to receive(:authenticate)
-        .with('','', :login)
+        .with('', '', :login)
         .and_raise(Net::SMTPAuthenticationError)
 
       expect(send_grid).not_to be_accessible
@@ -55,7 +55,7 @@ describe HealthCheck::SendGrid do
       allow(Net::SMTP).to receive(:start).and_raise(StandardError)
       send_grid.accessible?
 
-      expect(send_grid.error_messages.first).to match /Error: StandardError\nDetails/
+      expect(send_grid.error_messages.first).to match(/Error: StandardError\nDetails/)
     end
   end
 end

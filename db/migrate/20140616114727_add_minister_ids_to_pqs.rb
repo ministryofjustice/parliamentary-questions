@@ -1,6 +1,8 @@
 class AddMinisterIdsToPqs < ActiveRecord::Migration[5.0]
   def change
-    add_column :pqs, :minister_id, :integer
-    add_column :pqs, :policy_minister_id, :integer
+    change_table :pqs, bulk: true do |t|
+      t.integer :minister_id
+      t.integer :policy_minister_id
+    end
   end
 end

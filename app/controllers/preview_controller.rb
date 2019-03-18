@@ -6,8 +6,8 @@ class PreviewController < ApplicationController
 
   def index
     @preview_state = NEW
-    @now = Time.now.strftime("%d/%m/%Y")
-    update_page_title "Preview"
+    @now = Time.now.strftime('%d/%m/%Y')
+    update_page_title 'Preview'
     load_pq_with_counts { Pq.new_questions.sorted_for_dashboard }
   end
 

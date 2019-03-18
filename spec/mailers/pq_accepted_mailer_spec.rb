@@ -7,7 +7,7 @@ describe 'PQAcceptedMailer' do
   let(:minister_1)     { create(:minister, name: 'Mr Name1 for Test')                          }
   let(:minister_2)     { create(:minister, name: 'Mr Name2 for Test')                          }
   let(:minister_simon) { create(:minister, name: 'Simon Hughes (MP)')                          }
-  let(:dd)             { create(:deputy_director, name: 'Deputy Director', email:'dep@dep.gov')}
+  let(:dd)             { create(:deputy_director, name: 'Deputy Director', email: 'dep@dep.gov') }
 
   before(:each) do
     ActionMailer::Base.deliveries = []
@@ -34,14 +34,14 @@ describe 'PQAcceptedMailer' do
 
     it 'should set the right cc with minister ' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, internal_deadline: '01/01/2014 10:30')
-      expectedCC = 'test1@tesk.uk'
+      expected_cc = 'test1@tesk.uk'
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should cc minister contacts when present' do
@@ -50,14 +50,14 @@ describe 'PQAcceptedMailer' do
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_simon.id, policy_minister_id: minister_2.id)
       contact_emails = minister_simon.minister_contacts.map(&:email)
-      expectedCC = contact_emails.join(';')
+      expected_cc = contact_emails.join(';')
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should add the people from the Actionlist to the CC on the draft email link' do
@@ -66,14 +66,14 @@ describe 'PQAcceptedMailer' do
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
+      expected_cc = 'test1@tesk.uk;test2@tesk.uk;a1@a1.com;a2@a2.com'
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should contain the name of the minister' do
@@ -88,7 +88,7 @@ describe 'PQAcceptedMailer' do
     end
 
     it 'should contain the asking minister ' do
-      member_name =  'Jeremy Snodgrass'
+      member_name = 'Jeremy Snodgrass'
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, member_name: member_name, house_name: 'HoL')
 
       trigger_acceptance_mail(pq, ao)
@@ -121,15 +121,12 @@ describe 'PQAcceptedMailer' do
       expect(mail.html_part.body).to include 'https://intranet.justice.gov.uk/documents/2015/09/parliamentary-questions-guidance.pdf'
     end
 
-
     it 'should add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question' do
-
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
 
-      my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: false, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
-      create(:user, name:'Finance Guy2', roles:'FINANCE', deleted: true, email:'financePQ2@wibble.com', password:'bloib2bloib2bloib2bloib2')
-
+      my_finance_email = 'financepq@wibble.com'
+      create(:user, name: 'Finance Guy1', roles: 'FINANCE', deleted: false, email: my_finance_email, password: 'bloibbloibbloibbloibbloib')
+      create(:user, name: 'Finance Guy2', roles: 'FINANCE', deleted: true, email: 'financePQ2@wibble.com', password: 'bloib2bloib2bloib2bloib2')
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
@@ -138,15 +135,15 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to include my_finance_email
-      expect(mail.html_part.body).to include CGI::escape(my_finance_email)
+      expect(mail.html_part.body).to include CGI.escape(my_finance_email)
     end
 
     it 'should not add the Finance email to the CC list on the draft email link if Finance has not registered an interest in the question' do
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
-      my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: false, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      my_finance_email = 'financepq@wibble.com'
+      create(:user, name: 'Finance Guy1', roles: 'FINANCE', deleted: false, email: my_finance_email, password: 'bloibbloibbloibbloibbloib')
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: false)
 
@@ -155,16 +152,15 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to_not include my_finance_email
-      expect(mail.html_part.body).to_not include CGI::escape(my_finance_email)
+      expect(mail.html_part.body).to_not include CGI.escape(my_finance_email)
     end
 
     it 'should not add the Finance email to the CC list on the draft email link if Finance has registered an interest in the question but is inactive' do
-
       create(:actionlist_member, name: 'A1', email: 'a1@a1.com', deleted: false)
       create(:actionlist_member, name: 'A2', email: 'a2@a2.com', deleted: false)
       create(:actionlist_member, name: 'A3', email: 'a3@a3.com', deleted: true)
-      my_finance_email =  'financepq@wibble.com'
-      create(:user, name:'Finance Guy1', roles:'FINANCE', deleted: true, email:my_finance_email, password:'bloibbloibbloibbloibbloib')
+      my_finance_email = 'financepq@wibble.com'
+      create(:user, name: 'Finance Guy1', roles: 'FINANCE', deleted: true, email: my_finance_email, password: 'bloibbloibbloibbloibbloib')
 
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id, finance_interest: true)
 
@@ -173,11 +169,11 @@ describe 'PQAcceptedMailer' do
       mail = ActionMailer::Base.deliveries.first
 
       expect(mail.text_part.body).to_not include my_finance_email
-      expect(mail.html_part.body).to_not include CGI::escape(my_finance_email)
+      expect(mail.html_part.body).to_not include CGI.escape(my_finance_email)
     end
 
     it 'should show the date for answer if set' do
-      pq = create(:pq, uin: 'HL789', date_for_answer: Date.new(2014,9,4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
+      pq = create(:pq, uin: 'HL789', date_for_answer: Date.new(2014, 9, 4), question: 'test question?', minister_id: minister_1.id, member_name: 'Jeremy Snodgrass', house_name: 'HoL')
 
       trigger_acceptance_mail(pq, ao)
 
@@ -200,27 +196,27 @@ describe 'PQAcceptedMailer' do
 
     it 'should add the deputy director of the AO to the CC on the draft email link' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'dep@dep.gov'
+      expected_cc = 'dep@dep.gov'
       ao.deputy_director = dd
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to include expectedCC
-      expect(mail.html_part.body).to include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to include expected_cc
+      expect(mail.html_part.body).to include CGI.escape(expected_cc)
     end
 
     it 'should not add the deputy director of the AO to the CC on the draft email link if the ao has no dd ' do
       pq = create(:pq, uin: 'HL789', question: 'test question?', minister_id: minister_1.id, policy_minister_id: minister_2.id)
-      expectedCC = 'dep@dep.gov'
+      expected_cc = 'dep@dep.gov'
 
       trigger_acceptance_mail(pq, ao)
 
       mail = ActionMailer::Base.deliveries.first
 
-      expect(mail.text_part.body).to_not include expectedCC
-      expect(mail.html_part.body).to_not include CGI::escape(expectedCC)
+      expect(mail.text_part.body).to_not include expected_cc
+      expect(mail.html_part.body).to_not include CGI.escape(expected_cc)
     end
   end
 end

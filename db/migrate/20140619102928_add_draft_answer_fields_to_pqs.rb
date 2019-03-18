@@ -1,7 +1,9 @@
 class AddDraftAnswerFieldsToPqs < ActiveRecord::Migration[5.0]
   def change
-    add_column :pqs, :draft_answer_received, :datetime
-    add_column :pqs, :i_will_write_estimate, :datetime
-    add_column :pqs, :holding_reply, :datetime
+    change_table :pqs, bulk: true do |t|
+      t.datetime :draft_answer_received
+      t.datetime :i_will_write_estimate
+      t.datetime :holding_reply
+    end
   end
 end

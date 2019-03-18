@@ -15,7 +15,7 @@ describe MetricsDashboard do
 
   it '#update - gathers metric and updates the gecko collection' do
     expect(dash.gecko).to receive(:update).with(dash.metrics)
-    
+
     dash.metrics.each do |c|
       expect(c).to receive(:collect!)
     end

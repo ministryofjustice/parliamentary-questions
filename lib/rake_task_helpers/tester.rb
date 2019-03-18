@@ -3,7 +3,7 @@ module RakeTaskHelpers
     attr_reader :name, :email, :domain, :pass, :prefix
 
     def self.factory(testers_h, default_pass, prefix)
-      testers_h.map do |tester| 
+      testers_h.map do |tester|
         new(
           tester['name'],
           tester['email'],
@@ -23,17 +23,19 @@ module RakeTaskHelpers
     end
 
     def create_fixtures!
-      u  =  
+      u =
         User.find_or_create_by(
-          email: email_for('u'), 
-          name:  display_name, 
+          email: email_for('u'),
+          name: display_name,
           roles: 'PQUSER'
         )
 
-      u.update(
-        password:              pass, 
-        password_confirmation: pass
-      ) if u.new_record?
+      if u.new_record?
+        u.update(
+          password: pass,
+          password_confirmation: pass
+        )
+      end
     end
 
     protected
@@ -43,15 +45,15 @@ module RakeTaskHelpers
     end
 
     def email_for(abbreviation)
-       "#{email}+#{abbreviation}@#{domain}"
+      "#{email}+#{abbreviation}@#{domain}"
     end
   end
 
   class RestrictedTester < Tester
     private
 
-    def email_for(abbreviation)
-       "#{email}@#{domain}"
+    def email_for(_abbreviation)
+      "#{email}@#{domain}"
     end
   end
 
@@ -60,36 +62,36 @@ module RakeTaskHelpers
       super
 
       Minister.find_or_create_by(
-        name:  display_name, 
+        name: display_name,
         title: prefix
       )
 
-      p  = PressDesk.find_or_create_by(name: prefix)
+      p = PressDesk.find_or_create_by(name: prefix)
 
       PressOfficer.find_or_create_by(
-        name:       display_name, 
-        email:      email_for('po'), 
-        press_desk: p 
+        name: display_name,
+        email: email_for('po'),
+        press_desk: p
       )
 
       dir = Directorate.find_or_create_by(name: prefix)
 
       div = Division.find_or_create_by(
-              name:        prefix, 
-              directorate: dir
-            )
+        name: prefix,
+        directorate: dir
+      )
 
-      dd  = DeputyDirector.find_or_create_by( 
-              division: div, 
-              email:    email_for('dd'), 
-              name:     display_name
-            ) 
+      dd = DeputyDirector.find_or_create_by(
+        division: div,
+        email: email_for('dd'),
+        name: display_name
+      )
 
       ActionOfficer.find_or_create_by(
-        deputy_director: dd, 
-        name:            display_name, 
-        email:           email_for('ao'),
-        press_desk:      p 
+        deputy_director: dd,
+        name: display_name,
+        email: email_for('ao'),
+        press_desk: p
       )
     end
   end

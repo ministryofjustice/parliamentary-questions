@@ -1,5 +1,4 @@
 module PqScopes
-
   def allocated_since(since)
     joins(:action_officers_pqs)
       .where('action_officers_pqs.updated_at >= ?', since)
@@ -12,31 +11,31 @@ module PqScopes
   end
 
   def answered_by_deadline_last_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+    not_tx.where('answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
   end
 
   def answered_by_deadline_prev_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def answered_by_deadline_since
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", parliament_session_start)
+    not_tx.where('answer_submitted < date_for_answer + 1 AND answer_submitted > ?', parliament_session_start)
   end
 
   def answer_due_since
-    not_tx.where("date_for_answer > ?", parliament_session_start)
+    not_tx.where('date_for_answer > ?', parliament_session_start)
   end
 
   def answered_prev_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?",  beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('answer_submitted BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def answered_last_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+    not_tx.where('answer_submitted BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
   end
 
   def answered_since
-    not_tx.where("answer_submitted > ?", parliament_session_start)
+    not_tx.where('answer_submitted > ?', parliament_session_start)
   end
 
   def backlog
@@ -44,7 +43,8 @@ module PqScopes
   end
 
   def beginning_of_last_week
-    (Date.today.beginning_of_week) - 8 #Sunday
+    # Sunday
+    (Time.zone.today.beginning_of_week) - 8
   end
 
   def beginning_of_prev_week
@@ -64,24 +64,25 @@ module PqScopes
   end
 
   def draft_response_on_time_since
-    #For reporting purposes an half hour's grace period is allowed on the internal deadline.
+    # For reporting purposes an half hour's grace period is allowed on the internal deadline.
     not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", parliament_session_start)
   end
 
   def draft_response_due_since
-    not_tx.where("internal_deadline > ?", parliament_session_start)
+    not_tx.where('internal_deadline > ?', parliament_session_start)
   end
 
   def due_last_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
+    not_tx.where('date_for_answer BETWEEN ? AND ?', beginning_of_last_week, end_of_last_week)
   end
 
   def due_prev_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('date_for_answer BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def end_of_last_week
-    (Date.today.beginning_of_week) - 2 #Saturday
+    # Saturday
+    (Time.zone.today.beginning_of_week) - 2
   end
 
   def end_of_prev_week
@@ -105,7 +106,7 @@ module PqScopes
   end
 
   def imported_prev_week
-    not_tx.where("created_at BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
+    not_tx.where('created_at BETWEEN ? AND ?', beginning_of_prev_week, end_of_prev_week)
   end
 
   def in_progress
@@ -139,7 +140,7 @@ module PqScopes
     by_status(PQState::NEW)
   end
 
-  def no_response()
+  def no_response
     by_status(PQState::NO_RESPONSE)
   end
 
@@ -148,7 +149,7 @@ module PqScopes
   end
 
   def on_time
-    not_tx.where("answer_submitted <= (date_for_answer + 1)")
+    not_tx.where('answer_submitted <= (date_for_answer + 1)')
   end
 
   def ordinary
@@ -175,12 +176,12 @@ module PqScopes
   # - then PQs due yesterday, ordered by state-weight in descending order
   # - then PQs due the day before yesterday, ordered by state-weight in descending order
   #
-  # We use Date.today.strftime('%Y-%m-%d') here instead of the postgres function CURRENT_DATE in order to be able to get
+  # We use Time.zone.today.strftime('%Y-%m-%d') here instead of the postgres function CURRENT_DATE in order to be able to get
   # consistent results using Timecop in the tests
   #
 
   def sorted_for_dashboard
-    current_date = "'#{Date.today.strftime('%Y-%m-%d')}'"
+    current_date = "'#{Time.zone.today.strftime('%Y-%m-%d')}'"
     order(Arel.sql("date_for_answer >= #{current_date} DESC"))
       .order(Arel.sql("ABS(DATE_PART('day', date_for_answer::timestamp - #{current_date}::timestamp)) ASC"))
       .order(Arel.sql('state_weight DESC'))
@@ -189,7 +190,7 @@ module PqScopes
   end
 
   def total_questions_since
-    not_tx.where("created_at > ?", parliament_session_start)
+    not_tx.where('created_at > ?', parliament_session_start)
   end
 
   def transferred
@@ -197,10 +198,10 @@ module PqScopes
   end
 
   def uin(uin_to_search)
-    where("uin = ?", uin_to_search).first
+    find_by('uin = ?', uin_to_search)
   end
 
-  def unassigned()
+  def unassigned
     by_status(PQState::UNASSIGNED)
   end
 
@@ -215,5 +216,4 @@ module PqScopes
   def with_pod
     by_status(PQState::WITH_POD)
   end
-
 end

@@ -10,7 +10,6 @@ module HealthCheck
       else
         true
       end
-
     rescue => e
       log_unknown_error(e)
       false
@@ -19,13 +18,12 @@ module HealthCheck
     def accessible?
       failures = MailService.abandoned_mail
 
-      unless failures.empty?
+      if failures.empty?
+        true
+      else
         log_error('Mail Service', "#{failures.count} email(s) abandoned")
         false
-      else
-        true
       end
-
     rescue => e
       log_unknown_error(e)
       false

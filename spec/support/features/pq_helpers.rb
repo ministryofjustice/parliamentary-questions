@@ -18,7 +18,7 @@ module Features
         action_officers.each do |ao|
           select ao.name, from: 'Action officer(s)'
         end
-        find("#internal-deadline input").set Date.tomorrow.strftime('%d/%m/%Y 12:00')
+        find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
         click_on 'Commission'
       end
 
@@ -47,7 +47,8 @@ module Features
       visit dashboard_path unless page.current_path == dashboard_path
       expect(page).to have_content(uin)
       expect_pq_to_be_in_state(uin, status)
-      visit dashboard_path unless page.current_path == dashboard_path #Return page to dashboard
+      # Return page to dashboard
+      visit dashboard_path unless page.current_path == dashboard_path
     end
 
     def expect_pq_in_progress_status(uin, status)
@@ -55,10 +56,12 @@ module Features
       expect(page).to have_content(uin)
       expect_pq_to_be_in_state(uin, status)
     end
+
     def expect_pq_to_be_in_state(uin, status)
       visit pq_path(uin) unless page.current_path == pq_path(uin)
       expect(page).to have_content(status)
     end
+
     def within_pq(uin)
       within("*[data-pquin='#{uin}']") do
         yield
@@ -69,15 +72,15 @@ module Features
       visit pq_path(uin) unless page.current_path == pq_path(uin)
       click_on section_anchor
       yield
-      click_on "Save"
+      click_on 'Save'
     end
 
     private
 
     def select_option(selector_name, option_text)
       find(:select, selector_name)
-            .find(:option, text: option_text)
-            .select_option
+        .find(:option, text: option_text)
+        .select_option
     end
 
     def visit_assignment_url(action_officer)
@@ -87,8 +90,7 @@ module Features
     end
 
     def fillin_date(css_sel)
-      find(css_sel).set(Date.today.strftime('%d/%m/%Y'))
+      find(css_sel).set(Time.zone.today.strftime('%d/%m/%Y'))
     end
-
   end
 end

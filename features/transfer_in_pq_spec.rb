@@ -13,10 +13,10 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
     choose 'House of Commons'
 
     find("select[name = 'pq[transfer_in_ogd_id]']")
-      .find(:xpath, "option[2]")
+      .find(:xpath, 'option[2]')
       .select_option
 
-    find('#transfer_in_date').set Date.today.strftime('%d/%m/%Y')
+    find('#transfer_in_date').set Time.zone.today.strftime('%d/%m/%Y')
     click_on 'Create PQ'
   end
 
@@ -33,9 +33,9 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
 
   scenario 'Attempting to transfer a PQ with invalid inputs shows an error on the page' do
     invalid_date = 'A' * 51
-    create_transferred_pq('invalid-uin-1', 'question_text', invalid_date )
+    create_transferred_pq('invalid-uin-1', 'question_text', invalid_date)
 
-    expect(page.title).to have_text("")
+    expect(page.title).to have_text('')
     expect(page).not_to have_content('Transferred PQ was successfully created')
     expect(page).to have_content('Invalid date input!')
   end
@@ -43,7 +43,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
   scenario 'Parli branch should be able to create a transferred PQ' do
     create_transferred_pq(uin, question_text)
 
-    expect(page.title).to have_text("Dashboard")
+    expect(page.title).to have_text('Dashboard')
     expect(page).to have_content('Transferred PQ was successfully created')
     expect_pq_status(uin, 'Transferred in')
   end
@@ -63,7 +63,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
     loader.load([imported_pq])
     report = import.run(Date.yesterday, Date.tomorrow)
 
-    expect(report).to include(:updated => 1)
+    expect(report).to include(updated: 1)
 
     create_pq_session
     visit pq_path(uin)

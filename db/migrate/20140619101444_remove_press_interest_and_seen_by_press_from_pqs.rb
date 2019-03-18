@@ -1,6 +1,7 @@
 class RemovePressInterestAndSeenByPressFromPqs < ActiveRecord::Migration[5.0]
   def change
-  	remove_column :pqs, :press_interest, :boolean
-  	remove_column :pqs, :seen_by_press, :boolean
+    change_table :pqs, bulk: true do |t|
+      t.remove :press_interest, :seen_by_press
+    end
   end
 end

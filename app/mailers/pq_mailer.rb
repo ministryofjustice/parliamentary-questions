@@ -31,7 +31,7 @@ class PqMailer < PQBaseMailer
   def early_bird_email(mail_data)
     if HostEnv.is_staging?
       LogStuff.info { 'Skipped early_bird email because this is the staging environment' }
-      return true
+      true
     else
       mail_with_subject('New PQs to be allocated today', mail_data)
     end
@@ -43,9 +43,9 @@ class PqMailer < PQBaseMailer
     @template_params = mail_data.params
 
     mail(
-      mail_data.addressees.merge({
-        subject:  subject
-      })
+      mail_data.addressees.merge(
+        subject: subject
+      )
     )
   end
 end

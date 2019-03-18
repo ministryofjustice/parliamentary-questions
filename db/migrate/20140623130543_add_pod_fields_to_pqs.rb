@@ -1,7 +1,9 @@
 class AddPodFieldsToPqs < ActiveRecord::Migration[5.0]
   def change
-    add_column :pqs, :pod_waiting, :datetime
-    add_column :pqs, :pod_query, :datetime
-    add_column :pqs, :pod_clearance, :datetime
+    change_table :pqs, bulk: true do |t|
+      t.datetime :pod_waiting
+      t.datetime :pod_query
+      t.datetime :pod_clearance
+    end
   end
 end

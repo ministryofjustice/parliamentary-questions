@@ -1,6 +1,8 @@
 class AddTransferOutOgdToPq < ActiveRecord::Migration[5.0]
   def change
-    add_column :pqs, :transfer_out_ogd_id, :integer
-    add_column :pqs, :transfer_out_date, :datetime
+    change_table :pqs, bulk: true do |t|
+      t.integer  :transfer_out_ogd_id
+      t.datetime :transfer_out_date
+    end
   end
 end

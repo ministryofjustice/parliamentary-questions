@@ -38,7 +38,7 @@ describe HealthCheck::MailWorker do
 
     it 'returns false if there are abandoned emails' do
       allow(MailService).to receive(:abandoned_mail).and_return([mail])
-      
+
       expect(worker).not_to be_accessible
     end
   end
@@ -66,7 +66,7 @@ describe HealthCheck::MailWorker do
       allow(worker).to receive(:stale_pid_file?).and_raise(StandardError)
       worker.available?
 
-      expect(worker.error_messages.first).to match /Error: StandardError\nDetails/
+      expect(worker.error_messages.first).to match(/Error: StandardError\nDetails/)
     end
   end
 end

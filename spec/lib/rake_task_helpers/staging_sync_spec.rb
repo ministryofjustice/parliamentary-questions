@@ -2,15 +2,15 @@ require 'spec_helper'
 
 describe RakeTaskHelpers::StagingSync do
   before(:each) do
-    ENV['TEST_USER_PASS']='xxx'
+    ENV['TEST_USER_PASS'] = 'xxx'
     allow($stdout).to receive(:puts)
     ENV['TEST_USER_PASS'] = 'xxxx'
   end
 
   it 'should not run unless the host env is staging ' do
     allow(HostEnv).to receive(:is_staging?).and_return(false)
-    msg = 
-      "[-] This task should only be run in the staging environment\n" + 
+    msg =
+      "[-] This task should only be run in the staging environment\n" \
       "[-] Database has NOT been modified\n"
 
     expect_any_instance_of(RakeTaskHelpers::DBSanitizer).not_to receive(:run!)
@@ -33,9 +33,9 @@ describe RakeTaskHelpers::StagingSync do
 
     subject.run!
     email = sent_mail.first
-    
+
     expect(email.to).to include Settings.mail_tech_support
-    expect(email.subject).to match /Staging DB sanitization failed/
-    expect(email.body).to match /StandardError/
+    expect(email.subject).to match(/Staging DB sanitization failed/)
+    expect(email.body).to match(/StandardError/)
   end
 end

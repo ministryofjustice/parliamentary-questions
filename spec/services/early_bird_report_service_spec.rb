@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe 'EarlyBirdReportService' do
-
-  let!(:early_bird_one) { create(:early_bird_member, name: 'member 1', email: 'm1@ao.gov',  deleted: false) }
+  let!(:early_bird_one) { create(:early_bird_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
   let!(:early_bird_two) { create(:early_bird_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:early_bird_deleted) { create(:early_bird_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
-  let(:testid) { "early_bird-" + DateTime.now.to_s }
+  let(:testid) { 'early_bird-' + DateTime.now.to_s }
 
   before(:each) do
     @report_service               = EarlyBirdReportService.new
@@ -24,14 +23,14 @@ describe 'EarlyBirdReportService' do
   end
 
   it 'should send an email with the right data' do
-    pqtest_mail ='pqtest@digital.justice.gov.uk'
+    pqtest_mail = 'pqtest@digital.justice.gov.uk'
     allow(@report_service).to receive(:entity).and_return testid
     result = @report_service.notify_early_bird
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    sentToken = result[pqtest_mail]
-    token_param = {token: sentToken}.to_query
-    entity = {entity: entity = testid }.to_query
+    sent_token = result[pqtest_mail]
+    token_param = { token: sent_token }.to_query
+    entity = { entity: entity = testid }.to_query
     url = '/early_bird/dashboard'
     expect(mail.to_s).to include url
     expect(mail.to_s).to include token_param
@@ -44,9 +43,9 @@ describe 'EarlyBirdReportService' do
     result = @report_service.notify_early_bird
     MailWorker.new.run!
     mail = ActionMailer::Base.deliveries.first
-    sentToken = result[early_bird_one.id]
-    token_param = {token: sentToken}.to_query
-    entity = {entity: entity = testid }.to_query
+    sent_token = result[early_bird_one.id]
+    token_param = { token: sent_token }.to_query
+    entity = { entity: entity = testid }.to_query
     url = '/early_bird/dashboard'
     expect(mail.cc).to include early_bird_one.email
     expect(mail.cc).to include early_bird_two.email

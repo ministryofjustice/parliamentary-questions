@@ -21,11 +21,10 @@ describe TokenService do
       subject.generate_token('/path/one', 'entity_one', expire_in_future)
       subject.generate_token('/path/one', 'entity_one', expire_in_future)
 
-      tokens = Token.where(path: '/path/one',  entity: 'entity_one')
+      tokens = Token.where(path: '/path/one', entity: 'entity_one')
 
       expect(tokens.size).to eq(1)
     end
-
   end
 
   describe '#valid?' do
@@ -60,7 +59,6 @@ describe TokenService do
       expect(is_valid).to eq(false)
     end
 
-
     it 'should return true if token valid but expired' do
       token_to_send = subject.generate_token('/path/one', 'entity_one', expire_in_past)
 
@@ -68,7 +66,6 @@ describe TokenService do
 
       expect(result).to eq(true)
     end
-
 
     it 'should be valid only the last token generated given a path, entity' do
       first_token = subject.generate_token('/path/one', 'entity_one', expire_in_future)
@@ -96,8 +93,6 @@ describe TokenService do
     end
   end
 
-
-
   describe '#delete_expired' do
     it 'should delete expired tokens' do
       subject.generate_token('/path/one', 'assignment:1', expire_in_past)
@@ -105,11 +100,11 @@ describe TokenService do
 
       subject.generate_token('/path/three', 'assignment:3', expire_in_future)
 
-      tokens = Token.where("entity like ?", 'assignment:%')
+      tokens = Token.where('entity like ?', 'assignment:%')
       expect(tokens.size).to eq(3)
 
       subject.delete_expired
-      tokens = Token.where("entity like ?", 'assignment:%')
+      tokens = Token.where('entity like ?', 'assignment:%')
       expect(tokens.size).to eq(1)
     end
   end

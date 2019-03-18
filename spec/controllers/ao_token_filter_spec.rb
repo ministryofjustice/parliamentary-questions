@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'AOTokenFilter' do
-
   before(:each) do
     @token_service = TokenService.new
   end
@@ -32,7 +31,6 @@ describe 'AOTokenFilter' do
       expect(AOTokenFilter.validate_token(controller)).to eq :valid
     end
 
-
     it 'the filter should fail if the token is expired' do
       controller = double('ApplicationController')
       request    = double('request')
@@ -52,7 +50,7 @@ describe 'AOTokenFilter' do
       request    = double('request')
 
       allow(request).to receive(:path) { '/test/this' }
-      allow(controller).to receive(:params) { { entity: 'test'} }
+      allow(controller).to receive(:params) { { entity: 'test' } }
       allow(controller).to receive(:request) { request }
 
       expect(AOTokenFilter.validate_token(controller)).to eq :invalid
@@ -63,7 +61,7 @@ describe 'AOTokenFilter' do
       request    = double('request')
 
       allow(request).to receive(:path) { '/test/this' }
-      allow(controller).to receive(:params) { { token: 'test'} }
+      allow(controller).to receive(:params) { { token: 'test' } }
       allow(controller).to receive(:request) { request }
     end
 

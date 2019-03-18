@@ -2,7 +2,7 @@ require 'spec_helper'
 require "#{Rails.root}/lib/rake_task_helpers/test_user_generator.rb"
 
 describe RakeTaskHelpers::TestUserGenerator do
-  let(:path) { "#{Rails.root}/spec/lib/rake_task_helpers/sample_config.yml" } 
+  let(:path) { "#{Rails.root}/spec/lib/rake_task_helpers/sample_config.yml" }
   let(:gen)  { RakeTaskHelpers::TestUserGenerator.from_config(path)         }
 
   before(:each) do

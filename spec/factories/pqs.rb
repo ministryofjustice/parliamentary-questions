@@ -72,8 +72,8 @@ FactoryBot.define do
     uin { Faker::Lorem.characters(10) }
     house_id { 1 }
     raising_member_id { 1 }
-    tabled_date { "2014-05-08 13:45:31" }
-    response_due { "2014-05-08 13:45:31" }
+    tabled_date { '2014-05-08 13:45:31' }
+    response_due { '2014-05-08 13:45:31' }
     question { Faker::Lorem.sentence(10) }
     answer { nil }
     state { PQState::UNASSIGNED }
@@ -84,7 +84,7 @@ FactoryBot.define do
       factory :not_responded_pq do
         state { PQState::NO_RESPONSE }
         internal_deadline { Faker::Date.forward(14) }
-        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
+        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days) }
         minister
 
         transient do
@@ -104,7 +104,7 @@ FactoryBot.define do
       factory :draft_pending_pq do
         state { PQState::DRAFT_PENDING }
         internal_deadline { Faker::Date.forward(14) }
-        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days)}
+        date_for_answer { Faker::Date.between(internal_deadline, internal_deadline + 7.days) }
         minister
 
         after(:create) do |pq, _|

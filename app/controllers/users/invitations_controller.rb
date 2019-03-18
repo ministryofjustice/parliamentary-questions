@@ -1,8 +1,8 @@
 class Users::InvitationsController < Devise::InvitationsController
-private
+  private
 
   def invite_resource
-    resource_class.invite!(invite_params, current_inviter) do |u|
+    resource_class.invite!(invite_params, current_inviter) do |_u|
       LogStuff.info "Sending invite #{invite_params.inspect}"
     end
   end
@@ -20,5 +20,3 @@ private
     params.require(:user).permit(:password, :password_confirmation, :name, :email, :roles, :invitation_token)
   end
 end
-
-

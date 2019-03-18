@@ -1,8 +1,7 @@
 module Presenters
   # Here the statistics
   module Statistics
-
-    module_function
+    extend self
 
     Link = Struct.new(:name, :path, :description)
 
@@ -71,7 +70,7 @@ module Presenters
         )
       end
 
-      private
+      # private
 
       def self.format_item(item, data, i)
         [
@@ -111,7 +110,7 @@ module Presenters
         )
       end
 
-      private
+      # private
 
       def self.format_item(item, data, i)
         [
@@ -154,5 +153,3 @@ module Presenters
     end
   end
 end
-
-

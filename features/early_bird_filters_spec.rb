@@ -1,10 +1,9 @@
 require 'feature_helper'
 
-feature "User filters early bird questions", js: true, suspend_cleaner: true do
-
+feature 'User filters early bird questions', js: true, suspend_cleaner: true do
   before(:all) do
     DBHelpers.load_feature_fixtures
-    generate_dummy_pq()
+    generate_dummy_pq
 
     # Change Q1 properties
     a = Pq.first
@@ -34,7 +33,8 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
   scenario 'Check filter elements are present' do
     create_pq_session
 
-    visit early_bird_preview_path #'/early_bird/preview'
+    # '/early_bird/preview'
+    visit early_bird_preview_path
 
     expect(page).to have_text(:visible, 'New parliamentary questions to be allocated today')
     expect(page).to have_text('3 new parliamentary questions')
@@ -53,7 +53,9 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
   scenario 'Filter questions by question type' do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+
+    # '/early_bird/preview'
+    visit early_bird_preview_path
 
     click_button 'Question type'
 
@@ -84,42 +86,45 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
   scenario 'Filter questions by keyword' do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+
+    # '/early_bird/preview'
+    visit early_bird_preview_path
 
     expect(page).to have_text('3 new parliamentary questions')
 
     # Text found in all questions
-    fill_in 'keywords', :with => 'Lorem Ipsum'
+    fill_in 'keywords', with: 'Lorem Ipsum'
     expect(page).to have_text('3 parliamentary questions out of 3.')
 
     # Text found in no questions
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Ministry of Justice'
+    fill_in 'keywords', with: 'Ministry of Justice'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     # Q1
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'not simply random text'
+    fill_in 'keywords', with: 'not simply random text'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # Q2
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'by Cicero, written in 45 BC'
+    fill_in 'keywords', with: 'by Cicero, written in 45 BC'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # Q3
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Renaissance. The first line'
+    fill_in 'keywords', with: 'Renaissance. The first line'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     click_button('clear-keywords-filter')
     expect(page).to have_text('3 parliamentary questions out of 3.')
-
   end
 
   scenario "Filter by question type 'Named Day' & keywords" do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+
+    # '/early_bird/preview'
+    visit early_bird_preview_path
     expect(page).to have_text('3 new parliamentary questions')
 
     click_button 'Question type'
@@ -127,27 +132,27 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
     expect(page).to have_text('2 parliamentary questions out of 3.')
 
     # 'Named Day' + text found in all questions
-    fill_in 'keywords', :with => 'Lorem Ipsum'
+    fill_in 'keywords', with: 'Lorem Ipsum'
     expect(page).to have_text('2 parliamentary questions out of 3.')
 
     # 'Named Day' + text found in no questions
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Ministry of Justice'
+    fill_in 'keywords', with: 'Ministry of Justice'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     # 'Named Day' + Q1
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'not simply random text'
+    fill_in 'keywords', with: 'not simply random text'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # 'Named Day' + Q2
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'by Cicero, written in 45 BC'
+    fill_in 'keywords', with: 'by Cicero, written in 45 BC'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # 'Named Day' + Q3
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Renaissance. The first line'
+    fill_in 'keywords', with: 'Renaissance. The first line'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     click_button('clear-keywords-filter')
@@ -156,7 +161,9 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
 
   scenario "Filter by question type 'Transferred in' & keywords" do
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+
+    # '/early_bird/preview'
+    visit early_bird_preview_path
     expect(page).to have_text('3 new parliamentary questions')
 
     click_button 'Question type'
@@ -165,39 +172,38 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # 'Transferred in' + text found in all questions
-    fill_in 'keywords', :with => 'Lorem Ipsum'
+    fill_in 'keywords', with: 'Lorem Ipsum'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # 'Transferred in' + text found in no questions
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Ministry of Justice'
+    fill_in 'keywords', with: 'Ministry of Justice'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     # 'Transferred in' + Q1
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'not simply random text'
+    fill_in 'keywords', with: 'not simply random text'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     # 'Transferred in' + Q2
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'by Cicero, written in 45 BC'
+    fill_in 'keywords', with: 'by Cicero, written in 45 BC'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # 'Transferred in' + Q3
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Renaissance. The first line'
+    fill_in 'keywords', with: 'Renaissance. The first line'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     click_button('clear-keywords-filter')
     expect(page).to have_text('1 parliamentary question out of 3.')
-
   end
 
-
   scenario "Filter by question type 'Ordinary' & keywords" do
-
     create_pq_session
-    visit early_bird_preview_path #'/early_bird/preview'
+
+    # '/early_bird/preview'
+    visit early_bird_preview_path
     expect(page).to have_text('3 new parliamentary questions')
 
     click_button 'Question type'
@@ -205,38 +211,37 @@ feature "User filters early bird questions", js: true, suspend_cleaner: true do
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # 'Ordinary' + text found in all questions
-    fill_in 'keywords', :with => 'Lorem Ipsum'
+    fill_in 'keywords', with: 'Lorem Ipsum'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     # 'Ordinary' + text found in no questions
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Ministry of Justice'
+    fill_in 'keywords', with: 'Ministry of Justice'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     # 'Ordinary' + Q1
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'not simply random text'
+    fill_in 'keywords', with: 'not simply random text'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     # 'Ordinary' + Q2
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'by Cicero, written in 45 BC'
+    fill_in 'keywords', with: 'by Cicero, written in 45 BC'
     expect(page).to have_text('0 parliamentary questions out of 3.')
 
     # 'Ordinary' + Q3
     click_button('clear-keywords-filter')
-    fill_in 'keywords', :with => 'Renaissance. The first line'
+    fill_in 'keywords', with: 'Renaissance. The first line'
     expect(page).to have_text('1 parliamentary question out of 3.')
 
     click_button('clear-keywords-filter')
     expect(page).to have_text('1 parliamentary question out of 3.')
-
   end
 
   private
 
-  def generate_dummy_pq()
-    PQA::QuestionLoader.new.load_and_import(3) # Generate three questions.
+  def generate_dummy_pq
+    # Generate three questions.
+    PQA::QuestionLoader.new.load_and_import(3)
   end
-
 end

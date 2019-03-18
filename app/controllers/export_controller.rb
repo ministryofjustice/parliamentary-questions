@@ -33,14 +33,12 @@ class ExportController < ApplicationController
   end
 
   def with_valid_dates(form_template)
-    date_from, date_to = [
-      parse_datetime(params[:date_from]),
-      parse_datetime(params[:date_to])
-    ]
+    date_from = parse_datetime(params[:date_from])
+    date_to = parse_datetime(params[:date_to])
     yield(date_from, date_to)
-    rescue DateTimeInputError
-      flash[:error] = 'Invalid date input!'
-      update_page_title('Export PQs to CSV')
-      render form_template, status: 422
+  rescue DateTimeInputError
+    flash[:error] = 'Invalid date input!'
+    update_page_title('Export PQs to CSV')
+    render form_template, status: :unprocessable_entity
   end
 end

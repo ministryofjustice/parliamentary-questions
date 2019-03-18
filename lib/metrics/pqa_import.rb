@@ -3,7 +3,7 @@ module Metrics
     attr_reader :last_run_time, :last_run_status, :pqs
 
     def initialize
-      @pqs  = NumPqsImported.new
+      @pqs = NumPqsImported.new
     end
 
     def collect!
@@ -18,10 +18,10 @@ module Metrics
 
     private
 
-    NumPqsImported = 
-      Struct.new(:today, :this_week, :this_month) do 
+    NumPqsImported =
+      Struct.new(:today, :this_week, :this_month) do
         def self.build
-          new( 
+          new(
             PqaImportRun.sum_pqs_imported(:day),
             PqaImportRun.sum_pqs_imported(:week),
             PqaImportRun.sum_pqs_imported(:month)
@@ -35,11 +35,11 @@ module Metrics
 
     def create_empty_import_run
       PqaImportRun.new(
-        start_time:     Time.at(0),
-        end_time:       Time.at(0),
-        status:         'FAIL',
-        num_created:    0,
-        num_updated:    0,
+        start_time: Time.at(0),
+        end_time: Time.at(0),
+        status: 'FAIL',
+        num_created: 0,
+        num_updated: 0,
         error_messages: []
       )
     end

@@ -42,11 +42,11 @@ class TransferredController < ApplicationController
         :transfer_in_ogd_id,
         :transfer_in_date
       )
-      .merge({
-        transferred:        true,
-        raising_member_id:  '0',
+      .merge(
+        transferred: true,
+        raising_member_id: '0',
         state: PQState::UNASSIGNED
-      })
+      )
   end
 
   def with_valid_dates
@@ -55,8 +55,8 @@ class TransferredController < ApplicationController
       :transfer_in_date
     ].each { |date_key| parse_date(params[:pq][date_key]) }
     yield
-    rescue DateTimeInputError
-      flash.now[:error] = 'Invalid date input!'
-      render(:new, status: 422)
+  rescue DateTimeInputError
+    flash.now[:error] = 'Invalid date input!'
+    render(:new, status: :unprocessable_entity)
   end
 end

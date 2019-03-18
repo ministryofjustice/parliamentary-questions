@@ -1,5 +1,5 @@
-require File.expand_path('../boot', __FILE__)
-$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+require File.expand_path('boot', __dir__)
+$LOAD_PATH << File.expand_path('../lib', __dir__)
 
 require 'pq_state'
 require 'pq_state/transition'
@@ -44,20 +44,19 @@ module ParliamentaryQuestions
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    #config.assets.paths << "#{Rails}/vendor/assets/fonts"
-    config.eager_load_paths << Rails.root.join("app", "assets", "fonts")
-    config.eager_load_paths += %w[ app/assets/images ]
-    config.eager_load_paths += %w[ app/assets/javascripts ]
-    config.eager_load_paths += %w[ app/assets/stylesheets ]
-    config.eager_load_paths += %w[ app/assets/stylesheets/moj ]
-    config.eager_load_paths += %w[ app/assets/stylesheets/vendor ]
-
+    # config.assets.paths << "#{Rails}/vendor/assets/fonts"
+    config.eager_load_paths << Rails.root.join('app', 'assets', 'fonts')
+    config.eager_load_paths += %w[app/assets/images]
+    config.eager_load_paths += %w[app/assets/javascripts]
+    config.eager_load_paths += %w[app/assets/stylesheets]
+    config.eager_load_paths += %w[app/assets/stylesheets/moj]
+    config.eager_load_paths += %w[app/assets/stylesheets/vendor]
 
     config.generators do |g|
       g.template_engine :erb
     end
 
-    config.exceptions_app = self.routes
+    config.exceptions_app = routes
 
     # Statsd
     $statsd = Statsd.new 'localhost', 8125

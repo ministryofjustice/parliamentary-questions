@@ -20,7 +20,6 @@ class PressDesksController < ApplicationController
     update_page_title('Edit press desk')
   end
 
-
   def create
     @press_desk = PressDesk.new(press_desk_params)
 
@@ -41,7 +40,7 @@ class PressDesksController < ApplicationController
     end
   end
 
-private
+  private
 
   def set_press_desk
     @press_desk = PressDesk.find(params[:id])

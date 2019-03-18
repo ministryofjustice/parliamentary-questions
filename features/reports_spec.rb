@@ -11,26 +11,27 @@ feature 'Minister Report', js: true do
   end
 
   def expect_report_to_have(record, state, count)
-    param_name = case record
-                 when Minister  then "minister_id"
-                 when PressDesk then "press_desk_id"
-                 else
-                   raise ArgumentError, "record must be either minister or press desk"
-                 end
+    param_name =
+      case record
+      when Minister  then 'minister_id'
+      when PressDesk then 'press_desk_id'
+      else
+        raise ArgumentError, 'record must be either minister or press desk'
+      end
     el = find("a[href=\"/reports/filter_all?#{param_name}=#{record.id}&state=#{state}\"]")
     expect(el.text).to eq(count.to_s)
   end
 
   before(:each) do
     DBHelpers.load_feature_fixtures
-    @pq1, @pq2, _ = PQA::QuestionLoader.new.load_and_import(10)
+    @pq1, @pq2, = PQA::QuestionLoader.new.load_and_import(10)
 
     clear_sent_mail
     create_pq_session
   end
 
   let(:action_officer) { ActionOfficer.first }
-  let(:minister)       { Minister.find_by_name('Chris Grayling') }
+  let(:minister)       { Minister.find_by(name: 'Chris Grayling') }
 
   scenario 'Parli-branch accesses the minister report and follows a link to the filter results page' do
     uins = [@pq1, @pq2].map(&:uin)

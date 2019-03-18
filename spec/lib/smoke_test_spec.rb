@@ -17,7 +17,7 @@ describe SmokeTest do
   end
 
   context 'Base' do
-    let(:test) { SmokeTest::Base.from_env}
+    let(:test) { SmokeTest::Base.from_env }
 
     it '#from_env - should create an instance based on environment variables' do
       expect(test.instance_variable_get(:@user)).to eq 'me'

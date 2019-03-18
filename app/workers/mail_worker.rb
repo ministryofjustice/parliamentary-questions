@@ -22,14 +22,11 @@ class MailWorker
   def starting_worker
     pid = Process.pid.to_s
 
-    if @pid_file.present?
-      raise ExistingMailWorkerProcess
-    else
-      @pid_file.pid = pid
-    end
+    raise ExistingMailWorkerProcess if @pid_file.present?
+
+    @pid_file.pid = pid
 
     yield
-
   ensure
     @pid_file.delete(pid)
   end
@@ -42,11 +39,11 @@ class MailWorker
   end
 
   def process_queue
-    until @queue.empty? do
+    until @queue.empty?
       begin
         email = @queue.shift
         process_mail(email)
-      rescue 
+      rescue
         @service.record_fail(email)
       end
     end

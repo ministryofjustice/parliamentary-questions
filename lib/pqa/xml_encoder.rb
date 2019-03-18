@@ -1,27 +1,28 @@
 module PQA
   module XMLEncoder
-    XML_NS    = {
+    XML_NS = {
       'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-      'xmlns'     => 'http://data.parliament.uk/QnA/2013/02'
+      'xmlns' => 'http://data.parliament.uk/QnA/2013/02'
     }
-    module_function
+
+    extend self
 
     def encode_answer(answer)
-      Nokogiri::XML::Builder.new { |x|
-        x.Answer('xmlns' => 'http://data.parliament.uk/QnA/2013/02') {
+      Nokogiri::XML::Builder.new do |x|
+        x.Answer('xmlns' => 'http://data.parliament.uk/QnA/2013/02') do
           x.IsHoldingAnswer answer.is_holding_answer
           x.Text answer.text
           x.MinisterId answer.member_id
-        }
-      }.to_xml
+        end
+      end.to_xml
     end
 
     def encode_answer_response(answer_response)
-      Nokogiri::XML::Builder.new { |x|
-        x.AnswerResponse(XML_NS) {
+      Nokogiri::XML::Builder.new do |x|
+        x.AnswerResponse(XML_NS) do
           x.AswerPreviewUrl answer_response.preview_url
-        }
-      }.to_xml
+        end
+      end.to_xml
     end
 
     def encode_questions(questions)

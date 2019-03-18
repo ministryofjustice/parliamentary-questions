@@ -3,9 +3,9 @@ class ImportMailer < PQBaseMailer
     @err_msg = mail_data.params
 
     mail(
-      mail_data.addressees.merge({ 
-        subject:  prefix('API import failed')
-      })
+      mail_data.addressees.merge(
+        subject: prefix('API import failed')
+      )
     )
   end
 
@@ -13,9 +13,9 @@ class ImportMailer < PQBaseMailer
     @report = mail_data.params
 
     mail(
-      mail_data.addressees.merge({ 
-        subject:  prefix('API import succeeded')
-      })
+      mail_data.addressees.merge(
+        subject: prefix('API import succeeded')
+      )
     )
   end
 end

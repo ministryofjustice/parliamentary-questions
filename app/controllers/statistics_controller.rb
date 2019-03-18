@@ -7,28 +7,28 @@ class StatisticsController < ApplicationController
 
   def on_time
     render_report(
-      PqStatistics::PercentOnTime, 
+      PqStatistics::PercentOnTime,
       Presenters::Statistics::OnTimeReport
     )
   end
 
   def time_to_assign
     render_report(
-      PqStatistics::TimeToAssign, 
+      PqStatistics::TimeToAssign,
       Presenters::Statistics::TimeToAssignReport
     )
   end
 
   def ao_response_time
     render_report(
-      PqStatistics::AoResponseTime, 
+      PqStatistics::AoResponseTime,
       Presenters::Statistics::AoResponseTimeReport
     )
   end
 
   def ao_churn
     render_report(
-      PqStatistics::AoChurn, 
+      PqStatistics::AoChurn,
       Presenters::Statistics::AoChurnReport
     )
   end

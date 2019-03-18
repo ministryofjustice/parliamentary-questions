@@ -91,7 +91,6 @@ class PqsController < ApplicationController
     trim_link_attributes: [:file]
   ]
 
-
   DATE_PARAMS = [
     :date_for_answer,
     :internal_deadline,
@@ -117,5 +116,5 @@ class PqsController < ApplicationController
     :round_robin_guidance_received,
     :transfer_out_date,
     :transfer_in_date
-    ]
+  ]
 end

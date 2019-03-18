@@ -44,7 +44,7 @@ describe ActionOfficersPq do
 
   describe '#reset' do
     before do
-      subject.response = :accepted;
+      subject.response = :accepted
       subject.reset
     end
 
@@ -54,13 +54,13 @@ describe ActionOfficersPq do
   end
 
   describe 'states' do
-    {awaiting: :awaiting_response, accepted: :accepted, rejected: :rejected}.each do |state, check|
+    { awaiting: :awaiting_response, accepted: :accepted, rejected: :rejected }.each do |state, check|
       context "when #{check}" do
         subject { described_class.new response: state }
         it { is_expected.to send("be_#{check}") }
       end
 
-      context 'when not #{state}' do
+      context "when not #{state}" do
         subject { described_class.new response: :other_state }
         it { is_expected.not_to send("be_#{check}") }
       end
