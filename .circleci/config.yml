@@ -18,7 +18,9 @@ references:
           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
           --build-arg BUILD_DATE=${BUILD_DATE} \
           --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          -t app .
+          -t app \
+          -f docker-ng/Dockerfile \
+          .
   push_docker_image: &push_docker_image
     run:
       name: Push  parliamentary-questions docker image
