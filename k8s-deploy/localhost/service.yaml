@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: parliamentary-questions-service
+  # namespace: parliamentary-questions-localhost
+spec:
+  selector:
+    app: parliamentary-questions
+  ports:
+  - name: nginx
+    protocol: http
+    port: 3000
+    targetPort: 3000
+  - name: postgresql
+    protocol: TCP
+    port: 5432
+    targetPort: 5432
