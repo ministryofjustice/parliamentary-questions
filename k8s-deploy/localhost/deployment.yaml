@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: parliamentary-questions
+  labels:
+    app: parliamentary-questions
+  annotations:
+    kubernetes.io/change-cause: "<to be filled in deploy job command>"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: parliamentary-questions
+  template:
+    metadata:
+      labels:
+        app: parliamentary-questions
+    spec:
+      containers:
+        - name: parliamentary-questions
+          image: cloud.docker.com/repository/docker/njpreddy/parliamentary-questions-development/parliamentary-questions:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec rake db:setup && bundle exec rake pqa:import_dummy_data && bundle exec rake pqa:import_from_xml[questions.xml] && bundle exec rake user:create && bundle exec rake 'user:create[admin@admin.com, 123456789, admin]' && bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+          ports:
+            - containerPort: 3000
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthcheck
+          #     port: 3000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 60
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthcheck
+          #     port: 3000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 60
+          # envFrom:
+          #   - configMapRef:
+          #       name: shared-environment
+          #   - secretRef:
+          #       name: secrets
