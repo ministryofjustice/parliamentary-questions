@@ -1,0 +1,91 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rails
+  labels:
+    app: rails
+spec:
+  replicas: 1
+  # revisionHistoryLimit: 1
+  # minReadySeconds: 10
+  # strategy:
+  #   rollingUpdate:
+  #     maxSurge: 1
+  #     maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: rails-container
+  template:
+    metadata:
+      labels:
+        app: rails-container
+    spec:
+      containers:
+      - name: rails
+        image: beccapearce/parliamentary-questions_web:latest
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', "bundle exec rake db:setup && bundle exec rake user:create &&  bundle exec rake 'user:create[admin@admin.com, 123456789, admin]' && bundle exec rails s"]
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_HOST
+          value: "postgres-service"
+        - name: POSTGRES_HOST
+          value: "postgres-service"
+        - name: PQ_REST_API_HOST
+          value: "http://localhost:8888"
+        - name: RAILS_ENV
+          value: "development"
+        # - name: TEST_USER_PASS
+        #   value: "ale"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: DB_USERNAME
+          value: "postgres"
+        - name: DB_PASSWORD
+          value: postgres
+        - name: POSTGRES_DB
+          value: parliamentary-questions_dev
+        - name: PGUSER
+          value: "postgres"
+        - name: PGPASSWORD
+          value: "postgres"
+      - name: postgres-container
+        image: 'postgres:9.6.6'
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5432
+        env:
+        - name: DB_HOST
+          value: "postgres-service"
+        - name: POSTGRES_HOST
+          value: "postgres-service"
+        - name: PQ_REST_API_HOST
+          value: "http://localhost:8888"
+        - name: RAILS_ENV
+          value: "development"
+        # - name: TEST_USER_PASS
+        #   value: "ale"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "postgres"
+        - name: DB_USERNAME
+          value: "postgres"
+        - name: DB_PASSWORD
+          value: postgres
+        - name: POSTGRES_DB
+          value: parliamentary-questions_dev
+        - name: PGUSER
+          value: "postgres"
+        - name: PGPASSWORD
+          value: "postgres"
+        volumeMounts:
+          - name: postgres-volume-mount
+            mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: postgres-pvc
