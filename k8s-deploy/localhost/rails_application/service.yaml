@@ -1,17 +1,18 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: parliamentary-questions-service
+  name: postgres-service
   # namespace: parliamentary-questions-localhost
 spec:
+  # type: NodePort
   selector:
-    app: parliamentary-questions
+    app: rails-container
   ports:
-  - name: nginx
-    protocol: http
+  - name: rails-container
+    protocol: TCP
     port: 3000
     targetPort: 3000
-  - name: postgresql
+  - name: postgres-container
     protocol: TCP
     port: 5432
     targetPort: 5432
