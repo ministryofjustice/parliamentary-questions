@@ -22,4 +22,4 @@ ADD docker/assets/nginx.service /etc/service/nginx/run
 # The way this base image handles envvars is pretty strange
 COPY docker/app_env_vars /etc/container_environment/
 
-EXPOSE 80 
+EXPOSE 80

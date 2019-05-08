@@ -51,4 +51,3 @@ RUN   bundle exec rake assets:precompile RAILS_ENV=production PQ_REST_API_HOST=l
 RUN chmod +x /tini
 
 CMD ["/run.sh"]
-

@@ -25,4 +25,3 @@ ADD docker/rails/unicorn.service /etc/service/unicorn/run
 
 # The way this base image handles envvars is pretty strange
 COPY docker/app_env_vars /etc/container_environment/
-
