@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rails-migrations
+spec:
+  backoffLimit: 4
+  template:
+    spec:
+      containers:
+      - name: parliamentary-questions-rails-app
+        image: beccapearce/parliamentary-questions_web:latest
+        imagePullPolicy: IfNotPresent
+        command: [ 'sh', '-c', "bundle exec rake db:setup && bundle exec rake user:create &&  bundle exec rake 'user:create[admin@admin.com, 123456789, admin]'"]
+        envFrom:
+          - configMapRef:
+              name: environment-variables
+      restartPolicy: OnFailure
