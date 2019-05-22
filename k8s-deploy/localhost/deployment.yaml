@@ -3,41 +3,35 @@ kind: Deployment
 metadata:
   name: rails
   labels:
-    app: rails
+    app: parliamentary-questions
 spec:
   replicas: 1
-  # revisionHistoryLimit: 1
-  # minReadySeconds: 10
-  # strategy:
-  #   rollingUpdate:
-  #     maxSurge: 1
-  #     maxUnavailable: 1
   selector:
     matchLabels:
-      app: rails-container
+      app: parliamentary-questions
   template:
     metadata:
       labels:
-        app: rails-container
+        app: parliamentary-questions
     spec:
       containers:
-      - name: rails
+      - name: parliamentary-questions-rails-app
         image: beccapearce/parliamentary-questions_web:latest
         imagePullPolicy: IfNotPresent
-        command: ['sh', '-c', "bundle exec rake db:setup && bundle exec rake user:create &&  bundle exec rake 'user:create[admin@admin.com, 123456789, admin]' && bundle exec rails s"]
+        command: ['sh', '-c', "bundle exec rails s"]
         ports:
         - containerPort: 3000
         envFrom:
           - configMapRef:
-              name: shared-environment
-      - name: postgres-container
+              name: environment-variables
+      - name: postgres
         image: 'postgres:9.6.6'
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5432
         envFrom:
           - configMapRef:
-              name: shared-environment
+              name: environment-variables
         volumeMounts:
           - name: postgres-volume-mount
             mountPath: /var/lib/postgresql/data
