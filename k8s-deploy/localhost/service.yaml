@@ -14,3 +14,7 @@ spec:
     protocol: TCP
     port: 5432
     targetPort: 5432
+  - name: api
+    protocol: TCP
+    port: 8888
+    targetPort: 8888
