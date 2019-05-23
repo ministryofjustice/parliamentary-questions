@@ -1,7 +1,7 @@
 module PQA
   class MockApiServerRunner
     PORT               = '8888'
-    HOST               = 'localhost'
+    HOST               = '127.0.0.1'
     PID_FILEPATH       = '/tmp/mock_api_server.pid'
     LOG_FILEPATH       = File.expand_path('../../log/mock-api.log', __dir__)
     RACK_CONFIG_PATH   = File.expand_path('../../mock_api_config.ru', __dir__)
