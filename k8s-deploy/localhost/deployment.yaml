@@ -25,7 +25,7 @@ spec:
           - configMapRef:
               name: environment-variables
       - name: postgres
-        image: 'postgres:9.6.6'
+        image: 'postgres:10'
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5432
