@@ -24,6 +24,8 @@ spec:
         envFrom:
           - configMapRef:
               name: environment-variables
+          - secretRef:
+              name: pq-secrets
       - name: postgres
         image: 'postgres:10'
         imagePullPolicy: IfNotPresent
@@ -32,6 +34,8 @@ spec:
         envFrom:
           - configMapRef:
               name: environment-variables
+          - secretRef:
+              name: pq-secrets
         volumeMounts:
           - name: postgres-volume-mount
             mountPath: /var/lib/postgresql/data
