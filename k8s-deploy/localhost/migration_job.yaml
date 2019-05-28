@@ -14,4 +14,6 @@ spec:
         envFrom:
           - configMapRef:
               name: environment-variables
+          - secretRef:
+              name: pq-secrets
       restartPolicy: OnFailure
