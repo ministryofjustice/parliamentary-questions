@@ -10,7 +10,7 @@ $ gpg --list-keys --keyid-format LONG
 
 ```
 pub   rsa4096/920B3F64DC2C699A 2016-10-12 [SC] [expires: 2020-10-12]
-      2B18220F27F54EF4DEE1D0BB78FCB7A47D7827E5
+         2B18220F27F54EF4DEE1D0BB78FCB7A47D7827E5
 uid   [ultimate] Mickey Mouse <foo@bar.com>
 sub   rsa4096/FAB129D811D21E5B 2016-10-12 [E] [expires: 2020-10-12]
 ```
@@ -19,7 +19,7 @@ If you don't have a key already, please read this GitHub page describing how to 
 
 ​    https://help.github.com/en/articles/generating-a-new-gpg-key
 
-You need to get the public key which is a hexadecimal string. In this case it is
+You need to get the public key which is a hexadecimal string. In this case it is 
 
 ```
 2B18220F27F54EF4DEE1D0BB78FCB7A47D7827E5
