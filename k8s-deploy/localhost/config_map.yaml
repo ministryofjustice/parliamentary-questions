@@ -4,7 +4,7 @@ metadata:
   name: environment-variables
 data:
   DB_HOST: "parliamentary-questions-service"
-  PQ_REST_API_HOST: "http://localhost:8888"
+  # PQ_REST_API_HOST: "http://localhost:8888"
   RAILS_ENV: "development"
   # PGUSER: "postgres"
   # PGPASSWORD: "postgres"
