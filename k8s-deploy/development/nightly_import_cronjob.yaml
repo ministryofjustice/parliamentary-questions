@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
           - name: nightly-import
-            image: beccapearce/parliamentary-questions_web:latest
+            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
             imagePullPolicy: IfNotPresent
             command: ['sh', '-c', "bundle exec rake 'pqa:nightly_import'"]
             envFrom:
