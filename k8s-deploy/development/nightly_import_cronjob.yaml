@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: nightly-import
+spec:
+  schedule: "* 4,6 * * *"
+  startingDeadlineSeconds: 10
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: nightly-import
+            image: beccapearce/parliamentary-questions_web:latest
+            imagePullPolicy: IfNotPresent
+            command: ['sh', '-c', "bundle exec rake 'pqa:nightly_import'"]
+            envFrom:
+              - configMapRef:
+                  name: environment-variables
+              - secretRef:
+                  name: pq-secrets
+          restartPolicy: OnFailure
