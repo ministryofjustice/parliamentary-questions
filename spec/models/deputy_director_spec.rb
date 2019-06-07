@@ -14,7 +14,9 @@
 require 'spec_helper'
 
 describe DeputyDirector do
-  let(:depdir) { build(:deputy_director) }
+
+  let(:div)    { create :division }
+  let(:depdir) { build(:deputy_director, division: div) }
 
   it { should validate_presence_of(:name) }
 
