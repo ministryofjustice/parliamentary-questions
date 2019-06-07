@@ -9,6 +9,7 @@ namespace :pqa do
     uins = args[:uins].split
     importer = PQA::Import.new
     uins.each do |uin|
+<<<<<<< HEAD
       begin
         report = importer.run_for_question(uin)
       rescue HTTPClient::FailureResponse => e
@@ -16,6 +17,13 @@ namespace :pqa do
       else
         puts analyse_report(uin, report)
       end
+=======
+      report = importer.run_for_question(uin)
+    rescue HTTPClient::FailureResponse => err
+      puts "UIN '#{uin}': #{err.message}"
+    else
+      puts analyse_report(uin, report)
+>>>>>>> Update ruby version to 2.5.5
     end
   end
 
