@@ -13,7 +13,9 @@
 require 'spec_helper'
 
 describe Division do
-  let(:div) { build(:division) }
+
+  let!(:directorate) { create :directorate }
+  let(:div)          { build :division, directorate: directorate }
 
   it { should validate_presence_of(:name) }
 

@@ -9,13 +9,11 @@ namespace :pqa do
     uins = args[:uins].split
     importer = PQA::Import.new
     uins.each do |uin|
-      begin
-        report = importer.run_for_question(uin)
-      rescue HTTPClient::FailureResponse => err
-        puts "UIN '#{uin}': #{err.message}"
-      else
-        puts analyse_report(uin, report)
-      end
+      report = importer.run_for_question(uin)
+    rescue HTTPClient::FailureResponse => err
+      puts "UIN '#{uin}': #{err.message}"
+    else
+      puts analyse_report(uin, report)
     end
   end
 
