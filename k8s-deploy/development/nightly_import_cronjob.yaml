@@ -22,4 +22,20 @@ spec:
                   name: environment-variables
               - secretRef:
                   name: pq-secrets
+            env:
+              - name: DB_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: parliamentary-questions-development-rds
+                    key: rds_instance_address
+              - name: PGUSER
+                valueFrom:
+                  secretKeyRef:
+                    name: parliamentary-questions-development-rds
+                    key: database_username
+              - name: PGPASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: parliamentary-questions-development-rds
+                    key: database_password
           restartPolicy: OnFailure

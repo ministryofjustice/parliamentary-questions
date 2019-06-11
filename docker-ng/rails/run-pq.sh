@@ -54,4 +54,3 @@ fi
 
 echo "Starting unicorn"           | tee -a /usr/src/app/log/unicorn.log
 exec bundle exec unicorn -p 8080 -c config/unicorn.rb 2>&1 | tee -a /usr/src/app/log/unicorn.log
-
