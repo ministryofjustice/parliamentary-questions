@@ -9,12 +9,12 @@ spec:
   - name: parliamentary-questions-rails-app
     protocol: TCP
     port: 3000
-    targetPort: 3000
+    targetPort: 80
   # - name: postgres
   #   protocol: TCP
   #   port: 5432
-  #   targetPort: 5432
-  - name: api
-    protocol: TCP
-    port: 8888
-    targetPort: 8888
+  #   targetPort: 3000
+  # - name: api
+  #   protocol: TCP
+  #   port: 8888
+  #   targetPort: 8888
