@@ -21,17 +21,35 @@ spec:
         command: ['sh', '-c', "bundle exec rails s"]
         ports:
         - containerPort: 3000
+        # livenessProbe:
+        #   httpGet:
+        #     path: /ping
+        #     port: 80
+        # readinessProbe:
+        #   httpGet:
+        #     path: /healthcheck
+        #     port: 4567
         envFrom:
           - configMapRef:
               name: environment-variables
           - secretRef:
               name: pq-secrets
         env:
-          - name: DATABASE_URL
+          - name: DB_HOST
             valueFrom:
               secretKeyRef:
                 name: parliamentary-questions-development-rds
-                key: url
+                key: rds_instance_address
+          - name: PGUSER
+            valueFrom:
+              secretKeyRef:
+                name: parliamentary-questions-development-rds
+                key: database_username
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: parliamentary-questions-development-rds
+                key: database_password
       #   volumeMounts:
       #     - name: postgres-volume-mount
       #       mountPath: /var/lib/postgresql/data
