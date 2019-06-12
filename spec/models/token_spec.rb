@@ -16,7 +16,6 @@
 require 'spec_helper'
 
 describe Token, type: :model do
-
   describe 'accept/reject' do
     let(:token)         { FactoryBot.create :token }
     let(:frozen_time)   { Time.utc(2015, 5, 19, 12, 47, 33) }
@@ -41,21 +40,20 @@ describe Token, type: :model do
   end
 
   describe 'acknowledged?' do
-
-    it 'allow acknowledged to be accepted' do 
-      expect(subject).to allow_value("accept").for(:acknowledged)   
+    it 'allow acknowledged to be accepted' do
+      expect(subject).to allow_value('accept').for(:acknowledged)
     end
 
-    it 'allow acknowledged to be rejected' do 
-      expect(subject).to allow_value("reject").for(:acknowledged)   
+    it 'allow acknowledged to be rejected' do
+      expect(subject).to allow_value('reject').for(:acknowledged)
     end
 
-    it 'allow acknowledged to be nil' do 
-      expect(subject).to allow_value(nil).for(:acknowledged)   
+    it 'allow acknowledged to be nil' do
+      expect(subject).to allow_value(nil).for(:acknowledged)
     end
 
-    it 'not allow acknowledged to be giddykipper' do 
-      should_not allow_value("giddykipper").for(:acknowledged).with_message("giddykipper is not a valid value for acknowledged")   
+    it 'not allow acknowledged to be giddykipper' do
+      should_not allow_value('giddykipper').for(:acknowledged).with_message('giddykipper is not a valid value for acknowledged')
     end
 
     it 'should return true if accepted' do

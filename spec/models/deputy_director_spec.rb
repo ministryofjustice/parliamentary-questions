@@ -14,7 +14,6 @@
 require 'spec_helper'
 
 describe DeputyDirector do
-
   let(:div)    { create :division }
   let(:depdir) { build(:deputy_director, division: div) }
 

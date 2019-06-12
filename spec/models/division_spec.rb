@@ -13,7 +13,6 @@
 require 'spec_helper'
 
 describe Division do
-
   let!(:directorate) { create :directorate }
   let(:div)          { build :division, directorate: directorate }
 

@@ -17,10 +17,9 @@
 require 'spec_helper'
 
 describe ActionOfficer do
-  
   let(:rita_skeeter) { create :press_desk }
   let(:maud_dib)     { create :deputy_director }
-  let(:officer)      { build(:action_officer, press_desk: rita_skeeter, deputy_director: maud_dib ) }
+  let(:officer)      { build(:action_officer, press_desk: rita_skeeter, deputy_director: maud_dib) }
 
   it 'should pass factory build' do
     expect(officer).to be_valid
