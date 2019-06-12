@@ -2,6 +2,9 @@ kind: Service
 apiVersion: v1
 metadata:
   name: parliamentary-questions-service
+  namespace: parliamentary-questions-development
+  labels:
+    app: parliamentary-questions
 spec:
   selector:
     app: parliamentary-questions
@@ -9,7 +12,7 @@ spec:
   - name: parliamentary-questions-rails-app
     protocol: TCP
     port: 3000
-    targetPort: 80
+    targetPort: 3000
   # - name: postgres
   #   protocol: TCP
   #   port: 5432
