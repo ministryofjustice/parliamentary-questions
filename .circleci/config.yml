@@ -5,7 +5,7 @@ references:
     working_directory: ~/parliamentary-questions
 
 # Sets up the docker images and environment variables that we use
-  container_config: &container_config
+  test_container_config: &test_container_config
     docker:
       - image: circleci/ruby:2.5.5-node-browsers
         environment:
@@ -23,20 +23,43 @@ references:
 
       - image: postgres:10
         environment:
-          # PG_HOST: localhost
           PG_PASSWORD: ""
           PG_USER: postgres
           POSTGRES_DB: parliamentary-questions_test
           POSTGRES_USER: postgres
           PGUSER: postgres
-          # PGHOST: localhost
+
+  deply_container_config: &deploy_container_config
+    docker:
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
 
 
 # These are defining the steps which are used below in the jobs
 
+  install_gpg: &install_gpg
+    run:
+      name: Install GPG
+      command: |
+        apk add \
+          --no-cache \
+          --no-progress \
+          gnupg
+
+  configure_gpg: &configure_gpg
+    run:
+      name: Configure GPG
+      command: |
+        echo "${GPG_PRIVATE_KEY}" | base64 -d | gpg --batch --allow-secret-key-import --import
+
+  decrypt_secrets: &decrypt_secrets
+    run:
+      name: Decrypt secrets file
+      command: |
+        git-crypt unlock
+
   build_docker_image: &build_docker_image
     run:
-      name: build_docker_image
+      name: Build docker image
       command: |
         export BUILD_DATE=$(date -Is) >> $BASH_ENV
         source $BASH_ENV
@@ -50,7 +73,7 @@ references:
 
   push_docker_image: &push_docker_image
     run:
-      name: push_docker_image
+      name: Push docker image
       command: |
         login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
         ${login}
@@ -61,6 +84,17 @@ references:
           docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
         fi
 
+  install_bundler: &install_bundler
+    run:
+      name: Install bundler
+      command: |
+        gem install bundler -v 2.0.2
+
+  check_bundler_version: &check_bundler_version
+    run:
+      name: Check the installed version of bundler
+      command: |
+        bundle -v
 
   restore-cache: &restore-cache
     restore_cache:
@@ -69,13 +103,13 @@ references:
         # fallback to using the latest cache if no exact match is found
         - v1-dependencies-
 
-  install_gems: &install_gems
+  install_dependencies: &install_dependencies
     run:
-      name: Clone and install gems
+      name: Install dependencies
       command: |
-        git clone git@github.com:ministryofjustice/parliamentary-questions.git
-        cd parliamentary-questions
-        bundle check --path vendor/bundle || bundle install --path vendor/bundle
+        if [ "${CIRCLE_NODE_INDEX}" == "0" ]; then
+          bundle check --path vendor/bundle || bundle install --path vendor/bundle && bundle clean
+        fi
 
   save_cache: &save_cache
     save_cache:
@@ -90,7 +124,7 @@ references:
 
   set_up_the_database: &set_up_the_database
     run:
-      name: set_up_the_database
+      name: Set up the database
       command: |
         bundle exec rake db:setup
 
@@ -101,7 +135,7 @@ references:
 
   tests: &tests
     run:
-      name: run tests
+      name: Run tests
       command: |
         bundle exec rspec --profile 10 \
                           --format RspecJunitFormatter \
@@ -109,34 +143,34 @@ references:
                           --format progress \
                           $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
+  deploy_to_dev: &deploy_to_dev
+    run:
+      name: Deploy to dev environment
+      command: |
+        setup-kube-auth
+        kubectl config use-context development
+        sed -i -e s/:latest/:$CIRCLE_SHA1/ k8s-deploy/development/deployment.yaml
+        kubectl apply --record=false -f ./k8s-deploy/development/deployment.yaml
+        kubectl apply --record=false -f ./k8s-deploy/development/migration_job.yaml
+        kubectl apply --record=false -f ./k8s-deploy/development/ingress.yaml
+        kubectl apply --record=false -f ./k8s-deploy/development/service.yaml
+        kubectl apply --record=false -f ./k8s-deploy/development/config_map.yaml
+        kubectl apply --record=false -f ./k8s-deploy/development/nightly_import_cronjob.yaml
+
 #  These are the jobs which run the steps. The jobs are used by the workflows.
 
 jobs:
-  build:
-    <<: *container_config
-    <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *build_docker_image
-      - *push_docker_image
-
   build_and_test:
-    <<: *container_config
+    <<: *test_container_config
     <<: *defaults
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - *install_bundler
+      - *check_bundler_version
       - run:
-          name: install bundle
-          command: gem install bundler -v 2.0.1
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - run:
-          name: Set up
+          name: Set up AWS cli
 # Takes a long time. Is there a better way of doing this?
           command: |
             sudo apt-get update
@@ -144,30 +178,41 @@ jobs:
             sudo pip3 install awscli
       - *build_docker_image
       - *push_docker_image
-      - run:
-          name: Bundle Install
-          command: |
-            if [ "${CIRCLE_NODE_INDEX}" == "0" ]; then
-              gem install bundler -v 2.0.2
-              bundle check --path vendor/bundle || bundle install --path vendor/bundle && bundle clean
-            fi
+      - *install_dependencies
       - *wait_for_db
       - *set_up_the_database
-      # - *rubocop
+      - *rubocop
       - *tests
       - store_test_results:
           path: test_results
+
+  deploy:
+    <<: *deploy_container_config
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - *install_gpg
+      - *configure_gpg
+      - *decrypt_secrets
+      - *deploy_to_dev
 
 #  Workflows combine jobs to perform the actions
 
 workflows:
   version: 2
-  run_tests:
+  build_and_run_tests:
     jobs:
       - build_and_test:
           filters:
             branches:
               only: add-circleci
-
+      - deploy:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: add-circleci
 
 #  TODO Organise this better e.g. build should a job that can be used by all the other workflows
