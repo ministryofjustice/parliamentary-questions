@@ -70,4 +70,4 @@ RUN chown -R appuser:appgroup log tmp db
 
 USER 1000
 
-CMD ["/run.sh"]
+CMD ["/run-pq.sh"]
