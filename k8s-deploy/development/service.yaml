@@ -9,8 +9,7 @@ spec:
   selector:
     app: parliamentary-questions
   ports:
-  - name: parliamentary-questions-rails-app
-    protocol: TCP
+  - name: http
     port: 3000
     targetPort: 3000
   # - name: postgres
