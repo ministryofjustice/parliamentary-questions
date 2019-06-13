@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: rails
+  name: parliamentary-questions
   labels:
     app: parliamentary-questions
 spec:
@@ -18,7 +18,7 @@ spec:
       - name: parliamentary-questions-rails-app
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
         imagePullPolicy: Always
-        command: ['sh', '-c', "bundle exec rails s"]
+        command: ['sh', '-c', "bundle exec puma -p 3000"]
         ports:
         - containerPort: 3000
         # livenessProbe:
