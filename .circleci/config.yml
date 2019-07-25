@@ -1,6 +1,8 @@
 version: 2
 
 references:
+  defaults: &defaults
+    working_directory: ~/parliamentary-questions
 
 # Sets up the docker images and environment variables that we use
   container_config: &container_config
@@ -11,11 +13,24 @@ references:
           APPLICATION_DEPLOY_NAME: pq
           RAILS_ENV: test
           RACK_ENV: test
+          PQ_REST_API_HOST: http://localhost:8888
+          PG_HOST: 127.0.0.1
+          PG_PASSWORD: ""
+          PG_USER: postgres
+          PGUSER: postgres
+          PGHOST: 127.0.0.1
+          POSTGRES_DB: parliamentary-questions_test
+
       - image: postgres:10
         environment:
+          # PG_HOST: localhost
+          PG_PASSWORD: ""
+          PG_USER: postgres
           POSTGRES_DB: parliamentary-questions_test
-          PGPASSWORD: ""
-          PUSER: parliamentary-questions
+          POSTGRES_USER: postgres
+          PGUSER: postgres
+          # PGHOST: localhost
+
 
 # These are defining the steps which are used below in the jobs
 
@@ -99,6 +114,7 @@ references:
 jobs:
   build:
     <<: *container_config
+    <<: *defaults
     steps:
       - checkout
       - setup_remote_docker:
@@ -108,6 +124,7 @@ jobs:
 
   build_and_test:
     <<: *container_config
+    <<: *defaults
     steps:
       - checkout
       - setup_remote_docker:
@@ -119,16 +136,24 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - run:
-          name: Set up aws
+          name: Set up
+# Takes a long time. Is there a better way of doing this?
           command: |
             sudo apt-get update
             sudo apt-get --assume-yes install python3-pip
             sudo pip3 install awscli
       - *build_docker_image
       - *push_docker_image
+      - run:
+          name: Bundle Install
+          command: |
+            if [ "${CIRCLE_NODE_INDEX}" == "0" ]; then
+              gem install bundler -v 2.0.2
+              bundle check --path vendor/bundle || bundle install --path vendor/bundle && bundle clean
+            fi
       - *wait_for_db
       - *set_up_the_database
-      - *rubocop
+      # - *rubocop
       - *tests
       - store_test_results:
           path: test_results
