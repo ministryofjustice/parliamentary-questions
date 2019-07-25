@@ -1,15 +1,27 @@
 version: 2
 
 references:
+
+# Sets up the docker images and environment variables that we use
   container_config: &container_config
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+      - image: circleci/ruby:2.5.5-node-browsers
         environment:
           GITHUB_TEAM_NAME_SLUG: pq-team
           APPLICATION_DEPLOY_NAME: pq
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: postgres:10
+        environment:
+          POSTGRES_DB: parliamentary-questions_test
+          PGPASSWORD: ""
+          PUSER: parliamentary-questions
+
+# These are defining the steps which are used below in the jobs
+
   build_docker_image: &build_docker_image
     run:
-      name: Build parliamentary-questions docker image
+      name: build_docker_image
       command: |
         export BUILD_DATE=$(date -Is) >> $BASH_ENV
         source $BASH_ENV
@@ -18,14 +30,14 @@ references:
           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
           --build-arg BUILD_DATE=${BUILD_DATE} \
           --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          -t app \
-          -f docker-ng/Dockerfile \
-          .
+          -f docker-ng/rails/Dockerfile \
+          -t app .
+
   push_docker_image: &push_docker_image
     run:
-      name: Push  parliamentary-questions docker image
+      name: push_docker_image
       command: |
-        login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
+        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
         ${login}
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
@@ -33,6 +45,56 @@ references:
           docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
           docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
         fi
+
+
+  restore-cache: &restore-cache
+    restore_cache:
+      keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        # fallback to using the latest cache if no exact match is found
+        - v1-dependencies-
+
+  install_gems: &install_gems
+    run:
+      name: Clone and install gems
+      command: |
+        git clone git@github.com:ministryofjustice/parliamentary-questions.git
+        cd parliamentary-questions
+        bundle check --path vendor/bundle || bundle install --path vendor/bundle
+
+  save_cache: &save_cache
+    save_cache:
+      key: parliamentary-questions-{{ checksum "Gemfile.lock" }}
+      paths:
+        - ~/test/vendor/bundle
+
+  wait_for_db: &wait_for_db
+    run:
+      name: Wait for DB
+      command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+  set_up_the_database: &set_up_the_database
+    run:
+      name: set_up_the_database
+      command: |
+        bundle exec rake db:setup
+
+  rubocop: &rubocop
+    run:
+      name: Run rubocop
+      command: bundle exec rubocop
+
+  tests: &tests
+    run:
+      name: run tests
+      command: |
+        bundle exec rspec --profile 10 \
+                          --format RspecJunitFormatter \
+                          --out test_results/rspec.xml \
+                          --format progress \
+                          $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+#  These are the jobs which run the steps. The jobs are used by the workflows.
 
 jobs:
   build:
@@ -44,11 +106,37 @@ jobs:
       - *build_docker_image
       - *push_docker_image
 
+  build_and_test:
+    <<: *container_config
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: install bundle
+          command: gem install bundler -v 2.0.1
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - *build_docker_image
+      - *push_docker_image
+      - *wait_for_db
+      - *set_up_the_database
+      - *rubocop
+      - *tests
+      - store_test_results:
+          path: test_results
+
+#  Workflows combine jobs to perform the actions
+
 workflows:
   version: 2
-  build-and-deploy-dev:
+  run_tests:
     jobs:
-      - build
-      - dev_deploy:
-          requires:
-            - build
+      - build_and_test:
+          filters:
+            branches:
+              only: add-circleci
+
+
+#  TODO Organise this better e.g. build should a job that can be used by all the other workflows
