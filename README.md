@@ -3,6 +3,7 @@ parliamentary-questions
 
 [![Build Status](https://travis-ci.org/ministryofjustice/parliamentary-questions.png?branch=master)](https://travis-ci.org/ministryofjustice/parliamentary-questions)
 [![Code Climate](https://codeclimate.com/github/ministryofjustice/parliamentary-questions/badges/gpa.svg)](https://codeclimate.com/github/ministryofjustice/parliamentary-questions)
+[![CircleCI](https://circleci.com/gh/ministryofjustice/parliamentary-questions/tree/add-circleci.svg?style=svg)](https://circleci.com/gh/ministryofjustice/parliamentary-questions/tree/add-circleci)
 
 # Introduction
 Webapp to manage the workflow Parliamentary Questions
@@ -79,5 +80,4 @@ the application schema evolves.
 Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
 be run be executing the same command with the features folder as argument (i.e.
 `bundle exec rspec features`). Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/features) in the features folder
-for end-to-end tests implementation details. 
- 
+for end-to-end tests implementation details.
