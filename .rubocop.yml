@@ -9,6 +9,7 @@ AllCops:
 
   Exclude:
     - db/schema.rb # Because it's generated.
+    - vendor / ** / * # testing to see if this prevents version mismatch in circleci
 
 # Bundler Cops ============================================================================
 
