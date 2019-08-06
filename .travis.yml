@@ -26,4 +26,4 @@ script:
 #    template:
 #      - '%{message} (<a href="%{build_url}">details</a>/<a href="%{compare_url}">changes</a>) - build #%{build_number}, branch <a href="https://github.com/%{repository}/tree/%{branch}">%{branch}</a>; of %{repository}'
 addons:
-  postgresql: 9.3
+  postgresql: 9.6
