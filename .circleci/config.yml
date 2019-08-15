@@ -55,6 +55,12 @@ references:
     run:
       name: Decrypt secrets file
       command: |
+        gpg --export-ownertrust > /tmp/ownertrust.txt
+        echo $GPG_KEY_ID:1 >> /tmp/ownertrust.txt
+        gpg --import-ownertrust /tmp/ownertrust.txt
+        gpgconf --kill gpg-agent
+        gpg-agent --daemon --allow-preset-passphrase
+        /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
         git-crypt unlock
 
   build_docker_image: &build_docker_image
@@ -150,12 +156,7 @@ references:
         setup-kube-auth
         kubectl config use-context development
         sed -i -e s/:latest/:$CIRCLE_SHA1/ k8s-deploy/development/deployment.yaml
-        kubectl apply --record=false -f ./k8s-deploy/development/deployment.yaml
-        kubectl apply --record=false -f ./k8s-deploy/development/migration_job.yaml
-        kubectl apply --record=false -f ./k8s-deploy/development/ingress.yaml
-        kubectl apply --record=false -f ./k8s-deploy/development/service.yaml
-        kubectl apply --record=false -f ./k8s-deploy/development/config_map.yaml
-        kubectl apply --record=false -f ./k8s-deploy/development/nightly_import_cronjob.yaml
+        kubectl apply --record=false -f ./k8s-deploy/development/
 
 #  These are the jobs which run the steps. The jobs are used by the workflows.
 
@@ -214,5 +215,3 @@ workflows:
           filters:
             branches:
               only: add-circleci
-
-#  TODO Organise this better e.g. build should a job that can be used by all the other workflows
