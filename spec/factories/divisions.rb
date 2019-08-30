@@ -14,7 +14,7 @@
 
 FactoryBot.define do
   factory :division do
-    name { Faker::Commerce.department(1) }
+    name { Faker::Commerce.department(max: 1) }
     directorate
   end
 end
