@@ -38,11 +38,23 @@ describe Token, type: :model do
   end
 
   describe 'acknowledged?' do
+    it 'should return true if accepted' do
+      t = FactoryBot.build(:token, acknowledged: 'accept')
+      expect(t.acknowledged?).to be true
+    end
     it 'allow acknowledged to be accepted' do
       expect(subject).to allow_value('accept').for(:acknowledged)
     end
+    it 'should return true if rejected' do
+      t = FactoryBot.build(:token, acknowledged: 'reject')
+      expect(t.acknowledged?).to be true
+    end
     it 'allow acknowledged to be rejected' do
       expect(subject).to allow_value('reject').for(:acknowledged)
+    end
+    it 'should return false if neither' do
+      t = FactoryBot.build(:token)
+      expect(t.acknowledged?).to be false
     end
     it 'allow acknowledged to be nil' do
       expect(subject).to allow_value(nil).for(:acknowledged)
