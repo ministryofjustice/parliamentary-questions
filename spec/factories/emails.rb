@@ -29,12 +29,12 @@ FactoryBot.define do
     to                      { Faker::Internet.safe_email }
     cc                      { Faker::Internet.safe_email }
     reply_to                { Faker::Internet.safe_email }
-    send_attempted_at       { Faker::Time.between(DateTime.yesterday, DateTime.now) }
+    send_attempted_at       { Faker::Time.between(from: DateTime.yesterday, to: DateTime.now) }
 
     factory :pq_email_sent, class: Email do
       num_send_attempts     { 1 }
       status                { 'sent' }
-      sent_at               { Faker::Time.between(DateTime.yesterday, DateTime.now) }
+      sent_at               { Faker::Time.between(from: DateTime.yesterday, to: DateTime.now) }
     end
 
     factory :pq_email_failed, class: Email do
