@@ -354,21 +354,27 @@ var document, $, trimLink, ga;
     } else {
       // all other pages
 
-      // set up any date pickers on the page
-      $('.datetimepicker input').datetimepicker({validateOnBlur: false,
-                                                 scrollMonth: false,
-                                                 closeOnDateSelect: true,
-                                                 dayOfWeekStart: 1,
-                                                 format: 'd/m/Y H:i'});
-
       // set up any datetime pickers on the page
-      $('.datepicker input').datetimepicker({timepicker: false,
-                                             scrollInput: false,
-                                             scrollMonth: false,
-                                             validateOnBlur: false,
-                                             closeOnDateSelect: true,
-                                             dayOfWeekStart: 1,
-                                             format: 'd/m/Y'});
+      $('.datepicker input').datetimepicker({
+        closeOnDateSelect: true,
+        dayOfWeekStart: 1,
+        format: 'd/m/Y',
+        scrollInput: false,
+        scrollMonth: false,
+        timepicker: false,
+        validateOnBlur: false
+      });
+
+      // set up any date pickers on the page
+      $('.datetimepicker input').datetimepicker({
+        closeOnDateSelect: true,
+        dayOfWeekStart: 1,
+        defaultTime: '11:00',
+        format: 'd/m/Y H:i',
+        scrollMonth: false,
+        validateOnBlur: false
+      });
+
       // enable select2 drop-boxes on various select controls
       $('.minister-select').select2({width: '250px'});
       $('.multi-select-action-officers').select2({width: '250px'});
