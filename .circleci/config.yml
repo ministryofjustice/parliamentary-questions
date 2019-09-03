@@ -139,15 +139,20 @@ references:
       name: Run rubocop
       command: bundle exec rubocop
 
-  tests: &tests
+  run_unit_tests: &run_unit_tests
     run:
-      name: Run tests
+      name: Run unit tests
       command: |
         bundle exec rspec --profile 10 \
                           --format RspecJunitFormatter \
                           --out test_results/rspec.xml \
                           --format progress \
                           $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+  run_feature_tests: &run_feature_tests
+    run:
+      name: Run feature tests
+      command: |
+        bundle exec rspec features
 
   deploy_to_dev: &deploy_to_dev
     run:
@@ -173,7 +178,6 @@ jobs:
       - *check_bundler_version
       - run:
           name: Set up AWS cli
-# Takes a long time. Is there a better way of doing this?
           command: |
             sudo apt-get update
             sudo apt-get --assume-yes install python3-pip
@@ -185,11 +189,11 @@ jobs:
       - *wait_for_db
       - *set_up_the_database
       - *rubocop
-      - *tests
-      - store_test_results:
-          path: test_results
+      - *run_unit_tests
+      - *run_feature_tests
 
-  deploy:
+
+  deploy_to_dev:
     <<: *deploy_container_config
     <<: *defaults
     steps:
@@ -207,13 +211,10 @@ workflows:
   version: 2
   build_and_run_tests:
     jobs:
-      - build_and_test:
-          filters:
-            branches:
-              only: add-circleci
-      - deploy:
+      - build_and_test
+      - deploy_to_dev:
           requires:
             - build_and_test
           filters:
             branches:
-              only: add-circleci
+              only: master
