@@ -7,7 +7,7 @@ references:
 # Sets up the docker images and environment variables that we use
   test_container_config: &test_container_config
     docker:
-      - image: circleci/ruby:2.5.5-node-browsers
+      - image: circleci/ruby:2.5.5-node-browsers-legacy
         environment:
           GITHUB_TEAM_NAME_SLUG: pq-team
           APPLICATION_DEPLOY_NAME: pq
@@ -102,6 +102,14 @@ references:
       command: |
         bundle -v
 
+  set_up_aws_cli: &set_up_aws_cli
+    run:
+      name: Set up AWS CLI
+      command: |
+        sudo apt-get update
+        sudo apt-get --assume-yes install python3-pip
+        sudo pip3 install awscli
+
   restore_cache: &restore_cache
     restore_cache:
       keys:
@@ -176,12 +184,7 @@ jobs:
       - *restore_cache
       - *install_bundler
       - *check_bundler_version
-      - run:
-          name: Set up AWS cli
-          command: |
-            sudo apt-get update
-            sudo apt-get --assume-yes install python3-pip
-            sudo pip3 install awscli
+      - *set_up_aws_cli
       - *build_docker_image
       - *push_docker_image
       - *install_dependencies
