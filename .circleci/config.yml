@@ -102,7 +102,7 @@ references:
       command: |
         bundle -v
 
-  restore-cache: &restore-cache
+  restore_cache: &restore_cache
     restore_cache:
       keys:
         - v1-dependencies-{{ checksum "Gemfile.lock" }}
@@ -168,6 +168,7 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - *restore_cache
       - *install_bundler
       - *check_bundler_version
       - run:
@@ -180,6 +181,7 @@ jobs:
       - *build_docker_image
       - *push_docker_image
       - *install_dependencies
+      - *save_cache
       - *wait_for_db
       - *set_up_the_database
       - *rubocop
