@@ -29,7 +29,7 @@ references:
           POSTGRES_USER: postgres
           PGUSER: postgres
 
-  deply_container_config: &deploy_container_config
+  deploy_container_config: &deploy_container_config
     docker:
       - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
 
@@ -151,11 +151,16 @@ references:
     run:
       name: Run unit tests
       command: |
-        bundle exec rspec --profile 10 \
-                          --format RspecJunitFormatter \
-                          --out test_results/rspec.xml \
-                          --format progress \
-                          $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+        bundle exec rspec
+# This command is from the CircleCI docs and is for running in a time
+# base system. We currenly are not using it, but here if we want to
+# implement it
+#
+# bundle exec rspec --profile 10 \
+#                   --format RspecJunitFormatter \
+#                   --out test_results/rspec.xml \
+#                   --format progress \
+#                   $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
   run_feature_tests: &run_feature_tests
     run:
       name: Run feature tests
