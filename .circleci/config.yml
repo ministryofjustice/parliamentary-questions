@@ -104,6 +104,7 @@ references:
 
   set_up_aws_cli: &set_up_aws_cli
     run:
+      # this is needed to get a token from the cloud platform to use kubernetes
       name: Set up AWS CLI
       command: |
         sudo apt-get update
