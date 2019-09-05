@@ -5,8 +5,8 @@ AllCops:
 
   Exclude:
     - db/schema.rb # Because it's generated.
-    - vendor / ** / * # testing to see if this prevents version mismatch in circleci
-    - vendor/bundle/**/*
+    - vendor / ** / * # this prevents version mismatch in circleci
+    - vendor/bundle/**/* # this prevents rubocop being run on dependencies in circleci
 
 # Bundler Cops ============================================================================
 
@@ -293,10 +293,8 @@ Style/ImplicitRuntimeError:
   Description: 'This cop checks for raise or fail statements which do not specify an explicit exception class.'
   Enabled: false
 
-# Is there a better way of doing this? we have one hard coded IP for
-# the mock API runner, which probably won't need to be changed however
-# really we probably want the cop in all other instances
-
+# added in due to the need to hardcode IP addresses for kubernetes
+# maybe we can avoid havingto disable this cop by using an env variable?
 Style/IpAddresses:
   Description: 'This cop checks for hardcoded IP adressed which can make the code brittle to change'
   Enabled: false
