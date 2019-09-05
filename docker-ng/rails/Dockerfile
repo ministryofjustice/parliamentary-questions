@@ -45,6 +45,7 @@ RUN apk --no-cache add --virtual build-dependencies \
 ADD ./ /usr/src/app
 
 COPY Gemfile* ./
+RUN gem install bundler -v 2.0.2
 RUN bundle install
 COPY . .
 
