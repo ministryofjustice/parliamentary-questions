@@ -113,9 +113,9 @@ references:
   restore_cache: &restore_cache
     restore_cache:
       keys:
-        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - parliamentary-questions-{{ checksum "Gemfile.lock" }}
         # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
+        - parliamentary-questions-
 
   install_dependencies: &install_dependencies
     run:
@@ -129,7 +129,7 @@ references:
     save_cache:
       key: parliamentary-questions-{{ checksum "Gemfile.lock" }}
       paths:
-        - ~/test/vendor/bundle
+        - vendor/bundle
 
   wait_for_db: &wait_for_db
     run:
