@@ -12,11 +12,3 @@ spec:
   - name: http
     port: 3000
     targetPort: 3000
-  # - name: postgres
-  #   protocol: TCP
-  #   port: 5432
-  #   targetPort: 3000
-  # - name: api
-  #   protocol: TCP
-  #   port: 8888
-  #   targetPort: 8888
