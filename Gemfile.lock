@@ -187,7 +187,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.12.2)
-    momentjs-rails (2.5.1)
+    momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
     mustermann (1.0.3)
@@ -400,7 +400,7 @@ DEPENDENCIES
   letter_opener
   logstasher
   mechanize
-  momentjs-rails (~> 2.5.0)
+  momentjs-rails (~> 2.20.1)
   nokogiri (~> 1.10, >= 1.10.4)
   paper_trail (~> 4.1.0)
   pg (~> 0.18)
