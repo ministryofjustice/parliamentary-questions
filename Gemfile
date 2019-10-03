@@ -52,7 +52,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'rubocop', '~> 0.62.0'
   gem 'rubocop-rspec', '~> 1.30', '>= 1.30.1'
-  gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
+  gem 'selenium-webdriver', '~> 3.142'
   gem 'shoulda-matchers', require: false
   gem 'sinatra'
   gem 'timecop'
