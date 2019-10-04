@@ -1,5 +1,7 @@
 # Documentation: http://rubocop.readthedocs.io/en/latest/
 
+require: rubocop-performance
+
 AllCops:
   EnabledByDefault: true
 

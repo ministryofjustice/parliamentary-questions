@@ -50,7 +50,8 @@ group :test, :development do
   gem 'pry-rails'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
   gem 'rspec-rails'
-  gem 'rubocop', '~> 0.75.0'
+  gem 'rubocop', '~> 0.67.0'
+  gem 'rubocop-performance', '~> 1.1.0'
   gem 'rubocop-rspec', '~> 1.30', '>= 1.30.1'
   gem 'selenium-webdriver', '~> 3.142'
   gem 'shoulda-matchers', require: false
