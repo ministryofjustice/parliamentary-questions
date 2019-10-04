@@ -11,8 +11,8 @@ namespace :pqa do
     uins.each do |uin|
       begin
         report = importer.run_for_question(uin)
-      rescue HTTPClient::FailureResponse => err
-        puts "UIN '#{uin}': #{err.message}"
+      rescue HTTPClient::FailureResponse => e
+        puts "UIN '#{uin}': #{e.message}"
       else
         puts analyse_report(uin, report)
       end

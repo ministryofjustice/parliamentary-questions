@@ -45,10 +45,15 @@ class User < ActiveRecord::Base
 
   has_paper_trail
 
-  devise :invitable, :database_authenticatable,
-         :recoverable, :rememberable, :trackable,
-         :lockable, :timeoutable,
-         :validatable, validate_on_invite: true
+  devise :invitable,
+         :database_authenticatable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :lockable,
+         :timeoutable,
+         :validatable,
+         validate_on_invite: true
 
   validates :name, presence: true
   validates :roles, presence: true

@@ -15,14 +15,14 @@ class ImportWorker
 
         MailService::Import.notify_success(report)
         PqaImportRun.record_success(start_time, report)
-      rescue => err
-        PqaImportRun.record_failure(start_time, "#{err.class}: #{err.message}")
-        case err
+      rescue => e
+        PqaImportRun.record_failure(start_time, "#{e.class}: #{e.message}")
+        case e
         when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError
-          LogStuff.error { err.message }
-          MailService::Import.notify_fail(err.message)
+          LogStuff.error { e.message }
+          MailService::Import.notify_fail(e.message)
         else
-          raise err
+          raise e
         end
       end
     end

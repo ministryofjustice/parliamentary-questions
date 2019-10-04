@@ -7,16 +7,21 @@ module Presenters
 
     def report_links
       [
-        Link.new('Stages Time', '/stages_time',
+        Link.new('Stages Time',
+                 '/stages_time',
                  'Average time taken to complete each stage of the PQ process'),
         Link.new('On Time',
-                 '/on_time', 'Percentage of questions on answered time'),
+                 '/on_time',
+                 'Percentage of questions on answered time'),
         Link.new('Time to Assign',
-                 '/time_to_assign', 'Average time to assign a question to an Action Officer'),
+                 '/time_to_assign',
+                 'Average time to assign a question to an Action Officer'),
         Link.new('AO Response Time',
-                 '/ao_response_time', 'Average time for an Action Officer to respond with accept/reject'),
+                 '/ao_response_time',
+                 'Average time for an Action Officer to respond with accept/reject'),
         Link.new('AO Churn',
-                 '/ao_churn', 'Average number of times a different set of Action Officers are assigned')
+                 '/ao_churn',
+                 'Average number of times a different set of Action Officers are assigned')
       ]
     end
 
