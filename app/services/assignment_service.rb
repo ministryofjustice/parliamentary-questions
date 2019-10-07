@@ -7,7 +7,7 @@ class AssignmentService
     PaperTrail.request(whodunnit: changed_by) do
       assignment.accept
     end
-    
+
     PaperTrail.request(whodunnit: changed_by) do
       division = assignment.action_officer.deputy_director.try(:division)
       directorate = division.try(:directorate)
