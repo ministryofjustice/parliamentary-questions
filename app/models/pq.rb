@@ -141,7 +141,7 @@ class Pq < ActiveRecord::Base
       Pq.transaction do
         ao_pq_accepted.reset
         action_officers_pqs.find_or_create_by(action_officer: action_officer).accept
-        whodunnit("AO:#{action_officer.name}") do
+        PaperTrail.request(whodunnit: "AO:#{action_officer.name}") do
           original_division = action_officer.deputy_director.try(:division)
           directorate = original_division.try(:directorate)
           update(directorate: directorate, original_division: original_division)

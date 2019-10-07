@@ -4,11 +4,11 @@ class AssignmentService
 
     changed_by = "AO:#{assignment.action_officer.name}"
 
-    assignment.whodunnit(changed_by) do
+    PaperTrail.request(whodunnit: changed_by) do
       assignment.accept
     end
-
-    pq.whodunnit(changed_by) do
+    
+    PaperTrail.request(whodunnit: changed_by) do
       division = assignment.action_officer.deputy_director.try(:division)
       directorate = division.try(:directorate)
       pq.update(directorate: directorate, original_division: division)
@@ -22,7 +22,7 @@ class AssignmentService
 
     changed_by = "AO:#{assignment.action_officer.name}"
 
-    assignment.whodunnit(changed_by) do
+    PaperTrail.request(whodunnit: changed_by) do
       assignment.reject(response.reason_option, response.reason)
     end
 
