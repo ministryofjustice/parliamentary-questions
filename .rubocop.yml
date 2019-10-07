@@ -1,6 +1,8 @@
 # Documentation: http://rubocop.readthedocs.io/en/latest/
 
-require: rubocop-performance
+require:
+  - rubocop-performance
+  - rubocop-rails
 
 AllCops:
   EnabledByDefault: true
