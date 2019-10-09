@@ -38,6 +38,18 @@ You can now procede setting up the database table layout
 
     bundle exec rake db:setup
 
+Note: If you get error: FATAL: role “postgres” does not exist then double check that postgres is successfully installed and running then try this:
+
+    createdb testDB
+    psql -U <your MAC username>
+
+  Once entered into postgres command line type this all on one line:
+
+    CREATE ROLE postgres WITH
+    LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION;
+
+  Then try the db setup command above again
+
 And starting the app with:
 
     bundle exec rails s
@@ -79,5 +91,5 @@ the application schema evolves.
 Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
 be run be executing the same command with the features folder as argument (i.e.
 `bundle exec rspec features`). Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/features) in the features folder
-for end-to-end tests implementation details. 
- 
+for end-to-end tests implementation details.
+
