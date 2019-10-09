@@ -283,6 +283,10 @@ Style/FrozenStringLiteralComment:
   Description: 'This cop is designed to help upgrade to Ruby 3.0. It will add the comment # frozen_string_literal: true to the top of files to enable frozen string literals. Frozen string literals may be default in Ruby 3.0. The comment will be added below a shebang and encoding comment. The frozen string literal comment is only valid in Ruby 2.3+.'
   Enabled: false
 
+Style/FormatStringToken:
+  Description: 'Use a consistent style for named format string tokens.'
+  Enabled: False
+
 Style/GlobalVars:
   Description: 'This cop looks for uses of global variables. It does not report offenses for built-in global variables. Built-in global variables are allowed by default. Additionally users can allow additional variables via the AllowedVariables option.'
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#instance-vars
