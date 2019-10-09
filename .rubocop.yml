@@ -30,6 +30,10 @@ Layout/MultilineMethodCallBraceLayout:
   Description: 'This cop checks that the closing brace in a method definition is either on the same line as the last method parameter, or a new line.'
   Enabled: false
 
+Layout/SpaceAroundOperators:
+  Description: 'Checks that operators have space around them, except for ** which should not have surrounding space.'
+  Enabled: false
+
 # Lint Cops ===============================================================================
 
 Lint/AmbiguousBlockAssociation:
@@ -239,6 +243,10 @@ Style/ClassAndModuleChildren:
 
 Style/ConditionalAssignment:
   Description: 'Check for if and case statements where each branch is used for assignment to the same variable when using the return of the condition can be used instead.'
+  Enabled: false
+
+Style/ConstantVisibility:
+  Description: 'This cop checks that constants defined in classes and modules have an explicit visibility declaration. By default, Ruby makes all class- and module constants public, which litters the public API of the class or module. Explicitly declaring a visibility makes intent more clear, and prevents outside actors from touching private state.'
   Enabled: false
 
 Style/Copyright:
