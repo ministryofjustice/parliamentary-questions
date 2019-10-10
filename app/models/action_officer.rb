@@ -26,10 +26,11 @@ class ActionOfficer < ActiveRecord::Base
   validates :group_email, format: { with: Devise.email_regexp, allow_blank: true }
   validates :deputy_director_id, presence: true
   validates :press_desk_id, presence: true
-  validates :email, uniqueness: {
-    scope: :deputy_director_id,
-    message: 'an action officer cannot be assigned twice to the same deputy director'
-  }
+  validates :email,
+            uniqueness: {
+              scope: :deputy_director_id,
+              message: 'an action officer cannot be assigned twice to the same deputy director'
+            }
 
   has_many :action_officers_pqs
   has_many :pqs, through: :action_officers_pqs

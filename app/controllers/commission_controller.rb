@@ -38,9 +38,12 @@ class CommissionController < ApplicationController
 
   def commission_form_params
     params.require(:commission_form)
-          .permit(:pq_id, :minister_id, :policy_minister_id,
+          .permit(:pq_id,
+                  :minister_id,
+                  :policy_minister_id,
                   { action_officer_id: [] },
-                  :date_for_answer, :internal_deadline)
+                  :date_for_answer,
+                  :internal_deadline)
   end
 
   def checking_valid_dates

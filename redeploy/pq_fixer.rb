@@ -37,8 +37,8 @@ module Redeploy
       end
 
       @pq.update_state!
-    rescue => err
-      puts "ERROR: #{err.class}  #{err.message}"
+    rescue => e
+      puts "ERROR: #{e.class}  #{e.message}"
     ensure
       print_log_messages
     end

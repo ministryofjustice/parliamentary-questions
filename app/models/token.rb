@@ -30,7 +30,8 @@ class Token < ActiveRecord::Base
       total: recs.size,
       ack: acks.size,
       open: recs.size - acks.size,
-      pctg: (acks.size.to_f / (recs.size.nonzero? || 1).to_f * 100).round(2)
+      pctg: (acks.size.to_f / (recs.size.nonzero? || 1) * 100).round(2)
+      # pctg: (acks.size.to_f / (recs.size.nonzero? || 1).to_f * 100).round(2)
     }
   end
 

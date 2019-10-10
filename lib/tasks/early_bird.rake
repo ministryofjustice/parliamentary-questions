@@ -17,10 +17,10 @@ namespace :pqa do
           LogStuff.info { 'Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false' }
           puts 'Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false'
         end
-    rescue => err
-      LogStuff.error { 'Early Bird: ' + err.message }
-      puts 'Early Bird:' + err.message
-      raise err
+    rescue => e
+      LogStuff.error { 'Early Bird: ' + e.message }
+      puts 'Early Bird:' + e.message
+      raise e
       end
   end
 end

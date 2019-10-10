@@ -19,7 +19,8 @@ describe PQState::Validator do
                                              t('b', 'c'),
                                              t('b', 'd'),
                                              t('d', 'e')
-                                           ], ['e'])
+                                           ],
+                                           ['e'])
 
         expect do
           validator.check_consistent_state_graph!

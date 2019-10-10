@@ -1,10 +1,26 @@
 module PQA
   class Question
-    attr_accessor :uin, :updated_date, :date_for_answer, :tabled_date,
-                  :answering_body_id, :answering_body_name, :answering_body_short_name,
-                  :house_id, :house_name, :member_id, :member_name, :member_constituency,
-                  :question_status, :question_type, :registered_interest,
-                  :session, :target, :text, :session_number, :url, :version_number,
+    attr_accessor :uin,
+                  :updated_date,
+                  :date_for_answer,
+                  :tabled_date,
+                  :answering_body_id,
+                  :answering_body_name,
+                  :answering_body_short_name,
+                  :house_id,
+                  :house_name,
+                  :member_id,
+                  :member_name,
+                  :member_constituency,
+                  :question_status,
+                  :question_type,
+                  :registered_interest,
+                  :session,
+                  :target,
+                  :text,
+                  :session_number,
+                  :url,
+                  :version_number,
                   :parliament_number
 
     def self.from_xml(el)

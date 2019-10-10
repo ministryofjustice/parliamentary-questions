@@ -63,7 +63,8 @@ describe Presenters::Report do
         label    = PQState.state_label(state)
         actual   = pd_report.rows.map { |r| row_values(r) }.find { |s, _| s == label }
         expected = [
-          label, [
+          label,
+          [
             [10, filter_all_path(press_desk_id: press_desks[0].id, state: state)],
             [20, filter_all_path(press_desk_id: press_desks[1].id, state: state)]
           ]

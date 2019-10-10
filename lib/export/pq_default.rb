@@ -5,7 +5,9 @@ module Export
     def pqs
       Pq.where(
         'transfer_out_ogd_id is null AND (answer_submitted >= ? OR ' \
-        'answer_submitted is null) AND tabled_date <= ?', @date_from, @date_to)
+        'answer_submitted is null) AND tabled_date <= ?',
+        @date_from,
+        @date_to)
         .order(:uin)
     end
   end

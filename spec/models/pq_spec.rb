@@ -259,8 +259,8 @@ describe Pq do
 
     context 'when state, minister or press desk are all nil' do
       it 'returns all the records' do
-        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq([
-          'uin-1', 'uin-2', 'uin-3', 'uin-4'
+        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq(%w[
+          uin-1 uin-2 uin-3 uin-4
         ].to_set)
       end
     end

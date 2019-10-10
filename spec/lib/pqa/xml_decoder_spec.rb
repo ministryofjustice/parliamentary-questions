@@ -24,7 +24,7 @@ describe PQA::XMLDecoder do
 
     context 'when the supplied XML contains some <question> elements' do
       it 'parses questions with the correct uin values' do
-        expect(questions.map(&:uin)).to eq(['q-0', 'q-1', 'q-2'])
+        expect(questions.map(&:uin)).to eq(%w[q-0 q-1 q-2])
       end
 
       it 'correctly parses dates' do
