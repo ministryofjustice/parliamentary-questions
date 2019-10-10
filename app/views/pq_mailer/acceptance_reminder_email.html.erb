@@ -15,7 +15,7 @@
     </style>
   </head>
   <body style="font-family: arial, sans-serif; font-size: 12pt;">
-    <p><%= @template_params[:ao_name] %>, you have missed the 2pm deadline. Please <strong>immediately</strong> accept or reject PQ <strong><%= @template_params[:uin] %></strong>:</p>
+    <p><%= @template_params[:ao_name] %>, you have yet to accept or reject this PQ. Please can you urgently accept or reject PQ <strong><%= @template_params[:uin] %></strong>:</p>
     <div class="pq-details" style="padding-left: 0.5em; border-left: 4px solid gray; margin: 5px 5px 5px 10px;">
       <p><%= @template_params[:question] %></p>
 
@@ -32,13 +32,13 @@
       <% if @template_params[:internal_deadline].present? %>
       <p>Internal deadline: <%= @template_params[:internal_deadline] %></p>
       <% end %>
-      
+
       <% if @template_params[:date_to_parliament].present? %>
       <p>Due back to Parliament: <%= @template_params[:date_to_parliament] %></p>
       <% end %>
     </div>
 
-    <p>The link to accept or reject will be in a previous email. <strong>To accept or reject this PQ, search your inbox for <%= @template_params[:uin] %> and use the link in that email.</strong></p>
+    <p>The link to accept or reject will be in an earlier email. <strong>To accept or reject this PQ, search your inbox for <%= @template_params[:uin] %> and use the link in that email.</strong></p>
 
     <p>If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a>.</p>
 
