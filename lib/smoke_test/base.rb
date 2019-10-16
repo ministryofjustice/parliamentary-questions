@@ -56,8 +56,7 @@ module SmokeTest
     def mechanize_instance
       Mechanize.new do |m|
         if app_uri.scheme == 'https'
-          # m.agent.http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-          m.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          m.agent.http.verify_mode = OpenSSL::SSL::VERIFY_PEER
           m.agent.cert_store       = cert_store
         end
       end
