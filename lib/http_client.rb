@@ -36,8 +36,7 @@ class HTTPClient
   def handle_https(uri, http)
     if uri.scheme == 'https'
       http.use_ssl     = true
-      # http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       cert_dir = ENV['CA_CERT']
 
       if cert_dir && File.directory?(cert_dir)
