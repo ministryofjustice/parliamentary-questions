@@ -1,4 +1,4 @@
-<%= @template_params[:ao_name] %>, you have missed the 2pm deadline. Please immediately accept or reject PQ <%= @template_params[:uin] %>:
+<%= @template_params[:ao_name] %>, you have yet to accept or reject this PQ. Please can you urgently accept or reject PQ <%= @template_params[:uin] %>:
 
   <%= @template_params[:question] %>
 
@@ -20,7 +20,7 @@
   Due back to Parliament: <%= @template_params[:date_to_parliament] %>
 <% end %>
 
-The link to accept or reject will be in a previous email. To accept or reject this PQ, search your inbox for <%= @template_params[:uin] %> and use the link in that email.
+The link to accept or reject will be in an earlier email. To accept or reject this PQ, search your inbox for <%= @template_params[:uin] %> and use the link in that email.
 
 If you have any queries please contact the PQ team at <%= Settings.mail_reply_to %>
 
