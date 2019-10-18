@@ -51,7 +51,7 @@ group :test, :development do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
   gem 'rspec-rails'
   gem 'rubocop', '~> 0.75.0'
-  gem 'rubocop-performance', '~> 1.3.0'
+  gem 'rubocop-performance', '~> 1.5.0'
   gem 'rubocop-rails', '~> 2.1'
   gem 'selenium-webdriver', '~> 3.142'
   gem 'shoulda-matchers', require: false
