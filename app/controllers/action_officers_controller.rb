@@ -3,7 +3,7 @@ class ActionOfficersController < ApplicationController
 
   def index
     @action_officers =
-      ActionOfficer.all
+      ActionOfficer.active_list
                    .joins(deputy_director: :division)
                    .order(Arel.sql('lower(divisions.name)'))
                    .order(Arel.sql('lower(action_officers.name)'))

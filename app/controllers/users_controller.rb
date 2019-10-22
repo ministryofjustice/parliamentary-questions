@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @users = User.active_list.order(deleted: :asc, name: :asc).page(params[:page]).per_page(15)
+    @users = User.active_list
+                 .order(deleted: :asc)
+                 .order(Arel.sql('lower(name)'))
+                 .page(params[:page])
+                 .per_page(15)
     update_page_title('Users')
   end
 
