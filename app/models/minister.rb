@@ -44,4 +44,6 @@ class Minister < ActiveRecord::Base
   def strip_whitespace!
     self.name = name.strip if name
   end
+
+  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 3.days.ago.to_datetime) }
 end

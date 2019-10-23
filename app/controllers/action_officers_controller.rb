@@ -2,11 +2,10 @@ class ActionOfficersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @action_officers =
-      ActionOfficer.active_list
-                   .joins(deputy_director: :division)
-                   .order(Arel.sql('lower(divisions.name)'))
-                   .order(Arel.sql('lower(action_officers.name)'))
+    @action_officers = ActionOfficer.active_list
+                                    .joins(deputy_director: :division)
+                                    .order(Arel.sql('lower(divisions.name)'))
+                                    .order(Arel.sql('lower(action_officers.name)'))
     update_page_title 'Action officers'
   end
 

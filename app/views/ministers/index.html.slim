@@ -17,3 +17,6 @@ h1 Ministers
           td= minister.title
           td= render partial: 'shared/status', object: minister
           td.edit= link_to 'Edit', edit_minister_path(minister)
+
+  div class="pagination-row.bottom"
+    .page-entries= will_paginate @ministers
