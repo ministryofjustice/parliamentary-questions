@@ -8,9 +8,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - parliamentary-questions.apps.live-1.cloud-platform.service.justice.gov.uk
+    - parliamentary-questions-development.apps.live-1.cloud-platform.service.justice.gov.uk
   rules:
-  - host: parliamentary-questions.apps.live-1.cloud-platform.service.justice.gov.uk
+  - host: parliamentary-questions-development.apps.live-1.cloud-platform.service.justice.gov.uk
     http:
       paths:
       - path: /
