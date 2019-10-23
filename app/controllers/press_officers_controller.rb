@@ -4,7 +4,11 @@ class PressOfficersController < ApplicationController
   before_action :prepare_press_offices
 
   def index
-    @press_officers = PressOfficer.order('lower(name)')
+    @press_officers = PressOfficer.active_list
+                                  .order(deleted: :asc)
+                                  .order(Arel.sql('lower(name)'))
+                                  .page(params[:page])
+                                  .per_page(15)
     update_page_title('Press officers')
   end
 
