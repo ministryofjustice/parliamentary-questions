@@ -4,7 +4,13 @@ class DeputyDirectorsController < ApplicationController
   before_action :prepare_divisions
 
   def index
-    @deputy_directors = DeputyDirector.joins(:division).order('lower(divisions.name)').order('lower(deputy_directors.name)')
+    @deputy_directors = DeputyDirector.active_list
+                                      .joins(:division)
+                                      .order(deleted: :asc)
+                                      .order('lower(divisions.name)')
+                                      .order('lower(deputy_directors.name)')
+                                      .page(params[:page])
+                                      .per_page(15)
     update_page_title 'Deputy directors'
   end
 
