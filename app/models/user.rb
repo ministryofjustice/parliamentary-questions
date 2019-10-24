@@ -84,5 +84,5 @@ class User < ActiveRecord::Base
     roles == ROLE_FINANCE
   end
 
-  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 3.days.ago.to_datetime) }
+  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end

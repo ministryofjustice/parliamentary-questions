@@ -16,5 +16,5 @@ class Directorate < ActiveRecord::Base
   has_paper_trail
   validates :name, presence: true
   has_many :divisions
-  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 3.days.ago.to_datetime) }
+  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end

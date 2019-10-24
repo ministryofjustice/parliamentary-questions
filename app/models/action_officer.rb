@@ -52,5 +52,5 @@ class ActionOfficer < ActiveRecord::Base
     end
   end
 
-  scope :active_list, -> { where('action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?', false, true, 3.days.ago.to_datetime) }
+  scope :active_list, -> { where('action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end
