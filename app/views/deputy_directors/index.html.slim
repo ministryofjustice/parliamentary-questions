@@ -17,5 +17,5 @@ h1 Deputy directors
           td= deputy_director.division.name
           td= render partial: 'shared/status', object: deputy_director
           td.edit= link_to 'Edit', edit_deputy_director_path(deputy_director)
-  div class="pagination-row.bottom"
+  .pagination-row.bottom
     .page-entries= will_paginate @deputy_directors
