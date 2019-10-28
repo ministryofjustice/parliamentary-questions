@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe MailService::Pq do
-  let(:service) { MailService::Pq }
+  let(:service) { NotifyMailer }
   let(:email_to) { 'to@domain.com' }
   let(:params) { { email: email_to, cc: email_to } }
   let(:ao) { double ActionOfficer }

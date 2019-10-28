@@ -53,13 +53,13 @@ class CommissioningService
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
     LogStuff.tag(:mailer_commission) do
-      mail_params =
-        Presenters::Email.default_hash(pq, ao).merge(
-          token: token,
-          entity: entity
-        )
+      # mail_params =
+      #   Presenters::Email.default_hash(pq, ao).merge(
+      #     token: token,
+      #     entity: entity
+      #   )
 
-      MailService::Pq.commission_email(mail_params)
+      NotifyMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity)
     end
   end
 end
