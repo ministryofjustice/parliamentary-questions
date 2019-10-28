@@ -56,14 +56,14 @@ module MailService
   # private_class_method
 
   MailData =
-    Struct.new(:to, :from, :cc, :reply_to, :params) do
-      def addressees
-        {
-          to: to,
-          from: from,
-          cc: cc,
-          reply_to: reply_to
-        }
-      end
+  Struct.new(:to, :from, :cc, :reply_to, :params) do
+    def addressees
+      {
+        to: to,
+        from: from,
+        cc: cc,
+        reply_to: reply_to
+      }
     end
+  end
 end

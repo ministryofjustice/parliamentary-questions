@@ -22,4 +22,3 @@ gecko_warning_levels:
 
 smoke_test_runner:
   out_file: '/tmp/smoke_test_run'
-

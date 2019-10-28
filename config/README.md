@@ -27,3 +27,5 @@ Variable Name          |Required for local development  | Description
 `APPVERSION`           | n                              | The current application version tag
 `TEST_USER`            | n                              | The current application version tag
 `TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests
+
+<!-- TODO add in GOVUK_notify_api_key env variable instructions  -->

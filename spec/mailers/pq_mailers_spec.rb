@@ -22,7 +22,7 @@ describe PqMailer do
     end
     describe 'deliver' do
       it 'should have correct addressing info' do
-        MailService::Pq.commission_email(@template_params)
+        NotifyMailer.commission_email(@template_params)
         MailWorker.new.run!
 
         mail = ActionMailer::Base.deliveries.first
@@ -35,7 +35,7 @@ describe PqMailer do
         expect(mail.text_part.body).to include 3.days.from_now
       end
       it 'should have the correct internal_deadline' do
-        MailService::Pq.commission_email(@template_params)
+        NotifyMailer.commission_email(@template_params)
         MailWorker.new.run!
 
         mail = ActionMailer::Base.deliveries.first

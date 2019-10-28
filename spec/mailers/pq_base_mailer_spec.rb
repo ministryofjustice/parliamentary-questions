@@ -24,13 +24,13 @@ describe PQBaseMailer do
     it 'should log successful message when successful' do
       expect(LogStuff).to receive(:info).with(:mail_successful)
       expect_any_instance_of(Mail::Message).to receive(:deliver)
-
-      MailService::Pq.commission_email(template_params)
+      puts "TODO change template_params to the values we want"
+      NotifyMailer.commission_email(pq: pq, action_officer: 'Colin Bruce', token: 'KL7g57Y-7ZFgBBGvWq9o', entity: 'assignment:4')
       MailWorker.new.run!
     end
 
     it 'should log errror message if exception raised' do
-      MailService::Pq.commission_email(template_params)
+      NotifyMailer.commission_email(template_params)
 
       expect(LogStuff).not_to receive(:info).with(:mail_successful)
       expect(LogStuff).to receive(:error).with(:mail_unsuccessful)

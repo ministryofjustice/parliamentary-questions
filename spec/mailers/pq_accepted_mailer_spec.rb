@@ -16,7 +16,8 @@ describe 'PQAcceptedMailer' do
   end
 
   def trigger_acceptance_mail(pq, ao)
-    MailService::Pq.acceptance_email(pq, ao)
+    puts "how should we test any of this with notify"
+    NotifyMailer.acceptance_email(pq: pq, actions_officer: ao)
     MailWorker.new.run!
   end
 
