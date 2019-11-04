@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "#{Rails.root}/spec/support/features/session_helpers"
 
 describe PressOfficersController, type: :controller do
   describe 'Get index' do
@@ -15,18 +14,18 @@ describe PressOfficersController, type: :controller do
 end
 
 def create_press_officers
-  FactoryBot.create(:press_officer, name: 'Anna Maddox',       updated_at: DateTime.now.to_datetime,  deleted: false)
-  FactoryBot.create(:press_officer, name: 'Evangeline Cowan',  updated_at: DateTime.now.to_datetime,  deleted: true)
-  FactoryBot.create(:press_officer, name: 'Lisa May',          updated_at: 1.day.ago.to_datetime,     deleted: false)
-  FactoryBot.create(:press_officer, name: 'Sylvia Ware',       updated_at: 1.day.ago.to_datetime,     deleted: true)
-  FactoryBot.create(:press_officer, name: 'Carrie Carroll',    updated_at: 2.days.ago.to_datetime,    deleted: false)
-  FactoryBot.create(:press_officer, name: 'Armand Reid',       updated_at: 2.days.ago.to_datetime,    deleted: true)
-  FactoryBot.create(:press_officer, name: 'Cecelia Barr',      updated_at: DateTime.now.to_datetime,  deleted: false)
-  FactoryBot.create(:press_officer, name: 'Xavier Freeman',    updated_at: DateTime.now.to_datetime,  deleted: true)
-  FactoryBot.create(:press_officer, name: 'Kent Holloway',     updated_at: 1.day.ago.to_datetime,     deleted: false)
-  FactoryBot.create(:press_officer, name: 'Jae Young',         updated_at: 1.day.ago.to_datetime,     deleted: true)
-  FactoryBot.create(:press_officer, name: 'Bill Estes',        updated_at: 2.days.ago.to_datetime,    deleted: false)
-  FactoryBot.create(:press_officer, name: 'Jeramy Conner',     updated_at: 2.days.ago.to_datetime,    deleted: true)
+  FactoryBot.create(:press_officer, name: 'Anna Maddox',      updated_at: DateTime.now.to_datetime,  deleted: false)
+  FactoryBot.create(:press_officer, name: 'Evangeline Cowan', updated_at: DateTime.now.to_datetime,  deleted: true)
+  FactoryBot.create(:press_officer, name: 'Lisa May',         updated_at: 1.day.ago.to_datetime,     deleted: false)
+  FactoryBot.create(:press_officer, name: 'Sylvia Ware',      updated_at: 1.day.ago.to_datetime,     deleted: true)
+  FactoryBot.create(:press_officer, name: 'Carrie Carroll',   updated_at: 3.days.ago.to_datetime,    deleted: false)
+  FactoryBot.create(:press_officer, name: 'Armand Reid',      updated_at: 3.days.ago.to_datetime,    deleted: true)
+  FactoryBot.create(:press_officer, name: 'Cecelia Barr',     updated_at: DateTime.now.to_datetime,  deleted: false)
+  FactoryBot.create(:press_officer, name: 'Xavier Freeman',   updated_at: DateTime.now.to_datetime,  deleted: true)
+  FactoryBot.create(:press_officer, name: 'Kent Holloway',    updated_at: 1.day.ago.to_datetime,     deleted: false)
+  FactoryBot.create(:press_officer, name: 'Jae Young',        updated_at: 1.day.ago.to_datetime,     deleted: true)
+  FactoryBot.create(:press_officer, name: 'Bill Estes',       updated_at: 3.days.ago.to_datetime,    deleted: false)
+  FactoryBot.create(:press_officer, name: 'Jeramy Conner',    updated_at: 3.days.ago.to_datetime,    deleted: true)
 end
 
 def expected_order_of_press_officers
