@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "#{Rails.root}/spec/support/features/session_helpers"
 
 describe MinistersController, type: :controller do
   describe 'Get index' do

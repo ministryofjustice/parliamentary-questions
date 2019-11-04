@@ -1,8 +1,6 @@
 require 'spec_helper'
-require "#{Rails.root}/spec/support/features/session_helpers"
 
 describe DirectoratesController, type: :controller do
-
   describe 'Get index' do
     it 'lists the Directorates sorted alphabetically by active then inactive states' do
       create_directorates

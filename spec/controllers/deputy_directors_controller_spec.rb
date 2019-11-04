@@ -1,25 +1,23 @@
 require 'spec_helper'
-require "#{Rails.root}/spec/support/features/session_helpers"
 
 describe DeputyDirectorsController, type: :controller do
+  let!(:dd_1) { create :deputy_director, name: 'Anna Maddox', division_id: div_1.id, updated_at: DateTime.now.to_datetime, deleted: false }
+  let!(:dd_2)  { create :deputy_director, name: 'Evangeline Cowan',   division_id: div_2.id, updated_at: DateTime.now.to_datetime,  deleted: true }
+  let!(:dd_3)  { create :deputy_director, name: 'Lisa May',           division_id: div_2.id, updated_at: 1.day.ago.to_datetime,     deleted: false }
+  let!(:dd_4)  { create :deputy_director, name: 'Sylvia Ware',        division_id: div_1.id, updated_at: 1.day.ago.to_datetime,     deleted: true }
+  let!(:dd_5)  { create :deputy_director, name: 'Carrie Carroll',     division_id: div_2.id, updated_at: 2.days.ago.to_datetime,    deleted: false }
+  let!(:dd_6)  { create :deputy_director, name: 'Armand Reid',        division_id: div_1.id, updated_at: 2.days.ago.to_datetime,    deleted: true }
+  let!(:dd_7)  { create :deputy_director, name: 'Cecelia Barr',       division_id: div_1.id, updated_at: DateTime.now.to_datetime,  deleted: false }
+  let!(:dd_8)  { create :deputy_director, name: 'Xavier Freeman',     division_id: div_2.id, updated_at: DateTime.now.to_datetime,  deleted: true }
+  let!(:dd_9)  { create :deputy_director, name: 'Kent Holloway',      division_id: div_2.id, updated_at: 1.day.ago.to_datetime,     deleted: false }
+  let!(:dd_10) { create :deputy_director, name: 'Jae Young',          division_id: div_1.id, updated_at: 1.day.ago.to_datetime,     deleted: true }
+  let!(:dd_11) { create :deputy_director, name: 'Bill Estes',         division_id: div_1.id, updated_at: 2.days.ago.to_datetime,    deleted: false }
+  let!(:dd_12) { create :deputy_director, name: 'Jeramy Conner',      division_id: div_1.id, updated_at: 2.days.ago.to_datetime,    deleted: true }
+
+  let(:div_1) { create :division, name: 'Division M' }
+  let(:div_2) { create :division, name: 'Division N' }
+
   describe 'Get index' do
-
-    let! (:dd_1)  {create :deputy_director, name: 'Anna Maddox',        division_id: '1', updated_at: DateTime.now.to_datetime,  deleted: false}
-    let! (:dd_2)  {create :deputy_director, name: 'Evangeline Cowan',   division_id: '2', updated_at: DateTime.now.to_datetime,  deleted: true}
-    let! (:dd_3)  {create :deputy_director, name: 'Lisa May',           division_id: '2', updated_at: 1.day.ago.to_datetime,     deleted: false}
-    let! (:dd_4)  {create :deputy_director, name: 'Sylvia Ware',        division_id: '1', updated_at: 1.day.ago.to_datetime,     deleted: true}
-    let! (:dd_5)  {create :deputy_director, name: 'Carrie Carroll',     division_id: '2', updated_at: 2.days.ago.to_datetime,    deleted: false}
-    let! (:dd_6)  {create :deputy_director, name: 'Armand Reid',        division_id: '1', updated_at: 2.days.ago.to_datetime,    deleted: true}
-    let! (:dd_7)  {create :deputy_director, name: 'Cecelia Barr',       division_id: '1', updated_at: DateTime.now.to_datetime,  deleted: false}
-    let! (:dd_8)  {create :deputy_director, name: 'Xavier Freeman',     division_id: '2', updated_at: DateTime.now.to_datetime,  deleted: true}
-    let! (:dd_9)  {create :deputy_director, name: 'Kent Holloway',      division_id: '2', updated_at: 1.day.ago.to_datetime,     deleted: false}
-    let! (:dd_10) {create :deputy_director, name: 'Jae Young',          division_id: '1', updated_at: 1.day.ago.to_datetime,     deleted: true}
-    let! (:dd_11) {create :deputy_director, name: 'Bill Estes',         division_id: '1', updated_at: 2.days.ago.to_datetime,    deleted: false}
-    let! (:dd_12) {create :deputy_director, name: 'Jeramy Conner',      division_id: '1', updated_at: 2.days.ago.to_datetime,    deleted: true}
-
-    let! (:div_1) {create :division, name: 'Division N'}
-    let! (:div_2) {create :division, name: 'Division M'}
-
     it 'lists the Deputy Directors sorted alphabetically (first name) by active then inactive states' do
       # create_divisions_for_deputy_directors
       # create_deputy_directors
