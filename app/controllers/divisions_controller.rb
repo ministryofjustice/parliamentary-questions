@@ -7,8 +7,8 @@ class DivisionsController < ApplicationController
     @divisions = Division.active_list
                          .joins(:directorate)
                          .order(deleted: :asc)
-                         .order('lower(directorates.name)')
-                         .order('lower(divisions.name)')
+                         .order(Arel.sql('lower(directorates.name)'))
+                         .order(Arel.sql('lower(divisions.name)'))
                          .page(params[:page])
                          .per_page(15)
     update_page_title('Divisions')
@@ -58,6 +58,6 @@ class DivisionsController < ApplicationController
   end
 
   def prepare_directorates
-    @directorates = Directorate.active.order('lower(name)')
+    @directorates = Directorate.active.order(Arel.sql('lower(name)'))
   end
 end

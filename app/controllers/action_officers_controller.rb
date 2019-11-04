@@ -4,7 +4,7 @@ class ActionOfficersController < ApplicationController
   def index
     @action_officers = ActionOfficer.active_list
                                     .joins(deputy_director: :division)
-                                    .order(deleted: :desc)
+                                    .order(deleted: :asc)
                                     .order(Arel.sql('lower(divisions.name)'))
                                     .order(Arel.sql('lower(action_officers.name)'))
                                     .page(params[:page])
