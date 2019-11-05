@@ -23,4 +23,5 @@ class Division < ActiveRecord::Base
     end
   end
   belongs_to :directorate
+  scope :active_list, -> { where('divisions.deleted = ? OR divisions.deleted = ? AND divisions.updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end

@@ -4,7 +4,13 @@ class DivisionsController < ApplicationController
   before_action :prepare_directorates
 
   def index
-    @divisions = Division.joins(:directorate).order('lower(directorates.name)').order('lower(divisions.name)')
+    @divisions = Division.active_list
+                         .joins(:directorate)
+                         .order(deleted: :asc)
+                         .order(Arel.sql('lower(directorates.name)'))
+                         .order(Arel.sql('lower(divisions.name)'))
+                         .page(params[:page])
+                         .per_page(15)
     update_page_title('Divisions')
   end
 
@@ -52,6 +58,6 @@ class DivisionsController < ApplicationController
   end
 
   def prepare_directorates
-    @directorates = Directorate.active.order('lower(name)')
+    @directorates = Directorate.active.order(Arel.sql('lower(name)'))
   end
 end

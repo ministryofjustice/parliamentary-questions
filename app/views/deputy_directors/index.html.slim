@@ -1,6 +1,6 @@
 h1 Deputy directors
 #admin-deputy-list
-  div class="row"
+  .row
     ul#admin-button-bar
       li= link_to ('Add deputy director'), new_deputy_director_path, {class: 'button-secondary'}
   table.table
@@ -17,3 +17,5 @@ h1 Deputy directors
           td= deputy_director.division.name
           td= render partial: 'shared/status', object: deputy_director
           td.edit= link_to 'Edit', edit_deputy_director_path(deputy_director)
+  .pagination-row.bottom
+    .page-entries= will_paginate @deputy_directors
