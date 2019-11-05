@@ -71,7 +71,7 @@ class QuickActionsService
       next if ao_pq_id.nil?
 
       ao_pq = ActionOfficersPq.find(ao_pq_id)
-      NotifyMailer.draft_reminder_email(pq: pq, action_officer: ao_pq.action_officer)
+      NotifyPqMailer.draft_reminder_email(pq: pq, action_officer: ao_pq.action_officer).deliver_now
       ao_pq.increment(:reminder_draft).save
     end
   end

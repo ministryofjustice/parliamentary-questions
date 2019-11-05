@@ -59,7 +59,7 @@ class CommissioningService
       #     entity: entity
       #   )
 
-      NotifyMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity)
+      NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity).deliver_now
     end
   end
 end
