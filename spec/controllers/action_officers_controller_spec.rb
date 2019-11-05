@@ -16,18 +16,18 @@ describe ActionOfficersController, type: :controller do
 end
 
 def create_action_officers
-  FactoryBot.create(:action_officer, name: 'Anna Maddox',       deputy_director_id: '1', updated_at: DateTime.now.to_datetime,  deleted: false)
-  FactoryBot.create(:action_officer, name: 'Evangeline Cowan',  deputy_director_id: '2', updated_at: DateTime.now.to_datetime,  deleted: true)
-  FactoryBot.create(:action_officer, name: 'Lisa May',          deputy_director_id: '2', updated_at: 1.day.ago.to_datetime,     deleted: false)
-  FactoryBot.create(:action_officer, name: 'Sylvia Ware',       deputy_director_id: '1', updated_at: 1.day.ago.to_datetime,     deleted: true)
-  FactoryBot.create(:action_officer, name: 'Carrie Carroll',    deputy_director_id: '2', updated_at: 3.days.ago.to_datetime,    deleted: false)
-  FactoryBot.create(:action_officer, name: 'Armand Reid',       deputy_director_id: '1', updated_at: 3.days.ago.to_datetime,    deleted: true)
-  FactoryBot.create(:action_officer, name: 'Cecelia Barr',      deputy_director_id: '1', updated_at: DateTime.now.to_datetime,  deleted: false)
-  FactoryBot.create(:action_officer, name: 'Xavier Freeman',    deputy_director_id: '2', updated_at: DateTime.now.to_datetime,  deleted: true)
-  FactoryBot.create(:action_officer, name: 'Kent Holloway',     deputy_director_id: '2', updated_at: 1.day.ago.to_datetime,     deleted: false)
-  FactoryBot.create(:action_officer, name: 'Jae Young',         deputy_director_id: '1', updated_at: 1.day.ago.to_datetime,     deleted: true)
-  FactoryBot.create(:action_officer, name: 'Bill Estes',        deputy_director_id: '1', updated_at: 3.days.ago.to_datetime,    deleted: false)
-  FactoryBot.create(:action_officer, name: 'Jeramy Conner',     deputy_director_id: '1', updated_at: 3.days.ago.to_datetime,    deleted: true)
+  FactoryBot.create(:action_officer, name: 'Anna Maddox',       deputy_director_id: '1', updated_at: DateTime.now.to_datetime, deleted: false)
+  FactoryBot.create(:action_officer, name: 'Evangeline Cowan',  deputy_director_id: '2', updated_at: DateTime.now.to_datetime, deleted: true)
+  FactoryBot.create(:action_officer, name: 'Lisa May',          deputy_director_id: '2', updated_at: 1.day.ago.to_datetime,    deleted: false)
+  FactoryBot.create(:action_officer, name: 'Sylvia Ware',       deputy_director_id: '1', updated_at: 1.day.ago.to_datetime,    deleted: true)
+  FactoryBot.create(:action_officer, name: 'Carrie Carroll',    deputy_director_id: '2', updated_at: 3.days.ago.to_datetime,   deleted: false)
+  FactoryBot.create(:action_officer, name: 'Armand Reid',       deputy_director_id: '1', updated_at: 3.days.ago.to_datetime,   deleted: true)
+  FactoryBot.create(:action_officer, name: 'Cecelia Barr',      deputy_director_id: '1', updated_at: DateTime.now.to_datetime, deleted: false)
+  FactoryBot.create(:action_officer, name: 'Xavier Freeman',    deputy_director_id: '2', updated_at: DateTime.now.to_datetime, deleted: true)
+  FactoryBot.create(:action_officer, name: 'Kent Holloway',     deputy_director_id: '2', updated_at: 1.day.ago.to_datetime,    deleted: false)
+  FactoryBot.create(:action_officer, name: 'Jae Young',         deputy_director_id: '1', updated_at: 1.day.ago.to_datetime,    deleted: true)
+  FactoryBot.create(:action_officer, name: 'Bill Estes',        deputy_director_id: '1', updated_at: 3.days.ago.to_datetime,   deleted: false)
+  FactoryBot.create(:action_officer, name: 'Jeramy Conner',     deputy_director_id: '1', updated_at: 3.days.ago.to_datetime,   deleted: true)
 end
 
 def create_deputy_directors_for_action_officers
