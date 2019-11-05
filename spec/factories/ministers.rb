@@ -15,7 +15,7 @@
 
 FactoryBot.define do
   factory :minister do
-    name { Faker::Job.name }
+    name { Faker::Name.name }
     title { Faker::Job.title }
     deleted { false }
 
