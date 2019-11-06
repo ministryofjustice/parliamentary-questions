@@ -2,15 +2,24 @@ require 'spec_helper'
 
 describe CommissioningService do
   shared_context 'test_values' do
-    let(:ao1) { DBHelpers.action_officers[0] }
-    let(:ao2) { DBHelpers.action_officers[1] }
-    let(:form_params) { { pq_id: pq.id, minister_id: minister.id, policy_minister_id: policy_minister.id, action_officer_id: [ao1.id, ao2.id], date_for_answer: Date.tomorrow, internal_deadline: Time.zone.today.midnight } }
-    let(:form) { CommissionForm.new(form_params) }
+    let(:ao1)                 { DBHelpers.action_officers[0] }
+    let(:ao2)                 { DBHelpers.action_officers[1] }
+    let(:form)                { CommissionForm.new(form_params) }
     let(:invalid_form_params) { form_params.merge(date_for_answer: nil) }
-    let(:invalid_form) { CommissionForm.new(invalid_form_params) }
-    let(:minister) { DBHelpers.ministers[0] }
-    let(:policy_minister) { DBHelpers.ministers[1] }
-    let(:pq) { DBHelpers.pqs.first }
+    let(:invalid_form)        { CommissionForm.new(invalid_form_params) }
+    let(:minister)            { DBHelpers.ministers[0] }
+    let(:policy_minister)     { DBHelpers.ministers[1] }
+    let(:pq)                  { DBHelpers.pqs.first }
+    let(:form_params)         do
+      {
+        pq_id: pq.id,
+        minister_id: minister.id,
+        policy_minister_id: policy_minister.id,
+        action_officer_id: [ao1.id, ao2.id],
+        date_for_answer: Date.tomorrow,
+        internal_deadline: Time.zone.today.midnight
+      }
+    end
   end
 
   describe '#commission' do
@@ -26,6 +35,7 @@ describe CommissioningService do
 
     context 'when the supplied data is valid' do
       before do
+        allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_now)
         valid_form = CommissionForm.new(form_params)
         @pq = CommissioningService.new.commission(valid_form)
       end
@@ -42,13 +52,9 @@ describe CommissioningService do
         expect(@pq.action_officers).to eq([ao1, ao2])
       end
 
-      it 'notifies the action officers' do
-        MailWorker.new.run!
-        ao1_mail, ao2_mail = ActionMailer::Base.deliveries
-        expect(ao1_mail.to).to eq([ao1.email])
-        expect(ao1_mail.subject).to match(/you have been allocated PQ #{pq.uin}/i)
-        expect(ao2_mail.to).to eq([ao2.email])
-        expect(ao2_mail.subject).to match(/you have been allocated PQ #{pq.uin}/i)
+      it 'notifies both of the action officers' do
+        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq: pq, action_officer: ao1))
+        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq: pq, action_officer: ao2))
       end
 
       it "sets the PQ state to 'no-response'" do
