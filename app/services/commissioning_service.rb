@@ -48,17 +48,10 @@ class CommissioningService
     entity  = "assignment:#{ao_pq.id}"
     expires = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
     token   = @token_service.generate_token(path, entity, expires)
-    dd      = ao.deputy_director
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
     LogStuff.tag(:mailer_commission) do
-      # mail_params =
-      #   Presenters::Email.default_hash(pq, ao).merge(
-      #     token: token,
-      #     entity: entity
-      #   )
-
       NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity).deliver_now
     end
   end

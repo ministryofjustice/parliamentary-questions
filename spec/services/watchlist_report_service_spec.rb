@@ -1,14 +1,13 @@
 require 'spec_helper'
 
 describe 'WatchlistReportService' do
-  let!(:watchlist_one) { create(:watchlist_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
-  let!(:watchlist_two) { create(:watchlist_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
+  let!(:watchlist_one)     { create(:watchlist_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
+  let!(:watchlist_two)     { create(:watchlist_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:watchlist_deleted) { create(:watchlist_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
-  let(:testid) { 'watchlist-' + DateTime.now.to_s }
+  let(:testid)             { 'watchlist-' + DateTime.now.to_s }
 
   before(:each) do
-    @report_service               = WatchlistReportService.new
-    ActionMailer::Base.deliveries = []
+    @report_service = WatchlistReportService.new
   end
 
   it 'should have generated a valid token' do
@@ -26,44 +25,12 @@ describe 'WatchlistReportService' do
     ).to eq(false)
   end
 
-  it 'should send an email with the right data' do
-    pqtest_mail = 'pqtest@digital.justice.gov.uk'
+  it 'calls the mailer' do
+    allow(NotifyPqMailer).to receive_message_chain(:watchlist_email, :deliver_now)
 
-    allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.notify_watchlist
+    token = @report_service.notify_watchlist
 
-    MailWorker.new.run!
-    mail = ActionMailer::Base.deliveries.first
-
-    sent_token = result[pqtest_mail]
-    token_param = { token: sent_token }.to_query
-    entity      = { entity: entity = testid }.to_query
-    url         = '/watchlist/dashboard'
-
-    expect(mail.html_part.body).to include url
-    expect(mail.html_part.body).to include token_param
-    expect(mail.html_part.body).to include entity
-
-    expect(mail.text_part.body).to include url
-    expect(mail.text_part.body).to include token_param
-    expect(mail.text_part.body).to include entity
-
-    expect(mail.to).to include pqtest_mail
-  end
-
-  it 'should add the people from the Watchlist to the CC' do
-    allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.notify_watchlist
-
-    MailWorker.new.run!
-    mail = ActionMailer::Base.deliveries.first
-
-    sent_token = result[watchlist_one.id]
-    token_param = { token: sent_token }.to_query
-    entity      = { entity: entity = testid }.to_query
-    url         = '/watchlist/dashboard'
-
-    expect(mail.cc).to include watchlist_one.email
-    expect(mail.cc).to include watchlist_two.email
+    expect(NotifyPqMailer).to have_received(:watchlist_email).with(email: 'm1@ao.gov;m2@ao.gov', entity: testid, token: token)
+    expect(NotifyPqMailer).not_to have_received(:watchlist_email).with(email: 'm3@ao.gov')
   end
 end

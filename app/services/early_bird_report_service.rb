@@ -25,7 +25,7 @@ class EarlyBirdReportService
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.earlybird"
     LogStuff.tag(:mailer_early_bird) do
       LogStuff.info { "Early bird  email to #{template[:email]} (name #{template[:name]}) [CCd to #{template[:cc]}]" }
-      NotifyPqMailer.early_bird_email(email: cc, token: token, entity:entity).deliver_now
+      NotifyPqMailer.early_bird_email(email: cc, token: token, entity: entity).deliver_now
     end
     token
   end

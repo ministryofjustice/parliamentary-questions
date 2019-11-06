@@ -4,6 +4,8 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
 # are in the same order as in the emails to prevent missing a variable which
 # can cause emails to not send
 
+# TODO who do all these emails go to? always the action officer
+
   def acceptance_email(pq:, action_officer:)
     set_template('b8b325ad-a00a-4ae9-8830-6386f04adbca')
     set_personalisation(
@@ -16,7 +18,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       answer_by: pq.minister&.name || '',
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
-      cc_list: action_officer.group_email,
+      cc_list: action_officer.group_email || '',
       mail_reply_to: Settings.mail_reply_to,
     )
     mail(to: action_officer.email)
@@ -69,7 +71,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       answer_by: pq.minister&.name || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
       internal_deadline: internal_deadline_text(pq) || '',
-      cc_list: action_officer.group_email,
+      cc_list: action_officer.group_email || '',
       finance_users_emails: finance_users_emails(pq),
       press_email: press_emails(action_officer),
       mail_reply_to: Settings.mail_reply_to,
@@ -80,36 +82,17 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
   def early_bird_email(email:, token:, entity:)
     set_template('e0700ef3-8a63-4041-ae97-323a1e62272f')
     set_personalisation(
-      formatted_date: (Date.today.strftime "%d/%m/%Y"),
+      formatted_date: (Time.zone.today.strftime "%d/%m/%Y"),
       early_bird_link: early_bird_dashboard_url(token: token, entity: entity),
       reply_to_email: Settings.mail_reply_to,
     )
     mail(to: email)
   end
 
-  # This is no longer used!
-  # def notify_dd_email(pq:, action_officer:)
-  #   set_template('2876fe30-2231-4a60-8257-9dd1f4c3990a')
-  #   set_personalisation(
-  #     ao_name: action_officer.name,
-  #     uin: pq.uin,
-  #     dd_name: ao.deputy_director,
-  #     question: pq.question,
-  #     member_name: member_name_text(pq) || '',
-  #     house_name: pq.house_name || '',
-  #     member_constituency: member_constituency_text(pq),
-  #     answer_by: pq.minister&.name || '',
-  #     date_to_parliament: date_to_parliament_text(pq) || '',
-  #     internal_deadline: internal_deadline_text(pq) || '',
-  #     mail_reply_to: Settings.mail_reply_to,
-  #   )
-  #   mail(to: action_officer.email)
-  # end
-
   def watchlist_email(email:, token:, entity:)
     set_template('b452ebb8-c49e-46f6-9da5-3ba28b494ed6')
     set_personalisation(
-      date_today: (Date.today.strftime "%d/%m/%Y"),
+      date_today: (Time.zone.today.strftime "%d/%m/%Y"),
       watch_list_url: watchlist_dashboard_url(token: token, entity: entity),
       mail_reply_to: Settings.mail_reply_to,
     )

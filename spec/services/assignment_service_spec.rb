@@ -21,10 +21,6 @@ describe AssignmentService do
   let(:minister) { build(:minister) }
   let(:pq) { create(:pq, uin: 'HL789', question: 'test question?', minister: minister, house_name: 'commons') }
 
-  before(:each) do
-    ActionMailer::Base.deliveries = []
-  end
-
   describe '#accept' do
     it 'accepts the assignment' do
       expect(assignment).to receive(:accept)
@@ -36,18 +32,10 @@ describe AssignmentService do
       expect(pq.state).to eq(PQState::DRAFT_PENDING)
     end
 
-    it 'should sent an email with the accept data' do
-      pq = commissioning_service.commission(form)
-      assignment_id = pq.action_officers_pqs.first.id
-      assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).to_not be nil
-      ActionMailer::Base.deliveries = []
+    it 'should call the mailer' do
+      allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_now)
       subject.accept(assignment)
-      assignment = ActionOfficersPq.find(assignment_id)
-      MailWorker.new.run!
-      mail = ActionMailer::Base.deliveries.first
-      expect(mail.html_part.body).to include pq.question
-      expect(mail.subject).to include pq.uin
+      expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq: pq, action_officer: action_officer)
     end
 
     it 'should set the original division_id on PQ' do

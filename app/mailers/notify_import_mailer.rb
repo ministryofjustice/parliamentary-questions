@@ -1,14 +1,4 @@
 class NotifyImportMailer < GovukNotifyRails::Mailer
-  # def notify_fail(mail_data)
-  #   @err_msg = mail_data.params
-  #
-  #   mail(
-  #     mail_data.addressees.merge(
-  #       subject: prefix('API import failed')
-  #     )
-  #   )
-  # end
-
   def notify_fail(error_message)
     set_template('586dd10e-8987-4754-b653-9cacd3763d19')
     set_personalisation(
@@ -17,16 +7,6 @@ class NotifyImportMailer < GovukNotifyRails::Mailer
     )
     mail(to: Settings.mail_tech_support)
   end
-
-  # def notify_success(mail_data)
-  #   @report = mail_data.params
-  #
-  #   mail(
-  #     mail_data.addressees.merge(
-  #       subject: prefix('API import succeeded')
-  #     )
-  #   )
-  # end
 
   def notify_success(report)
     set_template('7858c6b6-774e-47f5-80c2-bea221805bb7')

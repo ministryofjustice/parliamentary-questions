@@ -30,12 +30,10 @@ describe RakeTaskHelpers::StagingSync do
   it 'should send an email notification in case of failure' do
     allow(HostEnv).to receive(:is_staging?).and_return(true)
     allow_any_instance_of(RakeTaskHelpers::DBSanitizer).to receive(:run!).and_raise(StandardError)
+    allow(NotifyDbSyncMailer).to receive_message_chain(:notify_fail, :deliver_now)
 
     subject.run!
-    email = sent_mail.first
 
-    expect(email.to).to include Settings.mail_tech_support
-    expect(email.subject).to match(/Staging DB sanitization failed/)
-    expect(email.body).to match(/StandardError/)
+    expect(NotifyDbSyncMailer).to have_received(:notify_fail).with('StandardError')
   end
 end

@@ -13,7 +13,7 @@ class WatchlistReportService
   def notify_watchlist
     end_of_day = @current_time.end_of_day
     token      = @token_service.generate_token(watchlist_dashboard_path, entity, end_of_day)
-    cc         = WatchlistMember.active.pluck(:email).join(' ;')
+    cc         = WatchlistMember.active.pluck(:email).join(';')
     template   = {
       name: 'Watchlist',
       entity: entity,
