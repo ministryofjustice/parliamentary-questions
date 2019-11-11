@@ -3,7 +3,11 @@ class MinistersController < ApplicationController
   before_action :set_minister, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ministers = Minister.order('lower(name)')
+    @ministers = Minister.active_list
+                         .order(deleted: :asc)
+                         .order(Arel.sql('lower(name)'))
+                         .page(params[:page])
+                         .per_page(15)
     update_page_title('Ministers')
   end
 

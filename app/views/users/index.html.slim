@@ -1,7 +1,7 @@
 = render partial: "shared/flash_messages", flash: flash
 h1 Users
-#admin-ao-list
-  div class="row"
+#admin-users-list
+  .row
     ul#admin-button-bar
       li= link_to 'Invite new user', new_user_invitation_path, {class: 'button-secondary'}
   table.table
@@ -23,5 +23,5 @@ h1 Users
               = time_ago_in_words(user.current_sign_in_at) unless user.current_sign_in_at.nil?
           td= render partial: 'shared/status', object: user
           td.edit= link_to 'Edit', edit_user_path(user)
-  div class="pagination-row.bottom"
+  .pagination-row.bottom
     .page-entries= will_paginate @users

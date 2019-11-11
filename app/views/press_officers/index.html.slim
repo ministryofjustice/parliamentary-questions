@@ -1,6 +1,6 @@
+h1 Press officers
 #admin-po-list
-  h1 Press officers
-  div class="row"
+  .row
     ul#admin-button-bar
       li= link_to ('Add press officer'), new_press_officer_path, {class: 'button-secondary'}
   table.table
@@ -17,3 +17,5 @@
           td= press_officer.press_desk.name
           td= render partial: 'shared/status', object: press_officer
           td.edit= link_to 'Edit', edit_press_officer_path(press_officer)
+  .pagination-row.bottom
+    .page-entries= will_paginate @press_officers

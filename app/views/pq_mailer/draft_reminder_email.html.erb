@@ -15,7 +15,7 @@
     </style>
   </head>
   <body style="font-family: arial, sans-serif; font-size: 12pt;">
-    <p><%= @template_params[:ao_name] %>, you have missed the <%= @template_params[:internal_deadline]%> deadline for submitting the draft answer to PQ <strong><%= @template_params[:uin] %></strong>:</p>
+    <p><%= @template_params[:ao_name] %>, you have missed the deadline for submitting the draft answer to PQ <strong><%= @template_params[:uin] %></strong>:</p>
     <div class="pq-details" style="padding-left: 0.5em; border-left: 4px solid gray; margin: 5px 5px 5px 10px;">
       <p><%= @template_params[:question] %></p>
 
@@ -36,9 +36,9 @@
 
     <p>Your deadline to return this draft response to the PQ team was <%= @template_params[:internal_deadline]%>.</p>
 
-    <p><strong>You must use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> All relevant people will be included automatically. You can add extra recipients if needed.</p>
+    <p><strong>You must use <%= mail_to Settings.mail_reply_to, 'this link', cc: @template_params[:cc_list], subject: "#{@template_params[:uin]} | Draft Response" %> to send your draft response back to the PQ team.</strong> This will ensure all relevant people will be included automatically. You can add extra recipients if needed.</p>
 
-    <p>Liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response.  For templates and guidance, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>.</p>
+    <p>Liaise with <%= raw("#{ mail_to(@template_params[:finance_users_emails], 'finance')} and") if !@template_params[:finance_users_emails].empty? %> your relevant <%= mail_to  @template_params[:press_email], 'press officer' %> before you send your draft response as all PQs must be cleared by Press before submitting.  For templates and guidance, refer to the <a href="http://intranet.justice.gsi.gov.uk/ministers-parliament/working-with-parliament/parliamentary-questions/index.htm">PQ guidance</a>.</p>
 
     <p>If you have any queries about responding to this PQ, <a href="mailto:<%= Settings.mail_reply_to %>">contact the PQ team</a>.</p>
 

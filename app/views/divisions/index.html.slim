@@ -1,6 +1,6 @@
 h1 Divisions
 #admin-division-list
-  div class="row"
+  .row
     ul#admin-button-bar
       li= link_to ('Add division'), new_division_path, {class: 'button-secondary'}
   table.table
@@ -17,3 +17,5 @@ h1 Divisions
           td= division.directorate.name
           td= render partial: 'shared/status', object: division
           td.edit= link_to 'Edit', edit_division_path(division)
+  .pagination-row.bottom
+    .page-entries= will_paginate @divisions

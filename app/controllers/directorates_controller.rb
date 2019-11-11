@@ -3,7 +3,11 @@ class DirectoratesController < ApplicationController
   before_action :set_directorate, only: [:show, :edit, :update, :destroy]
 
   def index
-    @directorates = Directorate.all.order('lower(name)')
+    @directorates = Directorate.active_list
+                               .order(deleted: :asc)
+                               .order(Arel.sql('lower(name)'))
+                               .page(params[:page])
+                               .per_page(15)
     update_page_title('Directorates')
   end
 
