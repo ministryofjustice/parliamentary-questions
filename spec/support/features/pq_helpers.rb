@@ -1,6 +1,6 @@
 module Features
   module PqHelpers
-    include ::Features::EmailHelpers
+    # include ::Features::EmailHelpers
 
     def set_seen_by_finance
       create_finance_session
@@ -25,14 +25,14 @@ module Features
       expect(page).to have_content("#{uin} commissioned successfully")
     end
 
-    def accept_assignment(action_officer)
-      visit_assignment_url(action_officer)
+    def accept_assignment(pq)
+      visit_assignment_url(pq)
       choose 'Accept'
       click_on 'Save Response'
     end
 
-    def reject_assignment(action_officer, option_index, reason_text)
-      visit_assignment_url(action_officer)
+    def reject_assignment(pq, option_index, reason_text)
+      visit_assignment_url(pq)
       choose 'Reject'
 
       find('select[name="allocation_response[reason_option]"]')
@@ -75,6 +75,26 @@ module Features
       click_on 'Save'
     end
 
+    def sent_mail_to(email)
+      sent_mail.select { |e| e.to.include?(email) }
+    end
+
+    def sent_mail
+      ActionMailer::Base.deliveries
+    end
+
+    def extract_url_like(regex_string, mail)
+      target      = mail.html_part || mail
+      doc         = Nokogiri::HTML(target.body.raw_source)
+      watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ Regexp.new(regex_string) }
+      URI.parse(watchlist_a['href']).request_uri if watchlist_a
+    end
+
+    def clear_sent_mail
+      Email.destroy_all
+      ActionMailer::Base.deliveries = []
+    end
+
     private
 
     def select_option(selector_name, option_text)
@@ -83,10 +103,18 @@ module Features
         .select_option
     end
 
-    def visit_assignment_url(action_officer)
-      mail = sent_mail_to(action_officer.email).first
-      url  = extract_url_like('/assignment', mail)
-      visit url
+    def visit_assignment_url(pq)
+      #   mail = sent_mail_to(action_officer.email).first
+      #   url  = extract_url_like('/assignment', mail)
+      #   visit url
+      # puts CommissioningService.email_response.govuk_notify_response.content['body']
+      # x = CommissioningService.email_response.govuk_notify_response.content['body']
+      # url = extract_url_like('/assignment', x)
+      # visit url
+      token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode))
+      token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+      # puts  "#{assignment_path(uin: pq.uin, token: token, entity: token_db.entity)}"
+      visit assignment_path(uin: pq.uin, token: token, entity: token_db.entity)
     end
 
     def fillin_date(css_sel)

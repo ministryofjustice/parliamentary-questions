@@ -47,7 +47,7 @@ RSpec.configure do |config|
   # config.include Devise::TestHelpers, type: :controller
 
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include Features::EmailHelpers
+  # config.include Features::EmailHelpers
   config.include Features::SessionHelpers, type: :feature
 
   # config.include Features::DecisionHelpers, type: :feature
@@ -73,6 +73,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.infer_spec_type_from_file_location!
+  config.action_mailer.delivery_method = :test
 
   # Databse cleaner setup
   # Use truncation in js tests, transaction otherwise
@@ -84,7 +85,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    # ActionMailer::Base.deliveries = []
     DatabaseCleaner.start
   end
 

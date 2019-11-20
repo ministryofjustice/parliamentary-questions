@@ -4,12 +4,12 @@ feature 'Send draft reminders from the dashboard', js: true, suspend_cleaner: tr
   include Features::PqHelpers
 
   before(:each) do
-    clear_sent_mail
+    # clear_sent_mail
     DBHelpers.load_feature_fixtures
-    pq1, pq2, pq3 = PQA::QuestionLoader.new.load_and_import(3)
-    @uin1 = pq1.uin
-    @uin2 = pq2.uin
-    @uin3 = pq3.uin
+    @pq1, @pq2, @pq3 = PQA::QuestionLoader.new.load_and_import(3)
+    @uin1 = @pq1.uin
+    @uin2 = @pq2.uin
+    @uin3 = @pq3.uin
     @ao = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister = Minister.first
   end
@@ -47,23 +47,23 @@ feature 'Send draft reminders from the dashboard', js: true, suspend_cleaner: tr
     end
   end
 
-  def accept_commission
-    ao_mail = sent_mail.first
-    visit_assignment_url(@ao)
+  def accept_commission(pq)
+    # ao_mail = sent_mail.first
+    visit_assignment_url(pq)
     choose 'Accept'
     click_on 'Save'
     visit dashboard_path
-    clear_sent_mail
+    # clear_sent_mail
   end
 
   def initialise
     create_pq_session
     commission_question(@uin1, [@ao], @minister)
-    accept_commission
+    accept_commission(@pq1)
     commission_question(@uin2, [@ao], @minister)
-    accept_commission
+    accept_commission(@pq2)
     commission_question(@uin3, [@ao], @minister)
-    accept_commission
+    accept_commission(@pq3)
     click_link 'In progress'
   end
 end

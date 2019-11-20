@@ -1,11 +1,11 @@
 require 'feature_helper'
 
 feature 'Watch list member sees allocated questions', suspend_cleaner: true do
-  include Features::EmailHelpers
+  # include Features::EmailHelpers
 
   before(:all) do
     DBHelpers.load_feature_fixtures
-    clear_sent_mail
+    # clear_sent_mail
     @aos = ActionOfficer.where("email like 'ao%@pq.com'")
     @pq  = generate_dummy_pq(@aos)
   end
@@ -30,16 +30,18 @@ feature 'Watch list member sees allocated questions', suspend_cleaner: true do
     create_pq_session
     visit watchlist_members_path
     click_link_or_button 'Send allocation info'
-    mail = sent_mail.last
-    url  = extract_url_like(watchlist_dashboard_path, mail)
-
-    expect(mail.cc).to include('test-member-a@pq.com')
-    expect(url).to_not be_blank
+    expect(page).to have_text('An email with the allocation information has been sent to all of the watchlist member')
+    # expect(mail.cc).to include('test-member-a@pq.com')
+    # expect(url).to_not be_blank
   end
 
   scenario 'A watchlist member follows an email link to view the list of daily questions' do
-    url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
-    visit url
+    token_db = Token.find_by(path: watchlist_dashboard_path)
+    entity = token_db.entity
+    token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+
+    visit watchlist_dashboard_url(token: token, entity: entity)
+
     expect(page).to have_text(/allocated today 1/i)
     expect(page).to have_text(@pq.question)
     allocation_el = find("*[data-pquin='#{@pq.uin}']")
@@ -51,8 +53,15 @@ feature 'Watch list member sees allocated questions', suspend_cleaner: true do
 
   scenario 'The URL token sent to the watchlist member expires after 24 hours' do
     WatchlistReportService.new(nil, DateTime.now - 2.days).notify_watchlist
-    url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
-    visit url
+
+    token_db = Token.find_by(path: watchlist_dashboard_path)
+    entity = token_db.entity
+    token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+
+    visit watchlist_dashboard_url(token: token, entity: entity)
+
+    # url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
+    # visit url
 
     expect(page).to have_text(/Link expired/i)
   end

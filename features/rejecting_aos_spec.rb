@@ -6,7 +6,7 @@ feature 'Parli-branch manually rejecting and re-assigning OAs', js: true, suspen
   before(:all) do
     DBHelpers.load_feature_fixtures
 
-    clear_sent_mail
+    # clear_sent_mail
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
