@@ -1,10 +1,9 @@
 class NotifyPqMailer < GovukNotifyRails::Mailer
+  # Typically we put varibales in alphabetically order, however in this file they
+  # are in the same order as in the emails to prevent missing a variable which
+  # can cause emails to not send
 
-# Typically we put varibales in alphabetically order, however in this file they
-# are in the same order as in the emails to prevent missing a variable which
-# can cause emails to not send
-
-# TODO who do all these emails go to? always the action officer
+  # TODO: who do all these emails go to? always the action officer
 
   def acceptance_email(pq:, action_officer:)
     set_template('b8b325ad-a00a-4ae9-8830-6386f04adbca')
@@ -19,7 +18,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
       cc_list: action_officer.group_email || '',
-      mail_reply_to: Settings.mail_reply_to,
+      mail_reply_to: Settings.mail_reply_to
     )
     mail(to: action_officer.email)
   end
@@ -36,7 +35,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       answer_by: pq.minister&.name || '',
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
-      mail_reply_to: Settings.mail_reply_to,
+      mail_reply_to: Settings.mail_reply_to
     )
     mail(to: action_officer.email)
   end
@@ -54,7 +53,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
       pq_link: assignment_url(uin: pq.uin, token: token, entity: entity),
-      mail_reply_to: Settings.mail_reply_to,
+      mail_reply_to: Settings.mail_reply_to
     )
     mail(to: action_officer.email)
   end
@@ -74,7 +73,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       cc_list: action_officer.group_email || '',
       finance_users_emails: finance_users_emails(pq),
       press_email: press_emails(action_officer),
-      mail_reply_to: Settings.mail_reply_to,
+      mail_reply_to: Settings.mail_reply_to
     )
     mail(to: action_officer.email)
   end
@@ -82,9 +81,9 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
   def early_bird_email(email:, token:, entity:)
     set_template('e0700ef3-8a63-4041-ae97-323a1e62272f')
     set_personalisation(
-      formatted_date: (Time.zone.today.strftime "%d/%m/%Y"),
+      formatted_date: (Time.zone.today.strftime '%d/%m/%Y'),
       early_bird_link: early_bird_dashboard_url(token: token, entity: entity),
-      reply_to_email: Settings.mail_reply_to,
+      reply_to_email: Settings.mail_reply_to
     )
     mail(to: email)
   end
@@ -92,16 +91,16 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
   def watchlist_email(email:, token:, entity:)
     set_template('b452ebb8-c49e-46f6-9da5-3ba28b494ed6')
     set_personalisation(
-      date_today: (Time.zone.today.strftime "%d/%m/%Y"),
+      date_today: (Time.zone.today.strftime '%d/%m/%Y'),
       watch_list_url: watchlist_dashboard_url(token: token, entity: entity),
-      mail_reply_to: Settings.mail_reply_to,
+      mail_reply_to: Settings.mail_reply_to
     )
     mail(to: email)
   end
 
   private
 
-# Lets put these in a presenter thing!
+  # Lets put these in a presenter thing!
 
   def answer_by_text(pq)
     "To be answered by: #{pq.minister&.name}" if pq.minister.present?
@@ -120,11 +119,11 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
   end
 
   def date_to_parliament_text(pq)
-    "Due back to Parliament " + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
+    'Due back to Parliament ' + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
   end
 
-# The following are copied from the presenters file, we should think about how to move
-# them out so they is not repeated
+  # The following are copied from the presenters file, we should think about how to move
+  # them out so they is not repeated
 
   def format_internal_deadline(pq)
     pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date)} - #{pq.internal_deadline.strftime('%I').to_i}#{pq.internal_deadline.strftime('%p').downcase} " : ''

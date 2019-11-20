@@ -1,7 +1,7 @@
 require 'feature_helper'
 
 feature 'Creating finance officers', js: true, suspend_cleaner: true do
-  include Features::EmailHelpers
+  include Features::PqHelpers
 
   after(:all) do
     DatabaseCleaner.clean
