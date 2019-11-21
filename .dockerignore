@@ -1,2 +1,5 @@
-docker-ng/rails/Dockerfile
-docker-ng/rails/Dockerfile-alpine
+.dockerignore
+erd.png
+features/
+logs/
+spec/
