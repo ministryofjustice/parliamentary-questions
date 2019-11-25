@@ -56,9 +56,10 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
   end
 
   scenario 'The URL token sent to the early bird member expires after 24 hours' do
-    EarlyBirdReportService.new(nil, DateTime.now - 2.days).notify_early_bird
+    two_days_ago = DateTime.now.utc- 2.days
+    EarlyBirdReportService.new(nil, two_days_ago).notify_early_bird
     # url = extract_url_like(early_bird_dashboard_path, sent_mail.last)
-    token_db = Token.find_by(path: early_bird_dashboard_path)
+    token_db = Token.find_by(path: early_bird_dashboard_path, expire: two_days_ago.end_of_day)
     entity = token_db.entity
     token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 

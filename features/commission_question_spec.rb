@@ -1,4 +1,4 @@
-# TODO work out how to test visiting the links proveded by the emails
+# TODO: work out how to test visiting the links proveded by the emails
 
 require 'feature_helper'
 
@@ -46,7 +46,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   # end
 
   scenario 'Following the email link should let the AO accept the question' do
-    visit_assignment_url(@pq)
+    visit_assignment_url(@pq, ao)
     choose 'Accept'
     click_on 'Save'
 
@@ -76,7 +76,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     # expires = DateTime.now.utc.end_of_day + 3.days
     # token   = TokenService.new.generate_token(path, entity, expires)
     # visit assignment_path(uin: @pq.uin, token: token, entity: entity)
-    visit_assignment_url(@pq)
+    visit_assignment_url(@pq, ao2)
 
     # visit ao2_link
 

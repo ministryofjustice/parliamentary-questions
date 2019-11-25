@@ -1,5 +1,4 @@
 class AssignmentService
-  attr_reader :email_response
   def accept(assignment)
     pq = assignment.pq
 
@@ -15,7 +14,7 @@ class AssignmentService
       pq.update(directorate: directorate, original_division: division)
     end
     pq.update_state!
-    @email_response = NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer).deliver_now
+    NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer).deliver_now
   end
 
   def reject(assignment, response)

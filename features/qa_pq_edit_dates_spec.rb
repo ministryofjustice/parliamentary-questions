@@ -57,6 +57,11 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     expect(page).to have_css('#pq-frame-3 .deadline-date.text', text: testDate)
   end
 
+  scenario "A user sets a PQ's answered date" do
+    initialise
+    setDate('qa_edit_answered_date', 'Answer', 'answer_submitted')
+  end
+
   scenario "A user sets a PQ's draft date" do
     initialise
     setDate('qa_edit_draft_date', 'PQ draft', 'draft_answer_received')
@@ -72,28 +77,37 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     setDate('qa_edit_minister_date', 'Minister check', 'cleared_by_answering_minister')
   end
 
-  scenario "A user sets a PQ's answered date" do
-    initialise
-    setDate('qa_edit_answered_date', 'Answer', 'answer_submitted')
-  end
-
-  def accept_commission(pq)
-    visit_assignment_url(pq)
+  def accept_commission(pq, ao)
+    visit_assignment_url(pq, ao)
     choose 'Accept'
     click_on 'Save'
-    visit dashboard_path
-    # clear_sent_mail
   end
 
   def initialise
     create_pq_session
-    commission_question(@uin1, [@ao], @minister)
-    accept_commission(@pq1)
-    commission_question(@uin2, [@ao], @minister)
-    accept_commission(@pq2)
-    commission_question(@uin3, [@ao], @minister)
-    accept_commission(@pq3)
+    commission_question_here(@uin1, [@ao], @minister)
+    accept_commission(@pq1, @ao)
+    commission_question_here(@uin2, [@ao], @minister)
+    accept_commission(@pq2, @ao)
+    commission_question_here(@uin3, [@ao], @minister)
+    accept_commission(@pq3, @ao)
     click_link 'In progress'
+  end
+
+  def commission_question_here(uin, action_officers, minister, policy_minister = nil)
+    visit dashboard_path
+
+    within_pq(uin) do
+      select_option('commission_form[minister_id]', minister.name)
+      select_option('commission_form[policy_minister_id]', policy_minister.name) if policy_minister
+
+      action_officers.each do |ao|
+        select ao.name, from: 'Action officer(s)'
+      end
+      find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
+      click_on 'Commission'
+    end
+    expect(page).to have_content("#{uin} commissioned successfully")
   end
 
   def setDate(datetype, tablink, datefield)

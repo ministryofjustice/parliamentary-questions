@@ -10,9 +10,9 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
     @pq1, @pq2, @pq3    = PQA::QuestionLoader.new.load_and_import(3)
     @ao                 = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister           = Minister.first
-    @uin1 = @pq1.uin
-    @uin2 = @pq2.uin
-    @uin3 = @pq3.uin
+    @uin1               = @pq1.uin
+    @uin2               = @pq2.uin
+    @uin3               = @pq3.uin
   end
 
   before(:each) do
@@ -29,7 +29,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
 
   scenario "Parli-branch moves an accepted question to 'Draft'" do
     commission_question(@uin1, [@ao], @minister)
-    accept_assignment(@pq1)
+    accept_assignment(@pq1, @ao)
 
     expect_pq_in_progress_status(@uin1, 'Draft Pending')
     in_pq_detail(@uin1, 'PQ draft') { fillin_date('#draft_answer_received') }
@@ -75,7 +75,7 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   scenario "Parli-branch moves a question back from 'Minister Cleared' back to 'Ministerial Query'" do
     # clear_sent_mail
     commission_question(@uin2, [@ao], @minister)
-    accept_assignment(@pq2)
+    accept_assignment(@pq2, @ao)
 
     in_pq_detail(@uin2, 'PQ draft')       { fillin_date('#draft_answer_received') }
     in_pq_detail(@uin2, 'POD check')      { check 'POD query flag' }

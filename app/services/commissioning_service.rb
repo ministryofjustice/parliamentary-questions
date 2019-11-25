@@ -19,7 +19,6 @@ class CommissioningService
             action_officer_id: ao_id
           )
         end
-
       pq.action_officers_pqs << ao_pqs
       pq.update_state!
 

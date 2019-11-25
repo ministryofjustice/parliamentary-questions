@@ -58,6 +58,22 @@ describe NotifyPqMailer, type: :mailer do
           )
       end
     end
+    it 'sets the personalisation keys' do
+      expect(mail.govuk_notify_personalisation.keys.sort)
+        .to eq([
+                 :answer_by,
+                 :ao_name,
+                 :cc_list,
+                 :date_to_parliament,
+                 :house_name,
+                 :internal_deadline,
+                 :mail_reply_to,
+                 :member_constituency,
+                 :member_name,
+                 :question,
+                 :uin
+               ])
+    end
   end
 
   describe 'commission_email' do
@@ -71,8 +87,21 @@ describe NotifyPqMailer, type: :mailer do
       expect(mail.to).to eq([ao.email])
     end
 
-    it 'personalises the email' do
-      # puts mail.govuk_notify_personalisation
+    it 'sets the personalisation keys' do
+      expect(mail.govuk_notify_personalisation.keys.sort)
+        .to eq([
+                 :answer_by,
+                 :ao_name,
+                 :date_to_parliament,
+                 :house_name,
+                 :internal_deadline,
+                 :mail_reply_to,
+                 :member_constituency,
+                 :member_name,
+                 :pq_link,
+                 :question,
+                 :uin
+               ])
     end
   end
 
@@ -86,8 +115,23 @@ describe NotifyPqMailer, type: :mailer do
       expect(mail.to).to eq([ao.email])
     end
 
-    it 'personalises the email' do
-      # puts mail.govuk_notify_personalisation
+    it 'sets the personalisation keys' do
+      expect(mail.govuk_notify_personalisation.keys.sort)
+        .to eq([
+                 :answer_by,
+                 :ao_name,
+                 :cc_list,
+                 :date_to_parliament,
+                 :finance_users_emails,
+                 :house_name,
+                 :internal_deadline,
+                 :mail_reply_to,
+                 :member_constituency,
+                 :member_name,
+                 :press_email,
+                 :question,
+                 :uin
+               ])
     end
   end
 
@@ -101,8 +145,8 @@ describe NotifyPqMailer, type: :mailer do
       expect(mail.to).to eq(['early_bird_email'])
     end
 
-    it 'personalises the email' do
-      # puts mail.govuk_notify_personalisation
+    it 'sets the personalisation keys' do
+      expect(mail.govuk_notify_personalisation.keys.sort).to eq([:early_bird_link, :formatted_date, :reply_to_email])
     end
   end
 
@@ -116,8 +160,8 @@ describe NotifyPqMailer, type: :mailer do
       expect(mail.to).to eq(['watchlist_email'])
     end
 
-    it 'personalises the email' do
-      # puts mail.govuk_notify_personalisation
+    it 'sets the personalisation keys' do
+      expect(mail.govuk_notify_personalisation.keys.sort).to eq([:date_today, :mail_reply_to, :watch_list_url])
     end
   end
 end
