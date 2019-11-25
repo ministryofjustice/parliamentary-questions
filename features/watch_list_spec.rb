@@ -52,9 +52,10 @@ feature 'Watch list member sees allocated questions', suspend_cleaner: true do
   end
 
   scenario 'The URL token sent to the watchlist member expires after 24 hours' do
-    WatchlistReportService.new(nil, DateTime.now - 2.days).notify_watchlist
+    two_days_ago = DateTime.now - 2.days
+    WatchlistReportService.new(nil, two_days_ago).notify_watchlist
 
-    token_db = Token.find_by(path: watchlist_dashboard_path)
+    token_db = Token.find_by(path: watchlist_dashboard_path, expire: two_days_ago.end_of_day)
     entity = token_db.entity
     token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 

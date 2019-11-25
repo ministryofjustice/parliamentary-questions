@@ -21,18 +21,18 @@ module Features
         find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
         click_on 'Commission'
       end
-
       expect(page).to have_content("#{uin} commissioned successfully")
+      # print "PQ id #{(Pq.find_by(uin: uin)).id}"
     end
 
-    def accept_assignment(pq)
-      visit_assignment_url(pq)
+    def accept_assignment(pq, ao)
+      visit_assignment_url(pq, ao)
       choose 'Accept'
       click_on 'Save Response'
     end
 
-    def reject_assignment(pq, option_index, reason_text)
-      visit_assignment_url(pq)
+    def reject_assignment(pq, ao, option_index, reason_text)
+      visit_assignment_url(pq, ao)
       choose 'Reject'
 
       find('select[name="allocation_response[reason_option]"]')
@@ -103,17 +103,11 @@ module Features
         .select_option
     end
 
-    def visit_assignment_url(pq)
-      #   mail = sent_mail_to(action_officer.email).first
-      #   url  = extract_url_like('/assignment', mail)
-      #   visit url
-      # puts CommissioningService.email_response.govuk_notify_response.content['body']
-      # x = CommissioningService.email_response.govuk_notify_response.content['body']
-      # url = extract_url_like('/assignment', x)
-      # visit url
-      token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode))
+    def visit_assignment_url(pq, ao)
+      pq = Pq.find_by(uin: pq.uin)
+      ao_pq = ActionOfficersPq.find_by(action_officer_id: ao.id, pq_id: pq.id)
+      token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{ao_pq.id}")
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
-      # puts  "#{assignment_path(uin: pq.uin, token: token, entity: token_db.entity)}"
       visit assignment_path(uin: pq.uin, token: token, entity: token_db.entity)
     end
 

@@ -73,7 +73,6 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.infer_spec_type_from_file_location!
-  config.action_mailer.delivery_method = :test
 
   # Databse cleaner setup
   # Use truncation in js tests, transaction otherwise

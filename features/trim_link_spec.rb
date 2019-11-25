@@ -20,6 +20,10 @@ feature 'Parli-branch manages trim link', js: true do
     create_pq_session
   end
 
+  after(:all) do
+    DatabaseCleaner.clean
+  end
+
   feature 'from the details view' do
     scenario 'add a trim link' do
       visit pq_path(@pq.uin)

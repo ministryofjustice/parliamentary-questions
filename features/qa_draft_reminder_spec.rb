@@ -47,23 +47,22 @@ feature 'Send draft reminders from the dashboard', js: true, suspend_cleaner: tr
     end
   end
 
-  def accept_commission(pq)
+  def accept_commission(pq, ao)
     # ao_mail = sent_mail.first
-    visit_assignment_url(pq)
+    visit_assignment_url(pq, ao)
     choose 'Accept'
-    click_on 'Save'
+    click_on 'Save Response'
     visit dashboard_path
     # clear_sent_mail
   end
 
   def initialise
-    create_pq_session
     commission_question(@uin1, [@ao], @minister)
-    accept_commission(@pq1)
+    accept_commission(@pq1, @ao)
     commission_question(@uin2, [@ao], @minister)
-    accept_commission(@pq2)
+    accept_commission(@pq2, @ao)
     commission_question(@uin3, [@ao], @minister)
-    accept_commission(@pq3)
+    accept_commission(@pq3, @ao)
     click_link 'In progress'
   end
 end

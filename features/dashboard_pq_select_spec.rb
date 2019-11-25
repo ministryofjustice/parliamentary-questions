@@ -134,21 +134,20 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
     end
   end
 
-  def accept_commission(pq)
-    visit_assignment_url(pq)
+  def accept_commission(pq, ao)
+    visit_assignment_url(pq, ao)
     choose 'Accept'
-    click_on 'Save'
+    click_on 'Save Response'
     visit dashboard_path
   end
 
   def initialise
-    create_pq_session
     commission_question(@uin1, [@ao], @minister)
-    accept_commission(@pq1)
+    accept_commission(@pq1, @ao)
     commission_question(@uin2, [@ao], @minister)
-    accept_commission(@pq2)
+    accept_commission(@pq2, @ao)
     commission_question(@uin3, [@ao], @minister)
-    accept_commission(@pq3)
+    accept_commission(@pq3, @ao)
     click_link 'In progress'
   end
 end

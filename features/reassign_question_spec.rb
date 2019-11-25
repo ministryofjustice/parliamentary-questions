@@ -33,7 +33,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
   end
 
   scenario 'Action officer receive notification and accepts question' do
-    accept_assignment(@pq)
+    accept_assignment(@pq, ao1)
   end
 
   scenario 'Parli-branch re-assigns question to another action officer' do
@@ -47,7 +47,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     click_on 'Manually reject this action officer'
 
     commission_question(@pq.uin, [ao2], minister)
-    accept_assignment(@pq)
+    accept_assignment(@pq, ao2)
 
     visit pq_path(@pq.uin)
     click_on 'PQ commission'

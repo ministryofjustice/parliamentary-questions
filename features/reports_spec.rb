@@ -38,7 +38,7 @@ feature 'Minister Report', js: true do
 
     uins.each do |uin|
       commission_question(uin, [action_officer], minister)
-      accept_assignment(Pq.find_by(uin: uin))
+      accept_assignment(Pq.find_by(uin: uin), action_officer)
       # clear_sent_mail
     end
 
@@ -56,7 +56,7 @@ feature 'Minister Report', js: true do
 
   scenario 'Parli-branch accesses the press desk report and follows a link to the filter results page' do
     commission_question(@pq1.uin, [action_officer], minister)
-    accept_assignment(@pq1)
+    accept_assignment(@pq1, action_officer)
 
     visit reports_press_desk_by_progress_path
 
