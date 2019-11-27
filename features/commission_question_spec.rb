@@ -38,12 +38,13 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     commission_question(@pq.uin, [ao, ao2], minister)
   end
 
-  # scenario 'AO should receive an email notification of assigned question' do
-  #   ao_mail = sent_mail.first
-  #
-  #   expect(ao_mail.to).to include ao.email
-  #   expect(ao_mail.text_part.body).to include "your team is responsible for answering PQ #{@pq.uin}"
-  # end
+  scenario 'AO should receive an email notification of assigned question' do
+    pq = Pq.find_by(uin: @pq.uin)
+    ao_mail = NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: '1234', entity: 'assignment:1').deliver_now
+
+    expect(ao_mail.to).to include ao.email
+    expect(ao_mail.govuk_notify_response.content['body']).to include "your team is responsible for answering PQ #{@pq.uin}"
+  end
 
   scenario 'Following the email link should let the AO accept the question' do
     visit_assignment_url(@pq, ao)
@@ -61,24 +62,16 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
     expect_pq_in_progress_status(@pq.uin, 'Draft Pending')
   end
 
-  # scenario 'The AO should receive an email notification confirming the question acceptance' do
-  #   ao_mail = sent_mail.last
-  #
-  #   expect(ao_mail.to).to include ao.email
-  #   expect(ao_mail.text_part.body).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")
-  # end
+  scenario 'The AO should receive an email notification confirming the question acceptance' do
+    pq = Pq.find_by(uin: @pq.uin)
+    ao_mail = NotifyPqMailer.acceptance_email(pq: pq, action_officer: ao).deliver_now
+
+    expect(ao_mail.to).to include ao.email
+    expect(ao_mail.govuk_notify_response.content['body']).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")
+  end
 
   scenario 'After an AO has accepted a question, another AO cannot accept the question' do
-    # ao2_mail = sent_mail_to(ao2.email).first
-    # ao2_link = extract_url_like('/assignment', ao2_mail)
-    # path    = assignment_path(uin: @pq.uin.encode)
-    # entity  = "assignment:#{ao.action_officers_pqs.last.id}"
-    # expires = DateTime.now.utc.end_of_day + 3.days
-    # token   = TokenService.new.generate_token(path, entity, expires)
-    # visit assignment_path(uin: @pq.uin, token: token, entity: entity)
     visit_assignment_url(@pq, ao2)
-
-    # visit ao2_link
 
     expect(page.title).to have_content('PQ assignment')
     expect(page).to have_content(/this pq has already been accepted/i)

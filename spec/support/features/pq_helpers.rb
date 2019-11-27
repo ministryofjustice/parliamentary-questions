@@ -22,7 +22,6 @@ module Features
         click_on 'Commission'
       end
       expect(page).to have_content("#{uin} commissioned successfully")
-      # print "PQ id #{(Pq.find_by(uin: uin)).id}"
     end
 
     def accept_assignment(pq, ao)

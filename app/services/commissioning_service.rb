@@ -49,6 +49,7 @@ class CommissioningService
     token   = @token_service.generate_token(path, entity, expires)
 
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
+
     LogStuff.tag(:mailer_commission) do
       NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity).deliver_now
     end
