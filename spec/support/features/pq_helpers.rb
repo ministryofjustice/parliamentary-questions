@@ -83,8 +83,8 @@ module Features
     end
 
     def extract_url_like(regex_string, mail)
-      target      = mail.html_part || mail
-      doc         = Nokogiri::HTML(target.body.raw_source)
+      target      = mail.govuk_notify_response.content['body']
+      doc         = Nokogiri::HTML(target)
       watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ Regexp.new(regex_string) }
       URI.parse(watchlist_a['href']).request_uri if watchlist_a
     end
