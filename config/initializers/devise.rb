@@ -13,8 +13,10 @@ Devise.setup do |config|
   config.mailer_sender = ENV['DEVISE_SENDER']
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
-  Devise.parent_mailer = 'PQBaseMailer'
+  config.mailer = 'DeviseMailer'
+
+  # Configure the parent class responsible to send e-mails.
+  Devise.parent_mailer = 'GovukNotifyRails::Mailer'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
