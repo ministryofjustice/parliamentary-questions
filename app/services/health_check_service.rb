@@ -2,9 +2,7 @@ class HealthCheckService
   COMPONENT_CLASSES =
     [
       HealthCheck::Database,
-      # HealthCheck::MailWorker,
       HealthCheck::PqaApi
-      # HealthCheck::SendGrid
     ]
 
   def initialize
