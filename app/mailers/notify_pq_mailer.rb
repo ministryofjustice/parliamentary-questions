@@ -122,9 +122,6 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
     'Due back to Parliament ' + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
   end
 
-  # The following are copied from the presenters file, we should think about how to move
-  # them out so they is not repeated
-
   def format_internal_deadline(pq)
     pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date)} - #{pq.internal_deadline.strftime('%I').to_i}#{pq.internal_deadline.strftime('%p').downcase} " : ''
   end
