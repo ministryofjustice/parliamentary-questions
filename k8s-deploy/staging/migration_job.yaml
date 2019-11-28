@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rails-migrations
+spec:
+  backoffLimit: 4
+  template:
+    spec:
+      containers:
+      - name: parliamentary-questions-rails-app
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
+        imagePullPolicy: Always
+        command: [ 'sh', '-c', "bundle exec rake db:setup]'"]
+        envFrom:
+          - configMapRef:
+              name: environment-variables
+          - secretRef:
+              name: pq-secrets
+        env:
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: parliamentary-questions-staging-rds
+                key: rds_instance_address
+          - name: PGUSER
+            valueFrom:
+              secretKeyRef:
+                name: parliamentary-questions-staging-rds
+                key: database_username
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: parliamentary-questions-staging-rds
+                key: database_password
+      restartPolicy: OnFailure
