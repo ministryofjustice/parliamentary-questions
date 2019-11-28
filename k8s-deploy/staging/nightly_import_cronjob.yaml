@@ -1,0 +1,41 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: nightly-import
+spec:
+  schedule: "* 4,6 * * *"
+  startingDeadlineSeconds: 10
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: nightly-import
+            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
+            imagePullPolicy: IfNotPresent
+            command: ['sh', '-c', "bundle exec rake 'pqa:nightly_import'"]
+            envFrom:
+              - configMapRef:
+                  name: environment-variables
+              - secretRef:
+                  name: pq-secrets
+            env:
+              - name: DB_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: parliamentary-questions-staging-rds
+                    key: rds_instance_address
+              - name: PGUSER
+                valueFrom:
+                  secretKeyRef:
+                    name: parliamentary-questions-staging-rds
+                    key: database_username
+              - name: PGPASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: parliamentary-questions-staging-rds
+                    key: database_password
+          restartPolicy: OnFailure
