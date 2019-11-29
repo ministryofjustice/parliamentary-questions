@@ -10,7 +10,6 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   let(:minister)   { Minister.second                            }
 
   before(:all) do
-    # # clear_sent_mail
     DBHelpers.load_feature_fixtures
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end

@@ -6,7 +6,6 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
 
   before(:all) do
     DBHelpers.load_feature_fixtures
-    # clear_sent_mail
     @aos  = ActionOfficer.where("email like 'ao%@pq.com'")
     @pq   = generate_dummy_pq(@aos)
   end
