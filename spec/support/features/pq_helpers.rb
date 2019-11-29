@@ -1,7 +1,5 @@
 module Features
   module PqHelpers
-    # include ::Features::EmailHelpers
-
     def set_seen_by_finance
       create_finance_session
       click_link_or_button 'btn_finance_visibility'
@@ -72,26 +70,6 @@ module Features
       click_on section_anchor
       yield
       click_on 'Save'
-    end
-
-    def sent_mail_to(email)
-      sent_mail.select { |e| e.to.include?(email) }
-    end
-
-    def sent_mail
-      ActionMailer::Base.deliveries
-    end
-
-    def extract_url_like(regex_string, mail)
-      target      = mail.govuk_notify_response.content['body']
-      doc         = Nokogiri::HTML(target)
-      watchlist_a = doc.css('a[href^=http]').find { |a| a['href'] =~ Regexp.new(regex_string) }
-      URI.parse(watchlist_a['href']).request_uri if watchlist_a
-    end
-
-    def clear_sent_mail
-      Email.destroy_all
-      ActionMailer::Base.deliveries = []
     end
 
     private

@@ -25,8 +25,6 @@ feature 'Minister Report', js: true do
   before(:each) do
     DBHelpers.load_feature_fixtures
     @pq1, @pq2, = PQA::QuestionLoader.new.load_and_import(10)
-
-    # clear_sent_mail
     create_pq_session
   end
 
@@ -39,7 +37,6 @@ feature 'Minister Report', js: true do
     uins.each do |uin|
       commission_question(uin, [action_officer], minister)
       accept_assignment(Pq.find_by(uin: uin), action_officer)
-      # clear_sent_mail
     end
 
     visit reports_ministers_by_progress_path

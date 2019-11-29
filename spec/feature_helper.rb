@@ -3,7 +3,6 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 
 require './spec/support/features/session_helpers'
-require './spec/support/features/email_helpers'
 require './spec/support/features/pq_helpers'
 require './spec/support/db_helpers'
 require 'rspec/rails'

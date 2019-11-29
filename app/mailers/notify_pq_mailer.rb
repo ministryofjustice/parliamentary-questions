@@ -3,8 +3,6 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
   # are in the same order as in the emails to prevent missing a variable which
   # can cause emails to not send
 
-  # TODO: who do all these emails go to? always the action officer
-
   def acceptance_email(pq:, action_officer:)
     set_template('b8b325ad-a00a-4ae9-8830-6386f04adbca')
     set_personalisation(

@@ -4,7 +4,6 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
   include Features::PqHelpers
 
   before(:each) do
-    # clear_sent_mail
     DBHelpers.load_feature_fixtures
     @pq1, @pq2, @pq3 = PQA::QuestionLoader.new.load_and_import(3)
     @uin1 = @pq1.uin

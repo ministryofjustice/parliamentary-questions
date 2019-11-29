@@ -4,7 +4,6 @@ feature 'Creating an "I Will Write" question', js: true, suspend_cleaner: true d
   include Features::PqHelpers
 
   before(:all) do
-    # clear_sent_mail
     DBHelpers.load_feature_fixtures
 
     @uin      = PQA::QuestionLoader.new.load_and_import(1).first.uin
