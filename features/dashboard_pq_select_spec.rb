@@ -6,9 +6,6 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
   before(:each) do
     DBHelpers.load_feature_fixtures
     @pq1, @pq2, @pq3 = PQA::QuestionLoader.new.load_and_import(3)
-    @uin1 = @pq1.uin
-    @uin2 = @pq2.uin
-    @uin3 = @pq3.uin
     @ao = ActionOfficer.find_by(email: 'ao1@pq.com')
     @minister = Minister.first
   end
@@ -136,16 +133,16 @@ feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: 
   def accept_commission(pq, ao)
     visit_assignment_url(pq, ao)
     choose 'Accept'
-    click_on 'Save Response'
+    click_on 'Save'
     visit dashboard_path
   end
 
   def initialise
-    commission_question(@uin1, [@ao], @minister)
+    commission_question(@pq1.uin, [@ao], @minister)
     accept_commission(@pq1, @ao)
-    commission_question(@uin2, [@ao], @minister)
+    commission_question(@pq2.uin, [@ao], @minister)
     accept_commission(@pq2, @ao)
-    commission_question(@uin3, [@ao], @minister)
+    commission_question(@pq3.uin, [@ao], @minister)
     accept_commission(@pq3, @ao)
     click_link 'In progress'
   end

@@ -1,13 +1,11 @@
 module Metrics
   class Health < Component
     attr_reader :db_status,
-                :sendgrid_status,
                 :pqa_api_status,
                 :pqa_api_error_message
 
     def collect!
       @db_status       = current_db_status
-      @sendgrid_status = current_sendgrid_status
       @pqa_api_status  = current_pqa_api_status
     end
 
@@ -15,12 +13,6 @@ module Metrics
 
     def current_db_status
       checker = HealthCheck::Database.new
-
-      checker.accessible? && checker.available?
-    end
-
-    def current_sendgrid_status
-      checker = HealthCheck::SendGrid.new
 
       checker.accessible? && checker.available?
     end

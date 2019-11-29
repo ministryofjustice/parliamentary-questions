@@ -1,8 +1,6 @@
 require 'feature_helper'
 
 feature 'Watch list member sees allocated questions', suspend_cleaner: true do
-  # include Features::EmailHelpers
-
   before(:all) do
     DBHelpers.load_feature_fixtures
     @aos = ActionOfficer.where("email like 'ao%@pq.com'")
@@ -59,9 +57,6 @@ feature 'Watch list member sees allocated questions', suspend_cleaner: true do
     token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 
     visit watchlist_dashboard_url(token: token, entity: entity)
-
-    # url = extract_url_like(watchlist_dashboard_path, sent_mail.last)
-    # visit url
 
     expect(page).to have_text(/Link expired/i)
   end

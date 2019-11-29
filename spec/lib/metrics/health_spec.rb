@@ -4,7 +4,6 @@ describe Metrics::Health do
   context '#collect!' do
     context 'DB' do
       before(:each) do
-        allow(subject).to receive(:get_sendgrid_status).and_return(true)
         allow(subject).to receive(:get_pqa_api_status).and_return(true)
       end
 
@@ -29,36 +28,6 @@ describe Metrics::Health do
         subject.collect!
 
         expect(subject.db_status).to eq true
-      end
-    end
-
-    context 'SendGrid' do
-      before(:each) do
-        allow(subject).to receive(:get_db_status).and_return(true)
-        allow(subject).to receive(:get_pqa_api_status).and_return(true)
-      end
-
-      it 'should set the sendgrid status to false if sendgrid is not available' do
-        allow_any_instance_of(HealthCheck::SendGrid).to receive(:accessible?).and_return(false)
-        subject.collect!
-
-        expect(subject.sendgrid_status).to eq false
-      end
-
-      it 'should set the sendgrid status to false if sendgrid is not accessible' do
-        allow_any_instance_of(HealthCheck::SendGrid).to receive(:accessible?).and_return(true)
-        allow_any_instance_of(HealthCheck::SendGrid).to receive(:available?).and_return(false)
-        subject.collect!
-
-        expect(subject.sendgrid_status).to eq false
-      end
-
-      it 'should set the sendgrid status to true otherwise' do
-        allow_any_instance_of(HealthCheck::SendGrid).to receive(:accessible?).and_return(true)
-        allow_any_instance_of(HealthCheck::SendGrid).to receive(:available?).and_return(true)
-        subject.collect!
-
-        expect(subject.sendgrid_status).to eq true
       end
     end
 
