@@ -5,12 +5,9 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
 
   before(:all) do
     DBHelpers.load_feature_fixtures
-    @pq1    = FactoryBot.create :draft_pending_pq
-    @pq2    = FactoryBot.create :draft_pending_pq
-    @pq3    = FactoryBot.create :draft_pending_pq
-    @uin1   = @pq1.uin
-    @uin2   = @pq2.uin
-    @uin3   = @pq3.uin
+    @uin1    = (FactoryBot.create :draft_pending_pq).uin
+    @uin2    = (FactoryBot.create :draft_pending_pq).uin
+    @uin3    = (FactoryBot.create :draft_pending_pq).uin
     create_pq_session
 
     click_link 'In progress'
@@ -29,9 +26,6 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   end
 
   scenario "Parli-branch moves an accepted question to 'Draft'" do
-    # commission_question(@uin1, [@ao], @minister)
-    # accept_assignment(@pq1, @ao)
-
     expect_pq_in_progress_status(@uin1, 'Draft Pending')
     in_pq_detail(@uin1, 'PQ draft') { fillin_date('#draft_answer_received') }
     expect_pq_in_progress_status(@uin1, 'With POD')

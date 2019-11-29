@@ -2,8 +2,6 @@ require 'feature_helper'
 require 'business_time'
 
 feature 'Early bird member sees allocated questions', suspend_cleaner: true do
-  # include Features::EmailHelpers
-
   before(:all) do
     DBHelpers.load_feature_fixtures
     @aos  = ActionOfficer.where("email like 'ao%@pq.com'")
@@ -42,7 +40,6 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
   end
 
   scenario 'A early bird member follows an email link to view the list of daily questions' do
-    # url = extract_url_like(early_bird_dashboard_path, sent_mail.last)
     token_db = Token.find_by(path: early_bird_dashboard_path)
     entity = token_db.entity
     token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
@@ -57,10 +54,9 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
   scenario 'The URL token sent to the early bird member expires after 24 hours' do
     two_days_ago = DateTime.now.utc- 2.days
     EarlyBirdReportService.new(nil, two_days_ago).notify_early_bird
-    # url = extract_url_like(early_bird_dashboard_path, sent_mail.last)
     token_db = Token.find_by(path: early_bird_dashboard_path, expire: two_days_ago.end_of_day)
     entity = token_db.entity
-    token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+    token = TokenService.new.generate_token(token_db.path, entity, token_db.expire)
 
     visit early_bird_dashboard_url(token: token, entity: entity)
 
@@ -76,7 +72,6 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     q                   = Pq.first
     q.uin               = '1'
     q.minister          = Minister.find_by(name: 'Chris Grayling')
-    # q.action_officers   = aos
     q.internal_deadline = Time.zone.today + 1.day
     q.internal_deadline = Time.zone.today + 2.days
     q.update_state!
