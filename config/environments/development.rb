@@ -31,15 +31,18 @@ ParliamentaryQuestions::Application.configure do
 
   config.log_level = :debug
 
-  # Custom Logging - unocmment this block if you want to see logstash-style logs written
+  # Custom Logging - uncomment this block if you want to see logstash-style logs written
   # to log/logstash_development.json.
   # A side effect of this is that the normal log/development.log will just contain SQL actions and
   # no details of the controller action or parameters.
   # config.logstasher.enabled = true
-  # config.logstasher.suppress_app_log = true
-  # config.logstasher.log_level = Logger::INFO
-  # config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
+  # config.logstasher.log_level = Logger::DEBUG
+  # config.logstasher.logger = ActiveSupport::Logger.new STDOUT
+
+  # This line is optional, it allows you to set a custom value for the @source field of the log event
   # config.logstasher.source = 'logstasher'
+
+  # config.logstasher.suppress_app_log = true
   # End of custom logging block
 
   # For routes accessed by gecko, we require HTTP basic auth
