@@ -1,38 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: parliamentary-questions
+  name: pq-development
   namespace: parliamentary-questions-development
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
 spec:
   tls:
   - hosts:
-    - parliamentary-questions-development.apps.live-1.cloud-platform.service.justice.gov.uk
+    - development.trackparliamentaryquestions.service.gov.uk
+    secretName: parliamentary-questions-development-cert
   rules:
-  - host: parliamentary-questions-development.apps.live-1.cloud-platform.service.justice.gov.uk
+  - host: development.trackparliamentaryquestions.service.gov.uk
     http:
       paths:
       - path: /
         backend:
           serviceName: parliamentary-questions-service
           servicePort: 3000
----
-
-apiVersion: extensions/v1beta1
-     kind: Ingress
-     metadata:
-       name: pq-development
-       namespace: parliamentary-questions-development
-     spec:
-       tls:
-       - hosts:
-         - development.trackparliamentaryquestions.service.justice.gov.uk
-       rules:
-       - host: development.trackparliamentaryquestions.service.justice.gov.uk
-         http:
-           paths:
-           - path: /
-             backend:
-               serviceName: parliamentary-questions-service
-               servicePort: 3000
