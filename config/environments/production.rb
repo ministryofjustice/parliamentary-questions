@@ -29,7 +29,7 @@ ParliamentaryQuestions::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_files = true
-  
+
   config.public_file_server.enabled = true
 
   # Generate digests for assets URLs.
