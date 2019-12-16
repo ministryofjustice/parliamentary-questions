@@ -26,8 +26,24 @@ ParliamentaryQuestions::Application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
-  # log level
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
+
   config.log_level = :debug
+
+  # Custom Logging - uncomment this block if you want to see logstash-style logs written
+  # to log/logstash_development.json.
+  # A side effect of this is that the normal log/development.log will just contain SQL actions and
+  # no details of the controller action or parameters.
+  # config.logstasher.enabled = true
+  # config.logstasher.log_level = Logger::DEBUG
+  # config.logstasher.logger = ActiveSupport::Logger.new STDOUT
+  #
+  # This line is optional, it allows you to set a custom value for the @source field of the log event
+  # config.logstasher.source = 'logstasher'
+  #
+  # config.logstasher.suppress_app_log = true
+  # End of custom logging block
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
@@ -49,16 +65,15 @@ ParliamentaryQuestions::Application.configure do
   end
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
-
     ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'https', port: '3000' }
     ActionMailer::Base.smtp_settings = {
       address: ENV['SMTP_HOSTNAME'] || 'localhost',
-      port: ENV['SMTP_PORT'] || 587,
-      domain: sending_host,
-      user_name: ENV['SMTP_USERNAME'] || '',
-      password: ENV['SMTP_PASSWORD'] || '',
       authentication: :login,
-      enable_starttls_auto: true
+      domain: sending_host,
+      enable_starttls_auto: true,
+      password: ENV['SMTP_PASSWORD'] || '',
+      port: ENV['SMTP_PORT'] || 587,
+      user_name: ENV['SMTP_USERNAME'] || ''
     }
   end
 end
