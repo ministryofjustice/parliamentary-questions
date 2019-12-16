@@ -19,18 +19,17 @@ ParliamentaryQuestions::Application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_files = false
-
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-
   config.assets.enabled = true
+
+  # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_files = true
+  
   config.public_file_server.enabled = true
 
   # Generate digests for assets URLs.
@@ -107,12 +106,12 @@ ParliamentaryQuestions::Application.configure do
     ActionMailer::Base.default reply_to: Settings.mail_reply_to
     ActionMailer::Base.smtp_settings = {
       address: ENV['SMTP_HOSTNAME'] || 'localhost',
-      port: ENV['SMTP_PORT'] || 587,
-      domain: sending_host,
-      user_name: ENV['SMTP_USERNAME'] || '',
-      password: ENV['SMTP_PASSWORD'] || '',
       authentication: :login,
-      enable_starttls_auto: true
+      domain: sending_host,
+      enable_starttls_auto: true,
+      password: ENV['SMTP_PASSWORD'] || '',
+      port: ENV['SMTP_PORT'] || 587,
+      user_name: ENV['SMTP_USERNAME'] || ''
     }
   end
 end

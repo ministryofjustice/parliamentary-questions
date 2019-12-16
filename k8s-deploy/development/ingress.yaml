@@ -17,3 +17,22 @@ spec:
         backend:
           serviceName: parliamentary-questions-service
           servicePort: 3000
+---
+
+apiVersion: extensions/v1beta1
+     kind: Ingress
+     metadata:
+       name: pq-development
+       namespace: parliamentary-questions-development
+     spec:
+       tls:
+       - hosts:
+         - development.trackparliamentaryquestions.service.justice.gov.uk
+       rules:
+       - host: development.trackparliamentaryquestions.service.justice.gov.uk
+         http:
+           paths:
+           - path: /
+             backend:
+               serviceName: parliamentary-questions-service
+               servicePort: 3000
