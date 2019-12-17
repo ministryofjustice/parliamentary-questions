@@ -5,8 +5,6 @@ class UsersController < ApplicationController
     @users = User.active_list
                  .order(deleted: :asc)
                  .order(Arel.sql('lower(name)'))
-                 .page(params[:page])
-                 .per_page(15)
     update_page_title('Users')
   end
 
