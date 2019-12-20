@@ -17,6 +17,7 @@ class PressDesk < ActiveRecord::Base
   validates :name, uniqueness: true, presence: true
   has_many :action_officers
   has_many :press_officers
+  scope :active_list, -> { where('press_desks.deleted = ? OR press_desks.deleted = ? AND press_desks.updated_at > ?', false, true, 2.days.ago.to_datetime) }
 
   def press_officer_emails
     press_officers

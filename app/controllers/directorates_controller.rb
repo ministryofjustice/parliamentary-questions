@@ -6,8 +6,6 @@ class DirectoratesController < ApplicationController
     @directorates = Directorate.active_list
                                .order(deleted: :asc)
                                .order(Arel.sql('lower(name)'))
-                               .page(params[:page])
-                               .per_page(15)
     update_page_title('Directorates')
   end
 

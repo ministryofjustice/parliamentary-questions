@@ -3,7 +3,9 @@ class PressDesksController < ApplicationController
   before_action :set_press_desk, only: [:show, :edit, :update, :destroy]
 
   def index
-    @press_desks = PressDesk.all.order('lower(name)')
+    @press_desks = PressDesk.active_list
+                            .all
+                            .order('lower(name)')
     update_page_title('Press Desks')
   end
 

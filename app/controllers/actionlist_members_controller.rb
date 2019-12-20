@@ -3,7 +3,9 @@ class ActionlistMembersController < ApplicationController
   before_action :set_actionlist_member, only: [:show, :edit, :update, :destroy]
 
   def index
-    @actionlist_members = ActionlistMember.all.order(:name.downcase)
+    @actionlist_members = ActionlistMember.active_list
+                                          .all
+                                          .order(:name.downcase)
     update_page_title('Actionlist members')
   end
 
