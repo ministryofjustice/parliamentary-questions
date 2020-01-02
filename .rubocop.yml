@@ -26,6 +26,11 @@ Layout/FirstMethodArgumentLineBreak:
   Description: 'This cop checks for a line break before the first argument in a multi-line method call.'
   Enabled: false
 
+Layout/LineLength:
+  Description: 'Limit lines to 80 characters.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
+  Enabled: false
+  
 Layout/MultilineMethodCallBraceLayout:
   Description: 'This cop checks that the closing brace in a method definition is either on the same line as the last method parameter, or a new line.'
   Enabled: false
@@ -44,7 +49,7 @@ Lint/DeprecatedClassMethods:
   Description: 'This cop checks for uses of the deprecated class method usages.'
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Description: 'This cop checks for rescue blocks with no body.'
   Enabled: false
 
@@ -92,11 +97,6 @@ Metrics/CyclomaticComplexity:
   Description: 'The cyclomatic complexity is the number of linearly independent paths through a method. The algorithm counts decision points and adds one.'
   Max: 13
 
-Metrics/LineLength:
-  Description: 'Limit lines to 80 characters.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
-  Enabled: false
-
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 40 lines of code.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
@@ -125,7 +125,7 @@ Naming/PredicateName:
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#bool-methods-qmark'
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Description: 'This cop checks method parameter names for how descriptive they are. It is highly configurable.'
   Enabled: false
 
@@ -370,6 +370,6 @@ Style/SymbolArray:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-i'
   Enabled: false
 
-Style/UnneededInterpolation:
+Style/RedundantInterpolation:
   Description: 'This cop checks for strings that are just an interpolated expression.'
   Enabled: false
