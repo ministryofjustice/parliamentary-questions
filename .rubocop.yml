@@ -162,6 +162,10 @@ Performance/RegexpMatch:
 
 # Rails Cops ==============================================================================
 
+Rails/ApplicationMailer:
+  Description: 'This cop checks that mailers subclass ApplicationMailer with Rails 5.0.'
+  Enabled: false
+
 Rails/ApplicationRecord:
   Description: 'This cop checks that models subclass ApplicationRecord with Rails 5.0.'
   Enabled: false
