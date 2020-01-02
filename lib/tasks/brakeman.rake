@@ -1,3 +1,4 @@
+# rubocop:disable Rails/RakeEnvironment
 namespace :brakeman do
   desc 'Run Brakeman'
   task :run, :output_files do |_t, args|
@@ -7,3 +8,4 @@ namespace :brakeman do
     Brakeman.run app_path: '.', output_files: files, print_report: true
   end
 end
+# rubocop:enable Rails/RakeEnvironment

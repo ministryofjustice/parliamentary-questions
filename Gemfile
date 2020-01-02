@@ -53,7 +53,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'rubocop', '~> 0.78.0'
   gem 'rubocop-performance', '~> 1.5.0'
-  gem 'rubocop-rails', '~> 2.1'
+  gem 'rubocop-rails', '~> 2.4'
   gem 'selenium-webdriver', '~> 3.142'
   gem 'shoulda-matchers', require: false
   gem 'sinatra'
