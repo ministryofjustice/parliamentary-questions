@@ -2,7 +2,9 @@ class EarlyBirdMembersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @early_bird_members = EarlyBirdMember.all.order(Arel.sql('lower(name)'))
+    @early_bird_members = EarlyBirdMember.active_list
+                                         .all
+                                         .order(Arel.sql('lower(name)'))
     update_page_title('Early bird members')
   end
 

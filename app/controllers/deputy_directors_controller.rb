@@ -9,8 +9,6 @@ class DeputyDirectorsController < ApplicationController
                                       .order(deleted: :asc)
                                       .order(Arel.sql('lower(divisions.name)'))
                                       .order(Arel.sql('lower(deputy_directors.name)'))
-                                      .page(params[:page])
-                                      .per_page(15)
     update_page_title 'Deputy directors'
   end
 

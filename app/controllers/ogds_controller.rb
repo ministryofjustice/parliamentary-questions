@@ -3,7 +3,8 @@ class OgdsController < ApplicationController
   before_action :set_ogd, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ogds = Ogd.order('lower(name)')
+    @ogds = Ogd.active_list
+               .order('lower(name)')
     update_page_title('Other Government Departments')
   end
 
