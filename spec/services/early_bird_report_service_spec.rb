@@ -29,7 +29,9 @@ describe 'EarlyBirdReportService' do
 
     token = @report_service.notify_early_bird
 
-    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm1@ao.gov;m2@ao.gov', entity: testid, token: token)
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm1@ao.gov', entity: testid, token: token)
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm2@ao.gov', entity: testid, token: token)
+
     expect(NotifyPqMailer).not_to have_received(:early_bird_email).with(email: 'm3@ao.gov')
   end
 end

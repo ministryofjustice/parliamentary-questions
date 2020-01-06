@@ -30,7 +30,9 @@ describe 'WatchlistReportService' do
 
     token = @report_service.notify_watchlist
 
-    expect(NotifyPqMailer).to have_received(:watchlist_email).with(email: 'm1@ao.gov;m2@ao.gov', entity: testid, token: token)
+    expect(NotifyPqMailer).to have_received(:watchlist_email).with(email: 'm1@ao.gov', entity: testid, token: token)
+    expect(NotifyPqMailer).to have_received(:watchlist_email).with(email: 'm2@ao.gov', entity: testid, token: token)
+
     expect(NotifyPqMailer).not_to have_received(:watchlist_email).with(email: 'm3@ao.gov')
   end
 end
