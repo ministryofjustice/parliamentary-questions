@@ -8,34 +8,22 @@ class ImportWorker
     date_to = 5.minutes.from_now
     start_time = Time.now
     LogStuff.tag(:import) do
-      LogStuff.info { "Import: starting scheduled import from #{date_from} to #{date_to}" }
-      report = @import.run(date_from, date_to)
-      LogStuff.info { 'Import: completed scheduled import' }
+      begin
+        LogStuff.info { "Import: starting scheduled import from #{date_from} to #{date_to}" }
+        report = @import.run(date_from, date_to)
+        LogStuff.info { 'Import: completed scheduled import' }
 
-<<<<<<< HEAD
-      MailService::Import.notify_success(report)
-      PqaImportRun.record_success(start_time, report)
-    rescue => e
-      PqaImportRun.record_failure(start_time, "#{e.class}: #{e.message}")
-      case e
-      when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError
-        LogStuff.error { e.message }
-        MailService::Import.notify_fail(e.message)
-      else
-        raise e
-=======
-        NotifyImportMailer.notify_success(report)
+        NotifyImportMailer.notify_success(report).deliver_now
         PqaImportRun.record_success(start_time, report)
       rescue => e
         PqaImportRun.record_failure(start_time, "#{e.class}: #{e.message}")
         case e
         when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError
           LogStuff.error { e.message }
-          NotifyImportMailer.notify_fail(e.message)
+          NotifyImportMailer.notify_fail(e.message).deliver_now
         else
           raise e
         end
->>>>>>> Test new notify mailers
       end
     end
   end
