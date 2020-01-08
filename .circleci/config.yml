@@ -19,13 +19,13 @@ references:
           PG_USER: postgres
           PGUSER: postgres
           PGHOST: 127.0.0.1
-          POSTGRES_DB: parliamentary-questions_test
+          POSTGRES_DB: parliamentary_questions_test
 
       - image: postgres:10
         environment:
           PG_PASSWORD: ""
           PG_USER: postgres
-          POSTGRES_DB: parliamentary-questions_test
+          POSTGRES_DB: parliamentary_questions_test
           POSTGRES_USER: postgres
           PGUSER: postgres
 
