@@ -10,10 +10,6 @@ feature 'Exporting PQ data to CSV' do
     @pqs = PQA::QuestionLoader.new.load_and_import(3)
   end
 
-  after(:all) do
-    DatabaseCleaner.clean
-  end
-
   scenario 'Parli-branch can export pq data as CSV' do
     create_pq_session
     visit export_path

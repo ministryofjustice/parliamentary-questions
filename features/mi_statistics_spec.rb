@@ -27,10 +27,6 @@ feature 'Statistics: PQs answered on time' do
     end
   end
 
-  after(:all) do
-    DatabaseCleaner.clean
-  end
-
   scenario 'As a user I can see % of questions answered on time by date bucket' do
     create_pq_session
     visit '/statistics/on_time'
@@ -119,10 +115,6 @@ feature 'Statistics: Stages Time' do
 
     update_stage_times(pq1, [8, 6, 5, 2], base)
     update_stage_times(pq2, [12, 8, 5, 2], past_base)
-  end
-
-  after(:all) do
-    DatabaseCleaner.clean
   end
 
   def update_stage_times(pq, hours, base)
