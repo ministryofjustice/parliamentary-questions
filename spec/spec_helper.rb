@@ -46,7 +46,6 @@ RSpec.configure do |config|
   # config.include Devise::TestHelpers, type: :controller
 
   config.include Devise::Test::ControllerHelpers, type: :controller
-  # config.include Features::EmailHelpers
   config.include Features::SessionHelpers, type: :feature
 
   # config.include Features::DecisionHelpers, type: :feature

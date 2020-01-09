@@ -1,5 +1,3 @@
-# SHould we test the mailer here
-
 require 'spec_helper'
 
 describe 'QuickActionsService' do

@@ -73,5 +73,25 @@ module Presenters
     def format_internal_deadline(pq)
       pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date)} - #{pq.internal_deadline.strftime('%I').to_i}#{pq.internal_deadline.strftime('%p').downcase} " : ''
     end
+
+    def answer_by_text(pq)
+      "To be answered by: #{pq.minister&.name}" if pq.minister.present?
+    end
+
+    def member_name_text(pq)
+      "Asked by #{pq.member_name}" if pq.member_name.present?
+    end
+
+    def member_constituency_text(pq)
+      "Constituency #{pq.member_constituency}" if pq.member_constituency.present?
+    end
+
+    def internal_deadline_text(pq)
+      "The internal deadline is: #{format_internal_deadline(pq)}" if pq.internal_deadline.present?
+    end
+
+    def date_to_parliament_text(pq)
+      'Due back to Parliament ' + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
+    end
   end
 end

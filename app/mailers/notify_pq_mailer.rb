@@ -1,4 +1,6 @@
 class NotifyPqMailer < GovukNotifyRails::Mailer
+  include Presenters::Email
+
   # Typically we put varibales in alphabetically order, however in this file they
   # are in the same order as in the emails to prevent missing a variable which
   # can cause emails to not send
@@ -94,45 +96,5 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       mail_reply_to: Settings.mail_reply_to
     )
     mail(to: email)
-  end
-
-  private
-
-  # Lets put these in a presenter thing!
-
-  def answer_by_text(pq)
-    "To be answered by: #{pq.minister&.name}" if pq.minister.present?
-  end
-
-  def member_name_text(pq)
-    "Asked by #{pq.member_name}" if pq.member_name.present?
-  end
-
-  def member_constituency_text(pq)
-    "Constituency #{pq.member_constituency}" if pq.member_constituency.present?
-  end
-
-  def internal_deadline_text(pq)
-    "The internal deadline is: #{format_internal_deadline(pq)}" if pq.internal_deadline.present?
-  end
-
-  def date_to_parliament_text(pq)
-    'Due back to Parliament ' + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
-  end
-
-  def format_internal_deadline(pq)
-    pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date)} - #{pq.internal_deadline.strftime('%I').to_i}#{pq.internal_deadline.strftime('%p').downcase} " : ''
-  end
-
-  def finance_users_emails(pq)
-    if pq.finance_interest
-      User.finance.where('email IS NOT NULL').map(&:email)
-    else
-      []
-    end
-  end
-
-  def press_emails(ao)
-    Array(ao.press_desk && ao.press_desk.press_officer_emails)
   end
 end

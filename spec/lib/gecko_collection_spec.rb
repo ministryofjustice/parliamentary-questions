@@ -6,9 +6,7 @@ describe GeckoCollection do
   it '#initialize - should be initialized with gecko status instances' do
     expect(subject.key_metric).to be_an_instance_of(KeyMetricStatus)
     expect(subject.db).to be_an_instance_of(DbStatus)
-    # expect(subject.sendgrid).to be_an_instance_of(SendgridStatus)
     expect(subject.pqa_api).to be_an_instance_of(PqaApiStatus)
-    # expect(subject.mail).to be_an_instance_of(MailStatus)
     expect(subject.pqa_import).to be_an_instance_of(PqaImportStatus)
     expect(subject.smoke_tests).to be_an_instance_of(SmokeTestStatus)
   end
