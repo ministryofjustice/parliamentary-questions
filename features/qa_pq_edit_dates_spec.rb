@@ -74,24 +74,6 @@ feature "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true 
     setDate('qa_edit_answered_date', 'Answer', 'answer_submitted')
   end
 
-  def accept_commission(pq, ao)
-    visit_assignment_url(pq, ao)
-    choose 'Accept'
-    click_on 'Save'
-    visit dashboard_path
-  end
-
-  def initialise
-    create_pq_session
-    commission_question(@uin1, [@ao], @minister)
-    accept_commission(@pq1, @ao)
-    commission_question(@uin2, [@ao], @minister)
-    accept_commission(@pq2, @ao)
-    commission_question(@uin3, [@ao], @minister)
-    accept_commission(@pq3, @ao)
-    click_link 'In progress'
-  end
-
   def setDate(datetype, tablink, datefield)
     within('#pq-frame-3') { check 'uin-3' }
     within('#editDates') do
