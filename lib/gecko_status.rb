@@ -71,30 +71,6 @@ class PqaApiStatus < GeckoStatus
   end
 end
 
-# class MailStatus < GeckoStatus
-#   def initialize
-#     super('Email')
-#   end
-#
-#   def update(metrics)
-#     if metrics.mail.email_error?
-#       error(
-#         "Mails Waiting: #{metrics.mail.num_waiting} :: " \
-#         "Mails Abandoned: #{metrics.mail.num_abandoned}"
-#       )
-#     elsif metrics.mail.token_error?
-#       warn(
-#         "Unanswered Tokens: #{metrics.mail.num_unanswered_tokens} ::" \
-#         "#{100 - (metrics.mail.pctg_answered_tokens || 0)}% of total"
-#       )
-#     else
-#       ok
-#     end
-#
-#     self
-#   end
-# end
-
 class PqaImportStatus < GeckoStatus
   def initialize
     super('PQ Import')

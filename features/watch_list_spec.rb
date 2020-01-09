@@ -28,8 +28,6 @@ feature 'Watch list member sees allocated questions', suspend_cleaner: true do
     visit watchlist_members_path
     click_link_or_button 'Send allocation info'
     expect(page).to have_text('An email with the allocation information has been sent to all of the watchlist member')
-    # expect(mail.cc).to include('test-member-a@pq.com')
-    # expect(url).to_not be_blank
   end
 
   scenario 'A watchlist member follows an email link to view the list of daily questions' do

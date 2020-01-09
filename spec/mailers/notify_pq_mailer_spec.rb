@@ -1,5 +1,4 @@
 require 'spec_helper'
-# TODO: add other mail types. Do we need to test all the personalisation??
 describe NotifyPqMailer, type: :mailer do
   let(:pq)    { create :pq }
   let(:ao)    { create :action_officer }
