@@ -101,7 +101,6 @@ describe PqaApiStatus do
   end
 end
 
-
 describe PqaImportStatus do
   let(:info)     { Metrics::PqaImport.new                      }
   let(:metrics)  { double 'metrics', pqa_import: info          }
