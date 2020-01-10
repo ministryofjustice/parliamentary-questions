@@ -2,6 +2,8 @@ require 'feature_helper'
 require 'business_time'
 
 feature 'Early bird member sees allocated questions', suspend_cleaner: true do
+  include Features::PqHelpers
+
   before(:all) do
     DBHelpers.load_feature_fixtures
     @aos  = ActionOfficer.where("email like 'ao%@pq.com'")
@@ -40,11 +42,7 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
   end
 
   scenario 'A early bird member follows an email link to view the list of daily questions' do
-    token_db = Token.find_by(path: early_bird_dashboard_path)
-    entity = token_db.entity
-    token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
-
-    visit early_bird_dashboard_url(token: token, entity: entity)
+    visit_earlybird_url
 
     expect(page).to have_text(/1 new parliamentary questions/i)
     expect(page).to have_text(@pq.question)
@@ -52,20 +50,16 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
   end
 
   scenario 'The URL token sent to the early bird member expires after 24 hours' do
-    two_days_ago = DateTime.now.utc- 2.days
+    two_days_ago = DateTime.now - 2.days
     EarlyBirdReportService.new(nil, two_days_ago).notify_early_bird
-    token_db = Token.find_by(path: early_bird_dashboard_path, expire: two_days_ago.end_of_day)
-    entity = token_db.entity
-    token = TokenService.new.generate_token(token_db.path, entity, token_db.expire)
 
-    visit early_bird_dashboard_url(token: token, entity: entity)
+    visit_earlybird_url(two_days_ago.end_of_day)
 
     expect(page).to have_text(/Link expired/i)
   end
 
   private
 
-  # def generate_dummy_pq(aos)
   def generate_dummy_pq(_aos)
     PQA::QuestionLoader.new.load_and_import
 

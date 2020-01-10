@@ -72,12 +72,20 @@ module Features
       click_on 'Save'
     end
 
-    private
+    def visit_watchlist_url(expiry = DateTime.now.end_of_day)
+      token_db = Token.find_by(path: watchlist_dashboard_path, expire: expiry)
+      entity = token_db.entity
+      token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 
-    def select_option(selector_name, option_text)
-      find(:select, selector_name)
-        .find(:option, text: option_text)
-        .select_option
+      visit watchlist_dashboard_url(token: token, entity: entity)
+    end
+
+    def visit_earlybird_url(expiry = DateTime.now.end_of_day)
+      token_db = Token.find_by(path: early_bird_dashboard_path, expire: expiry.utc)
+      entity = token_db.entity
+      token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+
+      visit early_bird_dashboard_url(token: token, entity: entity)
     end
 
     def visit_assignment_url(pq, ao)
@@ -85,7 +93,16 @@ module Features
       ao_pq = ActionOfficersPq.find_by(action_officer_id: ao.id, pq_id: pq.id)
       token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{ao_pq.id}")
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+
       visit assignment_path(uin: pq.uin, token: token, entity: token_db.entity)
+    end
+
+    private
+
+    def select_option(selector_name, option_text)
+      find(:select, selector_name)
+        .find(:option, text: option_text)
+        .select_option
     end
 
     def fillin_date(css_sel)

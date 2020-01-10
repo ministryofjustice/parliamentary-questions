@@ -87,9 +87,8 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     form = CommissionForm.new(form_params)
     CommissioningService.new(nil, Time.zone.today - 4.days).commission(form)
-    token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{pq.action_officers_pqs.last.id}")
-    token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
-    visit assignment_path(uin: pq.uin, token: token, entity: token_db.entity)
+
+    visit_assignment_url(pq, ao)
 
     expect(page.title).to have_content('Unauthorised (401)')
     expect(page).to have_content(/Link expired/i)
