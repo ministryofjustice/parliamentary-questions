@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: nightly-import
 spec:
-  schedule: "* 4,6 * * *"
+  schedule: "* 2,4 * * *"
   startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3

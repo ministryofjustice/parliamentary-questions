@@ -1,0 +1,46 @@
+# A cronjob to clear all but the 50 newest questions in the database
+# before the nightly import is run. This is to avoid overloading the
+# database with too many questions which are not progressed or
+# closed and so stagnate in test environments database.
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: trim-and-anonymise-database
+spec:
+  schedule: "* 3 * * *"
+  startingDeadlineSeconds: 10
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: trim-and-anonymise-database
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
+              imagePullPolicy: IfNotPresent
+              command: ['sh', '-c', "bundle exec rake 'db:staging:sync'"]
+              envFrom:
+                - configMapRef:
+                    name: environment-variables
+                - secretRef:
+                    name: pq-secrets
+              env:
+                - name: DB_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: parliamentary-questions-staging-rds
+                      key: rds_instance_address
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: parliamentary-questions-staging-rds
+                      key: database_username
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: parliamentary-questions-staging-rds
+                      key: database_password
+          restartPolicy: OnFailure
