@@ -8,7 +8,7 @@ kind: CronJob
 metadata:
   name: trim-and-anonymise-database
 spec:
-  schedule: "* 3 * * *"
+  schedule: "* 6 * * *"
   startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
