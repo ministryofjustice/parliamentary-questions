@@ -6,4 +6,3 @@
 #
 # set :output, 'log/schedule.log'
 # job_type :rake,  'cd :path && RAILS_ENV=production bundle exec rake :task :output'
-
