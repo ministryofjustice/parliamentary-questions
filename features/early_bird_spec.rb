@@ -53,7 +53,7 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     two_days_ago = DateTime.now - 2.days
     EarlyBirdReportService.new(nil, two_days_ago).notify_early_bird
 
-    visit_earlybird_url(two_days_ago.end_of_day)
+    visit_earlybird_url(two_days_ago)
 
     expect(page).to have_text(/Link expired/i)
   end
