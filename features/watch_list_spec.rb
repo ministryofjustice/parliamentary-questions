@@ -45,7 +45,7 @@ feature 'Watch list member sees allocated questions', suspend_cleaner: true do
   end
 
   scenario 'The URL token sent to the watchlist member expires after 24 hours' do
-    two_days_ago = (DateTime.now - 2.days).end_of_day
+    two_days_ago = DateTime.now - 2.days
     WatchlistReportService.new(nil, two_days_ago).notify_watchlist
 
     visit_watchlist_url(two_days_ago)
