@@ -4,3 +4,4 @@ metadata:
   name: environment-variables
 data:
   RAILS_ENV: "development"
+  TEST_USER_PASS: "password"
