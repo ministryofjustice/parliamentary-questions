@@ -37,7 +37,6 @@ describe Metrics::Health do
 
       before(:each) do
         allow(subject).to receive(:get_db_status).and_return(true)
-        allow(subject).to receive(:get_sendgrid_status).and_return(true)
       end
 
       def set_properties(exists, stale, status)
