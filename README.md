@@ -93,3 +93,9 @@ be run be executing the same command with the features folder as argument (i.e.
 `bundle exec rspec features`). Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/features) in the features folder
 for end-to-end tests implementation details.
 
+# Emails
+Emails are sent using the [GOVUK Notify service](https://www.notifications.service.gov.uk).
+
+Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers)in the mailers folder
+for details of how to get an account and obtain an API key.
+
