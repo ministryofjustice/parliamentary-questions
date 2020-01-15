@@ -28,8 +28,6 @@ module Presenters
         .merge(cc_list: cc_list(pq, ao))
     end
 
-    # private_class_method
-
     def cc_list(pq, ao)
       deputy_director_email = ao.deputy_director&.email
 
@@ -45,6 +43,8 @@ module Presenters
         .reject(&:blank?)
         .join(';')
     end
+
+    # private_class_method
 
     def mp_emails(pq)
       Array(pq.minister && pq.minister.contact_emails)

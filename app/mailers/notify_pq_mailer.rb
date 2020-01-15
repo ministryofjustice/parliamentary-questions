@@ -17,7 +17,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       answer_by: pq.minister&.name || '',
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
-      cc_list: action_officer.group_email || '',
+      cc_list: cc_list(pq, action_officer) || '',
       mail_reply_to: Settings.mail_reply_to
     )
     mail(to: action_officer.email)
@@ -70,7 +70,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       answer_by: pq.minister&.name || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
       internal_deadline: internal_deadline_text(pq) || '',
-      cc_list: action_officer.group_email || '',
+      cc_list: cc_list(pq, action_officer) || '',
       finance_users_emails: finance_users_emails(pq),
       press_email: press_emails(action_officer),
       mail_reply_to: Settings.mail_reply_to
