@@ -3,7 +3,7 @@ namespace :pqa do
   task :early_bird, [] => :environment do
     begin
       if PqaImportRun.ready_for_early_bird
-        if (Time.zone.today < Date.new(2019, 11, 6)) || (Time.zone.today > Date.new(2019, 12, 19))
+        if (Time.zone.today < Date.new(2019, 12, 23)) || (Time.zone.today > Date.new(2020, 1, 6))
           LogStuff.info { 'Early Bird: Preparing to queue early bird mails' }
           service = EarlyBirdReportService.new
           service.notify_early_bird
@@ -14,16 +14,13 @@ namespace :pqa do
           puts 'Early Bird: Should not run - We are in a recess'
         end
       else
-        LogStuff.info { 'Early Bird: Should not run - We are in a recess' }
-        puts 'Early Bird: Should not run - We are in a recess'
+        LogStuff.info { 'Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false' }
+        puts 'Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false'
       end
-    else
-      LogStuff.info { 'Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false' }
-      puts 'Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false'
+    rescue => e
+      LogStuff.error { 'Early Bird: ' + e.message }
+      puts 'Early Bird:' + e.message
+      raise e
     end
-  rescue => e
-    LogStuff.error { 'Early Bird: ' + e.message }
-    puts 'Early Bird:' + e.message
-    raise e
   end
 end
