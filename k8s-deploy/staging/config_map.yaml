@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: environment-variables
 data:
-  RAILS_ENV: "staging"
+  RAILS_ENV:      "development"
   TEST_USER_PASS: "password"
