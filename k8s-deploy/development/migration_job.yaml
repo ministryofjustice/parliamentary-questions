@@ -74,10 +74,18 @@ spec:
               secretKeyRef:
                 name: parliamentary-questions-development-rds
                 key: database_password
+<<<<<<< HEAD
           # - name: GOVUK_NOTIFY_API_KEY
           #   valueFrom:
           #     secretKeyRef:
           #       name: pq-secrets
           #       key: govuk_notify_api_key
 >>>>>>> add secret to use notify in kubenetes dev
+=======
+          - name: GOVUK_NOTIFY_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: pq-secrets
+                key: govuk_notify_api_key
+>>>>>>> add detail on adding notify env variable
       restartPolicy: OnFailure

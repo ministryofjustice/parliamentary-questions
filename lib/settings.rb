@@ -96,4 +96,9 @@ module Settings
   def tech_support_email
     @h['tech_support_email']
   end
+
+  def govuk_notify_api_key
+    ENV.fetch('GOVUK_NOTIFY_API_KEY') || @h['govuk_notify_api_key']
+
+  end
 end

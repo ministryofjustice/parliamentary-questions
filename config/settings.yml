@@ -8,6 +8,7 @@ healthcheck_pqa_api_interval: 15               # minimum interval between pqa AP
 key_metric_threshold: 0.5
 parliamentary_team_email: 6914dbfe-4cbb-46dc-aaac-c4be561c8e72
 tech_support_email: 0cdb6fb9-ded7-4fd6-b878-2c431bcb924f
+govuk_notify_api_key: refer-to-instructions-on-how-to-add-key-to-env-variables
 
 excepted_from_ssl:
   - ping.json
