@@ -4,6 +4,7 @@ class NotifyDbSyncMailer < GovukNotifyRails::Mailer
     set_personalisation(
       error_message: error_message
     )
+    set_email_reply_to(Settings.tech_support_email)
     mail(to: Settings.mail_tech_support)
   end
 end

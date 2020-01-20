@@ -37,7 +37,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   scenario 'AO should receive an email notification of assigned question' do
     pq = Pq.find_by(uin: @pq.uin)
-    ao_mail = NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: '1234', entity: 'assignment:1').deliver_now
+    ao_mail = NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: '1234', entity: 'assignment:1', email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.govuk_notify_response.content['body']).to include "your team is responsible for answering PQ #{@pq.uin}"
@@ -61,7 +61,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
   scenario 'The AO should receive an email notification confirming the question acceptance' do
     pq = Pq.find_by(uin: @pq.uin)
-    ao_mail = NotifyPqMailer.acceptance_email(pq: pq, action_officer: ao).deliver_now
+    ao_mail = NotifyPqMailer.acceptance_email(pq: pq, action_officer: ao, email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.govuk_notify_response.content['body']).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")

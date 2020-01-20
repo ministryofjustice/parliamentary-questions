@@ -5,7 +5,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
   # are in the same order as in the emails to prevent missing a variable which
   # can cause emails to not send
 
-  def acceptance_email(pq:, action_officer:)
+  def acceptance_email(pq:, action_officer:, email:)
     set_template('b8b325ad-a00a-4ae9-8830-6386f04adbca')
     set_personalisation(
       uin: pq.uin,
@@ -20,10 +20,11 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       cc_list: cc_list(pq, action_officer) || '',
       mail_reply_to: Settings.mail_reply_to
     )
-    mail(to: action_officer.email)
+    set_email_reply_to(Settings.parliamentary_team_email)
+    mail(to: email)
   end
 
-  def acceptance_reminder_email(pq:, action_officer:)
+  def acceptance_reminder_email(pq:, action_officer:, email:)
     set_template('930fb678-0ecf-477c-9d2e-c63e101fcbc4')
     set_personalisation(
       uin: pq.uin,
@@ -37,10 +38,11 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       date_to_parliament: date_to_parliament_text(pq) || '',
       mail_reply_to: Settings.mail_reply_to
     )
-    mail(to: action_officer.email)
+    set_email_reply_to(Settings.parliamentary_team_email)
+    mail(to: email)
   end
 
-  def commission_email(pq:, action_officer:, token:, entity:)
+  def commission_email(pq:, action_officer:, token:, entity:, email:)
     set_template('93cb8968-bd2a-401b-8b59-47f8e0b30ca0')
     set_personalisation(
       uin: pq.uin,
@@ -55,10 +57,11 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       pq_link: assignment_url(uin: pq.uin, token: token, entity: entity),
       mail_reply_to: Settings.mail_reply_to
     )
-    mail(to: action_officer.email)
+    set_email_reply_to(Settings.parliamentary_team_email)
+    mail(to: email)
   end
 
-  def draft_reminder_email(pq:, action_officer:)
+  def draft_reminder_email(pq:, action_officer:, email:)
     set_template('a194ce43-dfe4-4a4f-8f15-8ad2545c4fb9')
     set_personalisation(
       uin: pq.uin,
@@ -75,7 +78,8 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       press_email: press_emails(action_officer),
       mail_reply_to: Settings.mail_reply_to
     )
-    mail(to: action_officer.email)
+    set_email_reply_to(Settings.parliamentary_team_email)
+    mail(to: email)
   end
 
   def early_bird_email(email:, token:, entity:)
@@ -85,6 +89,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       early_bird_link: early_bird_dashboard_url(token: token, entity: entity),
       reply_to_email: Settings.mail_reply_to
     )
+    set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: email)
   end
 
@@ -95,6 +100,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       watch_list_url: watchlist_dashboard_url(token: token, entity: entity),
       mail_reply_to: Settings.mail_reply_to
     )
+    set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: email)
   end
 end

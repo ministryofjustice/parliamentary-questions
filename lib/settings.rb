@@ -88,4 +88,12 @@ module Settings
   def key_metric_threshold
     @h['key_metric_threshold']
   end
+
+  def parliamentary_team_email
+    @h['parliamentary_team_email']
+  end
+
+  def tech_support_email
+    @h['tech_support_email']
+  end
 end

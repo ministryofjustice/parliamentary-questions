@@ -10,7 +10,7 @@ class DeviseMailer < Devise::Mailer
       name: record.name,
       confirmation_url: confirmation_url(record, confirmation_token: token)
     )
-
+    set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: record.email)
   end
 
@@ -23,7 +23,7 @@ class DeviseMailer < Devise::Mailer
       accept_invitation_url: accept_user_invitation_url(record, invitation_token: token),
       mail_reply_to: Settings.mail_reply_to
     )
-
+    set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: record.email)
   end
 
@@ -35,7 +35,7 @@ class DeviseMailer < Devise::Mailer
       name: record.name,
       edit_password_url: edit_password_url(record, reset_password_token: token)
     )
-
+    set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: record.email)
   end
 
@@ -47,7 +47,7 @@ class DeviseMailer < Devise::Mailer
       name: record.name,
       unlock_url: unlock_url(record, unlock_token: token)
     )
-
+    set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: record.email)
   end
 end

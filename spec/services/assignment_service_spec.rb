@@ -35,7 +35,7 @@ describe AssignmentService do
     it 'should call the mailer' do
       allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_now)
       subject.accept(assignment)
-      expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq: pq, action_officer: action_officer)
+      expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq: pq, action_officer: action_officer, email: action_officer.email)
     end
 
     it 'should set the original division_id on PQ' do

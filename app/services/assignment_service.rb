@@ -14,7 +14,10 @@ class AssignmentService
       pq.update(directorate: directorate, original_division: division)
     end
     pq.update_state!
-    NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer).deliver_now
+    if assignment.action_officer.group_email.present?
+      NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer, email: assignment.action_officer.group_email).deliver_now
+    end
+    NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer, email: assignment.action_officer.email).deliver_now
   end
 
   def reject(assignment, response)

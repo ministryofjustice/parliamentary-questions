@@ -5,6 +5,7 @@ class NotifyImportMailer < GovukNotifyRails::Mailer
       environment: app_env,
       error_message: error_message
     )
+    set_email_reply_to(Settings.tech_support_email)
     mail(to: Settings.mail_tech_support)
   end
 
@@ -16,6 +17,7 @@ class NotifyImportMailer < GovukNotifyRails::Mailer
       questions_created: report[:created],
       questions_updated: report[:updated]
     )
+    set_email_reply_to(Settings.tech_support_email)
     mail(to: Settings.mail_tech_support)
   end
 
