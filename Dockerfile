@@ -56,7 +56,7 @@ RUN cd /usr/src/app  && \
     install -m 755 docker/entrypoint.sh /entrypoint.sh && \
     echo 'export PATH=${APP_HOME}/bin:$PATH' >> /etc/bash.bashrc
 
-RUN bundle exec rake assets:precompile RAILS_ENV=development PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret
+RUN bundle exec rake assets:precompile RAILS_ENV=development2 PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret
 
 RUN chmod +x /sbin/tini
 
