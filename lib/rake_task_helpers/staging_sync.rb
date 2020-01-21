@@ -1,6 +1,7 @@
 module RakeTaskHelpers
   class StagingSync
     def initialize
+      @db_trim        = RakeTaskHelpers::DBTrim.new
       @db_sanitizer   = RakeTaskHelpers::DBSanitizer.new
       @user_generator = RakeTaskHelpers::TestUserGenerator.from_config
     end
@@ -8,6 +9,9 @@ module RakeTaskHelpers
     def run!
       if HostEnv.is_staging?
         begin
+          @db_trim.run!
+          puts '[+] DB trimmed'
+
           @db_sanitizer.run!
           puts '[+] DB sanitized'
 
