@@ -215,29 +215,6 @@ jobs:
 
 #  Workflows combine jobs to perform the actions
 
-  build_and_test:
-    <<: *container_config
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: install bundle
-          command: gem install bundler -v 2.0.1
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - *build_docker_image
-      - *push_docker_image
-      - *wait_for_db
-      - *set_up_the_database
-      - *rubocop
-      - *tests
-      - store_test_results:
-          path: test_results
-
-#  Workflows combine jobs to perform the actions
-
 workflows:
   version: 2
   build_and_run_tests:
