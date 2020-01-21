@@ -6,4 +6,4 @@ data:
   ENV: "staging"
   RACK_ENV: "staging"
   RAILS_ENV: "staging"
-  SENDING_HOST: staging.trackparliamentaryquestions.service.gov.uk
+  SENDING_HOST: "staging.trackparliamentaryquestions.service.gov.uk"
