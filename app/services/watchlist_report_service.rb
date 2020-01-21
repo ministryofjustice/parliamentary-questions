@@ -15,8 +15,8 @@ class WatchlistReportService
     token      = @token_service.generate_token(watchlist_dashboard_path, entity, end_of_day)
     recipients = WatchlistMember.active.pluck(:email) << 'pqtest@digital.justice.gov.uk'
 
+    $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"
     recipients.each do |recipient|
-      $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"
       LogStuff.tag(:mailer_watchlist) do
         LogStuff.info { "Watchlist  email to pqtest@digital.justice.gov.uk (name Watchlist) [CCd to #{recipients.join(';')}]" }
         NotifyPqMailer.watchlist_email(email: recipient, token: token, entity: entity).deliver_now
