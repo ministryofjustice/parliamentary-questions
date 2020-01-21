@@ -6,7 +6,7 @@ module HostEnv
   end
 
   def is_staging?
-    ENV['SENDING_HOST'] =~  /staging.trackparliamentaryquestions.service.gov.uk/
+    ENV['SENDING_HOST'] =~ /staging.trackparliamentaryquestions.service.gov.uk/
   end
 
   def is_dev?
