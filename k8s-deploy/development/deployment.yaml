@@ -15,38 +15,38 @@ spec:
         app: parliamentary-questions
     spec:
       containers:
-      - name: parliamentary-questions-rails-app
-        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
-        imagePullPolicy: Always
-        command: ['sh', '-c', "bundle exec puma -p 3000"]
-        ports:
-        - containerPort: 3000
-        # livenessProbe:
-        #   httpGet:
-        #     path: /ping
-        #     port: 80
-        # readinessProbe:
-        #   httpGet:
-        #     path: /healthcheck
-        #     port: 4567
-        envFrom:
-          - configMapRef:
+        - name: parliamentary-questions-rails-app
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec puma -p 3000"]
+          ports:
+            - containerPort: 3000
+          # livenessProbe:
+          #   httpGet:
+          #     path: /ping
+          #     port: 80
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthcheck
+          #     port: 4567
+          envFrom:
+            - configMapRef:
               name: environment-variables
-          - secretRef:
+            - secretRef:
               name: pq-secrets
-        env:
-          - name: DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-development-rds
-                key: rds_instance_address
-          - name: PGUSER
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-development-rds
-                key: database_username
-          - name: PGPASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-development-rds
-                key: database_password
+          env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: parliamentary-questions-development-rds
+                  key: rds_instance_address
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: parliamentary-questions-development-rds
+                  key: database_username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: parliamentary-questions-development-rds
+                  key: database_password
