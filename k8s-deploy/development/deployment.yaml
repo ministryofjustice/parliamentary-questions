@@ -31,9 +31,9 @@ spec:
           #     port: 4567
           envFrom:
             - configMapRef:
-              name: environment-variables
+                name: environment-variables
             - secretRef:
-              name: pq-secrets
+                name: pq-secrets
           env:
             - name: DB_HOST
               valueFrom:

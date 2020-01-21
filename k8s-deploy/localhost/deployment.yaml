@@ -23,9 +23,9 @@ spec:
             - containerPort: 3000
           envFrom:
             - configMapRef:
-              name: environment-variables
+                name: environment-variables
             - secretRef:
-              name: pq-secrets
+                name: pq-secrets
         - name: postgres
           image: 'postgres:10'
           imagePullPolicy: IfNotPresent
