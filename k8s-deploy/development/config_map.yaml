@@ -3,4 +3,7 @@ kind: ConfigMap
 metadata:
   name: environment-variables
 data:
-  RAILS_ENV: "development"
+  ENV:          "development"
+  RACK_ENV:     "development"
+  RAILS_ENV:    "development"
+  SENDING_HOST: "development.trackparliamentaryquestions.service.gov.uk"
