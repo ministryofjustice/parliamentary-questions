@@ -7,7 +7,6 @@ spec:
   template:
     spec:
       containers:
-<<<<<<< HEAD
         -
           command:
             - sh
@@ -48,48 +47,4 @@ spec:
           image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
           imagePullPolicy: Always
           name: parliamentary-questions-rails-app
-=======
-      - name: parliamentary-questions-rails-app
-        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
-        imagePullPolicy: Always
-        command: [ 'sh', '-c', "bundle exec rake db:setup  && bundle exec rake user:create &&  bundle exec rake 'user:create[admin@admin.com, 123456789, admin]'"]
-        envFrom:
-          - configMapRef:
-              name: environment-variables
-          - secretRef:
-              name: pq-secrets
-        env:
-          - name: DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-development-rds
-                key: rds_instance_address
-          - name: PGUSER
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-development-rds
-                key: database_username
-          - name: PGPASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-development-rds
-                key: database_password
-<<<<<<< HEAD
-          # - name: GOVUK_NOTIFY_API_KEY
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: pq-secrets
-          #       key: govuk_notify_api_key
->>>>>>> add secret to use notify in kubenetes dev
-=======
-          - name: GOVUK_NOTIFY_API_KEY
-            valueFrom:
-              secretKeyRef:
-                name: pq-secrets
-<<<<<<< HEAD
-                key: govuk_notify_api_key
->>>>>>> add detail on adding notify env variable
-=======
-                key: GOVUK_NOTIFY_API_KEY
->>>>>>> update notify keys
       restartPolicy: OnFailure
