@@ -4,15 +4,18 @@ metadata:
   name: pq-development
   namespace: parliamentary-questions-development
 spec:
-  tls:
-  - hosts:
-    - development.trackparliamentaryquestions.service.gov.uk
-    secretName: parliamentary-questions-development-cert
   rules:
-  - host: development.trackparliamentaryquestions.service.gov.uk
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: parliamentary-questions-service
-          servicePort: 3000
+    -
+      host: development.trackparliamentaryquestions.service.gov.uk
+      http:
+        paths:
+          -
+            backend:
+              serviceName: parliamentary-questions-service
+              servicePort: 3000
+            path: /
+  tls:
+    -
+      hosts:
+        - development.trackparliamentaryquestions.service.gov.uk
+      secretName: parliamentary-questions-development-cert

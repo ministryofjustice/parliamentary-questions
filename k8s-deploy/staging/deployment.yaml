@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: parliamentary-questions
   labels:
     app: parliamentary-questions
+  name: parliamentary-questions
 spec:
   replicas: 1
   selector:
@@ -15,38 +15,48 @@ spec:
         app: parliamentary-questions
     spec:
       containers:
-      - name: parliamentary-questions-rails-app
-        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
-        imagePullPolicy: Always
-        command: ['sh', '-c', "bundle exec puma -p 3000"]
-        ports:
-        - containerPort: 3000
-        # livenessProbe:
-        #   httpGet:
-        #     path: /ping
-        #     port: 80
-        # readinessProbe:
-        #   httpGet:
-        #     path: /healthcheck
-        #     port: 4567
-        envFrom:
-          - configMapRef:
-              name: environment-variables
-          - secretRef:
-              name: pq-secrets
-        env:
-          - name: DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-staging-rds
-                key: rds_instance_address
-          - name: PGUSER
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-staging-rds
-                key: database_username
-          - name: PGPASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: parliamentary-questions-staging-rds
-                key: database_password
+        -
+          command:
+            - sh
+            - "-c"
+            - "bundle exec puma -p 3000"
+          env:
+            -
+              name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: rds_instance_address
+                  name: parliamentary-questions-staging-rds
+            -
+              name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  key: database_username
+                  name: parliamentary-questions-staging-rds
+            -
+              name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database_password
+                  name: parliamentary-questions-staging-rds
+          envFrom:
+            -
+              configMapRef:
+                name: environment-variables
+            -
+              secretRef:
+                name: pq-secrets
+          image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
+          imagePullPolicy: Always
+          # livenessProbe:
+          #   httpGet:
+          #     path: /ping
+          #     port: 80
+          name: parliamentary-questions-rails-app
+          ports:
+            -
+              containerPort: 3000
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthcheck
+          #     port: 4567

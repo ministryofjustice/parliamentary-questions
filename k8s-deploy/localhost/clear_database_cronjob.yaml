@@ -3,23 +3,29 @@ kind: CronJob
 metadata:
   name: clear-database
 spec:
-  schedule: "0 1 * * *"
-  startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: clear-database
-            image: beccapearce/parliamentary-questions_web:latest
-            imagePullPolicy: IfNotPresent
-            command: ['sh', '-c', "bundle exec rake db:setup  && bundle exec rake user:create &&  bundle exec rake 'user:create[admin@admin.com, 123456789, admin]'"]
-            envFrom:
-              - configMapRef:
-                  name: environment-variables
-              - secretRef:
-                  name: pq-secrets
+            -
+              command:
+                - sh
+                - "-c"
+                - "bundle exec rake db:setup && bundle exec rake user:create && bundle exec rake 'user:create[admin@admin.com, 123456789, admin]'"
+              envFrom:
+                -
+                  configMapRef:
+                    name: environment-variables
+                -
+                  secretRef:
+                    name: pq-secrets
+              image: "beccapearce/parliamentary-questions_web:latest"
+              imagePullPolicy: IfNotPresent
+              name: clear-database
           restartPolicy: OnFailure
+  schedule: "0 1 * * *"
+  startingDeadlineSeconds: 10
+  successfulJobsHistoryLimit: 3

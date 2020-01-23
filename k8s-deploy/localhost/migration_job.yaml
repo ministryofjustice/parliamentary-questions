@@ -7,13 +7,20 @@ spec:
   template:
     spec:
       containers:
-      - name: parliamentary-questions-rails-app
-        image: beccapearce/parliamentary-questions_web:latest
-        imagePullPolicy: IfNotPresent
-        command: [ 'sh', '-c', "bundle exec rake db:setup  && bundle exec rake user:create &&  bundle exec rake 'user:create[admin@admin.com, 123456789, admin]'"]
-        envFrom:
-          - configMapRef:
-              name: environment-variables
-          - secretRef:
-              name: pq-secrets
+        -
+          command:
+            - sh
+            - "-c"
+            - "bundle exec rake db:setup && bundle exec rake user:create && bundle exec rake 'user:create[admin@admin.com, 123456789, admin]'"
+          envFrom:
+            -
+              configMapRef:
+                name: environment-variables
+            -
+              secretRef:
+                name: pq-secrets
+          image: "beccapearce/parliamentary-questions_web:latest"
+          imagePullPolicy: IfNotPresent
+          name: parliamentary-questions-rails-app
       restartPolicy: OnFailure
+

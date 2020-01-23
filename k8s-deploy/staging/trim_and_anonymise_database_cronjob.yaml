@@ -8,39 +8,48 @@ kind: CronJob
 metadata:
   name: trim-and-anonymise-database
 spec:
-  schedule: "* 6 * * *"
-  startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-            - name: trim-and-anonymise-database
-              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest
-              imagePullPolicy: IfNotPresent
-              command: ['sh', '-c', "bundle exec rake 'db:staging:sync'"]
-              envFrom:
-                - configMapRef:
-                    name: environment-variables
-                - secretRef:
-                    name: pq-secrets
+            -
+              command:
+                - sh
+                - "-c"
+                - "bundle exec rake 'db:staging:sync'"
               env:
-                - name: DB_HOST
+                -
+                  name: DB_HOST
                   valueFrom:
                     secretKeyRef:
-                      name: parliamentary-questions-staging-rds
                       key: rds_instance_address
-                - name: PGUSER
+                      name: parliamentary-questions-staging-rds
+                -
+                  name: PGUSER
                   valueFrom:
                     secretKeyRef:
-                      name: parliamentary-questions-staging-rds
                       key: database_username
-                - name: PGPASSWORD
+                      name: parliamentary-questions-staging-rds
+                -
+                  name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: parliamentary-questions-staging-rds
                       key: database_password
+                      name: parliamentary-questions-staging-rds
+              envFrom:
+                -
+                  configMapRef:
+                    name: environment-variables
+                -
+                  secretRef:
+                    name: pq-secrets
+              image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
+              imagePullPolicy: IfNotPresent
+              name: trim-and-anonymise-database
           restartPolicy: OnFailure
+  schedule: "* 6 * * *"
+  startingDeadlineSeconds: 10
+  successfulJobsHistoryLimit: 3

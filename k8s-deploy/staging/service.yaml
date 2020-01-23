@@ -1,14 +1,16 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: parliamentary-questions-service
-  namespace: parliamentary-questions-staging
   labels:
     app: parliamentary-questions
+  name: parliamentary-questions-service
+  namespace: parliamentary-questions-staging
 spec:
+  ports:
+    -
+      name: http
+      port: 3000
+      targetPort: 3000
   selector:
     app: parliamentary-questions
-  ports:
-  - name: http
-    port: 3000
-    targetPort: 3000
+
