@@ -11,7 +11,7 @@ spec:
           command:
             - sh
             - "-c"
-            - "bundle exec rake db:setup]'"
+            - "bundle exec rake db:setup"
           env:
             -
               name: DB_HOST
@@ -31,12 +31,12 @@ spec:
                 secretKeyRef:
                   key: database_password
                   name: parliamentary-questions-staging-rds
-            - 
+            -
               name: GOVUK_NOTIFY_API_KEY
-              valueFrom: 
+              valueFrom:
                 secretKeyRef:
-                  key: GOVUK_NOTIFY_API_KEY     
-                  name: pq-secrets    
+                  key: GOVUK_NOTIFY_API_KEY
+                  name: pq-secrets
           envFrom:
             -
               configMapRef:
