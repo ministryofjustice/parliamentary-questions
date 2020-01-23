@@ -86,6 +86,10 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: pq-secrets
+<<<<<<< HEAD
                 key: govuk_notify_api_key
 >>>>>>> add detail on adding notify env variable
+=======
+                key: GOVUK_NOTIFY_API_KEY
+>>>>>>> update notify keys
       restartPolicy: OnFailure
