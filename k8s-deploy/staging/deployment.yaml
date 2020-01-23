@@ -39,6 +39,12 @@ spec:
                 secretKeyRef:
                   key: database_password
                   name: parliamentary-questions-staging-rds
+            - 
+              name: GOVUK_NOTIFY_API_KEY
+              valueFrom: 
+                secretKeyRef:
+                  key: GOVUK_NOTIFY_API_KEY
+                  name: pq-secrets
           envFrom:
             -
               configMapRef:

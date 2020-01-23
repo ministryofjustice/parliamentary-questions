@@ -25,8 +25,6 @@ feature 'Minister Report', js: true do
   before(:each) do
     DBHelpers.load_feature_fixtures
     @pq1, @pq2, = PQA::QuestionLoader.new.load_and_import(10)
-
-    clear_sent_mail
     create_pq_session
   end
 
@@ -38,8 +36,7 @@ feature 'Minister Report', js: true do
 
     uins.each do |uin|
       commission_question(uin, [action_officer], minister)
-      accept_assignment(action_officer)
-      clear_sent_mail
+      accept_assignment(Pq.find_by(uin: uin), action_officer)
     end
 
     visit reports_ministers_by_progress_path
@@ -56,7 +53,7 @@ feature 'Minister Report', js: true do
 
   scenario 'Parli-branch accesses the press desk report and follows a link to the filter results page' do
     commission_question(@pq1.uin, [action_officer], minister)
-    accept_assignment(action_officer)
+    accept_assignment(@pq1, action_officer)
 
     visit reports_press_desk_by_progress_path
 

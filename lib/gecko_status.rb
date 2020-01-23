@@ -60,17 +60,6 @@ class DbStatus < GeckoStatus
   end
 end
 
-class SendgridStatus < GeckoStatus
-  def initialize
-    super('Sendgrid')
-  end
-
-  def update(metrics)
-    metrics.health.sendgrid_status ? ok : error('Unable to contact sendgrid')
-    self
-  end
-end
-
 class PqaApiStatus < GeckoStatus
   def initialize
     super('PQA API')
@@ -78,30 +67,6 @@ class PqaApiStatus < GeckoStatus
 
   def update(metrics)
     metrics.health.pqa_api_status ? ok : error(metrics.health.pqa_api_error_message)
-    self
-  end
-end
-
-class MailStatus < GeckoStatus
-  def initialize
-    super('Email')
-  end
-
-  def update(metrics)
-    if metrics.mail.email_error?
-      error(
-        "Mails Waiting: #{metrics.mail.num_waiting} :: " \
-        "Mails Abandoned: #{metrics.mail.num_abandoned}"
-      )
-    elsif metrics.mail.token_error?
-      warn(
-        "Unanswered Tokens: #{metrics.mail.num_unanswered_tokens} ::" \
-        "#{100 - (metrics.mail.pctg_answered_tokens || 0)}% of total"
-      )
-    else
-      ok
-    end
-
     self
   end
 end

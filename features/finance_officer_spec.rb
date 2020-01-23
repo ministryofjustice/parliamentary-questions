@@ -1,7 +1,7 @@
 require 'feature_helper'
 
 feature 'Creating finance officers', js: true, suspend_cleaner: true do
-  include Features::EmailHelpers
+  include Features::PqHelpers
 
   after(:all) do
     DatabaseCleaner.clean
@@ -25,17 +25,20 @@ feature 'Creating finance officers', js: true, suspend_cleaner: true do
   end
 
   scenario 'New user receives an email invitation to become a finance officer' do
-    invitation = sent_mail_to(email).last
+    user = User.find_by(email: 'fo@pq.com')
+    token = user.invitation_token
+    invitation = DeviseMailer.invitation_instructions(user, token).deliver_now
 
-    expect(invitation.subject).to eq 'Invitation instructions'
-    expect(invitation.body).to include 'You have been invited to use the PQ Tracker'
+    expect(invitation.govuk_notify_response.content['subject']).to eq 'Invitation instructions'
+    expect(invitation.govuk_notify_response.content['body']).to include 'You have been invited to use the PQ Tracker'
   end
 
   scenario 'Clicking the link allows the user to set their password' do
-    invitation = sent_mail_to(email).last
-    url = extract_url_like('/users/invitation/accept', invitation)
+    user = User.find_by(email: 'fo@pq.com')
+    invitation_token, encoded = Devise.token_generator.generate(User, :invitation_token)
+    user.update_column(:invitation_token, encoded)
 
-    visit url
+    visit accept_user_invitation_path(invitation_token: invitation_token)
     fill_in 'Password', with: pass
     fill_in 'Password confirmation', with: pass
     click_on 'Set my password'

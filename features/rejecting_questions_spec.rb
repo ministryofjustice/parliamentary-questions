@@ -5,8 +5,6 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
 
   before(:all) do
     DBHelpers.load_feature_fixtures
-
-    clear_sent_mail
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
@@ -23,7 +21,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'Following the email link should let an AO reject the question' do
-    reject_assignment(ao1, 2, 'going to the cinema')
+    reject_assignment(@pq, ao1, 2, 'going to the cinema')
     expect(page.title).to have_text('PQ rejected')
     expect(page).to have_content(/thank you for your response/i)
   end
@@ -45,14 +43,15 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'If an AO submits an empty acceptance form, show an error' do
-    visit_assignment_url(ao2)
+    visit_assignment_url(@pq, ao2)
     click_on 'Save Response'
     expect(page).to have_content('Form was not completed')
     expect(page).not_to have_content('Please select one of the reasons to reject the question')
   end
 
   scenario 'If an AO rejects without a reason, show an error' do
-    visit_assignment_url(ao2)
+    create_pq_session
+    visit_assignment_url(@pq, ao2)
     choose 'Reject'
     click_on 'Save Response'
     expect(page).to have_content('Form was not completed')
@@ -61,7 +60,7 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'If an AO rejects without selecting from the dropdown, show an error' do
-    visit_assignment_url(ao2)
+    visit_assignment_url(@pq, ao2)
     choose 'Reject'
     fill_in 'allocation_response_reason', with: 'no time'
     click_on 'Save Response'
@@ -71,15 +70,15 @@ feature 'Rejecting questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'If an AO rejects without typing a reason, show an error' do
-    visit_assignment_url(ao2)
-    reject_assignment(ao2, 3, '')
+    visit_assignment_url(@pq, ao2)
+    reject_assignment(@pq, ao2, 3, '')
     expect(page).to have_content('Form was not completed')
     expect(page).not_to have_content('Please select one of the reasons to reject the question')
     expect(page).to have_content('Please give us information about why you reject the question')
   end
 
   scenario 'If an AO is the last to reject a question, the status should change to rejected' do
-    reject_assignment(ao2, 3, 'too busy!')
+    reject_assignment(@pq, ao2, 3, 'too busy!')
     create_pq_session
     expect_pq_status(@pq.uin, 'Rejected')
 

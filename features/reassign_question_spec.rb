@@ -9,7 +9,6 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
 
   before(:all) do
     DBHelpers.load_feature_fixtures
-    clear_sent_mail
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
@@ -33,7 +32,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
   end
 
   scenario 'Action officer receive notification and accepts question' do
-    accept_assignment(ao1)
+    accept_assignment(@pq, ao1)
   end
 
   scenario 'Parli-branch re-assigns question to another action officer' do
@@ -47,7 +46,7 @@ feature 'Parli-branch re-assigns a question', js: true, suspend_cleaner: true do
     click_on 'Manually reject this action officer'
 
     commission_question(@pq.uin, [ao2], minister)
-    accept_assignment(ao2)
+    accept_assignment(@pq, ao2)
 
     visit pq_path(@pq.uin)
     click_on 'PQ commission'

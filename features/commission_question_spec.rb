@@ -8,7 +8,6 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   let(:minister)   { Minister.second                            }
 
   before(:all) do
-    clear_sent_mail
     DBHelpers.load_feature_fixtures
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
@@ -37,14 +36,15 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'AO should receive an email notification of assigned question' do
-    ao_mail = sent_mail.first
+    pq = Pq.find_by(uin: @pq.uin)
+    ao_mail = NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: '1234', entity: 'assignment:1', email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.text_part.body).to include "your team is responsible for answering PQ #{@pq.uin}"
+    expect(ao_mail.govuk_notify_response.content['body']).to include "your team is responsible for answering PQ #{@pq.uin}"
   end
 
   scenario 'Following the email link should let the AO accept the question' do
-    visit_assignment_url(ao)
+    visit_assignment_url(@pq, ao)
     choose 'Accept'
     click_on 'Save'
 
@@ -60,17 +60,15 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'The AO should receive an email notification confirming the question acceptance' do
-    ao_mail = sent_mail.last
+    pq = Pq.find_by(uin: @pq.uin)
+    ao_mail = NotifyPqMailer.acceptance_email(pq: pq, action_officer: ao, email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.text_part.body).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")
+    expect(ao_mail.govuk_notify_response.content['body']).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")
   end
 
   scenario 'After an AO has accepted a question, another AO cannot accept the question' do
-    ao2_mail = sent_mail_to(ao2.email).first
-    ao2_link = extract_url_like('/assignment', ao2_mail)
-
-    visit ao2_link
+    visit_assignment_url(@pq, ao2)
 
     expect(page.title).to have_content('PQ assignment')
     expect(page).to have_content(/this pq has already been accepted/i)
@@ -78,8 +76,9 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
   end
 
   scenario 'Following the link after 3 days have passed should show an error page' do
+    pq = Pq.last
     form_params = {
-      pq_id: Pq.last.id,
+      pq_id: pq.id,
       minister_id: minister.id,
       action_officer_id: [ao.id],
       date_for_answer: Date.tomorrow,
@@ -88,9 +87,8 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     form = CommissionForm.new(form_params)
     CommissioningService.new(nil, Time.zone.today - 4.days).commission(form)
-    ao_mail, = sent_mail.last
-    url = extract_url_like('/assignment', ao_mail)
-    visit url
+
+    visit_assignment_url(pq, ao)
 
     expect(page.title).to have_content('Unauthorised (401)')
     expect(page).to have_content(/Link expired/i)

@@ -4,15 +4,13 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
   before(:all) do
-    clear_sent_mail
     DBHelpers.load_feature_fixtures
+    @uin1    = (FactoryBot.create :draft_pending_pq).uin
+    @uin2    = (FactoryBot.create :draft_pending_pq).uin
+    @uin3    = (FactoryBot.create :draft_pending_pq).uin
+    create_pq_session
 
-    pq1, pq2, pq3       = PQA::QuestionLoader.new.load_and_import(3)
-    @ao                 = ActionOfficer.find_by(email: 'ao1@pq.com')
-    @minister           = Minister.first
-    @uin1 = pq1.uin
-    @uin2 = pq2.uin
-    @uin3 = pq3.uin
+    click_link 'In progress'
   end
 
   before(:each) do
@@ -28,16 +26,12 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   end
 
   scenario "Parli-branch moves an accepted question to 'Draft'" do
-    commission_question(@uin1, [@ao], @minister)
-    accept_assignment(@ao)
-
     expect_pq_in_progress_status(@uin1, 'Draft Pending')
     in_pq_detail(@uin1, 'PQ draft') { fillin_date('#draft_answer_received') }
     expect_pq_in_progress_status(@uin1, 'With POD')
   end
 
   scenario 'Question that is late by less than one hour shows overdue warning' do
-    commission_question(@uin3, [@ao], @minister)
     pq = Pq.find_by(uin: @uin3)
     pq.internal_deadline = (Time.now - 10.minutes).to_s
     pq.save
@@ -73,10 +67,6 @@ feature 'After commissioning', js: true, suspend_cleaner: true do
   end
 
   scenario "Parli-branch moves a question back from 'Minister Cleared' back to 'Ministerial Query'" do
-    clear_sent_mail
-    commission_question(@uin2, [@ao], @minister)
-    accept_assignment(@ao)
-
     in_pq_detail(@uin2, 'PQ draft')       { fillin_date('#draft_answer_received') }
     in_pq_detail(@uin2, 'POD check')      { check 'POD query flag' }
     in_pq_detail(@uin2, 'POD check')      { fillin_date('#pod_clearance') }

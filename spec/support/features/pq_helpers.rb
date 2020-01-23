@@ -1,7 +1,5 @@
 module Features
   module PqHelpers
-    include ::Features::EmailHelpers
-
     def set_seen_by_finance
       create_finance_session
       click_link_or_button 'btn_finance_visibility'
@@ -21,18 +19,17 @@ module Features
         find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
         click_on 'Commission'
       end
-
       expect(page).to have_content("#{uin} commissioned successfully")
     end
 
-    def accept_assignment(action_officer)
-      visit_assignment_url(action_officer)
+    def accept_assignment(pq, ao)
+      visit_assignment_url(pq, ao)
       choose 'Accept'
       click_on 'Save Response'
     end
 
-    def reject_assignment(action_officer, option_index, reason_text)
-      visit_assignment_url(action_officer)
+    def reject_assignment(pq, ao, option_index, reason_text)
+      visit_assignment_url(pq, ao)
       choose 'Reject'
 
       find('select[name="allocation_response[reason_option]"]')
@@ -75,18 +72,37 @@ module Features
       click_on 'Save'
     end
 
+    def visit_watchlist_url(expiry = DateTime.now)
+      token_db = Token.find_by(path: watchlist_dashboard_path, expire: expiry.end_of_day)
+      entity = token_db.entity
+      token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire.end_of_day)
+
+      visit watchlist_dashboard_url(token: token, entity: entity)
+    end
+
+    def visit_earlybird_url(expiry = DateTime.now)
+      token_db = Token.find_by(path: early_bird_dashboard_path, expire: expiry.end_of_day.utc)
+      entity = token_db.entity
+      token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+
+      visit early_bird_dashboard_url(token: token, entity: entity)
+    end
+
+    def visit_assignment_url(pq, ao)
+      pq = Pq.find_by(uin: pq.uin)
+      ao_pq = ActionOfficersPq.find_by(action_officer_id: ao.id, pq_id: pq.id)
+      token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{ao_pq.id}")
+      token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
+
+      visit assignment_path(uin: pq.uin, token: token, entity: token_db.entity)
+    end
+
     private
 
     def select_option(selector_name, option_text)
       find(:select, selector_name)
         .find(:option, text: option_text)
         .select_option
-    end
-
-    def visit_assignment_url(action_officer)
-      mail = sent_mail_to(action_officer.email).first
-      url  = extract_url_like('/assignment', mail)
-      visit url
     end
 
     def fillin_date(css_sel)

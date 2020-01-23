@@ -8,7 +8,6 @@ require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require './spec/support/db_helpers'
 require './spec/support/features/session_helpers'
-require './spec/support/features/email_helpers'
 require './spec/support/unit/question_factory'
 require './spec/support/csv_helpers'
 require 'shoulda/matchers'
@@ -47,7 +46,6 @@ RSpec.configure do |config|
   # config.include Devise::TestHelpers, type: :controller
 
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include Features::EmailHelpers
   config.include Features::SessionHelpers, type: :feature
 
   # config.include Features::DecisionHelpers, type: :feature
@@ -84,7 +82,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    ActionMailer::Base.deliveries = []
     DatabaseCleaner.start
   end
 

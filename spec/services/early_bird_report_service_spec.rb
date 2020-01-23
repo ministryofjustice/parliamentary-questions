@@ -1,53 +1,37 @@
 require 'spec_helper'
 
 describe 'EarlyBirdReportService' do
-  let!(:early_bird_one) { create(:early_bird_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
-  let!(:early_bird_two) { create(:early_bird_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
+  let!(:early_bird_one)     { create(:early_bird_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
+  let!(:early_bird_two)     { create(:early_bird_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:early_bird_deleted) { create(:early_bird_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
-  let(:testid) { 'early_bird-' + DateTime.now.to_s }
+  let(:testid)              { 'early_bird-' + DateTime.now.to_s }
 
   before(:each) do
-    @report_service               = EarlyBirdReportService.new
-    ActionMailer::Base.deliveries = []
+    @report_service = EarlyBirdReportService.new
   end
 
   it 'should have generated a valid token' do
     @report_service.notify_early_bird
+
     token = Token.find_by(entity: @report_service.entity, path: '/early_bird/dashboard')
     expect(token.token_digest).to_not be nil
+
     end_of_day = DateTime.current.end_of_day
+
     expect(token.expire.to_s).to eq(end_of_day.to_s)
     expect(
       Token.exists?(entity: "early_bird:#{early_bird_deleted.id}", path: '/early_bird/dashboard')
     ).to eq(false)
   end
 
-  it 'should send an email with the right data' do
-    pqtest_mail = 'pqtest@digital.justice.gov.uk'
-    allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.notify_early_bird
-    MailWorker.new.run!
-    mail = ActionMailer::Base.deliveries.first
-    sent_token = result[pqtest_mail]
-    token_param = { token: sent_token }.to_query
-    entity = { entity: entity = testid }.to_query
-    url = '/early_bird/dashboard'
-    expect(mail.to_s).to include url
-    expect(mail.to_s).to include token_param
-    expect(mail.to_s).to include entity
-    expect(mail.to).to include pqtest_mail
-  end
+  it 'calls the mailer' do
+    allow(NotifyPqMailer).to receive_message_chain(:early_bird_email, :deliver_now)
 
-  it 'should add the people from the Early Bird to the CC' do
-    allow(@report_service).to receive(:entity).and_return testid
-    result = @report_service.notify_early_bird
-    MailWorker.new.run!
-    mail = ActionMailer::Base.deliveries.first
-    sent_token = result[early_bird_one.id]
-    token_param = { token: sent_token }.to_query
-    entity = { entity: entity = testid }.to_query
-    url = '/early_bird/dashboard'
-    expect(mail.cc).to include early_bird_one.email
-    expect(mail.cc).to include early_bird_two.email
+    token = @report_service.notify_early_bird
+
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm1@ao.gov', token: token, entity: testid)
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm2@ao.gov', token: token, entity: testid)
+
+    expect(NotifyPqMailer).not_to have_received(:early_bird_email).with(email: 'm3@ao.gov')
   end
 end

@@ -88,4 +88,16 @@ module Settings
   def key_metric_threshold
     @h['key_metric_threshold']
   end
+
+  def parliamentary_team_email
+    @h['parliamentary_team_email']
+  end
+
+  def tech_support_email
+    @h['tech_support_email']
+  end
+
+  def govuk_notify_api_key
+    ENV.fetch('GOVUK_NOTIFY_API_KEY') || @h['govuk_notify_api_key']
+  end
 end

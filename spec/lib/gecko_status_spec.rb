@@ -79,28 +79,6 @@ describe DbStatus do
   end
 end
 
-describe SendgridStatus do
-  let(:health)   { Metrics::Health.new                }
-  let(:metrics)  { double 'metrics', health: health   }
-  let(:status)   { SendgridStatus.new                 }
-
-  context '#update' do
-    it 'calls ok when the sendgrid status is OK' do
-      allow(health).to receive(:sendgrid_status).and_return(true)
-
-      expect(status).to receive(:ok)
-      status.update(metrics)
-    end
-
-    it 'calls error when there is a Send Grid error' do
-      allow(health).to receive(:sendgrid_status).and_return(false)
-
-      expect(status).to receive(:error)
-      status.update(metrics)
-    end
-  end
-end
-
 describe PqaApiStatus do
   let(:health)   { Metrics::Health.new                   }
   let(:metrics)  { double 'metrics', health: health      }
@@ -118,37 +96,6 @@ describe PqaApiStatus do
       allow(health).to receive(:pqa_api_status).and_return(false)
 
       expect(status).to receive(:error)
-      status.update(metrics)
-    end
-  end
-end
-
-describe MailStatus do
-  let(:mail_info) { Metrics::Mail.new                           }
-  let(:metrics)   { double 'metrics', mail: mail_info           }
-  let(:status)    { MailStatus.new                              }
-
-  context '#update' do
-    it 'calls ok when there is no alert' do
-      allow(mail_info).to receive(:email_error?).and_return(false)
-      allow(mail_info).to receive(:token_error?).and_return(false)
-
-      expect(status).to receive(:ok)
-      status.update(metrics)
-    end
-
-    it 'calls error when there is a email error' do
-      allow(mail_info).to receive(:email_error?).and_return(true)
-
-      expect(status).to receive(:error)
-      status.update(metrics)
-    end
-
-    it 'calls warn when there is a token error' do
-      allow(mail_info).to receive(:email_error?).and_return(false)
-      allow(mail_info).to receive(:token_error?).and_return(true)
-
-      expect(status).to receive(:warn)
       status.update(metrics)
     end
   end
