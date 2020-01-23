@@ -27,9 +27,9 @@ class NotifyImportMailer < GovukNotifyRails::Mailer
     case ENV['SENDING_HOST']
     when 'trackparliamentaryquestions.service.gov.uk'
       'production'
-    when 'staging.pq.dsd.io'
+    when 'parliamentary-questions-staging.apps.live-1.cloud-platform.service.justice.gov.uk'
       'staging'
-    when 'dev.pq.dsd.io'
+    when 'development.trackparliamentaryquestions.service.gov.uk'
       'dev'
     else
       'env-unknown'
