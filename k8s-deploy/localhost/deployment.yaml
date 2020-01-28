@@ -15,44 +15,34 @@ spec:
         app: parliamentary-questions
     spec:
       containers:
-        -
-          command:
+        - command:
             - sh
             - "-c"
             - "bundle exec rails s"
           envFrom:
-            -
-              configMapRef:
+            - configMapRef:
                 name: environment-variables
-            -
-              secretRef:
+            - secretRef:
                 name: pq-secrets
           image: "beccapearce/parliamentary-questions_web:latest"
           imagePullPolicy: IfNotPresent
           name: parliamentary-questions-rails-app
           ports:
-            -
-              containerPort: 3000
-        -
-          envFrom:
-            -
-              configMapRef:
+            - containerPort: 3000
+        - envFrom:
+            - configMapRef:
                 name: environment-variables
-            -
-              secretRef:
+            - secretRef:
                 name: pq-secrets
           image: "postgres:10"
           imagePullPolicy: IfNotPresent
           name: postgres
           ports:
-            -
-              containerPort: 5432
+            - containerPort: 5432
           volumeMounts:
-            -
-              mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/data
               name: postgres-volume-mount
       volumes:
-        -
-          name: postgres-volume-mount
+        - name: postgres-volume-mount
           persistentVolumeClaim:
             claimName: postgres-pvc
