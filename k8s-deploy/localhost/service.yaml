@@ -4,18 +4,15 @@ metadata:
   name: parliamentary-questions-service
 spec:
   ports:
-    -
-      name: parliamentary-questions-rails-app
+    - name: parliamentary-questions-rails-app
       port: 3000
       protocol: TCP
       targetPort: 3000
-    -
-      name: postgres
+    - name: postgres
       port: 5432
       protocol: TCP
       targetPort: 5432
-    -
-      name: api
+    - name: api
       port: 8888
       protocol: TCP
       targetPort: 8888

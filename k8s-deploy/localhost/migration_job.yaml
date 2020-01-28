@@ -7,17 +7,14 @@ spec:
   template:
     spec:
       containers:
-        -
-          command:
+        - command:
             - sh
             - "-c"
             - "bundle exec rake db:setup && bundle exec rake user:create && bundle exec rake 'user:create[admin@admin.com, 123456789, admin]'"
           envFrom:
-            -
-              configMapRef:
+            - configMapRef:
                 name: environment-variables
-            -
-              secretRef:
+            - secretRef:
                 name: pq-secrets
           image: "beccapearce/parliamentary-questions_web:latest"
           imagePullPolicy: IfNotPresent

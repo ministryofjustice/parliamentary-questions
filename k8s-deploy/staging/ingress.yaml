@@ -7,16 +7,13 @@ metadata:
   namespace: parliamentary-questions-staging
 spec:
   rules:
-    -
-      host: parliamentary-questions-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+    - host: parliamentary-questions-staging.apps.live-1.cloud-platform.service.justice.gov.uk
       http:
         paths:
-          -
-            backend:
+          - backend:
               serviceName: parliamentary-questions-service
               servicePort: 3000
             path: /
   tls:
-    -
-      hosts:
+    - hosts:
         - parliamentary-questions-staging.apps.live-1.cloud-platform.service.justice.gov.uk
