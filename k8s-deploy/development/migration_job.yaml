@@ -35,7 +35,7 @@ spec:
               name: GOVUK_NOTIFY_API_KEY
               valueFrom:
                 secretKeyRef:
-                  key: govuk_notify_api_key
+                  key: GOVUK_NOTIFY_API_KEY
                   name: pq-secrets
           envFrom:
             -
