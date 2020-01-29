@@ -1,4 +1,3 @@
----
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -35,14 +34,14 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       key: DEVISE_SECRET
-                      name: pq-secrets                         
+                      name: pq-secrets
                 - name: GECKO_AUTH_USERNAME
                   valueFrom:
                     secretKeyRef:
                       key: GECKO_AUTH_USERNAME
                       name: pq-secrets
                 - name: GOVUK_NOTIFY_API_KEY
-                  valueFrom: 
+                  valueFrom:
                     secretKeyRef:
                       key: GOVUK_NOTIFY_API_KEY
                       name: pq-secrets
@@ -70,7 +69,7 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       key: PQ_REST_API_USERNAME
-                      name: pq-secrets                            
+                      name: pq-secrets
               envFrom:
                 - configMapRef:
                     name: environment-variables

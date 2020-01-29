@@ -67,6 +67,11 @@ spec:
                 secretKeyRef:
                   key: PQ_REST_API_PASSWORD
                   name: pq-secrets
+            - name: PQ_REST_API_URL
+              valueFrom:
+                secretKeyRef:
+                  key: PQ_REST_API_URL
+                  name: pq-secrets
             - name: PQ_REST_API_USERNAME
               valueFrom:
                 secretKeyRef:
