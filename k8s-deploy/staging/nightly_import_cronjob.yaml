@@ -79,6 +79,7 @@ spec:
               imagePullPolicy: IfNotPresent
               name: nightly-import
           restartPolicy: OnFailure
-  schedule: "* 2,4 * * *"
+  # Schedule to run at 02:00 AM and 04:00 AM
+  schedule: "0 2,4 * * *"
   startingDeadlineSeconds: 10
   successfulJobsHistoryLimit: 3
