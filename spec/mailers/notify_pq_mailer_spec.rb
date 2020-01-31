@@ -28,7 +28,7 @@ describe NotifyPqMailer, type: :mailer do
             internal_deadline: '',
             date_to_parliament: '',
             cc_list: ao.deputy_director.email,
-            mail_reply_to: 'pqs@justice.gsi.gov.uk'
+            mail_reply_to: 'pqs@justice.gov.uk'
           )
       end
     end
@@ -53,7 +53,7 @@ describe NotifyPqMailer, type: :mailer do
             internal_deadline: '',
             date_to_parliament: '',
             cc_list: ao.deputy_director.email,
-            mail_reply_to: 'pqs@justice.gsi.gov.uk'
+            mail_reply_to: 'pqs@justice.gov.uk'
           )
       end
     end

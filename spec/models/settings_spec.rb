@@ -38,7 +38,7 @@ describe Settings do
 
     describe '.mail_reply_to' do
       it 'should return the value from the file' do
-        expect(Settings.mail_reply_to).to eq 'pqs@justice.gsi.gov.uk'
+        expect(Settings.mail_reply_to).to eq 'pqs@justice.gov.uk'
       end
     end
 
