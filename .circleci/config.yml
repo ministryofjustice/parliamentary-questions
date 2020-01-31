@@ -176,6 +176,15 @@ references:
         sed -i -e s/:latest/:$CIRCLE_SHA1/ k8s-deploy/development/deployment.yaml
         kubectl apply --record=false -f ./k8s-deploy/development/
 
+  deploy_to_staging: &deploy_to_staging
+    run:
+      name: Deploy to staging environment
+      command: |
+        setup-kube-auth
+        kubectl config use-context staging
+        sed -i -e s/:latest/:$CIRCLE_SHA1/ k8s-deploy/staging/deployment.yaml
+        kubectl apply --record=false -f ./k8s-deploy/staging/
+    
 #  These are the jobs which run the steps. The jobs are used by the workflows.
 
 jobs:
@@ -213,6 +222,18 @@ jobs:
       - *decrypt_secrets
       - *deploy_to_dev
 
+  deploy_to_staging:
+    <<: *deploy_container_config
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - *install_gpg
+      - *configure_gpg
+      - *decrypt_secrets
+      - *deploy_to_staging
+
 #  Workflows combine jobs to perform the actions
 
 workflows:
@@ -225,4 +246,18 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: master
+              only: k8s-development-deploy
+      - deploy_staging_approval:
+          type: approval
+          requires:
+            - build_and_test
+            - deploy_to_dev
+          filters:
+            branches:
+              only: k8s-development-deploy
+      - deploy_to_staging:
+          requires:
+            - deploy_staging_approval
+          filters:
+            branches:
+              only: k8s-development-deploy
