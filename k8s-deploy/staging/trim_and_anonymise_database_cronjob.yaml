@@ -104,6 +104,7 @@ spec:
               imagePullPolicy: IfNotPresent
               name: trim-and-anonymise-database
           restartPolicy: OnFailure
-  schedule: "* 6 * * *"
+  # Schedule to run at 06:00 AM
+  schedule: "0 6 * * *"
   startingDeadlineSeconds: 10
   successfulJobsHistoryLimit: 3
