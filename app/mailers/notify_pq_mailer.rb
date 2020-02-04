@@ -93,8 +93,6 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
     mail(to: email)
   end
 
-  # empty comment 2
-
   def watchlist_email(email:, token:, entity:)
     set_template('b452ebb8-c49e-46f6-9da5-3ba28b494ed6')
     set_personalisation(
