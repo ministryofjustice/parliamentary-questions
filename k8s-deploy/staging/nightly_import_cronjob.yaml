@@ -5,6 +5,9 @@ metadata:
 spec:
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
+  schedule: "0 2 * * *"
+  startingDeadlineSeconds: 10
+  successfulJobsHistoryLimit: 3
   jobTemplate:
     spec:
       template:
@@ -80,6 +83,4 @@ spec:
               name: nightly-import
           restartPolicy: OnFailure
   # Schedule to run at 02:00 AM and 04:00 AM
-  schedule: "0 2,4 * * *"
-  startingDeadlineSeconds: 10
-  successfulJobsHistoryLimit: 3
+
