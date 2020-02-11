@@ -3,7 +3,7 @@ data:
   ENV: staging
   RACK_ENV: staging
   RAILS_ENV: staging
-  SENDING_HOST: parliamentary-questions-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+  SENDING_HOST: parliamentary-questions-production.apps.live-1.cloud-platform.service.justice.gov.uk
 kind: ConfigMap
 metadata:
   name: environment-variables

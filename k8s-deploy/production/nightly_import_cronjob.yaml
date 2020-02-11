@@ -22,17 +22,17 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       key: rds_instance_address
-                      name: parliamentary-questions-staging-rds
+                      name: parliamentary-questions-production-rds
                 - name: PGUSER
                   valueFrom:
                     secretKeyRef:
                       key: database_username
-                      name: parliamentary-questions-staging-rds
+                      name: parliamentary-questions-production-rds
                 - name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: database_password
-                      name: parliamentary-questions-staging-rds
+                      name: parliamentary-questions-production-rds
                 - name: DEVISE_SECRET
                   valueFrom:
                     secretKeyRef:

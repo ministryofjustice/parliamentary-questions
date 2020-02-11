@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: parliamentary-questions
+  namespace: parliamentary-questions-production
+spec:
+  rules:
+    - host: parliamentary-questions-production.apps.live-1.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+          - backend:
+              serviceName: parliamentary-questions-service
+              servicePort: 3000
+            path: /
+  tls:
+    - hosts:
+        - parliamentary-questions-production.apps.live-1.cloud-platform.service.justice.gov.uk
