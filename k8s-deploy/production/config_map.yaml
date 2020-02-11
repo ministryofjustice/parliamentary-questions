@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   ENV: production
-  RACK_ENV: production
+#  RACK_ENV: production
   RAILS_ENV: production
   SENDING_HOST: development.trackparliamentaryquestions.service.gov.uk
 kind: ConfigMap
