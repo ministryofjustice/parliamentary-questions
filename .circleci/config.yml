@@ -23,6 +23,7 @@ references:
 
       - image: postgres:10
         environment:
+          POSTGRES_PASSWORD: "secret"
           POSTGRES_DB: parliamentary_questions_test
           POSTGRES_USER: postgres
 
