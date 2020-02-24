@@ -14,11 +14,8 @@ references:
           RAILS_ENV: test
           RACK_ENV: test
           PQ_REST_API_HOST: http://localhost:8888
-          # PG_HOST: 127.0.0.1
-          # PG_USER: postgres
           POSTGRES_PASSWORD: "secret"
           PGUSER: postgres
-          PGHOST: 127.0.0.1
           POSTGRES_DB: parliamentary_questions_test
 
       - image: postgres:10
