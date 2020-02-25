@@ -12,7 +12,7 @@ function _build() {
   # 1. Define variables for use in the script
   team_name=pq-team
   ecr_repo_name=parliamentary-questions
-  component=parliamentary-questions
+  component=pq-tracker
 
   region='eu-west-2'
   context='live-1'
