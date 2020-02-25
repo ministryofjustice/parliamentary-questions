@@ -1,3 +1,4 @@
 k8s-deploy/development/secrets.yaml filter=git-crypt diff=git-crypt
 k8s-deploy/localhost/secrets.yaml filter=git-crypt diff=git-crypt
+k8s-deploy/production/secrets.yaml filter=git-crypt diff=git-crypt
 k8s-deploy/staging/secrets.yaml filter=git-crypt diff=git-crypt
