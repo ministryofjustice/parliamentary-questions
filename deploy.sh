@@ -129,13 +129,14 @@ function _deploy() {
     -f k8s-deploy/${environment}/secrets.yaml \
     -n $namespace
 
-  #Add cron jobs if production
-  # if [[ $environment == "production" ]]
-  # then
-  #   kubectl set image -f k8s-deploy/${environment}/cron-person-notifier.yaml \
-  #           jobs=${docker_image_tag} --local --output yaml | kubectl apply -n $namespace -f -
+  Add cron jobs if production
+  if [ $environment == "staging" ] || [ $environment == "production" ]
+  then
+    kubectl set image -f k8s-deploy/${environment}/nightly_import_cronjob.yml \
+            parliamentary-questions-rails-app=${docker_image_tag} \
+            --local --output yaml | kubectl apply -n $namespace -f -
 
-  # fi
+  fi
 }
 
 _deploy $@
