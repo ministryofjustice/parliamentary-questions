@@ -105,6 +105,28 @@ spec:
                 name: environment-variables
             - secretRef:
                 name: pq-secrets
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+              httpHeaders:
+                - name: X-Forwarded-Proto
+                  value: https
+                - name: X-Forwarded-Ssl
+                  value: "on"
+              initialDelaySeconds: 40
+              periodSeconds: 60
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+              httpHeaders:
+                - name: X-Forwarded-Proto
+                  value: https
+                - name: X-Forwarded-Ssl
+                  value: "on"
+            initialDelaySeconds: 40
+            periodSeconds: 60
           image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
           imagePullPolicy: Always
           # livenessProbe:
