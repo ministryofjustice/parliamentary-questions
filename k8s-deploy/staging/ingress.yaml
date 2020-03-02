@@ -7,7 +7,7 @@ metadata:
   namespace: parliamentary-questions-staging
 spec:
   rules:
-    - host: parliamentary-questions-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+    - host: staging.trackparliamentaryquestions.service.gov.uk
       http:
         paths:
           - backend:
@@ -16,4 +16,4 @@ spec:
             path: /
   tls:
     - hosts:
-        - parliamentary-questions-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+        - staging.trackparliamentaryquestions.service.gov.uk
