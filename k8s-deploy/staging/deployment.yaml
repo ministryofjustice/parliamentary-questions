@@ -129,14 +129,6 @@ spec:
             periodSeconds: 60
           image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
           imagePullPolicy: Always
-          # livenessProbe:
-          #   httpGet:
-          #     path: /ping
-          #     port: 80
           name: parliamentary-questions-rails-app
           ports:
             - containerPort: 3000
-          # readinessProbe:
-          #   httpGet:
-          #     path: /healthcheck
-          #     port: 4567
