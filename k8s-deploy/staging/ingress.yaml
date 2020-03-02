@@ -1,9 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-  name: parliamentary-questions
+  name: pq-staging
   namespace: parliamentary-questions-staging
 spec:
   rules:
@@ -17,3 +15,4 @@ spec:
   tls:
     - hosts:
         - staging.trackparliamentaryquestions.service.gov.uk
+      secretName: parliamentary-questions-staging-cert
