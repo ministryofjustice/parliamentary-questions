@@ -50,15 +50,15 @@ spec:
                 secretKeyRef:
                   key: GOVUK_NOTIFY_API_KEY
                   name: pq-secrets
-            - name: PGUSER
-              valueFrom:
-                secretKeyRef:
-                  key: database_username
-                  name: parliamentary-questions-staging-rds
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
                   key: database_password
+                  name: parliamentary-questions-staging-rds
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  key: database_username
                   name: parliamentary-questions-staging-rds
             - name: PQ_REST_API_HOST
               valueFrom:

@@ -12,16 +12,11 @@ spec:
             - "-c"
             - "bundle exec rake db:migrate"
           env:
-            - name: CREATE_USER_FROM_TEST
-              valueFrom:
-                secretKeyRef:
-                  key: CREATE_USER_FROM_TEST
-                  name: pq-secrets
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
                   key: rds_instance_address
-                  name: parliamentary-questions-staging-rds
+                  name: parliamentary-questions-production-rds
             - name: DEVISE_SECRET
               valueFrom:
                 secretKeyRef:
@@ -41,12 +36,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: database_password
-                  name: parliamentary-questions-staging-rds
+                  name: parliamentary-questions-production-rds
             - name: PGUSER
               valueFrom:
                 secretKeyRef:
                   key: database_username
-                  name: parliamentary-questions-staging-rds
+                  name: parliamentary-questions-production-rds
             - name: PQ_REST_API_HOST
               valueFrom:
                 secretKeyRef:
