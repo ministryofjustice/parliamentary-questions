@@ -12,12 +12,12 @@ feature 'healthcheck.json' do
     expect(page).to have_content 'All Components OK'
   end
 
-  scenario 'when there are component errors' do
-    allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
+  # scenario 'when there are component errors' do
+  #   allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
 
-    visit '/healthcheck.json'
+  #   visit '/healthcheck.json'
 
-    expect(page.status_code).to eq 500
-    expect(page.body).to match(/Database Error/)
-  end
+  #   expect(page.status_code).to eq 500
+  #   expect(page.body).to match(/Database Error/)
+  # end
 end
