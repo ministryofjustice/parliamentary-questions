@@ -12,7 +12,6 @@ module HealthCheck
     end
 
     def available?
-
       # begin
       #   result = ActiveRecord::Base.connected?
       #   log_error unless result == true
