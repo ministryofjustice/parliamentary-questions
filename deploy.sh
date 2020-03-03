@@ -138,9 +138,7 @@ function _deploy() {
 
   fi
 
-  kubectl set image -f k8s-deploy/${environment}/migration_job.yaml \
-            parliamentary-questions-rails-app=${docker_image_tag} \
-            --local --output yaml | kubectl apply -n $namespace -f -
+
 
 }
 
