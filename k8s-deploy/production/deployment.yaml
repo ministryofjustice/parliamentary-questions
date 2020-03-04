@@ -112,7 +112,6 @@ spec:
                   value: "on"
             initialDelaySeconds: 40
             periodSeconds: 60
-          image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
           imagePullPolicy: Always
           name: parliamentary-questions-rails-app
           ports:
