@@ -1,40 +1,22 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  labels:
-    app: parliamentary-questions
-  name: parliamentary-questions
+  name: rails-migrations
 spec:
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
-  selector:
-    matchLabels:
-      app: parliamentary-questions
+  backoffLimit: 4
   template:
-    metadata:
-      labels:
-        app: parliamentary-questions
     spec:
       containers:
         - command:
             - sh
             - "-c"
-            - "bundle exec puma -p 3000"
+            - "bundle exec rake db:migrate"
           env:
-            - name: CREATE_USER_FROM_TEST
-              valueFrom:
-                secretKeyRef:
-                  key: CREATE_USER_FROM_TEST
-                  name: pq-secrets
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
                   key: rds_instance_address
-                  name: parliamentary-questions-development-rds
+                  name: parliamentary-questions-production-rds
             - name: DEVISE_SECRET
               valueFrom:
                 secretKeyRef:
@@ -54,12 +36,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: database_password
-                  name: parliamentary-questions-development-rds
+                  name: parliamentary-questions-production-rds
             - name: PGUSER
               valueFrom:
                 secretKeyRef:
                   key: database_username
-                  name: parliamentary-questions-development-rds
+                  name: parliamentary-questions-production-rds
             - name: PQ_REST_API_HOST
               valueFrom:
                 secretKeyRef:
@@ -95,29 +77,6 @@ spec:
                 name: environment-variables
             - secretRef:
                 name: pq-secrets
-          readinessProbe:
-            httpGet:
-              path: /healthcheck
-              port: 3000
-              httpHeaders:
-                - name: X-Forwarded-Proto
-                  value: https
-                - name: X-Forwarded-Ssl
-                  value: "on"
-              initialDelaySeconds: 40
-              periodSeconds: 60
-          livenessProbe:
-            httpGet:
-              path: /healthcheck
-              port: 3000
-              httpHeaders:
-                - name: X-Forwarded-Proto
-                  value: https
-                - name: X-Forwarded-Ssl
-                  value: "on"
-            initialDelaySeconds: 40
-            periodSeconds: 60
           imagePullPolicy: Always
           name: parliamentary-questions-rails-app
-          ports:
-            - containerPort: 3000
+      restartPolicy: OnFailure

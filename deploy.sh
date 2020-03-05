@@ -137,6 +137,14 @@ function _deploy() {
             --local --output yaml | kubectl apply -n $namespace -f -
 
   fi
+
+  kubectl delete job rails-migrations -n $namespace --ignore-not-found=true
+
+  kubectl set image -f k8s-deploy/${environment}/migration_job.yaml \
+          parliamentary-questions-rails-app=${docker_image_tag} \
+          --local --output yaml | kubectl apply -n $namespace -f -
+
+
 }
 
 _deploy $@

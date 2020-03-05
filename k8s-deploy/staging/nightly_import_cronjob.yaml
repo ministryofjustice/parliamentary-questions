@@ -23,36 +23,31 @@ spec:
                     secretKeyRef:
                       key: rds_instance_address
                       name: parliamentary-questions-staging-rds
-                - name: PGUSER
-                  valueFrom:
-                    secretKeyRef:
-                      key: database_username
-                      name: parliamentary-questions-staging-rds
-                - name: PGPASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      key: database_password
-                      name: parliamentary-questions-staging-rds
                 - name: DEVISE_SECRET
                   valueFrom:
                     secretKeyRef:
                       key: DEVISE_SECRET
                       name: pq-secrets
-                - name: GECKO_AUTH_USERNAME
+                - name: DEVISE_SENDER
                   valueFrom:
                     secretKeyRef:
-                      key: GECKO_AUTH_USERNAME
+                      key: DEVISE_SENDER
                       name: pq-secrets
                 - name: GOVUK_NOTIFY_API_KEY
                   valueFrom:
                     secretKeyRef:
                       key: GOVUK_NOTIFY_API_KEY
                       name: pq-secrets
-                - name: IMPORT_CREDS
+                - name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
-                      key: IMPORT_CREDS
-                      name: pq-secrets
+                      key: database_password
+                      name: parliamentary-questions-staging-rds
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      key: database_username
+                      name: parliamentary-questions-staging-rds
                 - name: PQ_REST_API_HOST
                   valueFrom:
                     secretKeyRef:
@@ -78,7 +73,6 @@ spec:
                     name: environment-variables
                 - secretRef:
                     name: pq-secrets
-              image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
               imagePullPolicy: IfNotPresent
               name: nightly-import
           restartPolicy: OnFailure

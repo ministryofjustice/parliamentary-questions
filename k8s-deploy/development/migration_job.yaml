@@ -12,26 +12,16 @@ spec:
             - "-c"
             - "bundle exec rake db:migrate"
           env:
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: rds_instance_address
-                  name: parliamentary-questions-development-rds
-            - name: PGUSER
-              valueFrom:
-                secretKeyRef:
-                  key: database_username
-                  name: parliamentary-questions-development-rds
-            - name: PGPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: database_password
-                  name: parliamentary-questions-development-rds
             - name: CREATE_USER_FROM_TEST
               valueFrom:
                 secretKeyRef:
                   key: CREATE_USER_FROM_TEST
                   name: pq-secrets
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: rds_instance_address
+                  name: parliamentary-questions-development-rds
             - name: DEVISE_SECRET
               valueFrom:
                 secretKeyRef:
@@ -42,21 +32,21 @@ spec:
                 secretKeyRef:
                   key: DEVISE_SENDER
                   name: pq-secrets
-            - name: GECKO_AUTH_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  key: GECKO_AUTH_USERNAME
-                  name: pq-secrets
             - name: GOVUK_NOTIFY_API_KEY
               valueFrom:
                 secretKeyRef:
                   key: GOVUK_NOTIFY_API_KEY
                   name: pq-secrets
-            - name: IMPORT_CREDS
+            - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: IMPORT_CREDS
-                  name: pq-secrets
+                  key: database_password
+                  name: parliamentary-questions-development-rds
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  key: database_username
+                  name: parliamentary-questions-development-rds
             - name: PQ_REST_API_HOST
               valueFrom:
                 secretKeyRef:
@@ -92,7 +82,6 @@ spec:
                 name: environment-variables
             - secretRef:
                 name: pq-secrets
-          image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
           imagePullPolicy: Always
           name: parliamentary-questions-rails-app
       restartPolicy: OnFailure
