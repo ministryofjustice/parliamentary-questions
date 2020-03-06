@@ -5,6 +5,16 @@ RUN touch /etc/inittab
 # Set correct environment variables.
 ENV APP_HOME=/usr/src/app TINI_VERSION=v0.18.0 LD_LIBRARY_PATH=/opt/postgres/9.0.4/server/lib
 
+# expect/add ping environment variables
+ARG VERSION_NUMBER
+ARG COMMIT_ID
+ARG BUILD_DATE
+ARG BUILD_TAG
+ENV VERSION_NUMBER=${VERSION_NUMBER}
+ENV COMMIT_ID=${COMMIT_ID}
+ENV BUILD_DATE=${BUILD_DATE}
+ENV BUILD_TAG=${BUILD_TAG}
+
 # set WORKDIR
 RUN mkdir -p /usr/src/app && mkdir -p /usr/src/app/tmp
 WORKDIR /usr/src/app
