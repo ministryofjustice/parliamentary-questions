@@ -65,8 +65,8 @@ references:
         export BUILD_DATE=$(date -Is) >> $BASH_ENV
         source $BASH_ENV
         docker build \
-          --build-arg APP_VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
-          --build-arg APP_COMMIT_ID=${CIRCLE_SHA1} \
+          --build-arg APPVERSION=${CIRCLE_BUILD_NUM} \
+          --build-arg APP_GIT_COMMIT=${CIRCLE_SHA1} \
           --build-arg APP_BUILD_DATE=${BUILD_DATE} \
           --build-arg APP_BUILD_TAG=${CIRCLE_BRANCH} \
           -t app .
