@@ -14,7 +14,7 @@ describe NotifyImportMailer, type: :mailer do
     it 'sets the personalisation in the email' do
       expect(mail.govuk_notify_personalisation)
         .to eq(
-          environment: 'env-unknown',
+          environment: 'test',
           error_message: StandardError
         )
     end
@@ -41,7 +41,7 @@ describe NotifyImportMailer, type: :mailer do
     it 'sets the personalisation in the email' do
       expect(mail.govuk_notify_personalisation)
         .to eq(
-          environment: 'env-unknown',
+          environment: 'test',
           total_questions: 4,
           questions_created: 3,
           questions_updated: 0
