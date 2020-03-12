@@ -33,7 +33,8 @@
         = render partial: 'layouts/flashes' unless flash.empty?
         h1.page-heading style="border-bottom: 1px solid #000"
           = "Service down for planned maintenance"
-        p.lede  This service will be down for essential maintenance during the afternoon of Wednesday 13 November. You will not have access after 13.00 on this day – the site will likely resume service after business hours. Apologies for the inconvenience.
+        p.lede  This service is down for essential maintenance. The service will likely resume by 15.00, but some users may still be unable to access it for up to 24 hours. Please contact us on <a href="mailto:pqsupport@digital.justice.gov.uk">pqsupport@digital.justice.gov.uk</a> if you continue to experience issues after this time.
+        p.lede Apologies for the inconvenience.
 
 - content_for :body_end do
   = javascript_include_tag "application"
