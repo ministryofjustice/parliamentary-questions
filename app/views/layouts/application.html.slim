@@ -20,6 +20,7 @@
 
 - content_for :content do
   main#content(role="main")
+    = render partial: 'layouts/banner'
     .phase-banner
       / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
       <span>This is a new service - Your&nbsp;
