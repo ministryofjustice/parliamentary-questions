@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: parliamentary-questions
   namespace: parliamentary-questions-production
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: pq-secrets
 spec:
   rules:
     - host: parliamentary-questions-production.apps.live-1.cloud-platform.service.justice.gov.uk
