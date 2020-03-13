@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :set_am_host
   before_action :set_page_title
   before_action :set_paper_trail_whodunnit
+  before_action :check_maintenance_mode
 
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -56,7 +57,26 @@ class ApplicationController < ActionController::Base
     @page_title = "#{prefix} - #{suffix}"
   end
 
+  # rubocop:disable Style/AndOr
+  def maintenance_mode
+    redirect_to '/' and return unless maintenance_mode_on?
+    render layout: nil, file: 'layouts/maintenance'
+  end
+  # rubocop:enable Style/AndOr
+
   protected
+
+  def maintenance_mode_on?
+    File.exist? Rails.root.join('maintenance.txt')
+  end
+
+  # rubocop:disable Style/AndOr
+  def check_maintenance_mode
+    if maintenance_mode_on? && request.fullpath != '/maintenance'
+      redirect_to('/maintenance') and (return)
+    end
+  end
+  # rubocop:enable Style/AndOr
 
   def ssl_excepted?
     Settings.excepted_from_ssl.any? do |excepted_path|

@@ -108,6 +108,8 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
   match 'reports/filter_all'           => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
 
+  get '/maintenance', to: 'application#maintenance_mode'
+
   if Rails.env.development?
     mount_rails_db_info as: 'rails_db_info_engine'
     # mount_rails_db_info is enough for rails version < 4
