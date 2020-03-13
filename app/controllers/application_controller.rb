@@ -57,23 +57,26 @@ class ApplicationController < ActionController::Base
     @page_title = "#{prefix} - #{suffix}"
   end
 
-  # rubocop:disable AndOr
+  # rubocop:disable Style/AndOr
   def maintenance_mode
-   redirect_to '/' and return unless maintenance_mode_on?
-   render layout: nil, file: 'layouts/maintenance'
+    redirect_to '/' and return unless maintenance_mode_on?
+    render layout: nil, file: 'layouts/maintenance'
   end
+  # rubocop:enable Style/AndOr
 
   protected
 
   def maintenance_mode_on?
-   File.exist? Rails.root.join('maintenance.txt')
+    File.exist? Rails.root.join('maintenance.txt')
   end
 
+  # rubocop:disable Style/AndOr
   def check_maintenance_mode
-   if maintenance_mode_on? && request.fullpath != '/maintenance'
-     redirect_to '/maintenance' and return
-   end
+    if maintenance_mode_on? && request.fullpath != '/maintenance'
+      redirect_to('/maintenance') and (return)
+    end
   end
+  # rubocop:enable Style/AndOr
 
   def ssl_excepted?
     Settings.excepted_from_ssl.any? do |excepted_path|
