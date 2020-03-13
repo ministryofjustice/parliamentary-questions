@@ -43,7 +43,6 @@ spec:
                     name: environment-variables
                 - secretRef:
                     name: pq-secrets
-              image: "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:latest"
               imagePullPolicy: IfNotPresent
               name: trim-and-anonymise-database
           restartPolicy: OnFailure
