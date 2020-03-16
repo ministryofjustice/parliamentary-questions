@@ -11,8 +11,9 @@ spec:
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   schedule: "0 6 * * *"
-  startingDeadlineSeconds: 10
+  startingDeadlineSeconds: 60
   successfulJobsHistoryLimit: 3
+  suspend: false
   jobTemplate:
     spec:
       template:
