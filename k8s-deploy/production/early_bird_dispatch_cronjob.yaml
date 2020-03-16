@@ -55,5 +55,5 @@ spec:
                 - secretRef:
                     name: pq-secrets
               imagePullPolicy: IfNotPresent
-              name: nightly-import
+              name: early-bird-dispatch
           restartPolicy: OnFailure
