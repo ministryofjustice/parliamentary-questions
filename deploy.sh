@@ -129,13 +129,28 @@ function _deploy() {
     -f k8s-deploy/${environment}/secrets.yaml \
     -n $namespace
 
-  #Add cron jobs if production
+  #nightly import to pull questions from the parliamentary API 
   if [ $environment == "staging" ] || [ $environment == "production" ]
   then
     kubectl set image -f k8s-deploy/${environment}/nightly_import_cronjob.yaml \
             nightly-import=${docker_image_tag} \
             --local --output yaml | kubectl apply -n $namespace -f -
+  fi
 
+  #Trim and Sanitize database to limit the number of questions and obfuscate email address'  
+  if [ $environment == "staging" ]
+  then
+    kubectl set image -f k8s-deploy/${environment}/trim_and_sanitize_db_cronjob.yaml \
+            trim-and-anonymise-database=${docker_image_tag} \
+            --local --output yaml | kubectl apply -n $namespace -f -
+  fi
+
+  #Schedule early bird email delivery 
+  if [ $environment == "production" ]
+  then
+    kubectl set image -f k8s-deploy/${environment}/early_bird_dispatch_cronjob.yaml \
+            early-bird-dispatch=${docker_image_tag} \
+            --local --output yaml | kubectl apply -n $namespace -f -
   fi
 
   kubectl delete job rails-migrations -n $namespace --ignore-not-found=true
@@ -143,7 +158,6 @@ function _deploy() {
   kubectl set image -f k8s-deploy/${environment}/migration_job.yaml \
           parliamentary-questions-rails-app=${docker_image_tag} \
           --local --output yaml | kubectl apply -n $namespace -f -
-
 
 }
 
