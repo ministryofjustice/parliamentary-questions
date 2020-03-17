@@ -7,7 +7,7 @@ class EarlyBirdReportService
   end
 
   def entity
-    'early_bird-' + @current_time.to_s.gsub(' ', '-').gsub('/', '-').gsub(':', '-')
+    'early_bird-' + @current_time.to_s.tr(' ', '-').tr('/', '-').tr(':', '-')
   end
 
   def notify_early_bird
