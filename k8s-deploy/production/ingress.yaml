@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-secret: pq-secrets
 spec:
   rules:
-    - host: parliamentary-questions-production.apps.live-1.cloud-platform.service.justice.gov.uk
+    - host: trackparliamentaryquestions.service.gov.uk
       http:
         paths:
           - backend:
@@ -17,4 +17,5 @@ spec:
             path: /
   tls:
     - hosts:
-        - parliamentary-questions-production.apps.live-1.cloud-platform.service.justice.gov.uk
+        - trackparliamentaryquestions.service.gov.uk
+      secretName: parliamentary-questions-production-cert
