@@ -74,8 +74,8 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       date_to_parliament: date_to_parliament_text(pq) || '',
       internal_deadline: internal_deadline_text(pq) || '',
       cc_list: cc_list(pq, action_officer) || '',
-      finance_users_emails: finance_users_emails(pq),
-      press_email: press_emails(action_officer),
+      finance_users_emails: finance_users_emails(pq) || '',
+      press_email: press_emails(action_officer) || '',
       mail_reply_to: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
