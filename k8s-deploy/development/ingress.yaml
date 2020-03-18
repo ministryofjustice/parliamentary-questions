@@ -3,9 +3,6 @@ kind: Ingress
 metadata:
   name: pq-development
   namespace: parliamentary-questions-development
-  annotations:
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: pq-secrets
 spec:
   rules:
     - host: development.trackparliamentaryquestions.service.gov.uk
