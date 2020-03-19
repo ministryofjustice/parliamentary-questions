@@ -1,7 +1,7 @@
 class NotifyPqMailer < GovukNotifyRails::Mailer
   include Presenters::Email
 
-  # Typically we put varibales in alphabetically order, however in this file they
+  # Typically we put variables in alphabetical order, however in this file they
   # are in the same order as in the emails to prevent missing a variable which
   # can cause emails to not send
 
