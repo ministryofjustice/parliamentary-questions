@@ -1,7 +1,7 @@
 class NotifyPqMailer < GovukNotifyRails::Mailer
   include Presenters::Email
 
-  # Typically we put varibales in alphabetically order, however in this file they
+  # Typically we put variables in alphabetical order, however in this file they
   # are in the same order as in the emails to prevent missing a variable which
   # can cause emails to not send
 
@@ -54,7 +54,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       answer_by: pq.minister&.name || '',
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
-      pq_link: assignment_url(uin: pq.uin, token: token, entity: entity),
+      pq_link: assignment_url(uin: pq.uin, token: token, entity: entity, protocol: 'https'),
       mail_reply_to: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
@@ -86,7 +86,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
     set_template('e0700ef3-8a63-4041-ae97-323a1e62272f')
     set_personalisation(
       formatted_date: (Time.zone.today.strftime '%d/%m/%Y'),
-      early_bird_link: early_bird_dashboard_url(token: token, entity: entity),
+      early_bird_link: early_bird_dashboard_url(token: token, entity: entity, protocol: 'https'),
       reply_to_email: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
@@ -97,7 +97,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
     set_template('b452ebb8-c49e-46f6-9da5-3ba28b494ed6')
     set_personalisation(
       date_today: (Time.zone.today.strftime '%d/%m/%Y'),
-      watch_list_url: watchlist_dashboard_url(token: token, entity: entity),
+      watch_list_url: watchlist_dashboard_url(token: token, entity: entity, protocol: 'https'),
       mail_reply_to: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
