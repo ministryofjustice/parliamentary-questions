@@ -5,7 +5,7 @@ metadata:
 spec:
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
-  schedule: "30 6 * * *"
+  schedule: "30 6 * * 1-5"
   startingDeadlineSeconds: 60
   successfulJobsHistoryLimit: 3
   suspend: false
