@@ -72,7 +72,7 @@ module Features
       click_on 'Save'
     end
 
-    def visit_watchlist_url(expiry = DateTime.now)
+    def visit_watchlist_url(expiry = DateTime.now.utc)
       token_db = Token.find_by(path: watchlist_dashboard_path, expire: expiry.end_of_day)
       entity = token_db.entity
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire.end_of_day)
@@ -80,8 +80,8 @@ module Features
       visit watchlist_dashboard_url(token: token, entity: entity)
     end
 
-    def visit_earlybird_url(expiry = DateTime.now)
-      token_db = Token.find_by(path: early_bird_dashboard_path, expire: expiry.end_of_day.utc)
+    def visit_earlybird_url(expiry = DateTime.now.utc)
+      token_db = Token.find_by(path: early_bird_dashboard_path, expire: expiry.end_of_day)
       entity = token_db.entity
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 

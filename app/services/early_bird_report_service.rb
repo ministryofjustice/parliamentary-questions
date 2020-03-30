@@ -18,7 +18,7 @@ class EarlyBirdReportService
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.earlybird"
     recipients.each do |recipient|
       LogStuff.tag(:mailer_early_bird) do
-        LogStuff.info { "Early bird  email to pqtest@digital.justice.gov.uk} (name early_bird) [CCd to #{recipients.join(';')}]" }
+        LogStuff.info { "Early bird email to pqtest@digital.justice.gov.uk} (name early_bird) [CCd to #{recipients.join(';')}]" }
         NotifyPqMailer.early_bird_email(email: recipient, token: token, entity: entity).deliver_now
       end
     end

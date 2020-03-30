@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'EarlyBirdReportService' do
-  let!(:early_bird_one)     { create(:early_bird_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
-  let!(:early_bird_two)     { create(:early_bird_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
+  let!(:early_bird_one) { create(:early_bird_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
+  let!(:early_bird_two) { create(:early_bird_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:early_bird_deleted) { create(:early_bird_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
-  let(:testid)              { 'early_bird-' + DateTime.now.to_s.tr(' ', '-').tr('/', '-').tr(':', '-') }
+  let(:testid) { 'early_bird-' + DateTime.now.utc.to_s.tr(' ', '-').tr('/', '-').tr(':', '-') }
 
   before(:each) do
     @report_service = EarlyBirdReportService.new
@@ -31,7 +31,6 @@ describe 'EarlyBirdReportService' do
 
     expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm1@ao.gov', token: token, entity: testid)
     expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm2@ao.gov', token: token, entity: testid)
-
     expect(NotifyPqMailer).not_to have_received(:early_bird_email).with(email: 'm3@ao.gov')
   end
 end
