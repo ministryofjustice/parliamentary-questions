@@ -32,7 +32,7 @@ Layout/LineLength:
   Description: 'Limit lines to 80 characters.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
   Enabled: false
-  
+
 Layout/MultilineMethodCallBraceLayout:
   Description: 'This cop checks that the closing brace in a method definition is either on the same line as the last method parameter, or a new line.'
   Enabled: false
@@ -229,6 +229,11 @@ Rails/TimeZone:
   Description: 'This cop checks for the use of Time methods without zone.'
   StyleGuide: 'https://github.com/rubocop-hq/rails-style-guide#time
                http://danilenko.org/2012/7/6/rails_timezones'
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Description: 'When you define a uniqueness validation in Active Record model, you also should add a unique index for the column.'
+  StyleGuide: 'https://docs.rubocop.org/projects/rails/en/stable/cops_rails/#railsuniquevalidationwithoutindex'
   Enabled: false
 
 # Security Cops ===========================================================================
