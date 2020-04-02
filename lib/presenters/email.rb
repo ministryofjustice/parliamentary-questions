@@ -55,6 +55,7 @@ module Presenters
         ['No Finance users have an interest in this question.']
       else
         finance_list.reject(&:blank)
+      end
     end
 
     # private_class_method
