@@ -42,7 +42,6 @@ module Presenters
       cc_list
         .reject(&:blank?)
         .join(';')
-
     end
 
     def finance_list_hash(pq)
