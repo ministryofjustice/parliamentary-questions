@@ -54,7 +54,7 @@ module Presenters
       if finance_list.empty?
         ['No Finance users have an interest in this question.']
       else
-        finance_list.reject(&:blank)
+        finance_list.reject(&:blank?)
       end
     end
 
