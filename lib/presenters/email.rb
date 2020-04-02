@@ -39,9 +39,11 @@ module Presenters
         finance_users_emails(pq) +
         press_emails(ao)
 
-      cc_list
-        .reject(&:blank?)
-        .join(';')
+      # cc_list
+      #   .reject(&:blank?)
+      #   .join(';')
+
+      puts cc_list.reject(&:blank?).join(";<br>").html_safe
     end
 
     def finance_list_hash(pq)
