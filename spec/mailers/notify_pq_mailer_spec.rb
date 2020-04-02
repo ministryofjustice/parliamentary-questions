@@ -121,6 +121,7 @@ describe NotifyPqMailer, type: :mailer do
                  :ao_name,
                  :cc_list,
                  :date_to_parliament,
+                 :finance_list,
                  :finance_users_emails,
                  :house_name,
                  :internal_deadline,
