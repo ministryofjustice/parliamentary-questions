@@ -44,6 +44,19 @@ module Presenters
         .join(';')
     end
 
+    def finance_list_hash(pq)
+      default_hash(pq)
+        .merge(finance_list: finance_list(pq))
+    end
+
+    def finance_list(pq)
+      finance_list = finance_users_emails(pq)
+      if finance_list.empty?
+        ['No Finance users have an interest in this question.']
+      else
+        finance_list.reject(&:blank)
+    end
+
     # private_class_method
 
     def mp_emails(pq)
@@ -65,7 +78,7 @@ module Presenters
     def finance_users_emails(pq)
       if pq.finance_interest
         emails = User.finance.where('email IS NOT NULL').map(&:email)
-        "finance #{emails} and "
+        # "finance #{emails} and "
       else
         []
       end
