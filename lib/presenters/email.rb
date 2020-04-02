@@ -43,7 +43,7 @@ module Presenters
       #   .reject(&:blank?)
       #   .join(';')
 
-      cc_list.reject(&:blank?).join(";&lt;br&gt;").html_safe
+      cc_list.reject(&:blank?).join(';<br>')
     end
 
     def finance_list_hash(pq)
