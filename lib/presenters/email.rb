@@ -4,22 +4,22 @@ module Presenters
 
     def default_hash(pq, ao)
       {
-        ao_name: ao.name,
-        email: ao.email,
-        cc: ao.group_email,
-        uin: pq.uin,
-        question: pq.question,
         answer_by: pq.minister&.name,
-        policy_mpname: pq.policy_minister&.name,
-        policy_mpemail: policy_mpemails(pq).join(';'),
-        press_email: press_emails(ao).join(';'),
-        mpemail: mp_emails(pq).join(';'),
-        member_name: pq.member_name,
-        member_constituency: pq.member_constituency,
+        ao_name: ao.name,
+        cc: ao.group_email,
+        date_to_parliament: pq.date_for_answer.try(:to_s, :date),
+        email: ao.email,
+        finance_users_emails: finance_users_emails(pq).join(';'),
         house_name: pq.house_name,
         internal_deadline: format_internal_deadline(pq),
-        date_to_parliament: pq.date_for_answer.try(:to_s, :date),
-        finance_users_emails: finance_users_emails(pq).join(';')
+        member_constituency: pq.member_constituency,
+        member_name: pq.member_name,
+        mpemail: mp_emails(pq).join(';'),
+        policy_mpemail: policy_mpemails(pq).join(';'),
+        policy_mpname: pq.policy_minister&.name,
+        press_email: press_emails(ao).join(';'),
+        question: pq.question,
+        uin: pq.uin
       }
     end
 
@@ -44,6 +44,20 @@ module Presenters
         .join(';')
     end
 
+    def finance_list_hash(pq)
+      default_hash(pq)
+        .merge(finance_list: finance_list(pq))
+    end
+
+    def finance_list(pq)
+      finance_list = finance_users_emails(pq)
+      if finance_list.empty?
+        ['No Finance users have an interest in this question.']
+      else
+        finance_list.reject(&:blank?)
+      end
+    end
+
     # private_class_method
 
     def mp_emails(pq)
@@ -65,7 +79,6 @@ module Presenters
     def finance_users_emails(pq)
       if pq.finance_interest
         emails = User.finance.where('email IS NOT NULL').map(&:email)
-        "finance #{emails} and "
       else
         []
       end
