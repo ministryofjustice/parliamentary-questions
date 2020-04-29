@@ -1,7 +1,6 @@
 parliamentary-questions
 =======================
 
-[![Build Status](https://travis-ci.org/ministryofjustice/parliamentary-questions.png?branch=master)](https://travis-ci.org/ministryofjustice/parliamentary-questions)
 [![Code Climate](https://codeclimate.com/github/ministryofjustice/parliamentary-questions/badges/gpa.svg)](https://codeclimate.com/github/ministryofjustice/parliamentary-questions)
 [![CircleCI](https://circleci.com/gh/ministryofjustice/parliamentary-questions.svg?style=svg)](https://circleci.com/gh/ministryofjustice/parliamentary-questions)
 
@@ -93,6 +92,8 @@ Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
 be run be executing the same command with the features folder as argument (i.e.
 `bundle exec rspec features`). Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/features) in the features folder
 for end-to-end tests implementation details.
+
+The Guard gem (https://guardgem.org/) is also installed and can be run via `bundle exec guard`.  Currently the RuboCop, RSpec, Brakeman and LiveReload plugins are setup to run when guard detects a file system modification.
 
 # Emails
 Emails are sent using the [GOVUK Notify service](https://www.notifications.service.gov.uk).

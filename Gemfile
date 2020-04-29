@@ -35,8 +35,11 @@ gem 'will_paginate'
 
 group :development do
   gem 'annotate'
-  gem 'guard-livereload', '>= 2.5.2'
-  gem 'guard-rspec'
+  gem 'guard'
+  gem 'guard-brakeman'
+  gem 'guard-livereload', '~> 2.5', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop'
   gem 'rails_db_info'
 end
 
