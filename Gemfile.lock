@@ -220,7 +220,7 @@ GEM
       activerecord (>= 4.2)
       request_store (~> 1.1)
     parallel (1.19.1)
-    parser (2.7.1.0)
+    parser (2.7.1.2)
       ast (~> 2.4.0)
     pg (1.2.3)
     poltergeist (1.18.1)
@@ -319,7 +319,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-performance (1.5.2)
       rubocop (>= 0.71.0)
-    rubocop-rails (2.5.1)
+    rubocop-rails (2.5.2)
       activesupport
       rack (>= 1.1)
       rubocop (>= 0.72.0)
