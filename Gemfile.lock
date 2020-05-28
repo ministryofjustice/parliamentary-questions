@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (5.2.4.2)
+    actioncable (5.2.4.3)
       actionpack (= 5.2.4.3)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
@@ -244,7 +244,7 @@ GEM
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.4.2)
-      actioncable (= 5.2.4.2)
+      actioncable (= 5.2.4.3)
       actionmailer (= 5.2.4.2)
       actionpack (= 5.2.4.3)
       actionview (= 5.2.4.3)
