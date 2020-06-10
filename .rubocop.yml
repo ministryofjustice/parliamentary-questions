@@ -268,6 +268,10 @@ Style/DateTime:
   Description: 'This cop checks for consistent usage of the DateTime class over the Time class. This cop is disabled by default since these classes, although highly overlapping, have particularities that make them not replaceable in certain situations when dealing with multiple timezones and/or DST.'
   Enabled: false
 
+Style/DisableCopsWithinSourceCodeDirective:
+  Description: 'Forbids disabling/enabling cops within source code.'
+  Enabled: false
+
 Style/DoubleNegation:
   Description: 'This cop checks for uses of double negation (!!) to convert something to a boolean value. As this is both cryptic and usually redundant, it should be avoided.'
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#no-bang-bang'
