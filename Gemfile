@@ -58,7 +58,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'rubocop', '~> 0.82.0'
   gem 'rubocop-performance', '~> 1.5.2'
-  gem 'rubocop-rails', '~> 2.5'
+  gem 'rubocop-rails', '~> 2.6'
   gem 'selenium-webdriver', '~> 3.142'
   gem 'shoulda-matchers', require: false
   gem 'sinatra'
