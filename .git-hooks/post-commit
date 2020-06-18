@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Symlink this file to your repo .git/hooks/ directory with:
-#
-#    $ ln -s .git-hooks/post-commit .git/hooks/post-commit
-#
-
-git-secrets --scan -r
