@@ -78,6 +78,44 @@ rake user:create
 rake "user:create[admin@admin.com, 123456789, admin]"
 ```
 
+## Keeping secrets secure
+
+To prevent the commitment of secrets and credentials into git repositories we use awslabs / git-secrets (https://github.com/awslabs/git-secrets)
+
+For MacOS, git-secrets can be install via Homebrew.  From the terminal run the following:
+
+    $ brew install git-secrets
+
+Then install the git hooks:
+
+    $ cd /path/to/my/repo
+    $ git secrets --install
+    $ git secrets --register-aws
+
+A 'canary' string has been added to the last line of the Development, Staging & Development environments secrets.yaml files.  Git Secrets has to be set to look for this string with:
+
+    $ git secrets --add --literal '#WARNING Secrets Are Not Encrypted!'
+
+**Please note** the string literal above should have underscores where there are spaces.  Otherwise git-secrets will look for every instance of each work in this repo.  Also by removing the underscores in this example git-secrets will not flag this file and stop all branch commits.
+
+Finally open your local repository .git/hooks/pre-commit file and add the following command :
+
+    git secrets --scan -r
+
+**Please note** - Make sure the command comes before:
+
+    git secrets --pre_commit_hook -- "$@"
+
+So the file should look something like this:
+
+    #!/usr/bin/env bash
+    git-secrets --scan -r
+    git secrets --pre_commit_hook -- "$@"
+
+**How it works**
+
+When committing a branch change git-secrets scans the whole repository for a specific set of strings.  In this case, the 'canary' string (described above) has been placed in all the secrets files. So if the encrypted secrets files are unlocked you will be warned before you can push the change.
+
 # Data model
 
 ![PQ entity-relations diagram](https://github.com/ministryofjustice/parliamentary-questions/blob/dev/erd.png)
@@ -100,4 +138,3 @@ Emails are sent using the [GOVUK Notify service](https://www.notifications.servi
 
 Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers)in the mailers folder
 for details of how to get an account and obtain an API key.
-
