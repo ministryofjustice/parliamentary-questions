@@ -96,7 +96,7 @@ A 'canary' string has been added to the last line of the Development, Staging & 
 
     $ git secrets --add --literal '#WARNING Secrets Are Not Encrypted!'
 
-**Please note** the string literal above should have underscores where there are spaces.  Otherwise git-secrets will look for every instance of each word in this repo.  Also by removing the underscores in this example git-secrets will not flag this file and stop all branch commits.
+**Please note** the string literal above should have underscores where there are spaces.  Removing the underscores in this example stops git-secrets flagging this file as having exposed credentials.
 
 Finally open your local repository .git/hooks/pre-commit file and add the following command :
 
@@ -114,7 +114,7 @@ So the file should look something like this:
 
 **How it works**
 
-When committing a branch change git-secrets scans the whole repository for a specific set of strings.  In this case, the 'canary' string (described above) has been placed in all the secrets files. So, if the encrypted secrets files are unlocked, you will be warned before you can push the change.
+When committing a branch change git-secrets scans the whole repository for a specific set of strings.  In this case, the 'canary' string (described above) has been placed in all the secrets files. So, if the encrypted secrets files are unlocked, you will be warned before pushing the branch.
 
 # Data model
 
