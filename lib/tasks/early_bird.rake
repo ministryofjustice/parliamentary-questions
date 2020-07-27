@@ -2,7 +2,7 @@ namespace :pqa do
   desc 'Queue Early Bird Emails'
   task :early_bird, [] => :environment do
     if PqaImportRun.ready_for_early_bird
-      if (Time.zone.today < Date.new(2020, 3, 27)) || (Time.zone.today > Date.new(2020, 4, 20))
+      if (Time.zone.today < Date.new(2020, 7, 29)) || (Time.zone.today > Date.new(2020, 8, 31))
         LogStuff.info { 'Early Bird: Preparing to queue early bird mails' }
         service = EarlyBirdReportService.new
         service.notify_early_bird
