@@ -54,7 +54,7 @@ group :test, :development do
   gem 'poltergeist'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
+  gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-rails'
   gem 'rubocop', '~> 0.88.0'
   gem 'rubocop-performance', '~> 1.7.1'
