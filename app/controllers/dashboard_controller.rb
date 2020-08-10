@@ -61,9 +61,10 @@ class DashboardController < ApplicationController
     @answering_minister_names = @questions.where('minister_id > 0').map { |q| q.minister.name }.uniq
     @policy_minister_names    = @questions.where('policy_minister_id > 0').map { |q| q.policy_minister.name }.uniq
     @filters =
-      if dashboard_state == IN_PROGRESS
+      case dashboard_state
+      when IN_PROGRESS
         Presenters::DashboardFilters.build_in_progress(pq_counts, params)
-      elsif dashboard_state == BACKLOG
+      when BACKLOG
         Presenters::DashboardFilters.backlog(pq_counts, params)
       else
         Presenters::DashboardFilters.build(pq_counts, params)

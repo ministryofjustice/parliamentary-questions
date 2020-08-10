@@ -23,6 +23,7 @@ class QuickActionsService
     pqs_array
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update_pq_list(pq_list, internal_deadline, draft_received, pod_clearance, cleared_by_minister, answer_submitted)
     pq_batch = valid?(pq_list, internal_deadline, draft_received, pod_clearance, cleared_by_minister, answer_submitted)
     return if pq_batch == false
@@ -59,6 +60,7 @@ class QuickActionsService
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def get_action_officer_pqs_id(pq)
     ao_pq = pq.action_officers_pqs.find(&:accepted?)

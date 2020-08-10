@@ -17,6 +17,7 @@ class TrimLink < ActiveRecord::Base
   include SoftDeletion::Record
 
   attr_accessor :file
+
   after_initialize :extract_details
 
   has_paper_trail
