@@ -49,7 +49,7 @@ namespace :pqa do
     task :api_start, [:n_records] => :environment do |_, args|
       n_records = args[:n_records] || 3
       n_records = n_records.to_i if n_records.is_a?(String)
-      require_relative '../pqa.rb'
+      require_relative '../pqa'
       runner = PQA::MockApiServerRunner.new
       runner.start
       puts "Mock API server started on http://#{PQA::MockApiServerRunner::HOST}:#{PQA::MockApiServerRunner::PORT}"

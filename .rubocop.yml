@@ -47,6 +47,10 @@ Lint/AmbiguousBlockAssociation:
   Description: 'This cop checks for ambiguous block association with method when param passed without parentheses.'
   Enabled: false
 
+Lint/ConstantResolution:
+  Description: 'Check that certain constants are fully qualified.'
+  Enabled: false
+
 Lint/DeprecatedClassMethods:
   Description: 'This cop checks for uses of the deprecated class method usages.'
   Enabled: false
@@ -311,6 +315,11 @@ Style/GlobalVars:
 Style/GuardClause:
   Description: 'Use a guard clause instead of wrapping the code inside a conditional expression'
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#no-nested-conditionals'
+  Enabled: false
+
+Style/HashAsLastArrayItem:
+  Description: 'Checks for presence or absence of braces around hash literal as a last array item depending on configuration.'
+  StyleGuide: 'https://rubystyle.guide/#hash-literal-as-last-array-item'
   Enabled: false
 
 Style/IfUnlessModifier:

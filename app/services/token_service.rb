@@ -11,15 +11,13 @@ class TokenService
   def valid?(token, path, entity)
     token_dec = Devise.token_generator.digest(Token, :token_digest, token)
     token = Token.find_by(path: path, entity: entity)
-    result = token && Devise.secure_compare(token_dec, token.token_digest) ? true : false
-    result
+    token && Devise.secure_compare(token_dec, token.token_digest) ? true : false
   end
 
   def expired?(token, path, entity)
     token_dec = Devise.token_generator.digest(Token, :token_digest, token)
     token = Token.find_by(path: path, entity: entity)
-    result = token.expire < DateTime.now
-    result
+    token.expire < DateTime.now
   end
 
   def delete_expired

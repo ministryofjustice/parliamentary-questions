@@ -2,12 +2,7 @@ class CommissionForm
   include ActiveModel::Model
   include ActiveModel::Validations::Callbacks
 
-  attr_accessor :pq_id
-  attr_accessor :minister_id
-  attr_accessor :policy_minister_id
-  attr_accessor :action_officer_id
-  attr_accessor :date_for_answer
-  attr_accessor :internal_deadline
+  attr_accessor :pq_id, :minister_id, :policy_minister_id, :action_officer_id, :date_for_answer, :internal_deadline
 
   before_validation :remove_blank_action_officer
   validates :pq_id, presence: { message: 'Please provide question id to commission' }
