@@ -8,8 +8,6 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def accept_resource
-    # resource = resource_class.accept_invitation!(update_resource_params)
-    # resource
     resource_class.accept_invitation!(update_resource_params)
   end
 
