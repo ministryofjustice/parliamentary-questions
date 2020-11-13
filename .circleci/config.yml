@@ -198,7 +198,7 @@ jobs:
 
   build_and_test:
     <<: *test_container_config
-    resource_class: smll
+    resource_class: small
     working_directory: ~/parliamentary-questions
     steps:
       - checkout
