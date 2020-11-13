@@ -85,7 +85,7 @@ references:
     run:
       name: Install bundler
       command: |
-        gem install bundler -v 1.17.1
+        gem install bundler -v 2.0.2
 
   check_bundler_version: &check_bundler_version
     run:
@@ -198,7 +198,7 @@ jobs:
 
   build_and_test:
     <<: *test_container_config
-    resource_class: medium
+    resource_class: smll
     working_directory: ~/parliamentary-questions
     steps:
       - checkout
