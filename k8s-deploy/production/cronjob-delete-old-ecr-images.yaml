@@ -27,7 +27,7 @@ spec:
                   set -e
                   set -o pipefail
 
-                  repo=peoplefinder/peoplefinder-ecr
+                  repo=pq-team/parliamentary-questions
                   total_master_images_to_keep=10
                   days_to_keep_non_master_images=14
                   region=eu-west-2
@@ -43,8 +43,13 @@ spec:
                     local successes=$(echo $response | jq '.imageIds | length')
                     local failures=$(echo $response | jq '.failures | length')
                     echo "Successes: $successes"
-                    echo "Failures: $failures"                 
+                    echo "Failures: $failures"             
                   }
+
+                  all_images=$(aws ecr describe-images --region $region --repository-name $repo | jq "{imageDetails: [.imageDetails[] | select(.imageTags // [])] | sort_by(.imagePushedAt)}")                 
+                  all_images_count=$(echo $all_images | jq '.imageDetails | length')
+                  echo "All images: $all_images_count"
+                  echo $all_images
 
                   master_images_to_delete=$(aws ecr describe-images --region $region --repository-name $repo | jq "{imageDetails: [.imageDetails[] | select(.imageTags // [] | any(match(\"^.*master.*$\")) )] | sort_by(.imagePushedAt) | .[0:-$total_master_images_to_keep]}")                 
                   master_image_count=$(echo $master_images_to_delete | jq '.imageDetails | length')
@@ -84,18 +89,25 @@ spec:
                   fi
                   echo "Images after clean: $(image_count)"              
 
+                  all_images_after=$(aws ecr describe-images --region $region --repository-name $repo | jq "{imageDetails: [.imageDetails[] | select(.imageTags // [])] | sort_by(.imagePushedAt)}")                 
+                  all_images_count_after=$(echo $all_images_after | jq '.imageDetails | length')
+                  echo "All images after: $all_images_count_after"
+                  echo $all_images_after
+
+
+
                   echo "Job done."
               env:
                 - name: AWS_ACCESS_KEY_ID
                   valueFrom:
                     secretKeyRef:
-                      name: peoplefinder-ecr-credentials-output
+                      name: pq-ecr-credentials-output
                       key: access_key_id
 
                 - name: AWS_SECRET_ACCESS_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: peoplefinder-ecr-credentials-output
+                      name: pq-ecr-credentials-output
                       key: secret_access_key
 
                 - name: AWS_DEFAULT_REGION
