@@ -1,6 +1,9 @@
 ParliamentaryQuestions::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Rails 6 blocks hosts unless allowed here
+  config.hosts << /[a-z0-9]+\.trackparliamentaryquestions\.service\.gov\.uk/
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
