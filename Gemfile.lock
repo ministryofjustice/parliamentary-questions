@@ -66,7 +66,7 @@ GEM
     bcrypt (3.1.16)
     bootstrap-will_paginate (1.0.0)
       will_paginate
-    brakeman (4.10.0)
+    brakeman (5.0.0)
     builder (3.2.4)
     business_time (0.9.3)
       activesupport (>= 3.2.0)
