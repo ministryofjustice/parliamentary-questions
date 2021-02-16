@@ -33,6 +33,10 @@ Layout/LineLength:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
   Enabled: false
 
+Layout/MultilineMethodArgumentLineBreaks:
+  Description: 'This cop ensures that each argument in a multi-line method call starts on a separate line.'
+  Enabled: false
+
 Layout/MultilineMethodCallBraceLayout:
   Description: 'This cop checks that the closing brace in a method definition is either on the same line as the last method parameter, or a new line.'
   Enabled: false
