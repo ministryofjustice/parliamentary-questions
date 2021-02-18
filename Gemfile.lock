@@ -384,7 +384,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    statsd-ruby (1.4.0)
+    statsd-ruby (1.5.0)
     susy (2.2.14)
       sass (>= 3.3.0, < 3.5)
     temple (0.8.2)
