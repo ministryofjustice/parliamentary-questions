@@ -80,7 +80,6 @@ class ApplicationController < ActionController::Base
 
   def show_error_page_and_increment_statsd(err_number, exception = nil)
     $statsd.increment("#{StatsHelper::PAGES_ERRORS}.#{err_number}")
-    # var errorPagePath = "public/#{err_number}"
     respond_to do |format|
       format.html { render file: "public/#{err_number}.html", status: err_number }
       format.all  { render nothing: true, status: err_number }
