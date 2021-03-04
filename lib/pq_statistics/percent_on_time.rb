@@ -34,7 +34,8 @@ module PqStatistics
 
     def pq_data(dates)
       Pq.answered
-        .where.not(answer_submitted: nil, date_for_answer: nil)
+        .where.not(answer_submitted: nil)
+        .where.not(date_for_answer: nil)
         .where('answer_submitted > ?', dates.last)
         .pluck(:answer_submitted, :date_for_answer)
     end
