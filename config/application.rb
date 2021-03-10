@@ -65,7 +65,6 @@ module ParliamentaryQuestions
       config.dsn = ENV['SENTRY_DSN']
       config.breadcrumbs_logger = [:active_support_logger]
     end
-
   end
 end
 
