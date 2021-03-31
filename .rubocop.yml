@@ -231,7 +231,7 @@ Rails/SaveBang:
 Rails/SkipsModelValidations:
   Description: 'This cop checks for the use of methods which skip validations which are listed in https://guides.rubyonrails.org/active_record_validations.html#skipping-validations.'
   StyleGuide: 'https://guides.rubyonrails.org/active_record_validations.html#skipping-validations'
-  Whitelist: [update_all, update_attribute, update_column]
+  AllowedMethods: [update_all, update_attribute, update_column]
 
 Rails/TimeZone:
   Description: 'This cop checks for the use of Time methods without zone.'
