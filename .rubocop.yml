@@ -207,6 +207,11 @@ Rails/LexicallyScopedActionFilter:
   StyleGuide: 'https://github.com/bbatsov/rails-style-guide#lexically-scoped-action-filter'
   Enabled: false
 
+Rails/OrderById:
+  Description: 'This cop checks for places where ordering by id column is used.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop-rails/cops_rails.html#railsorderbyid'
+  Enabled: false
+
 Rails/Output:
   Description: 'This cop checks for the use of output safety calls like html_safe, raw, and safe_concat. These methods do not escape content. They simply return a SafeBuffer containing the content as is. Instead, use safe_join to join content and escape it and concat to concatenate content and escape it, ensuring its safety.'
   Enabled: false
