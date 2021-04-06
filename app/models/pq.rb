@@ -219,11 +219,11 @@ class Pq < ActiveRecord::Base
   private
 
   def sole_accepted_action_officer
-    errors[:base] << 'Unable to have two action officers accepted on the same question' if action_officers.all_accepted.size > 1
+    errors.add(:base, :sole_accepted_action_officer, message: "Unable to have two action officers accepted on the same question") if action_officers.all_accepted.size > 1
   end
 
   def transfer_out_consistency
-    errors[:base] << 'Invalid transfer out submission - requires BOTH date and department' if !!transfer_out_date ^ !!transfer_out_ogd_id
+    errors.add(:base, :transfer_out_consistency, message: "Invalid transfer out submission - requires BOTH date and department") if !!transfer_out_date ^ !!transfer_out_ogd_id
   end
 
   def iww_uin
