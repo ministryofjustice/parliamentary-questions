@@ -28,7 +28,7 @@ class AOTokenFilter
     log_error(token_state, params)
 
     controller.update_page_title 'Unauthorised (401)'
-    controller.render "shared/token_#{token_state}.html.slim", status: :unauthorized
+    controller.render "shared/token_#{token_state}", status: :unauthorized
   end
 
   def self.log_error(token_state, params)
