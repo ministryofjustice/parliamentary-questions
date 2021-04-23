@@ -61,10 +61,10 @@ module ParliamentaryQuestions
     # Statsd
     $statsd = Statsd.new 'localhost', 8125
 
-    Sentry.init do |config|
-      config.dsn = ENV['SENTRY_DSN']
-      config.breadcrumbs_logger = [:active_support_logger]
-    end
+    # Sentry.init do |config|
+    #   config.dsn = ENV['SENTRY_DSN']
+    #   config.breadcrumbs_logger = [:active_support_logger]
+    # end
   end
 end
 
