@@ -1,4 +1,4 @@
-FROM ruby:2.5.5-alpine
+FROM ruby:2.7.2-alpine
 
 RUN touch /etc/inittab
 
@@ -55,7 +55,7 @@ RUN apk --no-cache add --virtual build-dependencies \
 ADD ./ /usr/src/app
 
 COPY Gemfile* ./
-RUN gem install bundler -v 2.0.2
+RUN gem install bundler -v 2.2.15
 RUN bundle install
 COPY . .
 

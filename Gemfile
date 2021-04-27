@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.5'
+ruby '2.7.2'
 
 gem 'bootstrap-will_paginate'
 gem 'business_time'
