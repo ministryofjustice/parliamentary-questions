@@ -78,7 +78,7 @@ module Presenters
 
     def finance_users_emails(pq)
       if pq.finance_interest
-        emails = User.finance.where('email IS NOT NULL').map(&:email)
+        emails = User.finance.where.not(email: nil).map(&:email)
       else
         []
       end

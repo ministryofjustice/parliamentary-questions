@@ -40,7 +40,7 @@ module PqCounts
   def count_accepted_by_press_desk
     join_press_desks
       .select('pqs.state, ao.press_desk_id, count(distinct pqs.id)')
-      .where('state != ?', PQState::UNASSIGNED)
+      .where.not(state: PQState::UNASSIGNED)
       .where("aopq.response = 'accepted' AND pd.deleted = false")
       .group('state, ao.press_desk_id')
       .reduce({}) do |acc, r|

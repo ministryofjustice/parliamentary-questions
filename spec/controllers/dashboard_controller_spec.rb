@@ -59,7 +59,7 @@ end
 
 def setup_i_will_write_questions
   setup_questions
-  questions = Pq.where('state NOT IN (?)', PQState::CLOSED)
+  questions = Pq.where.not(state: PQState::CLOSED)
   questions.each { |q| q.update(i_will_write: true) }
 end
 
