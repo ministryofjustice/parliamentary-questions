@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # SSL Production Config
-  if Rails.env.production? && !HostEnv.is_dev?
-    # Force SSL except in excepted routes
-    force_ssl unless: :ssl_excepted?
-    # Reset session when hitting excepted routes so as not to leak cookie
-    before_action :reset_session, if: :ssl_excepted?
-  end
+  # if Rails.env.production? && !HostEnv.is_dev?
+  #   # Force SSL except in excepted routes
+  #   force_ssl unless: :ssl_excepted?
+  #   # Reset session when hitting excepted routes so as not to leak cookie
+  #   before_action :reset_session, if: :ssl_excepted?
+  # end
 
   if Rails.env.production? || ENV['TRAP_ERRORS_IN_TEST'] == '1'
     rescue_from StandardError do |exception|
@@ -58,11 +58,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def ssl_excepted?
-    Settings.excepted_from_ssl.any? do |excepted_path|
-      !!(request.fullpath =~ Regexp.new(excepted_path))
-    end
-  end
+  # def ssl_excepted?
+  #   Settings.excepted_from_ssl.any? do |excepted_path|
+  #     !!(request.fullpath =~ Regexp.new(excepted_path))
+  #   end
+  # end
 
   def set_page_title
     @page_title = 'MOJ Parliamentary Questions'
