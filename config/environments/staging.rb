@@ -45,6 +45,10 @@ ParliamentaryQuestions::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+  # Exclude SSL on Healthcheck and ping.json calls
+  config.ssl_options = { redirect: { exclude: -> request { request.path.include? '/ping.json/' } } }
+  config.ssl_options = { redirect: { exclude: -> request { request.path.include? '/healthcheck/' } } }
+
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 
