@@ -45,6 +45,10 @@ ParliamentaryQuestions::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+  # Exclude SSL on ping.json path calls
+  # SSL on this path may break calls when app is behind a load balancer.
+  config.ssl_options = { redirect: { exclude: -> request { request.path =~ /ping.json/ } } }
+
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 

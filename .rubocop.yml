@@ -45,6 +45,10 @@ Layout/SpaceAroundOperators:
   Description: 'Checks that operators have space around them, except for ** which should not have surrounding space.'
   Enabled: false
 
+Layout/SpaceInLambdaLiteral:
+  Description: 'This cop checks for spaces between -> and opening parameter parenthesis (() in lambda literals.'
+  Enabled: false
+
 # Lint Cops ===============================================================================
 
 Lint/AmbiguousBlockAssociation:
@@ -401,6 +405,10 @@ Style/Send:
 
 Style/SingleLineBlockParams:
   Description: 'This cop checks whether the block parameters of a single-line method accepting a block match the names specified via configuration.'
+  Enabled: false
+
+Style/StabbyLambdaParentheses:
+  Description: 'Check for parentheses around stabby lambda arguments. There are two different styles. Defaults to require_parentheses.'
   Enabled: false
 
 Style/StringHashKeys:
