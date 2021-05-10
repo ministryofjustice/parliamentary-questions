@@ -65,10 +65,6 @@ module Settings
     ENV.fetch('GA_TRACKER_ID', DEFAULT_GA_TRACKER_ID)
   end
 
-  def excepted_from_ssl
-    @h['excepted_from_ssl']
-  end
-
   def healthcheck_pqa_api_interval
     @h['healthcheck_pqa_api_interval']
   end
