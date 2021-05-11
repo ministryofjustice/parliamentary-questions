@@ -1062,7 +1062,7 @@ textarea.form-control {
           background-clip: border-box;
           background-origin: padding-box;
           background-size: auto auto;
-          background: $panel-colour url('option-select-toggle-sprite.png') no-repeat scroll;
+          background: $panel-colour image-url('option-select-toggle-sprite.png') no-repeat scroll;
         }
         .open { background-position: right -82px; }
         .closed { background-position: right 0; }
