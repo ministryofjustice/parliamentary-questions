@@ -47,8 +47,7 @@ class LogStuff
 
     if use_logstasher?
       msg = yield
-
-      event = LogStash::Event.new('@source' => LogStasher.source,
+      event = LogStasher::Event.new('@source' => LogStasher.source,
                                   '@severity' => severity,
                                   'message' => msg,
                                   '@tags' => get_thread_current(:current_tags).merge(local_tags),
