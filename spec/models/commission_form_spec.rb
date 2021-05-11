@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CommissionForm, type: :model do
   describe 'validation error messages' do
     let(:form) { build(:commission_form) }
-    subject { form.errors.values.flatten }
+    subject { form.errors.map { |error| error.message }  }
 
     before do
       form.valid?
