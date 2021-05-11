@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
     $statsd.increment("#{StatsHelper::PAGES_ERRORS}.#{err_number}")
     respond_to do |format|
       format.html { render file: "public/#{err_number}.html", status: err_number }
-      format.all  { render nothing: true, status: err_number }
+      format.all  { head :no_content, status: err_number }
     end
     backtrace = exception.nil? ? nil : exception.backtrace
     message = exception.nil? ? nil : exception.message
