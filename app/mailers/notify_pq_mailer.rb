@@ -87,7 +87,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
     set_template('e0700ef3-8a63-4041-ae97-323a1e62272f')
     set_personalisation(
       formatted_date: (Time.zone.today.strftime '%d/%m/%Y'),
-      early_bird_link: early_bird_dashboard_url(token: token, entity: entity, protocol: 'https'),
+      early_bird_link: early_bird_dashboard_url(host: ActionMailer::Base.default_url_options[:host], token: token, entity: entity, protocol: 'https'),
       reply_to_email: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
