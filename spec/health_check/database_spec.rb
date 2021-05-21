@@ -9,7 +9,7 @@ describe HealthCheck::Database do
     end
 
     it 'returns false if the database is not available' do
-      allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
+      allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
       expect(db).not_to be_available
     end
   end
@@ -28,7 +28,7 @@ describe HealthCheck::Database do
 
   context '#error_messages' do
     it 'returns the exception messages if there is an error accessing the database' do
-      allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
+      allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
       db.available?
 
       expect(db.error_messages).to eq([
@@ -38,7 +38,7 @@ describe HealthCheck::Database do
     end
 
     it 'returns an error an backtrace for errors not specific to a component' do
-      allow(ActiveRecord::Base).to receive(:connected?).and_raise(StandardError)
+      allow(ActiveRecord::Base.connection).to receive(:active?).and_raise(StandardError)
       db.available?
 
       expect(db.error_messages.first).to match(/Error: StandardError\nDetails/)
