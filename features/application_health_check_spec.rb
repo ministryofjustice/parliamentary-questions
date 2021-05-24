@@ -13,7 +13,7 @@ feature 'healthcheck.json' do
   end
 
   scenario 'when there are component errors' do
-    allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
+    allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
 
     visit '/healthcheck.json'
 
