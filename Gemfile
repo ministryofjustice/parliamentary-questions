@@ -47,7 +47,7 @@ end
 
 group :test, :development do
   gem 'awesome_print', '~> 1.9', '>= 1.9.2'
-  gem 'brakeman', '~> 5.0', '>= 5.0.1'
+  gem 'brakeman', '~> 5.0', '>= 5.0.1', require: false
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 2.18'
@@ -62,7 +62,7 @@ group :test, :development do
   gem 'rubocop-performance', '~> 1.7', '>= 1.7.1'
   gem 'rubocop-rails', '~> 2.8', '>= 2.8.1'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
-  gem 'shoulda-matchers', '~> 4.5', '>= 4.5.1'
+  gem 'shoulda-matchers', '~> 4.5', '>= 4.5.1', require: false
   gem 'sinatra', '~> 2.1'
   gem 'timecop', '~> 0.9.4'
 end
