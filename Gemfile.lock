@@ -100,7 +100,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    devise (4.7.3)
+    devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -118,24 +118,28 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubi (1.10.0)
     eventmachine (1.2.7)
-    execjs (2.8.0)
+    execjs (2.8.1)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (2.17.0)
+    faker (2.18.0)
       i18n (>= 1.6, < 2)
-    faraday (1.4.1)
+    faraday (1.4.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
       faraday-net_http (~> 1.0)
       faraday-net_http_persistent (~> 1.1)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
-    ffi (1.15.0)
+    ffi (1.15.1)
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
     formatador (0.2.5)
@@ -153,7 +157,7 @@ GEM
       rails (>= 4.1.0)
     govuk_template (0.24.1)
       rails (>= 3.1)
-    guard (2.16.2)
+    guard (2.17.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
       lumberjack (>= 1.0.12, < 2.0)
@@ -226,7 +230,7 @@ GEM
     mini_mime (1.0.3)
     mini_portile2 (2.5.1)
     minitest (5.14.4)
-    momentjs-rails (2.5.1)
+    momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.15.0)
     multipart-post (2.1.1)
@@ -237,7 +241,7 @@ GEM
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     nio4r (2.5.7)
-    nokogiri (1.11.3)
+    nokogiri (1.11.5)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -354,8 +358,9 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-ast (0.8.0)
       parser (>= 2.7.1.5)
-    rubocop-performance (1.7.1)
-      rubocop (>= 0.82.0)
+    rubocop-performance (1.8.1)
+      rubocop (>= 0.87.0)
+      rubocop-ast (>= 0.4.0)
     rubocop-rails (2.8.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -455,65 +460,65 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate
-  awesome_print
-  bootstrap-will_paginate
-  brakeman
-  business_time
-  codeclimate-test-reporter
-  database_cleaner
-  devise (~> 4.7.3)
-  devise_invitable
-  factory_bot_rails
-  faker
-  font-awesome-rails
+  annotate (~> 3.1, >= 3.1.1)
+  awesome_print (~> 1.9, >= 1.9.2)
+  bootstrap-will_paginate (~> 1.0)
+  brakeman (~> 5.0, >= 5.0.1)
+  business_time (~> 0.10.0)
+  codeclimate-test-reporter (~> 1.0, >= 1.0.9)
+  database_cleaner (~> 2.0, >= 2.0.1)
+  devise (~> 4.7, >= 4.7.3)
+  devise_invitable (~> 2.0, >= 2.0.5)
+  factory_bot_rails (~> 6.2)
+  faker (~> 2.18)
+  font-awesome-rails (~> 4.7, >= 4.7.0.7)
   govuk_elements_rails (~> 3.1, >= 3.1.3)
-  govuk_frontend_toolkit (~> 7.5)
-  govuk_notify_rails
+  govuk_frontend_toolkit (~> 7.6)
+  govuk_notify_rails (~> 2.1, >= 2.1.2)
   govuk_template (~> 0.24.1)
-  guard
-  guard-brakeman
-  guard-livereload (~> 2.5)
-  guard-rspec
-  guard-rubocop
+  guard (~> 2.17)
+  guard-brakeman (~> 0.8.6)
+  guard-livereload (~> 2.5, >= 2.5.2)
+  guard-rspec (~> 4.7, >= 4.7.3)
+  guard-rubocop (~> 1.4)
   jquery-rails (~> 4.4)
-  launchy
-  letter_opener
-  logstasher
-  mechanize
-  momentjs-rails (~> 2.5.0)
-  nokogiri (~> 1.11)
+  launchy (~> 2.5)
+  letter_opener (~> 1.7)
+  logstasher (~> 2.1, >= 2.1.5)
+  mechanize (~> 2.8, >= 2.8.1)
+  momentjs-rails (~> 2.5, >= 2.5.1)
+  nokogiri (~> 1.11, >= 1.11.5)
   paper_trail (~> 12.0)
-  pg (~> 1.2)
-  poltergeist
-  pry-byebug
-  pry-rails
-  puma (~> 4.3)
-  rails (~> 6.1, >= 6.1.3.1)
-  rails-controller-testing (~> 1.0)
-  rails_db_info
-  responders (~> 3.0)
-  rspec-rails
-  rspec_junit_formatter
+  pg (~> 1.2, >= 1.2.3)
+  poltergeist (~> 1.18, >= 1.18.1)
+  pry-byebug (~> 3.9)
+  pry-rails (~> 0.3.9)
+  puma (~> 4.3, >= 4.3.8)
+  rails (~> 6.1, >= 6.1.3.2)
+  rails-controller-testing (~> 1.0, >= 1.0.5)
+  rails_db_info (~> 0.2.0)
+  responders (~> 3.0, >= 3.0.1)
+  rspec-rails (~> 5.0, >= 5.0.1)
+  rspec_junit_formatter (~> 0.4.1)
   rubocop (~> 0.88.0)
-  rubocop-performance (~> 1.7.1)
-  rubocop-rails (~> 2.6)
+  rubocop-performance (~> 1.7, >= 1.7.1)
+  rubocop-rails (~> 2.8, >= 2.8.1)
   sass-rails (~> 6.0)
-  select2-rails
-  selenium-webdriver (~> 3.142)
-  sentry-rails (~> 4.3, >= 4.3.4)
-  sentry-ruby (~> 4.3, >= 4.3.2)
-  shoulda-matchers
-  sinatra
-  slim
-  statsd-ruby
+  select2-rails (~> 4.0, >= 4.0.13)
+  selenium-webdriver (~> 3.142, >= 3.142.7)
+  sentry-rails (~> 4.4)
+  sentry-ruby (~> 4.4, >= 4.4.2)
+  shoulda-matchers (~> 4.5, >= 4.5.1)
+  sinatra (~> 2.1)
+  slim (~> 4.1)
+  statsd-ruby (~> 1.5)
   susy (~> 2.2, >= 2.2.14)
-  timecop
-  turbolinks
-  uglifier (>= 1.3.0)
-  unicorn
-  whenever
-  will_paginate
+  timecop (~> 0.9.4)
+  turbolinks (~> 5.2, >= 5.2.1)
+  uglifier (~> 4.2)
+  unicorn (~> 6.0)
+  whenever (~> 1.0)
+  will_paginate (~> 3.3)
 
 RUBY VERSION
    ruby 2.7.2p137
