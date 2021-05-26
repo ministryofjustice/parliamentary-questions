@@ -97,7 +97,7 @@ spec:
                 name: pq-secrets
           readinessProbe:
             httpGet:
-              path: /healthcheck
+              path: /ping.json
               port: 3000
               httpHeaders:
                 - name: X-Forwarded-Proto
@@ -106,10 +106,10 @@ spec:
                   value: "on"
             initialDelaySeconds: 40
             periodSeconds: 60
-            timeoutSeconds: 10
+            timeoutSeconds: 2
           livenessProbe:
             httpGet:
-              path: /healthcheck
+              path: /ping.json
               port: 3000
               httpHeaders:
                 - name: X-Forwarded-Proto
@@ -118,7 +118,7 @@ spec:
                   value: "on"
             initialDelaySeconds: 40
             periodSeconds: 60
-            timeoutSeconds: 10
+            timeoutSeconds: 2
           imagePullPolicy: Always
           name: parliamentary-questions-rails-app
           ports:
