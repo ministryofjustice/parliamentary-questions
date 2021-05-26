@@ -106,6 +106,7 @@ spec:
                   value: "on"
             initialDelaySeconds: 40
             periodSeconds: 60
+            timeoutSeconds: 10
           livenessProbe:
             httpGet:
               path: /healthcheck
@@ -117,6 +118,7 @@ spec:
                   value: "on"
             initialDelaySeconds: 40
             periodSeconds: 60
+            timeoutSeconds: 10
           imagePullPolicy: Always
           name: parliamentary-questions-rails-app
           ports:
