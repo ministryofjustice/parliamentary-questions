@@ -35,10 +35,10 @@ function _deploy() {
     Image created with tag: pq-tracker-cloud-deploy-6bece953
 
     # deploy image-tag to development
-    ./deploy.sh pq-tracker-cloud-deploy-6bece953 development
+    ./deploy.sh pq-tracker-cloud-ciwciwii-6bece953 development
 
-    # deploy latest image of master to production
-    ./deploy.sh pq-tracker-master-6bece953 production
+    # deploy latest image of main to production
+    ./deploy.sh pq-tracker-main-6bece953 production
     "
 
   # Ensure the script is called with two or three arguments
