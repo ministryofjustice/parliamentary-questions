@@ -18,7 +18,7 @@ spec:
             - command:
                 - sh
                 - "-c"
-                - "bundle exec rake 'smoke_test:run' log/schedule.log"
+                - "bundle exec rake 'smoke_test:run'"
               env:
                 - name: DB_HOST
                   valueFrom:
