@@ -141,15 +141,20 @@ function _deploy() {
             --local --output yaml | kubectl apply -n $namespace -f -
   fi
 
-  #Trim and Sanitize database to limit the number of questions and obfuscate email address'  
+  # #Trim and Sanitize database to limit the number of questions and obfuscate email address'  
+  # if [ $environment == "staging" ]
+  # then
+  #   kubectl set image -f k8s-deploy/${environment}/trim_and_sanitize_db_cronjob.yaml \
+  #           trim-and-anonymise-database=${docker_image_tag} \
+  #           --local --output yaml | kubectl apply -n $namespace -f -
+  # fi
+
   if [ $environment == "staging" ]
   then
-    kubectl set image -f k8s-deploy/${environment}/trim_and_sanitize_db_cronjob.yaml \
-            trim-and-anonymise-database=${docker_image_tag} \
-            --local --output yaml | kubectl apply -n $namespace -f -
+    kubectl apply -f k8s-deploy/${environment}/smoke_test_cronjob.yaml -n $namespace
   fi
 
-  #Schedule early bird email delivery 
+  # Schedule early bird email delivery 
   if [ $environment == "production" ]
   then
     kubectl set image -f k8s-deploy/${environment}/early_bird_dispatch_cronjob.yaml \

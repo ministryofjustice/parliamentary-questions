@@ -7,7 +7,7 @@ RUN apk --no-cache add --virtual build-dependencies build-base libc-dev libxml2-
     && apk --no-cache add bash curl file libpq linux-headers nodejs postgresql-dev tzdata tini
 
 # set WORKDIR
-RUN mkdir -p /usr/src/app && mkdir -p /usr/src/app/tmp
+RUN mkdir -p /usr/src/app && mkdir -p /usr/src/app/tmp && mkdir -p /usr/src/app/log
 WORKDIR /usr/src/app
 
 RUN apk -U upgrade
@@ -50,4 +50,4 @@ ENV APP_GIT_COMMIT=${COMMIT_ID}
 ENV APP_BUILD_DATE=${BUILD_DATE}
 ENV APP_BUILD_TAG=${BUILD_TAG}
 
-CMD ["/run-pq.sh"]
+# CMD ["/run-pq.sh"]

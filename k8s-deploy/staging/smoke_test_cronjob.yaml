@@ -1,0 +1,89 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: smoke-test
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  schedule: "0 */1 * * *"
+  startingDeadlineSeconds: 60
+  successfulJobsHistoryLimit: 3
+  suspend: false
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - command:
+                - sh
+                - "-c"
+                - "bundle exec rake 'smoke_test:run' log/schedule.log"
+              env:
+                - name: DB_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      key: rds_instance_address
+                      name: parliamentary-questions-staging-rds
+                - name: DEVISE_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      key: DEVISE_SECRET
+                      name: pq-secrets
+                - name: DEVISE_SENDER
+                  valueFrom:
+                    secretKeyRef:
+                      key: DEVISE_SENDER
+                      name: pq-secrets
+                - name: GOVUK_NOTIFY_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: GOVUK_NOTIFY_API_KEY
+                      name: pq-secrets
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: database_password
+                      name: parliamentary-questions-staging-rds
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      key: database_username
+                      name: parliamentary-questions-staging-rds
+                - name: PQ_REST_API_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      key: PQ_REST_API_HOST
+                      name: pq-secrets
+                - name: PQ_REST_API_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: PQ_REST_API_PASSWORD
+                      name: pq-secrets
+                - name: PQ_REST_API_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: PQ_REST_API_URL
+                      name: pq-secrets
+                - name: PQ_REST_API_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      key: PQ_REST_API_USERNAME
+                      name: pq-secrets
+                - name: TEST_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: TEST_USER
+                      name: pq-secrets
+                - name: TEST_USER_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      key: TEST_USER_PASS
+                      name: pq-secrets
+              envFrom:
+                - configMapRef:
+                    name: environment-variables
+                - secretRef:
+                    name: pq-secrets
+              imagePullPolicy: IfNotPresent
+              name: smoke-test
+          restartPolicy: OnFailure
