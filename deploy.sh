@@ -151,7 +151,9 @@ function _deploy() {
 
   if [ $environment == "staging" ]
   then
-    kubectl apply -f k8s-deploy/${environment}/smoke_test_cronjob.yaml -n $namespace
+    kubectl set image -f k8s-deploy/${environment}/smoke_test_cronjob.yaml \
+            smoke-test=${docker_image_tag} \
+            --local --output yaml | kubectl apply -n $namespace -f -
   fi
 
   # Schedule early bird email delivery 

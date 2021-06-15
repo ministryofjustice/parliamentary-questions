@@ -8,6 +8,7 @@ spec:
   schedule: "0 */1 * * *"
   startingDeadlineSeconds: 60
   successfulJobsHistoryLimit: 3
+  ttlSecondsAfterFinished: 3600
   suspend: false
   jobTemplate:
     spec:

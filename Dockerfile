@@ -4,7 +4,7 @@ FROM ruby:2.7.2-alpine
 ENV APP_HOME=/usr/src/app TINI_VERSION=v0.18.0 LD_LIBRARY_PATH=/opt/postgres/9.0.4/server/lib
 
 RUN apk --no-cache add --virtual build-dependencies build-base libc-dev libxml2-dev libxslt-dev openssl-dev \
-    && apk --no-cache add bash curl file libpq linux-headers nodejs postgresql-dev tzdata tini
+    && apk --no-cache add bash curl file libpq linux-headers nodejs postgresql-dev tzdata tini postgresql-client less
 
 # set WORKDIR
 RUN mkdir -p /usr/src/app && mkdir -p /usr/src/app/tmp && mkdir -p /usr/src/app/log
