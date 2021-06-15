@@ -4,6 +4,9 @@ namespace :smoke_test do
     if HostEnv.is_staging? || HostEnv.is_live?
       puts '[+] Running smoke tests...'
       SmokeTestRunner.run!
+      if SmokeTestRunner.run_success?
+        puts '[+] Smoke tests are completed'
+      end
     else
       puts '[-] Task will only be run on staging or live environments'
     end

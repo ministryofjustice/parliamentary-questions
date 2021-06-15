@@ -6,7 +6,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: trim-and-anonymise-database
+  name: trim-database
 spec:
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
@@ -22,7 +22,7 @@ spec:
             - command:
                 - sh
                 - "-c"
-                - "bundle exec rake 'db:staging:sync'"
+                - "bundle exec rake 'db:staging:trim'"
               env:
                 - name: DB_HOST
                   valueFrom:
@@ -45,5 +45,5 @@ spec:
                 - secretRef:
                     name: pq-secrets
               imagePullPolicy: IfNotPresent
-              name: trim-and-anonymise-database
+              name: trim-database
           restartPolicy: OnFailure

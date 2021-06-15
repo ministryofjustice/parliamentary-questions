@@ -1,5 +1,6 @@
 # This task is mainly for trimming down size of DB and anonymising the users' information
-# For non-staging env. Not sure why its name contains 'Sync'? which cause confusing
+# for non-staging env. Not sure why its name contains 'Sync'? which cause confusing as
+# there is no step of cloning live db in this part. 
 # Right now it is designed to run on daily baisis which I couldn't see the point
 # if there is no importing action against the following tables from live env on daily basis
 module RakeTaskHelpers
