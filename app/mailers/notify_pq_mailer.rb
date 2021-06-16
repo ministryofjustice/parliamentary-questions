@@ -54,7 +54,7 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
       answer_by: pq.minister&.name || '',
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
-      pq_link: assignment_url(uin: pq.uin, token: token, entity: entity, protocol: 'https'),
+      pq_link: assignment_url(host: ActionMailer::Base.default_url_options[:host], uin: pq.uin, token: token, entity: entity, protocol: 'https'),
       mail_reply_to: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
