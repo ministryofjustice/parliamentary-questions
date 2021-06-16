@@ -147,14 +147,20 @@ function _deploy() {
     kubectl set image -f k8s-deploy/${environment}/trim_db_cronjob.yaml \
             trim-database=${docker_image_tag} \
             --local --output yaml | kubectl apply -n $namespace -f -
-    kubectl set image -f k8s-deploy/${environment}/smoke_test_cronjob.yaml \
-            smoke-test=${docker_image_tag} \
-            --local --output yaml | kubectl apply -n $namespace -f -
+
+    # TODO: Comment the following part, as the smoke test is against live url, no point to add more stress from staging env
+    # kubectl set image -f k8s-deploy/${environment}/smoke_test_cronjob.yaml \
+    #         smoke-test=${docker_image_tag} \
+    #         --local --output yaml | kubectl apply -n $namespace -f -
   fi
 
   # Schedule early bird email delivery 
   if [ $environment == "production" ]
   then
+    kubectl set image -f k8s-deploy/${environment}/smoke_test_cronjob.yaml \
+            smoke-test=${docker_image_tag} \
+            --local --output yaml | kubectl apply -n $namespace -f -
+
     kubectl set image -f k8s-deploy/${environment}/early_bird_dispatch_cronjob.yaml \
             early-bird-dispatch=${docker_image_tag} \
             --local --output yaml | kubectl apply -n $namespace -f -
