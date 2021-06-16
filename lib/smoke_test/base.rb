@@ -13,8 +13,6 @@ module SmokeTest
     def self.from_env
       raise 'TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests' unless ENV['TEST_USER_PASS'] && ENV['TEST_USER']
 
-      # TODO: because the smoke test currently run against the live url, it doesn't make sense to create such job on staging env
-      # it should be changed to use staging url
       new(
         Settings.live_url,
         ENV['TEST_USER'],
