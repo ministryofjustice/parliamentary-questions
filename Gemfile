@@ -32,7 +32,6 @@ gem 'susy', '~> 2.2', '>= 2.2.14'
 gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 gem 'uglifier', '~> 4.2'
 gem 'unicorn', '~> 6.0'
-# gem 'whenever', '~> 1.0', require: false
 gem 'will_paginate', '~> 3.3'
 
 group :development do
