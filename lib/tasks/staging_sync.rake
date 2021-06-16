@@ -5,7 +5,7 @@ namespace :db do
       RakeTaskHelpers::StagingSync.new.run!
     end
 
-    # as live new questions will be imported daily and current design of UI will make the action 
+    # as live new questions will be imported daily and current design of UI will make the action
     # of loading pagge slower and slower , this task is to control size of the DB
     # ideally we should change the design of UI.
     desc 'trim the size of staging database down'
