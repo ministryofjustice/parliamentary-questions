@@ -140,11 +140,6 @@ function _deploy() {
             nightly-import=${docker_image_tag} \
             --local --output yaml | kubectl apply -n $namespace -f -
 
-    # TODO: Not sure the following is useful on staging env as the smoke test runs against live url, 
-    #  but maybe it is useful to testing whether it works on staging
-    kubectl set image -f k8s-deploy/${environment}/smoke_test_cronjob.yaml \
-            smoke-test=${docker_image_tag} \
-            --local --output yaml | kubectl apply -n $namespace -f -
   fi
 
   #Trim database to limit the number of questions and run smoke tests'  
