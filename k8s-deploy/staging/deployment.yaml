@@ -30,7 +30,7 @@ spec:
                 secretKeyRef:
                   key: rds_instance_address
                   name: parliamentary-questions-staging-rds
-           - name: PGPASSWORD
+            - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
                   key: database_password
