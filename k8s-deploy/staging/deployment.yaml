@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: parliamentary-questions-rails-app
-          command: ["./config/docker/entrypoint-webapp.sh"]
+          command: ["./docker/entrypoint-webapp.sh"]
           env:
             - name: CREATE_USER_FROM_TEST
               valueFrom:

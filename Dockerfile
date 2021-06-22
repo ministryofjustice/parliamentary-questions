@@ -48,7 +48,7 @@ RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ
 
 # non-root/appuser should own only what they need to
 RUN chown -R appuser:appgroup ./*
-RUN chmod +x /usr/src/app/config/docker/*
+RUN chmod +x /usr/src/app/docker/*
 
 # tidy up installation
 RUN apk del build-dependencies
