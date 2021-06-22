@@ -25,7 +25,7 @@ RUN gem install bundler -v 2.2.15
 #     bundle  install -j 5
 
 RUN bundle config set --global frozen 1 && \
-    bundle config set without 'development test' && \
+    bundle config set without 'development' && \
     bundle install -j 5
 
 COPY . .
