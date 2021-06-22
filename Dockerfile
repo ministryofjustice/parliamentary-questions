@@ -51,7 +51,7 @@ RUN chown -R appuser:appgroup ./*
 RUN chmod +x /usr/src/app/docker/*
 
 # tidy up installation
-RUN apk del build-dependencies
+# RUN apk del build-dependencies
 
 # USER 1000
 # expect/add ping environment variables
