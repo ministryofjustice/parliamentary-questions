@@ -1,10 +1,13 @@
-ParliamentaryQuestions::Application.configure do
+require "active_support/core_ext/integer/time"
+
+# The test environment is used exclusively to run your application's
+# test suite. You never need to work with it otherwise. Remember that
+# your test database is "scratch space" for the test suite and is wiped
+# and recreated between test runs. Don't rely on the data there!
+
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # The test environment is used exclusively to run your application's
-  # test suite. You never need to work with it otherwise. Remember that
-  # your test database is "scratch space" for the test suite and is wiped
-  # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
 
   # Do not eager load code on boot. This avoids loading your whole application
@@ -16,9 +19,16 @@ ParliamentaryQuestions::Application.configure do
   config.serve_static_files = true
   config.static_cache_control = 'public, max-age=3600'
 
+  # Configure public file server for tests with Cache-Control for performance.
+  # config.public_file_server.enabled = true
+  # config.public_file_server.headers = {
+  #   'Cache-Control' => "public, max-age=#{1.hour.to_i}"
+  # }
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+  config.cache_store = :null_store
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
@@ -31,19 +41,10 @@ ParliamentaryQuestions::Application.configure do
 
   config.log_level = :debug
 
-  # Custom Logging - uncomment this block if you want to see logstash-style logs written
-  # to log/logstash_development.json.
-  # A side effect of this is that the normal log/development.log will just contain SQL actions and
-  # no details of the controller action or parameters.
-  # config.logstasher.enabled = true
-  # config.logstasher.log_level = Logger::DEBUG
-  # config.logstasher.logger = ActiveSupport::Logger.new STDOUT
-  #
-  # This line is optional, it allows you to set a custom value for the @source field of the log event
-  # config.logstasher.source = 'logstasher'
-  #
-  # config.logstasher.suppress_app_log = true
-  # End of custom logging block
+  # Store uploaded files on the local file system in a temporary directory.
+  # config.active_storage.service = :test
+
+  config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
@@ -53,10 +54,24 @@ ParliamentaryQuestions::Application.configure do
   # tests on circleci
   config.action_mailer.default_options = { from: 'localhost' }
 
+
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  # For routes accessed by gecko, we require HTTP basic auth
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
+  # Raises error for missing translations.
+  # config.i18n.raise_on_missing_translations = true
+
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
+
+    # For routes accessed by gecko, we require HTTP basic auth
   # See https://developer.geckoboard.com/#polling-overview
   config.gecko_auth_username = 'test_username'
 

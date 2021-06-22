@@ -1,4 +1,4 @@
-require File.expand_path('boot', __dir__)
+require_relative 'boot'
 $LOAD_PATH << File.expand_path('../lib', __dir__)
 
 require 'pq_state'
@@ -15,7 +15,7 @@ require 'action_mailer/log_subscriber'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module ParliamentaryQuestions
   class Application < Rails::Application
@@ -60,6 +60,19 @@ module ParliamentaryQuestions
 
     # Statsd
     $statsd = Statsd.new 'localhost', 8125
+
+    # Specify cookies SameSite protection level: either :none, :lax, or :strict.
+    #
+    # This change is not backwards compatible with earlier Rails versions.
+    # It's best enabled when your entire app is migrated and stable on 6.1.
+    # Rails.application.config.action_dispatch.cookies_same_site_protection = :lax
+
+    # Generate CSRF tokens that are encoded in URL-safe Base64.
+    #
+    # This change is not backwards compatible with earlier Rails versions.
+    # It's best enabled when your entire app is migrated and stable on 6.1.
+    # Rails.application.config.action_controller.urlsafe_csrf_tokens = true
+
   end
 end
 
