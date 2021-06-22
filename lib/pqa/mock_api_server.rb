@@ -5,7 +5,7 @@ module PQA
   class MockApiServer < Sinatra::Base
     require 'sinatra/base'
     require 'date'
-    
+
     SCHEMA_PATH      = File.expand_path('resources/schema.xsd', __dir__)
     SCHEMA           = Nokogiri::XML::Schema(File.read(SCHEMA_PATH))
     QUESTIONS        = {}
