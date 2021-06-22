@@ -38,7 +38,7 @@ RUN chown -R appuser:appgroup /usr/src/app/
 USER appuser
 USER 1000
 
-RUN bundle exec rake assets:precompile RAILS_ENV=development PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret GOVUK_NOTIFY_API_KEY=key
+RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret GOVUK_NOTIFY_API_KEY=key bundle exec rake assets:precompile
 
 # ENTRYPOINT ["sbin/tini", "--", "/entrypoint.sh"]
 # RUN chmod +x /sbin/tini
