@@ -54,8 +54,6 @@ Rails.application.configure do
   # tests on circleci
   config.action_mailer.default_options = { from: 'localhost' }
 
-
-
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
@@ -70,8 +68,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
-
-    # For routes accessed by gecko, we require HTTP basic auth
+  # For routes accessed by gecko, we require HTTP basic auth
   # See https://developer.geckoboard.com/#polling-overview
   config.gecko_auth_username = 'test_username'
 

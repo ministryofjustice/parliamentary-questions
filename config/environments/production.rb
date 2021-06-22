@@ -42,8 +42,6 @@ Rails.application.configure do
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
 
-
-
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
@@ -61,10 +59,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  # 
-  
-  
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -72,7 +67,6 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "parliamentary_questions_production"
-
   config.action_mailer.perform_caching = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
@@ -82,8 +76,6 @@ Rails.application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
   config.assets.precompile += %w(.svg .eot .woff .ttf *.js ^[^_]*.css ^[^_]*.scss)
-
-
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -117,7 +109,7 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
- # Custom Logging - uncomment this block if you want to see logstash-style logs written
+  # Custom Logging - uncomment this block if you want to see logstash-style logs written
   # to log/logstash_development.json.
   # A side effect of this is that the normal log/development.log will just contain SQL actions and
   # no details of the controller action or parameters.
