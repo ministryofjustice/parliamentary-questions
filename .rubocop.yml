@@ -416,8 +416,3 @@ Style/SymbolArray:
 Style/RedundantInterpolation:
   Description: 'This cop checks for strings that are just an interpolated expression.'
   Enabled: false
-
-Style/StringLiterals:
-  Description: 'Checks if uses of quotes match the configured preference.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-string-literals'
-  Enabled: false
