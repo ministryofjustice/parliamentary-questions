@@ -1,0 +1,14 @@
+#admin-wl-form
+  = form_for @early_bird_organiser, url: early_bird_organiser_create_path do |f|
+    = render partial: 'shared/errors', object: @early_bird_organiser
+    - if @early_bird_organiser.errors.any?
+    fieldset
+      .form-group
+        label.form-label for="date_from"  Date from
+        = f.date_field :date_from, {class: 'form-control'}
+      .form-group
+        label.form-label for="date_to"  Date to
+        = f.date_field :date_to , {class: 'form-control'}
+      .form-group
+        br
+        = f.submit 'Save and continue',:id => 'save', :class => 'button'
