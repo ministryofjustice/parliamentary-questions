@@ -11,7 +11,7 @@ class EarlyBirdOrganiserController < ApplicationController
     if @early_bird_organiser.save
       date_from = @early_bird_organiser.date_from
       date_to = @early_bird_organiser.date_to
-      flash[:success] = "You have succesfully schedued the early bird to be turned off on #{date_from} until #{date_to}"
+      flash[:success] = "You have succesfully schedued the early bird to be turned off from #{date_from} until #{date_to}"
       redirect_to admin_path
     else
       render action: 'new'
@@ -22,5 +22,4 @@ class EarlyBirdOrganiserController < ApplicationController
   def early_bird_organiser_params
      params.require(:early_bird_organiser).permit(:date_from, :date_to) 
   end
-  
 end
