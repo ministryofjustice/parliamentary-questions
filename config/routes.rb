@@ -90,6 +90,9 @@ ParliamentaryQuestions::Application.routes.draw do
   get 'transferred/new'     => 'transferred#new'
   post 'transferred/create' => 'transferred#create'
 
+  get 'early_bird_organiser/new' => 'early_bird_organiser#new'
+  post 'early_bird_organiser/create' => 'early_bird_organiser#create'
+
   get 'i_will_write/create' => 'i_will_write#create'
 
   get 'send_accept_reject_reminder/:id' => 'action_officer_reminder#accept_reject'
