@@ -142,7 +142,7 @@ function _deploy() {
 
   fi
 
-  #Trim database to limit the number of questions and run smoke tests'  
+  #Trim database to limit the number of questions'  
   if [ $environment == "staging" ]
   then
     kubectl set image -f k8s-deploy/${environment}/trim_db_cronjob.yaml \
