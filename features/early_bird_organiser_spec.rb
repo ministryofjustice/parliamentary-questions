@@ -8,13 +8,13 @@ feature 'Early bird organisers can be set', suspend_cleaner: true do
   let(:date_from_new) { Time.zone.today + 5 }
   let(:date_to_new) { Time.zone.today + 10 }
 
-  let(:date_from_field) { "early_bird_organiser[date_from]" }
-  let(:date_to_field) { "early_bird_organiser[date_to]" }
+  let(:date_from_field) { 'early_bird_organiser[date_from]' }
+  let(:date_to_field) { 'early_bird_organiser[date_to]' }
 
   let(:success_text) { "You have succesfully schedued the early bird to be turned off from #{date_from} until #{date_to}" }
   let(:success_text_two) { "You have succesfully schedued the early bird to be turned off from #{date_from_new} until #{date_to_new}" }
-  let(:current_early_bird_status_text) { "The early bird is currently turned off from #{date_from} until #{date_to}." } 
-  let(:current_early_bird_status_text_two) { "The early bird is currently turned off from #{date_from_new} until #{date_to_new}." } 
+  let(:current_early_bird_status_text) { "The early bird is currently turned off from #{date_from} until #{date_to}." }
+  let(:current_early_bird_status_text_two) { "The early bird is currently turned off from #{date_from_new} until #{date_to_new}." }
 
   before(:all) do
     DBHelpers.load_feature_fixtures
@@ -31,7 +31,7 @@ feature 'Early bird organisers can be set', suspend_cleaner: true do
     fill_in date_from_field, with: date_from
     fill_in date_to_field, with: date_to
     click_link_or_button 'Save and continue'
-    
+
     expect(page).to have_text(success_text)
     expect(EarlyBirdOrganiser.last.date_from).to eq(date_from)
     expect(EarlyBirdOrganiser.last.date_to).to eq(date_to)
@@ -56,7 +56,7 @@ feature 'Early bird organisers can be set', suspend_cleaner: true do
     fill_in date_from_field, with: date_from
     fill_in date_to_field, with: date_to
     click_link_or_button 'Save and continue'
-    
+
     expect(page).to have_text(success_text)
     click_link_or_button 'Organise early bird email'
     fill_in date_from_field, with: date_from_new

@@ -29,7 +29,8 @@ class EarlyBirdOrganiserController < ApplicationController
   end
 
   private
+
   def early_bird_organiser_params
-     params.require(:early_bird_organiser).permit(:date_from, :date_to) 
+    params.require(:early_bird_organiser).permit(:date_from, :date_to)
   end
 end
