@@ -8,19 +8,26 @@ RSpec.describe EarlyBirdOrganiser, type: :model do
       expect(organiser).to be_valid
     end
 
-    it 'it should have a date from' do
+    it 'it should have a "date from"' do
       organiser.date_from = nil
       expect(organiser).to be_invalid
     end
 
-    it 'it should have a date to' do
+    it 'it should have a "date to"' do
       organiser.date_to = nil
       expect(organiser).to be_invalid
     end
 
-    it 'should not have a date to that is before a date from' do
-      organiser.date_from = Date.new(2021, 5, 29)
-      organiser.date_to = Date.new(2021, 4, 29)
+    it 'should not have a "date to" that is before a "date from"' do
+      organiser.date_from = Time.zone.today + 5
+      organiser.date_to = Time.zone.today - 5
+
+      expect(organiser).to be_invalid
+    end
+
+    it 'should not have a from data that is in the past' do
+      organiser.date_from = Time.zone.today - 5
+      organiser.date_to = Time.zone.today + 5
 
       expect(organiser).to be_invalid
     end
