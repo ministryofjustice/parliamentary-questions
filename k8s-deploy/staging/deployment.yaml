@@ -20,10 +20,8 @@ spec:
         app: parliamentary-questions
     spec:
       containers:
-        - command:
-            - sh
-            - "-c"
-            - "bundle exec puma -p 3000"
+        - name: parliamentary-questions-rails-app
+          command: ["./docker/entrypoint-webapp.sh"]
           env:
             - name: DB_HOST
               valueFrom:
@@ -70,6 +68,5 @@ spec:
             periodSeconds: 60
             timeoutSeconds: 2
           imagePullPolicy: Always
-          name: parliamentary-questions-rails-app
           ports:
             - containerPort: 3000

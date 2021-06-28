@@ -1,8 +1,9 @@
 apiVersion: v1
 data:
   ENV: development
-  RAILS_ENV: development
+  RAILS_ENV: production
   SENDING_HOST: development.trackparliamentaryquestions.service.gov.uk
+  DB_NAME: parliamentary_questions_dev
 kind: ConfigMap
 metadata:
   name: environment-variables
