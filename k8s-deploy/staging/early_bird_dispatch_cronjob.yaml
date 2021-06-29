@@ -1,0 +1,44 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: early-bird-dispatch
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  schedule: "30 8 * * 1-5"
+  startingDeadlineSeconds: 60
+  successfulJobsHistoryLimit: 3
+  suspend: false
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - command:
+                - sh
+                - "-c"
+                - "bundle exec rake 'pqa:early_bird'"
+              env:
+                - name: DB_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      key: rds_instance_address
+                      name: parliamentary-questions-staging-rds
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: database_password
+                      name: parliamentary-questions-staging-rds
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      key: database_username
+                      name: parliamentary-questions-staging-rds
+              envFrom:
+                - configMapRef:
+                    name: environment-variables
+                - secretRef:
+                    name: pq-secrets
+              imagePullPolicy: IfNotPresent
+              name: early-bird-dispatch
+          restartPolicy: OnFailure
