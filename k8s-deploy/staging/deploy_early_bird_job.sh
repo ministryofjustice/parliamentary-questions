@@ -43,7 +43,7 @@ function _deploy() {
     echo "$usage"
     return 0
   fi
-
+  image_tag=$1
   # Confirm what's going to happen and ask for confirmation if not circle ci
   docker_image_tag=${docker_registry}:${image_tag}
 
@@ -52,6 +52,7 @@ function _deploy() {
   p "Deploying PQ Tracker to kubernetes cluster: $context"
   p "Environment: \e[32m$environment\e[0m"
   p "Docker image: \e[32m$image_tag\e[0m"
+  p "Docker image tag: \e[32m$docker_image_tag\e[0m"
   p "Target namespace: \e[32m$namespace\e[0m"
   p "--------------------------------------------------"
 
