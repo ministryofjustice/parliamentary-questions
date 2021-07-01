@@ -57,7 +57,7 @@ group :test, :development do
   gem 'pry-rails', '~> 0.3.9'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
-  gem 'rubocop', '~> 0.88.0'
+  gem 'rubocop', '~> 1.18.1'
   gem 'rubocop-performance', '~> 1.7', '>= 1.7.1'
   gem 'rubocop-rails', '~> 2.8', '>= 2.8.1'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
