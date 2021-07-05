@@ -11,10 +11,10 @@ feature 'Early bird organisers can be set', suspend_cleaner: true do
   let(:date_from_field) { 'early_bird_organiser[date_from]' }
   let(:date_to_field) { 'early_bird_organiser[date_to]' }
 
-  let(:success_text) { "You have succesfully schedued the early bird to be turned off from #{date_from} until #{date_to}" }
-  let(:success_text_two) { "You have succesfully schedued the early bird to be turned off from #{date_from_new} until #{date_to_new}" }
-  let(:current_early_bird_status_text) { "The early bird is currently turned off from #{date_from} until #{date_to}." }
-  let(:current_early_bird_status_text_two) { "The early bird is currently turned off from #{date_from_new} until #{date_to_new}." }
+  let(:success_text) { "You have successfully scheduled the early bird to be turned off between #{date_from} and #{date_to}" }
+  let(:success_text_two) { "You have successfully scheduled the early bird to be turned off between #{date_from_new} and #{date_to_new}" }
+  let(:current_early_bird_status_text) { "The early bird is currently turned off between #{date_from} and #{date_to}." }
+  let(:current_early_bird_status_text_two) { "The early bird is currently turned off between #{date_from_new} and #{date_to_new}." }
 
   before(:all) do
     DBHelpers.load_feature_fixtures
