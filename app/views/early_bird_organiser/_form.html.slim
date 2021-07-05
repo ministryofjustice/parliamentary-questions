@@ -5,9 +5,14 @@
     fieldset
       .form-group
         label.form-label for="date_from"  Date from
+        h2 First date to turn off the early bird email
+        br
         = f.date_field :date_from, {class: 'form-control'}
+        br
       .form-group
         label.form-label for="date_to"  Date to
+        h2 Last date the early bird email is off
+        br
         = f.date_field :date_to , {class: 'form-control'}
       .form-group
         br
