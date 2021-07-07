@@ -4,13 +4,13 @@
     - if @early_bird_organiser.errors.any?
     fieldset
       .form-group
-        label.form-label for="date_from"  Date from
+        label.form-label for="date_from" First date 
         h2 First date to turn off the early bird email
         br
         = f.date_field :date_from, {class: 'form-control'}
         br
       .form-group
-        label.form-label for="date_to"  Date to
+        label.form-label for="date_to" Last date 
         h2 Last date the early bird email is off
         br
         = f.date_field :date_to , {class: 'form-control'}
