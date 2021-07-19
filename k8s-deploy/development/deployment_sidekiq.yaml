@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: parliamentary-questions-sidekiq
+  name: parliamentary-questions-sidekiq
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: parliamentary-questions-sidekiq
+  template:
+    metadata:
+      labels:
+        app: parliamentary-questions-sidekiq
+    spec:
+      containers:
+        - name: jobs
+          command: ["./docker/entrypoint-background-jobs.sh"]
+          env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: rds_instance_address
+                  name: parliamentary-questions-development-rds
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database_password
+                  name: parliamentary-questions-development-rds
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  key: database_username
+                  name: parliamentary-questions-development-rds
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: track-a-query-elasticache-redis-output
+                  key: url
+            - name: REDIS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: track-a-query-elasticache-redis-output
+                  key: auth_token
+          envFrom:
+            - configMapRef:
+                name: environment-variables
+            - secretRef:
+                name: pq-secrets
+          readinessProbe:
+            exec:
+              command:
+                - sidekiqmon | grep parliamentary-questions
+            initialDelaySeconds: 40
+            periodSeconds: 60
+          livenessProbe:
+            exec:
+              command:
+                - sidekiqmon | grep parliamentary-questions
+            initialDelaySeconds: 40
+            periodSeconds: 60

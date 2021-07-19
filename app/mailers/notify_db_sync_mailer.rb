@@ -1,4 +1,4 @@
-class NotifyDbSyncMailer < GovukNotifyRails::Mailer
+class NotifyDbSyncMailer < ApplicationMailer
   def notify_fail(error_message)
     set_template('c4d52018-add8-49a2-bb86-f74f05829293')
     set_personalisation(

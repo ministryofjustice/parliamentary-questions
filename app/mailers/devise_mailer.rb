@@ -1,5 +1,5 @@
 class DeviseMailer < Devise::Mailer
-  # Optional. eg. `confirmation_url`
+
   include Devise::Controllers::UrlHelpers
 
   def confirmation_instructions(record, token, _opts = {})

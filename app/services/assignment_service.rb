@@ -15,9 +15,9 @@ class AssignmentService
     end
     pq.update_state!
     if assignment.action_officer.group_email.present?
-      NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer, email: assignment.action_officer.group_email).deliver_now
+      NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer, email: assignment.action_officer.group_email).deliver_later
     end
-    NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer, email: assignment.action_officer.email).deliver_now
+    NotifyPqMailer.acceptance_email(pq: pq, action_officer: assignment.action_officer, email: assignment.action_officer.email).deliver_later
   end
 
   def reject(assignment, response)

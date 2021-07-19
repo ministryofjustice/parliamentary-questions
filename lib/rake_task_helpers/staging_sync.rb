@@ -19,7 +19,7 @@ module RakeTaskHelpers
           puts '[+] Test users created'
           puts '[+] Done'
         rescue => e
-          NotifyDbSyncMailer.notify_fail(e.message).deliver_now
+          NotifyDbSyncMailer.notify_fail(e.message).deliver_later
         end
       else
         puts '[-] This task should only be run in the staging environment'

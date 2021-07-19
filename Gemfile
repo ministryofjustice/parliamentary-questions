@@ -33,6 +33,7 @@ gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 gem 'uglifier', '~> 4.2'
 gem 'unicorn', '~> 6.0'
 gem 'will_paginate', '~> 3.3'
+gem 'sidekiq', '~> 6.2.1'
 
 group :development do
   gem 'annotate', '~> 3.1', '>= 3.1.1'

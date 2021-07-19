@@ -19,7 +19,7 @@ class WatchlistReportService
     recipients.each do |recipient|
       LogStuff.tag(:mailer_watchlist) do
         LogStuff.info { "Watchlist  email to pqtest@digital.justice.gov.uk (name Watchlist) [CCd to #{recipients.join(';')}]" }
-        NotifyPqMailer.watchlist_email(email: recipient, token: token, entity: entity).deliver_now
+        NotifyPqMailer.watchlist_email(email: recipient, token: token, entity: entity).deliver_later
       end
     end
     token

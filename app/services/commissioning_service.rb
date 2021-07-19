@@ -52,9 +52,9 @@ class CommissioningService
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
     LogStuff.tag(:mailer_commission) do
-      NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity, email: ao.email).deliver_now
+      NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity, email: ao.email).deliver_later
       if ao.group_email.present?
-        NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity, email: ao.group_email).deliver_now
+        NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity, email: ao.group_email).deliver_later
       end
     end
   end

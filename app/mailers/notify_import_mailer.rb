@@ -1,4 +1,4 @@
-class NotifyImportMailer < GovukNotifyRails::Mailer
+class NotifyImportMailer < ApplicationMailer
   def notify_fail(error_message)
     # Setup GOV.UK Notify mailer variables
     set_template('586dd10e-8987-4754-b653-9cacd3763d19')

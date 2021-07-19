@@ -72,6 +72,8 @@ Rails.application.configure do
   # See https://developer.geckoboard.com/#polling-overview
   config.gecko_auth_username = 'test_username'
 
+  config.active_job.queue_adapter = :test
+
   config.after_initialize do
     PaperTrail.enabled = false
   end

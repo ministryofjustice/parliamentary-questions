@@ -1,4 +1,6 @@
-class NotifyPqMailer < GovukNotifyRails::Mailer
+require "resolv"
+
+class NotifyPqMailer < ApplicationMailer
   include Presenters::Email
 
   # Typically we put variables in alphabetical order, however in this file they
@@ -43,6 +45,8 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
   end
 
   def commission_email(pq:, action_officer:, token:, entity:, email:)
+    check_is_wrong_domain(ActionMailer::Base.default_url_options[:host])
+
     set_template('93cb8968-bd2a-401b-8b59-47f8e0b30ca0')
     set_personalisation(
       uin: pq.uin,
@@ -103,5 +107,13 @@ class NotifyPqMailer < GovukNotifyRails::Mailer
     )
     set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: email)
+  end
+
+  private 
+
+  def check_is_wrong_domain(link_str)
+    if link_str.nil? || !!(link_str =~ Regexp.union([Resolv::IPv4::Regex, Resolv::IPv6::Regex]))
+      raise RuntimeError.new("Failed to get ip address, #{ENV['ENV']}, #{ENV['SENDING_HOST']}")
+    end
   end
 end

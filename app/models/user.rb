@@ -37,10 +37,12 @@ class User < ActiveRecord::Base
 
   ROLE_PQ_USER  = 'PQUSER'
   ROLE_FINANCE  = 'FINANCE'
+  ROLE_ADMIN = 'ADMIN'
 
   ROLES         = [
     ROLE_FINANCE,
-    ROLE_PQ_USER
+    ROLE_PQ_USER,
+    ROLE_ADMIN
   ]
 
   has_paper_trail
@@ -77,12 +79,16 @@ class User < ActiveRecord::Base
   end
 
   def pq_user?
-    roles == ROLE_PQ_USER
+    roles.split(',').include?(ROLE_PQ_USER)
   end
 
   def finance_user?
     roles == ROLE_FINANCE
   end
+
+  def admin?
+    roles.split(',').include?(ROLE_ADMIN)
+  end 
 
   scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end
