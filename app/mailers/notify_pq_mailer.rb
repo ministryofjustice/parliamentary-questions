@@ -1,4 +1,4 @@
-require "resolv"
+require 'resolv'
 
 class NotifyPqMailer < ApplicationMailer
   include Presenters::Email
@@ -109,11 +109,11 @@ class NotifyPqMailer < ApplicationMailer
     mail(to: email)
   end
 
-  private 
+  private
 
   def check_is_wrong_domain(link_str)
     if link_str.nil? || !!(link_str =~ Regexp.union([Resolv::IPv4::Regex, Resolv::IPv6::Regex]))
-      raise RuntimeError.new("Failed to get ip address, #{ENV['ENV']}, #{ENV['SENDING_HOST']}")
+      raise "Failed to get ip address, #{ENV['ENV']}, #{ENV['SENDING_HOST']}"
     end
   end
 end

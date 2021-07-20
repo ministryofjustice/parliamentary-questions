@@ -17,7 +17,6 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :ogds
   get 'find_ogd' => 'ogds#find'
 
-
   resources :press_desks
   resources :press_officers
   resources :progresses
@@ -35,7 +34,7 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :pqs, only: [:index, :show, :update]
   resources :trim_links
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 

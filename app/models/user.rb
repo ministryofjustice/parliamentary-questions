@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   ROLE_FINANCE  = 'FINANCE'
   ROLE_ADMIN = 'ADMIN'
 
-  ROLES         = [
+  ROLES = [
     ROLE_FINANCE,
     ROLE_PQ_USER,
     ROLE_ADMIN
@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
 
   def admin?
     roles.split(',').include?(ROLE_ADMIN)
-  end 
+  end
 
   scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end
