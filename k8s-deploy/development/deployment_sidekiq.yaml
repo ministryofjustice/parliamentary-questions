@@ -55,11 +55,11 @@ spec:
                 name: pq-secrets
           readinessProbe:
             exec:
-              command: ["sidekiqmon | grep parliamentary-questions"]
+              command: ["PATH=$PATH:/usr/local/bundle/bin", "sidekiqmon | grep parliamentary-questions"]
             initialDelaySeconds: 40
             periodSeconds: 60
           livenessProbe:
             exec:
-              command: ["sidekiqmon | grep parliamentary-questions"]
+              command: ["PATH=$PATH:/usr/local/bundle/bin", "sidekiqmon | grep parliamentary-questions"]
             initialDelaySeconds: 40
             periodSeconds: 60
