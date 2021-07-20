@@ -35,7 +35,7 @@ describe CommissioningService do
 
     context 'when the supplied data is valid' do
       before do
-        allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_now)
+        allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_later)
         valid_form = CommissionForm.new(form_params)
         @pq = CommissioningService.new.commission(valid_form)
       end
