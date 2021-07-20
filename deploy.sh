@@ -138,7 +138,7 @@ function _deploy() {
   then
     # Apply image specific config
     kubectl set image -f k8s-deploy/${environment}/deployment_sidekiq.yaml \
-            parliamentary-questions-rails-app=${docker_image_tag} \
+            parliamentary-questions-rails-jobs=${docker_image_tag} \
             --local --output yaml | kubectl apply -n $namespace -f -
   fi
 
