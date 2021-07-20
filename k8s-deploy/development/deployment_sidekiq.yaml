@@ -20,7 +20,7 @@ spec:
         app: parliamentary-questions-sidekiq
     spec:
       containers:
-        - name: jobs
+        - name: parliamentary-questions-rails-jobs
           command: ["./docker/entrypoint-background-jobs.sh"]
           env:
             - name: DB_HOST
