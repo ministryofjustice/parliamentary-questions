@@ -133,14 +133,10 @@ function _deploy() {
     -f k8s-deploy/${environment}/secrets.yaml \
     -n $namespace
 
-  #Trim database to limit the number of questions'  
-  if [ $environment == "development" ]
-  then
-    # Apply image specific config
-    kubectl set image -f k8s-deploy/${environment}/deployment_sidekiq.yaml \
-            parliamentary-questions-rails-jobs=${docker_image_tag} \
-            --local --output yaml | kubectl apply -n $namespace -f -
-  fi
+  # Deploy the pod for sidekiq
+  kubectl set image -f k8s-deploy/${environment}/deployment_sidekiq.yaml \
+          parliamentary-questions-rails-jobs=${docker_image_tag} \
+          --local --output yaml | kubectl apply -n $namespace -f -
 
   #nightly import to pull questions from the parliamentary API 
   if [ $environment == "staging" ] || [ $environment == "production" ]
