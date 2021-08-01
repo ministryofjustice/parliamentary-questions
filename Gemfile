@@ -36,7 +36,7 @@ gem 'will_paginate', '~> 3.3'
 
 group :development do
   gem 'annotate', '~> 3.1', '>= 3.1.1'
-  gem 'guard', '~> 2.17'
+  gem 'guard', '~> 2.18'
   gem 'guard-brakeman', '~> 0.8.6'
   gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3', require: false
