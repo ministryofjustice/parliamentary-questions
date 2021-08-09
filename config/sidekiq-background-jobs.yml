@@ -1,0 +1,8 @@
+---
+:concurrency: 5
+production:
+  :concurrency: 10
+staging:
+  :concurrency: 10
+:queues:
+  - parliamentary_questions_mailers

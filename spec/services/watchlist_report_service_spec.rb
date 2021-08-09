@@ -25,7 +25,7 @@ describe 'WatchlistReportService' do
   end
 
   it 'calls the mailer' do
-    allow(NotifyPqMailer).to receive_message_chain(:watchlist_email, :deliver_now)
+    allow(NotifyPqMailer).to receive_message_chain(:watchlist_email, :deliver_later)
 
     token = @report_service.notify_watchlist
 

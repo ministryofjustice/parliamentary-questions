@@ -34,6 +34,16 @@ spec:
                     secretKeyRef:
                       key: database_username
                       name: parliamentary-questions-production-rds
+                - name: REDIS_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: parliamentary-questions-elasticache-redis-output
+                      key: url
+                - name: REDIS_AUTH_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: parliamentary-questions-elasticache-redis-output
+                      key: auth_token
               envFrom:
                 - configMapRef:
                     name: environment-variables

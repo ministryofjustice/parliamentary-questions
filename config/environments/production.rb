@@ -156,14 +156,5 @@ Rails.application.configure do
     ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'https' }
     ActionMailer::Base.default from: Settings.mail_from
     ActionMailer::Base.default reply_to: Settings.mail_reply_to
-    ActionMailer::Base.smtp_settings = {
-      address: ENV['SMTP_HOSTNAME'] || 'localhost',
-      authentication: :login,
-      domain: sending_host,
-      enable_starttls_auto: true,
-      password: ENV['SMTP_PASSWORD'] || '',
-      port: ENV['SMTP_PORT'] || 587,
-      user_name: ENV['SMTP_USERNAME'] || ''
-    }
   end
 end

@@ -34,6 +34,10 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :pqs, only: [:index, :show, :update]
   resources :trim_links
 
+  authenticate :user, ->(u) { u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   get 'trim_links/new/:id' => 'trim_links#new'
 
   get 'admin' => 'admin#index'

@@ -19,8 +19,7 @@ class EarlyBirdReportService
     recipients.each do |recipient|
       LogStuff.tag(:mailer_early_bird) do
         LogStuff.info { "Early bird email to pqtest@digital.justice.gov.uk} (name early_bird) [CCd to #{recipients.join(';')}]" }
-        NotifyPqMailer.early_bird_email(email: recipient, token: token, entity: entity).deliver_now
-        sleep(0.5)
+        NotifyPqMailer.early_bird_email(email: recipient, token: token, entity: entity).deliver_later
       end
     end
     token

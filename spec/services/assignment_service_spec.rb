@@ -33,7 +33,7 @@ describe AssignmentService do
     end
 
     it 'should call the mailer' do
-      allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_now)
+      allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_later)
       subject.accept(assignment)
       expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq: pq, action_officer: action_officer, email: action_officer.email)
     end

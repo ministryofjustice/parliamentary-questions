@@ -16,7 +16,7 @@ namespace :db do
           db_trim.run!
           puts '[+] DB trimmed'
         rescue => e
-          NotifyDbSyncMailer.notify_fail(e.message).deliver_now
+          NotifyDbSyncMailer.notify_fail(e.message).deliver_later
         end
       else
         puts '[-] This task should only be run in the staging environment'
