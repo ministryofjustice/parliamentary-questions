@@ -138,3 +138,16 @@ Emails are sent using the [GOVUK Notify service](https://www.notifications.servi
 
 Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers)in the mailers folder
 for details of how to get an account and obtain an API key.
+
+## Dependabot
+
+Dependabot creates PRs to help us keep track of our dependency updates. This is great but can lead to a little bit of work if you integrate these changes one by one (for instance, having to run the test suite over and over again). 
+
+You can manually combine the changes into one PR and then push this and wait for the tests to run, but this is admin that can be automated so why bother?
+
+The app has a github action "Combine PRs" which automatically combines dependabot PRs that have passed the test suite into one PR which you can then merge.
+
+To use this: "Actions" > "All workflows" > on the left "Combine PRs" > "Run workflows"
+
+See here for the [original developers README](https://github.com/hrvey/combine-prs-workflow)
+
