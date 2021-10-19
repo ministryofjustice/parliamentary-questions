@@ -104,7 +104,7 @@ label {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus,
-.dropdown-menu li a:hover { background-color: $yellow; }
+.dropdown-menu li a:hover, .dropdown-menu li a:focus { background-color: $yellow;  }
 
 .block-label:hover, .js-enabled .selected { border-color: $text-colour; }
 .js-enabled .selected { background-color: $page-colour; }
