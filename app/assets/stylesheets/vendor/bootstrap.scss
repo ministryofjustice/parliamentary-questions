@@ -3226,10 +3226,6 @@ input[type="button"].btn-block {
   position: relative;
 }
 
-.dropdown-toggle:focus {
-  outline: 0;
-}
-
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -3306,10 +3302,6 @@ input[type="button"].btn-block {
 
 .open > .dropdown-menu {
   display: block;
-}
-
-.open > a {
-  outline: 0;
 }
 
 .dropdown-header {
