@@ -98,19 +98,14 @@ A 'canary' string has been added to the last line of the Development, Staging & 
 
 **Please note** the string literal above should have underscores where there are spaces.  Removing the underscores in this example stops git-secrets flagging this file as having exposed credentials.
 
-Finally open your local repository .git/hooks/pre-commit file and add the following command :
+Finally checking the installation result:-
 
-    git secrets --scan -r
-
-**Please note** - Make sure the command comes before:
-
-    git secrets --pre_commit_hook -- "$@"
-
-So the file should look something like this:
+First, check the hooks, open your local repository .git/hooks/, a few new hooks should have installed: pre-commit, commit-msg, prepare-commit-msg, each file should look something like this:
 
     #!/usr/bin/env bash
-    git-secrets --scan -r
     git secrets --pre_commit_hook -- "$@"
+
+Second, check the .git/config, a new section called [secrets] should have been added by end of this file, you should be able to see the rules from aws and the one for 'canary' string.
 
 **How it works**
 
