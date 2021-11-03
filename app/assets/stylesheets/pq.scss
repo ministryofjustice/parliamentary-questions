@@ -535,37 +535,6 @@ textarea.form-control {
 }
 
 
-/* = TRIM links ================================================================= */
-
-.trim_area {
-  input[type="file"] {
-    display: none !important;
-  }
-}
-
-.trim-links-form {
-  margin: .3em 0 0;
-  .button-upload,
-  .button-cancel {
-    float: left;
-    margin: .5em .5em 0 0;
-  }
-}
-.button-cancel { margin-right: 0; }
-.tr5-message{ display: none; }
-.toggle-content{ display: none; }
-.additional-action { padding-left: 20px; }
-.cancel {
-  display: none;
-  font-size: 85%;
-  text-decoration: underline;
-}
-.tr5-message span:first-child,
-#status span:first-child {  margin-right: 4px;}
-#status #cancel {
-  display: block;
-  margin-top: 10px;
-}
 
 /* = Pagination ================================================================= */
 

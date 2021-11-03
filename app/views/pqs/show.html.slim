@@ -13,9 +13,6 @@
           a#progress-menu-pq href="#progress-menu-pq-data" data-toggle="tab"
             h2 PQ Details
         li
-          a#progress-menu-trim href="#progress-menu-trim-data" data-toggle="tab"
-            h2 Trim link
-        li
           a#progress-menu-fc href="#progress-menu-fc-data" data-toggle="tab"
             h2 Finance check
         li
@@ -39,8 +36,6 @@
         fieldset.tab-content
           #progress-menu-pq-data role="tabpanel" class="tab-pane active"
             = render partial:'pq_data', locals: {f: f}
-          #progress-menu-trim-data role="tabpanel" class="tab-pane"
-            = render partial:'trim_link', locals: {f: f}
           #progress-menu-fc-data role="tabpanel" class="tab-pane"
             = render partial:'fc_data', locals: {f: f}
           #progress-menu-com-data role="tabpanel" class="tab-pane"

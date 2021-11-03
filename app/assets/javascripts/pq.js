@@ -1,4 +1,4 @@
-var document, $, trimLink, ga;
+var document, $, ga;
 
 (function() {
   'use strict';
@@ -454,22 +454,6 @@ var document, $, trimLink, ga;
       // ajax call
       $('.ao-reminder-link').on('ajax:success', function(e, data){
         $(this).after(data);
-      });
-
-      // set up the trim file upload controls, if present
-      trimLink.setUpTrimControls();
-
-      // throw a google analytics event on trim link upload from dashboard
-      $('.form-add-trim-link').on('submit', function() {
-        var pquin = $(this).parents('li').first().data('pquin');
-        ga('send', 'event', 'trim upload from dashboard', 'submit', pquin.toString());
-      });
-
-      $('.progress-menu-form').on('submit', function() {
-        var filesSelected = $('#pq_trim_link_attributes_file').prop('files');
-        if (filesSelected.length) {
-          ga('send', 'event', 'trim upload from details page', 'submit', $('h2').first().text());
-        }
       });
 
     }
