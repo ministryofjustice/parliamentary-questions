@@ -15,7 +15,6 @@ class PqsController < ApplicationController
   def update
     loading_relations do
       with_valid_dates do
-
         if @pq.update(pq_params)
           @pq.update_state!
           reassign_ao_if_present(@pq)
