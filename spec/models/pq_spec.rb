@@ -75,7 +75,6 @@ describe Pq do
   describe 'associations' do
     it { is_expected.to belong_to :minister }
     it { is_expected.to belong_to :policy_minister }
-    it { is_expected.to have_one :trim_link }
     it { is_expected.to belong_to :directorate }
     it { is_expected.to belong_to :original_division }
   end
@@ -271,22 +270,6 @@ describe Pq do
 
         expect(uins).to eq(['uin-1'])
       end
-    end
-  end
-
-  describe '#has_trim_link?' do
-    context 'when trim link present' do
-      before { subject.trim_link = TrimLink.new }
-      it { is_expected.to have_trim_link }
-    end
-
-    context 'when no trim link' do
-      it { is_expected.not_to have_trim_link }
-    end
-
-    context 'when trim link deleted' do
-      before { subject.trim_link = TrimLink.new deleted: true }
-      it { is_expected.not_to have_trim_link }
     end
   end
 

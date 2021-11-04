@@ -15,8 +15,6 @@ class PqsController < ApplicationController
   def update
     loading_relations do
       with_valid_dates do
-        archive_trim_link!(params[:commit])
-
         if @pq.update(pq_params)
           @pq.update_state!
           reassign_ao_if_present(@pq)
@@ -52,15 +50,6 @@ class PqsController < ApplicationController
     yield if block_given?
   end
 
-  def archive_trim_link!(action)
-    case action
-    when 'Delete'
-      @pq.trim_link.deactivate!
-    when 'Undo'
-      @pq.trim_link.activate!
-    end
-  end
-
   def reassign_ao_if_present(pq)
     action_officer_id = params.fetch(:commission_form, {})[:action_officer_id]
     pq.reassign(ActionOfficer.find(action_officer_id)) if action_officer_id.present?
@@ -87,8 +76,7 @@ class PqsController < ApplicationController
     :round_robin,
     :transfer_in_ogd_id,
     :transfer_out_ogd_id,
-    :with_pod,
-    trim_link_attributes: [:file]
+    :with_pod
   ]
 
   DATE_PARAMS = [

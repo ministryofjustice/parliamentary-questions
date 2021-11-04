@@ -2,9 +2,3 @@ en:
   activerecord:
     errors:
       models:
-        trim_link:
-          attributes:
-            filename:
-              invalid: must end with .tr5
-            data:
-              blank: file empty

@@ -32,13 +32,10 @@ ParliamentaryQuestions::Application.routes.draw do
   devise_for :users, controllers: { invitations: 'users/invitations', sessions: 'users/sessions' }
   resources  :users
   resources :pqs, only: [:index, :show, :update]
-  resources :trim_links
 
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
-
-  get 'trim_links/new/:id' => 'trim_links#new'
 
   get 'admin' => 'admin#index'
 
