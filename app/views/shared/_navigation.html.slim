@@ -22,7 +22,7 @@
             li class=('active' if @dashboard_state == 'Backlog')
               = link_to 'Backlog', dashboard_backlog_path, action: 'backlog'
 
-            li.dropdown class=('active' if @page_title == 'Minister report - MOJ Parliamentary Questions' || @page_title == 'Press desk report - MOJ Parliamentary Questions')
+            li.dropdown class=('active' if @page_title == 'Minister report - Parliamentary Questions - Ministry of Justice' || @page_title == 'Press desk report - Parliamentary Questions - Ministry of Justice')
               a.dropdown-toggle data-toggle="dropdown" data-target="#-" href="#"
                 | Reports
                 span.caret
@@ -33,7 +33,7 @@
                 li
                   = link_to 'Press desk report', reports_press_desk_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Press Desk Report')"
 
-            li#settings class=('active' if @page_title == 'Settings - MOJ Parliamentary Questions')
+            li#settings class=('active' if @page_title == 'Settings - Parliamentary Questions - Ministry of Justice')
               = link_to 'Settings', admin_path
 
             li= link_to 'Sign out', destroy_user_session_path
