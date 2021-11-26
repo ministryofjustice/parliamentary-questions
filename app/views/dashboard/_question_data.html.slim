@@ -8,12 +8,14 @@
       html: {:id => "uin-#{question.id}", :class => 'in-progress-checkbox', :data => {pqid: question.id}},
       url: commission_path do |f|
 
-    input id="#{question.uin}" class="pq-select" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
-    h2
-      u=  link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin")
-
-    .pq-header-flags
+    h2 
+      = link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin")
       span.question-type  = question.question_type_header
+
+    .form-group
+      label.pq-select for="#{question.uin}"
+        input id="#{question.uin}" class="pq-select" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
+        span Select #{question.uin}
 
   .col-md-5
     - if !question.date_for_answer.nil? and !question.is_new?
@@ -25,7 +27,7 @@
   .col-md-2
     span class=("flag #{state_classname question.state}") = state_label question.state
 
-span.pq-question
+p.pq-question
   = question.question
 .row
   .status-bar.col-md-12
