@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     show_error_page_and_increment_statsd(500, exception)
   end
 
-  def update_page_title(prefix, suffix = 'MOJ Parliamentary Questions')
+  def update_page_title(prefix, suffix = 'Parliamentary Questions - Ministry of Justice')
     @page_title = "#{prefix} - #{suffix}"
   end
 
