@@ -652,13 +652,9 @@ textarea.form-control {
     margin: 0 0 6px 0;
   }
 
-  //formatting of the action officers listed in the PQ's on the dashboard when commissioning
   .select2-search-choice div { line-height: 1em; }
 
-  // make un-commissioned questions form labels look like
-  // h3s used for commissioned questions
   label.form-label { color: $secondary-text-colour; }
-
 }
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
