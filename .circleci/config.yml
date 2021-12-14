@@ -227,11 +227,11 @@ jobs:
       - setup_remote_docker
       - *configure_aws_profile
       - *build_and_push_docker_image
-      - *scan_docker_image
       - persist_to_workspace:
           root: workspace
           paths:
             - build_tag
+      - *scan_docker_image
 
   build_main_and_push_to_ecr:
     <<: *deploy_container_config
@@ -243,11 +243,11 @@ jobs:
       - setup_remote_docker
       - *configure_aws_profile
       - *build_and_push_docker_image
-      - *scan_docker_image
       - persist_to_workspace:
           root: workspace
           paths:
             - build_tag
+      - *scan_docker_image
 
   dev_deployment_tasks: &do_dev_deployment_tasks
     <<: *deploy_container_config
