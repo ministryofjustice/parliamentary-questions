@@ -46,8 +46,8 @@ class ECRScanChecker:
                 'imageTag': tag
             },
             WaiterConfig={
-                'Delay': 5,
-                'MaxAttempts': 60
+                'Delay': 10,
+                'MaxAttempts': 300
             }
         )
 
