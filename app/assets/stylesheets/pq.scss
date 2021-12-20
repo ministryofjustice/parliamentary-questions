@@ -819,6 +819,12 @@ textarea.form-control {
     color: $text-colour;
   }
 
+  ul li a {
+    margin: 2px 0;
+    padding: 3px 0;
+    display: inline-block;
+  }
+
   .col-md-4 {
     padding-left: 0;
     padding-right: 32px;
