@@ -19,7 +19,7 @@
       a#proposition-name href="/" PQ Tracker
 
 - content_for :content do
-  main#content(role="main")
+  main#contentOuter(role="main")
     .phase-banner
       / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
       <span>Help make this service better - your&nbsp;
@@ -36,7 +36,7 @@
 
     = render partial: "shared/navigation"
     .container
-      .content-inner
+      #content.content-inner
         = yield
 
 - content_for :footer_support_links do
