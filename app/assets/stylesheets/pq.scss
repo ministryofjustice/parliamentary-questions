@@ -1012,10 +1012,9 @@ textarea.form-control {
         padding: 4px 8px;
         background-color: $panel-colour;
         margin: 0.5em 0;
-        h3 {
-          color: $text-colour;
-          display: inline-block;
-          margin: 4px 0;
+        legend {
+          margin: 0;
+          border: none;
         }
         .notice {
           display: none;
@@ -1025,7 +1024,7 @@ textarea.form-control {
         .right {
           float: right;
           border: none;
-          margin-top: 4px;
+          margin-top: $gutter-half;
           background-color: inherit;
         }
         .view {
@@ -1042,6 +1041,9 @@ textarea.form-control {
         .collapsed { display: none; }
         .content {
           .form-group { margin-bottom: 0; }
+          > label { 
+            margin-top: $gutter-half;
+          }
           .list {
             background-color: $page-colour;
             margin: 5px 0;
