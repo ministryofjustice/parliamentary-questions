@@ -4,8 +4,8 @@ metadata:
   name: pq-development
   namespace: parliamentary-questions-development
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: pq-development-parliamentary-questions-development-blue
-    external-dns.alpha.kubernetes.io/aws-weight: "0"
+    external-dns.alpha.kubernetes.io/set-identifier: pq-development-parliamentary-questions-development-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
   rules:
     - host: development.trackparliamentaryquestions.service.gov.uk
