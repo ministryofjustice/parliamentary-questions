@@ -4,8 +4,8 @@ metadata:
   name: pq-staging
   namespace: parliamentary-questions-staging
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: pq-staging-parliamentary-questions-staging-blue
-    external-dns.alpha.kubernetes.io/aws-weight: "0"
+    external-dns.alpha.kubernetes.io/set-identifier: pq-staging-parliamentary-questions-staging-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
   rules:
     - host: staging.trackparliamentaryquestions.service.gov.uk

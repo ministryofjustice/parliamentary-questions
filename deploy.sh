@@ -173,7 +173,7 @@ function _deploy() {
           --local --output yaml | kubectl apply -n $namespace -f -
 
   # Deploy to Live cluster
-  if [ $environment == "development" ]
+  if [ $environment == "development" ] || [ $environment == "staging" ]
   then
     p "--------------------------------------------------"
     p "Deploying PQ Tracker to kubernetes cluster: Live"
@@ -192,6 +192,11 @@ function _deploy() {
       if [[ $environment == "development" ]]
       then
         live_token=$KUBE_ENV_LIVE_DEVELOPMENT_TOKEN
+      fi
+
+      if [[ $environment == "staging" ]]
+      then
+        live_token=$KUBE_ENV_LIVE_STAGING_TOKEN
       fi
 
       kubectl config set-credentials circleci --token=$live_token
@@ -231,6 +236,15 @@ function _deploy() {
   kubectl set image -f k8s-deploy/${environment}/migration_job.yaml \
           parliamentary-questions-rails-app=${docker_image_tag} \
           --local --output yaml | kubectl apply -n $namespace -f -
+
+  #Trim database to limit the number of questions'  
+  if [ $environment == "staging" ]
+  then
+    kubectl set image -f k8s-deploy/${environment}/trim_db_cronjob.yaml \
+            trim-database=${docker_image_tag} \
+            --local --output yaml | kubectl apply -n $namespace -f -
+  fi
+
 }
 
 _deploy $@
