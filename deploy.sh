@@ -171,6 +171,66 @@ function _deploy() {
   kubectl set image -f k8s-deploy/${environment}/migration_job.yaml \
           parliamentary-questions-rails-app=${docker_image_tag} \
           --local --output yaml | kubectl apply -n $namespace -f -
+
+  # Deploy to Live cluster
+  if [ $environment == "development" ]
+  then
+    p "--------------------------------------------------"
+    p "Deploying PQ Tracker to kubernetes cluster: Live"
+    p "Environment: \e[32m$environment\e[0m"
+    p "Docker image: \e[32m$image_tag\e[0m"
+    p "Target namespace: \e[32m$namespace\e[0m"
+    p "--------------------------------------------------"
+
+    if [[ "$3" == "circleci" ]]
+    then
+      # Authenticate to live cluster
+      p "Authenticating to live..."
+      echo -n $KUBE_ENV_LIVE_CA_CERT | base64 -d > ./live_ca.crt
+      kubectl config set-cluster $KUBE_ENV_LIVE_CLUSTER_NAME --certificate-authority=./live_ca.crt --server=https://$KUBE_ENV_LIVE_CLUSTER_NAME
+      
+      if [[ $environment == "development" ]]
+      then
+        live_token=$KUBE_ENV_LIVE_DEVELOPMENT_TOKEN
+      fi
+
+      kubectl config set-credentials circleci --token=$live_token
+      kubectl config set-context $KUBE_ENV_LIVE_CLUSTER_NAME --cluster=$KUBE_ENV_LIVE_CLUSTER_NAME --user=circleci --namespace=$namespace
+      kubectl config use-context $KUBE_ENV_LIVE_CLUSTER_NAME
+      kubectl config current-context
+      kubectl --namespace=$namespace get pods
+    fi
+
+    #deploy to live cluster
+    p "Authenticated, deploying to live..."
+  fi
+
+   # Apply config map updates
+  kubectl apply \
+    -f k8s-deploy/${environment}/config_map.yaml -n $namespace
+
+  # Apply image specific config
+  kubectl set image -f k8s-deploy/${environment}/deployment.yaml \
+          parliamentary-questions-rails-app=${docker_image_tag} \
+          --local --output yaml | kubectl apply -n $namespace -f -
+
+  # Apply non-image specific config
+  kubectl apply \
+    -f k8s-deploy/${environment}/service.yaml \
+    -f k8s-deploy/${environment}/ingress-live.yaml \
+    -f k8s-deploy/${environment}/secrets.yaml \
+    -n $namespace
+
+  # Deploy the pod for sidekiq
+  kubectl set image -f k8s-deploy/${environment}/deployment_sidekiq.yaml \
+          parliamentary-questions-rails-jobs=${docker_image_tag} \
+          --local --output yaml | kubectl apply -n $namespace -f -
+ 
+  kubectl delete job rails-migrations -n $namespace --ignore-not-found=true
+
+  kubectl set image -f k8s-deploy/${environment}/migration_job.yaml \
+          parliamentary-questions-rails-app=${docker_image_tag} \
+          --local --output yaml | kubectl apply -n $namespace -f -
 }
 
 _deploy $@
