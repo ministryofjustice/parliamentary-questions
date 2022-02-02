@@ -5,7 +5,7 @@ metadata:
   namespace: parliamentary-questions-production
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: parliamentary-questions-parliamentary-questions-production-blue
-    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/aws-weight: "0"
 spec:
   rules:
     - host: trackparliamentaryquestions.service.gov.uk
