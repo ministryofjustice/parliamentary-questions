@@ -14,8 +14,6 @@ function _deploy() {
   ecr_repo_name=parliamentary-questions
   component=parliamentary-questions
 
-  context='live-1'
-
   docker_endpoint=754256621582.dkr.ecr.eu-west-2.amazonaws.com
   docker_registry=${docker_endpoint}/${team_name}/${ecr_repo_name}
 
@@ -89,7 +87,7 @@ function _deploy() {
 
   namespace=$component-${environment}
   p "--------------------------------------------------"
-  p "Deploying PQ Tracker to kubernetes cluster: $context"
+  p "Deploying PQ Tracker to kubernetes cluster: Live"
   p "Environment: \e[32m$environment\e[0m"
   p "Docker image: \e[32m$image_tag\e[0m"
   p "Target namespace: \e[32m$namespace\e[0m"
@@ -116,37 +114,6 @@ function _deploy() {
       fi
     fi
   fi
-
-  # Apply config map updates
-  kubectl apply \
-    -f k8s-deploy/${environment}/config_map.yaml -n $namespace
-
-  # Apply image specific config
-  kubectl set image -f k8s-deploy/${environment}/deployment.yaml \
-          parliamentary-questions-rails-app=${docker_image_tag} \
-          --local --output yaml | kubectl apply -n $namespace -f -
-
-  # Apply non-image specific config
-  kubectl apply \
-    -f k8s-deploy/${environment}/service.yaml \
-    -f k8s-deploy/${environment}/ingress.yaml \
-    -f k8s-deploy/${environment}/secrets.yaml \
-    -n $namespace
-
-  # Deploy the pod for sidekiq
-  kubectl set image -f k8s-deploy/${environment}/deployment_sidekiq.yaml \
-          parliamentary-questions-rails-jobs=${docker_image_tag} \
-          --local --output yaml | kubectl apply -n $namespace -f -
-
-
-  # Deploy to Live cluster
-
-  p "--------------------------------------------------"
-  p "Deploying PQ Tracker to kubernetes cluster: Live"
-  p "Environment: \e[32m$environment\e[0m"
-  p "Docker image: \e[32m$image_tag\e[0m"
-  p "Target namespace: \e[32m$namespace\e[0m"
-  p "--------------------------------------------------"
 
   if [[ "$3" == "circleci" ]]
   then
