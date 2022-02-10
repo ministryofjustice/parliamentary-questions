@@ -376,9 +376,7 @@ var document, $, ga;
       });
 
       // enable select2 drop-boxes on various select controls
-      $('.minister-select').select2({width: '250px'});
       $('.multi-select-action-officers').select2({width: '250px'});
-      $('.single-select-dropdown').select2({width: '250px', allowClear: true});
 
       // on the dashboard, enable the Commission button only if the required fields are non-empty
       $('.form-commission').each(function() {
