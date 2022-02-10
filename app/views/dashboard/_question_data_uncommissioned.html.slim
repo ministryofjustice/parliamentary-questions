@@ -9,11 +9,10 @@
     /! start of 'sub column 1'
     .col-md-7
       .dashboard-column1-uncommissioned
-        fieldset
-          = render partial: 'shared/minister_selection', locals: {question: question, form: f}
-          = render partial: 'shared/action_officer_selection', locals: {action_officers: action_officers, question: question, form: f, reassign: false}
-          .form-group
-            = f.hidden_field(:pq_id , :value => question.id)
+        = render partial: 'shared/minister_selection', locals: {question: question, form: f}
+        = render partial: 'shared/action_officer_selection', locals: {action_officers: action_officers, question: question, form: f, reassign: false}
+        .form-group
+          = f.hidden_field(:pq_id , :value => question.id)
 
     /! start of sub column 2
     .col-md-5
@@ -21,7 +20,6 @@
         - if !question.house_name.nil?
           label.form-label= question.house_name
           p.text= question.member_name
-        fieldset
 
         label.form-label for="pq_date_for_answer-#{question.id}" Date for answer
         .datepicker.form-group
