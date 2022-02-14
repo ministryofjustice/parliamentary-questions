@@ -11,8 +11,18 @@
 }
 
 .form-group.search {
-  display: inline-block;
-  border: 2px solid #bfc1c3;
+  
+  label {
+    display: inline-block;
+    padding-right: .5em;
+    font-size: 90%;
+  }
+  
+  .search-box {
+    border: 2px solid #bfc1c3;
+    display: inline-block;
+  }
+  
   input, #search_button {
     border: none;
     display: inline-block;
