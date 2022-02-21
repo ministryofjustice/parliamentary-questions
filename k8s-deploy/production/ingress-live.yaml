@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: parliamentary-questions
   namespace: parliamentary-questions-production
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: parliamentary-questions-parliamentary-questions-production-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
   rules:
     - host: trackparliamentaryquestions.service.gov.uk
@@ -16,3 +19,4 @@ spec:
     - hosts:
         - trackparliamentaryquestions.service.gov.uk
       secretName: parliamentary-questions-production-cert
+ 

@@ -15,8 +15,7 @@ function _build() {
   component=pq-tracker
 
   region='eu-west-2'
-  context='live-1'
-  aws_profile='ecr-live-1-parliamentary-questions'
+  aws_profile='ecr-live-parliamentary-questions'
 
   git_remote_url="https://github.com/ministryofjustice/parliamentary-questions.git";
   docker_endpoint=754256621582.dkr.ecr.eu-west-2.amazonaws.com

@@ -73,6 +73,8 @@ label {
 // = GLOBAL CLASSES ============================================================
 //==============================================================================
 
+#contentOuter { margin: 0 auto; max-width: 960px; } 
+
 .row { margin: 0; }
 
 .open { color: $page-colour; }
@@ -652,13 +654,9 @@ textarea.form-control {
     margin: 0 0 6px 0;
   }
 
-  //formatting of the action officers listed in the PQ's on the dashboard when commissioning
   .select2-search-choice div { line-height: 1em; }
 
-  // make un-commissioned questions form labels look like
-  // h3s used for commissioned questions
-  label.form-label { color: $secondary-text-colour; }
-
+  label.form-label { color: $text-colour; }
 }
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
@@ -821,6 +819,12 @@ textarea.form-control {
     display: block;
     margin: 20px 0 10px 0;
     color: $text-colour;
+  }
+
+  ul li a {
+    margin: 2px 0;
+    padding: 3px 0;
+    display: inline-block;
   }
 
   .col-md-4 {
@@ -1008,10 +1012,9 @@ textarea.form-control {
         padding: 4px 8px;
         background-color: $panel-colour;
         margin: 0.5em 0;
-        h3 {
-          color: $text-colour;
-          display: inline-block;
-          margin: 4px 0;
+        legend {
+          margin: 0;
+          border: none;
         }
         .notice {
           display: none;
@@ -1021,7 +1024,7 @@ textarea.form-control {
         .right {
           float: right;
           border: none;
-          margin-top: 4px;
+          margin-top: $gutter-half;
           background-color: inherit;
         }
         .view {
@@ -1038,6 +1041,9 @@ textarea.form-control {
         .collapsed { display: none; }
         .content {
           .form-group { margin-bottom: 0; }
+          > label { 
+            margin-top: $gutter-half;
+          }
           .list {
             background-color: $page-colour;
             margin: 5px 0;
