@@ -489,6 +489,7 @@ var document, $, ga;
       }
       else if ( $(event.target).is('.qa-cancel') ) {
         $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').siblings('input').focus();
       }
 
       else if ( $(event.target).is('#do-export') || $(event.target).is('#do-edit') || $(event.target).is('#do-reminders') ) {
