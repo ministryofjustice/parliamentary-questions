@@ -5,7 +5,7 @@ metadata:
   namespace: parliamentary-questions-staging
   annotations:
     nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: app-secrets
+    nginx.ingress.kubernetes.io/auth-secret: pq-secrets
     external-dns.alpha.kubernetes.io/set-identifier: pq-staging-parliamentary-questions-staging-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
