@@ -679,6 +679,7 @@ textarea.form-control {
     .date.datetimepicker, p, .text, hr, a, label {
       &.block-label { margin: 0 0 20px 0; }
       &.form-label { color: #6F777B; }
+      &.margin { margin-top: 15px; }
     }
     #save { margin-top: 40px; }
   }
@@ -755,9 +756,7 @@ textarea.form-control {
         width: 280px;
         margin-bottom: 20px;
       }
-      .ao-reminder-link {
-        margin-left: 40px; // put some space between person name and link to email them
-      }
+
       #progress-menu-fc-data .status {
         margin-bottom: .5em;
       }
