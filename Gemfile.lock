@@ -63,7 +63,7 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     annotate (3.2.0)
-      activerecord (>= 3.2, < 7.0)
+      activerecord (< 8.0, >= 3.2)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
     awesome_print (1.9.2)
