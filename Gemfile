@@ -49,7 +49,7 @@ group :test, :development do
   gem 'brakeman', '~> 5.1', require: false
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
   gem 'factory_bot_rails', '~> 6.2'
-  gem 'faker', '~> 2.18'
+  gem 'faker', '~> 2.20'
   gem 'launchy', '~> 2.5'
   gem 'letter_opener', '~> 1.7'
   gem 'poltergeist', '~> 1.18', '>= 1.18.1'
