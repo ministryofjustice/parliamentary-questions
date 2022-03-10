@@ -35,7 +35,7 @@ gem 'unicorn', '~> 6.0'
 gem 'will_paginate', '~> 3.3'
 
 group :development do
-  gem 'annotate', '~> 3.1', '>= 3.1.1'
+  gem 'annotate', '~> 3.2'
   gem 'guard', '~> 2.18'
   gem 'guard-brakeman', '~> 0.8.6'
   gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
