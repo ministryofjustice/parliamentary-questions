@@ -33,12 +33,21 @@ Layout/LineLength:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
   Enabled: false
 
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: false
+
 Layout/MultilineMethodArgumentLineBreaks:
   Description: 'This cop ensures that each argument in a multi-line method call starts on a separate line.'
   Enabled: false
 
 Layout/MultilineMethodCallBraceLayout:
   Description: 'This cop checks that the closing brace in a method definition is either on the same line as the last method parameter, or a new line.'
+  Enabled: false
+
+Layout/RedundantLineBreak:
+  Enabled: false
+
+Layout/SingleLineBlockChain:
   Enabled: false
 
 Layout/SpaceAroundOperators:
@@ -51,6 +60,12 @@ Lint/AmbiguousBlockAssociation:
   Description: 'This cop checks for ambiguous block association with method when param passed without parentheses.'
   Enabled: false
 
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
 Lint/ConstantResolution:
   Description: 'Check that certain constants are fully qualified.'
   Enabled: false
@@ -59,12 +74,24 @@ Lint/DeprecatedClassMethods:
   Description: 'This cop checks for uses of the deprecated class method usages.'
   Enabled: false
 
+Lint/DeprecatedConstants:
+  Enabled: false
+
+Lint/DuplicateBranch:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Enabled: false
+
 Lint/SuppressedException:
   Description: 'This cop checks for rescue blocks with no body.'
   Enabled: false
 
 Lint/IneffectiveAccessModifier:
   Description: 'This cop checks for private or protected access modifiers which are applied to a singleton method. These access modifiers do not make singleton methods private/protected. private_class_method can be used for that.'
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false
 
 Lint/NumberConversion:
@@ -119,12 +146,16 @@ Metrics/ModuleLength:
 Metrics/ParameterLists:
   Description: 'Allow up to 6 method parameters.'
   Max: 6
+  Enabled: false
 
 Metrics/PerceivedComplexity:
   Description: 'A complexity metric geared towards measuring complexity for a human reader.'
   Enabled: false
 
 # Naming Cops =============================================================================
+
+Naming/InclusiveLanguage:
+  Enabled: false
 
 Naming/MethodName:
   Description: 'This cop makes sure that all methods use the configured style, snake_case or camelCase, for their names.'
@@ -137,6 +168,9 @@ Naming/PredicateName:
 
 Naming/MethodParameterName:
   Description: 'This cop checks method parameter names for how descriptive they are. It is highly configurable.'
+  Enabled: false
+
+Naming/VariableNumber:
   Enabled: false
 
 # Rails Cops ==============================================================================
@@ -265,6 +299,9 @@ Style/ClassAndModuleChildren:
   Description: 'This cop checks the style of children definitions at classes and modules.'
   Enabled: false
 
+Style/CommentAnnotation:
+  Enabled: false
+
 Style/ConditionalAssignment:
   Description: 'Check for if and case statements where each branch is used for assignment to the same variable when using the return of the condition can be used instead.'
   Enabled: false
@@ -298,8 +335,17 @@ Style/DocumentationMethod:
   Description: 'This cop checks for missing documentation comment for public methods. It can optionally be configured to also require documentation for non-public methods.'
   Enabled: false
 
+Style/DocumentDynamicEvalDefinition:
+  Enabled: false
+
 Style/EachWithObject:
   Description: 'This cop looks for inject / reduce calls where the passed in object is returned at the end and so could be replaced by each_with_object without the need to return the object at the end.'
+  Enabled: false
+
+Style/ExplicitBlockArgument:
+  Enabled: false
+
+Style/FileWrite:
   Enabled: false
 
 Style/FormatString:
@@ -319,6 +365,9 @@ Style/GlobalVars:
   Description: 'This cop looks for uses of global variables. It does not report offenses for built-in global variables. Built-in global variables are allowed by default. Additionally users can allow additional variables via the AllowedVariables option.'
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#instance-vars
                https://www.zenspider.com/ruby/quickref.html'
+  Enabled: false
+
+Style/GlobalStdStream:
   Enabled: false
 
 Style/GuardClause:
@@ -372,6 +421,9 @@ Style/MutableConstant:
   Description: "This cop checks whether some constant value isn't a mutable literal (e.g. array or hash)."
   Enabled: false
 
+Style/NegatedIfElseCondition:
+  Enabled: false
+
 Style/NumericLiterals:
   Description: 'This cop checks for big numeric literals without _ between groups of digits in them.'
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#underscores-in-numerics'
@@ -380,6 +432,19 @@ Style/NumericLiterals:
 Style/NumericLiteralPrefix:
   Description: 'This cop checks for octal, hex, binary, and decimal literals using uppercase prefixes and corrects them to lowercase prefix or no prefix (in case of decimals).'
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#numeric-literal-prefixes'
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Style/RedundantArgument:
+  Enabled: false
+
+Style/RedundantInterpolation:
+  Description: 'This cop checks for strings that are just an interpolated expression.'
   Enabled: false
 
 Style/RedundantParentheses:
@@ -403,6 +468,15 @@ Style/SingleLineBlockParams:
   Description: 'This cop checks whether the block parameters of a single-line method accepting a block match the names specified via configuration.'
   Enabled: false
 
+Style/SoleNestedConditional:
+  Enabled: false
+
+Style/StaticClass:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
 Style/StringHashKeys:
   Description: 'This cop checks for the use of strings as keys in hashes. The use of symbols is preferred instead.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#symbols-as-keys'
@@ -413,6 +487,7 @@ Style/SymbolArray:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-i'
   Enabled: false
 
-Style/RedundantInterpolation:
-  Description: 'This cop checks for strings that are just an interpolated expression.'
+Style/TopLevelMethodDefinition:
   Enabled: false
+
+
