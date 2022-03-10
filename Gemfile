@@ -4,7 +4,7 @@ ruby '2.7.2'
 
 gem 'bootstrap-will_paginate', '~> 1.0'
 gem 'business_time', '~> 0.10.0'
-gem 'devise', '~> 4.7', '>= 4.7.3'
+gem 'devise', '~> 4.8'
 gem 'devise_invitable', '~> 2.0', '>= 2.0.5'
 gem 'font-awesome-rails', '~> 4.7'
 gem 'govuk_elements_rails', '~> 3.1', '>= 3.1.3'
