@@ -56,8 +56,8 @@ class PqsController < ApplicationController
   end
 
   def pq_params
-    whitelist = PARAMS + DATE_PARAMS
-    params.require(:pq).permit(*whitelist)
+    allowlist = PARAMS + DATE_PARAMS
+    params.require(:pq).permit(*allowlist)
   end
 
   PARAMS = [
