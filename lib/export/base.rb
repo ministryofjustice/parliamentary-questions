@@ -38,7 +38,8 @@ module Export
       'Requested by HR',
       'Requested by Press',
       'Type of Question',
-      'AO Email'
+      'AO Email',
+      'Group email'
     ]
 
     def initialize(date_from, date_to, pqs_comma_separated = nil)
@@ -51,7 +52,7 @@ module Export
       CSV.generate do |csv|
         csv << HEADINGS
         pqs.each do |pq|
-          csv << csv_fields(pq, pq.action_officer_accepted)
+          csv << csv_fields(pq, pq.action_officers.first)
         end
       end
     end
@@ -140,7 +141,9 @@ module Export
           # 'Type of Question',
           escape_equals_for_excel(pq.question_type),
           # 'AO Email'
-          escape_equals_for_excel(ao && ao.email)
+          escape_equals_for_excel(ao && ao.email),
+          # 'Group Email'
+          escape_equals_for_excel(ao && ao.group_email)
         ]
     end
 
