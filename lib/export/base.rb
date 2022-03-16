@@ -52,7 +52,7 @@ module Export
       CSV.generate do |csv|
         csv << HEADINGS
         pqs.each do |pq|
-          csv << csv_fields(pq, pq.action_officers.first)
+          csv << csv_fields(pq, pq.action_officer_accepted)
         end
       end
     end
