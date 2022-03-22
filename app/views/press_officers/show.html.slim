@@ -7,5 +7,8 @@ h1 Press officer details
   p.text= @press_officer.email
   h2 Status
   = render partial: 'shared/status', object: @press_officer
-  = link_to 'Edit', edit_press_officer_path(@press_officer), {class: 'admin-link'}
-  = link_to 'Return to press officer list', press_officers_path, {class: 'admin-link'}
+  p.text
+    = link_to 'Edit', edit_press_officer_path(@press_officer), {class: 'admin-link'}
+    span.visually-hidden
+        = ' | '
+    = link_to 'Return to press officer list', press_officers_path, {class: 'admin-link'}

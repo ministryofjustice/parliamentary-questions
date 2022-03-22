@@ -9,5 +9,8 @@
   ul
     - @press_desk.press_officers.each do |po|
       li= link_to(po.name,   controller: 'press_officers', action: 'show', id: po.id   )
-  = link_to 'Edit', edit_press_desk_path(@press_desk), {class: 'admin-link'}
-  = link_to 'Return to press desk list', press_desks_path, {class: 'admin-link'}
+  p.text
+    = link_to 'Edit', edit_press_desk_path(@press_desk), {class: 'admin-link'}
+    span.visually-hidden
+        = ' | '
+    = link_to 'Return to press desk list', press_desks_path, {class: 'admin-link'}
