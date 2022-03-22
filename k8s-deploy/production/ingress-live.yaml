@@ -4,10 +4,6 @@ metadata:
   name: parliamentary-questions
   namespace: parliamentary-questions-production
   annotations:
-    kubernetes.io/ingress.class: "modsec01"
-    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-    nginx.ingress.kubernetes.io/modsecurity-snippet: |
-      SecRuleEngine On
     external-dns.alpha.kubernetes.io/set-identifier: parliamentary-questions-parliamentary-questions-production-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
