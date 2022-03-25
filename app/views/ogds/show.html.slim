@@ -7,5 +7,8 @@ h1 Government Department details
   p.text= @ogd.acronym
   h2 Status
   = render partial: 'shared/status', object: @ogd
-  = link_to 'Edit', edit_ogd_path(@ogd), {class: 'admin-link'}
-  = link_to 'Return to Other Government Department list', ogds_path, {class: 'admin-link'}
+  p.text
+    = link_to 'Edit', edit_ogd_path(@ogd), {class: 'admin-link'}
+    span.visually-hidden
+        = ' | '
+    = link_to 'Return to Other Government Department list', ogds_path, {class: 'admin-link'}

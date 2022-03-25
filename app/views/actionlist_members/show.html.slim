@@ -7,5 +7,8 @@
   p.text= @actionlist_member.email
   h2 Status
   = render partial: 'shared/status', object: @actionlist_member
-  = link_to 'Edit', edit_actionlist_member_path(@actionlist_member), {class: 'admin-link'}
-  = link_to 'Return to actionlist member list', actionlist_members_path, {class: 'admin-link'}
+  p.text
+    = link_to 'Edit', edit_actionlist_member_path(@actionlist_member), {class: 'admin-link'}
+    span.visually-hidden
+        = ' | '
+    = link_to 'Return to actionlist member list', actionlist_members_path, {class: 'admin-link'}

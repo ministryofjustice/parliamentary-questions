@@ -7,5 +7,8 @@
   p.text= @division.directorate.name
   h2 Status
   = render partial: 'shared/status', object: @division
-  = link_to 'Edit', edit_division_path(@division), {class: 'admin-link'}
-  = link_to 'Return to divisions list', divisions_path, {class: 'admin-link'}
+  p.text
+    = link_to 'Edit', edit_division_path(@division), {class: 'admin-link'}
+    span.visually-hidden
+        = ' | '
+    = link_to 'Return to divisions list', divisions_path, {class: 'admin-link'}

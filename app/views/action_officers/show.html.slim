@@ -17,5 +17,8 @@
   p.text= @action_officer.press_desk.name
   h2 Status
   = render partial: 'shared/status', object: @action_officer
-  = link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'admin-link'}
-  = link_to 'Return to action officer list', action_officers_path, {class: 'admin-link'}
+  p.text
+    = link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'admin-link'}
+    span.visually-hidden
+      = ' | '
+    = link_to 'Return to action officer list', action_officers_path, {class: 'admin-link'}

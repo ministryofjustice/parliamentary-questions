@@ -7,5 +7,8 @@ h1 Watchlist member details
   p.text= @watchlist_member.email
   h2 Status
   = render partial: 'shared/status', object: @watchlist_member
-  = link_to 'Edit', edit_watchlist_member_path(@watchlist_member), {class: 'admin-link'}
-  = link_to 'Return to watchlist member list', watchlist_members_path, {class: 'admin-link'}
+  p.text
+    = link_to 'Edit', edit_watchlist_member_path(@watchlist_member), {class: 'admin-link'}
+    span.visually-hidden
+        = ' | '
+    = link_to 'Return to watchlist member list', watchlist_members_path, {class: 'admin-link'}
