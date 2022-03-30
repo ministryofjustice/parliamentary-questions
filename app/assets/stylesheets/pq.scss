@@ -466,7 +466,17 @@ textarea.form-control {
   list-style-type: none;
   li {
     display: inline;
-    margin-left: 5px;
+    margin-left: 25px;
+  }
+}
+
+@media screen and (max-width: 641px) { 
+  #admin-button-bar {
+    float: none;
+    li {
+      display: block;
+      margin: 5px 0 18px;
+    }
   }
 }
 
