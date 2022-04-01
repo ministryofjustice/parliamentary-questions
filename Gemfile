@@ -46,7 +46,7 @@ end
 
 group :test, :development do
   gem 'awesome_print', '~> 1.9', '>= 1.9.2'
-  gem 'brakeman', '~> 5.1', require: false
+  gem 'brakeman', '~> 5.2', require: false
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 2.20'
