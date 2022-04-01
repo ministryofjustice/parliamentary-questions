@@ -31,7 +31,7 @@ gem 'slim', '~> 4.1'
 gem 'statsd-ruby', '~> 1.5'
 gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 gem 'uglifier', '~> 4.2'
-gem 'unicorn', '~> 6.0'
+gem 'unicorn', '~> 6.1'
 gem 'will_paginate', '~> 3.3'
 
 group :development do
