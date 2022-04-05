@@ -4,9 +4,9 @@
     ' Export PQs to
     abbr title="Comma Separated Values" CSV
   = render partial: 'shared/flash_messages'
-  h2 Select the range of dates to do the export
   = form_tag controller: 'export', action: 'csv_for_pod' do
     fieldset
+      legend Select the range of dates to do the export
       .form-group
         label.form-label for="date_from"  Date from
         .datepicker

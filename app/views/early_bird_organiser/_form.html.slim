@@ -3,16 +3,12 @@
     = render partial: 'shared/errors', object: @early_bird_organiser
     - if @early_bird_organiser.errors.any?
     fieldset
+      legend Select the dates between which you do not wish to receive the early bird email
       .form-group
-        label.form-label for="date_from" First date 
-        h2 First date to turn off the early bird email
-        br
+        label.form-label for="date_from" First date to turn off the early bird email 
         = f.date_field :date_from, {class: 'form-control'}
-        br
       .form-group
-        label.form-label for="date_to" Last date 
-        h2 Last date the early bird email is off
-        br
+        label.form-label for="date_to" Last date the early bird email is off 
         = f.date_field :date_to , {class: 'form-control'}
       .form-group
         br
