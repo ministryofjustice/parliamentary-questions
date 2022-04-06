@@ -1,4 +1,8 @@
 en:
   activerecord:
+    attributes:
+      early_bird_organiser:
+        date_from: First date to turn off the early bird email
+        date_to: Last date the early bird email is off
     errors:
       models:
