@@ -10,7 +10,7 @@ class EarlyBirdOrganiser < ActiveRecord::Base
 
   def date_to_cant_be_before_date_from
     if (date_to && date_from) && (date_to < date_from)
-      errors.add(:date_to, 'cannot be before Date from')
+      errors.add(:date_to, 'cannot be before the First date')
     end
   end
 
