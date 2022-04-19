@@ -29,7 +29,7 @@
             a#progress-menu-answer href="#progress-menu-answer-data" data-toggle="tab" Answer
     #progress-panel.col-md-9
       = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|
-        fieldset.tab-content
+        fieldset.tab-content role="region" aria-live="polite"
           #progress-menu-pq-data role="tabpanel" class="tab-pane active"
             = render partial:'pq_data', locals: {f: f}
           #progress-menu-fc-data role="tabpanel" class="tab-pane"
