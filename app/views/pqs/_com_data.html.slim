@@ -1,3 +1,4 @@
+h2 PQ commission
 .deadline_input.form-group
   label.form-label for="pq_internal_deadline"
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, is_closed: @pq.closed?, draft_reply: @pq.draft_answer_received }}
