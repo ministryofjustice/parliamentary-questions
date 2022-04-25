@@ -3,14 +3,14 @@ div#minister-report
   table.table.table-hover
     thead
       tr
-        th Progress
+        th scope="col" Progress
         - @report.header_cells.each do |c|
-          th.table-cell-centered
+          th.table-cell-centered scope="col"
             = link_to(c.label, c.path)
     tbody
       - @report.rows.each do |r|
         tr data="report-state-#{r.state}"
-          td
+          th scope="row"
             span class=("flag #{state_classname r.state}") = r.label
           - r.cells.each do |c|
             td.table-cell-centered
