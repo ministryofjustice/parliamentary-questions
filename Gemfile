@@ -19,7 +19,7 @@ gem 'nokogiri', '~> 1.13'
 gem 'paper_trail', '~> 12.0'
 gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.1.4.7'
+gem 'rails', '~> 6.1.5.1'
 gem 'responders', '~> 3.0', '>= 3.0.1'
 gem 'rspec_junit_formatter', '~> 0.4.1'
 gem 'sass-rails', '~> 6.0'
@@ -46,7 +46,7 @@ end
 
 group :test, :development do
   gem 'awesome_print', '~> 1.9', '>= 1.9.2'
-  gem 'brakeman', '~> 5.1', require: false
+  gem 'brakeman', '~> 5.2', require: false
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 2.20'
