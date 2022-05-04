@@ -61,7 +61,7 @@ group :test, :development do
   gem 'rubocop-performance', '~> 1.7', '>= 1.7.1'
   gem 'rubocop-rails', '~> 2.8', '>= 2.8.1'
   gem 'selenium-webdriver', '~> 4.1'
-  gem 'shoulda-matchers', '~> 5.0', require: false
+  gem 'shoulda-matchers', '~> 5.1', require: false
   gem 'sinatra', '~> 2.2'
   gem 'timecop', '~> 0.9.5'
 end
