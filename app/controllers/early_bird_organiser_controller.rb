@@ -3,7 +3,7 @@ class EarlyBirdOrganiserController < ApplicationController
 
   def new
     update_page_title 'Suspend early bird email'
-    
+
     @early_bird_organiser = EarlyBirdOrganiser.new
 
     @previous_early_bird = EarlyBirdOrganiser.last
