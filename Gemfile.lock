@@ -72,7 +72,7 @@ GEM
       will_paginate
     brakeman (5.1.1)
     builder (3.2.4)
-    business_time (0.10.0)
+    business_time (0.11.0)
       activesupport (>= 3.2.0)
       sorted_set
       tzinfo
@@ -297,7 +297,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rbtree (0.4.4)
+    rbtree (0.4.5)
     redis (4.6.0)
     regexp_parser (2.1.1)
     request_store (1.5.0)
@@ -379,7 +379,7 @@ GEM
       sentry-ruby-core (= 5.2.0)
     sentry-ruby-core (5.2.0)
       concurrent-ruby
-    set (1.0.1)
+    set (1.0.2)
     shellany (0.0.1)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
@@ -450,7 +450,7 @@ DEPENDENCIES
   awesome_print (~> 1.9, >= 1.9.2)
   bootstrap-will_paginate (~> 1.0)
   brakeman (~> 5.1)
-  business_time (~> 0.10.0)
+  business_time (~> 0.11.0)
   database_cleaner (~> 2.0, >= 2.0.1)
   devise (~> 4.8)
   devise_invitable (~> 2.0, >= 2.0.5)
