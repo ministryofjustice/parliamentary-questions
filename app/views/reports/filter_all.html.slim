@@ -5,17 +5,7 @@ div#filter-report
   h1 PQ filter
   = render partial: 'shared/flash_messages'
   .row
-    .col-md-9
-      - if @questions.empty?
-        h2 Please select a filter option
-      - else
-        p.count
-          = pluralize(@questions.total_entries,'Question') + ' found'
-        ul.questions-list
-          - @questions.each do |question|
-            li id="pq-frame-#{question.id}"
-              = render partial: 'dashboard/question_data', locals: {question: question, action_officers: @action_officers}
-    .col-md-3
+    .col-md-3.col-md-push-9
       = form_tag({controller: 'reports', action: 'filter_all'}, {:method => :get}) do
         .form-group
           label.form-label for="minister_id"  Minister
@@ -29,6 +19,16 @@ div#filter-report
         .form-group
           = submit_tag 'Filter' , class: 'button' , :onclick=> "ga('send', 'event', 'reports', 'view', 'pq filter')"
           = link_to 'Show all', filter_all_path, class: 'button-secondary'
+    .col-md-9.col-md-pull-3
+      - if @questions.empty?
+        h2 Please select a filter option
+      - else
+        p.count
+          = pluralize(@questions.total_entries,'Question') + ' found'
+        ul.questions-list
+          - @questions.each do |question|
+            li id="pq-frame-#{question.id}"
+              = render partial: 'dashboard/question_data', locals: {question: question, action_officers: @action_officers}
   - if @questions.any?
     #pages.row
       = will_paginate @questions, {class: 'col-md-9'}
