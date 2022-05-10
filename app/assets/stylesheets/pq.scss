@@ -808,8 +808,14 @@ textarea.form-control {
       option {}
     }
   }
-  .button { margin-right: 25%; }
+  .button { margin-right: 25%; 
+    @media (max-width: 641px) {
+        margin-bottom: 15px;
+    }
+  }
 }
+
+
 
 #minister-report,
 #press-desk-report {
