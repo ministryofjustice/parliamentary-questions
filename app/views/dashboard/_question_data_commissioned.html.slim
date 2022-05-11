@@ -14,6 +14,7 @@
   span.replying-minister
     = question.minister.name
   - if question.policy_minister
+    span = ' '
     h3 Policy minister:
     span.policy-minister
       = question.policy_minister.name
@@ -25,6 +26,9 @@
     - question.action_officers_pqs.each do | ao_pq |
       - if !ao_pq.rejected? && !ao_pq.action_officer.nil?
         = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
+        span = ' | '
+    - question.action_officers_pqs.each do | ao_pq |
+      div
         a<>
         = render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question}
         a>
