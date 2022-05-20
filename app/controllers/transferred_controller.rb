@@ -10,6 +10,7 @@ class TransferredController < ApplicationController
   end
 
   def create
+    update_page_title('Create a transferred PQ')
     @pq       = Pq.new
     @ogd_list = Ogd.all
 
