@@ -9,7 +9,7 @@ Webapp to manage the workflow Parliamentary Questions
 
 # System dependencies
 
-- Ruby MRI 2.1.2
+- Ruby 2.7.2
 - Postgresql 9.3
 - phantomjs  (tests only)
 - coreutils (required by the `version_tag.sh` script)
@@ -25,7 +25,8 @@ The Postgresql version used in production is 9.3. This can be installed via [hom
 
 # Project setup
 
-Start by setting the [required environment variables](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/config).
+Start by setting the required environment variables. The included `.env.sample` file will show you which ones you will need as a bare minimum.
+
 Then Install the app dependencies by running the following
 
     gem install bundler && bundle install
@@ -34,7 +35,7 @@ If you get problems installing the pg gem not being able to find libpg, try sett
 
     gem install bundler && ARCHFLAGS="-arch x86_64" bundle install
 
-You can now procede setting up the database table layout
+You can now proceed setting up the database table layout
 
     bundle exec rake db:setup
 
@@ -48,19 +49,29 @@ Note: If you get error: FATAL: role “postgres” does not exist then double ch
     CREATE ROLE postgres WITH
     LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION;
 
-  Then try the db setup command above again
+  Then try the db setup command above again. You can customise the DB user and password by setting the ENV variables `DB_USERNAME` and `DB_PASSWORD`.
 
 And starting the app with:
 
     bundle exec rails s
 
-Mock data can be automatically imported by running the following rake task:
+Mock data can be automatically imported by running the following rake task (it will make use of a mock API server running on localhost:8888 so make sure this port is free):
 
     bundle exec rake pqa:import_dummy_data
 
 Finally, a rake task is also provided to load PQ&A XML data into the system.
 
     bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
+
+## Running the tests
+
+In order to run the tests, you can use:
+
+```sh
+bundle exec rake
+```
+
+This will run specs and rubocop linting. Or you can run them individually, with `rake rubocop` and `rake spec`.
 
 # User authentication
 
