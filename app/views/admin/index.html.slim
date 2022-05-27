@@ -1,8 +1,8 @@
 #settings-home
-  - if flash[:success]
-      .pq-msg-success
-        = flash[:success]
   h1 Settings
+  - if flash[:success]
+    .pq-msg-success
+      = flash[:success]
   .row
     .col-md-4
       h2 Address books

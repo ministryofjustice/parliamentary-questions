@@ -1,4 +1,5 @@
 .col-md-9.col-md-pull-3
+  = render partial: "shared/flash_messages", flash: flash
   #count
     strong #{@questions.length}
     = ' '
