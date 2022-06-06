@@ -6,32 +6,35 @@
   padding: 10px 15px 5px;
 }
 
-.form-control, .form-group select {
-  width: 100%;
-}
+.form-group {
 
-.form-group.search {
-  
-  label {
-    display: inline-block;
-    padding-right: .5em;
-    font-size: 90%;
+  .form-control {
+    font-size: 1.9rem;
   }
+
+  .search {
   
-  .search-box {
-    border: 2px solid #bfc1c3;
-    display: inline-block;
-  }
-  
-  input, #search_button {
-    border: none;
-    display: inline-block;
-  }
-  #search_button {
-    border-top: none;
-    border-right: none;
-    border-bottom: none;
-    border-left: 1px solid #bfc1c3;
+    label {
+      display: inline-block;
+      padding-right: .5em;
+      font-size: 90%;
+    }
+    
+    .search-box {
+      border: 2px solid #bfc1c3;
+      display: inline-block;
+    }
+    
+    input, #search_button {
+      border: none;
+      display: inline-block;
+    }
+    #search_button {
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: 1px solid #bfc1c3;
+    }
   }
 }
 

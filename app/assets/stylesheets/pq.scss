@@ -12,21 +12,22 @@ $danger-colour: $error-colour;
 
 h1 {
   font-family: "nta",Arial,sans-serif;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  margin: 20px 0 10px 0;
+  margin: 0;
+  padding: 20px 0 10px;
 }
 
 h2 {
-  font-size: 19px;
+  font-size: 24px;
   font-family: "nta",Arial,sans-serif;
   font-weight: normal;
-  margin: 10px 0 0 0;
-  color: $secondary-text-colour;
+  margin: 0;
+  padding: 15px 0;
 }
 
 h3 {
-  font-size: 19px;
+  font-size: 1.9rem;
   font-weight: normal;
   font-family: "nta",Arial,sans-serif;
   color: $secondary-text-colour;
@@ -34,7 +35,7 @@ h3 {
 }
 
 h4 {
-  font-size: 19px;
+  font-size: 1.9rem;
   font-weight: normal;
   color: $text-colour;
 }
@@ -42,8 +43,9 @@ h4 {
 p { margin: 0 0 6px 0; }
 
 body {
-  font-size: 19px;
+  font-size: 1.9rem;
   line-height: 1.3;
+  color: $text-colour; 
 }
 
 textarea { resize: none; }
@@ -165,7 +167,7 @@ button.close {
 .flag {
   border: 1.5px solid;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1.5rem;
   padding: 3px 5px;
   text-align: center;
   white-space: nowrap;
@@ -204,7 +206,6 @@ button, input[type="submit"] {
     padding: 0 !important;
     cursor: pointer;
     color: $link-colour;
-    font-size: 85%;
     text-decoration: underline;
   }
 }
@@ -239,13 +240,6 @@ li.select2-search-field {border-bottom: none;}
 }
 
 //= Forms ====
-
-.form-control {
-  font-size: 19px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-color: $border-colour;
-}
 
 .form-group.inline {
   .block-label {
@@ -357,6 +351,14 @@ textarea.form-control {
   }
 }
 
+#count {
+  max-width: 655px;
+  background-color: $highlight-colour;
+  padding: .7em 0 .7em .7em;
+  border-left: 5px solid $border-colour;
+  margin: .5em 0;
+}
+  
 .questions-list {
   padding: 0 0 20px;
   > li {
@@ -397,7 +399,6 @@ textarea.form-control {
 
 .question-type {
   color: $secondary-text-colour;
-  font-size: 19px;
   font-weight: bold;
   margin-left: 7px;
 }
@@ -586,56 +587,17 @@ textarea.form-control {
 /* ========= Specific pages ===================================================== */
 /* ============================================================================== */
 
-/* = Assignment page (/assignment) ============================================== */
-
-#assignment {
-  .panel-heading {
-    color: $text-colour;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  .row-spacer {
-    margin: 15px 0;
-  }
-}
-
-/* = finance/questions page ============================================== */
-#confirmation_button_bar { padding-left: 0; }
-
 /* = Dashboard page (/dashboard) ============================================ */
 
 #dashboard, #preview {
 
   h2 {
-    font-size: 24px;
-    display: inline-block;
     font-weight: bold;
-    margin: auto;
-    color: $text-colour;
   }
 
   ul li h3 {
     display: inline-block;
     margin-right: 0.5em;
-  }
-
-  #status-filters {
-    h2 {
-      margin: 0 0 10px 0;
-      color: $text-colour;
-    }
-    .active .badge {
-      color: #6f7781;
-      background-color: $page-colour;
-    }
-    .badge {
-      float: right;
-      min-width: 1.5em;
-      margin-top: .2em;
-      border-radius: 4px;
-      padding: 5px 2px 3px 3px;
-      background-color: black;
-    }
   }
 
   // errors that show when Quick Actions failed
@@ -666,25 +628,11 @@ textarea.form-control {
 
   .select2-search-choice div { line-height: 1em; }
 
-  label.form-label { color: $text-colour; }
 }
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
 
 #pq-details {
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    display: inline-block;
-    margin: 0 10px 0 0;
-  }
-
-  h2 {
-    padding: 15px 0;
-    margin: 0;
-    color: $text-colour;
-    font-size: 24px;
-  }
 
   #progress-panel {
     .date.datetimepicker, p, .text, hr, a, label {
@@ -781,20 +729,6 @@ textarea.form-control {
 
 #filter-report {
 
-  h2 {
-    font-size: 24px;
-    display: inline-block;
-    font-weight: bold;
-    margin: auto;
-    color: $text-colour;
-  }
-
-  p.count {
-    font-size: 19px;
-    font-weight: bold;
-    margin: 20px 0 10px 0;
-  }
-
   .col-md-9 { padding: 0; }
   .col-md-3 {
     select{
@@ -835,7 +769,6 @@ textarea.form-control {
     padding-bottom: 7.5px;
     display: block;
     margin: 20px 0 10px 0;
-    color: $text-colour;
   }
 
   ul { list-style: none; }
@@ -858,11 +791,9 @@ textarea.form-control {
   h2 {
     margin: 20px 0 10px 0;
     font-weight: bold;
-    color: $text-colour;
   }
   h3 {
     font-weight: bold;
-    color: $text-colour;
     margin: 20px 0 10px 0;
   }
 }
@@ -873,30 +804,12 @@ textarea.form-control {
   h2 {
     margin: 20px 0 10px 0;
     font-weight: bold;
-    color: $text-colour;
   }
   h3 {
     font-weight: bold;
-    color: $text-colour;
     margin: 20px 0 10px 0;
   }
 }
-
-/* = Minister details page (/ministers/) =========================== */
-/* = Press-desk page (/press_desks/]) ============================== */
-/* = CSV export page (/export) ===================================== */
-
-#admin-ministers-details h2:last-of-type,
-#admin-pd-details h2:last-of-type,
-#csv-export h2 {
-  margin: 20px 0 10px 0;
-  font-weight: bold;
-  color: $text-colour;
-}
-
-/* = Sign in page (/users/sign_in) ========================================== */
-
-#sign_in { margin: 30px 0; }
 
 /* = Metrics dashboard (/metrics_dashboard) ================================= */
 
@@ -958,20 +871,13 @@ textarea.form-control {
 /* = Filter sidebar ========================================================== */
 
 #dashboard, #preview {
-  #count {
-    max-width: 655px;
-    background-color: $highlight-colour;
-    padding: .7em 0 .7em .7em;
-    border-left: 5px solid $border-colour;
-    margin: .5em 0;
-  }
 
   #sidebar {
     padding: 0;
-    h2 {
-      color: $text-colour;
-      font-size: 19px;
+    h2 {  
       font-weight: bold;
+      font-size: 1.9rem;
+      padding: 0;
     }
     input[type="button"]{
       padding-left: 0;
@@ -1049,7 +955,6 @@ textarea.form-control {
         .view {
           width: 100%;
           text-align: left;
-          color: $text-colour;
           background-clip: border-box;
           background-origin: padding-box;
           background-size: auto auto;
