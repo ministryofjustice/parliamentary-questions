@@ -10,6 +10,13 @@ $danger-colour: $error-colour;
 // = Global Elements ===========================================================
 //==============================================================================
 
+
+body, main {
+  font-size: 1.9rem;
+  line-height: 1.3;
+  color: $text-colour; 
+}
+
 h1 {
   font-family: "nta",Arial,sans-serif;
   font-size: 28px;
@@ -41,12 +48,6 @@ h4 {
 }
 
 p { margin: 0 0 6px 0; }
-
-body {
-  font-size: 1.9rem;
-  line-height: 1.3;
-  color: $text-colour; 
-}
 
 textarea { resize: none; }
 
@@ -428,7 +429,7 @@ textarea.form-control {
   border-radius: 0;
   border: 1px solid $border-colour;
   display: inline-block;
-  width: 194px;
+  width: 20rem;
   input {
     display: inline;
     width: 88%;
@@ -453,6 +454,7 @@ textarea.form-control {
   clear: both;
   thead tr th, tbody tr td {
     padding-left: 0; // bootstrap override
+    font-size: 1.6rem;
   }
 }
 
@@ -849,25 +851,6 @@ textarea.form-control {
   #x-axis { text-align: center; font-size: 80% }
 }
 
-/* = preview page ========================================================== */
-
-#preview {
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 15px 0;
-  }
-  #sidebar {
-    .shim { display: block; }
-  }
-  @media (max-width: 991px) {
-    #sidebar {
-      .shim { display: none; }
-      #filters { position: static; }
-    }
-  }
-}
-
 /* = Filter sidebar ========================================================== */
 
 #dashboard, #preview {
@@ -974,7 +957,6 @@ textarea.form-control {
             label {
               padding: 8px;
               margin-bottom: 0; // Override bootstrap
-              font-size: 16px;
               &:not(:last-child) { border-bottom: 1px solid $panel-colour; }
               input[type="radio"] {
                 margin-right: 8px;
@@ -985,7 +967,7 @@ textarea.form-control {
             label:hover { background: $yellow; }
           }
           #keywords { width: 100%; }
-          .clearFilter { height: 1.5em; }
+          .clearFilter { overflow: hidden; }
         }
       }
     }

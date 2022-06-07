@@ -7,34 +7,33 @@
       #filters.js-stick-at-top-when-scrolling
         h2 Filter
         #question-type.filter-box
-          input.view.open type="button" value="Question type"
-          .notice
-            span 1 selected
-          .content.collapsed
-            .list
-              label for="named-day"
-                input id="named-day" type="radio" name="question-type" value="Named Day"
-                'Named Day
-              label for="ordinary"
-                input id="ordinary" type="radio" name="question-type" value="Ordinary"
-                'Ordinary
-              label for="transferred-in"
-                input id="transferred-in" type="radio" name="question-type" value="Transferred in"
-                'Transferred in
-            .clearFilter
-              input#clear-type-filter.clear.right type="button" value="Clear"
+          fieldset
+            legend
+              input.view.open type="button" value="Question type"
+            .notice
+              span 1 selected
+            .content.collapsed
+              .list
+                label for="named-day"
+                  input id="named-day" type="radio" name="question-type" value="Named Day"
+                  'Named Day
+                label for="ordinary"
+                  input id="ordinary" type="radio" name="question-type" value="Ordinary"
+                  'Ordinary
+                label for="transferred-in"
+                  input id="transferred-in" type="radio" name="question-type" value="Transferred in"
+                  'Transferred in
+              .clearFilter
+                input#clear-type-filter.clear.right type="button" value="Clear"
 
         .filter-box
-          h3 Keywords
+          label for="keywords" Keywords
           .content
             input#keywords.form-control type="text" placeholder="e.g. keywords, names"
             .clearFilter
               input#clear-keywords-filter.right type="button" value="Clear"
 
-        a target="_blank" href="#{@parliament_url}" Today's PQs for all departments
-        p
-          '(opens in a new tab)
-
+        a target="_blank" href="#{@parliament_url}" Today's PQs for all departments (opens in a new tab)
 
     .col-md-9.col-md-pull-3
       #count
