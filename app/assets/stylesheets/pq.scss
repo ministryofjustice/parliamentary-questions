@@ -891,8 +891,10 @@ textarea.form-control {
     #quick-links {
       padding-bottom: 9px;
       border-bottom: 2px solid $grey-2;
-      input[type="submit"] { margin-right: 10px; }
+      input[type="submit"] { margin: 0 10px 5px 0; }
       form { margin: 8px 0; }
+      .form-label { font-size: 1.9rem;}
+
       #editDates .content{
         padding-bottom: 10px;
         margin-bottom: 22px;
@@ -920,9 +922,14 @@ textarea.form-control {
         padding: 4px 8px;
         background-color: $panel-colour;
         margin: 0.5em 0;
+
         legend {
           padding: 0;
           font-weight: normal;
+
+          input {
+            font-size: 1.9rem;
+          }
         }
         .notice {
           display: none;
@@ -980,3 +987,15 @@ textarea.form-control {
     }
   }
 }
+
+#footer .footer-meta { 
+  .copyright {
+    font-size: 1.6rem;
+  }
+  .footer-meta-inner { 
+    ul, .open-government-licence p {
+      font-size: 1.6rem;
+    }
+  }
+}
+

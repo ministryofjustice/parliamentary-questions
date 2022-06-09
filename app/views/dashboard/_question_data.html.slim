@@ -1,13 +1,6 @@
 .pq-header.row
 
   .col-md-5
-
-    /= form_for CommissionForm.new(minister_id: question.minister_id, policy_minister_id: question.policy_minister_id),
-      remote: true,
-      authenticity_token: true,
-      html: {:id => "uin-#{question.id}", :class => 'in-progress-checkbox', :data => {pqid: question.id}},
-      url: commission_path do |f|
-
     h2 
       = link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin")
       span.question-type  = question.question_type_header
@@ -17,14 +10,14 @@
         input id="#{question.uin}" class="pq-select" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
         span Select #{question.uin}
 
-  .col-md-5
+  .col-md-4
     - if !question.date_for_answer.nil? and !question.is_new?
       |  Date for answer&nbsp;
       span.answer-date
         = question.date_for_answer.to_s(:date)
         = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed?}
 
-  .col-md-2
+  .col-md-3
     span class=("flag #{state_classname question.state}") = state_label question.state
 
 p.pq-question
