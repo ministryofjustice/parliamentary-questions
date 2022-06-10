@@ -369,7 +369,7 @@ textarea.form-control {
   }
   .pq-question {
     margin: 0;
-    padding: 0;
+    padding: 20px 0 0 0;
   }
   .status-bar {
     line-height: 32px;
@@ -381,9 +381,10 @@ textarea.form-control {
 }
 
 .pq-header {
-  line-height: 27px;
-  .col-md-5 { padding-left: 0; }
 
+  .col-md-5 { padding: 0 0 5px 0; overflow: hidden; }
+
+  h2 { padding-top: 0; }
   label.pq-select {
     input[type="checkbox"] {
       width: 24px;
@@ -432,7 +433,7 @@ textarea.form-control {
   width: 20rem;
   input {
     display: inline;
-    width: 88%;
+    width: 86%;
     border: none;
   }
 }
@@ -635,6 +636,8 @@ textarea.form-control {
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
 
 #pq-details {
+
+  h1 { display: inline-block; }
 
   #progress-panel {
     .date.datetimepicker, p, .text, hr, a, label {
@@ -926,10 +929,10 @@ textarea.form-control {
         legend {
           padding: 0;
           font-weight: normal;
-
-          input {
+          font-size: 1.9rem;
+        }
+        input {
             font-size: 1.9rem;
-          }
         }
         .notice {
           display: none;

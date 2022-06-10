@@ -43,19 +43,14 @@
       ul.questions-list
         - @questions.each do |question|
           li.question
-            .pq-header.row
-              .col-md-5
-                h2
-                  u= link_to(question.uin, {controller: 'pqs', action: 'show', id: question.uin}, :class => "question-uin")
-                .pq-header-flags
-                  - if question.question_type == 'NamedDay'
-                    span.question-type | Named Day
-                  - if question.transferred
-                    span.question-type | Transferred in
-                  - if question.question_type == 'Ordinary'
-                    span.question-type | Ordinary
-              .col-md-4
-              .col-md-3
+            h2
+              = link_to(question.uin, {controller: 'pqs', action: 'show', id: question.uin}, :class => "question-uin")
+              - if question.question_type == 'NamedDay'
+                span.question-type | Named Day
+              - if question.transferred
+                span.question-type | Transferred in
+              - if question.question_type == 'Ordinary'
+                span.question-type | Ordinary
             span.pq-question #{question.question}
             - unless question.member_name.empty?
               h3 Asked by:
