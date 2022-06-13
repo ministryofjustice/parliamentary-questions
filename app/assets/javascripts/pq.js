@@ -383,22 +383,6 @@ var document, $, ga;
        setCommissionButtonStatus($(this));
       });
 
-      // Dashboard - Quick Action Export
-      $('#quick-action-export').on('ajax:success', function(e, data) {
-          alert("JS: quick-action-export returns Success!");
-        $(this).replaceWith(data);
-        //  $(this).after(data);
-      }).on('ajax:error', function(e, xhr) {
-          // the data passed to the backend was invalid
-          alert("JS: quick-action-export returns error!");
-          var errorText = xhr.status === 400 ?
-              'Invalid input. Bad Data.' :
-              'Very Bad data.';
-          $(this).find('.quick-action-export-error-message')
-              .text(errorText)
-              .css('display', 'inline-block');
-      });
-
       // Commissioning a question and showing the success message on the dashboard page
       $('.form-commission')
         .on('ajax:success', function(){

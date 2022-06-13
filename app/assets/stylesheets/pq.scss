@@ -82,14 +82,10 @@ label {
 
 .open { color: $page-colour; }
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: black; }
-
 // == symbols =====
 
 .fa-times-circle { color: $error-colour; }
-.fa-check-circle { color: $success-colour; }
 .fa-warning { color: $error-colour; }
-.fa-file-o { color: $orange;}
 
 .fa-envelope {
   color: $page-colour;
@@ -100,15 +96,6 @@ label {
   margin-left: 5px;
 }
 
-// specify the colour of input placeholders (eg search bar) for all browsers
-::-webkit-input-placeholder { color: $grey-2; }
-:-moz-placeholder { color: $grey-2; opacity: 1; }
-::-moz-placeholder { color: $grey-2; opacity:  1; }
-:-ms-input-placeholder { color: $grey-2; }
-
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus,
 .dropdown-menu li a:hover, .dropdown-menu li a:focus { background-color: $yellow;  }
 
 .block-label:hover, .js-enabled .selected { border-color: $text-colour; }
@@ -134,12 +121,6 @@ label {
 
 #global-header.with-proposition .header-wrapper .header-proposition #proposition-name:hover {
   border-bottom: none;
-}
-
-.phase-banner {
-  a {
-    text-decoration: underline; // override bootstrap
-  }
 }
 
 // only visible on the staging server to warn that it is not the live system
@@ -603,13 +584,6 @@ textarea.form-control {
     margin-right: 0.5em;
   }
 
-  // errors that show when Quick Actions failed
-  .quick-action-export-error-message {
-    display: none;
-    color: $error-colour;
-    padding: 1em 0 0 2em;
-  }
-
   // errors that show when commissioning failed
   .commissioning-error-message {
     display: none;
@@ -617,16 +591,10 @@ textarea.form-control {
     padding: 1em 0 0 2em;
   }
 
-  .dashboard-column1-uncommissioned { margin-bottom: 20px; }
-
-  .dashboard-column1-commissioned .col-md-6 {
-    padding-left: 0;
-    margin: 0 0 10px 0;
-  }
-
-  .dashboard-column-2 .text {
-    display: block;
-    margin: 0 0 6px 0;
+  .form-commission { margin-bottom: 20px;
+    padding: 20px 0 0 0;
+    .col-md-7, .col-md-5 { padding-left: 0; }
+    p { padding: 10px 0; }
   }
 
   .select2-search-choice div { line-height: 1em; }
@@ -639,24 +607,7 @@ textarea.form-control {
 
   h1 { display: inline-block; }
 
-  #progress-panel {
-    .date.datetimepicker, p, .text, hr, a, label {
-      &.block-label { margin: 0 0 20px 0; }
-      &.form-label { color: #6F777B; }
-      &.margin { margin-top: 15px; }
-    }
-    #save { margin-top: 40px; }
-  }
-
-  #pq-details-header {
-    #pq-details-ref {
-      padding: 11px 0;
-      margin: 0;
-      #pq-details-progress { margin-left: 26px; }
-    }
-  }
-
-  #pq-details-qa-link { display: block; padding-top: 5px; }
+  #pq-details-progress { margin-left: 26px; }
 
   ul.nav-tabs li a {
     outline: 0;
@@ -672,31 +623,26 @@ textarea.form-control {
   #pq-detail-area {
     margin-top: 15px;
 
-    #progress-menu {
+    nav {
       z-index: 1;
       padding: 0;
 
-      ul li a {
-        padding-left: 0;
-      }
-
-      ul li.active a {
-        padding-left: 1em;
+      li.active a {
         border: 1px solid #c2c2c2;
         border-right: 0;
-        margin-right: 0;
         border-radius: 6px 0 0 6px;
+        background-color: #fff;
         @media screen and (max-width: 991px) {
           border-radius: 6px;
           border: 1px solid #c2c2c2;
         }
       }
 
-      ul li a:link {
+      li a:link {
         color: black;
       }
     }
-
+    
     #progress-panel {
       margin: 0;
       padding: 0;
