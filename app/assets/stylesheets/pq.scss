@@ -467,37 +467,10 @@ textarea.form-control {
 
 // = Allocation rejection control ==================================================
 /* used to show/hide allocation rejections*/
-.reveal{
-  div {
-    border-left: 5px solid #eee;
-    padding-left: .5em;
-    margin-top: .5em;
-    p{
-      &:first-child{ padding-top: .5em; }
-      &:last-child{ padding-bottom: .5em; }
-    }
-    &.closed{ display: none; }
-    &.opened{ display: block; }
-  }
-
-  > span {
-    color: #005ea5;
-    cursor: pointer;
-    margin-right: .5em;
-    position: relative;
-    &.closed {
-      &:before {
-        content: '► ';
-        position: absolute;
-        left: -1.25em;
-      }
-    }
-    &.opened {
-      &:before {
-        content: '▼ ';
-      }
-    }
-  }
+.question-allocation-list details .panel-indent { 
+  border-left: 5px solid #eee;
+  padding-left: .5em;
+  margin-top: .5em;
 }
 
 /* = New / In Progress Tabs ===================================================== */
@@ -536,8 +509,6 @@ textarea.form-control {
 .js-enabled .tab-content > .tab-pane.active {
   display: block;
 }
-
-
 
 /* = Pagination ================================================================= */
 
@@ -642,7 +613,7 @@ textarea.form-control {
         color: black;
       }
     }
-    
+
     #progress-panel {
       margin: 0;
       padding: 0;
@@ -699,8 +670,6 @@ textarea.form-control {
     }
   }
 }
-
-
 
 #minister-report,
 #press-desk-report {
