@@ -58,6 +58,7 @@ hr {
 
 ul {
   list-style-type: none;
+  list-style: none;
   padding-left: 0;
 }
 
@@ -395,7 +396,6 @@ textarea.form-control {
   border-left: 4px solid $colour;
   padding:15px;
   ul {
-    list-style: disc outside none;
     margin-left: 0;
     padding-left: 1em;
   }
@@ -647,23 +647,8 @@ textarea.form-control {
 #filter-report {
 
   .col-md-9 { padding: 0; }
-  .col-md-3 {
-    select{
-      width: 200px;
-      white-space: pre-wrap; /* css-3 */
-      white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-      white-space: -pre-wrap; /* Opera 4-6 */
-      white-space: -o-pre-wrap; /* Opera 7 */
-      word-wrap: break-word; /* Internet Explorer 5.5+ */
-      text-overflow: ellipsis;
-      option {}
-    }
-  }
-  .button { margin-right: 25%; 
-    @media (max-width: 641px) {
-        margin-bottom: 15px;
-    }
-  }
+  .col-md-3 select{ width: 100%; }
+  .button-secondary { float: right; margin-top: 10px; }
 }
 
 #minister-report,
@@ -679,14 +664,10 @@ textarea.form-control {
 
 #settings-home {
   h2 {
-    font-weight: bold;
     border-bottom: 2px solid $panel-colour;
     padding-bottom: 7.5px;
     display: block;
-    margin: 20px 0 10px 0;
   }
-
-  ul { list-style: none; }
 
   ul li a {
     margin: 2px 0;
@@ -771,7 +752,6 @@ textarea.form-control {
   #sidebar {
     padding: 0;
     h2 {  
-      font-weight: bold;
       font-size: 1.9rem;
       padding: 0;
     }
