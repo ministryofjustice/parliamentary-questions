@@ -5,9 +5,9 @@ h3
   ' Date sent to
   abbr title="Private Office Directorate" POD
 - if @pq.pod_waiting.to_s != ''
-  p.text= @pq.pod_waiting.to_s
+  p= @pq.pod_waiting.to_s
 - else
-  p.text
+  p
     abbr title="To Be Decided" TBD
 = render partial: 'gds_checkbox', locals: { value: @pq.pod_query_flag,
                                             field: 'pod_query_flag',

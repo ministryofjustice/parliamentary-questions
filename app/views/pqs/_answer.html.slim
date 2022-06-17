@@ -7,11 +7,11 @@ h2 Answer
 - if @pq.answer_submitted.present? && @pq.date_for_answer.present?
   - @answer_target = @pq.date_for_answer + 18.hours
   - if @pq.answer_submitted <= @answer_target
-    p.text
+    p
       span.fa.fa-check-circle
       | Answer submitted on time
   - elsif @pq.answer_submitted > @answer_target
-    p.text
+    p
       span.fa.fa-thumbs-o-down
       | Answer NOT submitted on time
 
@@ -30,4 +30,3 @@ h2 Answer
                                             label: 'Holding reply flag' }
 - unless @pq.is_follow_up?
   = link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button-secondary', title: 'Create an ''I will write'' follow up'}
-
