@@ -3,17 +3,6 @@ var document, $, ga;
 (function() {
   'use strict';
 
-  // make detail blocks toggleable
-  var enableDetailsToggle = function(i, el) {
-    var $root = $(el);
-    var $content = $root.next('.reveal > div');
-
-    $root.on('click', function(){
-      $content.toggleClass('closed');
-      $root.toggleClass('opened');
-    });
-  };
-
   // check that the various fields on a single PQ on the dashboard are valid
   var isValidDashboardPq = function($form) {
     var validSoFar = true;
@@ -57,26 +46,6 @@ var document, $, ga;
     } else {
       $button.attr('disabled', 'disabled');
     }
-  };
-
-  // The 3 functions below increment, decrement or change the number of New PQ's
-  // on the filter box
-  var incrementBadge = function(idOfNavpill) {
-    changeBadgeBy(idOfNavpill, 1);
-  };
-
-  var decrementBadge = function(idOfNavpill) {
-    changeBadgeBy(idOfNavpill, -1);
-  };
-
-  var changeBadgeBy = function(idOfNavpill, val) {
-    var $badge = $(idOfNavpill).children('a').children('span');
-    var curval = parseInt($badge.text(), 10);
-    var nextval = curval + val;
-    if (nextval < 0) {
-      nextval = 0;
-    }
-    $badge.text(nextval);
   };
 
   // Quick action filtering --
@@ -310,10 +279,6 @@ var document, $, ga;
     // Set today's date
     var today = moment().format('DD/MM/YYYY').toString();
 
-    // if the page has rejection details, make them collapsible
-    // applies to /assignment and /watchlist/preview pages
-    $('.reveal > span').each(enableDetailsToggle);
-
     // Form behaviour: checkbox and radio button CSS state changes
     $('.block-label').each(function() {
       // Add focus
@@ -393,10 +358,6 @@ var document, $, ga;
 
           $('#pq-frame-' + pqid).html('<div class="pq-msg-success fade in">' + uin + ' commissioned successfully <button class="close" data-dismiss="alert">×</button></div>');
 
-          // on the right-hand filter panel, increment the number of No Response questions
-          incrementBadge('#db-filter-alloc-pend');
-          // and decrement the number of unallocated
-          decrementBadge('#db-filter-unalloc');
         }).on('ajax:error', function(e, xhr) {
           // the data passed to the backend was invalid
           var errorText = xhr.status === 422 ?
