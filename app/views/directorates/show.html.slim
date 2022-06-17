@@ -2,10 +2,10 @@
   h1 Directorate details
   = render partial: "shared/flash_messages", flash: flash
   h2 Name
-  p.text= @directorate.name
+  p= @directorate.name
   h2 Status
   = render partial: 'shared/status', object: @directorate
-  p.text
+  p
     = link_to 'Edit', edit_directorate_path(@directorate), {class: 'admin-link'}
     span.visually-hidden
         = ' | '

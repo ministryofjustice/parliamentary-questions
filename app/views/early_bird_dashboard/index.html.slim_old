@@ -6,14 +6,14 @@
     span.badge= @questions.length
   - @questions.each do |question|
     h3= question.uin
-    p.text= question.question
+    p= question.question
     - unless question.date_for_answer.nil?
       h4 Date For Answer
-      p.text= question.date_for_answer.to_s(:date)
+      p= question.date_for_answer.to_s(:date)
     - unless question.internal_deadline.nil?
       h4 Internal deadline
-      p.text= question.internal_deadline.to_s
+      p= question.internal_deadline.to_s
     h4= question.house_name
-    p.text= question.member_name
+    p= question.member_name
 
   hr/

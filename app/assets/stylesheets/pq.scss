@@ -550,11 +550,6 @@ textarea.form-control {
     font-weight: bold;
   }
 
-  ul li h3 {
-    display: inline-block;
-    margin-right: 0.5em;
-  }
-
   // errors that show when commissioning failed
   .commissioning-error-message {
     display: none;
@@ -609,7 +604,7 @@ textarea.form-control {
         }
       }
 
-      li a:link {
+      li a:link, li a:visited {
         color: black;
       }
     }

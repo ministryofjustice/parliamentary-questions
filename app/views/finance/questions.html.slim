@@ -18,7 +18,7 @@ hr/
               - if question.transferred
                 span.question-type  Transferred in
             .pq-question
-              p.text= question.question
+              p= question.question
             .row
               .form-group.col-md-6
                 label.block-label for="pq[#{question.id}][finance_interest]"
@@ -27,9 +27,9 @@ hr/
               .col-md-6
                 span.form-group
                 h2= question.house_name
-                p.text= question.member_name
+                p= question.member_name
                 h2 Date for answer
-                p.text= question.date_for_answer.try(:to_s, :date)
+                p= question.date_for_answer.try(:to_s, :date)
                 input name="pq[#{question.id}][seen_by_finance]" type="hidden" value="true" /
     #confirmation_button_bar.col-md-9
       = submit_tag 'Confirm Visibility of all PQs' , id: 'btn_finance_visibility' , class: 'button'

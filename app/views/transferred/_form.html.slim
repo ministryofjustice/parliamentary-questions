@@ -17,7 +17,7 @@
         .datetimepicker
           input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.to_s) /
           span.fa.fa-calendar title="select a date"
-      p.text House
+      p House
       .form-group.inline
         label.block-label for="pq_house_name_house_of_commons"
           = f.radio_button :house_name, 'House Of Commons'
@@ -31,7 +31,7 @@
       .form-group
         label.form-label for="pq_member_constituency"  Member constituency
         = f.text_field :member_constituency, class:'form-control'
-      p.text Member has registered an interest in the question
+      p Member has registered an interest in the question
       .form-group.inline
         label.inline.block-label for="pq_registered_interest_false"
           = f.radio_button :registered_interest, 'false'
@@ -39,7 +39,7 @@
         label.inline.block-label for="pq_registered_interest_true"
           = f.radio_button :registered_interest, 'true'
           | Yes
-      p.text Question type
+      p Question type
       .form-group.inline
         label.block-label for="pq_question_type_ordinary"
           = f.radio_button :question_type, 'Ordinary'

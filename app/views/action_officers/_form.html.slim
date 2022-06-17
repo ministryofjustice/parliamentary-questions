@@ -20,7 +20,7 @@
       .form-group
         label.form-label for="action_officer_press_desk_id"  Press Desk
         = f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select")
-      p.text Status
+      p Status
       .form-group
         label.block-label for="action_officer_deleted"
           = f.check_box :deleted

@@ -1,5 +1,4 @@
 .pq-header.row
-
   .col-md-5
     h2 
       = link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin")
@@ -21,7 +20,6 @@
 
 p.pq-question
   = question.question
-.row
 - if question.is_new?
   / if a question is unassigned, No response or rejected: loop through and show rejection reasons
   = render partial: 'shared/rejected_reasons', locals: {question: question}

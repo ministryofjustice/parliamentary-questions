@@ -3,7 +3,7 @@ h2 PQ draft
   - @pq.action_officers_pqs.each do |ao_pq|
     - if ao_pq.accepted?
       h3 Date PQ accepted by action officer
-      p.text= ao_pq.updated_at.to_s
+      p= ao_pq.updated_at.to_s
 .form-group
   label.form-label for="draft_answer_received"  Date PQ returned by action officer
   .datetimepicker
