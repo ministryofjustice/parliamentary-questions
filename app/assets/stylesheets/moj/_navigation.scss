@@ -44,3 +44,23 @@
     padding: 4px;
   }
 }
+
+// override bootstrap
+@media (max-width: 767px) {
+  nav.navbar-default {
+    .navbar-nav .open .dropdown-menu > li > a {
+      color: #444;
+    }
+
+    #search_field.form-control {
+      display: inline-block;
+    }
+  }
+  .navbar-toggle .icon-bar {
+    background-color: #444;
+  }
+}
+
+nav.navbar-default .navbar-link {
+  color: #444;
+}
