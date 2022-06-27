@@ -1,5 +1,5 @@
 h2 PQ commission
-.deadline_input.form-group
+.form-group
   label.form-label for="pq_internal_deadline"
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, is_closed: @pq.closed?, draft_reply: @pq.draft_answer_received }}
   .datetimepicker.default-time
@@ -8,7 +8,7 @@ h2 PQ commission
 hr/
 .question-allocation
   h3 Action officer(s)
-  p.text
+  p
   - if @pq.action_officers.size > 0
     - @pq.action_officers_pqs.order(updated_at: :desc).each_with_index do |ao_pq, ind|
       - if ind > 0
@@ -16,38 +16,38 @@ hr/
       = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
     - @pq.action_officers_pqs.order(updated_at: :desc).each do |ao_pq|
       - if ao_pq.accepted?
-        - reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft})" : ''
-        br
-        = link_to raw("<span class=\"fa fa-envelope-o\"></span> Draft reminder #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send a reminder email to do the draft'}
-        p.text
-          = link_to 'Manually reject this action officer', {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
+        - reminder_draft_count =  ao_pq.reminder_draft > 0 ? " (#{ao_pq.reminder_draft} already sent)" : ''
+        p.space-before= link_to raw("<span class=\"fa fa-envelope-o\"></span> Send a draft reminder to #{ao_pq.action_officer.name} #{reminder_draft_count}"), {controller: 'action_officer_reminder', action: 'send_draft', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link'}
+        p.space-before= link_to "Manually reject #{ao_pq.action_officer.name}", {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
 
         h3 Email of Action Officer
-        p.text= mail_to ao_pq.action_officer.email
+        p= mail_to ao_pq.action_officer.email
         h3 Phone of Action Officer
-        p.text= ao_pq.action_officer.phone
+        p= ao_pq.action_officer.phone
         h3 Division of Action Officer
-        p.text= ao_pq.action_officer.deputy_director.division.name
+        p= ao_pq.action_officer.deputy_director.division.name
         h3 Directorate of Action Officer
-        p.text= ao_pq.action_officer.deputy_director.division.directorate.name
+        p= ao_pq.action_officer.deputy_director.division.directorate.name
         h3 Deputy director
-        p.text= ao_pq.action_officer.deputy_director.name
+        p= ao_pq.action_officer.deputy_director.name
         h3 Press Desk
-        = ao_pq.action_officer.press_desk.name
-        br/
-        - ao_pq.action_officer.press_desk.press_officers.reject(&:deleted?).each do |po|
-          = link_to po.name, press_officer_path(po)
-          br/
+        p= ao_pq.action_officer.press_desk.name
+        p
+          - ao_pq.action_officer.press_desk.press_officers.reject(&:deleted?).each_with_index do |po,ind|
+            - if ind > 0
+                = ', '
+            = link_to po.name, press_officer_path(po)
+        hr
       - if ao_pq.awaiting_response?
-        p.text.margin
+        p.space-before-20
           - reminder_accept_count =  ao_pq.reminder_accept > 0 ? " (#{ao_pq.reminder_accept} already sent)" : ''
           = link_to raw("<i class=\"fa fa-envelope-o\"></i> Send reminder to #{ao_pq.action_officer.name} #{reminder_accept_count}"), {controller: 'action_officer_reminder', action: 'accept_reject', id: ao_pq.id, remote: true}, {class: 'ao-reminder-link', title: 'Send an accept/reject reminder email'}
-        = link_to "Manually reject #{ao_pq.action_officer.name}", {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
+        p.space-before= link_to "Manually reject #{ao_pq.action_officer.name}", {controller: 'manual_reject_commission', action: 'reject_manual', id: ao_pq.id}, {class: 'button-secondary', title: 'Reject the question manually'}
     - unless @pq.is_new?
       = render partial: 'shared/action_officer_selection', locals: {action_officers: action_officers, question: @pq, form: f, reassign: true}
 
   - else
-    p.text Not allocated
+    p Not allocated
   = render partial:'shared/rejected_reasons', locals: {question: @pq}
 hr/
 = render partial: 'shared/minister_selection', locals: {question: @pq, form: f}

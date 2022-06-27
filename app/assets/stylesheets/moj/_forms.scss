@@ -1,37 +1,32 @@
-.button-choose {
-  background-color: $light-blue;
-  border: none;
-  box-shadow: 0 2px 0 darkblue;
-  color: $page-colour;
-  padding: 10px 15px 5px;
-}
+.form-group {
 
-.form-control, .form-group select {
-  width: 100%;
-}
+  .form-control, .form-label {
+    font-size: 1.9rem;
+  }
 
-.form-group.search {
+  .search {
   
-  label {
-    display: inline-block;
-    padding-right: .5em;
-    font-size: 90%;
-  }
-  
-  .search-box {
-    border: 2px solid #bfc1c3;
-    display: inline-block;
-  }
-  
-  input, #search_button {
-    border: none;
-    display: inline-block;
-  }
-  #search_button {
-    border-top: none;
-    border-right: none;
-    border-bottom: none;
-    border-left: 1px solid #bfc1c3;
+    label {
+      display: inline-block;
+      padding-right: .5em;
+      font-size: 90%;
+    }
+    
+    .search-box {
+      border: 2px solid #bfc1c3;
+      display: inline-block;
+    }
+    
+    input, #search_button {
+      border: none;
+      display: inline-block;
+    }
+    #search_button {
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: 1px solid #bfc1c3;
+    }
   }
 }
 

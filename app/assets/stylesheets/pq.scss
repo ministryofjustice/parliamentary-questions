@@ -10,41 +10,44 @@ $danger-colour: $error-colour;
 // = Global Elements ===========================================================
 //==============================================================================
 
+
+body, main {
+  font-size: 1.9rem;
+  line-height: 1.3;
+  color: $text-colour; 
+}
+
 h1 {
   font-family: "nta",Arial,sans-serif;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  margin: 20px 0 10px 0;
+  margin: 0;
+  padding: 20px 0 10px;
 }
 
 h2 {
-  font-size: 19px;
+  font-size: 24px;
   font-family: "nta",Arial,sans-serif;
   font-weight: normal;
-  margin: 10px 0 0 0;
-  color: $secondary-text-colour;
+  margin: 0;
+  padding: 15px 0;
 }
 
 h3 {
-  font-size: 19px;
+  font-size: 1.9rem;
   font-weight: normal;
   font-family: "nta",Arial,sans-serif;
-  color: $secondary-text-colour;
+  color: #555;
   margin: 10px 0 0 0;
 }
 
 h4 {
-  font-size: 19px;
+  font-size: 1.9rem;
   font-weight: normal;
   color: $text-colour;
 }
 
 p { margin: 0 0 6px 0; }
-
-body {
-  font-size: 19px;
-  line-height: 1.3;
-}
 
 textarea { resize: none; }
 
@@ -53,8 +56,9 @@ hr {
   height: 1px;
 }
 
-ul {
+ul, nav ul {
   list-style-type: none;
+  list-style: none;
   padding-left: 0;
 }
 
@@ -79,14 +83,10 @@ label {
 
 .open { color: $page-colour; }
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li > a, .file-choose-replace, .alert, button.close, .dropdown-menu li a:hover { color: black; }
-
 // == symbols =====
 
 .fa-times-circle { color: $error-colour; }
-.fa-check-circle { color: $success-colour; }
 .fa-warning { color: $error-colour; }
-.fa-file-o { color: $orange;}
 
 .fa-envelope {
   color: $page-colour;
@@ -97,15 +97,6 @@ label {
   margin-left: 5px;
 }
 
-// specify the colour of input placeholders (eg search bar) for all browsers
-::-webkit-input-placeholder { color: $grey-2; }
-:-moz-placeholder { color: $grey-2; opacity: 1; }
-::-moz-placeholder { color: $grey-2; opacity:  1; }
-:-ms-input-placeholder { color: $grey-2; }
-
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus,
 .dropdown-menu li a:hover, .dropdown-menu li a:focus { background-color: $yellow;  }
 
 .block-label:hover, .js-enabled .selected { border-color: $text-colour; }
@@ -131,12 +122,6 @@ label {
 
 #global-header.with-proposition .header-wrapper .header-proposition #proposition-name:hover {
   border-bottom: none;
-}
-
-.phase-banner {
-  a {
-    text-decoration: underline; // override bootstrap
-  }
 }
 
 // only visible on the staging server to warn that it is not the live system
@@ -165,7 +150,7 @@ button.close {
 .flag {
   border: 1.5px solid;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1.5rem;
   padding: 3px 5px;
   text-align: center;
   white-space: nowrap;
@@ -204,7 +189,6 @@ button, input[type="submit"] {
     padding: 0 !important;
     cursor: pointer;
     color: $link-colour;
-    font-size: 85%;
     text-decoration: underline;
   }
 }
@@ -239,13 +223,6 @@ li.select2-search-field {border-bottom: none;}
 }
 
 //= Forms ====
-
-.form-control {
-  font-size: 19px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-color: $border-colour;
-}
 
 .form-group.inline {
   .block-label {
@@ -357,6 +334,14 @@ textarea.form-control {
   }
 }
 
+#count {
+  max-width: 655px;
+  background-color: $highlight-colour;
+  padding: .7em 0 .7em .7em;
+  border-left: 5px solid $border-colour;
+  margin: .5em 0;
+}
+  
 .questions-list {
   padding: 0 0 20px;
   > li {
@@ -366,7 +351,7 @@ textarea.form-control {
   }
   .pq-question {
     margin: 0;
-    padding: 0;
+    padding: 20px 0 0 0;
   }
   .status-bar {
     line-height: 32px;
@@ -378,9 +363,10 @@ textarea.form-control {
 }
 
 .pq-header {
-  line-height: 27px;
-  .col-md-5 { padding-left: 0; }
 
+  .col-md-5 { padding: 0 0 5px 0; overflow: hidden; }
+
+  h2 { padding-top: 0; }
   label.pq-select {
     input[type="checkbox"] {
       width: 24px;
@@ -396,8 +382,7 @@ textarea.form-control {
 }
 
 .question-type {
-  color: $secondary-text-colour;
-  font-size: 19px;
+  color: #555;
   font-weight: bold;
   margin-left: 7px;
 }
@@ -411,7 +396,6 @@ textarea.form-control {
   border-left: 4px solid $colour;
   padding:15px;
   ul {
-    list-style: disc outside none;
     margin-left: 0;
     padding-left: 1em;
   }
@@ -427,10 +411,10 @@ textarea.form-control {
   border-radius: 0;
   border: 1px solid $border-colour;
   display: inline-block;
-  width: 194px;
+  width: 20rem;
   input {
     display: inline;
-    width: 88%;
+    width: 86%;
     border: none;
   }
 }
@@ -452,6 +436,7 @@ textarea.form-control {
   clear: both;
   thead tr th, tbody tr td {
     padding-left: 0; // bootstrap override
+    font-size: 1.6rem;
   }
 }
 
@@ -482,37 +467,10 @@ textarea.form-control {
 
 // = Allocation rejection control ==================================================
 /* used to show/hide allocation rejections*/
-.reveal{
-  div {
-    border-left: 5px solid #eee;
-    padding-left: .5em;
-    margin-top: .5em;
-    p{
-      &:first-child{ padding-top: .5em; }
-      &:last-child{ padding-bottom: .5em; }
-    }
-    &.closed{ display: none; }
-    &.opened{ display: block; }
-  }
-
-  > span {
-    color: #005ea5;
-    cursor: pointer;
-    margin-right: .5em;
-    position: relative;
-    &.closed {
-      &:before {
-        content: '► ';
-        position: absolute;
-        left: -1.25em;
-      }
-    }
-    &.opened {
-      &:before {
-        content: '▼ ';
-      }
-    }
-  }
+.question-allocation-list details .panel-indent { 
+  border-left: 5px solid #eee;
+  padding-left: .5em;
+  margin-top: .5em;
 }
 
 /* = New / In Progress Tabs ===================================================== */
@@ -552,8 +510,6 @@ textarea.form-control {
   display: block;
 }
 
-
-
 /* = Pagination ================================================================= */
 
 #pages {
@@ -586,63 +542,12 @@ textarea.form-control {
 /* ========= Specific pages ===================================================== */
 /* ============================================================================== */
 
-/* = Assignment page (/assignment) ============================================== */
-
-#assignment {
-  .panel-heading {
-    color: $text-colour;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  .row-spacer {
-    margin: 15px 0;
-  }
-}
-
-/* = finance/questions page ============================================== */
-#confirmation_button_bar { padding-left: 0; }
-
 /* = Dashboard page (/dashboard) ============================================ */
 
 #dashboard, #preview {
 
   h2 {
-    font-size: 24px;
-    display: inline-block;
     font-weight: bold;
-    margin: auto;
-    color: $text-colour;
-  }
-
-  ul li h3 {
-    display: inline-block;
-    margin-right: 0.5em;
-  }
-
-  #status-filters {
-    h2 {
-      margin: 0 0 10px 0;
-      color: $text-colour;
-    }
-    .active .badge {
-      color: #6f7781;
-      background-color: $page-colour;
-    }
-    .badge {
-      float: right;
-      min-width: 1.5em;
-      margin-top: .2em;
-      border-radius: 4px;
-      padding: 5px 2px 3px 3px;
-      background-color: black;
-    }
-  }
-
-  // errors that show when Quick Actions failed
-  .quick-action-export-error-message {
-    display: none;
-    color: $error-colour;
-    padding: 1em 0 0 2em;
   }
 
   // errors that show when commissioning failed
@@ -652,58 +557,23 @@ textarea.form-control {
     padding: 1em 0 0 2em;
   }
 
-  .dashboard-column1-uncommissioned { margin-bottom: 20px; }
-
-  .dashboard-column1-commissioned .col-md-6 {
-    padding-left: 0;
-    margin: 0 0 10px 0;
-  }
-
-  .dashboard-column-2 .text {
-    display: block;
-    margin: 0 0 6px 0;
+  .form-commission { margin-bottom: 20px;
+    padding: 20px 0 0 0;
+    .col-md-7, .col-md-5 { padding-left: 0; }
+    p { padding: 10px 0; }
   }
 
   .select2-search-choice div { line-height: 1em; }
 
-  label.form-label { color: $text-colour; }
 }
 
 /* = PQ Details Page (/pqs/[uin]) ============================================ */
 
 #pq-details {
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    display: inline-block;
-    margin: 0 10px 0 0;
-  }
 
-  h2 {
-    padding: 15px 0;
-    margin: 0;
-    color: $text-colour;
-    font-size: 24px;
-  }
+  h1 { display: inline-block; }
 
-  #progress-panel {
-    .date.datetimepicker, p, .text, hr, a, label {
-      &.block-label { margin: 0 0 20px 0; }
-      &.form-label { color: #6F777B; }
-      &.margin { margin-top: 15px; }
-    }
-    #save { margin-top: 40px; }
-  }
-
-  #pq-details-header {
-    #pq-details-ref {
-      padding: 11px 0;
-      margin: 0;
-      #pq-details-progress { margin-left: 26px; }
-    }
-  }
-
-  #pq-details-qa-link { display: block; padding-top: 5px; }
+  #pq-details-progress { margin-left: 26px; }
 
   ul.nav-tabs li a {
     outline: 0;
@@ -719,27 +589,22 @@ textarea.form-control {
   #pq-detail-area {
     margin-top: 15px;
 
-    #progress-menu {
+    nav {
       z-index: 1;
       padding: 0;
 
-      ul li a {
-        padding-left: 0;
-      }
-
-      ul li.active a {
-        padding-left: 1em;
+      li.active a {
         border: 1px solid #c2c2c2;
         border-right: 0;
-        margin-right: 0;
         border-radius: 6px 0 0 6px;
+        background-color: #fff;
         @media screen and (max-width: 991px) {
           border-radius: 6px;
           border: 1px solid #c2c2c2;
         }
       }
 
-      ul li a:link {
+      li a:link, li a:visited {
         color: black;
       }
     }
@@ -781,41 +646,10 @@ textarea.form-control {
 
 #filter-report {
 
-  h2 {
-    font-size: 24px;
-    display: inline-block;
-    font-weight: bold;
-    margin: auto;
-    color: $text-colour;
-  }
-
-  p.count {
-    font-size: 19px;
-    font-weight: bold;
-    margin: 20px 0 10px 0;
-  }
-
   .col-md-9 { padding: 0; }
-  .col-md-3 {
-    select{
-      width: 200px;
-      white-space: pre-wrap; /* css-3 */
-      white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-      white-space: -pre-wrap; /* Opera 4-6 */
-      white-space: -o-pre-wrap; /* Opera 7 */
-      word-wrap: break-word; /* Internet Explorer 5.5+ */
-      text-overflow: ellipsis;
-      option {}
-    }
-  }
-  .button { margin-right: 25%; 
-    @media (max-width: 641px) {
-        margin-bottom: 15px;
-    }
-  }
+  .col-md-3 select{ width: 100%; }
+  .button-secondary { float: right; margin-top: 10px; }
 }
-
-
 
 #minister-report,
 #press-desk-report {
@@ -830,15 +664,10 @@ textarea.form-control {
 
 #settings-home {
   h2 {
-    font-weight: bold;
     border-bottom: 2px solid $panel-colour;
     padding-bottom: 7.5px;
     display: block;
-    margin: 20px 0 10px 0;
-    color: $text-colour;
   }
-
-  ul { list-style: none; }
 
   ul li a {
     margin: 2px 0;
@@ -858,11 +687,9 @@ textarea.form-control {
   h2 {
     margin: 20px 0 10px 0;
     font-weight: bold;
-    color: $text-colour;
   }
   h3 {
     font-weight: bold;
-    color: $text-colour;
     margin: 20px 0 10px 0;
   }
 }
@@ -873,30 +700,12 @@ textarea.form-control {
   h2 {
     margin: 20px 0 10px 0;
     font-weight: bold;
-    color: $text-colour;
   }
   h3 {
     font-weight: bold;
-    color: $text-colour;
     margin: 20px 0 10px 0;
   }
 }
-
-/* = Minister details page (/ministers/) =========================== */
-/* = Press-desk page (/press_desks/]) ============================== */
-/* = CSV export page (/export) ===================================== */
-
-#admin-ministers-details h2:last-of-type,
-#admin-pd-details h2:last-of-type,
-#csv-export h2 {
-  margin: 20px 0 10px 0;
-  font-weight: bold;
-  color: $text-colour;
-}
-
-/* = Sign in page (/users/sign_in) ========================================== */
-
-#sign_in { margin: 30px 0; }
 
 /* = Metrics dashboard (/metrics_dashboard) ================================= */
 
@@ -936,42 +745,15 @@ textarea.form-control {
   #x-axis { text-align: center; font-size: 80% }
 }
 
-/* = preview page ========================================================== */
-
-#preview {
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 15px 0;
-  }
-  #sidebar {
-    .shim { display: block; }
-  }
-  @media (max-width: 991px) {
-    #sidebar {
-      .shim { display: none; }
-      #filters { position: static; }
-    }
-  }
-}
-
 /* = Filter sidebar ========================================================== */
 
 #dashboard, #preview {
-  #count {
-    max-width: 655px;
-    background-color: $highlight-colour;
-    padding: .7em 0 .7em .7em;
-    border-left: 5px solid $border-colour;
-    margin: .5em 0;
-  }
 
   #sidebar {
     padding: 0;
-    h2 {
-      color: $text-colour;
-      font-size: 19px;
-      font-weight: bold;
+    h2 {  
+      font-size: 1.9rem;
+      padding: 0;
     }
     input[type="button"]{
       padding-left: 0;
@@ -1002,8 +784,10 @@ textarea.form-control {
     #quick-links {
       padding-bottom: 9px;
       border-bottom: 2px solid $grey-2;
-      input[type="submit"] { margin-right: 10px; }
+      input[type="submit"] { margin: 0 10px 5px 0; }
       form { margin: 8px 0; }
+      .form-label { font-size: 1.9rem;}
+
       #editDates .content{
         padding-bottom: 10px;
         margin-bottom: 22px;
@@ -1031,9 +815,14 @@ textarea.form-control {
         padding: 4px 8px;
         background-color: $panel-colour;
         margin: 0.5em 0;
+
         legend {
           padding: 0;
           font-weight: normal;
+          font-size: 1.9rem;
+        }
+        input {
+            font-size: 1.9rem;
         }
         .notice {
           display: none;
@@ -1049,7 +838,6 @@ textarea.form-control {
         .view {
           width: 100%;
           text-align: left;
-          color: $text-colour;
           background-clip: border-box;
           background-origin: padding-box;
           background-size: auto auto;
@@ -1069,7 +857,6 @@ textarea.form-control {
             label {
               padding: 8px;
               margin-bottom: 0; // Override bootstrap
-              font-size: 16px;
               &:not(:last-child) { border-bottom: 1px solid $panel-colour; }
               input[type="radio"] {
                 margin-right: 8px;
@@ -1080,7 +867,7 @@ textarea.form-control {
             label:hover { background: $yellow; }
           }
           #keywords { width: 100%; }
-          .clearFilter { height: 1.5em; }
+          .clearFilter { overflow: hidden; }
         }
       }
     }
@@ -1093,3 +880,15 @@ textarea.form-control {
     }
   }
 }
+
+#footer .footer-meta { 
+  .copyright {
+    font-size: 1.6rem;
+  }
+  .footer-meta-inner { 
+    ul, .open-government-licence p {
+      font-size: 1.6rem;
+    }
+  }
+}
+

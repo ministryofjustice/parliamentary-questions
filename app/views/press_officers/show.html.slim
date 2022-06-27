@@ -2,12 +2,12 @@ h1 Press officer details
 #admin-po-details
   = render partial: "shared/flash_messages", flash: flash
   h2 Name
-  p.text= @press_officer.name
+  p= @press_officer.name
   h2 Email
-  p.text= @press_officer.email
+  p= @press_officer.email
   h2 Status
   = render partial: 'shared/status', object: @press_officer
-  p.text
+  p
     = link_to 'Edit', edit_press_officer_path(@press_officer), {class: 'admin-link'}
     span.visually-hidden
         = ' | '

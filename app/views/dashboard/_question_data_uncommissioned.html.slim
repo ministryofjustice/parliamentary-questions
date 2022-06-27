@@ -8,30 +8,27 @@
 
     /! start of 'sub column 1'
     .col-md-7
-      .dashboard-column1-uncommissioned
-        = render partial: 'shared/minister_selection', locals: {question: question, form: f}
-        = render partial: 'shared/action_officer_selection', locals: {action_officers: action_officers, question: question, form: f, reassign: false}
-        .form-group
-          = f.hidden_field(:pq_id , :value => question.id)
+      = render partial: 'shared/minister_selection', locals: {question: question, form: f}
+      = render partial: 'shared/action_officer_selection', locals: {action_officers: action_officers, question: question, form: f, reassign: false}
+      .form-group
+        = f.hidden_field(:pq_id , :value => question.id)
 
     /! start of sub column 2
     .col-md-5
-      .dashboard-column-2
-        - if !question.house_name.nil?
-          label.form-label= question.house_name
-          p.text= question.member_name
+      - if !question.house_name.nil?
+        label.form-label= question.house_name
+        p= question.member_name
 
-        label.form-label for="pq_date_for_answer-#{question.id}" Date for answer
-        .datepicker.form-group
-          input.answer-date.form-control.required-for-commission id="pq_date_for_answer-#{question.id}" name="commission_form[date_for_answer]" type="text" value=(question.date_for_answer.try(:to_s, :date))
-          span.fa.fa-calendar title="select a date"
-        = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed? }
+      label.form-label for="pq_date_for_answer-#{question.id}" Date for answer
+      .datepicker.form-group
+        input.answer-date.form-control.required-for-commission id="pq_date_for_answer-#{question.id}" name="commission_form[date_for_answer]" type="text" value=(question.date_for_answer.try(:to_s, :date))
+        span.fa.fa-calendar title="select a date"
+      = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed? }
 
-        label.form-label for="pq_internal_deadline-#{question.id}" Internal deadline
-        .datetimepicker.form-group.default-time#internal-deadline
-          input.deadline-date.form-control.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.to_s)
-          span.fa.fa-calendar title="select a date"
-        = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
+      label.form-label for="pq_internal_deadline-#{question.id}" Internal deadline
+      .datetimepicker.form-group.default-time#internal-deadline
+        input.deadline-date.form-control.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.to_s)
+        span.fa.fa-calendar title="select a date"
+      = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
     .form-group  
       = f.submit 'Commission', :class => 'button commission-button'
-    /!, :disabled => disabled, data: {disable_with: 'Commissioning...'} .commissioning-error-message

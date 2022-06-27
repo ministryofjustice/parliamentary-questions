@@ -7,34 +7,33 @@
       #filters.js-stick-at-top-when-scrolling
         h2 Filter
         #question-type.filter-box
-          input.view.open type="button" value="Question type"
-          .notice
-            span 1 selected
-          .content.collapsed
-            .list
-              label for="named-day"
-                input id="named-day" type="radio" name="question-type" value="Named Day"
-                'Named Day
-              label for="ordinary"
-                input id="ordinary" type="radio" name="question-type" value="Ordinary"
-                'Ordinary
-              label for="transferred-in"
-                input id="transferred-in" type="radio" name="question-type" value="Transferred in"
-                'Transferred in
-            .clearFilter
-              input#clear-type-filter.clear.right type="button" value="Clear"
+          fieldset
+            legend
+              input.view.open type="button" value="Question type"
+            .notice
+              span 1 selected
+            .content.collapsed
+              .list
+                label for="named-day"
+                  input id="named-day" type="radio" name="question-type" value="Named Day"
+                  'Named Day
+                label for="ordinary"
+                  input id="ordinary" type="radio" name="question-type" value="Ordinary"
+                  'Ordinary
+                label for="transferred-in"
+                  input id="transferred-in" type="radio" name="question-type" value="Transferred in"
+                  'Transferred in
+              .clearFilter
+                input#clear-type-filter.clear.right type="button" value="Clear"
 
         .filter-box
-          h3 Keywords
+          label for="keywords" Keywords
           .content
             input#keywords.form-control type="text" placeholder="e.g. keywords, names"
             .clearFilter
               input#clear-keywords-filter.right type="button" value="Clear"
 
-        a target="_blank" href="#{@parliament_url}" Today's PQs for all departments
-        p
-          '(opens in a new tab)
-
+        a target="_blank" href="#{@parliament_url}" Today's PQs for all departments (opens in a new tab)
 
     .col-md-9.col-md-pull-3
       #count
@@ -44,19 +43,14 @@
       ul.questions-list
         - @questions.each do |question|
           li.question
-            .pq-header.row
-              .col-md-5
-                h2
-                  u= link_to(question.uin, {controller: 'pqs', action: 'show', id: question.uin}, :class => "question-uin")
-                .pq-header-flags
-                  - if question.question_type == 'NamedDay'
-                    span.question-type | Named Day
-                  - if question.transferred
-                    span.question-type | Transferred in
-                  - if question.question_type == 'Ordinary'
-                    span.question-type | Ordinary
-              .col-md-5
-              .col-md-2
+            h2
+              = link_to(question.uin, {controller: 'pqs', action: 'show', id: question.uin}, :class => "question-uin")
+              - if question.question_type == 'NamedDay'
+                span.question-type | Named Day
+              - if question.transferred
+                span.question-type | Transferred in
+              - if question.question_type == 'Ordinary'
+                span.question-type | Ordinary
             span.pq-question #{question.question}
             - unless question.member_name.empty?
               h3 Asked by:

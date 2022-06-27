@@ -1,9 +1,9 @@
 h2 PQ Details
 h3
   abbr title="Unique Identification Number" UIN
-p.text= @pq.uin
+p = @pq.uin
 h3 House
-p.text= @pq.house_name
+p= @pq.house_name
 
 .form-group
   label.form-label for="date_for_answer"  Date for answer back to Parliament
@@ -12,24 +12,24 @@ p.text= @pq.house_name
     span.fa.fa-calendar title="select a date"
 
 h3 Tabling member
-p.text= @pq.member_name
+p= @pq.member_name
 
 h3 Question type
-p.text= @pq.question_type
+p= @pq.question_type
 
 h3 Question tabled date
 - if @pq.tabled_date
-  p.text= @pq.tabled_date.try(:to_s, :date)
+  p= @pq.tabled_date.try(:to_s, :date)
 - if @pq.registered_interest
-  p.text
+  p
     | * Member has registered an interest in the Question.
 - if @pq.transfer_in_ogd_id
-  p.text
+  p
     | Transferred in from #{@pq.transfer_in_ogd.name} on #{@pq.transfer_in_date.try(:to_s, :date)}
 hr/
 
 h3 Question
-p.text= @pq.question
+p = @pq.question
 hr/
 = render partial: 'gds_checkbox', locals: { value: @pq.round_robin,
                                             field: 'round_robin',

@@ -23,8 +23,12 @@ div#filter-report
       - if @questions.empty?
         h2 Please select a filter option
       - else
-        p.count
-          = pluralize(@questions.total_entries,'Question') + ' found'
+        #count
+          strong
+            = @questions.total_entries
+          span
+            = @questions.total_entries > 1 ? ' questions' : ' question'
+            = ' found'
         ul.questions-list
           - @questions.each do |question|
             li id="pq-frame-#{question.id}"

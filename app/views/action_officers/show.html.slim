@@ -2,22 +2,22 @@
   h1 Action officer details
   = render partial: "shared/flash_messages", flash: flash
   h2 Name
-  p.text= @action_officer.name
+  p= @action_officer.name
   h2 Email
-  p.text= @action_officer.email
+  p= @action_officer.email
   h2 Group email
-  p.text= @action_officer.group_email
+  p= @action_officer.group_email
   h2 Phone
-  p.text= @action_officer.phone
+  p= @action_officer.phone
   h2 Deputy director
-  p.text= @action_officer.deputy_director.name
+  p= @action_officer.deputy_director.name
   h2 Division
-  p.text= @action_officer.deputy_director.division.name
+  p= @action_officer.deputy_director.division.name
   h2 Press desk
-  p.text= @action_officer.press_desk.name
+  p= @action_officer.press_desk.name
   h2 Status
   = render partial: 'shared/status', object: @action_officer
-  p.text
+  p
     = link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'admin-link'}
     span.visually-hidden
       = ' | '

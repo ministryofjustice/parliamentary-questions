@@ -9,7 +9,7 @@
   = @deputy_director.division.name
   h2 Status
   = render partial: 'shared/status', object: @deputy_director
-  p.text
+  p
     = link_to 'Edit', edit_deputy_director_path(@deputy_director), {class: 'admin-link'}
     span.visually-hidden
         = ' | '

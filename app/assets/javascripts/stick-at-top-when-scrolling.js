@@ -50,7 +50,7 @@
 
           if (scrolledFrom && windowVerticalPosition < scrolledFrom){
             sticky.release($el);
-          } else if($(root).width() > 768 && windowVerticalPosition >= $el.offset().top) {
+          } else if($(root).width() > 991 && windowVerticalPosition >= $el.offset().top) {
             sticky.stick($el);
           }
         });

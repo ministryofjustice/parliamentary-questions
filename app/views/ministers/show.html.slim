@@ -2,9 +2,9 @@
   h1 Minister details
   = render partial: "shared/flash_messages", flash: flash
   h2 Name
-  p.text= @minister.name
+  p= @minister.name
   h2 Title
-  p.text= @minister.title
+  p= @minister.title
   h2 Status
   = render partial: 'shared/status', object: @minister
   h2 Contacts
