@@ -20,25 +20,6 @@
       "note": ""
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "0bac40d5de3ffb6f1762ebf3d36913285c3a2ebc43b2e23fad2febfafd870b44",
-      "message": "Possible SQL injection",
-      "file": "lib/pq_statistics/ao_churn.rb",
-      "line": 47,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(((\"SELECT FROM ( SELECT pq.id as pq_id, FROM pqs  pq \" + \"AND pq.created_at >= '#{bucket_dates.last.strftime(\"%Y-%m-%d\")}'::date \") + \"GROUP BY pq.id, pq.created_at, aopq_created_at \"))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PqStatistics::AoChurn",
-        "method": "pq_data"
-      },
-      "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
-      "confidence": "Medium",
-      "note": ""
-    },
-    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "4c8abd2e60c229fa01041f3a6f4e90d3ca4a81c577cb6f44948e244652249a6f",
@@ -54,44 +35,6 @@
         "method": "start"
       },
       "user_input": "RACK_CONFIG_PATH",
-      "confidence": "Medium",
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "5d69844e76884063a5133bd10db79048eb37feb149a1d1e2858a407cc9101bcb",
-      "message": "Possible SQL injection",
-      "file": "lib/pq_statistics/ao_churn.rb",
-      "line": 47,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(((\"SELECT FROM ( SELECT pq.id as pq_id, FROM pqs  pq \" + \"AND pq.created_at >= '#{bucket_dates.last.strftime(\"%Y-%m-%d\")}'::date \") + \"GROUP BY pq.id, pq.created_at, aopq_created_at \"))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PqStatistics::AoChurn",
-        "method": "pq_data"
-      },
-      "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
-      "confidence": "Medium",
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "71cc79661ebd4a9ba1bb9a6194a7d9c1ba7e441b1b9ecf356a27512692590ee5",
-      "message": "Possible SQL injection",
-      "file": "lib/pq_statistics/time_to_assign.rb",
-      "line": 43,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(((\"SELECT pq.created_at as pq_created_at, \" + \"AND pq.created_at >= '#{bucket_dates.last.strftime(\"%Y-%m-%d\")}'::date \") + \"AND pq.follow_up_to is NULL GROUP BY pq.id \"))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PqStatistics::TimeToAssign",
-        "method": "pq_data"
-      },
-      "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
       "confidence": "Medium",
       "note": ""
     },
@@ -133,26 +76,7 @@
       "confidence": "Medium",
       "note": ""
     },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "d30416b8959cee52d97958d909be7fe870ce17c7d8dc89e708fc3f95bdcdae07",
-      "message": "Possible SQL injection",
-      "file": "lib/pq_statistics/time_to_assign.rb",
-      "line": 43,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(((\"SELECT pq.created_at as pq_created_at, \" + \"AND pq.created_at >= '#{bucket_dates.last.strftime(\"%Y-%m-%d\")}'::date \") + \"AND pq.follow_up_to is NULL GROUP BY pq.id \"))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "PqStatistics::TimeToAssign",
-        "method": "pq_data"
-      },
-      "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
-      "confidence": "Medium",
-      "note": ""
-    }
-  ],
+ ],
   "updated": "2016-06-15 10:24:06 +0100",
   "brakeman_version": "3.3.0"
 }

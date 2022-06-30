@@ -62,10 +62,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Uncomment if you wish to allow Action Cable access from any origin.
-  # config.action_cable.disable_request_forgery_protection = true
-  config.gecko_auth_username = ENV['GECKO_AUTH_USERNAME']
-
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'
     ActionMailer::Base.delivery_method = :sendmail

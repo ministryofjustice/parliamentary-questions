@@ -73,16 +73,8 @@ module Settings
     OpenStruct.new(@h['mail_worker'])
   end
 
-  def gecko_warning_levels
-    OpenStruct.new(@h['gecko_warning_levels'])
-  end
-
   def smoke_test_runner
     OpenStruct.new(@h['smoke_test_runner'])
-  end
-
-  def key_metric_threshold
-    @h['key_metric_threshold']
   end
 
   def parliamentary_team_email

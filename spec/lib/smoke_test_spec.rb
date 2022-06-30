@@ -13,7 +13,6 @@ describe SmokeTest do
 
     expect(tests[0]).to be_an_instance_of SmokeTest::Dashboard
     expect(tests[1]).to be_an_instance_of SmokeTest::Report
-    expect(tests[2]).to be_an_instance_of SmokeTest::Statistics
   end
 
   context 'Base' do
