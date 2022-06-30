@@ -23,7 +23,6 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :deputy_directors
   resources :divisions
   resources :directorates
-  resources :watchlist_members
   resources :early_bird_members
   resources :actionlist_members
   resources :action_officers
@@ -71,10 +70,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'assignment/:uin'  => 'assignment#show', as: :assignment
   post 'assignment/:uin' => 'assignment#create'
-
-  get 'watchlist/dashboard'   => 'watchlist_dashboard#index'
-  get 'watchlist/preview'     => 'watchlist_dashboard#preview'
-  get 'watchlist/send_emails' => 'watchlist_send_emails#send_emails'
 
   get 'early_bird/dashboard'   => 'early_bird_dashboard#index'
   get 'early_bird/preview'     => 'early_bird_dashboard#preview'

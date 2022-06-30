@@ -9,7 +9,6 @@ describe RakeTaskHelpers::DBSanitizer do
     mc  = FactoryBot.create(:minister_contact)
     po  = FactoryBot.create(:press_officer)
     u   = FactoryBot.create(:user)
-    wlm = FactoryBot.create(:watchlist_member)
 
     RakeTaskHelpers::DBSanitizer.new.run!
 
