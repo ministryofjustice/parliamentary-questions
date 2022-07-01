@@ -68,9 +68,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'find_action_officers' => 'action_officers#find'
 
-  get 'finance/questions' => 'finance#questions'
-  post 'finance/confirm'  => 'finance#confirm'
-
   get 'transferred/new'     => 'transferred#new'
   post 'transferred/create' => 'transferred#create'
 
