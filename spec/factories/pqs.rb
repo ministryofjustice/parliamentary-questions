@@ -76,7 +76,6 @@ FactoryBot.define do
     state { PQState::UNASSIGNED }
 
     factory :checked_by_finance_pq do
-      finance_interest { false }
 
       factory :not_responded_pq do
         state { PQState::NO_RESPONSE }

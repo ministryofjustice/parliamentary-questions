@@ -532,12 +532,4 @@ describe Pq do
     end
   end
 
-  describe 'item' do
-    it 'should allow finance interest to be set' do
-      subject.finance_interest = true
-      expect(subject).to be_valid
-      subject.finance_interest = false
-      expect(subject).to be_valid
-    end
-  end
 end
