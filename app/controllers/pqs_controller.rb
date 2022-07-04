@@ -83,7 +83,6 @@ class PqsController < ApplicationController
     :holding_reply,
     :pod_query,
     :pod_clearance,
-    :correction_circulated_to_action_officer,
     :sent_to_policy_minister,
     :policy_minister_to_action_officer,
     :policy_minister_returned_by_action_officer,
