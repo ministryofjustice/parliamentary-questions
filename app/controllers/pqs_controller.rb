@@ -63,7 +63,6 @@ class PqsController < ApplicationController
   PARAMS = [
     :answering_minister_query,
     :holding_reply_flag,
-    :i_will_write,
     :library_deposit,
     :minister_id,
     :pod_query_flag,
@@ -81,7 +80,6 @@ class PqsController < ApplicationController
     :date_for_answer,
     :internal_deadline,
     :draft_answer_received,
-    :i_will_write_estimate,
     :holding_reply,
     :pod_query,
     :pod_clearance,

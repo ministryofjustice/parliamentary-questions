@@ -47,8 +47,7 @@ describe Presenters::DashboardFilters do
         PQState::DRAFT_PENDING => 1,
         PQState::WITH_POD => 2,
         PQState::POD_QUERY => 3,
-        PQState::MINISTER_CLEARED => 4,
-        'iww' => 2
+        PQState::MINISTER_CLEARED => 4
       }
     end
 
@@ -70,7 +69,6 @@ describe Presenters::DashboardFilters do
         ['With Minister', 0, dashboard_in_progress_by_status_path(qstatus: PQState::WITH_MINISTER), false],
         ['Ministerial Query', 0, dashboard_in_progress_by_status_path(qstatus: PQState::MINISTERIAL_QUERY), false],
         ['Minister Cleared', 4, dashboard_in_progress_by_status_path(qstatus: PQState::MINISTER_CLEARED), false],
-        ['I will write', 2, dashboard_iww_path, false]
       ]
 
       filter_values =

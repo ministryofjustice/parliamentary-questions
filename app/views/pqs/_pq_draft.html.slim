@@ -9,9 +9,6 @@ h2 PQ draft
   .datetimepicker
     input#draft_answer_received.form-control name="pq[draft_answer_received]" type="text" value=(@pq.draft_answer_received.to_s) /
     span.fa.fa-calendar title="select a date"
-= render partial: 'gds_checkbox', locals: { value: @pq.i_will_write,
-                                            field: 'i_will_write',
-                                            label: 'I will write' }
 
 = render partial: 'gds_checkbox', locals: { value: @pq.pq_correction_received,
                                             field: 'pq_correction_received',
