@@ -129,8 +129,6 @@ module Export
           escape_equals_for_excel(pq.uin),
           # '"Date/time of POD clearance"',
           pq.pod_clearance && pq.pod_clearance.strftime(DATE_FORMAT),
-          # 'PODquery',
-          escape_equals_for_excel(pq.pod_query_flag),
           # 'Requested by HR',
           nil,
           # 'Requested by Press',
