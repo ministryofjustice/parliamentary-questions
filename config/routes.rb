@@ -108,6 +108,9 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get 'reports/ministers_by_progress'  => 'reports#ministers_by_progress'
   get 'reports/press_desk_by_progress' => 'reports#press_desk_by_progress'
+
+  get '/accessibility' => 'pages#accessibility'
+
   match 'reports/filter_all'           => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
 
   if Rails.env.development?
