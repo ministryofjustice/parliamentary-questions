@@ -111,7 +111,7 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get '/accessibility' => 'pages#accessibility'
 
-  match 'reports/filter_all'           => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
+  match 'reports/filter_all' => 'reports#filter_all', via: [:get, :post], as: 'filter_all'
 
   if Rails.env.development?
     mount_rails_db_info as: 'rails_db_info_engine'
