@@ -1,9 +1,5 @@
 .form-group {
 
-  .form-control, .form-label {
-    font-size: 1.9rem;
-  }
-
   .search {
   
     label {
@@ -30,10 +26,14 @@
   }
 }
 
-.content-inner legend {
-  border: none;
-  display: block;
-  margin: 0;
-  padding: 15px 0;
-  font-weight: bold;
+.content-inner { 
+  legend {
+    border: none;
+    display: block;
+    margin: 0;
+    padding: 15px 0;
+    font-weight: bold;
+  }
+
+  .form-label, .form-control { font-size: 1.9rem; }
 }
