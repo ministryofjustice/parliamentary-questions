@@ -197,11 +197,7 @@ function _deploy() {
     kubectl set image -f k8s-deploy/${environment}/early_bird_dispatch_cronjob.yaml \
             early-bird-dispatch=${docker_image_tag} \
             --local --output yaml | kubectl apply -n $namespace -f -
-
-    kubectl apply -f k8s-deploy/${environment}/cronjob-delete-old-ecr-images.yaml -n $namespace
-
   fi
-
 }
 
 _deploy $@
