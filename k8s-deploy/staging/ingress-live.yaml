@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: pq-staging
@@ -9,14 +9,18 @@ metadata:
     external-dns.alpha.kubernetes.io/set-identifier: pq-staging-parliamentary-questions-staging-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
+  ingressClassName: default
   rules:
     - host: staging.trackparliamentaryquestions.service.gov.uk
       http:
         paths:
-          - backend:
-              serviceName: parliamentary-questions-service
-              servicePort: 3000
-            path: /
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: parliamentary-questions-service
+              port: 
+                number: 3000
   tls:
     - hosts:
         - staging.trackparliamentaryquestions.service.gov.uk
