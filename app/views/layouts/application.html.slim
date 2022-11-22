@@ -10,6 +10,14 @@
   = stylesheet_link_tag('vendor/pq-select2.css', media: 'all')
   = stylesheet_link_tag('application.css', media: 'all')
 
+  javascript:
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5RRTCM3');
+
+- content_for :body_start do
+  - content_for :body_start do
+    noscript
+      iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RRTCM3" height="0" width="0" style="display:none;visibility:hidden"
+
 - content_for :header_class do
   = "with-proposition"
 
@@ -53,20 +61,5 @@
   <!--[if gt IE ]><!-->
     = javascript_include_tag('application.js')
   <!--<![endif]-->
-
-  javascript:
-   (function (i, s, o, g, r, a, m) {
-     i['GoogleAnalyticsObject'] = r;
-     i[r] = i[r] || function () {
-       (i[r].q = i[r].q || []).push(arguments)
-     }, i[r].l = 1 * new Date();
-     a = s.createElement(o),m = s.getElementsByTagName(o)[0];
-     a.async = 1;
-     a.src = g;
-     m.parentNode.insertBefore(a, m)
-   })
-   (window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-   ga('create', '#{Settings.ga_tracker_id}', 'auto');
-   ga('send', 'pageview');
 
 = render template: "layouts/govuk_template"

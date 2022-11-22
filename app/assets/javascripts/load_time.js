@@ -45,6 +45,7 @@ MoJLoadTime = {
 	},
 
 	sendEventToGoogle: function(pageName, label, loadTime) {
+		ga('create', 'UA-37377084-14');
 		ga('send', 'event', this.category, pageName, label, parseInt(loadTime));
 	}
 }
