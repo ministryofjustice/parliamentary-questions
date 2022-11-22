@@ -1,5 +1,4 @@
 module Settings
-
   class PqRestApi
     attr_reader :host, :username, :password
 
