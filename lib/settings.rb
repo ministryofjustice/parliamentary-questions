@@ -1,6 +1,4 @@
 module Settings
-  DEFAULT_GA_TRACKER_ID = 'UA-37377084-14'
-
   class PqRestApi
     attr_reader :host, :username, :password
 
@@ -59,10 +57,6 @@ module Settings
 
   def http_client_timeout
     @h['http_client_timeout']
-  end
-
-  def ga_tracker_id
-    ENV.fetch('GA_TRACKER_ID', DEFAULT_GA_TRACKER_ID)
   end
 
   def healthcheck_pqa_api_interval
