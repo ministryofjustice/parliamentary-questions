@@ -9,16 +9,32 @@ require './spec/support/db_helpers'
 require 'rspec/rails'
 require 'paper_trail/frameworks/rspec'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app,
-                                    phantomjs_logger: File.new('/dev/null', 'a'),
-                                    window_size: [1024, 1500]
-                                   )
+Webdrivers.cache_time = 86_400
+Capybara.default_max_wait_time = 4
+Capybara.asset_host = 'http://localhost:3000'
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-Capybara.javascript_driver = :poltergeist
+Capybara.register_driver :headless_chrome do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+
+  unless ENV["CHROME_DEBUG"]
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--start-maximized')
+    options.add_argument('--window-size=1980,2080')
+    options.add_argument('--enable-features=NetworkService,NetworkServiceInProcess')
+  end
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
+end
+
+Capybara.javascript_driver = :headless_chrome
+Capybara.server = :puma, { Silent: true }
 
 RSpec.configure do |config|
   # Helper modules to load
