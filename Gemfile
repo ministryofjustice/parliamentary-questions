@@ -46,13 +46,12 @@ end
 group :test, :development do
   gem 'awesome_print', '~> 1.9', '>= 1.9.2'
   gem 'brakeman', '~> 5.2', require: false
+  gem 'capybara', '~> 3.37'
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 2.20'
   gem 'launchy', '~> 2.5'
   gem 'letter_opener', '~> 1.7'
-  gem 'webdrivers', '~> 5.2.0'
-  gem 'capybara', '~> 3.37'
   gem 'pry-byebug', '~> 3.9'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
@@ -63,6 +62,7 @@ group :test, :development do
   gem 'shoulda-matchers', '~> 5.1', require: false
   gem 'sinatra', '~> 2.2'
   gem 'timecop', '~> 0.9.5'
+  gem 'webdrivers', '~> 5.2.0'
 end
 
 group :test do
