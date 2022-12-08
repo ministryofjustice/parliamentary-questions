@@ -26,4 +26,12 @@ module ApplicationHelper
   def minister_warning?(question, minister)
     !!(question.present? && question.open? && minister.try(:deleted?))
   end
+
+  def show_inactive_link(show_inactive)
+    if show_inactive   
+      link_to ('View active action officers'), action_officers_path, {class: 'button-secondary'}
+    else  
+      link_to ('View inactive action officers'), action_officers_path(show_inactive: true), {class: 'button-secondary'}
+    end  
+  end  
 end

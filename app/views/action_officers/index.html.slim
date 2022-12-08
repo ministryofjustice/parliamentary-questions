@@ -4,6 +4,8 @@ h1 Action officers
   .row
     ul#admin-button-bar
       li= link_to ('Add Action Officer'), new_action_officer_path, {class: 'button-secondary'}
+      li= show_inactive_link(@show_inactive)
+
   table.table
     thead
       tr

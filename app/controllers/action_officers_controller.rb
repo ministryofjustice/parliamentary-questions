@@ -2,11 +2,18 @@ class ActionOfficersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @action_officers = ActionOfficer.active_list
-                                    .joins(deputy_director: :division)
-                                    .order(deleted: :asc)
-                                    .order(Arel.sql('lower(divisions.name)'))
-                                    .order(Arel.sql('lower(action_officers.name)'))
+    @show_inactive = (params[:show_inactive] == 'true')
+    @action_officers = if @show_inactive
+                        ActionOfficer.inactive_list
+                      else
+                        ActionOfficer.active_list  
+                      end
+
+    @action_officers = @action_officers.joins(deputy_director: :division)
+                                     .order(deleted: :asc)
+                                     .order(Arel.sql('lower(divisions.name)'))
+                                     .order(Arel.sql('lower(action_officers.name)'))
+
     update_page_title 'Action officers'
   end
 
