@@ -3,17 +3,12 @@ class ActionOfficersController < ApplicationController
 
   def index
     @show_inactive = (params[:show_inactive] == 'true')
-    @action_officers =
-      if @show_inactive
-        ActionOfficer.inactive_list
-      else
-        ActionOfficer.active_list
-      end
+    list = @show_inactive ? ActionOfficer.inactive_list : ActionOfficer.active_list
 
-    @action_officers = @action_officers.joins(deputy_director: :division)
-                                       .order(deleted: :asc)
-                                       .order(Arel.sql('lower(divisions.name)'))
-                                       .order(Arel.sql('lower(action_officers.name)'))
+    @action_officers = list.joins(deputy_director: :division)
+                          .order(deleted: :asc)
+                          .order(Arel.sql('lower(divisions.name)'))
+                          .order(Arel.sql('lower(action_officers.name)'))
 
     update_page_title 'Action officers'
   end
