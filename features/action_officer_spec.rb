@@ -61,4 +61,24 @@ feature 'Managing action officers', js: true, suspend_cleaner: true do
     expect(page).to have_content 'an action officer cannot be assigned twice to the same deputy director'
     expect(page).not_to have_content 'Action officer was successfully created'
   end
+
+  scenario 'Parli-branch can see inactive action officers' do
+    create_pq_session
+    visit action_officers_path
+    ao = ActionOfficer.last
+    expect(page).to have_content ao.name
+
+    ao.update_attribute :deleted, true
+    ao.update_attribute :updated_at, 2.weeks.ago
+    visit action_officers_path
+    expect(page).not_to have_content ao.name
+
+    click_link 'View inactive action officers'
+    expect(page).to have_content ao.name
+    expect(page).to_not have_content 'View inactive action officers'
+
+    click_link 'View active action officers'
+    expect(page).not_to have_content ao.name
+    expect(page).to_not have_content 'View active action officers'
+  end
 end
