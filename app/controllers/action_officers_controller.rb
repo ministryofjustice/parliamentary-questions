@@ -3,10 +3,11 @@ class ActionOfficersController < ApplicationController
 
   def index
     @show_inactive = (params[:show_inactive] == 'true')
-    @action_officers = if @show_inactive
+    @action_officers =
+                      if @show_inactive
                         ActionOfficer.inactive_list
                       else
-                        ActionOfficer.active_list  
+                        ActionOfficer.active_list
                       end
 
     @action_officers = @action_officers.joins(deputy_director: :division)
