@@ -79,6 +79,6 @@ feature 'Managing action officers', js: true, suspend_cleaner: true do
 
     click_link 'View active action officers'
     expect(page).not_to have_content ao.name
-    expect(page).to_not have_content 'View active action officers'
+    expect(page).not_to have_content 'View active action officers'
   end
 end
