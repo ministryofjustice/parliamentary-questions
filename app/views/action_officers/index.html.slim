@@ -4,6 +4,8 @@ h1 Action officers
   .row
     ul#admin-button-bar
       li= link_to ('Add Action Officer'), new_action_officer_path, {class: 'button-secondary'}
+      li= action_officer_toggle_link(@show_inactive)
+
   table.table
     thead
       tr
@@ -20,7 +22,7 @@ h1 Action officers
           td= action_officer.press_desk.name unless action_officer.press_desk.nil?
           td= render partial: 'shared/status', object: action_officer
           td.edit
-            = link_to edit_action_officer_path(action_officer) do 
+            = link_to edit_action_officer_path(action_officer) do
               'Edit
               span.visually-hidden
                 = action_officer.name

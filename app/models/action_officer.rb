@@ -51,6 +51,6 @@ class ActionOfficer < ActiveRecord::Base
       "#{name} (#{deputy_director.division.name})"
     end
   end
-
+  scope :inactive_list, -> { where('action_officers.deleted = ?', true) }
   scope :active_list, -> { where('action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end
