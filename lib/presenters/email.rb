@@ -35,7 +35,6 @@ module Presenters
         Set.new([deputy_director_email]) +
         mp_emails(pq) +
         policy_mpemails(pq) +
-        action_list_emails +
         finance_users_emails(pq) +
         press_emails(ao)
 
@@ -70,10 +69,6 @@ module Presenters
 
     def press_emails(ao)
       Array(ao.press_desk && ao.press_desk.press_officer_emails)
-    end
-
-    def action_list_emails
-      ActionlistMember.active.pluck(:email)
     end
 
     def finance_users_emails(pq)

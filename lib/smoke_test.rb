@@ -7,9 +7,7 @@ module SmokeTest
   ALL =
     [
       SmokeTest::Dashboard,
-      SmokeTest::Report,
-      SmokeTest::Statistics
-    ]
+      SmokeTest::Report    ]
 
   def factory
     ALL.map(&:from_env)

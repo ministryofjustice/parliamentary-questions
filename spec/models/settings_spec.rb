@@ -68,11 +68,6 @@ describe Settings do
       end
     end
 
-    describe '.key_metric_threshold' do
-      it 'should return the value from the file' do
-        expect(Settings.key_metric_threshold).to eq 0.5
-      end
-    end
   end
 
   context 'MailWorker' do
@@ -92,14 +87,6 @@ describe Settings do
       it 'should return the value from the file' do
         expect(Settings.mail_worker.timeout).to eq 300
       end
-    end
-  end
-
-  context 'Gecko Warning Levels' do
-    it 'should return the values in the file' do
-      expect(Settings.gecko_warning_levels.num_emails_waiting).to eq 15
-      expect(Settings.gecko_warning_levels.num_emails_abandoned).to eq 1
-      expect(Settings.gecko_warning_levels.pctg_answered_tokens).to eq 50
     end
   end
 

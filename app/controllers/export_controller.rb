@@ -7,16 +7,8 @@ class ExportController < ApplicationController
     update_page_title('Export PQs')
   end
 
-  def index_for_pod
-    update_page_title('POD export PQs')
-  end
-
   def csv
     run_export(Export::PqDefault, 'index.html.slim')
-  end
-
-  def csv_for_pod
-    run_export(Export::PqPod, 'index_for_pod.html.slim')
   end
 
   def csv_quick

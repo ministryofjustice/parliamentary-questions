@@ -33,8 +33,6 @@
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string(255)
-#  round_robin                                   :boolean
-#  round_robin_date                              :datetime
 #  i_will_write                                  :boolean
 #  pq_correction_received                        :boolean
 #  correction_circulated_to_action_officer       :datetime
@@ -55,7 +53,6 @@
 #  library_deposit                               :boolean
 #  pq_withdrawn                                  :datetime
 #  holding_reply_flag                            :boolean
-#  round_robin_guidance_received                 :datetime
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
 #  directorate_id                                :integer
@@ -535,12 +532,4 @@ describe Pq do
     end
   end
 
-  describe 'item' do
-    it 'should allow finance interest to be set' do
-      subject.finance_interest = true
-      expect(subject).to be_valid
-      subject.finance_interest = false
-      expect(subject).to be_valid
-    end
-  end
 end

@@ -62,18 +62,14 @@ class PqsController < ApplicationController
 
   PARAMS = [
     :answering_minister_query,
-    :finance_interest,
     :holding_reply_flag,
-    :i_will_write,
     :library_deposit,
     :minister_id,
-    :pod_query_flag,
     :policy_minister_id,
     :policy_minister_query,
     :pq_correction_received,
     :press_interest,
     :progress_id,
-    :round_robin,
     :transfer_in_ogd_id,
     :transfer_out_ogd_id,
     :with_pod
@@ -83,12 +79,8 @@ class PqsController < ApplicationController
     :date_for_answer,
     :internal_deadline,
     :draft_answer_received,
-    :i_will_write_estimate,
     :holding_reply,
-    :pod_query,
     :pod_clearance,
-    :round_robin_date,
-    :correction_circulated_to_action_officer,
     :sent_to_policy_minister,
     :policy_minister_to_action_officer,
     :policy_minister_returned_by_action_officer,
@@ -101,7 +93,6 @@ class PqsController < ApplicationController
     :cleared_by_answering_minister,
     :answer_submitted,
     :pq_withdrawn,
-    :round_robin_guidance_received,
     :transfer_out_date,
     :transfer_in_date
   ]

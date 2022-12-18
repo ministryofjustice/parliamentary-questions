@@ -150,18 +150,4 @@ describe NotifyPqMailer, type: :mailer do
     end
   end
 
-  describe 'watchlist_email' do
-    let(:mail) { described_class.watchlist_email(email: 'watchlist_email', token: 'token', entity: 'entity') }
-    it 'sets the template' do
-      expect(mail.govuk_notify_template).to eq 'b452ebb8-c49e-46f6-9da5-3ba28b494ed6'
-    end
-
-    it 'sets the To address of the email using the provided user' do
-      expect(mail.to).to eq(['watchlist_email'])
-    end
-
-    it 'sets the personalisation keys' do
-      expect(mail.govuk_notify_personalisation.keys.sort).to eq([:date_today, :mail_reply_to, :watch_list_url])
-    end
-  end
 end

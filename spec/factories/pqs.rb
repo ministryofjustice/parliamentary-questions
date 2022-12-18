@@ -33,8 +33,6 @@
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string(255)
-#  round_robin                                   :boolean
-#  round_robin_date                              :datetime
 #  i_will_write                                  :boolean
 #  pq_correction_received                        :boolean
 #  correction_circulated_to_action_officer       :datetime
@@ -55,7 +53,6 @@
 #  library_deposit                               :boolean
 #  pq_withdrawn                                  :datetime
 #  holding_reply_flag                            :boolean
-#  round_robin_guidance_received                 :datetime
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
 #  directorate_id                                :integer
@@ -79,7 +76,6 @@ FactoryBot.define do
     state { PQState::UNASSIGNED }
 
     factory :checked_by_finance_pq do
-      finance_interest { false }
 
       factory :not_responded_pq do
         state { PQState::NO_RESPONSE }

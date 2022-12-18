@@ -47,7 +47,6 @@ describe 'PQState#progress_changer' do
                      transfer_out_date: DateTime.now,
                      action_officer_accepted: double('ao'),
                      draft_answer_received: DateTime.now,
-                     pod_query_flag: true,
                      pod_clearance: true,
                      policy_minister: nil,
                      answering_minister_query: false,

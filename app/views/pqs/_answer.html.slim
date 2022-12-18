@@ -28,5 +28,3 @@ h2 Answer
 = render partial: 'gds_checkbox', locals: { value: @pq.holding_reply_flag,
                                             field: 'holding_reply_flag',
                                             label: 'Holding reply flag' }
-- unless @pq.is_follow_up?
-  = link_to ("Create 'I will write' follow up"), {controller: 'i_will_write', action: 'create', id: @pq.uin}, {id: 'create_iww', class: 'button-secondary', title: 'Create an ''I will write'' follow up'}
