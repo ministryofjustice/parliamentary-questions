@@ -47,7 +47,7 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     expect(page).to have_text(/1 new parliamentary questions/i)
     expect(page).to have_text(@pq.question)
     expect(page).to have_content("uin-#{@pq.uin}")
-    expect(page).to have_link('Email Parli-branch about this question', href: 'mailto:parli-branch@justice.gov.uk?subject=#{question.uin}')
+    expect(page).to have_link('Email Parli-branch about this question', href: 'mailto:pqs@justice.gov.uk?subject=Question 1')
   end
 
   scenario 'The URL token sent to the early bird member expires after 24 hours' do

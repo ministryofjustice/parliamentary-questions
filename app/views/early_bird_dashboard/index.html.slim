@@ -62,4 +62,4 @@
                 br
               - else
                 span.constituency #{question.member_constituency}
-            p =link_to('Email Parli-branch about this question', 'mailto:parli-branch@justice.gov.uk?subject=#{question.uin}')
+            p =link_to('Email Parli-branch about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
