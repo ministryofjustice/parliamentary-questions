@@ -1,7 +1,7 @@
 class ProposalsController < ApplicationController
 
   def new
-  	byebug
+    @pq              = Pq.find params[:pq_id]
   	@action_officers = ActionOfficer.all
   end	
 
