@@ -47,6 +47,10 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     expect(page).to have_text(/1 new parliamentary questions/i)
     expect(page).to have_text(@pq.question)
     expect(page).to have_content("uin-#{@pq.uin}")
+    expect(page).to have_link('Propose a Deputy Director')
+    click_link 'Propose a Deputy Director'
+    expect(page).to have_content('Propose a Deputy Director')
+
   end
 
   scenario 'The URL token sent to the early bird member expires after 24 hours' do
