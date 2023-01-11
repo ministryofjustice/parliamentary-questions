@@ -12,11 +12,6 @@ spec:
             - "-c"
             - "bundle exec rake db:migrate"
           env:
-            - name: CREATE_USER_FROM_TEST
-              valueFrom:
-                secretKeyRef:
-                  key: CREATE_USER_FROM_TEST
-                  name: pq-secrets
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
