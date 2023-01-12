@@ -57,16 +57,6 @@ spec:
                 secretKeyRef:
                   key: PQ_REST_API_USERNAME
                   name: pq-secrets
-            - name: TEST_USER
-              valueFrom:
-                secretKeyRef:
-                  key: TEST_USER
-                  name: pq-secrets
-            - name: TEST_USER_PASS
-              valueFrom:
-                secretKeyRef:
-                  key: TEST_USER_PASS
-                  name: pq-secrets
           envFrom:
             - configMapRef:
                 name: environment-variables
