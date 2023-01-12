@@ -8,7 +8,7 @@ class ProposalService
   # end
 
   def propose(form)
-  #   raise ArgumentError, 'form is invalid' unless form.valid?
+    raise ArgumentError, 'form is invalid' unless form.valid?
 
   #   ActiveRecord::Base.transaction do
   #     pq     = build_pq(form)
