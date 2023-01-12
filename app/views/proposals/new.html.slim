@@ -1,11 +1,11 @@
 h1 Propose a Deputy Director
 
 = form_tag pq_proposal_path do |f|
-fieldset
-  .form-group
-    - label_text = 'Action officer(s)'
-    = label :action_officers_pqs, :action_officer_id, label_text, value: @pq.try(:id), class: 'form-label'
-    = collection_select(:proposal_form, :action_officer_id, @action_officers, :id, :name_with_div, {include_blank: true}, {multiple: true, class: 'multi-select-action-officers form-control required-for-commission', id: "action_officers_pqs_action_officer_id_#{@pq.try(:id)}" })
-    = hidden_field :pq_id, @pq.id
-  .form-group
-    = submit_tag 'Save', :id => 'save', :class => 'button'
+  fieldset
+    .form-group
+      - label_text = 'Action officer(s)'
+      = label :action_officers_pqs, :action_officer_id, label_text, value: @pq.try(:id), class: 'form-label'
+      = collection_select(:proposal_form, :action_officer_id, @action_officers, :id, :name_with_div, {include_blank: true}, {multiple: true, class: 'multi-select-action-officers form-control required-for-commission', id: "action_officers_pqs_action_officer_id_#{@pq.try(:id)}" })
+      = hidden_field_tag :pq_id, @pq.id
+    .form-group
+      = submit_tag 'Save', :id => 'save', :class => 'button'

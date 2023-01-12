@@ -8,4 +8,6 @@ describe ProposalsController, type: :controller do
       expect(assigns(:action_officers)).to be_an_instance_of Array
     end
   end
+
+
 end    
