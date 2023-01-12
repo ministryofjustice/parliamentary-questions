@@ -50,7 +50,8 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     expect(page).to have_link('Propose a Deputy Director')
     click_link 'Propose a Deputy Director'
     expect(page).to have_content('Propose a Deputy Director')
-
+    click_on 'Save'
+    expect(page).to have_content('Successfully proposed Deputy Director(s)')
   end
 
   scenario 'The URL token sent to the early bird member expires after 24 hours' do
