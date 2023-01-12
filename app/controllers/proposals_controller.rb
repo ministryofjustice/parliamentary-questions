@@ -23,13 +23,10 @@ end
 private
 
 def new_params
-    params.require(:proposal_form)
-          .permit(:pq_id)
+    params.permit(:pq_id, proposal_form: {action_officer_id: [] })
 end
 
 def create_params
-    params.require(:proposal_form)
-          .permit(:pq_id,
-                  { action_officer_id: [] })
+    params.permit(:pq_id, proposal_form: {action_officer_id: [] })
 end
 
