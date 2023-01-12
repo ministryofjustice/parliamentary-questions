@@ -10,8 +10,13 @@ class ProposalService
   def propose(form)
     raise ArgumentError, 'form is invalid' unless form.valid?
 
-  #   ActiveRecord::Base.transaction do
+    ActiveRecord::Base.transaction do
       pq     = build_pq(form)
+
+      form.action_officer_id.uniq.each do |id|
+        action_officer = ActionOfficer.find id
+        pq.action_officers << action_officer if action_officer
+      end
   #     ao_pqs =
   #       form.action_officer_id.uniq.map do |ao_id|
   #         ActionOfficersPq.create!(
@@ -19,15 +24,9 @@ class ProposalService
   #           action_officer_id: ao_id
   #         )
   #       end
-  #     byebug
   #     pq.action_officers_pqs << ao_pqs
-  #     pq.update_state!
-
-  #     ao_pqs.each do |ao_pq|
-  #       notify_assignment(ao_pq)
-  #     end
       pq
-  #   end
+    end
   end
 
   private
