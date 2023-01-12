@@ -11,7 +11,7 @@ class ProposalService
     raise ArgumentError, 'form is invalid' unless form.valid?
 
   #   ActiveRecord::Base.transaction do
-  #     pq     = build_pq(form)
+      pq     = build_pq(form)
   #     ao_pqs =
   #       form.action_officer_id.uniq.map do |ao_id|
   #         ActionOfficersPq.create!(
@@ -26,7 +26,7 @@ class ProposalService
   #     ao_pqs.each do |ao_pq|
   #       notify_assignment(ao_pq)
   #     end
-  #     pq
+      pq
   #   end
   end
 
@@ -34,11 +34,6 @@ class ProposalService
 
   def build_pq(form)
     pq                    = Pq.find(form.pq_id)
-    pq.minister_id        = form.minister_id
-    pq.policy_minister_id = form.policy_minister_id
-    pq.date_for_answer    = form.date_for_answer
-    pq.internal_deadline  = form.internal_deadline
-    pq
   end
 
   # def notify_assignment(ao_pq)
