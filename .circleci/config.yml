@@ -21,13 +21,13 @@ references:
           POSTGRES_PASSWORD: "secret"
           PGUSER: postgres
           POSTGRES_DB: parliamentary_questions_test
-
+          GOVUK_NOTIFY_API_KEY: fake-key
+          
       - image: postgres:10
         environment:
           POSTGRES_PASSWORD: "secret"
           POSTGRES_DB: parliamentary_questions_test
           POSTGRES_USER: postgres
-          GOVUK_NOTIFY_API_KEY: fake-key
 
 
   deploy_container_config: &deploy_container_config
