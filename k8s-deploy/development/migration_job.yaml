@@ -22,11 +22,6 @@ spec:
                 secretKeyRef:
                   key: DEVISE_SECRET
                   name: pq-secrets
-            - name: DEVISE_SENDER
-              valueFrom:
-                secretKeyRef:
-                  key: DEVISE_SENDER
-                  name: pq-secrets
             - name: GOVUK_NOTIFY_API_KEY
               valueFrom:
                 secretKeyRef:
