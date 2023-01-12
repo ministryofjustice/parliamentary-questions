@@ -26,5 +26,26 @@ describe ProposalService do
         end.to raise_error(ArgumentError)
       end
     end
+
+    context 'when the supplied data is valid' do
+      before do
+        valid_form = ProposalForm.new(form_params)
+        @pq = ProposalService.new.propose(valid_form)
+      end
+
+      it 'returns an updated PQ' do
+        expect(@pq).to be_valid
+      end
+
+      it "sets the pqs' action officers" do
+        expect(@pq.action_officers).to eq([ao1, ao2])
+      end
+
+      it "keeps the PQ state as unassigned" do
+        expect(@pq.state).to eq(PQState::UNASSIGNED)
+      end
+    end
+
+
   end  
 end
