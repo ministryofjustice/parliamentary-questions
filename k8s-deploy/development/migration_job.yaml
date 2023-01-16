@@ -12,11 +12,6 @@ spec:
             - "-c"
             - "bundle exec rake db:migrate"
           env:
-            - name: CREATE_USER_FROM_TEST
-              valueFrom:
-                secretKeyRef:
-                  key: CREATE_USER_FROM_TEST
-                  name: pq-secrets
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
@@ -26,11 +21,6 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: DEVISE_SECRET
-                  name: pq-secrets
-            - name: DEVISE_SENDER
-              valueFrom:
-                secretKeyRef:
-                  key: DEVISE_SENDER
                   name: pq-secrets
             - name: GOVUK_NOTIFY_API_KEY
               valueFrom:
@@ -66,16 +56,6 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: PQ_REST_API_USERNAME
-                  name: pq-secrets
-            - name: TEST_USER
-              valueFrom:
-                secretKeyRef:
-                  key: TEST_USER
-                  name: pq-secrets
-            - name: TEST_USER_PASS
-              valueFrom:
-                secretKeyRef:
-                  key: TEST_USER_PASS
                   name: pq-secrets
           envFrom:
             - configMapRef:
