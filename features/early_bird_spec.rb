@@ -50,6 +50,7 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     expect(page).to have_link('Propose a Deputy Director')
     click_link 'Propose a Deputy Director'
     expect(page).to have_content('Propose a Deputy Director')
+    select @aos.first.name, from: 'Deputy Director(s)'
     click_on 'Save'
     expect(page).to have_content('Successfully proposed Deputy Director(s)')
   end
