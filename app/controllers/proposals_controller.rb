@@ -6,27 +6,24 @@ class ProposalsController < ApplicationController
   end	
 
   def create
-    byebug
-    action_officers_ids = params[:proposal_form][:action_officer_id]
-    pq                  = Pq.find params[:pq_id]
-    action_officers_ids = action_officers_ids.reject {|item| item.blank? }
-    action_officers_ids.each do |id|
-      action_officer = ActionOfficer.find id
-      pq.action_officers << action_officer if action_officer
-    end
-    flash[:success] = 'Action Officer was successfully updated.'
-    redirect_to early_bird_dashboard_path
+    @pq = Pq.find params[:pq_id]
+    proposal_form = ProposalForm.new(create_params)
+    if proposal_form.valid?
+      pq = ProposalService.new.propose(proposal_form)
+      flash[:success] = 'Action Officer was successfully updated.'
+      redirect_to early_bird_dashboard_path
+    else
+      flash[:error] = 'Please choose a Deputy Director.'
+      redirect_to new_pq_proposal_path(@pq.id)
+    end  
+    
   end  
 
 end
 
 private
 
-def new_params
-    params.permit(:pq_id, proposal_form: {action_officer_id: [] })
-end
-
 def create_params
-    params.permit(:pq_id, proposal_form: {action_officer_id: [] })
+    params.require(:proposal_form).permit(:pq_id, action_officer_id: [])
 end
 
