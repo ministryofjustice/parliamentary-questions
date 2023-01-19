@@ -3,6 +3,12 @@ require 'spec_helper'
 describe ProposalsController, type: :controller do
   describe 'Get new' do
     let!(:pq) { FactoryBot.create(:pq) }
+
+    it 'Assign pq' do
+      get :new, params: { pq_id: pq.id }
+      expect(assigns(:pq)).to eq(pq)
+    end
+
     it 'Assigns action officers' do
       action_officer = FactoryBot.create(:action_officer)
       get :new, params: { pq_id: pq.id }
@@ -15,7 +21,8 @@ describe ProposalsController, type: :controller do
     end
   end
 
-  describe 'Get propose' do
+  describe 'Get create' do
+
 
   end
 end

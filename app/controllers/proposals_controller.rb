@@ -1,12 +1,11 @@
 class ProposalsController < ApplicationController
+  before_action :load_pq, only: [:new, :create]
 
   def new
-    @pq              = Pq.find params[:pq_id]
   	@action_officers = ActionOfficer.all
   end	
 
   def create
-    @pq = Pq.find params[:pq_id]
     proposal_form = ProposalForm.new(create_params)
     if proposal_form.valid?
       pq = ProposalService.new.propose(proposal_form)
@@ -22,6 +21,10 @@ class ProposalsController < ApplicationController
 end
 
 private
+
+def load_pq
+  @pq = Pq.find params[:pq_id]
+end
 
 def create_params
     params.require(:proposal_form).permit(:pq_id, action_officer_id: [])
