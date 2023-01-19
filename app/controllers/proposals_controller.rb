@@ -10,7 +10,7 @@ class ProposalsController < ApplicationController
     proposal_form = ProposalForm.new(create_params)
     if proposal_form.valid?
       pq = ProposalService.new.propose(proposal_form)
-      flash[:success] = 'Action Officer was successfully updated.'
+      flash[:success] = 'Successfully proposed Deputy Director(s)'
       redirect_to early_bird_dashboard_path
     else
       flash[:error] = 'Please choose a Deputy Director.'
