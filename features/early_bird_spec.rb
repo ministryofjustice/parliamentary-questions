@@ -43,7 +43,6 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
 
   scenario 'A early bird member follows an email link to view the list of daily questions' do
     visit_earlybird_url
-
     expect(page).to have_text(/1 new parliamentary questions/i)
     expect(page).to have_text(@pq.question)
     expect(page).to have_content("uin-#{@pq.uin}")
