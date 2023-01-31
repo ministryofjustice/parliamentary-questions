@@ -62,4 +62,5 @@
                 br
               - else
                 span.constituency #{question.member_constituency}
-            p =link_to('Email Parli-branch about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
+            - if feature_propose_ao_enabled?
+              p = link_to('Email Parli-branch about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
