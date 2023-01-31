@@ -63,4 +63,9 @@
                 br
               - else
                 span.constituency #{question.member_constituency}
-            p = link_to('Propose a Deputy Director', new_pq_proposal_path(question.id))
+              h3 Deputy Director(s):
+              - if question.proposed?
+                  ul.question.action_officers-list
+                    - question.action_officers.each do |ao|
+                      li = ao.name
+              p = link_to('Propose a Deputy Director', new_pq_proposal_path(question.id))

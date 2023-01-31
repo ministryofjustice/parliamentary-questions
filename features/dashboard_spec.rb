@@ -21,12 +21,13 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
 
   scenario 'Parli-branch can view the questions tabled for today' do
     create_pq_session
-    visit dashboard_path
+    visit dashboard_path.inspect
 
     @pqs.each do |pq|
       within_pq(pq.uin) do
         expect(page.title).to have_content('Dashboard')
         expect(page).to have_content(pq.text)
+        # expect(page).to have_content(pq.action_officers)
       end
     end
   end

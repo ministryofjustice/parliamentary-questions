@@ -163,6 +163,10 @@ class Pq < ActiveRecord::Base
       action_officers.rejected.size != action_officers.size
   end
 
+  def proposed?
+    action_officers.present?
+  end
+
   def rejected?
     action_officers_pqs.all_rejected?
   end
