@@ -409,6 +409,22 @@ describe Pq do
     end
   end
 
+  describe '#proposed?' do
+    subject { create(:pq) }
+
+    context 'when no officer is assigned' do
+      it { is_expected.not_to be_proposed }
+    end
+
+    context 'when an action officer is proposed' do
+      before do
+        subject.action_officers_pqs.create(action_officer: create(:action_officer))
+      end
+
+      it { is_expected.to be_proposed }
+    end
+  end
+
   describe '#closed?' do
     it 'is closed when answered' do
       subject = build(:answered_pq)
