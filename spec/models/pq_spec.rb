@@ -403,6 +403,7 @@ describe Pq do
       before do
         subject.action_officers_pqs.create(action_officer: create(:action_officer))
         subject.action_officers_pqs.create(action_officer: create(:action_officer), response: 'rejected')
+        subject.internal_deadline = Date.today
       end
 
       it { is_expected.to be_commissioned }
