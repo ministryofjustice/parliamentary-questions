@@ -18,7 +18,7 @@ function _build() {
   aws_profile='ecr-live-parliamentary-questions'
 
   git_remote_url="https://github.com/ministryofjustice/parliamentary-questions.git";
-  docker_endpoint=754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:pq-main-e15d73ca
+  docker_endpoint=754256621582.dkr.ecr.eu-west-2.amazonaws.com
   docker_registry=${docker_endpoint}/${team_name}/${ecr_repo_name}
 
   current_branch=$(git branch | grep \* | cut -d ' ' -f2)
