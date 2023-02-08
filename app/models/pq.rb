@@ -165,7 +165,7 @@ class Pq < ActiveRecord::Base
   end
 
   def proposed?
-    action_officers.present?
+    action_officers.present? and !commissioned?
   end
 
   def rejected?

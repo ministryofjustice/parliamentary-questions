@@ -9,6 +9,8 @@
       span Select #{question.uin}
 
   .col-md-4
+    - if question.proposed?
+      div.question-proposed Action Officer Proposed
     - if !question.date_for_answer.nil? and !question.is_new?
       |  Date for answer&nbsp;
       span.answer-date
