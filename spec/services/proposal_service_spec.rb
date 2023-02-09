@@ -41,11 +41,9 @@ describe ProposalService do
         expect(@pq.action_officers).to eq([ao1, ao2])
       end
 
-      it "keeps the PQ state as unassigned" do
+      it 'keeps the PQ state as unassigned' do
         expect(@pq.state).to eq(PQState::UNASSIGNED)
       end
     end
-
-
-  end  
+  end
 end

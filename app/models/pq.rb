@@ -160,8 +160,8 @@ class Pq < ActiveRecord::Base
 
   def commissioned?
     !action_officers.empty? &&
-    action_officers.rejected.size != action_officers.size && 
-    internal_deadline.present?
+      action_officers.rejected.size != action_officers.size &&
+      internal_deadline.present?
   end
 
   def proposed?

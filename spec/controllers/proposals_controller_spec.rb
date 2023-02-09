@@ -15,14 +15,12 @@ describe ProposalsController, type: :controller do
       expect(assigns(:action_officers)).to eq([action_officer])
     end
 
-    it "renders the new template" do
+    it 'renders the new template' do
       get :new, params: { pq_id: pq.id }
-      expect(response).to render_template("new")
+      expect(response).to render_template('new')
     end
   end
 
   describe 'Get create' do
-
-
   end
 end
