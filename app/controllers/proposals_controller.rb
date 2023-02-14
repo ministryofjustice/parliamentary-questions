@@ -3,7 +3,7 @@ class ProposalsController < ApplicationController
   before_action :authenticate_user, only: [:new, :create]
 
   def new
-    @action_officers = ActionOfficer.all
+    @action_officers = ActionOfficer.active_list
   end
 
   def create
