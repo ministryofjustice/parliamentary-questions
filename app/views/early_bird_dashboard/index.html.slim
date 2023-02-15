@@ -64,6 +64,8 @@
                 br
               - else
                 span.constituency #{question.member_constituency}
+            - if feature_propose_ao_enabled?
+              p = link_to('Email Parli-branch about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
               h3 Deputy Director(s):
               - if question.proposed?
                   ul.question.action_officers-list

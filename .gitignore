@@ -24,4 +24,4 @@ tmp
 vendor
 *secret*.*
 .vscode
-/byebug_history
+.byebug_history
