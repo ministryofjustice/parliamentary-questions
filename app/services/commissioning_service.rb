@@ -12,6 +12,8 @@ class CommissioningService
 
     ActiveRecord::Base.transaction do
       pq     = build_pq(form)
+      byebug
+      pq.action_officers_pqs.destroy_all
       ao_pqs =
         form.action_officer_id.uniq.map do |ao_id|
           ActionOfficersPq.create!(

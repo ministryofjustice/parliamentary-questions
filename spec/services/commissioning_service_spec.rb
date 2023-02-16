@@ -61,5 +61,27 @@ describe CommissioningService do
         expect(@pq.state).to eq(PQState::NO_RESPONSE)
       end
     end
+
+    context 'set new action officer list' do
+      # commission pq in normal state arrived from parli
+      # gives two action officers
+      # expects to see those 2 action officer 
+
+      # create a third officer 
+      # create a proposed pq that has one ao
+      # run through the commissioning service
+
+        let(:ao3)                 { DBHelpers.action_officers[2] }
+
+        before do 
+          pq.action_officers << ao3 
+          valid_form = CommissionForm.new(form_params)
+          @pq = CommissioningService.new.commission(valid_form)
+        end
+
+        it "sets the pqs' action officers" do
+          expect(@pq.action_officers).to eq([ao1, ao2])
+        end
+    end
   end
 end
