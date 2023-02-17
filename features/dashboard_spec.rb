@@ -21,7 +21,7 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
 
   scenario 'Parli-branch can view the questions tabled for today' do
     create_pq_session
-    visit dashboard_path.inspect
+    visit dashboard_path
 
     @pqs.each do |pq|
       within_pq(pq.uin) do

@@ -1,7 +1,6 @@
 h1 Propose a Deputy Director
 = render partial: 'shared/flash_messages'
 = form_tag pq_proposal_path do |f|
-  fieldset
     .form-group
       - label_text = 'Deputy Director(s)'
       = label :action_officers_pqs, :action_officer_id, label_text, value: @pq.try(:id), class: 'form-label'
