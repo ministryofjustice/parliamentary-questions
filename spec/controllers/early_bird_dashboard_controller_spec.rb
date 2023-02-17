@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe EarlyBirdDashboardController, type: :controller do
   describe 'Get index' do
-    before(:pq) { create(:pq) }
+    before { create(:pq) }
 
     it 'Persists a session value for the dashboard' do
       expect(AOTokenFilter).to receive(:before).and_return(true)
