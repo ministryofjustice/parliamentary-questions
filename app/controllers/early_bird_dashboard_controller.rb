@@ -1,6 +1,10 @@
 class EarlyBirdDashboardController < ApplicationController
   before_action AOTokenFilter, only: [:index]
+  before_action :save_early_bird_credentials, only: [:index]
   before_action :authenticate_user!, PQUserFilter, only: [:preview]
+
+  NEW      = 'New'
+  PER_PAGE = 200
 
   def index
     update_page_title('Early bird preview')
@@ -14,10 +18,12 @@ class EarlyBirdDashboardController < ApplicationController
     render 'index'
   end
 
-  NEW      = 'New'
-  PER_PAGE = 200
-
   private
+
+  def save_early_bird_credentials
+    session[:early_bird_token] = params[:token]
+    session[:early_bird_entity] = params[:entity]
+  end
 
   def load_pq_with_counts
     @questions = paginate_collection(yield) if block_given?

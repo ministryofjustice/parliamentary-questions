@@ -11,7 +11,8 @@ class CommissioningService
     raise ArgumentError, 'form is invalid' unless form.valid?
 
     ActiveRecord::Base.transaction do
-      pq     = build_pq(form)
+      pq = build_pq(form)
+      pq.action_officers_pqs.destroy_all
       ao_pqs =
         form.action_officer_id.uniq.map do |ao_id|
           ActionOfficersPq.create!(
@@ -19,7 +20,6 @@ class CommissioningService
             action_officer_id: ao_id
           )
         end
-
       pq.action_officers_pqs << ao_pqs
       pq.update_state!
 

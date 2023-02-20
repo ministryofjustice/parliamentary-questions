@@ -27,6 +27,7 @@ feature 'Dashboard view', js: true, suspend_cleaner: true do
       within_pq(pq.uin) do
         expect(page.title).to have_content('Dashboard')
         expect(page).to have_content(pq.text)
+        # expect(page).to have_content(pq.action_officers)
       end
     end
   end

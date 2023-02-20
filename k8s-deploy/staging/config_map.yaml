@@ -4,6 +4,7 @@ data:
   RAILS_ENV: production
   SENDING_HOST: staging.trackparliamentaryquestions.service.gov.uk
   DB_NAME: parliamentary_questions_dev
+  FEATURE_PROPOSE_AO_ENABLED: "1"
 kind: ConfigMap
 metadata:
   name: environment-variables

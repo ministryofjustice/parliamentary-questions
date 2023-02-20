@@ -2,7 +2,8 @@
 
   #main
     h1 New parliamentary questions to be allocated today (#{@now})
-
+    = render partial: 'shared/flash_messages'
+    
     #sidebar.col-md-3.col-md-push-9
       #filters.js-stick-at-top-when-scrolling
         h2 Filter
@@ -63,4 +64,13 @@
               - else
                 span.constituency #{question.member_constituency}
             - if feature_propose_ao_enabled?
-              p = link_to('Email Parli-branch about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
+              - if question.proposed?
+                h3 Deputy Director(s) proposed to answer:
+                p.action_officers-list
+                  - names = question.action_officers.uniq.pluck :name
+                  = names.join(', ')
+
+              p.propose-links
+                = link_to('Email Parli-branch about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
+                = ' | '
+                = link_to('Propose a Deputy Director', new_pq_proposal_path(question.id))
