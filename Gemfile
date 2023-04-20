@@ -52,7 +52,7 @@ group :test, :development do
   gem 'launchy', '~> 2.5'
   gem 'letter_opener', '~> 1.7'
   gem 'poltergeist', '~> 1.18', '>= 1.18.1'
-  gem 'pry-byebug', '~> 3.9'
+  gem 'pry-byebug', '~> 3.10'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 5.1'
