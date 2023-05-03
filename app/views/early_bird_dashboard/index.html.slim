@@ -71,6 +71,6 @@
                   = names.join(', ')
 
               p.propose-links
-                = link_to('Email Parli-branch about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
+                = link_to('Email PQ team about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
                 = ' | '
                 = link_to('Propose a Deputy Director', new_pq_proposal_path(question.id))
