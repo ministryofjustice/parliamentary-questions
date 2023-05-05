@@ -46,7 +46,7 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     expect(page).to have_text(/1 new parliamentary questions/i)
     expect(page).to have_text(@pq.question)
     expect(page).to have_content("uin-#{@pq.uin}")
-    expect(page).to have_link('Email Parli-branch about this question', href: 'mailto:pqs@justice.gov.uk?subject=Question 1')
+    expect(page).to have_link('Email PQ team about this question', href: 'mailto:pqs@justice.gov.uk?subject=Question 1')
   end
 
   scenario 'An early bird member recommends someone to answer' do
