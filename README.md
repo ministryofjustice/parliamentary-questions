@@ -31,9 +31,18 @@ Then Install the app dependencies by running the following
 
     gem install bundler && bundle install
 
-If you get problems installing the pg gem not being able to find libpg, try setting the architecture flag as follows:
+### Installation Issues
+
+There maybe an issue installing `eventmachine` on an M1 mac. This maybe solved by running
+
+    gem install eventmachine -v '1.2.7' -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
+    bundle install
+
+If you get problems installing the `pg` gem not being able to find libpg, try setting the architecture flag as follows:
 
     gem install bundler && ARCHFLAGS="-arch x86_64" bundle install
+
+---
 
 You can now proceed setting up the database table layout
 
