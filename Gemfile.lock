@@ -478,7 +478,7 @@ DEPENDENCIES
   logstasher (~> 2.1, >= 2.1.5)
   mechanize (~> 2.8, >= 2.8.1)
   momentjs-rails (~> 2.29)
-  net-smtp
+  net-smtp (~> 0.3.3)
   paper_trail (~> 12.0)
   pg (~> 1.2, >= 1.2.3)
   poltergeist (~> 1.18, >= 1.18.1)
