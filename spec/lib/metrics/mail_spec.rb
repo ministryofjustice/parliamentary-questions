@@ -30,18 +30,14 @@ describe Metrics::Mail do
 
   context '#token_error?' do
     it 'returns false if answered tokens within threshold' do
-      allow(Token)
-        .to receive(:assignment_stats)
-        .and_return(total: 6, ack: 6, open: 0, pctg: 100.00)
+      allow(Token).to receive(:assignment_stats).and_return(total: 6, ack: 6, open: 0, pctg: 100.00)
       subject.collect!
 
       expect(subject.token_error?).to be false
     end
 
     it 'returns true if answered tokens outside threshold' do
-      allow(Token)
-        .to receive(:assignment_stats)
-        .and_return(total: 6, ack: 2, open: 4, pctg: 33.33)
+      allow(Token).to receive(:assignment_stats).and_return(total: 6, ack: 2, open: 4, pctg: 33.33)
       subject.collect!
 
       expect(subject.token_error?).to be true

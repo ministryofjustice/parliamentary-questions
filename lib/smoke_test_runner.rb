@@ -5,7 +5,7 @@ module SmokeTestRunner
     tests     = SmokeTest.factory
     exit_code = tests.all?(&:passed?) ? 0 : 1
 
-    File.open(out_file, 'w') { |f| f.write(exit_code) }
+    File.write(out_file, exit_code)
   end
 
   def run_time

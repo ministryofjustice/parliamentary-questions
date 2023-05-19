@@ -23,11 +23,7 @@ module PQA
     # @return [Net::HTTP::Response]
     def questions(date_from, date_to, status)
       uri       = URI.parse(File.join(@base_url, 'api/qais/questions'))
-      params    = {
-        'dateFrom' => date_from.xmlschema,
-        'dateTo' => date_to&.xmlschema,
-        'status' => status
-      }
+      params    = { 'dateFrom' => date_from.xmlschema, 'dateTo' => date_to&.xmlschema, 'status' => status }
       uri.query = URI.encode_www_form(params)
       issue_request(:get, uri.to_s)
     end

@@ -83,7 +83,7 @@ describe Pq do
     it 'sets the state weight' do
       state = PQState::DRAFT_PENDING
       pq, = DBHelpers.pqs
-      pq.update(state: state)
+      pq.update(state:)
       expect(pq.state_weight).to eq(PQState.state_weight(state))
     end
   end
@@ -130,9 +130,7 @@ describe Pq do
 
   describe '.count_accepted_by_press_desk' do
     def accept_pq(pq, ao)
-      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
-                                                     response: 'accepted',
-                                                     pq: pq)
+      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao, response: 'accepted', pq:)
       pq.save
     end
 
@@ -174,11 +172,7 @@ describe Pq do
         end
 
         it 'omits the associated questions from the results' do
-          expect(Pq.count_accepted_by_press_desk).to eq(
-            PQState::WITH_POD => {
-              @pd2.id => 2
-            }
-          )
+          expect(Pq.count_accepted_by_press_desk).to eq(PQState::WITH_POD => { @pd2.id => 2 })
         end
       end
     end
@@ -238,11 +232,7 @@ describe Pq do
     def commission_and_accept(pq, ao, minister)
       pq.state    = PQState::WITH_POD
       pq.minister = minister
-      pq.action_officers_pqs << ActionOfficersPq.new(
-        pq: pq,
-        response: 'accepted',
-        action_officer: ao
-      )
+      pq.action_officers_pqs << ActionOfficersPq.new(pq:, response: 'accepted', action_officer: ao)
       pq.save
     end
 
@@ -258,15 +248,12 @@ describe Pq do
 
     context 'when state, minister or press desk are all nil' do
       it 'returns all the records' do
-        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq(%w[
-          uin-1 uin-2 uin-3 uin-4
-        ].to_set)
+        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq(%w[uin-1 uin-2 uin-3 uin-4].to_set)
       end
     end
     context 'when state, minister or press desk are all present' do
       it 'returns the expected records' do
-        uins = Pq.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
-                 .pluck(:uin)
+        uins = Pq.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk).pluck(:uin)
 
         expect(uins).to eq(['uin-1'])
       end

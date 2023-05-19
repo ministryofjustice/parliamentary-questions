@@ -49,7 +49,7 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   config.log_level = :debug
   # Raises error for missing translations.
@@ -64,7 +64,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  config.gecko_auth_username = ENV['GECKO_AUTH_USERNAME']
+  config.gecko_auth_username = ENV.fetch('GECKO_AUTH_USERNAME', nil)
 
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'

@@ -26,9 +26,7 @@ describe HealthCheck::PqaApi do
     end
 
     it 'returns false if the parliamentary questions API is not available' do
-      allow_any_instance_of(Net::HTTP)
-        .to receive(:request)
-        .and_raise(Net::ReadTimeout)
+      allow_any_instance_of(Net::HTTP).to receive(:request).and_raise(Net::ReadTimeout)
 
       expect(pqa).not_to be_available
     end
@@ -42,9 +40,7 @@ describe HealthCheck::PqaApi do
     end
 
     it 'returns false if the parliamentary questions API is not accessible with our credentials' do
-      allow_any_instance_of(Net::HTTP)
-        .to receive(:request)
-        .and_return(resp_403)
+      allow_any_instance_of(Net::HTTP).to receive(:request).and_return(resp_403)
 
       expect(pqa).not_to be_accessible
     end
@@ -52,9 +48,7 @@ describe HealthCheck::PqaApi do
 
   context '#error_messages' do
     it 'returns the exception messages if there is an error accessing the parliamentary questions API' do
-      allow_any_instance_of(Net::HTTP)
-        .to receive(:request)
-        .and_raise(Errno::ECONNREFUSED)
+      allow_any_instance_of(Net::HTTP).to receive(:request).and_raise(Errno::ECONNREFUSED)
 
       pqa.available?
 
@@ -62,9 +56,7 @@ describe HealthCheck::PqaApi do
     end
 
     it 'returns an error an backtrace for errors not specific to a component' do
-      allow_any_instance_of(Net::HTTP)
-        .to receive(:request)
-        .and_raise(StandardError)
+      allow_any_instance_of(Net::HTTP).to receive(:request).and_raise(StandardError)
 
       pqa.available?
 
@@ -95,5 +87,5 @@ def contents_of_timestamp_file
 end
 
 def delete_timestamp_file
-  File.unlink(HealthCheck::PqaApi::TIMESTAMP_FILE) if File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
+  FileUtils.rm_f(HealthCheck::PqaApi::TIMESTAMP_FILE)
 end

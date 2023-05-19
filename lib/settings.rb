@@ -3,9 +3,9 @@ module Settings
     attr_reader :host, :username, :password
 
     def self.from_env
-      host     = ENV['PQ_REST_API_HOST']
-      username = ENV['PQ_REST_API_USERNAME']
-      password = ENV['PQ_REST_API_PASSWORD']
+      host     = ENV.fetch('PQ_REST_API_HOST', nil)
+      username = ENV.fetch('PQ_REST_API_USERNAME', nil)
+      password = ENV.fetch('PQ_REST_API_PASSWORD', nil)
 
       raise 'Cannot find environment variable PQ_REST_API_HOST. Please set it first' unless host
 

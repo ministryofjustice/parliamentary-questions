@@ -94,10 +94,7 @@ deputy_directors = DeputyDirector.create!([
                                             { division_id: 19, email: 'dd19@email.com',  name: 'Hyman Quinones' }
                                           ])
 
-PressDesk.create!([
-                    { name: 'Finance press desk' },
-                    { name: 'Prisons press desk' }
-                  ])
+PressDesk.create!([{ name: 'Finance press desk' }, { name: 'Prisons press desk' }])
 
 PressOfficer.create!([
                        { name: 'Vertie Engel ', email: 'po-one@press.office.com', press_desk_id: 1 },
@@ -118,8 +115,6 @@ action_officers = ActionOfficer.create!(
   ]
 )
 
-Ogd.create!([
-              { name: 'Ministry of Defence', acronym: 'MOD' }
-            ])
+Ogd.create!([{ name: 'Ministry of Defence', acronym: 'MOD' }])
 
 puts 'Done'

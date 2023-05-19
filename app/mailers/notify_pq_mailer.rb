@@ -58,7 +58,7 @@ class NotifyPqMailer < ApplicationMailer
       answer_by: pq.minister&.name || '',
       internal_deadline: internal_deadline_text(pq) || '',
       date_to_parliament: date_to_parliament_text(pq) || '',
-      pq_link: assignment_url(host: ActionMailer::Base.default_url_options[:host], uin: pq.uin, token: token, entity: entity, protocol: 'https'),
+      pq_link: assignment_url(host: ActionMailer::Base.default_url_options[:host], uin: pq.uin, token:, entity:, protocol: 'https'),
       mail_reply_to: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
@@ -91,7 +91,7 @@ class NotifyPqMailer < ApplicationMailer
     set_template('e0700ef3-8a63-4041-ae97-323a1e62272f')
     set_personalisation(
       formatted_date: (Time.zone.today.strftime '%d/%m/%Y'),
-      early_bird_link: early_bird_dashboard_url(host: ActionMailer::Base.default_url_options[:host], token: token, entity: entity, protocol: 'https'),
+      early_bird_link: early_bird_dashboard_url(host: ActionMailer::Base.default_url_options[:host], token:, entity:, protocol: 'https'),
       reply_to_email: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
@@ -102,7 +102,7 @@ class NotifyPqMailer < ApplicationMailer
     set_template('b452ebb8-c49e-46f6-9da5-3ba28b494ed6')
     set_personalisation(
       date_today: (Time.zone.today.strftime '%d/%m/%Y'),
-      watch_list_url: watchlist_dashboard_url(token: token, entity: entity, protocol: 'https'),
+      watch_list_url: watchlist_dashboard_url(token:, entity:, protocol: 'https'),
       mail_reply_to: Settings.mail_reply_to
     )
     set_email_reply_to(Settings.parliamentary_team_email)
@@ -113,7 +113,7 @@ class NotifyPqMailer < ApplicationMailer
 
   def check_is_wrong_domain(link_str)
     if link_str.nil? || !!(link_str =~ Regexp.union([Resolv::IPv4::Regex, Resolv::IPv6::Regex]))
-      raise "Got ip address, failed to get domain name, #{ENV['ENV']}, #{link_str}, #{ENV['SENDING_HOST']}"
+      raise "Got ip address, failed to get domain name, #{ENV.fetch('ENV', nil)}, #{link_str}, #{ENV.fetch('SENDING_HOST', nil)}"
     end
   end
 end

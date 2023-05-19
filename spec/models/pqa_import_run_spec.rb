@@ -68,7 +68,7 @@ describe PqaImportRun, type: :model do
         }
 
         records.each do |start_time, status|
-          FactoryBot.create(:pqa_import_run, start_time: start_time, end_time: start_time + 3.seconds, status: status)
+          FactoryBot.create(:pqa_import_run, start_time:, end_time: start_time + 3.seconds, status:)
         end
 
         expect(times_equal?(PqaImportRun.last_import_time_utc, 2.minutes.ago)).to be true
@@ -102,10 +102,7 @@ describe PqaImportRun, type: :model do
       expect(pir.status).to eq 'OK_with_errors'
       expect(pir.num_created).to eq 7
       expect(pir.num_updated).to eq 15
-      expect(pir.error_messages).to eq(
-        'UIN1234' => 'Invalid Record',
-        'UIN666' => 'Really, really invalid'
-      )
+      expect(pir.error_messages).to eq('UIN1234' => 'Invalid Record', 'UIN666' => 'Really, really invalid')
     end
   end
 

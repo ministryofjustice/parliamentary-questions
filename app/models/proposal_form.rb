@@ -23,8 +23,9 @@ class ProposalForm
   def load_valid_action_officers
     return if action_officer_id.nil?
 
-    @action_officers = action_officer_id.uniq.map do |id|
-      ActionOfficer.find_by(id: id)
-    end.compact
+    @action_officers =
+      action_officer_id.uniq.filter_map do |id|
+        ActionOfficer.find_by(id:)
+      end
   end
 end

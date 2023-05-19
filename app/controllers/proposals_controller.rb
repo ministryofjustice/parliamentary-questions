@@ -27,7 +27,7 @@ class ProposalsController < ApplicationController
   def redirect_to_early_bird_dashboard
     token = session[:early_bird_token]
     entity = session[:early_bird_entity]
-    redirect_to early_bird_dashboard_path(token: token, entity: entity)
+    redirect_to early_bird_dashboard_path(token:, entity:)
   end
 
   def user_has_valid_early_bird_credentials?
@@ -36,9 +36,9 @@ class ProposalsController < ApplicationController
     token_service = TokenService.new
     path = '/early_bird/dashboard'
     if entity && token
-      return token_service.valid?(token, path, entity) && !
-        token_service.expired?(token, path, entity)
+      return token_service.valid?(token, path, entity) && !token_service.expired?(token, path, entity)
     end
+
     false
   end
 
@@ -50,7 +50,7 @@ class ProposalsController < ApplicationController
     token = session[:early_bird_token]
     entity = session[:early_bird_entity]
     if entity && token
-      early_bird_dashboard_path(token: token, entity: entity)
+      early_bird_dashboard_path(token:, entity:)
     else
       early_bird_preview_path
     end

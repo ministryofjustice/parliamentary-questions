@@ -70,8 +70,8 @@ class ApplicationController < ActionController::Base
       format.html { render file: "public/#{err_number}.html", status: err_number, layout: nil }
       format.all  { head :no_content, status: err_number }
     end
-    backtrace = exception.nil? ? nil : exception.backtrace
-    message = exception.nil? ? nil : exception.message
+    backtrace = exception&.backtrace
+    message = exception&.message
     LogStuff.error(:error_page) { "status: #{err_number}, referrer:#{request.referer}, url:#{request_url}, message:#{message}, backtrace:#{backtrace}" }
   end
 end

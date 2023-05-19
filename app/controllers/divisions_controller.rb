@@ -12,13 +12,13 @@ class DivisionsController < ApplicationController
     update_page_title('Divisions')
   end
 
+  def show
+    update_page_title('Division details')
+  end
+
   def new
     @division = Division.new
     update_page_title('Add division')
-  end
-
-  def show
-    update_page_title('Division details')
   end
 
   def edit

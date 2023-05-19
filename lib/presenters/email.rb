@@ -24,8 +24,7 @@ module Presenters
     end
 
     def cc_list_hash(pq, ao)
-      default_hash(pq, ao)
-        .merge(cc_list: cc_list(pq, ao))
+      default_hash(pq, ao).merge(cc_list: cc_list(pq, ao))
     end
 
     def cc_list(pq, ao)
@@ -39,14 +38,11 @@ module Presenters
         finance_users_emails(pq) +
         press_emails(ao)
 
-      cc_list
-        .reject(&:blank?)
-        .join(';')
+      cc_list.compact_blank.join(';')
     end
 
     def finance_list_hash(pq)
-      default_hash(pq)
-        .merge(finance_list: finance_list(pq))
+      default_hash(pq).merge(finance_list: finance_list(pq))
     end
 
     def finance_list(pq)
@@ -54,7 +50,7 @@ module Presenters
       if finance_list.empty?
         ['No Finance users have an interest in this question.']
       else
-        finance_list.reject(&:blank?)
+        finance_list.compact_blank
       end
     end
 
@@ -105,7 +101,7 @@ module Presenters
     end
 
     def date_to_parliament_text(pq)
-      'Due back to Parliament ' + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
+      "Due back to Parliament #{pq.date_for_answer.try(:to_s, :date)}" if pq.date_for_answer.present?
     end
   end
 end

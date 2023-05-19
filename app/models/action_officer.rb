@@ -24,8 +24,6 @@ class ActionOfficer < ActiveRecord::Base
   # validates_format_of :group_email, with: Devise.email_regexp, allow_blank: true
   validates :email, format: { with: Devise.email_regexp }
   validates :group_email, format: { with: Devise.email_regexp, allow_blank: true }
-  validates :deputy_director_id, presence: true
-  validates :press_desk_id, presence: true
   validates :email,
             uniqueness: {
               scope: :deputy_director_id,
@@ -51,6 +49,6 @@ class ActionOfficer < ActiveRecord::Base
       "#{name} (#{deputy_director.division.name})"
     end
   end
-  scope :inactive_list, -> { where('action_officers.deleted = ?', true) }
+  scope :inactive_list, -> { where(action_officers: { deleted: true }) }
   scope :active_list, -> { where('action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?', false, true, 2.days.ago.to_datetime) }
 end

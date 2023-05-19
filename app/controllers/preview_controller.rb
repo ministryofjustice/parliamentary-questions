@@ -19,6 +19,6 @@ class PreviewController < ApplicationController
 
   def paginate_collection(pqs)
     page = params.fetch(:page, 1)
-    pqs.paginate(page: page, per_page: PER_PAGE)
+    pqs.paginate(page:, per_page: PER_PAGE)
   end
 end

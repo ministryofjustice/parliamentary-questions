@@ -10,18 +10,18 @@ ENV['ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)
 
-require 'rspec/rails'
+require './spec/support/csv_helpers'
 require './spec/support/db_helpers'
 require './spec/support/features/session_helpers'
 require './spec/support/unit/question_factory'
-require './spec/support/csv_helpers'
-require 'shoulda/matchers'
 require 'paper_trail/frameworks/rspec'
+require 'rspec/rails'
+require 'shoulda/matchers'
 
 require 'bundler/setup'
-::Bundler.require(:default, :test)
+Bundler.require(:default, :test)
 
-::Shoulda::Matchers.configure do |config|
+Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     # Choose a test framework:
     with.test_framework :rspec
@@ -56,7 +56,7 @@ RSpec.configure do |config|
   # config.include Features::DecisionHelpers, type: :feature
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = "#{Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

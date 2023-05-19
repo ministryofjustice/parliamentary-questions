@@ -15,10 +15,7 @@ class CommissioningService
       pq.action_officers_pqs.destroy_all
       ao_pqs =
         form.action_officer_id.uniq.map do |ao_id|
-          ActionOfficersPq.create!(
-            pq_id: pq.id,
-            action_officer_id: ao_id
-          )
+          ActionOfficersPq.create!(pq_id: pq.id, action_officer_id: ao_id)
         end
       pq.action_officers_pqs << ao_pqs
       pq.update_state!
@@ -52,9 +49,9 @@ class CommissioningService
     $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission"
 
     LogStuff.tag(:mailer_commission) do
-      NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity, email: ao.email).deliver_later
+      NotifyPqMailer.commission_email(pq:, action_officer: ao, token:, entity:, email: ao.email).deliver_later
       if ao.group_email.present?
-        NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: token, entity: entity, email: ao.group_email).deliver_later
+        NotifyPqMailer.commission_email(pq:, action_officer: ao, token:, entity:, email: ao.group_email).deliver_later
       end
     end
   end

@@ -13,10 +13,7 @@ namespace :bugfix do
 
   desc 'fix PQs with multiple action accepted AOs'
   task ao_fix: :environment do
-    uins_to_fix = {
-      '907383' => 'Michelle English',
-      'HL3918' => 'Siobhan Mahoney'
-    }
+    uins_to_fix = { '907383' => 'Michelle English', 'HL3918' => 'Siobhan Mahoney' }
 
     uins_to_fix.each do |uin_to_fix, ao_name|
       pq = Pq.uin uin_to_fix
@@ -35,14 +32,14 @@ namespace :bugfix do
   desc 'Remove Follow up created in error'
   task delete_25231_IWW: :environment do
     pq = Pq.find_by(uin: '25231-IWW')
-    ActionOfficersPq.where('pq_id = ?', pq.id).map(&:destroy)
+    ActionOfficersPq.where(pq_id: pq.id).map(&:destroy)
     puts 'Deleted AO Link(s)'
 
     Pq.where("uin like '25231-IWW'").map(&:destroy)
     puts 'Deleted UIN'
 
     pq_original = Pq.find_by(uin: '25231')
-    pq_original.i_will_write = FALSE
+    pq_original.i_will_write = false
     pq_original.save!
     puts 'Saved Original UIN as non IWW'
   end

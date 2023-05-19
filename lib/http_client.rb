@@ -26,8 +26,8 @@ class HTTPClient
 
   class FailureResponse < StandardError
     def initialize(request, response)
-      super("PQ rest API responded with non success code: #{response.code}," \
-        " response: #{response.body} (request: #{request.inspect})")
+      super("PQ rest API responded with non success code: #{response.code}, " \
+            "response: #{response.body} (request: #{request.inspect})")
     end
   end
 
@@ -37,7 +37,7 @@ class HTTPClient
     if uri.scheme == 'https'
       http.use_ssl     = true
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      cert_dir = ENV['CA_CERT']
+      cert_dir = ENV.fetch('CA_CERT', nil)
 
       if cert_dir && File.directory?(cert_dir)
         http.ca_path = cert_dir

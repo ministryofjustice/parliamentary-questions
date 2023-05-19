@@ -82,7 +82,7 @@ describe Token, type: :model do
 
   describe '.watchlist_status' do
     let(:entity) { "watchlist-#{Time.zone.today.strftime('%d/%m/%Y')} 11:37" }
-    let!(:token) { FactoryBot.create :token, path: '/watchlist/dashboard', entity: entity }
+    let!(:token) { FactoryBot.create :token, path: '/watchlist/dashboard', entity: }
     it 'should return false if the token has not been acknowledged' do
       expect(Token.watchlist_status).to be false
     end
@@ -105,12 +105,7 @@ describe Token, type: :model do
       FactoryBot.create :token, created_at: start_of_day + 300.minutes, acknowledged: 'accept', ack_time: start_of_day + 400.minutes
       FactoryBot.create :token, created_at: start_of_day - 100.minutes, acknowledged: 'accept', ack_time: start_of_day + 400.minutes
       FactoryBot.create :token, created_at: start_of_day - 100.minutes, acknowledged: 'reject', ack_time: start_of_day + 400.minutes
-      expect(Token.assignment_stats).to eq(
-        total: 6,
-        ack: 2,
-        open: 4,
-        pctg: 33.33
-      )
+      expect(Token.assignment_stats).to eq(total: 6, ack: 2, open: 4, pctg: 33.33)
     end
   end
 end

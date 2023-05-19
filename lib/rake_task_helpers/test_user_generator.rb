@@ -12,7 +12,7 @@ module RakeTaskHelpers
       raise 'TEST_USER_PASS environment variable not set - please set it first' unless ENV['TEST_USER_PASS']
 
       config       = YAML.safe_load(File.read(path))
-      default_pass = ENV['TEST_USER_PASS']
+      default_pass = ENV.fetch('TEST_USER_PASS', nil)
       prefix       = config['prefix']
 
       new(

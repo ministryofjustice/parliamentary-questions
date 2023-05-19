@@ -32,7 +32,7 @@ def setup_training_action_officers
     ['Jake Thirkell', 'jake.thirkell@justice.gsi.gov.uk', 35]
   ].each do |ao_dets|
     name, email, division_id = ao_dets
-    ao = ActionOfficer.where('name = ?', name).first
+    ao = ActionOfficer.where(name:).first
     ao.update_attribute(:email, email)
     allocate_division_to_ao(ao, division_id)
   end
@@ -89,7 +89,7 @@ end
 def populate_seeds
   seed_question_uins = %w[201828 208682 209418 209416 210144]
   seed_questions = []
-  seed_question_uins.each { |uin| seed_questions << Pq.find_by(uin: uin) }
+  seed_question_uins.each { |uin| seed_questions << Pq.find_by(uin:) }
   seed_questions
 end
 
@@ -103,7 +103,7 @@ def create_question(_i, seed_question)
     tabled_date: 1.day.ago,
     question: seed_question.question,
     # :seen_by_finance => true,
-    uin: uin,
+    uin:,
     member_name: seed_question.member_name,
     member_constituency: seed_question.member_constituency,
     house_name: 'House of Commons',

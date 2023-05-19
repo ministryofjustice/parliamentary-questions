@@ -36,9 +36,9 @@ describe GeckoStatus do
 end
 
 describe KeyMetricStatus do
-  let(:key_metric)  { double Metrics::KeyMetric                   }
-  let(:metrics)     { double 'metrics', key_metric: key_metric    }
-  let(:status)      { KeyMetricStatus.new                         }
+  let(:key_metric)  { double Metrics::KeyMetric }
+  let(:metrics)     { double 'metrics', key_metric: }
+  let(:status)      { KeyMetricStatus.new }
 
   context '#update' do
     it 'calls ok when there is no alert' do
@@ -58,9 +58,9 @@ describe KeyMetricStatus do
 end
 
 describe DbStatus do
-  let(:health)   { Metrics::Health.new                }
-  let(:metrics)  { double 'metrics', health: health   }
-  let(:status)   { DbStatus.new                       }
+  let(:health)   { Metrics::Health.new }
+  let(:metrics)  { double 'metrics', health: }
+  let(:status)   { DbStatus.new }
 
   context '#update' do
     it 'calls ok when the db status is OK' do
@@ -80,9 +80,9 @@ describe DbStatus do
 end
 
 describe PqaApiStatus do
-  let(:health)   { Metrics::Health.new                   }
-  let(:metrics)  { double 'metrics', health: health      }
-  let(:status)   { PqaApiStatus.new                      }
+  let(:health)   { Metrics::Health.new }
+  let(:metrics)  { double 'metrics', health: }
+  let(:status)   { PqaApiStatus.new }
 
   context '#update' do
     it 'calls ok when the PQA API status is OK' do

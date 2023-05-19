@@ -46,17 +46,11 @@ module PqStatistics
   end
 
   def delta_t(time1, time2)
-    Time
-      .first_business_day(time1)
-      .business_time_until(time2)
-      .to_f
+    Time.first_business_day(time1).business_time_until(time2).to_f
   end
 
   def bucket_dates
-    @bucket_dates ||=
-      (BUS_DAY_INTERVAL..WINDOW)
-      .step(BUS_DAY_INTERVAL)
-      .map { |i| i.business_days.before(bucket_date0) }
+    @bucket_dates ||= (BUS_DAY_INTERVAL..WINDOW).step(BUS_DAY_INTERVAL).map { |i| i.business_days.before(bucket_date0) }
   end
 
   def bucket_date0

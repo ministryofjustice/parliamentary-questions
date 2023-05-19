@@ -12,13 +12,13 @@ class DeputyDirectorsController < ApplicationController
     update_page_title 'Deputy directors'
   end
 
+  def show
+    update_page_title('Deputy director details')
+  end
+
   def new
     @deputy_director = DeputyDirector.new
     update_page_title 'Add deputy director'
-  end
-
-  def show
-    update_page_title('Deputy director details')
   end
 
   def edit

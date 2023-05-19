@@ -12,13 +12,13 @@ class PressOfficersController < ApplicationController
     update_page_title('Press officers')
   end
 
+  def show
+    update_page_title('Press officer details')
+  end
+
   def new
     @press_officer = PressOfficer.new
     update_page_title('Add press officer')
-  end
-
-  def show
-    update_page_title('Press officer details')
   end
 
   def edit

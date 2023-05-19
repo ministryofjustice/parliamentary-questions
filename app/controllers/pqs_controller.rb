@@ -18,9 +18,9 @@ class PqsController < ApplicationController
         if @pq.update(pq_params)
           @pq.update_state!
           reassign_ao_if_present(@pq)
-          flash[:success] = 'Successfully updated'
+          flash.now[:success] = 'Successfully updated'
         else
-          flash[:error] = 'Update failed'
+          flash.now[:error] = 'Update failed'
         end
         set_dashboard_title
         render :show

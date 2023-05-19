@@ -2,13 +2,7 @@ module HealthCheck
   class PqaApi < Component
     TIMESTAMP_FILE = "#{Rails.root}/tmp/pqa_api_healthcheck_timestamp"
 
-    ERRS_TO_CATCH =
-      [
-        Net::ReadTimeout,
-        Errno::ECONNREFUSED,
-        SocketError,
-        HTTPClient::FailureResponse
-      ]
+    ERRS_TO_CATCH = [Net::ReadTimeout, Errno::ECONNREFUSED, SocketError, HTTPClient::FailureResponse]
 
     def self.time_to_run?
       interval = minimum_interval_in_seconds
@@ -23,7 +17,7 @@ module HealthCheck
 
     def record_result
       tmpdir = "#{Rails.root}/tmp"
-      Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
+      FileUtils.mkdir_p(tmpdir)
       status = @errors.any? ? 'FAIL' : 'OK'
 
       File.open(TIMESTAMP_FILE, 'w') do |fp|

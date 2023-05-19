@@ -4,7 +4,7 @@ describe 'EarlyBirdReportService' do
   let!(:early_bird_one) { create(:early_bird_member, name: 'member 1', email: 'm1@ao.gov', deleted: false) }
   let!(:early_bird_two) { create(:early_bird_member, name: 'member 2', email: 'm2@ao.gov', deleted: false) }
   let!(:early_bird_deleted) { create(:early_bird_member, name: 'member 3', email: 'm3@ao.gov', deleted: true) }
-  let(:testid) { 'early_bird-' + DateTime.now.utc.to_s.tr(' ', '-').tr('/', '-').tr(':', '-') }
+  let(:testid) { "early_bird-#{DateTime.now.utc.to_s.tr(' ', '-').tr('/', '-').tr(':', '-')}" }
 
   before(:each) do
     @report_service = EarlyBirdReportService.new
@@ -19,9 +19,7 @@ describe 'EarlyBirdReportService' do
     end_of_day = DateTime.current.end_of_day
 
     expect(token.expire.to_s).to eq(end_of_day.to_s)
-    expect(
-      Token.exists?(entity: "early_bird:#{early_bird_deleted.id}", path: '/early_bird/dashboard')
-    ).to eq(false)
+    expect(Token.exists?(entity: "early_bird:#{early_bird_deleted.id}", path: '/early_bird/dashboard')).to eq(false)
   end
 
   it 'calls the mailer' do
@@ -29,9 +27,9 @@ describe 'EarlyBirdReportService' do
 
     token = @report_service.notify_early_bird
 
-    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm1@ao.gov', token: token, entity: testid)
-    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm2@ao.gov', token: token, entity: testid)
-    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'pqtest@digital.justice.gov.uk', token: token, entity: testid)
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm1@ao.gov', token:, entity: testid)
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'm2@ao.gov', token:, entity: testid)
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: 'pqtest@digital.justice.gov.uk', token:, entity: testid)
     expect(NotifyPqMailer).not_to have_received(:early_bird_email).with(email: 'm3@ao.gov')
   end
 end

@@ -39,7 +39,7 @@ describe Presenters::Report do
         actual   = minister_report.rows.map { |r| row_values(r) }
         expected =
           PQState::IN_PROGRESS.map do |state|
-            [PQState.state_label(state), ministers.map { |m| [0, filter_all_path(minister_id: m.id, state: state)] }]
+            [PQState.state_label(state), ministers.map { |m| [0, filter_all_path(minister_id: m.id, state:)] }]
           end
 
         expected.zip(actual).each do |expected_row, row|
@@ -61,12 +61,13 @@ describe Presenters::Report do
       it 'produces the expected row values' do
         state    = PQState::WITH_POD
         label    = PQState.state_label(state)
-        actual   = pd_report.rows.map { |r| row_values(r) }.find { |s, _| s == label }
+        actual   = pd_report.rows.map { |r| row_values(r) }
+                            .find { |s, _| s == label }
         expected = [
           label,
           [
-            [10, filter_all_path(press_desk_id: press_desks[0].id, state: state)],
-            [20, filter_all_path(press_desk_id: press_desks[1].id, state: state)]
+            [10, filter_all_path(press_desk_id: press_desks[0].id, state:)],
+            [20, filter_all_path(press_desk_id: press_desks[1].id, state:)]
           ]
         ]
         expect(actual).to eq(expected)

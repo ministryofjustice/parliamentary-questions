@@ -68,7 +68,7 @@ module Export
     def escape_equals_for_excel(item)
       item = '' if item.nil?
       if item.to_s.start_with?('=')
-        item = "'" + item
+        item = "'#{item}"
       else
         item
       end

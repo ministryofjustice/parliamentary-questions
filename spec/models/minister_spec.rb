@@ -30,10 +30,7 @@ describe Minister do
     let!(:deleted_minister_contact) { create(:deleted_minister_contact, minister: subject) }
 
     it 'returns the active minister contacts emails' do
-      expect(subject.contact_emails).to eql([
-                                              minister_contact1.email,
-                                              minister_contact2.email
-                                            ])
+      expect(subject.contact_emails).to eql([minister_contact1.email, minister_contact2.email])
     end
   end
 
@@ -49,7 +46,7 @@ describe Minister do
     context 'for deleted minister' do
       let(:minister) { create(:deleted_minister) }
       it 'should have the inactive suffix' do
-        is_expected.to eql(minister.name + ' - Inactive')
+        is_expected.to eql("#{minister.name} - Inactive")
       end
     end
   end

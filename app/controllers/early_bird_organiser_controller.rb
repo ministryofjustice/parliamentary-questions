@@ -8,12 +8,10 @@ class EarlyBirdOrganiserController < ApplicationController
 
     @previous_early_bird = EarlyBirdOrganiser.last
 
-    if @previous_early_bird
-      if Time.zone.today < @previous_early_bird.date_to
-        date_from = @previous_early_bird.date_from
-        date_to = @previous_early_bird.date_to
-        flash[:message] = "The early bird is currently turned off between #{date_from} and #{date_to}."
-      end
+    if @previous_early_bird && (Time.zone.today < @previous_early_bird.date_to)
+      date_from = @previous_early_bird.date_from
+      date_to = @previous_early_bird.date_to
+      flash[:message] = "The early bird is currently turned off between #{date_from} and #{date_to}."
     end
   end
 

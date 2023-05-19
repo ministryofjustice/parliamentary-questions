@@ -1,5 +1,5 @@
-require 'sinatra/base'
 require 'date'
+require 'sinatra/base'
 
 module PQA
   # This class provides a mock implementation of the PQ&A API.
@@ -14,18 +14,18 @@ module PQA
       set :lock, true
     end
 
-    # Note: Internal to the Mock API server
+    # NOTE: Internal to the Mock API server
     get '/' do
       'This API is working'
     end
 
-    # Note: Internal to the Mock API server
+    # NOTE: Internal to the Mock API server
     put '/reset' do
       QUESTIONS.clear
       'ok'
     end
 
-    # Note: Internal to the Mock API server
+    # NOTE: Internal to the Mock API server
     put '/api/qais/questions/:uin' do
       xml    = request.body.read
       doc    = Nokogiri::XML(xml)
@@ -38,8 +38,7 @@ module PQA
       else
         status 400
         msg = (
-          ['Invalid XML message'] +
-          errors.map { |err| "- #{err.inspect}" }
+          ['Invalid XML message'] + errors.map { |err| "- #{err.inspect}" }
         ).join("\n")
         body msg
       end

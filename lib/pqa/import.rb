@@ -46,7 +46,7 @@ module PQA
 
     def insert_or_update(q)
       uin = q.uin
-      pq  = Pq.find_or_initialize_by(uin: uin)
+      pq  = Pq.find_or_initialize_by(uin:)
 
       pq.uin                 = uin
       pq.raising_member_id   = q.member_id

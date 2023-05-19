@@ -86,7 +86,8 @@ module PQState
       private
 
       def list_dead_ends
-        @dead_ends.map { |t| "#{t.state_from} -> #{t.state_to}" }.join(', ')
+        @dead_ends.map { |t| "#{t.state_from} -> #{t.state_to}" }
+                  .join(', ')
       end
     end
   end

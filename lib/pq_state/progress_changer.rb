@@ -27,10 +27,10 @@ module PQState
       end,
       ## With Minister
       Transition(POD_CLEARED, WITH_MINISTER) do |pq|
-        if !pq.policy_minister
-          !!pq.sent_to_answering_minister
-        else
+        if pq.policy_minister
           !!(pq.sent_to_answering_minister && pq.sent_to_policy_minister)
+        else
+          !!pq.sent_to_answering_minister
         end
       end,
       ## Minister Query

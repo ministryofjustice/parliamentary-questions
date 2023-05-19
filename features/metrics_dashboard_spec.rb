@@ -14,13 +14,13 @@ feature 'Metrics dashboard', js: true do
   end
 
   scenario 'Unauthorized geckoboard JSON access displays error' do
-    visit metrics_dashboard_path + '.json'
+    visit "#{metrics_dashboard_path}.json"
     expect(page.status_code).to eq 401
   end
 
   scenario 'Authorized geckoboard JSON access displays correctly' do
     page.driver.basic_authorize('test_username', 'X')
-    visit metrics_dashboard_path + '.json'
+    visit "#{metrics_dashboard_path}.json"
 
     expect(page.response_headers).to include('Content-Type' => 'application/json; charset=utf-8')
   end

@@ -1,9 +1,6 @@
 module PqScopes
   def allocated_since(since)
-    joins(:action_officers_pqs)
-      .where('action_officers_pqs.updated_at >= ?', since)
-      .group('pqs.id')
-      .order(:uin)
+    joins(:action_officers_pqs).where('action_officers_pqs.updated_at >= ?', since).group('pqs.id').order(:uin)
   end
 
   def answered
@@ -91,9 +88,9 @@ module PqScopes
 
   def filter_for_report(state, minister_id, press_desk_id)
     q = order(:internal_deadline)
-    q = join_press_desks.where('pd.id = ?', press_desk_id).distinct('pqs.uin') if press_desk_id.present?
-    q = q.where(state: state) if state.present?
-    q = q.where(minister_id: minister_id) if minister_id.present?
+    q = join_press_desks.where(pd: { id: press_desk_id }).distinct('pqs.uin') if press_desk_id.present?
+    q = q.where(state:) if state.present?
+    q = q.where(minister_id:) if minister_id.present?
     q
   end
 

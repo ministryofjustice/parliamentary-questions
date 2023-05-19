@@ -1,9 +1,6 @@
 module Metrics
   class Mail < Component
-    attr_reader :num_waiting,
-                :num_abandoned,
-                :num_unanswered_tokens,
-                :pctg_answered_tokens
+    attr_reader :num_waiting, :num_abandoned, :num_unanswered_tokens, :pctg_answered_tokens
 
     def collect!
       @num_waiting           = Email.waiting.size

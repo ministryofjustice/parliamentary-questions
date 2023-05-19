@@ -32,9 +32,7 @@ module Features
       visit_assignment_url(pq, ao)
       choose 'Reject'
 
-      find('select[name="allocation_response[reason_option]"]')
-        .find(:xpath, "option[#{option_index}]")
-        .select_option
+      find('select[name="allocation_response[reason_option]"]').find(:xpath, "option[#{option_index}]").select_option
 
       fill_in 'allocation_response_reason', with: reason_text
       click_on 'Save Response'
@@ -59,10 +57,8 @@ module Features
       expect(page).to have_content(status)
     end
 
-    def within_pq(uin)
-      within("*[data-pquin='#{uin}']") do
-        yield
-      end
+    def within_pq(uin, &)
+      within("*[data-pquin='#{uin}']", &)
     end
 
     def in_pq_detail(uin, section_anchor)
@@ -77,7 +73,7 @@ module Features
       entity = token_db.entity
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire.end_of_day)
 
-      visit watchlist_dashboard_url(token: token, entity: entity)
+      visit watchlist_dashboard_url(token:, entity:)
     end
 
     def visit_earlybird_url(expiry = DateTime.now.utc)
@@ -85,7 +81,7 @@ module Features
       entity = token_db.entity
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 
-      visit early_bird_dashboard_url(token: token, entity: entity)
+      visit early_bird_dashboard_url(token:, entity:)
     end
 
     def visit_assignment_url(pq, ao)
@@ -94,15 +90,13 @@ module Features
       token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{ao_pq.id}")
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 
-      visit assignment_path(uin: pq.uin, token: token, entity: token_db.entity)
+      visit assignment_path(uin: pq.uin, token:, entity: token_db.entity)
     end
 
     private
 
     def select_option(selector_name, option_text)
-      find(:select, selector_name)
-        .find(:option, text: option_text)
-        .select_option
+      find(:select, selector_name).find(:option, text: option_text).select_option
     end
 
     def fillin_date(css_sel)

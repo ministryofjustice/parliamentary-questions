@@ -1,8 +1,6 @@
 module Metrics
   class Health < Component
-    attr_reader :db_status,
-                :pqa_api_status,
-                :pqa_api_error_message
+    attr_reader :db_status, :pqa_api_status, :pqa_api_error_message
 
     def collect!
       @db_status       = current_db_status

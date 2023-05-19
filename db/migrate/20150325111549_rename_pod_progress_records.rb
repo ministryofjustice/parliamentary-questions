@@ -1,7 +1,7 @@
 class RenamePodProgressRecords < ActiveRecord::Migration[5.0]
   def up
     ['Pod Query', 'Pod Cleared'].each do |name|
-      progress = Progress.where(name: name).first
+      progress = Progress.where(name:).first
       if progress
         progress.update(name: name.gsub(/Pod/, 'POD'))
       else

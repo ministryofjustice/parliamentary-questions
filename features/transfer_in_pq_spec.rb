@@ -12,9 +12,7 @@ feature 'Transferring IN questions', js: true, suspend_cleaner: true do
     find('#pq_dateforanswer').set date || Date.tomorrow.strftime('%d/%m/%Y')
     choose 'House of Commons'
 
-    find("select[name = 'pq[transfer_in_ogd_id]']")
-      .find(:xpath, 'option[2]')
-      .select_option
+    find("select[name = 'pq[transfer_in_ogd_id]']").find(:xpath, 'option[2]').select_option
 
     find('#transfer_in_date').set Time.zone.today.strftime('%d/%m/%Y')
     click_on 'Create PQ'

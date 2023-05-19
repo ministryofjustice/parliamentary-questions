@@ -1,5 +1,5 @@
-require 'spec_helper'
 require "#{Rails.root}/spec/support/features/session_helpers"
+require 'spec_helper'
 
 describe WatchlistDashboardController, type: :controller do
   before(:each) do
@@ -8,7 +8,7 @@ describe WatchlistDashboardController, type: :controller do
 
   describe 'GET index' do
     let(:entity) { 'watchlist-20/05/2015 11:37' }
-    let(:token)  { FactoryBot.create :token, entity: entity }
+    let(:token)  { FactoryBot.create :token, entity: }
 
     it 'The token should not be marked as acknowledged' do
       expect(token).to_not be_acknowledged

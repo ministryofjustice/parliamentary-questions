@@ -40,12 +40,7 @@ describe HealthCheckService do
       result = HealthCheckService.new.report
 
       expect(result.status).to eq '500'
-      expect(result.messages.sort).to eq([
-        'DB message 1',
-        'DB Message 2',
-        'API message 1',
-        'API Message 2'
-      ].sort)
+      expect(result.messages.sort).to eq(['DB message 1', 'DB Message 2', 'API message 1', 'API Message 2'].sort)
     end
   end
 end

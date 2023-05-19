@@ -1,7 +1,7 @@
 # rubocop:disable Rails/RakeEnvironment
 desc 'run brakeman on the app and report any errors'
 task :brake do
-  ROOT_DIR        = File.expand_path(File.basename(__FILE__) + '/../')
+  ROOT_DIR        = File.expand_path("#{File.basename(__FILE__)}/../")
   RED             = "\033[0;31m"
   GREEN           = "\033[0;32m"
   NO_COLOR        = "\033[0m"

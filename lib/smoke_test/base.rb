@@ -1,11 +1,11 @@
-require 'uri'
 require 'mechanize'
+require 'uri'
 
 module SmokeTest
   class Base
     include Rails.application.routes.url_helpers
 
-    SSL_CERT_DIR  = ENV['CA_CERT']
+    SSL_CERT_DIR  = ENV.fetch('CA_CERT', nil)
     SSL_CERT_FILE = File.expand_path('resources/pq.dsd.io.pem', __dir__)
 
     attr_reader :app_uri, :agent
@@ -13,11 +13,7 @@ module SmokeTest
     def self.from_env
       raise 'TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests' unless ENV['TEST_USER_PASS'] && ENV['TEST_USER']
 
-      new(
-        Settings.live_url,
-        ENV['TEST_USER'],
-        ENV['TEST_USER_PASS']
-      )
+      new(Settings.live_url, ENV.fetch('TEST_USER', nil), ENV.fetch('TEST_USER_PASS', nil))
     end
 
     def passed?

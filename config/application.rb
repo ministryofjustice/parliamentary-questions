@@ -2,9 +2,9 @@ require_relative 'boot'
 $LOAD_PATH << File.expand_path('../lib', __dir__)
 
 require 'pq_state'
-require 'pq_state/transition'
-require 'pq_state/state_machine'
 require 'pq_state/progress_changer'
+require 'pq_state/state_machine'
+require 'pq_state/transition'
 
 require 'csv'
 require 'rails/all'
@@ -74,7 +74,7 @@ module ParliamentaryQuestions
     # Rails.application.config.action_controller.urlsafe_csrf_tokens = true
 
     # feature flag for display of new early bird functionality
-    config.feature_propose_ao_enabled = ENV['FEATURE_PROPOSE_AO_ENABLED']
+    config.feature_propose_ao_enabled = ENV.fetch('FEATURE_PROPOSE_AO_ENABLED', nil)
   end
 end
 

@@ -29,10 +29,7 @@ module HealthCheck
     end
 
     def log_error
-      @errors = [
-        "Database Error: could not connect to #{config.database} " \
-          "on #{config.host} using #{config.adapter}"
-      ]
+      @errors = ["Database Error: could not connect to #{config.database} on #{config.host} using #{config.adapter}"]
     end
 
     def config

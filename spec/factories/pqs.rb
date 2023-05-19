@@ -94,7 +94,7 @@ FactoryBot.define do
 
         after(:create) do |pq, evaluator|
           create(:action_officers_pq,
-                 pq: pq,
+                 pq:,
                  action_officer: evaluator.action_officer,
                  created_at: evaluator.action_officer_allocated_at,
                  updated_at: evaluator.action_officer_allocated_at)
@@ -108,7 +108,7 @@ FactoryBot.define do
         minister
 
         after(:create) do |pq, _|
-          pq.action_officers_pqs = [create(:accepted_action_officers_pq, pq: pq)]
+          pq.action_officers_pqs = [create(:accepted_action_officers_pq, pq:)]
         end
 
         factory :with_pod_pq do

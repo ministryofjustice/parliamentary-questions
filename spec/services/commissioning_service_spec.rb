@@ -53,8 +53,8 @@ describe CommissioningService do
       end
 
       it 'notifies both of the action officers' do
-        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq: pq, action_officer: ao1))
-        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq: pq, action_officer: ao2))
+        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq:, action_officer: ao1))
+        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq:, action_officer: ao2))
       end
 
       it "sets the PQ state to 'no-response'" do

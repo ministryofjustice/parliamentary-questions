@@ -52,15 +52,9 @@ describe PQState::Validator do
           t('l', 'm')
         ]
 
-        x_transitions =
-          %w[
-            a b d e g h l m
-          ].product(['x']).map { |from, to| t(from, to) }
+        x_transitions = %w[a b d e g h l m].product(['x']).map { |from, to| t(from, to) }
 
-        PQState::Validator.new(
-          transitions + x_transitions,
-          %w[m x]
-        ).check_consistent_state_graph!
+        PQState::Validator.new(transitions + x_transitions, %w[m x]).check_consistent_state_graph!
       end
     end
   end

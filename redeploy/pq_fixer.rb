@@ -85,10 +85,7 @@ module Redeploy
     end
 
     def fix_uncommissioned
-      ao_pq = ActionOfficersPq.create(
-        pq_id: @pq.id,
-        action_officer_id: ao_placeholder.id
-      )
+      ao_pq = ActionOfficersPq.create(pq_id: @pq.id, action_officer_id: ao_placeholder.id)
 
       ao_pq.accept
 
@@ -122,25 +119,15 @@ module Redeploy
     end
 
     def pd_placeholder
-      @pd_placeholder ||=
-        PressDesk.find_or_create_by(
-          name: 'Unknown'
-        )
+      @pd_placeholder ||= PressDesk.find_or_create_by(name: 'Unknown')
     end
 
     def dir_placeholder
-      @dir_placeholder ||=
-        Directorate.find_or_create_by(
-          name: 'Unknown'
-        )
+      @dir_placeholder ||= Directorate.find_or_create_by(name: 'Unknown')
     end
 
     def div_placeholder
-      @div_placeholder ||=
-        Division.find_or_create_by(
-          name: 'Unknown',
-          directorate: dir_placeholder
-        )
+      @div_placeholder ||= Division.find_or_create_by(name: 'Unknown', directorate: dir_placeholder)
     end
   end
 end

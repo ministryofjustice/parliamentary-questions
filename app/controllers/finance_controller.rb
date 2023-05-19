@@ -10,7 +10,7 @@ class FinanceController < ApplicationController
     params[:pq].each do |id, values|
       finance_interest = values['finance_interest'] || false
       pq = Pq.find(id)
-      pq.update(finance_interest: finance_interest)
+      pq.update(finance_interest:)
     end
 
     flash[:success] = 'Successfully registered interest in the questions'

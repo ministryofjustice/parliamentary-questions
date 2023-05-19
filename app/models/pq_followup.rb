@@ -7,7 +7,7 @@ module PqFollowup
 
       if follow_up.new_record?
         attrs = attributes
-                .reject { |k, _| FOLLOW_UP_ATTR_RESET.include?(k) }
+                .except(*FOLLOW_UP_ATTR_RESET)
                 .merge('question_type' => 'Follow-up IWW',
                        'i_will_write' => true,
                        'follow_up_to' => uin,
@@ -16,9 +16,7 @@ module PqFollowup
         follow_up.update!(attrs)
 
         ao_pq = action_officers_pqs.find(&:accepted?)
-        ActionOfficersPq.create!(
-          pq_id: follow_up.id,
-          action_officer_id: ao_pq.action_officer_id).accept
+        ActionOfficersPq.create!(pq_id: follow_up.id, action_officer_id: ao_pq.action_officer_id).accept
       end
       follow_up
     end

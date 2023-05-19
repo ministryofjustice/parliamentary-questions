@@ -6,20 +6,14 @@ module Presenters
       @filters = filters
     end
 
-    def each(&block)
-      @filters.each(&block)
+    def each(&)
+      @filters.each(&)
     end
 
     def self.build(counts, params)
-      all_filter = ViewAllFilter.new(counts['view_all'],
-                                     'view_all',
-                                     'View all',
-                                     params)
+      all_filter = ViewAllFilter.new(counts['view_all'], 'view_all', 'View all', params)
 
-      transferred_in = TransferedInFilter.new(counts['transferred_in'],
-                                              'transferred_in',
-                                              'Transferred In',
-                                              params)
+      transferred_in = TransferedInFilter.new(counts['transferred_in'], 'transferred_in', 'Transferred In', params)
 
       new([all_filter] + statuses(counts, params) + [transferred_in])
     end
@@ -30,10 +24,7 @@ module Presenters
                                                 'View all',
                                                 params)
 
-      iww = IwwFilter.new(counts['iww'],
-                          'iww',
-                          'I will write',
-                          params)
+      iww = IwwFilter.new(counts['iww'], 'iww', 'I will write', params)
 
       new([in_progress] + in_progress_statuses(counts, params) + [iww])
     end
@@ -44,10 +35,7 @@ module Presenters
                                                 'View all',
                                                 params)
 
-      iww = IwwFilter.new(counts['iww'],
-                          'iww',
-                          'I will write',
-                          params)
+      iww = IwwFilter.new(counts['iww'], 'iww', 'I will write', params)
 
       new([in_progress] + in_progress_statuses(counts, params) + [iww])
     end

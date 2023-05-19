@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe AssignmentService do
   let(:action_officer) { create(:action_officer, name: 'ao name 1', email: 'ao@ao.gov', deputy_director_id: deputy_director.id) }
-  let(:assignment) { ActionOfficersPq.new(action_officer: action_officer, pq: pq) }
+  let(:assignment) { ActionOfficersPq.new(action_officer:, pq:) }
   let(:commissioning_service) { CommissioningService.new }
   let(:deputy_director) { create(:deputy_director, name: 'dd name', division_id: division.id, id: rand(1..10)) }
   let(:directorate) { create(:directorate, name: 'This Directorate', id: rand(1..10)) }
@@ -19,7 +19,7 @@ describe AssignmentService do
   end
 
   let(:minister) { build(:minister) }
-  let(:pq) { create(:pq, uin: 'HL789', question: 'test question?', minister: minister, house_name: 'commons') }
+  let(:pq) { create(:pq, uin: 'HL789', question: 'test question?', minister:, house_name: 'commons') }
 
   describe '#accept' do
     it 'accepts the assignment' do
@@ -35,7 +35,7 @@ describe AssignmentService do
     it 'should call the mailer' do
       allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_later)
       subject.accept(assignment)
-      expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq: pq, action_officer: action_officer, email: action_officer.email)
+      expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq:, action_officer:, email: action_officer.email)
     end
 
     it 'should set the original division_id on PQ' do
@@ -71,7 +71,7 @@ describe AssignmentService do
       expect(pq.directorate_id).to eq(directorate.id)
       new_dir = create(:directorate, name: 'New Directorate', id: Directorate.maximum(:id).next)
       new_div = create(:division, name: 'New Division', directorate_id: new_dir.id, id: Division.maximum(:id).next)
-      new_dd = create(:deputy_director, name: 'dd name', division_id: new_div.id, id: 10 + DeputyDirector.maximum(:id).next)
+      new_dd = create(:deputy_director, name: 'dd name', division_id: new_div.id, id: DeputyDirector.maximum(:id).next + 10)
       action_officer.update(deputy_director_id: new_dd.id)
       expect(pq.directorate_id).to eql(directorate.id)
       expect(assignment.action_officer.deputy_director_id).to eql(new_dd.id)

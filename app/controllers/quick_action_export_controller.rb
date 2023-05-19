@@ -29,7 +29,7 @@ class QuickActionExportController < ApplicationController
       # 200
     else
       puts 'form invalid'
-      flash[:error] = 'Form was not completed'
+      flash.now[:error] = 'Form was not completed'
       status = 400
       400
     end
@@ -42,7 +42,7 @@ class QuickActionExportController < ApplicationController
 
     render(partial: 'dashboard/quick_action_export',
            locals: { total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated },
-           status: status)
+           status:)
   end
 
   def export
@@ -50,7 +50,7 @@ class QuickActionExportController < ApplicationController
 
     render(partial: 'dashboard/quick_action_export',
            locals: { total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated },
-           status: status)
+           status:)
   end
 
   private

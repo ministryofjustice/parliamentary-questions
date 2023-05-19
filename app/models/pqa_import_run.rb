@@ -31,7 +31,7 @@ class PqaImportRun < ActiveRecord::Base
 
   def self.record_success(start_time, import_run_report)
     create!(
-      start_time: start_time,
+      start_time:,
       end_time: Time.now,
       num_created: import_run_report[:created],
       num_updated: import_run_report[:updated],
@@ -41,7 +41,7 @@ class PqaImportRun < ActiveRecord::Base
 
   def self.record_failure(start_time, error_message)
     create!(
-      start_time: start_time,
+      start_time:,
       end_time: Time.now,
       num_created: 0,
       num_updated: 0,

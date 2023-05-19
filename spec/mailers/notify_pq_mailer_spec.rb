@@ -4,7 +4,7 @@ describe NotifyPqMailer, type: :mailer do
   let(:ao)    { create :action_officer }
 
   describe 'acceptance_email' do
-    let(:mail) { described_class.acceptance_email(pq: pq, action_officer: ao, email: ao.email) }
+    let(:mail) { described_class.acceptance_email(pq:, action_officer: ao, email: ao.email) }
 
     it 'sets the template' do
       expect(mail.govuk_notify_template).to eq 'b8b325ad-a00a-4ae9-8830-6386f04adbca'
@@ -39,7 +39,7 @@ describe NotifyPqMailer, type: :mailer do
         pq.update(member_constituency: 'Kingston upon Hull North',
                   member_name: 'Diana Johnson',
                   house_name: 'House of Commons',
-                  minister: minister)
+                  minister:)
         ao.update(group_email: 'kulsgroupmail@digital.justice.gov.uk')
         expect(mail.govuk_notify_personalisation)
           .to eq(
@@ -76,7 +76,7 @@ describe NotifyPqMailer, type: :mailer do
   end
 
   describe 'commission_email' do
-    let(:mail) { described_class.commission_email(pq: pq, action_officer: ao, token: 'token', entity: 'entity', email: ao.email) }
+    let(:mail) { described_class.commission_email(pq:, action_officer: ao, token: 'token', entity: 'entity', email: ao.email) }
 
     it 'sets the template' do
       expect(mail.govuk_notify_template).to eq '93cb8968-bd2a-401b-8b59-47f8e0b30ca0'
@@ -105,7 +105,7 @@ describe NotifyPqMailer, type: :mailer do
   end
 
   describe 'draft_reminder_email' do
-    let(:mail) { described_class.draft_reminder_email(pq: pq, action_officer: ao, email: ao.email) }
+    let(:mail) { described_class.draft_reminder_email(pq:, action_officer: ao, email: ao.email) }
     it 'sets the template' do
       expect(mail.govuk_notify_template).to eq 'a194ce43-dfe4-4a4f-8f15-8ad2545c4fb9'
     end

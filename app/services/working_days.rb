@@ -1,7 +1,9 @@
 require 'date'
 
-class WorkingDays
-  def self.days_after(d, v)
+module WorkingDays
+  extend self
+
+  def days_after(d, v)
     result = d + v.days
     loop do
       break unless weekend?(result)
@@ -13,7 +15,7 @@ class WorkingDays
 
   # private
 
-  def self.weekend?(day)
+  def weekend?(day)
     day.saturday? || day.sunday?
   end
 end

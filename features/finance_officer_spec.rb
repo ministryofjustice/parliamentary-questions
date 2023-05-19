@@ -38,7 +38,7 @@ feature 'Creating finance officers', js: true, suspend_cleaner: true do
     invitation_token, encoded = Devise.token_generator.generate(User, :invitation_token)
     user.update_column(:invitation_token, encoded)
 
-    visit accept_user_invitation_path(invitation_token: invitation_token)
+    visit accept_user_invitation_path(invitation_token:)
     fill_in 'Password', with: pass
     fill_in 'Password confirmation', with: pass
     click_on 'Set my password'

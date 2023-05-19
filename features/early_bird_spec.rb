@@ -1,5 +1,5 @@
-require 'feature_helper'
 require 'business_time'
+require 'feature_helper'
 
 feature 'Early bird member sees allocated questions', suspend_cleaner: true do
   include Features::PqHelpers

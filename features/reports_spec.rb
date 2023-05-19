@@ -3,11 +3,9 @@ require 'feature_helper'
 feature 'Minister Report', js: true do
   include Features::PqHelpers
 
-  def within_report_state(state)
-    css = "tr[data='report-state-" + state.to_s + "']"
-    within(css) do
-      yield
-    end
+  def within_report_state(state, &)
+    css = "tr[data='report-state-#{state}']"
+    within(css, &)
   end
 
   def expect_report_to_have(record, state, count)
@@ -36,7 +34,7 @@ feature 'Minister Report', js: true do
 
     uins.each do |uin|
       commission_question(uin, [action_officer], minister)
-      accept_assignment(Pq.find_by(uin: uin), action_officer)
+      accept_assignment(Pq.find_by(uin:), action_officer)
     end
 
     visit reports_ministers_by_progress_path

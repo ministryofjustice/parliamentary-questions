@@ -1,15 +1,8 @@
 class HealthCheckService
-  COMPONENT_CLASSES =
-    [
-      HealthCheck::Database,
-      HealthCheck::PqaApi
-    ]
+  COMPONENT_CLASSES = [HealthCheck::Database, HealthCheck::PqaApi]
 
   def initialize
-    @components =
-      COMPONENT_CLASSES
-      .select(&:time_to_run?)
-      .map(&:new)
+    @components = COMPONENT_CLASSES.select(&:time_to_run?).map(&:new)
   end
 
   def report

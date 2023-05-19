@@ -6,6 +6,11 @@ class MinisterContactsController < ApplicationController
     @minister         = @minister_contact.minister
   end
 
+  def edit
+    @minister_contact = MinisterContact.find(params[:id])
+    @minister         = @minister_contact.minister
+  end
+
   def create
     @minister_contact = MinisterContact.new(minister_contacts_params)
     @minister         = @minister_contact.minister
@@ -16,11 +21,6 @@ class MinisterContactsController < ApplicationController
     else
       render action: 'new'
     end
-  end
-
-  def edit
-    @minister_contact = MinisterContact.find(params[:id])
-    @minister         = @minister_contact.minister
   end
 
   def update

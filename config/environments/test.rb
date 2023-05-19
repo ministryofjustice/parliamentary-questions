@@ -37,7 +37,7 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   config.log_level = :debug
 

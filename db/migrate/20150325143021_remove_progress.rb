@@ -7,7 +7,7 @@ class RemoveProgress < ActiveRecord::Migration[5.0]
 
     Pq.find_in_batches.each do |pq, _|
       state = progress2state(pq.progress && pq.progress.name)
-      pq.update(state: state)
+      pq.update(state:)
     end
   end
 

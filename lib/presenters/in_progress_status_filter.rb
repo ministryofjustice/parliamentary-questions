@@ -2,8 +2,7 @@ module Presenters
   class InProgressStatusFilter < DashboardFilter
     include Rails.application.routes.url_helpers
     def active?
-      @params[:controller] == 'dashboard' && @params[:action] == 'in_progress_by_status' &&
-        @params[:qstatus] == @key
+      @params[:controller] == 'dashboard' && @params[:action] == 'in_progress_by_status' && @params[:qstatus] == @key
     end
 
     def path

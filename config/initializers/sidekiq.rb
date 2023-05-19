@@ -5,9 +5,7 @@ if Rails.env.production?
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = {
-    size: 1
-  }
+  config.redis = { size: 1 }
 end
 
 Sidekiq::Extensions.enable_delay!

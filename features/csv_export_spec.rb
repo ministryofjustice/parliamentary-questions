@@ -1,5 +1,5 @@
-require 'feature_helper'
 require './spec/support/csv_helpers'
+require 'feature_helper'
 
 feature 'Exporting PQ data to CSV' do
   include Features::PqHelpers
@@ -18,7 +18,7 @@ feature 'Exporting PQ data to CSV' do
     fill_in 'Date to', with: Date.tomorrow.strftime('%d/%m/%Y')
     click_on 'Download CSV'
 
-    uins = decode_csv(page.body).map { |h| h['PIN'] }
+    uins = decode_csv(page.body).pluck('PIN')
 
     expect(uins).to eq(@pqs.map(&:uin))
   end

@@ -1,6 +1,5 @@
 class MetricsDashboard
-  attr_reader :metrics,
-              :gecko
+  attr_reader :metrics, :gecko
 
   def initialize
     @metrics = metric_factory
@@ -16,7 +15,7 @@ class MetricsDashboard
   private
 
   def collect_metrics!
-    @metrics.to_h.values.each(&:collect!)
+    @metrics.to_h.each_value(&:collect!)
   end
 
   def metric_factory

@@ -2,9 +2,7 @@ class EarlyBirdMembersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @early_bird_members = EarlyBirdMember.active_list
-                                         .all
-                                         .order(Arel.sql('lower(name)'))
+    @early_bird_members = EarlyBirdMember.active_list.all.order(Arel.sql('lower(name)'))
     update_page_title('Early bird members')
   end
 
@@ -13,25 +11,14 @@ class EarlyBirdMembersController < ApplicationController
     update_page_title('Early bird member details')
   end
 
-  def edit
-    loading_earlybird_member
-    update_page_title('Edit early bird member')
-  end
-
-  def update
-    loading_earlybird_member do
-      if @early_bird_member.update(early_bird_member_params)
-        flash[:success] = 'Early bird member was successfully updated.'
-        redirect_to @early_bird_member
-      else
-        render action: 'edit'
-      end
-    end
-  end
-
   def new
     @early_bird_member = EarlyBirdMember.new
     update_page_title('Add early bird member')
+  end
+
+  def edit
+    loading_earlybird_member
+    update_page_title('Edit early bird member')
   end
 
   def create
@@ -42,6 +29,17 @@ class EarlyBirdMembersController < ApplicationController
       redirect_to @early_bird_member
     else
       render action: 'new'
+    end
+  end
+
+  def update
+    loading_earlybird_member do
+      if @early_bird_member.update(early_bird_member_params)
+        flash[:success] = 'Early bird member was successfully updated.'
+        redirect_to @early_bird_member
+      else
+        render action: 'edit'
+      end
     end
   end
 

@@ -40,8 +40,7 @@ describe HTTPClient do
 
   context 'authentication' do
     it 'should authenticate based on credentials provided' do
-      expect_any_instance_of(Net::HTTP::Get).to receive(:basic_auth)
-        .with('username', 'password')
+      expect_any_instance_of(Net::HTTP::Get).to receive(:basic_auth).with('username', 'password')
 
       client.issue_request(:get, "#{client.base_url}/")
     end

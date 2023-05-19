@@ -34,8 +34,7 @@ describe 'PQState#progress_changer' do
 
     context 'moving from an intermediate state to a possible final state' do
       it 'returns the final state' do
-        pq = stub_pq(transfer_out_ogd_id: 'test-id',
-                     transfer_out_date: DateTime.now)
+        pq = stub_pq(transfer_out_ogd_id: 'test-id', transfer_out_date: DateTime.now)
 
         expect(subject.next_state(PQState::NO_RESPONSE, pq)).to eq(PQState::TRANSFERRED_OUT)
       end

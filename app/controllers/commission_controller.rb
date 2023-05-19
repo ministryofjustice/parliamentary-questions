@@ -24,9 +24,7 @@ class CommissionController < ApplicationController
         'Invalid date input!'
       end
 
-    render(partial: 'shared/question_assigned',
-           locals: { question: pq },
-           status: status)
+    render(partial: 'shared/question_assigned', locals: { question: pq }, status:)
   end
 
   def complete

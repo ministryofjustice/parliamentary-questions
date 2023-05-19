@@ -2,20 +2,18 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @users = User.active_list
-                 .order(deleted: :asc)
-                 .order(Arel.sql('lower(name)'))
+    @users = User.active_list.order(deleted: :asc).order(Arel.sql('lower(name)'))
     update_page_title('Users')
-  end
-
-  def edit
-    @user = User.find(params[:id])
-    update_page_title('Edit user')
   end
 
   def show
     @user = User.find(params[:id])
     update_page_title('User details')
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    update_page_title('Edit user')
   end
 
   def update

@@ -21,8 +21,7 @@ class GeckoReportController < ApplicationController
   private
 
   def token
-    ActionController::HttpAuthentication::Basic
-      .encode_credentials(Rails.application.config.gecko_auth_username, 'X')
+    ActionController::HttpAuthentication::Basic.encode_credentials(Rails.application.config.gecko_auth_username, 'X')
     puts ActionController::HttpAuthentication::Basic.encode_credentials(Rails.application.config.gecko_auth_username, 'X')
   end
 end

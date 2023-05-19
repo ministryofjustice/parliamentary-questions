@@ -2,9 +2,7 @@ class WatchlistMembersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @watchlist_members = WatchlistMember.active_list
-                                        .all
-                                        .order(Arel.sql('lower(name)'))
+    @watchlist_members = WatchlistMember.active_list.all.order(Arel.sql('lower(name)'))
     update_page_title('Watchlist members')
   end
 
@@ -13,25 +11,14 @@ class WatchlistMembersController < ApplicationController
     update_page_title('Watchlist member details')
   end
 
-  def edit
-    loading_watchlist_member
-    update_page_title('Edit watchlist member')
-  end
-
-  def update
-    loading_watchlist_member do
-      if @watchlist_member.update(watchlist_member_params)
-        flash[:success] = 'Watchlist member was successfully updated.'
-        redirect_to @watchlist_member
-      else
-        render action: 'edit'
-      end
-    end
-  end
-
   def new
     @watchlist_member = WatchlistMember.new
     update_page_title('Add watchlist member')
+  end
+
+  def edit
+    loading_watchlist_member
+    update_page_title('Edit watchlist member')
   end
 
   def create
@@ -42,6 +29,17 @@ class WatchlistMembersController < ApplicationController
       redirect_to @watchlist_member
     else
       render action: 'new'
+    end
+  end
+
+  def update
+    loading_watchlist_member do
+      if @watchlist_member.update(watchlist_member_params)
+        flash[:success] = 'Watchlist member was successfully updated.'
+        redirect_to @watchlist_member
+      else
+        render action: 'edit'
+      end
     end
   end
 

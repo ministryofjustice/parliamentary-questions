@@ -13,8 +13,7 @@ module PQA
 
       if File.exist?(PID_FILEPATH)
         pid = File.read(PID_FILEPATH)
-        error = "Found pid file #{PID_FILEPATH}. " \
-                "Please kill process #{pid} and make sure the pid file is deleted"
+        error = "Found pid file #{PID_FILEPATH}. Please kill process #{pid} and make sure the pid file is deleted"
         raise ServerAlreadyRunning, error
       else
         Process.spawn(cmd, chdir: CWD)

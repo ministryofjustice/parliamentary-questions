@@ -18,13 +18,7 @@ module DBHelpers
   def load_spec_fixtures; end
 
   def load_feature_fixtures
-    load_fixtures(:ministers,
-                  :directorates,
-                  :divisions,
-                  :deputy_directors,
-                  :press_desks,
-                  :action_officers,
-                  :ogds)
+    load_fixtures(:ministers, :directorates, :divisions, :deputy_directors, :press_desks, :action_officers, :ogds)
   end
 
   def load_fixtures(*fixtures)
@@ -38,7 +32,7 @@ module DBHelpers
       ['pq@pq.com', 'pq-user', User::ROLE_PQ_USER],
       ['fin@fin.com', 'finance-user', User::ROLE_FINANCE]
     ].map do |email, name, role|
-      u = User.find_or_create_by(email: email, name: name, roles: role)
+      u = User.find_or_create_by(email:, name:, roles: role)
       u.update(password: USER_PASSWORD, password_confirmation: USER_PASSWORD) if u.new_record?
       u
     end

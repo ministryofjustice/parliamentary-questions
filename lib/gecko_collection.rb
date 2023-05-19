@@ -1,11 +1,7 @@
 require_relative 'gecko_status'
 
 class GeckoCollection
-  attr_reader :key_metric,
-              :db,
-              :pqa_api,
-              :pqa_import,
-              :smoke_tests
+  attr_reader :key_metric, :db, :pqa_api, :pqa_import, :smoke_tests
 
   def initialize
     @key_metric  = KeyMetricStatus.new

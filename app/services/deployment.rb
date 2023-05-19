@@ -1,10 +1,10 @@
 module Deployment
   def info
-    { version_number: version_number, build_date: build_date, commit_id: commit_id, build_tag: build_tag }
+    { version_number:, build_date:, commit_id:, build_tag: }
   end
 
   def version_number
-    ENV['APPVERSION']
+    ENV.fetch('APPVERSION', nil)
   end
 
   def build_date

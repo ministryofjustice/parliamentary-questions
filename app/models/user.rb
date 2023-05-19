@@ -39,11 +39,7 @@ class User < ActiveRecord::Base
   ROLE_FINANCE  = 'FINANCE'
   ROLE_ADMIN = 'ADMIN'
 
-  ROLES = [
-    ROLE_FINANCE,
-    ROLE_PQ_USER,
-    ROLE_ADMIN
-  ]
+  ROLES = [ROLE_FINANCE, ROLE_PQ_USER, ROLE_ADMIN]
 
   has_paper_trail
 

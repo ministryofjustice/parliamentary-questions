@@ -20,9 +20,6 @@ class PressDesk < ActiveRecord::Base
   scope :active_list, -> { where('press_desks.deleted = ? OR press_desks.deleted = ? AND press_desks.updated_at > ?', false, true, 2.days.ago.to_datetime) }
 
   def press_officer_emails
-    press_officers
-      .reject(&:deleted?)
-      .map(&:email)
-      .reject(&:blank?)
+    press_officers.reject(&:deleted?).map(&:email).compact_blank
   end
 end

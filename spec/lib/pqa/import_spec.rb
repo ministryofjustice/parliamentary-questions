@@ -44,12 +44,7 @@ describe PQA::Import do
 
       it 'reports that new records have been created' do
         report = import.run(from_date, to_date)
-        expect(report).to eq(
-          total: 3,
-          created: 3,
-          updated: 0,
-          errors: {}
-        )
+        expect(report).to eq(total: 3, created: 3, updated: 0, errors: {})
       end
 
       it "saves the records and flags them as 'unassigned'" do
@@ -65,10 +60,7 @@ describe PQA::Import do
     context 'when some questions already exist' do
       before do
         # first import
-        loader.load(questions(
-                      'uin-0' => ['2/2/2015', '3/2/2015'],
-                      'uin-1' => ['3/2/2015', '4/2/2015']
-                    ))
+        loader.load(questions('uin-0' => ['2/2/2015', '3/2/2015'], 'uin-1' => ['3/2/2015', '4/2/2015']))
 
         import.run(from_date, to_date)
         # second import
@@ -81,12 +73,7 @@ describe PQA::Import do
 
       it 'reports created and updated records' do
         report = import.run(from_date, to_date)
-        expect(report).to eq(
-          total: 3,
-          created: 1,
-          updated: 2,
-          errors: {}
-        )
+        expect(report).to eq(total: 3, created: 1, updated: 2, errors: {})
       end
 
       it 'saves the new records, updating the existing ones, without changing the state' do
@@ -109,10 +96,7 @@ describe PQA::Import do
     context 'importing a single question' do
       before(:each) do
         # first import
-        loader.load(questions(
-                      'uin-0' => ['2/2/2015', '3/2/2015'],
-                      'uin-1' => ['3/2/2015', '4/2/2015']
-                    ))
+        loader.load(questions('uin-0' => ['2/2/2015', '3/2/2015'], 'uin-1' => ['3/2/2015', '4/2/2015']))
       end
 
       context 'specifying a question that does exist' do

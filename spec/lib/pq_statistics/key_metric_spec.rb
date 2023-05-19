@@ -1,5 +1,5 @@
-require 'spec_helper'
 require 'business_time'
+require 'spec_helper'
 
 describe 'PqStatistics' do
   let(:threshold) { Settings.key_metric_threshold }
@@ -13,19 +13,11 @@ describe 'PqStatistics' do
       pqs  = (1..10).to_a.map { create(:answered_pq) }
 
       pqs.first(n).each do |pq|
-        pq.update(
-          date_for_answer: 1.business_days.after(date),
-          answer_submitted: date,
-          state: PQState::ANSWERED
-        )
+        pq.update(date_for_answer: 1.business_days.after(date), answer_submitted: date, state: PQState::ANSWERED)
       end
 
       pqs.last(10 - n).each do |pq|
-        pq.update(
-          date_for_answer: 1.business_days.before(date),
-          answer_submitted: date,
-          state: PQState::ANSWERED
-        )
+        pq.update(date_for_answer: 1.business_days.before(date), answer_submitted: date, state: PQState::ANSWERED)
       end
     end
 

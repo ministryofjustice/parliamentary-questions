@@ -12,8 +12,7 @@ describe NotifyDbSyncMailer, type: :mailer do
     end
 
     it 'sets the personalisation in the email' do
-      expect(mail.govuk_notify_personalisation.keys)
-        .to eq([:error_message])
+      expect(mail.govuk_notify_personalisation.keys).to eq([:error_message])
     end
   end
 end

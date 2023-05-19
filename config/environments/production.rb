@@ -95,7 +95,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   config.log_level = :info
 
@@ -104,7 +104,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -115,7 +115,7 @@ Rails.application.configure do
   # no details of the controller action or parameters.
   config.logstasher.enabled = true
   config.logstasher.log_level = Logger::INFO
-  config.logstasher.logger = ActiveSupport::Logger.new STDOUT
+  config.logstasher.logger = ActiveSupport::Logger.new $stdout
 
   # This line is optional, it allows you to set a custom value for the @source field of the log event
   config.logstasher.source = 'logstasher'
@@ -149,7 +149,7 @@ Rails.application.configure do
 
   # For routes accessed by gecko, we require HTTP basic auth
   # See https://developer.geckoboard.com/#polling-overview
-  config.gecko_auth_username = ENV['GECKO_AUTH_USERNAME']
+  config.gecko_auth_username = ENV.fetch('GECKO_AUTH_USERNAME', nil)
 
   config.after_initialize do
     sending_host = ENV['SENDING_HOST'] || 'localhost'

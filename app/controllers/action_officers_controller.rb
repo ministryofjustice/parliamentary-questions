@@ -23,6 +23,11 @@ class ActionOfficersController < ApplicationController
     update_page_title 'Add action officer'
   end
 
+  def edit
+    loading_existing_records
+    update_page_title 'Edit action officer'
+  end
+
   def create
     loading_new_records do
       if @action_officer.update(action_officer_params)
@@ -34,11 +39,6 @@ class ActionOfficersController < ApplicationController
         render action: 'new'
       end
     end
-  end
-
-  def edit
-    loading_existing_records
-    update_page_title 'Edit action officer'
   end
 
   def update

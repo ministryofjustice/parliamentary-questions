@@ -24,7 +24,7 @@ class ActionOfficersPq < ActiveRecord::Base
   end
 
   def reject(option, reason)
-    update(response: :rejected, reason_option: option, reason: reason)
+    update(response: :rejected, reason_option: option, reason:)
   end
 
   def reset

@@ -12,11 +12,7 @@ describe NotifyImportMailer, type: :mailer do
     end
 
     it 'sets the personalisation in the email' do
-      expect(mail.govuk_notify_personalisation)
-        .to eq(
-          environment: 'test',
-          error_message: StandardError
-        )
+      expect(mail.govuk_notify_personalisation).to eq(environment: 'test', error_message: StandardError)
     end
   end
 
