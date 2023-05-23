@@ -161,6 +161,11 @@ Naming/MethodParameterName:
   Description: 'This cop checks method parameter names for how descriptive they are. It is highly configurable.'
   Enabled: false
 
+Naming/VariableNumber:
+  Description: 'Makes sure that all variables use the configured style, snake_case or camelCase, for their names.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_naming.html#namingvariablenumber'
+  CheckSymbols: false
+
 # Rails Cops ==============================================================================
 
 Performance/ChainArrayAllocation:
