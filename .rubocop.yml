@@ -51,6 +51,11 @@ Lint/AmbiguousBlockAssociation:
   Description: 'This cop checks for ambiguous block association with method when param passed without parentheses.'
   Enabled: false
 
+Lint/ConstantDefinitionInBlock:
+  Description: 'Do not define constants within a block, since the block’s scope does not isolate or namespace the constant in any way.  If you are trying to define that constant once, define it outside of the block instead, or use a variable or method if defining the constant in the outer scope would be problematic.  For meta-programming, use const_set.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_lint.html#lintconstantdefinitioninblock'
+  Enabled: false
+
 Lint/ConstantResolution:
   Description: 'Check that certain constants are fully qualified.'
   Enabled: false
@@ -182,6 +187,11 @@ Rails/ApplicationRecord:
 
 Rails/CreateTableWithTimestamps:
   Description: 'This cop checks the migration for which timestamps are not included when creating a new table. In many cases, timestamps are useful information and should be added.'
+  Enabled: false
+
+Rails/EnvironmentVariableAccess:
+  Description: "Looks for direct access to environment variables through the ENV variable within the application code. This can lead to runtime errors due to misconfiguration that could have been discovered at boot time if the environment variables were loaded as part of initialization and copied into the application’s configuration or secrets. The cop can be configured to allow either reads or writes if required."
+  StyleGuide: 'https://docs.rubocop.org/rubocop-rails/cops_rails.html#railsenvironmentvariableaccess'
   Enabled: false
 
 Rails/FilePath:
