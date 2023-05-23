@@ -235,12 +235,18 @@ Rails/SaveBang:
 
 Rails/SchemaComment:
   Description: 'Enforces the use of the comment option when adding a new table or column to the database during a migration.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop-rails/cops_rails.html#railsschemacomment'
   Enabled: false
 
 Rails/SkipsModelValidations:
   Description: 'This cop checks for the use of methods which skip validations which are listed in https://guides.rubyonrails.org/active_record_validations.html#skipping-validations.'
   StyleGuide: 'https://guides.rubyonrails.org/active_record_validations.html#skipping-validations'
   AllowedMethods: [update_all, update_attribute, update_column]
+
+Rails/ThreeStateBooleanColumn:
+  Description: 'Enforces that boolean columns are created with default values (false or true) and NOT NULL constraint.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop-rails/cops_rails.html#railsthreestatebooleancolumn'
+  Enabled: false
 
 Rails/TimeZone:
   Description: 'This cop checks for the use of Time methods without zone.'
