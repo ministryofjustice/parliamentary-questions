@@ -397,6 +397,10 @@ Style/OpenStructUse:
   StyleGuide: 'https://docs.rubocop.org/rubocop/cops_style.html#styleopenstructuse'
   Enabled: false
 
+Style/RedundantInterpolation:
+  Description: 'This cop checks for strings that are just an interpolated expression.'
+  Enabled: false
+
 Style/RedundantParentheses:
   Description: 'This cop checks for redundant parentheses.'
   Enabled: false
@@ -431,8 +435,4 @@ Style/SymbolArray:
 Style/TopLevelMethodDefinition:
   Description: 'Newcomers to ruby applications may write top-level methods, when ideally they should be organized in appropriate classes or modules. This cop looks for definitions of top-level methods and warns about them. However for ruby scripts it is perfectly fine to use top-level methods. Hence this cop is disabled by default.'
   StyleGuide: 'https://docs.rubocop.org/rubocop/cops_style.html#styletoplevelmethoddefinition'
-  Enabled: false
-
-Style/RedundantInterpolation:
-  Description: 'This cop checks for strings that are just an interpolated expression.'
   Enabled: false
