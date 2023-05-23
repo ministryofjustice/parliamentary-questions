@@ -138,7 +138,9 @@ Metrics/ModuleLength:
 
 Metrics/ParameterLists:
   Description: 'Allow up to 6 method parameters.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_metrics.html#metricsparameterlists'
   Max: 6
+  MaxOptionalParameters: 6
 
 Metrics/PerceivedComplexity:
   Description: 'A complexity metric geared towards measuring complexity for a human reader.'
