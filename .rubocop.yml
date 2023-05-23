@@ -69,6 +69,11 @@ Lint/DuplicateBranch:
   StyleGuide: 'https://docs.rubocop.org/rubocop/cops_lint.html#lintconstantdefinitioninblock'
   Enabled: false
 
+Lint/EmptyBlock:
+  Description: 'Checks for blocks without a body. Such empty blocks are typically an oversight or we should provide a comment be clearer what we’re aiming for.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_lint.html#lintemptyblock'
+  Enabled: false
+
 Lint/SuppressedException:
   Description: 'This cop checks for rescue blocks with no body.'
   Enabled: false
