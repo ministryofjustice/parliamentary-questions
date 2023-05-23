@@ -77,6 +77,11 @@ Lint/IneffectiveAccessModifier:
   Description: 'This cop checks for private or protected access modifiers which are applied to a singleton method. These access modifiers do not make singleton methods private/protected. private_class_method can be used for that.'
   Enabled: false
 
+Lint/MissingSuper:
+  Description: 'Checks for the presence of constructors and lifecycle callbacks without calls to super.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_lint.html#lintmissingsuper'
+  Enabled: false
+
 Lint/NumberConversion:
   Description: 'This cop warns the usage of unsafe number conversions. Unsafe number conversion can cause unexpected error if auto type conversion fails. Cop prefer parsing with number class instead.'
   Enabled: false
