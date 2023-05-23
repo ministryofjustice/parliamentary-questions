@@ -392,6 +392,11 @@ Style/NumericLiteralPrefix:
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#numeric-literal-prefixes'
   Enabled: false
 
+Style/OpenStructUse:
+  Description: 'Flags uses of OpenStruct, as it is now officially discouraged to be used for performance, version compatibility, and potential security issues.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_style.html#styleopenstructuse'
+  Enabled: false
+
 Style/RedundantParentheses:
   Description: 'This cop checks for redundant parentheses.'
   Enabled: false
