@@ -3,29 +3,29 @@ class EarlyBirdMembersController < ApplicationController
 
   def index
     @early_bird_members = EarlyBirdMember.active_list.all.order(Arel.sql('lower(name)'))
-    update_page_title('Early bird members')
+    update_page_title(t('page.title.earlybird_members'))
   end
 
   def show
     loading_earlybird_member
-    update_page_title('Early bird member details')
+    update_page_title(t('page.title.earlybird_member_details'))
   end
 
   def new
     @early_bird_member = EarlyBirdMember.new
-    update_page_title('Add early bird member')
+    update_page_title(t('page.title.earlybird_member_add'))
   end
 
   def edit
     loading_earlybird_member
-    update_page_title('Edit early bird member')
+    update_page_title(t('page.title.earlybird_member_edit'))
   end
 
   def create
     @early_bird_member = EarlyBirdMember.new(early_bird_member_params)
 
     if @early_bird_member.save
-      flash[:success] = 'Early bird member was successfully created.'
+      flash[:success] = t('page.flash.earlybird_member_created')
       redirect_to @early_bird_member
     else
       render action: 'new'
@@ -35,7 +35,7 @@ class EarlyBirdMembersController < ApplicationController
   def update
     loading_earlybird_member do
       if @early_bird_member.update(early_bird_member_params)
-        flash[:success] = 'Early bird member was successfully updated.'
+        flash[:success] = t('page.flash.earlybird_member_updated')
         redirect_to @early_bird_member
       else
         render action: 'edit'

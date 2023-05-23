@@ -4,5 +4,132 @@ en:
       early_bird_organiser:
         date_from: First date to turn off the early bird email
         date_to: Last date the early bird email is off
+
     errors:
       models:
+
+  page:
+    actions:
+      add: Add
+      edit: Edit
+      new:  New
+
+    title:
+      accessibility_statement: Accessibility statement
+      action_officer_add: Add action officer
+      action_officer_details: Action officer details
+      action_officer_edit: Edit action officer
+      action_officers: Action officers
+      actionlist_member_add: Add actionlist member
+      actionlist_member_details: Actionlist member details
+      actionlist_member_edit: Edit actionlist member
+      actionlist_members: Actionlist members
+      deputy_director_add: Add deputy director
+      deputy_director_details: Deputy director details
+      deputy_director_edit: Edit deputy director
+      deputy_directors: Deputy directors
+      directorate_add: Add a directorate
+      directorate_details: Directorate details
+      directorate_edit: Edit directorate
+      directorates: Directorates
+      division_add: Add a division
+      division_details: Division details
+      division_edit: Edit division
+      divisions: Divisions
+      earlybird_member_add: Add early bird member
+      earlybird_member_details: Early bird member details
+      earlybird_member_edit: Edit early bird member
+      earlybird_members: Early bird members
+      earlybird_suspension: Suspend early bird email
+      export_pod_pqs: POD export PQs
+      export_pqs: Export PQs
+      finance: New PQs today
+      government_department_add: Add Government Department
+      government_department_details: Government Department details
+      government_department_edit: Edit Government Department
+      government_departments: Other Government Departments
+      minister_add: Add a minister
+      minister_details: Minister details
+      minister_edit: Edit minister
+      ministers: Ministers
+      pq_assignment_accepted: PQ assigned
+      pq_assignment_rejected: PQ rejected
+      pq_assignment: PQ assignment
+      press_desk_add: Add press desk
+      press_desk_details: Press desk details
+      press_desk_edit: Edit press desk
+      press_desks: Press Desks
+      press_officer_add: Add press officer
+      press_officer_details: Press officer details
+      press_officer_edit: Edit press officer
+      press_officers: Press officers
+      users: Users
+      user_add: Add user
+      user_details: User details
+      user_edit: Edit user
+      watchlist_preview: Watchlist preview
+      watchlist_members: Watchlist members
+      watchlist_member_details: Watchlist member details
+      watchlist_member_add: Add watchlist member
+      watchlist_member_edit: Edit watchlist member
+
+    flash:
+      action_officer_create_failed: Action officer could not be created.
+      action_officer_created: Action officer was successfully created.
+      action_officer_update_failed: Action officer could not be updated.
+      action_officer_updated: Action officer was successfully updated.
+      actionlist_member_created: Actionlist member was successfully created.
+      deputy_director_created: Deputy director was successfully created.
+      deputy_director_updated: Deputy director was successfully updated.
+      directorate_created: Directorate was successfully created.
+      directorate_updated: Directorate was successfully updated.
+      division_created: Division was successfully created.
+      division_updated: Division was successfully updated.
+      earlybird_member_created: Early bird member was successfully created.
+      earlybird_member_updated: Early bird member was successfully updated.
+      earlybird_sent: An email with the new questions information has been sent to all of the early bird members.
+      earlybird_suppression_date_range_set: "You have successfully scheduled the early bird to be turned off between %{date_from} and %{date_to}."
+      earlybird_suppression_date_range: "The early bird is currently turned off between %{date_from} and %{date_to}."
+      export_date_error: Invalid date input!
+      finance_interest_success: Successfully registered interest in the questions.
+      form_incomplete: Form was not completed.
+      government_department_created: OGD was successfully created.
+      government_department_updated: OGD was successfully updated.
+      minister_contact_created: Contact was successfully created.
+      minister_contact_updated: Contact was successfully updated.
+      minister_created: Minister was successfully created.
+      minister_updated: Minister was successfully updated.
+      pq_dashboard_title: "PQ %{@pq.uin}" 
+      pq_invalid_date: "Invalid date input!"
+      pq_manual_rejection_error: Commission data not found.
+      pq_manually_rejected: "%{uin} manually rejected, check if you have to do the commissioning again."
+      pq_transferred: Transferred PQ was successfully created.
+      pq_transfer_error: There was an error creating the transfer PQ.
+      pq_update_failed: Update failed.
+      pq_updated: Successfully updated.
+      press_desk_created: Press desk was successfully created.
+      press_desk_updated: Press desk was successfully updated.
+      press_officer_created: Press officer was successfully created.
+      press_officer_updated: Press officer was successfully updated.
+      proposal_accepted: Successfully proposed Deputy Director(s).
+      proposal_missing_deputy_director: Please choose a Deputy Director.
+      quick_action_date_updated: Date(s) updated.
+      quick_action_draft_reminedr_sent: Draft Reminder(s) Sent.
+      user_updated: User updated.
+      watchlist_email_sent: An email with the allocation information has been sent to all of the watchlist members.
+      watchlist_member_created: Watchlist member was successfully created.
+      watchlist_member_updated: Watchlist member was successfully updated.
+
+    message:
+      action_officer_duplicate_assignment: an action officer cannot be assigned twice to the same deputy director.
+      pq_manually_rejected: "This question was rejected manually by %{current_user.email}."
+      pqa_import_error: "Status must be 'OK', 'Failure' or 'OK_with_errors': was '%{value}'"
+      select_commission_action_officer: Please select at least one action officer.
+      select_commission_date_for_answer: Please choose date for answer.
+      select_commission_deadline: Please choose internal deadline.
+      select_commission_minister: Please select answering minister.
+      select_commission_pq: Please provide question id to commission.
+      select_proposal_action_officer: Please select at least one action officer.
+      select_proposal_pq: Please provide question id to proposal.
+      select_proposal_valid_action_officer: Please select valid action officer.
+      token_value_error: "%{value} is not a valid value for acknowledged."

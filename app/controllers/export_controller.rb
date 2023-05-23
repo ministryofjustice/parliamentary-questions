@@ -4,11 +4,11 @@ class ExportController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    update_page_title('Export PQs')
+    update_page_title(t('page.title.export_pqs'))
   end
 
   def index_for_pod
-    update_page_title('POD export PQs')
+    update_page_title(t('page.title.export_pod_pqs'))
   end
 
   def csv
@@ -37,7 +37,7 @@ class ExportController < ApplicationController
     date_to = parse_datetime(params[:date_to])
     yield(date_from, date_to)
   rescue DateTimeInputError
-    flash[:error] = 'Invalid date input!'
+    flash[:error] = t('page.flash.export_date_error')
     update_page_title('Export PQs to CSV')
     render form_template, status: :unprocessable_entity
   end

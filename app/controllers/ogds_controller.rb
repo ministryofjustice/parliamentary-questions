@@ -4,27 +4,27 @@ class OgdsController < ApplicationController
 
   def index
     @ogds = Ogd.active_list.order('lower(name)')
-    update_page_title('Other Government Departments')
+    update_page_title(t('page.title.government_departments'))
   end
 
   def show
-    update_page_title('Government Department details')
+    update_page_title(t('page.title.government_department_details'))
   end
 
   def new
     @ogd = Ogd.new
-    update_page_title('Add Government Department')
+    update_page_title(t('page.title.government_department_add'))
   end
 
   def edit
-    update_page_title('Edit Government Department')
+    update_page_title(t('page.title.government_department_edit'))
   end
 
   def create
     @ogd = Ogd.new(ogd_params)
 
     if @ogd.save
-      flash[:success] = 'OGD was successfully created.'
+      flash[:success] = t('page.flash.government_department_created')
       redirect_to @ogd
     else
       render action: 'new'
@@ -33,7 +33,7 @@ class OgdsController < ApplicationController
 
   def update
     if @ogd.update(ogd_params)
-      flash[:success] = 'OGD was successfully updated.'
+      flash[:success] = t('page.flash.government_department_updated')
       redirect_to @ogd
     else
       render action: 'edit'

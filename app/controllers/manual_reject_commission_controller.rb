@@ -7,15 +7,15 @@ class ManualRejectCommissionController < ApplicationController
     if ao_pq
       response = AllocationResponse.new(
         reason_option: 'Other Reason',
-        reason: "This question was rejected manually by #{current_user.email}"
+        reason: t('page.message.pq_allocation_rejected')
       )
       AssignmentService.new.reject(ao_pq, response)
 
       uin = ao_pq.pq.uin
-      flash[:success] = "#{uin} manually rejected, check if you have to do the commissioning again"
+      flash[:success] = t('page.flash.pq_manually_rejected')
       redirect_to(controller: 'pqs', action: 'show', id: uin)
     else
-      flash[:error] = 'Commission data not found'
+      flash[:error] = t('page.flash.pq_manual_rejection_error')
       redirect_to(controller: 'dashboard', action: 'index')
     end
   end

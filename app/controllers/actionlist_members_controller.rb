@@ -4,28 +4,28 @@ class ActionlistMembersController < ApplicationController
 
   def index
     @actionlist_members = ActionlistMember.active_list.all.order(:name.downcase)
-    update_page_title('Actionlist members')
+    update_page_title(t('page.title.actionlist_members'))
   end
 
   def show
-    update_page_title('Actionlist member details')
+    update_page_title(t('page.title.actionlist_member_details'))
   end
 
   def new
     @actionlist_member = ActionlistMember.new
-    update_page_title('Add actionlist nember')
+    update_page_title(t('page.title.actionlist_member_add'))
   end
 
   def edit
-    update_page_title('Edit actionlist member')
+    update_page_title(t('page.title.actionlist_member_edit'))
   end
 
   def create
     @actionlist_member = ActionlistMember.new(actionlist_member_params)
 
     if @actionlist_member.save
-      flash[:success] = 'Actionlist member was successfully created.'
-      update_page_title('Actionlist member details')
+      flash[:success] = t('page.flash.actionlist_member_created')
+      update_page_title(t('page.title.actionlist_member_details'))
       redirect_to @actionlist_member
     else
       render action: 'new'
@@ -34,11 +34,11 @@ class ActionlistMembersController < ApplicationController
 
   def update
     if @actionlist_member.update(actionlist_member_params)
-      flash[:success] = 'Actionlist member was successfully updated.'
-      update_page_title('Actionlist member details')
+      flash[:success] = t('page.flash.actionlist_member_created')
+      update_page_title(t('page.title._details'))
       redirect_to @actionlist_member
     else
-      update_page_title('Edit actionlist member')
+      update_page_title(t('page.title.actionlist_member_edit'))
       render action: 'edit'
     end
   end

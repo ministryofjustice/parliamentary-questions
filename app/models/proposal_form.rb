@@ -6,9 +6,9 @@ class ProposalForm
 
   before_validation :remove_blank_action_officer
   before_validation :load_valid_action_officers
-  validates :pq_id, presence: { message: 'Please provide question id to proposal' }
-  validates :action_officer_id, presence: { message: 'Please select at least one action officer' }
-  validates :action_officers, presence: { message: 'Please select valid action officer' }
+  validates :pq_id, presence: { message: t('page.message.select_proposal_pq') }
+  validates :action_officer_id, presence: { message: t('page.message.select_proposal_action_officer') }
+  validates :action_officers, presence: { message: t('page.message.select_proposal_valid_action_officer') }
 
   def persisted?
     false

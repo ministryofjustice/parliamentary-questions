@@ -2,7 +2,7 @@ class EarlyBirdOrganiserController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    update_page_title 'Suspend early bird email'
+    update_page_title(t('page.title.earlybird_suspension'))
 
     @early_bird_organiser = EarlyBirdOrganiser.new
 
@@ -11,7 +11,7 @@ class EarlyBirdOrganiserController < ApplicationController
     if @previous_early_bird && (Time.zone.today < @previous_early_bird.date_to)
       date_from = @previous_early_bird.date_from
       date_to = @previous_early_bird.date_to
-      flash[:message] = "The early bird is currently turned off between #{date_from} and #{date_to}."
+      flash[:message] = t('page.flash.earlybird_suppression_date_range')
     end
   end
 
@@ -21,7 +21,7 @@ class EarlyBirdOrganiserController < ApplicationController
     if @early_bird_organiser.save
       date_from = @early_bird_organiser.date_from
       date_to = @early_bird_organiser.date_to
-      flash[:success] = "You have successfully scheduled the early bird to be turned off between #{date_from} and #{date_to}"
+      flash[:success] = t('page.flash.earlybird_suppression_date_range_set')
       redirect_to admin_path
     else
       render action: 'new'

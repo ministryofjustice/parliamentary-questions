@@ -10,32 +10,32 @@ class ActionOfficersController < ApplicationController
                            .order(Arel.sql('lower(divisions.name)'))
                            .order(Arel.sql('lower(action_officers.name)'))
 
-    update_page_title 'Action officers'
+    update_page_title(t('page.title.action_officers'))
   end
 
   def show
     loading_existing_records
-    update_page_title 'Action officer details'
+    update_page_title(t('page.title.action_officer_details'))
   end
 
   def new
     loading_new_records
-    update_page_title 'Add action officer'
+    update_page_title(t('page.title.action_officer_add'))
   end
 
   def edit
     loading_existing_records
-    update_page_title 'Edit action officer'
+    update_page_title(t('page.title.action_officer_edit'))
   end
 
   def create
     loading_new_records do
       if @action_officer.update(action_officer_params)
-        flash[:success] = 'Action officer was successfully created'
+        flash[:success] = t('page.flash.action_officer_created')
         redirect_to action_officers_path
       else
-        flash[:error] = 'Action officer could not be created'
-        update_page_title 'Add action officer'
+        flash[:error] = t('page.flash.ao_create_failed')
+        update_page_title(t('page.title.action_officer_add'))
         render action: 'new'
       end
     end
@@ -44,11 +44,11 @@ class ActionOfficersController < ApplicationController
   def update
     loading_existing_records do
       if @action_officer.update(action_officer_params)
-        flash[:success] = 'Action officer was successfully updated'
+        flash[:success] = t('page.flash.action_officer_updated')
         redirect_to action_officer_path(@action_officer)
       else
-        flash[:error] = 'Action officer could not be updated'
-        update_page_title 'Edit action officer'
+        flash[:error] = t('page.flash.action_officer_update_failed')
+        update_page_title(t('page.title.ao_edit'))
         render action: 'edit'
       end
     end

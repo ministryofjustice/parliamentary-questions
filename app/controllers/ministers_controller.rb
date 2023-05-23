@@ -8,28 +8,28 @@ class MinistersController < ApplicationController
                          .order(Arel.sql('lower(name)'))
                          .page(params[:page])
                          .per_page(15)
-    update_page_title('Ministers')
+    update_page_title(t('page.title.ministers'))
   end
 
   def show
     @minister_contacts = @minister.minister_contacts
-    update_page_title('Minister details')
+    update_page_title(t('page.title.minister_details'))
   end
 
   def new
     @minister = Minister.new
     @minister.minister_contacts << MinisterContact.new
-    update_page_title('Add minister')
+    update_page_title(t('page.title.minister_add'))
   end
 
   def edit
-    update_page_title('Edit minister')
+    update_page_title(t('page.title.minister_edit'))
   end
 
   def create
     @minister = Minister.new(minister_params)
     if @minister.save
-      flash[:success] = 'Minister was successfully created.'
+      flash[:success] = t('page.flash.minister_created')
       redirect_to @minister
     else
       render action: 'new'
@@ -38,7 +38,7 @@ class MinistersController < ApplicationController
 
   def update
     if @minister.update(minister_params)
-      flash[:success] = 'Minister was successfully updated.'
+      flash[:success] = t('page.flash.minister_updated')
       redirect_to @minister
     else
       render action: 'edit'

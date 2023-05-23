@@ -3,29 +3,29 @@ class WatchlistMembersController < ApplicationController
 
   def index
     @watchlist_members = WatchlistMember.active_list.all.order(Arel.sql('lower(name)'))
-    update_page_title('Watchlist members')
+    update_page_title(t('page.title.watchlist_members'))
   end
 
   def show
     loading_watchlist_member
-    update_page_title('Watchlist member details')
+    update_page_title(t('page.title.watchlist_member_details'))
   end
 
   def new
     @watchlist_member = WatchlistMember.new
-    update_page_title('Add watchlist member')
+    update_page_title(t('page.title.watchlist_member_add'))
   end
 
   def edit
     loading_watchlist_member
-    update_page_title('Edit watchlist member')
+    update_page_title(t('page.title.watchlist_member_edit'))
   end
 
   def create
     @watchlist_member = WatchlistMember.new(watchlist_member_params)
 
     if @watchlist_member.save
-      flash[:success] = 'Watchlist member was successfully created.'
+      flash[:success] = t('page.flash.watchlist_member_created')
       redirect_to @watchlist_member
     else
       render action: 'new'
@@ -35,7 +35,7 @@ class WatchlistMembersController < ApplicationController
   def update
     loading_watchlist_member do
       if @watchlist_member.update(watchlist_member_params)
-        flash[:success] = 'Watchlist member was successfully updated.'
+        flash[:success] = t('page.flash.watchlist_member_updated')
         redirect_to @watchlist_member
       else
         render action: 'edit'

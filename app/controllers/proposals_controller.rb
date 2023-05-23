@@ -10,10 +10,10 @@ class ProposalsController < ApplicationController
     proposal_form = ProposalForm.new(create_params)
     if proposal_form.valid?
       pq = ProposalService.new.propose(proposal_form)
-      flash[:success] = 'Successfully proposed Deputy Director(s)'
+      flash[:success] = t('page.flash.proposal_accepted')
       redirect_to early_bird_landing_page_path
     else
-      flash[:error] = 'Please choose a Deputy Director.'
+      flash[:error] = t('page.flash.proposal_missing_deputy_director')
       redirect_to new_pq_proposal_path(@pq.id)
     end
   end

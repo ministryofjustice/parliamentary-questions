@@ -9,27 +9,27 @@ class DeputyDirectorsController < ApplicationController
                                       .order(deleted: :asc)
                                       .order(Arel.sql('lower(divisions.name)'))
                                       .order(Arel.sql('lower(deputy_directors.name)'))
-    update_page_title 'Deputy directors'
+    update_page_title(t('page.title.deputy_directors'))
   end
 
   def show
-    update_page_title('Deputy director details')
+    update_page_title(t('page.title.deputy_director_details'))
   end
 
   def new
     @deputy_director = DeputyDirector.new
-    update_page_title 'Add deputy director'
+    update_page_title(t('page.title.deputy_director_add'))
   end
 
   def edit
-    update_page_title('Edit deputy director')
+    update_page_title(t('page.title.deputy_director_edit'))
   end
 
   def create
     @deputy_director = DeputyDirector.new(deputy_director_params)
 
     if @deputy_director.save
-      flash[:success] = 'Deputy director was successfully created.'
+      flash[:success] = t('page.flash.deputy_director_created')
       redirect_to @deputy_director
     else
       render action: 'new'
@@ -38,7 +38,7 @@ class DeputyDirectorsController < ApplicationController
 
   def update
     if @deputy_director.update(deputy_director_params)
-      flash[:success] = 'Deputy director was successfully updated.'
+      flash[:success] = t('page.flash.deputy_director_updated')
       redirect_to @deputy_director
     else
       render action: 'edit'

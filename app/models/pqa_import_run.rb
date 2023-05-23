@@ -16,7 +16,7 @@
 class PqaImportRun < ActiveRecord::Base
   scope :successful, -> { where("status != 'Failure'") }
 
-  validates :status, inclusion: { in: %w[OK Failure OK_with_errors], message: "Status must be 'OK', 'Failure' or 'OK_with_errors': was '%{value}'" }
+  validates :status, inclusion: { in: %w[OK Failure OK_with_errors], message: t('page.message.pqa_import_error') }
 
   serialize :error_messages
 

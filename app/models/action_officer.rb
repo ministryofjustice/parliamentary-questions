@@ -27,7 +27,7 @@ class ActionOfficer < ActiveRecord::Base
   validates :email,
             uniqueness: {
               scope: :deputy_director_id,
-              message: 'an action officer cannot be assigned twice to the same deputy director'
+              message: t('page.message.action_officer_duplicate_assignment')
             }
 
   has_many :action_officers_pqs

@@ -16,11 +16,11 @@ class TransferredController < ApplicationController
 
     with_valid_dates do
       if @pq.update(transferred_pq_params)
-        flash[:success] = 'Transferred PQ was successfully created.'
+        flash[:success] = t('page.flash.pq_transferred')
         redirect_to dashboard_path
       else
         update_page_title('Error creating a transferred PQ')
-        flash.now[:error] = 'There was an error creating the transfer PQ.'
+        flash.now[:error] = t('page.flash.pq_transfer_error')
         render :new
       end
     end

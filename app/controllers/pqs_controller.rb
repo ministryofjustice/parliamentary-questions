@@ -18,9 +18,9 @@ class PqsController < ApplicationController
         if @pq.update(pq_params)
           @pq.update_state!
           reassign_ao_if_present(@pq)
-          flash.now[:success] = 'Successfully updated'
+          flash.now[:success] = t('page.flash.pq_updated')
         else
-          flash.now[:error] = 'Update failed'
+          flash.now[:error] = t('page.flash.pq_update_failed')
         end
         set_dashboard_title
         render :show
@@ -31,14 +31,14 @@ class PqsController < ApplicationController
   private
 
   def set_dashboard_title
-    update_page_title("PQ #{@pq.uin}")
+    update_page_title(t('page.title.pq_dashboard_title'))
   end
 
   def with_valid_dates
     DATE_PARAMS.each { |key| pq_params[key].present? && parse_datetime(pq_params[key]) }
     yield
   rescue DateTimeInputError
-    flash[:error] = 'Invalid date input!'
+    flash[:error] = t('page.flash.pq_invalid_date')
     set_dashboard_title
     render :show
   end

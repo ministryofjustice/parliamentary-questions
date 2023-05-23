@@ -4,27 +4,27 @@ class PressDesksController < ApplicationController
 
   def index
     @press_desks = PressDesk.active_list.all.order('lower(name)')
-    update_page_title('Press Desks')
+    update_page_title(t('page.title.press_desks'))
   end
 
   def show
-    update_page_title('Press desk details')
+    update_page_title(t('page.title.press_desk_details'))
   end
 
   def new
     @press_desk = PressDesk.new
-    update_page_title('Add press desk')
+    update_page_title(t('page.title.press_desk_add'))
   end
 
   def edit
-    update_page_title('Edit press desk')
+    update_page_title(t('page.title.press_desk_edit'))
   end
 
   def create
     @press_desk = PressDesk.new(press_desk_params)
 
     if @press_desk.save
-      flash[:success] = 'Press desk was successfully created.'
+      flash[:success] = t('page.title.press_desk_created')
       redirect_to @press_desk
     else
       render action: 'new'
@@ -33,7 +33,7 @@ class PressDesksController < ApplicationController
 
   def update
     if @press_desk.update(press_desk_params)
-      flash[:success] = 'Press desk was successfully updated.'
+      flash[:success] = t('page.title.press_desk_updated')
       redirect_to @press_desk
     else
       render action: 'edit'

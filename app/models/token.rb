@@ -16,7 +16,7 @@
 class Token < ActiveRecord::Base
   has_paper_trail
 
-  validates :acknowledged, inclusion: { in: %w[accept reject], message: '%{value} is not a valid value for acknowledged' }, allow_nil: true
+  validates :acknowledged, inclusion: { in: %w[accept reject], message: t('page.message.token_value_error') }, allow_nil: true
 
   def self.entity(entity_value)
     # where(entity: entity_value).first

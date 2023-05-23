@@ -9,27 +9,27 @@ class DivisionsController < ApplicationController
                          .order(deleted: :asc)
                          .order(Arel.sql('lower(directorates.name)'))
                          .order(Arel.sql('lower(divisions.name)'))
-    update_page_title('Divisions')
+    update_page_title(t('page.title.divisions'))
   end
 
   def show
-    update_page_title('Division details')
+    update_page_title(t('page.title.division_details'))
   end
 
   def new
     @division = Division.new
-    update_page_title('Add division')
+    update_page_title(t('page.title.division_add'))
   end
 
   def edit
-    update_page_title('Edit division')
+    update_page_title(t('page.title.division_edit'))
   end
 
   def create
     @division = Division.new(division_params)
 
     if @division.save
-      flash[:success] = 'Division was successfully created.'
+      flash[:success] = t('page.flash.division_created')
       redirect_to @division
     else
       render action: 'new'
@@ -38,7 +38,7 @@ class DivisionsController < ApplicationController
 
   def update
     if @division.update(division_params)
-      flash[:succees] = 'Division successfully updated'
+      flash[:succees] = t('page.flash.division_updated')
       redirect_to @division
     else
       render action: 'edit'

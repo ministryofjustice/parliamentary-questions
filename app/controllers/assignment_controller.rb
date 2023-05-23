@@ -2,7 +2,7 @@ class AssignmentController < ApplicationController
   before_action AOTokenFilter
 
   def show
-    update_page_title 'PQ assignment'
+    update_page_title(t('page.title.pq_assignment'))
     loading_question_and_assignment do
       if @question.action_officers_pqs.accepted || @assignment.rejected?
         render 'confirmation'
@@ -16,17 +16,17 @@ class AssignmentController < ApplicationController
     loading_question_and_assignment do
       @response       = AllocationResponse.new(response_params)
       response_action = @response.response_action
-      update_page_title 'PQ assignment'
+      update_page_title(t('page.title.pq_assignment'))
 
       if @response.valid?
         service = AssignmentService.new
         case response_action
         when 'accept'
-          update_page_title 'PQ assigned'
+          update_page_title(t('page.title.pq_assignment_accepted'))
           service.accept(@assignment)
           @token.accept
         when 'reject'
-          update_page_title 'PQ rejected'
+          update_page_title(t('page.title.pq_assignment_rejected'))
           service.reject(@assignment, @response)
           @token.reject
         else
@@ -36,7 +36,7 @@ class AssignmentController < ApplicationController
         end
         render 'confirmation'
       else
-        flash[:error] = 'Form was not completed'
+        flash[:error] = t('page.flash.form_incomplete')
         render 'show'
       end
     end
