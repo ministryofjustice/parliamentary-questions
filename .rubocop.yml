@@ -233,6 +233,10 @@ Rails/SaveBang:
   StyleGuide: 'https://github.com/bbatsov/rails-style-guide#save-bang'
   Enabled: false
 
+Rails/SchemaComment:
+  Description: 'Enforces the use of the comment option when adding a new table or column to the database during a migration.'
+  Enabled: false
+
 Rails/SkipsModelValidations:
   Description: 'This cop checks for the use of methods which skip validations which are listed in https://guides.rubyonrails.org/active_record_validations.html#skipping-validations.'
   StyleGuide: 'https://guides.rubyonrails.org/active_record_validations.html#skipping-validations'
