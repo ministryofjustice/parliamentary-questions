@@ -422,6 +422,11 @@ Style/OpenStructUse:
   StyleGuide: 'https://docs.rubocop.org/rubocop/cops_style.html#styleopenstructuse'
   Enabled: false
 
+Style/OptionalBooleanParameter:
+  Description: 'Checks for places where keyword arguments can be used instead of boolean arguments when defining methods. respond_to_missing? method is allowed by default. These are customizable with AllowedMethods option.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_style.html#styleoptionalbooleanparameter'
+  Enabled: false
+
 Style/RedundantInterpolation:
   Description: 'This cop checks for strings that are just an interpolated expression.'
   Enabled: false
