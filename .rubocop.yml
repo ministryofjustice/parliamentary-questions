@@ -328,6 +328,11 @@ Style/DocumentationMethod:
   Description: 'This cop checks for missing documentation comment for public methods. It can optionally be configured to also require documentation for non-public methods.'
   Enabled: false
 
+Style/DocumentDynamicEvalDefinition:
+  Description: 'When using class_eval (or other eval) with string interpolation, add a comment block showing its appearance if interpolated (a practice used in Rails code).'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_style.html#styledocumentdynamicevaldefinition'
+  Enabled: false
+
 Style/EachWithObject:
   Description: 'This cop looks for inject / reduce calls where the passed in object is returned at the end and so could be replaced by each_with_object without the need to return the object at the end.'
   Enabled: false
