@@ -197,6 +197,11 @@ Performance/RegexpMatch:
   StyleGuide: 'https://github.com/JuanitoFatas/fast-ruby#regexp-vs-stringmatch-vs-string-vs-stringmatch-code-'
   Enabled: false
 
+Performance/SelectMap:
+  Description: 'This cop identifies places where select.map can be replaced by filter_map.'
+  StyleGuide: 'https://docs.rubocop.org/rubocop-performance/cops_performance.html#performanceselectmap'
+  Enabled: false
+
 # Rails Cops ==============================================================================
 
 Rails/ApplicationMailer:
