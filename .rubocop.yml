@@ -64,6 +64,11 @@ Lint/DeprecatedClassMethods:
   Description: 'This cop checks for uses of the deprecated class method usages.'
   Enabled: false
 
+Lint/DuplicateBranch:
+  Description: 'Checks that there are no repeated bodies within if/unless, case-when, case-in and rescue constructs'
+  StyleGuide: 'https://docs.rubocop.org/rubocop/cops_lint.html#lintconstantdefinitioninblock'
+  Enabled: false
+
 Lint/SuppressedException:
   Description: 'This cop checks for rescue blocks with no body.'
   Enabled: false
