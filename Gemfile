@@ -15,6 +15,7 @@ gem 'jquery-rails', '~> 4.4'
 gem 'logstasher', '~> 2.1', '>= 2.1.5'
 gem 'mechanize', '~> 2.8', '>= 2.8.1'
 gem 'momentjs-rails', '~> 2.29'
+gem "net-smtp", require: false
 gem 'paper_trail', '~> 12.0'
 gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'puma', '~> 5.6'
