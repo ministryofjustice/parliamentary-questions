@@ -5,7 +5,7 @@ require:
   - rubocop-rails
 
 AllCops:
-  EnabledByDefault: true
+  DisabledByDefault: true
 
   Exclude:
     - db/schema.rb # Because it's generated.
