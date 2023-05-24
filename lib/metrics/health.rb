@@ -43,7 +43,7 @@ module Metrics
       attr_reader :last_run_time, :status
 
       def self.default
-        File.exists?(DEFAULT_PATH) ? new(DEFAULT_PATH) : nil
+        File.exist?(DEFAULT_PATH) ? new(DEFAULT_PATH) : nil
       end
 
       def stale?
