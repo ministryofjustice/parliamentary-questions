@@ -56,9 +56,9 @@ group :test, :development do
   gem 'poltergeist', '~> 1.18', '>= 1.18.1'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 5.1'
-  gem 'rubocop', '~> 0.88.0'
-  gem 'rubocop-performance', '~> 1.7', '>= 1.7.1'
-  gem 'rubocop-rails', '~> 2.8', '>= 2.8.1'
+  gem 'rubocop', '~> 1.51'
+  gem 'rubocop-performance', '~> 1.18'
+  gem 'rubocop-rails', '~> 2.19', '>= 2.19.1'
   gem 'shoulda-matchers', '~> 5.1', require: false
   gem 'sinatra', '~> 2.2'
   gem 'timecop', '~> 0.9.5'
