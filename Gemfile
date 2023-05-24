@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.2'
+ruby File.read('.ruby-version').strip
 
 gem 'bootstrap-will_paginate', '~> 1.0'
 gem 'business_time', '~> 0.11.0'
