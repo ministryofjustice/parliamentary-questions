@@ -57,8 +57,10 @@ group :test, :development do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 5.1'
   gem 'rubocop', '~> 1.51'
+  gem 'rubocop-factory_bot', '~> 2.23', '>= 2.23.1'
   gem 'rubocop-performance', '~> 1.18'
   gem 'rubocop-rails', '~> 2.19', '>= 2.19.1'
+  gem 'rubocop-rspec', '~> 2.22'
   gem 'shoulda-matchers', '~> 5.1', require: false
   gem 'sinatra', '~> 2.2'
   gem 'timecop', '~> 0.9.5'

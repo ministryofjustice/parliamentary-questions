@@ -1,8 +1,10 @@
 # Documentation: http://rubocop.readthedocs.io/en/latest/
 
 require:
+  - rubocop-factory_bot
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
   DisabledByDefault: true
