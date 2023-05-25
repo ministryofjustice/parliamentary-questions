@@ -9,7 +9,7 @@ Webapp to manage the workflow Parliamentary Questions
 
 # System dependencies
 
-- Ruby 3.2.2
+- Ruby 3.1.4
 - Postgresql 9.3
 - phantomjs  (tests only)
 - coreutils (required by the `version_tag.sh` script)

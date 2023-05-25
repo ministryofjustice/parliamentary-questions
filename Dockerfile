@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-alpine
+FROM ruby:3.1.4-alpine
 LABEL key="Ministry of Justice, Parlimentary Questions"
 RUN set -ex
 
