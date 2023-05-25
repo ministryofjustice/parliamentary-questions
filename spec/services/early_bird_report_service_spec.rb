@@ -20,7 +20,7 @@ describe 'EarlyBirdReportService' do
 
     expect(token.expire.to_s).to eq(end_of_day.to_s)
     expect(
-      Token.exist?(entity: "early_bird:#{early_bird_deleted.id}", path: '/early_bird/dashboard')
+      Token.exists?(entity: "early_bird:#{early_bird_deleted.id}", path: '/early_bird/dashboard')
     ).to eq(false)
   end
 
