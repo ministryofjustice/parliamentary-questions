@@ -9,11 +9,11 @@ module SmokeTestRunner
   end
 
   def run_time
-    File.exist?(out_file) ? File.ctime(out_file) : Time.at(0)
+    File.exists?(out_file) ? File.ctime(out_file) : Time.at(0)
   end
 
   def run_success?
-    File.exist?(out_file) && File.read(out_file).to_i.zero?
+    File.exists?(out_file) && File.read(out_file).to_i.zero?
   end
 
   private
