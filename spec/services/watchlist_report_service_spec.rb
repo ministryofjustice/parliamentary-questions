@@ -20,7 +20,7 @@ describe 'WatchlistReportService' do
 
     expect(token.expire.to_s).to eq(end_of_day.to_s)
     expect(
-      Token.exists?(entity: "watchlist:#{watchlist_deleted.id}", path: '/watchlist/dashboard')
+      Token.exist?(entity: "watchlist:#{watchlist_deleted.id}", path: '/watchlist/dashboard')
     ).to eq(false)
   end
 
