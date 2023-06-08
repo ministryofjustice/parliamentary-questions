@@ -493,9 +493,9 @@ DEPENDENCIES
   launchy (~> 2.5)
   letter_opener (~> 1.7)
   logstasher (~> 2.1, >= 2.1.5)
+  mail (>= 2.8)
   mechanize (~> 2.8, >= 2.8.1)
   momentjs-rails (~> 2.29)
-  net-smtp
   paper_trail (~> 12.0)
   pg (~> 1.2, >= 1.2.3)
   poltergeist (~> 1.18, >= 1.18.1)
