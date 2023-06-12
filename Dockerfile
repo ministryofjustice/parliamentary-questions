@@ -1,4 +1,4 @@
-FROM ruby:2.7.2-alpine
+FROM ruby:3.1.4-alpine
 LABEL key="Ministry of Justice, Parlimentary Questions"
 RUN set -ex
 
@@ -13,7 +13,7 @@ RUN apk -U upgrade
 # set WORKDIR
 WORKDIR /usr/src/app
 
-COPY Gemfile* ./
+COPY Gemfile* .ruby-version ./
 RUN gem install bundler -v 2.2.15
 
 RUN bundle config set --global frozen 1 && \

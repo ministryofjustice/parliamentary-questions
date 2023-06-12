@@ -25,7 +25,7 @@ module PqFollowup
   end
 
   def has_follow_up?
-    self.class.exists?(follow_up_to: uin)
+    self.class.exist?(follow_up_to: uin)
   end
 
   def is_follow_up?
