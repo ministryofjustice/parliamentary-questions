@@ -62,7 +62,7 @@ group :test, :development do
   gem 'rubocop-rails', '~> 2.19', '>= 2.19.1'
   gem 'rubocop-rspec', '~> 2.22'
   gem 'shoulda-matchers', '~> 5.1', require: false
-  gem 'sinatra', '~> 2.2'
+  gem 'sinatra', '~> 3.0'
   gem 'timecop', '~> 0.9.5'
 end
 
