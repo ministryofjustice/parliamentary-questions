@@ -69,7 +69,7 @@ private
 
       result.each do |bucket|
         if event.date <= upper_bound && event.date > bucket.start_date
-          bucket.update!(event)
+          bucket.update(event) # rubocop:disable Rails/SaveBang
           break
         end
         upper_bound = bucket.start_date
