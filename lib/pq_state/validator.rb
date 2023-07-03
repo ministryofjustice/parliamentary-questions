@@ -23,7 +23,7 @@ module PQState
       raise InconsistentStateGraph.new(@final_states, dead_ends) unless dead_ends.empty?
     end
 
-    private
+  private
 
     def has_dead_end?(state_from, visited = [])
       t = @transitions.find { |_t| _t.state_from == state_from }
@@ -83,10 +83,10 @@ module PQState
         "The following transitions do not progress to either of the final states (i.e. #{@final_states.join(', ')}): #{list_dead_ends}"
       end
 
-      private
+    private
 
       def list_dead_ends
-        @dead_ends.map { |t| "#{t.state_from} -> #{t.state_to}" }.join(', ')
+        @dead_ends.map { |t| "#{t.state_from} -> #{t.state_to}" }.join(", ")
       end
     end
   end

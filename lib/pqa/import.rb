@@ -18,7 +18,7 @@ module PQA
       end
     end
 
-    private
+  private
 
     def query_api_and_update(&block)
       init_state!
@@ -40,13 +40,13 @@ module PQA
         total: @total,
         created: @created,
         updated: @updated,
-        errors: @errors
+        errors: @errors,
       }
     end
 
     def insert_or_update(q)
       uin = q.uin
-      pq  = Pq.find_or_initialize_by(uin: uin)
+      pq  = Pq.find_or_initialize_by(uin:)
 
       pq.uin                 = uin
       pq.raising_member_id   = q.member_id

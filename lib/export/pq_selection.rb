@@ -1,23 +1,23 @@
 module Export
   class PqSelection < Base
-    DATE_FORMAT = '%Y-%m-%d %H:%M'
+    DATE_FORMAT = "%Y-%m-%d %H:%M"
 
     HEADINGS = [
-      'PIN',
-      'MP',
-      'Draft due to Parly Branch',
-      'Date Due in Parliament',
-      'Full_PQ_subject',
-      'Minister',
-      'Status',
-      'Action Officer',
-      'Division',
-      'Type of Question',
-      'Date First Appeared in Parliament',
-      'Date Draft Returned to PB',
-      'Date delivered to Minister',
-      'Returned signed from Minister',
-      'Date response answered by Parly (dept)'
+      "PIN",
+      "MP",
+      "Draft due to Parly Branch",
+      "Date Due in Parliament",
+      "Full_PQ_subject",
+      "Minister",
+      "Status",
+      "Action Officer",
+      "Division",
+      "Type of Question",
+      "Date First Appeared in Parliament",
+      "Date Draft Returned to PB",
+      "Date delivered to Minister",
+      "Returned signed from Minister",
+      "Date response answered by Parly (dept)",
     ]
 
     def csv_fields(pq, ao)
@@ -50,7 +50,7 @@ module Export
         # 'Returned signed from Minister',
         empty_or_date(pq.cleared_by_answering_minister),
         # 'Date response answered by Parly (dept)',
-        empty_or_date(pq.answer_submitted)
+        empty_or_date(pq.answer_submitted),
       ]
     end
 
@@ -61,11 +61,11 @@ module Export
       end
     end
 
-    private
+  private
 
     def pqs
       pqs_array = []
-      @pqs_list&.split(',')&.map do |p|
+      @pqs_list&.split(",")&.map do |p|
         if Pq.find_by(uin: p).nil?
           return pqs_array
         else

@@ -1,13 +1,13 @@
 module HealthCheck
   class PqaApi < Component
-    TIMESTAMP_FILE = "#{Rails.root}/tmp/pqa_api_healthcheck_timestamp"
+    TIMESTAMP_FILE = "#{Rails.root.join('tmp/pqa_api_healthcheck_timestamp')}"
 
     ERRS_TO_CATCH =
       [
         Net::ReadTimeout,
         Errno::ECONNREFUSED,
         SocketError,
-        HTTPClient::FailureResponse
+        HTTPClient::FailureResponse,
       ]
 
     def self.time_to_run?
@@ -22,11 +22,11 @@ module HealthCheck
     end
 
     def record_result
-      tmpdir = "#{Rails.root}/tmp"
+      tmpdir = "#{Rails.root.join('tmp')}"
       Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
-      status = @errors.any? ? 'FAIL' : 'OK'
+      status = @errors.any? ? "FAIL" : "OK"
 
-      File.open(TIMESTAMP_FILE, 'w') do |fp|
+      File.open(TIMESTAMP_FILE, "w") do |fp|
         t = Time.now.utc
         fp.puts "#{t.to_i}::#{status}::#{@errors.to_json}"
       end
@@ -36,25 +36,25 @@ module HealthCheck
       res = perform_get(Settings.pq_rest_api.host)
       !!(res.code =~ /^2/)
     rescue *ERRS_TO_CATCH => e
-      log_error('Access', e)
+      log_error("Access", e)
       false
-    rescue => e
+    rescue StandardError => e
       log_unknown_error(e)
       false
     end
 
     def accessible?
-      res = @api.question('1')
+      res = @api.question("1")
       !!(res.code =~ /^2/)
     rescue *ERRS_TO_CATCH => e
-      log_error('Authentication', e)
+      log_error("Authentication", e)
       false
-    rescue => e
+    rescue StandardError => e
       log_unknown_error(e)
       false
     end
 
-    private
+  private
 
     def self.minimum_interval_in_seconds
       Settings.healthcheck_pqa_api_interval * 60
@@ -62,8 +62,8 @@ module HealthCheck
 
     def self.time_last_run
       if File.exist?(TIMESTAMP_FILE)
-        File.open(TIMESTAMP_FILE, 'r') do |fp|
-          interval, status, error_messages_as_json = fp.gets.chomp.split('::')
+        File.open(TIMESTAMP_FILE, "r") do |fp|
+          interval, status, error_messages_as_json = fp.gets.chomp.split("::")
           interval = interval.to_i
         end
       else

@@ -7,7 +7,7 @@ module Metrics
     end
 
     def collect!
-      @last_run_time   = Time.use_zone('London') { last_run.start_time.in_time_zone }
+      @last_run_time   = Time.use_zone("London") { last_run.start_time.in_time_zone }
       @last_run_status = last_run.status
       @pqs             = NumPqsImported.build
     end
@@ -16,7 +16,7 @@ module Metrics
       "#{pqs.today} :: #{pqs.this_week} :: #{pqs.this_month}"
     end
 
-    private
+  private
 
     NumPqsImported =
       Struct.new(:today, :this_week, :this_month) do
@@ -24,7 +24,7 @@ module Metrics
           new(
             PqaImportRun.sum_pqs_imported(:day),
             PqaImportRun.sum_pqs_imported(:week),
-            PqaImportRun.sum_pqs_imported(:month)
+            PqaImportRun.sum_pqs_imported(:month),
           )
         end
       end
@@ -37,10 +37,10 @@ module Metrics
       PqaImportRun.new(
         start_time: Time.at(0),
         end_time: Time.at(0),
-        status: 'FAIL',
+        status: "FAIL",
         num_created: 0,
         num_updated: 0,
-        error_messages: []
+        error_messages: [],
       )
     end
   end

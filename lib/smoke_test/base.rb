@@ -1,22 +1,22 @@
-require 'uri'
-require 'mechanize'
+require "uri"
+require "mechanize"
 
 module SmokeTest
   class Base
     include Rails.application.routes.url_helpers
 
-    SSL_CERT_DIR  = ENV['CA_CERT']
-    SSL_CERT_FILE = File.expand_path('resources/pq.dsd.io.pem', __dir__)
+    SSL_CERT_DIR  = ENV["CA_CERT"]
+    SSL_CERT_FILE = File.expand_path("resources/pq.dsd.io.pem", __dir__)
 
     attr_reader :app_uri, :agent
 
     def self.from_env
-      raise 'TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests' unless ENV['TEST_USER_PASS'] && ENV['TEST_USER']
+      raise "TEST_USER & TEST_USER_PASS env variables must be set to run smoke tests" unless ENV["TEST_USER_PASS"] && ENV["TEST_USER"]
 
       new(
         Settings.live_url,
-        ENV['TEST_USER'],
-        ENV['TEST_USER_PASS']
+        ENV["TEST_USER"],
+        ENV["TEST_USER_PASS"],
       )
     end
 
@@ -24,22 +24,22 @@ module SmokeTest
       login_to_app
 
       all_checks_succeed?
-    rescue
+    rescue StandardError
       false
     end
 
-    protected
+  protected
 
     def all_checks_succeed?
-      raise NotImplementedError, '#all_checks_succeed? method should be implemented by subclasses'
+      raise NotImplementedError, "#all_checks_succeed? method should be implemented by subclasses"
     end
 
     def login_to_app
       agent.get app_uri.to_s
 
       agent.page.forms.first.tap do |f|
-        f['user[email]']    = @user
-        f['user[password]'] = @pass
+        f["user[email]"]    = @user
+        f["user[password]"] = @pass
         f.submit
       end
     end
@@ -51,11 +51,11 @@ module SmokeTest
       @agent   = mechanize_instance
     end
 
-    private
+  private
 
     def mechanize_instance
       Mechanize.new do |m|
-        if app_uri.scheme == 'https'
+        if app_uri.scheme == "https"
           m.agent.http.verify_mode = OpenSSL::SSL::VERIFY_PEER
           m.agent.cert_store       = cert_store
         end

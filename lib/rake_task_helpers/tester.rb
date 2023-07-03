@@ -5,11 +5,11 @@ module RakeTaskHelpers
     def self.factory(testers_h, default_pass, prefix)
       testers_h.map do |tester|
         new(
-          tester['name'],
-          tester['email'],
-          tester['domain'],
+          tester["name"],
+          tester["email"],
+          tester["domain"],
           default_pass,
-          prefix
+          prefix,
         )
       end
     end
@@ -25,20 +25,20 @@ module RakeTaskHelpers
     def create_fixtures!
       u =
         User.find_or_create_by(
-          email: email_for('u'),
+          email: email_for("u"),
           name: display_name,
-          roles: 'PQUSER'
+          roles: "PQUSER",
         )
 
       if u.new_record?
         u.update(
           password: pass,
-          password_confirmation: pass
+          password_confirmation: pass,
         )
       end
     end
 
-    protected
+  protected
 
     def display_name
       "#{prefix} - #{name}"
@@ -50,7 +50,7 @@ module RakeTaskHelpers
   end
 
   class RestrictedTester < Tester
-    private
+  private
 
     def email_for(_abbreviation)
       "#{email}@#{domain}"
@@ -63,35 +63,35 @@ module RakeTaskHelpers
 
       Minister.find_or_create_by(
         name: display_name,
-        title: prefix
+        title: prefix,
       )
 
       p = PressDesk.find_or_create_by(name: prefix)
 
       PressOfficer.find_or_create_by(
         name: display_name,
-        email: email_for('po'),
-        press_desk: p
+        email: email_for("po"),
+        press_desk: p,
       )
 
       dir = Directorate.find_or_create_by(name: prefix)
 
       div = Division.find_or_create_by(
         name: prefix,
-        directorate: dir
+        directorate: dir,
       )
 
       dd = DeputyDirector.find_or_create_by(
         division: div,
-        email: email_for('dd'),
-        name: display_name
+        email: email_for("dd"),
+        name: display_name,
       )
 
       ActionOfficer.find_or_create_by(
         deputy_director: dd,
         name: display_name,
-        email: email_for('ao'),
-        press_desk: p
+        email: email_for("ao"),
+        press_desk: p,
       )
     end
   end

@@ -1,11 +1,11 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe PQA::XMLDecoder do
-  describe '#decode_questions' do
+  describe "#decode_questions" do
     let(:questions) { PQA::XMLDecoder.decode_questions(xml) }
 
     let(:xml) do
-      date = DateTime.parse('28/02/2014')
+      date = DateTime.parse("28/02/2014")
       questions =
         # 3.times.map do |n|
         Array.new(3) do |n|
@@ -14,34 +14,34 @@ describe PQA::XMLDecoder do
       PQA::XMLEncoder.encode_questions(questions)
     end
 
-    let(:xml_no_question) { '<questions/>' }
+    let(:xml_no_question) { "<questions/>" }
 
-    context 'when the supplied XML contains no <question> element' do
-      it 'returns an empty list' do
+    context "when the supplied XML contains no <question> element" do
+      it "returns an empty list" do
         expect(PQA::XMLDecoder.decode_questions(xml_no_question)).to eq([])
       end
     end
 
-    context 'when the supplied XML contains some <question> elements' do
-      it 'parses questions with the correct uin values' do
+    context "when the supplied XML contains some <question> elements" do
+      it "parses questions with the correct uin values" do
         expect(questions.map(&:uin)).to eq(%w[q-0 q-1 q-2])
       end
 
-      it 'correctly parses dates' do
+      it "correctly parses dates" do
         expect(
           questions.map do |q|
             d = q.updated_date
             [d.day, d.month, d.year]
-          end
+          end,
         ).to eq([
-                  [28, 2, 2014],
-                  [1,  3, 2014],
-                  [2,  3, 2014]
-                ])
+          [28, 2, 2014],
+          [1,  3, 2014],
+          [2,  3, 2014],
+        ])
       end
     end
 
-    describe '#decode_answer_response' do
+    describe "#decode_answer_response" do
       let(:xml) do
         <<-ANSWER
         <?xml version="1.0" encoding="utf-8"?>
@@ -51,11 +51,11 @@ describe PQA::XMLDecoder do
         ANSWER
       end
 
-      describe '#response' do
-        it 'parses xml and returns an AnswerResponse instance' do
+      describe "#response" do
+        it "parses xml and returns an AnswerResponse instance" do
           expect(
-            PQA::XMLDecoder.decode_answer_response(xml).preview_url
-          ).to eq('https://wqa.parliament.uk/Questions/Details/33367')
+            PQA::XMLDecoder.decode_answer_response(xml).preview_url,
+          ).to eq("https://wqa.parliament.uk/Questions/Details/33367")
         end
       end
     end

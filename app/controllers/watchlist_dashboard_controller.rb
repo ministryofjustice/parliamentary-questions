@@ -3,7 +3,7 @@ class WatchlistDashboardController < ApplicationController
   before_action :authenticate_user!, PQUserFilter, only: [:preview]
 
   def index
-    update_page_title('Watchlist preview')
+    update_page_title("Watchlist preview")
     token = Token.entity(watchlist_params[:entity])
     token.accept unless token.acknowledged?
     @questions = Pq.allocated_since(DateTime.now.at_beginning_of_day)
@@ -11,10 +11,10 @@ class WatchlistDashboardController < ApplicationController
 
   def preview
     index
-    render 'index'
+    render "index"
   end
 
-  private
+private
 
   def watchlist_params
     params.permit(:entity)

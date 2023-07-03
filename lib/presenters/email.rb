@@ -9,17 +9,17 @@ module Presenters
         cc: ao.group_email,
         date_to_parliament: pq.date_for_answer.try(:to_s, :date),
         email: ao.email,
-        finance_users_emails: finance_users_emails(pq).join(';'),
+        finance_users_emails: finance_users_emails(pq).join(";"),
         house_name: pq.house_name,
         internal_deadline: format_internal_deadline(pq),
         member_constituency: pq.member_constituency,
         member_name: pq.member_name,
-        mpemail: mp_emails(pq).join(';'),
-        policy_mpemail: policy_mpemails(pq).join(';'),
+        mpemail: mp_emails(pq).join(";"),
+        policy_mpemail: policy_mpemails(pq).join(";"),
         policy_mpname: pq.policy_minister&.name,
-        press_email: press_emails(ao).join(';'),
+        press_email: press_emails(ao).join(";"),
         question: pq.question,
-        uin: pq.uin
+        uin: pq.uin,
       }
     end
 
@@ -41,7 +41,7 @@ module Presenters
 
       cc_list
         .reject(&:blank?)
-        .join(';')
+        .join(";")
     end
 
     def finance_list_hash(pq)
@@ -52,7 +52,7 @@ module Presenters
     def finance_list(pq)
       finance_list = finance_users_emails(pq)
       if finance_list.empty?
-        ['No Finance users have an interest in this question.']
+        ["No Finance users have an interest in this question."]
       else
         finance_list.reject(&:blank?)
       end
@@ -85,7 +85,7 @@ module Presenters
     end
 
     def format_internal_deadline(pq)
-      pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date)} - #{pq.internal_deadline.strftime('%I').to_i}#{pq.internal_deadline.strftime('%p').downcase} " : ''
+      pq.internal_deadline ? "#{pq.internal_deadline.to_s(:date)} - #{pq.internal_deadline.strftime('%I').to_i}#{pq.internal_deadline.strftime('%p').downcase} " : ""
     end
 
     def answer_by_text(pq)
@@ -105,7 +105,7 @@ module Presenters
     end
 
     def date_to_parliament_text(pq)
-      'Due back to Parliament ' + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
+      "Due back to Parliament " + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
     end
   end
 end

@@ -41,7 +41,7 @@ module PQState
       state
     end
 
-    private
+  private
 
     def available_transition(state, pq)
       # Assume only single valid transition exists at point in time -  CHECK

@@ -1,7 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Metrics::SmokeTests do
-  it '#collect! - updates the run time/success fields' do
+  it "#collect! - updates the run time/success fields" do
     allow(SmokeTestRunner).to receive(:run_time).and_return(Time.now)
     allow(SmokeTestRunner).to receive(:run_success?).and_return(true)
 

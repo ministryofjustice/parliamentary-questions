@@ -4,7 +4,7 @@ module PQA
 
     def self.from_xml(el)
       a = new
-      a.preview_url = XMLExtractor.text(el, 'AnswerPreviewUrl')
+      a.preview_url = XMLExtractor.text(el, "AnswerPreviewUrl")
       a
     end
   end

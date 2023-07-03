@@ -29,7 +29,7 @@ class ActionOfficer < ActiveRecord::Base
   validates :email,
             uniqueness: {
               scope: :deputy_director_id,
-              message: 'an action officer cannot be assigned twice to the same deputy director'
+              message: "an action officer cannot be assigned twice to the same deputy director",
             }
 
   has_many :action_officers_pqs
@@ -41,7 +41,7 @@ class ActionOfficer < ActiveRecord::Base
   before_validation Validators::Whitespace.new
 
   def self.by_name(name)
-    active.where('name ILIKE ?', "%#{name}%")
+    active.where("name ILIKE ?", "%#{name}%")
   end
 
   def name_with_div
@@ -51,6 +51,6 @@ class ActionOfficer < ActiveRecord::Base
       "#{name} (#{deputy_director.division.name})"
     end
   end
-  scope :inactive_list, -> { where('action_officers.deleted = ?', true) }
-  scope :active_list, -> { where('action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :inactive_list, -> { where("action_officers.deleted = ?", true) }
+  scope :active_list, -> { where("action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?", false, true, 2.days.ago.to_datetime) }
 end

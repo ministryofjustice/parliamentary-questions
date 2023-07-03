@@ -8,38 +8,38 @@ module Export
   # For a sample, see https://dsdmoj.atlassian.net/wiki/display/PQ/Parli-branch+sample+spreadsheet
 
   class Base
-    DATE_FORMAT = '%Y-%m-%d %H:%M'
+    DATE_FORMAT = "%Y-%m-%d %H:%M"
 
     HEADINGS = [
-      'MP',
-      'Record Number',
-      'Action Officer',
-      'Date response answered by Parly (dept)',
-      'Draft due to Parly Branch',
-      'Date First Appeared in Parliament',
-      'Date Due in Parliament',
-      'Date resubmitted to Minister (if applicable)',
-      'Date returned by AO (if applicable)',
-      'Date Draft Returned to PB',
-      'Date sent back to AO (if applicable)',
-      'Date delivered to Minister',
-      'Returned signed from Minister',
-      'Directorate',
-      'Division',
-      'Final Response',
-      'Full_PQ_subject',
-      'Delay Reason',
-      'Minister',
-      'Ministerial Query? (if applicable)',
-      'PIN',
+      "MP",
+      "Record Number",
+      "Action Officer",
+      "Date response answered by Parly (dept)",
+      "Draft due to Parly Branch",
+      "Date First Appeared in Parliament",
+      "Date Due in Parliament",
+      "Date resubmitted to Minister (if applicable)",
+      "Date returned by AO (if applicable)",
+      "Date Draft Returned to PB",
+      "Date sent back to AO (if applicable)",
+      "Date delivered to Minister",
+      "Returned signed from Minister",
+      "Directorate",
+      "Division",
+      "Final Response",
+      "Full_PQ_subject",
+      "Delay Reason",
+      "Minister",
+      "Ministerial Query? (if applicable)",
+      "PIN",
       '"Date/time of POD clearance"',
-      'PODquery',
-      'Requested by finance',
-      'Requested by HR',
-      'Requested by Press',
-      'Type of Question',
-      'AO Email',
-      'Group email'
+      "PODquery",
+      "Requested by finance",
+      "Requested by HR",
+      "Requested by Press",
+      "Type of Question",
+      "AO Email",
+      "Group email",
     ]
 
     def initialize(date_from, date_to, pqs_comma_separated = nil)
@@ -59,25 +59,25 @@ module Export
 
     def empty_or_date(this_date)
       if this_date.nil?
-        ''
+        ""
       else
-        this_date.strftime('%Y-%m-%d %H:%M')
+        this_date.strftime("%Y-%m-%d %H:%M")
       end
     end
 
     def escape_equals_for_excel(item)
-      item = '' if item.nil?
-      if item.to_s.start_with?('=')
+      item = "" if item.nil?
+      if item.to_s.start_with?("=")
         item = "'" + item
       else
         item
       end
     end
 
-    private
+  private
 
     def pqs
-      raise NotImplementedError, 'Subclasses should implement pqs method'
+      raise NotImplementedError, "Subclasses should implement pqs method"
     end
 
     def csv_fields(pq, ao)
@@ -87,7 +87,7 @@ module Export
         # 'Record Number',
         nil,
         # 'Action Officer',
-        escape_equals_for_excel(ao && ao.name)
+        escape_equals_for_excel(ao && ao.name),
       ] +
         [
           # 'Date response answered by Parly (dept)',
@@ -109,7 +109,7 @@ module Export
           # 'Date delivered to Minister',
           pq.sent_to_answering_minister,
           # 'Returned signed from Minister',
-          pq.cleared_by_answering_minister
+          pq.cleared_by_answering_minister,
         ].map { |date| date && date.strftime(DATE_FORMAT) } +
         [
           # 'Directorate',
@@ -143,7 +143,7 @@ module Export
           # 'AO Email'
           escape_equals_for_excel(ao && ao.email),
           # 'Group Email'
-          escape_equals_for_excel(ao && ao.group_email)
+          escape_equals_for_excel(ao && ao.group_email),
         ]
     end
 

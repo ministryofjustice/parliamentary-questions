@@ -10,14 +10,14 @@
 #  deleted     :boolean          default(FALSE)
 #
 
-require 'spec_helper'
+require "spec_helper"
 
 describe MinisterContact do
   subject { build(:minister_contact) }
 
-  it { should belong_to(:minister) }
+  it { is_expected.to belong_to(:minister) }
 
-  it { should validate_uniqueness_of(:email) }
-  it { should allow_value(Faker::Internet.email).for(:email) }
-  it { should_not allow_value('invalid').for(:email) }
+  it { is_expected.to validate_uniqueness_of(:email) }
+  it { is_expected.to allow_value(Faker::Internet.email).for(:email) }
+  it { is_expected.not_to allow_value("invalid").for(:email) }
 end

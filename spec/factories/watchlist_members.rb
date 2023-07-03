@@ -14,8 +14,8 @@
 
 FactoryBot.define do
   factory :watchlist_member do
-    name { 'Watchlist Member 1' }
-    email { 'member.one@watchlist.com' }
+    name { "Watchlist Member 1" }
+    email { "member.one@watchlist.com" }
     deleted { false }
   end
 end

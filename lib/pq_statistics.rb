@@ -1,4 +1,4 @@
-require 'business_time'
+require "business_time"
 #
 # Calculates statistics for MI reporting
 #
@@ -17,7 +17,7 @@ module PqStatistics
     sample != 0 && value < Settings.key_metric_threshold
   end
 
-  private
+private
 
   def key_metric
     PercentOnTime.calculate_from(bucket_dates.first)
@@ -36,7 +36,7 @@ module PqStatistics
 
     alias_method :mean, :percentage
 
-    private
+  private
 
     def initialize(start_date, count, total)
       @start_date = start_date
@@ -64,7 +64,7 @@ module PqStatistics
   end
 
   def result_by_bucket(events, buckets)
-    events.reduce(buckets) do |result, event|
+    events.each_with_object(buckets) do |event, result|
       upper_bound = bucket_date0
 
       result.each do |bucket|
@@ -74,8 +74,6 @@ module PqStatistics
         end
         upper_bound = bucket.start_date
       end
-
-      result
     end
   end
 end

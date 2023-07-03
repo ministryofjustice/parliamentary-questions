@@ -13,7 +13,7 @@ class MetricsDashboard
     self
   end
 
-  private
+private
 
   def collect_metrics!
     @metrics.to_h.values.each(&:collect!)
@@ -26,7 +26,7 @@ class MetricsDashboard
       application: Metrics::Application.new,
       smoke_tests: Metrics::SmokeTests.new,
       mail: Metrics::Mail.new,
-      pqa_import: Metrics::PqaImport.new
+      pqa_import: Metrics::PqaImport.new,
     )
   end
 end

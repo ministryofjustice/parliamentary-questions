@@ -14,8 +14,8 @@
 
 FactoryBot.define do
   factory :actionlist_member do
-    name { 'actionlist Member 1' }
-    email { 'member.one@actionlist.com' }
+    name { "actionlist Member 1" }
+    email { "member.one@actionlist.com" }
     deleted { false }
   end
 end

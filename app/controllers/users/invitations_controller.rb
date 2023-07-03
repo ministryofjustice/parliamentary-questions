@@ -1,5 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
-  private
+private
 
   def invite_resource
     resource_class.invite!(invite_params, current_inviter) do |_u|

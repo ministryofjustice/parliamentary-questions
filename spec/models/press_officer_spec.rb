@@ -11,28 +11,28 @@
 #  updated_at    :datetime
 #
 
-require 'spec_helper'
+require "spec_helper"
 
 describe PressOfficer do
   let(:pdesk)    { create(:press_desk) }
   let(:pofficer) { build(:press_officer, press_desk: pdesk) }
 
-  it { should validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:name) }
 
-  it 'should pass factory build' do
+  it "passes factory build" do
     expect(pofficer).to be_valid
   end
 
-  it 'should have a press desk' do
+  it "has a press desk" do
     pofficer.press_desk_id = nil
     expect(pofficer).to be_invalid
   end
 
-  describe 'associations' do
+  describe "associations" do
     it { is_expected.to belong_to :press_desk }
   end
 
-  describe 'Get index' do
+  describe "Get index" do
     let!(:pressOfficer1) { create(:press_officer, updated_at: DateTime.now.to_datetime, deleted: false) }
     let!(:pressOfficer2) { create(:press_officer, updated_at: DateTime.now.to_datetime, deleted: true) }
     let!(:pressOfficer3) { create(:press_officer, updated_at: 1.day.ago.to_datetime,    deleted: false) }
@@ -40,7 +40,7 @@ describe PressOfficer do
     let!(:pressOfficer5) { create(:press_officer, updated_at: 3.days.ago.to_datetime,   deleted: false) }
     let!(:pressOfficer6) { create(:press_officer, updated_at: 3.days.ago.to_datetime,   deleted: true) }
 
-    it 'lists all active Press Officers and those made inactive withing the last two days' do
+    it "lists all active Press Officers and those made inactive withing the last two days" do
       expect(PressOfficer.active_list).to match_array [pressOfficer1, pressOfficer2, pressOfficer3, pressOfficer4, pressOfficer5]
     end
   end

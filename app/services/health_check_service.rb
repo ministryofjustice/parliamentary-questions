@@ -2,7 +2,7 @@ class HealthCheckService
   COMPONENT_CLASSES =
     [
       HealthCheck::Database,
-      HealthCheck::PqaApi
+      HealthCheck::PqaApi,
     ]
 
   def initialize
@@ -28,11 +28,11 @@ class HealthCheckService
   HealthCheckReport =
     Struct.new(:status, :messages) do
       def self.ok
-        new('200', 'All Components OK')
+        new("200", "All Components OK")
       end
 
       def self.fail(errors)
-        new('500', errors)
+        new("500", errors)
       end
     end
 end

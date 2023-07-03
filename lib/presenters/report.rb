@@ -9,12 +9,12 @@ module Presenters
     end
 
     def self.ministers(report_h, ministers)
-      build(report_h, ministers, PQState::IN_PROGRESS, 'Minister report')
+      build(report_h, ministers, PQState::IN_PROGRESS, "Minister report")
     end
 
     def self.press_desk(report_h, press_desks)
       states = PQState::IN_PROGRESS + PQState::CLOSED
-      build(report_h, press_desks, states, 'Press desk report')
+      build(report_h, press_desks, states, "Press desk report")
     end
 
     # private_class_method
@@ -42,7 +42,7 @@ module Presenters
       when PressDesk
         ClickableCell.press_desk(r.name, r.id)
       else
-        raise ArgumentError, 'record should be a Minister or a PressDesk'
+        raise ArgumentError, "record should be a Minister or a PressDesk"
       end
     end
 
@@ -53,7 +53,7 @@ module Presenters
       when PressDesk
         CountCell.press_desk(count, r.id, state)
       else
-        raise ArgumentError, 'record should be a Minister or a PressDesk'
+        raise ArgumentError, "record should be a Minister or a PressDesk"
       end
     end
   end

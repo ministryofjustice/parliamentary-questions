@@ -1,4 +1,4 @@
-require 'active_support/core_ext/integer/time'
+require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -40,7 +40,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.0'
+  config.assets.version = "1.0"
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
@@ -70,7 +70,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST']
+  config.action_controller.asset_host = ENV["ASSET_HOST"] if ENV["ASSET_HOST"]
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -103,7 +103,7 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV['RAILS_LOG_TO_STDOUT'].present?
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
@@ -118,7 +118,7 @@ Rails.application.configure do
   config.logstasher.logger = ActiveSupport::Logger.new STDOUT
 
   # This line is optional, it allows you to set a custom value for the @source field of the log event
-  config.logstasher.source = 'logstasher'
+  config.logstasher.source = "logstasher"
 
   config.logstasher.suppress_app_log = true
   # End of custom logging block
@@ -149,11 +149,11 @@ Rails.application.configure do
 
   # For routes accessed by gecko, we require HTTP basic auth
   # See https://developer.geckoboard.com/#polling-overview
-  config.gecko_auth_username = ENV['GECKO_AUTH_USERNAME']
+  config.gecko_auth_username = ENV["GECKO_AUTH_USERNAME"]
 
   config.after_initialize do
-    sending_host = ENV['SENDING_HOST'] || 'localhost'
-    ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'https' }
+    sending_host = ENV["SENDING_HOST"] || "localhost"
+    ActionMailer::Base.default_url_options = { host: sending_host, protocol: "https" }
     ActionMailer::Base.default from: Settings.mail_from
     ActionMailer::Base.default reply_to: Settings.mail_reply_to
   end

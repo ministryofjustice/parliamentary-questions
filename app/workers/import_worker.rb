@@ -10,11 +10,11 @@ class ImportWorker
     LogStuff.tag(:import) do
       LogStuff.info { "Import: starting scheduled import from #{date_from} to #{date_to}" }
       report = @import.run(date_from, date_to)
-      LogStuff.info { 'Import: completed scheduled import' }
+      LogStuff.info { "Import: completed scheduled import" }
 
       NotifyImportMailer.notify_success(report).deliver_later
       PqaImportRun.record_success(start_time, report)
-    rescue => e
+    rescue StandardError => e
       PqaImportRun.record_failure(start_time, "#{e.class}: #{e.message}")
       case e
       when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError

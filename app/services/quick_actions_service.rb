@@ -1,12 +1,12 @@
 class QuickActionsService
   include Validators::DateInput
 
-  def valid?(pq_list, internal_deadline = '01/01/2000', draft_received = '01/01/2000', pod_clearance = '01/01/2000', cleared_by_minister = '01/01/2000', answer_submitted = '01/01/2000')
-    parse_datetime(internal_deadline) unless internal_deadline == ''
-    parse_datetime(draft_received) unless draft_received == ''
-    parse_datetime(pod_clearance) unless pod_clearance == ''
-    parse_datetime(cleared_by_minister) unless cleared_by_minister == ''
-    parse_datetime(answer_submitted) unless answer_submitted == ''
+  def valid?(pq_list, internal_deadline = "01/01/2000", draft_received = "01/01/2000", pod_clearance = "01/01/2000", cleared_by_minister = "01/01/2000", answer_submitted = "01/01/2000")
+    parse_datetime(internal_deadline) unless internal_deadline == ""
+    parse_datetime(draft_received) unless draft_received == ""
+    parse_datetime(pod_clearance) unless pod_clearance == ""
+    parse_datetime(cleared_by_minister) unless cleared_by_minister == ""
+    parse_datetime(answer_submitted) unless answer_submitted == ""
     valid_pq_list(pq_list)
   rescue DateTimeInputError
     false
@@ -14,7 +14,7 @@ class QuickActionsService
 
   def valid_pq_list(pq_list)
     pqs_array = []
-    pq_list.split(',').map do |p|
+    pq_list.split(",").map do |p|
       real_pq = Pq.find_by(uin: p)
       return false if real_pq.nil?
 
@@ -23,37 +23,36 @@ class QuickActionsService
     pqs_array
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def update_pq_list(pq_list, internal_deadline, draft_received, pod_clearance, cleared_by_minister, answer_submitted)
     pq_batch = valid?(pq_list, internal_deadline, draft_received, pod_clearance, cleared_by_minister, answer_submitted)
     return if pq_batch == false
 
-    if internal_deadline && internal_deadline != ''
+    if internal_deadline && internal_deadline != ""
       pq_batch.each do |pq|
         pq.internal_deadline = internal_deadline
         pq.update_state!
         pq.save!
       end
     end
-    if draft_received && draft_received != ''
+    if draft_received && draft_received != ""
       pq_batch.each do |pq|
         pq.draft_answer_received = draft_received
         pq.update_state!
       end
     end
-    if pod_clearance && pod_clearance != ''
+    if pod_clearance && pod_clearance != ""
       pq_batch.each do |pq|
         pq.pod_clearance = pod_clearance
         pq.update_state!
       end
     end
-    if cleared_by_minister && cleared_by_minister != ''
+    if cleared_by_minister && cleared_by_minister != ""
       pq_batch.each do |pq|
         pq.cleared_by_answering_minister = cleared_by_minister
         pq.update_state!
       end
     end
-    if answer_submitted && answer_submitted != ''
+    if answer_submitted && answer_submitted != ""
       pq_batch.each do |pq|
         pq.answer_submitted = answer_submitted
         pq.update_state!
@@ -74,9 +73,9 @@ class QuickActionsService
 
       ao_pq = ActionOfficersPq.find(ao_pq_id)
       if ao_pq.action_officer.group_email.present?
-        NotifyPqMailer.draft_reminder_email(pq: pq, action_officer: ao_pq.action_officer, email: ao_pq.action_officer.group_email).deliver_later
+        NotifyPqMailer.draft_reminder_email(pq:, action_officer: ao_pq.action_officer, email: ao_pq.action_officer.group_email).deliver_later
       end
-      NotifyPqMailer.draft_reminder_email(pq: pq, action_officer: ao_pq.action_officer, email: ao_pq.action_officer.email).deliver_later
+      NotifyPqMailer.draft_reminder_email(pq:, action_officer: ao_pq.action_officer, email: ao_pq.action_officer.email).deliver_later
       ao_pq.increment(:reminder_draft).save
     end
   end

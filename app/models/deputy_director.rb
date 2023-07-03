@@ -23,5 +23,5 @@ class DeputyDirector < ActiveRecord::Base
   has_many :action_officers
   belongs_to :division
 
-  scope :active_list, -> { where('deputy_directors.deleted = ? OR deputy_directors.deleted = ? AND deputy_directors.updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("deputy_directors.deleted = ? OR deputy_directors.deleted = ? AND deputy_directors.updated_at > ?", false, true, 2.days.ago.to_datetime) }
 end

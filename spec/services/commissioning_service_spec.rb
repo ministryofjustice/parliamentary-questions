@@ -1,7 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe CommissioningService do
-  shared_context 'test_values' do
+  shared_context "test_values" do
     let(:ao1)                 { DBHelpers.action_officers[0] }
     let(:ao2)                 { DBHelpers.action_officers[1] }
     let(:form)                { CommissionForm.new(form_params) }
@@ -17,30 +17,30 @@ describe CommissioningService do
         policy_minister_id: policy_minister.id,
         action_officer_id: [ao1.id, ao2.id],
         date_for_answer: Date.tomorrow,
-        internal_deadline: Time.zone.today.midnight
+        internal_deadline: Time.zone.today.midnight,
       }
     end
   end
 
-  describe '#commission' do
-    include_context 'test_values'
-    context 'when the supplied form data is not valid' do
-      it 'raises an error' do
-        expect do
+  describe "#commission" do
+    include_context "test_values"
+    context "when the supplied form data is not valid" do
+      it "raises an error" do
+        expect {
           invalid_form = CommissionForm.new(invalid_form_params)
           CommissioningService.new.commission(invalid_form)
-        end.to raise_error(ArgumentError)
+        }.to raise_error(ArgumentError)
       end
     end
 
-    context 'when the supplied data is valid' do
+    context "when the supplied data is valid" do
       before do
         allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_later)
         valid_form = CommissionForm.new(form_params)
         @pq = CommissioningService.new.commission(valid_form)
       end
 
-      it 'returns an updated PQ' do
+      it "returns an updated PQ" do
         expect(@pq).to be_valid
         expect(@pq.minister).to eq(minister)
         expect(@pq.policy_minister).to eq(policy_minister)
@@ -52,9 +52,9 @@ describe CommissioningService do
         expect(@pq.action_officers).to eq([ao1, ao2])
       end
 
-      it 'notifies both of the action officers' do
-        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq: pq, action_officer: ao1))
-        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq: pq, action_officer: ao2))
+      it "notifies both of the action officers" do
+        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq:, action_officer: ao1))
+        expect(NotifyPqMailer).to have_received(:commission_email).with(hash_including(pq:, action_officer: ao2))
       end
 
       it "sets the PQ state to 'no-response'" do
@@ -62,7 +62,7 @@ describe CommissioningService do
       end
     end
 
-    context 'set new action officer list' do
+    context "set new action officer list" do
       # commission pq in normal state arrived from parli
       # gives two action officers
       # expects to see those 2 action officer

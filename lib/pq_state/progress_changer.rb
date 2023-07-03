@@ -49,7 +49,7 @@ module PQState
       # Transferred out
       Transition.factory(ALL - CLOSED, [TRANSFERRED_OUT]) do |pq|
         pq.transfer_out_ogd_id && pq.transfer_out_date
-      end
+      end,
     )
   end
 

@@ -8,7 +8,7 @@ module SmokeTest
     [
       SmokeTest::Dashboard,
       SmokeTest::Report,
-      SmokeTest::Statistics
+      SmokeTest::Statistics,
     ]
 
   def factory

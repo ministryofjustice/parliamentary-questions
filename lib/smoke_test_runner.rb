@@ -5,7 +5,7 @@ module SmokeTestRunner
     tests     = SmokeTest.factory
     exit_code = tests.all?(&:passed?) ? 0 : 1
 
-    File.open(out_file, 'w') { |f| f.write(exit_code) }
+    File.open(out_file, "w") { |f| f.write(exit_code) }
   end
 
   def run_time
@@ -16,7 +16,7 @@ module SmokeTestRunner
     File.exist?(out_file) && File.read(out_file).to_i.zero?
   end
 
-  private
+private
 
   def out_file
     @out_file ||= "#{Rails.root}#{Settings.smoke_test_runner.out_file}"

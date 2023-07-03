@@ -1,51 +1,51 @@
 class ActionlistMembersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_actionlist_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_actionlist_member, only: %i[show edit update destroy]
 
   def index
     @actionlist_members = ActionlistMember.active_list
                                           .all
                                           .order(:name.downcase)
-    update_page_title('Actionlist members')
+    update_page_title("Actionlist members")
   end
 
   def new
     @actionlist_member = ActionlistMember.new
-    update_page_title('Add actionlist nember')
+    update_page_title("Add actionlist nember")
   end
 
   def show
-    update_page_title('Actionlist member details')
+    update_page_title("Actionlist member details")
   end
 
   def edit
-    update_page_title('Edit actionlist member')
+    update_page_title("Edit actionlist member")
   end
 
   def create
     @actionlist_member = ActionlistMember.new(actionlist_member_params)
 
     if @actionlist_member.save
-      flash[:success] = 'Actionlist member was successfully created.'
-      update_page_title('Actionlist member details')
+      flash[:success] = "Actionlist member was successfully created."
+      update_page_title("Actionlist member details")
       redirect_to @actionlist_member
     else
-      render action: 'new'
+      render action: "new"
     end
   end
 
   def update
     if @actionlist_member.update(actionlist_member_params)
-      flash[:success] = 'Actionlist member was successfully updated.'
-      update_page_title('Actionlist member details')
+      flash[:success] = "Actionlist member was successfully updated."
+      update_page_title("Actionlist member details")
       redirect_to @actionlist_member
     else
-      update_page_title('Edit actionlist member')
-      render action: 'edit'
+      update_page_title("Edit actionlist member")
+      render action: "edit"
     end
   end
 
-  private
+private
 
   def set_actionlist_member
     @actionlist_member = ActionlistMember.find(params[:id])

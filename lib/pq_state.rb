@@ -1,21 +1,21 @@
 module PQState
-  UNASSIGNED        = 'unassigned'
-  REJECTED          = 'rejected'
-  NO_RESPONSE       = 'no_response'
-  DRAFT_PENDING     = 'draft_pending'
-  WITH_POD          = 'with_pod'
-  POD_QUERY         = 'pod_query'
-  POD_CLEARED       = 'pod_cleared'
-  WITH_MINISTER     = 'with_minister'
-  MINISTERIAL_QUERY = 'ministerial_query'
-  MINISTER_CLEARED  = 'minister_cleared'
-  ANSWERED          = 'answered'
-  TRANSFERRED_OUT   = 'transferred_out'
+  UNASSIGNED        = "unassigned"
+  REJECTED          = "rejected"
+  NO_RESPONSE       = "no_response"
+  DRAFT_PENDING     = "draft_pending"
+  WITH_POD          = "with_pod"
+  POD_QUERY         = "pod_query"
+  POD_CLEARED       = "pod_cleared"
+  WITH_MINISTER     = "with_minister"
+  MINISTERIAL_QUERY = "ministerial_query"
+  MINISTER_CLEARED  = "minister_cleared"
+  ANSWERED          = "answered"
+  TRANSFERRED_OUT   = "transferred_out"
 
   NEW = [
     UNASSIGNED,
     NO_RESPONSE,
-    REJECTED
+    REJECTED,
   ]
 
   IN_PROGRESS = [
@@ -25,12 +25,12 @@ module PQState
     POD_CLEARED,
     WITH_MINISTER,
     MINISTERIAL_QUERY,
-    MINISTER_CLEARED
+    MINISTER_CLEARED,
   ]
 
   CLOSED = [
     ANSWERED,
-    TRANSFERRED_OUT
+    TRANSFERRED_OUT,
   ]
 
   ALL = [
@@ -45,7 +45,7 @@ module PQState
     MINISTERIAL_QUERY,
     MINISTER_CLEARED,
     ANSWERED,
-    TRANSFERRED_OUT
+    TRANSFERRED_OUT,
   ]
 
   VISIBLE = NEW + IN_PROGRESS
@@ -75,18 +75,18 @@ module PQState
 
   def self.state_label(state)
     case state
-    when UNASSIGNED        then 'Unassigned'
-    when REJECTED          then 'Rejected'
-    when NO_RESPONSE       then 'No response'
-    when DRAFT_PENDING     then 'Draft Pending'
-    when WITH_POD          then 'With POD'
-    when POD_QUERY         then 'POD Query'
-    when POD_CLEARED       then 'POD Cleared'
-    when WITH_MINISTER     then 'With Minister'
-    when MINISTERIAL_QUERY then 'Ministerial Query'
-    when MINISTER_CLEARED  then 'Minister Cleared'
-    when ANSWERED          then 'Answered'
-    when TRANSFERRED_OUT   then 'Transferred out'
+    when UNASSIGNED        then "Unassigned"
+    when REJECTED          then "Rejected"
+    when NO_RESPONSE       then "No response"
+    when DRAFT_PENDING     then "Draft Pending"
+    when WITH_POD          then "With POD"
+    when POD_QUERY         then "POD Query"
+    when POD_CLEARED       then "POD Cleared"
+    when WITH_MINISTER     then "With Minister"
+    when MINISTERIAL_QUERY then "Ministerial Query"
+    when MINISTER_CLEARED  then "Minister Cleared"
+    when ANSWERED          then "Answered"
+    when TRANSFERRED_OUT   then "Transferred out"
     end
   end
 end

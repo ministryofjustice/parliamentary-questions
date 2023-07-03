@@ -1,12 +1,11 @@
 module ActionDispatch
   # rubocop:disable Style/RedundantRegexpCharacterClass
-  # rubocop:disable Style/StringLiterals
   class HostAuthorization
     HOSTNAME = /[a-z0-9.-]+|\[[a-f0-9]*:[a-f0-9.:]+\]/i
     VALID_ORIGIN_HOST = /\A(#{HOSTNAME})(?::\d+)?\z/
     VALID_FORWARDED_HOST = /(?:\A|,[ ]?)(#{HOSTNAME})(?::\d+)?\z/
 
-    private
+  private
 
     def authorized?(request)
       origin_host =
@@ -18,5 +17,4 @@ module ActionDispatch
     end
   end
   # rubocop:enable Style/RedundantRegexpCharacterClass
-  # rubocop:enable Style/StringLiterals
 end

@@ -16,11 +16,11 @@ module Presenters
     end
 
     def active?
-      raise NotImplementedError, 'The #active? method should be implemented by subclasses'
+      raise NotImplementedError, "The #active? method should be implemented by subclasses"
     end
 
     def path
-      raise NotImplementedError, 'the #path method should be implemented by subclassess'
+      raise NotImplementedError, "the #path method should be implemented by subclassess"
     end
   end
 end

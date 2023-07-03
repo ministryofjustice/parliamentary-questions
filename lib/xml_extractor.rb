@@ -18,9 +18,9 @@ module XMLExtractor
 
   def bool(node, xpath)
     case text(node, xpath)
-    when 'false'
+    when "false"
       false
-    when 'true'
+    when "true"
       true
     end
   end

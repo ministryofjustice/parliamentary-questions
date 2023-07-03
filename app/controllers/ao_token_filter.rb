@@ -20,14 +20,14 @@ class AOTokenFilter
 
   def self.log_and_redirect(controller, token_state)
     params         = OpenStruct.new
-    params.uri     = controller.request.env['REQUEST_URI']
+    params.uri     = controller.request.env["REQUEST_URI"]
     params.referer = controller.request.referer
     params.uin     = extract_uin(controller)
     params.user    = extract_user_name(controller)
 
     log_error(token_state, params)
 
-    controller.update_page_title 'Unauthorised (401)'
+    controller.update_page_title "Unauthorised (401)"
     controller.render "shared/token_#{token_state}", status: :unauthorized
   end
 
@@ -38,20 +38,20 @@ class AOTokenFilter
       uri: params.uri,
       referer: params.referer,
       uin: params.uin,
-      user: params.user
+      user: params.user,
     ) { "Access Token Error - #{token_state.to_s.humanize} Token" }
   end
 
   def self.extract_uin(controller)
     request_path = controller.request.path
     if request_path =~ %r{^/assignment/}
-      controller.request.path.split('/').last
+      controller.request.path.split("/").last
     end
   end
 
   def self.extract_user_name(controller)
     if controller.current_user.nil?
-      'User not logged in'
+      "User not logged in"
     else
       controller.current_user.name
     end

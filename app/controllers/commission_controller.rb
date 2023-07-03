@@ -19,22 +19,22 @@ class CommissionController < ApplicationController
     flash.now[:error] =
       case status
       when 400
-        'Error in commissioning question'
+        "Error in commissioning question"
       when 422
-        'Invalid date input!'
+        "Invalid date input!"
       end
 
-    render(partial: 'shared/question_assigned',
+    render(partial: "shared/question_assigned",
            locals: { question: pq },
-           status: status)
+           status:)
   end
 
   def complete
     @pq = Pq.find_by!(uin: params[:id])
-    render partial: 'shared/commissioned', locals: { uin: @pq }
+    render partial: "shared/commissioned", locals: { uin: @pq }
   end
 
-  private
+private
 
   def commission_form_params
     params.require(:commission_form)

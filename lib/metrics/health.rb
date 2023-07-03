@@ -9,7 +9,7 @@ module Metrics
       @pqa_api_status  = current_pqa_api_status
     end
 
-    private
+  private
 
     def current_db_status
       checker = HealthCheck::Database.new
@@ -51,13 +51,13 @@ module Metrics
       end
 
       def failed_status?
-        status != 'OK'
+        status != "OK"
       end
 
-      private
+    private
 
       def initialize(path)
-        timestamp, status, = File.read(path).split('::')
+        timestamp, status, = File.read(path).split("::")
 
         @last_run_time = Time.at(timestamp.to_i).utc
         @status        = status

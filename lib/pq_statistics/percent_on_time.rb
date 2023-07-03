@@ -21,7 +21,7 @@ module PqStatistics
       calculate_for_dates([date]).first
     end
 
-    private
+  private
 
     def calculate_for_dates(dates)
       submissions =
@@ -36,7 +36,7 @@ module PqStatistics
       Pq.answered
         .where.not(answer_submitted: nil)
         .where.not(date_for_answer: nil)
-        .where('answer_submitted > ?', dates.last)
+        .where("answer_submitted > ?", dates.last)
         .pluck(:answer_submitted, :date_for_answer)
     end
 

@@ -25,11 +25,11 @@ class Minister < ActiveRecord::Base
                                 reject_if: :all_blank
 
   def contact_emails
-    minister_contacts.active.pluck('email')
+    minister_contacts.active.pluck("email")
   end
 
   def name_with_inactive_status
-    name + (deleted ? ' - Inactive' : '')
+    name + (deleted ? " - Inactive" : "")
   end
 
   def self.active_or_having_id(minister_id = nil)
@@ -39,11 +39,11 @@ class Minister < ActiveRecord::Base
     where(arel)
   end
 
-  private
+private
 
   def strip_whitespace!
     self.name = name.strip if name
   end
 
-  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("deleted = ? OR deleted = ? AND updated_at > ?", false, true, 2.days.ago.to_datetime) }
 end

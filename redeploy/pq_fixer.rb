@@ -6,7 +6,7 @@ module Redeploy
     end
 
     def fix!
-      log('fixing PQID')
+      log("fixing PQID")
 
       if %w[unassigned no_response rejected].include?(@pq.state)
         # for unassigned and no response
@@ -22,14 +22,14 @@ module Redeploy
         fix_pod_clearance
       end
 
-      if @pq.state == 'pod_cleared'
+      if @pq.state == "pod_cleared"
         # for pod_cleared
         #   set sent_to_answering_minister to answer_submitted
         #   set sent_to_policy_miniser to answer_submitted if policy_minister not nil
         fix_minister_submitted
       end
 
-      if @pq.state == 'with_minister'
+      if @pq.state == "with_minister"
         # for with minister
         #   when there is a policy minister
         #     set cleared_by_policy_minister to answer_submitted
@@ -37,13 +37,13 @@ module Redeploy
       end
 
       @pq.update_state!
-    rescue => e
+    rescue StandardError => e
       puts "ERROR: #{e.class}  #{e.message}"
     ensure
       print_log_messages
     end
 
-    private
+  private
 
     def log(message)
       @log_messages << "#{@pq.id} UIN: #{@pq.uin} #{message}"
@@ -87,14 +87,14 @@ module Redeploy
     def fix_uncommissioned
       ao_pq = ActionOfficersPq.create(
         pq_id: @pq.id,
-        action_officer_id: ao_placeholder.id
+        action_officer_id: ao_placeholder.id,
       )
 
       ao_pq.accept
 
       log(
-        'assigned to and accepted by ActionOfficer with id: ' \
-        "#{ao_placeholder.id}, through ActionOfficersPq with id: #{ao_pq.id} "
+        "assigned to and accepted by ActionOfficer with id: " \
+        "#{ao_placeholder.id}, through ActionOfficersPq with id: #{ao_pq.id} ",
       )
 
       @pq.update_state!
@@ -104,10 +104,10 @@ module Redeploy
       @ao_placeholder ||=
         ActionOfficer.find_or_create_by(
           deputy_director: dd_placeholder,
-          name: 'AO not known placeholder',
-          email: 'pqsupport@digital.justice.gov.uk',
+          name: "AO not known placeholder",
+          email: "pqsupport@digital.justice.gov.uk",
           press_desk: pd_placeholder,
-          deleted: true
+          deleted: true,
         )
     end
 
@@ -115,31 +115,31 @@ module Redeploy
       @dd_placeholder ||=
         DeputyDirector.find_or_create_by(
           division: div_placeholder,
-          email: 'pqsupport@digital.justice.gov.uk',
-          name: 'DD for AO not known placeholder',
-          deleted: true
+          email: "pqsupport@digital.justice.gov.uk",
+          name: "DD for AO not known placeholder",
+          deleted: true,
         )
     end
 
     def pd_placeholder
       @pd_placeholder ||=
         PressDesk.find_or_create_by(
-          name: 'Unknown'
+          name: "Unknown",
         )
     end
 
     def dir_placeholder
       @dir_placeholder ||=
         Directorate.find_or_create_by(
-          name: 'Unknown'
+          name: "Unknown",
         )
     end
 
     def div_placeholder
       @div_placeholder ||=
         Division.find_or_create_by(
-          name: 'Unknown',
-          directorate: dir_placeholder
+          name: "Unknown",
+          directorate: dir_placeholder,
         )
     end
   end

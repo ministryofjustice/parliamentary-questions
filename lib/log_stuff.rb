@@ -10,7 +10,7 @@ class LogStuff
   def self.get_thread_current(name)
     Thread.current[NAMESPACE] ||= {
       current_fields: {},
-      current_tags: Set.new
+      current_tags: Set.new,
     }
     Thread.current[NAMESPACE][name].dup
   end
@@ -18,12 +18,12 @@ class LogStuff
   def self.set_thread_current(name, value)
     Thread.current[NAMESPACE] ||= {
       current_fields: {},
-      current_tags: Set.new
+      current_tags: Set.new,
     }
     Thread.current[NAMESPACE][name] = value.dup
   end
 
-  def self.log(severity = 'info', *args, &block)
+  def self.log(severity = "info", *args, &block)
     return unless block_given?
 
     if use_logstasher?
@@ -47,12 +47,11 @@ class LogStuff
 
     if use_logstasher?
       msg = yield
-      event = LogStasher::Event.new('@source' => LogStasher.source,
-                                    '@severity' => severity,
-                                    'message' => msg,
-                                    '@tags' => get_thread_current(:current_tags).merge(local_tags),
-                                    '@fields' => get_thread_current(:current_fields).merge(local_fields)
-                                   )
+      event = LogStasher::Event.new("@source" => LogStasher.source,
+                                    "@severity" => severity,
+                                    "message" => msg,
+                                    "@tags" => get_thread_current(:current_tags).merge(local_tags),
+                                    "@fields" => get_thread_current(:current_fields).merge(local_fields))
       LogStasher.logger << event.to_json + "\n"
     else
       Rails.logger.send(severity, &block)

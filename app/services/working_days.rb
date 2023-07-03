@@ -1,4 +1,4 @@
-require 'date'
+require "date"
 
 class WorkingDays
   def self.days_after(d, v)

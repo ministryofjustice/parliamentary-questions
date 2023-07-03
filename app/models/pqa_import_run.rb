@@ -31,33 +31,35 @@ class PqaImportRun < ActiveRecord::Base
 
   def self.record_success(start_time, import_run_report)
     create!(
-      start_time: start_time,
+      start_time:,
       end_time: Time.now,
       num_created: import_run_report[:created],
       num_updated: import_run_report[:updated],
-      status: import_run_report[:errors].any? ? 'OK_with_errors' : 'OK',
-      error_messages: import_run_report[:errors].any? ? import_run_report[:errors] : nil)
+      status: import_run_report[:errors].any? ? "OK_with_errors" : "OK",
+      error_messages: import_run_report[:errors].any? ? import_run_report[:errors] : nil,
+    )
   end
 
   def self.record_failure(start_time, error_message)
     create!(
-      start_time: start_time,
+      start_time:,
       end_time: Time.now,
       num_created: 0,
       num_updated: 0,
-      status: 'Failure',
-      error_messages: error_message)
+      status: "Failure",
+      error_messages: error_message,
+    )
   end
 
   def self.sum_pqs_imported(range)
     valid_ranges = {
       day: Time.zone.today.beginning_of_day,
       week: 7.days.ago.beginning_of_day,
-      month: 30.days.ago.beginning_of_day
+      month: 30.days.ago.beginning_of_day,
     }
-    raise ArgumentError, 'invalid range for sum_pqs_imported' unless valid_ranges.key?(range)
+    raise ArgumentError, "invalid range for sum_pqs_imported" unless valid_ranges.key?(range)
 
-    recs = where('start_time >= ?', valid_ranges[range])
+    recs = where("start_time >= ?", valid_ranges[range])
     recs.reduce(0) { |n, rec| n + rec.num_updated + rec.num_created }
   end
 
@@ -66,11 +68,11 @@ class PqaImportRun < ActiveRecord::Base
 
     rec = successful.order(:start_time).last
     case rec.status
-    when 'Failed'
+    when "Failed"
       false
-    when 'OK_with_errors'
+    when "OK_with_errors"
       false
-    when 'OK'
+    when "OK"
       true
     else
       false

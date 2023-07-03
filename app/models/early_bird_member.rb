@@ -6,6 +6,6 @@ class EarlyBirdMember < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, on: :create
   validates :email, format: { with: Devise.email_regexp }
-  scope :active_list, -> { where('early_bird_members.deleted = ? OR early_bird_members.deleted = ? AND early_bird_members.updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("early_bird_members.deleted = ? OR early_bird_members.deleted = ? AND early_bird_members.updated_at > ?", false, true, 2.days.ago.to_datetime) }
   before_validation Validators::Whitespace.new
 end

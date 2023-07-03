@@ -1,24 +1,24 @@
-if !!ENV['COVERAGE']
-  require 'simplecov'
-  SimpleCov.start 'rails' do
+if !!ENV["COVERAGE"]
+  require "simplecov"
+  SimpleCov.start "rails" do
   end
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV['RAILS_ENV'] ||= 'test'
-ENV['ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
+ENV["ENV"] ||= "test"
 
-require File.expand_path('../config/environment', __dir__)
+require File.expand_path("../config/environment", __dir__)
 
-require 'rspec/rails'
-require './spec/support/db_helpers'
-require './spec/support/features/session_helpers'
-require './spec/support/unit/question_factory'
-require './spec/support/csv_helpers'
-require 'shoulda/matchers'
-require 'paper_trail/frameworks/rspec'
+require "rspec/rails"
+require "./spec/support/db_helpers"
+require "./spec/support/features/session_helpers"
+require "./spec/support/unit/question_factory"
+require "./spec/support/csv_helpers"
+require "shoulda/matchers"
+require "paper_trail/frameworks/rspec"
 
-require 'bundler/setup'
+require "bundler/setup"
 ::Bundler.require(:default, :test)
 
 ::Shoulda::Matchers.configure do |config|
@@ -56,7 +56,7 @@ RSpec.configure do |config|
   # config.include Features::DecisionHelpers, type: :feature
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = "#{Rails.root.join('spec/fixtures')}"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -73,7 +73,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you  can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = 'random'
+  config.order = "random"
 
   config.infer_spec_type_from_file_location!
 
@@ -86,11 +86,11 @@ RSpec.configure do |config|
     DBHelpers.load_spec_fixtures
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after do
     DatabaseCleaner.clean
   end
 end

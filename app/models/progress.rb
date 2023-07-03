@@ -11,7 +11,7 @@
 
 class Progress < ActiveRecord::Base
   def classname
-    name.downcase.sub ' ', '-'
+    name.downcase.sub " ", "-"
   end
 
   def self.find_by_status(status)
@@ -71,62 +71,62 @@ class Progress < ActiveRecord::Base
   end
 
   def self.UNASSIGNED
-    'Unassigned'
+    "Unassigned"
   end
 
   def self.NO_RESPONSE
-    'No response'
+    "No response"
   end
 
   def self.DRAFT_PENDING
-    'Draft Pending'
+    "Draft Pending"
   end
 
   def self.REJECTED
-    'Rejected'
+    "Rejected"
   end
 
   def self.WITH_POD
-    'With POD'
+    "With POD"
   end
 
   def self.POD_QUERY
-    'POD Query'
+    "POD Query"
   end
 
   def self.POD_CLEARED
-    'POD Cleared'
+    "POD Cleared"
   end
 
   def self.WITH_MINISTER
-    'With Minister'
+    "With Minister"
   end
 
   def self.MINISTERIAL_QUERY
-    'Ministerial Query'
+    "Ministerial Query"
   end
 
   def self.MINISTER_CLEARED
-    'Minister Cleared'
+    "Minister Cleared"
   end
 
   def self.ANSWERED
-    'Answered'
+    "Answered"
   end
 
   def self.TRANSFERRED_OUT
-    'Transferred out'
+    "Transferred out"
   end
 
   def self.TRANSFER
-    'Transfer'
+    "Transfer"
   end
 
   def self.new_questions
     [
       Progress.UNASSIGNED,
       Progress.NO_RESPONSE,
-      Progress.REJECTED
+      Progress.REJECTED,
     ]
   end
 
@@ -138,14 +138,14 @@ class Progress < ActiveRecord::Base
       Progress.POD_CLEARED,
       Progress.WITH_MINISTER,
       Progress.MINISTERIAL_QUERY,
-      Progress.MINISTER_CLEARED
+      Progress.MINISTER_CLEARED,
     ]
   end
 
   def self.closed_questions
     [
       Progress.ANSWERED,
-      Progress.TRANSFERRED_OUT
+      Progress.TRANSFERRED_OUT,
     ]
   end
 

@@ -72,8 +72,8 @@ FactoryBot.define do
     uin { Faker::Lorem.characters(number: 10) }
     house_id { 1 }
     raising_member_id { 1 }
-    tabled_date { '2014-05-08 13:45:31' }
-    response_due { '2014-05-08 13:45:31' }
+    tabled_date { "2014-05-08 13:45:31" }
+    response_due { "2014-05-08 13:45:31" }
     question { Faker::Lorem.sentence(word_count: 10) }
     answer { nil }
     state { PQState::UNASSIGNED }
@@ -94,7 +94,7 @@ FactoryBot.define do
 
         after(:create) do |pq, evaluator|
           create(:action_officers_pq,
-                 pq: pq,
+                 pq:,
                  action_officer: evaluator.action_officer,
                  created_at: evaluator.action_officer_allocated_at,
                  updated_at: evaluator.action_officer_allocated_at)
@@ -108,7 +108,7 @@ FactoryBot.define do
         minister
 
         after(:create) do |pq, _|
-          pq.action_officers_pqs = [create(:accepted_action_officers_pq, pq: pq)]
+          pq.action_officers_pqs = [create(:accepted_action_officers_pq, pq:)]
         end
 
         factory :with_pod_pq do
