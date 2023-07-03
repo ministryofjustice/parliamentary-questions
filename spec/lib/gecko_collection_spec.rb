@@ -34,6 +34,6 @@ describe GeckoCollection do
       expect(subject.send(component)).to receive(:update).with(components)
     end
 
-    subject.update!(components)
+    subject.update(components) # rubocop:disable Rails/SaveBang
   end
 end
