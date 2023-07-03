@@ -10,7 +10,7 @@
 #  updated_at     :datetime
 #
 
-class Division < ApplicationRecord
+class Division < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

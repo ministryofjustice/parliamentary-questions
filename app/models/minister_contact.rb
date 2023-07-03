@@ -10,7 +10,7 @@
 #  deleted     :boolean          default(FALSE)
 #
 
-class MinisterContact < ApplicationRecord
+class MinisterContact < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

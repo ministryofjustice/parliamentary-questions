@@ -14,7 +14,7 @@
 #  group_email        :string(255)
 #
 
-class ActionOfficer < ApplicationRecord
+class ActionOfficer < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

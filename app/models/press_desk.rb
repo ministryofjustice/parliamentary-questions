@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #
 
-class PressDesk < ApplicationRecord
+class PressDesk < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

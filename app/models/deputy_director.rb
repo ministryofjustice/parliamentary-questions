@@ -11,7 +11,7 @@
 #  updated_at  :datetime
 #
 
-class DeputyDirector < ApplicationRecord
+class DeputyDirector < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

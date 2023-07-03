@@ -9,7 +9,7 @@
 #  updated_at     :datetime
 #
 
-class Progress < ApplicationRecord
+class Progress < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   def classname
     name.downcase.sub " ", "-"
   end

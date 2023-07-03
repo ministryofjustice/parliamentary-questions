@@ -18,7 +18,7 @@
 #  updated_at        :datetime
 #
 
-class Email < ApplicationRecord
+class Email < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   EMAIL_REGEXP     = /\A(.*<)?[^@\s]+@([^@\s]+\.)+[^@\s]+>?\z/
   EMAIL_DELIMITERS = [";", ":"].freeze
 

@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #
 
-class Directorate < ApplicationRecord
+class Directorate < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

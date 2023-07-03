@@ -14,7 +14,7 @@
 #  response          :string(255)      default("awaiting")
 #
 
-class ActionOfficersPq < ApplicationRecord
+class ActionOfficersPq < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   has_paper_trail
   belongs_to :pq
   belongs_to :action_officer

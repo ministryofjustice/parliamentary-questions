@@ -11,7 +11,7 @@
 #  member_id  :integer
 #
 
-class Minister < ApplicationRecord
+class Minister < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

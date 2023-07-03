@@ -31,7 +31,7 @@
 #  locked_at              :datetime
 #
 
-class User < ApplicationRecord
+class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

@@ -11,7 +11,7 @@
 #  updated_at    :datetime
 #
 
-class PressOfficer < ApplicationRecord
+class PressOfficer < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
