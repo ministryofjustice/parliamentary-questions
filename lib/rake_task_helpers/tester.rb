@@ -23,13 +23,14 @@ module RakeTaskHelpers
     end
 
     def create_fixtures!
+      # rubocop:disable Rails/SaveBang
       u =
-        User.find_or_create_by!(
+        User.find_or_create_by(
           email: email_for("u"),
           name: display_name,
           roles: "PQUSER",
         )
-
+      # rubocop:enable Rails/SaveBang
       if u.new_record?
         u.update!(
           password: pass,
