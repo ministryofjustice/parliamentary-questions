@@ -27,8 +27,8 @@ namespace :pqa do
       puts "Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false"
     end
   rescue StandardError => e
-    LogStuff.error { "Early Bird: " + e.message }
-    puts "Early Bird:" + e.message
+    LogStuff.error { "Early Bird: #{e.message}" }
+    puts "Early Bird:#{e.message}"
     raise e
   end
 end

@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #
 
-class Directorate < ActiveRecord::Base
+class Directorate < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

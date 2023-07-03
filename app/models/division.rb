@@ -10,7 +10,7 @@
 #  updated_at     :datetime
 #
 
-class Division < ActiveRecord::Base
+class Division < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

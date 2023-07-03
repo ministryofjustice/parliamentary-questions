@@ -20,14 +20,14 @@ def create_directorates_for_divisions
 end
 
 def create_divisions
-  FactoryBot.create(:division, name: "Division A",  directorate_id: "1", updated_at: DateTime.now.to_datetime, deleted: false)
-  FactoryBot.create(:division, name: "Division B",  directorate_id: "2", updated_at: DateTime.now.to_datetime, deleted: true)
+  FactoryBot.create(:division, name: "Division A",  directorate_id: "1", updated_at: Time.zone.now.to_datetime, deleted: false)
+  FactoryBot.create(:division, name: "Division B",  directorate_id: "2", updated_at: Time.zone.now.to_datetime, deleted: true)
   FactoryBot.create(:division, name: "Division C",  directorate_id: "1", updated_at: 1.day.ago.to_datetime,    deleted: false)
   FactoryBot.create(:division, name: "Division D",  directorate_id: "2", updated_at: 1.day.ago.to_datetime,    deleted: true)
   FactoryBot.create(:division, name: "Division E",  directorate_id: "1", updated_at: 3.days.ago.to_datetime,   deleted: false)
   FactoryBot.create(:division, name: "Division F",  directorate_id: "2", updated_at: 3.days.ago.to_datetime,   deleted: true)
-  FactoryBot.create(:division, name: "Division G",  directorate_id: "1", updated_at: DateTime.now.to_datetime, deleted: false)
-  FactoryBot.create(:division, name: "Division H",  directorate_id: "2", updated_at: DateTime.now.to_datetime, deleted: true)
+  FactoryBot.create(:division, name: "Division G",  directorate_id: "1", updated_at: Time.zone.now.to_datetime, deleted: false)
+  FactoryBot.create(:division, name: "Division H",  directorate_id: "2", updated_at: Time.zone.now.to_datetime, deleted: true)
   FactoryBot.create(:division, name: "Division I",  directorate_id: "1", updated_at: 1.day.ago.to_datetime,    deleted: false)
   FactoryBot.create(:division, name: "Division J",  directorate_id: "2", updated_at: 1.day.ago.to_datetime,    deleted: true)
   FactoryBot.create(:division, name: "Division K",  directorate_id: "1", updated_at: 3.days.ago.to_datetime,   deleted: false)

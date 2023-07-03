@@ -29,7 +29,7 @@ describe Presenters::DashboardFilters do
       ]
 
       filter_values =
-        Presenters::DashboardFilters
+        described_class
         .build(counts, params)
         .filters
         .map { |f| [f.label, f.count, f.path, f.active?] }
@@ -74,7 +74,7 @@ describe Presenters::DashboardFilters do
       ]
 
       filter_values =
-        Presenters::DashboardFilters
+        described_class
         .build_in_progress(counts, params)
         .filters
         .map { |f| [f.label, f.count, f.path, f.active?] }

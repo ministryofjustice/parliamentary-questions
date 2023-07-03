@@ -4,7 +4,7 @@ describe Export::PqPod do
   include Unit::QuestionFactory
   include CSVHelpers
 
-  let(:export) { Export::PqPod.new(Date.yesterday - 2.days, Time.zone.today) }
+  let(:export) { described_class.new(Date.yesterday - 2.days, Time.zone.today) }
 
   context "when no records are present" do
     it "returns a blank CSV" do

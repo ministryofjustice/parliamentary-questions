@@ -1,9 +1,9 @@
 module XMLExtractor
-  extend self
+module_function
 
   def datetime(node, xpath)
     v = text(node, xpath)
-    v && DateTime.parse(v)
+    v && Time.zone.parse(v)
   end
 
   def int(node, xpath)

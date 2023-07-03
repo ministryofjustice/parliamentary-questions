@@ -3,9 +3,9 @@ module PQA
     XML_NS = {
       "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
       "xmlns" => "http://data.parliament.uk/QnA/2013/02",
-    }
+    }.freeze
 
-    extend self
+  module_function
 
     def encode_answer(answer)
       Nokogiri::XML::Builder.new { |x|

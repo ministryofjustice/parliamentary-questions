@@ -11,7 +11,7 @@
 #  updated_at  :datetime
 #
 
-class DeputyDirector < ActiveRecord::Base
+class DeputyDirector < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

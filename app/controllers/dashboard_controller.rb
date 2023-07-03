@@ -1,11 +1,11 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
-  BACKLOG     = "Backlog"
-  IN_PROGRESS = "In progress"
-  NEW         = "New"
+  BACKLOG     = "Backlog".freeze
+  IN_PROGRESS = "In progress".freeze
+  NEW         = "New".freeze
   PER_PAGE    = 15
-  UNASSIGNED  = "unassigned"
+  UNASSIGNED  = "unassigned".freeze
 
   def backlog
     @dashboard_state = BACKLOG
@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
   def by_status
     @dashboard_state = NEW
     load_pq_with_counts(@dashboard_state) { Pq.by_status(params[:qstatus]).sorted_for_dashboard }
-    update_page_title "#{params[:qstatus]}"
+    update_page_title params[:qstatus].to_s
     render "index"
   end
 
@@ -31,7 +31,7 @@ class DashboardController < ApplicationController
   def in_progress_by_status
     @dashboard_state = IN_PROGRESS
     load_pq_with_counts(@dashboard_state) { Pq.by_status(params[:qstatus]).sorted_for_dashboard }
-    update_page_title "#{params[:qstatus]}"
+    update_page_title params[:qstatus].to_s
     render "index"
   end
 

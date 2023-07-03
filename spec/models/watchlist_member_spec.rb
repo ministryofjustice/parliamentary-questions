@@ -26,7 +26,7 @@ describe WatchlistMember do
     end
 
     it "has a unique email" do
-      member = create(:watchlist_member, name: "Watchlist Member 1", email: "member.one@watchlist.com")
+      create(:watchlist_member, name: "Watchlist Member 1", email: "member.one@watchlist.com")
       duplicate = build(:watchlist_member, name: "Watchlist Member 2", email: "member.one@watchlist.com")
       expect(duplicate).to be_invalid
     end

@@ -31,19 +31,19 @@
 #  locked_at              :datetime
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
-  ROLE_PQ_USER  = "PQUSER"
-  ROLE_FINANCE  = "FINANCE"
-  ROLE_ADMIN = "ADMIN"
+  ROLE_PQ_USER  = "PQUSER".freeze
+  ROLE_FINANCE  = "FINANCE".freeze
+  ROLE_ADMIN = "ADMIN".freeze
 
   ROLES = [
     ROLE_FINANCE,
     ROLE_PQ_USER,
     ROLE_ADMIN,
-  ]
+  ].freeze
 
   has_paper_trail
 

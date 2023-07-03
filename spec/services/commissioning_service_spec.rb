@@ -28,7 +28,7 @@ describe CommissioningService do
       it "raises an error" do
         expect {
           invalid_form = CommissionForm.new(invalid_form_params)
-          CommissioningService.new.commission(invalid_form)
+          described_class.new.commission(invalid_form)
         }.to raise_error(ArgumentError)
       end
     end
@@ -37,7 +37,7 @@ describe CommissioningService do
       before do
         allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_later)
         valid_form = CommissionForm.new(form_params)
-        @pq = CommissioningService.new.commission(valid_form)
+        @pq = described_class.new.commission(valid_form)
       end
 
       it "returns an updated PQ" do
@@ -76,7 +76,7 @@ describe CommissioningService do
       before do
         pq.action_officers << ao3
         valid_form = CommissionForm.new(form_params)
-        @pq = CommissioningService.new.commission(valid_form)
+        @pq = described_class.new.commission(valid_form)
       end
 
       it "sets the pqs' action officers" do

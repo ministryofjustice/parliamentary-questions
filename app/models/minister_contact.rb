@@ -10,7 +10,7 @@
 #  deleted     :boolean          default(FALSE)
 #
 
-class MinisterContact < ActiveRecord::Base
+class MinisterContact < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

@@ -63,19 +63,19 @@ class GeckoReport
   def add_directorate_data
     directorate_return = []
     directorate_return << Pq.joins(:original_division).group("name").draft_response_on_time_since.count
-    @by_directorate = directorate_return[0].map { |key, value| { name: "draft on time-" + key, value: } }
+    @by_directorate = directorate_return[0].map { |key, value| { name: "draft on time-#{key}", value: } }
     directorate_questions = []
     directorate_questions << Pq.joins(:original_division).group("name").draft_response_due_since.count
-    @by_directorate += directorate_questions[0].map { |key, value| { name: "draft due since-" + key, value: } }
+    @by_directorate += directorate_questions[0].map { |key, value| { name: "draft due since-#{key}", value: } }
     # draft_response_due_since
   end
 
   def add_ministerial_data
     ministerial_return = []
     ministerial_return << Pq.joins(:minister).group("name").answered_by_deadline_since.count
-    @ministerial = ministerial_return[0].map { |key, value| { name: "answered by deadline-" + key, value: } }
+    @ministerial = ministerial_return[0].map { |key, value| { name: "answered by deadline-#{key}", value: } }
     ministerial_questions = []
     ministerial_questions << Pq.joins(:minister).group("name").answer_due_since.count
-    @ministerial += ministerial_questions[0].map { |key, value| { name: "due since-" + key, value: } }
+    @ministerial += ministerial_questions[0].map { |key, value| { name: "due since-#{key}", value: } }
   end
 end

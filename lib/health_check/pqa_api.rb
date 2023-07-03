@@ -1,6 +1,6 @@
 module HealthCheck
   class PqaApi < Component
-    TIMESTAMP_FILE = "#{Rails.root.join('tmp/pqa_api_healthcheck_timestamp')}"
+    TIMESTAMP_FILE = Rails.root.join("tmp/pqa_api_healthcheck_timestamp").to_s.freeze
 
     ERRS_TO_CATCH =
       [
@@ -8,12 +8,12 @@ module HealthCheck
         Errno::ECONNREFUSED,
         SocketError,
         HTTPClient::FailureResponse,
-      ]
+      ].freeze
 
     def self.time_to_run?
       interval = minimum_interval_in_seconds
       last_run = time_last_run
-      Time.now.to_i > interval + last_run
+      Time.zone.now.to_i > interval + last_run
     end
 
     def initialize
@@ -22,12 +22,12 @@ module HealthCheck
     end
 
     def record_result
-      tmpdir = "#{Rails.root.join('tmp')}"
+      tmpdir = Rails.root.join("tmp").to_s
       Dir.mkdir(tmpdir) unless Dir.exist?(tmpdir)
       status = @errors.any? ? "FAIL" : "OK"
 
       File.open(TIMESTAMP_FILE, "w") do |fp|
-        t = Time.now.utc
+        t = Time.zone.now.utc
         fp.puts "#{t.to_i}::#{status}::#{@errors.to_json}"
       end
     end
@@ -63,8 +63,8 @@ module HealthCheck
     def self.time_last_run
       if File.exist?(TIMESTAMP_FILE)
         File.open(TIMESTAMP_FILE, "r") do |fp|
-          interval, status, error_messages_as_json = fp.gets.chomp.split("::")
-          interval = interval.to_i
+          interval, = fp.gets.chomp.split("::")
+          interval.to_i
         end
       else
         0

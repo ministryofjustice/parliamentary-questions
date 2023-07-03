@@ -18,9 +18,9 @@
 #  updated_at        :datetime
 #
 
-class Email < ActiveRecord::Base
+class Email < ApplicationRecord
   EMAIL_REGEXP     = /\A(.*<)?[^@\s]+@([^@\s]+\.)+[^@\s]+>?\z/
-  EMAIL_DELIMITERS = [";", ":"]
+  EMAIL_DELIMITERS = [";", ":"].freeze
 
   validates :method, presence: true
   validates :from, presence: true

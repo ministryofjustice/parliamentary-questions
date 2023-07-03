@@ -25,7 +25,7 @@ module HealthCheck
   private
 
     def execute_simple_select_on_database
-      tuple = ActiveRecord::Base.connection.execute("select 1 as result")
+      ActiveRecord::Base.connection.execute("select 1 as result")
     end
 
     def log_error

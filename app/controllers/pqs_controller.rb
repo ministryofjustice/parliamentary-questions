@@ -77,7 +77,7 @@ private
     transfer_in_ogd_id
     transfer_out_ogd_id
     with_pod
-  ]
+  ].freeze
 
   DATE_PARAMS = %i[
     date_for_answer
@@ -104,5 +104,5 @@ private
     round_robin_guidance_received
     transfer_out_date
     transfer_in_date
-  ]
+  ].freeze
 end

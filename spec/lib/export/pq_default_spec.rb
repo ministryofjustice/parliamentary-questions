@@ -4,11 +4,11 @@ describe Export::PqDefault do
   include Unit::QuestionFactory
   include CSVHelpers
 
-  let(:export) { Export::PqDefault.new(Date.yesterday, Time.zone.today) }
+  let(:export) { described_class.new(Date.yesterday, Time.zone.today) }
 
   context "For output to Excel" do
     it "Inserts a single quote to escape a formula in Excel" do
-      expect(export.escape_equals_for_excel('=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')).to eq("'" + '=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')
+      expect(export.escape_equals_for_excel('=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')).to eq("'=HYPERLINK(\"http://www.somedodgysite.com/\",\"Innocuous Looking Link\")")
     end
 
     it "Doesn't alter a value if it doesn't start with an equals" do

@@ -12,7 +12,7 @@
 #  deleted    :boolean          default(FALSE)
 #
 
-class TrimLink < ActiveRecord::Base
+class TrimLink < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

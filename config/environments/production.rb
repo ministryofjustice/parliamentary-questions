@@ -104,7 +104,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -115,7 +115,7 @@ Rails.application.configure do
   # no details of the controller action or parameters.
   config.logstasher.enabled = true
   config.logstasher.log_level = Logger::INFO
-  config.logstasher.logger = ActiveSupport::Logger.new STDOUT
+  config.logstasher.logger = ActiveSupport::Logger.new $stdout
 
   # This line is optional, it allows you to set a custom value for the @source field of the log event
   config.logstasher.source = "logstasher"

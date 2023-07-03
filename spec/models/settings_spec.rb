@@ -26,51 +26,51 @@ describe Settings do
   context "settings file values" do
     describe ".live_url" do
       it "returns the value from the file" do
-        expect(Settings.live_url).to eq "https://trackparliamentaryquestions.service.gov.uk"
+        expect(described_class.live_url).to eq "https://trackparliamentaryquestions.service.gov.uk"
       end
     end
 
     describe ".mail_from" do
       it "returns the value from the file" do
-        expect(Settings.mail_from).to eq "PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>"
+        expect(described_class.mail_from).to eq "PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>"
       end
     end
 
     describe ".mail_reply_to" do
       it "returns the value from the file" do
-        expect(Settings.mail_reply_to).to eq "pqs@justice.gov.uk"
+        expect(described_class.mail_reply_to).to eq "pqs@justice.gov.uk"
       end
     end
 
     describe ".mail_tech_support" do
       it "returns the value from the file" do
-        expect(Settings.mail_tech_support).to eq "pqsupport@digital.justice.gov.uk"
+        expect(described_class.mail_tech_support).to eq "pqsupport@digital.justice.gov.uk"
       end
     end
 
     describe ".http_client_timeout" do
       it "returns the value from the file" do
-        expect(Settings.http_client_timeout).to eq 20
+        expect(described_class.http_client_timeout).to eq 20
       end
     end
 
     describe ".commission_mail_from" do
       it "returns the value from the file" do
-        expect(Settings.commission_mail_from).to eq "PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>"
+        expect(described_class.commission_mail_from).to eq "PQ Team <no-reply@trackparliamentaryquestions.service.gov.uk>"
       end
     end
 
     describe "non existent config key" do
       it "raises NoMethodError" do
         expect {
-          Settings.unknown_config_key
+          described_class.unknown_config_key
         }.to raise_error NoMethodError, "undefined method `unknown_config_key' for Settings:Module"
       end
     end
 
     describe ".key_metric_threshold" do
       it "returns the value from the file" do
-        expect(Settings.key_metric_threshold).to eq 0.5
+        expect(described_class.key_metric_threshold).to eq 0.5
       end
     end
   end
@@ -78,35 +78,35 @@ describe Settings do
   context "MailWorker" do
     describe ".pid_filepath" do
       it "returns the value from the file" do
-        expect(Settings.mail_worker.pid_filepath).to eq "/tmp/mail_worker.pid"
+        expect(described_class.mail_worker.pid_filepath).to eq "/tmp/mail_worker.pid"
       end
     end
 
     describe ".max_fail_count" do
       it "returns the value from the file" do
-        expect(Settings.mail_worker.max_fail_count).to eq 15
+        expect(described_class.mail_worker.max_fail_count).to eq 15
       end
     end
 
     describe ".timeout" do
       it "returns the value from the file" do
-        expect(Settings.mail_worker.timeout).to eq 300
+        expect(described_class.mail_worker.timeout).to eq 300
       end
     end
   end
 
   context "Gecko Warning Levels" do
     it "returns the values in the file" do
-      expect(Settings.gecko_warning_levels.num_emails_waiting).to eq 15
-      expect(Settings.gecko_warning_levels.num_emails_abandoned).to eq 1
-      expect(Settings.gecko_warning_levels.pctg_answered_tokens).to eq 50
+      expect(described_class.gecko_warning_levels.num_emails_waiting).to eq 15
+      expect(described_class.gecko_warning_levels.num_emails_abandoned).to eq 1
+      expect(described_class.gecko_warning_levels.pctg_answered_tokens).to eq 50
     end
   end
 
   context "Smoke Test Runner" do
     describe ".out_file" do
       it "returns the value in the file" do
-        expect(Settings.smoke_test_runner.out_file).to eq "/tmp/smoke_test_run"
+        expect(described_class.smoke_test_runner.out_file).to eq "/tmp/smoke_test_run"
       end
     end
   end

@@ -6,7 +6,7 @@ class ImportWorker
   def perform
     date_from = PqaImportRun.last_import_time_utc
     date_to = 5.minutes.from_now
-    start_time = Time.now
+    start_time = Time.zone.now
     LogStuff.tag(:import) do
       LogStuff.info { "Import: starting scheduled import from #{date_from} to #{date_to}" }
       report = @import.run(date_from, date_to)

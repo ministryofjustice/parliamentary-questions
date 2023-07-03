@@ -1,4 +1,4 @@
-class EarlyBirdOrganiser < ActiveRecord::Base
+class EarlyBirdOrganiser < ApplicationRecord
   validates :date_from, presence: true
   validates :date_to, presence: true
 

@@ -21,7 +21,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
     DatabaseCleaner.clean
   end
 
-  let(:testDate) { (Time.zone.today + 3).to_s + " 12:00" }
+  let(:testDate) { "#{Time.zone.today + 3} 12:00" }
 
   it "Check all elements are present" do
     expect(page).to have_css("#count", text: "3 parliamentary questions")
@@ -83,17 +83,17 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
       click_on "Edit"
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    within("#pq-frame-1") { click_link("#{@pq1.uin}") }
+    within("#pq-frame-1") { click_link(@pq1.uin.to_s) }
     click_link(tablink)
-    expect(page).to have_field("pq[" + datefield + "]", with: "")
+    expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-2") { click_link("#{@pq2.uin}") }
+    within("#pq-frame-2") { click_link(@pq2.uin.to_s) }
     click_link(tablink)
-    expect(page).to have_field("pq[" + datefield + "]", with: "")
+    expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-3") { click_link("#{@pq3.uin}") }
+    within("#pq-frame-3") { click_link(@pq3.uin.to_s) }
     click_link(tablink)
-    expect(page).to have_field("pq[" + datefield + "]", with: testDate)
+    expect(page).to have_field("pq[#{datefield}]", with: testDate)
     click_link "In progress"
   end
 end

@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #
 
-class WatchlistMember < ActiveRecord::Base
+class WatchlistMember < ApplicationRecord
   extend SoftDeletion::Collection
   include SoftDeletion::Record
 

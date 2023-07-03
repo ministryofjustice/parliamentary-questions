@@ -3,11 +3,11 @@ class EarlyBirdReportService
 
   def initialize(token_service = nil, current_time = nil)
     @token_service = token_service || TokenService.new
-    @current_time = current_time || DateTime.now.utc
+    @current_time = current_time || Time.zone.now.utc
   end
 
   def entity
-    "early_bird-" + @current_time.to_s.tr(" ", "-").tr("/", "-").tr(":", "-")
+    "early_bird-#{@current_time.to_s.tr(' ', '-').tr('/', '-').tr(':', '-')}"
   end
 
   def notify_early_bird

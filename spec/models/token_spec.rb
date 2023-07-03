@@ -93,18 +93,18 @@ describe Token, type: :model do
     let!(:token) { FactoryBot.create :token, path: "/watchlist/dashboard", entity: }
 
     it "returns false if the token has not been acknowledged" do
-      expect(Token.watchlist_status).to be false
+      expect(described_class.watchlist_status).to be false
     end
 
     it "returns true if the token has been acknowledged" do
       token.accept
-      expect(Token.watchlist_status).to be true
+      expect(described_class.watchlist_status).to be true
     end
   end
 
   describe ".assignment_stats" do
     it "returns the total number of assignment tokens and the number of unanswered assignment tokens" do
-      start_of_day = Time.now.beginning_of_day
+      start_of_day = Time.zone.now.beginning_of_day
       FactoryBot.create :token, created_at: start_of_day + 100.minutes
       FactoryBot.create :token, created_at: start_of_day + 200.minutes
       FactoryBot.create :token, created_at: start_of_day + 300.minutes
@@ -115,7 +115,7 @@ describe Token, type: :model do
       FactoryBot.create :token, created_at: start_of_day + 300.minutes, acknowledged: "accept", ack_time: start_of_day + 400.minutes
       FactoryBot.create :token, created_at: start_of_day - 100.minutes, acknowledged: "accept", ack_time: start_of_day + 400.minutes
       FactoryBot.create :token, created_at: start_of_day - 100.minutes, acknowledged: "reject", ack_time: start_of_day + 400.minutes
-      expect(Token.assignment_stats).to eq(
+      expect(described_class.assignment_stats).to eq(
         total: 6,
         ack: 2,
         open: 4,

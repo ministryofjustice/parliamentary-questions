@@ -9,7 +9,7 @@ class ProposalsController < ApplicationController
   def create
     proposal_form = ProposalForm.new(create_params)
     if proposal_form.valid?
-      pq = ProposalService.new.propose(proposal_form)
+      ProposalService.new.propose(proposal_form)
       flash[:success] = "Successfully proposed Deputy Director(s)"
       redirect_to early_bird_landing_page_path
     else

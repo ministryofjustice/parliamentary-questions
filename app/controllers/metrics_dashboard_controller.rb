@@ -1,7 +1,7 @@
 class MetricsDashboardController < ApplicationController
   def index
     @dashboard = MetricsDashboard.new
-    @dashboard.update
+    @dashboard.update!
 
     respond_to do |format|
       format.html { authenticate_user! }

@@ -15,14 +15,14 @@ describe DeputyDirectorsController, type: :controller do
 end
 
 def create_deputy_directors
-  FactoryBot.create(:deputy_director, name: "Anna Maddox",      division_id: "2", updated_at: DateTime.now.to_datetime, deleted: false)
-  FactoryBot.create(:deputy_director, name: "Evangeline Cowan", division_id: "1", updated_at: DateTime.now.to_datetime, deleted: true)
+  FactoryBot.create(:deputy_director, name: "Anna Maddox",      division_id: "2", updated_at: Time.zone.now.to_datetime, deleted: false)
+  FactoryBot.create(:deputy_director, name: "Evangeline Cowan", division_id: "1", updated_at: Time.zone.now.to_datetime, deleted: true)
   FactoryBot.create(:deputy_director, name: "Lisa May",         division_id: "1", updated_at: 1.day.ago.to_datetime,    deleted: false)
   FactoryBot.create(:deputy_director, name: "Sylvia Ware",      division_id: "2", updated_at: 1.day.ago.to_datetime,    deleted: true)
   FactoryBot.create(:deputy_director, name: "Carrie Carroll",   division_id: "1", updated_at: 3.days.ago.to_datetime,   deleted: false)
   FactoryBot.create(:deputy_director, name: "Armand Reid",      division_id: "2", updated_at: 3.days.ago.to_datetime,   deleted: true)
-  FactoryBot.create(:deputy_director, name: "Cecelia Barr",     division_id: "2", updated_at: DateTime.now.to_datetime, deleted: false)
-  FactoryBot.create(:deputy_director, name: "Xavier Freeman",   division_id: "1", updated_at: DateTime.now.to_datetime, deleted: true)
+  FactoryBot.create(:deputy_director, name: "Cecelia Barr",     division_id: "2", updated_at: Time.zone.now.to_datetime, deleted: false)
+  FactoryBot.create(:deputy_director, name: "Xavier Freeman",   division_id: "1", updated_at: Time.zone.now.to_datetime, deleted: true)
   FactoryBot.create(:deputy_director, name: "Kent Holloway",    division_id: "1", updated_at: 1.day.ago.to_datetime,    deleted: false)
   FactoryBot.create(:deputy_director, name: "Jae Young",        division_id: "2", updated_at: 1.day.ago.to_datetime,    deleted: true)
   FactoryBot.create(:deputy_director, name: "Bill Estes",       division_id: "2", updated_at: 3.days.ago.to_datetime,   deleted: false)

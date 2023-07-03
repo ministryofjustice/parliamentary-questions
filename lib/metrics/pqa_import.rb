@@ -35,8 +35,8 @@ module Metrics
 
     def create_empty_import_run
       PqaImportRun.new(
-        start_time: Time.at(0),
-        end_time: Time.at(0),
+        start_time: Time.zone.at(0),
+        end_time: Time.zone.at(0),
         status: "FAIL",
         num_created: 0,
         num_updated: 0,

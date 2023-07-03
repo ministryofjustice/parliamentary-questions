@@ -4,7 +4,7 @@ require_relative "tester"
 
 module RakeTaskHelpers
   class TestUserGenerator
-    DEFAULT_CONFIG_PATH = "#{Rails.root.join('lib/rake_task_helpers/test_user_config.yml')}"
+    DEFAULT_CONFIG_PATH = Rails.root.join("lib/rake_task_helpers/test_user_config.yml").to_s.freeze
 
     attr_reader :testers
 

@@ -13,7 +13,7 @@
 #  ack_time     :datetime
 #
 
-class Token < ActiveRecord::Base
+class Token < ApplicationRecord
   has_paper_trail
 
   validates :acknowledged, inclusion: { in: %w[accept reject], message: "%{value} is not a valid value for acknowledged" }, allow_nil: true
@@ -62,6 +62,6 @@ class Token < ActiveRecord::Base
 private
 
   def acknowledge(text)
-    update acknowledged: text, ack_time: Time.now
+    update acknowledged: text, ack_time: Time.zone.now
   end
 end

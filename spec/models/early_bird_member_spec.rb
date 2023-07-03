@@ -14,7 +14,7 @@ describe EarlyBirdMember do
     end
 
     it "has a unique email" do
-      member = create(:early_bird_member, name: "Early Bird Member 1", email: "member.one@earlybird.com")
+      create(:early_bird_member, name: "Early Bird Member 1", email: "member.one@earlybird.com")
       duplicate = build(:early_bird_member, name: "Early Bird Member 2", email: "member.one@earlybird.com")
       expect(duplicate).to be_invalid
     end

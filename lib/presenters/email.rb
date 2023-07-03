@@ -1,6 +1,6 @@
 module Presenters
   module Email
-    extend self
+  module_function
 
     def default_hash(pq, ao)
       {
@@ -78,7 +78,7 @@ module Presenters
 
     def finance_users_emails(pq)
       if pq.finance_interest
-        emails = User.finance.where.not(email: nil).map(&:email)
+        User.finance.where.not(email: nil).map(&:email)
       else
         []
       end
@@ -105,7 +105,7 @@ module Presenters
     end
 
     def date_to_parliament_text(pq)
-      "Due back to Parliament " + pq.date_for_answer.try(:to_s, :date) if pq.date_for_answer.present?
+      "Due back to Parliament #{pq.date_for_answer.try(:to_s, :date)}" if pq.date_for_answer.present?
     end
   end
 end

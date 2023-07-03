@@ -1,22 +1,22 @@
 require "feature_helper"
 
 describe HealthCheck::PqaApi do
-  let(:pqa) { HealthCheck::PqaApi.new }
+  let(:pqa) { described_class.new }
 
   describe ".time_to_run?" do
     it "is true if the timestamp file does not exist" do
       delete_timestamp_file
-      expect(HealthCheck::PqaApi.time_to_run?).to be true
+      expect(described_class.time_to_run?).to be true
     end
 
     it "is true if the timestamp file contains a time more than 15 minutes ago" do
-      Timecop.freeze(16.minutes.ago) { HealthCheck::PqaApi.new.record_result }
-      expect(HealthCheck::PqaApi.time_to_run?).to be true
+      Timecop.freeze(16.minutes.ago) { described_class.new.record_result }
+      expect(described_class.time_to_run?).to be true
     end
 
     it "is false if the timestamp file contains a time less than 15 minutes ago" do
-      Timecop.freeze(14.minutes.ago) { HealthCheck::PqaApi.new.record_result }
-      expect(HealthCheck::PqaApi.time_to_run?).to be false
+      Timecop.freeze(14.minutes.ago) { described_class.new.record_result }
+      expect(described_class.time_to_run?).to be false
     end
   end
 

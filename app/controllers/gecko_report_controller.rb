@@ -23,6 +23,6 @@ private
   def token
     ActionController::HttpAuthentication::Basic
       .encode_credentials(Rails.application.config.gecko_auth_username, "X")
-    puts ActionController::HttpAuthentication::Basic.encode_credentials(Rails.application.config.gecko_auth_username, "X")
+    Rails.logger.debug ActionController::HttpAuthentication::Basic.encode_credentials(Rails.application.config.gecko_auth_username, "X")
   end
 end

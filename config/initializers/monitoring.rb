@@ -3,7 +3,7 @@ ActiveSupport::Notifications.subscribe(/process_action.action_controller/) do |*
 
   controller = event.payload[:controller]
   action = event.payload[:action]
-  path = event.payload[:path]
+  event.payload[:path]
   page_duration = event.duration
   view_duration = event.payload[:view_runtime]
   db_duration = event.payload[:db_runtime]

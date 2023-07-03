@@ -36,7 +36,7 @@ describe ActionOfficer do
   end
 
   it "strips whitespace from emails" do
-    officer.update(email: " action.officer@new.email.com")
+    officer.update!(email: " action.officer@new.email.com")
     expect(officer.email).to eql("action.officer@new.email.com")
   end
 
@@ -51,19 +51,19 @@ describe ActionOfficer do
   end
 
   describe "Get index" do
-    let!(:actionOfficer1) { create(:action_officer, updated_at: DateTime.now.to_datetime, deleted: false) }
-    let!(:actionOfficer2) { create(:action_officer, updated_at: DateTime.now.to_datetime, deleted: true) }
+    let!(:actionOfficer1) { create(:action_officer, updated_at: Time.zone.now.to_datetime, deleted: false) }
+    let!(:actionOfficer2) { create(:action_officer, updated_at: Time.zone.now.to_datetime, deleted: true) }
     let!(:actionOfficer3) { create(:action_officer, updated_at: 1.day.ago.to_datetime,    deleted: false) }
     let!(:actionOfficer4) { create(:action_officer, updated_at: 1.day.ago.to_datetime,    deleted: true) }
     let!(:actionOfficer5) { create(:action_officer, updated_at: 3.days.ago.to_datetime,   deleted: false) }
     let!(:actionOfficer6) { create(:action_officer, updated_at: 3.days.ago.to_datetime,   deleted: true) }
 
     it "lists all active Action Officers and those made inactive withing the last two days" do
-      expect(ActionOfficer.active_list).to match_array [actionOfficer1, actionOfficer2, actionOfficer3, actionOfficer4, actionOfficer5]
+      expect(described_class.active_list).to match_array [actionOfficer1, actionOfficer2, actionOfficer3, actionOfficer4, actionOfficer5]
     end
 
     it "lists all inactive Action Officers" do
-      expect(ActionOfficer.inactive_list).to match_array [actionOfficer2, actionOfficer4, actionOfficer6]
+      expect(described_class.inactive_list).to match_array [actionOfficer2, actionOfficer4, actionOfficer6]
     end
   end
 end

@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-puts "Clear tables"
+Rails.logger.debug "Clear tables"
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE progresses RESTART IDENTITY;")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE ministers RESTART IDENTITY;")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE directorates RESTART IDENTITY;")
@@ -16,8 +16,8 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_desks RESTART IDENTI
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE press_officers RESTART IDENTITY;")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE ogds RESTART IDENTITY;")
 
-puts "-populate"
-progresses = Progress.create([
+Rails.logger.debug "-populate"
+Progress.create([
   { name: Progress.UNASSIGNED },
   { name: Progress.NO_RESPONSE },
   { name: Progress.REJECTED },
@@ -32,7 +32,7 @@ progresses = Progress.create([
   { name: Progress.TRANSFERRED_OUT },
 ])
 
-ministers = Minister.create!([
+Minister.create!([
   { name: "Dimple Machado", title: "Secretary of State and Lord High Chancellor of Great Britain" },
   { name: "Herma Goble (MP)", title: "Minister of State" },
   { name: "Teddy Pool (MP)", title: "Parliamentary Under-Secretary of State; Minister for Prisons and Rehabilitation" },
@@ -41,7 +41,7 @@ ministers = Minister.create!([
   { name: "Belkis Naranjo QC", title: "Minister of State" },
 ])
 
-directorates = Directorate.create!([
+Directorate.create!([
   { name: "Finance Assurance and Commercial" },
   { name: "Criminal Justice" },
   { name: "Law and Access to Justice" },
@@ -50,7 +50,7 @@ directorates = Directorate.create!([
   { name: "LAA and Corporate Services" },
 ])
 
-divisions = Division.create!([
+Division.create!([
   { directorate_id: 1, name: "Corporate Finance" },
   { directorate_id:  1, name: "Analytical Services" },
   { directorate_id:  1, name: "Procurement" },
@@ -72,7 +72,7 @@ divisions = Division.create!([
   { directorate_id:  6, name: "MoJ Technology" },
 ])
 
-deputy_directors = DeputyDirector.create!([
+DeputyDirector.create!([
   { division_id: 1, email: "dd1@email.com", name: "Dollie Christenson" },
   { division_id: 2, email: "dd2@email.com", name: "Logan Lavoie" },
   { division_id: 3, email: "dd3@email.com", name: "Aja Song" },
@@ -106,7 +106,7 @@ PressOfficer.create!([
   { name: "Delmer Gaskin", email: "po-four@press.office.com", press_desk_id: 2 },
 ])
 
-action_officers = ActionOfficer.create!(
+ActionOfficer.create!(
   [
     { deputy_director_id: 17, name: "Nick Preddy", email: "nick.preddy@digital.justice.gov.uk", press_desk_id: 1 },
     { deputy_director_id: 19, name: "Daniel Penny", email: "daniel.penny@digital.justice.gov.uk", press_desk_id: 1 },
@@ -122,4 +122,4 @@ Ogd.create!([
   { name: "Ministry of Defence", acronym: "MOD" },
 ])
 
-puts "Done"
+Rails.logger.debug "Done"

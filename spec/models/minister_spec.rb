@@ -51,7 +51,7 @@ describe Minister do
       let(:minister) { create(:deleted_minister) }
 
       it "has the inactive suffix" do
-        expect(subject).to eql(minister.name + " - Inactive")
+        expect(subject).to eql("#{minister.name} - Inactive")
       end
     end
   end
@@ -61,7 +61,7 @@ describe Minister do
     let(:deleted_minister) { create(:deleted_minister) }
 
     it "returns only active ministers" do
-      subject = Minister.active_or_having_id(nil)
+      subject = described_class.active_or_having_id(nil)
       expect(subject).to eq [minister]
     end
 
@@ -69,22 +69,22 @@ describe Minister do
       let(:selected_minister) { create(:deleted_minister) }
 
       it "is included" do
-        subject = Minister.active_or_having_id(selected_minister.id)
+        subject = described_class.active_or_having_id(selected_minister.id)
         expect(subject).to eq [selected_minister, minister]
       end
     end
   end
 
   describe "Get index" do
-    let!(:minister1) { create(:minister, updated_at: DateTime.now.to_datetime, deleted: false) }
-    let!(:minister2) { create(:minister, updated_at: DateTime.now.to_datetime, deleted: true) }
+    let!(:minister1) { create(:minister, updated_at: Time.zone.now.to_datetime, deleted: false) }
+    let!(:minister2) { create(:minister, updated_at: Time.zone.now.to_datetime, deleted: true) }
     let!(:minister3) { create(:minister, updated_at: 1.day.ago.to_datetime,    deleted: false) }
     let!(:minister4) { create(:minister, updated_at: 1.day.ago.to_datetime,    deleted: true) }
     let!(:minister5) { create(:minister, updated_at: 3.days.ago.to_datetime,   deleted: false) }
     let!(:minister6) { create(:minister, updated_at: 3.days.ago.to_datetime,   deleted: true) }
 
     it "lists all active Ministers and those made inactive withing the last two days" do
-      expect(Minister.active_list).to match_array [minister1, minister2, minister3, minister4, minister5]
+      expect(described_class.active_list).to match_array [minister1, minister2, minister3, minister4, minister5]
     end
   end
 end

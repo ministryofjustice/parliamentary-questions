@@ -22,7 +22,7 @@ describe ProposalService do
       it "raises an error" do
         expect {
           invalid_form = ProposalForm.new(invalid_form_params)
-          ProposalService.new.propose(invalid_form)
+          described_class.new.propose(invalid_form)
         }.to raise_error(ArgumentError)
       end
     end
@@ -30,7 +30,7 @@ describe ProposalService do
     context "when the supplied data is valid" do
       before do
         valid_form = ProposalForm.new(form_params)
-        @pq = ProposalService.new.propose(valid_form)
+        @pq = described_class.new.propose(valid_form)
       end
 
       it "returns an updated PQ" do

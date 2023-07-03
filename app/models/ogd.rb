@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #
 
-class Ogd < ActiveRecord::Base
+class Ogd < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

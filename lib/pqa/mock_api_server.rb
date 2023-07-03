@@ -8,7 +8,7 @@ module PQA
   class MockApiServer < Sinatra::Base
     SCHEMA_PATH      = File.expand_path("resources/schema.xsd", __dir__)
     SCHEMA           = Nokogiri::XML::Schema(File.read(SCHEMA_PATH))
-    QUESTIONS        = {}
+    QUESTIONS        = {}.freeze
 
     configure do
       set :lock, true
@@ -53,8 +53,8 @@ module PQA
 
     get "/api/qais/questions" do
       status       = params[:status]
-      date_from    = DateTime.parse(params[:dateFrom] || DateTime.commercial(1000).to_s)
-      date_to      = DateTime.parse(params[:dateTo]   || DateTime.commercial(3000).to_s)
+      date_from    = Time.zone.parse(params[:dateFrom] || Time.commercial(1000).to_s)
+      date_to      = Time.zone.parse(params[:dateTo]   || Time.commercial(3000).to_s)
       match_status = proc { |q| !status || q.question_status == status }
       questions    = QUESTIONS.select { |_uin, q|
         q.tabled_date >= date_from && q.tabled_date <= date_to && match_status.call(q)

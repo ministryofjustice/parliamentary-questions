@@ -13,7 +13,7 @@
 #  updated_at     :datetime
 #
 
-class PqaImportRun < ActiveRecord::Base
+class PqaImportRun < ApplicationRecord
   scope :successful, -> { where("status != 'Failure'") }
 
   validates :status, inclusion: { in: %w[OK Failure OK_with_errors], message: "Status must be 'OK', 'Failure' or 'OK_with_errors': was '%{value}'" }
@@ -32,7 +32,7 @@ class PqaImportRun < ActiveRecord::Base
   def self.record_success(start_time, import_run_report)
     create!(
       start_time:,
-      end_time: Time.now,
+      end_time: Time.zone.now,
       num_created: import_run_report[:created],
       num_updated: import_run_report[:updated],
       status: import_run_report[:errors].any? ? "OK_with_errors" : "OK",
@@ -43,7 +43,7 @@ class PqaImportRun < ActiveRecord::Base
   def self.record_failure(start_time, error_message)
     create!(
       start_time:,
-      end_time: Time.now,
+      end_time: Time.zone.now,
       num_created: 0,
       num_updated: 0,
       status: "Failure",

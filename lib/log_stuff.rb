@@ -52,7 +52,7 @@ class LogStuff
                                     "message" => msg,
                                     "@tags" => get_thread_current(:current_tags).merge(local_tags),
                                     "@fields" => get_thread_current(:current_fields).merge(local_fields))
-      LogStasher.logger << event.to_json + "\n"
+      LogStasher.logger << "#{event.to_json}\n"
     else
       Rails.logger.send(severity, &block)
     end

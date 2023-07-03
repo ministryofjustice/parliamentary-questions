@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe MetricsDashboard do
-  let(:dash) { MetricsDashboard.new }
+  let(:dash) { described_class.new }
 
   it "#initialize - creates a metrics dashboard with a gecko collection and components" do
     expect(dash.gecko).to be_an_instance_of GeckoCollection
@@ -20,6 +20,6 @@ describe MetricsDashboard do
       expect(c).to receive(:collect!)
     end
 
-    dash.update
+    dash.update!
   end
 end

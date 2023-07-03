@@ -9,7 +9,7 @@ describe HealthCheckService do
       expect_any_instance_of(HealthCheck::Database).to receive(:accessible?).and_return(true)
       expect_any_instance_of(HealthCheck::PqaApi).to receive(:accessible?).and_return(true)
 
-      result = HealthCheckService.new.report
+      result = described_class.new.report
 
       expect(result.status).to eq "200"
       expect(result.messages).to eq "All Components OK"
@@ -22,7 +22,7 @@ describe HealthCheckService do
       expect_any_instance_of(HealthCheck::PqaApi).not_to receive(:available?)
       expect_any_instance_of(HealthCheck::PqaApi).not_to receive(:accessible?)
 
-      result = HealthCheckService.new.report
+      result = described_class.new.report
 
       expect(result.status).to eq "200"
       expect(result.messages).to eq "All Components OK"
@@ -37,7 +37,7 @@ describe HealthCheckService do
       expect_any_instance_of(HealthCheck::PqaApi).to receive(:accessible?).and_return(false)
       expect_any_instance_of(HealthCheck::PqaApi).to receive(:error_messages).and_return(["API message 1", "API Message 2"])
 
-      result = HealthCheckService.new.report
+      result = described_class.new.report
 
       expect(result.status).to eq "500"
       expect(result.messages.sort).to eq([

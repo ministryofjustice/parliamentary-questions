@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe PQA::XMLDecoder do
   describe "#decode_questions" do
-    let(:questions) { PQA::XMLDecoder.decode_questions(xml) }
+    let(:questions) { described_class.decode_questions(xml) }
 
     let(:xml) do
-      date = DateTime.parse("28/02/2014")
+      date = Time.zone.parse("28/02/2014")
       questions =
         # 3.times.map do |n|
         Array.new(3) do |n|
@@ -18,7 +18,7 @@ describe PQA::XMLDecoder do
 
     context "when the supplied XML contains no <question> element" do
       it "returns an empty list" do
-        expect(PQA::XMLDecoder.decode_questions(xml_no_question)).to eq([])
+        expect(described_class.decode_questions(xml_no_question)).to eq([])
       end
     end
 
@@ -54,7 +54,7 @@ describe PQA::XMLDecoder do
       describe "#response" do
         it "parses xml and returns an AnswerResponse instance" do
           expect(
-            PQA::XMLDecoder.decode_answer_response(xml).preview_url,
+            described_class.decode_answer_response(xml).preview_url,
           ).to eq("https://wqa.parliament.uk/Questions/Details/33367")
         end
       end

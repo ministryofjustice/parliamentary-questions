@@ -24,7 +24,7 @@ module Settings
     end
   end
 
-  extend self
+module_function
 
   filepath         = File.expand_path("../config/settings.yml", __dir__)
   @h               = YAML.load_file(filepath)

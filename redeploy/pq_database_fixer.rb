@@ -1,5 +1,5 @@
-require "#{Rails.root.join('redeploy/pq_state_comparer.rb')}"
-require "#{Rails.root.join('redeploy/pq_fixer.rb')}"
+require Rails.root.join("redeploy/pq_state_comparer.rb").to_s
+require Rails.root.join("redeploy/pq_fixer.rb").to_s
 
 module Redeploy
   class PqDatabaseFixer

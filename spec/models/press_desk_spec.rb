@@ -24,7 +24,7 @@ describe PressDesk do
   end
 
   it "has a unique name" do
-    pdesk = create(:press_desk, name: "Finance desk")
+    create(:press_desk, name: "Finance desk")
     duplicate = build(:press_desk, name: "Finance desk")
     expect(duplicate).to be_invalid
   end

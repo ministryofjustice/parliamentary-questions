@@ -68,7 +68,7 @@
 #  state_weight                                  :integer          default(0)
 #
 
-class Pq < ActiveRecord::Base
+class Pq < ApplicationRecord
   belongs_to :progress
 
   has_paper_trail
@@ -140,11 +140,11 @@ class Pq < ActiveRecord::Base
     if action_officer
       Pq.transaction do
         ao_pq_accepted.reset
-        action_officers_pqs.find_or_create_by(action_officer:).accept
+        action_officers_pqs.find_or_create_by!(action_officer:).accept
         PaperTrail.request(whodunnit: "AO:#{action_officer.name}") do
           original_division = action_officer.deputy_director.try(:division)
           directorate = original_division.try(:directorate)
-          update(directorate:, original_division:)
+          update!(directorate:, original_division:)
         end
       end
     end

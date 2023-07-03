@@ -36,11 +36,11 @@ describe NotifyPqMailer, type: :mailer do
     context "optional variables are all set" do
       it "sets the personalisation in the email" do
         minister = FactoryBot.create(:minister)
-        pq.update(member_constituency: "Kingston upon Hull North",
-                  member_name: "Diana Johnson",
-                  house_name: "House of Commons",
-                  minister:)
-        ao.update(group_email: "kulsgroupmail@digital.justice.gov.uk")
+        pq.update!(member_constituency: "Kingston upon Hull North",
+                   member_name: "Diana Johnson",
+                   house_name: "House of Commons",
+                   minister:)
+        ao.update!(group_email: "kulsgroupmail@digital.justice.gov.uk")
         expect(mail.govuk_notify_personalisation)
           .to eq(
             uin: pq.uin,

@@ -1,9 +1,9 @@
 require "spec_helper"
-require "#{Rails.root.join('lib/rake_task_helpers/test_user_generator.rb')}"
+require Rails.root.join("lib/rake_task_helpers/test_user_generator.rb").to_s
 
 describe RakeTaskHelpers::TestUserGenerator do
-  let(:path) { "#{Rails.root.join('spec/lib/rake_task_helpers/sample_config.yml')}" }
-  let(:gen)  { RakeTaskHelpers::TestUserGenerator.from_config(path) }
+  let(:path) { Rails.root.join("spec/lib/rake_task_helpers/sample_config.yml").to_s }
+  let(:gen)  { described_class.from_config(path) }
 
   before do
     ENV["TEST_USER_PASS"] = "password"
@@ -35,6 +35,6 @@ describe RakeTaskHelpers::TestUserGenerator do
   it "raises an error if the TEST_USER_PASS env variable is not set" do
     ENV["TEST_USER_PASS"] = nil
 
-    expect { RakeTaskHelpers::TestUserGenerator.from_config }.to raise_error(RuntimeError)
+    expect { described_class.from_config }.to raise_error(RuntimeError)
   end
 end

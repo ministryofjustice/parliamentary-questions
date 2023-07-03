@@ -6,7 +6,7 @@ class WatchlistDashboardController < ApplicationController
     update_page_title("Watchlist preview")
     token = Token.entity(watchlist_params[:entity])
     token.accept unless token.acknowledged?
-    @questions = Pq.allocated_since(DateTime.now.at_beginning_of_day)
+    @questions = Pq.allocated_since(Time.zone.now.at_beginning_of_day)
   end
 
   def preview

@@ -20,9 +20,9 @@ describe PQA::Import do
   def questions(uin_date_strings)
     uin_date_strings.map do |uin, (tabled_date_s, date_for_answer_s)|
       q = PQA::QuestionBuilder.default(uin)
-      q.updated_date    = DateTime.parse(tabled_date_s)
-      q.tabled_date     = DateTime.parse(tabled_date_s)
-      q.date_for_answer = DateTime.parse(date_for_answer_s)
+      q.updated_date    = Time.zone.parse(tabled_date_s)
+      q.tabled_date     = Time.zone.parse(tabled_date_s)
+      q.date_for_answer = Time.zone.parse(date_for_answer_s)
       q
     end
   end
@@ -92,7 +92,7 @@ describe PQA::Import do
       it "saves the new records, updating the existing ones, without changing the state" do
         import.run(from_date, to_date)
         pq = Pq.find_by(uin: "uin-1")
-        pq.update(state: PQState::REJECTED)
+        pq.update!(state: PQState::REJECTED)
 
         expect(Pq.order(:uin).map do |pq|
           d = pq.tabled_date

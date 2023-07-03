@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #
 
-class PressDesk < ActiveRecord::Base
+class PressDesk < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

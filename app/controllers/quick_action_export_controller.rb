@@ -6,11 +6,10 @@ class QuickActionExportController < ApplicationController
     @pqs_comma_separated = params[:pqs_comma_separated]
     @total_pqs = params[:total_pqs]
     @total_pqs = form.total_pqs unless form.total_pqs.nil?
-    pqs_array = []
 
     if form.valid?
       @total_pqs = form.total_pqs
-      puts "total pqs = " || @total_pqs.to_s
+      Rails.logger.debug "total pqs = " || @total_pqs.to_s
 
       if @pqs_comma_separated.nil?
         @total_pqs = 0
@@ -20,7 +19,6 @@ class QuickActionExportController < ApplicationController
         pqs_array = @quick_actions_service.valid_pq_list(@pqs_comma_separated)
 
         @total_pqs = pqs_array.count
-        total_pqs = @total_pqs
 
         send_data(pqs_array.to_csv, content_type: "text/csv")
 
@@ -28,7 +26,7 @@ class QuickActionExportController < ApplicationController
 
       # 200
     else
-      puts "form invalid"
+      Rails.logger.debug "form invalid"
       flash[:error] = "Form was not completed"
       status = 400
       400
@@ -46,7 +44,7 @@ class QuickActionExportController < ApplicationController
   end
 
   def export
-    puts "Im in the export"
+    Rails.logger.debug "Im in the export"
 
     render(partial: "dashboard/quick_action_export",
            locals: { total_pqs: @total_pqs, pqs_comma_separated: @pqs_comma_separated },

@@ -1,22 +1,22 @@
 module PQState
-  UNASSIGNED        = "unassigned"
-  REJECTED          = "rejected"
-  NO_RESPONSE       = "no_response"
-  DRAFT_PENDING     = "draft_pending"
-  WITH_POD          = "with_pod"
-  POD_QUERY         = "pod_query"
-  POD_CLEARED       = "pod_cleared"
-  WITH_MINISTER     = "with_minister"
-  MINISTERIAL_QUERY = "ministerial_query"
-  MINISTER_CLEARED  = "minister_cleared"
-  ANSWERED          = "answered"
-  TRANSFERRED_OUT   = "transferred_out"
+  UNASSIGNED        = "unassigned".freeze
+  REJECTED          = "rejected".freeze
+  NO_RESPONSE       = "no_response".freeze
+  DRAFT_PENDING     = "draft_pending".freeze
+  WITH_POD          = "with_pod".freeze
+  POD_QUERY         = "pod_query".freeze
+  POD_CLEARED       = "pod_cleared".freeze
+  WITH_MINISTER     = "with_minister".freeze
+  MINISTERIAL_QUERY = "ministerial_query".freeze
+  MINISTER_CLEARED  = "minister_cleared".freeze
+  ANSWERED          = "answered".freeze
+  TRANSFERRED_OUT   = "transferred_out".freeze
 
   NEW = [
     UNASSIGNED,
     NO_RESPONSE,
     REJECTED,
-  ]
+  ].freeze
 
   IN_PROGRESS = [
     DRAFT_PENDING,
@@ -26,12 +26,12 @@ module PQState
     WITH_MINISTER,
     MINISTERIAL_QUERY,
     MINISTER_CLEARED,
-  ]
+  ].freeze
 
   CLOSED = [
     ANSWERED,
     TRANSFERRED_OUT,
-  ]
+  ].freeze
 
   ALL = [
     UNASSIGNED,
@@ -46,7 +46,7 @@ module PQState
     MINISTER_CLEARED,
     ANSWERED,
     TRANSFERRED_OUT,
-  ]
+  ].freeze
 
   VISIBLE = NEW + IN_PROGRESS
 

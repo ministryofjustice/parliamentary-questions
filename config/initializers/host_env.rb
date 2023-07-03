@@ -1,5 +1,5 @@
 module HostEnv
-  extend self
+module_function
 
   def is_live?
     ENV["SENDING_HOST"] =~ /^trackparliamentaryquestions.service.gov.uk/

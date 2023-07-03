@@ -1,4 +1,4 @@
-class EarlyBirdMember < ActiveRecord::Base
+class EarlyBirdMember < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

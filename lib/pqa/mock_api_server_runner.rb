@@ -1,12 +1,12 @@
 module PQA
   class MockApiServerRunner
-    PORT               = "8888"
-    HOST               = "127.0.0.1"
-    PID_FILEPATH       = "/tmp/mock_api_server.pid"
+    PORT               = "8888".freeze
+    HOST               = "127.0.0.1".freeze
+    PID_FILEPATH       = "/tmp/mock_api_server.pid".freeze
     LOG_FILEPATH       = File.expand_path("../../log/mock-api.log", __dir__)
     RACK_CONFIG_PATH   = File.expand_path("../../mock_api_config.ru", __dir__)
     CWD                = File.expand_path("../../", __dir__)
-    HEARTBEAT_ENDPOINT = "/"
+    HEARTBEAT_ENDPOINT = "/".freeze
 
     def start
       cmd = "rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"

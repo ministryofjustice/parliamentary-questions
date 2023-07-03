@@ -13,9 +13,9 @@ describe Presenters::Report do
 
   let(:ministers)       { DBHelpers.ministers                                     }
   let(:press_desks)     { DBHelpers.press_desks                                   }
-  let(:minister_report) { Presenters::Report.ministers(report_data, ministers)    }
-  let(:pd_report)       { Presenters::Report.press_desk(report_data, press_desks) }
-  let(:report_data)     { {}                                                      }
+  let(:minister_report) { described_class.ministers(report_data, ministers)    }
+  let(:pd_report)       { described_class.press_desk(report_data, press_desks) }
+  let(:report_data)     { {} }
 
   describe "#header_values" do
     context "minister report" do

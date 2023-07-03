@@ -1,6 +1,6 @@
 module Validators
   module Trim
-    SIGNATURE = "[TRIM Context Reference]"
+    SIGNATURE = "[TRIM Context Reference]".freeze
 
     # Checks whether an uploaded trim file is valid or not.
     #

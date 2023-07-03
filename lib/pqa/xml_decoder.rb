@@ -1,6 +1,6 @@
 module PQA
   module XMLDecoder
-    extend self
+  module_function
 
     def decode_answer_response(xml)
       doc = parse_doc(xml)

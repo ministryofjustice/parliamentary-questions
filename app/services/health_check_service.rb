@@ -3,7 +3,7 @@ class HealthCheckService
     [
       HealthCheck::Database,
       HealthCheck::PqaApi,
-    ]
+    ].freeze
 
   def initialize
     @components =

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Validators::DateInput do
-  include Validators::DateInput
+  include described_class
 
   let(:window)  { Validators::DateInput::WINDOW + 1.day }
   let(:max_len) { Validators::DateInput::MAX_LEN }
@@ -19,8 +19,8 @@ describe Validators::DateInput do
   end
 
   it "raises an error if date is outside the expected window" do
-    date_a = DateTime.now + window
-    date_b = DateTime.now - window
+    date_a = Time.zone.now + window
+    date_b = Time.zone.now - window
 
     expect { parse_datetime(date_a.to_s) }.to raise_error(Validators::DateInput::DateTimeInputError)
     expect { parse_datetime(date_b.to_s) }.to raise_error(Validators::DateInput::DateTimeInputError)
@@ -34,8 +34,8 @@ describe Validators::DateInput do
 
   describe "#parse_datetime" do
     it "returns a date time if input is correct" do
-      dt_with_gmt_adjust = DateTime.now.midnight
-      dt = DateTime.parse(dt_with_gmt_adjust.strftime("%a, %d %b %Y %H:%M:%S"))
+      dt_with_gmt_adjust = Time.zone.now.midnight
+      dt = Time.zone.parse(dt_with_gmt_adjust.strftime("%a, %d %b %Y %H:%M:%S"))
       expect(parse_datetime(dt.to_s)).to eq dt
     end
   end

@@ -11,7 +11,7 @@ describe Presenters::StatusFilter do
     }
   end
   let(:label) { "test label" }
-  let(:filter) { Presenters::StatusFilter.new(1, "test_key", label, params) }
+  let(:filter) { described_class.new(1, "test_key", label, params) }
 
   describe "#link" do
     it "returns the correct path" do

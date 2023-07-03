@@ -77,23 +77,23 @@ private
 
     # Change Q1 'Unassigned' properties
     a = Pq.first
-    a.update(date_for_answer: "01/11/2015")
+    a.update!(date_for_answer: "01/11/2015")
 
     # Change Q2 'No Response' properties
     a = Pq.second
-    a.update(date_for_answer: "02/11/2015")
-    a.update(minister_id: 4)
-    a.update(policy_minister_id: 3)
-    a.update(internal_deadline: "25/11/2015 11:00")
-    a.update(state: "no_response")
+    a.update!(date_for_answer: "02/11/2015")
+    a.update!(minister_id: 4)
+    a.update!(policy_minister_id: 3)
+    a.update!(internal_deadline: "25/11/2015 11:00")
+    a.update!(state: "no_response")
 
     # Change Q3 'No Response' properties
     a = Pq.third
-    a.update(date_for_answer: "03/11/2015")
-    a.update(minister_id: 1)
-    a.update(policy_minister_id: 2)
-    a.update(internal_deadline: "26/11/2015 11:00")
-    a.update(state: "rejected")
+    a.update!(date_for_answer: "03/11/2015")
+    a.update!(minister_id: 1)
+    a.update!(policy_minister_id: 2)
+    a.update!(internal_deadline: "26/11/2015 11:00")
+    a.update!(state: "rejected")
   end
 
   def initialise

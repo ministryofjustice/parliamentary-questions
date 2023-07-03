@@ -4,7 +4,7 @@ describe "WatchlistReportService" do
   let!(:watchlist_one) { create(:watchlist_member, name: "member 1", email: "m1@ao.gov", deleted: false) }
   let!(:watchlist_two) { create(:watchlist_member, name: "member 2", email: "m2@ao.gov", deleted: false) }
   let!(:watchlist_deleted) { create(:watchlist_member, name: "member 3", email: "m3@ao.gov", deleted: true) }
-  let(:testid) { "watchlist-" + DateTime.now.utc.to_s }
+  let(:testid) { "watchlist-#{Time.zone.now.utc}" }
 
   before do
     @report_service = WatchlistReportService.new
@@ -16,7 +16,7 @@ describe "WatchlistReportService" do
     token = Token.find_by(entity: @report_service.entity, path: "/watchlist/dashboard")
     expect(token.token_digest).not_to be nil
 
-    end_of_day = DateTime.current.end_of_day
+    end_of_day = Time.current.end_of_day
 
     expect(token.expire.to_s).to eq(end_of_day.to_s)
     expect(

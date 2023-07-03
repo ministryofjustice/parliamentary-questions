@@ -1,7 +1,7 @@
 require "feature_helper"
 
 describe HealthCheck::Database do
-  let(:db) { HealthCheck::Database.new }
+  let(:db) { described_class.new }
 
   describe "#available?" do
     it "returns true if the database is available" do

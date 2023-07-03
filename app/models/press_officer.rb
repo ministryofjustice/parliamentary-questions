@@ -11,7 +11,7 @@
 #  updated_at    :datetime
 #
 
-class PressOfficer < ActiveRecord::Base
+class PressOfficer < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

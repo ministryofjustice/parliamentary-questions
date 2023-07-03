@@ -15,11 +15,11 @@ module PQState
       end,
       ## With POD
       Transition(DRAFT_PENDING, WITH_POD) do |pq|
-        !!pq.draft_answer_received
+        !pq.draft_answer_received.nil?
       end,
       ## POD Query
       Transition(WITH_POD, POD_QUERY) do |pq|
-        !!pq.pod_query_flag
+        !pq.pod_query_flag.nil?
       end,
       ## POD Clearance
       Transition.factory([WITH_POD, POD_QUERY], [POD_CLEARED]) do |pq|
@@ -28,9 +28,9 @@ module PQState
       ## With Minister
       Transition(POD_CLEARED, WITH_MINISTER) do |pq|
         if !pq.policy_minister
-          !!pq.sent_to_answering_minister
+          !pq.sent_to_answering_minister.nil?
         else
-          !!(pq.sent_to_answering_minister && pq.sent_to_policy_minister)
+          !(pq.sent_to_answering_minister && pq.sent_to_policy_minister).nil?
         end
       end,
       ## Minister Query

@@ -62,7 +62,7 @@ def setup_training_questions
 end
 
 def duplicate_question(old_pq, new_uin)
-  question = Pq.create!(
+  Pq.create!(
     house_id: old_pq.house_id,
     raising_member_id: old_pq.raising_member_id,
     tabled_date: 1.day.ago,
@@ -97,7 +97,7 @@ end
 def create_question(_i, seed_question)
   uin = (seed_question.uin.to_i + 600_000).to_s
 
-  question = Pq.create!(
+  Pq.create!(
     house_id: nil,
     raising_member_id: 2479,
     tabled_date: 1.day.ago,

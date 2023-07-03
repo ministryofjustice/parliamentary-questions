@@ -8,7 +8,7 @@ module Export
   # For a sample, see https://dsdmoj.atlassian.net/wiki/display/PQ/Parli-branch+sample+spreadsheet
 
   class Base
-    DATE_FORMAT = "%Y-%m-%d %H:%M"
+    DATE_FORMAT = "%Y-%m-%d %H:%M".freeze
 
     HEADINGS = [
       "MP",
@@ -40,7 +40,7 @@ module Export
       "Type of Question",
       "AO Email",
       "Group email",
-    ]
+    ].freeze
 
     def initialize(date_from, date_to, pqs_comma_separated = nil)
       @date_from = rebase(date_from)
@@ -68,7 +68,7 @@ module Export
     def escape_equals_for_excel(item)
       item = "" if item.nil?
       if item.to_s.start_with?("=")
-        item = "'" + item
+        "'#{item}"
       else
         item
       end

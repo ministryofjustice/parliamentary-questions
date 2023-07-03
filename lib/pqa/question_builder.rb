@@ -1,6 +1,6 @@
 module PQA
   module QuestionBuilder
-    extend self
+  module_function
 
     def updated(uin, updated)
       q = default(uin)
@@ -13,7 +13,7 @@ module PQA
     def default(uin)
       q                           = Question.new
       q.uin                       = uin
-      q.updated_date              = DateTime.now.midnight
+      q.updated_date              = Time.zone.now.midnight
       q.date_for_answer           = q.updated_date + 1.day
       q.tabled_date               = q.updated_date
 

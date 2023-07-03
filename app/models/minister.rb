@@ -11,7 +11,7 @@
 #  member_id  :integer
 #
 
-class Minister < ActiveRecord::Base
+class Minister < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

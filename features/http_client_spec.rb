@@ -10,7 +10,7 @@ describe HTTPClient do
     ]
   end
 
-  let(:client) { HTTPClient.new(*default_settings) }
+  let(:client) { described_class.new(*default_settings) }
 
   context "issuing requests" do
     it "sends a get request to the server" do

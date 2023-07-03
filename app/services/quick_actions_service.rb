@@ -76,7 +76,7 @@ class QuickActionsService
         NotifyPqMailer.draft_reminder_email(pq:, action_officer: ao_pq.action_officer, email: ao_pq.action_officer.group_email).deliver_later
       end
       NotifyPqMailer.draft_reminder_email(pq:, action_officer: ao_pq.action_officer, email: ao_pq.action_officer.email).deliver_later
-      ao_pq.increment(:reminder_draft).save
+      ao_pq.increment(:reminder_draft).save!
     end
   end
 

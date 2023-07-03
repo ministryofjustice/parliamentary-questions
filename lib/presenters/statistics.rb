@@ -1,7 +1,7 @@
 module Presenters
   # Here the statistics
   module Statistics
-    extend self
+  module_function
 
     Link = Struct.new(:name, :path, :description)
 

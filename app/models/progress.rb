@@ -9,7 +9,7 @@
 #  updated_at     :datetime
 #
 
-class Progress < ActiveRecord::Base
+class Progress < ApplicationRecord
   def classname
     name.downcase.sub " ", "-"
   end

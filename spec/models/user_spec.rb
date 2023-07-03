@@ -41,7 +41,7 @@ describe User do
   end
 
   it "provides a method for authentication" do
-    expect(user.active_for_authentication?).to eql(true)
+    expect(user.active_for_authentication?).to be(true)
   end
 
   describe "validations" do

@@ -7,7 +7,7 @@ class ActionOfficerReminderController < ApplicationController
         NotifyPqMailer.acceptance_reminder_email(pq:, action_officer: ao, email: ao.group_email).deliver_later
       end
       NotifyPqMailer.acceptance_reminder_email(pq:, action_officer: ao, email: ao.email).deliver_later
-      ao_pq.increment(:reminder_accept).save
+      ao_pq.increment(:reminder_accept).save!
     end
   end
 
@@ -17,7 +17,7 @@ class ActionOfficerReminderController < ApplicationController
         NotifyPqMailer.draft_reminder_email(pq:, action_officer: ao, email: ao.group_email).deliver_later
       end
       NotifyPqMailer.draft_reminder_email(pq:, action_officer: ao, email: ao.email).deliver_later
-      ao_pq.increment(:reminder_draft).save
+      ao_pq.increment(:reminder_draft).save!
     end
   end
 

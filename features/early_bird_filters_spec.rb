@@ -7,23 +7,23 @@ describe "User filters early bird questions", js: true, suspend_cleaner: true do
 
     # Change Q1 properties
     a = Pq.first
-    a.update(question: "Contrary to popular belief, Lorem Ipsum is not simply random text.")
-    a.update(member_name: "John Smith")
-    a.update(member_constituency: "Canterbury")
+    a.update!(question: "Contrary to popular belief, Lorem Ipsum is not simply random text.")
+    a.update!(member_name: "John Smith")
+    a.update!(member_constituency: "Canterbury")
 
     # Change Q2 properties
     a = Pq.second
-    a.update(transferred: true)
-    a.update(question: 'Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.')
-    a.update(member_name: "Sally Merton")
-    a.update(member_constituency: "Wimbledon")
+    a.update!(transferred: true)
+    a.update!(question: 'Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.')
+    a.update!(member_name: "Sally Merton")
+    a.update!(member_constituency: "Wimbledon")
 
     # Change Q3 properties
     a = Pq.third
-    a.update(question_type: "Ordinary")
-    a.update(question: 'This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.')
-    a.update(member_name: "Anne Day")
-    a.update(member_constituency: "Kingston upon Hull North")
+    a.update!(question_type: "Ordinary")
+    a.update!(question: 'This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.')
+    a.update!(member_name: "Anne Day")
+    a.update!(member_constituency: "Kingston upon Hull North")
   end
 
   after(:all) do

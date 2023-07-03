@@ -4,7 +4,7 @@ describe "Minister Report", js: true do
   include Features::PqHelpers
 
   def within_report_state(state, &block)
-    css = "tr[data='report-state-" + state.to_s + "']"
+    css = "tr[data='report-state-#{state}']"
     within(css, &block)
   end
 

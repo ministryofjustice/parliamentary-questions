@@ -13,14 +13,14 @@ describe PQState::Validator do
     #
     context "when the transition graph has dead ends" do
       it "raises an InconsistentStateGraph error" do
-        validator = PQState::Validator.new([
+        validator = described_class.new([
           t("a", "b"),
           # <= dead end!
           t("b", "c"),
           t("b", "d"),
           t("d", "e"),
         ],
-                                           %w[e])
+                                        %w[e])
 
         expect {
           validator.check_consistent_state_graph!
@@ -57,7 +57,7 @@ describe PQState::Validator do
             a b d e g h l m
           ].product(%w[x]).map { |from, to| t(from, to) }
 
-        PQState::Validator.new(
+        described_class.new(
           transitions + x_transitions,
           %w[m x],
         ).check_consistent_state_graph!

@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe TokenService do
-  let(:expire_in_future) { DateTime.new(2100, 0o1, 20, 10, 0, 0) }
-  let(:expire_in_past) { DateTime.new(2013, 0o1, 20, 10, 0, 0) }
+  let(:expire_in_future) { Time.zone.local(2100, 0o1, 20, 10, 0, 0) }
+  let(:expire_in_past) { Time.zone.local(2013, 0o1, 20, 10, 0, 0) }
 
   describe "#generate_token" do
     it "generates a token and store the token digest in the database" do

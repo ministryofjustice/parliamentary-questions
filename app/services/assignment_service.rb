@@ -11,7 +11,7 @@ class AssignmentService
     PaperTrail.request(whodunnit: changed_by) do
       division = assignment.action_officer.deputy_director.try(:division)
       directorate = division.try(:directorate)
-      pq.update(directorate:, original_division: division)
+      pq.update!(directorate:, original_division: division)
     end
     pq.update_state!
     if assignment.action_officer.group_email.present?

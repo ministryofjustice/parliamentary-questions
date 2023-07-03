@@ -83,7 +83,7 @@ describe Pq do
     it "sets the state weight" do
       state = PQState::DRAFT_PENDING
       pq, = DBHelpers.pqs
-      pq.update(state:)
+      pq.update!(state:)
       expect(pq.state_weight).to eq(PQState.state_weight(state))
     end
   end
@@ -94,13 +94,13 @@ describe Pq do
       pqs = DBHelpers.pqs(8).shuffle
 
       # Update to cover all sorting criteria
-      pqs[0].update(date_for_answer: Date.tomorrow, state: PQState::POD_CLEARED)
-      pqs[1].update(date_for_answer: Date.tomorrow)
-      pqs[2].update(date_for_answer: Date.tomorrow  + 1.day, state: PQState::POD_QUERY)
-      pqs[3].update(date_for_answer: Date.tomorrow  + 1.day)
-      pqs[4].update(date_for_answer: Date.yesterday, state: PQState::POD_CLEARED)
-      pqs[5].update(date_for_answer: Date.yesterday)
-      pqs[6].update(date_for_answer: Date.yesterday - 1.day, state: PQState::WITH_MINISTER)
+      pqs[0].update!(date_for_answer: Date.tomorrow, state: PQState::POD_CLEARED)
+      pqs[1].update!(date_for_answer: Date.tomorrow)
+      pqs[2].update!(date_for_answer: Date.tomorrow  + 1.day, state: PQState::POD_QUERY)
+      pqs[3].update!(date_for_answer: Date.tomorrow  + 1.day)
+      pqs[4].update!(date_for_answer: Date.yesterday, state: PQState::POD_CLEARED)
+      pqs[5].update!(date_for_answer: Date.yesterday)
+      pqs[6].update!(date_for_answer: Date.yesterday - 1.day, state: PQState::WITH_MINISTER)
       pqs[7].update(date_for_answer: Date.yesterday - 1.day) && pqs[7]
 
       # Late PQs are pushed to the bottom regardless
@@ -115,7 +115,7 @@ describe Pq do
       on_time_due_later_higher_weight   = pqs[2]
       on_time_due_later_lower_weight    = pqs[3]
 
-      expect(Pq.sorted_for_dashboard.map(&:uin)).to eq([
+      expect(described_class.sorted_for_dashboard.map(&:uin)).to eq([
         on_time_due_sooner_higher_weight,
         on_time_due_sooner_lower_weight,
         on_time_due_later_higher_weight,
@@ -133,12 +133,12 @@ describe Pq do
       pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
                                                      response: "accepted",
                                                      pq:)
-      pq.save
+      pq.save!
     end
 
     context "when no data exist" do
       it "returns an empty hash" do
-        expect(Pq.count_accepted_by_press_desk).to eq({})
+        expect(described_class.count_accepted_by_press_desk).to eq({})
       end
     end
 
@@ -158,7 +158,7 @@ describe Pq do
       end
 
       it "returns a hash with states as keys and press-desk/counts as values" do
-        expect(Pq.count_accepted_by_press_desk).to eq(
+        expect(described_class.count_accepted_by_press_desk).to eq(
           PQState::NO_RESPONSE => {
             @pd1.id => 1,
           },
@@ -174,7 +174,7 @@ describe Pq do
         end
 
         it "omits the associated questions from the results" do
-          expect(Pq.count_accepted_by_press_desk).to eq(
+          expect(described_class.count_accepted_by_press_desk).to eq(
             PQState::WITH_POD => {
               @pd2.id => 2,
             },
@@ -187,7 +187,7 @@ describe Pq do
   describe ".count_in_progress_by_minister" do
     context "when no data exist" do
       it "returns an empty hash" do
-        expect(Pq.count_in_progress_by_minister).to eq({})
+        expect(described_class.count_in_progress_by_minister).to eq({})
       end
     end
 
@@ -196,15 +196,15 @@ describe Pq do
         @minister1, @minister2, = DBHelpers.ministers
         @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
 
-        @pq1.update(state: PQState::DRAFT_PENDING, minister: @minister1)
-        @pq2.update(state: PQState::WITH_MINISTER, minister: @minister2)
-        @pq3.update(state: PQState::ANSWERED, minister: @minister2)
+        @pq1.update!(state: PQState::DRAFT_PENDING, minister: @minister1)
+        @pq2.update!(state: PQState::WITH_MINISTER, minister: @minister2)
+        @pq3.update!(state: PQState::ANSWERED, minister: @minister2)
         # ^ should not be included as its state is not included in PQState::IN_PROGRESS
-        @pq4.update(state: PQState::DRAFT_PENDING, minister: @minister2)
+        @pq4.update!(state: PQState::DRAFT_PENDING, minister: @minister2)
       end
 
       it "returns a hash with states as keys and minister counts as values" do
-        expect(Pq.count_in_progress_by_minister).to eq(
+        expect(described_class.count_in_progress_by_minister).to eq(
           PQState::DRAFT_PENDING => {
             @minister1.id => 1,
             @minister2.id => 1,
@@ -221,7 +221,7 @@ describe Pq do
         end
 
         it "omits the minister and its related PQ count from the results" do
-          expect(Pq.count_in_progress_by_minister).to eq(
+          expect(described_class.count_in_progress_by_minister).to eq(
             PQState::DRAFT_PENDING => {
               @minister2.id => 1,
             },
@@ -243,7 +243,7 @@ describe Pq do
         response: "accepted",
         action_officer: ao,
       )
-      pq.save
+      pq.save!
     end
 
     before do
@@ -258,7 +258,7 @@ describe Pq do
 
     context "when state, minister or press desk are all nil" do
       it "returns all the records" do
-        expect(Pq.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq(%w[
+        expect(described_class.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq(%w[
           uin-1 uin-2 uin-3 uin-4
         ].to_set)
       end
@@ -266,7 +266,7 @@ describe Pq do
 
     context "when state, minister or press desk are all present" do
       it "returns the expected records" do
-        uins = Pq.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
+        uins = described_class.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
                  .pluck(:uin)
 
         expect(uins).to eq(%w[uin-1])
@@ -275,12 +275,12 @@ describe Pq do
   end
 
   describe "allocated_since" do
-    subject { Pq.allocated_since(Time.now) }
+    subject { described_class.allocated_since(Time.zone.now) }
 
-    let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.now - 2.days) }
-    let!(:new_pq1) { create(:not_responded_pq, uin: "20001", action_officer_allocated_at: Time.now + 3.hours) }
-    let!(:new_pq2) { create(:not_responded_pq, uin: "HL01",  action_officer_allocated_at: Time.now + 5.hours) }
-    let!(:new_pq3) { create(:not_responded_pq, uin: "15000", action_officer_allocated_at: Time.now + 5.hours) }
+    let!(:older_pq) { create(:not_responded_pq, action_officer_allocated_at: Time.zone.now - 2.days) }
+    let!(:new_pq1) { create(:not_responded_pq, uin: "20001", action_officer_allocated_at: Time.zone.now + 3.hours) }
+    let!(:new_pq2) { create(:not_responded_pq, uin: "HL01",  action_officer_allocated_at: Time.zone.now + 5.hours) }
+    let!(:new_pq3) { create(:not_responded_pq, uin: "15000", action_officer_allocated_at: Time.zone.now + 5.hours) }
 
     it "returns questions allocated from given time" do
       expect(subject.length).to be(3)
@@ -403,8 +403,8 @@ describe Pq do
 
     context "when some assigned officers are not rejected" do
       before do
-        subject.action_officers_pqs.create(action_officer: create(:action_officer))
-        subject.action_officers_pqs.create(action_officer: create(:action_officer), response: "rejected")
+        subject.action_officers_pqs.create!(action_officer: create(:action_officer))
+        subject.action_officers_pqs.create!(action_officer: create(:action_officer), response: "rejected")
         subject.internal_deadline = Time.zone.today
       end
 
@@ -454,8 +454,8 @@ describe Pq do
 
   it "sets pod_waiting when users set draft_answer_received" do
     expect(subject).to receive(:set_pod_waiting)
-    subject.update(draft_answer_received: Date.new(2014, 9, 4))
-    subject.save
+    subject.update!(draft_answer_received: Date.new(2014, 9, 4))
+    subject.save!
   end
 
   it "#set_pod_waiting should work as expected" do
@@ -474,7 +474,7 @@ describe Pq do
         ao = FactoryBot.create(:action_officer)
         pq.action_officers << ao
       end
-      pq.save
+      pq.save!
       pq
     end
 
@@ -498,13 +498,13 @@ describe Pq do
     end
 
     it "strips any whitespace from uins" do
-      subject.update(uin: " hl1234")
+      subject.update!(uin: " hl1234")
       expect(subject).to be_valid
       expect(subject.uin).to eql("hl1234")
-      subject.update(uin: "hl1234 ")
+      subject.update!(uin: "hl1234 ")
       expect(subject).to be_valid
       expect(subject.uin).to eql("hl1234")
-      subject.update(uin: " hl1 234")
+      subject.update!(uin: " hl1 234")
       expect(subject).to be_valid
       expect(subject.uin).to eql("hl1 234")
     end

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe GeckoStatus do
-  let(:status) { GeckoStatus.new("Test") }
+  let(:status) { described_class.new("Test") }
 
   it "#initialize - should set the component name and initial state" do
     expect(status.name).to eq "Test"
@@ -38,21 +38,21 @@ end
 describe KeyMetricStatus do
   let(:key_metric)  { double Metrics::KeyMetric }
   let(:metrics)     { double "metrics", key_metric: }
-  let(:status)      { KeyMetricStatus.new }
+  let(:status)      { described_class.new }
 
   describe "#update" do
     it "calls ok when there is no alert" do
       allow(key_metric).to receive(:alert).and_return(false)
 
       expect(status).to receive(:ok)
-      status.update(metrics)
+      status.update!(metrics)
     end
 
     it "calls error when there is an alert" do
       allow(key_metric).to receive(:alert).and_return(true)
 
       expect(status).to receive(:error)
-      status.update(metrics)
+      status.update!(metrics)
     end
   end
 end
@@ -60,21 +60,21 @@ end
 describe DbStatus do
   let(:health)   { Metrics::Health.new }
   let(:metrics)  { double "metrics", health: }
-  let(:status)   { DbStatus.new }
+  let(:status)   { described_class.new }
 
   describe "#update" do
     it "calls ok when the db status is OK" do
       allow(health).to receive(:db_status).and_return(true)
 
       expect(status).to receive(:ok)
-      status.update(metrics)
+      status.update!(metrics)
     end
 
     it "calls error when there is a DB error" do
       allow(health).to receive(:db_status).and_return(false)
 
       expect(status).to receive(:error)
-      status.update(metrics)
+      status.update!(metrics)
     end
   end
 end
@@ -82,21 +82,21 @@ end
 describe PqaApiStatus do
   let(:health)   { Metrics::Health.new }
   let(:metrics)  { double "metrics", health: }
-  let(:status)   { PqaApiStatus.new }
+  let(:status)   { described_class.new }
 
   describe "#update" do
     it "calls ok when the PQA API status is OK" do
       allow(health).to receive(:pqa_api_status).and_return(true)
 
       expect(status).to receive(:ok)
-      status.update(metrics)
+      status.update!(metrics)
     end
 
     it "calls error when there is a PQA API error" do
       allow(health).to receive(:pqa_api_status).and_return(false)
 
       expect(status).to receive(:error)
-      status.update(metrics)
+      status.update!(metrics)
     end
   end
 end
@@ -104,15 +104,15 @@ end
 describe PqaImportStatus do
   let(:info)     { Metrics::PqaImport.new                      }
   let(:metrics)  { double "metrics", pqa_import: info          }
-  let(:status)   { PqaImportStatus.new                         }
+  let(:status)   { described_class.new                         }
 
   describe "#update" do
     it "calls ok when there are no issues" do
-      allow(info).to receive(:last_run_time).and_return(Time.now)
+      allow(info).to receive(:last_run_time).and_return(Time.zone.now)
       allow(info).to receive(:last_run_status).and_return("OK")
 
       expect(status).to receive(:ok)
-      status.update(metrics)
+      status.update!(metrics)
     end
 
     it "calls warn when the import is stale" do
@@ -120,15 +120,15 @@ describe PqaImportStatus do
       allow(info).to receive(:last_run_status).and_return("OK")
 
       expect(status).to receive(:warn)
-      status.update(metrics)
+      status.update!(metrics)
     end
 
     it "calls error when the run_status is not OK" do
-      allow(info).to receive(:last_run_time).and_return(Time.now)
+      allow(info).to receive(:last_run_time).and_return(Time.zone.now)
       allow(info).to receive(:last_run_status).and_return("Bad")
 
       expect(status).to receive(:error)
-      status.update(metrics)
+      status.update!(metrics)
     end
   end
 end
@@ -136,15 +136,15 @@ end
 describe SmokeTestStatus do
   let(:info)     { Metrics::SmokeTests.new                     }
   let(:metrics)  { double "metrics", smoke_tests: info         }
-  let(:status)   { SmokeTestStatus.new                         }
+  let(:status)   { described_class.new                         }
 
   describe "#update" do
     it "calls ok when there are no issues" do
-      allow(info).to receive(:run_time).and_return(Time.now)
+      allow(info).to receive(:run_time).and_return(Time.zone.now)
       allow(info).to receive(:run_success?).and_return(true)
 
       expect(status).to receive(:ok)
-      status.update(metrics)
+      status.update!(metrics)
     end
 
     it "calls warn when the test run is stale" do
@@ -152,15 +152,15 @@ describe SmokeTestStatus do
       allow(info).to receive(:run_success?).and_return(true)
 
       expect(status).to receive(:warn)
-      status.update(metrics)
+      status.update!(metrics)
     end
 
     it "calls error when the test run has failures" do
-      allow(info).to receive(:run_time).and_return(Time.now)
+      allow(info).to receive(:run_time).and_return(Time.zone.now)
       allow(info).to receive(:run_success?).and_return(false)
 
       expect(status).to receive(:error)
-      status.update(metrics)
+      status.update!(metrics)
     end
   end
 end

@@ -8,13 +8,13 @@ module PQA
 
     def run(date_from, date_to)
       query_api_and_update do
-        questions = @pqa_service.questions(date_from, date_to)
+        @pqa_service.questions(date_from, date_to)
       end
     end
 
     def run_for_question(uin)
       query_api_and_update do
-        questions = @pqa_service.question(uin)
+        @pqa_service.question(uin)
       end
     end
 
@@ -70,11 +70,11 @@ module PQA
       elsif pq.new_record?
         @created += 1
         @logger.debug { "Imported new record (uin: #{uin})" }
-        pq.save
+        pq.save!
       else
         @updated += 1
         @logger.debug { "Updating record (uin: #{uin})" }
-        pq.save
+        pq.save!
       end
 
       LogStuff.tag(:import) do

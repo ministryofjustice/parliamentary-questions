@@ -72,7 +72,7 @@ describe AssignmentService do
       new_dir = create(:directorate, name: "New Directorate", id: Directorate.maximum(:id).next)
       new_div = create(:division, name: "New Division", directorate_id: new_dir.id, id: Division.maximum(:id).next)
       new_dd = create(:deputy_director, name: "dd name", division_id: new_div.id, id: 10 + DeputyDirector.maximum(:id).next)
-      action_officer.update(deputy_director_id: new_dd.id)
+      action_officer.update!(deputy_director_id: new_dd.id)
       expect(pq.directorate_id).to eql(directorate.id)
       expect(assignment.action_officer.deputy_director_id).to eql(new_dd.id)
       expect(pq.directorate_id).not_to eql(new_dd.id)

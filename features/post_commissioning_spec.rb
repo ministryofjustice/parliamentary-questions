@@ -33,8 +33,8 @@ describe "After commissioning", js: true, suspend_cleaner: true do
 
   it "Question that is late by less than one hour shows overdue warning" do
     pq = Pq.find_by(uin: @uin3)
-    pq.internal_deadline = (Time.now - 10.minutes).to_s
-    pq.save
+    pq.internal_deadline = (Time.zone.now - 10.minutes).to_s
+    pq.save!
     visit pq_path(pq.uin)
     click_on "PQ commission"
     expect(page).to have_css("span.fa.fa-exclamation-triangle")

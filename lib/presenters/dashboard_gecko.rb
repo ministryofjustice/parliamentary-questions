@@ -1,6 +1,6 @@
 module Presenters
   module DashboardGecko
-    extend self
+  module_function
 
     def json_report(gecko_object)
       list(gecko_object).to_json

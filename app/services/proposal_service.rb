@@ -20,6 +20,6 @@ class ProposalService
 private
 
   def build_pq(form)
-    pq = Pq.find(form.pq_id)
+    Pq.find(form.pq_id)
   end
 end

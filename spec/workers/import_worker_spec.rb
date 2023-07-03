@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe ImportWorker do
-  let(:worker)              { ImportWorker.new                        }
-  let(:importer)            { worker.instance_variable_get(:@import)  }
-  let(:freeze_time)         { Time.new(2015, 5, 7, 12, 45, 17).utc    }
-  let(:last_import_time)    { Time.new(2015, 7, 9, 8, 30, 26).utc     }
-  let(:five_mins_from_now)  { Time.new(2015, 5, 7, 12, 50, 17).utc    }
-  let(:three_days_ago)      { Time.new(2015, 5, 4, 12, 45, 17).utc    }
+  let(:worker)              { described_class.new }
+  let(:importer)            { worker.instance_variable_get(:@import) }
+  let(:freeze_time)         { Time.zone.local(2015, 5, 7, 12, 45, 17).utc    }
+  let(:last_import_time)    { Time.zone.local(2015, 7, 9, 8, 30, 26).utc     }
+  let(:five_mins_from_now)  { Time.zone.local(2015, 5, 7, 12, 50, 17).utc    }
+  let(:three_days_ago)      { Time.zone.local(2015, 5, 4, 12, 45, 17).utc    }
 
   let(:ok_report) do
     {

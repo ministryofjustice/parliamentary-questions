@@ -1,7 +1,7 @@
 module DBHelpers
-  extend self
+module_function
 
-  USER_PASSWORD = "123456789"
+  USER_PASSWORD = "123456789".freeze
 
   FIXTURES = %i[
     users
@@ -13,7 +13,7 @@ module DBHelpers
     action_officers
     ogds
     pqs
-  ]
+  ].freeze
 
   def load_spec_fixtures; end
 
@@ -38,8 +38,8 @@ module DBHelpers
       ["pq@pq.com", "pq-user", User::ROLE_PQ_USER],
       ["fin@fin.com", "finance-user", User::ROLE_FINANCE],
     ].map do |email, name, role|
-      u = User.find_or_create_by(email:, name:, roles: role)
-      u.update(password: USER_PASSWORD, password_confirmation: USER_PASSWORD) if u.new_record?
+      u = User.find_or_create_by!(email:, name:, roles: role)
+      u.update!(password: USER_PASSWORD, password_confirmation: USER_PASSWORD) if u.new_record?
       u
     end
   end

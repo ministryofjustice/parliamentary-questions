@@ -63,5 +63,5 @@ module PqFollowup
     transfer_out_date
     transfer_in_ogd_id
     transfer_in_date
-  ]
+  ].freeze
 end

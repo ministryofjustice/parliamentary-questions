@@ -1,6 +1,6 @@
 module Export
   class PqSelection < Base
-    DATE_FORMAT = "%Y-%m-%d %H:%M"
+    DATE_FORMAT = "%Y-%m-%d %H:%M".freeze
 
     HEADINGS = [
       "PIN",
@@ -18,7 +18,7 @@ module Export
       "Date delivered to Minister",
       "Returned signed from Minister",
       "Date response answered by Parly (dept)",
-    ]
+    ].freeze
 
     def csv_fields(pq, ao)
       [
