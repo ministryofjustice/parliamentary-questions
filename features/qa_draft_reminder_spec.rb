@@ -25,7 +25,7 @@ describe "Send draft reminders from the dashboard", js: true, suspend_cleaner: t
       expect(page).to have_button("Cancel")
       find(:button, "Send", disabled: false)
       click_button("Send")
-      expect(page).to have_selector("#draftReminders .content", visible: false)
+      expect(page).to have_selector("#draftReminders .content", visible: :hidden)
     end
     within(".pq-msg-success.fade.in") do
       expect(page).to have_text("Draft Reminder(s) Sent")
@@ -40,7 +40,7 @@ describe "Send draft reminders from the dashboard", js: true, suspend_cleaner: t
       expect(page).to have_button("Cancel")
       find(:button, "Send", disabled: false)
       click_button("Cancel")
-      expect(page).to have_selector("#draftReminders .content", visible: false)
+      expect(page).to have_selector("#draftReminders .content", visible: :hidden)
     end
   end
 end
