@@ -45,5 +45,5 @@ private
     self.name = name.strip if name
   end
 
-  scope :active_list, -> { where("deleted = ? OR deleted = ? AND updated_at > ?", false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("deleted = ? OR deleted = ? AND updated_at > ?", false, true, 2.days.ago) }
 end

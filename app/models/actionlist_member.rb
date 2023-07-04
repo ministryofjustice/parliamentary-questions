@@ -19,6 +19,6 @@ class ActionlistMember < ActiveRecord::Base # rubocop:disable Rails/ApplicationR
   validates :email, presence: true, uniqueness: true, on: :create
   # validates_format_of :email, with: Devise.email_regexp
   validates :email, format: { with: Devise.email_regexp }
-  scope :active_list, -> { where("actionlist_members.deleted = ? OR actionlist_members.deleted = ? AND actionlist_members.updated_at > ?", false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("actionlist_members.deleted = ? OR actionlist_members.deleted = ? AND actionlist_members.updated_at > ?", false, true, 2.days.ago) }
   before_validation Validators::Whitespace.new
 end

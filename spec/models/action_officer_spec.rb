@@ -51,12 +51,12 @@ describe ActionOfficer do
   end
 
   describe "Get index" do
-    let!(:actionOfficer1) { create(:action_officer, updated_at: Time.zone.now.to_datetime, deleted: false) }
-    let!(:actionOfficer2) { create(:action_officer, updated_at: Time.zone.now.to_datetime, deleted: true) }
-    let!(:actionOfficer3) { create(:action_officer, updated_at: 1.day.ago.to_datetime,    deleted: false) }
-    let!(:actionOfficer4) { create(:action_officer, updated_at: 1.day.ago.to_datetime,    deleted: true) }
-    let!(:actionOfficer5) { create(:action_officer, updated_at: 3.days.ago.to_datetime,   deleted: false) }
-    let!(:actionOfficer6) { create(:action_officer, updated_at: 3.days.ago.to_datetime,   deleted: true) }
+    let!(:actionOfficer1) { create(:action_officer, updated_at: Time.zone.now, deleted: false) }
+    let!(:actionOfficer2) { create(:action_officer, updated_at: Time.zone.now, deleted: true) }
+    let!(:actionOfficer3) { create(:action_officer, updated_at: 1.day.ago,    deleted: false) }
+    let!(:actionOfficer4) { create(:action_officer, updated_at: 1.day.ago,    deleted: true) }
+    let!(:actionOfficer5) { create(:action_officer, updated_at: 3.days.ago,   deleted: false) }
+    let!(:actionOfficer6) { create(:action_officer, updated_at: 3.days.ago,   deleted: true) }
 
     it "lists all active Action Officers and those made inactive withing the last two days" do
       expect(described_class.active_list).to match_array [actionOfficer1, actionOfficer2, actionOfficer3, actionOfficer4, actionOfficer5]

@@ -26,7 +26,7 @@ module PqStatistics
     def calculate_for_dates(dates)
       submissions =
         pq_data(dates).map do |submitted, deadline|
-          PqSubmission.new(submitted, (submitted <= deadline.to_datetime.end_of_day))
+          PqSubmission.new(submitted, (submitted <= deadline.end_of_day))
         end
 
       result_by_bucket(submissions, OnTimeBucket.build_from(dates))

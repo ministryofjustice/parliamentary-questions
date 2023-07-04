@@ -23,5 +23,5 @@ class Division < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
     end
   end
   belongs_to :directorate
-  scope :active_list, -> { where("divisions.deleted = ? OR divisions.deleted = ? AND divisions.updated_at > ?", false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("divisions.deleted = ? OR divisions.deleted = ? AND divisions.updated_at > ?", false, true, 2.days.ago) }
 end

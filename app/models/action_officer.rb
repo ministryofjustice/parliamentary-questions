@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: action_officers
+# Table name: action_officers        
 #
 #  id                 :integer          not null, primary key
 #  name               :string(255)
@@ -52,5 +52,5 @@ class ActionOfficer < ActiveRecord::Base # rubocop:disable Rails/ApplicationReco
     end
   end
   scope :inactive_list, -> { where("action_officers.deleted = ?", true) }
-  scope :active_list, -> { where("action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?", false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?", false, true, 2.days.ago) }
 end

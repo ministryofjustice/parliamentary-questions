@@ -90,5 +90,5 @@ class User < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
     roles.split(",").include?(ROLE_ADMIN)
   end
 
-  scope :active_list, -> { where("deleted = ? OR deleted = ? AND updated_at > ?", false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("deleted = ? OR deleted = ? AND updated_at > ?", false, true, 2.days.ago) }
 end

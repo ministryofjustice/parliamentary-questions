@@ -39,12 +39,12 @@ describe DeputyDirector do
   end
 
   describe "Get index" do
-    let!(:deputyDirector1) { create(:deputy_director, updated_at: Time.zone.now.to_datetime, deleted: false) }
-    let!(:deputyDirector2) { create(:deputy_director, updated_at: Time.zone.now.to_datetime, deleted: true) }
-    let!(:deputyDirector3) { create(:deputy_director, updated_at: 1.day.ago.to_datetime,    deleted: false) }
-    let!(:deputyDirector4) { create(:deputy_director, updated_at: 1.day.ago.to_datetime,    deleted: true) }
-    let!(:deputyDirector5) { create(:deputy_director, updated_at: 3.days.ago.to_datetime,   deleted: false) }
-    let!(:deputyDirector6) { create(:deputy_director, updated_at: 3.days.ago.to_datetime,   deleted: true) }
+    let!(:deputyDirector1) { create(:deputy_director, updated_at: Time.zone.now, deleted: false) }
+    let!(:deputyDirector2) { create(:deputy_director, updated_at: Time.zone.now, deleted: true) }
+    let!(:deputyDirector3) { create(:deputy_director, updated_at: 1.day.ago, deleted: false) }
+    let!(:deputyDirector4) { create(:deputy_director, updated_at: 1.day.ago, deleted: true) }
+    let!(:deputyDirector5) { create(:deputy_director, updated_at: 3.days.ago, deleted: false) }
+    let!(:deputyDirector6) { create(:deputy_director, updated_at: 3.days.ago, deleted: true) }
 
     it "lists all active Deputy Directors and those made inactive withing the last two days" do
       expect(described_class.active_list).to match_array [deputyDirector1, deputyDirector2, deputyDirector3, deputyDirector4, deputyDirector5]

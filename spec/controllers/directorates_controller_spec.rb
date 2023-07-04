@@ -14,18 +14,18 @@ describe DirectoratesController, type: :controller do
 end
 
 def create_directorates
-  FactoryBot.create(:directorate, name: "Directorate A", updated_at: Time.zone.now.to_datetime, deleted: false)
-  FactoryBot.create(:directorate, name: "Directorate B", updated_at: Time.zone.now.to_datetime, deleted: true)
-  FactoryBot.create(:directorate, name: "Directorate C", updated_at: 1.day.ago.to_datetime,    deleted: false)
-  FactoryBot.create(:directorate, name: "Directorate D", updated_at: 1.day.ago.to_datetime,    deleted: true)
-  FactoryBot.create(:directorate, name: "Directorate E", updated_at: 3.days.ago.to_datetime,   deleted: false)
-  FactoryBot.create(:directorate, name: "Directorate F", updated_at: 3.days.ago.to_datetime,   deleted: true)
-  FactoryBot.create(:directorate, name: "Directorate G", updated_at: Time.zone.now.to_datetime, deleted: false)
-  FactoryBot.create(:directorate, name: "Directorate H", updated_at: Time.zone.now.to_datetime, deleted: true)
-  FactoryBot.create(:directorate, name: "Directorate I", updated_at: 1.day.ago.to_datetime,    deleted: false)
-  FactoryBot.create(:directorate, name: "Directorate J", updated_at: 1.day.ago.to_datetime,    deleted: true)
-  FactoryBot.create(:directorate, name: "Directorate K", updated_at: 3.days.ago.to_datetime,   deleted: false)
-  FactoryBot.create(:directorate, name: "Directorate L", updated_at: 3.days.ago.to_datetime,   deleted: true)
+  FactoryBot.create(:directorate, name: "Directorate A", updated_at: Time.zone.now, deleted: false)
+  FactoryBot.create(:directorate, name: "Directorate B", updated_at: Time.zone.now, deleted: true)
+  FactoryBot.create(:directorate, name: "Directorate C", updated_at: 1.day.ago,    deleted: false)
+  FactoryBot.create(:directorate, name: "Directorate D", updated_at: 1.day.ago,    deleted: true)
+  FactoryBot.create(:directorate, name: "Directorate E", updated_at: 3.days.ago,   deleted: false)
+  FactoryBot.create(:directorate, name: "Directorate F", updated_at: 3.days.ago,   deleted: true)
+  FactoryBot.create(:directorate, name: "Directorate G", updated_at: Time.zone.now, deleted: false)
+  FactoryBot.create(:directorate, name: "Directorate H", updated_at: Time.zone.now, deleted: true)
+  FactoryBot.create(:directorate, name: "Directorate I", updated_at: 1.day.ago,    deleted: false)
+  FactoryBot.create(:directorate, name: "Directorate J", updated_at: 1.day.ago,    deleted: true)
+  FactoryBot.create(:directorate, name: "Directorate K", updated_at: 3.days.ago,   deleted: false)
+  FactoryBot.create(:directorate, name: "Directorate L", updated_at: 3.days.ago,   deleted: true)
 end
 
 def expected_order_of_directorates
