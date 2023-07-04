@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: action_officers        
+# Table name: action_officers
 #
 #  id                 :integer          not null, primary key
 #  name               :string(255)
