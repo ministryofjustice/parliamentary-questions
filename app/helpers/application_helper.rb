@@ -15,12 +15,12 @@ module ApplicationHelper
     end
   end
 
-  def state_classname(s)
-    s.tr("_", "-")
+  def state_classname(classname)
+    classname.tr("_", "-")
   end
 
-  def state_label(s)
-    PQState.state_label(s)
+  def state_label(label)
+    PQState.state_label(label)
   end
 
   def minister_warning?(question, minister)
