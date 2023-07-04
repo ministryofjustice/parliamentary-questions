@@ -29,16 +29,6 @@ module Presenters
       # Comment for rubocop
       attr_reader :title, :headers, :rows
 
-    protected
-
-      def initialize(title, headers, rows)
-        @headers = headers
-        @title   = title
-        @rows    = rows
-      end
-
-      DataPoint = Struct.new(:start_date, :data, :arrow)
-
       def self.format(data)
         data[0...-1].map.with_index do |item, i|
           DataPoint.new(
@@ -47,6 +37,8 @@ module Presenters
         end
       end
 
+      private_class_method :format
+
       def self.format_item(item, data, i)
         [
           item.start_date.to_s(:date),
@@ -54,6 +46,8 @@ module Presenters
           arrow_for(item.mean - data[i + 1].mean),
         ]
       end
+
+      private_class_method :format_item
 
       def self.arrow_for(n)
         if n.positive?
@@ -64,6 +58,18 @@ module Presenters
           "↔"
         end
       end
+
+      private_class_method :arrow_for
+
+    protected
+
+      def initialize(title, headers, rows)
+        @headers = headers
+        @title   = title
+        @rows    = rows
+      end
+
+      DataPoint = Struct.new(:start_date, :data, :arrow)
     end
 
     class OnTimeReport < Report

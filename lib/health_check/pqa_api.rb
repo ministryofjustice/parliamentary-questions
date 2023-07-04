@@ -54,11 +54,11 @@ module HealthCheck
       false
     end
 
-  private
-
     def self.minimum_interval_in_seconds
       Settings.healthcheck_pqa_api_interval * 60
     end
+
+    private_class_method :minimum_interval_in_seconds
 
     def self.time_last_run
       if File.exist?(TIMESTAMP_FILE)
@@ -70,6 +70,10 @@ module HealthCheck
         0
       end
     end
+
+    private_class_method :time_last_run
+
+  private
 
     def log_error(type, e)
       @errors << "PQA API #{type} Error: #{e.message}"
