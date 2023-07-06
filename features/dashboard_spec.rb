@@ -3,12 +3,12 @@ require "feature_helper"
 describe "Dashboard view", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  before(:each) do
+  before do
     DBHelpers.load_feature_fixtures
     @pqs = PQA::QuestionLoader.new.load_and_import(3)
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

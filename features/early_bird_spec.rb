@@ -10,7 +10,7 @@ describe "Early bird member sees allocated questions", suspend_cleaner: true do
     @pq   = generate_dummy_pq(@aos)
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

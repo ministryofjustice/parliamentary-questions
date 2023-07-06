@@ -3,7 +3,7 @@ require "feature_helper"
 describe "Creating finance officers", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

@@ -8,7 +8,7 @@ describe "Rejecting questions", js: true, suspend_cleaner: true do
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

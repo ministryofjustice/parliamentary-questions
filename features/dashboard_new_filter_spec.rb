@@ -3,12 +3,12 @@ require "feature_helper"
 describe "User filters 'New' dashboard  questions", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  before(:each) do
+  before do
     DBHelpers.load_feature_fixtures
     generate_dummy_pq
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

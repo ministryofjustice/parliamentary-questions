@@ -24,7 +24,7 @@ describe "Transferring IN questions", js: true, suspend_cleaner: true do
     DBHelpers.load_feature_fixtures
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

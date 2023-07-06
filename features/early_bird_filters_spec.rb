@@ -1,7 +1,7 @@
 require "feature_helper"
 
 describe "User filters early bird questions", js: true, suspend_cleaner: true do
-  before(:each) do
+  before do
     DBHelpers.load_feature_fixtures
     generate_dummy_pq
 
@@ -26,7 +26,7 @@ describe "User filters early bird questions", js: true, suspend_cleaner: true do
     a.update!(member_constituency: "Kingston upon Hull North")
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

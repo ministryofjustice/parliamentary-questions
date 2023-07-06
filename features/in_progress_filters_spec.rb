@@ -14,7 +14,7 @@ describe "'In progress' page filtering:", js: true, suspend_cleaner: true do
     click_link "In progress"
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 

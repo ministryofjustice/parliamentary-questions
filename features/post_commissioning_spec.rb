@@ -17,7 +17,7 @@ describe "After commissioning", js: true, suspend_cleaner: true do
     create_pq_session
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 
