@@ -86,7 +86,7 @@ module Features
       visit early_bird_dashboard_url(token:, entity:)
     end
 
-    def visit_assignment_url(parliamentary_question, action_officer)
+    def visit_assignment_url(parliamentary_question, _action_officer)
       pq = Pq.find_by(uin: parliamentary_question.uin)
       ao_pq = ActionOfficersPq.find_by(action_officer_id: ao.id, pq_id: parliamentary_question.id)
       token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{ao_pq.id}")
