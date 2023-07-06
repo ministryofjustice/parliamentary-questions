@@ -16,11 +16,11 @@ describe "Early bird organisers can be set", suspend_cleaner: true do
   let(:current_early_bird_status_text) { "The early bird is currently turned off between #{date_from} and #{date_to}." }
   let(:current_early_bird_status_text_two) { "The early bird is currently turned off between #{date_from_new} and #{date_to_new}." }
 
-  before(:all) do
+  before(:each) do
     DBHelpers.load_feature_fixtures
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 

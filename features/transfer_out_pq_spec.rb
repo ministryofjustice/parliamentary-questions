@@ -6,7 +6,7 @@ describe "Transferring OUT questions", js: true, suspend_cleaner: true do
     DBHelpers.load_fixtures(:pqs)
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 

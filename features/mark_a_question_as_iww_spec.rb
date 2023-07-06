@@ -16,7 +16,7 @@ describe 'Creating an "I Will Write" question', js: true, suspend_cleaner: true 
     create_pq_session
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 

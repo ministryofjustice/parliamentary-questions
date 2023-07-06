@@ -9,7 +9,7 @@ describe "Watch list member sees allocated questions", suspend_cleaner: true do
     @pq  = generate_dummy_pq(@aos)
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 

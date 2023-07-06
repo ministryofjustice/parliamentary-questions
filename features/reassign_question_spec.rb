@@ -12,7 +12,7 @@ describe "Parli-branch re-assigns a question", js: true, suspend_cleaner: true d
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 

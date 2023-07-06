@@ -8,7 +8,7 @@ describe "Parli-branch manually rejecting and re-assigning OAs", js: true, suspe
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 

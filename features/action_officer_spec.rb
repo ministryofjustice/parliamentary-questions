@@ -1,11 +1,11 @@
 require "feature_helper"
 
 describe "Managing action officers", js: true, suspend_cleaner: true do
-  before(:all) do
+  before(:each) do
     DBHelpers.load_feature_fixtures
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 

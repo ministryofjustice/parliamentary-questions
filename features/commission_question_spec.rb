@@ -7,12 +7,12 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
   let(:ao2)        { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:minister)   { Minister.second                            }
 
-  before(:all) do
+  before(:each) do
     DBHelpers.load_feature_fixtures
     @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
-  after(:all) do
+  after(:each) do
     DatabaseCleaner.clean
   end
 
