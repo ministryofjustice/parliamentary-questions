@@ -34,6 +34,10 @@ class ActionlistMembersController < ApplicationController
     end
   end
 
+  def destroy
+    # This method is not implemented as we 'soft' delete data.
+  end
+
   def update
     if @actionlist_member.update(actionlist_member_params)
       flash[:success] = "Actionlist member was successfully updated."

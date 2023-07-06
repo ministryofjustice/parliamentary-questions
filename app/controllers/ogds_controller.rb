@@ -41,6 +41,10 @@ class OgdsController < ApplicationController
     end
   end
 
+  def destroy
+    # This method is not implemented as we 'soft' delete data.
+  end
+
   def find
     @results = Ogd.by_name(params[:q]).select(:id, :name, :deleted)
     render json: @results

@@ -45,6 +45,10 @@ class DivisionsController < ApplicationController
     end
   end
 
+  def destroy
+    # This method is not implemented as we 'soft' delete data.
+  end
+
 private
 
   def set_division
