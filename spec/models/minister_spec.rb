@@ -41,13 +41,13 @@ describe Minister do
   describe "#name_with_inactive_status" do
     subject { minister.name_with_inactive_status }
 
-    context "for active minister" do
+    context "when the active minister" do
       it "is the same as name" do
         expect(subject).to eql(minister.name)
       end
     end
 
-    context "for deleted minister" do
+    context "when the minister had been deleted" do
       let(:minister) { create(:deleted_minister) }
 
       it "has the inactive suffix" do

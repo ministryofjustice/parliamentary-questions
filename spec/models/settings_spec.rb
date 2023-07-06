@@ -7,7 +7,7 @@ describe Settings do
     ENV["PQ_REST_API_PASSWORD"] = "password"
   end
 
-  context "PQ Rest API" do
+  context "when PQ Rest API is called" do
     describe ".from_env" do
       it "calls new with environment variables" do
         expect(Settings::PqRestApi).to receive(:new).with("api_host", "username", "password")
@@ -23,7 +23,7 @@ describe Settings do
     end
   end
 
-  context "settings file values" do
+  context "when settings file values" do
     describe ".live_url" do
       it "returns the value from the file" do
         expect(described_class.live_url).to eq "https://trackparliamentaryquestions.service.gov.uk"
@@ -75,7 +75,7 @@ describe Settings do
     end
   end
 
-  context "MailWorker" do
+  context "when checking the MailWorker" do
     describe ".pid_filepath" do
       it "returns the value from the file" do
         expect(described_class.mail_worker.pid_filepath).to eq "/tmp/mail_worker.pid"
@@ -95,7 +95,7 @@ describe Settings do
     end
   end
 
-  context "Gecko Warning Levels" do
+  context "when checking the Gecko warning levels" do
     it "returns the values in the file" do
       expect(described_class.gecko_warning_levels.num_emails_waiting).to eq 15
       expect(described_class.gecko_warning_levels.num_emails_abandoned).to eq 1
@@ -103,7 +103,7 @@ describe Settings do
     end
   end
 
-  context "Smoke Test Runner" do
+  context "when Smoke Test Runner run" do
     describe ".out_file" do
       it "returns the value in the file" do
         expect(described_class.smoke_test_runner.out_file).to eq "/tmp/smoke_test_run"

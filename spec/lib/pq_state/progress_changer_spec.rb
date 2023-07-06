@@ -31,7 +31,7 @@ describe "PQState#progress_changer" do
       end
     end
 
-    context "moving from an intermediate state to a possible final state" do
+    context "when moving from an intermediate state to a possible final state" do
       it "returns the final state" do
         pq = stub_pq(transfer_out_ogd_id: "test-id",
                      transfer_out_date: Time.zone.now)
@@ -40,7 +40,7 @@ describe "PQState#progress_changer" do
       end
     end
 
-    context "moving from the initialial to the final state" do
+    context "when moving from the initialial to the final state" do
       it "returns the final state" do
         pq = stub_pq(transfer_out_ogd_id: "test-id",
                      transfer_out_date: Time.zone.now,

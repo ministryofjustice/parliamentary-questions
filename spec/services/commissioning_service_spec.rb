@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe CommissioningService do
-  shared_context "test_values" do
+  shared_context "test_values" do # rubocop:disable RSpec/ContextWording
     let(:ao1)                 { DBHelpers.action_officers[0] }
     let(:ao2)                 { DBHelpers.action_officers[1] }
     let(:form)                { CommissionForm.new(form_params) }

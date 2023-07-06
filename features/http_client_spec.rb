@@ -12,7 +12,7 @@ describe HTTPClient do
 
   let(:client) { described_class.new(*default_settings) }
 
-  context "issuing requests" do
+  context "when issuing requests" do
     it "sends a get request to the server" do
       res = client.issue_request(:get, "#{client.base_url}/")
 
@@ -38,7 +38,7 @@ describe HTTPClient do
     end
   end
 
-  context "authentication" do
+  context "when authenticating" do
     it "authenticates based on credentials provided" do
       expect_any_instance_of(Net::HTTP::Get).to receive(:basic_auth)
         .with("username", "password")

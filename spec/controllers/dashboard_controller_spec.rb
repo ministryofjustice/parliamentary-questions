@@ -2,7 +2,7 @@ require "spec_helper"
 require Rails.root.join("spec/support/features/session_helpers").to_s
 
 describe DashboardController, type: :controller do
-  context "dashboard sorting" do
+  context "when sorting the dashboard" do
     describe "GET backlog" do
       it "sorts the Backlog questions by date and state weight and return them all" do
         setup_questions

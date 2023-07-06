@@ -18,14 +18,14 @@ describe Presenters::Report do
   let(:report_data)     { {} }
 
   describe "#header_values" do
-    context "minister report" do
+    context "when minister report is selected" do
       it "produces the expected header values" do
         expected = ministers.map { |m| [m.name, filter_all_path(minister_id: m.id)] }
         expect(header_values(minister_report)).to eq(expected)
       end
     end
 
-    context "press desk report" do
+    context "when press desk report is selected" do
       it "produces the expected header values" do
         expected = press_desks.map { |pd| [pd.name, filter_all_path(press_desk_id: pd.id)] }
         expect(header_values(pd_report)).to eq(expected)

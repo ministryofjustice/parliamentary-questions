@@ -14,7 +14,7 @@ describe NotifyPqMailer, type: :mailer do
       expect(mail.to).to eq([ao.email])
     end
 
-    context "optional variables are not set" do
+    context "when optional variables are not set" do
       it "sets the personalisation in the email" do
         expect(mail.govuk_notify_personalisation)
           .to eq(
@@ -33,7 +33,7 @@ describe NotifyPqMailer, type: :mailer do
       end
     end
 
-    context "optional variables are all set" do
+    context "when optional variables are all set" do
       it "sets the personalisation in the email" do
         minister = FactoryBot.create(:minister)
         pq.update!(member_constituency: "Kingston upon Hull North",

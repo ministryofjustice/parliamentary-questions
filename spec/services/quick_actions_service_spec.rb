@@ -23,7 +23,7 @@ describe "QuickActionsService" do
     expect(@quick_actions_service.valid_pq_list(@pq_list)).to eq(@pqs_array)
   end
 
-  context "Update dates is run" do
+  context "when update dates is run" do
     it "Doesn't validate a list of valid PQs with invalid internal_deadline" do
       expect(@quick_actions_service.valid?(@pq_list, "0/0/0000")).to eq(false)
     end
@@ -96,7 +96,7 @@ describe "QuickActionsService" do
     end
   end
 
-  context "Send Draft Reminders" do
+  context "when Send Draft Reminders" do
     it "Gets action officer association of an accepted Pq" do
       expect(@quick_actions_service.get_action_officer_pqs_id(pq_with_state).to_s).to eq(pq_with_state.action_officers_pqs.find(&:accepted?).id.to_s)
     end

@@ -16,7 +16,7 @@ describe SmokeTest do
     expect(tests[2]).to be_an_instance_of SmokeTest::Statistics
   end
 
-  context "Base" do
+  context "with the base test set up" do
     let(:test) { SmokeTest::Base.from_env }
 
     it "#from_env - should create an instance based on environment variables" do

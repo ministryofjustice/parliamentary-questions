@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Metrics::Health do
   describe "#collect!" do
-    context "DB" do
+    context "when calling the PQA API" do
       before do
         allow(subject).to receive(:get_pqa_api_status).and_return(true)
       end
@@ -31,7 +31,7 @@ describe Metrics::Health do
       end
     end
 
-    context "PQA API" do
+    context "when testing the PQA API call function" do
       let(:pqa_file) { Metrics::Health::PqaFile }
       let(:pqa_data) { "1431099345::OK::[]\n" }
 

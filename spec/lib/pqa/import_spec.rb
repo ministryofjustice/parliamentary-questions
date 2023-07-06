@@ -106,7 +106,7 @@ describe PQA::Import do
       end
     end
 
-    context "importing a single question" do
+    context "when importing a single question" do
       before do
         # first import
         loader.load(questions(
@@ -115,7 +115,7 @@ describe PQA::Import do
                     ))
       end
 
-      context "specifying a question that does exist" do
+      context "when specifying a question that does exist" do
         it "updates the question and return the report" do
           report = import.run_for_question("uin-1")
           expect(report[:total]).to eq 1

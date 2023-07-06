@@ -6,8 +6,8 @@ describe Export::PqDefault do
 
   let(:export) { described_class.new(Date.yesterday, Time.zone.today) }
 
-  context "For output to Excel" do
-    it "Inserts a single quote to escape a formula in Excel" do
+  context "when exporting to an Excel file" do
+    it "Inserts a single quote to escape a formula" do
       expect(export.escape_equals_for_excel('=HYPERLINK("http://www.somedodgysite.com/","Innocuous Looking Link")')).to eq("'=HYPERLINK(\"http://www.somedodgysite.com/\",\"Innocuous Looking Link\")")
     end
 

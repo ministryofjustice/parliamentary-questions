@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe HealthCheckService do
-  context "PqaApi is run" do
+  context "when the PQA API is run" do
     it "calls accessible and avaiable on all checks" do
       expect(HealthCheck::PqaApi).to receive(:time_to_run?).and_return(true)
       expect_any_instance_of(HealthCheck::Database).to receive(:available?).and_return(true)
