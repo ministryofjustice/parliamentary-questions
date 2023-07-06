@@ -68,8 +68,9 @@ describe "Managing action officers", js: true, suspend_cleaner: true do
     ao = ActionOfficer.last
     expect(page).to have_content ao.name
 
-    ao.update_attribute :deleted, true
-    ao.update_attribute :updated_at, 2.weeks.ago
+    ao.update(deleted:, true)
+    ao.update(updated_at:, 2.weeks.ago)
+
     visit action_officers_path
     expect(page).not_to have_content ao.name
 
