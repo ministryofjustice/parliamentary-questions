@@ -1,3 +1,7 @@
+RuboCop::RakeTask.new do |task|
+  task.requires << "rubocop-rails"
+end
+
 namespace :pqa do
   desc "Perform nightly import"
   task :nightly_import, [] => :environment do
