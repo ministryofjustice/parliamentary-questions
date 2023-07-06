@@ -190,8 +190,8 @@ describe PqaImportRun, type: :model do
   end
 end
 
-def times_equal?(t1, t2)
-  t1.to_f.round(2) == t2.to_f.round(2)
+def times_equal?(time1, time2)
+  time1.to_f.round(2) == time2.to_f.round(2)
 end
 
 def all_ok_report

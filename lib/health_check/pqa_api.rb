@@ -75,8 +75,8 @@ module HealthCheck
 
   private
 
-    def log_error(type, e)
-      @errors << "PQA API #{type} Error: #{e.message}"
+    def log_error(type, error)
+      @errors << "PQA API #{type} Error: #{error.message}"
     end
 
     def perform_get(uri_s)

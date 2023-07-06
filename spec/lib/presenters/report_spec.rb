@@ -3,12 +3,12 @@ require "spec_helper"
 describe Presenters::Report do
   include Rails.application.routes.url_helpers
 
-  def header_values(r)
-    r.header_cells.map { |c| [c.label, c.path] }
+  def header_values(param)
+    param.header_cells.map { |c| [c.label, c.path] }
   end
 
-  def row_values(r)
-    [r.label, r.cells.map { |c| [c.count, c.path] }]
+  def row_values(param)
+    [param.label, param.cells.map { |c| [c.count, c.path] }]
   end
 
   let(:ministers)       { DBHelpers.ministers                                     }

@@ -112,12 +112,12 @@ private
     end
   end
 
-  def check_visible_pqs(q1, q2, q3)
+  def check_visible_pqs(first_question, second_question, third_question)
     within("#count") { expect(page).to have_text("1 parliamentary question out of 3.") }
     within(".questions-list") do
-      expect(page).to have_text(q1)
-      expect(page).not_to have_text(q2)
-      expect(page).not_to have_text(q3)
+      expect(page).to have_text(first_question)
+      expect(page).not_to have_text(second_question)
+      expect(page).not_to have_text(third_question)
     end
   end
 end

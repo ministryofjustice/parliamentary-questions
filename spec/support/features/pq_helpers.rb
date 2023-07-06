@@ -22,14 +22,14 @@ module Features
       expect(page).to have_content("#{uin} commissioned successfully")
     end
 
-    def accept_assignment(pq, ao)
-      visit_assignment_url(pq, ao)
+    def accept_assignment(parliamentary_question, action_officer)
+      visit_assignment_url(parliamentary_question, action_officer)
       choose "Accept"
       click_on "Save Response"
     end
 
-    def reject_assignment(pq, ao, option_index, reason_text)
-      visit_assignment_url(pq, ao)
+    def reject_assignment(parliamentary_question, action_officer, option_index, reason_text)
+      visit_assignment_url(parliamentary_question, action_officer)
       choose "Reject"
 
       find('select[name="allocation_response[reason_option]"]')
@@ -86,9 +86,9 @@ module Features
       visit early_bird_dashboard_url(token:, entity:)
     end
 
-    def visit_assignment_url(pq, ao)
-      pq = Pq.find_by(uin: pq.uin)
-      ao_pq = ActionOfficersPq.find_by(action_officer_id: ao.id, pq_id: pq.id)
+    def visit_assignment_url(parliamentary_question, action_officer)
+      pq = Pq.find_by(uin: parliamentary_question.uin)
+      ao_pq = ActionOfficersPq.find_by(action_officer_id: ao.id, pq_id: parliamentary_question.id)
       token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{ao_pq.id}")
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 

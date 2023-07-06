@@ -1,6 +1,6 @@
 module Unit
   module QuestionFactory
-    def mk_pq(uin, h = {})
+    def mk_pq(uin, question_elements = {})
       default_h = {
         uin:,
         raising_member_id: 1,
@@ -10,7 +10,7 @@ module Unit
         draft_answer_received: Time.zone.today,
       }
 
-      Pq.create!(default_h.merge(h))
+      Pq.create!(default_h.merge(question_elements))
     end
   end
 end

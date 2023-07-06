@@ -30,29 +30,29 @@ module Presenters
       attr_reader :title, :headers, :rows
 
       def self.format(data)
-        data[0...-1].map.with_index do |item, i|
+        data[0...-1].map.with_index do |item, index|
           DataPoint.new(
-            *format_item(item, data, i),
+            *format_item(item, data, index),
           )
         end
       end
 
       private_class_method :format
 
-      def self.format_item(item, data, i)
+      def self.format_item(item, data, index)
         [
           item.start_date.to_s(:date),
           sprintf("%.1f", item.mean / (60 * 60)),
-          arrow_for(item.mean - data[i + 1].mean),
+          arrow_for(item.mean - data[index + 1].mean),
         ]
       end
 
       private_class_method :format_item
 
-      def self.arrow_for(n)
-        if n.positive?
+      def self.arrow_for(number)
+        if number.positive?
           "↑"
-        elsif n.negative?
+        elsif number.negative?
           "↓"
         else
           "↔"
@@ -83,11 +83,11 @@ module Presenters
 
       # private
 
-      def self.format_item(item, data, i)
+      def self.format_item(item, data, index)
         [
           item.start_date.to_s(:date),
           sprintf("%.2f%%", item.percentage * 100),
-          arrow_for(item.percentage - data[i + 1].percentage),
+          arrow_for(item.percentage - data[index + 1].percentage),
         ]
       end
     end
@@ -123,11 +123,11 @@ module Presenters
 
       # private
 
-      def self.format_item(item, data, i)
+      def self.format_item(item, data, index)
         [
           item.start_date.to_s(:date),
           sprintf("%.2f", item.mean),
-          arrow_for(item.mean - data[i + 1].mean),
+          arrow_for(item.mean - data[index + 1].mean),
         ]
       end
     end

@@ -130,8 +130,8 @@ describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner:
     end
   end
 
-  def accept_commission(pq, ao)
-    visit_assignment_url(pq, ao)
+  def accept_commission(parliamentary_question, action_officer)
+    visit_assignment_url(parliamentary_question, action_officer)
     choose "Accept"
     click_on "Save"
     visit dashboard_path

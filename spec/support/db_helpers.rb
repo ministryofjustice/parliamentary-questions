@@ -44,8 +44,8 @@ module_function
     end
   end
 
-  def pqs(n = 4)
-    (1..n).map do |n|
+  def pqs(param = 4)
+    (1..param).map do |n|
       Pq.find_or_create_by(
         uin: "uin-#{n}",
         house_id: 1,

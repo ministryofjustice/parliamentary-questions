@@ -38,9 +38,9 @@ def setup_training_action_officers
   end
 end
 
-def allocate_division_to_ao(ao, division_id)
+def allocate_division_to_ao(action_officer, division_id)
   division = Division.find(division_id)
-  ao.update_attribute(:deputy_director_id, division.deputy_directors.active.first.id)
+  action_officer.update_attribute(:deputy_director_id, division.deputy_directors.active.first.id)
 end
 
 def setup_training_questions
@@ -94,7 +94,7 @@ def populate_seeds
 end
 
 # def create_question(i, seed_question)
-def create_question(_i, seed_question)
+def create_question(_i, seed_question) # rubocop:disable Naming/MethodParameterName
   uin = (seed_question.uin.to_i + 600_000).to_s
 
   Pq.create!(

@@ -1,11 +1,11 @@
 module CSVHelpers
-  def date_s(d)
-    _m = sprintf("%02d", d.month)
-    _d = sprintf("%02d", d.day)
-    "#{d.year}-#{_m}-#{_d} 00:00"
+  def date_s(date)
+    _m = sprintf("%02d", date.month)
+    _d = sprintf("%02d", date.day)
+    "#{date.year}-#{_m}-#{_d} 00:00"
   end
 
-  def decode_csv(s)
-    CSV.new(s, headers: true).to_a.map(&:to_hash)
+  def decode_csv(csv_file)
+    CSV.new(csv_file, headers: true).to_a.map(&:to_hash)
   end
 end

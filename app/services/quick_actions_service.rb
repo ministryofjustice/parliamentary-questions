@@ -61,8 +61,8 @@ class QuickActionsService
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def get_action_officer_pqs_id(pq)
-    ao_pq = pq.action_officers_pqs.find(&:accepted?)
+  def get_action_officer_pqs_id(parliamentary_question)
+    ao_pq = parliamentary_question.action_officers_pqs.find(&:accepted?)
     ao_pq&.id
   end
 

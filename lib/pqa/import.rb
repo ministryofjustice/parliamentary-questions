@@ -44,22 +44,22 @@ module PQA
       }
     end
 
-    def insert_or_update(q)
-      uin = q.uin
+    def insert_or_update(question)
+      uin = question.uin
       pq  = Pq.find_or_initialize_by(uin:)
 
       pq.uin                 = uin
-      pq.raising_member_id   = q.member_id
-      pq.question            = q.text
-      pq.tabled_date         = q.tabled_date
-      pq.member_name         = q.member_name
-      pq.member_constituency = q.member_constituency
-      pq.house_name          = q.house_name
-      pq.registered_interest = q.registered_interest
-      pq.question_type       = q.question_type
-      pq.question_status     = q.question_status
-      pq.preview_url         = q.url
-      pq.date_for_answer     = pq.date_for_answer || q.date_for_answer
+      pq.raising_member_id   = question.member_id
+      pq.question            = question.text
+      pq.tabled_date         = question.tabled_date
+      pq.member_name         = question.member_name
+      pq.member_constituency = question.member_constituency
+      pq.house_name          = question.house_name
+      pq.registered_interest = question.registered_interest
+      pq.question_type       = question.question_type
+      pq.question_status     = question.question_status
+      pq.preview_url         = question.url
+      pq.date_for_answer     = pq.date_for_answer || question.date_for_answer
       pq.transferred         ||= false
       pq.state               ||= PQState::UNASSIGNED
 

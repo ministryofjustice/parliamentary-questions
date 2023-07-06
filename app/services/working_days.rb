@@ -1,7 +1,7 @@
 require "date"
 
 class WorkingDays
-  def self.days_after(d, v)
+  def self.days_after(d, v) # rubocop:disable Naming/MethodParameterName
     result = d + v.days
     loop do
       break unless weekend?(result)

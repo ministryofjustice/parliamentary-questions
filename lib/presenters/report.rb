@@ -35,23 +35,23 @@ module Presenters
       new(header_cells, rows, title)
     end
 
-    def self.present_cell(r)
-      case r
+    def self.present_cell(report)
+      case report
       when Minister
-        ClickableCell.minister(r.name, r.id)
+        ClickableCell.minister(report.name, report.id)
       when PressDesk
-        ClickableCell.press_desk(r.name, r.id)
+        ClickableCell.press_desk(report.name, report.id)
       else
         raise ArgumentError, "record should be a Minister or a PressDesk"
       end
     end
 
-    def self.present_count_cell(count, r, state)
-      case r
+    def self.present_count_cell(count, report, state)
+      case report
       when Minister
-        CountCell.minister(count, r.id, state)
+        CountCell.minister(count, report.id, state)
       when PressDesk
-        CountCell.press_desk(count, r.id, state)
+        CountCell.press_desk(count, report.id, state)
       else
         raise ArgumentError, "record should be a Minister or a PressDesk"
       end

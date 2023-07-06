@@ -129,7 +129,7 @@ describe Pq do
   end
 
   describe ".count_accepted_by_press_desk" do
-    def accept_pq(pq, ao)
+    def accept_pq(pq, ao) # rubocop:disable Naming/MethodParameterName
       pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
                                                      response: "accepted",
                                                      pq:)
@@ -235,7 +235,7 @@ describe Pq do
   end
 
   describe ".filter_for_report" do
-    def commission_and_accept(pq, ao, minister)
+    def commission_and_accept(pq, ao, minister)  # rubocop:disable Naming/MethodParameterName
       pq.state    = PQState::WITH_POD
       pq.minister = minister
       pq.action_officers_pqs << ActionOfficersPq.new(
