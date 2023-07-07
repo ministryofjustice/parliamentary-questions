@@ -4,7 +4,7 @@ describe HealthCheckController, type: :controller do
   describe "INDEX" do
     it "returns 200 if successful" do
       service = double HealthCheckService
-      report = HealthCheckService::HealthCheckReport.new("200", "All Components OK");
+      report = HealthCheckService::HealthCheckReport.new("200", "All Components OK")
       allow(HealthCheckService).to receive(:new).and_return(service)
       expect(HealthCheckService).to receive(:new)
       allow(service).to receive(:report).and_return(report)

@@ -70,7 +70,6 @@ describe Token, type: :model do
       t = FactoryBot.build(:token)
       expect(t.acknowledged?).to be false
     end
-
   end
 
   describe ".watchlist_status" do
