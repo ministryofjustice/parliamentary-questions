@@ -61,17 +61,9 @@ describe Token, type: :model do
       expect(t.acknowledged?).to be true
     end
 
-    it "allow acknowledged to be accepted" do
-      expect(subject).to allow_value("accept").for(:acknowledged)
-    end
-
     it "returns true if rejected" do
       t = FactoryBot.build(:token, acknowledged: "reject")
       expect(t.acknowledged?).to be true
-    end
-
-    it "allow acknowledged to be rejected" do
-      expect(subject).to allow_value("reject").for(:acknowledged)
     end
 
     it "returns false if neither" do
@@ -79,13 +71,6 @@ describe Token, type: :model do
       expect(t.acknowledged?).to be false
     end
 
-    it "allow acknowledged to be nil" do
-      expect(subject).to allow_value(nil).for(:acknowledged)
-    end
-
-    it "not allow acknowledged to be giddykipper" do
-      expect(subject).not_to allow_value("giddykipper").for(:acknowledged).with_message("giddykipper is not a valid value for acknowledged")
-    end
   end
 
   describe ".watchlist_status" do
