@@ -8,7 +8,6 @@ orbs:
 references:
   defaults: &defaults
     working_directory: ~/parliamentary-questions
-    resource_class: small
 
 # Sets up the docker images and environment variables that we use
   test_container_config: &test_container_config
@@ -117,13 +116,17 @@ references:
         ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
         ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
 
-  configure_aws_profile: &configure_aws_profile
+  aws_setup: &aws_setup
+    # Authenticate to AWS using OIDC v2 with the AWS CLI
+    aws-cli/setup:
+      role_arn: $ECR_ROLE_TO_ASSUME
+      region: $ECR_REGION
+
+  ecr_login: &ecr_login
     run:
-      name: Configure AWS CLI
+      name: Authenticate to the ECR repository
       command: |
-        aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ecr-live-parliamentary-questions
-        aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ecr-live-parliamentary-questions
-        aws configure set default.region ${AWS_DEFAULT_REGION} --profile ecr-live-parliamentary-questions
+        aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
 
   build_and_push_docker_image: &build_and_push_docker_image
     run:
