@@ -128,16 +128,34 @@ references:
       command: |
         aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
 
-  build_and_push_docker_image: &build_and_push_docker_image
+  configure_build_tag: &configure_build_tag
     run:
-      name: Build docker image
+      name: Create build tag
       command: |
-        . build.sh circleci
+        current_branch=$(git branch | grep \* | cut -d ' ' -f2)
+        short_version=$(git rev-parse --short $current_branch
+        build_tag=cmoj-${current_branch}-${short_version}
+        echo "export BUILD_TAG=${build_tag}" >> $BASH_ENV
+        source $BASH_ENV
         mkdir -p workspace
         echo $BUILD_TAG > workspace/build_tag
-        python3 config/pipeline/aws_ecr_scan_results.py --search parliamentary-questions --tag $BUILD_TAG --slack_webhook $SLACK_WEBHOOK || true
 
-  deploy_to_dev: &deploy_to_dev
+  build_and_push_image: &build_and_push_image
+    aws-ecr/build-image:
+      push-image: true
+      tag: $BUILD_TAG
+      region: $ECR_REGION
+      repo: $ECR_REPOSITORY
+
+  scan_for_vulnerabilities: &scan_for_vulnerabilities
+    run:
+      name: Check ECR scan results
+      command: |
+        build_tag=`cat /tmp/workspace/build_tag`
+        python3 config/pipeline/aws_ecr_scan_results.py --search track-a-query-ecr --tag $build_tag --slack_webhook ${SLACK_WEBHOOK_CT} || true
+
+
+  deploy_to_development: &deploy_to_development
     run:
       name: Deploy to Development environment
       command: |
@@ -168,7 +186,8 @@ jobs:
 
   build_and_test:
     <<: *test_container_config
-    resource_class: small
+    <<: *defaults
+    resource_class: xlarge
     working_directory: ~/parliamentary-questions
     steps:
       - checkout
@@ -185,34 +204,44 @@ jobs:
       - *upload_test_coverage
 
   build_branch_and_push_to_ecr:
-    <<: *deploy_container_config
+    executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
     <<: *defaults
     steps:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
-      - setup_remote_docker
-      - *configure_aws_profile
-      - *build_and_push_docker_image
+      - *aws_setup
+      - *ecr_login
+      - *configure_build_tag
+      - *build_and_push_image
       - persist_to_workspace:
           root: workspace
           paths:
             - build_tag
 
   build_main_and_push_to_ecr:
-    <<: *deploy_container_config
+    executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
     <<: *defaults
     steps:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
-      - setup_remote_docker
-      - *configure_aws_profile
-      - *build_and_push_docker_image
+      - *aws_setup
+      - *ecr_login
+      - *configure_build_tag
+      - *build_and_push_image
       - persist_to_workspace:
           root: workspace
           paths:
             - build_tag
+
+  scan_image:
+    <<: *deploy_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - *scan_for_vulnerabilities
 
   dev_deployment_tasks: &do_dev_deployment_tasks
     <<: *deploy_container_config
