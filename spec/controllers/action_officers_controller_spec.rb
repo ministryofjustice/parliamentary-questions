@@ -6,8 +6,10 @@ describe ActionOfficersController, type: :controller do
       create_divisions_for_deputy_directors
       create_deputy_directors_for_action_officers
       create_action_officers
-      expect(PQUserFilter).to receive(:before).and_return(true)
-      expect(controller).to receive(:authenticate_user!).and_return(true)
+      allow(PQUserFilter).to receive(:before).and_return(true)
+      expect(PQUserFilter).to receive(:before)
+      allow(controller).to receive(:authenticate_user!).and_return(true)
+      expect(controller).to receive(:authenticate_user!)
       get :index
       expect(response.status).to eq(200)
       expect(assigns(:action_officers).map(&:name)).to eq expected_order_of_action_officers

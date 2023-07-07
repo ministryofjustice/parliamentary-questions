@@ -5,8 +5,10 @@ describe DeputyDirectorsController, type: :controller do
     it "lists the Deputy Directors sorted alphabetically (first name) by active then inactive states" do
       create_divisions_for_deputy_directors
       create_deputy_directors
-      expect(PQUserFilter).to receive(:before).and_return(true)
-      expect(controller).to receive(:authenticate_user!).and_return(true)
+      allow(PQUserFilter).to receive(:before).and_return(true)
+      expect(PQUserFilter).to receive(:before)
+      allow(controller).to receive(:authenticate_user!).and_return(true)
+      expect(controller).to receive(:authenticate_user!)
       get :index
       expect(response.status).to eq(200)
       expect(assigns(:deputy_directors).map(&:name)).to eq expected_order_of_deputy_directors

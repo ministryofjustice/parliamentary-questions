@@ -6,8 +6,10 @@ describe DashboardController, type: :controller do
     describe "GET backlog" do
       it "sorts the Backlog questions by date and state weight and return them all" do
         setup_questions
-        expect(PQUserFilter).to receive(:before).and_return(true)
-        expect(controller).to receive(:authenticate_user!).and_return(true)
+        allow(PQUserFilter).to receive(:before).and_return(true)
+        expect(PQUserFilter).to receive(:before)
+        allow(controller).to receive(:authenticate_user!).and_return(true)
+        expect(controller).to receive(:authenticate_user!)
         get :backlog
         expect(response.status).to eq(200)
         expect(assigns(:questions).map(&:uin)).to eq expected_order_of_overdue_questions
@@ -17,8 +19,10 @@ describe DashboardController, type: :controller do
     describe "GET by_status" do
       it "returns all questions in unassigned status sorted for dashboard order" do
         setup_questions
-        expect(PQUserFilter).to receive(:before).and_return(true)
-        expect(controller).to receive(:authenticate_user!).and_return(true)
+        allow(PQUserFilter).to receive(:before).and_return(true)
+        expect(PQUserFilter).to receive(:before)
+        allow(controller).to receive(:authenticate_user!).and_return(true)
+        expect(controller).to receive(:authenticate_user!)
         get :unassigned
         expect(response.status).to eq(200)
         expect(assigns(:questions).map(&:uin)).to eq expected_order_of_unassigned_questions
@@ -28,8 +32,10 @@ describe DashboardController, type: :controller do
     describe "GET in_progress" do
       it "sorts the in-progress questions by date and state weight and return them all" do
         setup_questions
-        expect(PQUserFilter).to receive(:before).and_return(true)
-        expect(controller).to receive(:authenticate_user!).and_return(true)
+        allow(PQUserFilter).to receive(:before).and_return(true)
+        expect(PQUserFilter).to receive(:before)
+        allow(controller).to receive(:authenticate_user!).and_return(true)
+        expect(controller).to receive(:authenticate_user!)
         get :in_progress
         expect(response.status).to eq(200)
         expect(assigns(:questions).map(&:uin)).to eq expected_order_in_progress_questions
@@ -39,8 +45,10 @@ describe DashboardController, type: :controller do
     describe "GET index" do
       it "sorts the new questions by date and state weight" do
         setup_questions
-        expect(PQUserFilter).to receive(:before).and_return(true)
-        expect(controller).to receive(:authenticate_user!).and_return(true)
+        allow(PQUserFilter).to receive(:before).and_return(true)
+        expect(PQUserFilter).to receive(:before)
+        allow(controller).to receive(:authenticate_user!).and_return(true)
+        expect(controller).to receive(:authenticate_user!)
         get :index
         expect(response.status).to eq(200)
         expect(assigns(:questions).map(&:uin)).to eq expected_order_of_new_questions

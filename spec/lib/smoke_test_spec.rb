@@ -27,13 +27,14 @@ describe SmokeTest do
 
     it "#passed? - logs into the application and calls all_checks_succeed?" do
       expect(test).to receive(:login_to_app)
-      expect(test).to receive(:all_checks_succeed?).and_return(true)
+      allow(test).to receive(:all_checks_succeed?).and_return(true)
+      expect(test).to receive(:all_checks_succeed?)
       expect(test.passed?).to be true
     end
 
     it "#passed? - returns false if an error is raised" do
-      expect(test).to receive(:login_to_app).and_raise(StandardError)
-
+      allow(test).to receive(:login_to_app).and_raise(StandardError)
+      expect(test).to receive(:login_to_app)
       expect(test.passed?).to be false
     end
   end

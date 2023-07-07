@@ -86,7 +86,8 @@ describe "AOTokenFilter" do
     let(:request)    { double("request") }
 
     it "does not write an error log if valid" do
-      expect(AOTokenFilter).to receive(:validate_token).and_return(:valid)
+      allow(AOTokenFilter).to receive(:validate_token).and_return(:valid)
+      expect(AOTokenFilter).to receive(:validate_token)
       expect(LogStuff).not_to receive(:error)
 
       AOTokenFilter.before(controller)

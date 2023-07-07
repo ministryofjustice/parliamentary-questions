@@ -4,9 +4,11 @@ describe HealthCheckController, type: :controller do
   describe "INDEX" do
     it "returns 200 if successful" do
       service = double HealthCheckService
-      report = HealthCheckService::HealthCheckReport.new("200", "All Components OK")
-      expect(HealthCheckService).to receive(:new).and_return(service)
-      expect(service).to receive(:report).and_return(report)
+      report = HealthCheckService::HealthCheckReport.new("200", "All Components OK");
+      allow(HealthCheckService).to receive(:new).and_return(service)
+      expect(HealthCheckService).to receive(:new)
+      allow(service).to receive(:report).and_return(report)
+      expect(service).to receive(:report)
 
       get :index
       expect(response.status).to eq(200)
@@ -16,8 +18,10 @@ describe HealthCheckController, type: :controller do
     it "returns 500 if unsuccessful" do
       service = double HealthCheckService
       report = HealthCheckService::HealthCheckReport.new("500", ["Error message 1", "Error message 2"])
-      expect(HealthCheckService).to receive(:new).and_return(service)
-      expect(service).to receive(:report).and_return(report)
+      allow(HealthCheckService).to receive(:new).and_return(service)
+      expect(HealthCheckService).to receive(:new)
+      allow(service).to receive(:report).and_return(report)
+      expect(service).to receive(:report)
 
       get :index
       expect(response.status).to eq(500)

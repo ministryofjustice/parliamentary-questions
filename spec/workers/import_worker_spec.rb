@@ -22,7 +22,8 @@ describe ImportWorker do
       allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
       Timecop.freeze freeze_time do
         expect(PqaImportRun.count).to eq(0)
-        expect(importer).to receive(:run).with(three_days_ago, five_mins_from_now).and_return(ok_report)
+        allow(importer).to receive(:run).with(three_days_ago, five_mins_from_now).and_return(ok_report)
+        expect(importer).to receive(:run).with(three_days_ago, five_mins_from_now)
 
         worker.perform
       end
@@ -32,7 +33,8 @@ describe ImportWorker do
       allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
       Timecop.freeze freeze_time do
         allow(PqaImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
-        expect(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
+        allow(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
+        expect(importer).to receive(:run).with(last_import_time, five_mins_from_now)
 
         worker.perform
       end
@@ -42,7 +44,8 @@ describe ImportWorker do
       allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
       Timecop.freeze freeze_time do
         allow(PqaImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
-        expect(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
+        allow(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
+        expect(importer).to receive(:run).with(last_import_time, five_mins_from_now)
 
         worker.perform
         pir = PqaImportRun.last

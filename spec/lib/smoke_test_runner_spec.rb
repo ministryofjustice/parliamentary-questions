@@ -13,9 +13,10 @@ describe SmokeTestRunner do
 
   it "#run! - runs the test suite and records result to file" do
     test = double SmokeTest::Base, passed?: true
-
-    expect(SmokeTest).to receive(:factory).and_return([test])
-    expect(File).to receive(:open).with(out_file, "w").and_yield(f)
+    allow(SmokeTest).to receive(:factory).and_return([test])
+    allow(File).to receive(:open).with(out_file, "w").and_yield(f)
+    expect(SmokeTest).to receive(:factory)
+    expect(File).to receive(:open).with(out_file, "w")
     expect(f).to receive(:write).with(0)
 
     described_class.run!
@@ -24,18 +25,18 @@ describe SmokeTestRunner do
   it "#run_time - returns the timestamp of the last run" do
     now = Time.zone.now
     allow(File).to receive(:exist?).with(out_file).and_return(true)
-
-    expect(File).to receive(:ctime).with(out_file).and_return(now)
+    allow(File).to receive(:ctime).with(out_file).and_return(now)
+    expect(File).to receive(:ctime).with(out_file)
     expect(described_class.run_time).to eq now
   end
 
   it "#run_success? - returns whether the last run was successful" do
     allow(File).to receive(:exist?).with(out_file).and_return(true)
-
-    expect(File).to receive(:read).with(out_file).and_return("0")
+    allow(File).to receive(:read).with(out_file).and_return("0")
+    expect(File).to receive(:read).with(out_file)
     expect(described_class.run_success?).to eq true
-
-    expect(File).to receive(:read).with(out_file).and_return("1")
+    allow(File).to receive(:read).with(out_file).and_return("1")
+    expect(File).to receive(:read).with(out_file)
     expect(described_class.run_success?).to eq false
   end
 end

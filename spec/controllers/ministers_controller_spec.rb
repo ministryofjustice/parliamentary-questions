@@ -4,8 +4,10 @@ describe MinistersController, type: :controller do
   describe "Get index" do
     it "lists the Ministers sorted alphabetically (first name) by active then inactive states" do
       create_ministers
-      expect(PQUserFilter).to receive(:before).and_return(true)
-      expect(controller).to receive(:authenticate_user!).and_return(true)
+      allow(PQUserFilter).to receive(:before).and_return(true)
+      expect(PQUserFilter).to receive(:before)
+      allow(controller).to receive(:authenticate_user!).and_return(true)
+      expect(controller).to receive(:authenticate_user!)
       get :index
       expect(response.status).to eq(200)
       expect(assigns(:ministers).map(&:name)).to eq expected_order_of_ministers
