@@ -111,7 +111,7 @@ describe "QuickActionsService" do
       expect(@quick_actions_service.mail_reminders(@pqs_array2)).to eq([pq_with_state])
     end
 
-    it "Mails the draft reminder to the Action officer who accepted a question" do
+    it "Mails second draft reminder to the Action officer who accepted a question" do
       @pqs_array2 = []
       @pqs_array2.push(pq_with_state)
       @pqs_array2.push(pq_with_state2)
