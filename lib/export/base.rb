@@ -1,5 +1,5 @@
 module Export
-  # NOTE :
+  # Note
   # The format of this CSV export is intended to match the structure of the
   # spredsheet used by Parli-branch for offline reporting.
   #
