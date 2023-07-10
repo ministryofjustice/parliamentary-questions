@@ -103,9 +103,9 @@ describe GeckoStatus do
   end
 
   describe PqaImportStatus do
-    let(:info)     { Metrics::PqaImport.new                      }
-    let(:metrics)  { instance_double "metrics", pqa_import: info          }
-    let(:status)   { described_class.new                         }
+    let(:info)     { Metrics::PqaImport.new }
+    let(:metrics)  { instance_double "metrics", pqa_import: info }
+    let(:status)   { described_class.new }
 
     describe "#update" do
       it "calls ok when there are no issues" do
@@ -135,9 +135,9 @@ describe GeckoStatus do
   end
 
   describe SmokeTestStatus do
-    let(:info)     { Metrics::SmokeTests.new                     }
-    let(:metrics)  { instance_double "metrics", smoke_tests: info         }
-    let(:status)   { described_class.new                         }
+    let(:info)     { Metrics::SmokeTests.new }
+    let(:metrics)  { instance_double "metrics", smoke_tests: info }
+    let(:status)   { described_class.new }
 
     describe "#update" do
       it "calls ok when there are no issues" do

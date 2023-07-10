@@ -3,13 +3,13 @@ require "spec_helper"
 describe "PQState#progress_changer" do
   def stub_pq(overrides = {})
     instance_double("test-pq",
-           {
-             no_response?: true,
-             rejected?: false,
-             action_officers_pqs: instance_double("ao-pqs", any?: true, all_rejected?: false),
-             action_officer_accepted: nil,
-             transfer_out_ogd_id: nil,
-           }.merge(overrides))
+                    {
+                      no_response?: true,
+                      rejected?: false,
+                      action_officers_pqs: instance_double("ao-pqs", any?: true, all_rejected?: false),
+                      action_officer_accepted: nil,
+                      transfer_out_ogd_id: nil,
+                    }.merge(overrides))
   end
 
   subject do
