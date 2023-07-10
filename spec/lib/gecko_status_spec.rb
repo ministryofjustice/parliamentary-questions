@@ -37,8 +37,8 @@ describe GeckoStatus do
   end
 
   describe KeyMetricStatus do
-    let(:key_metric)  { double Metrics::KeyMetric }
-    let(:metrics)     { double "metrics", key_metric: }
+    let(:key_metric)  { instance_double Metrics::KeyMetric }
+    let(:metrics)     { instance_double "metrics", key_metric: }
     let(:status)      { described_class.new }
 
     describe "#update" do
@@ -60,7 +60,7 @@ describe GeckoStatus do
 
   describe DbStatus do
     let(:health)   { Metrics::Health.new }
-    let(:metrics)  { double "metrics", health: }
+    let(:metrics)  { instance_double "metrics", health: }
     let(:status)   { described_class.new }
 
     describe "#update" do
@@ -82,7 +82,7 @@ describe GeckoStatus do
 
   describe PqaApiStatus do
     let(:health)   { Metrics::Health.new }
-    let(:metrics)  { double "metrics", health: }
+    let(:metrics)  { instance_double "metrics", health: }
     let(:status)   { described_class.new }
 
     describe "#update" do
@@ -104,7 +104,7 @@ describe GeckoStatus do
 
   describe PqaImportStatus do
     let(:info)     { Metrics::PqaImport.new                      }
-    let(:metrics)  { double "metrics", pqa_import: info          }
+    let(:metrics)  { instance_double "metrics", pqa_import: info          }
     let(:status)   { described_class.new                         }
 
     describe "#update" do
@@ -136,7 +136,7 @@ describe GeckoStatus do
 
   describe SmokeTestStatus do
     let(:info)     { Metrics::SmokeTests.new                     }
-    let(:metrics)  { double "metrics", smoke_tests: info         }
+    let(:metrics)  { instance_double "metrics", smoke_tests: info         }
     let(:status)   { described_class.new                         }
 
     describe "#update" do

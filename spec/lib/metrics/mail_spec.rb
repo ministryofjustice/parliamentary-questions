@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Metrics::Mail do
-  let(:email) { double Email }
+  let(:email) { instance_double Email }
 
   before do
     allow(Email).to receive(:waiting).and_return([email])

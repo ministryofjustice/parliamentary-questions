@@ -35,7 +35,7 @@ describe HealthCheck::PqaApi do
   end
 
   describe "#accessible?" do
-    let(:resp_403) { double Net::HTTPResponse, code: 403, body: "unauthorised" }
+    let(:resp_403) { instance_double Net::HTTPResponse, code: 403, body: "unauthorised" }
 
     it "returns true if the parliamentary questions API is accessible with our credentials" do
       expect(pqa).to be_accessible

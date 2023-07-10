@@ -10,7 +10,7 @@ describe "roles filer" do
   end
 
   it "PQUserFilter should allow to access a user with a PQ ROLE" do
-    controller = double("ApplicationController")
+    controller = instance_double("ApplicationController")
 
     allow(controller).to receive(:current_user) { User.find_by(name: "pquser") }
 
@@ -20,7 +20,7 @@ describe "roles filer" do
   end
 
   it "PQUserFilter should not allow to access a user without a PQ ROLE" do
-    controller = double("ApplicationController")
+    controller = instance_double("ApplicationController")
 
     allow(controller).to receive(:current_user) { User.find_by(name: "fake") }
 
@@ -30,7 +30,7 @@ describe "roles filer" do
   end
 
   it "FinanceUserFilter should allow to access a user with a Finance ROLE" do
-    controller = double("ApplicationController")
+    controller = instance_double("ApplicationController")
 
     allow(controller).to receive(:current_user) { User.find_by(name: "finance") }
 
@@ -40,7 +40,7 @@ describe "roles filer" do
   end
 
   it "FinanceUserFilter should not allow to access a user without a Finance ROLE" do
-    controller = double("ApplicationController")
+    controller = instance_double("ApplicationController")
 
     allow(controller).to receive(:current_user) { User.find_by(name: "pquser") }
 

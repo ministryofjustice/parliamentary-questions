@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "PQState" do
-  let(:pq) { double("pq-stub") }
+  let(:pq) { instance_double("pq-stub") }
 
   let(:transitions) do
     pred = proc { true }
