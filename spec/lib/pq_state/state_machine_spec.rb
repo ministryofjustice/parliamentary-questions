@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe PQState do
+describe "PQState" do
   let(:pq) { double("pq-stub") }
 
   let(:transitions) do
