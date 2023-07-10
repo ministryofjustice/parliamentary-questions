@@ -1,166 +1,168 @@
 require "spec_helper"
 
 describe GeckoStatus do
-  let(:status) { described_class.new("Test") }
+  describe "Set component status to" do
+    let(:status) { described_class.new("Test") }
 
-  it "#initialize - should set the component name and initial state" do
-    expect(status.name).to eq "Test"
-    expect(status.label).to eq "n/a"
-    expect(status.color).to eq "red"
-    expect(status.message).to eq "unitialized"
-  end
-
-  it "#warn - updates the status with a warning message" do
-    status.warn("warning")
-
-    expect(status.label).to eq "WARNING"
-    expect(status.color).to eq "yellow"
-    expect(status.message).to eq "warning"
-  end
-
-  it "#error - updates the status with an error message" do
-    status.error("error")
-
-    expect(status.label).to eq "ERROR"
-    expect(status.color).to eq "red"
-    expect(status.message).to eq "error"
-  end
-
-  it "#ok - updates the status with an ok message" do
-    status.ok
-
-    expect(status.label).to eq "OK"
-    expect(status.color).to eq "green"
-    expect(status.message).to eq ""
-  end
-end
-
-describe KeyMetricStatus do
-  let(:key_metric)  { double Metrics::KeyMetric }
-  let(:metrics)     { double "metrics", key_metric: }
-  let(:status)      { described_class.new }
-
-  describe "#update" do
-    it "calls ok when there is no alert" do
-      allow(key_metric).to receive(:alert).and_return(false)
-
-      expect(status).to receive(:ok)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
+    it "#initialize - should set the component name and initial state" do
+      expect(status.name).to eq "Test"
+      expect(status.label).to eq "n/a"
+      expect(status.color).to eq "red"
+      expect(status.message).to eq "unitialized"
     end
 
-    it "calls error when there is an alert" do
-      allow(key_metric).to receive(:alert).and_return(true)
+    it "#warn - updates the status with a warning message" do
+      status.warn("warning")
 
-      expect(status).to receive(:error)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
+      expect(status.label).to eq "WARNING"
+      expect(status.color).to eq "yellow"
+      expect(status.message).to eq "warning"
+    end
+
+    it "#error - updates the status with an error message" do
+      status.error("error")
+
+      expect(status.label).to eq "ERROR"
+      expect(status.color).to eq "red"
+      expect(status.message).to eq "error"
+    end
+
+    it "#ok - updates the status with an ok message" do
+      status.ok
+
+      expect(status.label).to eq "OK"
+      expect(status.color).to eq "green"
+      expect(status.message).to eq ""
     end
   end
-end
 
-describe DbStatus do
-  let(:health)   { Metrics::Health.new }
-  let(:metrics)  { double "metrics", health: }
-  let(:status)   { described_class.new }
+  describe KeyMetricStatus do
+    let(:key_metric)  { double Metrics::KeyMetric }
+    let(:metrics)     { double "metrics", key_metric: }
+    let(:status)      { described_class.new }
 
-  describe "#update" do
-    it "calls ok when the db status is OK" do
-      allow(health).to receive(:db_status).and_return(true)
+    describe "#update" do
+      it "calls ok when there is no alert" do
+        allow(key_metric).to receive(:alert).and_return(false)
 
-      expect(status).to receive(:ok)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
-    end
+        expect(status).to receive(:ok)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
 
-    it "calls error when there is a DB error" do
-      allow(health).to receive(:db_status).and_return(false)
+      it "calls error when there is an alert" do
+        allow(key_metric).to receive(:alert).and_return(true)
 
-      expect(status).to receive(:error)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
-    end
-  end
-end
-
-describe PqaApiStatus do
-  let(:health)   { Metrics::Health.new }
-  let(:metrics)  { double "metrics", health: }
-  let(:status)   { described_class.new }
-
-  describe "#update" do
-    it "calls ok when the PQA API status is OK" do
-      allow(health).to receive(:pqa_api_status).and_return(true)
-
-      expect(status).to receive(:ok)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
-    end
-
-    it "calls error when there is a PQA API error" do
-      allow(health).to receive(:pqa_api_status).and_return(false)
-
-      expect(status).to receive(:error)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
+        expect(status).to receive(:error)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
     end
   end
-end
 
-describe PqaImportStatus do
-  let(:info)     { Metrics::PqaImport.new                      }
-  let(:metrics)  { double "metrics", pqa_import: info          }
-  let(:status)   { described_class.new                         }
+  describe DbStatus do
+    let(:health)   { Metrics::Health.new }
+    let(:metrics)  { double "metrics", health: }
+    let(:status)   { described_class.new }
 
-  describe "#update" do
-    it "calls ok when there are no issues" do
-      allow(info).to receive(:last_run_time).and_return(Time.zone.now)
-      allow(info).to receive(:last_run_status).and_return("OK")
+    describe "#update" do
+      it "calls ok when the db status is OK" do
+        allow(health).to receive(:db_status).and_return(true)
 
-      expect(status).to receive(:ok)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
-    end
+        expect(status).to receive(:ok)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
 
-    it "calls warn when the import is stale" do
-      allow(info).to receive(:last_run_time).and_return(2.days.ago)
-      allow(info).to receive(:last_run_status).and_return("OK")
+      it "calls error when there is a DB error" do
+        allow(health).to receive(:db_status).and_return(false)
 
-      expect(status).to receive(:warn)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
-    end
-
-    it "calls error when the run_status is not OK" do
-      allow(info).to receive(:last_run_time).and_return(Time.zone.now)
-      allow(info).to receive(:last_run_status).and_return("Bad")
-
-      expect(status).to receive(:error)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
+        expect(status).to receive(:error)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
     end
   end
-end
 
-describe SmokeTestStatus do
-  let(:info)     { Metrics::SmokeTests.new                     }
-  let(:metrics)  { double "metrics", smoke_tests: info         }
-  let(:status)   { described_class.new                         }
+  describe PqaApiStatus do
+    let(:health)   { Metrics::Health.new }
+    let(:metrics)  { double "metrics", health: }
+    let(:status)   { described_class.new }
 
-  describe "#update" do
-    it "calls ok when there are no issues" do
-      allow(info).to receive(:run_time).and_return(Time.zone.now)
-      allow(info).to receive(:run_success?).and_return(true)
+    describe "#update" do
+      it "calls ok when the PQA API status is OK" do
+        allow(health).to receive(:pqa_api_status).and_return(true)
 
-      expect(status).to receive(:ok)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
+        expect(status).to receive(:ok)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
+
+      it "calls error when there is a PQA API error" do
+        allow(health).to receive(:pqa_api_status).and_return(false)
+
+        expect(status).to receive(:error)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
     end
+  end
 
-    it "calls warn when the test run is stale" do
-      allow(info).to receive(:run_time).and_return(2.days.ago)
-      allow(info).to receive(:run_success?).and_return(true)
+  describe PqaImportStatus do
+    let(:info)     { Metrics::PqaImport.new                      }
+    let(:metrics)  { double "metrics", pqa_import: info          }
+    let(:status)   { described_class.new                         }
 
-      expect(status).to receive(:warn)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
+    describe "#update" do
+      it "calls ok when there are no issues" do
+        allow(info).to receive(:last_run_time).and_return(Time.zone.now)
+        allow(info).to receive(:last_run_status).and_return("OK")
+
+        expect(status).to receive(:ok)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
+
+      it "calls warn when the import is stale" do
+        allow(info).to receive(:last_run_time).and_return(2.days.ago)
+        allow(info).to receive(:last_run_status).and_return("OK")
+
+        expect(status).to receive(:warn)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
+
+      it "calls error when the run_status is not OK" do
+        allow(info).to receive(:last_run_time).and_return(Time.zone.now)
+        allow(info).to receive(:last_run_status).and_return("Bad")
+
+        expect(status).to receive(:error)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
     end
+  end
 
-    it "calls error when the test run has failures" do
-      allow(info).to receive(:run_time).and_return(Time.zone.now)
-      allow(info).to receive(:run_success?).and_return(false)
+  describe SmokeTestStatus do
+    let(:info)     { Metrics::SmokeTests.new                     }
+    let(:metrics)  { double "metrics", smoke_tests: info         }
+    let(:status)   { described_class.new                         }
 
-      expect(status).to receive(:error)
-      status.update(metrics) # rubocop:disable Rails/SaveBang
+    describe "#update" do
+      it "calls ok when there are no issues" do
+        allow(info).to receive(:run_time).and_return(Time.zone.now)
+        allow(info).to receive(:run_success?).and_return(true)
+
+        expect(status).to receive(:ok)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
+
+      it "calls warn when the test run is stale" do
+        allow(info).to receive(:run_time).and_return(2.days.ago)
+        allow(info).to receive(:run_success?).and_return(true)
+
+        expect(status).to receive(:warn)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
+
+      it "calls error when the test run has failures" do
+        allow(info).to receive(:run_time).and_return(Time.zone.now)
+        allow(info).to receive(:run_success?).and_return(false)
+
+        expect(status).to receive(:error)
+        status.update(metrics) # rubocop:disable Rails/SaveBang
+      end
     end
   end
 end
