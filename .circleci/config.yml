@@ -133,7 +133,7 @@ references:
       name: Create build tag
       command: |
         current_branch=$(git branch | grep \* | cut -d ' ' -f2)
-        short_version=$(git rev-parse --short $current_branch
+        short_version=$(git rev-parse --short $current_branch)
         build_tag=cmoj-${current_branch}-${short_version}
         echo "export BUILD_TAG=${build_tag}" >> $BASH_ENV
         source $BASH_ENV
