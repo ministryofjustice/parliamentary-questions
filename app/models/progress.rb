@@ -70,6 +70,8 @@ class Progress < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
     find_by(status: self.TRANSFERRED_OUT)
   end
 
+  # rubocop:disable Naming/MethodName
+
   def self.UNASSIGNED
     "Unassigned"
   end
@@ -121,6 +123,8 @@ class Progress < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   def self.TRANSFER
     "Transfer"
   end
+
+  # rubocop:enable Naming/MethodName
 
   def self.new_questions
     [
