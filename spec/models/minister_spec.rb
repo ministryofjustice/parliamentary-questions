@@ -81,7 +81,6 @@ describe Minister do
     let!(:minister3) { create(:minister, updated_at: 1.day.ago, deleted: false) }
     let!(:minister4) { create(:minister, updated_at: 1.day.ago, deleted: true) }
     let!(:minister5) { create(:minister, updated_at: 3.days.ago, deleted: false) }
-    let!(:minister6) { create(:minister, updated_at: 3.days.ago, deleted: true) }
 
     it "lists all active Ministers and those made inactive withing the last two days" do
       expect(described_class.active_list).to match_array [minister1, minister2, minister3, minister4, minister5]

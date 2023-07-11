@@ -130,9 +130,7 @@ describe Pq do
 
   describe ".count_accepted_by_press_desk" do
     def accept_pq(pq, ao) # rubocop:disable Naming/MethodParameterName
-      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao,
-                                                     response: "accepted",
-                                                     pq:)
+      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao, response: "accepted", pq:)
       pq.save!
     end
 
