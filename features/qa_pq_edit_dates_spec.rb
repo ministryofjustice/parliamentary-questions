@@ -21,7 +21,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
     DatabaseCleaner.clean
   end
 
-  let(:testDate) { "#{Time.zone.today + 3} 12:00" }
+  let(:test_date) { "#{Time.zone.today + 3} 12:00" }
 
   it "Check all elements are present" do
     expect(page).to have_css("#count", text: "3 parliamentary questions")
@@ -49,37 +49,37 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
     within("#editDates") do
       click_on "Edit PQ dates"
       expect(page).to have_text("3 PQs selected")
-      fill_in "qa_edit_deadline_date", with: testDate
+      fill_in "qa_edit_deadline_date", with: test_date
       click_on "Edit"
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    expect(page).to have_css("#pq-frame-1 .deadline-date.text", text: testDate)
-    expect(page).to have_css("#pq-frame-2 .deadline-date.text", text: testDate)
-    expect(page).to have_css("#pq-frame-3 .deadline-date.text", text: testDate)
+    expect(page).to have_css("#pq-frame-1 .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-2 .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-3 .deadline-date.text", text: test_date)
   end
 
   it "A user sets a PQ's draft date" do
-    setDate("qa_edit_draft_date", "PQ draft", "draft_answer_received")
+    set_date("qa_edit_draft_date", "PQ draft", "draft_answer_received")
   end
 
   it "A user sets a PQ's POD cleared date" do
-    setDate("qa_edit_pod_date", "POD check", "pod_clearance")
+    set_date("qa_edit_pod_date", "POD check", "pod_clearance")
   end
 
   it "A user sets a PQ's minister cleared date" do
-    setDate("qa_edit_minister_date", "Minister check", "cleared_by_answering_minister")
+    set_date("qa_edit_minister_date", "Minister check", "cleared_by_answering_minister")
   end
 
   it "A user sets a PQ's answered date" do
-    setDate("qa_edit_answered_date", "Answer", "answer_submitted")
+    set_date("qa_edit_answered_date", "Answer", "answer_submitted")
   end
 
-  def setDate(datetype, tablink, datefield)
+  def set_date(datetype, tablink, datefield)
     within("#pq-frame-3") { check "uin-3" }
     within("#editDates") do
       click_on "Edit PQ dates"
       expect(page).to have_text("1 PQ selected")
-      fill_in datetype, with: testDate
+      fill_in datetype, with: test_date
       click_on "Edit"
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
@@ -93,7 +93,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
     click_link "In progress"
     within("#pq-frame-3") { click_link(@pq3.uin.to_s) }
     click_link(tablink)
-    expect(page).to have_field("pq[#{datefield}]", with: testDate)
+    expect(page).to have_field("pq[#{datefield}]", with: test_date)
     click_link "In progress"
   end
 end
