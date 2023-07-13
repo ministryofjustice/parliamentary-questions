@@ -6,14 +6,12 @@ describe "EarlyBirdReportService" do
   let!(:early_bird_deleted) { create(:early_bird_member, name: "member 3", email: "m3@ao.gov", deleted: true) }
   let(:testid) { "early_bird-#{Time.zone.now.utc.to_s.tr(' ', '-').tr('/', '-').tr(':', '-')}" }
 
-  before do
-    @report_service = EarlyBirdReportService.new
-  end
+  let(:report_service) { EarlyBirdReportService.new }
 
   it "has generated a valid token" do
-    @report_service.notify_early_bird
+    report_service.notify_early_bird
 
-    token = Token.find_by(entity: @report_service.entity, path: "/early_bird/dashboard")
+    token = Token.find_by(entity: report_service.entity, path: "/early_bird/dashboard")
     expect(token.token_digest).not_to be nil
 
     end_of_day = Time.current.end_of_day
@@ -27,7 +25,7 @@ describe "EarlyBirdReportService" do
   it "calls the mailer" do
     allow(NotifyPqMailer).to receive_message_chain(:early_bird_email, :deliver_later)
 
-    token = @report_service.notify_early_bird
+    token = report_service.notify_early_bird
 
     expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: "m1@ao.gov", token:, entity: testid)
     expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: "m2@ao.gov", token:, entity: testid)

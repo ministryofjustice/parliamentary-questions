@@ -3,13 +3,13 @@ require "feature_helper"
 describe "Commissioning questions", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  let(:ao)         { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:ao2)        { ActionOfficer.find_by(email: "ao2@pq.com") }
-  let(:minister)   { Minister.second                            }
+  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:ao2)       { ActionOfficer.find_by(email: "ao2@pq.com") }
+  let(:minister)  { Minister.second                            }
+  let(:test_pq)   { PQA::QuestionLoader.new.load_and_import(2) }
 
   before do
     DBHelpers.load_feature_fixtures
-    @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
   after do
@@ -20,7 +20,7 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
     create_pq_session
     visit dashboard_path
 
-    within_pq(@pq.uin) do
+    within_pq(test_pq.uin) do
       select_option("commission_form[minister_id]", minister.name) if minister
       select_option("commission_form[policy_minister_id]", minister.name) if minister
       select ao.name, from: "Action officer(s)"
@@ -32,47 +32,47 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
   end
 
   it "Parli-branch member allocates a question to selected AOs" do
-    commission_question(@pq.uin, [ao, ao2], minister)
+    commission_question(test_pq.uin, [ao, ao2], minister)
   end
 
   it "AO should receive an email notification of assigned question" do
-    pq = Pq.find_by(uin: @pq.uin)
+    pq = Pq.find_by(uin: test_pq.uin)
     ao_mail = NotifyPqMailer.commission_email(pq:, action_officer: ao, token: "1234", entity: "assignment:1", email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.govuk_notify_response.content["body"]).to include "your team is responsible for answering PQ #{@pq.uin}"
+    expect(ao_mail.govuk_notify_response.content["body"]).to include "your team is responsible for answering PQ #{test_pq.uin}"
   end
 
   it "Following the email link should let the AO accept the question" do
-    visit_assignment_url(@pq, ao)
+    visit_assignment_url(test_pq, ao)
     choose "Accept"
     click_on "Save"
 
     expect(page.title).to have_content("PQ assigned")
     expect(page).to have_content(/thank you for your response/i)
-    expect(page).to have_content("PQ #{@pq.uin}")
+    expect(page).to have_content("PQ #{test_pq.uin}")
   end
 
   it "The PQ status should then change to draft pending" do
     create_pq_session
 
-    expect_pq_in_progress_status(@pq.uin, "Draft Pending")
+    expect_pq_in_progress_status(test_pq.uin, "Draft Pending")
   end
 
   it "The AO should receive an email notification confirming the question acceptance" do
-    pq = Pq.find_by(uin: @pq.uin)
+    pq = Pq.find_by(uin: test_pq.uin)
     ao_mail = NotifyPqMailer.acceptance_email(pq:, action_officer: ao, email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.govuk_notify_response.content["body"]).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")
+    expect(ao_mail.govuk_notify_response.content["body"]).to include("Thank you for agreeing to draft an answer to PQ #{test_pq.uin}")
   end
 
   it "After an AO has accepted a question, another AO cannot accept the question" do
-    visit_assignment_url(@pq, ao2)
+    visit_assignment_url(test_pq, ao2)
 
     expect(page.title).to have_content("PQ assignment")
     expect(page).to have_content(/this pq has already been accepted/i)
-    expect(page).to have_content("#{ao.name} accepted PQ #{@pq.uin}")
+    expect(page).to have_content("#{ao.name} accepted PQ #{test_pq.uin}")
   end
 
   it "Following the link after 3 days have passed should show an error page" do

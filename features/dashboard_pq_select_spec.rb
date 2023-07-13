@@ -3,11 +3,14 @@ require "feature_helper"
 describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
+  let(:pq1)       { PQA::QuestionLoader.new.load_and_import(1) }
+  let(:pq2)       { PQA::QuestionLoader.new.load_and_import(1) }
+  let(:pq3)       { PQA::QuestionLoader.new.load_and_import(1) }
+  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:minister)  { Minister.first                             }
+
   before do
     DBHelpers.load_feature_fixtures
-    @pq1, @pq2, @pq3 = PQA::QuestionLoader.new.load_and_import(3)
-    @ao = ActionOfficer.find_by(email: "ao1@pq.com")
-    @minister = Minister.first
   end
 
   after do
@@ -138,12 +141,12 @@ describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner:
   end
 
   def initialise
-    commission_question(@pq1.uin, [@ao], @minister)
-    accept_commission(@pq1, @ao)
-    commission_question(@pq2.uin, [@ao], @minister)
-    accept_commission(@pq2, @ao)
-    commission_question(@pq3.uin, [@ao], @minister)
-    accept_commission(@pq3, @ao)
+    commission_question(pq1.uin, [ao], minister)
+    accept_commission(pq1, ao)
+    commission_question(pq2.uin, [ao], minister)
+    accept_commission(pq2, ao)
+    commission_question(pq3.uin, [ao], minister)
+    accept_commission(pq3, ao)
     click_link "In progress"
   end
 end

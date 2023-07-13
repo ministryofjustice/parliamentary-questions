@@ -63,9 +63,11 @@ describe "Finance officer functions" do
   describe "Registering interest in PQs as a Finance Officer", js: true do
     before do
       DBHelpers.load_feature_fixtures
-      @pqs = PQA::QuestionLoader.new.load_and_import(3)
+      # @pqs = PQA::QuestionLoader.new.load_and_import(3)
       create_finance_session
     end
+
+    let(:test_pqs) { PQA::QuestionLoader.new.load_and_import(3) }
 
     it "FO cannot access the dashboard page" do
       visit dashboard_path
@@ -74,7 +76,7 @@ describe "Finance officer functions" do
     end
 
     it "FO can register interest in PQs" do
-      @pqs.each do |pq|
+      test_pqs.each do |pq|
         expect(page.title).to have_content("New PQs today")
         expect(page).to have_content(pq.text)
       end

@@ -3,25 +3,22 @@ require "feature_helper"
 describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
+  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:minister)  { Minister.first }
+  let(:test_date) { "#{Time.zone.today + 3} 12:00" }
+  let(:pq1)       { FactoryBot.create :draft_pending_pq }
+  let(:pq2)       { FactoryBot.create :draft_pending_pq }
+  let(:pq3)       { FactoryBot.create :draft_pending_pq }
+
   before do
     DBHelpers.load_feature_fixtures
-
-    @pq1 = FactoryBot.create :draft_pending_pq
-    @pq2 = FactoryBot.create :draft_pending_pq
-    @pq3 = FactoryBot.create :draft_pending_pq
-
-    @ao = ActionOfficer.find_by(email: "ao1@pq.com")
-    @minister = Minister.first
     create_pq_session
-
     click_link "In progress"
   end
 
   after do
     DatabaseCleaner.clean
   end
-
-  let(:test_date) { "#{Time.zone.today + 3} 12:00" }
 
   it "Check all elements are present" do
     expect(page).to have_css("#count", text: "3 parliamentary questions")
@@ -83,15 +80,15 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
       click_on "Edit"
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    within("#pq-frame-1") { click_link(@pq1.uin.to_s) }
+    within("#pq-frame-1") { click_link(pq1.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-2") { click_link(@pq2.uin.to_s) }
+    within("#pq-frame-2") { click_link(pq2.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-3") { click_link(@pq3.uin.to_s) }
+    within("#pq-frame-3") { click_link(pq3.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: test_date)
     click_link "In progress"

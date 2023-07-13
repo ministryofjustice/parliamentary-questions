@@ -3,15 +3,16 @@ require "feature_helper"
 describe "Watch list member sees allocated questions", suspend_cleaner: true do
   include Features::PqHelpers
 
-  before(:all) do
+  before do
     DBHelpers.load_feature_fixtures
-    @aos = ActionOfficer.where("email like 'ao%@pq.com'")
-    @pq  = generate_dummy_pq(@aos)
   end
 
   after do
     DatabaseCleaner.clean
   end
+
+  let(:dummy_aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
+  let(:dummy_pq)  { generate_dummy_pq(dummy_aos)                   }
 
   it "An admin can create a new watchlist member" do
     create_pq_session
@@ -36,10 +37,10 @@ describe "Watch list member sees allocated questions", suspend_cleaner: true do
     visit_watchlist_url
 
     expect(page).to have_text(/allocated today 1/i)
-    expect(page).to have_text(@pq.question)
-    allocation_el = find("*[data-pquin='#{@pq.uin}']")
+    expect(page).to have_text(dummy_pq.question)
+    allocation_el = find("*[data-pquin='#{dummy_pq.uin}']")
 
-    @aos.each do |action_officer|
+    dummy_aos.each do |action_officer|
       expect(allocation_el).to have_text(action_officer.name)
     end
   end

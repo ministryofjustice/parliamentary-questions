@@ -4,10 +4,11 @@ require "business_time"
 describe "Early bird member sees allocated questions", suspend_cleaner: true do
   include Features::PqHelpers
 
-  before(:all) do
+  let(:aos)       { ActionOfficer.where("email like 'ao%@pq.com'") }
+  let(:dummy_pq)  { generate_dummy_pq(aos) }
+
+  before do
     DBHelpers.load_feature_fixtures
-    @aos  = ActionOfficer.where("email like 'ao%@pq.com'")
-    @pq   = generate_dummy_pq(@aos)
   end
 
   after do
@@ -44,8 +45,8 @@ describe "Early bird member sees allocated questions", suspend_cleaner: true do
   it "A early bird member follows an email link to view the list of daily questions" do
     visit_earlybird_url
     expect(page).to have_text(/1 new parliamentary questions/i)
-    expect(page).to have_text(@pq.question)
-    expect(page).to have_content("uin-#{@pq.uin}")
+    expect(page).to have_text(dummy_pq.question)
+    expect(page).to have_content("uin-#{dummy_pq.uin}")
     expect(page).to have_link("Email PQ team about this question", href: "mailto:pqs@justice.gov.uk?subject=Question 1")
   end
 
@@ -54,13 +55,13 @@ describe "Early bird member sees allocated questions", suspend_cleaner: true do
     expect(page).to have_link("Propose a Deputy Director")
     click_link "Propose a Deputy Director"
     expect(page).to have_content("Propose a Deputy Director")
-    select @aos.first.name, from: "Deputy Director(s)"
+    select aos.first.name, from: "Deputy Director(s)"
     click_on "Save"
     expect(page).to have_content("Successfully proposed Deputy Director(s)")
-    expect(page).to have_content(@aos.first.name)
+    expect(page).to have_content(aos.first.name)
     create_pq_session
     click_on "PQ Tracker"
-    expect(page).to have_content(@aos.first.name)
+    expect(page).to have_content(aos.first.name)
     expect(page).to have_content("Action Officer Proposed")
   end
 
@@ -77,12 +78,9 @@ private
 
   def generate_dummy_pq(_aos)
     PQA::QuestionLoader.new.load_and_import
-
     q                   = Pq.first
     q.uin               = "1"
     q.minister          = Minister.find_by(name: "Chris Grayling")
-    # q.internal_deadline = Time.zone.today + 1.day
-    # q.internal_deadline = Time.zone.today + 2.days
     q.update_state!
     q
   end

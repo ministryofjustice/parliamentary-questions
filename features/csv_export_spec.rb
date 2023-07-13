@@ -5,9 +5,10 @@ describe "Exporting PQ data to CSV" do
   include Features::PqHelpers
   include CSVHelpers
 
-  before(:all) do
+  let(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }
+
+  before do
     DBHelpers.load_feature_fixtures
-    @pqs = PQA::QuestionLoader.new.load_and_import(3)
   end
 
   it "Parli-branch can export pq data as CSV" do
@@ -20,7 +21,7 @@ describe "Exporting PQ data to CSV" do
 
     uins = decode_csv(page.body).map { |h| h["PIN"] }
 
-    expect(uins).to eq(@pqs.map(&:uin))
+    expect(uins).to eq(pqs.map(&:uin))
   end
 
   it "Incorrect date input will show an error on the page" do

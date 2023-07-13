@@ -3,9 +3,10 @@ require "feature_helper"
 describe "Dashboard view", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
+  let(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }
+
   before do
     DBHelpers.load_feature_fixtures
-    @pqs = PQA::QuestionLoader.new.load_and_import(3)
   end
 
   after do
@@ -23,7 +24,7 @@ describe "Dashboard view", js: true, suspend_cleaner: true do
     create_pq_session
     visit dashboard_path
 
-    @pqs.each do |pq|
+    pqs.each do |pq|
       within_pq(pq.uin) do
         expect(page.title).to have_content("Dashboard")
         expect(page).to have_content(pq.text)
@@ -33,7 +34,7 @@ describe "Dashboard view", js: true, suspend_cleaner: true do
   end
 
   it "Parli-branch can find a question by uin" do
-    uin = @pqs.first.uin
+    uin = pqs.first.uin
     search_for(uin)
 
     expect(page.title).to have_text("PQ #{uin}")
