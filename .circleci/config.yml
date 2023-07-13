@@ -132,7 +132,7 @@ references:
     run:
       name: Create build tag
       command: |
-        prefix="cmoj"
+        prefix="pq"
         short_version=$(git rev-parse --short ${CIRCLE_BRANCH})
         build_tag=$prefix-$CIRCLE_BRANCH-$short_version
 
