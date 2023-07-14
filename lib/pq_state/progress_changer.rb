@@ -53,7 +53,7 @@ module PQState
     )
   end
 
-  def self.Transition(from, to, &block)
+  def self.Transition(from, to, &block) # rubocop:disable Naming/MethodName
     Transition.new(from, to, block)
   end
 end
