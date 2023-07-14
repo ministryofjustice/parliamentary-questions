@@ -16,6 +16,7 @@ describe ProposalService do
     end
   end
 
+  # rubocop:disable RSpec/InstanceVariable
   describe "propose" do
     include_context "test_values"
     context "when the supplied form data is not valid" do
@@ -46,4 +47,5 @@ describe ProposalService do
       end
     end
   end
+  # rubocop:enable RSpec/InstanceVariable
 end

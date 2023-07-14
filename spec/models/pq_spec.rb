@@ -141,6 +141,7 @@ describe Pq do
     end
 
     context "when some data exist" do
+      # rubocop:disable RSpec/InstanceVariable
       before do
         @pd1, @pd2             = DBHelpers.press_desks
         @ao1, @ao2, @ao3       = DBHelpers.action_officers
@@ -179,6 +180,7 @@ describe Pq do
           )
         end
       end
+      # rubocop:enable RSpec/InstanceVariable
     end
   end
 
@@ -190,6 +192,7 @@ describe Pq do
     end
 
     context "when some data exist" do
+      # rubocop:disable RSpec/InstanceVariable
       before do
         @minister1, @minister2, = DBHelpers.ministers
         @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
@@ -229,10 +232,12 @@ describe Pq do
           )
         end
       end
+      # rubocop:enable RSpec/InstanceVariable
     end
   end
 
   describe ".filter_for_report" do
+    # rubocop:disable RSpec/InstanceVariable
     def commission_and_accept(pq, ao, minister)  # rubocop:disable Naming/MethodParameterName
       pq.state    = PQState::WITH_POD
       pq.minister = minister
@@ -248,7 +253,6 @@ describe Pq do
       @ao1, @ao2 = DBHelpers.action_officers
       @min1, = DBHelpers.ministers
       @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
-
       expect(@ao1.press_desk).not_to eq(@ao2.press_desk)
       commission_and_accept(@pq1, @ao1, @min1)
       commission_and_accept(@pq4, @ao2, @min1)
@@ -264,12 +268,11 @@ describe Pq do
 
     context "when state, minister or press desk are all present" do
       it "returns the expected records" do
-        uins = described_class.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk)
-                 .pluck(:uin)
-
+        uins = described_class.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk).pluck(:uin)
         expect(uins).to eq(%w[uin-1])
       end
     end
+    # rubocop:enable RSpec/InstanceVariable
   end
 
   describe "allocated_since" do

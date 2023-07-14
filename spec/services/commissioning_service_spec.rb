@@ -34,12 +34,14 @@ describe CommissioningService do
     end
 
     context "when the supplied data is valid" do
+      # rubocop:disable RSpec/InstanceVariable
       before do
         allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_later)
         valid_form = CommissionForm.new(form_params)
         @pq = described_class.new.commission(valid_form)
       end
 
+      
       it "returns an updated PQ" do
         expect(@pq).to be_valid
         expect(@pq.minister).to eq(minister)
@@ -60,6 +62,7 @@ describe CommissioningService do
       it "sets the PQ state to 'no-response'" do
         expect(@pq.state).to eq(PQState::NO_RESPONSE)
       end
+      # rubocop:enable RSpec/InstanceVariable
     end
 
     context "set new action officer list" do

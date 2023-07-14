@@ -1,5 +1,7 @@
 require "spec_helper"
 
+# rubocop:disable RSpec/InstanceVariable
+
 describe "QuickActionsService" do
   let!(:pq) { create(:pq) }
   let!(:pq2) { create(:pq) }
@@ -127,3 +129,5 @@ describe "QuickActionsService" do
     end
   end
 end
+
+# rubocop:enable RSpec/InstanceVariable
