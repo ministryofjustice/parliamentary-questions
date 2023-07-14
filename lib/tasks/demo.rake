@@ -22,7 +22,7 @@ end
 
 def setup_users
   user = User.find_by(name: "Rahul Mehta")
-  user.update(email:, "rahul.meta@justice.gsi.gov.uk")
+  user.update!(email: "rahul.meta@justice.gsi.gov.uk")
 end
 
 def setup_training_action_officers
@@ -33,14 +33,14 @@ def setup_training_action_officers
   ].each do |ao_dets|
     name, email, division_id = ao_dets
     ao = ActionOfficer.where("name = ?", name).first
-    ao.update(email:, email)
+    ao.update!(email:)
     allocate_division_to_ao(ao, division_id)
   end
 end
 
 def allocate_division_to_ao(action_officer, division_id)
   division = Division.find(division_id)
-  action_officer.update(deputy_director_id:, division.deputy_directors.active.first.id)
+  action_officer.update!(deputy_director_id: division.deputy_directors.active.first.id)
 end
 
 def setup_training_questions

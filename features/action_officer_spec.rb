@@ -1,11 +1,11 @@
 require "feature_helper"
 
 describe "Managing action officers", js: true, suspend_cleaner: true do
-  before(:each) do
+  before do
     DBHelpers.load_feature_fixtures
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 
@@ -68,8 +68,8 @@ describe "Managing action officers", js: true, suspend_cleaner: true do
     ao = ActionOfficer.last
     expect(page).to have_content ao.name
 
-    ao.update(deleted:, true)
-    ao.update(updated_at:, 2.weeks.ago)
+    ao.update!(deleted: true)
+    ao.update!(updated_at: 2.weeks.ago)
 
     visit action_officers_path
     expect(page).not_to have_content ao.name
