@@ -41,7 +41,6 @@ describe CommissioningService do
         @pq = described_class.new.commission(valid_form)
       end
 
-      
       it "returns an updated PQ" do
         expect(@pq).to be_valid
         expect(@pq.minister).to eq(minister)

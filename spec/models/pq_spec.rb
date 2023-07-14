@@ -238,7 +238,7 @@ describe Pq do
 
   describe ".filter_for_report" do
     # rubocop:disable RSpec/InstanceVariable
-    def commission_and_accept(pq, ao, minister)  # rubocop:disable Naming/MethodParameterName
+    def commission_and_accept(pq, ao, minister) # rubocop:disable Naming/MethodParameterName
       pq.state    = PQState::WITH_POD
       pq.minister = minister
       pq.action_officers_pqs << ActionOfficersPq.new(
