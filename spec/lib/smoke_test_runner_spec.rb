@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe SmokeTestRunner do
-  let(:f)        { double File }
+  let(:f)        { instance_double File }
   let(:out_file) { "#{Rails.root}#{Settings.smoke_test_runner.out_file}" }
 
   before do
@@ -12,7 +12,7 @@ describe SmokeTestRunner do
   end
 
   it "#run! - runs the test suite and records result to file" do
-    test = double SmokeTest::Base, passed?: true
+    test = instance_double SmokeTest::Base, passed?: true
     allow(SmokeTest).to receive(:factory).and_return([test])
     allow(File).to receive(:open).with(out_file, "w").and_yield(f)
     expect(SmokeTest).to receive(:factory)
