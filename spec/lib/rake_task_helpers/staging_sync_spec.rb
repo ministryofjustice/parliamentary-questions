@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe RakeTaskHelpers::StagingSync do
+  # rubocop:disable RSpec/AnyInstance
   before do
     ENV["TEST_USER_PASS"] = "xxx"
     allow($stdout).to receive(:puts)
@@ -36,4 +37,5 @@ describe RakeTaskHelpers::StagingSync do
 
     expect(NotifyDbSyncMailer).to have_received(:notify_fail).with("StandardError")
   end
+  # rubocop:enable RSpec/AnyInstance
 end

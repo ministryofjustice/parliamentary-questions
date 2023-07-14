@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe Metrics::Health do
   describe "#collect!" do
+    # rubocop:disable RSpec/AnyInstance
     context "when calling the PQA API" do
       before do
         allow(subject).to receive(:get_pqa_api_status).and_return(true)
@@ -64,6 +65,7 @@ describe Metrics::Health do
         allow_any_instance_of(pqa_file).to receive(:exist?).and_return(true)
         allow_any_instance_of(pqa_file).to receive(:last_run_time).and_return(2.days.ago)
         allow_any_instance_of(pqa_file).to receive(:status).and_return("OK")
+
         subject.collect!
 
         expect(subject.pqa_api_status).to eq false
@@ -76,5 +78,6 @@ describe Metrics::Health do
         expect(subject.pqa_api_status).to eq true
       end
     end
+    # rubocop:enable RSpec/AnyInstance
   end
 end

@@ -39,6 +39,7 @@ describe HTTPClient do
   end
 
   context "when authenticating" do
+    # rubocop:disable RSpec/AnyInstance
     it "authenticates based on credentials provided" do
       expect_any_instance_of(Net::HTTP::Get).to receive(:basic_auth)
         .with("username", "password")
@@ -51,5 +52,6 @@ describe HTTPClient do
 
       client.issue_request(:get, "#{client.base_url}/")
     end
+    # rubocop:enable RSpec/AnyInstance
   end
 end
