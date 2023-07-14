@@ -50,9 +50,9 @@ private
     yield if block_given?
   end
 
-  def reassign_ao_if_present(pq)
+  def reassign_ao_if_present(parliamentary_question)
     action_officer_id = params.fetch(:commission_form, {})[:action_officer_id]
-    pq.reassign(ActionOfficer.find(action_officer_id)) if action_officer_id.present?
+    parliamentary_question.reassign(ActionOfficer.find(action_officer_id)) if action_officer_id.present?
   end
 
   def pq_params
