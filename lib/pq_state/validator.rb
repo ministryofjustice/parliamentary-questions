@@ -26,7 +26,7 @@ module PQState
   private
 
     def has_dead_end?(state_from, visited = [])
-      t = @transitions.find { |_t| _t.state_from == state_from }
+      t = @transitions.find { |pq| pq.state_from == state_from }
       t = next_transition(t) if t && is_cyclic_link?(visited, t)
 
       return true unless t
@@ -42,8 +42,8 @@ module PQState
     end
 
     def next_transition(transition)
-      @transitions.find do |_t|
-        _t != transition && _t.state_from == transition.state_to && _t.state_to != transition.state_from
+      @transitions.find do |pq|
+        pq != transition && pq.state_from == transition.state_to && pq.state_to != transition.state_from
       end
     end
 
