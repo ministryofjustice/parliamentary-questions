@@ -253,13 +253,13 @@ describe Pq do
       @ao1, @ao2 = DBHelpers.action_officers
       @min1, = DBHelpers.ministers
       @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
-      expect(@ao1.press_desk).not_to eq(@ao2.press_desk)
       commission_and_accept(@pq1, @ao1, @min1)
       commission_and_accept(@pq4, @ao2, @min1)
     end
 
     context "when state, minister or press desk are all nil" do
       it "returns all the records" do
+        expect(@ao1.press_desk).not_to eq(@ao2.press_desk)
         expect(described_class.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq(%w[
           uin-1 uin-2 uin-3 uin-4
         ].to_set)
@@ -268,6 +268,7 @@ describe Pq do
 
     context "when state, minister or press desk are all present" do
       it "returns the expected records" do
+        expect(@ao1.press_desk).not_to eq(@ao2.press_desk)
         uins = described_class.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk).pluck(:uin)
         expect(uins).to eq(%w[uin-1])
       end
