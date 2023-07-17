@@ -30,7 +30,7 @@ describe GeckoCollection do
     component  = instance_double Metrics::Component
     components = [component, component]
 
-    all_components.each do |component|
+    all_components.each do |component| # rubocop:disable Lint/ShadowingOuterLocalVariable
       expect(subject.send(component)).to receive(:update).with(components)
     end
 
