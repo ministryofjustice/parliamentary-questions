@@ -3,12 +3,9 @@ require "feature_helper"
 describe "'In progress' page filtering:", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  before(:all) do
+  before do
     DBHelpers.load_feature_fixtures
     setup_questions
-  end
-
-  before do
     create_pq_session
     visit dashboard_path
     click_link "In progress"

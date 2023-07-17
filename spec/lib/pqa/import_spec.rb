@@ -28,7 +28,7 @@ describe PQA::Import do
   end
 
   describe "importing PQA data into the app" do
-    before(:all) do
+    before do
       DBHelpers.load_spec_fixtures
     end
 

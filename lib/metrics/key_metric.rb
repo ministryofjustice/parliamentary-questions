@@ -2,7 +2,7 @@ module Metrics
   class KeyMetric < Component
     attr_reader :alert
 
-    def initialize
+    def initialize # rubocop:disable Lint/MissingSuper
       @alert = false
     end
 

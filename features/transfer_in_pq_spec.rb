@@ -20,7 +20,7 @@ describe "Transferring IN questions", js: true, suspend_cleaner: true do
     click_on "Create PQ"
   end
 
-  before(:all) do
+  before do
     DBHelpers.load_feature_fixtures
   end
 

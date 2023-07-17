@@ -74,7 +74,7 @@ module PQState
     end
 
     class InconsistentStateGraph < StandardError
-      def initialize(final_states, dead_ends)
+      def initialize(final_states, dead_ends)  # rubocop:disable Lint/MissingSuper
         @final_states = final_states
         @dead_ends    = dead_ends
       end
