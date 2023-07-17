@@ -1,6 +1,6 @@
-RuboCop::RakeTask.new do |task|
-  task.requires << "rubocop-rails"
-end
+# RuboCop::RakeTask.new do |task|
+#   task.requires << "rubocop-rails"
+# end
 
 namespace :pqa do
   desc "Perform nightly import"
@@ -17,7 +17,13 @@ namespace :pqa do
     rescue HTTPClient::FailureResponse => e
       puts "UIN '#{uin}': #{e.message}"
     else
-      puts analyse_report(uin, report)
+      if report[:created] == 1
+        puts "UIN '#{uin}': Created"
+      elsif report[:updated] == 1
+        puts "UIN '#{uin}': Updated"
+      else
+        puts "UIN '#{uin}': Error"
+      end
     end
   end
 
@@ -33,7 +39,17 @@ namespace :pqa do
         PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
       end
 
-    import_from_mock_server(questions, Date.yesterday, Date.tomorrow)
+    runner = PQA::MockApiServerRunner.new
+    import = PQA::Import.new
+    loader = PQA::QuestionLoader.new
+    begin
+      runner.start
+      loader.load(questions)
+      report = import.run(Date.yesterday, Date.tomorrow)
+      puts report.inspect
+    ensure
+      runner.stop
+    end
   end
 
   desc "Import questions from XML file"
@@ -45,7 +61,18 @@ namespace :pqa do
     min_date  = Date.parse("1/1/2000")
     max_date  = Date.parse("1/1/2020")
     questions = PQA::XMLDecoder.decode_questions(File.read(fpath))
-    import_from_mock_server(questions, min_date, max_date)
+
+    runner = PQA::MockApiServerRunner.new
+    import = PQA::Import.new
+    loader = PQA::QuestionLoader.new
+    begin
+      runner.start
+      loader.load(questions)
+      report = import.run(min_date, max_date)
+      puts report.inspect
+    ensure
+      runner.stop
+    end
   end
 
   namespace :mock do
@@ -78,32 +105,6 @@ namespace :pqa do
       else
         puts "No pid file found for mock-api server - nothing to kill."
       end
-    end
-  end
-
-private
-
-  def import_from_mock_server(questions, date_from, date_to)
-    runner = PQA::MockApiServerRunner.new
-    import = PQA::Import.new
-    loader = PQA::QuestionLoader.new
-    begin
-      runner.start
-      loader.load(questions)
-      report = import.run(date_from, date_to)
-      puts report.inspect
-    ensure
-      runner.stop
-    end
-  end
-
-  def analyse_report(uin, report)
-    if report[:created] == 1
-      "UIN '#{uin}': Created"
-    elsif report[:updated] == 1
-      "UIN '#{uin}': Updated"
-    else
-      "UIN '#{uin}': Error"
     end
   end
 end
