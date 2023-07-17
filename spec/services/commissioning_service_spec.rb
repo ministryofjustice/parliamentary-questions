@@ -64,7 +64,7 @@ describe CommissioningService do
       # rubocop:enable RSpec/InstanceVariable
     end
 
-    context "set new action officer list" do
+    context "when there are three action officers to choose from" do
       # commission pq in normal state arrived from parli
       # gives two action officers
       # expects to see those 2 action officer
