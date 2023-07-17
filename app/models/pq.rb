@@ -116,7 +116,8 @@ class Pq < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
 
-  validates :uin, presence: true, uniqueness: true
+  # validates :uin, presence: true, uniqueness: true
+  validates :uin, presence: true
   validates :raising_member_id, presence: true
   validates :question, presence: true
   validate  :transfer_out_consistency
