@@ -26,9 +26,8 @@ describe Minister do
   end
 
   describe "#contact_emails" do
-    let!(:minister_contact1) { create(:minister_contact, minister: subject) }
-    let!(:minister_contact2) { create(:minister_contact, minister: subject) }
-    let!(:deleted_minister_contact) { create(:deleted_minister_contact, minister: subject) }
+    let!(:minister_contact1)        { create(:minister_contact, minister: subject) }
+    let!(:minister_contact2)        { create(:minister_contact, minister: subject) }
 
     it "returns the active minister contacts emails" do
       expect(subject.contact_emails).to eql([

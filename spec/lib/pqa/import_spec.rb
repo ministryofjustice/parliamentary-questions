@@ -94,7 +94,7 @@ describe PQA::Import do
         pq = Pq.find_by(uin: "uin-1")
         pq.update!(state: PQState::REJECTED)
 
-        expect(Pq.order(:uin).map do |pq|  # rubocop:disable Lint/ShadowingOuterLocalVariable
+        expect(Pq.order(:uin).map do |pq| # rubocop:disable Lint/ShadowingOuterLocalVariable
           d = pq.tabled_date
           state = pq.state
           [pq.uin, [d.day, d.month, d.year], state]

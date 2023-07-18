@@ -1,11 +1,13 @@
 require "spec_helper"
 
 describe "EarlyBirdReportService" do
+  # rubocop:disable RSpec/LetSetup
   let!(:early_bird_one) { create(:early_bird_member, name: "member 1", email: "m1@ao.gov", deleted: false) }
   let!(:early_bird_two) { create(:early_bird_member, name: "member 2", email: "m2@ao.gov", deleted: false) }
   let!(:early_bird_deleted) { create(:early_bird_member, name: "member 3", email: "m3@ao.gov", deleted: true) }
-  let(:testid) { "early_bird-#{Time.zone.now.utc.to_s.tr(' ', '-').tr('/', '-').tr(':', '-')}" }
+  # rubocop:enable RSpec/LetSetup
 
+  let(:testid) { "early_bird-#{Time.zone.now.utc.to_s.tr(' ', '-').tr('/', '-').tr(':', '-')}" }
   let(:report_service) { EarlyBirdReportService.new }
 
   it "has generated a valid token" do
