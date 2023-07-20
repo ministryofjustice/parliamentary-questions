@@ -70,7 +70,7 @@
 require "spec_helper"
 
 describe Pq do
-  let(:subject) { build(:pq) }
+  subject(:question) { build(:pq) }
 
   describe "associations" do
     it { is_expected.to belong_to :minister }
@@ -277,7 +277,7 @@ describe Pq do
   end
 
   describe "allocated_since" do
-    subject(:parliamentary_question) { described_class.allocated_since(Time.zone.now) }
+    subject(:allocated_question) { described_class.allocated_since(Time.zone.now) }
 
     it "returns questions allocated from given time and ordered by uin" do
       @older_pq = create(:not_responded_pq, action_officer_allocated_at: Time.zone.now - 2.days)
@@ -285,8 +285,8 @@ describe Pq do
       @new_pq2 = create(:not_responded_pq, uin: "HL03",  action_officer_allocated_at: Time.zone.now + 5.hours)
       @new_pq3 = create(:not_responded_pq, uin: "15000", action_officer_allocated_at: Time.zone.now + 5.hours)
 
-      expect(parliamentary_question.length).to be(3)
-      expect(parliamentary_question.map(&:uin)).to eql(%w[15000 20001 HL03])
+      expect(allocated_question.length).to be(3)
+      expect(allocated_question.map(&:uin)).to eql(%w[15000 20001 HL03])
     end
   end
 
@@ -295,19 +295,19 @@ describe Pq do
     let!(:awaiting) { create(:action_officers_pq, pq: subject) }
 
     before do
-      2.times { create(:rejected_action_officers_pq, pq: subject) }
+      2.times { create(:rejected_action_officers_pq, pq: question) }
     end
 
     describe "#action_officers_pq" do
       describe "#accepted" do
         it "returns 1 record" do
-          expect(subject.action_officers_pqs.accepted).to eq accepted
+          expect(question.action_officers_pqs.accepted).to eq accepted
         end
       end
 
       describe "#rejected" do
         it "returns 2 records" do
-          expect(subject.action_officers_pqs.rejected.count).to eq 2
+          expect(question.action_officers_pqs.rejected.count).to eq 2
         end
       end
 
@@ -315,17 +315,17 @@ describe Pq do
         it "returns true when all action officers have rejected" do
           accepted.reject(nil, nil)
           awaiting.reject(nil, nil)
-          expect(subject.action_officers_pqs).to be_all_rejected
+          expect(question.action_officers_pqs).to be_all_rejected
         end
 
         it "returns false when an action officer has not responded" do
           accepted.reject(nil, nil)
-          expect(subject.action_officers_pqs).not_to be_all_rejected
+          expect(question.action_officers_pqs).not_to be_all_rejected
         end
 
         it "returns false when an action officer has accepted" do
           awaiting.reject(nil, nil)
-          expect(subject.action_officers_pqs).not_to be_all_rejected
+          expect(question.action_officers_pqs).not_to be_all_rejected
         end
       end
     end
@@ -333,20 +333,20 @@ describe Pq do
     describe "#action_officers" do
       describe "#accepted" do
         it "returns 1 record" do
-          expect(subject.action_officers.accepted).to eq accepted.action_officer
+          expect(question.action_officers.accepted).to eq accepted.action_officer
         end
       end
 
       describe "#rejected" do
         it "returns 2 records" do
-          expect(subject.action_officers.rejected.count).to eq 2
+          expect(question.action_officers.rejected.count).to eq 2
         end
       end
     end
   end
 
   describe "#reassign" do
-    subject(:parliamentary_question) { create(:draft_pending_pq) }
+    subject(:reassigned_question) { create(:draft_pending_pq) }
 
     let!(:original_assignment) { subject.ao_pq_accepted }
     let(:new_assignment) { create :action_officers_pq, pq: subject }
@@ -355,22 +355,22 @@ describe Pq do
     let(:directorate) { division.directorate }
 
     before do
-      parliamentary_question.action_officers << new_action_officer
+      reassigned_question.action_officers << new_action_officer
     end
 
     it "assigns a new action officer" do
-      parliamentary_question.reassign new_action_officer
+      reassigned_question.reassign new_action_officer
 
       expect(original_assignment.reload.response).to eq :awaiting
       expect(new_assignment.reload).to be_accepted
-      expect(parliamentary_question.original_division).to eq(division)
-      expect(parliamentary_question.directorate).to eq(directorate)
+      expect(reassigned_question.original_division).to eq(division)
+      expect(reassigned_question.directorate).to eq(directorate)
     end
 
     context "when reassigning to an action officer already commissioned (in the list)" do
       it "assigns to other action officer" do
-        parliamentary_question.action_officers_pqs << new_assignment
-        parliamentary_question.reassign new_action_officer
+        reassigned_question.action_officers_pqs << new_assignment
+        reassigned_question.reassign new_action_officer
 
         expect(original_assignment.reload.response).to eq :awaiting
         expect(new_assignment.reload).to be_accepted
@@ -379,14 +379,14 @@ describe Pq do
 
     context "when nil" do
       it "ignores change" do
-        expect(parliamentary_question).not_to receive(:action_officers_pqs)
-        parliamentary_question.reassign nil
+        expect(reassigned_question).not_to receive(:action_officers_pqs)
+        reassigned_question.reassign nil
       end
     end
   end
 
   describe "#commissioned?" do
-    subject { create(:pq) }
+    subject(:commissioned_question) { create(:pq) }
 
     context "when no officer is assigned" do
       it { is_expected.not_to be_commissioned }
@@ -394,7 +394,7 @@ describe Pq do
 
     context "when all assigned officers are rejected" do
       before do
-        subject.action_officers_pqs.create(action_officer: create(:action_officer), response: "rejected")
+        commissioned_question.action_officers_pqs.create(action_officer: create(:action_officer), response: "rejected")
       end
 
       it { is_expected.not_to be_commissioned }
@@ -402,9 +402,9 @@ describe Pq do
 
     context "when some assigned officers are not rejected" do
       before do
-        subject.action_officers_pqs.create!(action_officer: create(:action_officer))
-        subject.action_officers_pqs.create!(action_officer: create(:action_officer), response: "rejected")
-        subject.internal_deadline = Time.zone.today
+        commissioned_question.action_officers_pqs.create!(action_officer: create(:action_officer))
+        commissioned_question.action_officers_pqs.create!(action_officer: create(:action_officer), response: "rejected")
+        commissioned_question.internal_deadline = Time.zone.today
       end
 
       it { is_expected.to be_commissioned }
@@ -412,7 +412,7 @@ describe Pq do
   end
 
   describe "#proposed?" do
-    subject { create(:pq) }
+    subject(:proposed_question) { create(:pq) }
 
     context "when no officer is assigned" do
       it { is_expected.not_to be_proposed }
@@ -420,7 +420,7 @@ describe Pq do
 
     context "when an action officer is proposed" do
       before do
-        subject.action_officers_pqs.create(action_officer: create(:action_officer))
+        proposed_question.action_officers_pqs.create(action_officer: create(:action_officer))
       end
 
       it { is_expected.to be_proposed }
@@ -452,18 +452,18 @@ describe Pq do
   end
 
   it "sets pod_waiting when users set draft_answer_received" do
-    expect(subject).to receive(:set_pod_waiting)
-    subject.update!(draft_answer_received: Date.new(2014, 9, 4))
-    subject.save!
+    expect(question).to receive(:set_pod_waiting)
+    question.update!(draft_answer_received: Date.new(2014, 9, 4))
+    question.save!
   end
 
   it "#set_pod_waiting should work as expected" do
-    expect(subject.draft_answer_received).to be_nil
-    expect(subject.pod_waiting).to be_nil
+    expect(question.draft_answer_received).to be_nil
+    expect(question.pod_waiting).to be_nil
     dar = Date.new(2014, 9, 4)
-    subject.draft_answer_received = dar
-    subject.set_pod_waiting
-    expect(subject.pod_waiting).to eq(dar)
+    question.draft_answer_received = dar
+    question.set_pod_waiting
+    expect(question.pod_waiting).to eq(dar)
   end
 
   describe "validation" do
@@ -478,34 +478,34 @@ describe Pq do
     end
 
     it "passes onfactory build" do
-      expect(subject).to be_valid
+      expect(pq).to be_valid
     end
 
     it "has a Uin" do
-      subject.uin = nil
-      expect(subject).to be_invalid
+      pq.uin = nil
+      expect(pq).to be_invalid
     end
 
     it "has a Raising MP ID" do
-      subject.raising_member_id = nil
-      expect(subject).to be_invalid
+      pq.raising_member_id = nil
+      expect(pq).to be_invalid
     end
 
     it "has text" do
-      subject.question = nil
-      expect(subject).to be_invalid
+      pq.question = nil
+      expect(pq).to be_invalid
     end
 
     it "strips any whitespace from uins" do
-      subject.update!(uin: " hl1234")
-      expect(subject).to be_valid
-      expect(subject.uin).to eql("hl1234")
-      subject.update!(uin: "hl1234 ")
-      expect(subject).to be_valid
-      expect(subject.uin).to eql("hl1234")
-      subject.update!(uin: " hl1 234")
-      expect(subject).to be_valid
-      expect(subject.uin).to eql("hl1 234")
+      pq.update!(uin: " hl1234")
+      expect(pq).to be_valid
+      expect(pq.uin).to eql("hl1234")
+      pq.update!(uin: "hl1234 ")
+      expect(pq).to be_valid
+      expect(pq.uin).to eql("hl1234")
+      pq.update!(uin: " hl1 234")
+      expect(pq).to be_valid
+      expect(pq.uin).to eql("hl1 234")
     end
 
     context "multiple action officers"
@@ -555,10 +555,10 @@ describe Pq do
 
   describe "item" do
     it "allows finance interest to be set" do
-      subject.finance_interest = true
-      expect(subject).to be_valid
-      subject.finance_interest = false
-      expect(subject).to be_valid
+      question.finance_interest = true
+      expect(question).to be_valid
+      question.finance_interest = false
+      expect(question).to be_valid
     end
   end
 end
