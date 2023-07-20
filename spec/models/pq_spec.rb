@@ -277,15 +277,16 @@ describe Pq do
   end
 
   describe "allocated_since" do
-    subject { described_class.allocated_since(Time.zone.now) }
+    subject(:parliamentary_question) { described_class.allocated_since(Time.zone.now) }
 
     it "returns questions allocated from given time and ordered by uin" do
       @older_pq = create(:not_responded_pq, action_officer_allocated_at: Time.zone.now - 2.days)
       @new_pq1 = create(:not_responded_pq, uin: "20001", action_officer_allocated_at: Time.zone.now + 3.hours)
       @new_pq2 = create(:not_responded_pq, uin: "HL03",  action_officer_allocated_at: Time.zone.now + 5.hours)
       @new_pq3 = create(:not_responded_pq, uin: "15000", action_officer_allocated_at: Time.zone.now + 5.hours)
-      expect(subject.length).to be(3)
-      expect(subject.map(&:uin)).to eql(%w[15000 20001 HL03])
+
+      expect(parliamentary_question.length).to be(3)
+      expect(parliamentary_question.map(&:uin)).to eql(%w[15000 20001 HL03])
     end
   end
 
@@ -345,7 +346,7 @@ describe Pq do
   end
 
   describe "#reassign" do
-    subject { create(:draft_pending_pq) }
+    subject(:parliamentary_question) { create(:draft_pending_pq) }
 
     let!(:original_assignment) { subject.ao_pq_accepted }
     let(:new_assignment) { create :action_officers_pq, pq: subject }
@@ -354,22 +355,22 @@ describe Pq do
     let(:directorate) { division.directorate }
 
     before do
-      subject.action_officers << new_action_officer
+      parliamentary_question.action_officers << new_action_officer
     end
 
     it "assigns a new action officer" do
-      subject.reassign new_action_officer
+      parliamentary_question.reassign new_action_officer
 
       expect(original_assignment.reload.response).to eq :awaiting
       expect(new_assignment.reload).to be_accepted
-      expect(subject.original_division).to eq(division)
-      expect(subject.directorate).to eq(directorate)
+      expect(parliamentary_question.original_division).to eq(division)
+      expect(parliamentary_question.directorate).to eq(directorate)
     end
 
     context "when reassigning to an action officer already commissioned (in the list)" do
       it "assigns to other action officer" do
-        subject.action_officers_pqs << new_assignment
-        subject.reassign new_action_officer
+        parliamentary_question.action_officers_pqs << new_assignment
+        parliamentary_question.reassign new_action_officer
 
         expect(original_assignment.reload.response).to eq :awaiting
         expect(new_assignment.reload).to be_accepted
@@ -378,8 +379,8 @@ describe Pq do
 
     context "when nil" do
       it "ignores change" do
-        expect(subject).not_to receive(:action_officers_pqs)
-        subject.reassign nil
+        expect(parliamentary_question).not_to receive(:action_officers_pqs)
+        parliamentary_question.reassign nil
       end
     end
   end

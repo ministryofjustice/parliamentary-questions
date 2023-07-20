@@ -40,20 +40,22 @@ describe Token, type: :model do
   end
 
   describe "acknowledged?" do
+    subject(:token) { FactoryBot.create :token }
+
     it "allow acknowledged to be accepted" do
-      expect(subject).to allow_value("accept").for(:acknowledged)
+      expect(token).to allow_value("accept").for(:acknowledged)
     end
 
     it "allow acknowledged to be rejected" do
-      expect(subject).to allow_value("reject").for(:acknowledged)
+      expect(token).to allow_value("reject").for(:acknowledged)
     end
 
     it "allow acknowledged to be nil" do
-      expect(subject).to allow_value(nil).for(:acknowledged)
+      expect(token).to allow_value(nil).for(:acknowledged)
     end
 
     it "not allow acknowledged to be giddykipper" do
-      expect(subject).not_to allow_value("giddykipper").for(:acknowledged).with_message("giddykipper is not a valid value for acknowledged")
+      expect(token).not_to allow_value("giddykipper").for(:acknowledged).with_message("giddykipper is not a valid value for acknowledged")
     end
 
     it "returns true if accepted" do

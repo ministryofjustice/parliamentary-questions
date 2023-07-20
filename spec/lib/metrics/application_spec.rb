@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe Metrics::Application do
+  subject(:application) { described_class.new }
+
   let(:version) { 1.0 }
   let(:date)    { Time.zone.today }
   let(:tag)     { 2          }
@@ -17,11 +19,11 @@ describe Metrics::Application do
   it "#collect! - updates the app info fields with deployment info" do
     allow(Deployment).to receive(:info).and_return(info)
 
-    subject.collect!
+    application.collect!
 
-    expect(subject.version).to eq version
-    expect(subject.build_date).to eq date
-    expect(subject.build_tag).to eq tag
-    expect(subject.git_sha).to eq id
+    expect(application.version).to eq version
+    expect(application.build_date).to eq date
+    expect(application.build_tag).to eq tag
+    expect(application.git_sha).to eq id
   end
 end

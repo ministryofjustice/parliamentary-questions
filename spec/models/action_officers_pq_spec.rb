@@ -17,7 +17,7 @@
 require "spec_helper"
 
 describe ActionOfficersPq do
-  subject { described_class.new pq: create(:pq), action_officer: create(:action_officer) }
+  subject(:action_officers_pq) { described_class.new pq: create(:pq), action_officer: create(:action_officer) }
 
   describe "relationships" do
     it { is_expected.to belong_to :pq }
@@ -25,33 +25,33 @@ describe ActionOfficersPq do
   end
 
   describe "#accept" do
-    before { subject.accept }
+    before { action_officers_pq.accept }
 
     it { is_expected.to be_accepted }
   end
 
   describe "#reject" do
-    before { subject.reject("option", "reason") }
+    before { action_officers_pq.reject("option", "reason") }
 
     it { is_expected.to be_rejected }
 
     it "sets reason option" do
-      expect(subject.reason_option).to eq "option"
+      expect(action_officers_pq.reason_option).to eq "option"
     end
 
     it "sets reason" do
-      expect(subject.reason).to eq "reason"
+      expect(action_officers_pq.reason).to eq "reason"
     end
   end
 
   describe "#reset" do
     before do
-      subject.response = :accepted
-      subject.reset
+      action_officers_pq.response = :accepted
+      action_officers_pq.reset
     end
 
     it "marks as awaiting" do
-      expect(subject.reload.response).to eq :awaiting
+      expect(action_officers_pq.reload.response).to eq :awaiting
     end
   end
 

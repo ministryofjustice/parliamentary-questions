@@ -2,6 +2,8 @@ require "spec_helper"
 
 describe RakeTaskHelpers::StagingSync do
   # rubocop:disable RSpec/AnyInstance
+  subject(:staging_sync) { described_class.new }
+
   before do
     ENV["TEST_USER_PASS"] = "xxx"
     allow($stdout).to receive(:puts)
@@ -16,7 +18,7 @@ describe RakeTaskHelpers::StagingSync do
 
     expect_any_instance_of(RakeTaskHelpers::DBSanitizer).not_to receive(:run!)
     expect_any_instance_of(RakeTaskHelpers::TestUserGenerator).not_to receive(:run!)
-    expect { subject.run! }.to output(msg).to_stdout
+    expect { staging_sync.run! }.to output(msg).to_stdout
   end
 
   it "sanitizes the db and create test users on staging" do
@@ -25,7 +27,7 @@ describe RakeTaskHelpers::StagingSync do
     expect_any_instance_of(RakeTaskHelpers::DBSanitizer).to receive(:run!)
     expect_any_instance_of(RakeTaskHelpers::TestUserGenerator).to receive(:run!)
 
-    subject.run!
+    staging_sync.run!
   end
 
   it "sends an email notification in case of failure" do
@@ -33,7 +35,7 @@ describe RakeTaskHelpers::StagingSync do
     allow_any_instance_of(RakeTaskHelpers::DBSanitizer).to receive(:run!).and_raise(StandardError)
     allow(NotifyDbSyncMailer).to receive_message_chain(:notify_fail, :deliver_later)
 
-    subject.run!
+    staging_sync.run!
 
     expect(NotifyDbSyncMailer).to have_received(:notify_fail).with("StandardError")
   end

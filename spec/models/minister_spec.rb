@@ -26,11 +26,11 @@ describe Minister do
   end
 
   describe "#contact_emails" do
-    let!(:minister_contact1)        { create(:minister_contact, minister: subject) }
-    let!(:minister_contact2)        { create(:minister_contact, minister: subject) }
+    let!(:minister_contact1) { create(:minister_contact, minister: subject) }
+    let!(:minister_contact2) { create(:minister_contact, minister: subject) }
 
     it "returns the active minister contacts emails" do
-      expect(subject.contact_emails).to eql([
+      expect(minister.contact_emails).to eql([
         minister_contact1.email,
         minister_contact2.email,
       ])
@@ -38,11 +38,11 @@ describe Minister do
   end
 
   describe "#name_with_inactive_status" do
-    subject { minister.name_with_inactive_status }
+    subject(:name) { minister.name_with_inactive_status }
 
     context "when the active minister" do
       it "is the same as name" do
-        expect(subject).to eql(minister.name)
+        expect(name).to eql(minister.name)
       end
     end
 
@@ -50,13 +50,13 @@ describe Minister do
       let(:minister) { create(:deleted_minister) }
 
       it "has the inactive suffix" do
-        expect(subject).to eql("#{minister.name} - Inactive")
+        expect(name).to eql("#{minister.name} - Inactive")
       end
     end
   end
 
   describe ".active_or_having_id" do
-    let(:minister)         { create(:minister) }
+    let(:minister) { create(:minister) }
     let(:deleted_minister) { create(:deleted_minister) }
 
     it "returns only active ministers" do

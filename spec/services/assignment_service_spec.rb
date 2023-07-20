@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe AssignmentService do
+  subject(:assignment_service) { described_class.new }
+
   let(:action_officer) { create(:action_officer, name: "ao name 1", email: "ao@ao.gov", deputy_director_id: deputy_director.id) }
   let(:assignment) { ActionOfficersPq.new(action_officer:, pq:) }
   let(:commissioning_service) { CommissioningService.new }
@@ -24,17 +26,17 @@ describe AssignmentService do
   describe "#accept" do
     it "accepts the assignment" do
       expect(assignment).to receive(:accept)
-      subject.accept(assignment)
+      assignment_service.accept(assignment)
     end
 
     it "sets pq state to DRAFT_PENDING" do
-      subject.accept(assignment)
+      assignment_service.accept(assignment)
       expect(pq.state).to eq(PQState::DRAFT_PENDING)
     end
 
     it "calls the mailer" do
       allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_later)
-      subject.accept(assignment)
+      assignment_service.accept(assignment)
       expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq:, action_officer:, email: action_officer.email)
     end
 
@@ -43,7 +45,7 @@ describe AssignmentService do
       assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).not_to be nil
-      subject.accept(assignment)
+      assignment_service.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)
       expect(pq.original_division_id).to eq(division.id)
@@ -54,7 +56,7 @@ describe AssignmentService do
       assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).not_to be nil
-      subject.accept(assignment)
+      assignment_service.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)
       expect(pq.directorate_id).to eq(directorate.id)
@@ -65,7 +67,7 @@ describe AssignmentService do
       assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
       expect(assignment).not_to be nil
-      subject.accept(assignment)
+      assignment_service.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)
       expect(pq.directorate_id).to eq(directorate.id)
@@ -84,11 +86,11 @@ describe AssignmentService do
 
     it "rejects the assignment" do
       expect(assignment).to receive(:reject).with "reason option", "Some reason"
-      subject.reject(assignment, reason)
+      assignment_service.reject(assignment, reason)
     end
 
     it "updates progress" do
-      subject.reject(assignment, reason)
+      assignment_service.reject(assignment, reason)
       expect(pq.state).to eq(PQState::REJECTED)
     end
   end
