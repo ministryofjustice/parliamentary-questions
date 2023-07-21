@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe SmokeTest do
+  subject(:tests) { described_class.factory }
+
   before do
     ENV["TEST_USER"]      = "me"
     ENV["TEST_USER_PASS"] = "123"
@@ -9,8 +11,6 @@ describe SmokeTest do
   end
 
   it "#factory - creates an array of all smoke tests" do
-    tests = subject.factory
-
     expect(tests[0]).to be_an_instance_of SmokeTest::Dashboard
     expect(tests[1]).to be_an_instance_of SmokeTest::Report
     expect(tests[2]).to be_an_instance_of SmokeTest::Statistics
