@@ -19,7 +19,7 @@ describe ImportWorker do
 
   describe "#perform" do
     it "records collect questions from 3 days ago if the pqa_import_runs table is empty" do
-      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
+      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later) # rubocop:disable RSpec/MessageChain
       Timecop.freeze freeze_time do
         expect(PqaImportRun.count).to eq(0)
         allow(importer).to receive(:run).with(three_days_ago, five_mins_from_now).and_return(ok_report)
@@ -30,7 +30,7 @@ describe ImportWorker do
     end
 
     it "collects questions from the start time of the previous import" do
-      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
+      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later) # rubocop:disable RSpec/MessageChain
       Timecop.freeze freeze_time do
         allow(PqaImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
         allow(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
@@ -41,7 +41,7 @@ describe ImportWorker do
     end
 
     it "adds a record to the pqa_runs_table with the time of running" do
-      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
+      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later) # rubocop:disable RSpec/MessageChain
       Timecop.freeze freeze_time do
         allow(PqaImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
         allow(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
@@ -56,7 +56,7 @@ describe ImportWorker do
 
   describe "email motifications" do
     it "sends a success email if the import completes" do
-      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
+      allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later) # rubocop:disable RSpec/MessageChain
       allow(importer).to receive(:run).and_return(ok_report)
       worker.perform
 
@@ -64,7 +64,7 @@ describe ImportWorker do
     end
 
     it "sends a failure notification email if the import does not complete" do
-      allow(NotifyImportMailer).to receive_message_chain(:notify_fail, :deliver_later)
+      allow(NotifyImportMailer).to receive_message_chain(:notify_fail, :deliver_later) # rubocop:disable RSpec/MessageChain
       allow(importer).to receive(:run).and_raise(Errno::ECONNREFUSED, "details")
       worker.perform
 

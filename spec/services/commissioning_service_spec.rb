@@ -36,7 +36,7 @@ describe CommissioningService do
     context "when the supplied data is valid" do
       # rubocop:disable RSpec/InstanceVariable
       before do
-        allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_later)
+        allow(NotifyPqMailer).to receive_message_chain(:commission_email, :deliver_later) # rubocop:disable RSpec/MessageChain
         valid_form = CommissionForm.new(form_params)
         @pq = described_class.new.commission(valid_form)
       end

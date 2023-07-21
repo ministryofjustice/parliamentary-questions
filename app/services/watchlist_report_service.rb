@@ -15,7 +15,7 @@ class WatchlistReportService
     token      = @token_service.generate_token(watchlist_dashboard_path, entity, end_of_day)
     recipients = WatchlistMember.active.pluck(:email) << "pqtest@digital.justice.gov.uk"
 
-    $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist"
+    $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.watchlist" # rubocop:disable Style/GlobalVars
     recipients.each do |recipient|
       LogStuff.tag(:mailer_watchlist) do
         LogStuff.info { "Watchlist  email to pqtest@digital.justice.gov.uk (name Watchlist) [CCd to #{recipients.join(';')}]" }

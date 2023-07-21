@@ -8,14 +8,14 @@ class PQAService
   end
 
   def questions(date_from, date_to = nil, status = nil)
-    $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
+    $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do # rubocop:disable Style/GlobalVars
       response = @client.questions(date_from, date_to, status)
       PQA::XMLDecoder.decode_questions(response.body)
     end
   end
 
   def question(uin)
-    $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do
+    $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do # rubocop:disable Style/GlobalVars
       response = @client.question(uin)
       PQA::XMLDecoder.decode_questions(response.body)
     end

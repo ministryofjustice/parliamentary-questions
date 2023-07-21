@@ -25,7 +25,7 @@ describe "EarlyBirdReportService" do
   end
 
   it "calls the mailer" do
-    allow(NotifyPqMailer).to receive_message_chain(:early_bird_email, :deliver_later)
+    allow(NotifyPqMailer).to receive_message_chain(:early_bird_email, :deliver_later) # rubocop:disable RSpec/MessageChain
 
     token = report_service.notify_early_bird
 

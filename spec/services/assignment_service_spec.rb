@@ -35,7 +35,7 @@ describe AssignmentService do
     end
 
     it "calls the mailer" do
-      allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_later)
+      allow(NotifyPqMailer).to receive_message_chain(:acceptance_email, :deliver_later) # rubocop:disable RSpec/MessageChain
       assignment_service.accept(assignment)
       expect(NotifyPqMailer).to have_received(:acceptance_email).with(pq:, action_officer:, email: action_officer.email)
     end

@@ -65,7 +65,7 @@ protected
   end
 
   def show_error_page_and_increment_statsd(err_number, exception = nil)
-    $statsd.increment("#{StatsHelper::PAGES_ERRORS}.#{err_number}")
+    $statsd.increment("#{StatsHelper::PAGES_ERRORS}.#{err_number}") # rubocop:disable Style/GlobalVars
     respond_to do |format|
       format.html { render file: "public/#{err_number}.html", status: err_number, layout: nil }
       format.all  { head :no_content, status: err_number }

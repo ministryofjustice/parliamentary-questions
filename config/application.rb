@@ -59,7 +59,7 @@ module ParliamentaryQuestions
     config.exceptions_app = routes
 
     # Statsd
-    $statsd = Statsd.new "localhost", 8125
+    $statsd = Statsd.new "localhost", 8125 # rubocop:disable Style/GlobalVars
 
     # Specify cookies SameSite protection level: either :none, :lax, or :strict.
     #
