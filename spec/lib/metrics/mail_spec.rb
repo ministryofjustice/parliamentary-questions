@@ -24,7 +24,7 @@ describe Metrics::Mail do
 
     it "returns true if abandoned/waiting emails within threshold" do
       threshold = Settings.gecko_warning_levels.num_emails_waiting
-      allow(mail).to receive(:num_waiting).and_return(threshold + 1)
+      allow(mail).to receive(:num_waiting).and_return(threshold + 1) # rubocop:disable RSpec/SubjectStub
 
       expect(mail.email_error?).to be true
     end

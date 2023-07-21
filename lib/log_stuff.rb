@@ -59,7 +59,7 @@ class LogStuff
   end
 
   %w[fatal error warn info debug].each do |severity|
-    eval <<-ERROR, nil, __FILE__, __LINE__ + 1
+    eval <<-ERROR, nil, __FILE__, __LINE__ + 1 # rubocop:disable Security/Eval
       def self.#{severity}(*args, &block)
         self.log(:#{severity}, *args, &block )
       end

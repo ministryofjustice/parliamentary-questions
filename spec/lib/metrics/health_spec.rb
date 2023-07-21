@@ -7,7 +7,7 @@ describe Metrics::Health do
     # rubocop:disable RSpec/AnyInstance
     context "when calling the PQA API" do
       before do
-        allow(health).to receive(:get_pqa_api_status).and_return(true)
+        allow(health).to receive(:get_pqa_api_status).and_return(true) # rubocop:disable RSpec/SubjectStub
       end
 
       it "sets the db status to false if the db is not available" do
@@ -39,7 +39,7 @@ describe Metrics::Health do
       let(:pqa_data) { "1431099345::OK::[]\n" }
 
       before do
-        allow(health).to receive(:get_db_status).and_return(true)
+        allow(health).to receive(:get_db_status).and_return(true) # rubocop:disable RSpec/SubjectStub
       end
 
       def set_properties(exists, stale, status)

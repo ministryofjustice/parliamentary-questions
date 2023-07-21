@@ -379,7 +379,7 @@ describe Pq do
 
     context "when nil" do
       it "ignores change" do
-        expect(reassigned_question).not_to receive(:action_officers_pqs)
+        expect(reassigned_question).not_to receive(:action_officers_pqs) # rubocop:disable RSpec/SubjectStub
         reassigned_question.reassign nil
       end
     end
@@ -452,7 +452,7 @@ describe Pq do
   end
 
   it "sets pod_waiting when users set draft_answer_received" do
-    expect(question).to receive(:set_pod_waiting)
+    expect(question).to receive(:set_pod_waiting) # rubocop:disable RSpec/SubjectStub
     question.update!(draft_answer_received: Date.new(2014, 9, 4))
     question.save!
   end
