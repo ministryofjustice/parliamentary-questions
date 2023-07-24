@@ -11,7 +11,9 @@ ActiveSupport::Notifications.subscribe(/process_action.action_controller/) do |*
   key = "#{StatsHelper::PAGES_TIMING}.#{controller}.#{action}"
   key = key.underscore
 
-  $statsd.timing("#{key}.page", page_duration) # rubocop:disable Style/GlobalVars
-  $statsd.timing("#{key}.view", view_duration) # rubocop:disable Style/GlobalVars
-  $statsd.timing("#{key}.db", db_duration) # rubocop:disable Style/GlobalVars
+  # rubocop:disable Style/GlobalVars
+  $statsd.timing("#{key}.page", page_duration)
+  $statsd.timing("#{key}.view", view_duration)
+  $statsd.timing("#{key}.db", db_duration)
+  # rubocop:enable Style/GlobalVars
 end

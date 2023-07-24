@@ -36,6 +36,7 @@ describe GeckoStatus do
     end
   end
 
+  # rubocop:disable Rails/SaveBang
   describe KeyMetricStatus do
     let(:key_metric)  { instance_double Metrics::KeyMetric }
     let(:metrics)     { instance_double "metrics", key_metric: }
@@ -46,14 +47,14 @@ describe GeckoStatus do
         allow(key_metric).to receive(:alert).and_return(false)
 
         expect(status).to receive(:ok)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
 
       it "calls error when there is an alert" do
         allow(key_metric).to receive(:alert).and_return(true)
 
         expect(status).to receive(:error)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
     end
   end
@@ -68,14 +69,14 @@ describe GeckoStatus do
         allow(health).to receive(:db_status).and_return(true)
 
         expect(status).to receive(:ok)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
 
       it "calls error when there is a DB error" do
         allow(health).to receive(:db_status).and_return(false)
 
         expect(status).to receive(:error)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
     end
   end
@@ -90,14 +91,14 @@ describe GeckoStatus do
         allow(health).to receive(:pqa_api_status).and_return(true)
 
         expect(status).to receive(:ok)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
 
       it "calls error when there is a PQA API error" do
         allow(health).to receive(:pqa_api_status).and_return(false)
 
         expect(status).to receive(:error)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
     end
   end
@@ -113,7 +114,7 @@ describe GeckoStatus do
         allow(info).to receive(:last_run_status).and_return("OK")
 
         expect(status).to receive(:ok)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
 
       it "calls warn when the import is stale" do
@@ -121,7 +122,7 @@ describe GeckoStatus do
         allow(info).to receive(:last_run_status).and_return("OK")
 
         expect(status).to receive(:warn)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
 
       it "calls error when the run_status is not OK" do
@@ -129,7 +130,7 @@ describe GeckoStatus do
         allow(info).to receive(:last_run_status).and_return("Bad")
 
         expect(status).to receive(:error)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
     end
   end
@@ -145,7 +146,7 @@ describe GeckoStatus do
         allow(info).to receive(:run_success?).and_return(true)
 
         expect(status).to receive(:ok)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
 
       it "calls warn when the test run is stale" do
@@ -153,7 +154,7 @@ describe GeckoStatus do
         allow(info).to receive(:run_success?).and_return(true)
 
         expect(status).to receive(:warn)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
 
       it "calls error when the test run has failures" do
@@ -161,8 +162,9 @@ describe GeckoStatus do
         allow(info).to receive(:run_success?).and_return(false)
 
         expect(status).to receive(:error)
-        status.update(metrics) # rubocop:disable Rails/SaveBang
+        status.update(metrics)
       end
     end
   end
+  # rubocop:enable Rails/SaveBang
 end

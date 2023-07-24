@@ -20,13 +20,14 @@ describe HealthCheck::PqaApi do
     end
   end
 
+  # rubocop:disable RSpec/AnyInstance
   describe "#available?" do
     it "returns true if the parliamentary questions API is available" do
       expect(pqa).to be_available
     end
 
     it "returns false if the parliamentary questions API is not available" do
-      allow_any_instance_of(Net::HTTP) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(Net::HTTP)
         .to receive(:request)
         .and_raise(Net::ReadTimeout)
 
@@ -42,7 +43,7 @@ describe HealthCheck::PqaApi do
     end
 
     it "returns false if the parliamentary questions API is not accessible with our credentials" do
-      allow_any_instance_of(Net::HTTP) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(Net::HTTP)
         .to receive(:request)
         .and_return(resp_403)
 
@@ -52,7 +53,7 @@ describe HealthCheck::PqaApi do
 
   describe "#error_messages" do
     it "returns the exception messages if there is an error accessing the parliamentary questions API" do
-      allow_any_instance_of(Net::HTTP) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(Net::HTTP)
         .to receive(:request)
         .and_raise(Errno::ECONNREFUSED)
 
@@ -62,7 +63,7 @@ describe HealthCheck::PqaApi do
     end
 
     it "returns an error an backtrace for errors not specific to a component" do
-      allow_any_instance_of(Net::HTTP) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(Net::HTTP)
         .to receive(:request)
         .and_raise(StandardError)
 
@@ -71,6 +72,7 @@ describe HealthCheck::PqaApi do
       expect(pqa.error_messages.first).to match(/Error: StandardError\nDetails/)
     end
   end
+  # rubocop:enable RSpec/AnyInstance
 
   describe "#record_result" do
     it "writes timestamp and OK if no error messages" do

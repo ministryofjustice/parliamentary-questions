@@ -7,7 +7,8 @@ class NotifyPqMailer < ApplicationMailer
   # are in the same order as in the emails to prevent missing a variable which
   # can cause emails to not send
 
-  def acceptance_email(pq:, action_officer:, email:) # rubocop:disable Naming/MethodParameterName
+  # rubocop:disable Naming/MethodParameterName
+  def acceptance_email(pq:, action_officer:, email:)
     set_template("b8b325ad-a00a-4ae9-8830-6386f04adbca")
     set_personalisation(
       uin: pq.uin,
@@ -26,7 +27,7 @@ class NotifyPqMailer < ApplicationMailer
     mail(to: email)
   end
 
-  def acceptance_reminder_email(pq:, action_officer:, email:) # rubocop:disable Naming/MethodParameterName
+  def acceptance_reminder_email(pq:, action_officer:, email:)
     set_template("930fb678-0ecf-477c-9d2e-c63e101fcbc4")
     set_personalisation(
       uin: pq.uin,
@@ -44,7 +45,7 @@ class NotifyPqMailer < ApplicationMailer
     mail(to: email)
   end
 
-  def commission_email(pq:, action_officer:, token:, entity:, email:) # rubocop:disable Naming/MethodParameterName
+  def commission_email(pq:, action_officer:, token:, entity:, email:)
     check_is_wrong_domain(ActionMailer::Base.default_url_options[:host])
 
     set_template("93cb8968-bd2a-401b-8b59-47f8e0b30ca0")
@@ -65,7 +66,7 @@ class NotifyPqMailer < ApplicationMailer
     mail(to: email)
   end
 
-  def draft_reminder_email(pq:, action_officer:, email:) # rubocop:disable Naming/MethodParameterName
+  def draft_reminder_email(pq:, action_officer:, email:)
     set_template("a194ce43-dfe4-4a4f-8f15-8ad2545c4fb9")
     set_personalisation(
       uin: pq.uin,
@@ -86,6 +87,7 @@ class NotifyPqMailer < ApplicationMailer
     set_email_reply_to(Settings.parliamentary_team_email)
     mail(to: email)
   end
+  # rubocop:enable Naming/MethodParameterName
 
   def early_bird_email(email:, token:, entity:)
     set_template("e0700ef3-8a63-4041-ae97-323a1e62272f")
