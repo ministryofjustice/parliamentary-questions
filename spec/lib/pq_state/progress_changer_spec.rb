@@ -19,7 +19,7 @@ describe "PQState#progress_changer" do
   describe "#validate_transition_graph!" do
     it "does not raise errors" do
       expect {
-        subject.validate_transition_graph!
+        subject.validate_transition_graph! # rubocop:disable RSpec/NamedSubject
       }.not_to raise_error
     end
   end
@@ -27,7 +27,7 @@ describe "PQState#progress_changer" do
   describe "#next_state" do
     context "when moving from the initial, to an intermediate state of the graph" do
       it "returns the intermediate state" do
-        expect(subject.next_state(PQState::UNASSIGNED, stub_pq)).to eq(PQState::NO_RESPONSE)
+        expect(subject.next_state(PQState::UNASSIGNED, stub_pq)).to eq(PQState::NO_RESPONSE) # rubocop:disable RSpec/NamedSubject
       end
     end
 
@@ -36,7 +36,7 @@ describe "PQState#progress_changer" do
         pq = stub_pq(transfer_out_ogd_id: "test-id",
                      transfer_out_date: Time.zone.now)
 
-        expect(subject.next_state(PQState::NO_RESPONSE, pq)).to eq(PQState::TRANSFERRED_OUT)
+        expect(subject.next_state(PQState::NO_RESPONSE, pq)).to eq(PQState::TRANSFERRED_OUT) # rubocop:disable RSpec/NamedSubject
       end
     end
 
@@ -55,7 +55,7 @@ describe "PQState#progress_changer" do
                      cleared_by_answering_minister: true,
                      pq_withdrawn: true)
 
-        expect(subject.next_state(PQState::UNASSIGNED, pq)).to eq(PQState::ANSWERED)
+        expect(subject.next_state(PQState::UNASSIGNED, pq)).to eq(PQState::ANSWERED) # rubocop:disable RSpec/NamedSubject
       end
     end
   end
