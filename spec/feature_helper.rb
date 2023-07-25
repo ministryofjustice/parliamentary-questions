@@ -55,4 +55,16 @@ RSpec.configure do |config|
   config.after(:suite) do
     mock_api_runner.stop
   end
+
+  # enable csrf testing in feature specs - `with_csrf_protection: true`
+  config.around(:each, :with_csrf_protection) do |example|
+    orig = ActionController::Base.allow_forgery_protection
+
+    begin
+      ActionController::Base.allow_forgery_protection = true
+      example.run
+    ensure
+      ActionController::Base.allow_forgery_protection = orig
+    end
+  end
 end

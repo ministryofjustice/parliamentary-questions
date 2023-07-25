@@ -1,6 +1,6 @@
 require 'feature_helper'
 
-feature 'Commissioning questions', js: true, suspend_cleaner: true do
+feature 'Commissioning questions', with_csrf_protection: true, js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
   let(:ao)         { ActionOfficer.find_by(email: 'ao1@pq.com') }
