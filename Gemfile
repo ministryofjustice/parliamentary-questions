@@ -57,7 +57,7 @@ group :test, :development do
   gem 'letter_opener', '~> 1.7'
   gem 'poltergeist', '~> 1.18', '>= 1.18.1'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
-  gem 'rspec-rails', '~> 5.1'
+  gem 'rspec-rails', '~> 6.0'
   gem 'rubocop', '~> 1.51'
   gem 'rubocop-factory_bot', '~> 2.23', '>= 2.23.1'
   gem 'rubocop-performance', '~> 1.18'
