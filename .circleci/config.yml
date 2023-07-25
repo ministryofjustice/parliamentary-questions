@@ -35,7 +35,16 @@ references:
     docker:
       - image: ministryofjustice/cloud-platform-tools:1.29
 
-# These are defining the steps which are used below in the jobs
+  # These are defining the steps which are used below in the jobs
+  update_chromedriver: &update_chromedriver
+    run:
+      name: Update chrome and the chromedriver
+      command: |
+        sudo curl https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
   install_expect: &install_expect
     run:
       name: Install Expect
@@ -205,6 +214,7 @@ jobs:
       - *wait_for_db
       - *set_up_the_database
       - *rubocop
+      - *update_chromedriver
       - *setup_test_reporter
       - *run_unit_and_feature_tests
       - *upload_test_coverage
