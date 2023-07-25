@@ -22,3 +22,6 @@ postgres.log
 set_env.sh
 tmp
 vendor
+*secret*.*
+.vscode
+.byebug_history

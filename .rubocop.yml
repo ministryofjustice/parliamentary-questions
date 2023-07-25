@@ -1,11 +1,13 @@
 # Documentation: http://rubocop.readthedocs.io/en/latest/
 
 require:
+  - rubocop-factory_bot
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
-  EnabledByDefault: true
+  DisabledByDefault: true
 
   Exclude:
     - db/schema.rb # Because it's generated.
@@ -117,8 +119,10 @@ Metrics/ModuleLength:
   Max: 250
 
 Metrics/ParameterLists:
-  Description: 'Allow up to 6 method parameters.'
+  Description: 'Allow up to 6 method parameters & up to 5 optional parameters.'
+  StyleGuide: https://docs.rubocop.org/rubocop/cops_metrics.html#metricsparameterlists
   Max: 6
+  MaxOptionalParameters: 5
 
 Metrics/PerceivedComplexity:
   Description: 'A complexity metric geared towards measuring complexity for a human reader.'
@@ -382,6 +386,10 @@ Style/NumericLiteralPrefix:
   StyleGuide: 'https://github.com/rubocop-hq/ruby-style-guide#numeric-literal-prefixes'
   Enabled: false
 
+Style/RedundantInterpolation:
+  Description: 'This cop checks for strings that are just an interpolated expression.'
+  Enabled: false
+
 Style/RedundantParentheses:
   Description: 'This cop checks for redundant parentheses.'
   Enabled: false
@@ -411,8 +419,4 @@ Style/StringHashKeys:
 Style/SymbolArray:
   Description: 'This cop can check for array literals made up of symbols that are not using the %i() syntax.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-i'
-  Enabled: false
-
-Style/RedundantInterpolation:
-  Description: 'This cop checks for strings that are just an interpolated expression.'
   Enabled: false

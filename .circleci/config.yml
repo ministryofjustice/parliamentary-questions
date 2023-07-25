@@ -2,16 +2,17 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@3.4.2
+  aws-cli: circleci/aws-cli@4.0.0 # use v4 of this orb
+  aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
 
 references:
   defaults: &defaults
     working_directory: ~/parliamentary-questions
-    resource_class: small
 
 # Sets up the docker images and environment variables that we use
   test_container_config: &test_container_config
     docker:
-      - image: circleci/ruby:2.7.2-node-browsers-legacy
+      - image: cimg/ruby:3.1.4-browsers
         environment:
           GITHUB_TEAM_NAME_SLUG: pq-team
           APPLICATION_DEPLOY_NAME: pq
@@ -21,12 +22,14 @@ references:
           POSTGRES_PASSWORD: "secret"
           PGUSER: postgres
           POSTGRES_DB: parliamentary_questions_test
+          GOVUK_NOTIFY_API_KEY: fake-key
 
       - image: postgres:10
         environment:
           POSTGRES_PASSWORD: "secret"
           POSTGRES_DB: parliamentary_questions_test
           POSTGRES_USER: postgres
+
 
   deploy_container_config: &deploy_container_config
     docker:
@@ -41,34 +44,6 @@ references:
           --no-cache \
           --no-progress \
           expect
-
-  create_gpg_key_file: &create_gpg_key_file
-    run:
-      name: Create GPG Key file from Environment variable
-      command: |
-        echo -e ${GPG_PRIVATE_KEY} > PRIVATE_GPG_KEY.asc
-
-  configure_gpg: &configure_gpg
-    run:
-      name: Configure GPG
-      command: |
-        gpg --import --batch --allow-secret-key-import PRIVATE_GPG_KEY.asc
-
-  delete_gpg_key_file: &delete_gpg_key_file
-    run:
-        name: Delete GPG Key file after import
-        command: ¬
-          rm PRIVATE_GPG_KEY.asc
-
-  decrypt_secrets: &decrypt_secrets
-    run:
-      name: Decrypt secrets file
-      command: |
-        gpgconf --kill gpg-agent
-        gpg-agent --daemon --allow-preset-passphrase
-        /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
-        expect -c "spawn gpg --edit-key $GPG_KEY_ID trust quit; send \"5\ry\r\"; expect eof"
-        git-crypt unlock
 
   install_bundler: &install_bundler
     run:
@@ -141,22 +116,50 @@ references:
         ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
         ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
 
-  configure_aws_profile: &configure_aws_profile
-    run:
-      name: Configure AWS CLI
-      command: |
-        aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ecr-live-parliamentary-questions
-        aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ecr-live-parliamentary-questions
-        aws configure set default.region ${AWS_DEFAULT_REGION} --profile ecr-live-parliamentary-questions
+  aws_setup: &aws_setup
+    # Authenticate to AWS using OIDC v2 with the AWS CLI
+    aws-cli/setup:
+      role_arn: $ECR_ROLE_TO_ASSUME
+      region: $ECR_REGION
 
-  build_and_push_docker_image: &build_and_push_docker_image
+  ecr_login: &ecr_login
     run:
-      name: Build docker image
+      name: Authenticate to the ECR repository
       command: |
-        . build.sh circleci
+        aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
+
+  configure_build_tag: &configure_build_tag
+    run:
+      name: Create build tag
+      command: |
+        prefix="pq"
+        short_version=$(git rev-parse --short ${CIRCLE_BRANCH})
+        build_tag=$prefix-$CIRCLE_BRANCH-$short_version
+
+        echo "export BUILD_TAG=${build_tag}" >> $BASH_ENV
+        source $BASH_ENV
+
         mkdir -p workspace
         echo $BUILD_TAG > workspace/build_tag
-        python3 config/pipeline/aws_ecr_scan_results.py --search parliamentary-questions --tag $BUILD_TAG --slack_webhook $SLACK_WEBHOOK || true
+
+  build_and_push_image: &build_and_push_image
+    aws-ecr/build-image:
+      push-image: true
+      tag: $BUILD_TAG
+      region: $ECR_REGION
+      repo: $ECR_REPOSITORY
+      extra-build-args: |
+        --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
+        --build-arg COMMIT_ID=$CIRCLE_SHA1 \
+        --build-arg BUILD_TAG=$BUILD_TAG \
+
+  scan_for_vulnerabilities: &scan_for_vulnerabilities
+    run:
+      name: Check ECR scan results
+      command: |
+        build_tag=`cat /tmp/workspace/build_tag`
+        python3 config/pipeline/aws_ecr_scan_results.py --search parliamentary-questions --tag $build_tag --slack_webhook $SLACK_WEBHOOK || true
+
 
   deploy_to_dev: &deploy_to_dev
     run:
@@ -189,7 +192,8 @@ jobs:
 
   build_and_test:
     <<: *test_container_config
-    resource_class: small
+    <<: *defaults
+
     working_directory: ~/parliamentary-questions
     steps:
       - checkout
@@ -206,34 +210,44 @@ jobs:
       - *upload_test_coverage
 
   build_branch_and_push_to_ecr:
-    <<: *deploy_container_config
+    executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
     <<: *defaults
     steps:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
-      - setup_remote_docker
-      - *configure_aws_profile
-      - *build_and_push_docker_image
+      - *aws_setup
+      - *ecr_login
+      - *configure_build_tag
+      - *build_and_push_image
       - persist_to_workspace:
           root: workspace
           paths:
             - build_tag
 
   build_main_and_push_to_ecr:
-    <<: *deploy_container_config
+    executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
     <<: *defaults
     steps:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
-      - setup_remote_docker
-      - *configure_aws_profile
-      - *build_and_push_docker_image
+      - *aws_setup
+      - *ecr_login
+      - *configure_build_tag
+      - *build_and_push_image
       - persist_to_workspace:
           root: workspace
           paths:
             - build_tag
+
+  scan_image:
+    <<: *deploy_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - *scan_for_vulnerabilities
 
   dev_deployment_tasks: &do_dev_deployment_tasks
     <<: *deploy_container_config
@@ -243,9 +257,6 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - *install_expect
-      - *create_gpg_key_file
-      - *configure_gpg
-      - *decrypt_secrets
       - *deploy_to_dev
       - slack/notify:
           color: '#1d990c'
@@ -263,9 +274,6 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - *install_expect
-      - *create_gpg_key_file
-      - *configure_gpg
-      - *decrypt_secrets
       - *deploy_to_staging
       - slack/notify:
           color: '#1d990c'
@@ -283,9 +291,6 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - *install_expect
-      - *create_gpg_key_file
-      - *configure_gpg
-      - *decrypt_secrets
       - *deploy_to_production
       - slack/notify:
           color: '#1d990c'
@@ -309,9 +314,12 @@ workflows:
       - build_main_and_push_to_ecr:
           requires:
             - build_and_test
-      - deploy_main_to_dev:
+      - scan_image:
           requires:
             - build_main_and_push_to_ecr
+      - deploy_main_to_dev:
+          requires:
+            - scan_image
       - deploy_main_to_staging_approval:
           type: approval
           requires:

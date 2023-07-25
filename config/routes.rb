@@ -31,7 +31,9 @@ ParliamentaryQuestions::Application.routes.draw do
 
   devise_for :users, controllers: { invitations: 'users/invitations', sessions: 'users/sessions' }
   resources  :users
-  resources :pqs, only: [:index, :show, :update]
+  resources :pqs, only: [:index, :show, :update] do
+    resource :proposal, only: [:new, :create]
+  end
 
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'

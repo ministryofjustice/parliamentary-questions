@@ -75,13 +75,6 @@ function _deploy() {
       ;;
   esac
 
-  # Ensure that the git-crypt secrets are unlocked ready for deployment
-  if grep -rq "\x0GITCRYPT" k8s-deploy/$environment/secrets.yaml; then
-    p "\e[31mFatal error: repository is locked with git-crypt\e[0m"
-    p "\e[31mUnlock using 'git-crypt unlock'\e[0m\n"
-    return 0
-  fi
-
   # Confirm what's going to happen and ask for confirmation if not circle ci
   docker_image_tag=${docker_registry}:${image_tag}
 
@@ -121,7 +114,7 @@ function _deploy() {
     p "Authenticating to live..."
     echo -n $KUBE_ENV_LIVE_CA_CERT | base64 -d > ./live_ca.crt
     kubectl config set-cluster $KUBE_ENV_LIVE_CLUSTER_NAME --certificate-authority=./live_ca.crt --server=https://$KUBE_ENV_LIVE_CLUSTER_NAME
-    
+
     if [[ $environment == "development" ]]
     then
       live_token=$KUBE_ENV_LIVE_DEVELOPMENT_TOKEN
@@ -160,21 +153,20 @@ function _deploy() {
   kubectl apply \
     -f k8s-deploy/${environment}/service.yaml \
     -f k8s-deploy/${environment}/ingress-live.yaml \
-    -f k8s-deploy/${environment}/secrets.yaml \
     -n $namespace
 
   # Deploy the pod for sidekiq
   kubectl set image -f k8s-deploy/${environment}/deployment_sidekiq.yaml \
           parliamentary-questions-rails-jobs=${docker_image_tag} \
           --local --output yaml | kubectl apply -n $namespace -f -
- 
+
   kubectl delete job rails-migrations -n $namespace --ignore-not-found=true
 
   kubectl set image -f k8s-deploy/${environment}/migration_job.yaml \
           parliamentary-questions-rails-app=${docker_image_tag} \
           --local --output yaml | kubectl apply -n $namespace -f -
 
-  #Trim database to limit the number of questions'  
+  #Trim database to limit the number of questions'
   if [ $environment == "staging" ]
   then
     kubectl set image -f k8s-deploy/${environment}/trim_db_cronjob.yaml \
@@ -182,7 +174,7 @@ function _deploy() {
             --local --output yaml | kubectl apply -n $namespace -f -
   fi
 
-  #nightly import to pull questions from the parliamentary API 
+  #nightly import to pull questions from the parliamentary API
   if [ $environment == "staging" ] || [ $environment == "production" ]
   then
     kubectl set image -f k8s-deploy/${environment}/nightly_import_cronjob.yaml \
@@ -191,7 +183,7 @@ function _deploy() {
 
   fi
 
-  # Schedule early bird email delivery 
+  # Schedule early bird email delivery
   if [ $environment == "production" ]
   then
     kubectl set image -f k8s-deploy/${environment}/early_bird_dispatch_cronjob.yaml \

@@ -10,7 +10,6 @@ require 'rspec/rails'
 require 'paper_trail/frameworks/rspec'
 require 'capybara/rspec'
 
-Webdrivers.cache_time = 86_400
 Capybara.default_max_wait_time = 4
 Capybara.asset_host = 'http://localhost:3000'
 

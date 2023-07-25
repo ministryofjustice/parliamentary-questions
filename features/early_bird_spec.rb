@@ -43,10 +43,25 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
 
   scenario 'A early bird member follows an email link to view the list of daily questions' do
     visit_earlybird_url
-
     expect(page).to have_text(/1 new parliamentary questions/i)
     expect(page).to have_text(@pq.question)
     expect(page).to have_content("uin-#{@pq.uin}")
+    expect(page).to have_link('Email PQ team about this question', href: 'mailto:pqs@justice.gov.uk?subject=Question 1')
+  end
+
+  scenario 'An early bird member recommends someone to answer' do
+    visit_earlybird_url
+    expect(page).to have_link('Propose a Deputy Director')
+    click_link 'Propose a Deputy Director'
+    expect(page).to have_content('Propose a Deputy Director')
+    select @aos.first.name, from: 'Deputy Director(s)'
+    click_on 'Save'
+    expect(page).to have_content('Successfully proposed Deputy Director(s)')
+    expect(page).to have_content(@aos.first.name)
+    create_pq_session
+    click_on 'PQ Tracker'
+    expect(page).to have_content(@aos.first.name)
+    expect(page).to have_content('Action Officer Proposed')
   end
 
   scenario 'The URL token sent to the early bird member expires after 24 hours' do
@@ -66,8 +81,8 @@ feature 'Early bird member sees allocated questions', suspend_cleaner: true do
     q                   = Pq.first
     q.uin               = '1'
     q.minister          = Minister.find_by(name: 'Chris Grayling')
-    q.internal_deadline = Time.zone.today + 1.day
-    q.internal_deadline = Time.zone.today + 2.days
+    # q.internal_deadline = Time.zone.today + 1.day
+    # q.internal_deadline = Time.zone.today + 2.days
     q.update_state!
     q
   end

@@ -40,7 +40,7 @@ describe Metrics::Health do
       end
 
       def set_properties(exists, stale, status)
-        allow(File).to receive(:exists?).and_return(exists)
+        allow(File).to receive(:exist?).and_return(exists)
         allow(File).to receive(:read).and_return(pqa_data)
         allow_any_instance_of(pqa_file).to receive(:stale?).and_return(stale)
         allow_any_instance_of(pqa_file).to receive(:status).and_return(status)
@@ -61,7 +61,7 @@ describe Metrics::Health do
       end
 
       it 'should set the pqa api status to false if the api status check timestamp is not up to date' do
-        allow_any_instance_of(pqa_file).to receive(:exists?).and_return(true)
+        allow_any_instance_of(pqa_file).to receive(:exist?).and_return(true)
         allow_any_instance_of(pqa_file).to receive(:last_run_time).and_return(2.days.ago)
         allow_any_instance_of(pqa_file).to receive(:status).and_return('OK')
         subject.collect!

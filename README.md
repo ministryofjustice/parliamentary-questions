@@ -9,7 +9,7 @@ Webapp to manage the workflow Parliamentary Questions
 
 # System dependencies
 
-- Ruby 2.7.2
+- Ruby 3.1.4
 - Postgresql 9.3
 - phantomjs  (tests only)
 - coreutils (required by the `version_tag.sh` script)
@@ -31,9 +31,18 @@ Then Install the app dependencies by running the following
 
     gem install bundler && bundle install
 
-If you get problems installing the pg gem not being able to find libpg, try setting the architecture flag as follows:
+### Installation Issues
+
+There maybe an issue installing `eventmachine` on an M1 mac. This maybe solved by running
+
+    gem install eventmachine -v '1.2.7' -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
+    bundle install
+
+If you get problems installing the `pg` gem not being able to find libpg, try setting the architecture flag as follows:
 
     gem install bundler && ARCHFLAGS="-arch x86_64" bundle install
+
+---
 
 You can now proceed setting up the database table layout
 
@@ -91,36 +100,7 @@ rake "user:create[admin@admin.com, 123456789, admin]"
 
 ## Keeping secrets secure
 
-To prevent the commitment of secrets and credentials into git repositories we use awslabs / git-secrets (https://github.com/awslabs/git-secrets)
-
-For MacOS, git-secrets can be install via Homebrew.  From the terminal run the following:
-
-    $ brew install git-secrets
-
-Then install the git hooks:
-
-    $ cd /path/to/my/repo
-    $ git secrets --install
-    $ git secrets --register-aws
-
-A 'canary' string has been added to the last line of the Development, Staging & Development environments secrets.yaml files.  Git Secrets has to be set to look for this string with:
-
-    $ git secrets --add --literal '#WARNING Secrets Are Not Encrypted!'
-
-**Please note** the string literal above should have underscores where there are spaces.  Removing the underscores in this example stops git-secrets flagging this file as having exposed credentials.
-
-Finally checking the installation result:-
-
-First, check the hooks, open your local repository .git/hooks/, a few new hooks should have installed: pre-commit, commit-msg, prepare-commit-msg, each file should look something like this:
-
-    #!/usr/bin/env bash
-    git secrets --pre_commit_hook -- "$@"
-
-Second, check the .git/config, a new section called [secrets] should have been added by end of this file, you should be able to see the rules from aws and the one for 'canary' string.
-
-**How it works**
-
-When committing a branch change git-secrets scans the whole repository for a specific set of strings.  In this case, the 'canary' string (described above) has been placed in all the secrets files. So, if the encrypted secrets files are unlocked, you will be warned before pushing the branch.
+There should be *absolutely no secure credentials* committed in this repo. Information about secret management can be found in the related confluence pages.
 
 # Data model
 
@@ -147,7 +127,7 @@ for details of how to get an account and obtain an API key.
 
 ## Dependabot
 
-Dependabot creates PRs to help us keep track of our dependency updates. This is great but can lead to a little bit of work if you integrate these changes one by one (for instance, having to run the test suite over and over again). 
+Dependabot creates PRs to help us keep track of our dependency updates. This is great but can lead to a little bit of work if you integrate these changes one by one (for instance, having to run the test suite over and over again).
 
 You can manually combine the changes into one PR and then push this and wait for the tests to run, but this is admin that can be automated so why bother?
 

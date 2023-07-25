@@ -61,5 +61,9 @@ describe ActionOfficer do
     it 'lists all active Action Officers and those made inactive withing the last two days' do
       expect(ActionOfficer.active_list).to match_array [actionOfficer1, actionOfficer2, actionOfficer3, actionOfficer4, actionOfficer5]
     end
+
+    it 'lists all inactive Action Officers' do
+      expect(ActionOfficer.inactive_list).to match_array [actionOfficer2, actionOfficer4, actionOfficer6]
+    end
   end
 end
