@@ -49,13 +49,13 @@ group :test, :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'brakeman', '~> 5.4', require: false
+  gem 'capybara', '~> 3.37'
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
   gem 'debug', '~> 1.8'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 2.20'
   gem 'launchy', '~> 2.5'
   gem 'letter_opener', '~> 1.7'
-  gem 'poltergeist', '~> 1.18', '>= 1.18.1'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 6.0'
   gem 'rubocop', '~> 1.51'
@@ -63,6 +63,7 @@ group :test, :development do
   gem 'rubocop-performance', '~> 1.18'
   gem 'rubocop-rails', '~> 2.19', '>= 2.19.1'
   gem 'rubocop-rspec', '~> 2.22'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.1', require: false
   gem 'sinatra', '~> 2.2'
   gem 'timecop', '~> 0.9.5'
