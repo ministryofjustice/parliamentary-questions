@@ -3,7 +3,8 @@ module_function
 
   def datetime(node, xpath)
     v = text(node, xpath)
-    v && Time.zone.parse(v)
+    # v && Time.zone.parse(v)
+    v && DateTime.parse(v) # rubocop:disable Style/DateTime
   end
 
   def int(node, xpath)
