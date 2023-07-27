@@ -18,4 +18,6 @@ module Deployment
   def build_tag
     ENV["APP_BUILD_TAG"] || "unknown"
   end
+
+  extend self # rubocop:disable Style/ModuleFunction
 end
