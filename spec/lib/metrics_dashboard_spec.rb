@@ -15,7 +15,11 @@ describe MetricsDashboard do
 
   it "#update - gathers metric and updates the gecko collection" do
     expect(dash.gecko).to receive(:update).with(dash.metrics)
-    expect(dash.metrics.each).to all(receive(:collect!))
-    dash.update!
+
+    dash.metrics.each do |c| # rubocop:disable RSpec/IteratedExpectation
+      expect(c).to receive(:collect!)
+    end
+
+    dash.update # rubocop:disable Rails/SaveBang
   end
 end
