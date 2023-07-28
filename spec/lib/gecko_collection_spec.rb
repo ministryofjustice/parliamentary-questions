@@ -29,10 +29,10 @@ describe GeckoCollection do
   end
 
   it "#update - should update each gecko status instance" do
-    component  = instance_double Metrics::Component
-    components = [component, component]
+    comp = instance_double Metrics::Component
+    components = [comp, comp]
 
-    all_components.each do |component| # rubocop:disable Lint/ShadowingOuterLocalVariable
+    all_components.each do |component|
       expect(collection.send(component)).to receive(:update).with(components)
     end
 
