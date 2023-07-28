@@ -28,23 +28,20 @@ describe ProposalService do
     end
 
     context "when the supplied data is valid" do
-      before do
-        valid_form = ProposalForm.new(form_params)
-        @pq = described_class.new.propose(valid_form)
-      end
+      let(:valid_form) { ProposalForm.new(form_params) }
+      let(:pq1) { described_class.new.propose(valid_form) }
 
       it "returns an updated PQ" do
-        expect(@pq).to be_valid
+        expect(pq1).to be_valid
       end
 
       it "sets the pqs' action officers" do
-        expect(@pq.action_officers).to eq([ao1, ao2])
+        expect(pq1.action_officers).to eq([ao1, ao2])
       end
 
       it "keeps the PQ state as unassigned" do
-        expect(@pq.state).to eq(PQState::UNASSIGNED)
+        expect(pq1.state).to eq(PQState::UNASSIGNED)
       end
     end
   end
-  # rubocop:enable RSpec/InstanceVariable
 end
