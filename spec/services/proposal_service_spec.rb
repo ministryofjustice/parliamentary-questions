@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe ProposalService do
-  shared_context "test_values" do # rubocop:disable RSpec/ContextWording
+  shared_context "with test_values" do
     let(:ao1)                 { DBHelpers.action_officers[0] }
     let(:ao2)                 { DBHelpers.action_officers[1] }
     let(:form)                { ProposalForm.new(form_params) }
@@ -16,9 +16,8 @@ describe ProposalService do
     end
   end
 
-  # rubocop:disable RSpec/InstanceVariable
   describe "propose" do
-    include_context "test_values"
+    include_context "with test_values"
     context "when the supplied form data is not valid" do
       it "raises an error" do
         expect {
