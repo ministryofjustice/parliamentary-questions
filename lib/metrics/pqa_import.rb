@@ -2,7 +2,8 @@ module Metrics
   class PqaImport < Component
     attr_reader :last_run_time, :last_run_status, :pqs
 
-    def initialize  # rubocop:disable Lint/MissingSuper
+    def initialize
+      super
       @pqs = NumPqsImported.new
     end
 
