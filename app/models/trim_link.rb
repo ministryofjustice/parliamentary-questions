@@ -12,7 +12,7 @@
 #  deleted    :boolean          default(FALSE)
 #
 
-class TrimLink < ActiveRecord::Base  # rubocop:disable Rails/ApplicationRecord
+class TrimLink < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
