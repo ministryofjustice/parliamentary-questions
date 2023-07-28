@@ -4,7 +4,7 @@ namespace :demo do
     delete_existing_demo_questions
     seed_questions = populate_seeds
     (1..5).each do |i|
-      create_question(i, seed_questions[i - 1])
+      create_question(seed_questions[i - 1])
     end
   end
 
@@ -93,8 +93,7 @@ def populate_seeds
   seed_questions
 end
 
-# def create_question(i, seed_question)
-def create_question(_i, seed_question) # rubocop:disable Naming/MethodParameterName
+def create_question(seed_question)
   uin = (seed_question.uin.to_i + 600_000).to_s
 
   Pq.create!(
