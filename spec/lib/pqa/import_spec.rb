@@ -91,10 +91,9 @@ describe PQA::Import do
 
       it "saves the new records, updating the existing ones, without changing the state" do
         import.run(from_date, to_date)
-        pq = Pq.find_by(uin: "uin-1")
-        pq.update!(state: PQState::REJECTED)
+        Pq.find_by(uin: "uin-1").update!(state: PQState::REJECTED)
 
-        expect(Pq.order(:uin).map do |pq| # rubocop:disable Lint/ShadowingOuterLocalVariable
+        expect(Pq.order(:uin).map do |pq|
           d = pq.tabled_date
           state = pq.state
           [pq.uin, [d.day, d.month, d.year], state]
