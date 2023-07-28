@@ -52,8 +52,8 @@ module PQA
 
     get "/api/qais/questions" do
       status       = params[:status]
-      date_from    = DateTime.parse(params[:dateFrom] || DateTime.commercial(1000).to_s) # rubocop:disable Style/DateTime
-      date_to      = DateTime.parse(params[:dateTo]   || DateTime.commercial(3000).to_s) # rubocop:disable Style/DateTime
+      date_from    = Time.zone.parse(params[:dateFrom] || Time.commercial(1000).to_s)
+      date_to      = Time.zone.parse(params[:dateTo]   || Time.commercial(3000).to_s)
 
       match_status = proc { |q| !status || q.question_status == status }
       questions    = QUESTIONS.select { |_uin, q|
