@@ -1,9 +1,8 @@
 module ActionDispatch
-  # rubocop:disable Style/RedundantRegexpCharacterClass
   class HostAuthorization
     HOSTNAME = /[a-z0-9.-]+|\[[a-f0-9]*:[a-f0-9.:]+\]/i
     VALID_ORIGIN_HOST = /\A(#{HOSTNAME})(?::\d+)?\z/
-    VALID_FORWARDED_HOST = /(?:\A|,[ ]?)(#{HOSTNAME})(?::\d+)?\z/
+    VALID_FORWARDED_HOST = /(?:\A|,[ ]?)(#{HOSTNAME})(?::\d+)?\z/ # rubocop:disable Style/RedundantRegexpCharacterClass
 
   private
 
@@ -16,5 +15,4 @@ module ActionDispatch
         (forwarded_host.blank? || @permissions.allows?(forwarded_host))
     end
   end
-  # rubocop:enable Style/RedundantRegexpCharacterClass
 end
