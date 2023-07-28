@@ -1,5 +1,5 @@
 require "sinatra/base"
-require "date"
+require "active_support/all"
 
 module PQA
   # This class provides a mock implementation of the PQ&A API.
