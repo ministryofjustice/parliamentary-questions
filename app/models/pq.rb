@@ -68,7 +68,7 @@
 #  state_weight                                  :integer          default(0)
 #
 
-class Pq < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
+class Pq < ApplicationRecord
   belongs_to :progress
 
   has_paper_trail

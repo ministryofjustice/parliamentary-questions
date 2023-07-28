@@ -13,7 +13,7 @@
 #  ack_time     :datetime
 #
 
-class Token < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
+class Token < ApplicationRecord
   has_paper_trail
 
   validates :acknowledged, inclusion: { in: %w[accept reject], message: "%{value} is not a valid value for acknowledged" }, allow_nil: true

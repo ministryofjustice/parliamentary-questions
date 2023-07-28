@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #
 
-class ActionlistMember < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
+class ActionlistMember < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 

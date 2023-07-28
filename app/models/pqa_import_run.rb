@@ -13,7 +13,7 @@
 #  updated_at     :datetime
 #
 
-class PqaImportRun < ActiveRecord::Base # rubocop:disable Rails/ApplicationRecord
+class PqaImportRun < ApplicationRecord
   scope :successful, -> { where("status != 'Failure'") }
 
   validates :status, inclusion: { in: %w[OK Failure OK_with_errors], message: "Status must be 'OK', 'Failure' or 'OK_with_errors': was '%{value}'" }
