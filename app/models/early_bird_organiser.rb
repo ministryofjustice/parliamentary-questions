@@ -1,4 +1,4 @@
-class EarlyBirdOrganiser < ActiveRecord::Base
+class EarlyBirdOrganiser < ApplicationRecord
   validates :date_from, presence: true
   validates :date_to, presence: true
 
@@ -6,17 +6,17 @@ class EarlyBirdOrganiser < ActiveRecord::Base
 
   validate :date_from_must_not_be_in_the_past
 
-  private
+private
 
   def date_to_cant_be_before_date_from
     if (date_to && date_from) && (date_to < date_from)
-      errors.add(:date_to, 'cannot be before the First date')
+      errors.add(:date_to, "cannot be before the First date")
     end
   end
 
   def date_from_must_not_be_in_the_past
     if date_from && date_from < Time.zone.today
-      errors.add(:date_from, 'cannot be in the past')
+      errors.add(:date_from, "cannot be in the past")
     end
   end
 end

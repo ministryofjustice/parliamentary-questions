@@ -1,9 +1,9 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe MetricsDashboard do
-  let(:dash) { MetricsDashboard.new }
+  let(:dash) { described_class.new }
 
-  it '#initialize - creates a metrics dashboard with a gecko collection and components' do
+  it "#initialize - creates a metrics dashboard with a gecko collection and components" do
     expect(dash.gecko).to be_an_instance_of GeckoCollection
     expect(dash.metrics.key_metric).to be_an_instance_of Metrics::KeyMetric
     expect(dash.metrics.health).to be_an_instance_of Metrics::Health
@@ -13,13 +13,13 @@ describe MetricsDashboard do
     expect(dash.metrics.pqa_import).to be_an_instance_of Metrics::PqaImport
   end
 
-  it '#update - gathers metric and updates the gecko collection' do
+  it "#update - gathers metric and updates the gecko collection" do
     expect(dash.gecko).to receive(:update).with(dash.metrics)
 
-    dash.metrics.each do |c|
+    dash.metrics.each do |c| # rubocop:disable RSpec/IteratedExpectation
       expect(c).to receive(:collect!)
     end
 
-    dash.update
+    dash.update # rubocop:disable Rails/SaveBang
   end
 end

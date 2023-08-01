@@ -8,17 +8,17 @@ module PQA
 
     def run(date_from, date_to)
       query_api_and_update do
-        questions = @pqa_service.questions(date_from, date_to)
+        @pqa_service.questions(date_from, date_to)
       end
     end
 
     def run_for_question(uin)
       query_api_and_update do
-        questions = @pqa_service.question(uin)
+        @pqa_service.question(uin)
       end
     end
 
-    private
+  private
 
     def query_api_and_update(&block)
       init_state!
@@ -40,26 +40,26 @@ module PQA
         total: @total,
         created: @created,
         updated: @updated,
-        errors: @errors
+        errors: @errors,
       }
     end
 
-    def insert_or_update(q)
-      uin = q.uin
-      pq  = Pq.find_or_initialize_by(uin: uin)
+    def insert_or_update(question)
+      uin = question.uin
+      pq  = Pq.find_or_initialize_by(uin:)
 
       pq.uin                 = uin
-      pq.raising_member_id   = q.member_id
-      pq.question            = q.text
-      pq.tabled_date         = q.tabled_date
-      pq.member_name         = q.member_name
-      pq.member_constituency = q.member_constituency
-      pq.house_name          = q.house_name
-      pq.registered_interest = q.registered_interest
-      pq.question_type       = q.question_type
-      pq.question_status     = q.question_status
-      pq.preview_url         = q.url
-      pq.date_for_answer     = pq.date_for_answer || q.date_for_answer
+      pq.raising_member_id   = question.member_id
+      pq.question            = question.text
+      pq.tabled_date         = question.tabled_date
+      pq.member_name         = question.member_name
+      pq.member_constituency = question.member_constituency
+      pq.house_name          = question.house_name
+      pq.registered_interest = question.registered_interest
+      pq.question_type       = question.question_type
+      pq.question_status     = question.question_status
+      pq.preview_url         = question.url
+      pq.date_for_answer     = pq.date_for_answer || question.date_for_answer
       pq.transferred         ||= false
       pq.state               ||= PQState::UNASSIGNED
 
@@ -70,11 +70,11 @@ module PQA
       elsif pq.new_record?
         @created += 1
         @logger.debug { "Imported new record (uin: #{uin})" }
-        pq.save
+        pq.save!
       else
         @updated += 1
         @logger.debug { "Updating record (uin: #{uin})" }
-        pq.save
+        pq.save!
       end
 
       LogStuff.tag(:import) do

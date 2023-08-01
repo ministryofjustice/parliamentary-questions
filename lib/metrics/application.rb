@@ -2,7 +2,7 @@ module Metrics
   class Application < Component
     attr_reader :version, :build_date, :build_tag, :git_sha
 
-    def initialize
+    def initialize # rubocop:disable Lint/MissingSuper
       @info = Deployment.info
     end
 

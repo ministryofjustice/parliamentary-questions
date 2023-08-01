@@ -1,12 +1,12 @@
 module PQA
   class MockApiServerRunner
-    PORT               = '8888'
-    HOST               = '127.0.0.1'
-    PID_FILEPATH       = '/tmp/mock_api_server.pid'
-    LOG_FILEPATH       = File.expand_path('../../log/mock-api.log', __dir__)
-    RACK_CONFIG_PATH   = File.expand_path('../../mock_api_config.ru', __dir__)
-    CWD                = File.expand_path('../../', __dir__)
-    HEARTBEAT_ENDPOINT = '/'
+    PORT               = "8888".freeze
+    HOST               = "127.0.0.1".freeze
+    PID_FILEPATH       = "/tmp/mock_api_server.pid".freeze
+    LOG_FILEPATH       = File.expand_path("../../log/mock-api.log", __dir__)
+    RACK_CONFIG_PATH   = File.expand_path("../../mock_api_config.ru", __dir__)
+    CWD                = File.expand_path("../../", __dir__)
+    HEARTBEAT_ENDPOINT = "/".freeze
 
     def start
       cmd = "rackup -p #{PORT} -P #{PID_FILEPATH} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}"
@@ -30,19 +30,20 @@ module PQA
       end
     end
 
-    private
+  private
 
     def wait_for_app(attempts_left = 100)
-      raise 'Mock PQA API timed out! Please try starting it manually' if attempts_left < 1
+      raise "Mock PQA API timed out! Please try starting it manually" if attempts_left < 1
 
       resp_code =
         begin
           sleep 0.1
           Net::HTTP.get_response(app_uri).code
         rescue Errno::ECONNREFUSED
+          warn "Mock API server refusing connection"
         end
 
-      wait_for_app(attempts_left - 1) unless resp_code == '200'
+      wait_for_app(attempts_left - 1) unless resp_code == "200"
     end
 
     def app_uri

@@ -1,4 +1,4 @@
-require 'active_support/core_ext/integer/time'
+require "active_support/core_ext/integer/time"
 
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
@@ -17,7 +17,7 @@ Rails.application.configure do
 
   # Configure static asset server for tests with Cache-Control for performance.
   config.serve_static_files = true
-  config.static_cache_control = 'public, max-age=3600'
+  config.static_cache_control = "public, max-age=3600"
 
   # Configure public file server for tests with Cache-Control for performance.
   # config.public_file_server.enabled = true
@@ -52,7 +52,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
   # This fills in the 'from' field which is required to run feature
   # tests on circleci
-  config.action_mailer.default_options = { from: 'localhost' }
+  config.action_mailer.default_options = { from: "localhost" }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -70,7 +70,7 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
   # For routes accessed by gecko, we require HTTP basic auth
   # See https://developer.geckoboard.com/#polling-overview
-  config.gecko_auth_username = 'test_username'
+  config.gecko_auth_username = "test_username"
 
   config.active_job.queue_adapter = :test
 
@@ -78,16 +78,16 @@ Rails.application.configure do
     PaperTrail.enabled = false
   end
   config.after_initialize do
-    sending_host = ENV['SENDING_HOST'] || 'localhost'
-    ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'https', port: '3000' }
+    sending_host = ENV["SENDING_HOST"] || "localhost"
+    ActionMailer::Base.default_url_options = { host: sending_host, protocol: "https", port: "3000" }
     ActionMailer::Base.smtp_settings = {
-      address: ENV['SMTP_HOSTNAME'] || 'localhost',
+      address: ENV["SMTP_HOSTNAME"] || "localhost",
       authentication: :login,
       domain: sending_host,
       enable_starttls_auto: true,
-      password: ENV['SMTP_PASSWORD'] || '',
-      port: ENV['SMTP_PORT'] || 587,
-      user_name: ENV['SMTP_USERNAME'] || ''
+      password: ENV["SMTP_PASSWORD"] || "",
+      port: ENV["SMTP_PORT"] || 587,
+      user_name: ENV["SMTP_USERNAME"] || "",
     }
   end
 end

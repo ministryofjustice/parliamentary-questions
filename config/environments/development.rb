@@ -1,4 +1,4 @@
-require 'active_support/core_ext/integer/time'
+require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -64,13 +64,13 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  config.gecko_auth_username = ENV['GECKO_AUTH_USERNAME']
+  config.gecko_auth_username = ENV["GECKO_AUTH_USERNAME"]
 
   config.after_initialize do
-    sending_host = ENV['SENDING_HOST'] || 'localhost'
+    sending_host = ENV["SENDING_HOST"] || "localhost"
     ActionMailer::Base.delivery_method = :sendmail
     ActionMailer::Base.default from: Settings.mail_from
     ActionMailer::Base.default reply_to: Settings.mail_reply_to
-    ActionMailer::Base.default_url_options = { host: sending_host, protocol: 'https' }
+    ActionMailer::Base.default_url_options = { host: sending_host, protocol: "https" }
   end
 end

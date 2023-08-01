@@ -1,5 +1,9 @@
+# RuboCop::RakeTask.new do |task|
+#   task.requires << "rubocop-rails"
+# end
+
 namespace :pqa do
-  desc 'Perform nightly import'
+  desc "Perform nightly import"
   task :nightly_import, [] => :environment do
     ImportWorker.new.perform
   end
@@ -13,14 +17,20 @@ namespace :pqa do
     rescue HTTPClient::FailureResponse => e
       puts "UIN '#{uin}': #{e.message}"
     else
-      puts analyse_report(uin, report)
+      if report[:created] == 1
+        puts "UIN '#{uin}': Created"
+      elsif report[:updated] == 1
+        puts "UIN '#{uin}': Updated"
+      else
+        puts "UIN '#{uin}': Error"
+      end
     end
   end
 
   desc "Generate and import 'n' dummy questions by name"
   # Console syntax: bundle exec rake pqa:import_dummy_data['Question',5]
-  task :import_dummy_data, [:uin_prefix, :n_records] => :environment do |_, args|
-    args.with_defaults(uin_prefix: 'uin', n_records: 1)
+  task :import_dummy_data, %i[uin_prefix n_records] => :environment do |_, args|
+    args.with_defaults(uin_prefix: "uin", n_records: 1)
     n_records = args[:n_records]
     uin_prefix = args[:uin_prefix]
 
@@ -29,27 +39,48 @@ namespace :pqa do
         PQA::QuestionBuilder.default(uin_prefix.to_s + "-#{n}")
       end
 
-    import_from_mock_server(questions, Date.yesterday, Date.tomorrow)
+    runner = PQA::MockApiServerRunner.new
+    import = PQA::Import.new
+    loader = PQA::QuestionLoader.new
+    begin
+      runner.start
+      loader.load(questions)
+      report = import.run(Date.yesterday, Date.tomorrow)
+      puts report.inspect
+    ensure
+      runner.stop
+    end
   end
 
-  desc 'Import questions from XML file'
+  desc "Import questions from XML file"
   # Console syntax: bundle exec rake pqa:import_from_xml['questions.xml']
   task :import_from_xml, [:xml_path] => :environment do |_, args|
     fpath = args[:xml_path]
     raise ArgumentError, "Cannot find file #{fpath}" unless File.exist?(fpath)
 
-    min_date  = Date.parse('1/1/2000')
-    max_date  = Date.parse('1/1/2020')
+    min_date  = Date.parse("1/1/2000")
+    max_date  = Date.parse("1/1/2020")
     questions = PQA::XMLDecoder.decode_questions(File.read(fpath))
-    import_from_mock_server(questions, min_date, max_date)
+
+    runner = PQA::MockApiServerRunner.new
+    import = PQA::Import.new
+    loader = PQA::QuestionLoader.new
+    begin
+      runner.start
+      loader.load(questions)
+      report = import.run(min_date, max_date)
+      puts report.inspect
+    ensure
+      runner.stop
+    end
   end
 
   namespace :mock do
-    desc 'start a mock api service and load with n questions'
+    desc "start a mock api service and load with n questions"
     task :api_start, [:n_records] => :environment do |_, args|
       n_records = args[:n_records] || 3
       n_records = n_records.to_i if n_records.is_a?(String)
-      require_relative '../pqa'
+      require_relative "../pqa"
       runner = PQA::MockApiServerRunner.new
       runner.start
       puts "Mock API server started on http://#{PQA::MockApiServerRunner::HOST}:#{PQA::MockApiServerRunner::PORT}"
@@ -58,48 +89,22 @@ namespace :pqa do
       puts "Mock API loaded with #{n_records} questions"
     end
 
-    desc 'stops the mock api server if running'
+    desc "stops the mock api server if running"
     task api_stop: :environment do
-      pid_filepath = '/tmp/mock_api_server.pid'
+      pid_filepath = "/tmp/mock_api_server.pid"
       if File.exist?(pid_filepath)
         pid = File.read(pid_filepath)
         puts "pid file for process #{pid} found - attempting to kill"
-        result = Process.kill('INT', pid.to_i)
+        result = Process.kill("INT", pid.to_i)
         case result
         when 1
-          puts 'Process killed'
+          puts "Process killed"
         else
-          puts 'Unable to kill process - try manually'
+          puts "Unable to kill process - try manually"
         end
       else
-        puts 'No pid file found for mock-api server - nothing to kill.'
+        puts "No pid file found for mock-api server - nothing to kill."
       end
-    end
-  end
-
-  private
-
-  def import_from_mock_server(questions, date_from, date_to)
-    runner = PQA::MockApiServerRunner.new
-    import = PQA::Import.new
-    loader = PQA::QuestionLoader.new
-    begin
-      runner.start
-      loader.load(questions)
-      report = import.run(date_from, date_to)
-      puts report.inspect
-    ensure
-      runner.stop
-    end
-  end
-
-  def analyse_report(uin, report)
-    if report[:created] == 1
-      "UIN '#{uin}': Created"
-    elsif report[:updated] == 1
-      "UIN '#{uin}': Updated"
-    else
-      "UIN '#{uin}': Error"
     end
   end
 end

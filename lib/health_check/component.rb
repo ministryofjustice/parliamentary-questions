@@ -20,7 +20,7 @@ module HealthCheck
       # Checks if component is running
       # Null -> Boolean
       #
-      raise NotImplementedError, 'The #available? method should be implemented by subclasses'
+      raise NotImplementedError, "The #available? method should be implemented by subclasses"
     end
 
     def accessible?
@@ -28,7 +28,7 @@ module HealthCheck
       # Checks if application can access component with supplied credentials
       # Null -> Boolean
       #
-      raise NotImplementedError, 'The #accessible? method should be implemented by subclasses'
+      raise NotImplementedError, "The #accessible? method should be implemented by subclasses"
     end
 
     def error_messages
@@ -39,12 +39,12 @@ module HealthCheck
       @errors
     end
 
-    def log_unknown_error(e)
+    def log_unknown_error(error)
       #
       # Logs errors that are not component specific
       # StandardError -> Null
       #
-      @errors << "Error: #{e.message}\nDetails:#{e.backtrace}"
+      @errors << "Error: #{error.message}\nDetails:#{error.backtrace}"
     end
 
     def record_result

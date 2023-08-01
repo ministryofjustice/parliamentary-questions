@@ -2,10 +2,10 @@ class AssignmentController < ApplicationController
   before_action AOTokenFilter
 
   def show
-    update_page_title 'PQ assignment'
+    update_page_title "PQ assignment"
     loading_question_and_assignment do
       if @question.action_officers_pqs.accepted || @assignment.rejected?
-        render 'confirmation'
+        render "confirmation"
       else
         @response = AllocationResponse.new
       end
@@ -16,17 +16,17 @@ class AssignmentController < ApplicationController
     loading_question_and_assignment do
       @response       = AllocationResponse.new(response_params)
       response_action = @response.response_action
-      update_page_title 'PQ assignment'
+      update_page_title "PQ assignment"
 
       if @response.valid?
         service = AssignmentService.new
         case response_action
-        when 'accept'
-          update_page_title 'PQ assigned'
+        when "accept"
+          update_page_title "PQ assigned"
           service.accept(@assignment)
           @token.accept
-        when 'reject'
-          update_page_title 'PQ rejected'
+        when "reject"
+          update_page_title "PQ rejected"
           service.reject(@assignment, @response)
           @token.reject
         else
@@ -34,18 +34,18 @@ class AssignmentController < ApplicationController
           raise ArgumentError, msg
           # TODO: log unexpected input
         end
-        render 'confirmation'
+        render "confirmation"
       else
-        flash[:error] = 'Form was not completed'
-        render 'show'
+        flash[:error] = "Form was not completed"
+        render "show"
       end
     end
   end
 
-  private
+private
 
   def loading_question_and_assignment
-    _, assignment_id = params[:entity].split(':')
+    _, assignment_id = params[:entity].split(":")
     @question = Pq.find_by!(uin: params[:uin])
 
     if assignment_id
@@ -54,7 +54,7 @@ class AssignmentController < ApplicationController
       @token      = Token.entity(entity_param_value)
       yield
     else
-      render file: 'public/404.html', status: :not_found
+      render file: "public/404.html", status: :not_found
     end
   end
 
@@ -63,6 +63,6 @@ class AssignmentController < ApplicationController
   end
 
   def entity_param_value
-    params.permit(:entity)['entity']
+    params.permit(:entity)["entity"]
   end
 end

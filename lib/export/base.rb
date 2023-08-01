@@ -1,5 +1,5 @@
 module Export
-  # NOTE :
+  # Note
   # The format of this CSV export is intended to match the structure of the
   # spredsheet used by Parli-branch for offline reporting.
   #
@@ -8,39 +8,39 @@ module Export
   # For a sample, see https://dsdmoj.atlassian.net/wiki/display/PQ/Parli-branch+sample+spreadsheet
 
   class Base
-    DATE_FORMAT = '%Y-%m-%d %H:%M'
+    DATE_FORMAT = "%Y-%m-%d %H:%M".freeze
 
     HEADINGS = [
-      'MP',
-      'Record Number',
-      'Action Officer',
-      'Date response answered by Parly (dept)',
-      'Draft due to Parly Branch',
-      'Date First Appeared in Parliament',
-      'Date Due in Parliament',
-      'Date resubmitted to Minister (if applicable)',
-      'Date returned by AO (if applicable)',
-      'Date Draft Returned to PB',
-      'Date sent back to AO (if applicable)',
-      'Date delivered to Minister',
-      'Returned signed from Minister',
-      'Directorate',
-      'Division',
-      'Final Response',
-      'Full_PQ_subject',
-      'Delay Reason',
-      'Minister',
-      'Ministerial Query? (if applicable)',
-      'PIN',
+      "MP",
+      "Record Number",
+      "Action Officer",
+      "Date response answered by Parly (dept)",
+      "Draft due to Parly Branch",
+      "Date First Appeared in Parliament",
+      "Date Due in Parliament",
+      "Date resubmitted to Minister (if applicable)",
+      "Date returned by AO (if applicable)",
+      "Date Draft Returned to PB",
+      "Date sent back to AO (if applicable)",
+      "Date delivered to Minister",
+      "Returned signed from Minister",
+      "Directorate",
+      "Division",
+      "Final Response",
+      "Full_PQ_subject",
+      "Delay Reason",
+      "Minister",
+      "Ministerial Query? (if applicable)",
+      "PIN",
       '"Date/time of POD clearance"',
-      'PODquery',
-      'Requested by finance',
-      'Requested by HR',
-      'Requested by Press',
-      'Type of Question',
-      'AO Email',
-      'Group email'
-    ]
+      "PODquery",
+      "Requested by finance",
+      "Requested by HR",
+      "Requested by Press",
+      "Type of Question",
+      "AO Email",
+      "Group email",
+    ].freeze
 
     def initialize(date_from, date_to, pqs_comma_separated = nil)
       @date_from = rebase(date_from)
@@ -59,91 +59,91 @@ module Export
 
     def empty_or_date(this_date)
       if this_date.nil?
-        ''
+        ""
       else
-        this_date.strftime('%Y-%m-%d %H:%M')
+        this_date.strftime("%Y-%m-%d %H:%M")
       end
     end
 
     def escape_equals_for_excel(item)
-      item = '' if item.nil?
-      if item.to_s.start_with?('=')
-        item = "'" + item
+      item = "" if item.nil?
+      if item.to_s.start_with?("=")
+        "'#{item}"
       else
         item
       end
     end
 
-    private
+  private
 
     def pqs
-      raise NotImplementedError, 'Subclasses should implement pqs method'
+      raise NotImplementedError, "Subclasses should implement pqs method"
     end
 
-    def csv_fields(pq, ao)
+    def csv_fields(parliamentary_question, action_officer)
       [
         # 'MP',
-        escape_equals_for_excel(pq.member_name),
+        escape_equals_for_excel(parliamentary_question.member_name),
         # 'Record Number',
         nil,
         # 'Action Officer',
-        escape_equals_for_excel(ao && ao.name)
+        escape_equals_for_excel(action_officer && action_officer.name),
       ] +
         [
           # 'Date response answered by Parly (dept)',
-          pq.answer_submitted,
+          parliamentary_question.answer_submitted,
           # 'Draft due to Parly Branch',
-          pq.internal_deadline,
+          parliamentary_question.internal_deadline,
           # 'Date First Appeared in Parliament',
-          pq.tabled_date,
+          parliamentary_question.tabled_date,
           # 'Date Due in Parliament',
-          pq.date_for_answer,
+          parliamentary_question.date_for_answer,
           # 'Date resubmitted to Minister (if appliable)',
-          pq.resubmitted_to_answering_minister,
+          parliamentary_question.resubmitted_to_answering_minister,
           # 'Date returned by AO (if applicable)',
-          pq.answering_minister_returned_by_action_officer,
+          parliamentary_question.answering_minister_returned_by_action_officer,
           # 'Date Draft Returned to PB',
-          pq.draft_answer_received,
+          parliamentary_question.draft_answer_received,
           # 'Date sent back to AO (if applicable)',
-          pq.answering_minister_to_action_officer,
+          parliamentary_question.answering_minister_to_action_officer,
           # 'Date delivered to Minister',
-          pq.sent_to_answering_minister,
+          parliamentary_question.sent_to_answering_minister,
           # 'Returned signed from Minister',
-          pq.cleared_by_answering_minister
+          parliamentary_question.cleared_by_answering_minister,
         ].map { |date| date && date.strftime(DATE_FORMAT) } +
         [
           # 'Directorate',
-          escape_equals_for_excel(pq.directorate && pq.directorate.name),
+          escape_equals_for_excel(parliamentary_question.directorate && parliamentary_question.directorate.name),
           # 'Division',
-          escape_equals_for_excel(pq.original_division && pq.original_division.name),
+          escape_equals_for_excel(parliamentary_question.original_division && parliamentary_question.original_division.name),
           # 'Final Response',
-          escape_equals_for_excel(pq.answer),
+          escape_equals_for_excel(parliamentary_question.answer),
           # 'Full_PQ_subject',
-          escape_equals_for_excel(pq.question),
+          escape_equals_for_excel(parliamentary_question.question),
           # 'Delay Reason',
           nil,
           # 'Minister',
-          escape_equals_for_excel(pq.minister && pq.minister.name),
+          escape_equals_for_excel(parliamentary_question.minister && parliamentary_question.minister.name),
           # 'Ministerial Query? (if applicable)',
-          escape_equals_for_excel(pq.answering_minister_query),
+          escape_equals_for_excel(parliamentary_question.answering_minister_query),
           # 'PIN',
-          escape_equals_for_excel(pq.uin),
+          escape_equals_for_excel(parliamentary_question.uin),
           # '"Date/time of POD clearance"',
-          pq.pod_clearance && pq.pod_clearance.strftime(DATE_FORMAT),
+          parliamentary_question.pod_clearance && parliamentary_question.pod_clearance.strftime(DATE_FORMAT),
           # 'PODquery',
-          escape_equals_for_excel(pq.pod_query_flag),
+          escape_equals_for_excel(parliamentary_question.pod_query_flag),
           # 'Requested by finance',
-          escape_equals_for_excel(pq.finance_interest),
+          escape_equals_for_excel(parliamentary_question.finance_interest),
           # 'Requested by HR',
           nil,
           # 'Requested by Press',
           nil,
           # 'Type of Question',
-          escape_equals_for_excel(pq.question_type),
+          escape_equals_for_excel(parliamentary_question.question_type),
           # 'AO Email'
-          escape_equals_for_excel(ao && ao.email),
+          escape_equals_for_excel(action_officer && action_officer.email),
           # 'Group Email'
-          escape_equals_for_excel(ao && ao.group_email)
+          escape_equals_for_excel(action_officer && action_officer.group_email),
         ]
     end
 

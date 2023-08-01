@@ -5,10 +5,10 @@ module PQA
       @client = ApiClient.new(uri, nil, nil, nil)
     end
 
-    def load_and_import(n = 1, skip_import = false)
+    def load_and_import(last_item = 1, skip_import: false)
       import    = Import.new
       questions =
-        (1..n).map do |i|
+        (1..last_item).map do |i|
           QuestionBuilder.default("uin-#{i}")
         end
       load(questions)

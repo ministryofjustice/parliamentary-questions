@@ -1,8 +1,8 @@
-require 'spec_helper'
-require "#{Rails.root}/lib/rake_task_helpers/db_sanitizer.rb"
+require "spec_helper"
+require Rails.root.join("lib/rake_task_helpers/db_sanitizer.rb").to_s
 
 describe RakeTaskHelpers::DBSanitizer do
-  it 'should sanitize email in the selected tables of the database' do
+  it "sanitizes email in the selected tables of the database" do
     ao  = FactoryBot.create(:action_officer)
     alm = FactoryBot.create(:actionlist_member)
     dd  = FactoryBot.create(:deputy_director)
@@ -11,7 +11,7 @@ describe RakeTaskHelpers::DBSanitizer do
     u   = FactoryBot.create(:user)
     wlm = FactoryBot.create(:watchlist_member)
 
-    RakeTaskHelpers::DBSanitizer.new.run!
+    described_class.new.run!
 
     expect(ao.reload.email).to eq "pqsupport+ao#{ao.id}@digital.justice.gov.uk"
     expect(alm.reload.email).to eq "pqsupport+alm#{alm.id}@digital.justice.gov.uk"

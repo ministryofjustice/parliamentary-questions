@@ -6,7 +6,7 @@ module Metrics
       #
       # Null -> MetricsDashboard::Component
       #
-      raise NotImplementedError, 'The #collect! method should be implemented by subclasses'
+      raise NotImplementedError, "The #collect! method should be implemented by subclasses"
     end
   end
 end

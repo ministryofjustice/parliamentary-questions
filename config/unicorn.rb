@@ -1,4 +1,4 @@
-n = Integer(ENV['WEB_CONCURRENCY'] || 4)
+n = Integer(ENV["WEB_CONCURRENCY"] || 4)
 worker_processes(n)
 
 before_fork do |_, _|

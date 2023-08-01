@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 class GeckoReportController < ApplicationController
   def index
     @gecko_report = GeckoReport.new
@@ -9,20 +9,20 @@ class GeckoReportController < ApplicationController
         authenticate_user!
       end
       format.json do
-        if request.headers['Authorization'] == token
+        if request.headers["Authorization"] == token
           render json: @gecko_report.to_json
         else
-          render file: 'public/401.html', status: :unauthorized
+          render file: "public/401.html", status: :unauthorized
         end
       end
     end
   end
 
-  private
+private
 
   def token
     ActionController::HttpAuthentication::Basic
-      .encode_credentials(Rails.application.config.gecko_auth_username, 'X')
-    puts ActionController::HttpAuthentication::Basic.encode_credentials(Rails.application.config.gecko_auth_username, 'X')
+      .encode_credentials(Rails.application.config.gecko_auth_username, "X")
+    Rails.logger.debug ActionController::HttpAuthentication::Basic.encode_credentials(Rails.application.config.gecko_auth_username, "X")
   end
 end

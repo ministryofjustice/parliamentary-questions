@@ -2,54 +2,54 @@ class ActionOfficersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
 
   def index
-    @show_inactive = (params[:show_inactive] == 'true')
+    @show_inactive = (params[:show_inactive] == "true")
     list = @show_inactive ? ActionOfficer.inactive_list : ActionOfficer.active_list
 
     @action_officers = list.joins(deputy_director: :division)
                            .order(deleted: :asc)
-                           .order(Arel.sql('lower(divisions.name)'))
-                           .order(Arel.sql('lower(action_officers.name)'))
+                           .order(Arel.sql("lower(divisions.name)"))
+                           .order(Arel.sql("lower(action_officers.name)"))
 
-    update_page_title 'Action officers'
+    update_page_title "Action officers"
   end
 
   def show
     loading_existing_records
-    update_page_title 'Action officer details'
+    update_page_title "Action officer details"
   end
 
   def new
     loading_new_records
-    update_page_title 'Add action officer'
+    update_page_title "Add action officer"
   end
 
   def create
     loading_new_records do
       if @action_officer.update(action_officer_params)
-        flash[:success] = 'Action officer was successfully created'
+        flash[:success] = "Action officer was successfully created"
         redirect_to action_officers_path
       else
-        flash[:error] = 'Action officer could not be created'
-        update_page_title 'Add action officer'
-        render action: 'new'
+        flash[:error] = "Action officer could not be created"
+        update_page_title "Add action officer"
+        render action: "new"
       end
     end
   end
 
   def edit
     loading_existing_records
-    update_page_title 'Edit action officer'
+    update_page_title "Edit action officer"
   end
 
   def update
     loading_existing_records do
       if @action_officer.update(action_officer_params)
-        flash[:success] = 'Action officer was successfully updated'
+        flash[:success] = "Action officer was successfully updated"
         redirect_to action_officer_path(@action_officer)
       else
-        flash[:error] = 'Action officer could not be updated'
-        update_page_title 'Edit action officer'
-        render action: 'edit'
+        flash[:error] = "Action officer could not be updated"
+        update_page_title "Edit action officer"
+        render action: "edit"
       end
     end
   end
@@ -58,7 +58,7 @@ class ActionOfficersController < ApplicationController
     render json: ActionOfficer.by_name(params[:q]).select(:id, :name)
   end
 
-  private
+private
 
   def loading_new_records
     loading_defaults
@@ -87,7 +87,7 @@ class ActionOfficersController < ApplicationController
         :phone,
         :deleted,
         :deputy_director_id,
-        :press_desk_id
+        :press_desk_id,
       )
   end
 end

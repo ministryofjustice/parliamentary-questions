@@ -12,7 +12,7 @@
 #  deleted    :boolean          default(FALSE)
 #
 
-class TrimLink < ActiveRecord::Base
+class TrimLink < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
@@ -26,10 +26,10 @@ class TrimLink < ActiveRecord::Base
   validate :trim_file_format
   validates :data, presence: true
 
-  private
+private
 
   def trim_file_format
-    errors.add(:file, 'Invalid file selected!') if file && !::Validators::Trim.valid_upload?(file)
+    errors.add(:file, "Invalid file selected!") if file && !::Validators::Trim.valid_upload?(file)
   end
 
   def extract_details

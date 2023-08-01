@@ -1,4 +1,4 @@
-require 'net/https'
+require "net/https"
 
 class HTTPClient
   attr_reader :base_url
@@ -31,13 +31,13 @@ class HTTPClient
     end
   end
 
-  private
+private
 
   def handle_https(uri, http)
-    if uri.scheme == 'https'
+    if uri.scheme == "https"
       http.use_ssl     = true
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      cert_dir = ENV['CA_CERT']
+      cert_dir = ENV["CA_CERT"]
 
       if cert_dir && File.directory?(cert_dir)
         http.ca_path = cert_dir

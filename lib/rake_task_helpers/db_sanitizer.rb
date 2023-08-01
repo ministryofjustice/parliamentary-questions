@@ -10,8 +10,8 @@ module RakeTaskHelpers
         "update users              set email ='pqsupport+u' || id || '@digital.justice.gov.uk'",
         "update watchlist_members  set email ='pqsupport+wlm' || id || '@digital.justice.gov.uk'",
         "update early_bird_members set email ='pqsupport+ebm' || id || '@digital.justice.gov.uk'",
-        "update action_officers    set group_email ='pqsupport+gm' || id || '@digital.justice.gov.uk'"
-      ]
+        "update action_officers    set group_email ='pqsupport+gm' || id || '@digital.justice.gov.uk'",
+      ].freeze
 
     def run!
       MY_SQLS.map do |sql|
