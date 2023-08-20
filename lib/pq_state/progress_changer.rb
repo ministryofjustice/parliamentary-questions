@@ -15,11 +15,13 @@ module PQState
       end,
       ## With POD
       Transition(DRAFT_PENDING, WITH_POD) do |pq|
-        !pq.draft_answer_received.nil?
+        # !pq.draft_answer_received.nil?
+        !!pq.draft_answer_received # rubocop:disable Style/DoubleNegation
       end,
       ## POD Query
       Transition(WITH_POD, POD_QUERY) do |pq|
-        !pq.pod_query_flag.nil?
+        # !pq.pod_query_flag.nil?
+        !!pq.pod_query_flag # rubocop:disable Style/DoubleNegation
       end,
       ## POD Clearance
       Transition.factory([WITH_POD, POD_QUERY], [POD_CLEARED]) do |pq|
