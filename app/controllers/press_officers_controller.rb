@@ -1,51 +1,55 @@
 class PressOfficersController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_press_officer, only: [:show, :edit, :update, :destroy]
+  before_action :set_press_officer, only: %i[show edit update destroy]
   before_action :prepare_press_offices
 
   def index
     @press_officers = PressOfficer.active_list
                                   .order(deleted: :asc)
-                                  .order(Arel.sql('lower(name)'))
+                                  .order(Arel.sql("lower(name)"))
                                   .page(params[:page])
                                   .per_page(15)
-    update_page_title('Press officers')
+    update_page_title("Press officers")
   end
 
   def new
     @press_officer = PressOfficer.new
-    update_page_title('Add press officer')
+    update_page_title("Add press officer")
   end
 
   def show
-    update_page_title('Press officer details')
+    update_page_title("Press officer details")
   end
 
   def edit
-    update_page_title('Edit press officer')
+    update_page_title("Edit press officer")
   end
 
   def create
     @press_officer = PressOfficer.new(press_officer_params)
 
     if @press_officer.save
-      flash[:success] = 'Press officer was successfully created.'
+      flash[:success] = "Press officer was successfully created."
       redirect_to @press_officer
     else
-      render action: 'new'
+      render action: "new"
     end
   end
 
   def update
     if @press_officer.update(press_officer_params)
-      flash[:success] = 'Press officer was successfully updated.'
+      flash[:success] = "Press officer was successfully updated."
       redirect_to @press_officer
     else
-      render action: 'edit'
+      render action: "edit"
     end
   end
 
-  private
+  def destroy
+    # This method is not implemented as we 'soft' delete data.
+  end
+
+private
 
   def set_press_officer
     @press_officer = PressOfficer.find(params[:id])

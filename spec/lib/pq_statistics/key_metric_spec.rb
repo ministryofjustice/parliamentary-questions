@@ -1,14 +1,14 @@
-require 'spec_helper'
-require 'business_time'
+require "spec_helper"
+require "business_time"
 
-describe 'PqStatistics' do
+describe "PqStatistics" do
   let(:threshold) { Settings.key_metric_threshold }
 
-  context '#key_metric_alert' do
-    def on_time_percentage(n)
+  describe "#key_metric_alert" do
+    def on_time_percentage(param)
       # Create PQs for the latest date bucket with n% on time
-      # n    = (n.round(1) * 10).to_i
-      n    = Integer(n.round(1) * 10)
+      # n    = (param.round(1) * 10).to_i
+      n    = Integer(param.round(1) * 10)
       date = 2.business_days.before(Time.zone.today)
       pqs  = (1..10).to_a.map { create(:answered_pq) }
 
@@ -16,7 +16,7 @@ describe 'PqStatistics' do
         pq.update(
           date_for_answer: 1.business_days.after(date),
           answer_submitted: date,
-          state: PQState::ANSWERED
+          state: PQState::ANSWERED,
         )
       end
 
@@ -24,22 +24,22 @@ describe 'PqStatistics' do
         pq.update(
           date_for_answer: 1.business_days.before(date),
           answer_submitted: date,
-          state: PQState::ANSWERED
+          state: PQState::ANSWERED,
         )
       end
     end
 
-    it 'should return false if the key metric is above the threshold' do
+    it "returns false if the key metric is above the threshold" do
       on_time_percentage(threshold + 0.1)
       expect(PqStatistics.key_metric_alert?).to be false
     end
 
-    it 'should return false if there are no pqs in scope the threshold' do
+    it "returns false if there are no pqs in scope the threshold" do
       expect(Pq.all).to be_empty
       expect(PqStatistics.key_metric_alert?).to be false
     end
 
-    it 'should return true if the key metric is below the threshold' do
+    it "returns true if the key metric is below the threshold" do
       on_time_percentage(threshold - 0.1)
       expect(PqStatistics.key_metric_alert?).to be true
     end

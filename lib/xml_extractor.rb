@@ -1,9 +1,10 @@
 module XMLExtractor
-  extend self
+module_function
 
   def datetime(node, xpath)
     v = text(node, xpath)
-    v && DateTime.parse(v)
+    # v && Time.zone.parse(v)
+    v && DateTime.parse(v) # rubocop:disable Style/DateTime
   end
 
   def int(node, xpath)
@@ -18,9 +19,9 @@ module XMLExtractor
 
   def bool(node, xpath)
     case text(node, xpath)
-    when 'false'
+    when "false"
       false
-    when 'true'
+    when "true"
       true
     end
   end

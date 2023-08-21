@@ -8,8 +8,8 @@ module PQState
       @block      = block
     end
 
-    def valid?(pq)
-      @block.call(pq)
+    def valid?(parliamentary_question)
+      @block.call(parliamentary_question)
     end
 
     def to_pair

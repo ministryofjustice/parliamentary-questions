@@ -9,8 +9,8 @@ module PQState
   # graph is structurally sound and has not 'dead-ends'.
   #
   class Validator
-    def initialize(ts, final_states)
-      @transitions    = ts
+    def initialize(transitions, final_states)
+      @transitions    = transitions
       @final_states   = final_states
       @max_iterations = @transitions.size * 3
     end
@@ -23,10 +23,10 @@ module PQState
       raise InconsistentStateGraph.new(@final_states, dead_ends) unless dead_ends.empty?
     end
 
-    private
+  private
 
     def has_dead_end?(state_from, visited = [])
-      t = @transitions.find { |_t| _t.state_from == state_from }
+      t = @transitions.find { |pq| pq.state_from == state_from }
       t = next_transition(t) if t && is_cyclic_link?(visited, t)
 
       return true unless t
@@ -41,9 +41,9 @@ module PQState
       end
     end
 
-    def next_transition(t)
-      @transitions.find do |_t|
-        _t != t && _t.state_from == t.state_to && _t.state_to != t.state_from
+    def next_transition(transition)
+      @transitions.find do |pq|
+        pq != transition && pq.state_from == transition.state_to && pq.state_to != transition.state_from
       end
     end
 
@@ -59,8 +59,8 @@ module PQState
     #
     #     [a -> b, b -> c, c -> d, d -> e]
     #
-    def remove_cyclic_transitions(ts)
-      ts.reduce([]) do |acc, t|
+    def remove_cyclic_transitions(transitions)
+      transitions.reduce([]) do |acc, t|
         if is_cyclic_link?(acc, t)
           acc
         else
@@ -69,12 +69,12 @@ module PQState
       end
     end
 
-    def is_cyclic_link?(ts, t2)
-      ts.any? { |t| t.to_pair.reverse == t2.to_pair }
+    def is_cyclic_link?(transitions, second_transition)
+      transitions.any? { |t| t.to_pair.reverse == second_transition.to_pair }
     end
 
     class InconsistentStateGraph < StandardError
-      def initialize(final_states, dead_ends)
+      def initialize(final_states, dead_ends)  # rubocop:disable Lint/MissingSuper
         @final_states = final_states
         @dead_ends    = dead_ends
       end
@@ -83,10 +83,10 @@ module PQState
         "The following transitions do not progress to either of the final states (i.e. #{@final_states.join(', ')}): #{list_dead_ends}"
       end
 
-      private
+    private
 
       def list_dead_ends
-        @dead_ends.map { |t| "#{t.state_from} -> #{t.state_to}" }.join(', ')
+        @dead_ends.map { |t| "#{t.state_from} -> #{t.state_to}" }.join(", ")
       end
     end
   end

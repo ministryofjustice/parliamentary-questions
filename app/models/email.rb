@@ -18,9 +18,9 @@
 #  updated_at        :datetime
 #
 
-class Email < ActiveRecord::Base
+class Email < ApplicationRecord
   EMAIL_REGEXP     = /\A(.*<)?[^@\s]+@([^@\s]+\.)+[^@\s]+>?\z/
-  EMAIL_DELIMITERS = [';', ':']
+  EMAIL_DELIMITERS = [";", ":"].freeze
 
   validates :method, presence: true
   validates :from, presence: true
@@ -40,18 +40,18 @@ class Email < ActiveRecord::Base
 
   serialize :params
 
-  scope :new_only,  -> { where(status: 'new').order(:id) }
+  scope :new_only,  -> { where(status: "new").order(:id) }
   scope :waiting,   -> { where(status: %w[new failed]).order(:id) }
-  scope :abandoned, -> { where(status: 'abandoned').order(:id) }
+  scope :abandoned, -> { where(status: "abandoned").order(:id) }
 
-  private
+private
 
   def concatenated_email_to_format
-    errors.add(:to, 'invalid') unless concatenated_email_format(:to)
+    errors.add(:to, "invalid") unless concatenated_email_format(:to)
   end
 
   def concatenated_email_cc_format
-    errors.add(:cc, 'invalid') unless concatenated_email_format(:cc)
+    errors.add(:cc, "invalid") unless concatenated_email_format(:cc)
   end
 
   def concatenated_email_format(field)

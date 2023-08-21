@@ -1,4 +1,4 @@
-require_relative 'gecko_status'
+require_relative "gecko_status"
 
 class GeckoCollection
   attr_reader :key_metric,
@@ -31,7 +31,7 @@ class GeckoCollection
     map { |status| status.update(components) }
   end
 
-  private
+private
 
   def all
     [@key_metric, @db, @pqa_api, @pqa_import, @smoke_tests]

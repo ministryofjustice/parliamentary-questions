@@ -8,28 +8,28 @@ class StatisticsController < ApplicationController
   def on_time
     render_report(
       PqStatistics::PercentOnTime,
-      Presenters::Statistics::OnTimeReport
+      Presenters::Statistics::OnTimeReport,
     )
   end
 
   def time_to_assign
     render_report(
       PqStatistics::TimeToAssign,
-      Presenters::Statistics::TimeToAssignReport
+      Presenters::Statistics::TimeToAssignReport,
     )
   end
 
   def ao_response_time
     render_report(
       PqStatistics::AoResponseTime,
-      Presenters::Statistics::AoResponseTimeReport
+      Presenters::Statistics::AoResponseTimeReport,
     )
   end
 
   def ao_churn
     render_report(
       PqStatistics::AoChurn,
-      Presenters::Statistics::AoChurnReport
+      Presenters::Statistics::AoChurnReport,
     )
   end
 
@@ -38,19 +38,19 @@ class StatisticsController < ApplicationController
     @report = Presenters::Statistics::StagesTimeReport.build(@data)
 
     respond_to do |format|
-      format.html { render 'stages_time' }
+      format.html { render "stages_time" }
       format.json { render json: @report }
     end
   end
 
-  private
+private
 
   def render_report(calculator, presenter)
     @data   = calculator.calculate
     @report = presenter.build(@data)
 
     respond_to do |format|
-      format.html { render 'report'           }
+      format.html { render "report"           }
       format.json { render json: @report.rows }
     end
   end

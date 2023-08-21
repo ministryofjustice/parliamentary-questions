@@ -19,7 +19,7 @@ FactoryBot.define do
   factory :pqa_import_run do
     start_time      { 120.seconds.ago }
     end_time        { 115.seconds.ago }
-    status          { 'OK' }
+    status          { "OK" }
     num_created     { 6 }
     num_updated     { 1 }
     error_messages  { nil }

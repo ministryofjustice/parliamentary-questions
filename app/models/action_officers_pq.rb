@@ -14,7 +14,7 @@
 #  response          :string(255)      default("awaiting")
 #
 
-class ActionOfficersPq < ActiveRecord::Base
+class ActionOfficersPq < ApplicationRecord
   has_paper_trail
   belongs_to :pq
   belongs_to :action_officer
@@ -24,7 +24,7 @@ class ActionOfficersPq < ActiveRecord::Base
   end
 
   def reject(option, reason)
-    update(response: :rejected, reason_option: option, reason: reason)
+    update(response: :rejected, reason_option: option, reason:)
   end
 
   def reset

@@ -68,7 +68,7 @@
 #  state_weight                                  :integer          default(0)
 #
 
-class Pq < ActiveRecord::Base
+class Pq < ApplicationRecord
   belongs_to :progress
 
   has_paper_trail
@@ -80,11 +80,11 @@ class Pq < ActiveRecord::Base
   has_one :trim_link, dependent: :destroy
   has_many :action_officers_pqs do
     def accepted
-      find_by(response: 'accepted')
+      find_by(response: "accepted")
     end
 
     def rejected
-      where(response: 'rejected')
+      where(response: "rejected")
     end
 
     def all_rejected?
@@ -94,29 +94,30 @@ class Pq < ActiveRecord::Base
 
   has_many :action_officers, through: :action_officers_pqs do
     def all_accepted
-      where(action_officers_pqs: { response: 'accepted' })
+      where(action_officers_pqs: { response: "accepted" })
     end
 
     def accepted
-      find_by(action_officers_pqs: { response: 'accepted' })
+      find_by(action_officers_pqs: { response: "accepted" })
     end
 
     def rejected
-      where(action_officers_pqs: { response: 'rejected' })
+      where(action_officers_pqs: { response: "rejected" })
     end
   end
 
   belongs_to :minister
-  belongs_to :policy_minister, class_name: 'Minister'
-  belongs_to :transfer_out_ogd, class_name: 'Ogd'
-  belongs_to :transfer_in_ogd, class_name: 'Ogd'
-  belongs_to :directorate, class_name: 'Directorate'
-  belongs_to :original_division, class_name: 'Division'
+  belongs_to :policy_minister, class_name: "Minister"
+  belongs_to :transfer_out_ogd, class_name: "Ogd"
+  belongs_to :transfer_in_ogd, class_name: "Ogd"
+  belongs_to :directorate, class_name: "Directorate"
+  belongs_to :original_division, class_name: "Division"
 
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
 
-  validates :uin, presence: true, uniqueness: true
+  # validates :uin, presence: true, uniqueness: true
+  validates :uin, presence: true
   validates :raising_member_id, presence: true
   validates :question, presence: true
   validate  :transfer_out_consistency
@@ -140,11 +141,11 @@ class Pq < ActiveRecord::Base
     if action_officer
       Pq.transaction do
         ao_pq_accepted.reset
-        action_officers_pqs.find_or_create_by(action_officer: action_officer).accept
+        action_officers_pqs.find_or_create_by!(action_officer:).accept
         PaperTrail.request(whodunnit: "AO:#{action_officer.name}") do
           original_division = action_officer.deputy_director.try(:division)
           directorate = original_division.try(:directorate)
-          update(directorate: directorate, original_division: original_division)
+          update!(directorate:, original_division:)
         end
       end
     end
@@ -205,30 +206,30 @@ class Pq < ActiveRecord::Base
   end
 
   def short_house_name
-    if house_name.include?('Lords')
-      'HoL'
+    if house_name.include?("Lords")
+      "HoL"
     else
-      'HoC'
+      "HoC"
     end
   end
 
   def question_type_header
-    header = ''
-    header += '| Ordinary' if question_type == 'Ordinary'
-    header += '| Named Day' if question_type == 'NamedDay'
-    header += ' | Transferred in' if transferred?
-    header += ' | I will write' if i_will_write?
+    header = ""
+    header += "| Ordinary" if question_type == "Ordinary"
+    header += "| Named Day" if question_type == "NamedDay"
+    header += " | Transferred in" if transferred?
+    header += " | I will write" if i_will_write?
     header
   end
 
-  private
+private
 
   def sole_accepted_action_officer
-    errors.add(:base, :sole_accepted_action_officer, message: 'Unable to have two action officers accepted on the same question') if action_officers.all_accepted.size > 1
+    errors.add(:base, :sole_accepted_action_officer, message: "Unable to have two action officers accepted on the same question") if action_officers.all_accepted.size > 1
   end
 
   def transfer_out_consistency
-    errors.add(:base, :transfer_out_consistency, message: 'Invalid transfer out submission - requires BOTH date and department') if !!transfer_out_date ^ !!transfer_out_ogd_id
+    errors.add(:base, :transfer_out_consistency, message: "Invalid transfer out submission - requires BOTH date and department") if !!transfer_out_date ^ !!transfer_out_ogd_id
   end
 
   def iww_uin

@@ -1,44 +1,48 @@
 class OgdsController < ApplicationController
   before_action :authenticate_user!, PQUserFilter
-  before_action :set_ogd, only: [:show, :edit, :update, :destroy]
+  before_action :set_ogd, only: %i[show edit update destroy]
 
   def index
     @ogds = Ogd.active_list
-               .order('lower(name)')
-    update_page_title('Other Government Departments')
+               .order("lower(name)")
+    update_page_title("Other Government Departments")
   end
 
   def new
     @ogd = Ogd.new
-    update_page_title('Add Government Department')
+    update_page_title("Add Government Department")
   end
 
   def show
-    update_page_title('Government Department details')
+    update_page_title("Government Department details")
   end
 
   def edit
-    update_page_title('Edit Government Department')
+    update_page_title("Edit Government Department")
   end
 
   def create
     @ogd = Ogd.new(ogd_params)
 
     if @ogd.save
-      flash[:success] = 'OGD was successfully created.'
+      flash[:success] = "OGD was successfully created."
       redirect_to @ogd
     else
-      render action: 'new'
+      render action: "new"
     end
   end
 
   def update
     if @ogd.update(ogd_params)
-      flash[:success] = 'OGD was successfully updated.'
+      flash[:success] = "OGD was successfully updated."
       redirect_to @ogd
     else
-      render action: 'edit'
+      render action: "edit"
     end
+  end
+
+  def destroy
+    # This method is not implemented as we 'soft' delete data.
   end
 
   def find
@@ -46,7 +50,7 @@ class OgdsController < ApplicationController
     render json: @results
   end
 
-  private
+private
 
   def set_ogd
     @ogd = Ogd.find(params[:id])

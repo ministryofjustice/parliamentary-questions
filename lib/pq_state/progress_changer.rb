@@ -15,11 +15,11 @@ module PQState
       end,
       ## With POD
       Transition(DRAFT_PENDING, WITH_POD) do |pq|
-        !!pq.draft_answer_received
+        !!pq.draft_answer_received # rubocop:disable Style/DoubleNegation
       end,
       ## POD Query
       Transition(WITH_POD, POD_QUERY) do |pq|
-        !!pq.pod_query_flag
+        !!pq.pod_query_flag # rubocop:disable Style/DoubleNegation
       end,
       ## POD Clearance
       Transition.factory([WITH_POD, POD_QUERY], [POD_CLEARED]) do |pq|
@@ -28,9 +28,9 @@ module PQState
       ## With Minister
       Transition(POD_CLEARED, WITH_MINISTER) do |pq|
         if !pq.policy_minister
-          !!pq.sent_to_answering_minister
+          !!pq.sent_to_answering_minister # rubocop:disable Style/DoubleNegation
         else
-          !!(pq.sent_to_answering_minister && pq.sent_to_policy_minister)
+          !!(pq.sent_to_answering_minister && pq.sent_to_policy_minister) # rubocop:disable Style/DoubleNegation
         end
       end,
       ## Minister Query
@@ -49,11 +49,11 @@ module PQState
       # Transferred out
       Transition.factory(ALL - CLOSED, [TRANSFERRED_OUT]) do |pq|
         pq.transfer_out_ogd_id && pq.transfer_out_date
-      end
+      end,
     )
   end
 
-  def self.Transition(from, to, &block)
+  def self.Transition(from, to, &block) # rubocop:disable Naming/MethodName
     Transition.new(from, to, block)
   end
 end

@@ -3,6 +3,7 @@ module Metrics
     attr_reader :alert
 
     def initialize
+      super
       @alert = false
     end
 

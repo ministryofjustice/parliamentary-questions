@@ -9,7 +9,7 @@ module PQA
       new(Settings.pq_rest_api.host,
           Settings.pq_rest_api.username,
           Settings.pq_rest_api.password,
-          File.expand_path('resources/certs/wqa.parliament.uk.pem', __dir__))
+          File.expand_path("resources/certs/wqa.parliament.uk.pem", __dir__))
     end
 
     # Fetch parliamentary questions by date range and status.
@@ -22,11 +22,11 @@ module PQA
     #
     # @return [Net::HTTP::Response]
     def questions(date_from, date_to, status)
-      uri       = URI.parse(File.join(@base_url, 'api/qais/questions'))
+      uri       = URI.parse(File.join(@base_url, "api/qais/questions"))
       params    = {
-        'dateFrom' => date_from.xmlschema,
-        'dateTo' => date_to&.xmlschema,
-        'status' => status
+        "dateFrom" => date_from.xmlschema,
+        "dateTo" => date_to&.xmlschema,
+        "status" => status,
       }
       uri.query = URI.encode_www_form(params)
       issue_request(:get, uri.to_s)
@@ -54,7 +54,7 @@ module PQA
     #
     # @return [Net::HTTP::Response]
     def save_question(uin, xml)
-      uri = File.join(@base_url, 'api/qais/questions', uin)
+      uri = File.join(@base_url, "api/qais/questions", uin)
       issue_request(:put, uri, xml)
     end
 
@@ -62,7 +62,7 @@ module PQA
     #
     # @return [Net::HTTP::Response]
     def reset_mock_data!
-      uri = File.join(@base_url, 'reset')
+      uri = File.join(@base_url, "reset")
       issue_request(:put, uri)
     end
   end

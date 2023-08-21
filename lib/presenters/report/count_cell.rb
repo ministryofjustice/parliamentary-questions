@@ -4,11 +4,11 @@ module Presenters
       attr_reader :count
 
       def self.minister(label, id, state)
-        new(label, minister_id: id, state: state)
+        new(label, minister_id: id, state:)
       end
 
       def self.press_desk(label, id, state)
-        new(label, press_desk_id: id, state: state)
+        new(label, press_desk_id: id, state:)
       end
 
       def initialize(count, filter_params)

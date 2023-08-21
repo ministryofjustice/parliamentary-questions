@@ -10,20 +10,20 @@ module RakeTaskHelpers
       if HostEnv.is_staging?
         begin
           @db_trim.run!
-          puts '[+] DB trimmed'
+          puts "[+] DB trimmed"
 
           @db_sanitizer.run!
-          puts '[+] DB sanitized'
+          puts "[+] DB sanitized"
 
           @user_generator.run!
-          puts '[+] Test users created'
-          puts '[+] Done'
-        rescue => e
+          puts "[+] Test users created"
+          puts "[+] Done"
+        rescue StandardError => e
           NotifyDbSyncMailer.notify_fail(e.message).deliver_later
         end
       else
-        puts '[-] This task should only be run in the staging environment'
-        puts '[-] Database has NOT been modified'
+        puts "[-] This task should only be run in the staging environment"
+        puts "[-] Database has NOT been modified"
       end
     end
   end

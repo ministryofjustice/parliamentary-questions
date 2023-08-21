@@ -1,21 +1,20 @@
-ENV['RAILS_ENV'] ||= 'test'
-ENV['ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
+ENV["ENV"] ||= "test"
 
-require File.expand_path('../config/environment', __dir__)
+require File.expand_path("../config/environment", __dir__)
 
-require './spec/support/features/session_helpers'
-require './spec/support/features/pq_helpers'
-require './spec/support/db_helpers'
-require 'rspec/rails'
-require 'paper_trail/frameworks/rspec'
-require 'capybara/rspec'
-require 'capybara/poltergeist'
+require "./spec/support/features/session_helpers"
+require "./spec/support/features/pq_helpers"
+require "./spec/support/db_helpers"
+require "rspec/rails"
+require "paper_trail/frameworks/rspec"
+require "capybara/rspec"
+require "capybara/poltergeist"
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app,
-                                    phantomjs_logger: File.new('/dev/null', 'a'),
-                                    window_size: [1024, 1500]
-                                   )
+                                    phantomjs_logger: File.new("/dev/null", "a"),
+                                    window_size: [1024, 1500])
 end
 
 Capybara.javascript_driver = :poltergeist
@@ -34,20 +33,20 @@ RSpec.configure do |config|
   end
 
   # Use truncation in js tests and suspended tests, transaction otherwise
-  config.before(:each) do |test|
+  config.before do |test|
     if test.metadata[:js] || test.metadata[:suspend_cleaner]
       DatabaseCleaner.strategy = [
-        :truncation
+        :truncation,
       ]
     else
       DatabaseCleaner.strategy = [
-        :transaction
+        :transaction,
       ]
       DatabaseCleaner.start
     end
   end
 
-  config.after(:each) do |test|
+  config.after do |test|
     DatabaseCleaner.clean unless test.metadata[:suspend_cleaner]
   end
 

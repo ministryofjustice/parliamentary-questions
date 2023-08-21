@@ -13,7 +13,7 @@ module Validators
       secure_parse(date_s)
     end
 
-    private
+  private
 
     def secure_parse(date_s)
       raise DateTimeInputError unless date_s.size < MAX_LEN
@@ -28,7 +28,7 @@ module Validators
 
     class DateTimeInputError < StandardError
       def initialize
-        super('The date provided was out of the expected range for the application')
+        super("The date provided was out of the expected range for the application")
       end
     end
 

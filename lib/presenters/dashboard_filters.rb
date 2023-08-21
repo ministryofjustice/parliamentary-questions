@@ -11,42 +11,42 @@ module Presenters
     end
 
     def self.build(counts, params)
-      all_filter = ViewAllFilter.new(counts['view_all'],
-                                     'view_all',
-                                     'View all',
+      all_filter = ViewAllFilter.new(counts["view_all"],
+                                     "view_all",
+                                     "View all",
                                      params)
 
-      transferred_in = TransferedInFilter.new(counts['transferred_in'],
-                                              'transferred_in',
-                                              'Transferred In',
+      transferred_in = TransferedInFilter.new(counts["transferred_in"],
+                                              "transferred_in",
+                                              "Transferred In",
                                               params)
 
       new([all_filter] + statuses(counts, params) + [transferred_in])
     end
 
     def self.build_in_progress(counts, params)
-      in_progress = ViewAllInProgressFilter.new(counts['view_all_in_progress'],
-                                                'view_all_in_progress',
-                                                'View all',
+      in_progress = ViewAllInProgressFilter.new(counts["view_all_in_progress"],
+                                                "view_all_in_progress",
+                                                "View all",
                                                 params)
 
-      iww = IwwFilter.new(counts['iww'],
-                          'iww',
-                          'I will write',
+      iww = IwwFilter.new(counts["iww"],
+                          "iww",
+                          "I will write",
                           params)
 
       new([in_progress] + in_progress_statuses(counts, params) + [iww])
     end
 
     def self.backlog(counts, params)
-      in_progress = ViewAllInProgressFilter.new(counts['view_all_in_progress'],
-                                                'view_all_in_progress',
-                                                'View all',
+      in_progress = ViewAllInProgressFilter.new(counts["view_all_in_progress"],
+                                                "view_all_in_progress",
+                                                "View all",
                                                 params)
 
-      iww = IwwFilter.new(counts['iww'],
-                          'iww',
-                          'I will write',
+      iww = IwwFilter.new(counts["iww"],
+                          "iww",
+                          "I will write",
                           params)
 
       new([in_progress] + in_progress_statuses(counts, params) + [iww])

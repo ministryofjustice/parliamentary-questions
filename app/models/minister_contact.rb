@@ -10,12 +10,12 @@
 #  deleted     :boolean          default(FALSE)
 #
 
-class MinisterContact < ActiveRecord::Base
+class MinisterContact < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
   has_paper_trail
-  validates :email, uniqueness: true, on: :create
+  validates :email, uniqueness: true, on: :create # rubocop:disable Rails/UniqueValidationWithoutIndex
   # validates_format_of :email, with: Devise.email_regexp
   validates :email, format: { with: Devise.email_regexp }
 

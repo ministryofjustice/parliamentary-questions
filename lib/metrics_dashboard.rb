@@ -1,6 +1,5 @@
 class MetricsDashboard
-  attr_reader :metrics,
-              :gecko
+  attr_reader :metrics, :gecko
 
   def initialize
     @metrics = metric_factory
@@ -9,14 +8,14 @@ class MetricsDashboard
 
   def update
     collect_metrics!
-    gecko.update(metrics)
+    gecko.update(metrics) # rubocop:disable Rails/SaveBang
     self
   end
 
-  private
+private
 
   def collect_metrics!
-    @metrics.to_h.values.each(&:collect!)
+    @metrics.to_h.each_value(&:collect!)
   end
 
   def metric_factory
@@ -26,7 +25,7 @@ class MetricsDashboard
       application: Metrics::Application.new,
       smoke_tests: Metrics::SmokeTests.new,
       mail: Metrics::Mail.new,
-      pqa_import: Metrics::PqaImport.new
+      pqa_import: Metrics::PqaImport.new,
     )
   end
 end

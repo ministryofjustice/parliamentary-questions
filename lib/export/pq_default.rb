@@ -1,13 +1,14 @@
 module Export
   class PqDefault < Base
-    private
+  private
 
     def pqs
       Pq.where(
-        'transfer_out_ogd_id is null AND (answer_submitted >= ? OR ' \
-        'answer_submitted is null) AND tabled_date <= ?',
+        "transfer_out_ogd_id is null AND (answer_submitted >= ? OR " \
+        "answer_submitted is null) AND tabled_date <= ?",
         @date_from,
-        @date_to)
+        @date_to,
+      )
         .order(:uin)
     end
   end

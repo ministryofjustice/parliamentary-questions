@@ -35,9 +35,9 @@
 
 FactoryBot.define do
   factory :user do
-    name { 'user one' }
-    email { 'user.one@admin.com' }
-    password { '123456789' }
-    roles { 'PQUSER' }
+    name { "user one" }
+    email { "user.one@admin.com" }
+    password { "123456789" }
+    roles { "PQUSER" }
   end
 end

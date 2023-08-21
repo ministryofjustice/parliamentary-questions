@@ -11,7 +11,7 @@
 #  updated_at    :datetime
 #
 
-class PressOfficer < ActiveRecord::Base
+class PressOfficer < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
@@ -21,5 +21,5 @@ class PressOfficer < ActiveRecord::Base
   validates :email, format: { with: Devise.email_regexp }
   validates :press_desk_id, presence: true
   belongs_to :press_desk
-  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("deleted = ? OR deleted = ? AND updated_at > ?", false, true, 2.days.ago) }
 end

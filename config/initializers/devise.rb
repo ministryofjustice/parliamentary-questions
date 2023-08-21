@@ -10,19 +10,19 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = ENV['DEVISE_SENDER']
+  config.mailer_sender = ENV["DEVISE_SENDER"]
 
   # Configure the class responsible to send e-mails.
-  config.mailer = 'DeviseMailer'
+  config.mailer = "DeviseMailer"
 
   # Configure the parent class responsible to send e-mails.
-  Devise.parent_mailer = 'GovukNotifyRails::Mailer'
+  Devise.parent_mailer = "GovukNotifyRails::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -315,7 +315,7 @@ Devise.setup do |config|
 
   Warden::Manager.after_authentication do |user, _auth, _opts|
     LogStuff.info "AUTH-LOG-IN: user #{user.email}, log in"
-    $statsd.increment 'login'
+    $statsd.increment "login" # rubocop:disable Style/GlobalVars
   end
 
   Warden::Manager.before_logout do |user, _auth, _opts|

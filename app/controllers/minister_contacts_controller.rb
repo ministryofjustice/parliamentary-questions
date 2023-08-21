@@ -11,10 +11,10 @@ class MinisterContactsController < ApplicationController
     @minister         = @minister_contact.minister
 
     if @minister_contact.save
-      flash[:success] = 'Contact was successfully created.'
+      flash[:success] = "Contact was successfully created."
       redirect_to @minister
     else
-      render action: 'new'
+      render action: "new"
     end
   end
 
@@ -28,14 +28,14 @@ class MinisterContactsController < ApplicationController
     @minister         = @minister_contact.minister
 
     if @minister_contact.update(minister_contacts_params)
-      flash[:success] = 'Contact was successfully updated.'
+      flash[:success] = "Contact was successfully updated."
       redirect_to @minister
     else
-      render action: 'edit'
+      render action: "edit"
     end
   end
 
-  private
+private
 
   def minister_contacts_params
     params.require(:minister_contact).permit(:name, :email, :phone, :deleted, :minister_id)

@@ -1,88 +1,88 @@
-require 'feature_helper'
+require "feature_helper"
 
-feature 'Commissioning questions', js: true, suspend_cleaner: true do
+describe "Commissioning questions", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  let(:ao)         { ActionOfficer.find_by(email: 'ao1@pq.com') }
-  let(:ao2)        { ActionOfficer.find_by(email: 'ao2@pq.com') }
-  let(:minister)   { Minister.second                            }
+  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:ao2)       { ActionOfficer.find_by(email: "ao2@pq.com") }
+  let(:minister)  { Minister.second                            }
+  let(:test_pq)   { PQA::QuestionLoader.new.load_and_import(2) }
 
-  before(:all) do
+  before do
     DBHelpers.load_feature_fixtures
-    @pq, = PQA::QuestionLoader.new.load_and_import(2)
   end
 
-  after(:all) do
+  after do
     DatabaseCleaner.clean
   end
 
-  scenario 'Parli-branch member tries to allocate a question without an AO' do
+  it "Parli-branch member tries to allocate a question without an AO" do
     create_pq_session
     visit dashboard_path
 
-    within_pq(@pq.uin) do
-      select_option('commission_form[minister_id]', minister.name) if minister
-      select_option('commission_form[policy_minister_id]', minister.name) if minister
-      select ao.name, from: 'Action officer(s)'
-      find('#internal-deadline input').set Date.tomorrow.strftime('%d/%m/%Y 12:00')
+    within_pq(test_pq.uin) do
+      select_option("commission_form[minister_id]", minister.name) if minister
+      select_option("commission_form[policy_minister_id]", minister.name) if minister
+      select ao.name, from: "Action officer(s)"
+      find("#internal-deadline input").set Date.tomorrow.strftime("%d/%m/%Y 12:00")
     end
 
-    within('#pq-frame-1') { expect(page).to have_button('Commission') }
-    within('#pq-frame-2') { expect(page).not_to have_button('Commission') }
+    within("#pq-frame-1") { expect(page).to have_button("Commission") }
+    within("#pq-frame-2") { expect(page).not_to have_button("Commission") }
   end
 
-  scenario 'Parli-branch member allocates a question to selected AOs' do
-    commission_question(@pq.uin, [ao, ao2], minister)
+  it "Parli-branch member allocates a question to selected AOs" do
+    commission_question(test_pq.uin, [ao, ao2], minister)
   end
 
-  scenario 'AO should receive an email notification of assigned question' do
-    pq = Pq.find_by(uin: @pq.uin)
-    ao_mail = NotifyPqMailer.commission_email(pq: pq, action_officer: ao, token: '1234', entity: 'assignment:1', email: ao.email).deliver_now
+  it "AO should receive an email notification of assigned question" do
+    pq = Pq.find_by(uin: test_pq.uin)
+    ao_mail = NotifyPqMailer.commission_email(pq:, action_officer: ao, token: "1234", entity: "assignment:1", email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.govuk_notify_response.content['body']).to include "your team is responsible for answering PQ #{@pq.uin}"
+    expect(ao_mail.govuk_notify_response.content["body"]).to include "your team is responsible for answering PQ #{test_pq.uin}"
   end
 
-  scenario 'Following the email link should let the AO accept the question' do
-    visit_assignment_url(@pq, ao)
-    choose 'Accept'
-    click_on 'Save'
+  it "Following the email link should let the AO accept the question" do
+    visit_assignment_url(test_pq, ao)
+    choose "Accept"
+    click_on "Save"
 
-    expect(page.title).to have_content('PQ assigned')
+    expect(page.title).to have_content("PQ assigned")
     expect(page).to have_content(/thank you for your response/i)
-    expect(page).to have_content("PQ #{@pq.uin}")
+    expect(page).to have_content("PQ #{test_pq.uin}")
   end
 
-  scenario 'The PQ status should then change to draft pending' do
+  it "The PQ status should then change to draft pending" do
     create_pq_session
 
-    expect_pq_in_progress_status(@pq.uin, 'Draft Pending')
+    expect_pq_in_progress_status(test_pq.uin, "Draft Pending")
   end
 
-  scenario 'The AO should receive an email notification confirming the question acceptance' do
-    pq = Pq.find_by(uin: @pq.uin)
-    ao_mail = NotifyPqMailer.acceptance_email(pq: pq, action_officer: ao, email: ao.email).deliver_now
+  it "The AO should receive an email notification confirming the question acceptance" do
+    pq = Pq.find_by(uin: test_pq.uin)
+    ao_mail = NotifyPqMailer.acceptance_email(pq:, action_officer: ao, email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
-    expect(ao_mail.govuk_notify_response.content['body']).to include("Thank you for agreeing to draft an answer to PQ #{@pq.uin}")
+    expect(ao_mail.govuk_notify_response.content["body"]).to include("Thank you for agreeing to draft an answer to PQ #{test_pq.uin}")
   end
 
-  scenario 'After an AO has accepted a question, another AO cannot accept the question' do
-    visit_assignment_url(@pq, ao2)
+  it "After an AO has accepted a question, another AO cannot accept the question" do
+    visit_assignment_url(test_pq, ao2)
 
-    expect(page.title).to have_content('PQ assignment')
+    expect(page.title).to have_content("PQ assignment")
     expect(page).to have_content(/this pq has already been accepted/i)
-    expect(page).to have_content("#{ao.name} accepted PQ #{@pq.uin}")
+    expect(page).to have_content("#{ao.name} accepted PQ #{test_pq.uin}")
   end
 
-  scenario 'Following the link after 3 days have passed should show an error page' do
+  it "Following the link after 3 days have passed should show an error page" do
     pq = Pq.last
     form_params = {
       pq_id: pq.id,
       minister_id: minister.id,
       action_officer_id: [ao.id],
       date_for_answer: Date.tomorrow,
-      internal_deadline: Time.zone.today
+      internal_deadline: Time.zone.today,
     }
 
     form = CommissionForm.new(form_params)
@@ -90,7 +90,7 @@ feature 'Commissioning questions', js: true, suspend_cleaner: true do
 
     visit_assignment_url(pq, ao)
 
-    expect(page.title).to have_content('Unauthorised (401)')
+    expect(page.title).to have_content("Unauthorised (401)")
     expect(page).to have_content(/Link expired/i)
   end
 end

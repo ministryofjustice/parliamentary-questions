@@ -9,12 +9,12 @@
 #  updated_at :datetime
 #
 
-class Directorate < ActiveRecord::Base
+class Directorate < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
   has_paper_trail
   validates :name, presence: true
   has_many :divisions
-  scope :active_list, -> { where('deleted = ? OR deleted = ? AND updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("deleted = ? OR deleted = ? AND updated_at > ?", false, true, 2.days.ago) }
 end

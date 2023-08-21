@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #
 
-class Ogd < ActiveRecord::Base
+class Ogd < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
@@ -18,9 +18,9 @@ class Ogd < ActiveRecord::Base
   validates :name, presence: true
   validates :acronym, presence: true
   has_many :pqs
-  scope :active_list, -> { where('ogds.deleted = ? OR ogds.deleted = ? AND ogds.updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("ogds.deleted = ? OR ogds.deleted = ? AND ogds.updated_at > ?", false, true, 2.days.ago) }
 
   def self.by_name(name)
-    where('name ILIKE :search OR acronym ILIKE :search', search: "%#{name.strip}%")
+    where("name ILIKE :search OR acronym ILIKE :search", search: "%#{name.strip}%")
   end
 end

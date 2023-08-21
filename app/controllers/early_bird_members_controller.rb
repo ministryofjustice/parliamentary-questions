@@ -4,48 +4,48 @@ class EarlyBirdMembersController < ApplicationController
   def index
     @early_bird_members = EarlyBirdMember.active_list
                                          .all
-                                         .order(Arel.sql('lower(name)'))
-    update_page_title('Early bird members')
+                                         .order(Arel.sql("lower(name)"))
+    update_page_title("Early bird members")
   end
 
   def show
     loading_earlybird_member
-    update_page_title('Early bird member details')
+    update_page_title("Early bird member details")
   end
 
   def edit
     loading_earlybird_member
-    update_page_title('Edit early bird member')
+    update_page_title("Edit early bird member")
   end
 
   def update
     loading_earlybird_member do
       if @early_bird_member.update(early_bird_member_params)
-        flash[:success] = 'Early bird member was successfully updated.'
+        flash[:success] = "Early bird member was successfully updated."
         redirect_to @early_bird_member
       else
-        render action: 'edit'
+        render action: "edit"
       end
     end
   end
 
   def new
     @early_bird_member = EarlyBirdMember.new
-    update_page_title('Add early bird member')
+    update_page_title("Add early bird member")
   end
 
   def create
     @early_bird_member = EarlyBirdMember.new(early_bird_member_params)
 
     if @early_bird_member.save
-      flash[:success] = 'Early bird member was successfully created.'
+      flash[:success] = "Early bird member was successfully created."
       redirect_to @early_bird_member
     else
-      render action: 'new'
+      render action: "new"
     end
   end
 
-  private
+private
 
   def loading_earlybird_member
     @early_bird_member = EarlyBirdMember.find(params[:id])

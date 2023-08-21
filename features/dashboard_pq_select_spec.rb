@@ -1,149 +1,152 @@
-require 'feature_helper'
+require "feature_helper"
 
-feature 'Tests for Dashboard multiple PQ selection', js: true, suspend_cleaner: true do
+describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  before(:each) do
+  let(:pq1)       { PQA::QuestionLoader.new.load_and_import(1) }
+  let(:pq2)       { PQA::QuestionLoader.new.load_and_import(1) }
+  let(:pq3)       { PQA::QuestionLoader.new.load_and_import(1) }
+  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:minister)  { Minister.first                             }
+
+  before do
     DBHelpers.load_feature_fixtures
-    @pq1, @pq2, @pq3 = PQA::QuestionLoader.new.load_and_import(3)
-    @ao = ActionOfficer.find_by(email: 'ao1@pq.com')
-    @minister = Minister.first
   end
 
-  after(:each) do
+  after do
     DatabaseCleaner.clean
   end
 
-  scenario 'Check page elements' do
+  it "Check page elements" do
     initialise
-    within('#count') do
-      expect(page).to have_text('3 parliamentary questions')
+    within("#count") do
+      expect(page).to have_text("3 parliamentary questions")
     end
-    within('#draftReminders') do
-      click_on 'Send Draft Reminders'
-      expect(page).to have_text('No PQs selected')
-      find(:button, 'Send', disabled: true)
+    within("#draftReminders") do
+      click_on "Send Draft Reminders"
+      expect(page).to have_text("No PQs selected")
+      find(:button, "Send", disabled: true)
     end
-    within('#editDates') do
-      click_on 'Edit PQ dates'
-      expect(page).to have_text('No PQs selected')
-      find(:button, 'Edit', disabled: true)
+    within("#editDates") do
+      click_on "Edit PQ dates"
+      expect(page).to have_text("No PQs selected")
+      find(:button, "Edit", disabled: true)
     end
-    within('#csvExport') do
-      click_on 'Export PQs to CSV'
-      expect(page).to have_text('No PQs selected')
-      find(:button, 'Export', disabled: true)
+    within("#csvExport") do
+      click_on "Export PQs to CSV"
+      expect(page).to have_text("No PQs selected")
+      find(:button, "Export", disabled: true)
     end
   end
 
-  scenario "A user selects and de-selects PQs with the 'Select all' checkbox" do
+  it "A user selects and de-selects PQs with the 'Select all' checkbox" do
     initialise
-    check 'select-all'
-    within('#draftReminders') do
-      click_on 'Send Draft Reminders'
-      expect(page).to have_text('3 PQs selected')
-      find(:button, 'Send', disabled: false)
+    check "select-all"
+    within("#draftReminders") do
+      click_on "Send Draft Reminders"
+      expect(page).to have_text("3 PQs selected")
+      find(:button, "Send", disabled: false)
     end
-    within('#editDates') do
-      click_on 'Edit PQ dates'
-      expect(page).to have_text('3 PQs selected')
-      find(:button, 'Edit', disabled: true)
+    within("#editDates") do
+      click_on "Edit PQ dates"
+      expect(page).to have_text("3 PQs selected")
+      find(:button, "Edit", disabled: true)
     end
-    within('#csvExport') do
-      click_on 'Export PQs to CSV'
-      expect(page).to have_text('3 PQs selected')
-      find(:button, 'Export', disabled: false)
+    within("#csvExport") do
+      click_on "Export PQs to CSV"
+      expect(page).to have_text("3 PQs selected")
+      find(:button, "Export", disabled: false)
     end
-    within('.questions-list') do
-      find(:checkbox, 'uin-1', checked: true)
-      find(:checkbox, 'uin-2', checked: true)
-      find(:checkbox, 'uin-3', checked: true)
+    within(".questions-list") do
+      find(:checkbox, "uin-1", checked: true)
+      find(:checkbox, "uin-2", checked: true)
+      find(:checkbox, "uin-3", checked: true)
     end
 
     # A user de-selects all by clicking 'Select all' checkbox do
-    uncheck 'select-all'
-    within('.questions-list') do
-      find(:checkbox, 'uin-1', checked: false)
-      find(:checkbox, 'uin-2', checked: false)
-      find(:checkbox, 'uin-3', checked: false)
+    uncheck "select-all"
+    within(".questions-list") do
+      find(:checkbox, "uin-1", checked: false)
+      find(:checkbox, "uin-2", checked: false)
+      find(:checkbox, "uin-3", checked: false)
     end
 
     # Check the No. of selected PQs is correct
-    within('#draftReminders') do
-      click_on 'Send Draft Reminders'
-      expect(page).to have_text('No PQs selected')
-      find(:button, 'Send', disabled: true)
+    within("#draftReminders") do
+      click_on "Send Draft Reminders"
+      expect(page).to have_text("No PQs selected")
+      find(:button, "Send", disabled: true)
     end
-    within('#editDates') do
-      click_on 'Edit PQ dates'
-      expect(page).to have_text('No PQs selected')
-      find(:button, 'Edit', disabled: true)
+    within("#editDates") do
+      click_on "Edit PQ dates"
+      expect(page).to have_text("No PQs selected")
+      find(:button, "Edit", disabled: true)
     end
-    within('#csvExport') do
-      click_on 'Export PQs to CSV'
-      expect(page).to have_text('No PQs selected')
-      find(:button, 'Export', disabled: true)
+    within("#csvExport") do
+      click_on "Export PQs to CSV"
+      expect(page).to have_text("No PQs selected")
+      find(:button, "Export", disabled: true)
     end
   end
 
-  scenario 'A user selects individual PQs' do
+  it "A user selects individual PQs" do
     initialise
 
     # One question
-    within('.questions-list') do
-      check 'uin-3'
+    within(".questions-list") do
+      check "uin-3"
     end
-    within('#draftReminders') do
-      click_on 'Send Draft Reminders'
-      expect(page).to have_text('1 PQ selected')
-      find(:button, 'Send', disabled: false)
+    within("#draftReminders") do
+      click_on "Send Draft Reminders"
+      expect(page).to have_text("1 PQ selected")
+      find(:button, "Send", disabled: false)
     end
-    within('#editDates') do
-      click_on 'Edit PQ dates'
-      expect(page).to have_text('1 PQ selected')
-      find(:button, 'Edit', disabled: false)
+    within("#editDates") do
+      click_on "Edit PQ dates"
+      expect(page).to have_text("1 PQ selected")
+      find(:button, "Edit", disabled: false)
     end
-    within('#csvExport') do
-      click_on 'Export PQs to CSV'
-      expect(page).to have_text('1 PQ selected')
-      find(:button, 'Export', disabled: false)
+    within("#csvExport") do
+      click_on "Export PQs to CSV"
+      expect(page).to have_text("1 PQ selected")
+      find(:button, "Export", disabled: false)
     end
 
     # Second question
-    within('.questions-list') do
-      check 'uin-2'
+    within(".questions-list") do
+      check "uin-2"
     end
-    within('#draftReminders') do
-      click_on 'Send Draft Reminders'
-      expect(page).to have_text('2 PQs selected')
-      find(:button, 'Send', disabled: false)
+    within("#draftReminders") do
+      click_on "Send Draft Reminders"
+      expect(page).to have_text("2 PQs selected")
+      find(:button, "Send", disabled: false)
     end
-    within('#editDates') do
-      click_on 'Edit PQ dates'
-      expect(page).to have_text('2 PQs selected')
-      find(:button, 'Edit', disabled: false)
+    within("#editDates") do
+      click_on "Edit PQ dates"
+      expect(page).to have_text("2 PQs selected")
+      find(:button, "Edit", disabled: false)
     end
-    within('#csvExport') do
-      click_on 'Export PQs to CSV'
-      expect(page).to have_text('2 PQs selected')
-      find(:button, 'Export', disabled: false)
+    within("#csvExport") do
+      click_on "Export PQs to CSV"
+      expect(page).to have_text("2 PQs selected")
+      find(:button, "Export", disabled: false)
     end
   end
 
-  def accept_commission(pq, ao)
-    visit_assignment_url(pq, ao)
-    choose 'Accept'
-    click_on 'Save'
+  def accept_commission(parliamentary_question, action_officer)
+    visit_assignment_url(parliamentary_question, action_officer)
+    choose "Accept"
+    click_on "Save"
     visit dashboard_path
   end
 
   def initialise
-    commission_question(@pq1.uin, [@ao], @minister)
-    accept_commission(@pq1, @ao)
-    commission_question(@pq2.uin, [@ao], @minister)
-    accept_commission(@pq2, @ao)
-    commission_question(@pq3.uin, [@ao], @minister)
-    accept_commission(@pq3, @ao)
-    click_link 'In progress'
+    commission_question(pq1.uin, [ao], minister)
+    accept_commission(pq1, ao)
+    commission_question(pq2.uin, [ao], minister)
+    accept_commission(pq2, ao)
+    commission_question(pq3.uin, [ao], minister)
+    accept_commission(pq3, ao)
+    click_link "In progress"
   end
 end

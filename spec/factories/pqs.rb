@@ -72,8 +72,8 @@ FactoryBot.define do
     uin { Faker::Lorem.characters(number: 10) }
     house_id { 1 }
     raising_member_id { 1 }
-    tabled_date { '2014-05-08 13:45:31' }
-    response_due { '2014-05-08 13:45:31' }
+    tabled_date { "2014-05-08 13:45:31" }
+    response_due { "2014-05-08 13:45:31" }
     question { Faker::Lorem.sentence(word_count: 10) }
     answer { nil }
     state { PQState::UNASSIGNED }
@@ -89,12 +89,12 @@ FactoryBot.define do
 
         transient do
           action_officer { create(:action_officer) }
-          action_officer_allocated_at { Time.now }
+          action_officer_allocated_at { Time.zone.now }
         end
 
         after(:create) do |pq, evaluator|
           create(:action_officers_pq,
-                 pq: pq,
+                 pq:,
                  action_officer: evaluator.action_officer,
                  created_at: evaluator.action_officer_allocated_at,
                  updated_at: evaluator.action_officer_allocated_at)
@@ -108,12 +108,12 @@ FactoryBot.define do
         minister
 
         after(:create) do |pq, _|
-          pq.action_officers_pqs = [create(:accepted_action_officers_pq, pq: pq)]
+          pq.action_officers_pqs = create_list(:accepted_action_officers_pq, 1, pq:)
         end
 
         factory :with_pod_pq do
           state { PQState::WITH_POD }
-          draft_answer_received { Time.now }
+          draft_answer_received { Time.zone.now }
 
           factory :pod_query_pq do
             state { PQState::POD_QUERY }
@@ -121,11 +121,11 @@ FactoryBot.define do
 
             factory :pod_cleared_pq do
               state { PQState::POD_CLEARED }
-              pod_clearance { Time.now }
+              pod_clearance { Time.zone.now }
 
               factory :with_minister_pq do
                 state { PQState::WITH_MINISTER }
-                sent_to_answering_minister { Time.now }
+                sent_to_answering_minister { Time.zone.now }
 
                 factory :ministerial_query_pq do
                   state { PQState::MINISTERIAL_QUERY }
@@ -134,7 +134,7 @@ FactoryBot.define do
 
                 factory :minister_cleared_pq do
                   state { PQState::MINISTER_CLEARED }
-                  cleared_by_answering_minister { Time.now }
+                  cleared_by_answering_minister { Time.zone.now }
                 end
               end
             end

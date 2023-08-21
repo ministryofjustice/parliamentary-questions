@@ -30,9 +30,9 @@ module PQState
     # @param pq [Pq] A PQ active record object.
     # @return [Symbol] Returns the current machine state.
     #
-    def next_state(state, pq)
+    def next_state(state, parliamentary_question)
       loop do
-        transition_onwards = available_transition(state, pq)
+        transition_onwards = available_transition(state, parliamentary_question)
         break unless transition_onwards
 
         state = transition_onwards.state_to
@@ -41,11 +41,11 @@ module PQState
       state
     end
 
-    private
+  private
 
-    def available_transition(state, pq)
+    def available_transition(state, parliamentary_question)
       # Assume only single valid transition exists at point in time -  CHECK
-      transitions_permitted(state).find { |t| t.valid?(pq) }
+      transitions_permitted(state).find { |t| t.valid?(parliamentary_question) }
     end
 
     def transitions_permitted(from_state)

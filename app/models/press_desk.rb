@@ -9,15 +9,15 @@
 #  updated_at :datetime
 #
 
-class PressDesk < ActiveRecord::Base
+class PressDesk < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
   has_paper_trail
-  validates :name, uniqueness: true, presence: true
+  validates :name, uniqueness: true, presence: true # rubocop:disable Rails/UniqueValidationWithoutIndex
   has_many :action_officers
   has_many :press_officers
-  scope :active_list, -> { where('press_desks.deleted = ? OR press_desks.deleted = ? AND press_desks.updated_at > ?', false, true, 2.days.ago.to_datetime) }
+  scope :active_list, -> { where("press_desks.deleted = ? OR press_desks.deleted = ? AND press_desks.updated_at > ?", false, true, 2.days.ago) }
 
   def press_officer_emails
     press_officers
