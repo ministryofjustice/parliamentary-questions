@@ -15,12 +15,10 @@ module PQState
       end,
       ## With POD
       Transition(DRAFT_PENDING, WITH_POD) do |pq|
-        # !pq.draft_answer_received.nil?
         !!pq.draft_answer_received # rubocop:disable Style/DoubleNegation
       end,
       ## POD Query
       Transition(WITH_POD, POD_QUERY) do |pq|
-        # !pq.pod_query_flag.nil?
         !!pq.pod_query_flag # rubocop:disable Style/DoubleNegation
       end,
       ## POD Clearance
@@ -30,9 +28,9 @@ module PQState
       ## With Minister
       Transition(POD_CLEARED, WITH_MINISTER) do |pq|
         if !pq.policy_minister
-          !pq.sent_to_answering_minister.nil?
+          !!pq.sent_to_answering_minister # rubocop:disable Style/DoubleNegation
         else
-          !(pq.sent_to_answering_minister && pq.sent_to_policy_minister).nil?
+          !!(pq.sent_to_answering_minister && pq.sent_to_policy_minister) # rubocop:disable Style/DoubleNegation
         end
       end,
       ## Minister Query
