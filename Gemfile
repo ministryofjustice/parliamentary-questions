@@ -60,7 +60,7 @@ group :test, :development do
   gem "rspec-rails", "~> 6.0"
   gem "rubocop-govuk", require: false
   gem "shoulda-matchers", "~> 5.1", require: false
-  gem "sinatra", "~> 2.2"
+  gem "sinatra", "~> 3.1"
   gem "timecop", "~> 0.9.5"
 end
 
