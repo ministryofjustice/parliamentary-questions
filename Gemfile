@@ -48,7 +48,7 @@ group :test, :development do
   gem "awesome_print", "~> 1.9", ">= 1.9.2"
   gem "better_errors"
   gem "binding_of_caller"
-  gem "brakeman", "~> 5.4", require: false
+  gem "brakeman"
   gem "database_cleaner", "~> 2.0", ">= 2.0.1"
   gem "debug", "~> 1.8"
   gem "factory_bot_rails", "~> 6.2"

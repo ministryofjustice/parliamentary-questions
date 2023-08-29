@@ -489,7 +489,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-will_paginate (~> 1.0)
-  brakeman (~> 5.4)
+  brakeman
   business_time (~> 0.11.0)
   database_cleaner (~> 2.0, >= 2.0.1)
   debug (~> 1.8)
