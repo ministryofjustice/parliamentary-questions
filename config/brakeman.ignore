@@ -42,10 +42,11 @@
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "4c8abd2e60c229fa01041f3a6f4e90d3ca4a81c577cb6f44948e244652249a6f",
+      "check_name": "Execute",
       "message": "Possible command injection",
       "file": "lib/pqa/mock_api_server_runner.rb",
       "line": 20,
-      "link": "http://brakemanscanner.org/docs/warning_types/command_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "Process.spawn(\"rackup -p #{\"8888\"} -P #{\"/tmp/mock_api_server.pid\"} #{RACK_CONFIG_PATH} &> #{LOG_FILEPATH}\", :chdir => (CWD))",
       "render_path": null,
       "location": {
@@ -55,6 +56,9 @@
       },
       "user_input": "RACK_CONFIG_PATH",
       "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
       "note": ""
     },
     {
@@ -151,8 +155,28 @@
       "user_input": "bucket_dates.last.strftime(\"%Y-%m-%d\")",
       "confidence": "Medium",
       "note": ""
+    },
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 110,
+      "fingerprint": "d882f63ce96c28fb6c6e0982f2a171460e4b933bfd9b9a5421dca21eef3f76da",
+      "check_name": "CookieSerialization",
+      "message": "Use of unsafe cookie serialization strategy `:marshal` might lead to remote code execution",
+      "file": "config/initializers/cookies_serializer.rb",
+      "line": 5,
+      "link": "https://brakemanscanner.org/docs/warning_types/unsafe_deserialization",
+      "code": "Rails.application.config.action_dispatch.cookies_serializer = :marshal",
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "cwe_id": [
+        565,
+        502
+      ],
+      "note": ""
     }
   ],
-  "updated": "2016-06-15 10:24:06 +0100",
-  "brakeman_version": "3.3.0"
+  "updated": "2023-08-29 16:30:30 +0100",
+  "brakeman_version": "5.4.1"
 }
