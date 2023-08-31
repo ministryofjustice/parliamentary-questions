@@ -11,7 +11,7 @@ h1
       | Currently waiting confirmation for: #{resource.unconfirmed_email}
   div
     = f.label :password
-    i (leave blank if you don't want to change it)
+    p leave blank if you don't want to change it
     br/
     = f.password_field :password, autocomplete: "off"
   div
@@ -20,7 +20,7 @@ h1
     = f.password_field :password_confirmation, autocomplete: "off"
   div
     = f.label :current_password
-    i (we need your current password to confirm your changes)
+    p we need your current password to confirm your changes
     br/
     = f.password_field :current_password, autocomplete: "off"
   div= f.submit "Update"
