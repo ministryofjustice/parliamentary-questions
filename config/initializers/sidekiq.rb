@@ -9,3 +9,5 @@ Sidekiq.configure_client do |config|
     size: 1,
   }
 end
+
+Sidekiq::Extensions.enable_delay!
