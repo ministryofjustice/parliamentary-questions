@@ -14,11 +14,11 @@ RUN apk -U upgrade
 WORKDIR /usr/src/app
 
 COPY Gemfile* .ruby-version ./
-RUN gem install bundler -v 2.2.15
+RUN gem install bundler -v 2.4.19
 
-RUN bundle config set --global frozen 1 && \
-    bundle config set without 'development' && \
-    bundle install -j 5
+RUN bundle config deployment true && \
+    bundle config without development test && \
+    bundle install --jobs 4 --retry 3
 
 COPY . .
 
