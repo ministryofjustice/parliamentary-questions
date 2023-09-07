@@ -14,7 +14,7 @@ $danger-colour: $error-colour;
 body, main {
   font-size: 1.9rem;
   line-height: 1.3;
-  color: $text-colour; 
+  color: $text-colour;
 }
 
 h1 {
@@ -77,7 +77,7 @@ label {
 // = GLOBAL CLASSES ============================================================
 //==============================================================================
 
-#contentOuter { margin: 0 auto; max-width: 960px; } 
+#contentOuter { margin: 0 auto; max-width: 960px; }
 
 .row { margin: 0; }
 
@@ -261,6 +261,8 @@ textarea.form-control {
 .js-enabled .add-focus { outline-color: $yellow; }
 .js-enabled .add-focus { outline: 3px solid $yellow; }
 
+input:focus { outline: 3px solid #0b0c0c; }
+
 .block-label {
   display: block;
   float: none;
@@ -341,7 +343,7 @@ textarea.form-control {
   border-left: 5px solid $border-colour;
   margin: .5em 0;
 }
-  
+
 .questions-list {
   padding: 0 0 20px;
   > li {
@@ -463,7 +465,7 @@ textarea.form-control {
   }
 }
 
-@media screen and (max-width: 641px) { 
+@media screen and (max-width: 641px) {
   #admin-button-bar {
     float: none;
     li {
@@ -475,7 +477,7 @@ textarea.form-control {
 
 // = Allocation rejection control ==================================================
 /* used to show/hide allocation rejections*/
-.question-allocation-list details .panel-indent { 
+.question-allocation-list details .panel-indent {
   border-left: 5px solid #eee;
   padding-left: .5em;
   margin-top: .5em;
@@ -759,7 +761,7 @@ textarea.form-control {
 
   #sidebar {
     padding: 0;
-    h2 {  
+    h2 {
       font-size: 1.9rem;
       padding: 0;
     }
@@ -856,7 +858,7 @@ textarea.form-control {
         .collapsed { display: none; }
         .content {
           .form-group { margin-bottom: 0; }
-          > label { 
+          > label {
             margin-top: $gutter-half;
           }
           .list {
@@ -889,11 +891,11 @@ textarea.form-control {
   }
 }
 
-#footer .footer-meta { 
+#footer .footer-meta {
   .copyright {
     font-size: 1.6rem;
   }
-  .footer-meta-inner { 
+  .footer-meta-inner {
     ul, .open-government-licence p {
       font-size: 1.6rem;
     }
