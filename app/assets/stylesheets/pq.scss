@@ -617,6 +617,10 @@ input:focus { outline: 3px solid #0b0c0c; }
       li a:link, li a:visited {
         color: black;
       }
+
+      li a:focus {
+        background-color: $yellow;
+      }
     }
 
     #progress-panel {
