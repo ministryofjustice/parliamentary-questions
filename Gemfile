@@ -27,6 +27,7 @@ gem "select2-rails", "~> 4.0", ">= 4.0.13"
 gem "sentry-rails", "~> 5.2"
 gem "sentry-ruby", "~> 5.2"
 gem "sidekiq", "~> 6.5"
+gem "sinatra", "~> 3.1", require: false
 gem "slim", "~> 5.1"
 gem "statsd-ruby", "~> 1.5"
 gem "turbolinks", "~> 5.2", ">= 5.2.1"
@@ -60,7 +61,6 @@ group :test, :development do
   gem "rspec-rails", "~> 6.0"
   gem "rubocop-govuk", require: false
   gem "shoulda-matchers", "~> 5.1", require: false
-  gem "sinatra", "~> 3.1"
   gem "timecop", "~> 0.9.5"
 end
 
