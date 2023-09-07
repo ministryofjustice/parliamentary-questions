@@ -44,7 +44,7 @@ var document, $, ga;
     if (isValidDashboardPq($form)) {
       $button.removeAttr('disabled');
     } else {
-      $button.attr('disabled', 'disabled');
+      $button.attr('aria-disabled', 'true');
     }
   };
 
