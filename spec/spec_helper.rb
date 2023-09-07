@@ -17,6 +17,7 @@ require "./spec/support/unit/question_factory"
 require "./spec/support/csv_helpers"
 require "shoulda/matchers"
 require "paper_trail/frameworks/rspec"
+require "sinatra"
 
 require "bundler/setup"
 ::Bundler.require(:default, :test)
