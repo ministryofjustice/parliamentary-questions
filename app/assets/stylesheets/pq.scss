@@ -261,8 +261,6 @@ textarea.form-control {
 .js-enabled .add-focus { outline-color: $yellow; }
 .js-enabled .add-focus { outline: 3px solid $yellow; }
 
-#quick-links input:focus, #filters input:focus { outline: 3px solid $black; }
-
 .block-label {
   display: block;
   float: none;
@@ -796,6 +794,11 @@ textarea.form-control {
         width: 100%;
         display: block;
         padding: 8px 0;
+      }
+      input[type="button"]:focus{
+        background-color: $yellow;
+        outline: 5px auto -webkit-focus-ring-color;
+        border-radius: 1px;
       }
     }
 
