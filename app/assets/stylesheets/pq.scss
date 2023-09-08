@@ -362,6 +362,10 @@ textarea.form-control {
   }
   .pq-columns .col-md-7 { padding-left: 0; }
   .pq-inline-form { display: inline!important; }
+
+  [aria-disabled="true"] {
+    opacity: 0.5;
+  }
 }
 
 .pq-header {
