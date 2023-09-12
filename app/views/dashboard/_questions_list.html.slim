@@ -1,6 +1,6 @@
 .col-md-9.col-md-pull-3
   = render partial: "shared/flash_messages", flash: flash
-  #count
+  #count aria-live='polite'
     strong #{@questions.length}
     = ' '
     span parliamentary questions
