@@ -24,14 +24,14 @@
           .content
             label for="answer-from" From
             .datepicker.form-group
-              input#answer-from.form-control type="text" placeholder="e.g. 20/06/2014"
+              input#answer-from.form-control type="text" placeholder="e.g. 20/06/2014" aria-labelledby="date-for-answer answer-from"
               span.fa.fa-calendar title="select a date"
             label for="answer-to" To
             .datepicker.form-group
-              input#answer-to.form-control type="text" placeholder="e.g. 20/06/2014"
+              input#answer-to.form-control type="text" placeholder="e.g. 20/06/2014" aria-labelledby="date-for-answer answer-to"
               span.fa.fa-calendar title="select a date"
             .clearFilter
-              input#clear-answer-filter.right type="button" value="Clear"
+              input#clear-answer-filter.right type="button" value="Clear" aria-labelledby="date-for-answer"
 
       #internal-deadline.filter-box
         fieldset
@@ -40,16 +40,16 @@
           .content
             label for="deadline-from" From
             .datepicker.form-group
-              input#deadline-from.form-control type="text" placeholder="e.g. 20/06/2014"
+              input#deadline-from.form-control type="text" placeholder="e.g. 20/06/2014" aria-labelledby="internal-deadline deadline-from"
               span.fa.fa-calendar title="select a date"
 
             label for="deadline-to" To
             .datepicker.form-group
-              input#deadline-to.form-control type="text" placeholder="e.g. 20/06/2014"
+              input#deadline-to.form-control type="text" placeholder="e.g. 20/06/2014" aria-labelledby="internal-deadline deadline-to"
               span.fa.fa-calendar title="select a date"
 
             .clearFilter
-              input#clear-deadline-filter.right type="button" value="Clear"
+              input#clear-deadline-filter.right type="button" value="Clear" aria-labelledby="internal-deadline"
 
     #flag.filter-box
       fieldset
@@ -112,13 +112,13 @@
             - else
               'N/A
           .clearFilter
-            input.clear.right type="button" value="Clear"
+            input.clear.right type="button" value="Clear" aria-labelledby="flag"
 
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
 
       #replying-minister.filter-box
         fieldset
-          legend 
+          legend
             input.view.open type="button" value="Replying minister"
           .notice
             span 1 selected
@@ -132,7 +132,7 @@
               - else
                 'N/A
             .clearFilter
-              input.clear.right type="button" value="Clear"
+              input.clear.right type="button" value="Clear" aria-labelledby="replying-minister"
 
       #policy-minister.filter-box
         fieldset
@@ -153,7 +153,7 @@
               - else
                 'N/A
             .clearFilter
-              input#clear.right type="button" value="Clear"
+              input#clear.right type="button" value="Clear" aria-labelledby="policy-minister"
 
       #question-type.filter-box
         fieldset
@@ -184,11 +184,11 @@
               - else
                 'N/A
             .clearFilter
-              input#clear.right type="button" value="Clear"
+              input#clear.right type="button" value="Clear" aria-labelledby="question-type"
 
       .filter-box
         label for="keywords" Keywords
         .content
-          input#keywords.form-control type="text" placeholder="e.g. keywords, names"
+          input#keywords.form-control type="text" placeholder="e.g. keywords, names" aria-label="keywords"
           .clearFilter
-            input#clear-keywords-filter.right type="button" value="Clear"
+            input#clear-keywords-filter.right type="button" value="Clear" aria-label="keywords clear"
