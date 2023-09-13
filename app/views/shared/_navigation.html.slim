@@ -44,7 +44,7 @@
                 = text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control' }
                 = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
                   span.fa.fa-search
-                    span.visually-hidden Go
+                    span.visually-hidden Search
 
         - elsif current_user.finance_user?
           ul.nav.navbar-nav
