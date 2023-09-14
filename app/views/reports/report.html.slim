@@ -6,7 +6,7 @@ div#minister-report
         th scope="col" Progress
         - @report.header_cells.each do |c|
           th.table-cell-centered scope="col"
-            = link_to(c.label, c.path)
+            = link_to(c.label, c.path, aria: { label: "Click to view questions for #{c.label}" })
     tbody
       - @report.rows.each do |r|
         tr data="report-state-#{r.state}"
@@ -15,6 +15,6 @@ div#minister-report
           - r.cells.each do |c|
             td.table-cell-centered
               - unless c.zero?
-                = link_to(c.count, c.path)
+                = link_to(c.count, c.path, aria: { label: "Click to view questions with a status of #{r.label}" })
               - else
                 | 0

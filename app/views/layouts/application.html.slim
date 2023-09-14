@@ -24,7 +24,7 @@
 - content_for :proposition_header do
   .header-proposition
     .content
-      a#proposition-name href="/" PQ Tracker
+      a#proposition-name href="/" aria-label="click to navigate to PQ dashboard" PQ Tracker
 
 - content_for :content do
   main#contentOuter(role="main")
@@ -32,9 +32,9 @@
       / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
       <span>Help make this service better - your&nbsp;
       - if ! user_signed_in?
-        <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Feedback">feedback</a>&nbsp;
+        <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Feedback" aria-label="Click to send feedback via email">feedback</a>&nbsp;
       - else
-        <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Tracker">feedback</a>&nbsp;
+        <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Tracker" aria-label="Click to send feedback via email">feedback</a>&nbsp;
       | will help us to improve it.
       </span>
 
@@ -50,11 +50,11 @@
 - content_for :footer_support_links do
   ul
     li
-      = link_to "Accessibility", "/accessibility"
+      = link_to "Accessibility", "/accessibility", aria: { label: "click to visit accessibility statement"}
     li
-      = link_to "Contact Parliamentary Branch", "mailto:pqs@justice.gsi.gov.uk?Subject=PQ%20Tracker"
+      = link_to "Contact Parliamentary Branch", "mailto:pqs@justice.gsi.gov.uk?Subject=PQ%20Tracker", aria: { label: "click to email parliamentary branch"}
     li
-      <span>Built by</span> <a href="https://mojdigital.blog.gov.uk/"><abbr title="Ministry of Justice">MOJ</abbr> Digital Services</a>
+      <span>Built by</span> <a href="https://mojdigital.blog.gov.uk/" aria-label="click to visit justice digital blog"><abbr title="Ministry of Justice">MOJ</abbr> Digital Services</a>
 
 - content_for :body_end
 

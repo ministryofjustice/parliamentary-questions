@@ -14,13 +14,13 @@
 
           ul.nav.navbar-nav
             li class=('active' if @dashboard_state == 'New')
-              = link_to 'New', dashboard_path, action: 'index'
+              = link_to 'New', dashboard_path, action: 'index', aria: { label: "Click to view new questions"}
 
             li class=('active' if @dashboard_state == 'In progress')
-              = link_to 'In progress', dashboard_in_progress_path, action: 'in_progress'
+              = link_to 'In progress', dashboard_in_progress_path, action: 'in_progress', aria: { label: "Click to view in progress questions"}
 
             li class=('active' if @dashboard_state == 'Backlog')
-              = link_to 'Backlog', dashboard_backlog_path, action: 'backlog'
+              = link_to 'Backlog', dashboard_backlog_path, action: 'backlog', aria: { label: "Click to view backlog questions"}
 
             li.dropdown class=('active' if @page_title == 'Minister report - Parliamentary Questions - Ministry of Justice' || @page_title == 'Press desk report - Parliamentary Questions - Ministry of Justice')
               a.dropdown-toggle data-toggle="dropdown" data-target="#-" href="#" aria-haspopup="true" role="button"
@@ -28,9 +28,9 @@
                 span.caret
               ul.dropdown-menu role="menu"
                 li
-                  = link_to 'Minister report', reports_ministers_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Minister Report')"
+                  = link_to 'Minister report', reports_ministers_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Minister Report')", aria: { label: "Click to view minister reports"}
                 li
-                  = link_to 'Press desk report', reports_press_desk_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Press Desk Report')"
+                  = link_to 'Press desk report', reports_press_desk_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Press Desk Report')", aria: { label: "Click to view press desk reports"}
 
             li#settings class=('active' if @page_title == 'Settings - Parliamentary Questions - Ministry of Justice')
               = link_to 'Settings', admin_path
