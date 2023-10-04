@@ -787,8 +787,15 @@ textarea.form-control {
         .collapsed { display: none; }
       }
       .datepicker, .datetimepicker {
-        background-color: $white ;
+        background-color: $white;
         width: 100%;
+      }
+      .form-control:focus {
+        outline: 3px solid -webkit-focus-ring-color;
+        border-radius: 1px;
+      }
+      .form-control:focus::placeholder {
+        color: #0b0c0c;
       }
       .button-area {
         width: 100%;
