@@ -3,7 +3,7 @@ h1 Ministers
   .row
     ul#admin-button-bar
       li= link_to ('Add minister'), new_minister_path, {class: 'button-secondary'}
-  table.table
+  table.table aria-label="ministers"
     thead
       tr
         th#minister-name Name
