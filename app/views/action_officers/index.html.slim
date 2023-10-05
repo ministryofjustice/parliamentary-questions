@@ -6,7 +6,7 @@ h1 Action officers
       li= link_to ('Add Action Officer'), new_action_officer_path, {class: 'button-secondary'}
       li= action_officer_toggle_link(@show_inactive)
 
-  table.table
+  table.table aria-label="action officers"
     thead
       tr
         th Name
