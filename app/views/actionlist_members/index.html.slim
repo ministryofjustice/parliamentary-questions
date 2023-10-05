@@ -4,7 +4,7 @@ h1 Actionlist members
   .row
     ul#admin-button-bar
       li= link_to ('Add actionlist member'), new_actionlist_member_path, {class: 'button-secondary'}
-  table.table
+  table.table aria-label="actionlist members"
     thead
       tr
         th Name

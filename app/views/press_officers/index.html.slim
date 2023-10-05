@@ -3,7 +3,7 @@ h1 Press officers
   .row
     ul#admin-button-bar
       li= link_to ('Add press officer'), new_press_officer_path, {class: 'button-secondary'}
-  table.table
+  table.table aria-label="press officers"
     thead
       tr
         th Name

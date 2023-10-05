@@ -3,7 +3,7 @@ h1 Divisions
   .row
     ul#admin-button-bar
       li= link_to ('Add division'), new_division_path, {class: 'button-secondary'}
-  table.table
+  table.table aria-label="divisions"
     thead
       tr
         th Name

@@ -6,7 +6,7 @@ h1 Watchlist members
       li= link_to ('Send allocation info'), {controller: 'watchlist_send_emails', action: 'send_emails'}, {class: 'button', :onclick=> "ga('send', 'event', 'settings', 'watchlist', 'send allocation info');" }
       li= link_to ('Add watchlist member'), new_watchlist_member_path, {class: 'button-secondary'}
       li= link_to ('Watchlist preview'), {controller: 'watchlist_dashboard', action: 'preview'}, {class: 'button-secondary'}
-  table.table
+  table.table aria-label="watchlist members"
     thead
       tr
         th Name
