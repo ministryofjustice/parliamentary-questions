@@ -3,7 +3,7 @@ h1 Press desks
   div class="row"
     ul#admin-button-bar
       li= link_to ('Add press desk'), new_press_desk_path, {class: 'button-secondary'}
-  table.table
+  table.table aria-label="press desks"
     thead
       tr
         th Name
