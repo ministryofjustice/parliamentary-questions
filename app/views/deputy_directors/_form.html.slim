@@ -3,13 +3,13 @@
     = render partial: 'shared/errors', object: @deputy_director
     fieldset
       .form-group
-        label.form-label for="deputy_director_name"  Name
+        label.form-label for="deputy_director_name"  Name (required)
         = f.text_field :name, {class: 'form-control'}
       .form-group
-        label.form-label for="deputy_director_email"  Email
+        label.form-label for="deputy_director_email"  Email (required)
         = f.email_field :email, {class: 'form-control'}
       .form-group
-        label.form-label for="deputy_director_division_id"  Division
+        label.form-label for="deputy_director_division_id"  Division (required)
         = f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select")
       .form-group
         p Status
