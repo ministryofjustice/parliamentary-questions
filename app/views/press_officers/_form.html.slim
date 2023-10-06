@@ -3,13 +3,13 @@
     = render partial: 'shared/errors', object: @press_officer
     fieldset
       .form-group
-        label.form-label for="press_officer_name"  Name
+        label.form-label for="press_officer_name"  Name (required)
         = f.text_field :name, {class: 'form-control'}
       .form-group
-        label.form-label for="press_officer_email"  Email
+        label.form-label for="press_officer_email"  Email (required)
         = f.email_field :email, {class: 'form-control'}
       .form-group
-        label.form-label for="press_officer_press_desk_id"  Press Desk
+        label.form-label for="press_officer_press_desk_id"  Press Desk (required)
         = f.collection_select(:press_desk_id, @press_offices, :id, :name, :include_blank => "Please select")
       .form-group
         p Status
