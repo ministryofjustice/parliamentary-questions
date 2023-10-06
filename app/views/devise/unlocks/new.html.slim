@@ -2,7 +2,7 @@ h1.heading-large Resend unlock instructions
 = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
   = devise_error_messages!
   .form-group
-    label.form-label for="user_email"  Email
+    label.form-label for="user_email"  Email (required)
     = f.email_field :email, class: 'form-control', autofocus: true
   .form-group
     = f.submit "Resend unlock instructions", :class => 'button'
