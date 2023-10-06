@@ -1,15 +1,15 @@
 - content_for :page_title do
-  = 'Sign in - ' 
+  = 'Sign in - '
 
 h1.heading-large Sign in
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   = render partial: "shared/flash_messages", flash: flash
   = devise_error_messages!
   .form-group
-    label.form-label for="user_email"  Email
+    label.form-label for="user_email"  Email (required)
     = f.email_field :email, class: 'form-control', autofocus: true
   .form-group
-    label.form-label for="user_password"  Password
+    label.form-label for="user_password"  Password (required)
     = f.password_field :password, class: 'form-control', autocomplete: "off"
   .form-group
     - if devise_mapping.rememberable?
