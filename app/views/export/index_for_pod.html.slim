@@ -1,6 +1,6 @@
 #csv-export
   h1
-    abbr title="Private Office Directorate" POD 
+    abbr title="Private Office Directorate" POD
     ' Export PQs to
     abbr title="Comma Separated Values" CSV
   = render partial: 'shared/flash_messages'
@@ -8,12 +8,12 @@
     fieldset
       legend Select the range of dates to do the export
       .form-group
-        label.form-label for="date_from"  Date from
+        label.form-label for="date_from"  Date from (required)
         .datepicker
           input#date_from.form-control name="date_from" type="text" value="04/06/2014" /
           span.fa.fa-calendar title="select a date"
       .form-group
-        label.form-label for="date_to"  Date to
+        label.form-label for="date_to"  Date to (required)
         .datepicker
           input#date_to.form-control name="date_to" type="text" value=Date.today.to_s(:date) /
           span.fa.fa-calendar title="select a date"
