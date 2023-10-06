@@ -3,7 +3,7 @@ h1.heading-large Forgot your password?
   = devise_error_messages!
   fieldset
     .form-group
-      label.form-label for="user_email"  Email
+      label.form-label for="user_email"  Email (required)
       = f.email_field :email, class: 'form-control', autofocus: true
     .form-group
       = f.submit "Send me reset password instructions", :class => 'button'
