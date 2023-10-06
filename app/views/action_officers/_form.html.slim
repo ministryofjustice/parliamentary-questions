@@ -3,11 +3,11 @@
     = render partial: 'shared/errors', object: @action_officer
     fieldset
       .form-group
-        label.form-label for="action_officer_name"  Name
+        label.form-label for="action_officer_name"  Name (required)
         = f.text_field :name, {class: 'form-control'}
       .form-group
-        label.form-label for="action_officer_email"  Email
-        = f.email_field :email , {class: 'form-control'}
+        label.form-label for="action_officer_email"  Email (required)
+        = f.email_field :email, {class: 'form-control'}
       .form-group
         label.form-label for="action_officer_group_email"  Group email
         = f.email_field :group_email , {class: 'form-control'}
@@ -15,10 +15,10 @@
         label.form-label for="action_officer_phone"  Phone
         = f.text_field :phone , {class: 'form-control'}
       .form-group
-        label.form-label for="action_officer_deputy_director_id"  Deputy Director
+        label.form-label for="action_officer_deputy_director_id"  Deputy Director (required)
         = f.collection_select(:deputy_director_id, @deputy_directors, :id, :name, :include_blank => "Please select")
       .form-group
-        label.form-label for="action_officer_press_desk_id"  Press Desk
+        label.form-label for="action_officer_press_desk_id"  Press Desk (required)
         = f.collection_select(:press_desk_id, @press_desks, :id, :name, :include_blank => "Please select")
       p Status
       .form-group
