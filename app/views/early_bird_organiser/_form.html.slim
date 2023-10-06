@@ -5,10 +5,10 @@
     fieldset
       legend Select the dates between which you do not wish to receive the early bird email
       .form-group
-        label.form-label for="early_bird_organiser_date_from" First date to turn off the early bird email 
+        label.form-label for="early_bird_organiser_date_from" First date to turn off the early bird email (required)
         = f.date_field :date_from, {class: 'form-control'}
       .form-group
-        label.form-label for="early_bird_organiser_date_to" Last date the early bird email is off 
+        label.form-label for="early_bird_organiser_date_to" Last date the early bird email is off (required)
         = f.date_field :date_to , {class: 'form-control'}
       .form-group
         br
