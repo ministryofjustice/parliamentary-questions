@@ -33,7 +33,7 @@ gem "statsd-ruby", "~> 1.5"
 gem "turbolinks", "~> 5.2", ">= 5.2.1"
 gem "uglifier", "~> 4.2"
 gem "unicorn", "~> 6.1"
-gem "will_paginate", "~> 3.3"
+gem "will_paginate", "~> 4.0"
 
 group :development do
   gem "annotate", "~> 3.2"
