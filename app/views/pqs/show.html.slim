@@ -5,23 +5,23 @@
   #pq-detail-area.row
     nav.col-md-3
       p.visually-hidden Jump to a section...
-      ul.nav.nav-stacked data-tabs="tabs"
+      ul.nav.nav-stacked data-tabs="tabs" role="tablist"
         li.active
-          a#progress-menu-pq href="#progress-menu-pq-data" data-toggle="tab" PQ Details
+          a#progress-menu-pq href="#progress-menu-pq-data" data-toggle="tab" role="tab" PQ Details
         li
-          a#progress-menu-fc href="#progress-menu-fc-data" data-toggle="tab" Finance check
+          a#progress-menu-fc href="#progress-menu-fc-data" data-toggle="tab" role="tab" Finance check
         li
-          a#progress-menu-com href="#progress-menu-com-data" data-toggle="tab" PQ commission
+          a#progress-menu-com href="#progress-menu-com-data" data-toggle="tab" role="tab" PQ commission
         li
-          a#progress-menu-sub href="#progress-menu-sub-data" data-toggle="tab" PQ draft
+          a#progress-menu-sub href="#progress-menu-sub-data" data-toggle="tab" role="tab" PQ draft
         li
-          a#progress-menu-pod href="#progress-menu-pod-data" data-toggle="tab"
-            abbr title="Private Office Directorate" POD 
+          a#progress-menu-pod href="#progress-menu-pod-data" data-toggle="tab" role="tab"
+            abbr title="Private Office Directorate" POD
             'check
         li
-          a#progress-menu-min href="#progress-menu-min-data" data-toggle="tab" Minister check
+          a#progress-menu-min href="#progress-menu-min-data" data-toggle="tab" role="tab" Minister check
         li
-          a#progress-menu-answer href="#progress-menu-answer-data" data-toggle="tab" Answer
+          a#progress-menu-answer href="#progress-menu-answer-data" data-toggle="tab" role="tab" Answer
     #progress-panel.col-md-9
       = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|
         fieldset.tab-content role="region" aria-live="polite"
