@@ -3,7 +3,7 @@
     = render partial: 'shared/errors', object: @directorate
     fieldset
       .form-group
-        label.form-label for="directorate_name"  Name
+        label.form-label for="directorate_name"  Name (required)
         = f.text_field :name, {class: 'form-control'}
       .form-group
         p Status

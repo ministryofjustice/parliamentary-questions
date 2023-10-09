@@ -3,10 +3,10 @@
     = render partial: 'shared/errors', object: @ogd
     fieldset
       .form-group
-        label.form-label for="ogd_name"  Name
+        label.form-label for="ogd_name"  Name (required)
         = f.text_field :name, {class: 'form-control'}
       .form-group
-        label.form-label for="ogd_acronym"  Acronym
+        label.form-label for="ogd_acronym"  Acronym (required)
         = f.text_field :acronym, {class: 'form-control'}
       .form-group
         p Status

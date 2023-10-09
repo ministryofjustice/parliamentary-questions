@@ -3,7 +3,7 @@
     = render partial: 'shared/errors', object: @press_desk
     fieldset
       .form-group
-        label.form-label for="press_desk_name"  Name
+        label.form-label for="press_desk_name"  Name (required)
         = f.text_field :name, {class: 'form-control'}
       .form-group
         p Status

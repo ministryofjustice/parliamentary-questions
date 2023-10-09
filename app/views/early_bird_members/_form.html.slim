@@ -4,10 +4,10 @@
     - if @early_bird_member.errors.any?
     fieldset
       .form-group
-        label.form-label for="early_bird_member_name"  Name
+        label.form-label for="early_bird_member_name"  Name (required)
         = f.text_field :name, {class: 'form-control'}
       .form-group
-        label.form-label for="early_bird_member_email"  Email
+        label.form-label for="early_bird_member_email"  Email (required)
         = f.email_field :email , {class: 'form-control'}
       p Status
       .form-group

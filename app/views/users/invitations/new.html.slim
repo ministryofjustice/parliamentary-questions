@@ -3,10 +3,10 @@ h1= t "devise.invitations.new.header"
   = devise_error_messages!
   - resource.class.invite_key_fields.each do |field|
     .form-group
-      = f.label field
+      = f.label field, "Email (required)"
       = f.text_field field, {class: 'form-control'}
     .form-group
-      = f.label :name
+      = f.label :name, "Name (required)"
       = f.text_field :name, {class: 'form-control'}
     .form-group
       = f.label(:roles, 'Role')
