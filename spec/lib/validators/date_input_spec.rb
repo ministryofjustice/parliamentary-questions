@@ -13,7 +13,7 @@ describe Validators::DateInput do
   end
 
   it "raises an error if the input cannot be parsed as a date" do
-    buffer = "\x90" *  (max_len - 1)
+    buffer = "\x90" * (max_len - 1)
 
     expect { parse_date(buffer) }.to raise_error(Validators::DateInput::DateTimeInputError)
   end
