@@ -1,7 +1,7 @@
 .pq-header.row
   .col-md-5
     h2
-      = link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin", aria: { label: "Click to view and edit question #{question.uin}, question status #{question.state.humanize}, deadline date #{question.internal_deadline}" })
+      = link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin", aria: { label: "Click to view and edit question #{question.uin}, question status #{question.state.humanize}, deadline date #{question.internal_deadline || 'not set'}" })
       span.question-type  = question.question_type_header
 
     label.pq-select for="#{question.uin}"
