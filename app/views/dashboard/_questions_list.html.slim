@@ -12,6 +12,6 @@
 
   ul.questions-list
     - questions.each do |question|
-      li id="pq-frame-#{question.id}" data-pquin=question.uin class="question"
+      li id="pq-frame-#{question.id}" data-pquin=question.uin class="question" aria-label="question status #{question.state}"
         = render partial: 'dashboard/question_data', locals: {question: question, action_officers: action_officers}
   #pages.row
