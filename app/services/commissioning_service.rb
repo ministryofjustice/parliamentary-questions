@@ -19,7 +19,7 @@ class CommissioningService
             action_officer_id: ao_id,
           )
         end
-      pq.action_officers_pqs << ao_pqs.last
+      pq.action_officers_pqs << ao_pqs
       pq.update_state!
 
       ao_pqs.each do |ao_pq|
