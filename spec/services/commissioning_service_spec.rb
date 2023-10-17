@@ -82,7 +82,7 @@ describe CommissioningService do
       end
 
       it "sets the pqs' action officers" do
-        expect(@pq.action_officers).to eq([ao1, ao2]) # rubocop:disable RSpec/InstanceVariable
+        expect(@pq.action_officers).to eq([ao1, ao2, ao3]) # rubocop:disable RSpec/InstanceVariable
       end
     end
   end
