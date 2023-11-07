@@ -116,7 +116,7 @@ class Pq < ApplicationRecord
   accepts_nested_attributes_for :trim_link
   before_validation :strip_uin_whitespace
 
-  # validates :uin, presence: true, uniqueness: true
+  validates :uin, presence: true, uniqueness: true # rubocop: disable Rails/UniqueValidationWithoutIndex
   validates :uin, presence: true
   validates :raising_member_id, presence: true
   validates :question, presence: true
