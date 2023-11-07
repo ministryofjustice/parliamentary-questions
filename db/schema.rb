@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_134243) do
+ActiveRecord::Schema.define(version: 2023_11_07_135812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_134243) do
     t.index ["minister_id"], name: "index_pqs_on_minister_id"
     t.index ["state"], name: "index_pqs_on_state"
     t.index ["state_weight"], name: "index_pqs_on_state_weight"
+    t.index ["uin"], name: "index_pqs_on_uin", unique: true
     t.index ["updated_at"], name: "index_pqs_on_updated_at"
   end
 
