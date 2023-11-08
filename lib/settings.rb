@@ -7,9 +7,8 @@ module Settings
       username = ENV["PQ_REST_API_USERNAME"]
       password = ENV["PQ_REST_API_PASSWORD"]
 
-      raise "Cannot find environment variable PQ_REST_API_HOST. Please set it first" unless host
-
-      if ENV["RAILS_ENV"] == "production"
+      if %w[production test].include? ENV["RAILS_ENV"]
+        raise "Cannot find environment variable PQ_REST_API_HOST. Please set it first" unless host
         raise "Cannot find environment variable PQ_REST_API_USERNAME. Please set it first" unless username
         raise "Cannot find environment variable PQ_REST_API_PASSWORD. Please set it first" unless password
       end
@@ -88,6 +87,6 @@ module_function
   end
 
   def govuk_notify_api_key
-    ENV.fetch("GOVUK_NOTIFY_API_KEY") || @h["govuk_notify_api_key"]
+    ENV.fetch("GOVUK_NOTIFY_API_KEY", nil) || @h["govuk_notify_api_key"]
   end
 end
