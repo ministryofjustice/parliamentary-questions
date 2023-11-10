@@ -24,7 +24,7 @@
     label, div {
       display: inline-block;
     }
-    label { 
+    label {
       padding-right: .5em;
       position: relative;
       top: 2px;
@@ -33,9 +33,9 @@
   #search_field {
     width: 142px;
     border-radius: 0;
-    margin-right: -4px;
+    margin-right: -1px;
     margin-bottom: 0;
-    height: 1.8em;
+    height: 34px;
   }
   #search_button {
     border-radius: 0;
@@ -57,7 +57,7 @@
     }
     .navbar-toggle .icon-bar {
       background-color: #444;
-    }  
+    }
   }
 }
 
