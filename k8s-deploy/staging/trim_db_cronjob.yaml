@@ -3,7 +3,7 @@
 # database with too many questions which are not progressed or
 # closed and so stagnate in test environments database.
 
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: trim-database
