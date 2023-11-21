@@ -15,10 +15,5 @@ mail_worker:
   max_fail_count: 15
   timeout: 300
 
-gecko_warning_levels:
-  num_emails_waiting: 15
-  num_emails_abandoned: 1
-  pctg_answered_tokens: 50
-
 smoke_test_runner:
   out_file: '/tmp/smoke_test_run'
