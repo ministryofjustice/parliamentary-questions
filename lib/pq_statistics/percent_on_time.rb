@@ -12,15 +12,6 @@ module PqStatistics
       calculate_for_dates(bucket_dates)
     end
 
-    #
-    # Calculate the metric for a single date bucket for metrics dashboard
-    #
-    # Null -> OnTimeBucket
-    #
-    def calculate_from(date)
-      calculate_for_dates([date]).first
-    end
-
   private
 
     def calculate_for_dates(dates)
