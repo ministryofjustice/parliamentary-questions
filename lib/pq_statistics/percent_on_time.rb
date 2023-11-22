@@ -12,6 +12,10 @@ module PqStatistics
       calculate_for_dates(bucket_dates)
     end
 
+    def calculate_from(date)
+      calculate_for_dates([date]).first
+    end
+
   private
 
     def calculate_for_dates(dates)
