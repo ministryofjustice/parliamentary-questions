@@ -67,12 +67,6 @@ describe Settings do
         }.to raise_error NoMethodError, "undefined method `unknown_config_key' for Settings:Module"
       end
     end
-
-    describe ".key_metric_threshold" do
-      it "returns the value from the file" do
-        expect(described_class.key_metric_threshold).to eq 0.5
-      end
-    end
   end
 
   context "when checking the MailWorker" do
@@ -92,14 +86,6 @@ describe Settings do
       it "returns the value from the file" do
         expect(described_class.mail_worker.timeout).to eq 300
       end
-    end
-  end
-
-  context "when checking the Gecko warning levels" do
-    it "returns the values in the file" do
-      expect(described_class.gecko_warning_levels.num_emails_waiting).to eq 15
-      expect(described_class.gecko_warning_levels.num_emails_abandoned).to eq 1
-      expect(described_class.gecko_warning_levels.pctg_answered_tokens).to eq 50
     end
   end
 
