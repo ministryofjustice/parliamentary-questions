@@ -1,5 +1,5 @@
 = form_tag({controller: 'quick_action', action: 'draft_reminders'},{:id => 'draftReminders', multipart: true}) do
-  input#qa-draft-reminders type="button" value="Send Draft Reminders"
+  input#qa-draft-reminders type="button" value="Send Draft Reminders" aria-expanded="false"
   .content.collapsed
     .selectionCount.notice
       'No PQs selected

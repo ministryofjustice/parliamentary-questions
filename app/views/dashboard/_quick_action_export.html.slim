@@ -1,5 +1,5 @@
 = form_tag({controller: 'export', action: 'csv_quick'},{:id => 'csvExport', multipart: true}) do
-  input#qa-export-csv type="button" value="Export PQs to CSV"
+  input#qa-export-csv type="button" value="Export PQs to CSV" aria-expanded="false"
   .content.collapsed
     .selectionCount.notice
       'No PQs selected
