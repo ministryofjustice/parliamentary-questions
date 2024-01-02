@@ -116,10 +116,10 @@
 
     - if @dashboard_state == "In progress" || @dashboard_state == "Backlog"
 
-      #replying-minister.filter-box aria-expanded="false"
+      #replying-minister.filter-box
         fieldset
           legend
-            input.view.open type="button" value="Replying minister"
+            input.view.open type="button" value="Replying minister" aria-expanded="false"
           .notice
             span 1 selected
           .content.collapsed
@@ -134,10 +134,10 @@
             .clearFilter
               input.clear.right type="button" value="Clear" aria-labelledby="replying-minister"
 
-      #policy-minister.filter-box aria-expanded="false"
+      #policy-minister.filter-box
         fieldset
           legend
-            input.view.open type="button" value="Policy minister"
+            input.view.open type="button" value="Policy minister" aria-expanded="false"
           .notice
             span 1 selected
           .content.collapsed
@@ -155,10 +155,10 @@
             .clearFilter
               input#clear.right type="button" value="Clear" aria-labelledby="policy-minister"
 
-      #question-type.filter-box aria-expanded="false"
+      #question-type.filter-box
         fieldset
           legend
-            input.view.open type="button" value="Question type"
+            input.view.open type="button" value="Question type" aria-expanded="false"
           .notice
             span 1 selected
           .content.collapsed
