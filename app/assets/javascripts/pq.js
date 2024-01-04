@@ -48,6 +48,14 @@ var document, $, ga;
     }
   };
 
+  var setAriaExpandedBoolean = function($clickedButton) {
+    if ($clickedButton.attr('aria-expanded') === 'true') {
+      $clickedButton.attr('aria-expanded', 'false');
+    } else {
+      $clickedButton.attr('aria-expanded', 'true');
+    }
+  };
+
   // Quick action filtering --
 
   var $selectAll = $('#select-all');
@@ -489,6 +497,10 @@ var document, $, ga;
       }
       // Toggle filter box view
       else if (($(event.target).prop('class') === "view open") || ($(event.target).prop('class') === "view closed")){
+
+        // toggle the aria-expanded true:false
+        setAriaExpandedBoolean($(event.target));
+
         // Show/hide filter list.
         $('#' + $(event.target).closest('.filter-box').prop('id') + ' .collapsed').toggle();
         // Show/hide button icon.
