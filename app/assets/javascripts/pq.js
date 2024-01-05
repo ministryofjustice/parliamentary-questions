@@ -48,6 +48,13 @@ var document, $, ga;
     }
   };
 
+
+
+
+
+
+
+
   var setAriaExpandedBoolean = function($clickedButton) {
     if ($clickedButton.attr('aria-expanded') === 'true') {
       $clickedButton.attr('aria-expanded', 'false');
@@ -55,6 +62,14 @@ var document, $, ga;
       $clickedButton.attr('aria-expanded', 'true');
     }
   };
+
+
+
+
+
+
+
+
 
   // Quick action filtering --
 
@@ -425,7 +440,19 @@ var document, $, ga;
 
     $quickActions.on('click', function (event) {
 
+
+
+
+
+
       setAriaExpandedBoolean($(event.target));
+
+
+
+
+
+
+
 
       // collapse/expand quick actions
       if ( $(event.target).is('#qa-edit-dates') ) {
@@ -448,12 +475,19 @@ var document, $, ga;
         $('#qa-edit-dates, #qa-export-csv').attr('aria-expanded', 'false');
       }
       else if ( $(event.target).is('.qa-cancel') ) {
-        console.log($('#' + $(event.target).closest('form').attribute('aria-expanded')));
-        //$().attr('aria-expanded', 'false');
-        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
-        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').siblings('input').focus();
-      }
+        let $parentFormId = '#' + $(event.target).closest('form').prop('id');
 
+        if ( $parentFormId === "#draftReminders" ) {
+          setAriaExpandedBoolean('#qa-draft-reminders');
+        } else if ( $parentFormId === "#editDates" ) {
+          setAriaExpandedBoolean('#qa-edit-dates');
+        } else {
+          setAriaExpandedBoolean('#qa-export-csv');
+        }
+
+        $($parentFormId + ' .content.collapsed').toggle();
+        $($parentFormId + ' .content.collapsed').siblings('input').focus();
+      }
       else if ( $(event.target).is('#do-export') || $(event.target).is('#do-edit') || $(event.target).is('#do-reminders') ) {
         getSelectedPQs();
       }
@@ -513,19 +547,8 @@ var document, $, ga;
 
 
 
-
-
-
-
-
         // toggle the aria-expanded true:false
         setAriaExpandedBoolean($(event.target));
-
-
-
-
-
-
 
 
 
