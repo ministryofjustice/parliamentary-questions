@@ -47,14 +47,7 @@ var document, $, ga;
       $button.attr('aria-disabled', 'true');
     }
   };
-
-
-
-
-
-
-
-
+  
   var setAriaExpandedBoolean = function($clickedButton) {
     if ($clickedButton.attr('aria-expanded') === 'true') {
       $clickedButton.attr('aria-expanded', 'false');
@@ -62,14 +55,6 @@ var document, $, ga;
       $clickedButton.attr('aria-expanded', 'true');
     }
   };
-
-
-
-
-
-
-
-
 
   // Quick action filtering --
 
@@ -421,7 +406,6 @@ var document, $, ga;
       $('.ao-reminder-link').on('ajax:success', function(e, data){
         $(this).after(data);
       });
-
     }
 
     //  Filtering events
@@ -440,19 +424,8 @@ var document, $, ga;
 
     $quickActions.on('click', function (event) {
 
-
-
-
-
-
+      // toggle the aria-expanded true:false
       setAriaExpandedBoolean($(event.target));
-
-
-
-
-
-
-
 
       // collapse/expand quick actions
       if ( $(event.target).is('#qa-edit-dates') ) {
@@ -460,7 +433,6 @@ var document, $, ga;
         $('#' + $('#qa-export-csv').closest('form').prop('id') + ' .content.collapsed').hide();
         $('#' + $('#qa-draft-reminders').closest('form').prop('id') + ' .content.collapsed').hide();
         $('#qa-export-csv, #qa-draft-reminders').attr('aria-expanded', 'false');
-
       }
       else if ( $(event.target).is('#qa-export-csv') ) {
         $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
@@ -475,16 +447,7 @@ var document, $, ga;
         $('#qa-edit-dates, #qa-export-csv').attr('aria-expanded', 'false');
       }
       else if ( $(event.target).is('.qa-cancel') ) {
-        let $parentFormId = '#' + $(event.target).closest('form').prop('id');
-
-        if ( $parentFormId === "#draftReminders" ) {
-          setAriaExpandedBoolean('#qa-draft-reminders');
-        } else if ( $parentFormId === "#editDates" ) {
-          setAriaExpandedBoolean('#qa-edit-dates');
-        } else {
-          setAriaExpandedBoolean('#qa-export-csv');
-        }
-
+        $('#qa-draft-reminders, #qa-edit-dates, #qa-export-csv').attr('aria-expanded', 'false');
         $($parentFormId + ' .content.collapsed').toggle();
         $($parentFormId + ' .content.collapsed').siblings('input').focus();
       }
@@ -541,23 +504,8 @@ var document, $, ga;
       // Toggle filter box view
       else if (($(event.target).prop('class') === "view open") || ($(event.target).prop('class') === "view closed")){
 
-
-
-
-
-
-
         // toggle the aria-expanded true:false
         setAriaExpandedBoolean($(event.target));
-
-
-
-
-
-
-
-
-
 
         // Show/hide filter list.
         $('#' + $(event.target).closest('.filter-box').prop('id') + ' .collapsed').toggle();
