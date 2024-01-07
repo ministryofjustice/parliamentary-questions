@@ -47,7 +47,7 @@ var document, $, ga;
       $button.attr('aria-disabled', 'true');
     }
   };
-  
+
   var setAriaExpandedBoolean = function($clickedButton) {
     if ($clickedButton.attr('aria-expanded') === 'true') {
       $clickedButton.attr('aria-expanded', 'false');
@@ -448,8 +448,8 @@ var document, $, ga;
       }
       else if ( $(event.target).is('.qa-cancel') ) {
         $('#qa-draft-reminders, #qa-edit-dates, #qa-export-csv').attr('aria-expanded', 'false');
-        $($parentFormId + ' .content.collapsed').toggle();
-        $($parentFormId + ' .content.collapsed').siblings('input').focus();
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').toggle();
+        $('#' + $(event.target).closest('form').prop('id') + ' .content.collapsed').siblings('input').focus();
       }
       else if ( $(event.target).is('#do-export') || $(event.target).is('#do-edit') || $(event.target).is('#do-reminders') ) {
         getSelectedPQs();
