@@ -1,5 +1,5 @@
 = form_tag({controller: 'quick_action', action: 'dates'},{:id => 'editDates', multipart: true}) do
-  input#qa-edit-dates type="button" value="Edit PQ dates"
+  input#qa-edit-dates type="button" value="Edit PQ dates" aria-expanded="false"
   .content.collapsed
     .selectionCount.notice
       'No PQs selected
