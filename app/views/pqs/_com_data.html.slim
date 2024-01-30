@@ -9,8 +9,8 @@ hr/
 .question-allocation
   h3 Action officer(s)
   p
-  - if @pq.action_officers.size > 0
-    - @pq.action_officers_pqs.order(updated_at: :desc).each_with_index do |ao_pq, ind|
+  - if @pq.action_officers.not_rejected.size > 0
+    - @pq.action_officers_pqs.not_rejected.order(updated_at: :desc).each_with_index do |ao_pq, ind|
       - if ind > 0
         = ', '
       = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
