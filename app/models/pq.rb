@@ -87,6 +87,10 @@ class Pq < ApplicationRecord
       where(response: "rejected")
     end
 
+    def not_rejected
+      where.not(response: "rejected")
+    end
+
     def all_rejected?
       all.find { |assignment| !assignment.rejected? }.nil?
     end
@@ -103,6 +107,10 @@ class Pq < ApplicationRecord
 
     def rejected
       where(action_officers_pqs: { response: "rejected" })
+    end
+
+    def not_rejected
+      where.not(action_officers_pqs: { response: "rejected" })
     end
   end
 
