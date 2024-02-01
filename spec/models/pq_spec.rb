@@ -311,6 +311,12 @@ describe Pq do
         end
       end
 
+      describe "#not_rejected" do
+        it "returns 2 records" do
+          expect(question.action_officers_pqs.not_rejected.count).to eq 2
+        end
+      end
+
       describe "#all_rejected?" do
         it "returns true when all action officers have rejected" do
           accepted.reject(nil, nil)
@@ -340,6 +346,12 @@ describe Pq do
       describe "#rejected" do
         it "returns 2 records" do
           expect(question.action_officers.rejected.count).to eq 2
+        end
+      end
+
+      describe "#not_rejected" do
+        it "returns 2 records" do
+          expect(question.action_officers.not_rejected.count).to eq 2
         end
       end
     end
