@@ -65,11 +65,14 @@
                 span.constituency #{question.member_constituency}
             - if question.proposed?
               h3 Deputy Director(s) proposed to answer:
-              p.action_officers-list
-                - names = question.action_officers.uniq.pluck :name
-                = names.join(', ')
+            - if question.commissioned?
+              h3 Question assigned to Deputy Director(s):
+
+            p.action_officers-list
+              = question.action_officers.not_rejected.pluck(:name).join(', ')
 
             p.propose-links
               = link_to('Email PQ team about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
-              = ' | '
-              = link_to('Propose a Deputy Director', new_pq_proposal_path(question.id))
+              - unless question.commissioned?
+                = ' | '
+                = link_to('Propose a Deputy Director', new_pq_proposal_path(question.id))
