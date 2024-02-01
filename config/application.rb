@@ -72,9 +72,6 @@ module ParliamentaryQuestions
     # This change is not backwards compatible with earlier Rails versions.
     # It's best enabled when your entire app is migrated and stable on 6.1.
     # Rails.application.config.action_controller.urlsafe_csrf_tokens = true
-
-    # feature flag for display of new early bird functionality
-    config.feature_propose_ao_enabled = ENV["FEATURE_PROPOSE_AO_ENABLED"]
   end
 end
 

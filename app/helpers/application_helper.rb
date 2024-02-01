@@ -34,8 +34,4 @@ module ApplicationHelper
       link_to "View inactive action officers", action_officers_path(show_inactive: true), { class: "button-secondary" }
     end
   end
-
-  def feature_propose_ao_enabled?
-    !!Rails.application.config.feature_propose_ao_enabled || Rails.env.test?
-  end
 end
