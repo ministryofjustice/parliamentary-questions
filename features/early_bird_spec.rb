@@ -65,6 +65,13 @@ describe "Early bird member sees allocated questions", suspend_cleaner: true do
     expect(page).to have_content("Action Officer Proposed")
   end
 
+  it "An early bird member sees a question that is commissioned" do
+    allow(dummy_pq).to receive(:commissioned?).and_return(true)
+
+    visit_earlybird_url
+    expect(page).not_to have_link("Propose a Deputy Director")
+  end
+
   it "The URL token sent to the early bird member expires after 24 hours" do
     two_days_ago = Time.zone.now - 2.days
     EarlyBirdReportService.new(nil, two_days_ago).notify_early_bird
