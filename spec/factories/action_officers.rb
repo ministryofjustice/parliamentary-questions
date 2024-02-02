@@ -19,7 +19,7 @@
 FactoryBot.define do
   factory :action_officer do
     name { Faker::Name.name }
-    email { Faker::Internet.safe_email }
+    email { Faker::Internet.email }
     deputy_director
     press_desk
   end

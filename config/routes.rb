@@ -113,11 +113,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   match "reports/filter_all" => "reports#filter_all", via: %i[get post], as: "filter_all"
 
-  if Rails.env.development?
-    mount_rails_db_info as: "rails_db_info_engine"
-    # mount_rails_db_info is enough for rails version < 4
-  end
-
   match "*path", to: "application#page_not_found", via: :all
 
   if Rails.env.production?

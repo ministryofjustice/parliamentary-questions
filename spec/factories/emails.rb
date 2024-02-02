@@ -25,10 +25,10 @@ FactoryBot.define do
     mailer                  { "PqMailer" }
     add_attribute(:method)  { "commission_email" }
     params                  { { uin: "1", ao: "an ao" } }
-    from                    { Faker::Internet.safe_email }
-    to                      { Faker::Internet.safe_email }
-    cc                      { Faker::Internet.safe_email }
-    reply_to                { Faker::Internet.safe_email }
+    from                    { Faker::Internet.email }
+    to                      { Faker::Internet.email }
+    cc                      { Faker::Internet.email }
+    reply_to                { Faker::Internet.email }
     send_attempted_at       { Faker::Time.between(from: Time.zone.yesterday, to: Time.zone.now) }
 
     factory :pq_email_sent, class: "Email" do

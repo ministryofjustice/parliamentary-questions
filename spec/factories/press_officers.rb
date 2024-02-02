@@ -16,7 +16,7 @@
 FactoryBot.define do
   factory :press_officer do
     name { Faker::Name.name }
-    email { Faker::Internet.safe_email }
+    email { Faker::Internet.email }
     press_desk
   end
 end
