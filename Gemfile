@@ -37,12 +37,6 @@ gem "will_paginate", "~> 4.0"
 
 group :development do
   gem "annotate", "~> 3.2"
-  gem "guard", "~> 2.18"
-  gem "guard-brakeman", "~> 0.8.6"
-  gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
-  gem "guard-rspec", "~> 4.7", ">= 4.7.3", require: false
-  gem "guard-rubocop", "~> 1.4"
-  gem "rails_db_info", "~> 0.2.0"
 end
 
 group :test, :development do
@@ -50,16 +44,17 @@ group :test, :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "brakeman"
+  gem "capybara"
   gem "database_cleaner", "~> 2.0", ">= 2.0.1"
   gem "debug", "~> 1.8"
   gem "factory_bot_rails", "~> 6.2"
   gem "faker", "~> 3.2"
   gem "launchy", "~> 2.5"
   gem "letter_opener", "~> 1.7"
-  gem "poltergeist", "~> 1.18", ">= 1.18.1"
   gem "rails-controller-testing", "~> 1.0", ">= 1.0.5"
   gem "rspec-rails", "~> 6.0"
   gem "rubocop-govuk", require: false
+  gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.1", require: false
   gem "timecop", "~> 0.9.5"
 end
