@@ -51,7 +51,7 @@ group :test, :development do
   gem "faker", "~> 3.2"
   gem "launchy", "~> 2.5"
   gem "letter_opener", "~> 1.7"
-  gem "rails-controller-testing", "~> 1.0", ">= 1.0.5"
+  gem "rails-controller-testing"
   gem "rspec-rails", "~> 6.0"
   gem "rubocop-govuk", require: false
   gem "selenium-webdriver"
