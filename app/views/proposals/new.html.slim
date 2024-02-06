@@ -7,7 +7,7 @@ h1 Propose a Deputy Director
   div
     = link_to("If this question should be assigned to another Deputy Director email PQ team about this", "mailto:#{Settings.mail_reply_to}?subject=Question #{@pq.uin}", { class: 'admin-link' })
   div
-    = link_to "Back", :back, { class: 'admin-link' }
+    = link_to "Back", :back, { class: 'admin-link space-before-30' }
 - else
   = form_tag pq_proposal_path do |f|
     .form-group
