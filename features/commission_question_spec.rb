@@ -6,7 +6,7 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
   let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2)       { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:minister)  { Minister.second                            }
-  let(:test_pq)   { PQA::QuestionLoader.new.load_and_import(2) }
+  let(:test_pq)   { PQA::QuestionLoader.new.load_and_import(2).first }
 
   before do
     DBHelpers.load_feature_fixtures

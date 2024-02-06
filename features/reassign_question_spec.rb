@@ -5,8 +5,8 @@ describe "Parli-branch re-assigns a question", js: true, suspend_cleaner: true d
 
   let(:ao1)      { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2)      { ActionOfficer.find_by(email: "ao2@pq.com") }
-  let(:dummy_pq) { PQA::QuestionLoader.new.load_and_import(2) }
-  let(:minister) { Minister.first                             }
+  let(:dummy_pq) { PQA::QuestionLoader.new.load_and_import(2).first }
+  let(:minister) { Minister.first }
 
   before do
     DBHelpers.load_feature_fixtures
@@ -26,7 +26,7 @@ describe "Parli-branch re-assigns a question", js: true, suspend_cleaner: true d
     visit pq_path(dummy_pq.uin)
     click_on "PQ commission"
 
-    expect(page.title).to have_text("PQ #{dummy_pq.uin}")
+    expect(page.title).to include("PQ #{dummy_pq.uin}")
     expect(page).not_to have_content("Reassign action officer")
     expect(page).not_to have_content("Action officer(s)")
   end

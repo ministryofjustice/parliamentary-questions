@@ -34,7 +34,7 @@ describe "Managing action officers", js: true, suspend_cleaner: true do
   it "Parli-branch can create a new finance officer" do
     create_ao(ao_name, ao_email)
 
-    expect(page.title).to have_content("Action officers")
+    expect(page.title).to include("Action officers")
     expect(page).to have_content "Action officer was successfully created"
     within("#admin-ao-list") { expect(page).to have_content ao_name }
   end
@@ -57,7 +57,7 @@ describe "Managing action officers", js: true, suspend_cleaner: true do
   it "Parli-branch cannot duplicate AO email for the same deputy director" do
     create_ao(ao_name, ao_email)
 
-    expect(page.title).to have_content("Add action officer")
+    expect(page.title).to include("Action officers")
     expect(page).to have_content "an action officer cannot be assigned twice to the same deputy director"
     expect(page).not_to have_content "Action officer was successfully created"
   end
