@@ -8,6 +8,7 @@
   = stylesheet_link_tag('select2-bootstrap.css', media: 'all')
   = stylesheet_link_tag('vendor/jquery.datetimepicker.css', media: 'all')
   = stylesheet_link_tag('vendor/pq-select2.css', media: 'all')
+  = stylesheet_link_tag('/assets/govuk-frontend.min.css', media: 'all')
   = stylesheet_link_tag('application.css', media: 'all')
 
   javascript:
@@ -17,14 +18,6 @@
   - content_for :body_start do
     noscript
       iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RRTCM3" height="0" width="0" style="display:none;visibility:hidden"
-
-- content_for :header_class do
-  = "with-proposition"
-
-- content_for :proposition_header do
-  .header-proposition
-    .content
-      a#proposition-name href="/" aria-label="click to navigate to PQ dashboard" PQ Tracker
 
 - content_for :content do
   main#contentOuter(role="main")
