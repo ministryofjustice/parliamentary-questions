@@ -29,7 +29,7 @@ references:
           POSTGRES_DB: parliamentary_questions_test
           GOVUK_NOTIFY_API_KEY: fake-key
 
-      - image: postgres:12
+      - image: cimg/postgres:12.15
         environment:
           POSTGRES_PASSWORD: "secret"
           POSTGRES_DB: parliamentary_questions_test
