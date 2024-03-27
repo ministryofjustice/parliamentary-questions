@@ -16,7 +16,7 @@
 FactoryBot.define do
   factory :deputy_director do
     name { Faker::Name.name }
-    email { Faker::Internet.safe_email }
+    email { Faker::Internet.email }
     division
   end
 end
