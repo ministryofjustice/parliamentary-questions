@@ -26,7 +26,7 @@ gem "sass-rails", "~> 6.0"
 gem "select2-rails", "~> 4.0", ">= 4.0.13"
 gem "sentry-rails", "~> 5.2"
 gem "sentry-ruby", "~> 5.2"
-gem "sidekiq", "~> 6.5"
+gem "sidekiq", "~> 7.2"
 gem "sinatra", "~> 3.1", require: false
 gem "slim", "~> 5.2"
 gem "statsd-ruby", "~> 1.5"
