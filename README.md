@@ -1,7 +1,6 @@
 parliamentary-questions
 =======================
 
-[![Code Climate](https://codeclimate.com/github/ministryofjustice/parliamentary-questions/badges/gpa.svg)](https://codeclimate.com/github/ministryofjustice/parliamentary-questions)
 [![CircleCI](https://circleci.com/gh/ministryofjustice/parliamentary-questions.svg?style=svg)](https://circleci.com/gh/ministryofjustice/parliamentary-questions)
 
 # Introduction
@@ -136,4 +135,3 @@ The app has a github action "Combine PRs" which automatically combines dependabo
 To use this: "Actions" > "All workflows" > on the left "Combine PRs" > "Run workflows"
 
 See here for the [original developers README](https://github.com/hrvey/combine-prs-workflow)
-
