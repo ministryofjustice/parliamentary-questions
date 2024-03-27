@@ -472,7 +472,7 @@ DEPENDENCIES
   sentry-ruby (~> 5.2)
   shoulda-matchers (~> 5.1)
   sidekiq (~> 6.5)
-  simplecov (~> 0.22.0)
+  simplecov
   sinatra (~> 3.1)
   slim (~> 5.2)
   statsd-ruby (~> 1.5)

@@ -1,7 +1,6 @@
 parliamentary-questions
 =======================
 
-[![Code Climate](https://codeclimate.com/github/ministryofjustice/parliamentary-questions/badges/gpa.svg)](https://codeclimate.com/github/ministryofjustice/parliamentary-questions)
 [![CircleCI](https://circleci.com/gh/ministryofjustice/parliamentary-questions.svg?style=svg)](https://circleci.com/gh/ministryofjustice/parliamentary-questions)
 
 # Introduction
