@@ -117,8 +117,6 @@ be run be executing the same command with the features folder as argument (i.e.
 `bundle exec rspec features`). Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/features) in the features folder
 for end-to-end tests implementation details.
 
-The Guard gem (https://guardgem.org/) is also installed and can be run via `bundle exec guard`.  Currently the RuboCop, RSpec, Brakeman and LiveReload plugins are setup to run when guard detects a file system modification. To use the LiveReload functionality you will need to install the LiveReload browser extension.
-
 # Emails
 Emails are sent using the [GOVUK Notify service](https://www.notifications.service.gov.uk).
 

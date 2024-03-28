@@ -5,7 +5,7 @@ ruby File.read(".ruby-version").strip
 gem "bootstrap-will_paginate", "~> 1.0"
 gem "business_time", "~> 0.11.0"
 gem "devise", "~> 4.8"
-gem "devise_invitable", "~> 2.0", ">= 2.0.5"
+gem "devise_invitable", "~> 2.0"
 gem "font-awesome-rails", "~> 4.7"
 gem "govuk_elements_rails", "~> 3.1", ">= 3.1.3"
 gem "govuk_frontend_toolkit", "~> 9.0"
@@ -37,12 +37,6 @@ gem "will_paginate", "~> 4.0"
 
 group :development do
   gem "annotate", "~> 3.2"
-  gem "guard", "~> 2.18"
-  gem "guard-brakeman", "~> 0.8.6"
-  gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
-  gem "guard-rspec", "~> 4.7", ">= 4.7.3", require: false
-  gem "guard-rubocop", "~> 1.4"
-  gem "rails_db_info", "~> 0.2.0"
 end
 
 group :test, :development do
@@ -65,5 +59,5 @@ group :test, :development do
 end
 
 group :test do
-  gem "simplecov", "~> 0.22.0"
+  gem "simplecov"
 end
