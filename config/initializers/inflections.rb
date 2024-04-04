@@ -14,4 +14,6 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "HTTP"
   inflect.acronym "PQA"
+  inflect.acronym "PQ"
+  inflect.acronym "AO"
 end

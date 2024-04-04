@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe PQA::XMLDecoder do
+describe PQA::XmlDecoder do
   describe "#decode_questions" do
     let(:questions) { described_class.decode_questions(xml) }
 
@@ -11,7 +11,7 @@ describe PQA::XMLDecoder do
         Array.new(3) do |n|
           PQA::QuestionBuilder.updated("q-#{n}", date + n.day)
         end
-      PQA::XMLEncoder.encode_questions(questions)
+      PQA::XmlEncoder.encode_questions(questions)
     end
 
     let(:xml_no_question) { "<questions/>" }
