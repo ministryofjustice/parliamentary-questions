@@ -22,7 +22,7 @@ describe ImportWorker do
     it "records collect questions from 3 days ago if the pqa_import_runs table is empty" do
       allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
       Timecop.freeze freeze_time do
-        expect(PqaImportRun.count).to eq(0)
+        expect(PQAImportRun.count).to eq(0)
         allow(importer).to receive(:run).with(three_days_ago, five_mins_from_now).and_return(ok_report)
         expect(importer).to receive(:run).with(three_days_ago, five_mins_from_now)
 
@@ -33,7 +33,7 @@ describe ImportWorker do
     it "collects questions from the start time of the previous import" do
       allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
       Timecop.freeze freeze_time do
-        allow(PqaImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
+        allow(PQAImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
         allow(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
         expect(importer).to receive(:run).with(last_import_time, five_mins_from_now)
 
@@ -44,12 +44,12 @@ describe ImportWorker do
     it "adds a record to the pqa_runs_table with the time of running" do
       allow(NotifyImportMailer).to receive_message_chain(:notify_success, :deliver_later)
       Timecop.freeze freeze_time do
-        allow(PqaImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
+        allow(PQAImportRun).to receive(:last_import_time_utc).and_return(last_import_time)
         allow(importer).to receive(:run).with(last_import_time, five_mins_from_now).and_return(ok_report)
         expect(importer).to receive(:run).with(last_import_time, five_mins_from_now)
 
         worker.perform
-        pir = PqaImportRun.last
+        pir = PQAImportRunx.last
         expect(pir.start_time).to eq(freeze_time)
       end
     end
