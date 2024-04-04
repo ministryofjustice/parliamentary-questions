@@ -1,5 +1,5 @@
 module RakeTaskHelpers
-  class DBSanitizer
+  class DbSanitizer
     MY_SQLS =
       [
         "update action_officers    set email ='pqsupport+ao' || id || '@digital.justice.gov.uk'",
