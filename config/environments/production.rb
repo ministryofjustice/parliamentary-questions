@@ -27,24 +27,13 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-  config.assets.enabled = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.asset_host = 'http://assets.example.com'
-
-  # Disable serving static files from the `/public` folder by default since
-  # Apache or NGINX already handles this.
-  config.serve_static_files = true
-  config.public_file_server.enabled = true
-  # Generate digests for assets URLs.
-  config.assets.digest = true
-
-  # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = "1.0"
+  # config.asset_host = "http://assets.example.com"
 
   # Specifies the header that your server uses for sending files.
-  # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
+  # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -88,12 +77,6 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Log disallowed deprecations.
-  config.active_support.disallowed_deprecation = :log
-
-  # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = []
-
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
@@ -125,27 +108,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  # Inserts middleware to perform automatic connection switching.
-  # The `database_selector` hash is used to pass options to the DatabaseSelector
-  # middleware. The `delay` is used to determine how long to wait after a write
-  # to send a subsequent read to the primary.
-  #
-  # The `database_resolver` class is used by the middleware to determine which
-  # database is appropriate to use based on the time delay.
-  #
-  # The `database_resolver_context` class is used by the middleware to set
-  # timestamps for the last write to the primary. The resolver uses the context
-  # class timestamps to determine how long to wait before reading from the
-  # replica.
-  #
-  # By default Rails will store a last write timestamp in the session. The
-  # DatabaseSelector middleware is designed as such you can define your own
-  # strategy for connection switching and pass that into the middleware through
-  # these configuration options.
-  # config.active_record.database_selector = { delay: 2.seconds }
-  # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
-  # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.after_initialize do
     sending_host = ENV["SENDING_HOST"] || "localhost"
