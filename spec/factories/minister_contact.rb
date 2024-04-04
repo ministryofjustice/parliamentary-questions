@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :minister_contact do
+    minister
     name { Faker::Lorem.word }
     email { Faker::Internet.email }
     phone { Faker::PhoneNumber.phone_number }
