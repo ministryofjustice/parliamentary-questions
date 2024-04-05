@@ -1,5 +1,5 @@
 class WatchlistMembersController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def index
     @watchlist_members = WatchlistMember.active_list

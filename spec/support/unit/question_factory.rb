@@ -10,7 +10,7 @@ module Unit
         draft_answer_received: Time.zone.today,
       }
 
-      Pq.create!(default_h.merge(question_elements))
+      FactoryBot.create(:pq, default_h.merge(question_elements))
     end
   end
 end

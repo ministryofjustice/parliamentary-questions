@@ -81,10 +81,10 @@ describe Pq do
 
   describe ".before_update" do
     it "sets the state weight" do
-      state = PQState::DRAFT_PENDING
+      state = PqState::DRAFT_PENDING
       pq, = DBHelpers.pqs
       pq.update!(state:)
-      expect(pq.state_weight).to eq(PQState.state_weight(state))
+      expect(pq.state_weight).to eq(PqState.state_weight(state))
     end
   end
 
@@ -94,13 +94,13 @@ describe Pq do
       pqs = DBHelpers.pqs(8).shuffle
 
       # Update to cover all sorting criteria
-      pqs[0].update!(date_for_answer: Date.tomorrow, state: PQState::POD_CLEARED)
+      pqs[0].update!(date_for_answer: Date.tomorrow, state: PqState::POD_CLEARED)
       pqs[1].update!(date_for_answer: Date.tomorrow)
-      pqs[2].update!(date_for_answer: Date.tomorrow  + 1.day, state: PQState::POD_QUERY)
+      pqs[2].update!(date_for_answer: Date.tomorrow  + 1.day, state: PqState::POD_QUERY)
       pqs[3].update!(date_for_answer: Date.tomorrow  + 1.day)
-      pqs[4].update!(date_for_answer: Date.yesterday, state: PQState::POD_CLEARED)
+      pqs[4].update!(date_for_answer: Date.yesterday, state: PqState::POD_CLEARED)
       pqs[5].update!(date_for_answer: Date.yesterday)
-      pqs[6].update!(date_for_answer: Date.yesterday - 1.day, state: PQState::WITH_MINISTER)
+      pqs[6].update!(date_for_answer: Date.yesterday - 1.day, state: PqState::WITH_MINISTER)
       pqs[7].update(date_for_answer: Date.yesterday - 1.day) && pqs[7]
 
       # Late PQs are pushed to the bottom regardless
@@ -147,9 +147,9 @@ describe Pq do
         @ao1, @ao2, @ao3       = DBHelpers.action_officers
         @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
 
-        @pq1.state = PQState::NO_RESPONSE
-        @pq2.state = PQState::WITH_POD
-        @pq3.state = PQState::WITH_POD
+        @pq1.state = PqState::NO_RESPONSE
+        @pq2.state = PqState::WITH_POD
+        @pq3.state = PqState::WITH_POD
 
         accept_pq(@pq1, @ao1)
         accept_pq(@pq2, @ao2)
@@ -158,10 +158,10 @@ describe Pq do
 
       it "returns a hash with states as keys and press-desk/counts as values" do
         expect(described_class.count_accepted_by_press_desk).to eq(
-          PQState::NO_RESPONSE => {
+          PqState::NO_RESPONSE => {
             @pd1.id => 1,
           },
-          PQState::WITH_POD => {
+          PqState::WITH_POD => {
             @pd2.id => 2,
           },
         )
@@ -174,7 +174,7 @@ describe Pq do
 
         it "omits the associated questions from the results" do
           expect(described_class.count_accepted_by_press_desk).to eq(
-            PQState::WITH_POD => {
+            PqState::WITH_POD => {
               @pd2.id => 2,
             },
           )
@@ -197,20 +197,20 @@ describe Pq do
         @minister1, @minister2, = DBHelpers.ministers
         @pq1, @pq2, @pq3, @pq4 = DBHelpers.pqs
 
-        @pq1.update!(state: PQState::DRAFT_PENDING, minister: @minister1)
-        @pq2.update!(state: PQState::WITH_MINISTER, minister: @minister2)
-        @pq3.update!(state: PQState::ANSWERED, minister: @minister2)
-        # ^ should not be included as its state is not included in PQState::IN_PROGRESS
-        @pq4.update!(state: PQState::DRAFT_PENDING, minister: @minister2)
+        @pq1.update!(state: PqState::DRAFT_PENDING, minister: @minister1)
+        @pq2.update!(state: PqState::WITH_MINISTER, minister: @minister2)
+        @pq3.update!(state: PqState::ANSWERED, minister: @minister2)
+        # ^ should not be included as its state is not included in PqState::IN_PROGRESS
+        @pq4.update!(state: PqState::DRAFT_PENDING, minister: @minister2)
       end
 
       it "returns a hash with states as keys and minister counts as values" do
         expect(described_class.count_in_progress_by_minister).to eq(
-          PQState::DRAFT_PENDING => {
+          PqState::DRAFT_PENDING => {
             @minister1.id => 1,
             @minister2.id => 1,
           },
-          PQState::WITH_MINISTER => {
+          PqState::WITH_MINISTER => {
             @minister2.id => 1,
           },
         )
@@ -223,10 +223,10 @@ describe Pq do
 
         it "omits the minister and its related PQ count from the results" do
           expect(described_class.count_in_progress_by_minister).to eq(
-            PQState::DRAFT_PENDING => {
+            PqState::DRAFT_PENDING => {
               @minister2.id => 1,
             },
-            PQState::WITH_MINISTER => {
+            PqState::WITH_MINISTER => {
               @minister2.id => 1,
             },
           )
@@ -239,7 +239,7 @@ describe Pq do
   describe ".filter_for_report" do
     # rubocop:disable RSpec/InstanceVariable
     def commission_and_accept(pq, ao, minister) # rubocop:disable Naming/MethodParameterName
-      pq.state    = PQState::WITH_POD
+      pq.state    = PqState::WITH_POD
       pq.minister = minister
       pq.action_officers_pqs << ActionOfficersPq.new(
         pq:,
@@ -269,7 +269,7 @@ describe Pq do
     context "when state, minister or press desk are all present" do
       it "returns the expected records" do
         expect(@ao1.press_desk).not_to eq(@ao2.press_desk)
-        uins = described_class.filter_for_report(PQState::WITH_POD, @minister, @ao1.press_desk).pluck(:uin)
+        uins = described_class.filter_for_report(PqState::WITH_POD, @minister, @ao1.press_desk).pluck(:uin)
         expect(uins).to eq(%w[uin-1])
       end
     end

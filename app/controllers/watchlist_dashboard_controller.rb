@@ -1,6 +1,6 @@
 class WatchlistDashboardController < ApplicationController
   before_action AOTokenFilter, only: [:index]
-  before_action :authenticate_user!, PQUserFilter, only: [:preview]
+  before_action :authenticate_user!, PqUserFilter, only: [:preview]
 
   def index
     update_page_title("Watchlist preview")

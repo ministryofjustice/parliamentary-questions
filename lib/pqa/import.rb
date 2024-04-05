@@ -61,7 +61,7 @@ module PQA
       pq.preview_url         = question.url
       pq.date_for_answer     = pq.date_for_answer || question.date_for_answer
       pq.transferred         ||= false
-      pq.state               ||= PQState::UNASSIGNED
+      pq.state               ||= PqState::UNASSIGNED
 
       if !pq.valid?
         error_msgs   = pq.errors.messages

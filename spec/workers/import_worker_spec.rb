@@ -49,7 +49,7 @@ describe ImportWorker do
         expect(importer).to receive(:run).with(last_import_time, five_mins_from_now)
 
         worker.perform
-        pir = PQAImportRunx.last
+        pir = PQAImportRun.last
         expect(pir.start_time).to eq(freeze_time)
       end
     end

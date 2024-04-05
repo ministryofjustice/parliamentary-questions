@@ -55,9 +55,9 @@ describe PQA::Import do
       it "saves the records and flags them as 'unassigned'" do
         import.run(from_date, to_date)
         expect(Pq.order(:uin).map { |pq| [pq.uin, pq.state] }).to eq([
-          ["uin-0", PQState::UNASSIGNED],
-          ["uin-1", PQState::UNASSIGNED],
-          ["uin-2", PQState::UNASSIGNED],
+          ["uin-0", PqState::UNASSIGNED],
+          ["uin-1", PqState::UNASSIGNED],
+          ["uin-2", PqState::UNASSIGNED],
         ])
       end
     end
@@ -91,16 +91,16 @@ describe PQA::Import do
 
       it "saves the new records, updating the existing ones, without changing the state" do
         import.run(from_date, to_date)
-        Pq.find_by(uin: "uin-1").update!(state: PQState::REJECTED)
+        Pq.find_by(uin: "uin-1").update!(state: PqState::REJECTED)
 
         expect(Pq.order(:uin).map do |pq|
           d = pq.tabled_date
           state = pq.state
           [pq.uin, [d.day, d.month, d.year], state]
         end).to eq([
-          ["uin-0", [1, 2, 2015], PQState::UNASSIGNED],
-          ["uin-1", [3, 2, 2015], PQState::REJECTED],
-          ["uin-2", [4, 2, 2015], PQState::UNASSIGNED],
+          ["uin-0", [1, 2, 2015], PqState::UNASSIGNED],
+          ["uin-1", [3, 2, 2015], PqState::REJECTED],
+          ["uin-2", [4, 2, 2015], PqState::UNASSIGNED],
         ])
       end
     end

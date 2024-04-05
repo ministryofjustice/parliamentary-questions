@@ -1,7 +1,7 @@
 class EarlyBirdDashboardController < ApplicationController
   before_action AOTokenFilter, only: [:index]
   before_action :save_early_bird_credentials, only: [:index]
-  before_action :authenticate_user!, PQUserFilter, only: [:preview]
+  before_action :authenticate_user!, PqUserFilter, only: [:preview]
 
   NEW      = "New".freeze
   PER_PAGE = 200
@@ -10,7 +10,7 @@ class EarlyBirdDashboardController < ApplicationController
     update_page_title("Early bird preview")
     @now            = Time.zone.now.strftime("%d/%m/%Y")
     @questions      = Pq.new_questions.order(:uin)
-    @parliament_url = PQA::RecentQuestionsURL.url(Time.zone.today)
+    @parliament_url = PQA::RecentQuestionsUrl.url(Time.zone.today)
   end
 
   def preview

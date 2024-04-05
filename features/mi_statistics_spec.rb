@@ -13,7 +13,7 @@ describe "Statistics: PQs answered on time" do
         pq.update(
           date_for_answer: Time.zone.today,
           answer_submitted: Date.tomorrow,
-          state: PQState::ANSWERED,
+          state: PqState::ANSWERED,
         )
       end
 
@@ -21,7 +21,7 @@ describe "Statistics: PQs answered on time" do
         pq.update(
           date_for_answer: Time.zone.today,
           answer_submitted: Date.yesterday,
-          state: PQState::ANSWERED,
+          state: PqState::ANSWERED,
         )
       end
     end

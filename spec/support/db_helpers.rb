@@ -53,7 +53,7 @@ module_function
         tabled_date: Time.zone.today,
         response_due: Date.tomorrow,
         question: "test question #{n}",
-        state: PQState::UNASSIGNED,
+        state: PqState::UNASSIGNED,
       )
     end
   end

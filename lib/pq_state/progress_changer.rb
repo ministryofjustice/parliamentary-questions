@@ -1,4 +1,4 @@
-module PQState
+module PqState
   def self.progress_changer
     @progress_changer ||= StateMachine.build(
       CLOSED,

@@ -13,7 +13,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryBot.define do
-  factory :ogd do
+  factory :ogd, aliases: [:transfer_out_ogd, :transfer_in_ogd] do
     name { "Ministry of Defence" }
     acronym { "MOD" }
   end

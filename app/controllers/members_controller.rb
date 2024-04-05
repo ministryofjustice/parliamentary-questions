@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def by_name
     @members = ParliService.new.members_by_name(params[:name])

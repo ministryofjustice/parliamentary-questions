@@ -59,7 +59,7 @@ describe CommissioningService do
       end
 
       it "sets the PQ state to 'no-response'" do
-        expect(@pq.state).to eq(PQState::NO_RESPONSE)
+        expect(@pq.state).to eq(PqState::NO_RESPONSE)
       end
       # rubocop:enable RSpec/InstanceVariable
     end

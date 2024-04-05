@@ -9,7 +9,7 @@ module Presenters
       end
 
       def label
-        PQState.state_label(@state)
+        PqState.state_label(@state)
       end
     end
   end

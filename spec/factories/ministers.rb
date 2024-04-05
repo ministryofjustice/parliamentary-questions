@@ -14,7 +14,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryBot.define do
-  factory :minister do
+  factory :minister, aliases: [:policy_minister] do
     name { Faker::Name.name }
     title { Faker::Job.title }
     deleted { false }

@@ -1,4 +1,4 @@
-module PQState
+module PqState
   UNASSIGNED        = "unassigned".freeze
   REJECTED          = "rejected".freeze
   NO_RESPONSE       = "no_response".freeze

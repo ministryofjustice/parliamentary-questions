@@ -13,7 +13,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryBot.define do
-  factory :division do
+  factory :division, aliases: [:original_division] do
     name { Faker::Commerce.department(max: 1) }
     directorate
   end

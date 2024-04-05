@@ -40,7 +40,7 @@ describe ProposalService do
       end
 
       it "keeps the PQ state as unassigned" do
-        expect(pq1.state).to eq(PQState::UNASSIGNED)
+        expect(pq1.state).to eq(PqState::UNASSIGNED)
       end
     end
   end

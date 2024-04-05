@@ -1,7 +1,7 @@
 module RakeTaskHelpers
   class StagingSync
     def initialize
-      @db_trim        = RakeTaskHelpers::DBTrim.new
+      @db_trim        = RakeTaskHelpers::DbTrim.new
       @db_sanitizer   = RakeTaskHelpers::DbSanitizer.new
       @user_generator = RakeTaskHelpers::TestUserGenerator.from_config
     end

@@ -16,7 +16,7 @@ describe "PqStatistics" do
         pq.update(
           date_for_answer: 1.business_days.after(date),
           answer_submitted: date,
-          state: PQState::ANSWERED,
+          state: PqState::ANSWERED,
         )
       end
 
@@ -24,7 +24,7 @@ describe "PqStatistics" do
         pq.update(
           date_for_answer: 1.business_days.before(date),
           answer_submitted: date,
-          state: PQState::ANSWERED,
+          state: PqState::ANSWERED,
         )
       end
     end

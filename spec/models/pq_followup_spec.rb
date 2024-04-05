@@ -1,10 +1,6 @@
 require "spec_helper"
 
 describe PqFollowup do
-  # let(:pq) {
-  #   DBHelpers.pqs.first
-  # }
-
   let(:directorate) { create(:directorate, name: "This Directorate", id: rand(1..10)) }
   let(:assignment) { ActionOfficersPq.new(action_officer:, pq:) }
   let(:division) { create(:division, name: "Division", directorate_id: directorate.id, id: rand(1..10)) }
