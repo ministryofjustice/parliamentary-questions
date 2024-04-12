@@ -30,8 +30,8 @@ gem "sidekiq", "~> 6.5"
 gem "sinatra", "~> 3.1", require: false
 gem "slim", "~> 5.2"
 gem "statsd-ruby", "~> 1.5"
+gem "terser"
 gem "turbolinks", "~> 5.2", ">= 5.2.1"
-gem "uglifier", "~> 4.2"
 gem "unicorn", "~> 6.1"
 gem "will_paginate", "~> 4.0"
 
