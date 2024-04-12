@@ -74,15 +74,15 @@ describe CommissioningService do
       # run through the commissioning service
 
       let(:ao3) { DBHelpers.action_officers[2] }
+      let(:valid_form) { CommissionForm.new(form_params) }
+      let(:commission) { described_class.new.commission(valid_form) }
 
       before do
-        pq.action_officers << ao3
-        valid_form = CommissionForm.new(form_params)
-        @pq = described_class.new.commission(valid_form)
+        commission.action_officers << ao3
       end
 
       it "sets the pqs' action officers" do
-        expect(@pq.action_officers).to eq([ao1, ao2, ao3]) # rubocop:disable RSpec/InstanceVariable
+        expect(commission.action_officers).to eq([ao1, ao2, ao3])
       end
     end
   end
