@@ -62,17 +62,8 @@ module ParliamentaryQuestions
     # Statsd
     $statsd = Statsd.new "localhost", 8125 # rubocop:disable Style/GlobalVars
 
-    # Specify cookies SameSite protection level: either :none, :lax, or :strict.
-    #
-    # This change is not backwards compatible with earlier Rails versions.
-    # It's best enabled when your entire app is migrated and stable on 6.1.
-    # Rails.application.config.action_dispatch.cookies_same_site_protection = :lax
-
-    # Generate CSRF tokens that are encoded in URL-safe Base64.
-    #
-    # This change is not backwards compatible with earlier Rails versions.
-    # It's best enabled when your entire app is migrated and stable on 6.1.
-    # Rails.application.config.action_controller.urlsafe_csrf_tokens = true
+    # By default associations can be empty
+    config.active_record.belongs_to_required_by_default = false
   end
 end
 
