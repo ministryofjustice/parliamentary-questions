@@ -19,6 +19,8 @@ Bundler.require(*Rails.groups)
 
 module ParliamentaryQuestions
   class Application < Rails::Application
+    config.defaults = 6.1
+
     # Application Title (Populates <title>)
     config.app_title = "Parliamentary Questions"
 
