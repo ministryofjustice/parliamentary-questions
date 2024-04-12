@@ -4,7 +4,6 @@ $LOAD_PATH << File.expand_path("../lib", __dir__)
 require "pq_state"
 require "pq_state/transition"
 require "pq_state/state_machine"
-require "pq_state/progress_changer"
 
 require "csv"
 require "rails/all"

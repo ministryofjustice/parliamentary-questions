@@ -4,7 +4,7 @@ describe "Parli-branch manually rejecting and re-assigning OAs", js: true, suspe
   include Features::PqHelpers
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
   end
 
   after do

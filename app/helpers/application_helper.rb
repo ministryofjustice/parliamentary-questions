@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def state_label(label)
-    PQState.state_label(label)
+    PqState.state_label(label)
   end
 
   def minister_warning?(question, minister)

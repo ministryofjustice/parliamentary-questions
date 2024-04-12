@@ -21,7 +21,7 @@ describe "Minister Report", js: true do
   end
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
     create_pq_session
   end
 
@@ -40,8 +40,8 @@ describe "Minister Report", js: true do
 
     visit reports_ministers_by_progress_path
 
-    expect_report_to_have(minister, PQState::DRAFT_PENDING, 2)
-    within_report_state(PQState::DRAFT_PENDING) do
+    expect_report_to_have(minister, PqState::DRAFT_PENDING, 2)
+    within_report_state(PqState::DRAFT_PENDING) do
       click_on("2")
     end
 
@@ -56,8 +56,8 @@ describe "Minister Report", js: true do
 
     visit reports_press_desk_by_progress_path
 
-    expect_report_to_have(action_officer.press_desk, PQState::DRAFT_PENDING, 1)
-    within_report_state(PQState::DRAFT_PENDING) do
+    expect_report_to_have(action_officer.press_desk, PqState::DRAFT_PENDING, 1)
+    within_report_state(PqState::DRAFT_PENDING) do
       click_on("1")
     end
     expect(page).to have_content(pq1.uin)

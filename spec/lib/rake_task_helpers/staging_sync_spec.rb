@@ -16,7 +16,7 @@ describe RakeTaskHelpers::StagingSync do
       "[-] This task should only be run in the staging environment\n" \
       "[-] Database has NOT been modified\n"
 
-    expect_any_instance_of(RakeTaskHelpers::DBSanitizer).not_to receive(:run!)
+    expect_any_instance_of(RakeTaskHelpers::DbSanitizer).not_to receive(:run!)
     expect_any_instance_of(RakeTaskHelpers::TestUserGenerator).not_to receive(:run!)
     expect { staging_sync.run! }.to output(msg).to_stdout
   end
@@ -24,7 +24,7 @@ describe RakeTaskHelpers::StagingSync do
   it "sanitizes the db and create test users on staging" do
     allow(HostEnv).to receive(:is_staging?).and_return(true)
 
-    expect_any_instance_of(RakeTaskHelpers::DBSanitizer).to receive(:run!)
+    expect_any_instance_of(RakeTaskHelpers::DbSanitizer).to receive(:run!)
     expect_any_instance_of(RakeTaskHelpers::TestUserGenerator).to receive(:run!)
 
     staging_sync.run!
@@ -32,7 +32,7 @@ describe RakeTaskHelpers::StagingSync do
 
   it "sends an email notification in case of failure" do
     allow(HostEnv).to receive(:is_staging?).and_return(true)
-    allow_any_instance_of(RakeTaskHelpers::DBSanitizer).to receive(:run!).and_raise(StandardError)
+    allow_any_instance_of(RakeTaskHelpers::DbSanitizer).to receive(:run!).and_raise(StandardError)
     allow(NotifyDbSyncMailer).to receive_message_chain(:notify_fail, :deliver_later) # rubocop:disable RSpec/MessageChain
 
     staging_sync.run!

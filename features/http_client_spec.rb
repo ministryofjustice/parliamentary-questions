@@ -29,7 +29,7 @@ describe HTTPClient do
 
     it "the put request can accept a request body as input" do
       q   = PQA::QuestionBuilder.default("uin-1")
-      xml = PQA::XMLEncoder.encode_questions([q])
+      xml = PQA::XmlEncoder.encode_questions([q])
       uri = File.join(client.base_url, "api/qais/questions", q.uin)
       res = client.issue_request(:put, uri, xml)
 

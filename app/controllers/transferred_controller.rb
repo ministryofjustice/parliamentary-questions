@@ -1,7 +1,7 @@
 class TransferredController < ApplicationController
   include Validators::DateInput
 
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def new
     update_page_title("Create a transferred PQ")
@@ -46,7 +46,7 @@ private
       .merge(
         transferred: true,
         raising_member_id: "0",
-        state: PQState::UNASSIGNED,
+        state: PqState::UNASSIGNED,
       )
   end
 

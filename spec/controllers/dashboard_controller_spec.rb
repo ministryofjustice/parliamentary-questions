@@ -6,8 +6,8 @@ describe DashboardController, type: :controller do
     describe "GET backlog" do
       it "sorts the Backlog questions by date and state weight and return them all" do
         setup_questions
-        allow(PQUserFilter).to receive(:before).and_return(true)
-        expect(PQUserFilter).to receive(:before)
+        allow(PqUserFilter).to receive(:before).and_return(true)
+        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :backlog
@@ -19,8 +19,8 @@ describe DashboardController, type: :controller do
     describe "GET by_status" do
       it "returns all questions in unassigned status sorted for dashboard order" do
         setup_questions
-        allow(PQUserFilter).to receive(:before).and_return(true)
-        expect(PQUserFilter).to receive(:before)
+        allow(PqUserFilter).to receive(:before).and_return(true)
+        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :unassigned
@@ -32,8 +32,8 @@ describe DashboardController, type: :controller do
     describe "GET in_progress" do
       it "sorts the in-progress questions by date and state weight and return them all" do
         setup_questions
-        allow(PQUserFilter).to receive(:before).and_return(true)
-        expect(PQUserFilter).to receive(:before)
+        allow(PqUserFilter).to receive(:before).and_return(true)
+        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :in_progress
@@ -45,8 +45,8 @@ describe DashboardController, type: :controller do
     describe "GET index" do
       it "sorts the new questions by date and state weight" do
         setup_questions
-        allow(PQUserFilter).to receive(:before).and_return(true)
-        expect(PQUserFilter).to receive(:before)
+        allow(PqUserFilter).to receive(:before).and_return(true)
+        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :index
@@ -67,14 +67,14 @@ end
 
 def setup_i_will_write_questions
   setup_questions
-  questions = Pq.where.not(state: PQState::CLOSED)
+  questions = Pq.where.not(state: PqState::CLOSED)
   questions.each { |q| q.update(i_will_write: true) }
 end
 
 def setup_questions
   Pq.delete_all
-  PQState::ALL.each_with_index do |state, state_index|
-    state_weight = PQState.state_weight(state)
+  PqState::ALL.each_with_index do |state, state_index|
+    state_weight = PqState.state_weight(state)
     pq_dates.each_with_index do |date, date_index|
       uin = "UIN-#{date.strftime('%m%d')}:#{state}-#{state_index}#{date_index}"
       FactoryBot.create(:pq, uin:, state:, state_weight:, date_for_answer: date)

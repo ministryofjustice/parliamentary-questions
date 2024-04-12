@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe PQState::Validator do
+describe PqState::Validator do
   def t(from, to)
-    PQState::Transition.new(from, to, proc { |_| true })
+    PqState::Transition.new(from, to, proc { |_| true })
   end
 
   describe "#check_consistent_state_graph!" do
@@ -24,7 +24,7 @@ describe PQState::Validator do
 
         expect {
           validator.check_consistent_state_graph!
-        }.to raise_error(PQState::Validator::InconsistentStateGraph, /b -> c/)
+        }.to raise_error(PqState::Validator::InconsistentStateGraph, /b -> c/)
       end
     end
 

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "AOTokenFilter" do
+describe "AoTokenFilter" do
   let(:token_service) { TokenService.new }
 
   describe ".validate_token" do
@@ -12,7 +12,7 @@ describe "AOTokenFilter" do
       allow(controller).to receive(:params).and_return({ token: "mytoken", entity: "test" })
       allow(controller).to receive(:request) { request }
 
-      expect(AOTokenFilter.validate_token(controller)).to eq :invalid
+      expect(AoTokenFilter.validate_token(controller)).to eq :invalid
     end
 
     it "the filter should pass if you have a valid token" do
@@ -26,7 +26,7 @@ describe "AOTokenFilter" do
       allow(controller).to receive(:params) { { token:, entity: } }
       allow(controller).to receive(:request) { request }
 
-      expect(AOTokenFilter.validate_token(controller)).to eq :valid
+      expect(AoTokenFilter.validate_token(controller)).to eq :valid
     end
 
     it "the filter should fail if the token is expired" do
@@ -40,7 +40,7 @@ describe "AOTokenFilter" do
       allow(controller).to receive(:params) { { token:, entity: } }
       allow(controller).to receive(:request) { request }
 
-      expect(AOTokenFilter.validate_token(controller)).to eq :expired
+      expect(AoTokenFilter.validate_token(controller)).to eq :expired
     end
 
     it "the filter should say no access if you provide empty token" do
@@ -51,7 +51,7 @@ describe "AOTokenFilter" do
       allow(controller).to receive(:params).and_return({ entity: "test" })
       allow(controller).to receive(:request) { request }
 
-      expect(AOTokenFilter.validate_token(controller)).to eq :invalid
+      expect(AoTokenFilter.validate_token(controller)).to eq :invalid
     end
 
     it "the filter should say no access if you provide empty entity" do
@@ -74,7 +74,7 @@ describe "AOTokenFilter" do
       allow(controller).to receive(:params) { { token:, entity: } }
       allow(controller).to receive(:request) { request }
 
-      expect(AOTokenFilter.validate_token(controller)).to eq :invalid
+      expect(AoTokenFilter.validate_token(controller)).to eq :invalid
     end
   end
 
@@ -84,11 +84,11 @@ describe "AOTokenFilter" do
     let(:request)    { instance_double("request")    }
 
     it "does not write an error log if valid" do
-      allow(AOTokenFilter).to receive(:validate_token).and_return(:valid)
-      expect(AOTokenFilter).to receive(:validate_token)
+      allow(AoTokenFilter).to receive(:validate_token).and_return(:valid)
+      expect(AoTokenFilter).to receive(:validate_token)
       expect(LogStuff).not_to receive(:error)
 
-      AOTokenFilter.before(controller)
+      AoTokenFilter.before(controller)
     end
   end
 end

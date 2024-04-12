@@ -2,14 +2,14 @@ require "spec_helper"
 
 describe CommissioningService do
   shared_context "with test_values" do
-    let(:ao1)                 { DBHelpers.action_officers[0] }
-    let(:ao2)                 { DBHelpers.action_officers[1] }
+    let(:ao1)                 { DbHelpers.action_officers[0] }
+    let(:ao2)                 { DbHelpers.action_officers[1] }
     let(:form)                { CommissionForm.new(form_params) }
     let(:invalid_form_params) { form_params.merge(date_for_answer: nil) }
     let(:invalid_form)        { CommissionForm.new(invalid_form_params) }
-    let(:minister)            { DBHelpers.ministers[0] }
-    let(:policy_minister)     { DBHelpers.ministers[1] }
-    let(:pq)                  { DBHelpers.pqs.first }
+    let(:minister)            { DbHelpers.ministers[0] }
+    let(:policy_minister)     { DbHelpers.ministers[1] }
+    let(:pq)                  { DbHelpers.pqs.first }
     let(:form_params)         do
       {
         pq_id: pq.id,
@@ -59,7 +59,7 @@ describe CommissioningService do
       end
 
       it "sets the PQ state to 'no-response'" do
-        expect(@pq.state).to eq(PQState::NO_RESPONSE)
+        expect(@pq.state).to eq(PqState::NO_RESPONSE)
       end
       # rubocop:enable RSpec/InstanceVariable
     end
@@ -73,7 +73,7 @@ describe CommissioningService do
       # create a proposed pq that has one ao
       # run through the commissioning service
 
-      let(:ao3) { DBHelpers.action_officers[2] }
+      let(:ao3) { DbHelpers.action_officers[2] }
       let(:valid_form) { CommissionForm.new(form_params) }
       let(:commission) { described_class.new.commission(valid_form) }
 

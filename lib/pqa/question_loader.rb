@@ -21,7 +21,7 @@ module PQA
     def load(questions)
       @client.reset_mock_data!
       questions.each do |q|
-        xml = XMLEncoder.encode_questions([q])
+        xml = XmlEncoder.encode_questions([q])
         @client.save_question(q.uin, xml)
       end
     end

@@ -9,11 +9,11 @@ module Presenters
     end
 
     def self.ministers(report_h, ministers)
-      build(report_h, ministers, PQState::IN_PROGRESS, "Minister report")
+      build(report_h, ministers, PqState::IN_PROGRESS, "Minister report")
     end
 
     def self.press_desk(report_h, press_desks)
-      states = PQState::IN_PROGRESS + PQState::CLOSED
+      states = PqState::IN_PROGRESS + PqState::CLOSED
       build(report_h, press_desks, states, "Press desk report")
     end
 
