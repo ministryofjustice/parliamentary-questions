@@ -9,7 +9,7 @@
     p= question.question
     - unless question.date_for_answer.nil?
       h4 Date For Answer
-      p= question.date_for_answer.to_s(:date)
+      p= question.date_for_answer.to_formatted_s(:date)
     - unless question.internal_deadline.nil?
       h4 Internal deadline
       p= question.internal_deadline.to_s

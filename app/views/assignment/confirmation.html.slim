@@ -5,7 +5,7 @@
   p.space-before
     | You rejected PQ
     strong= " #{@question.uin} "
-    = raw @assignment.updated_at.to_s(:wordy)
+    = raw @assignment.updated_at.to_formatted_s(:wordy)
     = ' stating: '
   p.space-before
     = "#{@assignment.reason_option} - #{@assignment.reason}"
@@ -16,7 +16,7 @@
   p.space-before
     | You accepted PQ
     strong= " #{@question.uin} "
-    = raw @question.action_officers_pqs.accepted.updated_at.to_s(:wordy)
+    = raw @question.action_officers_pqs.accepted.updated_at.to_formatted_s(:wordy)
   p.space-before You will receive a further email which explains how and when to return your draft response, and provides a link to PQ guidance on the intranet.
 - else
   p
@@ -24,7 +24,7 @@
   = @question.action_officers_pqs.accepted.action_officer.name
   = ' accepted PQ'
   strong= " #{@question.uin} "
-  = raw @question.action_officers_pqs.accepted.updated_at.to_s(:wordy)
+  = raw @question.action_officers_pqs.accepted.updated_at.to_formatted_s(:wordy)
 p.space-before
   | If you have any queries please
   a href="mailto:#{Settings.mail_reply_to}"  contact the PQ team

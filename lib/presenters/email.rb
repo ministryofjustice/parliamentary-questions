@@ -7,7 +7,7 @@ module Presenters
         answer_by: parliamentary_question.minister&.name,
         action_officer_name: action_officer.name,
         cc: action_officer.group_email,
-        date_to_parliament: parliamentary_question.date_for_answer.try(:to_s, :date),
+        date_to_parliament: parliamentary_question.date_for_answer.try(:to_formatted_s, :date),
         email: action_officer.email,
         finance_users_emails: finance_users_emails(parliamentary_question).join(";"),
         house_name: parliamentary_question.house_name,
@@ -85,7 +85,7 @@ module Presenters
     end
 
     def format_internal_deadline(parliamentary_question)
-      parliamentary_question.internal_deadline ? "#{parliamentary_question.internal_deadline.to_s(:date)} - #{parliamentary_question.internal_deadline.strftime('%I').to_i}#{parliamentary_question.internal_deadline.strftime('%p').downcase} " : ""
+      parliamentary_question.internal_deadline ? "#{parliamentary_question.internal_deadline.to_formatted_s(:date)} - #{parliamentary_question.internal_deadline.strftime('%I').to_i}#{parliamentary_question.internal_deadline.strftime('%p').downcase} " : ""
     end
 
     def answer_by_text(parliamentary_question)
@@ -105,7 +105,7 @@ module Presenters
     end
 
     def date_to_parliament_text(parliamentary_question)
-      "Due back to Parliament #{parliamentary_question.date_for_answer.try(:to_s, :date)}" if parliamentary_question.date_for_answer.present?
+      "Due back to Parliament #{parliamentary_question.date_for_answer.try(:to_formatted_s, :date)}" if parliamentary_question.date_for_answer.present?
     end
   end
 end
