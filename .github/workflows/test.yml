@@ -65,7 +65,7 @@ jobs:
         run: bin/rails assets:precompile
 
       - name: Setup test database
-        run: bin/rails db:prepare
+        run: bin/rails db:setup
 
       - name: Lint stylesheets
         run: yarn run lint
