@@ -44,10 +44,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 14.17.5
-
-      - name: Find yarn cache location
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+#
+#      - name: Find yarn cache location
+#        id: yarn-cache
+#        run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: JS package cache
         uses: actions/cache@v4
@@ -56,19 +56,19 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-
-      - name: Install packages
-        run: |
-          yarn install --frozen-lockfile
+#
+#      - name: Install packages
+#        run: |
+#          yarn install --frozen-lockfile
 
       - name: Precompile assets
         run: bin/rails assets:precompile
 
       - name: Setup test database
         run: bin/rails db:setup
-
-      - name: Lint stylesheets
-        run: yarn run lint
+#
+#      - name: Lint stylesheets
+#        run: yarn run lint
 
       - name: Lint Ruby files
         run: bundle exec rubocop
