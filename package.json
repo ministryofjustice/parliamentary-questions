@@ -1,0 +1,19 @@
+{
+  "name": "parliamentary-questions",
+  "description": "A webapp to manage the workflow for Parliamentary Questions",
+  "private": true,
+  "author": "MOJ",
+  "license": "MIT",
+  "stylelint": {
+    "extends": "stylelint-config-gds/scss"
+  },
+  "dependencies": {
+    "govuk-frontend": "^5.2.0"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --quiet-deps --no-source-map --load-path=node_modules",
+    "lint": "yarn run lint:scss",
+    "lint:scss": "stylelint app/assets/stylesheets/"
+  }
+}
