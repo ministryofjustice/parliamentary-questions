@@ -15,7 +15,7 @@
       .form-group
         label.form-label for="date_to"  Date to (required)
         .datepicker
-          input#date_to.form-control name="date_to" type="text" value=Date.today.to_s(:date) /
+          input#date_to.form-control name="date_to" type="text" value=Date.today.to_formatted_s(:date) /
           span.fa.fa-calendar title="select a date"
     .form-group
       = submit_tag 'Download CSV' , class: 'button' ,  :onclick=> "ga('send', 'event', 'tasks', 'download', 'pod csv')"
