@@ -37,6 +37,8 @@ gem "will_paginate", "~> 4.0"
 
 group :development do
   gem "annotate", "~> 3.2"
+  gem "listen", "~> 3.9"
+  gem "rails_db_info", "~> 0.2"
 end
 
 group :test, :development do
