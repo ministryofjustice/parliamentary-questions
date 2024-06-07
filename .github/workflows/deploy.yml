@@ -91,14 +91,6 @@ jobs:
           build_tag=$PREFIX-$branch-$short_sha
           echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
 
-      #      - name: Update image tag
-      #        env:
-      #          ECR_URL: ${{ vars.ECR_URL }}
-      #          IMAGE_TAG: ${{ env.SHA }}
-      #        run: |
-      #          cat config/kubernetes/development/deployment.tpl | envsubst > config/kubernetes/development/deployment.yaml
-      #          cat config/kubernetes/development/migrations.tpl | envsubst > config/kubernetes/development/migrations.yaml
-
       - name: Tag build and push to ECR
         run: |
           docker pull ${{ vars.ECR_URL }}:$SHA
@@ -117,9 +109,11 @@ jobs:
           kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${KUBE_NAMESPACE}
           kubectl config use-context ${KUBE_CLUSTER}
 
-#      - name: Rollout restart deployment
-#        run: |
-#          kubectl -n ${KUBE_NAMESPACE} apply -f config/kubernetes/development
+      - name: Rollout restart deployment
+        run: |
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          deployment/parliamentary-questions-development \
+          webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
@@ -185,14 +179,6 @@ jobs:
           build_tag=$PREFIX-$branch-$short_sha
           echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
 
-#      - name: Update image tag
-#        env:
-#          ECR_URL: ${{ vars.ECR_URL }}
-#          IMAGE_TAG: ${{ env.SHA }}
-#        run: |
-#          cat config/kubernetes/staging/deployment.tpl | envsubst > config/kubernetes/staging/deployment.yaml
-#          cat config/kubernetes/staging/migrations.tpl | envsubst > config/kubernetes/staging/migrations.yaml
-
       - name: Tag build and push to ECR
         run: |
           docker pull ${{ vars.ECR_URL }}:$SHA
@@ -211,9 +197,11 @@ jobs:
           kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${KUBE_NAMESPACE}
           kubectl config use-context ${KUBE_CLUSTER}
 
-#      - name: Rollout restart deployment
-#        run: |
-#          kubectl -n ${KUBE_NAMESPACE} apply -f config/kubernetes/staging
+      - name: Rollout restart deployment
+        run: |
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          deployment/parliamentary-questions-staging \
+          webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
