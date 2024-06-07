@@ -1,5 +1,5 @@
 class IWillWriteController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def create
     pq        = Pq.find_by!(uin: params[:id])

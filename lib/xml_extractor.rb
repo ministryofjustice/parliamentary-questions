@@ -1,4 +1,4 @@
-module XMLExtractor
+module XmlExtractor
 module_function
 
   def datetime(node, xpath)

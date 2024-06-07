@@ -55,14 +55,14 @@ module Presenters
     # private_class_method
 
     def self.statuses(counts, params)
-      PQState::NEW.map do |key|
-        StatusFilter.new(counts[key], key, PQState.state_label(key), params)
+      PqState::NEW.map do |key|
+        StatusFilter.new(counts[key], key, PqState.state_label(key), params)
       end
     end
 
     def self.in_progress_statuses(counts, params)
-      PQState::IN_PROGRESS.map do |key|
-        InProgressStatusFilter.new(counts[key], key, PQState.state_label(key), params)
+      PqState::IN_PROGRESS.map do |key|
+        InProgressStatusFilter.new(counts[key], key, PqState.state_label(key), params)
       end
     end
   end

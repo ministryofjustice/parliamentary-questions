@@ -1,7 +1,7 @@
 class CommissionController < ApplicationController
   include Validators::DateInput
 
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def commission
     pq     = Pq.find(params[:commission_form][:pq_id])

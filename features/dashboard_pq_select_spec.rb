@@ -10,7 +10,7 @@ describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner:
   let(:minister)  { Minister.first                             }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
   end
 
   after do

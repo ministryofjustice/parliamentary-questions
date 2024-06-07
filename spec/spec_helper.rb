@@ -81,7 +81,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
-    DBHelpers.load_spec_fixtures
+    DbHelpers.load_spec_fixtures
   end
 
   config.before do

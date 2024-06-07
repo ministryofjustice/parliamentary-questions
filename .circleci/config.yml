@@ -209,10 +209,10 @@ jobs:
       - *check_bundler_version
       - *install_dependencies
       - *save_cache
-      - *wait_for_db
-      - *set_up_the_database
       - *rubocop
       - *brakeman
+      - *wait_for_db
+      - *set_up_the_database
       - *run_unit_and_feature_tests
       - *store_coverage
       - *check_coverage

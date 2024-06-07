@@ -60,7 +60,7 @@ namespace :pqa do
 
     min_date  = Date.parse("1/1/2000")
     max_date  = Date.parse("1/1/2020")
-    questions = PQA::XMLDecoder.decode_questions(File.read(fpath))
+    questions = PQA::XmlDecoder.decode_questions(File.read(fpath))
 
     runner = PQA::MockApiServerRunner.new
     import = PQA::Import.new

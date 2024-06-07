@@ -2,7 +2,7 @@ class HealthCheckService
   COMPONENT_CLASSES =
     [
       HealthCheck::Database,
-      HealthCheck::PqaApi,
+      HealthCheck::PQAApi,
     ].freeze
 
   def initialize

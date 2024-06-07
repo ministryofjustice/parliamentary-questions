@@ -1,19 +1,19 @@
 require "spec_helper"
 
-describe "PQState" do
+describe "PqState" do
   let(:pq) { instance_double("pq-stub") }
 
   let(:transitions) do
     pred = proc { true }
     [
-      PQState::Transition.new("a", "b", pred),
-      PQState::Transition.new("b", "c", pred),
-      PQState::Transition.new("c", "final_state", pred),
+      PqState::Transition.new("a", "b", pred),
+      PqState::Transition.new("b", "c", pred),
+      PqState::Transition.new("c", "final_state", pred),
     ]
   end
 
   let(:state_machine) do
-    PQState::StateMachine.new(%w[final_state], transitions)
+    PqState::StateMachine.new(%w[final_state], transitions)
   end
 
   describe "#next_state" do

@@ -7,7 +7,7 @@ module Settings
       username = ENV["PQ_REST_API_USERNAME"]
       password = ENV["PQ_REST_API_PASSWORD"]
 
-      if %w[production test].include?(ENV["RAILS_ENV"]) && !host
+      if %w[production].include?(ENV["RAILS_ENV"]) && !host
         raise "Cannot find environment variable PQ_REST_API_HOST. Please set it first"
       end
 

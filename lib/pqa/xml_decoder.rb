@@ -1,5 +1,5 @@
 module PQA
-  module XMLDecoder
+  module XmlDecoder
   module_function
 
     def decode_answer_response(xml)

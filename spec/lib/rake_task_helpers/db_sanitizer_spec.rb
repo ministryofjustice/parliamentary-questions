@@ -1,7 +1,7 @@
 require "spec_helper"
 require Rails.root.join("lib/rake_task_helpers/db_sanitizer.rb").to_s
 
-describe RakeTaskHelpers::DBSanitizer do
+describe RakeTaskHelpers::DbSanitizer do
   it "sanitizes email in the selected tables of the database" do
     ao  = FactoryBot.create(:action_officer)
     alm = FactoryBot.create(:actionlist_member)
