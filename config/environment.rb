@@ -7,7 +7,7 @@ Rails.configuration.active_job.queue_name_prefix = "parliamentary_questions"
 Rails.application.config.action_mailer.deliver_later_queue_name = "mailers"
 
 # Use MailDeliveryJob
-config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
+Rails.application.config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
 
 # No need anymore as we use notification api to do it
 # smtpconfig = ActionMailer::Base.smtp_settings.reject { |x| x['password'] }
