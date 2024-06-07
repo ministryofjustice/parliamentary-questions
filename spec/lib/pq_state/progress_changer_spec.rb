@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "PQState#progress_changer" do
+describe "PqState#progress_changer" do
   def stub_pq(overrides = {})
     instance_double("test-pq",
                     {
@@ -13,7 +13,7 @@ describe "PQState#progress_changer" do
   end
 
   subject(:changer) do
-    PQState.progress_changer
+    PqState.progress_changer
   end
 
   describe "#validate_transition_graph!" do
@@ -27,7 +27,7 @@ describe "PQState#progress_changer" do
   describe "#next_state" do
     context "when moving from the initial, to an intermediate state of the graph" do
       it "returns the intermediate state" do
-        expect(changer.next_state(PQState::UNASSIGNED, stub_pq)).to eq(PQState::NO_RESPONSE)
+        expect(changer.next_state(PqState::UNASSIGNED, stub_pq)).to eq(PqState::NO_RESPONSE)
       end
     end
 
@@ -36,7 +36,7 @@ describe "PQState#progress_changer" do
         pq = stub_pq(transfer_out_ogd_id: "test-id",
                      transfer_out_date: Time.zone.now)
 
-        expect(changer.next_state(PQState::NO_RESPONSE, pq)).to eq(PQState::TRANSFERRED_OUT)
+        expect(changer.next_state(PqState::NO_RESPONSE, pq)).to eq(PqState::TRANSFERRED_OUT)
       end
     end
 
@@ -55,7 +55,7 @@ describe "PQState#progress_changer" do
                      cleared_by_answering_minister: true,
                      pq_withdrawn: true)
 
-        expect(changer.next_state(PQState::UNASSIGNED, pq)).to eq(PQState::ANSWERED)
+        expect(changer.next_state(PqState::UNASSIGNED, pq)).to eq(PqState::ANSWERED)
       end
     end
   end

@@ -1,7 +1,7 @@
 require "business_time"
 # Used by earlybird - Please leave this comment to enable find (As PQA is the right module for parliament interface, but mau not be immediately obvious for dev looking at early bird)
 module PQA
-  module RecentQuestionsURL
+  module RecentQuestionsUrl
     def self.url(this_day)
       previous_day = 1.business_days.before(this_day)
       str_this_day = this_day.strftime("%F")

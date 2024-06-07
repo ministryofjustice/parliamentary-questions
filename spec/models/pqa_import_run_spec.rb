@@ -15,7 +15,7 @@
 
 require "spec_helper"
 
-describe PqaImportRun, type: :model do
+describe PQAImportRun, type: :model do
   context "when validating" do
     it "errors if status is not ok or failure or ok_with_errors" do
       pir = FactoryBot.build(:pqa_import_run, status: "gobbledygook")

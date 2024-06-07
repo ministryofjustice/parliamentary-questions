@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   PER_PAGE = 15
 
@@ -27,7 +27,7 @@ class ReportsController < ApplicationController
     @press_desks     = PressDesk.active
     @questions       = Pq.filter_for_report(state, minister_id, press_desk_id)
                          .paginate(page: params[:page], per_page: PER_PAGE)
-    @states          = PQState::ALL.map { |s| [PQState.state_label(s), s] }
+    @states          = PqState::ALL.map { |s| [PqState.state_label(s), s] }
 
     render "filter_all"
   end

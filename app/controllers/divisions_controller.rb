@@ -1,5 +1,5 @@
 class DivisionsController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
   before_action :set_division, only: %i[show edit update destroy]
   before_action :prepare_directorates
 

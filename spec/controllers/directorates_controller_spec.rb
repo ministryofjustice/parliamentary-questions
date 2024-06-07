@@ -4,8 +4,8 @@ describe DirectoratesController, type: :controller do
   describe "Get index" do
     it "lists the Directorates sorted alphabetically by active then inactive states" do
       create_directorates
-      allow(PQUserFilter).to receive(:before).and_return(true)
-      expect(PQUserFilter).to receive(:before)
+      allow(PqUserFilter).to receive(:before).and_return(true)
+      expect(PqUserFilter).to receive(:before)
       allow(controller).to receive(:authenticate_user!).and_return(true)
       expect(controller).to receive(:authenticate_user!)
       get :index

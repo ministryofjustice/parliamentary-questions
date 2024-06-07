@@ -34,7 +34,7 @@ module Export
         escape_equals_for_excel(parliamentary_question.question),
         # 'Minister',
         escape_equals_for_excel(parliamentary_question.minister && parliamentary_question.minister.name),
-        escape_equals_for_excel(PQState.state_label(parliamentary_question.state)),
+        escape_equals_for_excel(PqState.state_label(parliamentary_question.state)),
         # 'Action Officer',
         escape_equals_for_excel(action_officer && action_officer.name),
         # 'Division',

@@ -1,4 +1,4 @@
-module PQState
+module PqState
   # For all nodes in a state transition graph, validates that there
   # exists a path leading to the final state.
   #

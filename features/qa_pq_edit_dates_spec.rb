@@ -11,7 +11,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
   let(:pq3)       { FactoryBot.create :draft_pending_pq }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
     create_pq_session
     click_link "In progress"
   end

@@ -31,7 +31,7 @@ describe AssignmentService do
 
     it "sets pq state to DRAFT_PENDING" do
       assignment_service.accept(assignment)
-      expect(pq.state).to eq(PQState::DRAFT_PENDING)
+      expect(pq.state).to eq(PqState::DRAFT_PENDING)
     end
 
     it "calls the mailer" do
@@ -91,7 +91,7 @@ describe AssignmentService do
 
     it "updates progress" do
       assignment_service.reject(assignment, reason)
-      expect(pq.state).to eq(PQState::REJECTED)
+      expect(pq.state).to eq(PqState::REJECTED)
     end
   end
 end

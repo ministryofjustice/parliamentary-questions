@@ -4,14 +4,18 @@ $LOAD_PATH << File.expand_path("../lib", __dir__)
 require "pq_state"
 require "pq_state/transition"
 require "pq_state/state_machine"
-require "pq_state/progress_changer"
 
 require "csv"
-require "rails/all"
-
-# This require is necessary to avoid a class error in logstasher.
-# This is fixed in HEAD but not currently released in 0.6.1
-require "action_mailer/log_subscriber"
+require "active_record/railtie"
+# require "active_storage/engine"
+require "action_controller/railtie"
+require "action_view/railtie"
+require "action_mailer/railtie"
+require "active_job/railtie"
+# require "action_cable/engine"
+# require "action_mailbox/engine"
+require "action_text/engine"
+# require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,6 +23,20 @@ Bundler.require(*Rails.groups)
 
 module ParliamentaryQuestions
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 6.1
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+
     # Application Title (Populates <title>)
     config.app_title = "Parliamentary Questions"
 
@@ -52,6 +70,8 @@ module ParliamentaryQuestions
     config.eager_load_paths += %w[app/assets/stylesheets/moj]
     config.eager_load_paths += %w[app/assets/stylesheets/vendor]
 
+    config.add_autoload_paths_to_load_path = false
+
     config.generators do |g|
       g.template_engine :erb
     end
@@ -61,17 +81,8 @@ module ParliamentaryQuestions
     # Statsd
     $statsd = Statsd.new "localhost", 8125 # rubocop:disable Style/GlobalVars
 
-    # Specify cookies SameSite protection level: either :none, :lax, or :strict.
-    #
-    # This change is not backwards compatible with earlier Rails versions.
-    # It's best enabled when your entire app is migrated and stable on 6.1.
-    # Rails.application.config.action_dispatch.cookies_same_site_protection = :lax
-
-    # Generate CSRF tokens that are encoded in URL-safe Base64.
-    #
-    # This change is not backwards compatible with earlier Rails versions.
-    # It's best enabled when your entire app is migrated and stable on 6.1.
-    # Rails.application.config.action_controller.urlsafe_csrf_tokens = true
+    # By default associations can be empty
+    config.active_record.belongs_to_required_by_default = false
   end
 end
 

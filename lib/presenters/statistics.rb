@@ -41,7 +41,7 @@ module Presenters
 
       def self.format_item(item, data, index)
         [
-          item.start_date.to_s(:date),
+          item.start_date.to_formatted_s(:date),
           sprintf("%.1f", item.mean / (60 * 60)),
           arrow_for(item.mean - data[index + 1].mean),
         ]
@@ -85,7 +85,7 @@ module Presenters
 
       def self.format_item(item, data, index)
         [
-          item.start_date.to_s(:date),
+          item.start_date.to_formatted_s(:date),
           sprintf("%.2f%%", item.percentage * 100),
           arrow_for(item.percentage - data[index + 1].percentage),
         ]
@@ -125,7 +125,7 @@ module Presenters
 
       def self.format_item(item, data, index)
         [
-          item.start_date.to_s(:date),
+          item.start_date.to_formatted_s(:date),
           sprintf("%.2f", item.mean),
           arrow_for(item.mean - data[index + 1].mean),
         ]

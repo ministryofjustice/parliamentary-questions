@@ -10,14 +10,14 @@ class PQAService
   def questions(date_from, date_to = nil, status = nil)
     $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do # rubocop:disable Style/GlobalVars
       response = @client.questions(date_from, date_to, status)
-      PQA::XMLDecoder.decode_questions(response.body)
+      PQA::XmlDecoder.decode_questions(response.body)
     end
   end
 
   def question(uin)
     $statsd.time("#{StatsHelper::IMPORT}.qa.response_time") do # rubocop:disable Style/GlobalVars
       response = @client.question(uin)
-      PQA::XMLDecoder.decode_questions(response.body)
+      PQA::XmlDecoder.decode_questions(response.body)
     end
   end
 
@@ -26,8 +26,8 @@ class PQAService
     answer.minister_id       = member_id
     answer.text              = text
     answer.is_holding_answer = is_holding_answer
-    response                 = @client.save_answer(uin, PQA::XMLEncoder.encode_answer(answer))
+    response                 = @client.save_answer(uin, PQA::XmlEncoder.encode_answer(answer))
 
-    PQA::XMLDecoder.decode_answer_response(response.body)
+    PQA::XmlDecoder.decode_answer_response(response.body)
   end
 end

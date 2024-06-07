@@ -4,7 +4,7 @@ describe "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
     setup_questions
     create_pq_session
     visit dashboard_path

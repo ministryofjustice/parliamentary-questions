@@ -1,4 +1,4 @@
-module PQState
+module PqState
   class StateMachine
     def self.build(final_states, *transitions)
       new(final_states, transitions.flatten)

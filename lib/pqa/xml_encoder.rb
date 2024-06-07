@@ -1,5 +1,5 @@
 module PQA
-  module XMLEncoder
+  module XmlEncoder
     XML_NS = {
       "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
       "xmlns" => "http://data.parliament.uk/QnA/2013/02",

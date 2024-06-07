@@ -1,5 +1,5 @@
 module HealthCheck
-  class PqaApi < Component
+  class PQAApi < Component
     TIMESTAMP_FILE = Rails.root.join("tmp/pqa_api_healthcheck_timestamp").to_s.freeze
 
     ERRS_TO_CATCH =

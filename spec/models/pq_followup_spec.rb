@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe PqFollowup do
   # let(:pq) {
-  #   DBHelpers.pqs.first
+  #   DbHelpers.pqs.first
   # }
 
   let(:directorate) { create(:directorate, name: "This Directorate", id: rand(1..10)) }
