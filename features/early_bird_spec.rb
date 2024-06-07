@@ -8,7 +8,7 @@ describe "Early bird member sees allocated questions", suspend_cleaner: true do
   let(:dummy_pq)  { generate_dummy_pq(aos) }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
   end
 
   after do

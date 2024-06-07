@@ -29,7 +29,7 @@ module PQA
       xml    = request.body.read
       doc    = Nokogiri::XML(xml)
       errors = SCHEMA.validate(doc)
-      q      = XMLDecoder.decode_question(xml)
+      q      = XmlDecoder.decode_question(xml)
 
       if errors.empty?
         QUESTIONS[q.uin] = q
@@ -47,7 +47,7 @@ module PQA
     put "/api/qais/answers/:uin" do
       answer = Answer.new
       answer.preview_url = "https://wqatest.parliament.uk/Questions/Details/#{params[:uin]}"
-      XMLEncoder.encode_answer_response(answer)
+      XmlEncoder.encode_answer_response(answer)
     end
 
     get "/api/qais/questions" do
@@ -60,7 +60,7 @@ module PQA
         q.tabled_date >= date_from && q.tabled_date <= date_to && match_status.call(q)
       }.values
 
-      XMLEncoder.encode_questions(questions)
+      XmlEncoder.encode_questions(questions)
     end
 
     get "/api/qais/questions/:uin" do
@@ -68,7 +68,7 @@ module PQA
       if my_uin.nil?
         "Not found"
       else
-        XMLEncoder.encode_questions([my_uin])
+        XmlEncoder.encode_questions([my_uin])
       end
     end
   end

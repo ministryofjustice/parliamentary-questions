@@ -9,7 +9,7 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
   let(:test_pq)   { PQA::QuestionLoader.new.load_and_import(2) }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
   end
 
   after do

@@ -62,7 +62,7 @@ describe "Finance officer functions" do
 
   describe "Registering interest in PQs as a Finance Officer", js: true do
     before do
-      DBHelpers.load_feature_fixtures
+      DbHelpers.load_feature_fixtures
       # @pqs = PQA::QuestionLoader.new.load_and_import(3)
       create_finance_session
     end

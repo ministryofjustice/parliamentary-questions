@@ -1,5 +1,5 @@
 class AssignmentController < ApplicationController
-  before_action AOTokenFilter
+  before_action AoTokenFilter
 
   def show
     update_page_title "PQ assignment"

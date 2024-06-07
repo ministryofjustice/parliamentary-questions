@@ -24,7 +24,7 @@ module PQA
                   :parliament_number
 
     def self.from_xml(element)
-      xml                         = ::XMLExtractor
+      xml                         = ::XmlExtractor
       q                           = new
 
       q.uin                       = xml.text(element, "Uin")

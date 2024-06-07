@@ -5,8 +5,8 @@ describe DivisionsController, type: :controller do
     it "lists the Divisions sorted alphabetically by active then inactive states" do
       create_directorates_for_divisions
       create_divisions
-      allow(PQUserFilter).to receive(:before).and_return(true)
-      expect(PQUserFilter).to receive(:before)
+      allow(PqUserFilter).to receive(:before).and_return(true)
+      expect(PqUserFilter).to receive(:before)
       allow(controller).to receive(:authenticate_user!).and_return(true)
       expect(controller).to receive(:authenticate_user!)
       get :index

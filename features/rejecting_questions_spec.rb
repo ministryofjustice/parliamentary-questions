@@ -4,7 +4,7 @@ describe "Rejecting questions", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
   end
 
   after do

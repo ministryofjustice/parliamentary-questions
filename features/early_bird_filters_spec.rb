@@ -2,7 +2,7 @@ require "feature_helper"
 
 describe "User filters early bird questions", js: true, suspend_cleaner: true do
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
     generate_dummy_pq
 
     # Change Q1 properties

@@ -1,7 +1,7 @@
 module RakeTaskHelpers
   # Keep all those questions which have been assigned
   # Only keep 50 most-recent and unassigned questions
-  class DBTrim
+  class DbTrim
     def run!
       max_limit = 50
       total_count = Pq.where(state: "unassigned").size

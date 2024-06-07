@@ -12,7 +12,7 @@ namespace :db do
     task trim: :environment do
       if HostEnv.is_staging?
         begin
-          db_trim = RakeTaskHelpers::DBTrim.new
+          db_trim = RakeTaskHelpers::DbTrim.new
           db_trim.run!
           puts "[+] DB trimmed"
         rescue StandardError => e

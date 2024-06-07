@@ -1,4 +1,4 @@
-module PQState
+module PqState
   class Transition
     attr_reader :state_from, :state_to
 

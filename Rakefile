@@ -6,4 +6,4 @@ require File.expand_path("config/application", __dir__)
 ParliamentaryQuestions::Application.load_tasks
 
 # Disable the requirement for pg_dump on production
-Rake::Task["db:structure:dump"].clear if Rails.env.production?
+Rake::Task["db:schema:dump"].clear if Rails.env.production?
