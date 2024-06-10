@@ -55,7 +55,7 @@ group :test, :development do
   gem "rspec-rails", "~> 6.0"
   gem "rubocop-govuk", require: false
   gem "shoulda-matchers", "~> 5.1", require: false
-  gem "timecop", "~> 0.9.5"
+  gem "timecop", "~> 0.9.9"
 end
 
 group :test do
