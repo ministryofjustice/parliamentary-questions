@@ -1,23 +1,33 @@
 require "feature_helper"
 
-describe "healthcheck.json" do
+describe "/healthcheck" do
+  let(:database_healthcheck) { instance_double(HealthCheck::Database, available?: true, accessible?: true, error_messages: errors) }
+  let(:api_healthcheck) { instance_double(HealthCheck::PQAApi, available?: true, accessible?: true, error_messages: nil) }
+
   before do
-    allow(Net::SMTP).to receive(:start).and_return("OK")
+    allow(HealthCheck::Database).to receive(:new).and_return(database_healthcheck)
+    allow(HealthCheck::PQAApi).to receive(:new).and_return(api_healthcheck)
   end
 
-  it "when there are no errors it should return a 200 code" do
-    visit "/healthcheck.json"
+  context "without errors" do
+    let(:errors) { nil }
 
-    expect(page.status_code).to eq 200
-    expect(page).to have_content "All Components OK"
+    it "when there are no errors it should return a 200 code" do
+      visit "/healthcheck"
+
+      expect(page.status_code).to eq 200
+      expect(page).to have_content "All Components OK"
+    end
   end
 
-  it "when there are component errors" do
-    allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
+  context "with errors" do
+    let(:errors) { "Database Error" }
 
-    visit "/healthcheck.json"
+    it "when there are component errors" do
+      visit "/healthcheck"
 
-    expect(page.status_code).to eq 500
-    expect(page.body).to match(/Database Error/)
+      expect(page.status_code).to eq 500
+      expect(page.body).to match(/Database Error/)
+    end
   end
 end

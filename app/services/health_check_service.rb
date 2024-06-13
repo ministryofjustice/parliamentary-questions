@@ -18,7 +18,7 @@ class HealthCheckService
       component.accessible?
     end
 
-    errors = @components.map(&:error_messages).flatten
+    errors = @components.flat_map(&:error_messages).compact
 
     errors.empty? ? HealthCheckReport.ok : HealthCheckReport.fail(errors)
   end
