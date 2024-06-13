@@ -140,14 +140,9 @@ GEM
     docile (1.4.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-<<<<<<< HEAD
-    erubi (1.12.0)
-    execjs (2.8.1)
-=======
     drb (2.2.1)
     erubi (1.12.0)
     execjs (2.9.1)
->>>>>>> @{-1}
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -158,13 +153,8 @@ GEM
     ffi (1.15.5)
     font-awesome-rails (4.7.0.8)
       railties (>= 3.2, < 8.0)
-<<<<<<< HEAD
-    globalid (1.1.0)
-      activesupport (>= 5.0)
-=======
     globalid (1.2.1)
       activesupport (>= 6.1)
->>>>>>> @{-1}
     govuk_elements_rails (3.1.3)
       govuk_frontend_toolkit (>= 6.0.2)
       rails (>= 4.1.0)
@@ -178,11 +168,7 @@ GEM
       rails (>= 3.1)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-<<<<<<< HEAD
-    i18n (1.14.1)
-=======
     i18n (1.14.5)
->>>>>>> @{-1}
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
     irb (1.13.1)
@@ -227,23 +213,14 @@ GEM
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2023.0218.1)
-<<<<<<< HEAD
-    mini_mime (1.1.2)
-    mini_portile2 (2.8.5)
-    minitest (5.21.2)
-=======
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
     minitest (5.23.1)
->>>>>>> @{-1}
     momentjs-rails (2.29.4.1)
       railties (>= 3.1)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
-<<<<<<< HEAD
-=======
     mutex_m (0.2.0)
->>>>>>> @{-1}
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
@@ -256,13 +233,8 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-<<<<<<< HEAD
-    nio4r (2.5.9)
-    nokogiri (1.16.0)
-=======
     nio4r (2.7.3)
     nokogiri (1.16.5)
->>>>>>> @{-1}
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
@@ -276,25 +248,17 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.3)
-<<<<<<< HEAD
-=======
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
     psych (5.1.2)
       stringio
->>>>>>> @{-1}
     public_suffix (5.0.1)
     puma (6.4.2)
       nio4r (~> 2.0)
-<<<<<<< HEAD
-    racc (1.7.3)
-    rack (2.2.8)
-=======
     racc (1.8.0)
     rack (2.2.9)
->>>>>>> @{-1}
     rack-protection (3.1.0)
       rack (~> 2.2, >= 2.2.4)
     rack-session (1.0.2)
@@ -329,18 +293,11 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-<<<<<<< HEAD
-    railties (6.1.7.3)
-      actionpack (= 6.1.7.3)
-      activesupport (= 6.1.7.3)
-      method_source
-=======
     railties (7.1.3.4)
       actionpack (= 7.1.3.4)
       activesupport (= 7.1.3.4)
       irb
       rackup (>= 1.0.0)
->>>>>>> @{-1}
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
@@ -363,12 +320,8 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-<<<<<<< HEAD
-    rexml (3.2.6)
-=======
     rexml (3.2.8)
       strscan (>= 3.0.9)
->>>>>>> @{-1}
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -508,12 +461,7 @@ GEM
       rack (>= 2.0.9)
     webrick (1.8.1)
     webrobots (0.1.2)
-<<<<<<< HEAD
-    websocket (1.2.10)
-    websocket-driver (0.7.5)
-=======
     websocket-driver (0.7.6)
->>>>>>> @{-1}
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (4.0.0)
@@ -553,16 +501,10 @@ DEPENDENCIES
   momentjs-rails (~> 2.29)
   paper_trail
   pg (~> 1.2, >= 1.2.3)
-<<<<<<< HEAD
-  puma (~> 6.3)
-  rails (~> 6.1, >= 6.1.7.3)
-  rails-controller-testing
-=======
   poltergeist (~> 1.18, >= 1.18.1)
   puma (~> 6.4)
   rails (~> 7.1)
   rails-controller-testing (~> 1.0, >= 1.0.5)
->>>>>>> @{-1}
   responders (~> 3.0, >= 3.0.1)
   rspec-rails (~> 6.0)
   rspec_junit_formatter (~> 0.6.0)
