@@ -8,7 +8,7 @@ describe "Early bird member sees allocated questions", suspend_cleaner: true do
   let(:dummy_pq)  { generate_dummy_pq(aos) }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
   end
 
   after do
@@ -63,6 +63,13 @@ describe "Early bird member sees allocated questions", suspend_cleaner: true do
     click_on "PQ Tracker"
     expect(page).to have_content(aos.first.name)
     expect(page).to have_content("Action Officer Proposed")
+  end
+
+  it "An early bird member sees a question that is commissioned" do
+    allow(dummy_pq).to receive(:commissioned?).and_return(true)
+
+    visit_earlybird_url
+    expect(page).not_to have_link("Propose a Deputy Director")
   end
 
   it "The URL token sent to the early bird member expires after 24 hours" do

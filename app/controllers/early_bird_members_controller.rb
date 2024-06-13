@@ -1,5 +1,5 @@
 class EarlyBirdMembersController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def index
     @early_bird_members = EarlyBirdMember.active_list

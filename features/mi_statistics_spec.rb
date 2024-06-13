@@ -13,7 +13,7 @@ describe "Statistics: PQs answered on time" do
         pq.update(
           date_for_answer: Time.zone.today,
           answer_submitted: Date.tomorrow,
-          state: PQState::ANSWERED,
+          state: PqState::ANSWERED,
         )
       end
 
@@ -21,7 +21,7 @@ describe "Statistics: PQs answered on time" do
         pq.update(
           date_for_answer: Time.zone.today,
           answer_submitted: Date.yesterday,
-          state: PQState::ANSWERED,
+          state: PqState::ANSWERED,
         )
       end
     end
@@ -33,7 +33,7 @@ describe "Statistics: PQs answered on time" do
 
     expect(page).to have_content "PQ Statistics: Answers"
 
-    within "tr[data='bucket-#{date.to_s(:date)}']" do
+    within "tr[data='bucket-#{date.to_formatted_s(:date)}']" do
       expect(page).to have_content("33.33%")
       expect(page).to have_content("↑")
     end
@@ -44,7 +44,7 @@ describe "Statistics: PQs answered on time" do
     visit "/statistics/on_time.json"
 
     expect(page).to have_content(
-      "{\"start_date\":\"#{date.to_s(:date)}\",\"data\":\"33.33%\",\"arrow\":\"↑\"}",
+      "{\"start_date\":\"#{date.to_formatted_s(:date)}\",\"data\":\"33.33%\",\"arrow\":\"↑\"}",
     )
   end
 end

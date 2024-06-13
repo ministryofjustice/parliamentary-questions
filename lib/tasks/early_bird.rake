@@ -1,7 +1,7 @@
 namespace :pqa do
   desc "Queue Early Bird Emails"
   task :early_bird, [] => :environment do
-    if PqaImportRun.ready_for_early_bird
+    if PQAImportRun.ready_for_early_bird
 
       organiser = EarlyBirdOrganiser.last
       if organiser
@@ -23,8 +23,8 @@ namespace :pqa do
         puts "Early Bird: Should not run - We are in a recess"
       end
     else
-      LogStuff.info { "Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false" }
-      puts "Early Bird: Did not run - PqaImportRun.ready_for_early_bird returned false"
+      LogStuff.info { "Early Bird: Did not run - PQAImportRun.ready_for_early_bird returned false" }
+      puts "Early Bird: Did not run - PQAImportRun.ready_for_early_bird returned false"
     end
   rescue StandardError => e
     LogStuff.error { "Early Bird: #{e.message}" }

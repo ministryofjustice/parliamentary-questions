@@ -2,8 +2,8 @@ require "feature_helper"
 
 describe "Transferring OUT questions", js: true, suspend_cleaner: true do
   before do
-    DBHelpers.load_feature_fixtures
-    DBHelpers.load_fixtures(:pqs)
+    DbHelpers.load_feature_fixtures
+    DbHelpers.load_fixtures(:pqs)
   end
 
   after do

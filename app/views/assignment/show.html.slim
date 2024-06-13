@@ -20,7 +20,7 @@
           li
             = render partial: 'shared/allocation_list', locals: { ao_pq: ao_pq }
 
-  - unless @question.state == PQState::DRAFT_PENDING
+  - unless @question.state == PqState::DRAFT_PENDING
     .accept-reject-form
       .panel.panel-default
         .panel-heading Will you take responsibility for drafting an answer to this question?

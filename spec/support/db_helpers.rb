@@ -1,4 +1,4 @@
-module DBHelpers
+module DbHelpers
 module_function
 
   USER_PASSWORD = "123456789".freeze
@@ -53,7 +53,7 @@ module_function
         tabled_date: Time.zone.today,
         response_due: Date.tomorrow,
         question: "test question #{n}",
-        state: PQState::UNASSIGNED,
+        state: PqState::UNASSIGNED,
       )
     end
   end

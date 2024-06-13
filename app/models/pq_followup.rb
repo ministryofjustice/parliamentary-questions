@@ -11,7 +11,7 @@ module PqFollowup
                 .merge("question_type" => "Follow-up IWW",
                        "i_will_write" => true,
                        "follow_up_to" => uin,
-                       "state" => PQState::DRAFT_PENDING)
+                       "state" => PqState::DRAFT_PENDING)
 
         follow_up.update!(attrs)
 

@@ -4,7 +4,7 @@ describe "User filters 'New' dashboard  questions", js: true, suspend_cleaner: t
   include Features::PqHelpers
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
     generate_dummy_pq
   end
 

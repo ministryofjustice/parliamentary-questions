@@ -9,7 +9,7 @@ describe "Parli-branch re-assigns a question", js: true, suspend_cleaner: true d
   let(:minister) { Minister.first }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
   end
 
   after do

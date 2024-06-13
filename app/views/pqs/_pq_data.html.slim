@@ -8,7 +8,7 @@ p= @pq.house_name
 .form-group
   label.form-label for="date_for_answer"  Date for answer back to Parliament
   .datepicker
-    input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.try(:to_s, :date)) /
+    input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.try(:to_formatted_s, :date)) /
     span.fa.fa-calendar title="select a date"
 
 h3 Tabling member
@@ -19,13 +19,13 @@ p= @pq.question_type
 
 h3 Question tabled date
 - if @pq.tabled_date
-  p= @pq.tabled_date.try(:to_s, :date)
+  p= @pq.tabled_date.try(:to_formatted_s, :date)
 - if @pq.registered_interest
   p
     | * Member has registered an interest in the Question.
 - if @pq.transfer_in_ogd_id
   p
-    | Transferred in from #{@pq.transfer_in_ogd.name} on #{@pq.transfer_in_date.try(:to_s, :date)}
+    | Transferred in from #{@pq.transfer_in_ogd.name} on #{@pq.transfer_in_date.try(:to_formatted_s, :date)}
 hr/
 
 h3 Question

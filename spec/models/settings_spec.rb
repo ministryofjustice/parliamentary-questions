@@ -15,10 +15,13 @@ describe Settings do
       end
 
       it "raises if the api-host environment var is not set" do
+        ENV["RAILS_ENV"] = "production"
         ENV["PQ_REST_API_HOST"] = nil
         expect {
           Settings::PqRestApi.from_env
         }.to raise_error RuntimeError, "Cannot find environment variable PQ_REST_API_HOST. Please set it first"
+      ensure
+        ENV["RAILS_ENV"] = "test"
       end
     end
   end

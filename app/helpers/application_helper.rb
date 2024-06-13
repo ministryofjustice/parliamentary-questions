@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def state_label(label)
-    PQState.state_label(label)
+    PqState.state_label(label)
   end
 
   def minister_warning?(question, minister)
@@ -33,9 +33,5 @@ module ApplicationHelper
     else
       link_to "View inactive action officers", action_officers_path(show_inactive: true), { class: "button-secondary" }
     end
-  end
-
-  def feature_propose_ao_enabled?
-    !!Rails.application.config.feature_propose_ao_enabled || Rails.env.test?
   end
 end

@@ -1,13 +1,13 @@
 module Features
   module SessionHelpers
     def create_pq_session
-      user = DBHelpers.users.find(&:pq_user?)
-      sign_in(user.email, DBHelpers::USER_PASSWORD)
+      user = DbHelpers.users.find(&:pq_user?)
+      sign_in(user.email, DbHelpers::USER_PASSWORD)
     end
 
     def create_finance_session
-      user = DBHelpers.users.find(&:finance_user?)
-      sign_in(user.email, DBHelpers::USER_PASSWORD)
+      user = DbHelpers.users.find(&:finance_user?)
+      sign_in(user.email, DbHelpers::USER_PASSWORD)
     end
 
     def sign_in(email, password)

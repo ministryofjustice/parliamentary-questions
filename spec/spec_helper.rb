@@ -1,8 +1,5 @@
-unless ENV["COVERAGE"].nil?
-  require "simplecov"
-  SimpleCov.start "rails" do
-  end
-end
+require "simplecov"
+SimpleCov.start "rails"
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
@@ -84,7 +81,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
-    DBHelpers.load_spec_fixtures
+    DbHelpers.load_spec_fixtures
   end
 
   config.before do

@@ -7,7 +7,7 @@ module PqScopes
   end
 
   def answered
-    by_status(PQState::ANSWERED)
+    by_status(PqState::ANSWERED)
   end
 
   def answered_by_deadline_last_week
@@ -39,7 +39,7 @@ module PqScopes
   end
 
   def backlog
-    where("date_for_answer < CURRENT_DATE and state NOT IN (?)", PQState::CLOSED)
+    where("date_for_answer < CURRENT_DATE and state NOT IN (?)", PqState::CLOSED)
   end
 
   def beginning_of_last_week
@@ -60,7 +60,7 @@ module PqScopes
   end
 
   def draft_pending
-    by_status(PQState::DRAFT_PENDING)
+    by_status(PqState::DRAFT_PENDING)
   end
 
   def draft_response_on_time_since
@@ -98,7 +98,7 @@ module PqScopes
   end
 
   def i_will_write_flag
-    where("i_will_write = true AND state NOT IN (?)", PQState::CLOSED)
+    where("i_will_write = true AND state NOT IN (?)", PqState::CLOSED)
   end
 
   def imported_last_week
@@ -110,7 +110,7 @@ module PqScopes
   end
 
   def in_progress
-    where("date_for_answer >= CURRENT_DATE and state IN (?)", PQState::IN_PROGRESS)
+    where("date_for_answer >= CURRENT_DATE and state IN (?)", PqState::IN_PROGRESS)
   end
 
   def join_press_desks
@@ -125,11 +125,11 @@ module PqScopes
   end
 
   def minister_cleared
-    by_status(PQState::MINISTER_CLEARED)
+    by_status(PqState::MINISTER_CLEARED)
   end
 
   def ministerial_query
-    by_status(PQState::MINISTERIAL_QUERY)
+    by_status(PqState::MINISTERIAL_QUERY)
   end
 
   def named_day
@@ -137,11 +137,11 @@ module PqScopes
   end
 
   def new_questions
-    by_status(PQState::NEW)
+    by_status(PqState::NEW)
   end
 
   def no_response
-    by_status(PQState::NO_RESPONSE)
+    by_status(PqState::NO_RESPONSE)
   end
 
   def not_tx
@@ -157,15 +157,15 @@ module PqScopes
   end
 
   def pod_cleared
-    by_status(PQState::POD_CLEARED)
+    by_status(PqState::POD_CLEARED)
   end
 
   def pod_query
-    by_status(PQState::POD_QUERY)
+    by_status(PqState::POD_QUERY)
   end
 
   def rejected
-    by_status(PQState::REJECTED)
+    by_status(PqState::REJECTED)
   end
 
   # dashboard sorting order:
@@ -194,7 +194,7 @@ module PqScopes
   end
 
   def transferred
-    where(state: PQState::NEW, transferred: true)
+    where(state: PqState::NEW, transferred: true)
   end
 
   def uin(uin_to_search)
@@ -202,18 +202,18 @@ module PqScopes
   end
 
   def unassigned
-    by_status(PQState::UNASSIGNED)
+    by_status(PqState::UNASSIGNED)
   end
 
   def visibles
-    by_status(PQState::VISIBLE)
+    by_status(PqState::VISIBLE)
   end
 
   def with_minister
-    by_status(PQState::WITH_MINISTER)
+    by_status(PqState::WITH_MINISTER)
   end
 
   def with_pod
-    by_status(PQState::WITH_POD)
+    by_status(PqState::WITH_POD)
   end
 end

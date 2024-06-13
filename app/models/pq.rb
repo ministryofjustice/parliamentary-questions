@@ -137,11 +137,11 @@ class Pq < ApplicationRecord
   end
 
   def set_state_weight
-    self.state_weight = PQState.state_weight(state)
+    self.state_weight = PqState.state_weight(state)
   end
 
   def update_state!
-    self.state = PQState.progress_changer.next_state(PQState::UNASSIGNED, self)
+    self.state = PqState.progress_changer.next_state(PqState::UNASSIGNED, self)
     save!
   end
 
@@ -190,11 +190,11 @@ class Pq < ApplicationRecord
   end
 
   def is_new?
-    PQState::NEW.include?(state)
+    PqState::NEW.include?(state)
   end
 
   def closed?
-    PQState::CLOSED.include?(state)
+    PqState::CLOSED.include?(state)
   end
 
   def open?

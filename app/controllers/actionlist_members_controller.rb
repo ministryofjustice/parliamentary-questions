@@ -1,5 +1,5 @@
 class ActionlistMembersController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
   before_action :set_actionlist_member, only: %i[show edit update destroy]
 
   def index

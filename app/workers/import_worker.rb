@@ -4,7 +4,7 @@ class ImportWorker
   end
 
   def perform
-    date_from = PqaImportRun.last_import_time_utc
+    date_from = PQAImportRun.last_import_time_utc
     date_to = 5.minutes.from_now
     start_time = Time.zone.now
     LogStuff.tag(:import) do
@@ -13,9 +13,9 @@ class ImportWorker
       LogStuff.info { "Import: completed scheduled import" }
 
       NotifyImportMailer.notify_success(report).deliver_later
-      PqaImportRun.record_success(start_time, report)
+      PQAImportRun.record_success(start_time, report)
     rescue StandardError => e
-      PqaImportRun.record_failure(start_time, "#{e.class}: #{e.message}")
+      PQAImportRun.record_failure(start_time, "#{e.class}: #{e.message}")
       case e
       when HTTPClient::FailureResponse, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError
         LogStuff.error { e.message }

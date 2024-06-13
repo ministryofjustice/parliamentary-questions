@@ -1,4 +1,4 @@
-class CreatePqaImportRuns < ActiveRecord::Migration[5.0]
+class CreatePQAImportRuns < ActiveRecord::Migration[5.0]
   def change
     create_table :pqa_import_runs do |t|
       t.datetime  :start_time

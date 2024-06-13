@@ -8,7 +8,7 @@ describe "After commissioning", js: true, suspend_cleaner: true do
   let(:uin3)  { (FactoryBot.create :draft_pending_pq).uin }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
     create_pq_session
     click_link "In progress"
     create_pq_session

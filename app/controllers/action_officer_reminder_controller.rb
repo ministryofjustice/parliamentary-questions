@@ -1,5 +1,5 @@
 class ActionOfficerReminderController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def accept_reject
     loading_records_and_rendering do |pq, ao, ao_pq|

@@ -1,5 +1,5 @@
 class QuickActionExportController < ApplicationController
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def new
     form = QuickActionExport.new(quick_action_export_params)

@@ -2,12 +2,12 @@ require "spec_helper"
 
 describe ProposalService do
   shared_context "with test_values" do
-    let(:ao1)                 { DBHelpers.action_officers[0] }
-    let(:ao2)                 { DBHelpers.action_officers[1] }
+    let(:ao1)                 { DbHelpers.action_officers[0] }
+    let(:ao2)                 { DbHelpers.action_officers[1] }
     let(:form)                { ProposalForm.new(form_params) }
     let(:invalid_form_params) { form_params.merge(action_officer_id: [""]) }
     let(:invalid_form)        { ProposalForm.new(invalid_form_params) }
-    let(:pq)                  { DBHelpers.pqs.first }
+    let(:pq)                  { DbHelpers.pqs.first }
     let(:form_params)         do
       {
         pq_id: pq.id,
@@ -40,7 +40,7 @@ describe ProposalService do
       end
 
       it "keeps the PQ state as unassigned" do
-        expect(pq1.state).to eq(PQState::UNASSIGNED)
+        expect(pq1.state).to eq(PqState::UNASSIGNED)
       end
     end
   end

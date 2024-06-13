@@ -1,7 +1,7 @@
 class PqsController < ApplicationController
   include Validators::DateInput
 
-  before_action :authenticate_user!, PQUserFilter
+  before_action :authenticate_user!, PqUserFilter
 
   def index
     redirect_to controller: "dashboard"

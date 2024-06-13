@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe HealthCheck::PqaApi do
+describe HealthCheck::PQAApi do
   let(:pqa) { described_class.new }
 
   describe ".time_to_run?" do
@@ -93,9 +93,9 @@ describe HealthCheck::PqaApi do
 end
 
 def contents_of_timestamp_file
-  File.open(HealthCheck::PqaApi::TIMESTAMP_FILE, "r", &:gets)
+  File.open(HealthCheck::PQAApi::TIMESTAMP_FILE, "r", &:gets)
 end
 
 def delete_timestamp_file
-  File.unlink(HealthCheck::PqaApi::TIMESTAMP_FILE) if File.exist?(HealthCheck::PqaApi::TIMESTAMP_FILE)
+  File.unlink(HealthCheck::PQAApi::TIMESTAMP_FILE) if File.exist?(HealthCheck::PQAApi::TIMESTAMP_FILE)
 end

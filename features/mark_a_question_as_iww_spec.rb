@@ -9,7 +9,7 @@ describe 'Creating an "I Will Write" question', js: true, suspend_cleaner: true 
   let(:dummy_minister)  { Minister.first }
 
   before do
-    DBHelpers.load_feature_fixtures
+    DbHelpers.load_feature_fixtures
     create_pq_session
   end
 
