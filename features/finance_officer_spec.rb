@@ -21,7 +21,7 @@ describe "Finance officer functions" do
       fill_in "Name", with: name
       select "FINANCE", from: "Role"
       click_on "Send an invitation"
-      expect(page.title).to have_content("Users")
+      expect(page).to have_title("Users")
       expect(page).to have_content "An invitation email has been sent to #{email}"
     end
 
@@ -44,7 +44,7 @@ describe "Finance officer functions" do
       fill_in "Password confirmation", with: pass
       click_on "Set my password"
 
-      expect(page.title).to have_content("New PQs today")
+      expect(page).to have_title("New PQs today")
       expect(page).to have_content "Your password was set successfully. You are now signed in"
     end
 
@@ -55,7 +55,7 @@ describe "Finance officer functions" do
       fill_in "Password", with: pass
       click_on "Sign in"
 
-      expect(page.title).to have_content("New PQs today")
+      expect(page).to have_title("New PQs today")
       expect(page).to have_content "New PQs today"
     end
   end
@@ -77,13 +77,13 @@ describe "Finance officer functions" do
 
     it "FO can register interest in PQs" do
       test_pqs.each do |pq|
-        expect(page.title).to have_content("New PQs today")
+        expect(page).to have_title("New PQs today")
         expect(page).to have_content(pq.text)
       end
 
       check "pq[2][finance_interest]"
       click_link_or_button "btn_finance_visibility"
-      expect(page.title).to have_content("New PQs today")
+      expect(page).to have_title("New PQs today")
       expect(page).to have_content(/successfully registered interest/i)
     end
   end

@@ -26,7 +26,7 @@ describe "Dashboard view", js: true, suspend_cleaner: true do
 
     pqs.each do |pq|
       within_pq(pq.uin) do
-        expect(page.title).to have_content("Dashboard")
+        expect(page).to have_title("Dashboard")
         expect(page).to have_content(pq.text)
         # expect(page).to have_content(pq.action_officers)
       end
@@ -45,7 +45,7 @@ describe "Dashboard view", js: true, suspend_cleaner: true do
   it "Parli-branch sees an error message if no question matches the uin" do
     search_for("gibberish")
 
-    expect(page.title).to have_content("Dashboard")
+    expect(page).to have_title("Dashboard")
     expect(page).to have_current_path dashboard_path, ignore_query: true
     expect(page).to have_content "Question with UIN 'gibberish' not found"
   end

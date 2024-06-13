@@ -22,7 +22,7 @@ describe 'Creating an "I Will Write" question', js: true, suspend_cleaner: true 
     accept_assignment(Pq.find_by(uin: dummy_uin), dummy_ao)
     in_pq_detail(dummy_uin, "PQ draft") { check "I will write" }
 
-    expect(page.title).to have_content("PQ #{dummy_uin}")
+    expect(page).to have_title("PQ #{dummy_uin}")
     expect(page).to have_text("I will write")
   end
 

@@ -48,7 +48,7 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
     choose "Accept"
     click_on "Save"
 
-    expect(page.title).to have_content("PQ assigned")
+    expect(page).to have_title("PQ assigned")
     expect(page).to have_content(/thank you for your response/i)
     expect(page).to have_content("PQ #{test_pq.uin}")
   end
@@ -70,7 +70,7 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
   it "After an AO has accepted a question, another AO cannot accept the question" do
     visit_assignment_url(test_pq, ao2)
 
-    expect(page.title).to have_content("PQ assignment")
+    expect(page).to have_title("PQ assignment")
     expect(page).to have_content(/this pq has already been accepted/i)
     expect(page).to have_content("#{ao.name} accepted PQ #{test_pq.uin}")
   end
@@ -90,7 +90,7 @@ describe "Commissioning questions", js: true, suspend_cleaner: true do
 
     visit_assignment_url(pq, ao)
 
-    expect(page.title).to have_content("Unauthorised (401)")
+    expect(page).to have_title("Unauthorised (401)")
     expect(page).to have_content(/Link expired/i)
   end
 end
