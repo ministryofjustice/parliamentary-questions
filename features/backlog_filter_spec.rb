@@ -4,11 +4,11 @@ describe "'Backlog' page filtering:", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
   before do
+    DatabaseCleaner.clean
     DbHelpers.load_feature_fixtures
     setup_questions
     create_pq_session
-    visit dashboard_path
-    click_link "Backlog"
+    visit dashboard_backlog_path
   end
 
   after do
