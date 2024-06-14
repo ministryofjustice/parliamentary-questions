@@ -315,42 +315,4 @@ describe "'Backlog' page filtering:", js: true, suspend_cleaner: true do
     FactoryBot.create(:with_pod_pq, uin: "UIN-15", date_for_answer: Time.zone.today - 15, internal_deadline: Time.zone.today - 16, minister_id: 5, policy_minister_id: 6, question_type: "NamedDay")
     FactoryBot.create(:draft_pending_pq, uin: "UIN-16", date_for_answer: Time.zone.today - 16, internal_deadline: Time.zone.today - 17, minister_id: 3, policy_minister_id: 6, question_type: "NamedDay")
   end
-
-  def test_date(filter_box, id, date)
-    within("#{filter_box}.filter-box") { fill_in id, with: date.strftime("%d/%m/%Y") }
-  end
-
-  def test_checkbox(filter_box, category, term)
-    within("#{filter_box}.filter-box") do
-      find_button(category).click
-      choose(term)
-      within(".notice") { expect(page.text).to eq("1 selected") }
-    end
-  end
-
-  def test_keywords(term)
-    fill_in "keywords", with: term
-  end
-
-  def clear_filter(filter_name)
-    find("h1").click
-    within("#{filter_name}.filter-box") do
-      find_button("Clear").click
-      expect(page).not_to have_text("1 selected")
-    end
-  end
-
-  def all_pqs(number_of_questions, visibility)
-    counter = 1
-    within(".questions-list") do
-      if visibility == "hidden"
-        expect(page).not_to have_selector("li")
-      else
-        while number_of_questions > counter
-          find("li#pq-frame-#{counter}").visible?
-          counter += 1
-        end
-      end
-    end
-  end
 end
