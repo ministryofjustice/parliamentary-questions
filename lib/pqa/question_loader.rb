@@ -1,12 +1,12 @@
 module PQA
   class QuestionLoader
     def initialize
-      uri     = "http://#{MockApiServerRunner::HOST}:#{MockApiServerRunner::PORT}"
+      uri = "http://#{MockApiServerRunner::HOST}:#{MockApiServerRunner::PORT}"
       @client = ApiClient.new(uri, nil, nil, nil)
     end
 
     def load_and_import(last_item = 1, skip_import: false)
-      import    = Import.new
+      import = Import.new(@client)
       questions =
         (1..last_item).map do |i|
           QuestionBuilder.default("uin-#{i}")
@@ -14,8 +14,8 @@ module PQA
       load(questions)
       unless skip_import
         import.run(Date.yesterday, Date.tomorrow)
-        questions
       end
+      questions
     end
 
     def load(questions)

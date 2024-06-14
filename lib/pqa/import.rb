@@ -8,7 +8,7 @@ module PQA
 
     def run(date_from, date_to)
       query_api_and_update do
-        @pqa_service.questions(date_from, date_to)
+        @pqa_service.questions(date_from, date_to, nil)
       end
     end
 

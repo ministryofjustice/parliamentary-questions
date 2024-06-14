@@ -3,10 +3,10 @@ require "feature_helper"
 describe "Commissioning questions", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:ao2)       { ActionOfficer.find_by(email: "ao2@pq.com") }
-  let(:minister)  { Minister.second                            }
-  let(:test_pq)   { PQA::QuestionLoader.new.load_and_import(2).first }
+  let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
+  let(:minister) { Minister.second }
+  let(:test_pq) { PQA::QuestionLoader.new.load_and_import(2, skip_import: true).first }
 
   before do
     DbHelpers.load_feature_fixtures
