@@ -27,10 +27,10 @@ describe "Early bird organisers can be set", suspend_cleaner: true do
   it "An admin can create set early birds not to run between two dates" do
     create_pq_session
     click_link "Settings"
-    click_link_or_button "Organise early bird email"
+    click_link_or_button "Suspend early bird email"
     fill_in date_from_field, with: date_from
     fill_in date_to_field, with: date_to
-    click_link_or_button "Save and continue"
+    click_link_or_button "Save"
 
     expect(page).to have_text(success_text)
     expect(EarlyBirdOrganiser.last.date_from).to eq(date_from)
@@ -40,32 +40,32 @@ describe "Early bird organisers can be set", suspend_cleaner: true do
   it "When an early bird has been set, there is a message explaining this on the organiser page" do
     create_pq_session
     click_link "Settings"
-    click_link_or_button "Organise early bird email"
+    click_link_or_button "Suspend early bird email"
     fill_in date_from_field, with: date_from
     fill_in date_to_field, with: date_to
-    click_link_or_button "Save and continue"
+    click_link_or_button "Save"
 
-    click_link_or_button "Organise early bird email"
+    click_link_or_button "Suspend early bird email"
     expect(page).to have_text(current_early_bird_status_text)
   end
 
   it "An early bird can be overwritten by entering new dates" do
     create_pq_session
     click_link "Settings"
-    click_link_or_button "Organise early bird email"
+    click_link_or_button "Suspend early bird email"
     fill_in date_from_field, with: date_from
     fill_in date_to_field, with: date_to
-    click_link_or_button "Save and continue"
+    click_link_or_button "Save"
 
     expect(page).to have_text(success_text)
-    click_link_or_button "Organise early bird email"
+    click_link_or_button "Suspend early bird email"
     fill_in date_from_field, with: date_from_new
     fill_in date_to_field, with: date_to_new
-    click_link_or_button "Save and continue"
+    click_link_or_button "Save"
 
     expect(page).to have_text(success_text_two)
 
-    click_link_or_button "Organise early bird email"
+    click_link_or_button "Suspend early bird email"
     expect(page).to have_text(current_early_bird_status_text_two)
     expect(EarlyBirdOrganiser.last.date_from).to eq(date_from_new)
     expect(EarlyBirdOrganiser.last.date_to).to eq(date_to_new)
