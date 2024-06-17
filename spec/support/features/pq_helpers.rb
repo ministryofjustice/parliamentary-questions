@@ -71,7 +71,7 @@ module Features
     end
 
     def visit_watchlist_url(expiry = Time.zone.now.utc)
-      token_db = Token.find_by(path: watchlist_dashboard_path, expire: expiry.end_of_day)
+      token_db = Token.create!(path: watchlist_dashboard_path, expire: expiry.end_of_day, entity: SecureRandom.hex)
       entity = token_db.entity
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire.end_of_day)
 

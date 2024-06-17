@@ -58,9 +58,9 @@ private
   def generate_dummy_pq(aos)
     PQA::QuestionLoader.new.load_and_import
 
-    q                   = Pq.first
-    q.minister          = Minister.find_by(name: "Chris Grayling")
-    q.action_officers   = aos
+    q = Pq.first
+    q.minister = Minister.find_by(name: "Chris Grayling")
+    q.action_officers = aos
     q.internal_deadline = Time.zone.today + 1.day
     q.internal_deadline = Time.zone.today + 2.days
     q.update_state!
