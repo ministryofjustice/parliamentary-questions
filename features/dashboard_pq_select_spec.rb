@@ -7,7 +7,7 @@ describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner:
   let(:pq2)       { PQA::QuestionLoader.new.load_and_import(1) }
   let(:pq3)       { PQA::QuestionLoader.new.load_and_import(1) }
   let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:minister)  { Minister.first                             }
+  let(:minister)  { Minister.first }
 
   before do
     DbHelpers.load_feature_fixtures

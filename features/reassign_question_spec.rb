@@ -3,8 +3,8 @@ require "feature_helper"
 describe "Parli-branch re-assigns a question", js: true, suspend_cleaner: true do
   include Features::PqHelpers
 
-  let(:ao1)      { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:ao2)      { ActionOfficer.find_by(email: "ao2@pq.com") }
+  let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:dummy_pq) { PQA::QuestionLoader.new.load_and_import(2).first }
   let(:minister) { Minister.first }
 

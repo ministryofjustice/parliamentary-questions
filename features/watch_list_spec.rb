@@ -12,7 +12,7 @@ describe "Watch list member sees allocated questions", suspend_cleaner: true do
   end
 
   let(:dummy_aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
-  let(:dummy_pq)  { generate_dummy_pq(dummy_aos)                   }
+  let(:dummy_pq) { generate_dummy_pq(dummy_aos) }
 
   it "An admin can create a new watchlist member" do
     create_pq_session

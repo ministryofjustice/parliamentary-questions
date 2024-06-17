@@ -85,9 +85,9 @@ private
 
   def generate_dummy_pq(_aos)
     PQA::QuestionLoader.new.load_and_import
-    q                   = Pq.first
-    q.uin               = "1"
-    q.minister          = Minister.find_by(name: "Chris Grayling")
+    q = Pq.first
+    q.uin = "1"
+    q.minister = Minister.find_by(name: "Chris Grayling")
     q.update_state!
     q
   end

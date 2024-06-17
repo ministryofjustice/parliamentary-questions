@@ -29,7 +29,7 @@ describe "Managing action officers", js: true, suspend_cleaner: true do
   end
 
   let(:ao_email) { "action_officer@pq.com" }
-  let(:ao_name)  { "action officer 1"      }
+  let(:ao_name)  { "action officer 1" }
 
   it "Parli-branch can create a new finance officer" do
     create_ao(ao_name, ao_email)

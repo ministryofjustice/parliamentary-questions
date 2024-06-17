@@ -11,10 +11,10 @@ describe "Rejecting questions", js: true, suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
-  let(:ao1)       { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:ao2)       { ActionOfficer.find_by(email: "ao2@pq.com") }
-  let(:minister)  { Minister.first                             }
-  let(:pq)        { PQA::QuestionLoader.new.load_and_import(2) }
+  let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
+  let(:minister) { Minister.first }
+  let(:pq) { PQA::QuestionLoader.new.load_and_import(2) }
 
   it "Parli-branch member allocates a question to selected AOs" do
     commission_question(pq.uin, [ao1, ao2], minister)

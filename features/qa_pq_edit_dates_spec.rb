@@ -21,7 +21,6 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
   end
 
   it "Check all elements are present" do
-
     expect(page).to have_css("#count", text: "3 parliamentary questions")
     within("#editDates") do
       click_on "Edit PQ dates"

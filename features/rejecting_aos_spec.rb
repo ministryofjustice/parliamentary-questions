@@ -11,12 +11,12 @@ describe "Parli-branch manually rejecting and re-assigning OAs", js: true, suspe
     DatabaseCleaner.clean
   end
 
-  let(:ao1)             { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:ao2)             { ActionOfficer.find_by(email: "ao2@pq.com") }
-  let(:ao3)             { ActionOfficer.find_by(email: "ao3@pq.com") }
-  let(:minister)        { Minister.first                             }
-  let(:policy_minister) { Minister.limit(2)[1]                       }
-  let(:pq)              { PQA::QuestionLoader.new.load_and_import(2) }
+  let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
+  let(:ao3) { ActionOfficer.find_by(email: "ao3@pq.com") }
+  let(:minister) { Minister.first }
+  let(:policy_minister) { Minister.limit(2)[1] }
+  let(:pq) { PQA::QuestionLoader.new.load_and_import(2) }
 
   def selected_option_text(field_name)
     find("select[name='#{field_name}'] option[selected='selected']").text
