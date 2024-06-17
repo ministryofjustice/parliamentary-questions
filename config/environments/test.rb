@@ -65,12 +65,13 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :test
 
+  sending_host = ENV["SENDING_HOST"] || "localhost"
+  config.action_mailer.default_url_options = { host: sending_host, protocol: "https", port: "3000" }
+
   config.after_initialize do
     PaperTrail.enabled = false
   end
   config.after_initialize do
-    sending_host = ENV["SENDING_HOST"] || "localhost"
-    ActionMailer::Base.default_url_options = { host: sending_host, protocol: "https", port: "3000" }
     ActionMailer::Base.smtp_settings = {
       address: ENV["SMTP_HOSTNAME"] || "localhost",
       authentication: :login,

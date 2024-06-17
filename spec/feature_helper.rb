@@ -66,3 +66,5 @@ RSpec.configure do |config|
     mock_api_runner.stop
   end
 end
+
+ParliamentaryQuestions::Application.default_url_options = ParliamentaryQuestions::Application.config.action_mailer.default_url_options
