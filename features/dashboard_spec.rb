@@ -37,7 +37,7 @@ describe "Dashboard view", js: true, suspend_cleaner: true do
     uin = pqs.first.uin
     search_for(uin)
 
-    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_title("PQ #{uin}")
     expect(page).to have_content(uin)
     expect(page).to have_current_path pq_path(uin), ignore_query: true
   end

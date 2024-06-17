@@ -28,14 +28,13 @@ describe "Transferring IN questions", js: true, suspend_cleaner: true do
     DatabaseCleaner.clean
   end
 
-  let(:uin)           { "transfer-uin-1"                  }
+  let(:uin) { "transfer-uin-1" }
   let(:question_text) { "this is a question - t37egfcsdb" }
 
   it "Attempting to transfer a PQ with invalid inputs shows an error on the page" do
     invalid_date = "A" * 51
     create_transferred_pq("invalid-uin-1", "question_text", invalid_date)
 
-    expect(page.title).to have_text("")
     expect(page).not_to have_content("Transferred PQ was successfully created")
     expect(page).to have_content("Invalid date input!")
   end
@@ -43,7 +42,7 @@ describe "Transferring IN questions", js: true, suspend_cleaner: true do
   it "Parli branch should be able to create a transferred PQ" do
     create_transferred_pq(uin, question_text)
 
-    expect(page.title).to have_text("Dashboard")
+    expect(page).to have_title("Dashboard")
     expect(page).to have_content("Transferred PQ was successfully created")
     expect_pq_status(uin, "Transferred in")
   end
@@ -67,7 +66,7 @@ describe "Transferring IN questions", js: true, suspend_cleaner: true do
 
     create_pq_session
     visit pq_path(uin)
-    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_title("PQ #{uin}")
     expect(page).to have_content(imported_pq.text)
     expect(page).not_to have_content(question_text)
   end

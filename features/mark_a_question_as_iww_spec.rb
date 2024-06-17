@@ -42,7 +42,7 @@ describe 'Creating an "I Will Write" question', js: true, suspend_cleaner: true 
     click_on "Answer"
     expect(page).not_to have_text("Create 'I will write' follow up")
     click_on "PQ commission"
-    expect(page.title).to have_text("PQ #{dummy_iww_uin}")
+    expect(page).to have_title("PQ #{dummy_iww_uin}")
     expect(page).to have_text(dummy_ao.email)
   end
 
@@ -50,7 +50,7 @@ describe 'Creating an "I Will Write" question', js: true, suspend_cleaner: true 
     visit pq_path(dummy_uin)
     click_on "Answer"
     click_on "Create 'I will write' follow up"
-    expect(page.title).to have_text("PQ #{dummy_iww_uin}")
+    expect(page).to have_title("PQ #{dummy_iww_uin}")
     expect(page).to have_content(dummy_iww_uin)
     expect(Pq.where(uin: dummy_iww_uin).count).to eq(1)
   end

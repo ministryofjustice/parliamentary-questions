@@ -27,7 +27,7 @@ describe "Transferring OUT questions", js: true, suspend_cleaner: true do
   it "Parli-branch should not be able to update a question with incorrect inputs" do
     transfer_out_pq(uin, "a" * 51)
 
-    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_title("PQ #{uin}")
     expect(page).to have_content("Invalid date input")
     expect(page).not_to have_content("Successfully updated")
   end
@@ -35,34 +35,36 @@ describe "Transferring OUT questions", js: true, suspend_cleaner: true do
   it "Parli-branch cannot transfer out a PQ without providing both a date and OGD" do
     transfer_out_pq(uin, "")
 
-    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_title("PQ #{uin}")
     expect(page).to have_content("Update failed")
     expect(page).not_to have_content("Successfully updated")
   end
 
   it "Parli branch should be able to transfer out a PQ" do
     transfer_out_pq(uin)
-    expect(page.title).to have_text("PQ #{uin}")
+    expect(page).to have_title("PQ #{uin}")
     expect(page).to have_content("Successfully updated")
   end
 
   it 'The transferred out PQ should have label set to "Transferred out"' do
     create_pq_session
+    transfer_out_pq(uin)
     visit pq_path(uin)
 
     within("#pq-details-progress") do
-      expect(page.title).to have_text("PQ #{uin}")
+      expect(page).to have_title("PQ #{uin}")
       expect(page).to have_content("Transferred out")
     end
   end
 
   it "The transferred out PQ should not be visible in the dashboard view" do
     create_pq_session
+    transfer_out_pq(uin)
     visit dashboard_path
 
     expect(page).not_to have_content(uin)
     Pq.order(:uin).drop(1).each do |pq|
-      expect(page.title).to have_text("Dashboard")
+      expect(page).to have_title("Dashboard")
       expect(page).to have_content(pq.uin)
     end
   end

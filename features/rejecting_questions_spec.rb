@@ -22,7 +22,7 @@ describe "Rejecting questions", js: true, suspend_cleaner: true do
 
   it "Following the email link should let an AO reject the question" do
     reject_assignment(pq, ao1, 2, "going to the cinema")
-    expect(page.title).to have_text("PQ rejected")
+    expect(page).to have_title("PQ rejected")
     expect(page).to have_content(/thank you for your response/i)
   end
 
@@ -31,7 +31,7 @@ describe "Rejecting questions", js: true, suspend_cleaner: true do
     visit dashboard_path
 
     within_pq(pq.uin) do
-      expect(page.title).to have_text("Dashboard")
+      expect(page).to have_title("Dashboard")
       expect(page).to have_text("#{ao1.name} rejected at:")
       expect(page).to have_text("going to the cinema")
     end
