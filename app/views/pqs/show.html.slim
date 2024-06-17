@@ -17,7 +17,7 @@
         li
           a#progress-menu-pod href="#progress-menu-pod-data" data-toggle="tab" role="tab"
             abbr title="Private Office Directorate" POD
-            'check
+            span  check
         li
           a#progress-menu-min href="#progress-menu-min-data" data-toggle="tab" role="tab" Minister check
         li
@@ -41,4 +41,3 @@
             = render partial:'answer', locals: {f: f}
           .form-group
             = f.submit 'Save', :id => 'save', :class => 'button'
-
