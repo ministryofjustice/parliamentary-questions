@@ -21,6 +21,7 @@ spec:
     spec:
       containers:
         - name: parliamentary-questions-rails-jobs
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pq-team/parliamentary-questions:staging.latest
           command: ["./docker/entrypoint-background-jobs.sh"]
           env:
             - name: DB_HOST
