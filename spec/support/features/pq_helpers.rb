@@ -16,7 +16,12 @@ module Features
         action_officers.each do |ao|
           select ao.name, from: "Action officer(s)"
         end
+
+        find(".answer-date").set Date.tomorrow.strftime("%d/%m/%Y 12:00")
+        find(".pq-question").click
         find("#internal-deadline input").set Date.tomorrow.strftime("%d/%m/%Y 12:00")
+        find(".pq-question").click
+
         click_on "Commission"
       end
       expect(page).to have_content("#{uin} commissioned successfully")
