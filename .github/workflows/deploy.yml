@@ -115,6 +115,10 @@ jobs:
           deployment/parliamentary-questions \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          deployment/parliamentary-questions-sidekiq \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
         with:
@@ -201,6 +205,10 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          deployment/parliamentary-questions-sidekiq \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
@@ -290,6 +298,10 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          deployment/parliamentary-questions-sidekiq \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
