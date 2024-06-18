@@ -1,5 +1,7 @@
 module PQA
   class QuestionLoader
+    attr_reader :client
+
     def initialize
       uri = "http://#{MockApiServerRunner::HOST}:#{MockApiServerRunner::PORT}"
       @client = ApiClient.new(uri, nil, nil, nil)

@@ -56,7 +56,7 @@ describe "Transferring IN questions", js: true, suspend_cleaner: true do
 
   it "If API import contains PQ with the same UIN as the transferred PQ, it updates the details" do
     loader = PQA::QuestionLoader.new
-    import = PQA::Import.new
+    import = PQA::Import.new(loader.client)
     imported_pq = PQA::QuestionBuilder.default(uin)
 
     loader.load([imported_pq])
