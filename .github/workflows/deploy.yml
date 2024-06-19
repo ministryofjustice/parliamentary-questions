@@ -119,6 +119,10 @@ jobs:
           deployment/parliamentary-questions-sidekiq \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          jobs/rails-migrations \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
         with:
@@ -223,6 +227,10 @@ jobs:
           jobs/early-bird-dispatch \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          jobs/rails-migrations \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
         with:
@@ -322,6 +330,10 @@ jobs:
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           jobs/early-bird-dispatch \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
+          kubectl set image -n ${KUBE_NAMESPACE} \
+          jobs/rails-migrations \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
