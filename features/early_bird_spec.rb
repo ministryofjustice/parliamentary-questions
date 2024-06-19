@@ -2,18 +2,8 @@ require "feature_helper"
 require "business_time"
 
 describe "Early bird member sees allocated questions" do
-  include Features::PqHelpers
-
   let(:aos)       { ActionOfficer.where("email like 'ao%@pq.com'") }
   let(:dummy_pq)  { generate_dummy_pq(aos) }
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
 
   it "An admin can create a new early bird member" do
     create_pq_session

@@ -1,15 +1,8 @@
 require "feature_helper"
 
 describe "User filters 'New' dashboard  questions", js: true do
-  include Features::PqHelpers
-
   before do
-    DbHelpers.load_feature_fixtures
     generate_dummy_pq
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "Check filter elements are on page" do

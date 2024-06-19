@@ -1,20 +1,10 @@
 require "feature_helper"
 
 describe "Commissioning questions", js: true do
-  include Features::PqHelpers
-
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:minister) { Minister.first }
   let(:test_pq) { FactoryBot.create(:pq) }
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
 
   it "Parli-branch member tries to allocate a question without an AO" do
     PQA::QuestionLoader.new.load_and_import(2)

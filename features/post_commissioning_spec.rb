@@ -1,8 +1,6 @@
 require "feature_helper"
 
 describe "After commissioning", js: true do
-  include Features::PqHelpers
-
   let!(:draft_pending) { (FactoryBot.create :draft_pending_pq).uin }
   let!(:with_pod) { (FactoryBot.create :with_pod_pq).uin }
   let!(:pod_cleared) { (FactoryBot.create :pod_cleared_pq).uin }
@@ -10,13 +8,8 @@ describe "After commissioning", js: true do
   let!(:minister_cleared) { (FactoryBot.create :minister_cleared_pq).uin }
 
   before do
-    DbHelpers.load_feature_fixtures
     create_pq_session
     click_link "In progress"
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   def remove_date(css_sel)

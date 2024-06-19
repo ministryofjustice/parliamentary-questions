@@ -2,7 +2,6 @@ require "feature_helper"
 
 describe "User filters early bird questions", js: true do
   before do
-    DbHelpers.load_feature_fixtures
     generate_dummy_pq
 
     # Change Q1 properties
@@ -24,10 +23,6 @@ describe "User filters early bird questions", js: true do
     a.update!(question: 'This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.')
     a.update!(member_name: "Anne Day")
     a.update!(member_constituency: "Kingston upon Hull North")
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "Check filter elements are present" do

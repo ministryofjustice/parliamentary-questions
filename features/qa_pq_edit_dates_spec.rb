@@ -1,8 +1,6 @@
 require "feature_helper"
 
 describe "Testing Quick Action 'Edit PQ dates'", js: true do
-  include Features::PqHelpers
-
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:minister) { Minister.first }
   let(:test_date) { "#{Time.zone.today + 3} 12:00" }
@@ -11,13 +9,8 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
   let!(:pq3) { FactoryBot.create :draft_pending_pq }
 
   before do
-    DbHelpers.load_feature_fixtures
     create_pq_session
     click_link "In progress"
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "Check all elements are present" do

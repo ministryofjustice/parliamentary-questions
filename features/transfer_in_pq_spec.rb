@@ -1,8 +1,6 @@
 require "feature_helper"
 
 describe "Transferring IN questions", js: true do
-  include Features::PqHelpers
-
   def create_transferred_pq(uin, text, date = nil)
     create_pq_session
     visit transferred_new_path
@@ -18,14 +16,6 @@ describe "Transferring IN questions", js: true do
 
     find("#transfer_in_date").set Time.zone.today.strftime("%d/%m/%Y")
     click_on "Create PQ"
-  end
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   let(:uin) { "transfer-uin-1" }

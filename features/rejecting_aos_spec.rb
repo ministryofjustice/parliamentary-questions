@@ -1,16 +1,6 @@
 require "feature_helper"
 
 describe "Parli-branch manually rejecting and re-assigning OAs", js: true do
-  include Features::PqHelpers
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
-
   let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:ao3) { ActionOfficer.find_by(email: "ao3@pq.com") }

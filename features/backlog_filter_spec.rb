@@ -1,18 +1,10 @@
 require "feature_helper"
 
 describe "'Backlog' page filtering:", js: true do
-  include Features::PqHelpers
-
   before do
-    DatabaseCleaner.clean
-    DbHelpers.load_feature_fixtures
     setup_questions
     create_pq_session
     visit dashboard_backlog_path
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "1) by Date for Answer (From: 20 days ago)." do

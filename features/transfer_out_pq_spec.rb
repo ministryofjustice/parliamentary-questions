@@ -2,12 +2,7 @@ require "feature_helper"
 
 describe "Transferring OUT questions", js: true do
   before do
-    DbHelpers.load_feature_fixtures
     DbHelpers.load_fixtures(:pqs)
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   def uin

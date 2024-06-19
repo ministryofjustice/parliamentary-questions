@@ -1,20 +1,10 @@
 require "feature_helper"
 
 describe "Parli-branch re-assigns a question", js: true do
-  include Features::PqHelpers
-
   let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:dummy_pq) { PQA::QuestionLoader.new.load_and_import(2).first }
   let(:minister) { Minister.first }
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
 
   it "Parli-branch assigns question to an action officer" do
     create_pq_session

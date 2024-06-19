@@ -1,17 +1,10 @@
 require "feature_helper"
 
 describe "'In progress' page filtering:", js: true do
-  include Features::PqHelpers
-
   before do
-    DbHelpers.load_feature_fixtures
     setup_questions
     create_pq_session
     visit dashboard_in_progress_path
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "1) by Date for Answer (From: 10 days ago)." do

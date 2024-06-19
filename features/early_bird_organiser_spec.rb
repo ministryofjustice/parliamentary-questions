@@ -1,8 +1,6 @@
 require "feature_helper"
 
 describe "Early bird organisers can be set" do
-  include Features::PqHelpers
-
   let(:date_from) { Time.zone.today + 2 }
   let(:date_to) { Time.zone.today + 5 }
   let(:date_from_new) { Time.zone.today + 5 }
@@ -15,14 +13,6 @@ describe "Early bird organisers can be set" do
   let(:success_text_two) { "You have successfully scheduled the early bird to be turned off between #{date_from_new} and #{date_to_new}" }
   let(:current_early_bird_status_text) { "The early bird is currently turned off between #{date_from} and #{date_to}." }
   let(:current_early_bird_status_text_two) { "The early bird is currently turned off between #{date_from_new} and #{date_to_new}." }
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
 
   it "An admin can create set early birds not to run between two dates" do
     create_pq_session

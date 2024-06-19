@@ -2,14 +2,9 @@ require "feature_helper"
 require "./spec/support/csv_helpers"
 
 describe "Exporting PQ data to CSV" do
-  include Features::PqHelpers
   include CSVHelpers
 
   let(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
 
   it "Parli-branch can export pq data as CSV" do
     create_pq_session

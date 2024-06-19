@@ -1,17 +1,7 @@
 require "feature_helper"
 
 describe "Dashboard view", js: true do
-  include Features::PqHelpers
-
   let(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
 
   def search_for(uin)
     create_pq_session

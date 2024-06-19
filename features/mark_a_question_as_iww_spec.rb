@@ -1,20 +1,13 @@
 require "feature_helper"
 
 describe 'Creating an "I Will Write" question', js: true do
-  include Features::PqHelpers
-
   let(:dummy_ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:dummy_uin) { PQA::QuestionLoader.new.load_and_import(1).first.uin }
   let(:dummy_iww_uin) { "#{dummy_uin}-IWW" }
   let(:dummy_minister) { Minister.first }
 
   before do
-    DbHelpers.load_feature_fixtures
     create_pq_session
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "Parli-branch marks a question as 'I will write'" do

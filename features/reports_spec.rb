@@ -1,8 +1,6 @@
 require "feature_helper"
 
 describe "Minister Report", js: true do
-  include Features::PqHelpers
-
   def within_report_state(state, &block)
     css = "tr[data='report-state-#{state}']"
     within(css, &block)
@@ -21,7 +19,6 @@ describe "Minister Report", js: true do
   end
 
   before do
-    DbHelpers.load_feature_fixtures
     create_pq_session
   end
 

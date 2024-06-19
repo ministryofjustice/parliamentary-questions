@@ -33,6 +33,7 @@ RSpec.configure do |config|
   config.include Features::SessionHelpers
   config.include Rails.application.routes.url_helpers
   config.include Capybara::DSL
+  config.include Features::PqHelpers
 
   # Start mock API server instance
   mock_api_runner = PQA::MockApiServerRunner.new
@@ -45,6 +46,8 @@ RSpec.configure do |config|
 
   # Use truncation in js tests and suspended tests, transaction otherwise
   config.before do |test|
+    DbHelpers.load_feature_fixtures
+
     if test.metadata[:js]
       DatabaseCleaner.strategy = [
         :truncation,

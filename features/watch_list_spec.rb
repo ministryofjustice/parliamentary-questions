@@ -1,16 +1,6 @@
 require "feature_helper"
 
 describe "Watch list member sees allocated questions" do
-  include Features::PqHelpers
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
-
   let(:dummy_aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
   let(:dummy_pq) { generate_dummy_pq(dummy_aos) }
 
