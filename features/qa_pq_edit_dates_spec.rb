@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true do
+describe "Testing Quick Action 'Edit PQ dates'", js: true do
   include Features::PqHelpers
 
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }

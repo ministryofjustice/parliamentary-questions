@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "After commissioning", js: true, suspend_cleaner: true do
+describe "After commissioning", js: true do
   include Features::PqHelpers
 
   let!(:draft_pending) { (FactoryBot.create :draft_pending_pq).uin }

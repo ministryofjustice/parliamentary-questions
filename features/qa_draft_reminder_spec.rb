@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Send draft reminders from the dashboard", js: true, suspend_cleaner: true do
+describe "Send draft reminders from the dashboard", js: true do
   include Features::PqHelpers
 
   before do

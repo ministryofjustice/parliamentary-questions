@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Watch list member sees allocated questions", suspend_cleaner: true do
+describe "Watch list member sees allocated questions" do
   include Features::PqHelpers
 
   before do

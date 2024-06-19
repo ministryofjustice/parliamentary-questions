@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Transferring IN questions", js: true, suspend_cleaner: true do
+describe "Transferring IN questions", js: true do
   include Features::PqHelpers
 
   def create_transferred_pq(uin, text, date = nil)

@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Early bird organisers can be set", suspend_cleaner: true do
+describe "Early bird organisers can be set" do
   include Features::PqHelpers
 
   let(:date_from) { Time.zone.today + 2 }

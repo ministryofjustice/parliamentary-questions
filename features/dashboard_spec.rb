@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Dashboard view", js: true, suspend_cleaner: true do
+describe "Dashboard view", js: true do
   include Features::PqHelpers
 
   let(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }

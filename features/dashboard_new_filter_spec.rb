@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "User filters 'New' dashboard  questions", js: true, suspend_cleaner: true do
+describe "User filters 'New' dashboard  questions", js: true do
   include Features::PqHelpers
 
   before do

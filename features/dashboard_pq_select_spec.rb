@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner: true do
+describe "Tests for Dashboard multiple PQ selection", js: true do
   include Features::PqHelpers
 
   let(:pq1)       { PQA::QuestionLoader.new.load_and_import(1) }

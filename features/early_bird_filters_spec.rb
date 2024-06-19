@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "User filters early bird questions", js: true, suspend_cleaner: true do
+describe "User filters early bird questions", js: true do
   before do
     DbHelpers.load_feature_fixtures
     generate_dummy_pq

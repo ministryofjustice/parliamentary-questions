@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Parli-branch manually rejecting and re-assigning OAs", js: true, suspend_cleaner: true do
+describe "Parli-branch manually rejecting and re-assigning OAs", js: true do
   include Features::PqHelpers
 
   before do

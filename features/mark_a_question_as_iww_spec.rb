@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe 'Creating an "I Will Write" question', js: true, suspend_cleaner: true do
+describe 'Creating an "I Will Write" question', js: true do
   include Features::PqHelpers
 
   let(:dummy_ao) { ActionOfficer.find_by(email: "ao1@pq.com") }

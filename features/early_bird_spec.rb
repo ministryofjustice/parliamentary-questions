@@ -1,7 +1,7 @@
 require "feature_helper"
 require "business_time"
 
-describe "Early bird member sees allocated questions", suspend_cleaner: true do
+describe "Early bird member sees allocated questions" do
   include Features::PqHelpers
 
   let(:aos)       { ActionOfficer.where("email like 'ao%@pq.com'") }

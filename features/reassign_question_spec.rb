@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Parli-branch re-assigns a question", js: true, suspend_cleaner: true do
+describe "Parli-branch re-assigns a question", js: true do
   include Features::PqHelpers
 
   let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }

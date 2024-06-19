@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Managing action officers", js: true, suspend_cleaner: true do
+describe "Managing action officers", js: true do
   before do
     DbHelpers.load_feature_fixtures
   end
