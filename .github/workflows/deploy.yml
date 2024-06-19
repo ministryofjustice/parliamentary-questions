@@ -112,10 +112,6 @@ jobs:
       - name: Rollout restart deployment
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/rails-migrations \
-          webapp="${{ vars.ECR_URL }}:$SHA"
-
-          kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
@@ -207,10 +203,6 @@ jobs:
 
       - name: Rollout restart deployment
         run: |
-          kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/rails-migrations \
-          webapp="${{ vars.ECR_URL }}:$SHA"
-
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
           webapp="${{ vars.ECR_URL }}:$SHA"
@@ -312,10 +304,6 @@ jobs:
 
       - name: Rollout restart deployment
         run: |
-          kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/rails-migrations \
-          webapp="${{ vars.ECR_URL }}:$SHA"
-
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
           webapp="${{ vars.ECR_URL }}:$SHA"
