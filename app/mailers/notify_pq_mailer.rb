@@ -114,6 +114,8 @@ class NotifyPqMailer < ApplicationMailer
 private
 
   def check_is_wrong_domain(link_str)
+    return if link_str == "127.0.0.1"
+
     if link_str.nil? || !!(link_str =~ Regexp.union([Resolv::IPv4::Regex, Resolv::IPv6::Regex]))
       raise "Got ip address, failed to get domain name, #{ENV['ENV']}, #{link_str}, #{ENV['SENDING_HOST']}"
     end
