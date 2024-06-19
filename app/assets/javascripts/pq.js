@@ -43,8 +43,10 @@ var document, $, ga;
     var $button = $form.find('.commission-button');
     if (isValidDashboardPq($form)) {
       $button.attr('aria-disabled', 'false');
+      $button.removeAttr('disabled');
     } else {
       $button.attr('aria-disabled', 'true');
+      $button.attr('disabled', 'disabled');
     }
   };
 
