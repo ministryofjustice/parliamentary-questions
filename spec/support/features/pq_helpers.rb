@@ -17,7 +17,7 @@ module Features
           select ao.name, from: "Action officer(s)"
         end
 
-        find(".answer-date").set Date.tomorrow.strftime("%d/%m/%Y 12:00")
+        find(".answer-date").set Date.tomorrow.strftime("%d/%m/%Y")
         find(".pq-question").click
         find("#internal-deadline input").set Date.tomorrow.strftime("%d/%m/%Y 12:00")
         find(".pq-question").click
