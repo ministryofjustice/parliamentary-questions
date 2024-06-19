@@ -224,10 +224,6 @@ jobs:
           webapp="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/early-bird-dispatch \
-          webapp="${{ vars.ECR_URL }}:$SHA"
-
-          kubectl set image -n ${KUBE_NAMESPACE} \
           jobs/rails-migrations \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
