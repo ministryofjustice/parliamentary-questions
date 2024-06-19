@@ -112,15 +112,15 @@ jobs:
       - name: Rollout restart deployment
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
+          jobs/rails-migrations \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
+          kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions-sidekiq \
-          webapp="${{ vars.ECR_URL }}:$SHA"
-
-          kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/rails-migrations \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
@@ -208,6 +208,10 @@ jobs:
       - name: Rollout restart deployment
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
+          jobs/rails-migrations \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
+          kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
@@ -221,10 +225,6 @@ jobs:
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           jobs/trim-database \
-          webapp="${{ vars.ECR_URL }}:$SHA"
-
-          kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/rails-migrations \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
@@ -313,6 +313,10 @@ jobs:
       - name: Rollout restart deployment
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
+          jobs/rails-migrations \
+          webapp="${{ vars.ECR_URL }}:$SHA"
+
+          kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
@@ -328,9 +332,6 @@ jobs:
           jobs/early-bird-dispatch \
           webapp="${{ vars.ECR_URL }}:$SHA"
 
-          kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/rails-migrations \
-          webapp="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
