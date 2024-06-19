@@ -45,7 +45,7 @@ RSpec.configure do |config|
 
   # Use truncation in js tests and suspended tests, transaction otherwise
   config.before do |test|
-    if test.metadata[:js] || test.metadata[:suspend_cleaner]
+    if test.metadata[:js]
       DatabaseCleaner.strategy = [
         :truncation,
       ]
@@ -58,7 +58,7 @@ RSpec.configure do |config|
   end
 
   config.after do |test|
-    DatabaseCleaner.clean unless test.metadata[:suspend_cleaner]
+    DatabaseCleaner.clean
   end
 
   # Shut down mock API instance
