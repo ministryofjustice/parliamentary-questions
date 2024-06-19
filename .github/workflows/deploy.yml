@@ -113,11 +113,11 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-app="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions-sidekiq \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
@@ -205,19 +205,19 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-app="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions-sidekiq \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           jobs/nightly-import \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          nightly-import="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           jobs/trim-database \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          trim-database="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
@@ -306,20 +306,19 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-app="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions-sidekiq \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           jobs/nightly-import \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          nightly-import="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           jobs/early-bird-dispatch \
-          webapp="${{ vars.ECR_URL }}:$SHA"
-
+          early-bird-dispatch="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
         uses: slackapi/slack-github-action@v1.25.0
