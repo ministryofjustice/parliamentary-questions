@@ -57,7 +57,7 @@ RSpec.configure do |config|
     end
   end
 
-  config.after do |test|
+  config.after do
     DatabaseCleaner.clean
   end
 
