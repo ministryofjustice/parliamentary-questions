@@ -64,14 +64,22 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
+  # Start mock API server instance
+  mock_api_runner = PQA::MockApiServerRunner.new
+
   # Databse cleaner setup
   config.before(:suite) do
+    mock_api_runner.start
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
 
   config.around do |example|
     DatabaseCleaner.cleaning { example.run }
+  end
+
+  config.after(:suite) do
+    mock_api_runner.stop
   end
 end
 
