@@ -1,5 +1,3 @@
-require "feature_helper"
-
 describe HealthCheck::PQAApi do
   let(:pqa) { described_class.new }
 

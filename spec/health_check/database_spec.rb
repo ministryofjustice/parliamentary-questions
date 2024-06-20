@@ -1,5 +1,3 @@
-require "feature_helper"
-
 describe HealthCheck::Database do
   let(:db) { described_class.new }
 

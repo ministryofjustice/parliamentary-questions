@@ -1,5 +1,3 @@
-require "feature_helper"
-
 describe PQA::Import do
   def loader
     PQA::QuestionLoader.new
