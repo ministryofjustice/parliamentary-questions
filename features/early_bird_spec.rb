@@ -2,8 +2,8 @@ require "feature_helper"
 require "business_time"
 
 describe "Early bird member sees allocated questions" do
-  let(:aos)       { ActionOfficer.where("email like 'ao%@pq.com'") }
-  let(:dummy_pq)  { generate_dummy_pq(aos) }
+  let(:aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
+  let!(:dummy_pq) { generate_dummy_pq(aos) }
 
   it "An admin can create a new early bird member" do
     create_pq_session
@@ -56,7 +56,7 @@ describe "Early bird member sees allocated questions" do
   end
 
   it "An early bird member sees a question that is commissioned" do
-    allow(dummy_pq).to receive(:commissioned?).and_return(true)
+    allow_any_instance_of(Pq).to receive(:commissioned?).and_return(true) # rubocop:disable RSpec/AnyInstance
 
     visit_earlybird_url
     expect(page).not_to have_link("Propose a Deputy Director")
