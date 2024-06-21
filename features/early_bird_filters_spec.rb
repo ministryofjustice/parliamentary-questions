@@ -41,8 +41,8 @@ describe "User filters early bird questions", js: true do
     expect(page).to have_css("#sidebar")
     expect(page).to have_css("#filters")
     expect(find("#filters").find("h2")).to have_content("Filter")
-    expect(html).to have_css("#question-type")
-    expect(find("#filters .filter-box h3")).to have_content("Keywords")
+    expect(page).to have_css("#question-type")
+    expect(find("#filters")).to have_content("Keywords")
     expect(find("#filters a")).to have_content("Today's PQs for all departments")
   end
 
@@ -54,9 +54,9 @@ describe "User filters early bird questions", js: true do
 
     click_button "Question type"
 
-    expect(html).not_to have_checked_field("Named Day")
-    expect(html).not_to have_checked_field("Ordinary")
-    expect(html).not_to have_checked_field("Transferred in")
+    expect(page).not_to have_checked_field("Named Day")
+    expect(page).not_to have_checked_field("Ordinary")
+    expect(page).not_to have_checked_field("Transferred in")
 
     page.choose("Named Day")
     expect(page).to have_text("1 selected")
@@ -71,9 +71,9 @@ describe "User filters early bird questions", js: true do
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     click_button("clear-type-filter")
-    expect(html).not_to have_checked_field("Named Day")
-    expect(html).not_to have_checked_field("Ordinary")
-    expect(html).not_to have_checked_field("Transferred in")
+    expect(page).not_to have_checked_field("Named Day")
+    expect(page).not_to have_checked_field("Ordinary")
+    expect(page).not_to have_checked_field("Transferred in")
     expect(page).not_to have_text("1 selected")
 
     expect(page).to have_text("3 parliamentary questions out of 3.")

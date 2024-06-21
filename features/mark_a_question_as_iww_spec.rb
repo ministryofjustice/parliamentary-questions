@@ -22,10 +22,12 @@ describe 'Creating an "I Will Write" question', js: true do
   it "Parli-branch creates an IWW follow-up question" do
     visit pq_path(dummy_uin)
     click_on "Answer"
-    click_on "Create 'I will write' follow up"
+
+    click_on "Create an 'I will write' follow up"
 
     visit dashboard_path
-    expect(page.title).to match(/Dashboard/)
+    expect(page).to have_title("Dashboard")
+    sleep 100
     expect(page).not_to have_text(dummy_uin)
 
     expect_pq_in_progress_status(dummy_iww_uin, "Draft Pending")
@@ -33,7 +35,7 @@ describe 'Creating an "I Will Write" question', js: true do
     visit pq_path(dummy_iww_uin)
 
     click_on "Answer"
-    expect(page).not_to have_text("Create 'I will write' follow up")
+    expect(page).not_to have_text("Create an 'I will write' follow up")
     click_on "PQ commission"
     expect(page).to have_title("PQ #{dummy_iww_uin}")
     expect(page).to have_text(dummy_ao.email)
@@ -42,7 +44,7 @@ describe 'Creating an "I Will Write" question', js: true do
   it "Parli-branch clicks on the 'create IWW follow up button' for a second time" do
     visit pq_path(dummy_uin)
     click_on "Answer"
-    click_on "Create 'I will write' follow up"
+    click_on "Create an 'I will write' follow up"
     expect(page).to have_title("PQ #{dummy_iww_uin}")
     expect(page).to have_content(dummy_iww_uin)
     expect(Pq.where(uin: dummy_iww_uin).count).to eq(1)

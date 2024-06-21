@@ -1,7 +1,7 @@
 require "feature_helper"
 
 describe "Dashboard view", js: true do
-  let(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }
+  let!(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }
 
   def search_for(uin)
     create_pq_session
