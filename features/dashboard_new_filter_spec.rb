@@ -6,8 +6,8 @@ describe "User filters 'New' dashboard  questions", js: true do
     create_pq_session
     visit dashboard_path
     # Set UIN-2 & UIN-3 action officers =
-    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_2"
-    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_3"
+    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_#{Pq.second.id}"
+    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_#{Pq.third.id}"
   end
 
   it "Check filter elements are on page" do
