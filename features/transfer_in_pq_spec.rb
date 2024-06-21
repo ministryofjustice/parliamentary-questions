@@ -45,6 +45,7 @@ describe "Transferring IN questions", js: true do
   end
 
   it "If API import contains PQ with the same UIN as the transferred PQ, it updates the details" do
+    FactoryBot.create(:pq, uin:)
     loader = PQA::QuestionLoader.new
     import = PQA::Import.new(loader.client)
     imported_pq = PQA::QuestionBuilder.default(uin)

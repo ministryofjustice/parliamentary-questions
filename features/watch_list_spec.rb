@@ -2,7 +2,7 @@ require "feature_helper"
 
 describe "Watch list member sees allocated questions" do
   let(:dummy_aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
-  let(:dummy_pq) { generate_dummy_pq(dummy_aos) }
+  let!(:dummy_pq) { generate_dummy_pq(dummy_aos) }
 
   it "An admin can create a new watchlist member" do
     create_pq_session
