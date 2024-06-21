@@ -27,7 +27,6 @@ references:
           POSTGRES_PASSWORD: "secret"
           PGUSER: postgres
           POSTGRES_DB: parliamentary_questions_test
-          GOVUK_NOTIFY_API_KEY: fake-key
 
       - image: cimg/postgres:12.15
         environment:
