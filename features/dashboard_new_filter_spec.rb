@@ -3,10 +3,14 @@ require "feature_helper"
 describe "User filters 'New' dashboard  questions", js: true do
   before do
     generate_dummy_pq
+    create_pq_session
+    visit dashboard_path
+    # Set UIN-2 & UIN-3 action officers =
+    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_2"
+    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_3"
   end
 
   it "Check filter elements are on page" do
-    initialise
     within("#count") { expect(page).to have_text("3 parliamentary questions") }
     within("#filters") do
       expect(find("h2")).to have_content("Filter")
@@ -30,25 +34,21 @@ describe "User filters 'New' dashboard  questions", js: true do
   end
 
   it "filter questions by status 'Unassigned'" do
-    initialise
     status("Unassigned")
     check_visible_pqs("uin-1", "uin-2", "uin-3")
   end
 
   it "filter qustions by status 'No response'" do
-    initialise
     status("No response")
     check_visible_pqs("uin-2", "uin-1", "uin-3")
   end
 
   it "filter qustions by status 'Rejected'" do
-    initialise
     status("Rejected")
     check_visible_pqs("uin-3", "uin-2", "uin-1")
   end
 
   it "Clear all filters" do
-    initialise
     status("No response")
     within("#flag") do
       click_button "Clear"
@@ -65,15 +65,17 @@ describe "User filters 'New' dashboard  questions", js: true do
 private
 
   def generate_dummy_pq
-    # Generate two questions.
-    PQA::QuestionLoader.new.load_and_import(3)
+    # Generate three questions.
+    FactoryBot.create_list(:pq, 3)
 
     # Change Q1 'Unassigned' properties
     a = Pq.first
+    a.update!(uin: "uin-1")
     a.update!(date_for_answer: "01/11/2015")
 
     # Change Q2 'No Response' properties
     a = Pq.second
+    a.update!(uin: "uin-2")
     a.update!(date_for_answer: "02/11/2015")
     a.update!(minister_id: 4)
     a.update!(policy_minister_id: 3)
@@ -82,19 +84,12 @@ private
 
     # Change Q3 'No Response' properties
     a = Pq.third
+    a.update!(uin: "uin-3")
     a.update!(date_for_answer: "03/11/2015")
     a.update!(minister_id: 1)
     a.update!(policy_minister_id: 2)
     a.update!(internal_deadline: "26/11/2015 11:00")
     a.update!(state: "rejected")
-  end
-
-  def initialise
-    create_pq_session
-    visit dashboard_path
-    # Set UIN-2 & UIN-3 action officers =
-    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_2"
-    select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_3"
   end
 
   def status(state)

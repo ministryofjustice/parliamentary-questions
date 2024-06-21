@@ -86,7 +86,7 @@ describe "After commissioning", js: true do
     expect_pq_in_progress_status(pod_cleared, "POD Query")
 
     in_pq_detail(pod_cleared, "POD check") { uncheck "POD query flag" }
-    in_pq_detail(pod_cleared, "PQ draft")  { remove_date("#draft_answer_received") }
+    in_pq_detail(pod_cleared, "PQ draft") { remove_date("#draft_answer_received") }
     expect_pq_in_progress_status(pod_cleared, "Draft Pending")
   end
 end
