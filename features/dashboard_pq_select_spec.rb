@@ -1,11 +1,11 @@
 require "feature_helper"
 
 describe "Tests for Dashboard multiple PQ selection", js: true do
-  let(:pq1)       { PQA::QuestionLoader.new.load_and_import(1) }
-  let(:pq2)       { PQA::QuestionLoader.new.load_and_import(1) }
-  let(:pq3)       { PQA::QuestionLoader.new.load_and_import(1) }
-  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:minister)  { Minister.first }
+  let!(:pq1) { FactoryBot.create(:pq) }
+  let!(:pq2) { FactoryBot.create(:pq) }
+  let!(:pq3) { FactoryBot.create(:pq) }
+  let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:minister) { Minister.first }
 
   it "Check page elements" do
     initialise
