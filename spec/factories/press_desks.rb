@@ -13,6 +13,6 @@
 
 FactoryBot.define do
   factory :press_desk do
-    name { Faker::Lorem.sentence(word_count: 2) }
+    sequence(:name) { |n| "#{Faker::Lorem.sentence(word_count: 2)}#{n}" }
   end
 end
