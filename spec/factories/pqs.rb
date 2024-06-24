@@ -77,6 +77,7 @@ FactoryBot.define do
     question { Faker::Lorem.sentence(word_count: 10) }
     answer { nil }
     state { PqState::UNASSIGNED }
+    member_name { "Diana Johnson" }
 
     factory :checked_by_finance_pq do
       finance_interest { false }
