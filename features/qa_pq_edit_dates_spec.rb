@@ -71,10 +71,11 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
       click_on "Edit PQ dates"
       expect(page).to have_text("1 PQ selected")
       fill_in datetype, with: test_date
+      sleep 1
       find(".notice").click
       click_on "Edit"
     end
-    sleep 1
+
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
     within("#pq-frame-1") { click_link(pq1.uin.to_s) }
     click_link(tablink)
