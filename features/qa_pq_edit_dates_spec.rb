@@ -74,6 +74,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
       find(".notice").click
       click_on "Edit"
     end
+    sleep 1
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
     within("#pq-frame-1") { click_link(pq1.uin.to_s) }
     click_link(tablink)

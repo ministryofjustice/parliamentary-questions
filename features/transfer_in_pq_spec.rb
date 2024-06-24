@@ -5,16 +5,17 @@ describe "Transferring IN questions", js: true do
     create_pq_session
     visit transferred_new_path
 
+    choose "House of Commons"
     fill_in "pq[uin]", with: uin
     fill_in "pq[question]", with: text
     find("#pq_dateforanswer").set date || Date.tomorrow.strftime("%d/%m/%Y")
-    choose "House of Commons"
 
     find("select[name = 'pq[transfer_in_ogd_id]']")
       .find(:xpath, "option[2]")
       .select_option
 
     find("#transfer_in_date").set Time.zone.today.strftime("%d/%m/%Y")
+    find("h1").click
     click_on "Create PQ"
   end
 
