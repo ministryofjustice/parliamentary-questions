@@ -28,7 +28,6 @@ describe 'Creating an "I Will Write" question', js: true do
 
     visit dashboard_path
     expect(page).to have_title("Dashboard")
-    sleep 100
     expect(page).not_to have_text(dummy_uin)
 
     expect_pq_in_progress_status(dummy_iww_uin, "Draft Pending")

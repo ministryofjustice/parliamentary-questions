@@ -99,7 +99,6 @@ describe "'Backlog' page filtering:", js: true do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 20)
     test_date("#date-for-answer", "answer-to", Time.zone.today)
     find("h1").click
-    sleep 100
     within("#count") { expect(page.text).to eq("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
     clear_filter("#internal-deadline")
