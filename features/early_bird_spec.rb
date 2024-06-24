@@ -3,7 +3,7 @@ require "business_time"
 
 describe "Early bird member sees allocated questions" do
   let(:aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
-  let!(:dummy_pq) { generate_dummy_pq(aos) }
+  let!(:pq) { FactoryBot.create(:pq) }
 
   it "An admin can create a new early bird member" do
     create_pq_session
@@ -19,7 +19,6 @@ describe "Early bird member sees allocated questions" do
 
   it "Early bird members can view the new questions for today" do
     create_pq_session
-    # '/early_bird/preview'
     visit early_bird_preview_path
 
     expect(page).to have_text(/1 new parliamentary questions/i)
@@ -35,9 +34,9 @@ describe "Early bird member sees allocated questions" do
   it "A early bird member follows an email link to view the list of daily questions" do
     visit_earlybird_url
     expect(page).to have_text(/1 new parliamentary questions/i)
-    expect(page).to have_text(dummy_pq.question)
-    expect(page).to have_content("uin-#{dummy_pq.uin}")
-    expect(page).to have_link("Email PQ team about this question", href: "mailto:pqs@justice.gov.uk?subject=Question 1")
+    expect(page).to have_text(pq.question)
+    expect(page).to have_content(pq.uin)
+    expect(page).to have_link("Email PQ team about this question", href: "mailto:pqs@justice.gov.uk?subject=Question #{pq.uin}")
   end
 
   it "An early bird member recommends someone to answer" do
@@ -69,16 +68,5 @@ describe "Early bird member sees allocated questions" do
     visit_earlybird_url(two_days_ago)
 
     expect(page).to have_text(/Link expired/i)
-  end
-
-private
-
-  def generate_dummy_pq(_aos)
-    PQA::QuestionLoader.new.load_and_import
-    q = Pq.first
-    q.uin = "1"
-    q.minister = Minister.find_by(name: "Chris Grayling")
-    q.update_state!
-    q
   end
 end
