@@ -40,24 +40,13 @@ RSpec.configure do |config|
 
   # Database cleaner setup
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
     mock_api_runner.start
   end
 
-  # Use truncation in js tests and suspended tests, transaction otherwise
-  config.before do |test|
+  config.before do
     DbHelpers.load_feature_fixtures
-
-    if test.metadata[:js]
-      DatabaseCleaner.strategy = [
-        :truncation,
-      ]
-    else
-      DatabaseCleaner.strategy = [
-        :transaction,
-      ]
-      DatabaseCleaner.start
-    end
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.start
   end
 
   config.after do
