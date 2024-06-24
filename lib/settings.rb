@@ -3,7 +3,7 @@ module Settings
     attr_reader :host, :username, :password
 
     def self.from_env
-      host     = ENV["PQ_REST_API_HOST"] || "http://localhost:8888"
+      host     = ENV["PQ_REST_API_HOST"] || (ENV["RAILS_ENV"] == "test" && "http://localhost:8888")
       username = ENV["PQ_REST_API_USERNAME"]
       password = ENV["PQ_REST_API_PASSWORD"]
 
