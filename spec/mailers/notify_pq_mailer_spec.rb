@@ -21,7 +21,7 @@ describe NotifyPqMailer, type: :mailer do
             uin: pq.uin,
             ao_name: ao.name,
             question: pq.question,
-            member_name: "",
+            member_name: "Asked by Diana Johnson",
             house_name: "",
             member_constituency: "",
             answer_by: "",
