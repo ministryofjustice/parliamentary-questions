@@ -57,8 +57,11 @@ jobs:
       - name: Security audit application code
         run: bundle exec brakeman -q
 
-      - name: Run tests
+      - name: Run unit tests
         run: bundle exec rspec
+
+      - name: Run feature tests
+        run: bundle exec rspec features
 
       - name: Code coverage
         uses: joshmfrankel/simplecov-check-action@main
