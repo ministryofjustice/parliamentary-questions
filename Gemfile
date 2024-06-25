@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby File.read(".ruby-version").strip
 
 gem "bootstrap-will_paginate", "~> 1.0"
-gem "business_time", "~> 0.11.0"
+gem "business_time", "~> 0.13.0"
 gem "devise", "~> 4.8"
 gem "devise_invitable", "~> 2.0"
 gem "font-awesome-rails", "~> 4.7"
@@ -48,7 +48,7 @@ group :test, :development do
   gem "debug", "~> 1.8"
   gem "factory_bot_rails", "~> 6.2"
   gem "faker", "~> 3.2"
-  gem "launchy", "~> 2.5"
+  gem "launchy", "~> 3.0"
   gem "letter_opener", "~> 1.7"
   gem "poltergeist", "~> 1.18", ">= 1.18.1"
   gem "rails-controller-testing", "~> 1.0", ">= 1.0.5"
