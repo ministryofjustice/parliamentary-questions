@@ -1,7 +1,7 @@
 namespace :bugfix do
   desc "Checks all PQs and checks they only have one active accepted AO and reports those that do not"
   task check_aos: :environment do
-    Pq.all.each do |pq|
+    Pq.all.find_each do |pq|
       next if pq.valid?
 
       puts "PQ #{pq.uin}"

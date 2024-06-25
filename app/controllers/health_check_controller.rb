@@ -7,7 +7,7 @@ class HealthCheckController < ApplicationController
     if report.status == "200"
       render(json: report)
     else
-      render(json: report, status: "500")
+      render(json: report, status: :internal_server_error)
     end
   end
 end

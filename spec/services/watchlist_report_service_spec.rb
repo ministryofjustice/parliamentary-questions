@@ -21,7 +21,7 @@ describe "WatchlistReportService" do
   end
 
   it "calls the mailer" do
-    allow(NotifyPqMailer).to receive_message_chain(:watchlist_email, :deliver_later)  # rubocop:disable RSpec/MessageChain
+    allow(NotifyPqMailer).to receive_message_chain(:watchlist_email, :deliver_later) # rubocop:disable RSpec/MessageChain
     token = report_service.notify_watchlist
     expect(NotifyPqMailer).to have_received(:watchlist_email).with(email: "m1@ao.gov", token:, entity: testid)
     expect(NotifyPqMailer).to have_received(:watchlist_email).with(email: "m2@ao.gov", token:, entity: testid)
