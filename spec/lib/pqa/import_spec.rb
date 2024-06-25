@@ -1,4 +1,4 @@
-require "feature_helper"
+require "spec_helper"
 
 describe PQA::Import do
   def loader
@@ -14,7 +14,7 @@ describe PQA::Import do
   end
 
   def import
-    PQA::Import.new
+    PQA::Import.new(loader.client)
   end
 
   def questions(uin_date_strings)

@@ -1,3 +1,5 @@
+require "ostruct"
+
 class AoTokenFilter
   def self.before(controller)
     token_state = validate_token(controller)

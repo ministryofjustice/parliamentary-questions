@@ -1,18 +1,8 @@
 require "feature_helper"
 
-describe "Watch list member sees allocated questions", suspend_cleaner: true do
-  include Features::PqHelpers
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
-
+describe "Watch list member sees allocated questions" do
   let(:dummy_aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
-  let(:dummy_pq)  { generate_dummy_pq(dummy_aos)                   }
+  let!(:dummy_pq) { generate_dummy_pq(dummy_aos) }
 
   it "An admin can create a new watchlist member" do
     create_pq_session
@@ -58,9 +48,9 @@ private
   def generate_dummy_pq(aos)
     PQA::QuestionLoader.new.load_and_import
 
-    q                   = Pq.first
-    q.minister          = Minister.find_by(name: "Chris Grayling")
-    q.action_officers   = aos
+    q = Pq.first
+    q.minister = Minister.find_by(name: "Chris Grayling")
+    q.action_officers = aos
     q.internal_deadline = Time.zone.today + 1.day
     q.internal_deadline = Time.zone.today + 2.days
     q.update_state!

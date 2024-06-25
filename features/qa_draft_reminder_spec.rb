@@ -1,20 +1,13 @@
 require "feature_helper"
 
-describe "Send draft reminders from the dashboard", js: true, suspend_cleaner: true do
-  include Features::PqHelpers
-
+describe "Send draft reminders from the dashboard", js: true do
   before do
-    DbHelpers.load_feature_fixtures
     @pq1 = FactoryBot.create :draft_pending_pq
     @pq2 = FactoryBot.create :draft_pending_pq
     @pq3 = FactoryBot.create :draft_pending_pq
     create_pq_session
 
     click_link "In progress"
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "A user sends draft reminders for all PQs" do

@@ -1,8 +1,6 @@
 require "feature_helper"
 
 describe "Minister Report", js: true do
-  include Features::PqHelpers
-
   def within_report_state(state, &block)
     css = "tr[data='report-state-#{state}']"
     within(css, &block)
@@ -21,14 +19,13 @@ describe "Minister Report", js: true do
   end
 
   before do
-    DbHelpers.load_feature_fixtures
     create_pq_session
   end
 
-  let(:action_officer)  { ActionOfficer.first                        }
-  let(:minister)        { Minister.find_by(name: "Chris Grayling")   }
-  let(:pq1)             { PQA::QuestionLoader.new.load_and_import(5) }
-  let(:pq2)             { PQA::QuestionLoader.new.load_and_import(5) }
+  let(:action_officer) { ActionOfficer.first }
+  let(:minister) { Minister.find_by(name: "Chris Grayling") }
+  let!(:pq1) { FactoryBot.create(:pq) }
+  let!(:pq2) { FactoryBot.create(:pq) }
 
   it "Parli-branch accesses the minister report and follows a link to the filter results page" do
     uins = [pq1, pq2].map(&:uin)

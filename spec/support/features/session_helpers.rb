@@ -1,7 +1,5 @@
 module Features
   module SessionHelpers
-    include Rails.application.routes.url_helpers
-
     def create_pq_session
       user = DbHelpers.users.find(&:pq_user?)
       sign_in(user.email, DbHelpers::USER_PASSWORD)

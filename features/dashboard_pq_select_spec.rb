@@ -1,21 +1,11 @@
 require "feature_helper"
 
-describe "Tests for Dashboard multiple PQ selection", js: true, suspend_cleaner: true do
-  include Features::PqHelpers
-
-  let(:pq1)       { PQA::QuestionLoader.new.load_and_import(1) }
-  let(:pq2)       { PQA::QuestionLoader.new.load_and_import(1) }
-  let(:pq3)       { PQA::QuestionLoader.new.load_and_import(1) }
-  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:minister)  { Minister.first                             }
-
-  before do
-    DbHelpers.load_feature_fixtures
-  end
-
-  after do
-    DatabaseCleaner.clean
-  end
+describe "Tests for Dashboard multiple PQ selection", js: true do
+  let!(:pq1) { FactoryBot.create(:pq) }
+  let!(:pq2) { FactoryBot.create(:pq) }
+  let!(:pq3) { FactoryBot.create(:pq) }
+  let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:minister) { Minister.first }
 
   it "Check page elements" do
     initialise

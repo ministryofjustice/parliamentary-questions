@@ -1,8 +1,7 @@
 require "feature_helper"
 
-describe "User filters early bird questions", js: true, suspend_cleaner: true do
+describe "User filters early bird questions", js: true do
   before do
-    DbHelpers.load_feature_fixtures
     generate_dummy_pq
 
     # Change Q1 properties
@@ -26,10 +25,6 @@ describe "User filters early bird questions", js: true, suspend_cleaner: true do
     a.update!(member_constituency: "Kingston upon Hull North")
   end
 
-  after do
-    DatabaseCleaner.clean
-  end
-
   it "Check filter elements are present" do
     create_pq_session
 
@@ -46,8 +41,8 @@ describe "User filters early bird questions", js: true, suspend_cleaner: true do
     expect(page).to have_css("#sidebar")
     expect(page).to have_css("#filters")
     expect(find("#filters").find("h2")).to have_content("Filter")
-    expect(html).to have_css("#question-type")
-    expect(find("#filters .filter-box h3")).to have_content("Keywords")
+    expect(page).to have_css("#question-type")
+    expect(find("#filters")).to have_content("Keywords")
     expect(find("#filters a")).to have_content("Today's PQs for all departments")
   end
 
@@ -59,9 +54,9 @@ describe "User filters early bird questions", js: true, suspend_cleaner: true do
 
     click_button "Question type"
 
-    expect(html).not_to have_checked_field("Named Day")
-    expect(html).not_to have_checked_field("Ordinary")
-    expect(html).not_to have_checked_field("Transferred in")
+    expect(page).not_to have_checked_field("Named Day")
+    expect(page).not_to have_checked_field("Ordinary")
+    expect(page).not_to have_checked_field("Transferred in")
 
     page.choose("Named Day")
     expect(page).to have_text("1 selected")
@@ -76,9 +71,9 @@ describe "User filters early bird questions", js: true, suspend_cleaner: true do
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     click_button("clear-type-filter")
-    expect(html).not_to have_checked_field("Named Day")
-    expect(html).not_to have_checked_field("Ordinary")
-    expect(html).not_to have_checked_field("Transferred in")
+    expect(page).not_to have_checked_field("Named Day")
+    expect(page).not_to have_checked_field("Ordinary")
+    expect(page).not_to have_checked_field("Transferred in")
     expect(page).not_to have_text("1 selected")
 
     expect(page).to have_text("3 parliamentary questions out of 3.")

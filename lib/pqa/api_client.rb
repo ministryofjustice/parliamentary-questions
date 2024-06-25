@@ -22,8 +22,8 @@ module PQA
     #
     # @return [Net::HTTP::Response]
     def questions(date_from, date_to, status)
-      uri       = URI.parse(File.join(@base_url, "api/qais/questions"))
-      params    = {
+      uri = URI.parse(File.join(@base_url, "api/qais/questions"))
+      params = {
         "dateFrom" => date_from.xmlschema,
         "dateTo" => date_to&.xmlschema,
         "status" => status,

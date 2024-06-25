@@ -1,23 +1,16 @@
 require "feature_helper"
 
-describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true do
-  include Features::PqHelpers
-
-  let(:ao)        { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:minister)  { Minister.first }
+describe "Testing Quick Action 'Edit PQ dates'", js: true do
+  let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
+  let(:minister) { Minister.first }
   let(:test_date) { "#{Time.zone.today + 3} 12:00" }
-  let(:pq1)       { FactoryBot.create :draft_pending_pq }
-  let(:pq2)       { FactoryBot.create :draft_pending_pq }
-  let(:pq3)       { FactoryBot.create :draft_pending_pq }
+  let!(:pq1) { FactoryBot.create :draft_pending_pq }
+  let!(:pq2) { FactoryBot.create :draft_pending_pq }
+  let!(:pq3) { FactoryBot.create :draft_pending_pq }
 
   before do
-    DbHelpers.load_feature_fixtures
     create_pq_session
     click_link "In progress"
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "Check all elements are present" do
@@ -47,6 +40,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
       click_on "Edit PQ dates"
       expect(page).to have_text("3 PQs selected")
       fill_in "qa_edit_deadline_date", with: test_date
+      find(".notice").click
       click_on "Edit"
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
@@ -77,8 +71,11 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
       click_on "Edit PQ dates"
       expect(page).to have_text("1 PQ selected")
       fill_in datetype, with: test_date
+      sleep 1
+      find(".notice").click
       click_on "Edit"
     end
+
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
     within("#pq-frame-1") { click_link(pq1.uin.to_s) }
     click_link(tablink)
@@ -90,7 +87,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true, suspend_cleaner: true
     click_link "In progress"
     within("#pq-frame-3") { click_link(pq3.uin.to_s) }
     click_link(tablink)
-    expect(page).to have_field("pq[#{datefield}]", with: test_date)
+    expect(page).to have_field("pq[#{datefield}]", with: "#{test_date}:00 UTC")
     click_link "In progress"
   end
 end

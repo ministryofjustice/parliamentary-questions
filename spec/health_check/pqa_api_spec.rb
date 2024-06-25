@@ -1,4 +1,4 @@
-require "feature_helper"
+require "spec_helper"
 
 describe HealthCheck::PQAApi do
   let(:pqa) { described_class.new }

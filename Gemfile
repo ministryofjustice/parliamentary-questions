@@ -40,22 +40,20 @@ group :development do
 end
 
 group :test, :development do
-  gem "awesome_print", "~> 1.9", ">= 1.9.2"
   gem "better_errors"
   gem "binding_of_caller"
   gem "brakeman"
-  gem "database_cleaner", "~> 2.0", ">= 2.0.1"
-  gem "debug", "~> 1.8"
-  gem "factory_bot_rails", "~> 6.2"
-  gem "faker", "~> 3.2"
-  gem "launchy", "~> 3.0"
-  gem "letter_opener", "~> 1.7"
-  gem "poltergeist", "~> 1.18", ">= 1.18.1"
-  gem "rails-controller-testing", "~> 1.0", ">= 1.0.5"
-  gem "rspec-rails", "~> 6.0"
+  gem "capybara"
+  gem "database_cleaner"
+  gem "debug"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "rails-controller-testing"
+  gem "rspec-rails"
   gem "rubocop-govuk", require: false
-  gem "shoulda-matchers", "~> 5.1", require: false
-  gem "timecop", "~> 0.9.10"
+  gem "selenium-webdriver"
+  gem "shoulda-matchers", require: false
+  gem "timecop"
 end
 
 group :test do

@@ -21,19 +21,8 @@ require "bundler/setup"
 
 ::Shoulda::Matchers.configure do |config|
   config.integrate do |with|
-    # Choose a test framework:
     with.test_framework :rspec
-    # with.test_framework :minitest
-    # with.test_framework :minitest_4
-    # with.test_framework :test_unit
-
-    # Choose one or more libraries:
-    with.library :active_record
-    with.library :active_model
-    # with.library :action_controller
-
-    # Or, choose the following (which implies all of the above):
-    # with.library :rails
+    with.library :rails
   end
 end
 
@@ -75,21 +64,22 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
+  # Start mock API server instance
+  mock_api_runner = PQA::MockApiServerRunner.new
+
   # Databse cleaner setup
-  # Use truncation in js tests, transaction otherwise
-  # source: http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
+    mock_api_runner.start
     DatabaseCleaner.strategy = :transaction
-    DbHelpers.load_spec_fixtures
+    DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before do
-    DatabaseCleaner.start
+  config.around do |example|
+    DatabaseCleaner.cleaning { example.run }
   end
 
-  config.after do
-    DatabaseCleaner.clean
+  config.after(:suite) do
+    mock_api_runner.stop
   end
 end
 

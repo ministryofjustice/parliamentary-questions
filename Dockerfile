@@ -27,7 +27,7 @@ RUN chown -R appuser:appgroup /usr/src/app/
 USER appuser
 USER 1000
 
-RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret GOVUK_NOTIFY_API_KEY=key bundle exec rake assets:precompile
+RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret bundle exec rake assets:precompile
 
 # non-root/appuser should own only what they need to
 RUN chown -R appuser:appgroup ./*

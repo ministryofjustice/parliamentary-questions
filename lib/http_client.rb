@@ -4,9 +4,9 @@ class HTTPClient
   attr_reader :base_url
 
   def initialize(base_url, username, password, pem_file_path)
-    @base_url      = base_url
-    @username      = username
-    @password      = password
+    @base_url = base_url
+    @username = username
+    @password = password
     @pem_file_path = pem_file_path
   end
 

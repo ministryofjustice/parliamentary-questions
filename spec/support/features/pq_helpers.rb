@@ -16,7 +16,12 @@ module Features
         action_officers.each do |ao|
           select ao.name, from: "Action officer(s)"
         end
+
+        find(".answer-date").set Date.tomorrow.strftime("%d/%m/%Y")
+        find(".pq-question").click
         find("#internal-deadline input").set Date.tomorrow.strftime("%d/%m/%Y 12:00")
+        find(".pq-question").click
+
         click_on "Commission"
       end
       expect(page).to have_content("#{uin} commissioned successfully")
@@ -71,7 +76,7 @@ module Features
     end
 
     def visit_watchlist_url(expiry = Time.zone.now.utc)
-      token_db = Token.find_by(path: watchlist_dashboard_path, expire: expiry.end_of_day)
+      token_db = FactoryBot.create(:token, path: watchlist_dashboard_path, expire: expiry.end_of_day)
       entity = token_db.entity
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire.end_of_day)
 
@@ -79,20 +84,58 @@ module Features
     end
 
     def visit_earlybird_url(expiry = Time.zone.now.utc)
-      token_db = Token.find_by(path: early_bird_dashboard_path, expire: expiry.end_of_day)
+      token_db = FactoryBot.create(:token, path: early_bird_dashboard_path, expire: expiry.end_of_day)
       entity = token_db.entity
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 
       visit early_bird_dashboard_url(token:, entity:)
     end
 
-    def visit_assignment_url(parliamentary_question, _action_officer)
+    def visit_assignment_url(parliamentary_question, action_officer)
       pq = Pq.find_by(uin: parliamentary_question.uin)
-      ao_pq = ActionOfficersPq.find_by(action_officer_id: ao.id, pq_id: parliamentary_question.id)
+      ao_pq = ActionOfficersPq.find_by(action_officer_id: action_officer.id, pq_id: parliamentary_question.id)
       token_db = Token.find_by(path: assignment_path(uin: pq.uin.encode), entity: "assignment:#{ao_pq.id}")
       token = TokenService.new.generate_token(token_db.path, token_db.entity, token_db.expire)
 
       visit assignment_path(uin: pq.uin, token:, entity: token_db.entity)
+    end
+
+    def test_date(filter_box, id, date)
+      within("#{filter_box}.filter-box") { fill_in id, with: date.strftime("%d/%m/%Y") }
+    end
+
+    def test_checkbox(filter_box, category, term)
+      within("#{filter_box}.filter-box") do
+        find_button(category).click
+        choose(term)
+        within(".notice") { expect(page.text).to eq("1 selected") }
+      end
+    end
+
+    def test_keywords(term)
+      fill_in "keywords", with: term
+    end
+
+    def clear_filter(filter_name)
+      find("h1").click
+      within("#{filter_name}.filter-box") do
+        find_button("Clear").click
+        expect(page).not_to have_text("1 selected")
+      end
+    end
+
+    def all_pqs(number_of_questions, visibility)
+      counter = 1
+      within(".questions-list") do
+        if visibility == "hidden"
+          expect(page).not_to have_selector("li")
+        else
+          while number_of_questions > counter
+            find("li#pq-frame-#{counter}").visible?
+            counter += 1
+          end
+        end
+      end
     end
 
   private

@@ -1,14 +1,14 @@
 module PQA
   class Import
     def initialize(pqa_service = nil)
-      @pqa_service         = pqa_service || PQAService.from_settings
+      @pqa_service         = PQAService.new(pqa_service) || PQAService.from_settings
       @logger              = LogStuff
       init_state!
     end
 
     def run(date_from, date_to)
       query_api_and_update do
-        @pqa_service.questions(date_from, date_to)
+        @pqa_service.questions(date_from, date_to, "Tabled")
       end
     end
 
@@ -23,7 +23,7 @@ module PQA
     def query_api_and_update(&block)
       init_state!
       questions = block.call
-      @total    = questions.size
+      @total = questions.size
       questions.each { |q| insert_or_update(q) }
       report
     end
