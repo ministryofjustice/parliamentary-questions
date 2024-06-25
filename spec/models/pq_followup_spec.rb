@@ -30,7 +30,7 @@ describe PqFollowup do
     service = AssignmentService.new
     service.accept(assignment)
     pq2 = pq.find_or_create_follow_up
-    aopq = pq2.action_officers_pqs.where(pq_id: pq2.id).take
+    aopq = pq2.action_officers_pqs.find_by(pq_id: pq2.id)
     expect(aopq.action_officer.name).to eql("ao name 1")
   end
 end
