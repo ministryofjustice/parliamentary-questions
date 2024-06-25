@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby File.read(".ruby-version").strip
 
 gem "bootstrap-will_paginate", "~> 1.0"
-gem "business_time", "~> 0.11.0"
+gem "business_time", "~> 0.13.0"
 gem "devise", "~> 4.8"
 gem "devise_invitable", "~> 2.0"
 gem "font-awesome-rails", "~> 4.7"
