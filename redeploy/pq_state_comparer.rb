@@ -5,7 +5,7 @@ module Redeploy
     end
 
     def update_all_states!
-      Pq.all.each(&:update_state!)
+      Pq.all.find_each(&:update_state!)
     end
 
     def run

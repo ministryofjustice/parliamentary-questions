@@ -36,9 +36,9 @@ private
     token_service = TokenService.new
     path = "/early_bird/dashboard"
     if entity && token
-      return token_service.valid?(token, path, entity) && !
-        token_service.expired?(token, path, entity)
+      return token_service.valid?(token, path, entity) && !token_service.expired?(token, path, entity)
     end
+
     false
   end
 
