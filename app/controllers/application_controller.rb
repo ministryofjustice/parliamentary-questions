@@ -48,6 +48,11 @@ class ApplicationController < ActionController::Base
     @page_title = "#{prefix} - #{suffix}"
   end
 
+  def authenticate_admin!
+    authenticate_user!
+    redirect_to root_path, status: :forbidden and return unless current_user.admin?
+  end
+
 protected
 
   def set_page_title
