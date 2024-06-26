@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_111426) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_142052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_111426) do
     t.boolean "deleted", default: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "archives", force: :cascade do |t|
+    t.string "prefix"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prefix"], name: "index_archives_on_prefix", unique: true
   end
 
   create_table "deputy_directors", id: :serial, force: :cascade do |t|
