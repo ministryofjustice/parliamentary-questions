@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
-
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_111426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "action_officers", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "deleted", default: false
     t.string "phone"
     t.integer "deputy_director_id"
@@ -33,8 +32,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.integer "action_officer_id", null: false
     t.text "reason"
     t.string "reason_option"
-    t.datetime "updated_at"
-    t.datetime "created_at"
+    t.datetime "updated_at", precision: nil
+    t.datetime "created_at", precision: nil
     t.integer "reminder_accept", default: 0
     t.integer "reminder_draft", default: 0
     t.string "response", default: "awaiting"
@@ -44,8 +43,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "name"
     t.string "email"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "deputy_directors", id: :serial, force: :cascade do |t|
@@ -53,38 +52,38 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "email"
     t.integer "division_id"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "directorates", id: :serial, force: :cascade do |t|
     t.string "name"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "divisions", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "directorate_id"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "early_bird_members", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.boolean "deleted"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "early_bird_organisers", force: :cascade do |t|
     t.date "date_from"
     t.date "date_to"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "emails", id: :serial, force: :cascade do |t|
@@ -95,19 +94,19 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.text "to"
     t.text "cc"
     t.text "reply_to"
-    t.datetime "send_attempted_at"
-    t.datetime "sent_at"
+    t.datetime "send_attempted_at", precision: nil
+    t.datetime "sent_at", precision: nil
     t.integer "num_send_attempts", default: 0
     t.string "status", default: "new"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "import_logs", id: :serial, force: :cascade do |t|
     t.string "log_type"
     t.text "msg"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "minister_contacts", id: :serial, force: :cascade do |t|
@@ -122,8 +121,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "name"
     t.string "title"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "member_id"
   end
 
@@ -131,30 +130,30 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "name"
     t.string "acronym"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "pqa_import_runs", id: :serial, force: :cascade do |t|
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.datetime "start_time", precision: nil
+    t.datetime "end_time", precision: nil
     t.string "status"
     t.integer "num_created"
     t.integer "num_updated"
     t.text "error_messages"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "pqs", id: :serial, force: :cascade do |t|
     t.integer "house_id"
     t.integer "raising_member_id"
-    t.datetime "tabled_date"
-    t.datetime "response_due"
+    t.datetime "tabled_date", precision: nil
+    t.datetime "response_due", precision: nil
     t.text "question"
     t.string "answer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "finance_interest"
     t.boolean "seen_by_finance", default: false
     t.string "uin"
@@ -163,53 +162,54 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "house_name"
     t.date "date_for_answer"
     t.boolean "registered_interest"
-    t.datetime "internal_deadline"
+    t.datetime "internal_deadline", precision: nil
     t.string "question_type"
     t.integer "minister_id"
     t.integer "policy_minister_id"
     t.integer "progress_id"
-    t.datetime "draft_answer_received"
-    t.datetime "i_will_write_estimate"
-    t.datetime "holding_reply"
+    t.datetime "draft_answer_received", precision: nil
+    t.datetime "i_will_write_estimate", precision: nil
+    t.datetime "holding_reply", precision: nil
     t.string "preview_url"
-    t.datetime "pod_waiting"
-    t.datetime "pod_query"
-    t.datetime "pod_clearance"
+    t.datetime "pod_waiting", precision: nil
+    t.datetime "pod_query", precision: nil
+    t.datetime "pod_clearance", precision: nil
     t.boolean "transferred"
     t.string "question_status"
     t.boolean "round_robin"
-    t.datetime "round_robin_date"
+    t.datetime "round_robin_date", precision: nil
     t.boolean "i_will_write"
     t.boolean "pq_correction_received"
-    t.datetime "correction_circulated_to_action_officer"
+    t.datetime "correction_circulated_to_action_officer", precision: nil
     t.boolean "pod_query_flag"
-    t.datetime "sent_to_policy_minister"
+    t.datetime "sent_to_policy_minister", precision: nil
     t.boolean "policy_minister_query"
-    t.datetime "policy_minister_to_action_officer"
-    t.datetime "policy_minister_returned_by_action_officer"
-    t.datetime "resubmitted_to_policy_minister"
-    t.datetime "cleared_by_policy_minister"
-    t.datetime "sent_to_answering_minister"
+    t.datetime "policy_minister_to_action_officer", precision: nil
+    t.datetime "policy_minister_returned_by_action_officer", precision: nil
+    t.datetime "resubmitted_to_policy_minister", precision: nil
+    t.datetime "cleared_by_policy_minister", precision: nil
+    t.datetime "sent_to_answering_minister", precision: nil
     t.boolean "answering_minister_query"
-    t.datetime "answering_minister_to_action_officer"
-    t.datetime "answering_minister_returned_by_action_officer"
-    t.datetime "resubmitted_to_answering_minister"
-    t.datetime "cleared_by_answering_minister"
-    t.datetime "answer_submitted"
+    t.datetime "answering_minister_to_action_officer", precision: nil
+    t.datetime "answering_minister_returned_by_action_officer", precision: nil
+    t.datetime "resubmitted_to_answering_minister", precision: nil
+    t.datetime "cleared_by_answering_minister", precision: nil
+    t.datetime "answer_submitted", precision: nil
     t.boolean "library_deposit"
-    t.datetime "pq_withdrawn"
+    t.datetime "pq_withdrawn", precision: nil
     t.boolean "holding_reply_flag"
     t.string "final_response_info_released"
-    t.datetime "round_robin_guidance_received"
+    t.datetime "round_robin_guidance_received", precision: nil
     t.integer "transfer_out_ogd_id"
-    t.datetime "transfer_out_date"
+    t.datetime "transfer_out_date", precision: nil
     t.integer "directorate_id"
     t.integer "original_division_id"
     t.integer "transfer_in_ogd_id"
-    t.datetime "transfer_in_date"
+    t.datetime "transfer_in_date", precision: nil
     t.string "follow_up_to"
     t.string "state", default: "unassigned"
     t.integer "state_weight", default: 0
+    t.boolean "archived", default: false
     t.index "date_part('day'::text, (date_for_answer)::timestamp without time zone)", name: "days_from_date_for_answer"
     t.index ["date_for_answer"], name: "index_pqs_on_date_for_answer"
     t.index ["internal_deadline"], name: "index_pqs_on_internal_deadline"
@@ -223,8 +223,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
   create_table "press_desks", id: :serial, force: :cascade do |t|
     t.string "name"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "press_officers", id: :serial, force: :cascade do |t|
@@ -232,26 +232,26 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "email"
     t.integer "press_desk_id"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "progresses", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "progress_order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "tokens", id: :serial, force: :cascade do |t|
     t.string "path"
     t.string "token_digest"
-    t.datetime "expire"
+    t.datetime "expire", precision: nil
     t.string "entity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "acknowledged"
-    t.datetime "ack_time"
+    t.datetime "ack_time", precision: nil
     t.index ["entity"], name: "index_tokens_on_entity", unique: true
   end
 
@@ -260,8 +260,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.integer "size"
     t.binary "data"
     t.integer "pq_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "deleted", default: false
   end
 
@@ -269,20 +269,20 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: ""
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "name"
     t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at", precision: nil
+    t.datetime "invitation_sent_at", precision: nil
+    t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
     t.string "invited_by_type"
     t.integer "invited_by_id"
@@ -291,7 +291,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.boolean "deleted", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -307,7 +307,7 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "whodunnit"
     t.text "object"
     t.text "object_changes"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
@@ -315,8 +315,8 @@ ActiveRecord::Schema[6.1].define(version: 2023_11_07_135812) do
     t.string "name"
     t.string "email"
     t.boolean "deleted", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
 end
