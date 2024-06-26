@@ -212,11 +212,11 @@ jobs:
           parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/nightly-import \
+          cronjobs/nightly-import \
           nightly-import="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/trim-database \
+          cronjobs/trim-database \
           trim-database="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
@@ -313,11 +313,11 @@ jobs:
           parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/nightly-import \
+          cronjobs/nightly-import \
           nightly-import="${{ vars.ECR_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
-          jobs/early-bird-dispatch \
+          cronjobs/early-bird-dispatch \
           early-bird-dispatch="${{ vars.ECR_URL }}:$SHA"
 
       - name: Send deploy notification to product Slack channel
