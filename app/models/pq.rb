@@ -132,6 +132,8 @@ class Pq < ApplicationRecord
   validate  :sole_accepted_action_officer
   before_update :set_pod_waiting, :set_state_weight
 
+  scope :unarchived, -> { where(archived: false) }
+
   def set_pod_waiting
     self.pod_waiting = draft_answer_received if draft_answer_received_changed?
   end

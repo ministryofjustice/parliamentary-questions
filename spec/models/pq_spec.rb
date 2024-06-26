@@ -88,6 +88,17 @@ describe Pq do
     end
   end
 
+  describe "scopes" do
+    describe ".unarchived" do
+      it "only returns questions that have not been archived" do
+        create_list(:pq, 2, archived: true)
+        unarchived = create_list(:pq, 2, archived: false)
+
+        expect(described_class.unarchived).to match unarchived
+      end
+    end
+  end
+
   describe ".sorted_for_dashboard" do
     it "sorts pqs in the expected order" do
       # Start with randomly ordered PQs
