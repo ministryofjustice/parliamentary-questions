@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin!
     authenticate_user!
-    redirect_to root_path, status: :forbidden and return unless current_user.admin?
+    redirect_to root_path and return unless current_user.admin?
   end
 
 protected

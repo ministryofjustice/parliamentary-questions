@@ -37,6 +37,7 @@ module_function
     [
       ["pq@pq.com", "pq-user", User::ROLE_PQ_USER],
       ["fin@fin.com", "finance-user", User::ROLE_FINANCE],
+      ["admin@admin.com", "admin-user", "#{User::ROLE_PQ_USER},#{User::ROLE_ADMIN}"],
     ].map do |email, name, role|
       u = User.find_or_initialize_by(email:, name:, roles: role)
       u.update!(password: USER_PASSWORD, password_confirmation: USER_PASSWORD) if u.new_record?

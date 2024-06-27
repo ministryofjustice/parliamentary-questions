@@ -27,7 +27,7 @@
           li
             = link_to 'Suspend early bird email', early_bird_organiser_new_path
           li
-            = link_to 'Archive PQ Session', archive_path if current_user.admin?
+            = link_to 'Archive PQ Session', new_archive_path if current_user.admin?
     .col-md-4
       h2 User admin
       nav

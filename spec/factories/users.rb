@@ -39,5 +39,11 @@ FactoryBot.define do
     email { "user.one@admin.com" }
     password { "123456789" }
     roles { "PQUSER" }
+
+    factory :admin do
+      roles { "PQUSER,ADMIN" }
+    end
   end
+
+
 end

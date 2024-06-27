@@ -1,5 +1,5 @@
 #admin-wl-form
-  = form_for @archive, url: archive_path do |f|
+  = form_for @archive do |f|
     = render partial: 'shared/errors', object: @archive
     - if @archive.errors.any?
     fieldset
