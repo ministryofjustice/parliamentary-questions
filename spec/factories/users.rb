@@ -44,6 +44,4 @@ FactoryBot.define do
       roles { "PQUSER,ADMIN" }
     end
   end
-
-
 end
