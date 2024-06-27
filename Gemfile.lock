@@ -462,7 +462,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate (~> 3.2)
+  annotate
   better_errors
   binding_of_caller
   bootstrap-will_paginate (~> 1.0)

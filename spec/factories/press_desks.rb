@@ -3,10 +3,10 @@
 # Table name: press_desks
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  deleted    :boolean          default(FALSE)
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

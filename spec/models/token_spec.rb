@@ -3,13 +3,13 @@
 # Table name: tokens
 #
 #  id           :integer          not null, primary key
-#  path         :string(255)
-#  token_digest :string(255)
+#  path         :string
+#  token_digest :string
 #  expire       :datetime
-#  entity       :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
-#  acknowledged :string(255)
+#  entity       :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  acknowledged :string
 #  ack_time     :datetime
 #
 

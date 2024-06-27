@@ -3,12 +3,12 @@
 # Table name: trim_links
 #
 #  id         :integer          not null, primary key
-#  filename   :string(255)
+#  filename   :string
 #  size       :integer
 #  data       :binary
 #  pq_id      :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  deleted    :boolean          default(FALSE)
 #
 

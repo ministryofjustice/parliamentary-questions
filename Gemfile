@@ -36,7 +36,7 @@ gem "unicorn", "~> 6.1"
 gem "will_paginate", "~> 4.0"
 
 group :development do
-  gem "annotate", "~> 3.2"
+  gem "annotate"
 end
 
 group :test, :development do

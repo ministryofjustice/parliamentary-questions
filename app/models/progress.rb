@@ -3,10 +3,10 @@
 # Table name: progresses
 #
 #  id             :integer          not null, primary key
-#  name           :string(255)
+#  name           :string
 #  progress_order :integer
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 class Progress < ApplicationRecord

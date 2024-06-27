@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: early_bird_organisers
+#
+#  id         :bigint           not null, primary key
+#  date_from  :date
+#  date_to    :date
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class EarlyBirdOrganiser < ApplicationRecord
   validates :date_from, presence: true
   validates :date_to, presence: true

@@ -3,11 +3,11 @@
 # Table name: ogds
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  acronym    :string(255)
+#  name       :string
+#  acronym    :string
 #  deleted    :boolean          default(FALSE)
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Ogd < ApplicationRecord

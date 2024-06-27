@@ -6,12 +6,12 @@
 #  pq_id             :integer          not null
 #  action_officer_id :integer          not null
 #  reason            :text
-#  reason_option     :string(255)
+#  reason_option     :string
 #  updated_at        :datetime
 #  created_at        :datetime
 #  reminder_accept   :integer          default(0)
 #  reminder_draft    :integer          default(0)
-#  response          :string(255)      default("awaiting")
+#  response          :string           default("awaiting")
 #
 
 class ActionOfficersPq < ApplicationRecord
