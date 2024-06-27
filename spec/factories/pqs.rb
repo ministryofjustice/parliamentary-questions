@@ -69,7 +69,7 @@
 
 FactoryBot.define do
   factory :pq do
-    uin { Faker::Lorem.characters(number: 10) }
+    uin { "1#{Faker::Lorem.characters(number: 10)}" }
     house_id { 1 }
     raising_member_id { 1 }
     tabled_date { "2014-05-08 13:45:31" }
