@@ -37,6 +37,7 @@ describe "Archive session", js: true do
     it "updates the page with new archive details" do
       fill_in "prefix", with: "d"
       click_button "Archive current session"
+      expect(page).to have_title("Archive PQ Session")
       within("h2") { expect(page.text).to eq("There are 0 unarchived questions") }
       within("h3") { expect(page.text).to eq("Prefixes previously used, or reserved: £, a, b, d") }
     end
