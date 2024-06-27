@@ -3,7 +3,6 @@ class ArchivesController < ApplicationController
   before_action :set_variables
 
   def new
-    update_page_title "Archive PQ Session"
     @archive = Archive.new
   end
 
@@ -28,6 +27,7 @@ class ArchivesController < ApplicationController
 private
 
   def set_variables
+    update_page_title "Archive PQ Session"
     @all_prefixes = Archive.all_prefixes
     @count = Pq.unarchived.count
   end
