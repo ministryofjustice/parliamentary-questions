@@ -30,4 +30,15 @@ describe Archive do
       expect(archive.prefix).to eq "t"
     end
   end
+
+  describe ".all_prefixes" do
+    it "returns string listing all prefixes" do
+      p1 = create(:archive).prefix
+      p2 = create(:archive).prefix
+      p3 = create(:archive).prefix
+      p4 = create(:archive).prefix
+
+      expect(described_class.all_prefixes).to eq "#{p1}, #{p2}, #{p3}, #{p4}"
+    end
+  end
 end

@@ -4,6 +4,10 @@ class Archive < ApplicationRecord
   validates :prefix, presence: true, uniqueness: true
   validate :check_numeric
 
+  def self.all_prefixes
+    Archive.pluck(:prefix).join(", ")
+  end
+
 private
 
   def downcase_prefix
