@@ -79,8 +79,6 @@ class NotifyPqMailer < ApplicationMailer
       date_to_parliament: date_to_parliament_text(pq) || "",
       internal_deadline: internal_deadline_text(pq) || "",
       cc_list: cc_list(pq, action_officer) || "",
-      finance_users_emails: finance_users_emails(pq) || "",
-      finance_list: finance_list(pq) || "",
       press_email: press_emails(action_officer) || "",
       mail_reply_to: Settings.mail_reply_to,
     )

@@ -9,7 +9,6 @@ module Presenters
         cc: action_officer.group_email,
         date_to_parliament: parliamentary_question.date_for_answer.try(:to_formatted_s, :date),
         email: action_officer.email,
-        finance_users_emails: finance_users_emails(parliamentary_question).join(";"),
         house_name: parliamentary_question.house_name,
         internal_deadline: format_internal_deadline(parliamentary_question),
         member_constituency: parliamentary_question.member_constituency,
@@ -36,26 +35,11 @@ module Presenters
         mp_emails(parliamentary_question) +
         policy_mpemails(parliamentary_question) +
         action_list_emails +
-        finance_users_emails(parliamentary_question) +
         press_emails(action_officer)
 
       cc_list
         .reject(&:blank?)
         .join(";")
-    end
-
-    def finance_list_hash(parliamentary_question)
-      default_hash(parliamentary_question)
-        .merge(finance_list: finance_list(parliamentary_question))
-    end
-
-    def finance_list(parliamentary_question)
-      finance_list = finance_users_emails(parliamentary_question)
-      if finance_list.empty?
-        ["No Finance users have an interest in this question."]
-      else
-        finance_list.reject(&:blank?)
-      end
     end
 
     # private_class_method
@@ -74,14 +58,6 @@ module Presenters
 
     def action_list_emails
       ActionlistMember.active.pluck(:email)
-    end
-
-    def finance_users_emails(parliamentary_question)
-      if parliamentary_question.finance_interest
-        User.finance.where.not(email: nil).map(&:email)
-      else
-        []
-      end
     end
 
     def format_internal_deadline(parliamentary_question)

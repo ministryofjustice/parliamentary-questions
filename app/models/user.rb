@@ -35,12 +35,10 @@ class User < ApplicationRecord
   extend  SoftDeletion::Collection
   include SoftDeletion::Record
 
-  ROLE_PQ_USER  = "PQUSER".freeze
-  ROLE_FINANCE  = "FINANCE".freeze
+  ROLE_PQ_USER = "PQUSER".freeze
   ROLE_ADMIN = "ADMIN".freeze
 
   ROLES = [
-    ROLE_FINANCE,
     ROLE_PQ_USER,
     ROLE_ADMIN,
   ].freeze
@@ -62,10 +60,6 @@ class User < ApplicationRecord
 
   after_initialize :set_defaults
 
-  def self.finance
-    active.where(roles: ROLE_FINANCE)
-  end
-
   def invited_by_user
     invited_by_id && User.find(invited_by_id).name
   end
@@ -80,10 +74,6 @@ class User < ApplicationRecord
 
   def pq_user?
     roles.split(",").include?(ROLE_PQ_USER)
-  end
-
-  def finance_user?
-    roles == ROLE_FINANCE
   end
 
   def admin?
