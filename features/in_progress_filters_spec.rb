@@ -88,8 +88,7 @@ describe "'In progress' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  # Disable internal-deadline filter tests as feature is broken
-  xit "7) by Internal Deadline (From: 10 days ago)." do
+  it "7) by Internal Deadline (From: 10 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 10)
     find("h1").click
     within("#count") { expect(page).to have_text("16 parliamentary questions out of 16.") }
@@ -99,7 +98,7 @@ describe "'In progress' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "8) by Internal Deadline (From: 9 days time)." do
+  it "8) by Internal Deadline (From: 9 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 9)
     find("h1").click
     within("#count") { expect(page).to have_text("6 parliamentary questions out of 16") }
@@ -116,7 +115,7 @@ describe "'In progress' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "9) by Internal Deadline (From: 20 days time)." do
+  it "9) by Internal Deadline (From: 20 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 20)
     find("h1").click
     within("#count") { expect(page).to have_text("0 parliamentary questions out of 16.") }
@@ -126,7 +125,7 @@ describe "'In progress' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "10) by Internal Deadline (To: 10 days ago)." do
+  it "10) by Internal Deadline (To: 10 days ago)." do
     test_date("#internal-deadline", "deadline-to", Time.zone.today - 10)
     find("h1").click
     within("#count") { expect(page).to have_text("0 parliamentary questions out of 16.") }
@@ -136,7 +135,7 @@ describe "'In progress' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "11) by Internal Deadline (To: 9 days time)." do
+  it "11) by Internal Deadline (To: 9 days time)." do
     test_date("#internal-deadline", "deadline-to", Time.zone.today + 9)
     find("h1").click
     within("#count") { expect(page).to have_text("11 parliamentary questions out of 16.") }
@@ -158,7 +157,7 @@ describe "'In progress' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "12) by Internal Deadline (To: 20 days time." do
+  it "12) by Internal Deadline (To: 20 days time." do
     test_date("#internal-deadline", "deadline-to", Time.zone.today + 20)
     find("h1").click
     within("#count") { expect(page).to have_text("16 parliamentary questions out of 16.") }

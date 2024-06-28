@@ -94,8 +94,8 @@ describe "'Backlog' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  # Disabling internal deadline filter tests as it is broken
-  xit "7) by Internal Deadline (From: 20 days ago)." do
+
+  it "7) by Internal Deadline (From: 20 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 20)
     test_date("#date-for-answer", "answer-to", Time.zone.today)
     find("h1").click
@@ -106,7 +106,7 @@ describe "'Backlog' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "8) by Internal Deadline (From: 7 days ago)." do
+  it "8) by Internal Deadline (From: 7 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 7)
     test_date("#date-for-answer", "answer-to", Time.zone.today)
     find("h1").click
@@ -124,7 +124,7 @@ describe "'Backlog' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "9) by Internal Deadline (From: 20 days time)." do
+  it "9) by Internal Deadline (From: 20 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 20)
     test_date("#date-for-answer", "answer-to", Time.zone.today + 20)
     find("h1").click
@@ -135,7 +135,7 @@ describe "'Backlog' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "10) by Internal Deadline (To: 20 days ago)." do
+  it "10) by Internal Deadline (To: 20 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 20)
     test_date("#internal-deadline", "deadline-to", Time.zone.today - 20)
     find("h1").click
@@ -146,7 +146,7 @@ describe "'Backlog' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "11) by Internal Deadline (To: 7 days ago)." do
+  it "11) by Internal Deadline (To: 7 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 20)
     test_date("#internal-deadline", "deadline-to", Time.zone.today - 7)
     find("h1").click
@@ -169,7 +169,7 @@ describe "'Backlog' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-  xit "12) by Internal Deadline (To: 10 days time)." do
+  it "12) by Internal Deadline (To: 10 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today)
     test_date("#internal-deadline", "deadline-to", Time.zone.today + 10)
     find("h1").click
