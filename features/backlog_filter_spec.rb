@@ -94,7 +94,6 @@ describe "'Backlog' page filtering:", js: true do
     all_pqs(16, "visible")
   end
 
-
   it "7) by Internal Deadline (From: 20 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 20)
     test_date("#date-for-answer", "answer-to", Time.zone.today)
