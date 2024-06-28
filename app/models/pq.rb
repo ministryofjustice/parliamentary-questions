@@ -1,5 +1,4 @@
 # == Schema Information
-# == Schema Information
 #
 # Table name: pqs
 #
@@ -9,31 +8,31 @@
 #  tabled_date                                   :datetime
 #  response_due                                  :datetime
 #  question                                      :text
-#  answer                                        :string(255)
-#  created_at                                    :datetime
-#  updated_at                                    :datetime
+#  answer                                        :string
+#  created_at                                    :datetime         not null
+#  updated_at                                    :datetime         not null
 #  finance_interest                              :boolean
 #  seen_by_finance                               :boolean          default(FALSE)
-#  uin                                           :string(255)
-#  member_name                                   :string(255)
-#  member_constituency                           :string(255)
-#  house_name                                    :string(255)
+#  uin                                           :string
+#  member_name                                   :string
+#  member_constituency                           :string
+#  house_name                                    :string
 #  date_for_answer                               :date
 #  registered_interest                           :boolean
 #  internal_deadline                             :datetime
-#  question_type                                 :string(255)
+#  question_type                                 :string
 #  minister_id                                   :integer
 #  policy_minister_id                            :integer
 #  progress_id                                   :integer
 #  draft_answer_received                         :datetime
 #  i_will_write_estimate                         :datetime
 #  holding_reply                                 :datetime
-#  preview_url                                   :string(255)
+#  preview_url                                   :string
 #  pod_waiting                                   :datetime
 #  pod_query                                     :datetime
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
-#  question_status                               :string(255)
+#  question_status                               :string
 #  round_robin                                   :boolean
 #  round_robin_date                              :datetime
 #  i_will_write                                  :boolean
@@ -56,6 +55,7 @@
 #  library_deposit                               :boolean
 #  pq_withdrawn                                  :datetime
 #  holding_reply_flag                            :boolean
+#  final_response_info_released                  :string
 #  round_robin_guidance_received                 :datetime
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
@@ -63,9 +63,10 @@
 #  original_division_id                          :integer
 #  transfer_in_ogd_id                            :integer
 #  transfer_in_date                              :datetime
-#  follow_up_to                                  :string(255)
-#  state                                         :string(255)      default("unassigned")
+#  follow_up_to                                  :string
+#  state                                         :string           default("unassigned")
 #  state_weight                                  :integer          default(0)
+#  archived                                      :boolean          default(FALSE)
 #
 
 class Pq < ApplicationRecord
@@ -131,6 +132,8 @@ class Pq < ApplicationRecord
   validate  :transfer_out_consistency
   validate  :sole_accepted_action_officer
   before_update :set_pod_waiting, :set_state_weight
+
+  scope :unarchived, -> { where(archived: false) }
 
   def set_pod_waiting
     self.pod_waiting = draft_answer_received if draft_answer_received_changed?

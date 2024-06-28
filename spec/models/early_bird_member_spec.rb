@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: early_bird_members
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  email      :string
+#  deleted    :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 require "spec_helper"
 
 describe EarlyBirdMember do

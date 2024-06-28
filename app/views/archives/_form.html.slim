@@ -1,0 +1,11 @@
+#admin-wl-form
+  = form_for @archive do |f|
+    = render partial: 'shared/errors', object: @archive
+    fieldset
+      legend Select the prefix to use when archiving questions from the current session
+      .form-group
+        label.form-label for="archive_prefix" Assign prefix
+        = f.text_field :prefix, class:'form-control'
+      .form-group
+        br
+        = f.submit 'Archive current session', :id => 'save', :class => 'button'

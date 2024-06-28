@@ -1,4 +1,14 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+# == Schema Information
+#
+# Table name: early_bird_members
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  email      :string
+#  deleted    :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 
 FactoryBot.define do
   factory :early_bird_member do

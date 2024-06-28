@@ -5,12 +5,12 @@
 #  id             :integer          not null, primary key
 #  start_time     :datetime
 #  end_time       :datetime
-#  status         :string(255)
+#  status         :string
 #  num_created    :integer
 #  num_updated    :integer
 #  error_messages :text
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 require "spec_helper"

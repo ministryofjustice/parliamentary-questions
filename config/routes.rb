@@ -15,6 +15,7 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :ogds
   get "find_ogd" => "ogds#find"
 
+  resources :archives, only: %i[new create]
   resources :press_desks
   resources :press_officers
   resources :progresses

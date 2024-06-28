@@ -83,6 +83,8 @@ module ParliamentaryQuestions
 
     # By default associations can be empty
     config.active_record.belongs_to_required_by_default = false
+
+    config.active_support.cache_format_version = 7.1
   end
 end
 

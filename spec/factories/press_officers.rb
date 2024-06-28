@@ -3,12 +3,12 @@
 # Table name: press_officers
 #
 #  id            :integer          not null, primary key
-#  name          :string(255)
-#  email         :string(255)
+#  name          :string
+#  email         :string
 #  press_desk_id :integer
 #  deleted       :boolean          default(FALSE)
-#  created_at    :datetime
-#  updated_at    :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

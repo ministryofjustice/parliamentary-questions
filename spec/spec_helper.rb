@@ -19,6 +19,8 @@ require "sinatra"
 require "bundler/setup"
 ::Bundler.require(:default, :test)
 
+ActiveRecord::Migration.maintain_test_schema!
+
 ::Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -43,7 +45,7 @@ RSpec.configure do |config|
   # config.include Features::DecisionHelpers, type: :feature
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = Rails.root.join("spec/fixtures").to_s
+  config.fixture_paths = Rails.root.join("spec/fixtures").to_s
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

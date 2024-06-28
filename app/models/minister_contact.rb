@@ -3,9 +3,9 @@
 # Table name: minister_contacts
 #
 #  id          :integer          not null, primary key
-#  name        :string(255)
-#  email       :string(255)
-#  phone       :string(255)
+#  name        :string
+#  email       :string
+#  phone       :string
 #  minister_id :integer
 #  deleted     :boolean          default(FALSE)
 #

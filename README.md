@@ -102,8 +102,11 @@ For development you can create users with a rake task.
 # default user
 rake user:create
 
+# admin user
+rake user:create_admin
+
 # specific email, password, name
-rake "user:create[admin@admin.com, 123456789, admin]"
+rake "user:create_admin[admin@admin.com, 123456789, admin]"
 ```
 
 ## Keeping secrets secure

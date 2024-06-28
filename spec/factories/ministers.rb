@@ -3,11 +3,11 @@
 # Table name: ministers
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  title      :string(255)
+#  name       :string
+#  title      :string
 #  deleted    :boolean          default(FALSE)
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  member_id  :integer
 #
 

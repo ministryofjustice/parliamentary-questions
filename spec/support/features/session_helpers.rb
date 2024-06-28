@@ -10,6 +10,11 @@ module Features
       sign_in(user.email, DbHelpers::USER_PASSWORD)
     end
 
+    def create_admin_session
+      user = DbHelpers.users.find(&:admin?)
+      sign_in(user.email, DbHelpers::USER_PASSWORD)
+    end
+
     def sign_in(email, password)
       visit destroy_user_session_path
       visit new_user_session_path

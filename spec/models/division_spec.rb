@@ -3,11 +3,11 @@
 # Table name: divisions
 #
 #  id             :integer          not null, primary key
-#  name           :string(255)
+#  name           :string
 #  directorate_id :integer
 #  deleted        :boolean          default(FALSE)
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 require "spec_helper"

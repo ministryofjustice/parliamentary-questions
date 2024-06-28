@@ -1,6 +1,29 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "4bfb7252ac34bb07465ca3bbf7082ac23945555d79a5f9fa279d4178e358add8",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/archive_service.rb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Pq.unarchived.update_all(\"uin='#{archive.prefix}'||uin\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ArchiveService",
+        "method": "archive_current"
+      },
+      "user_input": "archive.prefix",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "4c8abd2e60c229fa01041f3a6f4e90d3ca4a81c577cb6f44948e244652249a6f",
@@ -44,6 +67,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-11-09 14:02:18 +0000",
-  "brakeman_version": "5.4.1"
+  "updated": "2024-06-27 14:19:13 +0100",
+  "brakeman_version": "6.1.2"
 }
