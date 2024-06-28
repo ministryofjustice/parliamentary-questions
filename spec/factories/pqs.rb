@@ -95,10 +95,10 @@ FactoryBot.define do
 
       after(:create) do |pq, evaluator|
         create(:action_officers_pq,
-                pq:,
-                action_officer: evaluator.action_officer,
-                created_at: evaluator.action_officer_allocated_at,
-                updated_at: evaluator.action_officer_allocated_at)
+               pq:,
+               action_officer: evaluator.action_officer,
+               created_at: evaluator.action_officer_allocated_at,
+               updated_at: evaluator.action_officer_allocated_at)
       end
     end
 
