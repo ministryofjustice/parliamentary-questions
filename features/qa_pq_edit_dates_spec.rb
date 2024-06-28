@@ -71,7 +71,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
       click_on "Edit PQ dates"
       expect(page).to have_text("1 PQ selected")
       fill_in datetype, with: test_date
-      sleep 1
+      sleep 0.5
       find(".notice").click
       click_on "Edit"
     end
