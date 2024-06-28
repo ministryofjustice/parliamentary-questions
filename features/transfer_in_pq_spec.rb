@@ -15,7 +15,7 @@ describe "Transferring IN questions", js: true do
       .select_option
 
     find("#transfer_in_date").set Time.zone.today.strftime("%d/%m/%Y")
-    sleep 1
+    sleep 0.5
     find("h1").click
     click_on "Create PQ"
   end
