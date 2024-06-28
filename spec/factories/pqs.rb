@@ -80,65 +80,62 @@ FactoryBot.define do
     answer { nil }
     state { PqState::UNASSIGNED }
     member_name { "Diana Johnson" }
+    finance_interest { false }
 
-    factory :checked_by_finance_pq do
-      finance_interest { false }
+    factory :not_responded_pq do
+      state { PqState::NO_RESPONSE }
+      internal_deadline { Faker::Date.forward(days: 14) }
+      date_for_answer { Faker::Date.between(from: internal_deadline, to: internal_deadline + 7.days) }
+      minister
 
-      factory :not_responded_pq do
-        state { PqState::NO_RESPONSE }
-        internal_deadline { Faker::Date.forward(days: 14) }
-        date_for_answer { Faker::Date.between(from: internal_deadline, to: internal_deadline + 7.days) }
-        minister
-
-        transient do
-          action_officer { create(:action_officer) }
-          action_officer_allocated_at { Time.zone.now }
-        end
-
-        after(:create) do |pq, evaluator|
-          create(:action_officers_pq,
-                 pq:,
-                 action_officer: evaluator.action_officer,
-                 created_at: evaluator.action_officer_allocated_at,
-                 updated_at: evaluator.action_officer_allocated_at)
-        end
+      transient do
+        action_officer { create(:action_officer) }
+        action_officer_allocated_at { Time.zone.now }
       end
 
-      factory :draft_pending_pq do
-        state { PqState::DRAFT_PENDING }
-        internal_deadline { Faker::Date.forward(days: 14) }
-        date_for_answer { Faker::Date.between(from: internal_deadline, to: internal_deadline + 7.days) }
-        minister
+      after(:create) do |pq, evaluator|
+        create(:action_officers_pq,
+                pq:,
+                action_officer: evaluator.action_officer,
+                created_at: evaluator.action_officer_allocated_at,
+                updated_at: evaluator.action_officer_allocated_at)
+      end
+    end
 
-        after(:create) do |pq, _|
-          pq.action_officers_pqs = create_list(:accepted_action_officers_pq, 1, pq:)
-        end
+    factory :draft_pending_pq do
+      state { PqState::DRAFT_PENDING }
+      internal_deadline { Faker::Date.forward(days: 14) }
+      date_for_answer { Faker::Date.between(from: internal_deadline, to: internal_deadline + 7.days) }
+      minister
 
-        factory :with_pod_pq do
-          state { PqState::WITH_POD }
-          draft_answer_received { Time.zone.now }
+      after(:create) do |pq, _|
+        pq.action_officers_pqs = create_list(:accepted_action_officers_pq, 1, pq:)
+      end
 
-          factory :pod_query_pq do
-            state { PqState::POD_QUERY }
-            pod_query_flag { true }
+      factory :with_pod_pq do
+        state { PqState::WITH_POD }
+        draft_answer_received { Time.zone.now }
 
-            factory :pod_cleared_pq do
-              state { PqState::POD_CLEARED }
-              pod_clearance { Time.zone.now }
+        factory :pod_query_pq do
+          state { PqState::POD_QUERY }
+          pod_query_flag { true }
 
-              factory :with_minister_pq do
-                state { PqState::WITH_MINISTER }
-                sent_to_answering_minister { Time.zone.now }
+          factory :pod_cleared_pq do
+            state { PqState::POD_CLEARED }
+            pod_clearance { Time.zone.now }
 
-                factory :ministerial_query_pq do
-                  state { PqState::MINISTERIAL_QUERY }
-                  answering_minister_query { true }
-                end
+            factory :with_minister_pq do
+              state { PqState::WITH_MINISTER }
+              sent_to_answering_minister { Time.zone.now }
 
-                factory :minister_cleared_pq do
-                  state { PqState::MINISTER_CLEARED }
-                  cleared_by_answering_minister { Time.zone.now }
-                end
+              factory :ministerial_query_pq do
+                state { PqState::MINISTERIAL_QUERY }
+                answering_minister_query { true }
+              end
+
+              factory :minister_cleared_pq do
+                state { PqState::MINISTER_CLEARED }
+                cleared_by_answering_minister { Time.zone.now }
               end
             end
           end

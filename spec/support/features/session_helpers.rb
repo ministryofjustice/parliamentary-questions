@@ -5,11 +5,6 @@ module Features
       sign_in(user.email, DbHelpers::USER_PASSWORD)
     end
 
-    def create_finance_session
-      user = DbHelpers.users.find(&:finance_user?)
-      sign_in(user.email, DbHelpers::USER_PASSWORD)
-    end
-
     def create_admin_session
       user = DbHelpers.users.find(&:admin?)
       sign_in(user.email, DbHelpers::USER_PASSWORD)
