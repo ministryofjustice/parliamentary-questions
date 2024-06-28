@@ -184,7 +184,7 @@ var document, $, ga;
           $(li).css('display', 'none');
         }
         var mQuestionDate = moment(questionDate, "DD/MM/YYYY");
-        if (questionDateLocation = ".deadline-date") {
+        if (questionDateLocation == ".deadline-date") {
           mQuestionDate = moment(questionDate, "YYYY-MM-DD");
         }
         var mFilterDate = moment(filterDate, "DD/MM/YYYY");
