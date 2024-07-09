@@ -1,10 +1,5 @@
 module Features
   module PqHelpers
-    def set_seen_by_finance
-      create_finance_session
-      click_link_or_button "btn_finance_visibility"
-    end
-
     def commission_question(uin, action_officers, minister, policy_minister = nil)
       create_pq_session
       visit dashboard_path
