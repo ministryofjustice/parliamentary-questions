@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe SmokeTestRunner do
   let(:f)        { instance_double File }

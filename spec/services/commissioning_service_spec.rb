@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe CommissioningService do
   shared_context "with test_values" do

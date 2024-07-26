@@ -276,6 +276,7 @@ describe "'In progress' page filtering:", js: true do
   end
 
   def setup_questions
+    DbHelpers.load_fixtures(:ministers)
     FactoryBot.create(:with_pod_pq, uin: "UIN-1", date_for_answer: Time.zone.today + 16, internal_deadline: Time.zone.today + 14, minister_id: 3, policy_minister_id: 6, question_type: "NamedDay")
     FactoryBot.create(:draft_pending_pq, uin: "UIN-2", date_for_answer: Time.zone.today + 15, internal_deadline: Time.zone.today + 13, minister_id: 3, policy_minister_id: 4, question_type: "NamedDay")
     FactoryBot.create(:with_pod_pq, uin: "UIN-3", date_for_answer: Time.zone.today + 14, internal_deadline: Time.zone.today + 12, minister_id: 3, policy_minister_id: 4, question_type: "Ordinary")

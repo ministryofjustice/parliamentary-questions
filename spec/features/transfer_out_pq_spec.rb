@@ -2,7 +2,7 @@ require "feature_helper"
 
 describe "Transferring OUT questions", js: true do
   before do
-    DbHelpers.load_fixtures(:pqs)
+    DbHelpers.load_fixtures(:pqs, :ogds)
   end
 
   def uin

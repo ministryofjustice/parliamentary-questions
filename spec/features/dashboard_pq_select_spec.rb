@@ -7,6 +7,10 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:minister) { Minister.first }
 
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+  end
+
   it "Check page elements" do
     initialise
     within("#count") do

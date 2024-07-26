@@ -6,6 +6,10 @@ describe "Commissioning questions", js: true do
   let(:minister) { Minister.first }
   let(:test_pq) { FactoryBot.create(:pq) }
 
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+  end
+
   it "Parli-branch member tries to allocate a question without an AO" do
     PQA::QuestionLoader.new.load_and_import(2)
     test_pq = Pq.first

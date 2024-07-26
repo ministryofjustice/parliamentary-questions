@@ -65,6 +65,8 @@ describe "User filters 'New' dashboard  questions", js: true do
 private
 
   def generate_dummy_pq
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+
     # Generate three questions.
     FactoryBot.create_list(:pq, 3)
 
