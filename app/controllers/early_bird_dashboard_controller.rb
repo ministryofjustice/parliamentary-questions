@@ -4,7 +4,7 @@ class EarlyBirdDashboardController < ApplicationController
   before_action :authenticate_user!, PqUserFilter, only: [:preview]
 
   PER_PAGE = 200
-  QUESTIONS_URL = "https://questions-statements.parliament.uk/".freeze
+  QUESTIONS_URL = "https://questions-statements.parliament.uk".freeze
 
   def index
     update_page_title("Early bird preview")
