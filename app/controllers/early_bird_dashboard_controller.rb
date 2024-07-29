@@ -4,12 +4,13 @@ class EarlyBirdDashboardController < ApplicationController
   before_action :authenticate_user!, PqUserFilter, only: [:preview]
 
   PER_PAGE = 200
+  QUESTIONS_URL = "https://questions-statements.parliament.uk".freeze
 
   def index
     update_page_title("Early bird preview")
-    @now            = Time.zone.now.strftime("%d/%m/%Y")
-    @questions      = Pq.imported_today.order(:uin)
-    @parliament_url = PQA::RecentQuestionsUrl.url(Time.zone.today)
+    @now = Time.zone.now.strftime("%d/%m/%Y")
+    @questions = Pq.imported_today.order(:uin)
+    @parliament_url = QUESTIONS_URL
   end
 
   def preview
