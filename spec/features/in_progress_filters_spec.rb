@@ -11,7 +11,7 @@ describe "'In progress' page filtering:", js: true do
     within("#count") { expect(page).to have_text("16 parliamentary questions") }
     all_pqs(16, "visible")
     test_date("#date-for-answer", "answer-from", Time.zone.today - 10)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
     clear_filter("#date-for-answer")
@@ -21,7 +21,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "2) by Date for Answer (From: 9 days time)." do
     test_date("#date-for-answer", "answer-from", Time.zone.today + 9)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("8 parliamentary questions out of 16.") }
     within(".questions-list") do
       find("li#pq-frame-#{@pq8.id}").visible?
@@ -40,7 +40,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "3) by Date for Answer (From: 20 days time)." do
     test_date("#date-for-answer", "answer-from", Time.zone.today + 20)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("0 parliamentary questions out of 16.") }
     all_pqs(16, "hidden")
     clear_filter("#date-for-answer")
@@ -50,7 +50,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "4) by Date for Answer (To: 10 days ago)." do
     test_date("#date-for-answer", "answer-to", Time.zone.today - 10)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("0 parliamentary questions out of 16.") }
     all_pqs(16, "hidden")
     clear_filter("#date-for-answer")
@@ -60,7 +60,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "5) by Date for Answer (To: 9 days time)." do
     test_date("#date-for-answer", "answer-to", Time.zone.today + 9)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("9 parliamentary questions out of 16.") }
     within(".questions-list") do
       find("li#pq-frame-#{@pq16.id}").visible?
@@ -81,7 +81,7 @@ describe "'In progress' page filtering:", js: true do
   it "6) by Date for Answer (To: 20 days time)." do
     test_date("#date-for-answer", "answer-to", Time.zone.today + 20)
     sleep 0.5
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
     clear_filter("#date-for-answer")
@@ -91,7 +91,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "7) by Internal Deadline (From: 10 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 10)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
     clear_filter("#internal-deadline")
@@ -101,7 +101,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "8) by Internal Deadline (From: 9 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 9)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("6 parliamentary questions out of 16") }
     within(".questions-list") do
       find("li#pq-frame-#{@pq6.id}").visible?
@@ -118,7 +118,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "9) by Internal Deadline (From: 20 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 20)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("0 parliamentary questions out of 16.") }
     all_pqs(16, "hidden")
     clear_filter("#internal-deadline")
@@ -128,7 +128,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "10) by Internal Deadline (To: 10 days ago)." do
     test_date("#internal-deadline", "deadline-to", Time.zone.today - 10)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("0 parliamentary questions out of 16.") }
     all_pqs(16, "hidden")
     clear_filter("#internal-deadline")
@@ -138,7 +138,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "11) by Internal Deadline (To: 9 days time)." do
     test_date("#internal-deadline", "deadline-to", Time.zone.today + 9)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("11 parliamentary questions out of 16.") }
     within(".questions-list") do
       find("li#pq-frame-#{@pq16.id}").visible?
@@ -160,7 +160,7 @@ describe "'In progress' page filtering:", js: true do
 
   it "12) by Internal Deadline (To: 20 days time." do
     test_date("#internal-deadline", "deadline-to", Time.zone.today + 20)
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page).to have_text("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
     clear_filter("#internal-deadline")

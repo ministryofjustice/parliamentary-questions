@@ -112,7 +112,7 @@ module Features
     end
 
     def clear_filter(filter_name)
-      find("h1").click
+      remove_focus_from_filter
       within("#{filter_name}.filter-box") do
         find_button("Clear").click
         expect(page).not_to have_text("1 selected")
@@ -132,6 +132,11 @@ module Features
           end
         end
       end
+    end
+
+    def remove_focus_from_filter
+      sleep 0.1
+      find("h1").click
     end
 
   private
