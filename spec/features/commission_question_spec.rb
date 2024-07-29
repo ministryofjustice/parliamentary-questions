@@ -12,12 +12,13 @@ describe "Commissioning questions", js: true do
 
   it "Parli-branch member tries to allocate a question without an AO" do
     PQA::QuestionLoader.new.load_and_import(2)
-    test_pq = Pq.first
+    pq1 = Pq.first
+    pq2 = Pq.second
 
     create_pq_session
     visit dashboard_path
 
-    within_pq(test_pq.uin) do
+    within_pq(pq1.uin) do
       select_option("commission_form[minister_id]", minister.name) if minister
       select_option("commission_form[policy_minister_id]", minister.name) if minister
       select ao.name, from: "Action officer(s)"
@@ -25,8 +26,8 @@ describe "Commissioning questions", js: true do
       find(".pq-question").click
     end
 
-    within("#pq-frame-1") { expect(page).to have_button("Commission") }
-    within("#pq-frame-2") { expect(page).not_to have_button("Commission") }
+    within("#pq-frame-#{pq1.id}") { expect(page).to have_button("Commission") }
+    within("#pq-frame-#{pq2.id}") { expect(page).not_to have_button("Commission") }
   end
 
   it "Parli-branch member allocates a question to selected AOs" do

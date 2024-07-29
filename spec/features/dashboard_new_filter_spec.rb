@@ -2,7 +2,7 @@ require "feature_helper"
 
 describe "User filters 'New' dashboard  questions", js: true do
   before do
-    generate_dummy_pq
+    generate_dummy_pqs
     create_pq_session
     visit dashboard_path
     # Set UIN-2 & UIN-3 action officers =
@@ -64,7 +64,7 @@ describe "User filters 'New' dashboard  questions", js: true do
 
 private
 
-  def generate_dummy_pq
+  def generate_dummy_pqs
     DbHelpers.load_fixtures(:action_officers, :ministers)
 
     # Change Q1 'Unassigned' properties

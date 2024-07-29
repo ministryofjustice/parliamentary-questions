@@ -87,8 +87,7 @@ describe "'Backlog' page filtering:", js: true do
   it "6) by Date for Answer (To: 20 days time)." do
     test_date("#date-for-answer", "answer-from", Time.zone.today)
     test_date("#date-for-answer", "answer-to", Time.zone.today + 20)
-    sleep 0.1
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page.text).to eq("0 parliamentary questions out of 16.") }
     all_pqs(16, "hidden")
     clear_filter("#date-for-answer")
@@ -99,8 +98,7 @@ describe "'Backlog' page filtering:", js: true do
   it "7) by Internal Deadline (From: 20 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 20)
     test_date("#date-for-answer", "answer-to", Time.zone.today)
-    sleep 0.1
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page.text).to eq("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
     clear_filter("#internal-deadline")
@@ -111,8 +109,7 @@ describe "'Backlog' page filtering:", js: true do
   it "8) by Internal Deadline (From: 7 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 7)
     test_date("#date-for-answer", "answer-to", Time.zone.today)
-    sleep 0.1
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page.text).to eq("6 parliamentary questions out of 16.") }
     within(".questions-list") do
       find("li#pq-frame-#{@pq6.id}").visible?
@@ -130,8 +127,7 @@ describe "'Backlog' page filtering:", js: true do
   it "9) by Internal Deadline (From: 20 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 20)
     test_date("#date-for-answer", "answer-to", Time.zone.today + 20)
-    sleep 0.1
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page.text).to eq("0 parliamentary questions out of 16.") }
     all_pqs(16, "hidden")
     clear_filter("#internal-deadline")
@@ -142,8 +138,7 @@ describe "'Backlog' page filtering:", js: true do
   it "10) by Internal Deadline (To: 20 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today + 20)
     test_date("#internal-deadline", "deadline-to", Time.zone.today - 20)
-    sleep 0.1
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page.text).to eq("0 parliamentary questions out of 16.") }
     all_pqs(16, "hidden")
     clear_filter("#internal-deadline")
@@ -154,8 +149,7 @@ describe "'Backlog' page filtering:", js: true do
   it "11) by Internal Deadline (To: 7 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 20)
     test_date("#internal-deadline", "deadline-to", Time.zone.today - 7)
-    sleep 0.1
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page.text).to eq("11 parliamentary questions out of 16.") }
     within(".questions-list") do
       find("li#pq-frame-#{@pq16.id}").visible?
@@ -178,8 +172,7 @@ describe "'Backlog' page filtering:", js: true do
   it "12) by Internal Deadline (To: 10 days time)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 20)
     test_date("#internal-deadline", "deadline-to", Time.zone.today + 10)
-    sleep 0.1
-    find("h1").click
+    remove_focus_from_filter
     within("#count") { expect(page.text).to eq("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
     clear_filter("#internal-deadline")
