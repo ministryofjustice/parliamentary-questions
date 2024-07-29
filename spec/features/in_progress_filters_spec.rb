@@ -80,7 +80,6 @@ describe "'In progress' page filtering:", js: true do
 
   it "6) by Date for Answer (To: 20 days time)." do
     test_date("#date-for-answer", "answer-to", Time.zone.today + 20)
-    sleep 0.5
     remove_focus_from_filter
     within("#count") { expect(page).to have_text("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
