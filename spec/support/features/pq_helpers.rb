@@ -126,7 +126,8 @@ module Features
           expect(page).not_to have_selector("li")
         else
           while number_of_questions > counter
-            find("li#pq-frame-#{counter}").visible?
+            id = instance_variable_get("@pq#{counter}").id
+            find("li#pq-frame-#{id}").visible?
             counter += 1
           end
         end

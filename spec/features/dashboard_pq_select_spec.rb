@@ -52,17 +52,17 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
       find(:button, "Export", disabled: false)
     end
     within(".questions-list") do
-      find(:checkbox, "uin-1", checked: true)
-      find(:checkbox, "uin-2", checked: true)
-      find(:checkbox, "uin-3", checked: true)
+      find(:checkbox, "uin-#{pq1.id}", checked: true)
+      find(:checkbox, "uin-#{pq2.id}", checked: true)
+      find(:checkbox, "uin-#{pq3.id}", checked: true)
     end
 
     # A user de-selects all by clicking 'Select all' checkbox do
     uncheck "select-all"
     within(".questions-list") do
-      find(:checkbox, "uin-1", checked: false)
-      find(:checkbox, "uin-2", checked: false)
-      find(:checkbox, "uin-3", checked: false)
+      find(:checkbox, "uin-#{pq1.id}", checked: false)
+      find(:checkbox, "uin-#{pq2.id}", checked: false)
+      find(:checkbox, "uin-#{pq3.id}", checked: false)
     end
 
     # Check the No. of selected PQs is correct
