@@ -66,7 +66,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
   end
 
   def set_date(datetype, tablink, datefield)
-    within("#pq-frame-3") { check "uin-3" }
+    within("#pq-frame-3") { check "uin-#{pq3.id}" }
     within("#editDates") do
       click_on "Edit PQ dates"
       expect(page).to have_text("1 PQ selected")

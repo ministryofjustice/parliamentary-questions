@@ -88,7 +88,7 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
 
     # One question
     within(".questions-list") do
-      check "uin-3"
+      check "uin-#{pq3.id}"
     end
     within("#draftReminders") do
       click_on "Send Draft Reminders"
@@ -108,7 +108,7 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
 
     # Second question
     within(".questions-list") do
-      check "uin-2"
+      check "uin-#{pq2.id}"
     end
     within("#draftReminders") do
       click_on "Send Draft Reminders"
