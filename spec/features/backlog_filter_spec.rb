@@ -97,6 +97,7 @@ describe "'Backlog' page filtering:", js: true do
   it "7) by Internal Deadline (From: 20 days ago)." do
     test_date("#internal-deadline", "deadline-from", Time.zone.today - 20)
     test_date("#date-for-answer", "answer-to", Time.zone.today)
+    sleep 0.5
     find("h1").click
     within("#count") { expect(page.text).to eq("16 parliamentary questions out of 16.") }
     all_pqs(16, "visible")
