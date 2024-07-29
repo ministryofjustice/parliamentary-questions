@@ -135,7 +135,7 @@ module Features
     end
 
     def remove_focus_from_filter
-      sleep 0.1
+      sleep 0.5
       find("h1").click
     end
 
