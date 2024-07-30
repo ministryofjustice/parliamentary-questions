@@ -27,7 +27,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  config.after do
+  config.append_after do
     DatabaseCleaner.clean
   end
 
