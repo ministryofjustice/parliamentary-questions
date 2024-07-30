@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe PressDesk do
   let(:pdesk) { build(:press_desk) }

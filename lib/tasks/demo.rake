@@ -101,7 +101,6 @@ def create_question(seed_question)
     raising_member_id: 2479,
     tabled_date: 1.day.ago,
     question: seed_question.question,
-    # :seen_by_finance => true,
     uin:,
     member_name: seed_question.member_name,
     member_constituency: seed_question.member_constituency,

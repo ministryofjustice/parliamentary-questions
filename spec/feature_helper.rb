@@ -1,13 +1,6 @@
-ENV["RAILS_ENV"] ||= "test"
-ENV["ENV"] ||= "test"
+require "spec_helper"
 
-require File.expand_path("../config/environment", __dir__)
-
-require "./spec/support/features/session_helpers"
 require "./spec/support/features/pq_helpers"
-require "./spec/support/db_helpers"
-require "rspec/rails"
-require "paper_trail/frameworks/rspec"
 require "capybara/rspec"
 require "capybara/rails"
 
@@ -34,29 +27,6 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include Capybara::DSL
   config.include Features::PqHelpers
-
-  # Start mock API server instance
-  mock_api_runner = PQA::MockApiServerRunner.new
-
-  # Database cleaner setup
-  config.before(:suite) do
-    mock_api_runner.start
-  end
-
-  config.before do
-    DbHelpers.load_feature_fixtures
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
-  end
-
-  config.after do
-    DatabaseCleaner.clean
-  end
-
-  # Shut down mock API instance
-  config.after(:suite) do
-    mock_api_runner.stop
-  end
 end
 
 ParliamentaryQuestions::Application.default_url_options = ParliamentaryQuestions::Application.config.action_mailer.default_url_options

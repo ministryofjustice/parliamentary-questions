@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 require Rails.root.join("spec/support/features/session_helpers").to_s
 
 describe WatchlistDashboardController, type: :controller do

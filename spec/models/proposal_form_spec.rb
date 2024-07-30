@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe ProposalForm, type: :model do
   describe "validation error messages" do

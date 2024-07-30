@@ -1,6 +1,10 @@
 require "feature_helper"
 
 describe "Managing action officers", js: true do
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers, :press_desks)
+  end
+
   def dd
     DeputyDirector.first.name
   end

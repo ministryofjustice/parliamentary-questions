@@ -44,9 +44,9 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
       click_on "Edit"
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    expect(page).to have_css("#pq-frame-1 .deadline-date.text", text: test_date)
-    expect(page).to have_css("#pq-frame-2 .deadline-date.text", text: test_date)
-    expect(page).to have_css("#pq-frame-3 .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-#{pq1.id} .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-#{pq2.id} .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-#{pq3.id} .deadline-date.text", text: test_date)
   end
 
   it "A user sets a PQ's draft date" do
@@ -66,7 +66,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
   end
 
   def set_date(datetype, tablink, datefield)
-    within("#pq-frame-3") { check "uin-3" }
+    within("#pq-frame-#{pq3.id}") { check "uin-#{pq3.id}" }
     within("#editDates") do
       click_on "Edit PQ dates"
       expect(page).to have_text("1 PQ selected")
@@ -77,15 +77,15 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
     end
 
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    within("#pq-frame-1") { click_link(pq1.uin.to_s) }
+    within("#pq-frame-#{pq1.id}") { click_link(pq1.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-2") { click_link(pq2.uin.to_s) }
+    within("#pq-frame-#{pq2.id}") { click_link(pq2.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-3") { click_link(pq3.uin.to_s) }
+    within("#pq-frame-#{pq3.id}") { click_link(pq3.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "#{test_date}:00 UTC")
     click_link "In progress"

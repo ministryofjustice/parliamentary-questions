@@ -10,7 +10,7 @@
 #  deleted     :boolean          default(FALSE)
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe MinisterContact do
   subject { build(:minister_contact) }

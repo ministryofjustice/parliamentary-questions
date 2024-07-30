@@ -1,8 +1,8 @@
 module PQA
   class Import
-    def initialize(pqa_service = nil)
-      @pqa_service         = PQAService.new(pqa_service) || PQAService.from_settings
-      @logger              = LogStuff
+    def initialize(pqa_service = PQA::ApiClient.from_settings)
+      @pqa_service = PQAService.new(pqa_service)
+      @logger = LogStuff
       init_state!
     end
 

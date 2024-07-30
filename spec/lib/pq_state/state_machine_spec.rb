@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe "PqState" do
   let(:pq) { instance_double("pq-stub") }

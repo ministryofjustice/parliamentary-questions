@@ -6,6 +6,10 @@ describe "Parli-branch re-assigns a question", js: true do
   let(:dummy_pq) { FactoryBot.create(:pq) }
   let(:minister) { Minister.first }
 
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+  end
+
   it "Parli-branch assigns question to an action officer" do
     create_pq_session
     commission_question(dummy_pq.uin, [ao1], minister)
