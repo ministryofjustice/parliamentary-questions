@@ -7,6 +7,7 @@ describe 'Creating an "I Will Write" question', js: true do
   let(:dummy_minister) { Minister.first }
 
   before do
+    DbHelpers.load_fixtures(:ministers, :action_officers)
     create_pq_session
   end
 

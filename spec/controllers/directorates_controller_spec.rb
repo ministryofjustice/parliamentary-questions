@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe DirectoratesController, type: :controller do
   describe "Get index" do

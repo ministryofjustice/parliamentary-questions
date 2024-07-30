@@ -11,7 +11,7 @@
 #  updated_at    :datetime         not null
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe PressOfficer do
   let(:pdesk)    { create(:press_desk) }

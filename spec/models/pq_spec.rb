@@ -69,7 +69,7 @@
 #  archived                                      :boolean          default(FALSE)
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe Pq do
   subject(:question) { build(:pq) }

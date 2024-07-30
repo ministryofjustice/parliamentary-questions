@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe RakeTaskHelpers::StagingSync do
   # rubocop:disable RSpec/AnyInstance

@@ -14,7 +14,7 @@
 #  group_email        :string
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe ActionOfficer do
   let(:rita_skeeter) { create :press_desk }

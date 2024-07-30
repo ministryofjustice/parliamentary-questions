@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe Presenters::Report do
   include Rails.application.routes.url_helpers

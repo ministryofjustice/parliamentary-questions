@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe TokenService do
   subject(:token_service) { described_class.new }

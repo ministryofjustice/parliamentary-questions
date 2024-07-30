@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe SmokeTest do
   subject(:tests) { described_class.factory }
