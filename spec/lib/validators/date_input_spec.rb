@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe Validators::DateInput do
   include described_class

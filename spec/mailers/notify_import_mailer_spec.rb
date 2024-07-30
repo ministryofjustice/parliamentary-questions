@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 describe NotifyImportMailer, type: :mailer do
   describe "notify_fail" do
     let(:mail) { described_class.notify_fail(StandardError) }

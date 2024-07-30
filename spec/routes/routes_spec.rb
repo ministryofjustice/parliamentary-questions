@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe "routes", type: :routing do
   dashboard_path    = "/dashboard"

@@ -7,7 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-require "spec_helper"
+require "rails_helper"
 
 describe Archive do
   let(:archive) { build(:archive) }

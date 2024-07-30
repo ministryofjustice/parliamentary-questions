@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe PQA::XmlDecoder do
   describe "#decode_questions" do

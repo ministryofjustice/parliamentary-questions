@@ -2,9 +2,12 @@ require "feature_helper"
 
 describe "Watch list member sees allocated questions" do
   let(:dummy_aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
-  let!(:dummy_pq) { generate_dummy_pq(dummy_aos) }
 
-  it "An admin can create a new watchlist member" do
+  before do
+    DbHelpers.load_fixtures(:action_officers)
+  end
+
+  it "An admin can create a new watchlist member", js: true do
     create_pq_session
     click_link "Settings"
     click_link "Watch list"
@@ -24,6 +27,7 @@ describe "Watch list member sees allocated questions" do
   end
 
   it "A watchlist member follows an email link to view the list of daily questions" do
+    dummy_pq = generate_dummy_pq(dummy_aos)
     visit_watchlist_url
 
     expect(page).to have_text(/allocated today 1/i)
@@ -49,7 +53,7 @@ private
     PQA::QuestionLoader.new.load_and_import
 
     q = Pq.first
-    q.minister = Minister.find_by(name: "Chris Grayling")
+    q.minister = Minister.find_by(name: "Shabana Mahmood")
     q.action_officers = aos
     q.internal_deadline = Time.zone.today + 1.day
     q.internal_deadline = Time.zone.today + 2.days

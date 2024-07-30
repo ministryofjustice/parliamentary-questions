@@ -2,7 +2,7 @@ require "feature_helper"
 
 describe "User filters early bird questions", js: true do
   before do
-    generate_dummy_pq
+    PQA::QuestionLoader.new.load_and_import(3)
 
     # Change Q1 properties
     a = Pq.first
@@ -231,12 +231,5 @@ describe "User filters early bird questions", js: true do
 
     click_button("clear-keywords-filter")
     expect(page).to have_text("1 parliamentary question out of 3.")
-  end
-
-private
-
-  def generate_dummy_pq
-    # Generate three questions.
-    PQA::QuestionLoader.new.load_and_import(3)
   end
 end

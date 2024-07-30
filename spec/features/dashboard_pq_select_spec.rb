@@ -7,6 +7,10 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:minister) { Minister.first }
 
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+  end
+
   it "Check page elements" do
     initialise
     within("#count") do
@@ -48,17 +52,17 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
       find(:button, "Export", disabled: false)
     end
     within(".questions-list") do
-      find(:checkbox, "uin-1", checked: true)
-      find(:checkbox, "uin-2", checked: true)
-      find(:checkbox, "uin-3", checked: true)
+      find(:checkbox, "uin-#{pq1.id}", checked: true)
+      find(:checkbox, "uin-#{pq2.id}", checked: true)
+      find(:checkbox, "uin-#{pq3.id}", checked: true)
     end
 
     # A user de-selects all by clicking 'Select all' checkbox do
     uncheck "select-all"
     within(".questions-list") do
-      find(:checkbox, "uin-1", checked: false)
-      find(:checkbox, "uin-2", checked: false)
-      find(:checkbox, "uin-3", checked: false)
+      find(:checkbox, "uin-#{pq1.id}", checked: false)
+      find(:checkbox, "uin-#{pq2.id}", checked: false)
+      find(:checkbox, "uin-#{pq3.id}", checked: false)
     end
 
     # Check the No. of selected PQs is correct
@@ -84,7 +88,7 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
 
     # One question
     within(".questions-list") do
-      check "uin-3"
+      check "uin-#{pq3.id}"
     end
     within("#draftReminders") do
       click_on "Send Draft Reminders"
@@ -104,7 +108,7 @@ describe "Tests for Dashboard multiple PQ selection", js: true do
 
     # Second question
     within(".questions-list") do
-      check "uin-2"
+      check "uin-#{pq2.id}"
     end
     within("#draftReminders") do
       click_on "Send Draft Reminders"

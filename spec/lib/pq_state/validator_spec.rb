@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe PqState::Validator do
   def t(from, to)

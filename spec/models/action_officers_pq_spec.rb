@@ -14,7 +14,7 @@
 #  response          :string           default("awaiting")
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe ActionOfficersPq do
   subject(:action_officers_pq) { described_class.new pq: create(:pq), action_officer: create(:action_officer) }

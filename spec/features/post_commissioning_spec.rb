@@ -37,8 +37,7 @@ describe "After commissioning", js: true do
 
     in_pq_detail(with_pod, "POD check") do
       fillin_date("#pod_clearance")
-      sleep 0.5
-      find("h1").click
+      remove_focus_from_filter
     end
     expect_pq_in_progress_status(with_pod, "POD Cleared")
   end
@@ -46,8 +45,7 @@ describe "After commissioning", js: true do
   it "Parli-branch moves a question to 'With minister' and 'Minister cleared'" do
     in_pq_detail(pod_cleared, "Minister check") do
       fillin_date("#sent_to_answering_minister")
-      sleep 0.5
-      find("h1").click
+      remove_focus_from_filter
     end
     expect_pq_in_progress_status(pod_cleared, "With Minister")
 
@@ -56,8 +54,7 @@ describe "After commissioning", js: true do
 
     in_pq_detail(pod_cleared, "Minister check") do
       fillin_date("#cleared_by_answering_minister")
-      sleep 0.5
-      find("h1").click
+      remove_focus_from_filter
     end
     expect_pq_in_progress_status(pod_cleared, "Minister Cleared")
   end
