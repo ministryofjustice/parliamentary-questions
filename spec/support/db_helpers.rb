@@ -60,7 +60,7 @@ module_function
 
   def ministers
     [
-      { name: "Chris Grayling", title: "Secretary of State and Lord High Chancellor of Great Britain" },
+      { name: "Shabana Mahmood", title: "Secretary of State and Lord High Chancellor of Great Britain" },
       { name: "Damian Green (MP)", title: "Minister of State" },
       { name: "Jeremy Wright (MP)", title: "Parliamentary Under-Secretary of State; Minister for Prisons and Rehabilitation" },
       { name: "Shailesh Vara (MP)", title: "Parliamentary Under-Secretary of State" },

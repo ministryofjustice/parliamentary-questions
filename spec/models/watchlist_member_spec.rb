@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe WatchlistMember do
   let(:member) { build(:watchlist_member) }

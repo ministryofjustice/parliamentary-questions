@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe ArchiveService do
   subject(:service) { described_class.new(archive) }

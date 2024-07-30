@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe AssignmentService do
   subject(:assignment_service) { described_class.new }
@@ -6,9 +6,9 @@ describe AssignmentService do
   let(:action_officer) { create(:action_officer, name: "ao name 1", email: "ao@ao.gov", deputy_director_id: deputy_director.id) }
   let(:assignment) { ActionOfficersPq.new(action_officer:, pq:) }
   let(:commissioning_service) { CommissioningService.new }
-  let(:deputy_director) { create(:deputy_director, name: "dd name", division_id: division.id, id: rand(1..10)) }
-  let(:directorate) { create(:directorate, name: "This Directorate", id: rand(1..10)) }
-  let(:division) { create(:division, name: "Division", directorate_id: directorate.id, id: rand(1..10)) }
+  let(:deputy_director) { create(:deputy_director, name: "dd name", division_id: division.id) }
+  let(:directorate) { create(:directorate, name: "This Directorate") }
+  let(:division) { create(:division, name: "Division", directorate_id: directorate.id) }
 
   let(:form) do
     CommissionForm.new(
@@ -71,9 +71,9 @@ describe AssignmentService do
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)
       expect(pq.directorate_id).to eq(directorate.id)
-      new_dir = create(:directorate, name: "New Directorate", id: Directorate.maximum(:id).next)
-      new_div = create(:division, name: "New Division", directorate_id: new_dir.id, id: Division.maximum(:id).next)
-      new_dd = create(:deputy_director, name: "dd name", division_id: new_div.id, id: 10 + DeputyDirector.maximum(:id).next)
+      new_dir = create(:directorate, name: "New Directorate")
+      new_div = create(:division, name: "New Division", directorate_id: new_dir.id)
+      new_dd = create(:deputy_director, name: "dd name", division_id: new_div.id)
       action_officer.update!(deputy_director_id: new_dd.id)
       expect(pq.directorate_id).to eql(directorate.id)
       expect(assignment.action_officer.deputy_director_id).to eql(new_dd.id)

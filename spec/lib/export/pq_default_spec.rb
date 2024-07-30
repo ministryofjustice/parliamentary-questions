@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe Export::PqDefault do
   include Unit::QuestionFactory

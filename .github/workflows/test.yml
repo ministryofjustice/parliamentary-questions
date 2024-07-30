@@ -57,17 +57,14 @@ jobs:
       - name: Security audit application code
         run: bundle exec brakeman -q
 
-      - name: Run unit tests
+      - name: Run all tests
         run: bundle exec rspec
-
-      - name: Run feature tests
-        run: bundle exec rspec features
 
       - name: Code coverage
         uses: joshmfrankel/simplecov-check-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_suite_coverage: 53
+          minimum_suite_coverage: 73
           minimum_file_coverage: 100
 
   build-and-deploy:

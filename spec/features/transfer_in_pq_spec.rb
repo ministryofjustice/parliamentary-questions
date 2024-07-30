@@ -9,19 +9,21 @@ describe "Transferring IN questions", js: true do
     fill_in "pq[uin]", with: uin
     fill_in "pq[question]", with: text
     find("#pq_dateforanswer").set date || Date.tomorrow.strftime("%d/%m/%Y")
-
     find("select[name = 'pq[transfer_in_ogd_id]']")
       .find(:xpath, "option[2]")
       .select_option
 
     find("#transfer_in_date").set Time.zone.today.strftime("%d/%m/%Y")
-    sleep 0.5
-    find("h1").click
+    remove_focus_from_filter
     click_on "Create PQ"
   end
 
   let(:uin) { "transfer-uin-1" }
   let(:question_text) { "this is a question - t37egfcsdb" }
+
+  before do
+    DbHelpers.load_fixtures(:ogds)
+  end
 
   it "Attempting to transfer a PQ with invalid inputs shows an error on the page" do
     invalid_date = "A" * 51

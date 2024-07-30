@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 describe NotifyPqMailer, type: :mailer do
   let(:pq)    { create :pq }
   let(:ao)    { create :action_officer }

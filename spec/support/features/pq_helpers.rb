@@ -67,6 +67,7 @@ module Features
       visit pq_path(uin) unless page.current_path == pq_path(uin)
       click_on section_anchor
       yield
+      remove_focus_from_filter
       click_on "Save"
     end
 
@@ -112,7 +113,7 @@ module Features
     end
 
     def clear_filter(filter_name)
-      find("h1").click
+      remove_focus_from_filter
       within("#{filter_name}.filter-box") do
         find_button("Clear").click
         expect(page).not_to have_text("1 selected")
@@ -126,11 +127,17 @@ module Features
           expect(page).not_to have_selector("li")
         else
           while number_of_questions > counter
-            find("li#pq-frame-#{counter}").visible?
+            id = instance_variable_get("@pq#{counter}").id
+            find("li#pq-frame-#{id}").visible?
             counter += 1
           end
         end
       end
+    end
+
+    def remove_focus_from_filter
+      sleep 0.5
+      find("h1").click
     end
 
   private
