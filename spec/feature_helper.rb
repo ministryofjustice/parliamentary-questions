@@ -33,7 +33,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  config.after do
+  config.after(js: true) do
     DatabaseCleaner.clean
   end
 end
