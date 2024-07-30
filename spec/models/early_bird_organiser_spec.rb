@@ -8,7 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-require "spec_helper"
+require "rails_helper"
 
 RSpec.describe EarlyBirdOrganiser, type: :model do
   let(:organiser) { build_stubbed(:early_bird_organiser) }

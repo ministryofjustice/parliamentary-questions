@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 require Rails.root.join("lib/rake_task_helpers/db_sanitizer.rb").to_s
 
 describe RakeTaskHelpers::DbSanitizer do

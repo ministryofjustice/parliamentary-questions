@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe CommissionForm, type: :model do
   describe "validation error messages" do

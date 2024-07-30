@@ -18,14 +18,15 @@ describe "Minister Report", js: true do
     expect(el.text).to eq(count.to_s)
   end
 
-  before do
-    create_pq_session
-  end
-
   let(:action_officer) { ActionOfficer.first }
-  let(:minister) { Minister.find_by(name: "Chris Grayling") }
+  let(:minister) { Minister.find_by(name: "Shabana Mahmood") }
   let!(:pq1) { FactoryBot.create(:pq) }
   let!(:pq2) { FactoryBot.create(:pq) }
+
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+    create_pq_session
+  end
 
   it "Parli-branch accesses the minister report and follows a link to the filter results page" do
     uins = [pq1, pq2].map(&:uin)

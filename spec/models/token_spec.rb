@@ -13,7 +13,7 @@
 #  ack_time     :datetime
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe Token, type: :model do
   describe "accept/reject" do

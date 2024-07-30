@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 require "business_time"
 
 describe "PqStatistics" do

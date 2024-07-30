@@ -5,7 +5,11 @@ describe "Early bird member sees allocated questions" do
   let(:aos) { ActionOfficer.where("email like 'ao%@pq.com'") }
   let!(:pq) { FactoryBot.create(:pq) }
 
-  it "An admin can create a new early bird member" do
+  before do
+    DbHelpers.load_fixtures(:action_officers)
+  end
+
+  it "An admin can create a new early bird member", js: true do
     create_pq_session
     click_link "Settings"
     click_link "Early bird list"
@@ -17,7 +21,7 @@ describe "Early bird member sees allocated questions" do
     expect(page).to have_text(/Early bird member was successfully created/i)
   end
 
-  it "Early bird members can view the new questions for today" do
+  it "Early bird members can view the new questions for today", js: true do
     create_pq_session
     visit early_bird_preview_path
 

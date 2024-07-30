@@ -11,7 +11,7 @@
 #  member_id  :integer
 #
 
-require "spec_helper"
+require "rails_helper"
 
 describe Minister do
   subject(:minister) { create(:minister) }

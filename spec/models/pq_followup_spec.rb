@@ -1,14 +1,14 @@
-require "spec_helper"
+require "rails_helper"
 
 describe PqFollowup do
   # let(:pq) {
   #   DbHelpers.pqs.first
   # }
 
-  let(:directorate) { create(:directorate, name: "This Directorate", id: rand(1..10)) }
+  let(:directorate) { create(:directorate, name: "This Directorate") }
   let(:assignment) { ActionOfficersPq.new(action_officer:, pq:) }
-  let(:division) { create(:division, name: "Division", directorate_id: directorate.id, id: rand(1..10)) }
-  let(:deputy_director) { create(:deputy_director, name: "dd name", division_id: division.id, id: rand(1..10)) }
+  let(:division) { create(:division, name: "Division", directorate_id: directorate.id) }
+  let(:deputy_director) { create(:deputy_director, name: "dd name", division_id: division.id) }
   let(:minister) { build(:minister) }
   let(:action_officer) { create(:action_officer, name: "ao name 1", email: "ao@ao.gov", deputy_director_id: deputy_director.id) }
   let(:pq) { create(:pq, uin: "HL789", question: "test question?", minister:, house_name: "commons", i_will_write: true) }
