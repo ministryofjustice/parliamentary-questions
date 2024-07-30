@@ -6,6 +6,10 @@ describe "Rejecting questions", js: true do
   let(:minister) { Minister.first }
   let(:pq) { FactoryBot.create(:pq) }
 
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+  end
+
   it "Parli-branch member allocates a question to selected AOs" do
     commission_question(pq.uin, [ao1, ao2], minister)
   end

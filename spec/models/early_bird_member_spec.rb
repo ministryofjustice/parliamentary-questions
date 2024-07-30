@@ -9,7 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-require "spec_helper"
+require "rails_helper"
 
 describe EarlyBirdMember do
   let(:member) { build(:early_bird_member) }

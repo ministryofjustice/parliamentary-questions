@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe HealthCheckService do
   context "when the PQA API is run" do

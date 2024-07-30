@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 describe NotifyPqMailer, type: :mailer do
   let(:pq)    { create :pq }
   let(:ao)    { create :action_officer }
@@ -123,8 +123,6 @@ describe NotifyPqMailer, type: :mailer do
           ao_name
           cc_list
           date_to_parliament
-          finance_list
-          finance_users_emails
           house_name
           internal_deadline
           mail_reply_to

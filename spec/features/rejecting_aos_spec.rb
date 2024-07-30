@@ -8,6 +8,10 @@ describe "Parli-branch manually rejecting and re-assigning OAs", js: true do
   let(:policy_minister) { Minister.limit(2)[1] }
   let!(:pq) { FactoryBot.create(:pq) }
 
+  before do
+    DbHelpers.load_fixtures(:action_officers, :ministers)
+  end
+
   def selected_option_text(field_name)
     find("select[name='#{field_name}'] option[selected='selected']").text
   end

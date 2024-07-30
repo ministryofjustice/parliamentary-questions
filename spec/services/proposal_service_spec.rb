@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe ProposalService do
   shared_context "with test_values" do
