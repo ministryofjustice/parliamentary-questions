@@ -27,16 +27,6 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include Capybara::DSL
   config.include Features::PqHelpers
-
-  config.before(js: true) do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.clean
-    DatabaseCleaner.start
-  end
-
-  config.after(js: true) do
-    DatabaseCleaner.clean
-  end
 end
 
 ParliamentaryQuestions::Application.default_url_options = ParliamentaryQuestions::Application.config.action_mailer.default_url_options

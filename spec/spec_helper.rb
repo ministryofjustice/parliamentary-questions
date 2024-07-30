@@ -21,6 +21,16 @@ RSpec.configure do |config|
     mock_api_runner.start
   end
 
+  config.before do |example|
+    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
+    DatabaseCleaner.clean
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    DatabaseCleaner.clean
+  end
+
   config.after(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     mock_api_runner.stop

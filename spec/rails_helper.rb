@@ -23,7 +23,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   # Set to false to enable Poltergeist
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -37,15 +37,6 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.infer_spec_type_from_file_location!
-
-  config.before do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean
-  end
-
-  config.around do |example|
-    DatabaseCleaner.cleaning { example.run }
-  end
 end
 
 RSpec::Matchers.define :be_a_multiple_of do |expected|
