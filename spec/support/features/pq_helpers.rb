@@ -67,6 +67,7 @@ module Features
       visit pq_path(uin) unless page.current_path == pq_path(uin)
       click_on section_anchor
       yield
+      remove_focus_from_filter
       click_on "Save"
     end
 
