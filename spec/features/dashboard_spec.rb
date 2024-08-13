@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Dashboard view", js: true do
+describe "Dashboard view", :js do
   let!(:pqs) { PQA::QuestionLoader.new.load_and_import(3) }
 
   def search_for(uin)

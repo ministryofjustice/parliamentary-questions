@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Send draft reminders from the dashboard", js: true do
+describe "Send draft reminders from the dashboard", :js do
   before do
     @pq1 = FactoryBot.create :draft_pending_pq
     @pq2 = FactoryBot.create :draft_pending_pq

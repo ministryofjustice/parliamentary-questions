@@ -37,6 +37,10 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.infer_spec_type_from_file_location!
+
+  config.mock_with :rspec do |mocks|
+    mocks.allow_message_expectations_on_nil = true
+  end
 end
 
 RSpec::Matchers.define :be_a_multiple_of do |expected|

@@ -12,12 +12,12 @@ describe "WatchlistReportService" do
   it "has generated a valid token" do
     report_service.notify_watchlist
     token = Token.find_by(entity: report_service.entity, path: "/watchlist/dashboard")
-    expect(token.token_digest).not_to be nil
+    expect(token.token_digest).not_to be_nil
     end_of_day = Time.current.end_of_day
     expect(token.expire.to_s).to eq(end_of_day.to_s)
     expect(
       Token.exists?(entity: "watchlist:#{watchlist_deleted.id}", path: "/watchlist/dashboard"),
-    ).to eq(false)
+    ).to be(false)
   end
 
   it "calls the mailer" do

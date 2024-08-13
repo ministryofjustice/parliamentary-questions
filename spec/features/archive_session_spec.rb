@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Archive session", js: true do
+describe "Archive session", :js do
   it "does not allow access to non-admin users" do
     create_pq_session
     visit new_archive_path

@@ -51,19 +51,19 @@ describe ActionOfficer do
   end
 
   describe "Get index" do
-    let!(:action_officer1) { create(:action_officer, updated_at: Time.zone.now, deleted: false) }
-    let!(:action_officer2) { create(:action_officer, updated_at: Time.zone.now, deleted: true) }
-    let!(:action_officer3) { create(:action_officer, updated_at: 1.day.ago,    deleted: false) }
-    let!(:action_officer4) { create(:action_officer, updated_at: 1.day.ago,    deleted: true) }
-    let!(:action_officer5) { create(:action_officer, updated_at: 3.days.ago,   deleted: false) }
-    let!(:action_officer6) { create(:action_officer, updated_at: 3.days.ago,   deleted: true) }
+    let!(:ao_today_deleted) { create(:action_officer, updated_at: Time.zone.now, deleted: false) }
+    let!(:ao_today_active) { create(:action_officer, updated_at: Time.zone.now, deleted: true) }
+    let!(:ao_yesterday_deleted) { create(:action_officer, updated_at: 1.day.ago, deleted: false) }
+    let!(:ao_yesterday_active) { create(:action_officer, updated_at: 1.day.ago, deleted: true) }
+    let!(:ao_three_days_ago_active) { create(:action_officer, updated_at: 3.days.ago, deleted: false) }
+    let!(:ao_three_days_ago_deleted) { create(:action_officer, updated_at: 3.days.ago, deleted: true) }
 
     it "lists all active Action Officers and those made inactive withing the last two days" do
-      expect(described_class.active_list).to match_array [action_officer1, action_officer2, action_officer3, action_officer4, action_officer5]
+      expect(described_class.active_list).to contain_exactly(ao_today_deleted, ao_today_active, ao_yesterday_deleted, ao_yesterday_active, ao_three_days_ago_active)
     end
 
     it "lists all inactive Action Officers" do
-      expect(described_class.inactive_list).to match_array [action_officer2, action_officer4, action_officer6]
+      expect(described_class.inactive_list).to contain_exactly(ao_today_active, ao_yesterday_active, ao_three_days_ago_deleted)
     end
   end
 end

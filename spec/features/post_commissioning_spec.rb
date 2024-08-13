@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "After commissioning", js: true do
+describe "After commissioning", :js do
   let!(:draft_pending) { (FactoryBot.create :draft_pending_pq).uin }
   let!(:with_pod) { (FactoryBot.create :with_pod_pq).uin }
   let!(:pod_cleared) { (FactoryBot.create :pod_cleared_pq).uin }

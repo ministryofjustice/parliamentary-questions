@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "'Backlog' page filtering:", js: true do
+describe "'Backlog' page filtering:", :js do
   before do
     setup_questions
     create_pq_session

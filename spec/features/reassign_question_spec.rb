@@ -1,8 +1,8 @@
 require "feature_helper"
 
-describe "Parli-branch re-assigns a question", js: true do
-  let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
+describe "Parli-branch re-assigns a question", :js do
+  let(:ao_first) { ActionOfficer.first }
+  let(:ao_second) { ActionOfficer.second }
   let(:dummy_pq) { FactoryBot.create(:pq) }
   let(:minister) { Minister.first }
 
@@ -12,11 +12,11 @@ describe "Parli-branch re-assigns a question", js: true do
 
   it "Parli-branch assigns question to an action officer" do
     create_pq_session
-    commission_question(dummy_pq.uin, [ao1], minister)
+    commission_question(dummy_pq.uin, [ao_first], minister)
   end
 
   it "Parli-branch cannot re-assign before AO accepts question" do
-    commission_question(dummy_pq.uin, [ao1], minister)
+    commission_question(dummy_pq.uin, [ao_first], minister)
     create_pq_session
     visit pq_path(dummy_pq.uin)
     click_on "PQ commission"
@@ -26,29 +26,29 @@ describe "Parli-branch re-assigns a question", js: true do
   end
 
   it "Action officer receive notification and accepts question" do
-    commission_question(dummy_pq.uin, [ao1], minister)
-    accept_assignment(dummy_pq, ao1)
+    commission_question(dummy_pq.uin, [ao_first], minister)
+    accept_assignment(dummy_pq, ao_first)
   end
 
   it "Parli-branch re-assigns question to another action officer" do
-    commission_question(dummy_pq.uin, [ao1], minister)
-    accept_assignment(dummy_pq, ao1)
+    commission_question(dummy_pq.uin, [ao_first], minister)
+    accept_assignment(dummy_pq, ao_first)
     create_pq_session
     visit pq_path(dummy_pq.uin)
     click_on "PQ commission"
 
-    expect(page).to have_content(ao1.email)
-    expect(page).not_to have_content(ao2.email)
+    expect(page).to have_content(ao_first.email)
+    expect(page).not_to have_content(ao_second.email)
 
-    click_on "Manually reject #{ao1.name}"
+    click_on "Manually reject #{ao_first.name}"
 
-    commission_question(dummy_pq.uin, [ao2], minister)
-    accept_assignment(dummy_pq, ao2)
+    commission_question(dummy_pq.uin, [ao_second], minister)
+    accept_assignment(dummy_pq, ao_second)
 
     visit pq_path(dummy_pq.uin)
     click_on "PQ commission"
 
-    expect(page).not_to have_content(ao1.email)
-    expect(page).to have_content(ao2.email)
+    expect(page).not_to have_content(ao_first.email)
+    expect(page).to have_content(ao_second.email)
   end
 end

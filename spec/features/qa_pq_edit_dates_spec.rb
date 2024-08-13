@@ -1,12 +1,12 @@
 require "feature_helper"
 
-describe "Testing Quick Action 'Edit PQ dates'", js: true do
+describe "Testing Quick Action 'Edit PQ dates'", :js do
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:minister) { Minister.first }
   let(:test_date) { "#{Time.zone.today + 3} 12:00" }
-  let!(:pq1) { FactoryBot.create :draft_pending_pq }
-  let!(:pq2) { FactoryBot.create :draft_pending_pq }
-  let!(:pq3) { FactoryBot.create :draft_pending_pq }
+  let!(:pq_first) { FactoryBot.create :draft_pending_pq }
+  let!(:pq_second) { FactoryBot.create :draft_pending_pq }
+  let!(:pq_third) { FactoryBot.create :draft_pending_pq }
 
   before do
     create_pq_session
@@ -44,9 +44,9 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
       click_on "Edit"
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    expect(page).to have_css("#pq-frame-#{pq1.id} .deadline-date.text", text: test_date)
-    expect(page).to have_css("#pq-frame-#{pq2.id} .deadline-date.text", text: test_date)
-    expect(page).to have_css("#pq-frame-#{pq3.id} .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-#{pq_first.id} .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-#{pq_second.id} .deadline-date.text", text: test_date)
+    expect(page).to have_css("#pq-frame-#{pq_third.id} .deadline-date.text", text: test_date)
   end
 
   it "A user sets a PQ's draft date" do
@@ -66,7 +66,7 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
   end
 
   def set_date(datetype, tablink, datefield)
-    within("#pq-frame-#{pq3.id}") { check "uin-#{pq3.id}" }
+    within("#pq-frame-#{pq_third.id}") { check "uin-#{pq_third.id}" }
     within("#editDates") do
       click_on "Edit PQ dates"
       expect(page).to have_text("1 PQ selected")
@@ -77,15 +77,15 @@ describe "Testing Quick Action 'Edit PQ dates'", js: true do
     end
 
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
-    within("#pq-frame-#{pq1.id}") { click_link(pq1.uin.to_s) }
+    within("#pq-frame-#{pq_first.id}") { click_link(pq_first.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-#{pq2.id}") { click_link(pq2.uin.to_s) }
+    within("#pq-frame-#{pq_second.id}") { click_link(pq_second.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "")
     click_link "In progress"
-    within("#pq-frame-#{pq3.id}") { click_link(pq3.uin.to_s) }
+    within("#pq-frame-#{pq_third.id}") { click_link(pq_third.uin.to_s) }
     click_link(tablink)
     expect(page).to have_field("pq[#{datefield}]", with: "#{test_date}:00 UTC")
     click_link "In progress"

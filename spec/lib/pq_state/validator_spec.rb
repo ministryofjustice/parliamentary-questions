@@ -57,10 +57,12 @@ describe PqState::Validator do
             a b d e g h l m
           ].product(%w[x]).map { |from, to| t(from, to) }
 
-        described_class.new(
-          transitions + x_transitions,
-          %w[m x],
-        ).check_consistent_state_graph!
+        expect {
+          described_class.new(
+            transitions + x_transitions,
+            %w[m x],
+          ).check_consistent_state_graph!
+        }.not_to raise_error
       end
     end
   end

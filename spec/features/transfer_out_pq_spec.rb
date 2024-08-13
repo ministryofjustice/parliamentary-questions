@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Transferring OUT questions", js: true do
+describe "Transferring OUT questions", :js do
   before do
     DbHelpers.load_fixtures(:pqs, :ogds)
   end

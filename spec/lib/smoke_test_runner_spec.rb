@@ -34,9 +34,9 @@ describe SmokeTestRunner do
     allow(File).to receive(:exist?).with(out_file).and_return(true)
     allow(File).to receive(:read).with(out_file).and_return("0")
     expect(File).to receive(:read).with(out_file)
-    expect(described_class.run_success?).to eq true
+    expect(described_class.run_success?).to be true
     allow(File).to receive(:read).with(out_file).and_return("1")
     expect(File).to receive(:read).with(out_file)
-    expect(described_class.run_success?).to eq false
+    expect(described_class.run_success?).to be false
   end
 end

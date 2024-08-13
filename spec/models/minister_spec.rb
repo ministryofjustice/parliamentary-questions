@@ -26,13 +26,13 @@ describe Minister do
   end
 
   describe "#contact_emails" do
-    let!(:minister_contact1) { create(:minister_contact, minister: subject) }
-    let!(:minister_contact2) { create(:minister_contact, minister: subject) }
+    let!(:minister_contact_first) { create(:minister_contact, minister: subject) }
+    let!(:minister_contact_second) { create(:minister_contact, minister: subject) }
 
     it "returns the active minister contacts emails" do
       expect(minister.contact_emails).to eql([
-        minister_contact1.email,
-        minister_contact2.email,
+        minister_contact_first.email,
+        minister_contact_second.email,
       ])
     end
   end
@@ -75,14 +75,14 @@ describe Minister do
   end
 
   describe "Get index" do
-    let!(:minister1) { create(:minister, updated_at: Time.zone.now, deleted: false) }
-    let!(:minister2) { create(:minister, updated_at: Time.zone.now, deleted: true) }
-    let!(:minister3) { create(:minister, updated_at: 1.day.ago, deleted: false) }
-    let!(:minister4) { create(:minister, updated_at: 1.day.ago, deleted: true) }
-    let!(:minister5) { create(:minister, updated_at: 3.days.ago, deleted: false) }
+    let!(:minister_today_active) { create(:minister, updated_at: Time.zone.now, deleted: false) }
+    let!(:minister_today_deleted) { create(:minister, updated_at: Time.zone.now, deleted: true) }
+    let!(:minister_yesterday_active) { create(:minister, updated_at: 1.day.ago, deleted: false) }
+    let!(:minister_yesterday_deleted) { create(:minister, updated_at: 1.day.ago, deleted: true) }
+    let!(:minister_three_days_ago_active) { create(:minister, updated_at: 3.days.ago, deleted: false) }
 
     it "lists all active Ministers and those made inactive withing the last two days" do
-      expect(described_class.active_list).to match_array [minister1, minister2, minister3, minister4, minister5]
+      expect(described_class.active_list).to contain_exactly(minister_today_active, minister_today_deleted, minister_yesterday_active, minister_yesterday_deleted, minister_three_days_ago_active)
     end
   end
 end

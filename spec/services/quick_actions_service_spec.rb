@@ -18,7 +18,7 @@ describe "QuickActionsService" do
   end
 
   it "Doesn't validate a list with any invalid PQ" do
-    expect(@quick_actions_service.valid_pq_list("HL789, some rubbish here,or there")).to eq(false)
+    expect(@quick_actions_service.valid_pq_list("HL789, some rubbish here,or there")).to be(false)
   end
 
   it "Validates a single PQ" do
@@ -27,23 +27,23 @@ describe "QuickActionsService" do
 
   context "when update dates is run" do
     it "Doesn't validate a list of valid PQs with invalid internal_deadline" do
-      expect(@quick_actions_service.valid?(@pq_list, "0/0/0000")).to eq(false)
+      expect(@quick_actions_service.valid?(@pq_list, "0/0/0000")).to be(false)
     end
 
     it "Doesn't validate a list of valid PQs with invalid draft_received" do
-      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "0/0/0000")).to eq(false)
+      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "0/0/0000")).to be(false)
     end
 
     it "Doesn't validate a list of valid PQs with invalid pod_clearance" do
-      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "01/10/2015", "0/0/0000")).to eq(false)
+      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "01/10/2015", "0/0/0000")).to be(false)
     end
 
     it "Doesn't validate a list of valid PQs with invalid minister_cleared" do
-      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "01/10/2015", "01/10/2015", "0/0/0000")).to eq(false)
+      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "01/10/2015", "01/10/2015", "0/0/0000")).to be(false)
     end
 
     it "Doesn't validate a list of valid PQs with invalid answered" do
-      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "01/10/2015", "01/10/2015", "01/10/2015", "0/0/0000")).to eq(false)
+      expect(@quick_actions_service.valid?(@pq_list, "01/10/2015", "01/10/2015", "01/10/2015", "01/10/2015", "0/0/0000")).to be(false)
     end
 
     it "Does validate a list of valid PQs with all valid dates" do
