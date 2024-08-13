@@ -101,6 +101,10 @@ module PqScopes
     where("i_will_write = true AND state NOT IN (?)", PqState::CLOSED)
   end
 
+  def imported_today
+    where("created_at BETWEEN ? AND ?", Time.zone.today.beginning_of_day, Time.zone.today.end_of_day)
+  end
+
   def imported_last_week
     not_tx.where("created_at BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
   end
