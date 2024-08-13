@@ -1,20 +1,23 @@
-FROM ruby:3.1.4-alpine
-LABEL key="Ministry of Justice, Parlimentary Questions"
-RUN set -ex
+FROM ruby:3.1.4-alpine as base
 
-RUN addgroup --gid 1000 --system appgroup && \
-    adduser --uid 1000 --system appuser --ingroup appgroup
+WORKDIR /app
 
-RUN apk --no-cache add --virtual build-dependencies build-base libc-dev libxml2-dev libxslt-dev openssl-dev \
-    && apk --no-cache add bash curl file libpq linux-headers nodejs postgresql-dev tzdata tini postgresql-client less
+RUN apk add --no-cache \
+    postgresql-client \
+    nodejs \
+    tzdata
 
-RUN apk -U upgrade
+# Ensure latest rubygems is installed
+RUN gem update --system
 
-# set WORKDIR
-WORKDIR /usr/src/app
+FROM base as builder
+
+RUN apk add --no-cache \
+    build-base \
+    ruby-dev \
+    postgresql-dev
 
 COPY Gemfile* .ruby-version ./
-RUN gem install bundler -v 2.4.19
 
 RUN bundle config deployment true && \
     bundle config without development test && \
@@ -22,16 +25,28 @@ RUN bundle config deployment true && \
 
 COPY . .
 
-RUN mkdir log tmp
-RUN chown -R appuser:appgroup /usr/src/app/
-USER appuser
-USER 1000
-
 RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret bundle exec rake assets:precompile
 
-# non-root/appuser should own only what they need to
+# Cleanup to save space in the production image
+RUN rm -rf node_modules log/* tmp/* /tmp && \
+    rm -rf /usr/local/bundle/cache
+
+FROM base
+
+# Add non-root user and group with alpine first available uid, 1000
+RUN addgroup -g 1000 -S appgroup && \
+    adduser -u 1000 -S appuser -G appgroup
+
+# Copy files generated in the builder image
+COPY --from=builder /app /app
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+
+# Create log and tmp
+RUN mkdir -p log tmp
 RUN chown -R appuser:appgroup ./*
-RUN chmod +x /usr/src/app/docker/*
+
+# Set user
+USER 1000
 
 # expect/add ping environment variables
 ARG APP_GIT_COMMIT
