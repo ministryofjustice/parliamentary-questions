@@ -1,8 +1,8 @@
 require "feature_helper"
 
 describe "Parli-branch re-assigns a question", :js do
-  let(:ao_first) { ActionOfficer.find_by(email: "ao_first@pq.com") }
-  let(:ao_second) { ActionOfficer.find_by(email: "ao_second@pq.com") }
+  let(:ao_first) { ActionOfficer.first }
+  let(:ao_second) { ActionOfficer.second }
   let(:dummy_pq) { FactoryBot.create(:pq) }
   let(:minister) { Minister.first }
 

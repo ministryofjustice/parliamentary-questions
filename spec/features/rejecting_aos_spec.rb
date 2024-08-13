@@ -1,9 +1,8 @@
 require "feature_helper"
 
 describe "Parli-branch manually rejecting and re-assigning OAs", :js do
-  let(:ao_first) { ActionOfficer.find_by(email: "ao_first@pq.com") }
-  let(:ao_second) { ActionOfficer.find_by(email: "ao_second@pq.com") }
-  let(:ao_third) { ActionOfficer.find_by(email: "ao_third@pq.com") }
+  let(:ao_first) { ActionOfficer.first }
+  let(:ao_second) { ActionOfficer.second }
   let(:minister) { Minister.first }
   let(:policy_minister) { Minister.limit(2)[1] }
   let!(:pq) { FactoryBot.create(:pq) }

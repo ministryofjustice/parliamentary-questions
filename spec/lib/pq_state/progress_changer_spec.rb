@@ -2,11 +2,11 @@ require "rails_helper"
 
 describe "PqState#progress_changer" do
   def stub_pq(overrides = {})
-    instance_double(test - pq,
+    instance_double(Pq,
                     {
                       no_response?: true,
                       rejected?: false,
-                      action_officers_pqs: instance_double(ao - pqs, any?: true, all_rejected?: false),
+                      action_officers_pqs: double("ao-pqs", any?: true, all_rejected?: false), # rubocop:disable RSpec/VerifiedDoubles
                       action_officer_accepted: nil,
                       transfer_out_ogd_id: nil,
                     }.merge(overrides))
@@ -44,7 +44,7 @@ describe "PqState#progress_changer" do
       it "returns the final state" do
         pq = stub_pq(transfer_out_ogd_id: "test-id",
                      transfer_out_date: Time.zone.now,
-                     action_officer_accepted: instance_double(ao),
+                     action_officer_accepted: instance_double(ActionOfficer),
                      draft_answer_received: Time.zone.now,
                      pod_query_flag: true,
                      pod_clearance: true,

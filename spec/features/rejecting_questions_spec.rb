@@ -1,8 +1,8 @@
 require "feature_helper"
 
 describe "Rejecting questions", :js do
-  let(:ao_first) { ActionOfficer.find_by(email: "ao_first@pq.com") }
-  let(:ao_second) { ActionOfficer.find_by(email: "ao_second@pq.com") }
+  let(:ao_first) { ActionOfficer.first }
+  let(:ao_second) { ActionOfficer.second }
   let(:minister) { Minister.first }
   let(:pq) { FactoryBot.create(:pq) }
 
