@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby File.read(".ruby-version").strip
+ruby file: ".ruby-version"
 
 gem "bootstrap-will_paginate", "~> 1.0"
 gem "business_time", "~> 0.13.0"
@@ -31,8 +31,6 @@ gem "sinatra", "~> 3.1", require: false
 gem "slim", "~> 5.2"
 gem "statsd-ruby", "~> 1.5"
 gem "terser"
-gem "turbolinks", "~> 5.2", ">= 5.2.1"
-gem "unicorn", "~> 6.1"
 gem "will_paginate", "~> 4.0"
 
 group :development do

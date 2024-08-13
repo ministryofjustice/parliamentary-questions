@@ -173,7 +173,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (2.7.2)
     jwt (2.7.0)
-    kgio (2.11.4)
     language_server-protocol (3.17.0.3)
     logger (1.6.0)
     logstasher (2.1.5)
@@ -291,7 +290,6 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    raindrops (0.20.1)
     rake (13.2.1)
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
@@ -432,15 +430,9 @@ GEM
     tilt (2.3.0)
     timecop (0.9.10)
     timeout (0.4.1)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    unicorn (6.1.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
     warden (1.2.9)
       rack (>= 2.0.9)
     webrick (1.8.1)
@@ -503,8 +495,6 @@ DEPENDENCIES
   statsd-ruby (~> 1.5)
   terser
   timecop
-  turbolinks (~> 5.2, >= 5.2.1)
-  unicorn (~> 6.1)
   will_paginate (~> 4.0)
 
 RUBY VERSION
