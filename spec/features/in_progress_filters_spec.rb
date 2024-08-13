@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "'In progress' page filtering:", js: true do
+describe "'In progress' page filtering:", :js do
   before do
     setup_questions
     create_pq_session

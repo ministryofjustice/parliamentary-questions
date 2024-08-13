@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Tests for Dashboard multiple PQ selection", js: true do
+describe "Tests for Dashboard multiple PQ selection", :js do
   let!(:pq1) { FactoryBot.create(:pq) }
   let!(:pq2) { FactoryBot.create(:pq) }
   let!(:pq3) { FactoryBot.create(:pq) }

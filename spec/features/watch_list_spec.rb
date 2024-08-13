@@ -7,7 +7,7 @@ describe "Watch list member sees allocated questions" do
     DbHelpers.load_fixtures(:action_officers)
   end
 
-  it "An admin can create a new watchlist member", js: true do
+  it "An admin can create a new watchlist member", :js do
     create_pq_session
     click_link "Settings"
     click_link "Watch list"

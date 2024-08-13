@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "User filters early bird questions", js: true do
+describe "User filters early bird questions", :js do
   before do
     PQA::QuestionLoader.new.load_and_import(3)
 

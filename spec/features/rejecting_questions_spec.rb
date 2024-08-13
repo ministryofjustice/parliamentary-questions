@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Rejecting questions", js: true do
+describe "Rejecting questions", :js do
   let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:minister) { Minister.first }

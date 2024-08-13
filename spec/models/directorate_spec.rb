@@ -34,7 +34,7 @@ describe Directorate do
     let!(:directorate5) { create(:directorate, updated_at: 3.days.ago, deleted: false) }
 
     it "lists all active Directorates and those made inactive withing the last two days" do
-      expect(described_class.active_list).to match_array [directorate1, directorate2, directorate3, directorate4, directorate5]
+      expect(described_class.active_list).to contain_exactly(directorate1, directorate2, directorate3, directorate4, directorate5)
     end
   end
 end

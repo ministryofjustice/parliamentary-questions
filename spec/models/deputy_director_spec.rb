@@ -46,7 +46,7 @@ describe DeputyDirector do
     let!(:deputy_director5) { create(:deputy_director, updated_at: 3.days.ago, deleted: false) }
 
     it "lists all active Deputy Directors and those made inactive withing the last two days" do
-      expect(described_class.active_list).to match_array [deputy_director1, deputy_director2, deputy_director3, deputy_director4, deputy_director5]
+      expect(described_class.active_list).to contain_exactly(deputy_director1, deputy_director2, deputy_director3, deputy_director4, deputy_director5)
     end
   end
 end

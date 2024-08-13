@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe 'Creating an "I Will Write" question', js: true do
+describe 'Creating an "I Will Write" question', :js do
   let(:dummy_ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:dummy_uin) { PQA::QuestionLoader.new.load_and_import(1).first.uin }
   let(:dummy_iww_uin) { "#{dummy_uin}-IWW" }

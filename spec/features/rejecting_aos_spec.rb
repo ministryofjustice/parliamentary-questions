@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Parli-branch manually rejecting and re-assigning OAs", js: true do
+describe "Parli-branch manually rejecting and re-assigning OAs", :js do
   let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:ao3) { ActionOfficer.find_by(email: "ao3@pq.com") }

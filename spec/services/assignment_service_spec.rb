@@ -44,7 +44,7 @@ describe AssignmentService do
       pq = commissioning_service.commission(form)
       assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).not_to be nil
+      expect(assignment).not_to be_nil
       assignment_service.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)
@@ -55,7 +55,7 @@ describe AssignmentService do
       pq = commissioning_service.commission(form)
       assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).not_to be nil
+      expect(assignment).not_to be_nil
       assignment_service.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)
@@ -66,7 +66,7 @@ describe AssignmentService do
       pq = commissioning_service.commission(form)
       assignment_id = pq.action_officers_pqs.first.id
       assignment = ActionOfficersPq.find(assignment_id)
-      expect(assignment).not_to be nil
+      expect(assignment).not_to be_nil
       assignment_service.accept(assignment)
       assignment = ActionOfficersPq.find(assignment_id)
       pq = Pq.find(assignment.pq_id)

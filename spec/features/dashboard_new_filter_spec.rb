@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "User filters 'New' dashboard  questions", js: true do
+describe "User filters 'New' dashboard questions", :js do
   before do
     generate_dummy_pqs
     create_pq_session

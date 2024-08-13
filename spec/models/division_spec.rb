@@ -45,7 +45,7 @@ describe Division do
     let!(:division5) { create(:division, updated_at: 3.days.ago, deleted: false) }
 
     it "lists all active Divisions and those made inactive withing the last two days" do
-      expect(described_class.active_list).to match_array [division1, division2, division3, division4, division5]
+      expect(described_class.active_list).to contain_exactly(division1, division2, division3, division4, division5)
     end
   end
 end

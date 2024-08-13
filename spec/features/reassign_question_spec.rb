@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Parli-branch re-assigns a question", js: true do
+describe "Parli-branch re-assigns a question", :js do
   let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
   let(:dummy_pq) { FactoryBot.create(:pq) }

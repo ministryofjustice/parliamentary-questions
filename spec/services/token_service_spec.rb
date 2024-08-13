@@ -10,12 +10,12 @@ describe TokenService do
     it "generates a token and store the token digest in the database" do
       token_to_send = token_service.generate_token("/path/one", "entity_one", expire_in_future)
 
-      expect(token_to_send).not_to be nil
+      expect(token_to_send).not_to be_nil
 
       token_entry = Token.find_by(path: "/path/one")
 
       expect(token_entry.expire).to eq expire_in_future
-      expect(token_entry.token_digest).not_to be nil
+      expect(token_entry.token_digest).not_to be_nil
       expect(token_entry.entity).to eq("entity_one")
     end
 
@@ -34,7 +34,7 @@ describe TokenService do
       token_to_send = token_service.generate_token("/path/one", "entity_one", expire_in_future)
 
       is_valid = token_service.valid?(token_to_send, "/path/one", "entity_one")
-      expect(is_valid).to eq(true)
+      expect(is_valid).to be(true)
     end
 
     it "returns false if the token is not correct" do
@@ -42,7 +42,7 @@ describe TokenService do
 
       is_valid = token_service.valid?("invalid", "/path/one", "entity_one")
 
-      expect(is_valid).to eq(false)
+      expect(is_valid).to be(false)
     end
 
     it "returns false if the path is not correct" do
@@ -50,7 +50,7 @@ describe TokenService do
 
       is_valid = token_service.valid?(token_to_send, "/invalid", "entity_one")
 
-      expect(is_valid).to eq(false)
+      expect(is_valid).to be(false)
     end
 
     it "returns false if the entity is not correct" do
@@ -58,7 +58,7 @@ describe TokenService do
 
       is_valid = token_service.valid?(token_to_send, "/path/one", "invalid")
 
-      expect(is_valid).to eq(false)
+      expect(is_valid).to be(false)
     end
 
     it "returns true if token valid but expired" do
@@ -66,7 +66,7 @@ describe TokenService do
 
       result = token_service.valid?(token_to_send, "/path/one", "entity_one")
 
-      expect(result).to eq(true)
+      expect(result).to be(true)
     end
 
     it "is valid only the last token generated given a path, entity" do
@@ -76,8 +76,8 @@ describe TokenService do
       invalid = token_service.valid?(first_token, "/path/one", "entity_one")
       valid = token_service.valid?(second_token, "/path/one", "entity_one")
 
-      expect(invalid).to eq(false)
-      expect(valid).to eq(true)
+      expect(invalid).to be(false)
+      expect(valid).to be(true)
     end
   end
 

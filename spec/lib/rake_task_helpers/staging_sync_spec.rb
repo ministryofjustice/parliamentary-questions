@@ -10,7 +10,7 @@ describe RakeTaskHelpers::StagingSync do
     ENV["TEST_USER_PASS"] = "xxxx"
   end
 
-  it "does not run unless the host env is staging " do
+  it "does not run unless the host env is staging" do
     allow(HostEnv).to receive(:is_staging?).and_return(false)
     msg =
       "[-] This task should only be run in the staging environment\n" \

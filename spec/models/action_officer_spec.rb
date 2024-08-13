@@ -59,11 +59,11 @@ describe ActionOfficer do
     let!(:action_officer6) { create(:action_officer, updated_at: 3.days.ago,   deleted: true) }
 
     it "lists all active Action Officers and those made inactive withing the last two days" do
-      expect(described_class.active_list).to match_array [action_officer1, action_officer2, action_officer3, action_officer4, action_officer5]
+      expect(described_class.active_list).to contain_exactly(action_officer1, action_officer2, action_officer3, action_officer4, action_officer5)
     end
 
     it "lists all inactive Action Officers" do
-      expect(described_class.inactive_list).to match_array [action_officer2, action_officer4, action_officer6]
+      expect(described_class.inactive_list).to contain_exactly(action_officer2, action_officer4, action_officer6)
     end
   end
 end

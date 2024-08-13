@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "PqState" do
-  let(:pq) { instance_double("pq-stub") }
+  let(:pq) { instance_double(pq - stub) }
 
   let(:transitions) do
     pred = proc { true }

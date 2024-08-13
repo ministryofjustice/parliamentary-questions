@@ -14,14 +14,14 @@ describe "EarlyBirdReportService" do
     report_service.notify_early_bird
 
     token = Token.find_by(entity: report_service.entity, path: "/early_bird/dashboard")
-    expect(token.token_digest).not_to be nil
+    expect(token.token_digest).not_to be_nil
 
     end_of_day = Time.current.end_of_day
 
     expect(token.expire.to_s).to eq(end_of_day.to_s)
     expect(
       Token.exists?(entity: "early_bird:#{early_bird_deleted.id}", path: "/early_bird/dashboard"),
-    ).to eq(false)
+    ).to be(false)
   end
 
   it "calls the mailer" do

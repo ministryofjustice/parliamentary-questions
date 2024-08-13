@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Minister Report", js: true do
+describe "Minister Report", :js do
   def within_report_state(state, &block)
     css = "tr[data='report-state-#{state}']"
     within(css, &block)

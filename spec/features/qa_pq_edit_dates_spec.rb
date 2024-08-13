@@ -1,6 +1,6 @@
 require "feature_helper"
 
-describe "Testing Quick Action 'Edit PQ dates'", js: true do
+describe "Testing Quick Action 'Edit PQ dates'", :js do
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:minister) { Minister.first }
   let(:test_date) { "#{Time.zone.today + 3} 12:00" }
