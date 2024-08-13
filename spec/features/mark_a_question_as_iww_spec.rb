@@ -19,35 +19,4 @@ describe 'Creating an "I Will Write" question', :js do
     expect(page).to have_title("PQ #{dummy_uin}")
     expect(page).to have_text("I will write")
   end
-
-  # TODO: re-enable when fixed
-  xit "Parli-branch creates an IWW follow-up question" do
-    visit pq_path(dummy_uin)
-    click_on "Answer"
-
-    click_on "Create an 'I will write' follow up"
-
-    visit dashboard_path
-    expect(page).to have_title("Dashboard")
-    expect(page).not_to have_text(dummy_uin)
-
-    expect_pq_in_progress_status(dummy_iww_uin, "Draft Pending")
-
-    visit pq_path(dummy_iww_uin)
-
-    click_on "Answer"
-    expect(page).not_to have_text("Create an 'I will write' follow up")
-    click_on "PQ commission"
-    expect(page).to have_title("PQ #{dummy_iww_uin}")
-    expect(page).to have_text(dummy_ao.email)
-  end
-
-  xit "Parli-branch clicks on the 'create IWW follow up button' for a second time" do
-    visit pq_path(dummy_uin)
-    click_on "Answer"
-    click_on "Create an 'I will write' follow up"
-    expect(page).to have_title("PQ #{dummy_iww_uin}")
-    expect(page).to have_content(dummy_iww_uin)
-    expect(Pq.where(uin: dummy_iww_uin).count).to eq(1)
-  end
 end

@@ -1,9 +1,9 @@
 require "feature_helper"
 
 describe "Parli-branch manually rejecting and re-assigning OAs", :js do
-  let(:ao1) { ActionOfficer.find_by(email: "ao1@pq.com") }
-  let(:ao2) { ActionOfficer.find_by(email: "ao2@pq.com") }
-  let(:ao3) { ActionOfficer.find_by(email: "ao3@pq.com") }
+  let(:ao_first) { ActionOfficer.find_by(email: "ao_first@pq.com") }
+  let(:ao_second) { ActionOfficer.find_by(email: "ao_second@pq.com") }
+  let(:ao_third) { ActionOfficer.find_by(email: "ao_third@pq.com") }
   let(:minister) { Minister.first }
   let(:policy_minister) { Minister.limit(2)[1] }
   let!(:pq) { FactoryBot.create(:pq) }
@@ -17,16 +17,16 @@ describe "Parli-branch manually rejecting and re-assigning OAs", :js do
   end
 
   it "PB commissions a question to two AOs" do
-    commission_question(pq.uin, [ao1, ao2], minister, policy_minister)
+    commission_question(pq.uin, [ao_first, ao_second], minister, policy_minister)
   end
 
   it "PB manually rejects the first AO" do
-    commission_question(pq.uin, [ao1, ao2], minister, policy_minister)
+    commission_question(pq.uin, [ao_first, ao_second], minister, policy_minister)
     create_pq_session
     visit pq_path(pq.uin)
     click_on "PQ commission"
 
-    click_on "Manually reject #{ao1.name}"
+    click_on "Manually reject #{ao_first.name}"
     expect(page).to have_title("PQ #{pq.uin}")
     expect(page).to have_content("#{pq.uin} manually rejected")
 
@@ -38,11 +38,11 @@ describe "Parli-branch manually rejecting and re-assigning OAs", :js do
   end
 
   it "PB manually rejects the last AO" do
-    commission_question(pq.uin, [ao1], minister, policy_minister)
+    commission_question(pq.uin, [ao_first], minister, policy_minister)
     create_pq_session
     visit pq_path(pq.uin)
     click_on "PQ commission"
-    click_on "Manually reject #{ao1.name}"
+    click_on "Manually reject #{ao_first.name}"
     expect_pq_status(pq.uin, "Rejected")
 
     within_pq(pq.uin) do

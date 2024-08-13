@@ -27,14 +27,14 @@ describe Directorate do
   end
 
   describe "Get index" do
-    let!(:directorate1) { create(:directorate, updated_at: Time.zone.now, deleted: false) }
-    let!(:directorate2) { create(:directorate, updated_at: Time.zone.now, deleted: true) }
-    let!(:directorate3) { create(:directorate, updated_at: 1.day.ago, deleted: false) }
-    let!(:directorate4) { create(:directorate, updated_at: 1.day.ago, deleted: true) }
-    let!(:directorate5) { create(:directorate, updated_at: 3.days.ago, deleted: false) }
+    let!(:directorate_today_deleted) { create(:directorate, updated_at: Time.zone.now, deleted: false) }
+    let!(:directorate_today_active) { create(:directorate, updated_at: Time.zone.now, deleted: true) }
+    let!(:directorate_yesterday_active) { create(:directorate, updated_at: 1.day.ago, deleted: false) }
+    let!(:directorate_yesterday_deleted) { create(:directorate, updated_at: 1.day.ago, deleted: true) }
+    let!(:directorate_three_days_ago_active) { create(:directorate, updated_at: 3.days.ago, deleted: false) }
 
     it "lists all active Directorates and those made inactive withing the last two days" do
-      expect(described_class.active_list).to contain_exactly(directorate1, directorate2, directorate3, directorate4, directorate5)
+      expect(described_class.active_list).to contain_exactly(directorate_today_deleted, directorate_today_active, directorate_yesterday_active, directorate_yesterday_deleted, directorate_three_days_ago_active)
     end
   end
 end

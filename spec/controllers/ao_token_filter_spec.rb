@@ -61,6 +61,8 @@ describe "AoTokenFilter" do
       allow(request).to receive(:path).and_return("/test/this")
       allow(controller).to receive(:params).and_return({ token: "test" })
       allow(controller).to receive(:request) { request }
+
+      expect(AoTokenFilter.validate_token(controller)).to eq :invalid
     end
 
     it "the filter should say no access if you have a are in the wrong path" do

@@ -20,8 +20,8 @@ describe "Minister Report", :js do
 
   let(:action_officer) { ActionOfficer.first }
   let(:minister) { Minister.find_by(name: "Shabana Mahmood") }
-  let!(:pq1) { FactoryBot.create(:pq) }
-  let!(:pq2) { FactoryBot.create(:pq) }
+  let!(:pq_first) { FactoryBot.create(:pq) }
+  let!(:pq_second) { FactoryBot.create(:pq) }
 
   before do
     DbHelpers.load_fixtures(:action_officers, :ministers)
@@ -29,7 +29,7 @@ describe "Minister Report", :js do
   end
 
   it "Parli-branch accesses the minister report and follows a link to the filter results page" do
-    uins = [pq1, pq2].map(&:uin)
+    uins = [pq_first, pq_second].map(&:uin)
 
     uins.each do |uin|
       commission_question(uin, [action_officer], minister)
@@ -49,8 +49,8 @@ describe "Minister Report", :js do
   end
 
   it "Parli-branch accesses the press desk report and follows a link to the filter results page" do
-    commission_question(pq1.uin, [action_officer], minister)
-    accept_assignment(pq1, action_officer)
+    commission_question(pq_first.uin, [action_officer], minister)
+    accept_assignment(pq_first, action_officer)
 
     visit reports_press_desk_by_progress_path
 
@@ -58,6 +58,6 @@ describe "Minister Report", :js do
     within_report_state(PqState::DRAFT_PENDING) do
       click_on("1")
     end
-    expect(page).to have_content(pq1.uin)
+    expect(page).to have_content(pq_first.uin)
   end
 end

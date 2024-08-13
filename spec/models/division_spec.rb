@@ -38,14 +38,14 @@ describe Division do
   end
 
   describe "Get index" do
-    let!(:division1) { create(:division, updated_at: Time.zone.now, deleted: false) }
-    let!(:division2) { create(:division, updated_at: Time.zone.now, deleted: true) }
-    let!(:division3) { create(:division, updated_at: 1.day.ago, deleted: false) }
-    let!(:division4) { create(:division, updated_at: 1.day.ago, deleted: true) }
-    let!(:division5) { create(:division, updated_at: 3.days.ago, deleted: false) }
+    let!(:division_today_active) { create(:division, updated_at: Time.zone.now, deleted: false) }
+    let!(:division_today_deleted) { create(:division, updated_at: Time.zone.now, deleted: true) }
+    let!(:division_yesterday_active) { create(:division, updated_at: 1.day.ago, deleted: false) }
+    let!(:division_yesterday_deleted) { create(:division, updated_at: 1.day.ago, deleted: true) }
+    let!(:division_three_days_ago_active) { create(:division, updated_at: 3.days.ago, deleted: false) }
 
     it "lists all active Divisions and those made inactive withing the last two days" do
-      expect(described_class.active_list).to contain_exactly(division1, division2, division3, division4, division5)
+      expect(described_class.active_list).to contain_exactly(division_today_active, division_today_deleted, division_yesterday_active, division_yesterday_deleted, division_three_days_ago_active)
     end
   end
 end

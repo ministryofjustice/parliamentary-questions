@@ -2,16 +2,16 @@ require "rails_helper"
 
 describe ProposalService do
   shared_context "with test_values" do
-    let(:ao1)                 { DbHelpers.action_officers[0] }
-    let(:ao2)                 { DbHelpers.action_officers[1] }
-    let(:form)                { ProposalForm.new(form_params) }
+    let(:ao_first) { DbHelpers.action_officers[0] }
+    let(:ao_second) { DbHelpers.action_officers[1] }
+    let(:form) { ProposalForm.new(form_params) }
     let(:invalid_form_params) { form_params.merge(action_officer_id: [""]) }
-    let(:invalid_form)        { ProposalForm.new(invalid_form_params) }
-    let(:pq)                  { DbHelpers.pqs.first }
-    let(:form_params)         do
+    let(:invalid_form) { ProposalForm.new(invalid_form_params) }
+    let(:pq) { DbHelpers.pqs.first }
+    let(:form_params) do
       {
         pq_id: pq.id,
-        action_officer_id: [ao1.id, ao2.id],
+        action_officer_id: [ao_first.id, ao_second.id],
       }
     end
   end
@@ -36,7 +36,7 @@ describe ProposalService do
       end
 
       it "sets the pqs' action officers" do
-        expect(pq1.action_officers).to eq([ao1, ao2])
+        expect(pq1.action_officers).to eq([ao_first, ao_second])
       end
 
       it "keeps the PQ state as unassigned" do
