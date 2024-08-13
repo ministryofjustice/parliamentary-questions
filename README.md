@@ -15,72 +15,85 @@
 # Introduction
 Webapp to manage the workflow Parliamentary Questions
 
-# System dependencies
+## Development
 
-- Ruby 3.1.4
-- Postgresql 9.3
-- phantomjs  (tests only)
-- coreutils (required by the `version_tag.sh` script)
-- graphviz (required by the `bin/generate-erd` script)
+### Working on the Code
 
-To start with, make sure you have the right version of the Ruby runtime installed.
-Multiple versions of Ruby can be managed on the same machine through either [rbenv](https://github.com/sstephenson/rbenv)
-or [rvm](https://rvm.io/).
+Work should be based off of, and PRed to, the main branch. We use the GitHub
+PR approval process so once your PR is ready you'll need to have one person
+approve it, and the CI tests passing, before it can be merged.
 
-The Postgresql version used in production is 9.3. This can be installed via [homebrew](brew.sh):
 
-    brew install homebrew/versions/postgresql93
+### Basic Setup
 
-# Project setup
+#### Cloning This Repository
 
-Start by setting the required environment variables. The included `.env.sample` file will show you which ones you will need as a bare minimum.
+Clone this repository then `cd` into the new directory
 
-Then Install the app dependencies by running the following
+```
+$ git clone git@github.com:ministryofjustice/parliamentary-questions.git
+$ cd parliamentary-questions
+```
 
-    gem install bundler && bundle install
+### Installing the app for development
 
-### Installation Issues
+#### Latest Version of Ruby
 
-There maybe an issue installing `eventmachine` on an M1 mac. This maybe solved by running
+If you don't have `rbenv` already installed, install it as follows:
+```
+$ brew install rbenv ruby-build
+$ rbenv init
+```
 
-    gem install eventmachine -v '1.2.7' -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
-    bundle install
+Follow the instructions printed out from the `rbenv init` command and update your `~/.bash_profile` or equivalent file accordingly, then start a new terminal and navigate to the repo directory.
 
-If you get problems installing the `pg` gem not being able to find libpg, try setting the architecture flag as follows:
+Use `rbenv` to install the latest version of ruby as defined in `.ruby-version` (make sure you are in the repo path):
 
-    gem install bundler && ARCHFLAGS="-arch x86_64" bundle install
+```
+$ rbenv install
+```
 
----
+#### Dependencies
 
-You can now proceed setting up the database table layout
+Postgresql
 
-    bundle exec rake db:setup
+```
+$ brew install postgresql
+```
 
-Note: If you get error: FATAL: role “postgres” does not exist then double check that postgres is successfully installed and running then try this:
+#### Setup
 
-    createdb testDB
-    psql -U <your MAC username>
+Use the following commands to install gems and javascript packages then create the database
 
-  Once entered into postgres command line type this all on one line:
+```
+$ bin/setup
+```
 
-    CREATE ROLE postgres WITH
-    LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION;
-
-  Then try the db setup command above again. You can customise the DB user and password by setting the ENV variables `DB_USERNAME` and `DB_PASSWORD`.
-
-And starting the app with:
-
-    bundle exec rails s
+#### Seeds
 
 Mock data can be automatically imported by running the following rake task (it will make use of a mock API server running on localhost:8888 so make sure this port is free):
 
-    bundle exec rake pqa:import_dummy_data
+'''
+$ bundle exec rake pqa:import_dummy_data
+```
 
 Finally, a rake task is also provided to load PQ&A XML data into the system.
 
-    bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
+```
+$ bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
+```
 
-## Running the tests
+#### Running locally:
+
+To just run the web server without any background jobs (usually sufficient):
+
+```
+$ bin/rails server
+```
+
+The site will be accessible at http://localhost:3000.
+
+#### Running the tests
 
 In order to run the tests, you can use:
 
@@ -90,7 +103,7 @@ bundle exec rake
 
 This will run specs and rubocop linting. Or you can run them individually, with `rake rubocop` and `rake spec`.
 
-# User authentication
+## User authentication
 
 It's done using devise and devise invitable:
 
@@ -98,6 +111,7 @@ It's done using devise and devise invitable:
 * https://github.com/scambra/devise_invitable
 
 For development you can create users with a rake task.
+
 ```
 # default user
 rake user:create
@@ -109,30 +123,15 @@ rake user:create_admin
 rake "user:create_admin[admin@admin.com, 123456789, admin]"
 ```
 
-# Running tests
-
-Unit tests can be run via `bundle exec rspec`, while end-to-end tests can
-be run be executing the same command with the features folder as argument (i.e.
-`bundle exec rspec features`). Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/features) in the features folder
-for end-to-end tests implementation details.
-
-# Emails
+## Emails
 Emails are sent using the [GOVUK Notify service](https://www.notifications.service.gov.uk).
 
 Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers)in the mailers folder
 for details of how to get an account and obtain an API key.
 
-## Dependabot
+## Exceptions
 
-Dependabot creates PRs to help us keep track of our dependency updates. This is great but can lead to a little bit of work if you integrate these changes one by one (for instance, having to run the test suite over and over again).
-
-You can manually combine the changes into one PR and then push this and wait for the tests to run, but this is admin that can be automated so why bother?
-
-The app has a github action "Combine PRs" which automatically combines dependabot PRs that have passed the test suite into one PR which you can then merge.
-
-To use this: "Actions" > "All workflows" > on the left "Combine PRs" > "Run workflows"
-
-See here for the [original developers README](https://github.com/hrvey/combine-prs-workflow)
+Any exceptions raised in any deployed environment will be sent to [Sentry](https://ministryofjustice.sentry.io/projects/pq-tracker).
 
 ## Environment Variables
 
