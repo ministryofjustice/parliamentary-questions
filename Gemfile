@@ -53,6 +53,7 @@ group :test, :development do
   gem "selenium-webdriver"
   gem "shoulda-matchers", require: false
   gem "timecop"
+  gem "unicorn"
 end
 
 group :test do
