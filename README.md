@@ -154,9 +154,7 @@ Variable Name          |Required for local development  | Description
 `DEVISE_SENDER`        | y                              | Email address used for signup/signin/password related notifications
 `SENDING_HOST`         | n                              | Host for URLs in emails
 `CA_CERT`              | n                              | Absolute Path of the system's SSL certificates dir (e.g. `/etc/ssl/certs`)
-`WEB_CONCURRENCY`      | n                              | Number of unicorn workers to be spawned at startup time
 `ASSET_HOST`           | n                              | Host where Rails' assets pipeline will deploy the assets
-`APPVERSION`           | n                              | The current application version tag
 `TEST_USER`            | n                              | The current application version tag
 `TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests
 `GOVUK_NOTIFY_API_KEY` | y                              | A key required to send emails via [GovUK Notify](https://www.notifications.service.gov.uk/)
