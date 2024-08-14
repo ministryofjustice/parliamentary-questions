@@ -9,6 +9,6 @@
 #
 FactoryBot.define do
   factory :archive do
-    prefix { Faker::Lorem.word }
+    sequence(:prefix, "a")
   end
 end
