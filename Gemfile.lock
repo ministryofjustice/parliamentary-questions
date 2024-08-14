@@ -432,9 +432,6 @@ GEM
     tilt (2.3.0)
     timecop (0.9.10)
     timeout (0.4.1)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
@@ -503,8 +500,7 @@ DEPENDENCIES
   statsd-ruby (~> 1.5)
   terser
   timecop
-  turbolinks (~> 5.2, >= 5.2.1)
-  unicorn (~> 6.1)
+  unicorn
   will_paginate (~> 4.0)
 
 RUBY VERSION
