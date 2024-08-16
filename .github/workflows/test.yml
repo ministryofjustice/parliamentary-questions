@@ -15,10 +15,23 @@ jobs:
     permissions:
       checks: write
 
+    strategy:
+      fail-fast: false
+      matrix:
+        ci_total_jobs: [8]
+        ci_job_index:
+          [
+            "0, 1, 2, 3",
+            "4, 5, 6, 7",
+          ]
+
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1/parliamentary_questions_test"
       PQ_REST_API_HOST: http://localhost:8888
+      CI: true
+      CI_TOTAL_JOBS: ${{ matrix.ci_total_jobs }}
+      CI_JOB_INDEX: ${{ matrix.ci_job_index }}
 
     services:
       postgres:
@@ -43,17 +56,21 @@ jobs:
       - name: Precompile assets
         run: bin/rails assets:precompile
 
-      - name: Setup test database
-        run: bin/rails db:setup
-
       - name: Lint Ruby files
         run: bundle exec rubocop
 
       - name: Security audit application code
         run: bundle exec brakeman -q
 
-      - name: Run all tests
-        run: bundle exec rspec
+      - name: Setup databases
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 1
+          max_attempts: 3
+          command: bin/rake 'parallel:drop' && bin/rake 'parallel:setup[4]'
+
+      - name: Run unit and feature tests
+        run: bundle exec parallel_rspec -n "${CI_TOTAL_JOBS}" --only-group "${CI_JOB_INDEX}"
 
       - name: Code coverage
         uses: joshmfrankel/simplecov-check-action@main
