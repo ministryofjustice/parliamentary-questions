@@ -57,12 +57,8 @@ jobs:
       - name: Security audit application code
         run: bundle exec brakeman -q
 
-      - name: Setup databases
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 1
-          max_attempts: 3
-          command: bin/rake 'parallel:drop' && bin/rake 'parallel:setup[4]'
+      - name: Setup test database
+        run: bin/rails db:setup
 
       - name: Run unit and feature tests
         run: bundle exec parallel_rspec -n "${CI_TOTAL_JOBS}" --only-group "${CI_JOB_INDEX}"
