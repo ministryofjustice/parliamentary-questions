@@ -67,6 +67,35 @@ jobs:
       - name: Run unit and feature tests
         run: bundle exec parallel_rspec -n "${CI_TOTAL_JOBS}" --only-group "${CI_JOB_INDEX}"
 
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{env.CI_JOB_INDEX}}
+          path: coverage/.resultset.json
+
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions: write-all
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download coverage
+        uses: actions/download-artifact@v4
+        with:
+          path: coverage
+
+      - name: Collate coverage
+        run: bundle exec rake coverage:report
+
       - name: Code coverage
         uses: joshmfrankel/simplecov-check-action@main
         with:

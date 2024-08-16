@@ -10,7 +10,7 @@ development:
 test: &test
   adapter: postgresql
   encoding: unicode
-  database: parliamentary_questions_test<%= ENV['TEST_ENV_NUMBER'] %>
+  database: parliamentary_questions_test
   host: <%= ENV['DB_HOST'] || 'localhost' %>
   pool: 10
 
