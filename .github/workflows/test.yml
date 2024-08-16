@@ -10,6 +10,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  linting:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Lint Ruby files
+        run: bundle exec rubocop
+
+      - name: Security audit application code
+        run: bundle exec brakeman -q
+
   test:
     runs-on: ubuntu-latest
     permissions:
@@ -50,12 +69,6 @@ jobs:
 
       - name: Precompile assets
         run: bin/rails assets:precompile
-
-      - name: Lint Ruby files
-        run: bundle exec rubocop
-
-      - name: Security audit application code
-        run: bundle exec brakeman -q
 
       - name: Setup test database
         run: bin/rails db:setup
@@ -101,6 +114,6 @@ jobs:
 
   build-and-deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs: test
+    needs: [linting, coverage]
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
