@@ -21,7 +21,7 @@ class AoTokenFilter
   end
 
   def self.log_and_redirect(controller, token_state)
-    params         = OpenStruct.new
+    params         = ::OpenStruct.new
     params.uri     = controller.request.env["REQUEST_URI"]
     params.referer = controller.request.referer
     params.uin     = extract_uin(controller)

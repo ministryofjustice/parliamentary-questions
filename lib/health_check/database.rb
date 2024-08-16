@@ -36,7 +36,7 @@ module HealthCheck
     end
 
     def config
-      OpenStruct.new(Rails.configuration.database_configuration[Rails.env])
+      ::OpenStruct.new(Rails.configuration.database_configuration[Rails.env])
     end
   end
 end

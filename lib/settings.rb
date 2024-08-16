@@ -66,11 +66,11 @@ module_function
   end
 
   def mail_worker
-    OpenStruct.new(@h["mail_worker"])
+    ::OpenStruct.new(@h["mail_worker"])
   end
 
   def smoke_test_runner
-    OpenStruct.new(@h["smoke_test_runner"])
+    ::OpenStruct.new(@h["smoke_test_runner"])
   end
 
   def key_metric_threshold
