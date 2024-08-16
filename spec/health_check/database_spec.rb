@@ -1,3 +1,5 @@
+require "spec_helper"
+
 describe HealthCheck::Database do
   let(:db) { described_class.new }
 

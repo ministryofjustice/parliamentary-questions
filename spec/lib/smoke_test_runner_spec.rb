@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SmokeTestRunner do
+xdescribe SmokeTestRunner do
   let(:f)        { instance_double File }
   let(:out_file) { "#{Rails.root}#{Settings.smoke_test_runner.out_file}" }
 

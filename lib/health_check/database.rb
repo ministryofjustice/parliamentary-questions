@@ -1,3 +1,5 @@
+require "ostruct"
+
 module HealthCheck
   class Database < Component
     def accessible?
