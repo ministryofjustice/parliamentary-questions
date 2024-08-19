@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: parliamentary-questions
+  name: parliamentary-questions-modsec
   namespace: parliamentary-questions-production
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: parliamentary-questions-parliamentary-questions-production-green
+    external-dns.alpha.kubernetes.io/set-identifier: parliamentary-questions-parliamentary-questions-modsec-production-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
