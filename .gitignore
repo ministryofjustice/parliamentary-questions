@@ -20,8 +20,11 @@ coverage
 log
 postgres.log
 set_env.sh
-tmp
 vendor
 *secret*.*
 .vscode
 .byebug_history
+
+# Allow one tmp file
+/tmp/*
+!tmp/parallel_runtime_rspec.log

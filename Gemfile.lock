@@ -237,6 +237,8 @@ GEM
       activerecord (>= 6.1)
       request_store (~> 1.4)
     parallel (1.25.1)
+    parallel_tests (4.6.1)
+      parallel
     parser (3.3.4.0)
       ast (~> 2.4.1)
       racc
@@ -479,6 +481,7 @@ DEPENDENCIES
   mechanize (~> 2.12)
   momentjs-rails (~> 2.29)
   paper_trail
+  parallel_tests
   pg (~> 1.5)
   puma (~> 6.4)
   rails (~> 7.1)
