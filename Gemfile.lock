@@ -207,7 +207,7 @@ GEM
     mime-types-data (3.2024.0702)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
-    minitest (5.24.1)
+    minitest (5.25.1)
     momentjs-rails (2.29.4.1)
       railties (>= 3.1)
     mustermann (3.0.0)
@@ -310,7 +310,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.3.4)
+    rexml (3.3.5)
       strscan
     rouge (4.3.0)
     rspec-core (3.13.0)
@@ -384,19 +384,19 @@ GEM
       sprockets-rails
       tilt
     select2-rails (4.0.13)
-    selenium-webdriver (4.22.0)
+    selenium-webdriver (4.23.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.18.2)
+    sentry-rails (5.19.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.18.2)
-    sentry-ruby (5.18.2)
+      sentry-ruby (~> 5.19.0)
+    sentry-ruby (5.19.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    shoulda-matchers (6.2.0)
+    shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
     sidekiq (7.2.4)
       concurrent-ruby (< 2)
@@ -444,7 +444,7 @@ GEM
       rack (>= 2.0.9)
     webrick (1.8.1)
     webrobots (0.1.2)
-    websocket (1.2.10)
+    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -494,7 +494,7 @@ DEPENDENCIES
   select2-rails (~> 4.0, >= 4.0.13)
   selenium-webdriver
   sentry-rails (~> 5.18)
-  sentry-ruby (~> 5.2)
+  sentry-ruby (~> 5.19)
   shoulda-matchers
   sidekiq
   simplecov
