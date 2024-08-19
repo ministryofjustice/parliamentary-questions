@@ -10,21 +10,48 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  linting:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Lint Ruby files
+        run: bundle exec rubocop
+
+      - name: Security audit application code
+        run: bundle exec brakeman -q
+
   test:
     runs-on: ubuntu-latest
     permissions:
       checks: write
 
+    strategy:
+      fail-fast: false
+      matrix:
+        ci_total_jobs: [4]
+        ci_job_index: ["0", "1", "2", "3"]
+
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1/parliamentary_questions_test"
+      DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1"
       PQ_REST_API_HOST: http://localhost:8888
+      CI: true
+      CI_TOTAL_JOBS: ${{ matrix.ci_total_jobs }}
+      CI_JOB_INDEX: ${{ matrix.ci_job_index }}
 
     services:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_DB: parliamentary_questions_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
@@ -46,14 +73,37 @@ jobs:
       - name: Setup test database
         run: bin/rails db:setup
 
-      - name: Lint Ruby files
-        run: bundle exec rubocop
+      - name: Run unit and feature tests
+        run: bundle exec parallel_rspec -n "${CI_TOTAL_JOBS}" --only-group "${CI_JOB_INDEX}" --group-by "runtime"
 
-      - name: Security audit application code
-        run: bundle exec brakeman -q
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{env.CI_JOB_INDEX}}
+          path: coverage/.resultset.json
 
-      - name: Run all tests
-        run: bundle exec rspec
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions: write-all
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download coverage
+        uses: actions/download-artifact@v4
+        with:
+          path: coverage
+
+      - name: Collate coverage
+        run: bundle exec rake coverage:report
 
       - name: Code coverage
         uses: joshmfrankel/simplecov-check-action@main
@@ -64,6 +114,6 @@ jobs:
 
   build-and-deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs: test
+    needs: [linting, coverage]
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
