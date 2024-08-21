@@ -8,8 +8,12 @@ metadata:
     nginx.ingress.kubernetes.io/auth-secret: pq-secrets
     external-dns.alpha.kubernetes.io/set-identifier: pq-development-parliamentary-questions-development-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+      SecRuleEngine On
+      SecDefaultAction "phase:2,pass,log,tag:github_team=central-digital-product-team,tag:namespace=parliamentary-questions-development"
 spec:
-  ingressClassName: default
+  ingressClassName: modsec
   rules:
     - host: development.trackparliamentaryquestions.service.gov.uk
       http:
@@ -19,7 +23,7 @@ spec:
           backend:
             service:
               name: parliamentary-questions-service
-              port: 
+              port:
                 number: 3000
   tls:
     - hosts:
