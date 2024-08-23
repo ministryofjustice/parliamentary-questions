@@ -32,9 +32,6 @@ module Presenters
 
       cc_list =
         Set.new([deputy_director_email]) +
-        mp_emails(parliamentary_question) +
-        policy_mpemails(parliamentary_question) +
-        action_list_emails +
         press_emails(action_officer)
 
       cc_list
