@@ -27,7 +27,7 @@ module Presenters
         .merge(cc_list: cc_list(parliamentary_question, action_officer))
     end
 
-    def cc_list(parliamentary_question, action_officer)
+    def cc_list(action_officer)
       deputy_director_email = action_officer.deputy_director&.email
 
       cc_list =
