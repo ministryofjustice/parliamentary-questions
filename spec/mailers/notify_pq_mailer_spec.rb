@@ -58,14 +58,6 @@ describe NotifyPqMailer, type: :mailer do
       end
     end
 
-    describe "#cc_list returns deputy director email" do
-      let(:cc_list) { "dd1@gmail.gov.uk, dd2@gmail.gov.uk" }
-
-      it "sends email to cc_list" do
-        expect(cc_list).to eq("dd1@gmail.gov.uk, dd2@gmail.gov.uk")
-      end
-    end
-
     it "sets the personalisation keys" do
       expect(mail.govuk_notify_personalisation.keys.sort)
         .to eq(%i[

@@ -22,22 +22,6 @@ module Presenters
       }
     end
 
-    def cc_list_hash(parliamentary_question, action_officer)
-      default_hash(parliamentary_question, action_officer)
-        .merge(cc_list: cc_list(parliamentary_question, action_officer))
-    end
-
-    def cc_list(action_officer)
-      deputy_director_email = action_officer.deputy_director&.email
-
-      cc_list =
-        Set.new([deputy_director_email])
-
-      cc_list
-        .reject(&:blank?)
-        .join(";")
-    end
-
     # private_class_method
 
     def mp_emails(parliamentary_question)
