@@ -2,8 +2,6 @@ module Presenters
   module Email
   module_function
 
-    private_class_method
-
     def format_internal_deadline(parliamentary_question)
       parliamentary_question.internal_deadline ? "#{parliamentary_question.internal_deadline.to_formatted_s(:date)} - #{parliamentary_question.internal_deadline.strftime('%I').to_i}#{parliamentary_question.internal_deadline.strftime('%p').downcase} " : ""
     end
