@@ -97,17 +97,17 @@ describe NotifyPqMailer, type: :mailer do
       it "sets the personalisation in the email" do
         expect(mail.govuk_notify_personalisation)
           .to eq(
-                uin: pq.uin,
-                ao_name: ao.name,
-                question: pq.question,
-                member_name: "Asked by Diana Johnson",
-                house_name: "",
-                member_constituency: "",
-                answer_by: "",
-                internal_deadline: "",
-                date_to_parliament: "",
-                mail_reply_to: "pqs@justice.gov.uk",
-                )
+            uin: pq.uin,
+            ao_name: ao.name,
+            question: pq.question,
+            member_name: "Asked by Diana Johnson",
+            house_name: "",
+            member_constituency: "",
+            answer_by: "",
+            internal_deadline: "",
+            date_to_parliament: "",
+            mail_reply_to: "pqs@justice.gov.uk",
+          )
       end
     end
 
@@ -123,17 +123,17 @@ describe NotifyPqMailer, type: :mailer do
         ao.update!(group_email: "kulsgroupmail@digital.justice.gov.uk")
         expect(mail.govuk_notify_personalisation)
           .to eq(
-                uin: pq.uin,
-                ao_name: ao.name,
-                question: pq.question,
-                member_name: "Asked by Diana Johnson",
-                house_name: "House of Commons",
-                member_constituency: "Constituency Kingston upon Hull North",
-                answer_by: minister.name,
-                internal_deadline: "",
-                date_to_parliament: "",
-                mail_reply_to: "pqs@justice.gov.uk",
-                )
+            uin: pq.uin,
+            ao_name: ao.name,
+            question: pq.question,
+            member_name: "Asked by Diana Johnson",
+            house_name: "House of Commons",
+            member_constituency: "Constituency Kingston upon Hull North",
+            answer_by: minister.name,
+            internal_deadline: "",
+            date_to_parliament: "",
+            mail_reply_to: "pqs@justice.gov.uk",
+          )
       end
     end
 
