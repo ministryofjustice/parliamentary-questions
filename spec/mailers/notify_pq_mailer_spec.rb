@@ -58,8 +58,8 @@ describe NotifyPqMailer, type: :mailer do
       end
     end
 
-    context "#cc_list returns deputy director email" do
-    let(:cc_list) { "dd1@gmail.gov.uk, dd2@gmail.gov.uk"  }
+    describe "#cc_list returns deputy director email" do
+      let(:cc_list) { "dd1@gmail.gov.uk, dd2@gmail.gov.uk" }
 
       it "sends email to cc_list" do
         expect(cc_list).to eq("dd1@gmail.gov.uk, dd2@gmail.gov.uk")
