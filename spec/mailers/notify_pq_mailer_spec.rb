@@ -128,7 +128,6 @@ describe NotifyPqMailer, type: :mailer do
           mail_reply_to
           member_constituency
           member_name
-          press_email
           question
           uin
         ])

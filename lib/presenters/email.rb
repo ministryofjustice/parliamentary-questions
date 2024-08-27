@@ -2,43 +2,7 @@ module Presenters
   module Email
   module_function
 
-    def default_hash(parliamentary_question, action_officer)
-      {
-        answer_by: parliamentary_question.minister&.name,
-        action_officer_name: action_officer.name,
-        cc: action_officer.group_email,
-        date_to_parliament: parliamentary_question.date_for_answer.try(:to_formatted_s, :date),
-        email: action_officer.email,
-        house_name: parliamentary_question.house_name,
-        internal_deadline: format_internal_deadline(parliamentary_question),
-        member_constituency: parliamentary_question.member_constituency,
-        member_name: parliamentary_question.member_name,
-        mpemail: mp_emails(parliamentary_question).join(";"),
-        policy_mpemail: policy_mpemails(parliamentary_question).join(";"),
-        policy_mpname: parliamentary_question.policy_minister&.name,
-        press_email: press_emails(action_officer).join(";"),
-        question: parliamentary_question.question,
-        uin: parliamentary_question.uin,
-      }
-    end
-
-    # private_class_method
-
-    def mp_emails(parliamentary_question)
-      Array(parliamentary_question.minister && parliamentary_question.minister.contact_emails)
-    end
-
-    def policy_mpemails(parliamentary_question)
-      Array(parliamentary_question.policy_minister && parliamentary_question.policy_minister.contact_emails)
-    end
-
-    def press_emails(action_officer)
-      Array(action_officer.press_desk && action_officer.press_desk.press_officer_emails)
-    end
-
-    def action_list_emails
-      ActionlistMember.active.pluck(:email)
-    end
+    private_class_method
 
     def format_internal_deadline(parliamentary_question)
       parliamentary_question.internal_deadline ? "#{parliamentary_question.internal_deadline.to_formatted_s(:date)} - #{parliamentary_question.internal_deadline.strftime('%I').to_i}#{parliamentary_question.internal_deadline.strftime('%p').downcase} " : ""
