@@ -31,8 +31,7 @@ module Presenters
       deputy_director_email = action_officer.deputy_director&.email
 
       cc_list =
-        Set.new([deputy_director_email]) +
-        press_emails(action_officer)
+        Set.new([deputy_director_email])
 
       cc_list
         .reject(&:blank?)
