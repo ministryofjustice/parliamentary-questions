@@ -117,5 +117,4 @@ private
       raise "Got ip address, failed to get domain name, #{ENV['ENV']}, #{link_str}, #{ENV['SENDING_HOST']}"
     end
   end
-
 end
