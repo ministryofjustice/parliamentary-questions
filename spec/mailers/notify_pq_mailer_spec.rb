@@ -36,7 +36,6 @@ describe NotifyPqMailer, type: :mailer do
     end
 
     context "when optional variables are all set" do
-      # let(:ao) { create :action_officer }
 
       it "sets the personalisation in the email" do
         minister = FactoryBot.create(:minister)
@@ -92,7 +91,6 @@ describe NotifyPqMailer, type: :mailer do
     end
 
     context "when optional variables are not set" do
-      # let(:ao) { create :action_officer }
 
       it "sets the personalisation in the email" do
         expect(mail.govuk_notify_personalisation)
@@ -112,7 +110,6 @@ describe NotifyPqMailer, type: :mailer do
     end
 
     context "when optional variables are all set" do
-      # let(:ao) { create :action_officer }
 
       it "sets the personalisation in the email" do
         minister = FactoryBot.create(:minister)
@@ -206,6 +203,7 @@ describe NotifyPqMailer, type: :mailer do
           mail_reply_to
           member_constituency
           member_name
+          press_email
           question
           uin
         ])
