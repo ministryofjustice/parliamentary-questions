@@ -32,8 +32,7 @@ describe HealthCheck::Database do
       db.available?
 
       expect(db.error_messages).to eq([
-        "Database Error: could not connect to parliamentary_questions_test " \
-        "on localhost using postgresql",
+        "Database Error: could not connect to parliamentary_questions_test using postgresql",
       ])
     end
 
