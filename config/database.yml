@@ -1,19 +1,12 @@
+default: &default
+  adapter: postgresql
+
 development:
-  adapter: postgresql
-  encoding: unicode
   database: parliamentary_questions_dev
-  username: <%= ENV['DB_USERNAME'] || ENV['PGUSER'] || 'postgres' %>
-  password: <%= ENV['DB_PASSWORD'] || ENV['PGPASSWORD'] || 'postgres' %>
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
-  pool: 10
-
-test: &test
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
+test:
   database: parliamentary_questions_test
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
-  pool: 10
-
+  <<: *default
 production:
   adapter: postgresql
   host: <%= ENV['DB_HOST'] || 'localhost' %>
@@ -22,6 +15,3 @@ production:
   password: <%= ENV['DB_PASSWORD'] %>
   database: <%= ENV['DB_NAME'] || 'parliamentary-questions' %>
   pool: 15
-
-cucumber:
-  <<: *test
