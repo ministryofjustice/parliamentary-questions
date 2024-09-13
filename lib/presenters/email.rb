@@ -2,62 +2,9 @@ module Presenters
   module Email
   module_function
 
-    def default_hash(parliamentary_question, action_officer)
-      {
-        answer_by: parliamentary_question.minister&.name,
-        action_officer_name: action_officer.name,
-        cc: action_officer.group_email,
-        date_to_parliament: parliamentary_question.date_for_answer.try(:to_formatted_s, :date),
-        email: action_officer.email,
-        house_name: parliamentary_question.house_name,
-        internal_deadline: format_internal_deadline(parliamentary_question),
-        member_constituency: parliamentary_question.member_constituency,
-        member_name: parliamentary_question.member_name,
-        mpemail: mp_emails(parliamentary_question).join(";"),
-        policy_mpemail: policy_mpemails(parliamentary_question).join(";"),
-        policy_mpname: parliamentary_question.policy_minister&.name,
-        press_email: press_emails(action_officer).join(";"),
-        question: parliamentary_question.question,
-        uin: parliamentary_question.uin,
-      }
-    end
-
-    def cc_list_hash(parliamentary_question, action_officer)
-      default_hash(parliamentary_question, action_officer)
-        .merge(cc_list: cc_list(parliamentary_question, action_officer))
-    end
-
-    def cc_list(parliamentary_question, action_officer)
-      deputy_director_email = action_officer.deputy_director&.email
-
-      cc_list =
-        Set.new([deputy_director_email]) +
-        mp_emails(parliamentary_question) +
-        policy_mpemails(parliamentary_question) +
-        action_list_emails +
-        press_emails(action_officer)
-
-      cc_list
-        .reject(&:blank?)
-        .join(";")
-    end
-
     # private_class_method
-
-    def mp_emails(parliamentary_question)
-      Array(parliamentary_question.minister && parliamentary_question.minister.contact_emails)
-    end
-
-    def policy_mpemails(parliamentary_question)
-      Array(parliamentary_question.policy_minister && parliamentary_question.policy_minister.contact_emails)
-    end
-
     def press_emails(action_officer)
       Array(action_officer.press_desk && action_officer.press_desk.press_officer_emails)
-    end
-
-    def action_list_emails
-      ActionlistMember.active.pluck(:email)
     end
 
     def format_internal_deadline(parliamentary_question)

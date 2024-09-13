@@ -27,7 +27,7 @@ describe NotifyPqMailer, type: :mailer do
             answer_by: "",
             internal_deadline: "",
             date_to_parliament: "",
-            cc_list: ao.deputy_director.email,
+            cc_list: "#{ao.email}, pqs@justice.gov.uk",
             mail_reply_to: "pqs@justice.gov.uk",
           )
       end
@@ -52,7 +52,7 @@ describe NotifyPqMailer, type: :mailer do
             answer_by: minister.name,
             internal_deadline: "",
             date_to_parliament: "",
-            cc_list: ao.deputy_director.email,
+            cc_list: "#{ao.email}, pqs@justice.gov.uk",
             mail_reply_to: "pqs@justice.gov.uk",
           )
       end
@@ -64,6 +64,76 @@ describe NotifyPqMailer, type: :mailer do
           answer_by
           ao_name
           cc_list
+          date_to_parliament
+          house_name
+          internal_deadline
+          mail_reply_to
+          member_constituency
+          member_name
+          question
+          uin
+        ])
+    end
+  end
+
+  describe "acceptance_reminder_email" do
+    let(:mail) { described_class.acceptance_reminder_email(pq:, action_officer: ao, email: ao.email) }
+
+    it "sets the template" do
+      expect(mail.govuk_notify_template).to eq "930fb678-0ecf-477c-9d2e-c63e101fcbc4"
+    end
+
+    it "sets the To address of the email using the provided user" do
+      expect(mail.to).to eq([ao.email])
+    end
+
+    context "when optional variables are not set" do
+      it "sets the personalisation in the email" do
+        expect(mail.govuk_notify_personalisation)
+          .to eq(
+            uin: pq.uin,
+            ao_name: ao.name,
+            question: pq.question,
+            member_name: "Asked by Diana Johnson",
+            house_name: "",
+            member_constituency: "",
+            answer_by: "",
+            internal_deadline: "",
+            date_to_parliament: "",
+            mail_reply_to: "pqs@justice.gov.uk",
+          )
+      end
+    end
+
+    context "when optional variables are all set" do
+      it "sets the personalisation in the email" do
+        minister = FactoryBot.create(:minister)
+        pq.update!(member_constituency: "Kingston upon Hull North",
+                   member_name: "Diana Johnson",
+                   house_name: "House of Commons",
+                   minister:)
+        ao.update!(group_email: "kulsgroupmail@digital.justice.gov.uk")
+        expect(mail.govuk_notify_personalisation)
+          .to eq(
+            uin: pq.uin,
+            ao_name: ao.name,
+            question: pq.question,
+            member_name: "Asked by Diana Johnson",
+            house_name: "House of Commons",
+            member_constituency: "Constituency Kingston upon Hull North",
+            answer_by: minister.name,
+            internal_deadline: "",
+            date_to_parliament: "",
+            mail_reply_to: "pqs@justice.gov.uk",
+          )
+      end
+    end
+
+    it "sets the personalisation keys" do
+      expect(mail.govuk_notify_personalisation.keys.sort)
+        .to eq(%i[
+          answer_by
+          ao_name
           date_to_parliament
           house_name
           internal_deadline

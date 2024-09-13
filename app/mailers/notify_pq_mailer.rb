@@ -20,7 +20,7 @@ class NotifyPqMailer < ApplicationMailer
       answer_by: pq.minister&.name || "",
       internal_deadline: internal_deadline_text(pq) || "",
       date_to_parliament: date_to_parliament_text(pq) || "",
-      cc_list: cc_list(pq, action_officer) || "",
+      cc_list: [action_officer&.email, Settings.mail_reply_to].compact.join(", "),
       mail_reply_to: Settings.mail_reply_to,
     )
     set_email_reply_to(Settings.parliamentary_team_email)
@@ -78,7 +78,7 @@ class NotifyPqMailer < ApplicationMailer
       answer_by: pq.minister&.name || "",
       date_to_parliament: date_to_parliament_text(pq) || "",
       internal_deadline: internal_deadline_text(pq) || "",
-      cc_list: cc_list(pq, action_officer) || "",
+      cc_list: [action_officer&.email, Settings.mail_reply_to].compact.join(", "),
       press_email: press_emails(action_officer) || "",
       mail_reply_to: Settings.mail_reply_to,
     )
