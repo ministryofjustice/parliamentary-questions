@@ -10,14 +10,6 @@ module PqScopes
     by_status(PqState::ANSWERED)
   end
 
-  def answered_by_deadline_last_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
-  end
-
-  def answered_by_deadline_prev_week
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
-  end
-
   def answered_by_deadline_since
     not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", parliament_session_start)
   end
@@ -26,29 +18,12 @@ module PqScopes
     not_tx.where("date_for_answer > ?", parliament_session_start)
   end
 
-  def answered_prev_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
-  end
-
-  def answered_last_week
-    not_tx.where("answer_submitted BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
-  end
-
   def answered_since
     not_tx.where("answer_submitted > ?", parliament_session_start)
   end
 
   def backlog
     where("date_for_answer < CURRENT_DATE and state NOT IN (?)", PqState::CLOSED)
-  end
-
-  def beginning_of_last_week
-    # Sunday
-    Time.zone.today.beginning_of_week - 8
-  end
-
-  def beginning_of_prev_week
-    beginning_of_last_week - 7
   end
 
   def by_status(states)
@@ -72,23 +47,6 @@ module PqScopes
     not_tx.where("internal_deadline > ?", parliament_session_start)
   end
 
-  def due_last_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
-  end
-
-  def due_prev_week
-    not_tx.where("date_for_answer BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
-  end
-
-  def end_of_last_week
-    # Saturday
-    Time.zone.today.beginning_of_week - 2
-  end
-
-  def end_of_prev_week
-    end_of_last_week - 7
-  end
-
   def filter_for_report(state, minister_id, press_desk_id)
     q = order(:internal_deadline)
     q = join_press_desks.where("pd.id = ?", press_desk_id).distinct("pqs.uin") if press_desk_id.present?
@@ -101,16 +59,6 @@ module PqScopes
     where("i_will_write = true AND state NOT IN (?)", PqState::CLOSED)
   end
 
-  def imported_today
-    where("created_at BETWEEN ? AND ?", Time.zone.today.beginning_of_day, Time.zone.today.end_of_day)
-  end
-
-  def imported_last_week
-    not_tx.where("created_at BETWEEN ? AND ?", beginning_of_last_week, end_of_last_week)
-  end
-
-  def imported_prev_week
-    not_tx.where("created_at BETWEEN ? AND ?", beginning_of_prev_week, end_of_prev_week)
   end
 
   def in_progress
