@@ -59,6 +59,10 @@ module PqScopes
     where("i_will_write = true AND state NOT IN (?)", PqState::CLOSED)
   end
 
+  def imported_since_last_weekday
+    end_of_last_weekday = Time.zone.today.last_weekday.end_of_day
+    end_of_today = Time.zone.today.end_of_day
+    where("created_at BETWEEN ? AND ?", end_of_last_weekday, end_of_today)
   end
 
   def in_progress
