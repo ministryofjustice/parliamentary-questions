@@ -10,18 +10,6 @@ module PqScopes
     by_status(PqState::ANSWERED)
   end
 
-  def answered_by_deadline_since
-    not_tx.where("answer_submitted < date_for_answer + 1 AND answer_submitted > ?", parliament_session_start)
-  end
-
-  def answer_due_since
-    not_tx.where("date_for_answer > ?", parliament_session_start)
-  end
-
-  def answered_since
-    not_tx.where("answer_submitted > ?", parliament_session_start)
-  end
-
   def backlog
     where("date_for_answer < CURRENT_DATE and state NOT IN (?)", PqState::CLOSED)
   end
@@ -30,21 +18,8 @@ module PqScopes
     where(state: states)
   end
 
-  def commons
-    not_tx.where(house_name: "House of Commons")
-  end
-
   def draft_pending
     by_status(PqState::DRAFT_PENDING)
-  end
-
-  def draft_response_on_time_since
-    # For reporting purposes an half hour's grace period is allowed on the internal deadline.
-    not_tx.where("(internal_deadline + interval '30 minutes') > draft_answer_received AND draft_answer_received > ?", parliament_session_start)
-  end
-
-  def draft_response_due_since
-    not_tx.where("internal_deadline > ?", parliament_session_start)
   end
 
   def filter_for_report(state, minister_id, press_desk_id)
@@ -76,20 +51,12 @@ module PqScopes
       .where("aopq.response = 'accepted' AND pd.deleted = false")
   end
 
-  def lords
-    not_tx.where(house_name: "House of Lords")
-  end
-
   def minister_cleared
     by_status(PqState::MINISTER_CLEARED)
   end
 
   def ministerial_query
     by_status(PqState::MINISTERIAL_QUERY)
-  end
-
-  def named_day
-    not_tx.where(question_type: "NamedDay")
   end
 
   def new_questions
@@ -106,10 +73,6 @@ module PqScopes
 
   def on_time
     not_tx.where("answer_submitted <= (date_for_answer + 1)")
-  end
-
-  def ordinary
-    not_tx.where(question_type: "Ordinary")
   end
 
   def pod_cleared
@@ -143,10 +106,6 @@ module PqScopes
       .order(Arel.sql("state_weight DESC"))
       .order(Arel.sql("updated_at ASC"))
       .order(Arel.sql("id"))
-  end
-
-  def total_questions_since
-    not_tx.where("created_at > ?", parliament_session_start)
   end
 
   def transferred
