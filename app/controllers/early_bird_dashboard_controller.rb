@@ -9,7 +9,7 @@ class EarlyBirdDashboardController < ApplicationController
   def index
     update_page_title("Early bird preview")
     @now = Time.zone.now.strftime("%d/%m/%Y")
-    @questions = Pq.new_questions.order(:uin)
+    @questions = Pq.new_questions.or(Pq.imported_since_last_weekday).order(:uin)
     @parliament_url = QUESTIONS_URL
   end
 
