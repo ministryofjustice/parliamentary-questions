@@ -58,7 +58,6 @@ module PqFollowup
     library_deposit
     pq_withdrawn
     holding_reply_flag
-    round_robin_guidance_received
     transfer_out_ogd_id
     transfer_out_date
     transfer_in_ogd_id

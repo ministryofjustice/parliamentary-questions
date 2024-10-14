@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_14_144501) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_14_154344) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -175,8 +175,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_14_144501) do
     t.datetime "pod_clearance", precision: nil
     t.boolean "transferred"
     t.string "question_status"
-    t.boolean "round_robin"
-    t.datetime "round_robin_date", precision: nil
     t.boolean "i_will_write"
     t.boolean "pq_correction_received"
     t.datetime "correction_circulated_to_action_officer", precision: nil
@@ -198,7 +196,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_14_144501) do
     t.datetime "pq_withdrawn", precision: nil
     t.boolean "holding_reply_flag"
     t.string "final_response_info_released"
-    t.datetime "round_robin_guidance_received", precision: nil
     t.integer "transfer_out_ogd_id"
     t.datetime "transfer_out_date", precision: nil
     t.integer "directorate_id"
