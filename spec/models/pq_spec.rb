@@ -11,8 +11,6 @@
 #  answer                                        :string
 #  created_at                                    :datetime         not null
 #  updated_at                                    :datetime         not null
-#  finance_interest                              :boolean
-#  seen_by_finance                               :boolean          default(FALSE)
 #  uin                                           :string
 #  member_name                                   :string
 #  member_constituency                           :string
@@ -572,15 +570,6 @@ describe Pq do
       expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq(%i[accepted accepted accepted])
       expect(pq).not_to be_valid
       expect(pq.errors[:base]).to eq(["Unable to have two action officers accepted on the same question"])
-    end
-  end
-
-  describe "item" do
-    it "allows finance interest to be set" do
-      question.finance_interest = true
-      expect(question).to be_valid
-      question.finance_interest = false
-      expect(question).to be_valid
     end
   end
 end

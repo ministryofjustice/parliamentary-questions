@@ -11,8 +11,6 @@
 #  answer                                        :string
 #  created_at                                    :datetime         not null
 #  updated_at                                    :datetime         not null
-#  finance_interest                              :boolean
-#  seen_by_finance                               :boolean          default(FALSE)
 #  uin                                           :string
 #  member_name                                   :string
 #  member_constituency                           :string
@@ -77,7 +75,6 @@ FactoryBot.define do
     answer { nil }
     state { PqState::UNASSIGNED }
     member_name { "Diana Johnson" }
-    finance_interest { false }
 
     factory :not_responded_pq do
       state { PqState::NO_RESPONSE }

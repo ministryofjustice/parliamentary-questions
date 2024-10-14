@@ -62,7 +62,6 @@ private
 
   PARAMS = %i[
     answering_minister_query
-    finance_interest
     holding_reply_flag
     i_will_write
     library_deposit

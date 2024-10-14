@@ -244,8 +244,6 @@ insert into pqs(
   question,
   created_at,
   updated_at,
-  seen_by_finance,
-  finance_interest,
   uin,
   member_name,
   house_name,

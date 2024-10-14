@@ -11,8 +11,6 @@
 #  answer                                        :string
 #  created_at                                    :datetime         not null
 #  updated_at                                    :datetime         not null
-#  finance_interest                              :boolean
-#  seen_by_finance                               :boolean          default(FALSE)
 #  uin                                           :string
 #  member_name                                   :string
 #  member_constituency                           :string
