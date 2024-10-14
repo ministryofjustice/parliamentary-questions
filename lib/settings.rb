@@ -73,10 +73,6 @@ module_function
     OpenStruct.new(@h["smoke_test_runner"])
   end
 
-  def key_metric_threshold
-    @h["key_metric_threshold"]
-  end
-
   def parliamentary_team_email
     @h["parliamentary_team_email"]
   end

@@ -2,13 +2,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get "ping"               => "ping#index"
   get "healthcheck"        => "health_check#index"
 
-  get "statistics/"                 => "statistics#index"
-  get "statistics/stages_time"      => "statistics#stages_time"
-  get "statistics/on_time"          => "statistics#on_time"
-  get "statistics/time_to_assign"   => "statistics#time_to_assign"
-  get "statistics/ao_response_time" => "statistics#ao_response_time"
-  get "statistics/ao_churn"         => "statistics#ao_churn"
-
   resources :minister_contacts
   get "minister_contacts/new/:id" => "minister_contacts#new", :as => :new_minister_contact_withid
 
