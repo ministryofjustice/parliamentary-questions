@@ -85,9 +85,6 @@ ParliamentaryQuestions::Application.routes.draw do
   match "export/pq.csv" => "export#csv", via: %i[get post]
   get "export"          => "export#index"
 
-  match "export_pod/pq_pod.csv" => "export#csv_for_pod", via: %i[get post]
-  get "export_pod"              => "export#index_for_pod"
-
   match "export/csv_quick.csv" => "export#csv_quick", via: %i[get post]
   get "export"                 => "export#index"
 
