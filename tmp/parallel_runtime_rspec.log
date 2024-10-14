@@ -54,7 +54,6 @@ spec/models/press_officer_spec.rb:0.055215999484062195
 spec/services/early_bird_report_service_spec.rb:0.05187099985778332
 spec/models/token_spec.rb:0.0483370004221797
 spec/lib/export/pq_default_spec.rb:0.047124999575316906
-spec/services/watchlist_report_service_spec.rb:0.04627199936658144
 spec/lib/export/pq_pod_spec.rb:0.043155000545084476
 spec/controllers/ministers_controller_spec.rb:0.039419000037014484
 spec/services/token_service_spec.rb:0.03710999991744757
@@ -78,7 +77,6 @@ spec/mailers/notify_import_mailer_spec.rb:0.013023000210523605
 spec/lib/smoke_test_spec.rb:0.011373999528586864
 spec/services/health_check_service_spec.rb:0.009713999927043915
 spec/lib/pqa/xml_decoder_spec.rb:0.008383000269532204
-spec/models/watchlist_member_spec.rb:0.00800899975001812
 spec/health_check/database_spec.rb:0.007915999740362167
 spec/models/settings_spec.rb:0.007046000100672245
 spec/helpers/application_helper_spec.rb:0.00702699925750494
@@ -86,7 +84,6 @@ spec/models/early_bird_member_spec.rb:0.0060259997844696045
 spec/lib/pq_state/validator_spec.rb:0.005400999449193478
 spec/models/commission_form_spec.rb:0.005206000059843063
 spec/mailers/notify_db_sync_mailer_spec.rb:0.004971000365912914
-spec/controllers/watchlist_dashboard_controller_spec.rb:0.004723000340163708
 spec/lib/validators/date_input_spec.rb:0.0033490005880594254
 spec/lib/pq_state/progress_changer_spec.rb:0.0032979995012283325
 spec/lib/presenters/status_filter_spec.rb:0.0031080003827810287

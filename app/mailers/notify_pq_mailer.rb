@@ -98,17 +98,6 @@ class NotifyPqMailer < ApplicationMailer
     mail(to: email)
   end
 
-  def watchlist_email(email:, token:, entity:)
-    set_template("b452ebb8-c49e-46f6-9da5-3ba28b494ed6")
-    set_personalisation(
-      date_today: (Time.zone.today.strftime "%d/%m/%Y"),
-      watch_list_url: watchlist_dashboard_url(token:, entity:, protocol: "https"),
-      mail_reply_to: Settings.mail_reply_to,
-    )
-    set_email_reply_to(Settings.parliamentary_team_email)
-    mail(to: email)
-  end
-
 private
 
   def check_is_wrong_domain(link_str)

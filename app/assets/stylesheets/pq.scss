@@ -444,7 +444,7 @@ textarea.form-control {
   cursor: pointer;
 }
 
-// Tables on setting pages (ministers, watch list, action officers, etc.) =========
+// Tables on setting pages (ministers, action officers, etc.) =========
 .table {
   clear: both;
   thead tr th, tbody tr td {
@@ -457,7 +457,7 @@ textarea.form-control {
 #admin-status { width: 100px; }
 #minister-name { width: 30%; }
 
-// = Button bar on some settings pages (watch list, action officers, etc.) =========
+// = Button bar on some settings pages (action officers, etc.) =========
 #admin-button-bar {
   float: right;
   margin-bottom: 10px;
@@ -695,19 +695,6 @@ textarea.form-control {
   .col-md-4 {
     padding-left: 0;
     padding-right: 32px;
-  }
-}
-
-/* = Watchlist preview (/watchlist/preview) ================================ */
-
-#watchlist-preview {
-  h2 {
-    margin: 20px 0 10px 0;
-    font-weight: bold;
-  }
-  h3 {
-    font-weight: bold;
-    margin: 20px 0 10px 0;
   }
 }
 

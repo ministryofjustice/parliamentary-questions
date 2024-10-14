@@ -9,7 +9,6 @@ describe RakeTaskHelpers::DbSanitizer do
     mc  = FactoryBot.create(:minister_contact)
     po  = FactoryBot.create(:press_officer)
     u   = FactoryBot.create(:user)
-    wlm = FactoryBot.create(:watchlist_member)
 
     described_class.new.run!
 
@@ -19,7 +18,6 @@ describe RakeTaskHelpers::DbSanitizer do
     expect(mc.reload.email).to eq "pqsupport+mc#{mc.id}@digital.justice.gov.uk"
     expect(po.reload.email).to eq "pqsupport+po#{po.id}@digital.justice.gov.uk"
     expect(u.reload.email).to eq "pqsupport+u#{u.id}@digital.justice.gov.uk"
-    expect(wlm.reload.email).to eq "pqsupport+wlm#{wlm.id}@digital.justice.gov.uk"
     expect(ao.reload.group_email).to eq "pqsupport+gm#{ao.id}@digital.justice.gov.uk"
   end
 end

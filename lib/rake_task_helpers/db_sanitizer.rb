@@ -8,7 +8,6 @@ module RakeTaskHelpers
         "update minister_contacts  set email ='pqsupport+mc' || id || '@digital.justice.gov.uk'",
         "update press_officers     set email ='pqsupport+po' || id || '@digital.justice.gov.uk'",
         "update users              set email ='pqsupport+u' || id || '@digital.justice.gov.uk'",
-        "update watchlist_members  set email ='pqsupport+wlm' || id || '@digital.justice.gov.uk'",
         "update early_bird_members set email ='pqsupport+ebm' || id || '@digital.justice.gov.uk'",
         "update action_officers    set group_email ='pqsupport+gm' || id || '@digital.justice.gov.uk'",
       ].freeze
