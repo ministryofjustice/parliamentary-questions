@@ -17,7 +17,6 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :divisions
   resources :directorates
   resources :early_bird_members
-  resources :actionlist_members
   resources :action_officers
 
   devise_for :users, controllers: { invitations: "users/invitations", sessions: "users/sessions" }
