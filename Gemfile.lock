@@ -164,7 +164,7 @@ GEM
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
-    irb (1.14.0)
+    irb (1.14.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jquery-rails (4.6.0)
@@ -250,7 +250,7 @@ GEM
     puma (6.4.3)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.9)
+    rack (2.2.10)
     rack-protection (3.1.0)
       rack (~> 2.2, >= 2.2.4)
     rack-session (1.0.2)
@@ -391,10 +391,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.19.0)
+    sentry-rails (5.21.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.19.0)
-    sentry-ruby (5.19.0)
+      sentry-ruby (~> 5.21.0)
+    sentry-ruby (5.21.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.4.0)
@@ -495,7 +495,7 @@ DEPENDENCIES
   sass-rails (~> 6.0)
   select2-rails (~> 4.0, >= 4.0.13)
   selenium-webdriver
-  sentry-rails (~> 5.18)
+  sentry-rails (~> 5.21)
   sentry-ruby (~> 5.19)
   shoulda-matchers
   sidekiq
