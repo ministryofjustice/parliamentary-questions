@@ -30,8 +30,6 @@
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string
-#  pq_correction_received                        :boolean
-#  correction_circulated_to_action_officer       :datetime
 #  pod_query_flag                                :boolean
 #  sent_to_policy_minister                       :datetime
 #  policy_minister_query                         :boolean

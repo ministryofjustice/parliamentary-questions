@@ -68,7 +68,6 @@ private
     pod_query_flag
     policy_minister_id
     policy_minister_query
-    pq_correction_received
     press_interest
     progress_id
     transfer_in_ogd_id
@@ -83,7 +82,6 @@ private
     holding_reply
     pod_query
     pod_clearance
-    correction_circulated_to_action_officer
     sent_to_policy_minister
     policy_minister_to_action_officer
     policy_minister_returned_by_action_officer
