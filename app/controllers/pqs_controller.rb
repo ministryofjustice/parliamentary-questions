@@ -65,7 +65,6 @@ private
     holding_reply_flag
     library_deposit
     minister_id
-    pod_query_flag
     policy_minister_id
     policy_minister_query
     press_interest
@@ -80,7 +79,6 @@ private
     internal_deadline
     draft_answer_received
     holding_reply
-    pod_query
     pod_clearance
     sent_to_policy_minister
     policy_minister_to_action_officer

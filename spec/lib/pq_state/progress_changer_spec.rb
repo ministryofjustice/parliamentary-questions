@@ -46,7 +46,6 @@ describe "PqState#progress_changer" do
                      transfer_out_date: Time.zone.now,
                      action_officer_accepted: instance_double(ActionOfficer),
                      draft_answer_received: Time.zone.now,
-                     pod_query_flag: true,
                      pod_clearance: true,
                      policy_minister: nil,
                      answering_minister_query: false,

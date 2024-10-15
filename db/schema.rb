@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_161221) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_15_161547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -168,11 +168,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_161221) do
     t.datetime "holding_reply", precision: nil
     t.string "preview_url"
     t.datetime "pod_waiting", precision: nil
-    t.datetime "pod_query", precision: nil
     t.datetime "pod_clearance", precision: nil
     t.boolean "transferred"
     t.string "question_status"
-    t.boolean "pod_query_flag"
     t.datetime "sent_to_policy_minister", precision: nil
     t.boolean "policy_minister_query"
     t.datetime "policy_minister_to_action_officer", precision: nil

@@ -23,7 +23,6 @@ Progress.create([
   { name: Progress.REJECTED },
   { name: Progress.DRAFT_PENDING },
   { name: Progress.WITH_POD },
-  { name: Progress.POD_QUERY },
   { name: Progress.POD_CLEARED },
   { name: Progress.WITH_MINISTER },
   { name: Progress.MINISTERIAL_QUERY },

@@ -46,7 +46,6 @@ describe Presenters::DashboardFilters do
         "view_all_in_progress" => 12,
         PqState::DRAFT_PENDING => 1,
         PqState::WITH_POD => 2,
-        PqState::POD_QUERY => 3,
         PqState::MINISTER_CLEARED => 4,
       }
     end
@@ -55,7 +54,7 @@ describe Presenters::DashboardFilters do
       {
         controller: "dashboard",
         action: "in_progress_by_status",
-        qstatus: PqState::POD_QUERY,
+        qstatus: PqState::WITH_POD,
       }
     end
 
@@ -63,8 +62,7 @@ describe Presenters::DashboardFilters do
       expected = [
         ["View all", 12, dashboard_in_progress_path, false],
         ["Draft Pending", 1, dashboard_in_progress_by_status_path(qstatus: PqState::DRAFT_PENDING), false],
-        ["With POD", 2, dashboard_in_progress_by_status_path(qstatus: PqState::WITH_POD), false],
-        ["POD Query", 3, dashboard_in_progress_by_status_path(qstatus: PqState::POD_QUERY), true],
+        ["With POD", 2, dashboard_in_progress_by_status_path(qstatus: PqState::WITH_POD), true],
         ["POD Cleared", 0, dashboard_in_progress_by_status_path(qstatus: PqState::POD_CLEARED), false],
         ["With Minister", 0, dashboard_in_progress_by_status_path(qstatus: PqState::WITH_MINISTER), false],
         ["Ministerial Query", 0, dashboard_in_progress_by_status_path(qstatus: PqState::MINISTERIAL_QUERY), false],

@@ -26,11 +26,9 @@
 #  holding_reply                                 :datetime
 #  preview_url                                   :string
 #  pod_waiting                                   :datetime
-#  pod_query                                     :datetime
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string
-#  pod_query_flag                                :boolean
 #  sent_to_policy_minister                       :datetime
 #  policy_minister_query                         :boolean
 #  policy_minister_to_action_officer             :datetime
@@ -105,27 +103,22 @@ FactoryBot.define do
         state { PqState::WITH_POD }
         draft_answer_received { Time.zone.now }
 
-        factory :pod_query_pq do
-          state { PqState::POD_QUERY }
-          pod_query_flag { true }
+        factory :pod_cleared_pq do
+          state { PqState::POD_CLEARED }
+          pod_clearance { Time.zone.now }
 
-          factory :pod_cleared_pq do
-            state { PqState::POD_CLEARED }
-            pod_clearance { Time.zone.now }
+          factory :with_minister_pq do
+            state { PqState::WITH_MINISTER }
+            sent_to_answering_minister { Time.zone.now }
 
-            factory :with_minister_pq do
-              state { PqState::WITH_MINISTER }
-              sent_to_answering_minister { Time.zone.now }
+            factory :ministerial_query_pq do
+              state { PqState::MINISTERIAL_QUERY }
+              answering_minister_query { true }
+            end
 
-              factory :ministerial_query_pq do
-                state { PqState::MINISTERIAL_QUERY }
-                answering_minister_query { true }
-              end
-
-              factory :minister_cleared_pq do
-                state { PqState::MINISTER_CLEARED }
-                cleared_by_answering_minister { Time.zone.now }
-              end
+            factory :minister_cleared_pq do
+              state { PqState::MINISTER_CLEARED }
+              cleared_by_answering_minister { Time.zone.now }
             end
           end
         end

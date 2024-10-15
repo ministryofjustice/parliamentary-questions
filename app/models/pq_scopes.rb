@@ -75,10 +75,6 @@ module PqScopes
     by_status(PqState::POD_CLEARED)
   end
 
-  def pod_query
-    by_status(PqState::POD_QUERY)
-  end
-
   def rejected
     by_status(PqState::REJECTED)
   end

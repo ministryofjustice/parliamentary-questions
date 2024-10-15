@@ -38,10 +38,6 @@ class Progress < ApplicationRecord
     find_by(status: self.WITH_POD)
   end
 
-  def self.pod_query
-    find_by(status: self.POD_QUERY)
-  end
-
   def self.pod_cleared
     find_by(status: self.POD_CLEARED)
   end
@@ -92,10 +88,6 @@ class Progress < ApplicationRecord
     "With POD"
   end
 
-  def self.POD_QUERY
-    "POD Query"
-  end
-
   def self.POD_CLEARED
     "POD Cleared"
   end
@@ -138,7 +130,6 @@ class Progress < ApplicationRecord
     [
       Progress.DRAFT_PENDING,
       Progress.WITH_POD,
-      Progress.POD_QUERY,
       Progress.POD_CLEARED,
       Progress.WITH_MINISTER,
       Progress.MINISTERIAL_QUERY,

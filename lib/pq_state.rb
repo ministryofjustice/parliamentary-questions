@@ -4,7 +4,6 @@ module PqState
   NO_RESPONSE       = "no_response".freeze
   DRAFT_PENDING     = "draft_pending".freeze
   WITH_POD          = "with_pod".freeze
-  POD_QUERY         = "pod_query".freeze
   POD_CLEARED       = "pod_cleared".freeze
   WITH_MINISTER     = "with_minister".freeze
   MINISTERIAL_QUERY = "ministerial_query".freeze
@@ -21,7 +20,6 @@ module PqState
   IN_PROGRESS = [
     DRAFT_PENDING,
     WITH_POD,
-    POD_QUERY,
     POD_CLEARED,
     WITH_MINISTER,
     MINISTERIAL_QUERY,
@@ -39,7 +37,6 @@ module PqState
     REJECTED,
     DRAFT_PENDING,
     WITH_POD,
-    POD_QUERY,
     POD_CLEARED,
     WITH_MINISTER,
     MINISTERIAL_QUERY,
@@ -58,7 +55,7 @@ module PqState
       1
     when DRAFT_PENDING
       2
-    when WITH_POD, POD_QUERY
+    when WITH_POD
       3
     when WITH_MINISTER, MINISTERIAL_QUERY
       4
@@ -80,7 +77,6 @@ module PqState
     when NO_RESPONSE       then "No response"
     when DRAFT_PENDING     then "Draft Pending"
     when WITH_POD          then "With POD"
-    when POD_QUERY         then "POD Query"
     when POD_CLEARED       then "POD Cleared"
     when WITH_MINISTER     then "With Minister"
     when MINISTERIAL_QUERY then "Ministerial Query"
@@ -108,13 +104,9 @@ module PqState
       Transition(DRAFT_PENDING, WITH_POD) do |pq|
         !!pq.draft_answer_received # rubocop:disable Style/DoubleNegation
       end,
-      ## POD Query
-      Transition(WITH_POD, POD_QUERY) do |pq|
-        !!pq.pod_query_flag # rubocop:disable Style/DoubleNegation
-      end,
       ## POD Clearance
-      Transition.factory([WITH_POD, POD_QUERY], [POD_CLEARED]) do |pq|
-        (pq.draft_answer_received || pq.pod_query_flag) && pq.pod_clearance
+      Transition.factory([WITH_POD], [POD_CLEARED]) do |pq|
+        pq.draft_answer_received && pq.pod_clearance
       end,
       ## With Minister
       Transition(POD_CLEARED, WITH_MINISTER) do |pq|

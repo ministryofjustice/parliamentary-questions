@@ -26,11 +26,9 @@
 #  holding_reply                                 :datetime
 #  preview_url                                   :string
 #  pod_waiting                                   :datetime
-#  pod_query                                     :datetime
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string
-#  pod_query_flag                                :boolean
 #  sent_to_policy_minister                       :datetime
 #  policy_minister_query                         :boolean
 #  policy_minister_to_action_officer             :datetime

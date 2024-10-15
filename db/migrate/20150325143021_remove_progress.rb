@@ -25,8 +25,6 @@ class RemoveProgress < ActiveRecord::Migration[5.0]
       'no_response'
     when Progress.DRAFT_PENDING
       'draft_pending'
-    when Progress.POD_QUERY
-      'pod_query'
     when Progress.WITH_POD
       'with_pod'
     when Progress.WITH_MINISTER

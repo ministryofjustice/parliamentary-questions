@@ -26,11 +26,9 @@
 #  holding_reply                                 :datetime
 #  preview_url                                   :string
 #  pod_waiting                                   :datetime
-#  pod_query                                     :datetime
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string
-#  pod_query_flag                                :boolean
 #  sent_to_policy_minister                       :datetime
 #  policy_minister_query                         :boolean
 #  policy_minister_to_action_officer             :datetime
@@ -99,7 +97,7 @@ describe Pq do
       # Update to cover all sorting criteria
       pqs[0].update!(date_for_answer: Date.tomorrow, state: PqState::POD_CLEARED)
       pqs[1].update!(date_for_answer: Date.tomorrow)
-      pqs[2].update!(date_for_answer: Date.tomorrow  + 1.day, state: PqState::POD_QUERY)
+      pqs[2].update!(date_for_answer: Date.tomorrow  + 1.day, state: PqState::POD_CLEARED)
       pqs[3].update!(date_for_answer: Date.tomorrow  + 1.day)
       pqs[4].update!(date_for_answer: Date.yesterday, state: PqState::POD_CLEARED)
       pqs[5].update!(date_for_answer: Date.yesterday)

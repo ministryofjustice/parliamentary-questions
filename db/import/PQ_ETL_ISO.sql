@@ -257,7 +257,6 @@ insert into pqs(
   holding_reply,
   pod_clearance,
   transferred,
-  pod_query_flag,
   sent_to_policy_minister,
   cleared_by_policy_minister,
   sent_to_answering_minister,
