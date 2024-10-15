@@ -60,7 +60,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get "dashboard/by_status/:qstatus"             => "dashboard#by_status", as: :dashboard_by_status
   get "dashboard/in_progress_by_status/:qstatus" => "dashboard#in_progress_by_status", as: :dashboard_in_progress_by_status
   get "dashboard/transferred"                    => "dashboard#transferred", as: :dashboard_transferred
-  get "dashboard/i_will_write"                   => "dashboard#i_will_write", as: :dashboard_iww
 
   get "assignment/:uin"  => "assignment#show", as: :assignment
   post "assignment/:uin" => "assignment#create"
@@ -76,8 +75,6 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get "early_bird_organiser/new" => "early_bird_organiser#new"
   post "early_bird_organiser/create" => "early_bird_organiser#create"
-
-  get "i_will_write/create" => "i_will_write#create"
 
   get "send_accept_reject_reminder/:id" => "action_officer_reminder#accept_reject"
   get "send_draft_reminder/:id"         => "action_officer_reminder#send_draft"

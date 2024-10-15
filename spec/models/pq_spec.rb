@@ -23,7 +23,6 @@
 #  policy_minister_id                            :integer
 #  progress_id                                   :integer
 #  draft_answer_received                         :datetime
-#  i_will_write_estimate                         :datetime
 #  holding_reply                                 :datetime
 #  preview_url                                   :string
 #  pod_waiting                                   :datetime
@@ -31,7 +30,6 @@
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string
-#  i_will_write                                  :boolean
 #  pq_correction_received                        :boolean
 #  correction_circulated_to_action_officer       :datetime
 #  pod_query_flag                                :boolean
@@ -58,7 +56,6 @@
 #  original_division_id                          :integer
 #  transfer_in_ogd_id                            :integer
 #  transfer_in_date                              :datetime
-#  follow_up_to                                  :string
 #  state                                         :string           default("unassigned")
 #  state_weight                                  :integer          default(0)
 #  archived                                      :boolean          default(FALSE)

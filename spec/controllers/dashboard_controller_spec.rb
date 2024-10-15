@@ -65,12 +65,6 @@ def pq_dates
   ]
 end
 
-def setup_i_will_write_questions
-  setup_questions
-  questions = Pq.where.not(state: PqState::CLOSED)
-  questions.each { |q| q.update(i_will_write: true) }
-end
-
 def setup_questions
   Pq.delete_all
   PqState::ALL.each_with_index do |state, state_index|
