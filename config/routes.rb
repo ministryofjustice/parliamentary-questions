@@ -36,10 +36,6 @@ ParliamentaryQuestions::Application.routes.draw do
   get "commission_reject_manual/:id" => "manual_reject_commission#reject_manual"
   post "commission"                  => "commission#commission", as: :commission
 
-  get "quick_action_export"        => "quick_action_export#new"
-  post "quick_action_export"       => "quick_action_export#new"
-  get "quick_action_export/export" => "quick_action_export#export"
-
   post "quick_action_edit_dates" => "quick_action#dates"
   post "quick_action_draft_reminders/draft_reminders" => "quick_action#draft_reminders"
 
