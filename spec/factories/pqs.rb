@@ -34,9 +34,7 @@
 #  sent_to_answering_minister                    :datetime
 #  cleared_by_answering_minister                 :datetime
 #  answer_submitted                              :datetime
-#  library_deposit                               :boolean
 #  pq_withdrawn                                  :datetime
-#  holding_reply_flag                            :boolean
 #  final_response_info_released                  :string
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime

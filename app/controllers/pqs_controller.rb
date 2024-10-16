@@ -61,8 +61,6 @@ private
   end
 
   PARAMS = %i[
-    holding_reply_flag
-    library_deposit
     minister_id
     policy_minister_id
     press_interest

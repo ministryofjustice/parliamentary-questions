@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_16_095536) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_16_133636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -176,9 +176,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_095536) do
     t.datetime "sent_to_answering_minister", precision: nil
     t.datetime "cleared_by_answering_minister", precision: nil
     t.datetime "answer_submitted", precision: nil
-    t.boolean "library_deposit"
     t.datetime "pq_withdrawn", precision: nil
-    t.boolean "holding_reply_flag"
     t.string "final_response_info_released"
     t.integer "transfer_out_ogd_id"
     t.datetime "transfer_out_date", precision: nil
