@@ -61,12 +61,10 @@ private
   end
 
   PARAMS = %i[
-    answering_minister_query
     holding_reply_flag
     library_deposit
     minister_id
     policy_minister_id
-    policy_minister_query
     press_interest
     progress_id
     transfer_in_ogd_id
@@ -81,14 +79,8 @@ private
     holding_reply
     pod_clearance
     sent_to_policy_minister
-    policy_minister_to_action_officer
-    policy_minister_returned_by_action_officer
-    resubmitted_to_policy_minister
     cleared_by_policy_minister
     sent_to_answering_minister
-    answering_minister_to_action_officer
-    answering_minister_returned_by_action_officer
-    resubmitted_to_answering_minister
     cleared_by_answering_minister
     answer_submitted
     pq_withdrawn

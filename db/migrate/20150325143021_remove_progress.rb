@@ -29,8 +29,6 @@ class RemoveProgress < ActiveRecord::Migration[5.0]
       'with_pod'
     when Progress.WITH_MINISTER
       'with_minister'
-    when Progress.MINISTERIAL_QUERY
-      'ministerial_query'
     when Progress.MINISTER_CLEARED
       'minister_cleared'
     when Progress.ANSWERED

@@ -51,10 +51,6 @@ module PqScopes
     by_status(PqState::MINISTER_CLEARED)
   end
 
-  def ministerial_query
-    by_status(PqState::MINISTERIAL_QUERY)
-  end
-
   def new_questions
     by_status(PqState::NEW)
   end

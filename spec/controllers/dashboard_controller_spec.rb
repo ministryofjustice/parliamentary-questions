@@ -94,10 +94,9 @@ end
 
 def expected_order_of_overdue_questions
   [
-    "UIN-#{Date.yesterday.strftime('%m%d')}:minister_cleared-80",
+    "UIN-#{Date.yesterday.strftime('%m%d')}:minister_cleared-70",
     "UIN-#{Date.yesterday.strftime('%m%d')}:pod_cleared-50",
     "UIN-#{Date.yesterday.strftime('%m%d')}:with_minister-60",
-    "UIN-#{Date.yesterday.strftime('%m%d')}:ministerial_query-70",
     "UIN-#{Date.yesterday.strftime('%m%d')}:with_pod-40",
     "UIN-#{Date.yesterday.strftime('%m%d')}:draft_pending-30",
     "UIN-#{Date.yesterday.strftime('%m%d')}:no_response-10",
@@ -108,16 +107,14 @@ end
 
 def expected_order_in_progress_questions
   [
-    "UIN-#{Time.zone.today.strftime('%m%d')}:minister_cleared-81",
+    "UIN-#{Time.zone.today.strftime('%m%d')}:minister_cleared-71",
     "UIN-#{Time.zone.today.strftime('%m%d')}:pod_cleared-51",
     "UIN-#{Time.zone.today.strftime('%m%d')}:with_minister-61",
-    "UIN-#{Time.zone.today.strftime('%m%d')}:ministerial_query-71",
     "UIN-#{Time.zone.today.strftime('%m%d')}:with_pod-41",
     "UIN-#{Time.zone.today.strftime('%m%d')}:draft_pending-31",
-    "UIN-#{Date.tomorrow.strftime('%m%d')}:minister_cleared-82",
+    "UIN-#{Date.tomorrow.strftime('%m%d')}:minister_cleared-72",
     "UIN-#{Date.tomorrow.strftime('%m%d')}:pod_cleared-52",
     "UIN-#{Date.tomorrow.strftime('%m%d')}:with_minister-62",
-    "UIN-#{Date.tomorrow.strftime('%m%d')}:ministerial_query-72",
     "UIN-#{Date.tomorrow.strftime('%m%d')}:with_pod-42",
     "UIN-#{Date.tomorrow.strftime('%m%d')}:draft_pending-32",
   ]

@@ -65,7 +65,6 @@ describe Presenters::DashboardFilters do
         ["With POD", 2, dashboard_in_progress_by_status_path(qstatus: PqState::WITH_POD), true],
         ["POD Cleared", 0, dashboard_in_progress_by_status_path(qstatus: PqState::POD_CLEARED), false],
         ["With Minister", 0, dashboard_in_progress_by_status_path(qstatus: PqState::WITH_MINISTER), false],
-        ["Ministerial Query", 0, dashboard_in_progress_by_status_path(qstatus: PqState::MINISTERIAL_QUERY), false],
         ["Minister Cleared", 4, dashboard_in_progress_by_status_path(qstatus: PqState::MINISTER_CLEARED), false],
       ]
 

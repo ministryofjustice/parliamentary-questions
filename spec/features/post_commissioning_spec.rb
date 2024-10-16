@@ -4,7 +4,6 @@ describe "After commissioning", :js do
   let!(:draft_pending) { (FactoryBot.create :draft_pending_pq).uin }
   let!(:with_pod) { (FactoryBot.create :with_pod_pq).uin }
   let!(:pod_cleared) { (FactoryBot.create :pod_cleared_pq).uin }
-  let!(:ministerial_query) { (FactoryBot.create :ministerial_query_pq).uin }
   let!(:minister_cleared) { (FactoryBot.create :minister_cleared_pq).uin }
 
   before do
@@ -46,9 +45,6 @@ describe "After commissioning", :js do
     end
     expect_pq_in_progress_status(pod_cleared, "With Minister")
 
-    in_pq_detail(pod_cleared, "Minister check") { check "Answering minister query" }
-    expect_pq_in_progress_status(pod_cleared, "Ministerial Query")
-
     in_pq_detail(pod_cleared, "Minister check") do
       fillin_date("#cleared_by_answering_minister")
       remove_focus_from_filter
@@ -61,23 +57,6 @@ describe "After commissioning", :js do
     visit dashboard_in_progress_path
     expect(page.title).to match(/In progress/)
     expect(page).not_to have_text(minister_cleared)
-  end
-
-  it "Parli-branch moves a question back from 'Minister Cleared' back to 'Ministerial Query'" do
-    in_pq_detail(draft_pending, "PQ draft") { fillin_date("#draft_answer_received") }
-    in_pq_detail(draft_pending, "POD check") { fillin_date("#pod_clearance") }
-    in_pq_detail(draft_pending, "Minister check") { fillin_date("#sent_to_answering_minister") }
-    in_pq_detail(draft_pending, "Minister check") { check "Answering minister query" }
-    in_pq_detail(draft_pending, "Minister check") { fillin_date("#cleared_by_answering_minister") }
-    expect_pq_in_progress_status(draft_pending, "Minister Cleared")
-
-    in_pq_detail(draft_pending, "Minister check") { remove_date("#cleared_by_answering_minister") }
-    expect_pq_in_progress_status(draft_pending, "Ministerial Query")
-  end
-
-  it "Parli-branch moves a question from 'Ministerial Query' back to 'With Minister'" do
-    in_pq_detail(ministerial_query, "Minister check") { uncheck "Answering minister query" }
-    expect_pq_in_progress_status(ministerial_query, "With Minister")
   end
 
   it 'Parli-branch moves a question from "With Minister" back to "Draft Pending"' do

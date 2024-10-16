@@ -48,8 +48,6 @@ describe "PqState#progress_changer" do
                      draft_answer_received: Time.zone.now,
                      pod_clearance: true,
                      policy_minister: nil,
-                     answering_minister_query: false,
-                     policy_minister_query: false,
                      sent_to_answering_minister: Time.zone.today,
                      cleared_by_answering_minister: true,
                      pq_withdrawn: true)

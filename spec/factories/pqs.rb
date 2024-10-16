@@ -30,16 +30,8 @@
 #  transferred                                   :boolean
 #  question_status                               :string
 #  sent_to_policy_minister                       :datetime
-#  policy_minister_query                         :boolean
-#  policy_minister_to_action_officer             :datetime
-#  policy_minister_returned_by_action_officer    :datetime
-#  resubmitted_to_policy_minister                :datetime
 #  cleared_by_policy_minister                    :datetime
 #  sent_to_answering_minister                    :datetime
-#  answering_minister_query                      :boolean
-#  answering_minister_to_action_officer          :datetime
-#  answering_minister_returned_by_action_officer :datetime
-#  resubmitted_to_answering_minister             :datetime
 #  cleared_by_answering_minister                 :datetime
 #  answer_submitted                              :datetime
 #  library_deposit                               :boolean
@@ -110,11 +102,6 @@ FactoryBot.define do
           factory :with_minister_pq do
             state { PqState::WITH_MINISTER }
             sent_to_answering_minister { Time.zone.now }
-
-            factory :ministerial_query_pq do
-              state { PqState::MINISTERIAL_QUERY }
-              answering_minister_query { true }
-            end
 
             factory :minister_cleared_pq do
               state { PqState::MINISTER_CLEARED }

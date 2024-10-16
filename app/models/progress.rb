@@ -46,10 +46,6 @@ class Progress < ApplicationRecord
     find_by(status: self.WITH_MINISTER)
   end
 
-  def self.ministerial_query
-    find_by(status: self.MINISTERIAL_QUERY)
-  end
-
   def self.minister_cleared
     find_by(status: self.MINISTER_CLEARED)
   end
@@ -96,10 +92,6 @@ class Progress < ApplicationRecord
     "With Minister"
   end
 
-  def self.MINISTERIAL_QUERY
-    "Ministerial Query"
-  end
-
   def self.MINISTER_CLEARED
     "Minister Cleared"
   end
@@ -132,7 +124,6 @@ class Progress < ApplicationRecord
       Progress.WITH_POD,
       Progress.POD_CLEARED,
       Progress.WITH_MINISTER,
-      Progress.MINISTERIAL_QUERY,
       Progress.MINISTER_CLEARED,
     ]
   end

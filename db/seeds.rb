@@ -25,7 +25,6 @@ Progress.create([
   { name: Progress.WITH_POD },
   { name: Progress.POD_CLEARED },
   { name: Progress.WITH_MINISTER },
-  { name: Progress.MINISTERIAL_QUERY },
   { name: Progress.MINISTER_CLEARED },
   { name: Progress.ANSWERED },
   { name: Progress.TRANSFERRED_OUT },

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_161547) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_16_095536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -172,16 +172,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_161547) do
     t.boolean "transferred"
     t.string "question_status"
     t.datetime "sent_to_policy_minister", precision: nil
-    t.boolean "policy_minister_query"
-    t.datetime "policy_minister_to_action_officer", precision: nil
-    t.datetime "policy_minister_returned_by_action_officer", precision: nil
-    t.datetime "resubmitted_to_policy_minister", precision: nil
     t.datetime "cleared_by_policy_minister", precision: nil
     t.datetime "sent_to_answering_minister", precision: nil
-    t.boolean "answering_minister_query"
-    t.datetime "answering_minister_to_action_officer", precision: nil
-    t.datetime "answering_minister_returned_by_action_officer", precision: nil
-    t.datetime "resubmitted_to_answering_minister", precision: nil
     t.datetime "cleared_by_answering_minister", precision: nil
     t.datetime "answer_submitted", precision: nil
     t.boolean "library_deposit"
