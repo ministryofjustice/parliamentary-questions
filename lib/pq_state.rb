@@ -118,9 +118,7 @@ module PqState
           (pq.cleared_by_answering_minister && pq.cleared_by_policy_minister)
       end,
       ## Answered
-      Transition(MINISTER_CLEARED, ANSWERED) do |pq|
-        pq.pq_withdrawn || pq.answer_submitted
-      end,
+      Transition(MINISTER_CLEARED, ANSWERED, &:answer_submitted),
       # Transferred out
       Transition.factory(ALL - CLOSED, [TRANSFERRED_OUT]) do |pq|
         pq.transfer_out_ogd_id && pq.transfer_out_date

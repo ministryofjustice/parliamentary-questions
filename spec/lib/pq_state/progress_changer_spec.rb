@@ -40,7 +40,7 @@ describe "PqState#progress_changer" do
       end
     end
 
-    context "when moving from the initialial to the final state" do
+    context "when moving from the initial to the final state" do
       it "returns the final state" do
         pq = stub_pq(transfer_out_ogd_id: "test-id",
                      transfer_out_date: Time.zone.now,
@@ -50,7 +50,7 @@ describe "PqState#progress_changer" do
                      policy_minister: nil,
                      sent_to_answering_minister: Time.zone.today,
                      cleared_by_answering_minister: true,
-                     pq_withdrawn: true)
+                     answer_submitted: Time.zone.today)
 
         expect(changer.next_state(PqState::UNASSIGNED, pq)).to eq(PqState::ANSWERED)
       end

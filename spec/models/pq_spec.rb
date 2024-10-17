@@ -34,7 +34,6 @@
 #  sent_to_answering_minister                    :datetime
 #  cleared_by_answering_minister                 :datetime
 #  answer_submitted                              :datetime
-#  pq_withdrawn                                  :datetime
 #  final_response_info_released                  :string
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime

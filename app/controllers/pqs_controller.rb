@@ -81,7 +81,6 @@ private
     sent_to_answering_minister
     cleared_by_answering_minister
     answer_submitted
-    pq_withdrawn
     transfer_out_date
     transfer_in_date
   ].freeze

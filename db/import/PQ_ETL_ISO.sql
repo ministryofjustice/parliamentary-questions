@@ -262,7 +262,6 @@ insert into pqs(
   sent_to_answering_minister,
   cleared_by_answering_minister,
   answer_submitted,
-  pq_withdrawn,
   final_response_info_released,
   transfer_out_ogd_id,
   transfer_out_date,
