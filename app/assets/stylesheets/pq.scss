@@ -156,22 +156,18 @@ button.close {
   white-space: nowrap;
   margin: 0 10px 0 0;
   color: white;
-  &.finance-unchecked { background-color: #b10e1e; }
   &.no-response { background-color: #f47738; color: #000; }
   &.accepted { background-color: #144D48; }
   &.answered { background-color: #006435; }
   &.draft-pending { background-color: #445729; }
   &.minister-cleared { background-color: #c1a87e; color: #000; }
-  &.ministerial-query { background-color: #BE9046; color: #000; }
   &.pod-cleared { background-color: #a1a8ff; color: #000; }
-  &.pod-query { background-color: #051EFF; }
   &.rejected { background-color: #970214; }
   &.unassigned { background-color: #890BA2; }
   &.with-minister { background-color: #624B22; }
   &.with-pod { background-color: #2e358b; }
   &.transferred-out { background-color: #931F55; }
   &.transferred-in { background-color: #4F4F4F; }
-  &.will-write { background-color: #C2C2C2; color: #000; }
 }
 
 //found in assignment/show and shared/_allocation_list

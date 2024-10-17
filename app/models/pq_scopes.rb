@@ -59,14 +59,6 @@ module PqScopes
     by_status(PqState::NO_RESPONSE)
   end
 
-  def not_tx
-    where("transfer_out_ogd_id is null AND question_type != 'Follow-up IWW'")
-  end
-
-  def on_time
-    not_tx.where("answer_submitted <= (date_for_answer + 1)")
-  end
-
   def pod_cleared
     by_status(PqState::POD_CLEARED)
   end
