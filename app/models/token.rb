@@ -35,18 +35,6 @@ class Token < ApplicationRecord
     }
   end
 
-  # returns true if at least one person has acknowledged the watchlist token for the specified date, otherwise false
-  # def self.watchlist_status(date = Time.zone.today)
-  def self.watchlist_status
-    rec = find_by(
-      "path = ? and created_at >= ? and created_at <= ?",
-      "/watchlist/dashboard",
-      Time.zone.today.beginning_of_day,
-      Time.zone.today.end_of_day,
-    )
-    rec.acknowledged?
-  end
-
   def accept
     acknowledge("accept")
   end

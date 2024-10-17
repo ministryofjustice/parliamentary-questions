@@ -4,8 +4,6 @@
     span.question-type  Named day
   - if @pq.transferred
     span.question-type  Transferred in
-  - if @pq.i_will_write
-    span.question-type  I will write
   span#pq-details-progress class=("flag #{state_classname @pq.state}") = state_label @pq.state
   - if !@pq.preview_url.nil?
     a#pq-details-qa-link href=@pq.preview_url View PQ in Q&amp;A Tool

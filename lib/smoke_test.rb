@@ -9,7 +9,6 @@ module_function
     [
       SmokeTest::Dashboard,
       SmokeTest::Report,
-      SmokeTest::Statistics,
     ].freeze
 
   def factory
