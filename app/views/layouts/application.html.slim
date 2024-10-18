@@ -41,13 +41,13 @@
         = yield
 
 - content_for :footer_support_links do
-  ul
-    li
-      = link_to "Accessibility", "/accessibility", aria: { label: "click to visit accessibility statement"}
-    li
-      = link_to "Contact Parliamentary Branch", "mailto:pqs@justice.gsi.gov.uk?Subject=PQ%20Tracker", aria: { label: "click to email parliamentary branch"}
-    li
-      <span>Built by</span> <a href="https://mojdigital.blog.gov.uk/" aria-label="click to visit justice digital blog"><abbr title="Ministry of Justice">MOJ</abbr> Digital Services</a>
+  h4.govuk-visually-hidden
+    | Support links
+  ul.govuk-footer__inline-list
+    li.govuk-footer__inline-list-item
+      = link_to "Accessibility", "/accessibility", class: "govuk-footer__link", aria: { label: "click to visit accessibility statement"}
+    li.govuk-footer__inline-list-item
+      = link_to "Contact Parliamentary Branch", "mailto:pqs@justice.gov.uk?Subject=PQ%20Tracker", class: "govuk-footer__link", aria: { label: "click to email parliamentary branch"}
 
 - content_for :body_end
 
