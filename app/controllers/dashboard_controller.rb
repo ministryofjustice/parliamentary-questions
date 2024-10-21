@@ -57,7 +57,6 @@ private
     @statuses                 = @questions.all.map(&:state).uniq
     @question_types           = @questions.where("question_type != 'Follow-up IWW'").map(&:question_type).uniq
     @transfers                = @questions.all.map(&:transferred).uniq
-    @i_will_writes            = @questions.all.map(&:i_will_write).uniq
     @answering_minister_names = @questions.where("minister_id > 0").map { |q| q.minister.name }.uniq
     @policy_minister_names    = @questions.where("policy_minister_id > 0").map { |q| q.policy_minister.name }.uniq
     @filters =

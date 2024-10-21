@@ -30,18 +30,3 @@ hr/
 
 h3 Question
 p = @pq.question
-hr/
-= render partial: 'gds_checkbox', locals: { value: @pq.round_robin,
-                                            field: 'round_robin',
-                                            label: 'Round robin' }
-.form-group
-  label.form-label for="round_robin_guidance_received"  Date guidance received
-  .datetimepicker
-    input#round_robin_guidance_received.form-control name="pq[round_robin_guidance_received]" type="text" value=(@pq.round_robin_guidance_received.to_s) /
-    span.fa.fa-calendar title="select a date"
-
-.form-group
-  label.form-label for="round_robin_date"  Date round robin guidance sent to action officer
-  .datetimepicker
-    input#round_robin_date.form-control name="pq[round_robin_date]" type="text" value=(@pq.round_robin_date.to_s) /
-    span.fa.fa-calendar title="select a date"

@@ -74,7 +74,7 @@ $ bin/setup
 Mock data can be automatically imported by running the following rake task (it will make use of a mock API server running on localhost:8888 so make sure this port is free):
 
 '''
-$ bundle exec rake pqa:import_dummy_data
+$ PQ_REST_API_HOST=http://localhost:8888 bundle exec rake pqa:import_dummy_data
 ```
 
 Finally, a rake task is also provided to load PQ&A XML data into the system.
