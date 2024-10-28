@@ -18,8 +18,6 @@ class PQAImportRun < ApplicationRecord
 
   validates :status, inclusion: { in: %w[OK Failure OK_with_errors], message: "Status must be 'OK', 'Failure' or 'OK_with_errors': was '%{value}'" }
 
-  serialize :error_messages, coder: :yaml
-
   def self.last_import_time_utc
     rec = successful.order(:start_time).last
     if rec.nil?
