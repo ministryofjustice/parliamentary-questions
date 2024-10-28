@@ -18,17 +18,14 @@ spec/services/commissioning_service_spec.rb:4.382360000163317
 spec/features/early_bird_spec.rb:4.3768939999863505
 spec/models/pq_spec.rb:3.7109500002115965
 spec/services/proposal_service_spec.rb:3.3076929999515414
-spec/features/mark_a_question_as_iww_spec.rb:3.2651559999212623
 spec/features/dashboard_spec.rb:3.1465870002284646
 spec/features/watch_list_spec.rb:2.5353359999135137
 spec/services/quick_actions_service_spec.rb:2.201965999789536
 spec/features/qa_draft_reminder_spec.rb:2.2014330001547933
-spec/lib/pq_statistics/key_metric_spec.rb:1.373224999755621
 spec/controllers/dashboard_controller_spec.rb:1.0713450005277991
 spec/features/early_bird_organiser_spec.rb:0.6355240000411868
 spec/services/assignment_service_spec.rb:0.5620609996840358
 spec/features/csv_export_spec.rb:0.4719279995188117
-spec/features/mi_statistics_spec.rb:0.35198900010436773
 spec/lib/pqa/import_spec.rb:0.316597000695765
 spec/mailers/notify_pq_mailer_spec.rb:0.30092400033026934
 spec/services/archive_service_spec.rb:0.2471940005198121
@@ -42,7 +39,6 @@ spec/controllers/directorates_controller_spec.rb:0.08554700016975403
 spec/controllers/action_officers_controller_spec.rb:0.08230299968272448
 spec/lib/presenters/report_spec.rb:0.08127599954605103
 spec/controllers/proposals_controller_spec.rb:0.07888900022953749
-spec/models/pq_followup_spec.rb:0.07856000028550625
 spec/models/minister_spec.rb:0.07848700042814016
 spec/controllers/deputy_directors_controller_spec.rb:0.07708199974149466
 spec/lib/export/pq_selection_spec.rb:0.06063599977642298
@@ -54,7 +50,6 @@ spec/models/press_officer_spec.rb:0.055215999484062195
 spec/services/early_bird_report_service_spec.rb:0.05187099985778332
 spec/models/token_spec.rb:0.0483370004221797
 spec/lib/export/pq_default_spec.rb:0.047124999575316906
-spec/services/watchlist_report_service_spec.rb:0.04627199936658144
 spec/lib/export/pq_pod_spec.rb:0.043155000545084476
 spec/controllers/ministers_controller_spec.rb:0.039419000037014484
 spec/services/token_service_spec.rb:0.03710999991744757
@@ -78,7 +73,6 @@ spec/mailers/notify_import_mailer_spec.rb:0.013023000210523605
 spec/lib/smoke_test_spec.rb:0.011373999528586864
 spec/services/health_check_service_spec.rb:0.009713999927043915
 spec/lib/pqa/xml_decoder_spec.rb:0.008383000269532204
-spec/models/watchlist_member_spec.rb:0.00800899975001812
 spec/health_check/database_spec.rb:0.007915999740362167
 spec/models/settings_spec.rb:0.007046000100672245
 spec/helpers/application_helper_spec.rb:0.00702699925750494
@@ -86,7 +80,6 @@ spec/models/early_bird_member_spec.rb:0.0060259997844696045
 spec/lib/pq_state/validator_spec.rb:0.005400999449193478
 spec/models/commission_form_spec.rb:0.005206000059843063
 spec/mailers/notify_db_sync_mailer_spec.rb:0.004971000365912914
-spec/controllers/watchlist_dashboard_controller_spec.rb:0.004723000340163708
 spec/lib/validators/date_input_spec.rb:0.0033490005880594254
 spec/lib/pq_state/progress_changer_spec.rb:0.0032979995012283325
 spec/lib/presenters/status_filter_spec.rb:0.0031080003827810287

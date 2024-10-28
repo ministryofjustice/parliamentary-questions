@@ -38,20 +38,12 @@ class Progress < ApplicationRecord
     find_by(status: self.WITH_POD)
   end
 
-  def self.pod_query
-    find_by(status: self.POD_QUERY)
-  end
-
   def self.pod_cleared
     find_by(status: self.POD_CLEARED)
   end
 
   def self.with_minister
     find_by(status: self.WITH_MINISTER)
-  end
-
-  def self.ministerial_query
-    find_by(status: self.MINISTERIAL_QUERY)
   end
 
   def self.minister_cleared
@@ -92,20 +84,12 @@ class Progress < ApplicationRecord
     "With POD"
   end
 
-  def self.POD_QUERY
-    "POD Query"
-  end
-
   def self.POD_CLEARED
     "POD Cleared"
   end
 
   def self.WITH_MINISTER
     "With Minister"
-  end
-
-  def self.MINISTERIAL_QUERY
-    "Ministerial Query"
   end
 
   def self.MINISTER_CLEARED
@@ -138,10 +122,8 @@ class Progress < ApplicationRecord
     [
       Progress.DRAFT_PENDING,
       Progress.WITH_POD,
-      Progress.POD_QUERY,
       Progress.POD_CLEARED,
       Progress.WITH_MINISTER,
-      Progress.MINISTERIAL_QUERY,
       Progress.MINISTER_CLEARED,
     ]
   end

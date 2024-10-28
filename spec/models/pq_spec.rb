@@ -11,8 +11,6 @@
 #  answer                                        :string
 #  created_at                                    :datetime         not null
 #  updated_at                                    :datetime         not null
-#  finance_interest                              :boolean
-#  seen_by_finance                               :boolean          default(FALSE)
 #  uin                                           :string
 #  member_name                                   :string
 #  member_constituency                           :string
@@ -25,45 +23,24 @@
 #  policy_minister_id                            :integer
 #  progress_id                                   :integer
 #  draft_answer_received                         :datetime
-#  i_will_write_estimate                         :datetime
 #  holding_reply                                 :datetime
 #  preview_url                                   :string
 #  pod_waiting                                   :datetime
-#  pod_query                                     :datetime
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string
-#  round_robin                                   :boolean
-#  round_robin_date                              :datetime
-#  i_will_write                                  :boolean
-#  pq_correction_received                        :boolean
-#  correction_circulated_to_action_officer       :datetime
-#  pod_query_flag                                :boolean
 #  sent_to_policy_minister                       :datetime
-#  policy_minister_query                         :boolean
-#  policy_minister_to_action_officer             :datetime
-#  policy_minister_returned_by_action_officer    :datetime
-#  resubmitted_to_policy_minister                :datetime
 #  cleared_by_policy_minister                    :datetime
 #  sent_to_answering_minister                    :datetime
-#  answering_minister_query                      :boolean
-#  answering_minister_to_action_officer          :datetime
-#  answering_minister_returned_by_action_officer :datetime
-#  resubmitted_to_answering_minister             :datetime
 #  cleared_by_answering_minister                 :datetime
 #  answer_submitted                              :datetime
-#  library_deposit                               :boolean
-#  pq_withdrawn                                  :datetime
-#  holding_reply_flag                            :boolean
 #  final_response_info_released                  :string
-#  round_robin_guidance_received                 :datetime
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
 #  directorate_id                                :integer
 #  original_division_id                          :integer
 #  transfer_in_ogd_id                            :integer
 #  transfer_in_date                              :datetime
-#  follow_up_to                                  :string
 #  state                                         :string           default("unassigned")
 #  state_weight                                  :integer          default(0)
 #  archived                                      :boolean          default(FALSE)
@@ -109,7 +86,7 @@ describe Pq do
       # Update to cover all sorting criteria
       pqs[0].update!(date_for_answer: Date.tomorrow, state: PqState::POD_CLEARED)
       pqs[1].update!(date_for_answer: Date.tomorrow)
-      pqs[2].update!(date_for_answer: Date.tomorrow  + 1.day, state: PqState::POD_QUERY)
+      pqs[2].update!(date_for_answer: Date.tomorrow  + 1.day, state: PqState::POD_CLEARED)
       pqs[3].update!(date_for_answer: Date.tomorrow  + 1.day)
       pqs[4].update!(date_for_answer: Date.yesterday, state: PqState::POD_CLEARED)
       pqs[5].update!(date_for_answer: Date.yesterday)
@@ -575,15 +552,6 @@ describe Pq do
       expect(pq.action_officers_pqs.order(:id).map(&:response)).to eq(%i[accepted accepted accepted])
       expect(pq).not_to be_valid
       expect(pq.errors[:base]).to eq(["Unable to have two action officers accepted on the same question"])
-    end
-  end
-
-  describe "item" do
-    it "allows finance interest to be set" do
-      question.finance_interest = true
-      expect(question).to be_valid
-      question.finance_interest = false
-      expect(question).to be_valid
     end
   end
 end

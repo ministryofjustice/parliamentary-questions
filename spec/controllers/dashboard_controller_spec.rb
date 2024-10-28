@@ -65,12 +65,6 @@ def pq_dates
   ]
 end
 
-def setup_i_will_write_questions
-  setup_questions
-  questions = Pq.where.not(state: PqState::CLOSED)
-  questions.each { |q| q.update(i_will_write: true) }
-end
-
 def setup_questions
   Pq.delete_all
   PqState::ALL.each_with_index do |state, state_index|
@@ -100,12 +94,10 @@ end
 
 def expected_order_of_overdue_questions
   [
-    "UIN-#{Date.yesterday.strftime('%m%d')}:minister_cleared-90",
-    "UIN-#{Date.yesterday.strftime('%m%d')}:pod_cleared-60",
-    "UIN-#{Date.yesterday.strftime('%m%d')}:with_minister-70",
-    "UIN-#{Date.yesterday.strftime('%m%d')}:ministerial_query-80",
+    "UIN-#{Date.yesterday.strftime('%m%d')}:minister_cleared-70",
+    "UIN-#{Date.yesterday.strftime('%m%d')}:pod_cleared-50",
+    "UIN-#{Date.yesterday.strftime('%m%d')}:with_minister-60",
     "UIN-#{Date.yesterday.strftime('%m%d')}:with_pod-40",
-    "UIN-#{Date.yesterday.strftime('%m%d')}:pod_query-50",
     "UIN-#{Date.yesterday.strftime('%m%d')}:draft_pending-30",
     "UIN-#{Date.yesterday.strftime('%m%d')}:no_response-10",
     "UIN-#{Date.yesterday.strftime('%m%d')}:rejected-20",
@@ -115,19 +107,15 @@ end
 
 def expected_order_in_progress_questions
   [
-    "UIN-#{Time.zone.today.strftime('%m%d')}:minister_cleared-91",
-    "UIN-#{Time.zone.today.strftime('%m%d')}:pod_cleared-61",
-    "UIN-#{Time.zone.today.strftime('%m%d')}:with_minister-71",
-    "UIN-#{Time.zone.today.strftime('%m%d')}:ministerial_query-81",
+    "UIN-#{Time.zone.today.strftime('%m%d')}:minister_cleared-71",
+    "UIN-#{Time.zone.today.strftime('%m%d')}:pod_cleared-51",
+    "UIN-#{Time.zone.today.strftime('%m%d')}:with_minister-61",
     "UIN-#{Time.zone.today.strftime('%m%d')}:with_pod-41",
-    "UIN-#{Time.zone.today.strftime('%m%d')}:pod_query-51",
     "UIN-#{Time.zone.today.strftime('%m%d')}:draft_pending-31",
-    "UIN-#{Date.tomorrow.strftime('%m%d')}:minister_cleared-92",
-    "UIN-#{Date.tomorrow.strftime('%m%d')}:pod_cleared-62",
-    "UIN-#{Date.tomorrow.strftime('%m%d')}:with_minister-72",
-    "UIN-#{Date.tomorrow.strftime('%m%d')}:ministerial_query-82",
+    "UIN-#{Date.tomorrow.strftime('%m%d')}:minister_cleared-72",
+    "UIN-#{Date.tomorrow.strftime('%m%d')}:pod_cleared-52",
+    "UIN-#{Date.tomorrow.strftime('%m%d')}:with_minister-62",
     "UIN-#{Date.tomorrow.strftime('%m%d')}:with_pod-42",
-    "UIN-#{Date.tomorrow.strftime('%m%d')}:pod_query-52",
     "UIN-#{Date.tomorrow.strftime('%m%d')}:draft_pending-32",
   ]
 end

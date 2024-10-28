@@ -156,22 +156,18 @@ button.close {
   white-space: nowrap;
   margin: 0 10px 0 0;
   color: white;
-  &.finance-unchecked { background-color: #b10e1e; }
   &.no-response { background-color: #f47738; color: #000; }
   &.accepted { background-color: #144D48; }
   &.answered { background-color: #006435; }
   &.draft-pending { background-color: #445729; }
   &.minister-cleared { background-color: #c1a87e; color: #000; }
-  &.ministerial-query { background-color: #BE9046; color: #000; }
   &.pod-cleared { background-color: #a1a8ff; color: #000; }
-  &.pod-query { background-color: #051EFF; }
   &.rejected { background-color: #970214; }
   &.unassigned { background-color: #890BA2; }
   &.with-minister { background-color: #624B22; }
   &.with-pod { background-color: #2e358b; }
   &.transferred-out { background-color: #931F55; }
   &.transferred-in { background-color: #4F4F4F; }
-  &.will-write { background-color: #C2C2C2; color: #000; }
 }
 
 //found in assignment/show and shared/_allocation_list
@@ -444,7 +440,7 @@ textarea.form-control {
   cursor: pointer;
 }
 
-// Tables on setting pages (ministers, watch list, action officers, etc.) =========
+// Tables on setting pages (ministers, action officers, etc.) =========
 .table {
   clear: both;
   thead tr th, tbody tr td {
@@ -457,7 +453,7 @@ textarea.form-control {
 #admin-status { width: 100px; }
 #minister-name { width: 30%; }
 
-// = Button bar on some settings pages (watch list, action officers, etc.) =========
+// = Button bar on some settings pages (action officers, etc.) =========
 #admin-button-bar {
   float: right;
   margin-bottom: 10px;
@@ -644,13 +640,6 @@ textarea.form-control {
         margin-left: -1px;
         min-height: 350px;
       }
-      #create_iww {
-        clear: both;
-        display: block;
-        width: 280px;
-        margin-bottom: 20px;
-      }
-
       #progress-menu-fc-data .status {
         margin-bottom: .5em;
       }
@@ -698,19 +687,6 @@ textarea.form-control {
   }
 }
 
-/* = Watchlist preview (/watchlist/preview) ================================ */
-
-#watchlist-preview {
-  h2 {
-    margin: 20px 0 10px 0;
-    font-weight: bold;
-  }
-  h3 {
-    font-weight: bold;
-    margin: 20px 0 10px 0;
-  }
-}
-
 /* = Early bird preview (/early_bird/preview) ================================ */
 
 #earlybird-preview {
@@ -722,19 +698,6 @@ textarea.form-control {
     font-weight: bold;
     margin: 20px 0 10px 0;
   }
-}
-
-// = statistics pages ====================================================== */
-
-#stages_time {
-  #graph {
-    font-size: 80%; max-width: 600px;
-  }
-  #graph-inner {
-    margin: 2em 0 1em 0;
-    canvas {  vertical-align: middle; }
-  }
-  #x-axis { text-align: center; font-size: 80% }
 }
 
 /* = Filter sidebar ========================================================== */

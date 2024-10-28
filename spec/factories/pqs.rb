@@ -11,8 +11,6 @@
 #  answer                                        :string
 #  created_at                                    :datetime         not null
 #  updated_at                                    :datetime         not null
-#  finance_interest                              :boolean
-#  seen_by_finance                               :boolean          default(FALSE)
 #  uin                                           :string
 #  member_name                                   :string
 #  member_constituency                           :string
@@ -25,45 +23,24 @@
 #  policy_minister_id                            :integer
 #  progress_id                                   :integer
 #  draft_answer_received                         :datetime
-#  i_will_write_estimate                         :datetime
 #  holding_reply                                 :datetime
 #  preview_url                                   :string
 #  pod_waiting                                   :datetime
-#  pod_query                                     :datetime
 #  pod_clearance                                 :datetime
 #  transferred                                   :boolean
 #  question_status                               :string
-#  round_robin                                   :boolean
-#  round_robin_date                              :datetime
-#  i_will_write                                  :boolean
-#  pq_correction_received                        :boolean
-#  correction_circulated_to_action_officer       :datetime
-#  pod_query_flag                                :boolean
 #  sent_to_policy_minister                       :datetime
-#  policy_minister_query                         :boolean
-#  policy_minister_to_action_officer             :datetime
-#  policy_minister_returned_by_action_officer    :datetime
-#  resubmitted_to_policy_minister                :datetime
 #  cleared_by_policy_minister                    :datetime
 #  sent_to_answering_minister                    :datetime
-#  answering_minister_query                      :boolean
-#  answering_minister_to_action_officer          :datetime
-#  answering_minister_returned_by_action_officer :datetime
-#  resubmitted_to_answering_minister             :datetime
 #  cleared_by_answering_minister                 :datetime
 #  answer_submitted                              :datetime
-#  library_deposit                               :boolean
-#  pq_withdrawn                                  :datetime
-#  holding_reply_flag                            :boolean
 #  final_response_info_released                  :string
-#  round_robin_guidance_received                 :datetime
 #  transfer_out_ogd_id                           :integer
 #  transfer_out_date                             :datetime
 #  directorate_id                                :integer
 #  original_division_id                          :integer
 #  transfer_in_ogd_id                            :integer
 #  transfer_in_date                              :datetime
-#  follow_up_to                                  :string
 #  state                                         :string           default("unassigned")
 #  state_weight                                  :integer          default(0)
 #  archived                                      :boolean          default(FALSE)
@@ -80,7 +57,6 @@ FactoryBot.define do
     answer { nil }
     state { PqState::UNASSIGNED }
     member_name { "Diana Johnson" }
-    finance_interest { false }
 
     factory :not_responded_pq do
       state { PqState::NO_RESPONSE }
@@ -116,27 +92,17 @@ FactoryBot.define do
         state { PqState::WITH_POD }
         draft_answer_received { Time.zone.now }
 
-        factory :pod_query_pq do
-          state { PqState::POD_QUERY }
-          pod_query_flag { true }
+        factory :pod_cleared_pq do
+          state { PqState::POD_CLEARED }
+          pod_clearance { Time.zone.now }
 
-          factory :pod_cleared_pq do
-            state { PqState::POD_CLEARED }
-            pod_clearance { Time.zone.now }
+          factory :with_minister_pq do
+            state { PqState::WITH_MINISTER }
+            sent_to_answering_minister { Time.zone.now }
 
-            factory :with_minister_pq do
-              state { PqState::WITH_MINISTER }
-              sent_to_answering_minister { Time.zone.now }
-
-              factory :ministerial_query_pq do
-                state { PqState::MINISTERIAL_QUERY }
-                answering_minister_query { true }
-              end
-
-              factory :minister_cleared_pq do
-                state { PqState::MINISTER_CLEARED }
-                cleared_by_answering_minister { Time.zone.now }
-              end
+            factory :minister_cleared_pq do
+              state { PqState::MINISTER_CLEARED }
+              cleared_by_answering_minister { Time.zone.now }
             end
           end
         end

@@ -30,10 +30,6 @@ module PqScopes
     q
   end
 
-  def i_will_write_flag
-    where("i_will_write = true AND state NOT IN (?)", PqState::CLOSED)
-  end
-
   def imported_since_last_weekday
     end_of_last_weekday = Time.zone.today.last_weekday.end_of_day
     end_of_today = Time.zone.today.end_of_day
@@ -55,10 +51,6 @@ module PqScopes
     by_status(PqState::MINISTER_CLEARED)
   end
 
-  def ministerial_query
-    by_status(PqState::MINISTERIAL_QUERY)
-  end
-
   def new_questions
     by_status(PqState::NEW)
   end
@@ -67,20 +59,8 @@ module PqScopes
     by_status(PqState::NO_RESPONSE)
   end
 
-  def not_tx
-    where("transfer_out_ogd_id is null AND question_type != 'Follow-up IWW'")
-  end
-
-  def on_time
-    not_tx.where("answer_submitted <= (date_for_answer + 1)")
-  end
-
   def pod_cleared
     by_status(PqState::POD_CLEARED)
-  end
-
-  def pod_query
-    by_status(PqState::POD_QUERY)
   end
 
   def rejected

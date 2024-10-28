@@ -74,20 +74,6 @@ describe Token, type: :model do
     end
   end
 
-  describe ".watchlist_status" do
-    let(:entity) { "watchlist-#{Time.zone.today.strftime('%d/%m/%Y')} 11:37" }
-    let!(:token) { FactoryBot.create :token, path: "/watchlist/dashboard", entity: }
-
-    it "returns false if the token has not been acknowledged" do
-      expect(described_class.watchlist_status).to be false
-    end
-
-    it "returns true if the token has been acknowledged" do
-      token.accept
-      expect(described_class.watchlist_status).to be true
-    end
-  end
-
   describe ".assignment_stats" do
     it "returns the total number of assignment tokens and the number of unanswered assignment tokens" do
       start_of_day = Time.zone.now.beginning_of_day

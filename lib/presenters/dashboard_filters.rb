@@ -30,12 +30,7 @@ module Presenters
                                                 "View all",
                                                 params)
 
-      iww = IwwFilter.new(counts["iww"],
-                          "iww",
-                          "I will write",
-                          params)
-
-      new([in_progress] + in_progress_statuses(counts, params) + [iww])
+      new([in_progress] + in_progress_statuses(counts, params))
     end
 
     def self.backlog(counts, params)
@@ -44,12 +39,7 @@ module Presenters
                                                 "View all",
                                                 params)
 
-      iww = IwwFilter.new(counts["iww"],
-                          "iww",
-                          "I will write",
-                          params)
-
-      new([in_progress] + in_progress_statuses(counts, params) + [iww])
+      new([in_progress] + in_progress_statuses(counts, params))
     end
 
     # private_class_method

@@ -9,8 +9,6 @@
       nav
         ul
           li= link_to 'Action officers', action_officers_path
-          li= link_to 'Watch list', watchlist_members_path
-          li= link_to 'Action list', actionlist_members_path
           li= link_to 'Ministers', ministers_path
           li= link_to 'Deputy directors', deputy_directors_path
           li= link_to 'Press officers', press_officers_path
@@ -22,8 +20,6 @@
           li= link_to 'Create a transferred PQ', transferred_new_path
           li
             a href="#{export_path}" Export to <abbr title="Comma Separated Values">CSV</abbr>
-          li
-            a href="#{export_pod_path}" <abbr title="Private Office Directorate">POD</abbr> export to <abbr title="Comma Separated Values">CSV</abbr>
           li
             = link_to 'Suspend early bird email', early_bird_organiser_new_path
           li

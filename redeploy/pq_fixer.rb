@@ -16,8 +16,7 @@ module Redeploy
         fix_uncommissioned
       end
 
-      if %w[pod_query with_pod].include?(@pq.state)
-        #   for pod_query, pod_clearance,
+      if %w[with_pod].include?(@pq.state)
         #   set pod_clearance to answer submitted date
         fix_pod_clearance
       end

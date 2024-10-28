@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_142052) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_16_133636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,14 +37,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_142052) do
     t.integer "reminder_accept", default: 0
     t.integer "reminder_draft", default: 0
     t.string "response", default: "awaiting"
-  end
-
-  create_table "actionlist_members", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.boolean "deleted", default: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "archives", force: :cascade do |t|
@@ -161,8 +153,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_142052) do
     t.string "answer"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.boolean "finance_interest"
-    t.boolean "seen_by_finance", default: false
     t.string "uin"
     t.string "member_name"
     t.string "member_constituency"
@@ -175,45 +165,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_142052) do
     t.integer "policy_minister_id"
     t.integer "progress_id"
     t.datetime "draft_answer_received", precision: nil
-    t.datetime "i_will_write_estimate", precision: nil
     t.datetime "holding_reply", precision: nil
     t.string "preview_url"
     t.datetime "pod_waiting", precision: nil
-    t.datetime "pod_query", precision: nil
     t.datetime "pod_clearance", precision: nil
     t.boolean "transferred"
     t.string "question_status"
-    t.boolean "round_robin"
-    t.datetime "round_robin_date", precision: nil
-    t.boolean "i_will_write"
-    t.boolean "pq_correction_received"
-    t.datetime "correction_circulated_to_action_officer", precision: nil
-    t.boolean "pod_query_flag"
     t.datetime "sent_to_policy_minister", precision: nil
-    t.boolean "policy_minister_query"
-    t.datetime "policy_minister_to_action_officer", precision: nil
-    t.datetime "policy_minister_returned_by_action_officer", precision: nil
-    t.datetime "resubmitted_to_policy_minister", precision: nil
     t.datetime "cleared_by_policy_minister", precision: nil
     t.datetime "sent_to_answering_minister", precision: nil
-    t.boolean "answering_minister_query"
-    t.datetime "answering_minister_to_action_officer", precision: nil
-    t.datetime "answering_minister_returned_by_action_officer", precision: nil
-    t.datetime "resubmitted_to_answering_minister", precision: nil
     t.datetime "cleared_by_answering_minister", precision: nil
     t.datetime "answer_submitted", precision: nil
-    t.boolean "library_deposit"
-    t.datetime "pq_withdrawn", precision: nil
-    t.boolean "holding_reply_flag"
     t.string "final_response_info_released"
-    t.datetime "round_robin_guidance_received", precision: nil
     t.integer "transfer_out_ogd_id"
     t.datetime "transfer_out_date", precision: nil
     t.integer "directorate_id"
     t.integer "original_division_id"
     t.integer "transfer_in_ogd_id"
     t.datetime "transfer_in_date", precision: nil
-    t.string "follow_up_to"
     t.string "state", default: "unassigned"
     t.integer "state_weight", default: 0
     t.boolean "archived", default: false
@@ -316,14 +285,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_142052) do
     t.text "object_changes"
     t.datetime "created_at", precision: nil
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  end
-
-  create_table "watchlist_members", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.boolean "deleted", default: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
   end
 
 end

@@ -9,15 +9,3 @@ h2 PQ draft
   .datetimepicker
     input#draft_answer_received.form-control name="pq[draft_answer_received]" type="text" value=(@pq.draft_answer_received.to_s) /
     span.fa.fa-calendar title="select a date"
-= render partial: 'gds_checkbox', locals: { value: @pq.i_will_write,
-                                            field: 'i_will_write',
-                                            label: 'I will write' }
-
-= render partial: 'gds_checkbox', locals: { value: @pq.pq_correction_received,
-                                            field: 'pq_correction_received',
-                                            label: 'Pq correction received' }
-.form-group
-  label.form-label for="correction_circulated"  Date correction circulated to action officer
-  .datetimepicker
-    input#correction_circulated.form-control name="pq[correction_circulated_to_action_officer]" type="text" value=(@pq.correction_circulated_to_action_officer.to_s) /
-    span.fa.fa-calendar title="select a date"

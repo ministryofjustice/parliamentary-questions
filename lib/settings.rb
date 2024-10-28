@@ -1,3 +1,5 @@
+require "ostruct"
+
 module Settings
   class PqRestApi
     attr_reader :host, :username, :password
@@ -71,10 +73,6 @@ module_function
 
   def smoke_test_runner
     OpenStruct.new(@h["smoke_test_runner"])
-  end
-
-  def key_metric_threshold
-    @h["key_metric_threshold"]
   end
 
   def parliamentary_team_email
