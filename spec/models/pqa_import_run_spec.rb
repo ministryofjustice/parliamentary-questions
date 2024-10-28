@@ -105,7 +105,7 @@ describe PQAImportRun, type: :model do
       expect(pir.error_messages).to eq({
         "UIN1234" => "Invalid Record",
         "UIN666" => "Really, really invalid",
-    }.to_s)
+      }.to_s)
     end
   end
 
