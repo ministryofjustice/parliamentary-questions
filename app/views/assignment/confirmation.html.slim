@@ -1,23 +1,23 @@
 = render partial: 'shared/flash_messages'
 - if @assignment.rejected?
-  p.space-before-20
+  p.govuk-body.space-before-20
     strong Thank you for your response
-  p.space-before
+  p.govuk-body.space-before
     | You rejected PQ
     strong= " #{@question.uin} "
     = raw @assignment.updated_at.to_formatted_s(:wordy)
     = ' stating: '
-  p.space-before
+  p.govuk-body.space-before
     = "#{@assignment.reason_option} - #{@assignment.reason}"
-  p.space-before Your message has been sent to the PQ team. You don't need to take any further action.
+  p.govuk-body.space-before Your message has been sent to the PQ team. You don't need to take any further action.
 - elsif @question.action_officers_pqs.accepted.action_officer_id == @assignment.action_officer_id
-  p.space-before-20
+  p.govuk-body.space-before-20
     strong Thank you for your response
-  p.space-before
+  p.govuk-body.space-before
     | You accepted PQ
     strong= " #{@question.uin} "
     = raw @question.action_officers_pqs.accepted.updated_at.to_formatted_s(:wordy)
-  p.space-before You will receive a further email which explains how and when to return your draft response, and provides a link to PQ guidance on the intranet.
+  p.govuk-body.space-before You will receive a further email which explains how and when to return your draft response, and provides a link to PQ guidance on the intranet.
 - else
   p
     strong This PQ has already been accepted
@@ -25,6 +25,6 @@
   = ' accepted PQ'
   strong= " #{@question.uin} "
   = raw @question.action_officers_pqs.accepted.updated_at.to_formatted_s(:wordy)
-p.space-before
+p.govuk-body.space-before
   | If you have any queries please
   a href="mailto:#{Settings.mail_reply_to}"  contact the PQ team

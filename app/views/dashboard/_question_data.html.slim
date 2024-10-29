@@ -1,6 +1,6 @@
-.pq-header.row
+.pq-header
   .col-md-5
-    h2
+    h2.govuk-heading-m
       = link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin", aria: { label: "Click to view and edit question #{question.uin}, question status #{question.state.humanize}, internal deadline #{question.internal_deadline || 'not set'}" })
       span.question-type  = question.question_type_header
 
@@ -20,7 +20,7 @@
   .col-md-3
     span class=("flag #{state_classname question.state}") = state_label question.state
 
-p.pq-question
+p.govuk-body.pq-question
   = question.question
 - if question.is_new?
   / if a question is unassigned, No response or rejected: loop through and show rejection reasons

@@ -1,13 +1,13 @@
-h2
+h2.govuk-heading-m
   abbr title="Private Office Directorate" POD
   'check
-h3
+h3.govuk-heading-s
   ' Date sent to
   abbr title="Private Office Directorate" POD
 - if @pq.pod_waiting.to_s != ''
-  p= @pq.pod_waiting.to_s
+  p.govuk-body= @pq.pod_waiting.to_s
 - else
-  p
+  p.govuk-body
     abbr title="To Be Decided" TBD
 br
 .form-group

@@ -1,7 +1,7 @@
-h1 Users
+h1.govuk-heading-l Users
 = render partial: "shared/flash_messages", flash: flash
 #admin-users-list
-  .row
+  div
     ul#admin-button-bar
       li= link_to 'Invite new user', new_user_invitation_path, {class: 'button-secondary'}
   table.table aria-label="users"

@@ -1,47 +1,17 @@
-- if user_signed_in?
-  nav.navbar.navbar-default role="navigation"
-    .container-fluid
-      .navbar-header
-
-        button.navbar-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button"
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-
-      .collapse.navbar-collapse
-        - if current_user.pq_user?
-
-          ul.nav.navbar-nav
-            li class=('active' if @dashboard_state == 'New')
-              = link_to 'New', dashboard_path, action: 'index', aria: { label: "Click to view new questions"}
-
-            li class=('active' if @dashboard_state == 'In progress')
-              = link_to 'In progress', dashboard_in_progress_path, action: 'in_progress', aria: { label: "Click to view in progress questions"}
-
-            li class=('active' if @dashboard_state == 'Backlog')
-              = link_to 'Backlog', dashboard_backlog_path, action: 'backlog', aria: { label: "Click to view backlog questions"}
-
-            li.dropdown class=('active' if @page_title == 'Minister report - Parliamentary Questions - Ministry of Justice' || @page_title == 'Press desk report - Parliamentary Questions - Ministry of Justice')
-              a.dropdown-toggle data-toggle="dropdown" data-target="#-" href="#" aria-haspopup="true" role="button"
-                | Reports
-                span.caret
-              ul.dropdown-menu role="menu"
-                li
-                  = link_to 'Minister report', reports_ministers_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Minister Report')", aria: { label: "Click to view minister reports"}
-                li
-                  = link_to 'Press desk report', reports_press_desk_by_progress_path , :onclick=> "ga('send', 'event', 'reports', 'view', 'Press Desk Report')", aria: { label: "Click to view press desk reports"}
-
-            li#settings class=('active' if @page_title == 'Settings - Parliamentary Questions - Ministry of Justice')
-              = link_to 'Settings', admin_path
-
-            li= link_to 'Sign out', destroy_user_session_path
-
-          = form_tag(search_path, { :method => 'get', :id => 'search_form', :class => 'navbar-form navbar-right', :role => 'search'}) do
-            .form-group.search
-              label for="search_field" Search by UIN
-              div.search-box
-                = text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control' }
-                = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
-                  span.fa.fa-search
-                    span.visually-hidden Search
+- if current_user.pq_user?
+  = govuk_service_navigation(current_path: request.env['PATH_INFO'], navigation_id: 'nav', classes: ["navbar", "navbar-default"]) do |sn|
+    = sn.with_navigation_item(text: "New", href: dashboard_path)
+    = sn.with_navigation_item(text: "In progress", href: dashboard_in_progress_path)
+    = sn.with_navigation_item(text: "Backlog", href: dashboard_backlog_path)
+    = sn.with_navigation_item(text: "Reports", href: reports_path)
+    = sn.with_navigation_item(text: "Settings", href: admin_path)
+    = sn.with_navigation_item(text: "Sign out", href: destroy_user_session_path)
+    = sn.with_end_slot do
+      = form_tag(search_path, { :method => 'get', :id => 'search_form', :class => 'navbar-form navbar-right', :role => 'search'}) do
+        .form-group.search
+          label for="search_field" Search by UIN
+          div.search-box
+            = text_field_tag :search, params[:search], { :id => 'search_field',  :class => 'form-control' }
+            = button_tag(:type => 'submit', :id => 'search_button', :class => 'btn btn-default') do
+              span.fa.fa-search
+                span.govuk-visually-hidden Search

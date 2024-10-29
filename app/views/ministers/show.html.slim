@@ -1,13 +1,13 @@
 #admin-ministers-details
-  h1 Minister details
+  h1.govuk-heading-l Minister details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @minister.name
-  h2 Title
-  p= @minister.title
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @minister.name
+  h2.govuk-heading-m Title
+  p.govuk-body= @minister.title
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @minister
-  h2 Contacts
+  h2.govuk-heading-m Contacts
   div class="row"
     ul#admin-button-bar
       li= link_to ('Add new contact'), new_minister_contact_withid_path(@minister), {class: 'button-secondary'}

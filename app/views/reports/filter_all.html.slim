@@ -2,9 +2,9 @@
   = 'PQ filter - '
 
 div#filter-report
-  h1 PQ filter
+  h1.govuk-heading-l PQ filter
   = render partial: 'shared/flash_messages'
-  .row
+  div
     .col-md-3.col-md-push-9
       = form_tag({controller: 'reports', action: 'filter_all'}, {:method => :get}) do
         .form-group
@@ -21,7 +21,7 @@ div#filter-report
           = link_to 'Show all', filter_all_path, class: 'button-secondary'
     .col-md-9.col-md-pull-3
       - if @questions.empty?
-        h2 Please select a filter option
+        h2.govuk-heading-m Please select a filter option
       - else
         #count
           strong
@@ -34,5 +34,5 @@ div#filter-report
             li id="pq-frame-#{question.id}"
               = render partial: 'dashboard/question_data', locals: {question: question, action_officers: @action_officers}
   - if @questions.any?
-    #pages.row
+    #pages
       = will_paginate @questions, {class: 'col-md-9'}

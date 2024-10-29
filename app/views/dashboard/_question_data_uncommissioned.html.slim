@@ -1,4 +1,4 @@
-.pq-columns.row
+.pq-columns
 
   = form_for CommissionForm.new(minister_id: question.minister_id, policy_minister_id: question.policy_minister_id),
     remote: true,
@@ -17,7 +17,7 @@
     .col-md-5
       - if !question.house_name.nil?
         label.form-label= question.house_name
-        p= question.member_name
+        p.govuk-body= question.member_name
 
       label.form-label for="pq_date_for_answer-#{question.id}" Date for answer
       .datepicker.form-group

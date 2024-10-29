@@ -1,4 +1,4 @@
-h1
+h1.govuk-heading-l
   | Edit #{resource_name.to_s.humanize}
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = devise_error_messages!
@@ -11,7 +11,7 @@ h1
       | Currently waiting confirmation for: #{resource.unconfirmed_email}
   div
     = f.label :password
-    p leave blank if you don't want to change it
+    p.govuk-body leave blank if you don't want to change it
     br/
     = f.password_field :password, autocomplete: "off"
   div
@@ -20,11 +20,11 @@ h1
     = f.password_field :password_confirmation, autocomplete: "off"
   div
     = f.label :current_password
-    p we need your current password to confirm your changes
+    p.govuk-body we need your current password to confirm your changes
     br/
     = f.password_field :current_password, autocomplete: "off"
   div= f.submit "Update"
-h2 Cancel my account
+h2.govuk-heading-m Cancel my account
 p
   | Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
 = link_to "Back", :back

@@ -1,58 +1,21 @@
 - content_for :page_title do
   = @page_title
 
-- content_for :head do
-
-  = stylesheet_link_tag('font-awesome.css', media: 'all')
-  = stylesheet_link_tag('select2.css', media: 'all')
-  = stylesheet_link_tag('select2-bootstrap.css', media: 'all')
-  = stylesheet_link_tag('vendor/jquery.datetimepicker.css', media: 'all')
-  = stylesheet_link_tag('vendor/pq-select2.css', media: 'all')
-  = stylesheet_link_tag('/assets/govuk-frontend.min.css', media: 'all')
-  = stylesheet_link_tag('application.css', media: 'all')
-
-  javascript:
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5RRTCM3');
-
-- content_for :body_start do
-  - content_for :body_start do
-    noscript
-      iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RRTCM3" height="0" width="0" style="display:none;visibility:hidden"
-
 - content_for :content do
-  main#contentOuter(role="main")
-    .phase-banner
-      / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
-      <span>Help make this service better - your&nbsp;
-      - if ! user_signed_in?
-        <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Feedback" aria-label="Click to send feedback via email">feedback</a>&nbsp;
-      - else
-        <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Tracker" aria-label="Click to send feedback via email">feedback</a>&nbsp;
-      | will help us to improve it.
-      </span>
+  .phase-banner
+    / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
+    span Help make this service better - your&nbsp;
+    - if ! user_signed_in?
+      <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Feedback" aria-label="Click to send feedback via email">feedback</a>&nbsp;
+    - else
+      <a href="mailto:pqsupport@digital.justice.gov.uk?Subject=PQ%20Tracker" aria-label="Click to send feedback via email">feedback</a>&nbsp;
+    | will help us to improve it.
 
-    - if HostEnv.is_staging?
-      .staging_banner
-        | This is not the live Parliamentary Questions Tracker environment
+  - if HostEnv.is_staging?
+    .staging_banner
+      | This is not the live Parliamentary Questions Tracker environment
 
-    = render partial: "shared/navigation"
-    .container
-      #content.content-inner
-        = yield
-
-- content_for :footer_support_links do
-  h4.govuk-visually-hidden
-    | Support links
-  ul.govuk-footer__inline-list
-    li.govuk-footer__inline-list-item
-      = link_to "Accessibility", "/accessibility", class: "govuk-footer__link", aria: { label: "click to visit accessibility statement"}
-    li.govuk-footer__inline-list-item
-      = link_to "Contact Parliamentary Branch", "mailto:pqs@justice.gov.uk?Subject=PQ%20Tracker", class: "govuk-footer__link", aria: { label: "click to email parliamentary branch"}
-
-- content_for :body_end
-
-  <!--[if gt IE ]><!-->
-    = javascript_include_tag('application.js')
-  <!--<![endif]-->
+  = render partial: "shared/navigation"
+  div.container= yield
 
 = render template: "layouts/govuk_template"

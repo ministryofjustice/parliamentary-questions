@@ -1,6 +1,8 @@
 /* Rules to make select2 components more like govuk elements */
 
-@import 'colours';
+$border-colour: grey;
+$yellow: govuk-colour("yellow");
+$black: govuk-colour("black");
 
 @mixin reset-border-radius {
   border-radius: 0;

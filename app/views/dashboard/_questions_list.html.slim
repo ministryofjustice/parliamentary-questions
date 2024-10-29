@@ -1,4 +1,4 @@
-.col-md-9.col-md-pull-3
+.govuk-grid-column-two-thirds
   = render partial: "shared/flash_messages", flash: flash
   #count aria-live='polite'
     strong #{@questions.length}
@@ -14,4 +14,4 @@
     - questions.each do |question|
       li id="pq-frame-#{question.id}" data-pquin=question.uin class="question"
         = render partial: 'dashboard/question_data', locals: {question: question, action_officers: action_officers}
-  #pages.row
+  #pages

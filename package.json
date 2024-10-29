@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "govuk-frontend": "^5.7.1"
+  }
+}

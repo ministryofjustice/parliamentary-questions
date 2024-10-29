@@ -1,14 +1,14 @@
-h1 Press officer details
+h1.govuk-heading-l Press officer details
 #admin-po-details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @press_officer.name
-  h2 Email
-  p= @press_officer.email
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @press_officer.name
+  h2.govuk-heading-m Email
+  p.govuk-body= @press_officer.email
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @press_officer
-  p
+  p.govuk-body
     = link_to 'Edit', edit_press_officer_path(@press_officer), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
         = ' | '
     = link_to 'Return to press officer list', press_officers_path, {class: 'admin-link'}

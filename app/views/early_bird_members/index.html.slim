@@ -1,7 +1,7 @@
-h1 Early bird members
+h1.govuk-heading-l Early bird members
 = render partial: "shared/flash_messages", flash: flash
 #admin-wm-list
-  .row
+  div
     ul#admin-button-bar
       li= link_to ('Send early bird info'), {controller: 'early_bird_send_emails', action: 'send_emails'}, {class: 'button', :onclick=> "ga('send', 'event', 'settings', 'earlybird', 'send early bird info');" }
       li= link_to ('Add early bird member'), new_early_bird_member_path, {class: 'button-secondary'}

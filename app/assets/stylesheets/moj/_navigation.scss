@@ -1,3 +1,17 @@
+#nav {
+  margin: 0 25px;
+}
+
+.navbar-form.navbar-right {
+  position: absolute;
+  top: 8px;
+  right: 0px;
+
+  @media screen and (max-width: 1000px) {
+    position: inherit;
+  }
+}
+
 .navbar.navbar-default {
   background-color: $panel-colour;
   border-right: 1px solid $border-colour;
@@ -40,26 +54,26 @@
   #search_button {
     border-radius: 0;
     width: 34px;
-    height: 3.4rem;
+    height: 2.1rem;
     padding: 4px;
   }
 }
 
 // override bootstrap
-@media (max-width: 767px) {
-  nav.navbar-default {
-    .navbar-nav .open .dropdown-menu > li > a {
-      color: #444;
-    }
+// @media (max-width: 767px) {
+//   nav.navbar-default {
+//     .navbar-nav .open .dropdown-menu > li > a {
+//       color: #444;
+//     }
 
-    #search_field.form-control {
-      display: inline-block;
-    }
-    .navbar-toggle .icon-bar {
-      background-color: #444;
-    }
-  }
-}
+//     #search_field.form-control {
+//       display: inline-block;
+//     }
+//     .navbar-toggle .icon-bar {
+//       background-color: #444;
+//     }
+//   }
+// }
 
 nav.navbar-default .navbar-link {
   color: #444;
