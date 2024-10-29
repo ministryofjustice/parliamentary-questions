@@ -1,4 +1,4 @@
-- if current_user.pq_user?
+- if current_user&.pq_user?
   = govuk_service_navigation(current_path: request.env['PATH_INFO'], navigation_id: 'nav', classes: ["navbar", "navbar-default"]) do |sn|
     = sn.with_navigation_item(text: "New", href: dashboard_path)
     = sn.with_navigation_item(text: "In progress", href: dashboard_in_progress_path)
