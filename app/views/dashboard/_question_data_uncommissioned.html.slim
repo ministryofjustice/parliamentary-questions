@@ -1,5 +1,4 @@
-.pq-columns
-
+.pq-columns.govuk-grid-row
   = form_for CommissionForm.new(minister_id: question.minister_id, policy_minister_id: question.policy_minister_id),
     remote: true,
     authenticity_token: true,
@@ -7,14 +6,14 @@
     url: commission_path do |f|
 
     /! start of 'sub column 1'
-    .col-md-7
+    .govuk-grid-column-one-half
       = render partial: 'shared/minister_selection', locals: {question: question, form: f}
       = render partial: 'shared/action_officer_selection', locals: {action_officers: action_officers, question: question, form: f, reassign: false}
       .form-group
         = f.hidden_field(:pq_id , :value => question.id)
 
     /! start of sub column 2
-    .col-md-5
+    .govuk-grid-column-one-half
       - if !question.house_name.nil?
         label.form-label= question.house_name
         p.govuk-body= question.member_name
@@ -30,5 +29,5 @@
         input.deadline-date.form-control.required-for-commission id="pq_internal_deadline-#{question.id}" name="commission_form[internal_deadline]" type="text" value=(question.internal_deadline.to_s)
         span.fa.fa-calendar title="select a date"
       = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
-    .form-group
+    .govuk-grid-column-full.form-group
       = f.submit 'Commission', :class => 'button commission-button'

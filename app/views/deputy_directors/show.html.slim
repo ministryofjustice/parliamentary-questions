@@ -1,15 +1,15 @@
 #admin-deputy-details
   h1.govuk-heading-l Deputy director details
-  = render partial: "shared/flash_messages", flash: flash
+  p.govuk-body= render partial: "shared/flash_messages", flash: flash
   h2.govuk-heading-m Name
-  = @deputy_director.name
+  p.govuk-body= @deputy_director.name
   h2.govuk-heading-m Email
-  = @deputy_director.email
+  p.govuk-body= @deputy_director.email
   h2.govuk-heading-m Division
-  = @deputy_director.division.name
+  p.govuk-body= @deputy_director.division.name
   h2.govuk-heading-m Status
-  = render partial: 'shared/status', object: @deputy_director
-  p
+  p.govuk-body= render partial: 'shared/status', object: @deputy_director
+  p.govuk-body
     = link_to 'Edit', edit_deputy_director_path(@deputy_director), {class: 'admin-link'}
     span.govuk-visually-hidden
         = ' | '

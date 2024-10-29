@@ -1,10 +1,9 @@
-.govuk-main-wrapper
-  #dashboard.govuk-grid-row
-    - if @dashboard_state == "New"
-      h1.govuk-heading-l Parliamentary questions - New
-    - if @dashboard_state == "In progress"
-      h1.govuk-heading-l Parliamentary questions - In progress
-    - if @dashboard_state == "Backlog"
-      h1.govuk-heading-l Parliamentary questions - Backlog
-    = render partial: "dashboard/questions_list", locals: {questions: @questions, action_officers: @action_officers }
-    = render partial: "dashboard_filter"
+#dashboard.govuk-grid-row
+  - if @dashboard_state == "New"
+    h1.govuk-heading-l Parliamentary questions - New
+  - if @dashboard_state == "In progress"
+    h1.govuk-heading-l Parliamentary questions - In progress
+  - if @dashboard_state == "Backlog"
+    h1.govuk-heading-l Parliamentary questions - Backlog
+  = render partial: "dashboard/questions_list", locals: {questions: @questions, action_officers: @action_officers }
+  = render partial: "dashboard_filter"

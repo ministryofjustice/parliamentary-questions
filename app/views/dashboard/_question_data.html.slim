@@ -1,5 +1,5 @@
-.pq-header
-  .col-md-5
+.pq-header.govuk-grid-row
+  .govuk-grid-column-one-half
     h2.govuk-heading-m
       = link_to(question.uin, { controller: 'pqs', action: 'show', id: question.uin}, :class=>"question-uin", aria: { label: "Click to view and edit question #{question.uin}, question status #{question.state.humanize}, internal deadline #{question.internal_deadline || 'not set'}" })
       span.question-type  = question.question_type_header
@@ -8,19 +8,21 @@
       input id="#{question.uin}" class="pq-select" type="checkbox" name="uin-#{question.id}" value="#{question.id}"
       span Select #{question.uin}
 
-  .col-md-4
+  .govuk-grid-column-one-quarter
     - if question.proposed?
       div.question-proposed Action Officer Proposed
-    - if !question.date_for_answer.nil? and !question.is_new?
+    - elsif !question.date_for_answer.nil? and !question.is_new?
       |  Date for answer&nbsp;
       span.answer-date
         = question.date_for_answer.to_formatted_s(:date)
         = render partial: 'shared/answer_time', locals: {date_for_answer: question.date_for_answer, is_closed: question.closed?}
+    - else
+      span &nbsp;
 
-  .col-md-3
+  .govuk-grid-column-one-quarter
     span class=("flag #{state_classname question.state}") = state_label question.state
 
-p.govuk-body.pq-question
+p.pq-question
   = question.question
 - if question.is_new?
   / if a question is unassigned, No response or rejected: loop through and show rejection reasons

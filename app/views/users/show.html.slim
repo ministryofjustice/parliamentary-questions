@@ -1,16 +1,16 @@
 h1.govuk-heading-l User details
 #admin-user-details
   h2.govuk-heading-m Name
-  = @user.name
+  p.govuk-body= @user.name
   h2.govuk-heading-m Email
-  = @user.email
+  p.govuk-body= @user.email
   h2.govuk-heading-m Role
-  = @user.roles
+  p.govuk-body= @user.roles
   h2.govuk-heading-m Last active
-  = time_ago_in_words(@user.last_sign_in_at) unless @user.last_sign_in_at.nil?
+  p.govuk-body= time_ago_in_words(@user.last_sign_in_at) unless @user.last_sign_in_at.nil?
   h2.govuk-heading-m Invited by
-  = @user.invited_by_user
-  p
+  p.govuk-body= @user.invited_by_user
+  p.govuk-body
     = link_to 'Edit', edit_user_path(@user), {class: 'admin-link'}
     span.govuk-visually-hidden
         = ' | '
