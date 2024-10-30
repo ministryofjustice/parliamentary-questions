@@ -18,9 +18,13 @@ $white: govuk-colour("white");
 $grey-4: govuk-colour("mid-grey");
 $gutter-half: 15px;
 
-
 //project specific
 @import "moj/_pq";
 @import "moj/forms";
 @import "moj/navigation";
 @import "vendor/bootstrap";
+@import "vendor/jquery.datetimepicker";
+@import "vendor/pq-select2";
+@import "select2";
+@import "select2-bootstrap";
+@import "font-awesome";

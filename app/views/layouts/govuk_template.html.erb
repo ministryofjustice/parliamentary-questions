@@ -5,20 +5,14 @@
     <title><%= content_for?(:page_title) ? yield(:page_title) : "GOV.UK - The best place to find government services and information" %></title>
 
     <%= tag :meta, name: 'viewport', content: 'width=device-width, initial-scale=1' %>
-    <%= tag :meta, property: 'og:image', content: asset_path('images/govuk-opengraph-image.png') %>
+    <%= tag :meta, property: 'og:image', content: asset_path('/assets/govuk-frontend/govuk/assets/images/govuk-opengraph-image.png') %>
     <%= tag :meta, name: 'theme-color', content: '#0b0c0c' %>
-    <%= favicon_link_tag asset_path('images/favicon.ico'), sizes: '48x48' %>
-    <%= favicon_link_tag asset_path('images/favicon.svg'), type: 'image/svg+xml', sizes: 'any' %>
-    <%= favicon_link_tag asset_path('images/govuk-icon-mask.svg'), rel: 'mask-icon', color: '#0b0c0c' %>
-    <%= favicon_link_tag asset_path('images/govuk-icon-180.png'), rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
+    <%= favicon_link_tag '/assets/images/favicon.ico', sizes: '48x48' %>
+    <%= favicon_link_tag '/assets/images/favicon.svg', type: 'image/svg+xml', sizes: 'any' %>
+    <%= favicon_link_tag '/assets/images/govuk-icon-mask.svg', rel: 'mask-icon', color: '#0b0c0c' %>
+    <%= favicon_link_tag '/assets/images/govuk-icon-180.png', rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
 
-    <%= stylesheet_link_tag('font-awesome.css', media: 'all') %>
-    <%= stylesheet_link_tag('select2.css', media: 'all') %>
-    <%= stylesheet_link_tag('select2-bootstrap.css', media: 'all') %>
-    <%= stylesheet_link_tag('vendor/jquery.datetimepicker.css', media: 'all') %>
-    <%= stylesheet_link_tag('vendor/pq-select2.css', media: 'all') %>
     <%= stylesheet_link_tag('application.css', media: 'all') %>
-
     <%= javascript_include_tag "application", defer: true %>
 
     <script>
