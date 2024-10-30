@@ -18,7 +18,7 @@ RUN apk add --no-cache \
     postgresql-dev \
     yarn
 
-COPY Gemfile* .ruby-version ./
+COPY Gemfile* .ruby-version package.json yarn.lock ./
 
 RUN bundle config deployment true && \
     bundle config without development test && \
