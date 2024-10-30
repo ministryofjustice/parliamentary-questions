@@ -4,7 +4,6 @@ $LOAD_PATH << File.expand_path("../lib", __dir__)
 require "pq_state"
 require "pq_state/transition"
 require "pq_state/state_machine"
-require "settings"
 
 require "csv"
 require "rails"
@@ -101,3 +100,5 @@ module ParliamentaryQuestions
     config.generators.system_tests = nil
   end
 end
+
+require "settings"
