@@ -67,6 +67,9 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Install packages
+        run: yarn install --pure-lockfile
+
       - name: Precompile assets
         run: bin/rails assets:precompile
 
