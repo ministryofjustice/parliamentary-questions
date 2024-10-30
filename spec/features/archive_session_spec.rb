@@ -18,8 +18,8 @@ describe "Archive session", :js do
 
     it "shows current archive details" do
       expect(page).to have_title("Archive PQ Session")
-      within("h2") { expect(page.text).to eq("There are 16 unarchived questions") }
-      within("h3") { expect(page.text).to eq("Prefixes previously used, or reserved: £, a, b") }
+      within(".container h2") { expect(page.text).to eq("There are 16 unarchived questions") }
+      within(".container h3") { expect(page.text).to eq("Prefixes previously used, or reserved: £, a, b") }
     end
 
     it "shows error if selected prefix is invalid" do
@@ -38,8 +38,8 @@ describe "Archive session", :js do
       fill_in "prefix", with: "d"
       click_button "Archive current session"
       expect(page).to have_title("Archive PQ Session")
-      within("h2") { expect(page.text).to eq("There are 0 unarchived questions") }
-      within("h3") { expect(page.text).to eq("Prefixes previously used, or reserved: £, a, b, d") }
+      within(".container h2") { expect(page.text).to eq("There are 0 unarchived questions") }
+      within(".container h3") { expect(page.text).to eq("Prefixes previously used, or reserved: £, a, b, d") }
     end
   end
 
