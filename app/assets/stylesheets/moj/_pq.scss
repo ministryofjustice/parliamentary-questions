@@ -445,7 +445,7 @@ textarea.form-control {
   border-radius: 0;
   border: 1px solid $border-colour;
   display: inline-block;
-  width: 20rem;
+  width: 16rem;
   input {
     display: inline;
     width: 86%;
@@ -541,6 +541,10 @@ textarea.form-control {
 // ... except the active one
 .js-enabled .tab-content > .tab-pane.active {
   display: block;
+}
+
+.tab-content .govuk-heading-s {
+  margin-bottom: 5px;
 }
 
 /* = Pagination ================================================================= */

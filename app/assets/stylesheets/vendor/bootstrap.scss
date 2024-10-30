@@ -59,15 +59,6 @@ a:hover {
   outline: 0;
 }
 
-h1 {
-  margin: 0.67em 0;
-  font-size: 2em;
-}
-
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-
 b,
 strong {
   font-weight: bold;
@@ -634,12 +625,6 @@ dd {
   .dl-horizontal dd:after {
     clear: both;
   }
-}
-
-abbr[title],
-abbr[data-original-title] {
-  cursor: help;
-  border-bottom: 1px dotted #999999;
 }
 
 abbr.initialism {
@@ -1704,10 +1689,8 @@ input[type="number"]::-webkit-inner-spin-button {
   display: block;
   height: 34px;
   padding: 6px 12px;
-  font-size: 14px;
   line-height: 1.428571429;
   color: #555555;
-  vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #cccccc;
   border-radius: 4px;
