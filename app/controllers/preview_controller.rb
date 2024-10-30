@@ -1,5 +1,5 @@
 class PreviewController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   NEW      = "New".freeze
   PER_PAGE = 200

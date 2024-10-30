@@ -6,8 +6,6 @@ describe DashboardController, type: :controller do
     describe "GET backlog" do
       it "sorts the Backlog questions by date and state weight and return them all" do
         setup_questions
-        allow(PqUserFilter).to receive(:before).and_return(true)
-        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :backlog
@@ -19,8 +17,6 @@ describe DashboardController, type: :controller do
     describe "GET by_status" do
       it "returns all questions in unassigned status sorted for dashboard order" do
         setup_questions
-        allow(PqUserFilter).to receive(:before).and_return(true)
-        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :unassigned
@@ -32,8 +28,6 @@ describe DashboardController, type: :controller do
     describe "GET in_progress" do
       it "sorts the in-progress questions by date and state weight and return them all" do
         setup_questions
-        allow(PqUserFilter).to receive(:before).and_return(true)
-        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :in_progress
@@ -45,8 +39,6 @@ describe DashboardController, type: :controller do
     describe "GET index" do
       it "sorts the new questions by date and state weight" do
         setup_questions
-        allow(PqUserFilter).to receive(:before).and_return(true)
-        expect(PqUserFilter).to receive(:before)
         allow(controller).to receive(:authenticate_user!).and_return(true)
         expect(controller).to receive(:authenticate_user!)
         get :index

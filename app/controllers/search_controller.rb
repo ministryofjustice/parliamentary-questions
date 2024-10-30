@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def index
     uin = params[:search]

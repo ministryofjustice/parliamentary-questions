@@ -1,5 +1,5 @@
 class DirectoratesController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
   before_action :set_directorate, only: %i[show edit update destroy]
 
   def index

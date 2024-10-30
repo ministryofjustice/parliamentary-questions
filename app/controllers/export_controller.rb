@@ -1,7 +1,7 @@
 class ExportController < ApplicationController
   include Validators::DateInput
 
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def index
     update_page_title("Export PQs")

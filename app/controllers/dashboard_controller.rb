@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   BACKLOG     = "Backlog".freeze
   IN_PROGRESS = "In progress".freeze
