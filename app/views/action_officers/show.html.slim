@@ -1,24 +1,24 @@
 #admin-ao-details
-  h1 Action officer details
+  h1.govuk-heading-l Action officer details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @action_officer.name
-  h2 Email
-  p= @action_officer.email
-  h2 Group email
-  p= @action_officer.group_email
-  h2 Phone
-  p= @action_officer.phone
-  h2 Deputy director
-  p= @action_officer.deputy_director.name
-  h2 Division
-  p= @action_officer.deputy_director.division.name
-  h2 Press desk
-  p= @action_officer.press_desk.name
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @action_officer.name
+  h2.govuk-heading-m Email
+  p.govuk-body= @action_officer.email
+  h2.govuk-heading-m Group email
+  p.govuk-body= @action_officer.group_email
+  h2.govuk-heading-m Phone
+  p.govuk-body= @action_officer.phone
+  h2.govuk-heading-m Deputy director
+  p.govuk-body= @action_officer.deputy_director.name
+  h2.govuk-heading-m Division
+  p.govuk-body= @action_officer.deputy_director.division.name
+  h2.govuk-heading-m Press desk
+  p.govuk-body= @action_officer.press_desk.name
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @action_officer
-  p
+  p.govuk-body
     = link_to 'Edit', edit_action_officer_path(@action_officer), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
       = ' | '
     = link_to 'Return to action officer list', action_officers_path, {class: 'admin-link'}

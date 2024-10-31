@@ -9,7 +9,7 @@
         label.form-label for="division_directorate_id"  Directorate (required)
         = f.collection_select(:directorate_id, @directorates, :id, :name, :include_blank => "Please select")
       .form-group
-        p Status
+        p.govuk-body Status
         label.block-label for="division_deleted"
           = f.check_box :deleted
           | Inactive

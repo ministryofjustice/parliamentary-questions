@@ -2,9 +2,9 @@
   .pq-msg-success
     = flash[:success]
 
-h1 Archive PQ Session
+h1.govuk-heading-l Archive PQ Session
 
-h2 There are #{@count} unarchived questions
-h3 Prefixes previously used, or reserved: #{@all_prefixes}
+h2.govuk-heading-m There are #{@count} unarchived questions
+h3.govuk-heading-s Prefixes previously used, or reserved: #{@all_prefixes}
 
 = render 'form' unless @count.zero?

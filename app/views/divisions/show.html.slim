@@ -1,14 +1,14 @@
 #admin-division-details
-  h1 Division details
+  h1.govuk-heading-l Division details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @division.name
-  h2 Directorate
-  p= @division.directorate.name
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @division.name
+  h2.govuk-heading-m Directorate
+  p.govuk-body= @division.directorate.name
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @division
-  p
+  p.govuk-body
     = link_to 'Edit', edit_division_path(@division), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
         = ' | '
     = link_to 'Return to divisions list', divisions_path, {class: 'admin-link'}

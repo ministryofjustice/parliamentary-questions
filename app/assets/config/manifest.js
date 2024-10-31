@@ -1,9 +1,9 @@
 //= link_tree ../images
 //= link_directory ../javascripts .js
 //= link_directory ../stylesheets .css
-//= link govuk-template.css
-//= link govuk-template-ie6.css
-//= link govuk-template-ie7.css
-//= link govuk-template-ie8.css
-//= link govuk-template-print.css
-//= link fonts.css
+//= link images/favicon.ico
+//= link images/favicon.svg
+//= link images/govuk-icon-mask.svg
+//= link images/govuk-icon-180.png
+//= link images/govuk-crest.svg
+//= link images/govuk-opengraph-image.png

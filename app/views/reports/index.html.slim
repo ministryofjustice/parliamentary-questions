@@ -1,0 +1,7 @@
+h1.govuk-heading-l Reports
+
+= govuk_list spaced: true do
+  = tag.li
+    .govuk-body= link_to 'Minister report', reports_ministers_by_progress_path, aria: { label: "Click to view minister reports"}
+  = tag.li
+    .govuk-body= link_to 'Press desk report', reports_press_desk_by_progress_path, aria: { label: "Click to view press desk reports"}

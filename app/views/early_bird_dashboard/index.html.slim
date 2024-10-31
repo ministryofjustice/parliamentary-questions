@@ -1,12 +1,12 @@
 #preview
 
   #main
-    h1 New parliamentary questions to be allocated today (#{@now})
+    h1.govuk-heading-l New parliamentary questions to be allocated today (#{@now})
     = render partial: 'shared/flash_messages'
 
     #sidebar.col-md-3.col-md-push-9
       #filters.js-stick-at-top-when-scrolling
-        h2 Filter
+        h2.govuk-heading-m Filter
         #question-type.filter-box
           fieldset
             legend
@@ -44,7 +44,7 @@
       ul.questions-list
         - @questions.each do |question|
           li.question
-            h2
+            h2.govuk-heading-m
               = link_to(question.uin, {controller: 'pqs', action: 'show', id: question.uin}, :class => "question-uin")
               - if question.question_type == 'NamedDay'
                 span.question-type | Named Day
@@ -54,24 +54,24 @@
                 span.question-type | Ordinary
             span.pq-question #{question.question}
             - unless question.member_name.empty?
-              h3 Asked by:
+              h3.govuk-heading-s Asked by:
               span.asked-by #{question.member_name}
               br
-              h3 Constituency:
+              h3.govuk-heading-s Constituency:
               - if question.member_constituency.nil?
                 | N/A
                 br
               - else
                 span.constituency #{question.member_constituency}
             - if question.proposed?
-              h3 Deputy Director(s) proposed to answer:
+              h3.govuk-heading-s Deputy Director(s) proposed to answer:
             - if question.commissioned?
-              h3 Question assigned to Deputy Director(s):
+              h3.govuk-heading-s Question assigned to Deputy Director(s):
 
-            p.action_officers-list
+            p.govuk-body.action_officers-list
               = question.action_officers.not_rejected.pluck(:name).join(', ')
 
-            p.propose-links
+            p.govuk-body.propose-links
               = link_to('Email PQ team about this question', "mailto:#{Settings.mail_reply_to}?subject=Question #{question.uin}")
               - unless question.commissioned?
                 = ' | '

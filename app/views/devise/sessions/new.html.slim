@@ -1,7 +1,7 @@
 - content_for :page_title do
   = 'Sign in - '
 
-h1.heading-large Sign in
+h1.govuk-heading-l.govuk-main-wrapper--auto-spacing Sign in
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   = render partial: "shared/flash_messages", flash: flash
   = devise_error_messages!

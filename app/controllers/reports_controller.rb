@@ -3,6 +3,8 @@ class ReportsController < ApplicationController
 
   PER_PAGE = 15
 
+  def index; end
+
   def ministers_by_progress
     update_page_title("Minister report")
     report_data = Pq.count_in_progress_by_minister

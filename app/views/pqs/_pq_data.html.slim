@@ -1,9 +1,9 @@
-h2 PQ Details
-h3
+h2.govuk-heading-m PQ Details
+h3.govuk-heading-s
   abbr title="Unique Identification Number" UIN
-p = @pq.uin
-h3 House
-p= @pq.house_name
+p.govuk-body= @pq.uin
+h3.govuk-heading-s House
+p.govuk-body= @pq.house_name
 
 .form-group
   label.form-label for="date_for_answer"  Date for answer back to Parliament
@@ -11,22 +11,22 @@ p= @pq.house_name
     input#date_for_answer.form-control name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.try(:to_formatted_s, :date)) /
     span.fa.fa-calendar title="select a date"
 
-h3 Tabling member
-p= @pq.member_name
+h3.govuk-heading-s Tabling member
+p.govuk-body= @pq.member_name
 
-h3 Question type
-p= @pq.question_type
+h3.govuk-heading-s Question type
+p.govuk-body= @pq.question_type
 
-h3 Question tabled date
+h3.govuk-heading-s Question tabled date
 - if @pq.tabled_date
-  p= @pq.tabled_date.try(:to_formatted_s, :date)
+  p.govuk-body= @pq.tabled_date.try(:to_formatted_s, :date)
 - if @pq.registered_interest
-  p
+  p.govuk-body
     | * Member has registered an interest in the Question.
 - if @pq.transfer_in_ogd_id
-  p
+  p.govuk-body
     | Transferred in from #{@pq.transfer_in_ogd.name} on #{@pq.transfer_in_date.try(:to_formatted_s, :date)}
 hr/
 
-h3 Question
-p = @pq.question
+h3.govuk-heading-s Question
+p.govuk-body= @pq.question

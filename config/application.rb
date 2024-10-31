@@ -82,6 +82,8 @@ module ParliamentaryQuestions
       g.template_engine :erb
     end
 
+    config.assets.css_compressor = nil
+
     config.exceptions_app = routes
 
     # Statsd
@@ -93,6 +95,7 @@ module ParliamentaryQuestions
     config.active_support.cache_format_version = 7.1
 
     config.govuk_time_zone = "UTC"
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

@@ -1,16 +1,16 @@
 #admin-pd-details
-  h1 Press desk details
+  h1.govuk-heading-l Press desk details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @press_desk.name
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @press_desk.name
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @press_desk
-  h2 Press officers
+  h2.govuk-heading-m Press officers
   ul
     - @press_desk.press_officers.each do |po|
       li= link_to(po.name,   controller: 'press_officers', action: 'show', id: po.id   )
-  p
+  p.govuk-body
     = link_to 'Edit', edit_press_desk_path(@press_desk), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
         = ' | '
     = link_to 'Return to press desk list', press_desks_path, {class: 'admin-link'}

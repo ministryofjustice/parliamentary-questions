@@ -2,7 +2,7 @@ ul
   - question.action_officers_pqs.rejected.each do |r|
     - if !r.action_officer.nil?
       li
-        p.pq-msg-warning
+        p.govuk-body.pq-msg-warning
           = link_to r.action_officer.name, action_officer_path(r.action_officer)
           |  rejected at: #{r.updated_at.to_s}
           br/

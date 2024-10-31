@@ -1,18 +1,16 @@
 .form-group {
-
   .search {
-  
     label {
       display: inline-block;
       padding-right: .5em;
       font-size: 90%;
     }
-    
+
     .search-box {
       border: 2px solid #bfc1c3;
       display: inline-block;
     }
-    
+
     input, #search_button {
       border: none;
       display: inline-block;
@@ -26,14 +24,116 @@
   }
 }
 
-.content-inner { 
+.content-inner {
   legend {
     border: none;
     display: block;
+    width: 100%;
     margin: 0;
     padding: 15px 0;
     font-weight: bold;
   }
+}
 
-  .form-label, .form-control { font-size: 1.9rem; }
+.button {
+  background-color: #00823b;
+  position: relative;
+  display: -moz-inline-stack;
+  display: inline-block;
+  padding: .526315em .789473em .263157em;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0 2px 0 #003618;
+  -moz-box-shadow: 0 2px 0 #003618;
+  box-shadow: 0 2px 0 #003618;
+  line-height: 1.25;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  color: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: top
+}
+
+.button:visited {
+  background-color: #00823b
+}
+
+.button:hover,.button:focus {
+  background-color: #00692f
+}
+
+.button:active {
+  top: 2px;
+  -webkit-box-shadow: 0 0 0 #00823b;
+  -moz-box-shadow: 0 0 0 #00823b;
+  box-shadow: 0 0 0 #00823b
+}
+
+.button.disabled,.button[disabled="disabled"],.button[disabled] {
+  zoom:1;filter: alpha(opacity=50);
+  opacity: 0.5
+}
+
+.button.disabled:hover,.button[disabled="disabled"]:hover,.button[disabled]:hover {
+  cursor: default;
+  background-color: #00823b
+}
+
+.button.disabled:active,.button[disabled="disabled"]:active,.button[disabled]:active {
+  top: 0;
+  -webkit-box-shadow: 0 2px 0 #003618;
+  -moz-box-shadow: 0 2px 0 #003618;
+  box-shadow: 0 2px 0 #003618
+}
+
+.button:link,.button:link:focus,.button:hover,.button:focus,.button:visited {
+  color: #fff
+}
+
+.button:before {
+  content: "";
+  height: 110%;
+  width: 100%;
+  display: block;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0
+}
+
+.button:active:before {
+  top: -10%;
+  height: 120%
+}
+
+@media (max-width: 640px) {
+  .button {
+      width:100%;
+      text-align: center
+  }
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+  padding: 0
+}
+
+.button:focus {
+  outline: 3px solid #ffbf47
+}
+
+.button[disabled="disabled"] {
+  background: #00823b
+}
+
+.button[disabled="disabled"]:focus {
+  outline: none
 }

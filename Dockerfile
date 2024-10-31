@@ -15,20 +15,22 @@ FROM base as builder
 RUN apk add --no-cache \
     build-base \
     ruby-dev \
-    postgresql-dev
+    postgresql-dev \
+    yarn
 
-COPY Gemfile* .ruby-version ./
+COPY Gemfile* .ruby-version package.json yarn.lock ./
 
 RUN bundle config deployment true && \
     bundle config without development test && \
-    bundle install --jobs 4 --retry 3
+    bundle install --jobs 4 --retry 3 && \
+    yarn install --frozen-lockfile --production
 
 COPY . .
 
 RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
 
 # Cleanup to save space in the production image
-RUN rm -rf node_modules log/* tmp/* /tmp && \
+RUN rm -rf log/* tmp/* /tmp && \
     rm -rf /usr/local/bundle/cache
 
 FROM base

@@ -2,9 +2,9 @@
   = render partial: "shared/flash_messages", flash: flash
   = render partial: 'shared/errors', object: @pq
   = render 'pq_header'
-  #pq-detail-area.row
+  #pq-detail-area
     nav.col-md-3
-      p.visually-hidden Jump to a section...
+      p.govuk-body.govuk-visually-hidden Jump to a section...
       ul.nav.nav-stacked data-tabs="tabs" role="tablist"
         li.active
           a#progress-menu-pq href="#progress-menu-pq-data" data-toggle="tab" role="tab" PQ Details

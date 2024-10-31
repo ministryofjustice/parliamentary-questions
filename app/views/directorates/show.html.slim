@@ -1,12 +1,12 @@
 #admin-directorate-details
-  h1 Directorate details
+  h1.govuk-heading-l Directorate details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @directorate.name
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @directorate.name
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @directorate
-  p
+  p.govuk-body
     = link_to 'Edit', edit_directorate_path(@directorate), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
         = ' | '
     = link_to 'Return to directorate list', directorates_path, {class: 'admin-link'}

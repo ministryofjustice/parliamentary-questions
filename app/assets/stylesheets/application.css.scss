@@ -1,67 +1,30 @@
-// From GDS's alphagov/govuk_frontend_toolkit
-@import 'colours';
-@import 'font_stack';
-@import 'measurements';
-@import 'conditionals';
-@import 'device-pixels';
-@import 'typography';
-@import 'shims';
+@import "govuk-frontend/dist/govuk/all";
 
-@import 'design-patterns/alpha-beta';
-@import 'design-patterns/buttons';
-
-// From GDS's alphagov/govuk_elements
-
-// Helper functions and classes
-@import 'elements/helpers';
-
-// Generic (normalize/reset.css)
-@import 'elements/reset';
-
-// Base (unclassed HTML elements)
-// These are predefined by govuk_template
-// If you're not using govuk_template, uncomment the line below.
-// HTML elements, set by the GOV.UK template
-@import 'elements/layout';
-
-// Components (chunks of UI)
-@import 'elements/buttons';
-@import 'elements/components';
-@import 'elements/details';
-@import 'elements/elements-typography';
-@import 'elements/forms';
-@import 'elements/forms/form-date';
-@import 'elements/forms/form-multiple-choice';
-@import 'elements/forms/form-validation';
-@import 'elements/lists';
-@import 'elements/panels';
-@import 'elements/phase-banner';
-@import 'elements/tables';
+$govuk-global-styles: true;
+$panel-colour: #DEE0E2;
+$border-colour: #bfc1c3;
+$text-colour: #0b0c0c;
+$yellow: $govuk-focus-colour;
+$govuk-blue: govuk-colour("blue");
+$button-colour: #00703c;
+$error-colour: $govuk-error-colour;
+$page-colour: white;
+$red: $govuk-error-colour;
+$link-colour: #005ea5;
+$grey-2: #bfc1c3;
+$highlight-colour: #f8f8f8;
+$light-blue: govuk-colour("light-blue");
+$white: govuk-colour("white");
+$grey-4: govuk-colour("mid-grey");
+$gutter-half: 15px;
 
 //project specific
+@import "moj/_pq";
 @import "moj/forms";
 @import "moj/navigation";
 @import "vendor/bootstrap";
-@import "moj/alert-banner";
-@import "pq";
-
-.govuk-header__service-name{
-  font-size: 24px;
-}
-
-.govuk-header{
-  border-bottom: none;
-}
-
-.govuk-header__container{
-  border-bottom: none;
-}
-
-#global-header .header-wrapper {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.govuk-footer {
-  font-size: 90%;
-}
+@import "vendor/jquery.datetimepicker";
+@import "vendor/pq-select2";
+@import "select2";
+@import "select2-bootstrap";
+@import "font-awesome";

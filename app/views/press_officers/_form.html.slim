@@ -12,7 +12,7 @@
         label.form-label for="press_officer_press_desk_id"  Press Desk (required)
         = f.collection_select(:press_desk_id, @press_offices, :id, :name, :include_blank => "Please select")
       .form-group
-        p Status
+        p.govuk-body Status
         label.block-label for="press_officer_deleted"
           = f.check_box :deleted
           | Inactive

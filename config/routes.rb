@@ -81,6 +81,7 @@ ParliamentaryQuestions::Application.routes.draw do
   match "export/csv_quick.csv" => "export#csv_quick", via: %i[get post]
   get "export"                 => "export#index"
 
+  get "reports" => "reports#index"
   get "reports/ministers_by_progress"  => "reports#ministers_by_progress"
   get "reports/press_desk_by_progress" => "reports#press_desk_by_progress"
 

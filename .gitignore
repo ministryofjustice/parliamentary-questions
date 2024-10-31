@@ -28,3 +28,5 @@ vendor
 # Allow one tmp file
 /tmp/*
 !tmp/parallel_runtime_rspec.log
+
+/node_modules
