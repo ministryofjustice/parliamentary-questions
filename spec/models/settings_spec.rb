@@ -67,7 +67,7 @@ describe Settings do
       it "raises NoMethodError" do
         expect {
           described_class.unknown_config_key
-        }.to raise_error NoMethodError, "undefined method `unknown_config_key' for Settings:Module"
+        }.to raise_error NoMethodError, "undefined method `unknown_config_key' for module Settings"
       end
     end
   end

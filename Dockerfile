@@ -1,4 +1,4 @@
-FROM ruby:3.1.4-alpine as base
+FROM ruby:3.3.5-alpine as base
 
 WORKDIR /app
 
@@ -25,7 +25,7 @@ RUN bundle config deployment true && \
 
 COPY . .
 
-RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass DEVISE_SECRET=secret bundle exec rake assets:precompile
+RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
 
 # Cleanup to save space in the production image
 RUN rm -rf node_modules log/* tmp/* /tmp && \

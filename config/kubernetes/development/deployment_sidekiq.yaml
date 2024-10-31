@@ -60,11 +60,9 @@ spec:
                 - /bin/sh
                 - -c
                 - 'bundle exec sidekiqmon | grep "parliamentary-questions"'
-            initialDelaySeconds: 30
-            periodSeconds: 90
-            timeoutSeconds: 15
-            successThreshold: 1
-            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 10
           livenessProbe:
             exec:
               command:

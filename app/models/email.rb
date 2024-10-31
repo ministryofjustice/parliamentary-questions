@@ -38,7 +38,7 @@ class Email < ApplicationRecord
   validates :mailer, inclusion: { in: %w[DbSyncMailer ImportMailer PqMailer] }
   validates :status, inclusion: { in: %w[new sending sent failed abandoned]  }
 
-  serialize :params
+  serialize :params, coder: :yaml
 
   scope :new_only,  -> { where(status: "new").order(:id) }
   scope :waiting,   -> { where(status: %w[new failed]).order(:id) }

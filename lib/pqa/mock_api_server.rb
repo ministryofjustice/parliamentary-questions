@@ -13,6 +13,8 @@ module PQA
       set :lock, true
     end
 
+    use Rack::RewindableInput::Middleware
+
     # NOTE: Internal to the Mock API server
     get "/" do
       "This API is working"
@@ -26,6 +28,7 @@ module PQA
 
     # NOTE: Internal to the Mock API server
     put "/api/qais/questions/:uin" do
+      request.body.rewind
       xml    = request.body.read
       doc    = Nokogiri::XML(xml)
       errors = SCHEMA.validate(doc)
