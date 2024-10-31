@@ -73,7 +73,7 @@ Use the following commands to install gems and javascript packages then create t
 
 ```
 $ bin/setup
-$ bin/yarn install
+$ yarn install
 ```
 
 #### Seeds
