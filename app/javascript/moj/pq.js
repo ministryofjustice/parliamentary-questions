@@ -1,5 +1,3 @@
-var document, $, ga;
-
 (function() {
   'use strict';
 

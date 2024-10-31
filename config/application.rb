@@ -82,8 +82,6 @@ module ParliamentaryQuestions
       g.template_engine :erb
     end
 
-    config.assets.css_compressor = nil
-
     config.exceptions_app = routes
 
     # Statsd

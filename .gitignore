@@ -30,3 +30,6 @@ vendor
 !tmp/parallel_runtime_rspec.log
 
 /node_modules
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

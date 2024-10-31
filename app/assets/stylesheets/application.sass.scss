@@ -1,15 +1,17 @@
+$govuk-global-styles: true;
+$govuk-new-link-styles: true;
+
 @import "govuk-frontend/dist/govuk/all";
 
-$govuk-global-styles: true;
 $panel-colour: #DEE0E2;
 $border-colour: #bfc1c3;
 $text-colour: #0b0c0c;
-$yellow: $govuk-focus-colour;
+$yellow: govuk-colour("yellow");
 $govuk-blue: govuk-colour("blue");
 $button-colour: #00703c;
-$error-colour: $govuk-error-colour;
+$error-colour: govuk-colour("red");
 $page-colour: white;
-$red: $govuk-error-colour;
+$red: govuk-colour("red");
 $link-colour: #005ea5;
 $grey-2: #bfc1c3;
 $highlight-colour: #f8f8f8;
@@ -18,13 +20,11 @@ $white: govuk-colour("white");
 $grey-4: govuk-colour("mid-grey");
 $gutter-half: 15px;
 
-//project specific
+// //project specific
 @import "moj/_pq";
 @import "moj/forms";
 @import "moj/navigation";
 @import "vendor/bootstrap";
 @import "vendor/jquery.datetimepicker";
 @import "vendor/pq-select2";
-@import "select2";
-@import "select2-bootstrap";
-@import "font-awesome";
+@import "select2/dist/css/select2";

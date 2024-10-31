@@ -52,9 +52,11 @@
     height: 34px;
   }
   #search_button {
-    border-radius: 0;
+    position: relative;
+    top: -1px;
     width: 34px;
-    height: 2.1rem;
+    height: 2.14rem;
+    border-radius: 0;
     padding: 4px;
   }
 }

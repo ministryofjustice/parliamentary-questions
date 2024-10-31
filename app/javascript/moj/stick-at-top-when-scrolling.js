@@ -1,7 +1,6 @@
 (function () {
   "use strict";
-  var root = this,
-      $ = root.jQuery;
+  var root = window;
   if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
   // Stick elements to top of screen when you scroll past, documentation is in the README.md

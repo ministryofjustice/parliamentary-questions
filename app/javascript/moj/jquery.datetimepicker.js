@@ -1003,7 +1003,7 @@
 						  } else if (!Date.parseDate($(this).val(), options.format)) {
 						    var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
 						        splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
-						    
+
 						    // parse the numbers as 0312 => 03:12
 						    if(!options.datepicker && options.timepicker && splittedHours >= 0 && splittedHours < 24 && splittedMinutes >= 0 && splittedMinutes < 60) {
 						      $(this).val([splittedHours, splittedMinutes].map(function(item) {
@@ -1012,12 +1012,12 @@
 						    } else {
 						      $(this).val((_xdsoft_datetime.now()).dateFormat(options.format));
 						    }
-						    
+
 						    datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 						  } else {
 						    datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 						  }
-						  
+
 						  datetimepicker.trigger('changedatetime.xdsoft');
 						});
 				}
