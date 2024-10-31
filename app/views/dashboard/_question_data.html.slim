@@ -22,7 +22,7 @@
   .govuk-grid-column-one-quarter
     span class=("flag #{state_classname question.state}") = state_label question.state
 
-p.govuk-body.pq-question
+p.pq-question
   = question.question
 - if question.is_new?
   / if a question is unassigned, No response or rejected: loop through and show rejection reasons
