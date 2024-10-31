@@ -55,6 +55,12 @@ $ rbenv install
 
 #### Dependencies
 
+Yarn
+
+```
+$ brew install yarn
+```
+
 Postgresql
 
 ```
@@ -67,6 +73,7 @@ Use the following commands to install gems and javascript packages then create t
 
 ```
 $ bin/setup
+$ bin/yarn install
 ```
 
 #### Seeds
