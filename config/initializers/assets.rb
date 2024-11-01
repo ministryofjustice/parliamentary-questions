@@ -14,6 +14,3 @@ Rails.application.config.assets.version = "1.0"
 # For local development
 Rails.application.config.assets.paths << Rails.root.join("node_modules")
 Rails.application.config.assets.paths << Rails.root.join("node_modules/govuk-frontend/dist/govuk/assets")
-
-# For deployed environment
-Rails.application.config.assets.paths << Rails.root.join("govuk-frontend/dist/govuk/assets")
