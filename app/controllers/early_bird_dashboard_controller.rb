@@ -1,7 +1,7 @@
 class EarlyBirdDashboardController < ApplicationController
   before_action AoTokenFilter, only: [:index]
   before_action :save_early_bird_credentials, only: [:index]
-  before_action :authenticate_user!, PqUserFilter, only: [:preview]
+  before_action :authenticate_user!, only: [:preview]
 
   PER_PAGE = 200
   QUESTIONS_URL = "https://questions-statements.parliament.uk".freeze

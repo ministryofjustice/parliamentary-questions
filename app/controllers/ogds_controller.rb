@@ -1,5 +1,5 @@
 class OgdsController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
   before_action :set_ogd, only: %i[show edit update destroy]
 
   def index

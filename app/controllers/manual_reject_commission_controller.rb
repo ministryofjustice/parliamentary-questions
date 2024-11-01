@@ -1,5 +1,5 @@
 class ManualRejectCommissionController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def reject_manual
     ao_pq = ActionOfficersPq.where(id: params[:id]).first
