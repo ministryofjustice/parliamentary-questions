@@ -2,11 +2,9 @@ source "https://rubygems.org"
 
 ruby file: ".ruby-version"
 
-gem "bootstrap-will_paginate", "~> 1.0"
 gem "business_time", "~> 0.13.0"
 gem "devise", "~> 4.8"
 gem "devise_invitable", "~> 2.0"
-gem "font-awesome-sass"
 gem "govuk-components"
 gem "govuk_notify_rails", "~> 3.0"
 gem "logstasher", "~> 2.1", ">= 2.1.5"

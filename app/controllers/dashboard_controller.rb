@@ -4,7 +4,6 @@ class DashboardController < ApplicationController
   BACKLOG     = "Backlog".freeze
   IN_PROGRESS = "In progress".freeze
   NEW         = "New".freeze
-  PER_PAGE    = 15
   UNASSIGNED  = "unassigned".freeze
 
   def backlog
@@ -68,10 +67,5 @@ private
       else
         Presenters::DashboardFilters.build(pq_counts, params)
       end
-  end
-
-  def paginate_collection(pqs)
-    page = params.fetch(:page, 1)
-    pqs.paginate(page:, per_page: PER_PAGE)
   end
 end
