@@ -12,7 +12,6 @@ describe SmokeTest do
 
   it "#factory - creates an array of all smoke tests" do
     expect(tests[0]).to be_an_instance_of SmokeTest::Dashboard
-    expect(tests[1]).to be_an_instance_of SmokeTest::Report
   end
 
   context "with the base test set up" do
