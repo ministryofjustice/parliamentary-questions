@@ -41,7 +41,7 @@
     var $button = $form.find('.commission-button');
     if (isValidDashboardPq($form)) {
       $button.attr('aria-disabled', 'false');
-      $button.removeAttr('disabled');
+      $button.prop('disabled', false);
     } else {
       $button.attr('aria-disabled', 'true');
       $button.attr('disabled', 'disabled');
@@ -68,8 +68,8 @@
     if (selectionCount > '0') {
       var selectionMessage = ( selectionCount == 1 ) ? " PQ selected" : " PQs selected";
       $('.selectionCount').html(selectionCount + selectionMessage);
-      $('#do-export').removeAttr("disabled", "disabled");
-      $('#do-reminders').removeAttr("disabled", "disabled");
+      $('#do-export').prop('disabled', false);
+      $('#do-reminders').prop('disabled', false);
       if (
         ($('#qa_edit_deadline_date').val().length == 10 ||
         $('#qa_edit_draft_date').val().length == 10 ||
@@ -77,7 +77,7 @@
         $('#qa_edit_minister_date').val().length == 10 ||
         $('#qa_edit_answered_date').val().length == 10) && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
       ){
-        $('#do-edit').removeAttr("disabled", "disabled"); // Enable 'Edit' button.
+        $('#do-edit').prop("disabled", false); // Enable 'Edit' button.
       }
     }
     else {
@@ -459,7 +459,7 @@
       }
     });
 
-    $quickActions.change(function (event) {
+    $quickActions.on("change", function (event) {
       //  Quick Action: Edit Dates ~ Check at least one date and PQ selected
       if (
         ($(event.target).is('#qa_edit_deadline_date') && $('#qa_edit_deadline_date').val().length == 16 ||
@@ -468,15 +468,15 @@
         $(event.target).is('#qa_edit_minister_date') && $('#qa_edit_minister_date').val().length == 16 ||
         $(event.target).is('#qa_edit_answered_date') && $('#qa_edit_answered_date').val().length == 16) && $('#editDates .selectionCount').text().trim() != 'No PQs selected'
       ){
-        $('#do-edit').removeAttr("disabled", "disabled"); // Enable 'Edit' button.
+        $('#do-edit').prop("disabled", false); // Enable 'Edit' button.
       }
       else {
-        $('#do-edit').attr("disabled", "disabled"); // Disable 'Edit' button.
+        $('#do-edit').prop("disabled", true); // Disable 'Edit' button.
       }
     });
 
     // Trigger date picker events
-    $dashboardFilters.change(function () {
+    $dashboardFilters.on("change", function () {
       filterQuestions();
     });
 
@@ -497,7 +497,7 @@
       }
       else if ( $(event.target).val() == "Clear" && $(event.target).prop('id') != "clear-keywords-filter" ){
         // Uncheck radio buttons.
-        $('input[name="' + $(event.target).closest('.filter-box').prop('id') + '"]').removeAttr('checked');
+        $('input[name="' + $(event.target).closest('.filter-box').prop('id') + '"]').prop("checked", false);
         // Hide the "1 selected" notice.
         $('#' + $(event.target).closest('.filter-box').prop('id') + ' .notice').hide();
       }
