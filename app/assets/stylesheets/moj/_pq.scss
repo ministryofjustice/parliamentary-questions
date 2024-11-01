@@ -676,24 +676,6 @@ textarea.form-control {
 
 }
 
-/* = Report pages (/reports/...) ================================================ */
-
-#filter-report {
-
-  .col-md-9 { padding: 0; }
-  .col-md-3 select{ width: 100%; }
-  .button-secondary { float: right; margin-top: 10px; }
-}
-
-#minister-report,
-#press-desk-report {
-  table td {
-    padding-top: 10px;
-    padding-bottom: 13px;
-  }
-  .table-cell-centered { text-align: center; }
-}
-
 /* = Settings (/admin) ====================================================== */
 
 #settings-home {
