@@ -84,9 +84,6 @@ module ParliamentaryQuestions
 
     config.exceptions_app = routes
 
-    # Statsd
-    $statsd = Statsd.new "localhost", 8125 # rubocop:disable Style/GlobalVars
-
     # By default associations can be empty
     config.active_record.belongs_to_required_by_default = false
 
