@@ -24,13 +24,4 @@ private
     session[:early_bird_token] = params[:token]
     session[:early_bird_entity] = params[:entity]
   end
-
-  def load_pq_with_counts
-    @questions = paginate_collection(yield) if block_given?
-  end
-
-  def paginate_collection(pqs)
-    page = params.fetch(:page, 1)
-    pqs.paginate(page:, per_page: PER_PAGE)
-  end
 end

@@ -4,15 +4,18 @@
     <meta charset="utf-8" />
     <title><%= content_for?(:page_title) ? yield(:page_title) : "GOV.UK - The best place to find government services and information" %></title>
 
-    <%= tag :meta, name: 'viewport', content: 'width=device-width, initial-scale=1' %>
-    <%= tag :meta, property: 'og:image', content: asset_path('/assets/govuk-frontend/govuk/assets/images/govuk-opengraph-image.png') %>
-    <%= tag :meta, name: 'theme-color', content: '#0b0c0c' %>
-    <%= favicon_link_tag '/assets/images/favicon.ico', sizes: '48x48' %>
-    <%= favicon_link_tag '/assets/images/favicon.svg', type: 'image/svg+xml', sizes: 'any' %>
-    <%= favicon_link_tag '/assets/images/govuk-icon-mask.svg', rel: 'mask-icon', color: '#0b0c0c' %>
-    <%= favicon_link_tag '/assets/images/govuk-icon-180.png', rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
+    <%= javascript_include_tag "jquery/dist/jquery", "select2/dist/js/select2", "moment/moment", defer: false %>
 
-    <%= stylesheet_link_tag('application.css', media: 'all') %>
+    <%= tag :meta, name: 'viewport', content: 'width=device-width, initial-scale=1' %>
+    <%= tag :meta, property: 'og:image', content: asset_path('govuk-frontend/dist/govuk/assets/images/govuk-opengraph-image.png') %>
+    <%= tag :meta, name: 'theme-color', content: '#0b0c0c' %>
+    <%= favicon_link_tag asset_path('govuk-frontend/dist/govuk/assets/images/favicon.ico'), sizes: '48x48' %>
+    <%= favicon_link_tag asset_path('govuk-frontend/dist/govuk/assets/images/favicon.svg'), type: 'image/svg+xml', sizes: 'any' %>
+    <%= favicon_link_tag asset_path('govuk-frontend/dist/govuk/assets/images/govuk-icon-mask.svg'), rel: 'mask-icon', color: '#0b0c0c' %>
+    <%= favicon_link_tag asset_path('govuk-frontend/dist/govuk/assets/images/govuk-icon-180.png'), rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
+
+    <%= stylesheet_link_tag "application", "font-awesome/css/font-awesome" %>
+
     <%= javascript_include_tag "application", defer: true %>
 
     <script>
