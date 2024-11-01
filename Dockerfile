@@ -27,10 +27,14 @@ RUN bundle config deployment true && \
 
 COPY . .
 
-RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
+RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass \
+    SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
+
+# Copy govuk assets
+RUN cp -r node_modules/govuk-frontend/dist/govuk/assets/. public/assets/
 
 # Cleanup to save space in the production image
-RUN rm -rf log/* tmp/* /tmp && \
+RUN rm -rf node_modules log/* tmp/* /tmp && \
     rm -rf /usr/local/bundle/cache
 
 FROM base
