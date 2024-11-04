@@ -2,48 +2,48 @@
 #
 # Table name: pqs
 #
-#  id                                            :integer          not null, primary key
-#  house_id                                      :integer
-#  raising_member_id                             :integer
-#  tabled_date                                   :datetime
-#  response_due                                  :datetime
-#  question                                      :text
-#  answer                                        :string
-#  created_at                                    :datetime         not null
-#  updated_at                                    :datetime         not null
-#  uin                                           :string
-#  member_name                                   :string
-#  member_constituency                           :string
-#  house_name                                    :string
-#  date_for_answer                               :date
-#  registered_interest                           :boolean
-#  internal_deadline                             :datetime
-#  question_type                                 :string
-#  minister_id                                   :integer
-#  policy_minister_id                            :integer
-#  progress_id                                   :integer
-#  draft_answer_received                         :datetime
-#  holding_reply                                 :datetime
-#  preview_url                                   :string
-#  pod_waiting                                   :datetime
-#  pod_clearance                                 :datetime
-#  transferred                                   :boolean
-#  question_status                               :string
-#  sent_to_policy_minister                       :datetime
-#  cleared_by_policy_minister                    :datetime
-#  sent_to_answering_minister                    :datetime
-#  cleared_by_answering_minister                 :datetime
-#  answer_submitted                              :datetime
-#  final_response_info_released                  :string
-#  transfer_out_ogd_id                           :integer
-#  transfer_out_date                             :datetime
-#  directorate_id                                :integer
-#  original_division_id                          :integer
-#  transfer_in_ogd_id                            :integer
-#  transfer_in_date                              :datetime
-#  state                                         :string           default("unassigned")
-#  state_weight                                  :integer          default(0)
-#  archived                                      :boolean          default(FALSE)
+#  id                            :integer          not null, primary key
+#  house_id                      :integer
+#  raising_member_id             :integer
+#  tabled_date                   :datetime
+#  response_due                  :datetime
+#  question                      :text
+#  answer                        :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  uin                           :string
+#  member_name                   :string
+#  member_constituency           :string
+#  house_name                    :string
+#  date_for_answer               :date
+#  registered_interest           :boolean
+#  internal_deadline             :datetime
+#  question_type                 :string
+#  minister_id                   :integer
+#  policy_minister_id            :integer
+#  progress_id                   :integer
+#  draft_answer_received         :datetime
+#  holding_reply                 :datetime
+#  preview_url                   :string
+#  pod_waiting                   :datetime
+#  pod_clearance                 :datetime
+#  transferred                   :boolean
+#  question_status               :string
+#  sent_to_policy_minister       :datetime
+#  cleared_by_policy_minister    :datetime
+#  sent_to_answering_minister    :datetime
+#  cleared_by_answering_minister :datetime
+#  answer_submitted              :datetime
+#  final_response_info_released  :string
+#  transfer_out_ogd_id           :integer
+#  transfer_out_date             :datetime
+#  directorate_id                :integer
+#  original_division_id          :integer
+#  transfer_in_ogd_id            :integer
+#  transfer_in_date              :datetime
+#  state                         :string           default("unassigned")
+#  state_weight                  :integer          default(0)
+#  archived                      :boolean          default(FALSE)
 #
 
 FactoryBot.define do

@@ -21,7 +21,6 @@ gem "sentry-ruby", "~> 5.19"
 gem "sidekiq"
 gem "sinatra", "~> 4", require: false
 gem "slim", "~> 5.2"
-gem "statsd-ruby", "~> 1.5"
 gem "will_paginate", "~> 4.0"
 
 gem "cssbundling-rails", "~> 1.4"

@@ -316,7 +316,7 @@
       // we need to avoid other unnecessary initialisations as they
       // break the page
 
-      $('nav').hide();
+      $('.navbar').hide();
 
       // open the reject justification form when Reject is selected
       // and hide it when Accept is selected
