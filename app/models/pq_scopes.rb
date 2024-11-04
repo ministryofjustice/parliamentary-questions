@@ -22,14 +22,6 @@ module PqScopes
     by_status(PqState::DRAFT_PENDING)
   end
 
-  def filter_for_report(state, minister_id, press_desk_id)
-    q = order(:internal_deadline)
-    q = join_press_desks.where("pd.id = ?", press_desk_id).distinct("pqs.uin") if press_desk_id.present?
-    q = q.where(state:) if state.present?
-    q = q.where(minister_id:) if minister_id.present?
-    q
-  end
-
   def imported_since_last_weekday
     end_of_last_weekday = Time.zone.today.last_weekday.end_of_day
     end_of_today = Time.zone.today.end_of_day
@@ -38,13 +30,6 @@ module PqScopes
 
   def in_progress
     where("date_for_answer >= CURRENT_DATE and state IN (?)", PqState::IN_PROGRESS)
-  end
-
-  def join_press_desks
-    joins("JOIN action_officers_pqs aopq ON aopq.pq_id = pqs.id")
-      .joins("JOIN action_officers ao ON ao.id = aopq.action_officer_id")
-      .joins("JOIN press_desks pd ON pd.id = ao.press_desk_id")
-      .where("aopq.response = 'accepted' AND pd.deleted = false")
   end
 
   def minister_cleared

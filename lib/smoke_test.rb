@@ -8,7 +8,6 @@ module_function
   ALL =
     [
       SmokeTest::Dashboard,
-      SmokeTest::Report,
     ].freeze
 
   def factory
