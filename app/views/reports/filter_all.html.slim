@@ -17,7 +17,7 @@ div#filter-report
           label.form-label for="state"  Status
           = select_tag 'state', content_tag(:option,'Select status', :value=>'') + options_for_select(@states, params[:state] )
         .form-group
-          = submit_tag 'Filter' , class: 'button', :onclick=> "ga('send', 'event', 'reports', 'view', 'pq filter')"
+          = submit_tag 'Filter' , class: 'button' , :onclick=> "ga('send', 'event', 'reports', 'view', 'pq filter')"
           = link_to 'Show all', filter_all_path, class: 'button-secondary'
     .col-md-9.col-md-pull-3
       - if @questions.empty?
