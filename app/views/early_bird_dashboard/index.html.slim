@@ -45,7 +45,8 @@
         - @questions.each do |question|
           li.question
             h2
-              = link_to(question.uin, {controller: 'pqs', action: 'show', id: question.uin}, :class => "question-uin")
+              span
+                = question.uin
               - if question.question_type == 'NamedDay'
                 span.question-type | Named Day
               - if question.transferred
