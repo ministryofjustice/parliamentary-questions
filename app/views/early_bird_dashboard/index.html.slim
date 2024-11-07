@@ -45,7 +45,7 @@
         - @questions.each do |question|
           li.question
             h2
-              span
+              span.question-uin
                 = question.uin
               - if question.question_type == 'NamedDay'
                 span.question-type | Named Day
