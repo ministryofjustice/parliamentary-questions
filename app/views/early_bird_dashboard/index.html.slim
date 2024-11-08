@@ -45,8 +45,7 @@
         - @questions.each do |question|
           li.question
             h2
-              span.question-uin
-                = question.uin
+              = question.uin
               - if question.question_type == 'NamedDay'
                 span.question-type | Named Day
               - if question.transferred
