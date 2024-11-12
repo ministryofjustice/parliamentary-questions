@@ -406,7 +406,8 @@
 
       // on successful reminder sent, display the data received from the
       // ajax call
-      $('.ao-reminder-link').on('ajax:success', function(e, data){
+      $('.ao-reminder-link').on('ajax:success', function(e) {
+        var data = e.originalEvent.detail[2].response;
         $(this).after(data);
       });
     }
