@@ -374,7 +374,7 @@ textarea.form-control {
   }
   .pq-question {
     margin: 0;
-    padding: 20px 0 0 0;
+    padding: 20px 0 10px 0;
   }
   .status-bar {
     line-height: 32px;
@@ -419,6 +419,16 @@ textarea.form-control {
   color: #555;
   font-weight: bold;
   margin-left: 7px;
+}
+
+.question {
+  .govuk-heading-s {
+    margin-bottom: 5px;
+  }
+
+  p.deadline-date, p.replying-minister, p.policy-minister {
+    margin-bottom: 5px;
+  }
 }
 
 // = Alert messages ============================================================

@@ -1,14 +1,14 @@
 - if question.internal_deadline
   h3.govuk-heading-s Internal deadline:
-  span.deadline-date.text
+  p.govuk-body.deadline-date.text
     = question.internal_deadline
     = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
   h3.govuk-heading-s Replying minister:
-  span.replying-minister
+  p.govuk-body.replying-minister
     = question.minister.name
   - if question.policy_minister
     h3.govuk-heading-s Policy minister:
-    span.policy-minister
+    p.govuk-body.policy-minister
       = question.policy_minister.name
   - if question.action_officer_accepted.nil?
     h3.govuk-heading-s Action officer(s)
