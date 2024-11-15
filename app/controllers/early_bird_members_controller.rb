@@ -2,9 +2,10 @@ class EarlyBirdMembersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @early_bird_members = EarlyBirdMember.active_list
-                                         .all
-                                         .order(Arel.sql("lower(name)"))
+    @show_inactive = (params[:show_inactive] == "true")
+    list = @show_inactive ? EarlyBirdMember.inactive_list : EarlyBirdMember.active_list
+    @early_bird_members = list.order(Arel.sql("lower(name)"))
+
     update_page_title("Early bird members")
   end
 
