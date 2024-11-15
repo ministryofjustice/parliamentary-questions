@@ -38,6 +38,9 @@ class ActionOfficer < ApplicationRecord
   belongs_to :deputy_director
   belongs_to :press_desk
 
+  scope :inactive_list, -> { where("deleted = ?", true) }
+  scope :active_list, -> { where("deleted = ?", false) }
+
   before_validation Validators::Whitespace.new
 
   def self.by_name(name)
@@ -51,6 +54,4 @@ class ActionOfficer < ApplicationRecord
       "#{name} (#{deputy_director.division.name})"
     end
   end
-  scope :inactive_list, -> { where("action_officers.deleted = ?", true) }
-  scope :active_list, -> { where("action_officers.deleted = ? OR action_officers.deleted = ? AND action_officers.updated_at > ?", false, true, 2.days.ago) }
 end
