@@ -55,6 +55,12 @@ $ rbenv install
 
 #### Dependencies
 
+Yarn
+
+```
+$ brew install yarn
+```
+
 Postgresql
 
 ```
@@ -67,6 +73,7 @@ Use the following commands to install gems and javascript packages then create t
 
 ```
 $ bin/setup
+$ yarn install
 ```
 
 #### Seeds
@@ -85,11 +92,9 @@ $ bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
 
 #### Running locally:
 
-To just run the web server without any background jobs (usually sufficient):
+Use the dev command to run the application. This will use Foreman to start the rails server as well as compiling the css and js. Any changes to the css and js will be live updated.
 
-```
-$ bin/rails server
-```
+$ bin/dev
 
 The site will be accessible at http://localhost:3000.
 

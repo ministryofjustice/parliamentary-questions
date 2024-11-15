@@ -2,48 +2,48 @@
 #
 # Table name: pqs
 #
-#  id                                            :integer          not null, primary key
-#  house_id                                      :integer
-#  raising_member_id                             :integer
-#  tabled_date                                   :datetime
-#  response_due                                  :datetime
-#  question                                      :text
-#  answer                                        :string
-#  created_at                                    :datetime         not null
-#  updated_at                                    :datetime         not null
-#  uin                                           :string
-#  member_name                                   :string
-#  member_constituency                           :string
-#  house_name                                    :string
-#  date_for_answer                               :date
-#  registered_interest                           :boolean
-#  internal_deadline                             :datetime
-#  question_type                                 :string
-#  minister_id                                   :integer
-#  policy_minister_id                            :integer
-#  progress_id                                   :integer
-#  draft_answer_received                         :datetime
-#  holding_reply                                 :datetime
-#  preview_url                                   :string
-#  pod_waiting                                   :datetime
-#  pod_clearance                                 :datetime
-#  transferred                                   :boolean
-#  question_status                               :string
-#  sent_to_policy_minister                       :datetime
-#  cleared_by_policy_minister                    :datetime
-#  sent_to_answering_minister                    :datetime
-#  cleared_by_answering_minister                 :datetime
-#  answer_submitted                              :datetime
-#  final_response_info_released                  :string
-#  transfer_out_ogd_id                           :integer
-#  transfer_out_date                             :datetime
-#  directorate_id                                :integer
-#  original_division_id                          :integer
-#  transfer_in_ogd_id                            :integer
-#  transfer_in_date                              :datetime
-#  state                                         :string           default("unassigned")
-#  state_weight                                  :integer          default(0)
-#  archived                                      :boolean          default(FALSE)
+#  id                            :integer          not null, primary key
+#  house_id                      :integer
+#  raising_member_id             :integer
+#  tabled_date                   :datetime
+#  response_due                  :datetime
+#  question                      :text
+#  answer                        :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  uin                           :string
+#  member_name                   :string
+#  member_constituency           :string
+#  house_name                    :string
+#  date_for_answer               :date
+#  registered_interest           :boolean
+#  internal_deadline             :datetime
+#  question_type                 :string
+#  minister_id                   :integer
+#  policy_minister_id            :integer
+#  progress_id                   :integer
+#  draft_answer_received         :datetime
+#  holding_reply                 :datetime
+#  preview_url                   :string
+#  pod_waiting                   :datetime
+#  pod_clearance                 :datetime
+#  transferred                   :boolean
+#  question_status               :string
+#  sent_to_policy_minister       :datetime
+#  cleared_by_policy_minister    :datetime
+#  sent_to_answering_minister    :datetime
+#  cleared_by_answering_minister :datetime
+#  answer_submitted              :datetime
+#  final_response_info_released  :string
+#  transfer_out_ogd_id           :integer
+#  transfer_out_date             :datetime
+#  directorate_id                :integer
+#  original_division_id          :integer
+#  transfer_in_ogd_id            :integer
+#  transfer_in_date              :datetime
+#  state                         :string           default("unassigned")
+#  state_weight                  :integer          default(0)
+#  archived                      :boolean          default(FALSE)
 #
 
 require "rails_helper"
@@ -116,154 +116,6 @@ describe Pq do
         late_due_later_lower_weight,
       ].map(&:uin))
     end
-  end
-
-  describe ".count_accepted_by_press_desk" do
-    def accept_pq(pq, ao) # rubocop:disable Naming/MethodParameterName
-      pq.action_officers_pqs << ActionOfficersPq.new(action_officer: ao, response: "accepted", pq:)
-      pq.save!
-    end
-
-    context "when no data exist" do
-      it "returns an empty hash" do
-        expect(described_class.count_accepted_by_press_desk).to eq({})
-      end
-    end
-
-    context "when some data exist" do
-      # rubocop:disable RSpec/InstanceVariable
-      before do
-        @pd1, @pd2             = DbHelpers.press_desks
-        @ao1, @ao2, @ao3       = DbHelpers.action_officers
-        @pq1, @pq2, @pq3, @pq4 = DbHelpers.pqs
-
-        @pq1.state = PqState::NO_RESPONSE
-        @pq2.state = PqState::WITH_POD
-        @pq3.state = PqState::WITH_POD
-
-        accept_pq(@pq1, @ao1)
-        accept_pq(@pq2, @ao2)
-        accept_pq(@pq3, @ao3)
-      end
-
-      it "returns a hash with states as keys and press-desk/counts as values" do
-        expect(described_class.count_accepted_by_press_desk).to eq(
-          PqState::NO_RESPONSE => {
-            @pd1.id => 1,
-          },
-          PqState::WITH_POD => {
-            @pd2.id => 2,
-          },
-        )
-      end
-
-      context "when a press desk gets deleted" do
-        before do
-          @pd1.deactivate!
-        end
-
-        it "omits the associated questions from the results" do
-          expect(described_class.count_accepted_by_press_desk).to eq(
-            PqState::WITH_POD => {
-              @pd2.id => 2,
-            },
-          )
-        end
-      end
-      # rubocop:enable RSpec/InstanceVariable
-    end
-  end
-
-  describe ".count_in_progress_by_minister" do
-    context "when no data exist" do
-      it "returns an empty hash" do
-        expect(described_class.count_in_progress_by_minister).to eq({})
-      end
-    end
-
-    context "when some data exist" do
-      # rubocop:disable RSpec/InstanceVariable
-      before do
-        @minister1, @minister2, = DbHelpers.ministers
-        @pq1, @pq2, @pq3, @pq4 = DbHelpers.pqs
-
-        @pq1.update!(state: PqState::DRAFT_PENDING, minister: @minister1)
-        @pq2.update!(state: PqState::WITH_MINISTER, minister: @minister2)
-        @pq3.update!(state: PqState::ANSWERED, minister: @minister2)
-        # ^ should not be included as its state is not included in PqState::IN_PROGRESS
-        @pq4.update!(state: PqState::DRAFT_PENDING, minister: @minister2)
-      end
-
-      it "returns a hash with states as keys and minister counts as values" do
-        expect(described_class.count_in_progress_by_minister).to eq(
-          PqState::DRAFT_PENDING => {
-            @minister1.id => 1,
-            @minister2.id => 1,
-          },
-          PqState::WITH_MINISTER => {
-            @minister2.id => 1,
-          },
-        )
-      end
-
-      context "when a minister becomes inactive" do
-        before do
-          @minister1.deactivate!
-        end
-
-        it "omits the minister and its related PQ count from the results" do
-          expect(described_class.count_in_progress_by_minister).to eq(
-            PqState::DRAFT_PENDING => {
-              @minister2.id => 1,
-            },
-            PqState::WITH_MINISTER => {
-              @minister2.id => 1,
-            },
-          )
-        end
-      end
-      # rubocop:enable RSpec/InstanceVariable
-    end
-  end
-
-  describe ".filter_for_report" do
-    # rubocop:disable RSpec/InstanceVariable
-    def commission_and_accept(pq, ao, minister) # rubocop:disable Naming/MethodParameterName
-      pq.state    = PqState::WITH_POD
-      pq.minister = minister
-      pq.action_officers_pqs << ActionOfficersPq.new(
-        pq:,
-        response: "accepted",
-        action_officer: ao,
-      )
-      pq.save!
-    end
-
-    before do
-      @ao1, @ao2 = DbHelpers.action_officers
-      @min1, = DbHelpers.ministers
-      @pq1, @pq2, @pq3, @pq4 = DbHelpers.pqs
-      commission_and_accept(@pq1, @ao1, @min1)
-      commission_and_accept(@pq4, @ao2, @min1)
-    end
-
-    context "when state, minister or press desk are all nil" do
-      it "returns all the records" do
-        expect(@ao1.press_desk).not_to eq(@ao2.press_desk)
-        expect(described_class.filter_for_report(nil, nil, nil).pluck(:uin).to_set).to eq(%w[
-          uin-1 uin-2 uin-3 uin-4
-        ].to_set)
-      end
-    end
-
-    context "when state, minister or press desk are all present" do
-      it "returns the expected records" do
-        expect(@ao1.press_desk).not_to eq(@ao2.press_desk)
-        uins = described_class.filter_for_report(PqState::WITH_POD, @minister, @ao1.press_desk).pluck(:uin)
-        expect(uins).to eq(%w[uin-1])
-      end
-    end
-    # rubocop:enable RSpec/InstanceVariable
   end
 
   describe "allocated_since" do

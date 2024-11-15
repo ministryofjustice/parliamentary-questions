@@ -1,14 +1,14 @@
-h1 Government Department details
+h1.govuk-heading-l Government Department details
 #admin-ogd-details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @ogd.name
-  h2 Acronym
-  p= @ogd.acronym
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @ogd.name
+  h2.govuk-heading-m Acronym
+  p.govuk-body= @ogd.acronym
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @ogd
-  p
+  p.govuk-body
     = link_to 'Edit', edit_ogd_path(@ogd), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
         = ' | '
     = link_to 'Return to Other Government Department list', ogds_path, {class: 'admin-link'}

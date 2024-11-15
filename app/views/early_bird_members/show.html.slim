@@ -1,14 +1,14 @@
-h1 Early bird member details
+h1.govuk-heading-l Early bird member details
 #admin-wl-details
   = render partial: "shared/flash_messages", flash: flash
-  h2 Name
-  p= @early_bird_member.name
-  h2 Email
-  p= @early_bird_member.email
-  h2 Status
+  h2.govuk-heading-m Name
+  p.govuk-body= @early_bird_member.name
+  h2.govuk-heading-m Email
+  p.govuk-body= @early_bird_member.email
+  h2.govuk-heading-m Status
   = render partial: 'shared/status', object: @early_bird_member
-  p
+  p.govuk-body
     = link_to 'Edit', edit_early_bird_member_path(@early_bird_member), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
         = ' | '
     = link_to 'Return to early bird member list', early_bird_members_path, {class: 'admin-link'}

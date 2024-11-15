@@ -81,18 +81,8 @@ ParliamentaryQuestions::Application.routes.draw do
   match "export/csv_quick.csv" => "export#csv_quick", via: %i[get post]
   get "export"                 => "export#index"
 
-  get "reports/ministers_by_progress"  => "reports#ministers_by_progress"
-  get "reports/press_desk_by_progress" => "reports#press_desk_by_progress"
-
   get "/accessibility" => "pages#accessibility"
 
-  match "reports/filter_all" => "reports#filter_all", via: %i[get post], as: "filter_all"
-
-  match "*path", to: "application#page_not_found", via: :all
-
-  if Rails.env.production?
-    get "401", to: "application#unauthorized"
-    get "404", to: "application#page_not_found"
-    get "500", to: "application#server_error"
-  end
+  get "/404", to: "errors#not_found"
+  get "/500", to: "errors#internal_error"
 end

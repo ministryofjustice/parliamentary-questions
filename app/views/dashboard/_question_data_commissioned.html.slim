@@ -1,21 +1,21 @@
 - if question.internal_deadline
-  h3 Internal deadline:
-  span.deadline-date.text
+  h3.govuk-heading-s Internal deadline:
+  p.govuk-body.deadline-date.text
     = question.internal_deadline
     = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
-  h3 Replying minister:
-  span.replying-minister
+  h3.govuk-heading-s Replying minister:
+  p.govuk-body.replying-minister
     = question.minister.name
   - if question.policy_minister
-    h3 Policy minister:
-    span.policy-minister
+    h3.govuk-heading-s Policy minister:
+    p.govuk-body.policy-minister
       = question.policy_minister.name
   - if question.action_officer_accepted.nil?
-    h3 Action officer(s)
+    h3.govuk-heading-s Action officer(s)
     - question.action_officers_pqs.not_rejected.each_with_index do | ao_pq, ind |
       - if ind > 0
         = ', '
       = link_to ao_pq.action_officer.name, action_officer_path(ao_pq.action_officer)
     - question.action_officers_pqs.each do | ao_pq |
-      p.space-before
+      p.govuk-body.space-before
         = render partial: 'shared/ao_reminder_link', locals: {ao_pq: ao_pq, question: question}

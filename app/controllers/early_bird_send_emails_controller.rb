@@ -1,5 +1,5 @@
 class EarlyBirdSendEmailsController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def send_emails
     service = EarlyBirdReportService.new

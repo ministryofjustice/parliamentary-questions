@@ -1,4 +1,4 @@
-h1
+h1.govuk-heading-l
   | Edit user: #{@user.name}
 #admin-user-form
   = form_for @user do |f|
@@ -12,7 +12,7 @@ h1
       = f.label(:roles, "Role:")
       = f.select(:roles, [ User::ROLE_PQ_USER ])
     - unless @user.new_record?
-      p Status:
+      p.govuk-body Status:
       .form-group
         label.block-label for="user_deleted"
           = f.check_box :deleted

@@ -1,9 +1,9 @@
-h2 PQ draft
+h2.govuk-heading-m PQ draft
 - if @pq.action_officers.size > 0
   - @pq.action_officers_pqs.each do |ao_pq|
     - if ao_pq.accepted?
-      h3 Date PQ accepted by action officer
-      p= ao_pq.updated_at.to_s
+      h3.govuk-heading-s Date PQ accepted by action officer
+      p.govuk-body= ao_pq.updated_at.to_s
 .form-group
   label.form-label for="draft_answer_received"  Date PQ returned by action officer
   .datetimepicker

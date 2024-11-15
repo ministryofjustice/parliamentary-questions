@@ -1,7 +1,7 @@
 class EarlyBirdDashboardController < ApplicationController
   before_action AoTokenFilter, only: [:index]
   before_action :save_early_bird_credentials, only: [:index]
-  before_action :authenticate_user!, PqUserFilter, only: [:preview]
+  before_action :authenticate_user!, only: [:preview]
 
   PER_PAGE = 200
   QUESTIONS_URL = "https://questions-statements.parliament.uk".freeze
@@ -23,14 +23,5 @@ private
   def save_early_bird_credentials
     session[:early_bird_token] = params[:token]
     session[:early_bird_entity] = params[:entity]
-  end
-
-  def load_pq_with_counts
-    @questions = paginate_collection(yield) if block_given?
-  end
-
-  def paginate_collection(pqs)
-    page = params.fetch(:page, 1)
-    pqs.paginate(page:, per_page: PER_PAGE)
   end
 end

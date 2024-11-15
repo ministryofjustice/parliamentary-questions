@@ -48,8 +48,6 @@ private
     expires = @current_time.end_of_day + AO_TOKEN_LIFETIME.days
     token   = @token_service.generate_token(path, entity, expires)
 
-    $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.commission" # rubocop:disable Style/GlobalVars
-
     LogStuff.tag(:mailer_commission) do
       NotifyPqMailer.commission_email(pq:, action_officer: ao, token:, entity:, email: ao.email).deliver_later
       if ao.group_email.present?

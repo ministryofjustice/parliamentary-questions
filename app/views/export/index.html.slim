@@ -1,5 +1,5 @@
 #csv-export
-  h1
+  h1.govuk-heading-l
     ' Export PQs to
     abbr title="Comma Separated Values" CSV
   = render partial: 'shared/flash_messages'
@@ -17,4 +17,4 @@
           input#date_to.form-control name="date_to" type="text" value=Date.today.to_formatted_s(:date) /
           span.fa.fa-calendar title="select a date"
       .form-group
-        = submit_tag 'Download CSV' , class: 'button' , :onclick=> "ga('send', 'event', 'tasks', 'download', 'pq csv');"
+        = submit_tag 'Download CSV' , class: 'button'

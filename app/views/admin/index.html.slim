@@ -1,11 +1,11 @@
 #settings-home
-  h1 Settings
+  h1.govuk-heading-l Settings
   - if flash[:success]
     .pq-msg-success
       = flash[:success]
-  .row
+  div
     .col-md-4
-      h2 Address books
+      h2.govuk-heading-m Address books
       nav
         ul
           li= link_to 'Action officers', action_officers_path
@@ -14,7 +14,7 @@
           li= link_to 'Press officers', press_officers_path
           li= link_to 'Early bird list', early_bird_members_path
     .col-md-4
-      h2 Tasks
+      h2.govuk-heading-m Tasks
       nav
         ul
           li= link_to 'Create a transferred PQ', transferred_new_path
@@ -25,7 +25,7 @@
           li
             = link_to 'Archive PQ Session', new_archive_path if current_user.admin?
     .col-md-4
-      h2 User admin
+      h2.govuk-heading-m User admin
       nav
         ul
           li= link_to 'Users', users_path

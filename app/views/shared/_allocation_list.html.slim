@@ -1,17 +1,17 @@
 - if ao_pq.accepted?
   = ao_pq.action_officer.name
-  |  (#{ao_pq.action_officer.deputy_director.division.name}) 
+  |  (#{ao_pq.action_officer.deputy_director.division.name})
   span.flag.accepted Accepted
 - elsif ao_pq.rejected?
     details
       summary
         = ao_pq.action_officer.name
-        =  "(#{ao_pq.action_officer.deputy_director.division.name})" 
+        =  "(#{ao_pq.action_officer.deputy_director.division.name})"
         span.flag.rejected Rejected
       .panel-indent
-        p.strong= ao_pq.reason_option
-        p= ao_pq.reason
+        p.govuk-body.strong= ao_pq.reason_option
+        p.govuk-body= ao_pq.reason
 - else
     = ao_pq.action_officer.name
-    |  (#{ao_pq.action_officer.deputy_director.division.name}) 
+    |  (#{ao_pq.action_officer.deputy_director.division.name})
     span.flag.no-response No response

@@ -1,7 +1,0 @@
-#members_result
-  .field
-    select#members_result_select
-      - @members.each do |member|
-        option data-name=member.display_as value=member.member_id
-          | #{member['Member_Id']} - #{member['DisplayAs']}
-    = link_to 'Select', {remote: true}, {id: 'members_result_select_link'}

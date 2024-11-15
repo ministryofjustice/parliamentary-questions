@@ -1,5 +1,5 @@
 class MinisterContactsController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def new
     @minister_contact = MinisterContact.new(minister_id: params[:id])

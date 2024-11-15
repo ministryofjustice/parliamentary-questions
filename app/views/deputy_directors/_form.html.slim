@@ -12,7 +12,7 @@
         label.form-label for="deputy_director_division_id"  Division (required)
         = f.collection_select(:division_id, @divisions, :id, :name, :include_blank => "Please select")
       .form-group
-        p Status
+        p.govuk-body Status
         label.block-label for="deputy_director_deleted"
           = f.check_box :deleted
           | Inactive

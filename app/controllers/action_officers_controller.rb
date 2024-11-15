@@ -1,5 +1,5 @@
 class ActionOfficersController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def index
     @show_inactive = (params[:show_inactive] == "true")

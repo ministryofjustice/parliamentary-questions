@@ -1,7 +1,7 @@
 class TransferredController < ApplicationController
   include Validators::DateInput
 
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def new
     update_page_title("Create a transferred PQ")

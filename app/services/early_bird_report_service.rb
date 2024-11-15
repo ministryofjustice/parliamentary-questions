@@ -15,7 +15,6 @@ class EarlyBirdReportService
     token      = @token_service.generate_token(early_bird_dashboard_path, entity, end_of_day)
     recipients = EarlyBirdMember.active.pluck(:email) << "pqtest@digital.justice.gov.uk"
 
-    $statsd.increment "#{StatsHelper::TOKENS_GENERATE}.earlybird" # rubocop:disable Style/GlobalVars
     recipients.each do |recipient|
       LogStuff.tag(:mailer_early_bird) do
         LogStuff.info { "Early bird email to pqtest@digital.justice.gov.uk} (name early_bird) [CCd to #{recipients.join(';')}]" }

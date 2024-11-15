@@ -6,15 +6,19 @@ require "pq_state/transition"
 require "pq_state/state_machine"
 
 require "csv"
-require "active_record/railtie"
-# require "active_storage/engine"
-require "action_controller/railtie"
-require "action_view/railtie"
-require "action_mailer/railtie"
+require "rails"
+# Pick the frameworks you want:
+require "active_model/railtie"
 require "active_job/railtie"
+require "active_record/railtie"
+require "active_storage/engine"
+require "action_controller/railtie"
+require "action_mailer/railtie"
 # require "action_cable/engine"
 # require "action_mailbox/engine"
 require "action_text/engine"
+require "action_view/railtie"
+# require "action_cable/engine"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -24,7 +28,7 @@ Bundler.require(*Rails.groups)
 module ParliamentaryQuestions
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    # config.load_defaults 6.1
+    config.load_defaults 7.2
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -36,6 +40,8 @@ module ParliamentaryQuestions
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
 
     # Application Title (Populates <title>)
     config.app_title = "Parliamentary Questions"
@@ -78,15 +84,17 @@ module ParliamentaryQuestions
 
     config.exceptions_app = routes
 
-    # Statsd
-    $statsd = Statsd.new "localhost", 8125 # rubocop:disable Style/GlobalVars
-
     # By default associations can be empty
     config.active_record.belongs_to_required_by_default = false
 
     config.active_support.cache_format_version = 7.1
 
     config.govuk_time_zone = "UTC"
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
+
+    config.exceptions_app = routes
   end
 end
 

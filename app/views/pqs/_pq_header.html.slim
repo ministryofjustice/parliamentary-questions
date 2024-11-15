@@ -1,5 +1,5 @@
 #pq-details-header
-  h1= @pq.uin
+  h1.govuk-heading-l= @pq.uin
   - if @pq.question_type == 'NamedDay'
     span.question-type  Named day
   - if @pq.transferred

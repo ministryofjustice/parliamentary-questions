@@ -1,17 +1,17 @@
-h1 User details
+h1.govuk-heading-l User details
 #admin-user-details
-  h2 Name
-  = @user.name
-  h2 Email
-  = @user.email
-  h2 Role
-  = @user.roles
-  h2 Last active
-  = time_ago_in_words(@user.last_sign_in_at) unless @user.last_sign_in_at.nil?
-  h2 Invited by
-  = @user.invited_by_user
-  p
+  h2.govuk-heading-m Name
+  p.govuk-body= @user.name
+  h2.govuk-heading-m Email
+  p.govuk-body= @user.email
+  h2.govuk-heading-m Role
+  p.govuk-body= @user.roles
+  h2.govuk-heading-m Last active
+  p.govuk-body= time_ago_in_words(@user.last_sign_in_at) unless @user.last_sign_in_at.nil?
+  h2.govuk-heading-m Invited by
+  p.govuk-body= @user.invited_by_user
+  p.govuk-body
     = link_to 'Edit', edit_user_path(@user), {class: 'admin-link'}
-    span.visually-hidden
+    span.govuk-visually-hidden
         = ' | '
     = link_to 'Return to user list', users_path, {class: 'admin-link'}

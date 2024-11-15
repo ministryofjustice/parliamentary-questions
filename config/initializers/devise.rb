@@ -315,7 +315,6 @@ Devise.setup do |config|
 
   Warden::Manager.after_authentication do |user, _auth, _opts|
     LogStuff.info "AUTH-LOG-IN: user #{user.email}, log in"
-    $statsd.increment "login" # rubocop:disable Style/GlobalVars
   end
 
   Warden::Manager.before_logout do |user, _auth, _opts|

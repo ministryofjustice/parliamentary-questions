@@ -1,5 +1,5 @@
 class QuickActionController < ApplicationController
-  before_action :authenticate_user!, PqUserFilter
+  before_action :authenticate_user!
 
   def dates
     params.permit(:total_pqs, :pqs_comma_separated_for_dates, :utf8, :authenticity_token, :qa_edit_deadline_date, :qa_edit_draft_date, :qa_edit_pod_date, :qa_edit_minister_date, :qa_edit_answered_date)

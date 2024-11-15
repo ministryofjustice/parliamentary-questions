@@ -67,6 +67,9 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Install packages
+        run: yarn install --pure-lockfile
+
       - name: Precompile assets
         run: bin/rails assets:precompile
 
@@ -110,7 +113,7 @@ jobs:
         uses: joshmfrankel/simplecov-check-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_suite_coverage: 73
+          minimum_suite_coverage: 84
           minimum_file_coverage: 100
 
   build-and-deploy:
