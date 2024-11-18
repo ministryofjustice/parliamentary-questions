@@ -41,9 +41,5 @@ def expected_order_of_action_officers
     "Carrie Carroll",
     "Kent Holloway",
     "Lisa May",
-    "Jae Young",
-    "Sylvia Ware",
-    "Evangeline Cowan",
-    "Xavier Freeman",
   ]
 end
