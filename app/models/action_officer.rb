@@ -38,8 +38,8 @@ class ActionOfficer < ApplicationRecord
   belongs_to :deputy_director
   belongs_to :press_desk
 
-  scope :inactive_list, -> { where("deleted = ?", true) }
-  scope :active_list, -> { where("deleted = ?", false) }
+  scope :inactive_list, -> { where(deleted: true) }
+  scope :active_list, -> { where(deleted: false) }
 
   before_validation Validators::Whitespace.new
 
