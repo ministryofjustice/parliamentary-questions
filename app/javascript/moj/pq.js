@@ -139,13 +139,13 @@
       var filteredQuestionCount = 0;
       $question.each(function (i, li) {
         // Count the total number of questions
-        if ( $(li).has('a.question-uin').length ) {
+        if ( $(li).has('.question-uin').length ) {
           totalQuestionCount++;
         }
       });
       $question.each(function (i, li) {
         // Count the number of filtered questions
-        if ( $(li).has('a.question-uin').length && $(li).css("display") != "none" ) {
+        if ( $(li).has('.question-uin').length && $(li).css("display") != "none" ) {
           filteredQuestionCount++;
         }
       });
