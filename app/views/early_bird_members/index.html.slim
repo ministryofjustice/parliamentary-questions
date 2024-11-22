@@ -5,7 +5,6 @@ h1.govuk-heading-l Early bird members
     ul#admin-button-bar
       li= link_to ('Send early bird info'), {controller: 'early_bird_send_emails', action: 'send_emails'}, {class: 'button' }
       li= link_to ('Early bird preview'), {controller: 'early_bird_dashboard', action: 'preview'}, {class: 'button-secondary'}
-      li |
       li= link_to ('Add early bird member'), new_early_bird_member_path, {class: 'button-secondary'}
       li= early_bird_member_toggle_link(@show_inactive)
   table.table aria-label="early bird members"
