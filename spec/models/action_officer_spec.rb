@@ -50,20 +50,20 @@ describe ActionOfficer do
     end
   end
 
-  describe "Get index" do
-    let!(:ao_today_deleted) { create(:action_officer, updated_at: Time.zone.now, deleted: false) }
-    let!(:ao_today_active) { create(:action_officer, updated_at: Time.zone.now, deleted: true) }
-    let!(:ao_yesterday_deleted) { create(:action_officer, updated_at: 1.day.ago, deleted: false) }
-    let!(:ao_yesterday_active) { create(:action_officer, updated_at: 1.day.ago, deleted: true) }
-    let!(:ao_three_days_ago_active) { create(:action_officer, updated_at: 3.days.ago, deleted: false) }
+  describe "scopes" do
+    let!(:ao_today_deleted) { create(:action_officer, updated_at: Time.zone.now, deleted: true) }
+    let!(:ao_today_active) { create(:action_officer, updated_at: Time.zone.now, deleted: false) }
+    let!(:ao_yesterday_deleted) { create(:action_officer, updated_at: 1.day.ago, deleted: true) }
+    let!(:ao_yesterday_active) { create(:action_officer, updated_at: 1.day.ago, deleted: false) }
     let!(:ao_three_days_ago_deleted) { create(:action_officer, updated_at: 3.days.ago, deleted: true) }
+    let!(:ao_three_days_ago_active) { create(:action_officer, updated_at: 3.days.ago, deleted: false) }
 
-    it "lists all active Action Officers and those made inactive withing the last two days" do
-      expect(described_class.active_list).to contain_exactly(ao_today_deleted, ao_today_active, ao_yesterday_deleted, ao_yesterday_active, ao_three_days_ago_active)
+    it "lists all active Action Officers" do
+      expect(described_class.active_list).to contain_exactly(ao_today_active, ao_yesterday_active, ao_three_days_ago_active)
     end
 
     it "lists all inactive Action Officers" do
-      expect(described_class.inactive_list).to contain_exactly(ao_today_active, ao_yesterday_active, ao_three_days_ago_deleted)
+      expect(described_class.inactive_list).to contain_exactly(ao_today_deleted, ao_yesterday_deleted, ao_three_days_ago_deleted)
     end
   end
 end

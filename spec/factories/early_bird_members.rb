@@ -13,7 +13,7 @@
 FactoryBot.define do
   factory :early_bird_member do
     name { "Early Bird Member 1" }
-    email { "member.one@earlybird.com" }
+    sequence(:email) { |n| "member.one.#{n}@earlybird.com" }
     deleted { false }
   end
 end

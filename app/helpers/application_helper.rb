@@ -34,4 +34,12 @@ module ApplicationHelper
       link_to "View inactive action officers", action_officers_path(show_inactive: true), { class: "button-secondary" }
     end
   end
+
+  def early_bird_member_toggle_link(show_inactive)
+    if show_inactive
+      link_to "View active early bird members", early_bird_members_path, { class: "button-secondary" }
+    else
+      link_to "View inactive early bird members", early_bird_members_path(show_inactive: true), { class: "button-secondary" }
+    end
+  end
 end
