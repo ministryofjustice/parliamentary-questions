@@ -164,7 +164,7 @@ GEM
       base64
     kgio (2.11.4)
     language_server-protocol (3.17.0.3)
-    logger (1.6.1)
+    logger (1.6.4)
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
@@ -286,7 +286,7 @@ GEM
     rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
-    redis-client (0.22.2)
+    redis-client (0.23.0)
       connection_pool
     regexp_parser (2.9.2)
     reline (0.5.11)
@@ -368,8 +368,7 @@ GEM
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.3.2)
-      concurrent-ruby (< 2)
+    sidekiq (7.3.7)
       connection_pool (>= 2.3.0)
       logger
       rack (>= 2.2.4)
