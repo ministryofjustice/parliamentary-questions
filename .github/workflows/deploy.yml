@@ -57,10 +57,10 @@ jobs:
             --build-arg APP_BUILD_DATE=${{ env.BUILD_DATE }} \
             --build-arg APP_BUILD_TAG=${{ steps.vars.outputs.build_tag }} \
             --build-arg APP_GIT_COMMIT=$SHA \
-            -t ${{ vars.ECR_URL }}:$SHA .
+            -t ${{ secrets.ECR_REGISTRY_URL }}:$SHA .
 
       - name: Push to ECR
-        run: docker push ${{ vars.ECR_URL }}:$SHA
+        run: docker push ${{ secrets.ECR_REGISTRY_URL }}:$SHA
 
   deploy-development:
     runs-on: ubuntu-latest
@@ -87,9 +87,9 @@ jobs:
 
       - name: Tag build and push to ECR
         run: |
-          docker pull ${{ vars.ECR_URL }}:$SHA
-          docker tag ${{ vars.ECR_URL }}:$SHA ${{ vars.ECR_URL }}:development.latest
-          docker push ${{ vars.ECR_URL }}:development.latest
+          docker pull ${{ secrets.ECR_REGISTRY_URL }}:$SHA
+          docker tag ${{ secrets.ECR_REGISTRY_URL }}:$SHA ${{ secrets.ECR_REGISTRY_URL }}:development.latest
+          docker push ${{ secrets.ECR_REGISTRY_URL }}:development.latest
 
       - name: Authenticate to the cluster
         run: |
@@ -103,11 +103,11 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
-          parliamentary-questions-rails-app="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-app="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions-sidekiq \
-          parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-jobs="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
   notify-development:
     needs: [build, deploy-development]
@@ -143,9 +143,9 @@ jobs:
 
       - name: Tag build and push to ECR
         run: |
-          docker pull ${{ vars.ECR_URL }}:$SHA
-          docker tag ${{ vars.ECR_URL }}:$SHA ${{ vars.ECR_URL }}:staging.latest
-          docker push ${{ vars.ECR_URL }}:staging.latest
+          docker pull ${{ secrets.ECR_REGISTRY_URL }}:$SHA
+          docker tag ${{ secrets.ECR_REGISTRY_URL }}:$SHA ${{ secrets.ECR_REGISTRY_URL }}:staging.latest
+          docker push ${{ secrets.ECR_REGISTRY_URL }}:staging.latest
 
       - name: Authenticate to the cluster
         run: |
@@ -159,19 +159,19 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
-          parliamentary-questions-rails-app="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-app="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions-sidekiq \
-          parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-jobs="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           cronjobs/nightly-import \
-          nightly-import="${{ vars.ECR_URL }}:$SHA"
+          nightly-import="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           cronjobs/trim-database \
-          trim-database="${{ vars.ECR_URL }}:$SHA"
+          trim-database="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
   notify-staging:
     needs: [build, deploy-staging]
@@ -208,9 +208,9 @@ jobs:
 
       - name: Tag build and push to ECR
         run: |
-          docker pull ${{ vars.ECR_URL }}:$SHA
-          docker tag ${{ vars.ECR_URL }}:$SHA ${{ vars.ECR_URL }}:production.latest
-          docker push ${{ vars.ECR_URL }}:production.latest
+          docker pull ${{ secrets.ECR_REGISTRY_URL }}:$SHA
+          docker tag ${{ secrets.ECR_REGISTRY_URL }}:$SHA ${{ secrets.ECR_REGISTRY_URL }}:production.latest
+          docker push ${{ secrets.ECR_REGISTRY_URL }}:production.latest
 
       - name: Authenticate to the cluster
         run: |
@@ -224,19 +224,19 @@ jobs:
         run: |
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions \
-          parliamentary-questions-rails-app="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-app="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           deployment/parliamentary-questions-sidekiq \
-          parliamentary-questions-rails-jobs="${{ vars.ECR_URL }}:$SHA"
+          parliamentary-questions-rails-jobs="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           cronjobs/nightly-import \
-          nightly-import="${{ vars.ECR_URL }}:$SHA"
+          nightly-import="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
           kubectl set image -n ${KUBE_NAMESPACE} \
           cronjobs/early-bird-dispatch \
-          early-bird-dispatch="${{ vars.ECR_URL }}:$SHA"
+          early-bird-dispatch="${{ secrets.ECR_REGISTRY_URL }}:$SHA"
 
   notify-production:
     needs: [build, deploy-production]
