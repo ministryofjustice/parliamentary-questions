@@ -6,10 +6,6 @@ on:
 env:
   PREFIX: "pq"
   SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-  KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
-  KUBE_CERT: ${{ secrets.KUBE_CERT }}
-  KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
-  KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER }}
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -71,6 +67,12 @@ jobs:
       id-token: write # This is required for requesting the JWT
       contents: read  # This is required for actions/checkout
 
+    env:
+      KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+      KUBE_CERT: ${{ secrets.KUBE_CERT }}
+      KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+      KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -127,6 +129,12 @@ jobs:
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read  # This is required for actions/checkout
+
+    env:
+      KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+      KUBE_CERT: ${{ secrets.KUBE_CERT }}
+      KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+      KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER }}
 
     steps:
       - name: Checkout
@@ -192,6 +200,12 @@ jobs:
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read  # This is required for actions/checkout
+
+    env:
+      KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+      KUBE_CERT: ${{ secrets.KUBE_CERT }}
+      KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+      KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER }}
 
     steps:
       - name: Checkout
