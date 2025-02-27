@@ -49,6 +49,11 @@ label {
   position: relative;
 }
 
+.govuk-grid-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 //==============================================================================
 // = GLOBAL CLASSES ============================================================
 //==============================================================================
@@ -850,13 +855,6 @@ textarea.form-control {
           #keywords { width: 100%; }
           .clearFilter { overflow: hidden; }
         }
-      }
-    }
-  }
-  @media (max-width: 991px) {
-    #sidebar {
-      #filters, #quick-links {
-        width: 235px;
       }
     }
   }

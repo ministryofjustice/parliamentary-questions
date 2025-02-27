@@ -5,5 +5,5 @@
     h1.govuk-heading-l Parliamentary questions - In progress
   - if @dashboard_state == "Backlog"
     h1.govuk-heading-l Parliamentary questions - Backlog
-  = render partial: "dashboard/questions_list", locals: {questions: @questions, action_officers: @action_officers }
   = render partial: "dashboard_filter"
+  = render partial: "dashboard/questions_list", locals: {questions: @questions, action_officers: @action_officers }
