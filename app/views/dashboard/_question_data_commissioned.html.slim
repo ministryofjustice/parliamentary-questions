@@ -1,7 +1,7 @@
 - if question.internal_deadline
   h3.govuk-heading-s Internal deadline:
   p.govuk-body.deadline-date.text
-    = question.internal_deadline.to_formatted_s(:db)
+    = question.internal_deadline.to_formatted_s(:no_seconds)
     = render partial: 'shared/deadline_time', locals: {internal_deadline: question.internal_deadline, is_closed: question.closed?, draft_reply: question.draft_answer_received}
   h3.govuk-heading-s Replying minister:
   p.govuk-body.replying-minister
