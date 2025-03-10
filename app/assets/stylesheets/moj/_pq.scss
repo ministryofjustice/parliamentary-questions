@@ -734,6 +734,10 @@ textarea.form-control {
 
 #dashboard, #preview {
   #sidebar {
+
+    padding: 0 15px 0 0;
+    min-width: 232px;
+
     input[type="button"]{
       padding-left: 0;
       border: none;
