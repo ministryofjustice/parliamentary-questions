@@ -2,7 +2,7 @@ h2.govuk-heading-m Answer
 .form-group
   label.form-label for="answer_submitted"  Date answer submitted
   .datetimepicker
-    input#answer_submitted.form-control name="pq[answer_submitted]" type="text" value=(@pq.answer_submitted.to_s) /
+    input#answer_submitted.form-control name="pq[answer_submitted]" type="text" value=(@pq.answer_submitted&.to_fs) /
     span.fa.fa-calendar title="select a date"
 - if @pq.answer_submitted.present? && @pq.date_for_answer.present?
   - @answer_target = @pq.date_for_answer + 18.hours
