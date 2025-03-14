@@ -80,7 +80,7 @@ $ yarn install
 
 Mock data can be automatically imported by running the following rake task (it will make use of a mock API server running on localhost:8888 so make sure this port is free):
 
-'''
+```
 $ PQ_REST_API_HOST=http://localhost:8888 bundle exec rake pqa:import_dummy_data
 ```
 
@@ -94,7 +94,9 @@ $ bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
 
 Use the dev command to run the application. This will use Foreman to start the rails server as well as compiling the css and js. Any changes to the css and js will be live updated.
 
+```
 $ bin/dev
+```
 
 The site will be accessible at http://localhost:3000.
 
@@ -102,8 +104,8 @@ The site will be accessible at http://localhost:3000.
 
 In order to run the tests, you can use:
 
-```sh
-bundle exec rake
+```
+$ bundle exec rake
 ```
 
 This will run specs and rubocop linting. Or you can run them individually, with `rake rubocop` and `rake spec`.
@@ -117,15 +119,20 @@ It's done using devise and devise invitable:
 
 For development you can create users with a rake task.
 
-```
+
 # default user
-rake user:create
+```
+$ rake user:create
+```
 
 # admin user
-rake user:create_admin
+```
+$ rake user:create_admin
+```
 
 # specific email, password, name
-rake "user:create_admin[admin@admin.com, 123456789, admin]"
+```
+$rake "user:create_admin[admin@admin.com, 123456789, admin]"
 ```
 
 ## Emails
