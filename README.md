@@ -1,4 +1,4 @@
-<div align="center">
+<div style="text-align: center;">
 
 <a id="readme-top"></a>
 
@@ -117,20 +117,20 @@ It's done using devise and devise invitable:
 * https://github.com/plataformatec/devise
 * https://github.com/scambra/devise_invitable
 
-For development you can create users with a rake task.
+For development, you can create users with a rake task.
 
 
-#### default user
+default user
 ```
 $ rake user:create
 ```
 
-#### admin user
+admin user
 ```
 $ rake user:create_admin
 ```
 
-#### specific email, password, name
+specific email, password, name
 ```
 $rake "user:create_admin[admin@admin.com, 123456789, admin]"
 ```
@@ -147,7 +147,7 @@ Any exceptions raised in any deployed environment will be sent to [Sentry](https
 
 ## Environment Variables
 
-This is an up to date list of the environment variables used by the app.
+This is an up-to-date list of the environment variables used by the app.
 Refer to the provisioning code for the actual values expected to be set on each
 specific environment.
 
@@ -157,19 +157,19 @@ by the [mock implementation](https://github.com/ministryofjustice/parliamentary-
 of Parliament's Question and Answer API. `TEST_USER_PASS` can be set to any value. `DEVISE_SENDER` can be set to `no-reply@digital.justice.gov.uk`.
 Instructions on setting up the `GOVUK_NOTIFY_API_KEY` can be found in the [mailer readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers).
 
-Variable Name          |Required for local development  | Description
------------------------| ------------------------------ | -----------------------------
-`PQ_REST_API_HOST`     | y                              | Hostname of the Parlamentary Question and Answers API
-`PQ_REST_API_USERNAME` | n                              | Username
-`PQ_REST_API_PASSWORD` | n                              | Password
-`DEVISE_SECRET`        | n                              | Secret Devise Token
-`DEVISE_SENDER`        | y                              | Email address used for signup/signin/password related notifications
-`SENDING_HOST`         | n                              | Host for URLs in emails
-`CA_CERT`              | n                              | Absolute Path of the system's SSL certificates dir (e.g. `/etc/ssl/certs`)
-`ASSET_HOST`           | n                              | Host where Rails' assets pipeline will deploy the assets
-`TEST_USER`            | n                              | The current application version tag
-`TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests
-`GOVUK_NOTIFY_API_KEY` | y                              | A key required to send emails via [GovUK Notify](https://www.notifications.service.gov.uk/)
+| Variable Name           |Required for local development  | Description |
+|-------------------------| ------------------------------ | ----------------------------- |
+| `PQ_REST_API_HOST`      | y                              | Hostname of the Parliamentary Question and Answers API |
+| `PQ_REST_API_USERNAME`  | n                              | Username |
+| `PQ_REST_API_PASSWORD`  | n                              | Password |
+| `DEVISE_SECRET`         | n                              | Secret Devise Token|
+| `DEVISE_SENDER`         | y                              | Email address used for sign-up/sign-in/password related notifications |
+| `SENDING_HOST`          | n                              | Host for URLs in emails |
+| `CA_CERT`               | n                              | Absolute Path of the system's SSL certificates dir (e.g. `/etc/ssl/certs`) |
+| `ASSET_HOST`            | n                              | Host where Rails' assets pipeline will deploy the assets |
+| `TEST_USER`             | n                              | The current application version tag |
+| `TEST_USER_PASS`        | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests |
+| `GOVUK_NOTIFY_API_KEY`  | y                              | A key required to send emails via [GovUK Notify](https://www.notifications.service.gov.uk/) |
 
 You can add the env variables required for local development to your `bash_profile` using the format:
 ```
