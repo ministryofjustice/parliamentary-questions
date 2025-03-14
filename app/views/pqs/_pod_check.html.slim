@@ -15,5 +15,5 @@ br
     ' Date cleared by
     abbr title="Private Office Directorate" POD
   .datetimepicker
-    input#pod_clearance.form-control name="pq[pod_clearance]" type="text" value=(@pq.pod_clearance.to_s) /
+    input#pod_clearance.form-control name="pq[pod_clearance]" type="text" value=(@pq.pod_clearance&.to_fs) /
     span.fa.fa-calendar title="select a date"

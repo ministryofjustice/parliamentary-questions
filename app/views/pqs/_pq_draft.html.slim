@@ -3,9 +3,9 @@ h2.govuk-heading-m PQ draft
   - @pq.action_officers_pqs.each do |ao_pq|
     - if ao_pq.accepted?
       h3.govuk-heading-s Date PQ accepted by action officer
-      p.govuk-body= ao_pq.updated_at.to_s
+      p.govuk-body= ao_pq.updated_at&.to_fs
 .form-group
   label.form-label for="draft_answer_received"  Date PQ returned by action officer
   .datetimepicker
-    input#draft_answer_received.form-control name="pq[draft_answer_received]" type="text" value=(@pq.draft_answer_received.to_s) /
+    input#draft_answer_received.form-control name="pq[draft_answer_received]" type="text" value=(@pq.draft_answer_received&.to_fs) /
     span.fa.fa-calendar title="select a date"

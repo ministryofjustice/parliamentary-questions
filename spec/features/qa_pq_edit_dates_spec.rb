@@ -4,6 +4,7 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
   let(:ao) { ActionOfficer.find_by(email: "ao1@pq.com") }
   let(:minister) { Minister.first }
   let(:test_date) { "#{Time.zone.today + 3} 12:00" }
+  let(:formatted_test_date) { (Time.zone.today + 3.days + 12.hours).to_fs }
   let!(:pq_first) { FactoryBot.create :draft_pending_pq }
   let!(:pq_second) { FactoryBot.create :draft_pending_pq }
   let!(:pq_third) { FactoryBot.create :draft_pending_pq }
@@ -87,7 +88,7 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
     click_link "In progress"
     within("#pq-frame-#{pq_third.id}") { click_link(pq_third.uin.to_s) }
     click_link(tablink)
-    expect(page).to have_field("pq[#{datefield}]", with: "#{test_date}:00 UTC")
+    expect(page).to have_field("pq[#{datefield}]", with: formatted_test_date)
     click_link "In progress"
   end
 end

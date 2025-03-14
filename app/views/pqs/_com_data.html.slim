@@ -3,7 +3,7 @@ h2.govuk-heading-m PQ commission
   label.form-label for="pq_internal_deadline"
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, is_closed: @pq.closed?, draft_reply: @pq.draft_answer_received }}
   .datetimepicker.default-time
-    input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline.to_s) /
+    input#pq_internal_deadline.form-control name="pq[internal_deadline]" type="text" value=(@pq.internal_deadline&.to_fs) /
     span.fa.fa-calendar title="select a date"
 hr/
 .question-allocation
@@ -59,5 +59,5 @@ hr/
 .form-group
   label.form-label for="transfer_out_date"  Date transferred out
   .datetimepicker
-    input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date.to_s) /
+    input#transfer_out_date.form-control name="pq[transfer_out_date]" type="text" value=(@pq.transfer_out_date&.to_fs) /
     span.fa.fa-calendar title="select a date"

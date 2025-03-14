@@ -4,7 +4,7 @@ ul
       li
         p.govuk-body.pq-msg-warning
           = link_to r.action_officer.name, action_officer_path(r.action_officer)
-          |  rejected at: #{r.updated_at.to_s}
+          |  rejected at: #{r.updated_at&.to_fs}
           br/
           = r.reason_option
           | : #{r.reason}
