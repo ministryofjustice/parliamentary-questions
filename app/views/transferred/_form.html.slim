@@ -15,7 +15,7 @@
       .form-group
         label.form-label for="pq_dateforanswer"  Date for answer (required)
         .datetimepicker
-          input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer.to_s) /
+          input#pq_dateforanswer.form-control.pq_dateforanswer name="pq[date_for_answer]" type="text" value=(@pq.date_for_answer&.to_fs) /
           span.fa.fa-calendar title="select a date"
       p.govuk-body House
       .form-group.inline aria-label="selection for house type"
@@ -53,7 +53,7 @@
       .form-group
         label.form-label for="transfer_in_date"  Date transferred in (required)
         .datetimepicker
-          input#transfer_in_date.form-control name="pq[transfer_in_date]" type="text" value=(@pq.transfer_in_date.to_s) /
+          input#transfer_in_date.form-control name="pq[transfer_in_date]" type="text" value=(@pq.transfer_in_date&.to_fs) /
           span.fa.fa-calendar title="select a date"
       .form-group
         = f.submit 'Create PQ', :class => 'button'
