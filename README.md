@@ -120,17 +120,17 @@ It's done using devise and devise invitable:
 For development you can create users with a rake task.
 
 
-# default user
+#### default user
 ```
 $ rake user:create
 ```
 
-# admin user
+#### admin user
 ```
 $ rake user:create_admin
 ```
 
-# specific email, password, name
+#### specific email, password, name
 ```
 $rake "user:create_admin[admin@admin.com, 123456789, admin]"
 ```
