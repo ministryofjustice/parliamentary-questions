@@ -1,8 +1,6 @@
-<div style="text-align: center;">
-
 <a id="readme-top"></a>
 
-<br>
+<div style="align-content: center;">
 
 <img alt="MoJ logo" src="https://moj-logos.s3.eu-west-2.amazonaws.com/moj-uk-logo.png" width="200">
 
