@@ -729,6 +729,9 @@ textarea.form-control {
 
 #dashboard, #preview {
   #sidebar {
+    padding: 0 15px 0 0;
+    width: 232px;
+
     input[type="button"]{
       padding-left: 0;
       border: none;
@@ -850,13 +853,6 @@ textarea.form-control {
           #keywords { width: 100%; }
           .clearFilter { overflow: hidden; }
         }
-      }
-    }
-  }
-  @media (max-width: 991px) {
-    #sidebar {
-      #filters, #quick-links {
-        width: 235px;
       }
     }
   }
