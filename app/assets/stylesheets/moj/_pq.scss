@@ -365,6 +365,12 @@ textarea.form-control {
   margin: .5em 0;
 }
 
+#pq-details #save-button {
+  border: 0;
+  margin-bottom: 0;
+  padding: 30px 20px;
+}
+
 .questions-list {
   padding: 0 0 20px;
   > li {
