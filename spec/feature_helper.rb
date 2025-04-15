@@ -4,9 +4,6 @@ require "./spec/support/features/pq_helpers"
 require "capybara/rspec"
 require "capybara/rails"
 
-CAPYBARA_JAVASCRIPT_DRIVER_VERSION = ENV.fetch("CAPYBARA_JAVASCRIPT_DRIVER_VERSION", "133")
-ENV["SE_BROWSER_VERSION"] = CAPYBARA_JAVASCRIPT_DRIVER_VERSION
-
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
