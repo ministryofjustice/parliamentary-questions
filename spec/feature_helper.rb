@@ -4,6 +4,8 @@ require "./spec/support/features/pq_helpers"
 require "capybara/rspec"
 require "capybara/rails"
 
+CAPYBARA_JAVASCRIPT_DRIVER_VERSION = ENV.fetch("CAPYBARA_JAVASCRIPT_DRIVER_VERSION", "133")
+
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
@@ -19,6 +21,7 @@ Capybara.register_driver :headless_chrome do |app|
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-renderer-backgrounding")
     options.add_argument("--disable-site-isolation-trials")
+    options.browser_version = CAPYBARA_JAVASCRIPT_DRIVER_VERSION
   end
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
