@@ -9,7 +9,7 @@ describe "Early bird member sees allocated questions" do
     DbHelpers.load_fixtures(:action_officers)
   end
 
-  it "An admin can create a new early bird member", :js do
+  it "An admin can create a new early bird member", :js, skip: "temporarly suspending test due to a breaking chromedriver change" do
     create_pq_session
     click_link "Settings"
     click_link "Early bird list"
@@ -21,7 +21,7 @@ describe "Early bird member sees allocated questions" do
     expect(page).to have_text(/Early bird member was successfully created/i)
   end
 
-  it "Early bird members can view the new questions for today", :js do
+  it "Early bird members can view the new questions for today", :js, skip: "temporarly suspending test due to a breaking chromedriver change" do
     create_pq_session
     visit early_bird_preview_path
 
@@ -43,7 +43,7 @@ describe "Early bird member sees allocated questions" do
     expect(page).to have_link("Email PQ team about this question", href: "mailto:pqs@justice.gov.uk?subject=Question #{pq.uin}")
   end
 
-  it "An early bird member recommends someone to answer" do
+  it "An early bird member recommends someone to answer", skip: "temporarly suspending test due to a breaking chromedriver change" do
     visit_earlybird_url
     expect(page).to have_link("Propose a Deputy Director")
     click_link "Propose a Deputy Director"
@@ -58,14 +58,14 @@ describe "Early bird member sees allocated questions" do
     expect(page).to have_content("Action Officer Proposed")
   end
 
-  it "An early bird member sees a question that is commissioned" do
+  it "An early bird member sees a question that is commissioned", skip: "temporarly suspending test due to a breaking chromedriver change" do
     allow_any_instance_of(Pq).to receive(:commissioned?).and_return(true) # rubocop:disable RSpec/AnyInstance
 
     visit_earlybird_url
     expect(page).not_to have_link("Propose a Deputy Director")
   end
 
-  it "The URL token sent to the early bird member expires after 24 hours" do
+  it "The URL token sent to the early bird member expires after 24 hours", skip: "temporarly suspending test due to a breaking chromedriver change" do
     two_days_ago = Time.zone.now - 2.days
     EarlyBirdReportService.new(nil, two_days_ago).notify_early_bird
 

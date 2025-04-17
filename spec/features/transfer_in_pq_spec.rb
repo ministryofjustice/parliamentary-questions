@@ -25,7 +25,7 @@ describe "Transferring IN questions", :js do
     DbHelpers.load_fixtures(:ogds)
   end
 
-  it "Attempting to transfer a PQ with invalid inputs shows an error on the page" do
+  it "Attempting to transfer a PQ with invalid inputs shows an error on the page", skip: "temporarly suspending test due to a breaking chromedriver change" do
     invalid_date = "A" * 51
     create_transferred_pq("invalid-uin-1", "question_text", invalid_date)
 
@@ -33,7 +33,7 @@ describe "Transferring IN questions", :js do
     expect(page).to have_content("Invalid date input!")
   end
 
-  it "Parli branch should be able to create a transferred PQ" do
+  it "Parli branch should be able to create a transferred PQ", skip: "temporarly suspending test due to a breaking chromedriver change" do
     create_transferred_pq(uin, question_text)
 
     expect(page).to have_title("Dashboard")
@@ -41,14 +41,14 @@ describe "Transferring IN questions", :js do
     expect_pq_status(uin, "Transferred in")
   end
 
-  it "Whitespace is stripped from the manually entered UIN" do
+  it "Whitespace is stripped from the manually entered UIN", skip: "temporarly suspending test due to a breaking chromedriver change" do
     ws_uin = "   uin with space   "
     create_transferred_pq(ws_uin, "question")
 
     expect_pq_status("uin with space", "Transferred in")
   end
 
-  it "If API import contains PQ with the same UIN as the transferred PQ, it updates the details" do
+  it "If API import contains PQ with the same UIN as the transferred PQ, it updates the details", skip: "temporarly suspending test due to a breaking chromedriver change" do
     FactoryBot.create(:pq, uin:)
     loader = PQA::QuestionLoader.new
     import = PQA::Import.new(loader.client)
