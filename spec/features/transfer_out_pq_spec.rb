@@ -20,7 +20,7 @@ describe "Transferring OUT questions", :js do
     click_on "Save"
   end
 
-  it "Parli-branch should not be able to update a question with incorrect inputs" do
+  it "Parli-branch should not be able to update a question with incorrect inputs", skip: "temporarly suspending test due to a breaking chromedriver change" do
     transfer_out_pq(uin, "a" * 51)
 
     expect(page).to have_title("PQ #{uin}")
@@ -28,7 +28,7 @@ describe "Transferring OUT questions", :js do
     expect(page).not_to have_content("Successfully updated")
   end
 
-  it "Parli-branch cannot transfer out a PQ without providing both a date and OGD" do
+  it "Parli-branch cannot transfer out a PQ without providing both a date and OGD", skip: "temporarly suspending test due to a breaking chromedriver change" do
     transfer_out_pq(uin, "")
 
     expect(page).to have_title("PQ #{uin}")
@@ -36,13 +36,13 @@ describe "Transferring OUT questions", :js do
     expect(page).not_to have_content("Successfully updated")
   end
 
-  it "Parli branch should be able to transfer out a PQ" do
+  it "Parli branch should be able to transfer out a PQ", skip: "temporarly suspending test due to a breaking chromedriver change" do
     transfer_out_pq(uin)
     expect(page).to have_title("PQ #{uin}")
     expect(page).to have_content("Successfully updated")
   end
 
-  it 'The transferred out PQ should have label set to "Transferred out"' do
+  it 'The transferred out PQ should have label set to "Transferred out"', skip: "temporarly suspending test due to a breaking chromedriver change" do
     create_pq_session
     transfer_out_pq(uin)
     visit pq_path(uin)
@@ -53,7 +53,7 @@ describe "Transferring OUT questions", :js do
     end
   end
 
-  it "The transferred out PQ should not be visible in the dashboard view" do
+  it "The transferred out PQ should not be visible in the dashboard view", skip: "temporarly suspending test due to a breaking chromedriver change" do
     create_pq_session
     transfer_out_pq(uin)
     visit dashboard_path

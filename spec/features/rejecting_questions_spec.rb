@@ -10,18 +10,18 @@ describe "Rejecting questions", :js do
     DbHelpers.load_fixtures(:action_officers, :ministers)
   end
 
-  it "Parli-branch member allocates a question to selected AOs" do
+  it "Parli-branch member allocates a question to selected AOs", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
   end
 
-  it "Following the email link should let an AO reject the question" do
+  it "Following the email link should let an AO reject the question", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     reject_assignment(pq, ao_first, 2, "going to the cinema")
     expect(page).to have_title("PQ rejected")
     expect(page).to have_content(/thank you for your response/i)
   end
 
-  it "Parli-branch should see which AOs have rejected the question" do
+  it "Parli-branch should see which AOs have rejected the question", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     reject_assignment(pq, ao_first, 2, "going to the cinema")
     create_pq_session
@@ -34,14 +34,14 @@ describe "Rejecting questions", :js do
     end
   end
 
-  it "The question status should remain no response" do
+  it "The question status should remain no response", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     reject_assignment(pq, ao_first, 2, "going to the cinema")
     create_pq_session
     expect_pq_status(pq.uin, "No response")
   end
 
-  it "If an AO submits an empty acceptance form, show an error" do
+  it "If an AO submits an empty acceptance form, show an error", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     visit_assignment_url(pq, ao_second)
     click_on "Save Response"
@@ -49,7 +49,7 @@ describe "Rejecting questions", :js do
     expect(page).not_to have_content("Please select one of the reasons to reject the question")
   end
 
-  it "If an AO rejects without a reason, show an error" do
+  it "If an AO rejects without a reason, show an error", skip: "temporarly suspending test due to a breaking chromedriver change" do
     create_pq_session
     commission_question(pq.uin, [ao_first, ao_second], minister)
     visit_assignment_url(pq, ao_second)
@@ -60,7 +60,7 @@ describe "Rejecting questions", :js do
     expect(page).to have_content("Please give us information about why you reject the question")
   end
 
-  it "If an AO rejects without selecting from the dropdown, show an error" do
+  it "If an AO rejects without selecting from the dropdown, show an error", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     visit_assignment_url(pq, ao_second)
     choose "Reject"
@@ -71,7 +71,7 @@ describe "Rejecting questions", :js do
     expect(page).not_to have_content("Please give us information about why you reject the question")
   end
 
-  it "If an AO rejects without typing a reason, show an error" do
+  it "If an AO rejects without typing a reason, show an error", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     visit_assignment_url(pq, ao_second)
     reject_assignment(pq, ao_second, 3, "")
@@ -80,7 +80,7 @@ describe "Rejecting questions", :js do
     expect(page).to have_content("Please give us information about why you reject the question")
   end
 
-  it "If an AO is the last to reject a question, the status should change to rejected" do
+  it "If an AO is the last to reject a question, the status should change to rejected", skip: "temporarly suspending test due to a breaking chromedriver change" do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     reject_assignment(pq, ao_first, 3, "going to the cinema")
     reject_assignment(pq, ao_second, 3, "too busy!")
