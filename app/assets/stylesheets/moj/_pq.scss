@@ -37,8 +37,19 @@ label {
   //clear: both;
 }
 
-select {
-  background-color: $white;
+.select2-selection__choice {
+  padding-right: 20px;
+}
+
+.select2-selection__choice__remove {
+  color: #0b0c0c;
+}
+
+select, 
+.select2-selection__choice__display,
+.select2-selection__choice__remove,
+.select2-selection__choice {
+  background-color: #fff;
 }
 
 //==============================================================================
