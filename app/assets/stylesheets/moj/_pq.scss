@@ -380,6 +380,12 @@ textarea.form-control {
   margin: .5em 0;
 }
 
+#pq-details #save-button {
+  border: 0;
+  margin-bottom: 0;
+  padding: 30px 20px;
+}
+
 .questions-list {
   padding: 0 0 20px;
   > li {
@@ -655,6 +661,21 @@ textarea.form-control {
 
   #pq-detail-area {
     margin-top: 15px;
+
+    .govuk-tabs__panel{
+      border-bottom: none;
+    }
+
+    @media (min-width: 641px) {
+      #save-button {
+        border-top: 0;
+        border-right: 1px;
+        border-bottom: 1px;
+        border-left: 1px;
+        border-style: solid;
+        border-color: #b1b4b6;
+      }
+    }
 
     nav {
       z-index: 1;
