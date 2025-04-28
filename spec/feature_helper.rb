@@ -4,36 +4,30 @@ require "./spec/support/features/pq_helpers"
 require "capybara/rspec"
 require "capybara/rails"
 
-# Capybara.register_driver :headless_chrome do |app|
-#   options = Selenium::WebDriver::Chrome::Options.new
-#
-#   unless ENV["CHROME_DEBUG"]
-#     # options.add_argument("--headless")
-#     options.add_argument("--disable-gpu")
-#     options.add_argument("--no-sandbox")
-#     options.add_argument("--start-maximized")
-#     options.add_argument("--window-size=1980,2080")
-#     options.add_argument("--enable-features=NetworkService,NetworkServiceInProcess")
-#   end
-#
-#   Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
-# end
+Capybara.default_max_wait_time = 15
 
-# Capybara.javascript_driver = :headless_chrome
+Capybara.register_driver :headless_chrome do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
 
-Capybara.register_driver :selenium_firefox do |app|
-  options = Selenium::WebDriver::Firefox::Options.new
-  options.add_argument("--headless")
-  options.add_argument("--disable-gpu")
-  options.add_argument("--no-sandbox")
-  options.add_argument("--start-maximized")
-  options.add_argument("--window-size=1980,2080")
-  options.add_argument("--enable-features=NetworkService,NetworkServiceInProcess")
+  unless ENV["CHROME_DEBUG"]
+    options.add_argument("--enable-features=NetworkService,NetworkServiceInProcess")
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--start-maximized")
+    options.add_argument("--window-size=1980,2080")
+    options.add_argument("--disable-background-timer-throttling")
+    options.add_argument("--disable-backgrounding-occluded-windows")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-renderer-backgrounding")
+    options.add_argument("--disable-site-isolation-trials")
+    options.add_option(:browser_version, "132.0.6834.159")
+  end
 
-  Capybara::Selenium::Driver.new(app, browser: :firefox, options:)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
-# Capybara::Selenium::Driver.new(app, browser: :firefox, browser_version: "latest")
+Capybara.javascript_driver = :headless_chrome
 
 RSpec.configure do |config|
   # Helper modules to load

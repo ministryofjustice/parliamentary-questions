@@ -26,6 +26,7 @@ describe "Exporting PQ data to CSV" do
     fill_in "Date from", with: Time.zone.today.strftime("%d/%m/%Y")
     fill_in "Date to", with: "A" * 100
     click_on "Download CSV"
+    sleep 2
 
     expect(page).to have_content "Invalid date input!"
   end

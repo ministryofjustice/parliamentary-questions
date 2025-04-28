@@ -18,6 +18,7 @@ module Features
         find(".pq-question").click
 
         click_on "Commission"
+        sleep 2
       end
       expect(page).to have_content("#{uin} commissioned successfully")
     end
@@ -26,6 +27,7 @@ module Features
       visit_assignment_url(parliamentary_question, action_officer)
       choose "Accept"
       click_on "Save Response"
+      sleep 2
     end
 
     def reject_assignment(parliamentary_question, action_officer, option_index, reason_text)
@@ -38,6 +40,7 @@ module Features
 
       fill_in "allocation_response_reason", with: reason_text
       click_on "Save Response"
+      sleep 2
     end
 
     def expect_pq_status(uin, status)
@@ -66,9 +69,11 @@ module Features
     def in_pq_detail(uin, section_anchor)
       visit pq_path(uin) unless page.current_path == pq_path(uin)
       click_on section_anchor
+      sleep 2
       yield
       remove_focus_from_filter
       click_on "Save"
+      sleep 2
     end
 
     def visit_earlybird_url(expiry = Time.zone.now.utc)

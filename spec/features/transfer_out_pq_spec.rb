@@ -13,11 +13,14 @@ describe "Transferring OUT questions", :js do
     create_pq_session
     visit dashboard_path
     click_on uin
+    sleep 2
     click_on "PQ commission"
+    sleep 2
     find("select[name = 'pq[transfer_out_ogd_id]']").find(:xpath, "option[2]").select_option
     find("#transfer_out_date").set(date || Time.zone.today.strftime("%d/%m/%Y"))
     remove_focus_from_filter
     click_on "Save"
+    sleep 2
   end
 
   it "Parli-branch should not be able to update a question with incorrect inputs" do

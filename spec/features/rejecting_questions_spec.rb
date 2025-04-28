@@ -45,6 +45,7 @@ describe "Rejecting questions", :js do
     commission_question(pq.uin, [ao_first, ao_second], minister)
     visit_assignment_url(pq, ao_second)
     click_on "Save Response"
+    sleep 2
     expect(page).to have_content("Form was not completed")
     expect(page).not_to have_content("Please select one of the reasons to reject the question")
   end
@@ -55,6 +56,7 @@ describe "Rejecting questions", :js do
     visit_assignment_url(pq, ao_second)
     choose "Reject"
     click_on "Save Response"
+    sleep 2
     expect(page).to have_content("Form was not completed")
     expect(page).to have_content("Please select one of the reasons to reject the question")
     expect(page).to have_content("Please give us information about why you reject the question")
@@ -66,6 +68,7 @@ describe "Rejecting questions", :js do
     choose "Reject"
     fill_in "allocation_response_reason", with: "no time"
     click_on "Save Response"
+    sleep 2
     expect(page).to have_content("Form was not completed")
     expect(page).to have_content("Please select one of the reasons to reject the question")
     expect(page).not_to have_content("Please give us information about why you reject the question")

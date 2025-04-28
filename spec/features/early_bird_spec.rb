@@ -50,10 +50,12 @@ describe "Early bird member sees allocated questions" do
     expect(page).to have_content("Propose a Deputy Director")
     select aos.first.name, from: "Deputy Director(s)"
     click_on "Save"
+    sleep 2
     expect(page).to have_content("Successfully proposed Deputy Director(s)")
     expect(page).to have_content(aos.first.name)
     create_pq_session
     click_on "PQ Tracker"
+    sleep 2
     expect(page).to have_content(aos.first.name)
     expect(page).to have_content("Action Officer Proposed")
   end

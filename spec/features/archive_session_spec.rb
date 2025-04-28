@@ -25,18 +25,21 @@ describe "Archive session", :js do
     it "shows error if selected prefix is invalid" do
       fill_in "prefix", with: "a"
       click_button "Archive current session"
+      sleep 2
       within(".pq-msg-error") { expect(page.text).to eq("1 error prohibited this Archive from being saved:\nPrefix has already been taken") }
     end
 
     it "informs the user the archive has been completed" do
       fill_in "prefix", with: "d"
       click_button "Archive current session"
+      sleep 2
       within(".pq-msg-success") { expect(page.text).to eq "Current session has been archived" }
     end
 
     it "updates the page with new archive details" do
       fill_in "prefix", with: "d"
       click_button "Archive current session"
+      sleep 2
       expect(page).to have_title("Archive PQ Session")
       within(".container h2") { expect(page.text).to eq("There are 0 unarchived questions") }
       within(".container h3") { expect(page.text).to eq("Prefixes previously used, or reserved: £, a, b, d") }

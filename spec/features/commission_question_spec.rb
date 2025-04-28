@@ -46,6 +46,7 @@ describe "Commissioning questions", :js do
     visit_assignment_url(test_pq, ao)
     choose "Accept"
     click_on "Save"
+    sleep 2
 
     expect(page).to have_title("PQ assigned")
     expect(page).to have_content(/thank you for your response/i)
@@ -66,6 +67,7 @@ describe "Commissioning questions", :js do
     visit_assignment_url(test_pq, ao)
     choose "Accept"
     click_on "Save"
+    sleep 2
 
     visit_assignment_url(test_pq, ao2)
 

@@ -53,6 +53,7 @@ describe "User filters early bird questions", :js do
     visit early_bird_preview_path
 
     click_button "Question type"
+    sleep 2
 
     expect(page).not_to have_checked_field("Named Day")
     expect(page).not_to have_checked_field("Ordinary")
@@ -71,6 +72,7 @@ describe "User filters early bird questions", :js do
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     click_button("clear-type-filter")
+    sleep 2
     expect(page).not_to have_checked_field("Named Day")
     expect(page).not_to have_checked_field("Ordinary")
     expect(page).not_to have_checked_field("Transferred in")
@@ -93,25 +95,30 @@ describe "User filters early bird questions", :js do
 
     # Text found in no questions
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Ministry of Justice"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     # Q1
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "not simply random text"
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     # Q2
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "by Cicero, written in 45 BC"
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     # Q3
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Renaissance. The first line"
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     click_button("clear-keywords-filter")
+    sleep 2
     expect(page).to have_text("3 parliamentary questions out of 3.")
   end
 
@@ -123,6 +130,7 @@ describe "User filters early bird questions", :js do
     expect(page).to have_text("3 new parliamentary questions")
 
     click_button "Question type"
+    sleep 2
     page.choose("Named Day")
     expect(page).to have_text("2 parliamentary questions out of 3.")
 
@@ -132,25 +140,30 @@ describe "User filters early bird questions", :js do
 
     # 'Named Day' + text found in no questions
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Ministry of Justice"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     # 'Named Day' + Q1
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "not simply random text"
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     # 'Named Day' + Q2
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "by Cicero, written in 45 BC"
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     # 'Named Day' + Q3
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Renaissance. The first line"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     click_button("clear-keywords-filter")
+    sleep 2
     expect(page).to have_text("2 parliamentary questions out of 3.")
   end
 
@@ -162,6 +175,7 @@ describe "User filters early bird questions", :js do
     expect(page).to have_text("3 new parliamentary questions")
 
     click_button "Question type"
+    sleep 2
     page.choose("Transferred in")
 
     expect(page).to have_text("1 parliamentary question out of 3.")
@@ -172,25 +186,30 @@ describe "User filters early bird questions", :js do
 
     # 'Transferred in' + text found in no questions
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Ministry of Justice"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     # 'Transferred in' + Q1
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "not simply random text"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     # 'Transferred in' + Q2
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "by Cicero, written in 45 BC"
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     # 'Transferred in' + Q3
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Renaissance. The first line"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     click_button("clear-keywords-filter")
+    sleep 2
     expect(page).to have_text("1 parliamentary question out of 3.")
   end
 
@@ -202,6 +221,7 @@ describe "User filters early bird questions", :js do
     expect(page).to have_text("3 new parliamentary questions")
 
     click_button "Question type"
+    sleep 2
     page.choose("Ordinary")
     expect(page).to have_text("1 parliamentary question out of 3.")
 
@@ -211,25 +231,30 @@ describe "User filters early bird questions", :js do
 
     # 'Ordinary' + text found in no questions
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Ministry of Justice"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     # 'Ordinary' + Q1
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "not simply random text"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     # 'Ordinary' + Q2
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "by Cicero, written in 45 BC"
     expect(page).to have_text("0 parliamentary questions out of 3.")
 
     # 'Ordinary' + Q3
     click_button("clear-keywords-filter")
+    sleep 2
     fill_in "keywords", with: "Renaissance. The first line"
     expect(page).to have_text("1 parliamentary question out of 3.")
 
     click_button("clear-keywords-filter")
+    sleep 2
     expect(page).to have_text("1 parliamentary question out of 3.")
   end
 end

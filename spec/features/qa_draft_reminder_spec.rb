@@ -14,10 +14,12 @@ describe "Send draft reminders from the dashboard", :js do
     check "select-all"
     within("#draftReminders") do
       click_on "Send Draft Reminders"
+      sleep 2
       expect(page).to have_text("3 PQs selected")
       expect(page).to have_button("Cancel")
       find(:button, "Send", disabled: false)
       click_button("Send")
+      sleep 2
       expect(page).to have_selector("#draftReminders .content", visible: :hidden)
     end
     within(".pq-msg-success.fade.in") do
@@ -29,10 +31,12 @@ describe "Send draft reminders from the dashboard", :js do
     check "select-all"
     within("#draftReminders") do
       click_on "Send Draft Reminders"
+      sleep 2
       expect(page).to have_text("3 PQs selected")
       expect(page).to have_button("Cancel")
       find(:button, "Send", disabled: false)
       click_button("Cancel")
+      sleep 2
       expect(page).to have_selector("#draftReminders .content", visible: :hidden)
     end
   end

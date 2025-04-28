@@ -55,6 +55,7 @@ describe "After commissioning", :js do
   it "Parli-branch moves a question to 'Answered'" do
     in_pq_detail(minister_cleared, "Answer") { fillin_date("#answer_submitted") }
     visit dashboard_in_progress_path
+    sleep 2
     expect(page.title).to match(/In progress/)
     expect(page).not_to have_text(minister_cleared)
   end

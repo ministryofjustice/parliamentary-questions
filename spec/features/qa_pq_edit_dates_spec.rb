@@ -18,6 +18,7 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
     expect(page).to have_css("#count", text: "3 parliamentary questions")
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("No PQs selected")
       find(:css, "input[id$='qa_edit_deadline_date']")
       find(:css, "input[id$='qa_edit_draft_date']")
@@ -39,10 +40,12 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
     within("#select-all-questions") { check "select-all" }
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("3 PQs selected")
       fill_in "qa_edit_deadline_date", with: test_date
       find(".notice").click
       click_on "Edit"
+      sleep 2
     end
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")
     expect(page).to have_css("#pq-frame-#{pq_first.id} .deadline-date.text", text: test_date)
@@ -70,11 +73,13 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
     within("#pq-frame-#{pq_third.id}") { check "uin-#{pq_third.id}" }
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("1 PQ selected")
       fill_in datetype, with: test_date
       sleep 0.5
       find(".notice").click
       click_on "Edit"
+      sleep 2
     end
 
     expect(page).to have_css(".pq-msg-success.fade.in", text: "Date(s) updated")

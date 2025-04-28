@@ -18,6 +18,7 @@ describe "User filters 'New' dashboard questions", :js do
       expect(page).not_to have_text("1 selected")
       expect(page).not_to have_selector("div[class='list']")
       click_button "Status"
+      sleep 2
       expect(page).to have_selector("div[class='list']")
       within("#flag .list") do
         expect(find("label[for='rejected']")).to have_content("Rejected")
@@ -52,6 +53,7 @@ describe "User filters 'New' dashboard questions", :js do
     status("No response")
     within("#flag") do
       click_button "Clear"
+      sleep 2
       expect(page).not_to have_text("1 selected")
     end
     within("#count") { expect(page).to have_text("3 parliamentary questions out of 3.") }
@@ -94,6 +96,7 @@ private
   def status(state)
     within("#flag") do
       click_button "Status"
+      sleep 2
       choose(state)
       expect(page).to have_text("1 selected")
     end

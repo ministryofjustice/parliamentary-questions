@@ -16,6 +16,7 @@ describe "Transferring IN questions", :js do
     find("#transfer_in_date").set Time.zone.today.strftime("%d/%m/%Y")
     remove_focus_from_filter
     click_on "Create PQ"
+    sleep 2
   end
 
   let(:uin) { "transfer-uin-1" }

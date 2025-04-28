@@ -20,6 +20,7 @@ describe "Parli-branch re-assigns a question", :js do
     create_pq_session
     visit pq_path(dummy_pq.uin)
     click_on "PQ commission"
+    sleep 2
 
     expect(page.title).to include("PQ #{dummy_pq.uin}")
     expect(page).not_to have_content("Reassign action officer")
@@ -36,17 +37,20 @@ describe "Parli-branch re-assigns a question", :js do
     create_pq_session
     visit pq_path(dummy_pq.uin)
     click_on "PQ commission"
+    sleep 2
 
     expect(page).to have_content(ao_first.email)
     expect(page).not_to have_content(ao_second.email)
 
     click_on "Manually reject #{ao_first.name}"
+    sleep 2
 
     commission_question(dummy_pq.uin, [ao_second], minister)
     accept_assignment(dummy_pq, ao_second)
 
     visit pq_path(dummy_pq.uin)
     click_on "PQ commission"
+    sleep 2
 
     expect(page).not_to have_content(ao_first.email)
     expect(page).to have_content(ao_second.email)

@@ -18,16 +18,19 @@ describe "Tests for Dashboard multiple PQ selection", :js do
     end
     within("#draftReminders") do
       click_on "Send Draft Reminders"
+      sleep 2
       expect(page).to have_text("No PQs selected")
       find(:button, "Send", disabled: true)
     end
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("No PQs selected")
       find(:button, "Edit", disabled: true)
     end
     within("#csvExport") do
       click_on "Export PQs to CSV"
+      sleep 2
       expect(page).to have_text("No PQs selected")
       find(:button, "Export", disabled: true)
     end
@@ -38,16 +41,19 @@ describe "Tests for Dashboard multiple PQ selection", :js do
     check "select-all"
     within("#draftReminders") do
       click_on "Send Draft Reminders"
+      sleep 2
       expect(page).to have_text("3 PQs selected")
       find(:button, "Send", disabled: false)
     end
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("3 PQs selected")
       find(:button, "Edit", disabled: true)
     end
     within("#csvExport") do
       click_on "Export PQs to CSV"
+      sleep 2
       expect(page).to have_text("3 PQs selected")
       find(:button, "Export", disabled: false)
     end
@@ -68,16 +74,19 @@ describe "Tests for Dashboard multiple PQ selection", :js do
     # Check the No. of selected PQs is correct
     within("#draftReminders") do
       click_on "Send Draft Reminders"
+      sleep 2
       expect(page).to have_text("No PQs selected")
       find(:button, "Send", disabled: true)
     end
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("No PQs selected")
       find(:button, "Edit", disabled: true)
     end
     within("#csvExport") do
       click_on "Export PQs to CSV"
+      sleep 2
       expect(page).to have_text("No PQs selected")
       find(:button, "Export", disabled: true)
     end
@@ -92,16 +101,19 @@ describe "Tests for Dashboard multiple PQ selection", :js do
     end
     within("#draftReminders") do
       click_on "Send Draft Reminders"
+      sleep 2
       expect(page).to have_text("1 PQ selected")
       find(:button, "Send", disabled: false)
     end
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("1 PQ selected")
       find(:button, "Edit", disabled: false)
     end
     within("#csvExport") do
       click_on "Export PQs to CSV"
+      sleep 2
       expect(page).to have_text("1 PQ selected")
       find(:button, "Export", disabled: false)
     end
@@ -112,16 +124,19 @@ describe "Tests for Dashboard multiple PQ selection", :js do
     end
     within("#draftReminders") do
       click_on "Send Draft Reminders"
+      sleep 2
       expect(page).to have_text("2 PQs selected")
       find(:button, "Send", disabled: false)
     end
     within("#editDates") do
       click_on "Edit PQ dates"
+      sleep 2
       expect(page).to have_text("2 PQs selected")
       find(:button, "Edit", disabled: false)
     end
     within("#csvExport") do
       click_on "Export PQs to CSV"
+      sleep 2
       expect(page).to have_text("2 PQs selected")
       find(:button, "Export", disabled: false)
     end
@@ -131,6 +146,7 @@ describe "Tests for Dashboard multiple PQ selection", :js do
     visit_assignment_url(parliamentary_question, action_officer)
     choose "Accept"
     click_on "Save"
+    sleep 2
     visit dashboard_path
   end
 

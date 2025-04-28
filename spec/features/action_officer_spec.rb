@@ -29,6 +29,7 @@ describe "Managing action officers", :js do
 
   it "Parli-branch can create a new action officer" do
     create_ao(ao_name, ao_email)
+    sleep 2
 
     expect(page.title).to include("Action officers")
     expect(page).to have_content "Action officer was successfully created"
@@ -39,11 +40,14 @@ describe "Managing action officers", :js do
     create_pq_session
     visit action_officers_path
     click_on ao_name
+    sleep 2
     click_on "Edit"
+    sleep 2
 
     expect(page).to have_title "Edit action officer"
     fill_in "Name", with: "another action officer"
     click_on "Save"
+    sleep 2
 
     expect(page).to have_title "Action officer details"
     expect(page).to have_content "Action officer was successfully updated"
@@ -53,6 +57,7 @@ describe "Managing action officers", :js do
   it "Parli-branch cannot duplicate AO email for the same deputy director" do
     create_ao(ao_name, ao_email)
     create_ao(ao_name, ao_email)
+    sleep 2
 
     expect(page).to have_title "Add action officer"
     expect(page).to have_content "an action officer cannot be assigned twice to the same deputy director"
@@ -72,10 +77,12 @@ describe "Managing action officers", :js do
     expect(page).not_to have_content ao.name
 
     click_link "View inactive action officers"
+    sleep 2
     expect(page).to have_content ao.name
     expect(page).not_to have_content "View inactive action officers"
 
     click_link "View active action officers"
+    sleep 2
     expect(page).not_to have_content ao.name
     expect(page).not_to have_content "View active action officers"
   end
