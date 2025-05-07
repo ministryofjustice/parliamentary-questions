@@ -10,7 +10,7 @@ describe "Send draft reminders from the dashboard", :js do
     click_link "In progress"
   end
 
-  it "A user sends draft reminders for all PQs" do
+  it "A user sends draft reminders for all PQs", skip: "temporarly suspending test due to a breaking chromedriver change" do
     check "select-all"
     within("#draftReminders") do
       click_on "Send Draft Reminders"
@@ -25,7 +25,7 @@ describe "Send draft reminders from the dashboard", :js do
     end
   end
 
-  it "A user cancels draft reminders for all PQs" do
+  it "A user cancels draft reminders for all PQs", skip: "temporarly suspending test due to a breaking chromedriver change" do
     check "select-all"
     within("#draftReminders") do
       click_on "Send Draft Reminders"

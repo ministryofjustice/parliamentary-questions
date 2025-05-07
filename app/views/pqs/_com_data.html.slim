@@ -1,4 +1,3 @@
-h2.govuk-heading-m PQ commission
 .form-group
   label.form-label for="pq_internal_deadline"
     | Internal deadline#{render partial: 'shared/deadline_time', locals: {internal_deadline: @pq.internal_deadline, is_closed: @pq.closed?, draft_reply: @pq.draft_answer_received }}
