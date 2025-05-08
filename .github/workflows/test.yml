@@ -76,11 +76,15 @@ jobs:
       - name: Setup test database
         run: bin/rails db:setup
 
+      - name: Remove image-bundled Chrome
+        run: sudo apt-get purge google-chrome-stable
+
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1.7.3
         with:
           chrome-version: 132
           install-chromedriver: true
+          install-dependencies: true
 
       - name: Run unit and feature tests
         run: bundle exec parallel_rspec -n "${CI_TOTAL_JOBS}" --only-group "${CI_JOB_INDEX}" --group-by "runtime"
