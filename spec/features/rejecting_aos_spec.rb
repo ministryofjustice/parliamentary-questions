@@ -15,11 +15,11 @@ describe "Parli-branch manually rejecting and re-assigning OAs", :js do
     find("select[name='#{field_name}'] option[selected='selected']").text
   end
 
-  it "PB commissions a question to two AOs", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "PB commissions a question to two AOs" do
     commission_question(pq.uin, [ao_first, ao_second], minister, policy_minister)
   end
 
-  it "PB manually rejects the first AO", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "PB manually rejects the first AO" do
     commission_question(pq.uin, [ao_first, ao_second], minister, policy_minister)
     create_pq_session
     visit pq_path(pq.uin)
@@ -36,7 +36,7 @@ describe "Parli-branch manually rejecting and re-assigning OAs", :js do
     expect_pq_status(pq.uin, "No response")
   end
 
-  it "PB manually rejects the last AO", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "PB manually rejects the last AO" do
     commission_question(pq.uin, [ao_first], minister, policy_minister)
     create_pq_session
     visit pq_path(pq.uin)

@@ -10,7 +10,7 @@ describe "Commissioning questions", :js do
     DbHelpers.load_fixtures(:action_officers, :ministers)
   end
 
-  it "Parli-branch member tries to allocate a question without an AO", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch member tries to allocate a question without an AO" do
     PQA::QuestionLoader.new.load_and_import(2)
     pq1 = Pq.first
     pq2 = Pq.second
@@ -30,18 +30,18 @@ describe "Commissioning questions", :js do
     within("#pq-frame-#{pq2.id}") { expect(page).not_to have_button("Commission") }
   end
 
-  it "Parli-branch member allocates a question to selected AOs", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch member allocates a question to selected AOs" do
     commission_question(test_pq.uin, [ao, ao2], minister)
   end
 
-  it "AO should receive an email notification of assigned question", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "AO should receive an email notification of assigned question" do
     ao_mail = NotifyPqMailer.commission_email(pq: test_pq, action_officer: ao, token: "1234", entity: "assignment:1", email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.govuk_notify_response.content["body"]).to include "your team is responsible for answering PQ #{test_pq.uin}"
   end
 
-  it "Following the email link should let the AO accept the question", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Following the email link should let the AO accept the question" do
     commission_question(test_pq.uin, [ao, ao2], minister)
     visit_assignment_url(test_pq, ao)
     choose "Accept"
@@ -54,14 +54,14 @@ describe "Commissioning questions", :js do
     expect_pq_in_progress_status(test_pq.uin, "Draft Pending")
   end
 
-  it "The AO should receive an email notification confirming the question acceptance", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "The AO should receive an email notification confirming the question acceptance" do
     ao_mail = NotifyPqMailer.acceptance_email(pq: test_pq, action_officer: ao, email: ao.email).deliver_now
 
     expect(ao_mail.to).to include ao.email
     expect(ao_mail.govuk_notify_response.content["body"]).to include("Thank you for agreeing to draft an answer to PQ #{test_pq.uin}")
   end
 
-  it "After an AO has accepted a question, another AO cannot accept the question", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "After an AO has accepted a question, another AO cannot accept the question" do
     commission_question(test_pq.uin, [ao, ao2], minister)
     visit_assignment_url(test_pq, ao)
     choose "Accept"
@@ -74,7 +74,7 @@ describe "Commissioning questions", :js do
     expect(page).to have_content("#{ao.name} accepted PQ #{test_pq.uin}")
   end
 
-  it "Following the link after 3 days have passed should show an error page", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Following the link after 3 days have passed should show an error page" do
     form_params = {
       pq_id: test_pq.id,
       minister_id: minister.id,
