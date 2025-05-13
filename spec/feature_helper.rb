@@ -19,6 +19,7 @@ Capybara.register_driver :headless_chrome do |app|
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-renderer-backgrounding")
     options.add_argument("--disable-site-isolation-trials")
+    options.browser_version = "128"
   end
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
