@@ -14,6 +14,7 @@ Capybara.register_driver :headless_chrome do |app|
     options.add_argument("--no-sandbox")
     options.add_argument("--start-maximized")
     options.add_argument("--window-size=1980,2080")
+    options.add_option(:unhandled_prompt_behavior, "ignore")
   end
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
