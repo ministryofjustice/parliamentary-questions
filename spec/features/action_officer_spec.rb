@@ -1,6 +1,9 @@
 require "feature_helper"
 
 describe "Managing action officers", :js do
+  let(:ao_email) { "action_officer@pq.com" }
+  let(:ao_name) { "action officer 1" }
+
   before do
     DbHelpers.load_fixtures(:action_officers, :ministers, :press_desks)
   end
@@ -17,20 +20,17 @@ describe "Managing action officers", :js do
     create_pq_session
     visit new_action_officer_path
 
-    fill_in "Name", with: name
-    fill_in "Email", with: email
-    select dd, from: "Deputy Director"
-    select press_desk, from: "Press Desk"
+    fill_in "Name (required)", with: name
+    fill_in "Email (required)", with: email
+    select dd, from: "Deputy Director (required)"
+    select press_desk, from: "Press Desk (required)"
     click_on "Save"
   end
-
-  let(:ao_email) { "action_officer@pq.com" }
-  let(:ao_name) { "action officer 1" }
 
   it "Parli-branch can create a new action officer" do
     create_ao(ao_name, ao_email)
 
-    expect(page.title).to include("Action officers")
+    expect(page).to have_title "Action officers"
     expect(page).to have_content "Action officer was successfully created"
     within("#admin-ao-list") { expect(page).to have_content ao_name }
   end
@@ -42,7 +42,7 @@ describe "Managing action officers", :js do
     click_on "Edit"
 
     expect(page).to have_title "Edit action officer"
-    fill_in "Name", with: "another action officer"
+    fill_in "Name (required)", with: "another action officer"
     click_on "Save"
 
     expect(page).to have_title "Action officer details"
