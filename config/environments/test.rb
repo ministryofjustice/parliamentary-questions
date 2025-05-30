@@ -81,4 +81,6 @@ Rails.application.configure do
       user_name: ENV["SMTP_USERNAME"] || "",
     }
   end
+
+  config.middleware.insert_before 0, Capybara::Lockstep::Middleware
 end

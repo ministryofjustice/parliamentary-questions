@@ -37,7 +37,7 @@ module PQA
 
       resp_code =
         begin
-          sleep 0.5
+          sleep 1
           Net::HTTP.get_response(app_uri).code
         rescue Errno::ECONNREFUSED
           warn "Mock API server refusing connection"

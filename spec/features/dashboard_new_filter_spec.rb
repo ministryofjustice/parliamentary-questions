@@ -10,7 +10,7 @@ describe "User filters 'New' dashboard questions", :js do
     select "action officer 1 (Corporate Finance)", from: "action_officers_pqs_action_officer_id_#{@pq3.id}"
   end
 
-  it "Check filter elements are on page", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Check filter elements are on page" do
     within("#count") { expect(page).to have_text("3 parliamentary questions") }
     within("#filters") do
       expect(find("h2")).to have_content("Filter")
@@ -33,22 +33,22 @@ describe "User filters 'New' dashboard questions", :js do
     end
   end
 
-  it "filter questions by status 'Unassigned'", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "filter questions by status 'Unassigned'" do
     status("Unassigned")
     check_visible_pqs("uin-1", "uin-2", "uin-3")
   end
 
-  it "filter qustions by status 'No response'", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "filter qustions by status 'No response'" do
     status("No response")
     check_visible_pqs("uin-2", "uin-1", "uin-3")
   end
 
-  it "filter qustions by status 'Rejected'", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "filter qustions by status 'Rejected'" do
     status("Rejected")
     check_visible_pqs("uin-3", "uin-2", "uin-1")
   end
 
-  it "Clear all filters", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Clear all filters" do
     status("No response")
     within("#flag") do
       click_button "Clear"

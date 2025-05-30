@@ -14,7 +14,7 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
     click_link "In progress"
   end
 
-  it "Check all elements are present", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Check all elements are present" do
     expect(page).to have_css("#count", text: "3 parliamentary questions")
     within("#editDates") do
       click_on "Edit PQ dates"
@@ -35,7 +35,7 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
     end
   end
 
-  it "A user sets the deadline date for all PQs", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "A user sets the deadline date for all PQs" do
     within("#select-all-questions") { check "select-all" }
     within("#editDates") do
       click_on "Edit PQ dates"
@@ -50,19 +50,19 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
     expect(page).to have_css("#pq-frame-#{pq_third.id} .deadline-date.text", text: test_date)
   end
 
-  it "A user sets a PQ's draft date", skip: "temporarly suspending test due to a breaking chromedriver change" do
-    set_date("qa_edit_draft_date", "PQ draft", "draft_answer_received")
+  it "A user sets a PQ's draft date" do
+    set_date("qa_edit_draft_date", "Draft", "draft_answer_received")
   end
 
-  it "A user sets a PQ's POD cleared date", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "A user sets a PQ's POD cleared date" do
     set_date("qa_edit_pod_date", "POD check", "pod_clearance")
   end
 
-  it "A user sets a PQ's minister cleared date", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "A user sets a PQ's minister cleared date" do
     set_date("qa_edit_minister_date", "Minister check", "cleared_by_answering_minister")
   end
 
-  it "A user sets a PQ's answered date", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "A user sets a PQ's answered date" do
     set_date("qa_edit_answered_date", "Answer", "answer_submitted")
   end
 
