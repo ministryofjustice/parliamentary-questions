@@ -17,6 +17,10 @@ describe "Managing action officers", :js do
     create_pq_session
     visit new_action_officer_path
 
+    fill_in "Name (required)", with: name
+    fill_in "Email (required)", with: email
+    select dd, from: "Deputy Director (required)"
+    select press_desk, from: "Press Desk (required)"
     click_on "Save"
   end
 
