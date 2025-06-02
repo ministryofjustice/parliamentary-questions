@@ -10,32 +10,32 @@ describe "Parli-branch re-assigns a question", :js do
     DbHelpers.load_fixtures(:action_officers, :ministers)
   end
 
-  it "Parli-branch assigns question to an action officer", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch assigns question to an action officer" do
     create_pq_session
     commission_question(dummy_pq.uin, [ao_first], minister)
   end
 
-  it "Parli-branch cannot re-assign before AO accepts question", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch cannot re-assign before AO accepts question" do
     commission_question(dummy_pq.uin, [ao_first], minister)
     create_pq_session
     visit pq_path(dummy_pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
 
     expect(page.title).to include("PQ #{dummy_pq.uin}")
     expect(page).not_to have_content("Reassign action officer")
   end
 
-  it "Action officer receive notification and accepts question", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Action officer receive notification and accepts question" do
     commission_question(dummy_pq.uin, [ao_first], minister)
     accept_assignment(dummy_pq, ao_first)
   end
 
-  it "Parli-branch re-assigns question to another action officer", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch re-assigns question to another action officer" do
     commission_question(dummy_pq.uin, [ao_first], minister)
     accept_assignment(dummy_pq, ao_first)
     create_pq_session
     visit pq_path(dummy_pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
 
     expect(page).to have_content(ao_first.email)
     expect(page).not_to have_content(ao_second.email)
@@ -46,7 +46,7 @@ describe "Parli-branch re-assigns a question", :js do
     accept_assignment(dummy_pq, ao_second)
 
     visit pq_path(dummy_pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
 
     expect(page).not_to have_content(ao_first.email)
     expect(page).to have_content(ao_second.email)

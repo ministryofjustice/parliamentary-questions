@@ -17,17 +17,17 @@ describe "Managing action officers", :js do
     create_pq_session
     visit new_action_officer_path
 
-    fill_in "Name", with: name
-    fill_in "Email", with: email
-    select dd, from: "Deputy Director"
-    select press_desk, from: "Press Desk"
+    fill_in "Name (required)", with: name
+    fill_in "Email (required)", with: email
+    select dd, from: "Deputy Director (required)"
+    select press_desk, from: "Press Desk (required)"
     click_on "Save"
   end
 
   let(:ao_email) { "action_officer@pq.com" }
   let(:ao_name) { "action officer 1" }
 
-  it "Parli-branch can create a new action officer", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch can create a new action officer" do
     create_ao(ao_name, ao_email)
 
     expect(page.title).to include("Action officers")
@@ -35,14 +35,14 @@ describe "Managing action officers", :js do
     within("#admin-ao-list") { expect(page).to have_content ao_name }
   end
 
-  it "Parli-branch can edit an existing action officer", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch can edit an existing action officer" do
     create_pq_session
     visit action_officers_path
     click_on ao_name
     click_on "Edit"
 
     expect(page).to have_title "Edit action officer"
-    fill_in "Name", with: "another action officer"
+    fill_in "Name (required)", with: "another action officer"
     click_on "Save"
 
     expect(page).to have_title "Action officer details"
@@ -50,7 +50,7 @@ describe "Managing action officers", :js do
     expect(page).to have_content "another action officer"
   end
 
-  it "Parli-branch cannot duplicate AO email for the same deputy director", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch cannot duplicate AO email for the same deputy director" do
     create_ao(ao_name, ao_email)
     create_ao(ao_name, ao_email)
 
@@ -59,7 +59,7 @@ describe "Managing action officers", :js do
     expect(page).not_to have_content "Action officer was successfully created"
   end
 
-  it "Parli-branch can see inactive action officers", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch can see inactive action officers" do
     create_pq_session
     visit action_officers_path
     ao = ActionOfficer.last

@@ -15,22 +15,22 @@ describe "After commissioning", :js do
     find(css_sel).set("")
   end
 
-  it "Parli-branch moves an accepted question to 'Draft'", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch moves an accepted question to 'Draft'" do
     expect_pq_in_progress_status(draft_pending, "Draft Pending")
-    in_pq_detail(draft_pending, "PQ draft") { fillin_date("#draft_answer_received") }
+    in_pq_detail(draft_pending, "Draft") { fillin_date("#draft_answer_received") }
     expect_pq_in_progress_status(draft_pending, "With POD")
   end
 
-  it "Question that is late by less than one hour shows overdue warning", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Question that is late by less than one hour shows overdue warning" do
     pq = Pq.find_by(uin: draft_pending)
     pq.internal_deadline = (Time.zone.now - 10.minutes).to_s
     pq.save!
     visit pq_path(pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
     expect(page).to have_css("span.fa.fa-exclamation-triangle")
   end
 
-  it "Parli-branch moves a question to 'POD cleared'", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch moves a question to 'POD cleared'" do
     in_pq_detail(with_pod, "POD check") do
       fillin_date("#pod_clearance")
       remove_focus_from_filter
@@ -38,7 +38,7 @@ describe "After commissioning", :js do
     expect_pq_in_progress_status(with_pod, "POD Cleared")
   end
 
-  it "Parli-branch moves a question to 'With minister' and 'Minister cleared'", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch moves a question to 'With minister' and 'Minister cleared'" do
     in_pq_detail(pod_cleared, "Minister check") do
       fillin_date("#sent_to_answering_minister")
       remove_focus_from_filter
@@ -52,14 +52,14 @@ describe "After commissioning", :js do
     expect_pq_in_progress_status(pod_cleared, "Minister Cleared")
   end
 
-  it "Parli-branch moves a question to 'Answered'", skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it "Parli-branch moves a question to 'Answered'" do
     in_pq_detail(minister_cleared, "Answer") { fillin_date("#answer_submitted") }
     visit dashboard_in_progress_path
     expect(page.title).to match(/In progress/)
     expect(page).not_to have_text(minister_cleared)
   end
 
-  it 'Parli-branch moves a question from "With Minister" back to "Draft Pending"', skip: "temporarly suspending test due to a breaking chromedriver change" do
+  it 'Parli-branch moves a question from "With Minister" back to "Draft Pending"' do
     in_pq_detail(pod_cleared, "Minister check") { remove_date("#sent_to_answering_minister") }
     expect_pq_in_progress_status(pod_cleared, "POD Cleared")
 
@@ -68,7 +68,7 @@ describe "After commissioning", :js do
 
     in_pq_detail(pod_cleared, "POD check") { remove_date("#pod_clearance") }
 
-    in_pq_detail(pod_cleared, "PQ draft") { remove_date("#draft_answer_received") }
+    in_pq_detail(pod_cleared, "Draft") { remove_date("#draft_answer_received") }
     expect_pq_in_progress_status(pod_cleared, "Draft Pending")
   end
 end
