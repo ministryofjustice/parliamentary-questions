@@ -17,10 +17,10 @@ describe "Managing action officers", :js do
     create_pq_session
     visit new_action_officer_path
 
-    fill_in "Name", with: name
-    fill_in "Email", with: email
-    select dd, from: "Deputy Director"
-    select press_desk, from: "Press Desk"
+    fill_in "Name (required)", with: name
+    fill_in "Email (required)", with: email
+    select dd, from: "Deputy Director (required)"
+    select press_desk, from: "Press Desk (required)"
     click_on "Save"
   end
 
@@ -42,7 +42,7 @@ describe "Managing action officers", :js do
     click_on "Edit"
 
     expect(page).to have_title "Edit action officer"
-    fill_in "Name", with: "another action officer"
+    fill_in "Name (required)", with: "another action officer"
     click_on "Save"
 
     expect(page).to have_title "Action officer details"

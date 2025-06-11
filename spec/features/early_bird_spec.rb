@@ -14,8 +14,8 @@ describe "Early bird member sees allocated questions" do
     click_link "Settings"
     click_link "Early bird list"
     click_link_or_button "Add early bird member"
-    fill_in "Name", with: "test-member-a"
-    fill_in "Email", with: "test-member-a@pq.com"
+    fill_in "Name (required)", with: "test-member-a"
+    fill_in "Email (required)", with: "test-member-a@pq.com"
     click_link_or_button "Save"
 
     expect(page).to have_text(/Early bird member was successfully created/i)

@@ -3,37 +3,57 @@
   = render partial: 'shared/errors', object: @pq
   = render 'pq_header'
   #pq-detail-area
-    nav.col-md-3
-      p.govuk-body.govuk-visually-hidden Jump to a section...
-      ul.nav.nav-stacked data-tabs="tabs" role="tablist"
-        li.active
-          a#progress-menu-pq href="#progress-menu-pq-data" data-toggle="tab" role="tab" PQ Details
-        li
-          a#progress-menu-com href="#progress-menu-com-data" data-toggle="tab" role="tab" PQ commission
-        li
-          a#progress-menu-sub href="#progress-menu-sub-data" data-toggle="tab" role="tab" PQ draft
-        li
-          a#progress-menu-pod href="#progress-menu-pod-data" data-toggle="tab" role="tab"
+    .govuk-tabs[data-module="govuk-tabs"]
+      h2.govuk-tabs__title
+        |  Contents
+      ul.govuk-tabs__list
+        li.govuk-tabs__list-item.govuk-tabs__list-item--selected
+          a.govuk-tabs__tab[href="#details"]
+            | Details
+        li.govuk-tabs__list-item
+          a.govuk-tabs__tab[href="#commissioning"]
+            | Commission
+        li.govuk-tabs__list-item
+          a.govuk-tabs__tab[href="#draft"]
+            | Draft
+        li.govuk-tabs__list-item
+          a.govuk-tabs__tab[href="#pod-check"]
+            |
             abbr title="Private Office Directorate" POD
-            span  check
-        li
-          a#progress-menu-min href="#progress-menu-min-data" data-toggle="tab" role="tab" Minister check
-        li
-          a#progress-menu-answer href="#progress-menu-answer-data" data-toggle="tab" role="tab" Answer
-    #progress-panel.col-md-9
+            '  check
+        li.govuk-tabs__list-item
+          a.govuk-tabs__tab[href="#minister-check"]
+            | Minister check
+        li.govuk-tabs__list-item
+          a.govuk-tabs__tab[href="#answer"]
+            | Answer
       = form_for @pq, :url => { :action => "update", :id => @pq[:uin] }, :html=>{ :class=>'progress-menu-form' } do |f|
         fieldset.tab-content role="group" aria-live="polite"
-          #progress-menu-pq-data role="tabpanel" class="tab-pane active"
+          #details.govuk-tabs__panel
+            h2.govuk-heading-l
+              | Details
             = render partial:'pq_data', locals: {f: f}
-          #progress-menu-com-data role="tabpanel" class="tab-pane"
+          #commissioning.govuk-tabs__panel.govuk-tabs__panel--hidden
+            h2.govuk-heading-l
+              | Commission
             = render  partial:'com_data', locals: {f: f, action_officers: @action_officers}
-          #progress-menu-sub-data role="tabpanel" class="tab-pane"
+          #draft.govuk-tabs__panel.govuk-tabs__panel--hidden
+            h2.govuk-heading-l
+              | Draft
             = render  partial:'pq_draft', locals: {f: f}
-          #progress-menu-pod-data role="tabpanel" class="tab-pane"
+          #pod-check.govuk-tabs__panel.govuk-tabs__panel--hidden
+            h2.govuk-heading-l
+              |
+              abbr title="Private Office Directorate" POD
+              '  check
             = render partial:'pod_check', locals: {f: f}
-          #progress-menu-min-data role="tabpanel" class="tab-pane"
+          #minister-check.govuk-tabs__panel.govuk-tabs__panel--hidden
+            h2.govuk-heading-l
+              | Minister check
             = render partial:'minister_check', locals: {f: f}
-          #progress-menu-answer-data role="tabpanel" class="tab-pane"
+          #answer.govuk-tabs__panel.govuk-tabs__panel--hidden
+            h2.govuk-heading-l
+              | Answer
             = render partial:'answer', locals: {f: f}
-          .form-group
+          #save-button
             = f.submit 'Save', :id => 'save', :class => 'button'
