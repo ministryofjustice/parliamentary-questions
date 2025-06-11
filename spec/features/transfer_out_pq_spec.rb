@@ -13,7 +13,7 @@ describe "Transferring OUT questions", :js do
     create_pq_session
     visit dashboard_path
     click_on uin
-    click_on "PQ commission"
+    click_on "Commission"
     find("select[name = 'pq[transfer_out_ogd_id]']").find(:xpath, "option[2]").select_option
     find("#transfer_out_date").set(date || Time.zone.today.strftime("%d/%m/%Y"))
     remove_focus_from_filter

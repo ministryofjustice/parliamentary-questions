@@ -13,8 +13,8 @@ module Features
     def sign_in(email, password)
       visit destroy_user_session_path
       visit new_user_session_path
-      fill_in "Email", with: email
-      fill_in "Password", with: password
+      fill_in "Email (required)", with: email
+      fill_in "Password (required)", with: password
       click_button "Sign in"
     end
   end

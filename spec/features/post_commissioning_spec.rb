@@ -17,7 +17,7 @@ describe "After commissioning", :js do
 
   it "Parli-branch moves an accepted question to 'Draft'" do
     expect_pq_in_progress_status(draft_pending, "Draft Pending")
-    in_pq_detail(draft_pending, "PQ draft") { fillin_date("#draft_answer_received") }
+    in_pq_detail(draft_pending, "Draft") { fillin_date("#draft_answer_received") }
     expect_pq_in_progress_status(draft_pending, "With POD")
   end
 
@@ -26,7 +26,7 @@ describe "After commissioning", :js do
     pq.internal_deadline = (Time.zone.now - 10.minutes).to_s
     pq.save!
     visit pq_path(pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
     expect(page).to have_css("span.fa.fa-exclamation-triangle")
   end
 
@@ -68,7 +68,7 @@ describe "After commissioning", :js do
 
     in_pq_detail(pod_cleared, "POD check") { remove_date("#pod_clearance") }
 
-    in_pq_detail(pod_cleared, "PQ draft") { remove_date("#draft_answer_received") }
+    in_pq_detail(pod_cleared, "Draft") { remove_date("#draft_answer_received") }
     expect_pq_in_progress_status(pod_cleared, "Draft Pending")
   end
 end

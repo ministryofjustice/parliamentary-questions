@@ -4,7 +4,7 @@
     h1.govuk-heading-l New parliamentary questions to be allocated today (#{@now})
     = render partial: 'shared/flash_messages'
 
-    #sidebar.col-md-3.col-md-push-9
+    #sidebar.govuk-grid-column-one-quarter
       #filters.js-stick-at-top-when-scrolling
         h2.govuk-heading-m Filter
         #question-type.filter-box
@@ -36,7 +36,7 @@
 
         a target="_blank" href="#{@parliament_url}" Today's PQs for all departments (opens in a new tab)
 
-    .col-md-9.col-md-pull-3
+    .govuk-grid-column-three-quarters
       #count
         strong #{@questions.length}
         = ' '
