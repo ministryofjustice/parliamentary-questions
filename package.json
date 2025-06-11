@@ -13,6 +13,6 @@
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.25.0"
   }
 }
