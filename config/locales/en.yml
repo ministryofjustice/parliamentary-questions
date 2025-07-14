@@ -3,3 +3,6 @@ en:
     attributes:
     errors:
       models:
+  layouts:
+    feedback:
+      banner_html: Help us make this service better. Give us your <a href="https://www.smartsurvey.co.uk/s/CD5V13/" class="govuk-link govuk-link--no-visited-state">feedback</a>.
