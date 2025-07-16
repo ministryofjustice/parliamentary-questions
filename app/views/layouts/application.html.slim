@@ -4,7 +4,7 @@
 - content_for :content do
   .phase-banner
     / p.phase-tag = config_item(:phase).upcase )(this line is kept incase the moj elements change and this line needs to be reinstated!)
-    = render partial: "shared/feedback"
+    span = t'layouts.feedback.banner_html'
 
   - if HostEnv.is_staging?
     .staging_banner
