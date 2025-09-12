@@ -3,9 +3,8 @@ require "rails_helper"
 RSpec.feature "feedback_link", type: :feature do
   scenario "User clicks the feedback link and sees the feedback page" do
     visit root_path
-    expect(page).to have_link("feedback", href: "https://www.smartsurvey.co.uk/s/CD5V13/")
 
-    link = find_link("feedback")
-    expect(link[:href]).to include("https://www.smartsurvey.co.uk")
+    link = find_link(text: "feedback")
+    expect(link[:href]).to include("https://www.smartsurvey.co.uk/s/CD5V13/")
   end
 end

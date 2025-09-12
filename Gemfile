@@ -3,10 +3,12 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 gem "business_time", "~> 0.13.0"
+gem "cssbundling-rails", "~> 1.4"
 gem "devise", "~> 4.8"
 gem "devise_invitable", "~> 2.0"
-gem "govuk-components"
+gem "govuk-components", "~> 5.11", ">= 5.11.3"
 gem "govuk_notify_rails", "~> 3.0"
+gem "jsbundling-rails", "~> 1.3"
 gem "logstasher", "~> 2.1", ">= 2.1.5"
 gem "mail", ">= 2.8"
 gem "mechanize", "~> 2.14"
@@ -21,12 +23,9 @@ gem "sentry-ruby", "~> 5.19"
 gem "sidekiq"
 gem "sinatra", "~> 4", require: false
 gem "slim", "~> 5.2"
-gem "will_paginate", "~> 4.0"
-
-gem "cssbundling-rails", "~> 1.4"
-gem "jsbundling-rails", "~> 1.3"
 gem "sprockets", "~> 4.2"
 gem "sprockets-rails", "~> 3.5"
+gem "will_paginate", "~> 4.0"
 
 group :development do
   gem "annotate"
