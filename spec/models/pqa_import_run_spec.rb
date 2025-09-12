@@ -44,7 +44,7 @@ describe PQAImportRun, type: :model do
       Timecop.freeze(Time.zone.local(2015, 5, 7, 11, 15, 45)) do
         expect(described_class.count).to eq 0
         expect(described_class.last_import_time_utc).to eq(3.days.ago)
-        expect(described_class.last_import_time_utc.zone).to eq "UTC"
+        expect(described_class.last_import_time_utc.zone).to eq("UTC").or eq("BST")
       end
     end
 

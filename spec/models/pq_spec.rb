@@ -314,7 +314,7 @@ describe Pq do
   it "#set_pod_waiting should work as expected" do
     expect(question.draft_answer_received).to be_nil
     expect(question.pod_waiting).to be_nil
-    dar = Date.new(2014, 9, 4)
+    dar = Date.new(2014, 9, 4).in_time_zone
     question.draft_answer_received = dar
     question.set_pod_waiting
     expect(question.pod_waiting).to eq(dar)
