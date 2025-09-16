@@ -14,7 +14,7 @@ Rails.application.config.action_mailer.delivery_job = "ActionMailer::MailDeliver
 # LogStuff.info "ActionMailer smtp_settings #{smtpconfig.inspect}"
 # LogStuff.info "ActionMailer base_config #{ActionMailer::Base.default.inspect}"
 
-Rails.configuration.time_zone = "London"
+# Rails.configuration.time_zone = "London"
 
 # Initialize the Rails application.
 Rails.application.initialize!
