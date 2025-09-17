@@ -8,7 +8,7 @@ module PQA
 
     def run(date_from, date_to)
       query_api_and_update do
-        @pqa_service.questions(date_from, date_to, "Tabled")
+        @pqa_service.questions(Time.find_zone("UTC").parse(date_from.to_s), Time.find_zone("UTC").parse(date_to.to_s), "Tabled"))
       end
     end
 
