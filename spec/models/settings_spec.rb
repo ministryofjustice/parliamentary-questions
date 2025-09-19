@@ -47,7 +47,7 @@ describe Settings do
 
     describe ".mail_tech_support" do
       it "returns the value from the file" do
-        expect(described_class.mail_tech_support).to eq "pqsupport@digital.justice.gov.uk"
+        expect(described_class.mail_tech_support).to eq "PQsupport-gg@justice.gov.uk"
       end
     end
 
