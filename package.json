@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "@rails/ujs": "^7.1.3-4",
+    "@rails/ujs": "^7.1.501",
     "font-awesome": "^4.7.0",
     "govuk-frontend": "^5.11.1",
     "jquery": "^3.7.1",
     "moment": "^2.30.1",
-    "sass": "^1.80.5",
+    "sass": "^1.89.2",
     "select2": "^4.1.0-rc.0"
   },
   "scripts": {
