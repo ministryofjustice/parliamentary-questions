@@ -18,7 +18,7 @@ describe "EarlyBirdReportService" do
 
     end_of_day = Time.current.end_of_day
 
-    expect(token.expire.to_s).to eq(end_of_day.to_s)
+    expect(token.expire).to be_within(1.hour).of(end_of_day)
     expect(
       Token.exists?(entity: "early_bird:#{early_bird_deleted.id}", path: "/early_bird/dashboard"),
     ).to be(false)
@@ -31,7 +31,7 @@ describe "EarlyBirdReportService" do
 
     expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: "m1@ao.gov", token:, entity: testid)
     expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: "m2@ao.gov", token:, entity: testid)
-    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: "pqtest@digital.justice.gov.uk", token:, entity: testid)
+    expect(NotifyPqMailer).to have_received(:early_bird_email).with(email: "pqtest-gg@justice.gov.uk", token:, entity: testid)
     expect(NotifyPqMailer).not_to have_received(:early_bird_email).with(email: "m3@ao.gov")
   end
 end

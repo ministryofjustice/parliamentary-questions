@@ -23,14 +23,14 @@ describe "Parli-branch manually rejecting and re-assigning OAs", :js do
     commission_question(pq.uin, [ao_first, ao_second], minister, policy_minister)
     create_pq_session
     visit pq_path(pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
 
     click_on "Manually reject #{ao_first.name}"
     expect(page).to have_title("PQ #{pq.uin}")
     expect(page).to have_content("#{pq.uin} manually rejected")
 
     visit pq_path(pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
     expect(page).to have_title("PQ #{pq.uin}")
     expect(page).to have_content("rejected manually by pq@pq.com")
     expect_pq_status(pq.uin, "No response")
@@ -40,7 +40,7 @@ describe "Parli-branch manually rejecting and re-assigning OAs", :js do
     commission_question(pq.uin, [ao_first], minister, policy_minister)
     create_pq_session
     visit pq_path(pq.uin)
-    click_on "PQ commission"
+    click_on "Commission"
     click_on "Manually reject #{ao_first.name}"
     expect_pq_status(pq.uin, "Rejected")
 

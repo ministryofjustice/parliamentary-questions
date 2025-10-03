@@ -51,7 +51,7 @@ describe "Testing Quick Action 'Edit PQ dates'", :js do
   end
 
   it "A user sets a PQ's draft date" do
-    set_date("qa_edit_draft_date", "PQ draft", "draft_answer_received")
+    set_date("qa_edit_draft_date", "Draft", "draft_answer_received")
   end
 
   it "A user sets a PQ's POD cleared date" do

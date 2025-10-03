@@ -104,7 +104,7 @@ module Redeploy
         ActionOfficer.find_or_create_by!(
           deputy_director: dd_placeholder,
           name: "AO not known placeholder",
-          email: "pqsupport@digital.justice.gov.uk",
+          email: "PQsupport-gg@justice.gov.uk",
           press_desk: pd_placeholder,
           deleted: true,
         )
@@ -114,7 +114,7 @@ module Redeploy
       @dd_placeholder ||=
         DeputyDirector.find_or_create_by!(
           division: div_placeholder,
-          email: "pqsupport@digital.justice.gov.uk",
+          email: "PQsupport-gg@justice.gov.uk",
           name: "DD for AO not known placeholder",
           deleted: true,
         )

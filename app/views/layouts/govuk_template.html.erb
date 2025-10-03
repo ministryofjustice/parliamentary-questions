@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html lang="<%= content_for?(:html_lang) ? yield(:html_lang) : "en" %>" class="govuk-template">
+
   <head>
     <meta charset="utf-8" />
     <title><%= content_for?(:page_title) ? yield(:page_title) : "GOV.UK - The best place to find government services and information" %></title>
+
+    <%= capybara_lockstep if defined?(Capybara::Lockstep) %>
 
     <%= javascript_include_tag "jquery/dist/jquery", "select2/dist/js/select2", "moment/moment", defer: false %>
 

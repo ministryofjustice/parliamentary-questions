@@ -37,6 +37,21 @@ label {
   //clear: both;
 }
 
+.select2-selection__choice {
+  padding-right: 20px;
+}
+
+.select2-selection__choice__remove {
+  color: #0b0c0c;
+}
+
+select, 
+.select2-selection__choice__display,
+.select2-selection__choice__remove,
+.select2-selection__choice {
+  background-color: #fff;
+}
+
 //==============================================================================
 // = Govuk Overrides ===========================================================
 //==============================================================================
@@ -365,6 +380,12 @@ textarea.form-control {
   margin: .5em 0;
 }
 
+#pq-details #save-button {
+  border: 0;
+  margin-bottom: 0;
+  padding: 30px 20px;
+}
+
 .questions-list {
   padding: 0 0 20px;
   > li {
@@ -641,6 +662,21 @@ textarea.form-control {
   #pq-detail-area {
     margin-top: 15px;
 
+    .govuk-tabs__panel{
+      border-bottom: none;
+    }
+
+    @media (min-width: 641px) {
+      #save-button {
+        border-top: 0;
+        border-right: 1px;
+        border-bottom: 1px;
+        border-left: 1px;
+        border-style: solid;
+        border-color: #b1b4b6;
+      }
+    }
+
     nav {
       z-index: 1;
       padding: 0;
@@ -729,6 +765,9 @@ textarea.form-control {
 
 #dashboard, #preview {
   #sidebar {
+    padding: 0 15px 0 0;
+    width: 232px;
+
     input[type="button"]{
       padding-left: 0;
       border: none;
@@ -850,13 +889,6 @@ textarea.form-control {
           #keywords { width: 100%; }
           .clearFilter { overflow: hidden; }
         }
-      }
-    }
-  }
-  @media (max-width: 991px) {
-    #sidebar {
-      #filters, #quick-links {
-        width: 235px;
       }
     }
   }

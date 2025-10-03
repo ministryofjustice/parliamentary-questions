@@ -2,8 +2,6 @@
 
 <a id="readme-top"></a>
 
-<br>
-
 <img alt="MoJ logo" src="https://moj-logos.s3.eu-west-2.amazonaws.com/moj-uk-logo.png" width="200">
 
 # Parliamentary Questions
@@ -40,6 +38,7 @@ $ cd parliamentary-questions
 #### Latest Version of Ruby
 
 If you don't have `rbenv` already installed, install it as follows:
+
 ```
 $ brew install rbenv ruby-build
 $ rbenv init
@@ -80,21 +79,23 @@ $ yarn install
 
 Mock data can be automatically imported by running the following rake task (it will make use of a mock API server running on localhost:8888 so make sure this port is free):
 
-'''
+```
 $ PQ_REST_API_HOST=http://localhost:8888 bundle exec rake pqa:import_dummy_data
 ```
 
 Finally, a rake task is also provided to load PQ&A XML data into the system.
 
 ```
-$ bundle exec rake pqa:import_from_xml[path/to/question_file.xml]
+$ bundle exec rake pqa:import_from_xml[question_file.xml]
 ```
 
 #### Running locally:
 
 Use the dev command to run the application. This will use Foreman to start the rails server as well as compiling the css and js. Any changes to the css and js will be live updated.
 
+```
 $ bin/dev
+```
 
 The site will be accessible at http://localhost:3000.
 
@@ -102,8 +103,8 @@ The site will be accessible at http://localhost:3000.
 
 In order to run the tests, you can use:
 
-```sh
-bundle exec rake
+```
+$ bundle exec rake
 ```
 
 This will run specs and rubocop linting. Or you can run them individually, with `rake rubocop` and `rake spec`.
@@ -115,23 +116,27 @@ It's done using devise and devise invitable:
 * https://github.com/plataformatec/devise
 * https://github.com/scambra/devise_invitable
 
-For development you can create users with a rake task.
+For development, you can create users with a rake task.
 
-```
 # default user
-rake user:create
+```
+$ rake user:create
+```
 
 # admin user
-rake user:create_admin
+```
+$ rake user:create_admin
+```
 
 # specific email, password, name
-rake "user:create_admin[admin@admin.com, 123456789, admin]"
+```
+$ rake "user:create_admin[admin@admin.com, 123456789, admin]"
 ```
 
 ## Emails
 Emails are sent using the [GOVUK Notify service](https://www.notifications.service.gov.uk).
 
-Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers)in the mailers folder
+Please refer to the [readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers) in the mailers folder
 for details of how to get an account and obtain an API key.
 
 ## Exceptions
@@ -140,7 +145,7 @@ Any exceptions raised in any deployed environment will be sent to [Sentry](https
 
 ## Environment Variables
 
-This is an up to date list of the environment variables used by the app.
+This is an up-to-date list of the environment variables used by the app.
 Refer to the provisioning code for the actual values expected to be set on each
 specific environment.
 
@@ -150,24 +155,26 @@ by the [mock implementation](https://github.com/ministryofjustice/parliamentary-
 of Parliament's Question and Answer API. `TEST_USER_PASS` can be set to any value. `DEVISE_SENDER` can be set to `no-reply@digital.justice.gov.uk`.
 Instructions on setting up the `GOVUK_NOTIFY_API_KEY` can be found in the [mailer readme](https://github.com/ministryofjustice/parliamentary-questions/tree/dev/app/mailers).
 
-Variable Name          |Required for local development  | Description
------------------------| ------------------------------ | -----------------------------
-`PQ_REST_API_HOST`     | y                              | Hostname of the Parlamentary Question and Answers API
-`PQ_REST_API_USERNAME` | n                              | Username
-`PQ_REST_API_PASSWORD` | n                              | Password
-`DEVISE_SECRET`        | n                              | Secret Devise Token
-`DEVISE_SENDER`        | y                              | Email address used for signup/signin/password related notifications
-`SENDING_HOST`         | n                              | Host for URLs in emails
-`CA_CERT`              | n                              | Absolute Path of the system's SSL certificates dir (e.g. `/etc/ssl/certs`)
-`ASSET_HOST`           | n                              | Host where Rails' assets pipeline will deploy the assets
-`TEST_USER`            | n                              | The current application version tag
-`TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests
-`GOVUK_NOTIFY_API_KEY` | y                              | A key required to send emails via [GovUK Notify](https://www.notifications.service.gov.uk/)
+| Variable Name          |Required for local development  | Description |
+|------------------------| ------------------------------ | -----------------------------|
+| `PQ_REST_API_HOST`     | y                              | Hostname of the Parlamentary Question and Answers API |
+| `PQ_REST_API_USERNAME` | n                              | Username |
+| `PQ_REST_API_PASSWORD` | n                              | Password |
+| `DEVISE_SECRET`        | n                              | Secret Devise Token |
+| `DEVISE_SENDER`        | y                              | Email address used for signup/signin/password related notifications |
+| `SENDING_HOST`         | n                              | Host for URLs in emails |
+| `CA_CERT`              | n                              | Absolute Path of the system's SSL certificates dir (e.g. `/etc/ssl/certs`) |
+| `ASSET_HOST`           | n                              | Host where Rails' assets pipeline will deploy the assets |
+| `TEST_USER`            | n                              | The current application version tag |
+| `TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests |
+| `GOVUK_NOTIFY_API_KEY` | y                              | A key required to send emails via [GovUK Notify](https://www.notifications.service.gov.uk/) |
 
 You can add the env variables required for local development to your `bash_profile` using the format:
+
 ```
 export [NAME_OF_VARIABLE]=[VALUE-OF-VARIABLE]
 ```
+
 for example:
 ```
 export GOVUK_NOTIFY_API_KEY=a-super-great-key

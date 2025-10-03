@@ -2,7 +2,7 @@
   "dependencies": {
     "@rails/ujs": "^7.1.3-4",
     "font-awesome": "^4.7.0",
-    "govuk-frontend": "^5.7.1",
+    "govuk-frontend": "^5.11.1",
     "jquery": "^3.7.1",
     "moment": "^2.30.1",
     "sass": "^1.80.5",
@@ -13,6 +13,6 @@
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.25.0"
   }
 }
