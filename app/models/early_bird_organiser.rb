@@ -18,11 +18,13 @@ class EarlyBirdOrganiser < ApplicationRecord
 
 private
 
+  # rubocop:disable Style/RedundantParentheses
   def date_to_cant_be_before_date_from
     if (date_to && date_from) && (date_to < date_from)
       errors.add(:date_to, "cannot be before the First date")
     end
   end
+  # rubocop:enable Style/RedundantParentheses
 
   def date_from_must_not_be_in_the_past
     if date_from && date_from < Time.zone.today

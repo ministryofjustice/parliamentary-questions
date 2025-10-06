@@ -19,9 +19,11 @@ module ApplicationHelper
     classname.tr("_", "-")
   end
 
+  # rubocop:disable Rails/Delegate
   def state_label(label)
     PqState.state_label(label)
   end
+  # rubocop:enable Rails/Delegate
 
   def minister_warning?(question, minister)
     !!(question.present? && question.open? && minister.try(:deleted?))
