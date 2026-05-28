@@ -5,7 +5,7 @@ module Export
     def pqs
       Pq.where(
         "transfer_out_ogd_id is null AND (answer_submitted >= ? OR " \
-        "answer_submitted is null) AND tabled_date <= ?",
+        "answer_submitted is null) AND (tabled_date <= ? OR tabled_date IS NULL)",
         @date_from,
         @date_to,
       )
