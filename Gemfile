@@ -2,9 +2,9 @@ source "https://rubygems.org"
 
 ruby file: ".ruby-version"
 
-gem "csv"
 gem "business_time", "~> 0.13.0"
 gem "cssbundling-rails", "~> 1.4"
+gem "csv"
 gem "devise", "~> 5.0"
 gem "devise_invitable", "~> 2.0"
 gem "govuk-components", "~> 5.13"
