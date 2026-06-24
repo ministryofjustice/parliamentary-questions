@@ -114,6 +114,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.1)
       railties (>= 6.0.0)
+    csv (3.3.5)
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.2.0)
@@ -474,6 +475,7 @@ DEPENDENCIES
   capybara
   capybara-lockstep
   cssbundling-rails (~> 1.4)
+  csv
   database_cleaner
   debug
   devise (~> 5.0)
@@ -511,7 +513,7 @@ DEPENDENCIES
   will_paginate (~> 4.0)
 
 RUBY VERSION
-   ruby 3.3.11p205
+   ruby 3.4.9p82
 
 BUNDLED WITH
    2.4.19
