@@ -44,6 +44,61 @@ describe User do
     expect(user.active_for_authentication?).to be(true)
   end
 
+  describe ".from_omniauth" do
+    let(:email) { "existing.user@justice.gov.uk" }
+
+    def auth_hash(email:, name: "Azure Name")
+      OmniAuth::AuthHash.new(
+        "provider" => "entra_id",
+        "uid" => "11111111-2222-3333-4444-555555555555",
+        "info" => { "email" => email, "name" => name },
+      )
+    end
+
+    context "when a user with a matching email exists" do
+      let!(:existing) { create(:user, email:) }
+
+      it "returns the user" do
+        expect(described_class.from_omniauth(auth_hash(email:))).to eq(existing)
+      end
+
+      it "matches case-insensitively" do
+        expect(described_class.from_omniauth(auth_hash(email: email.upcase))).to eq(existing)
+      end
+
+      it "returns soft-deleted users so callers can reject them" do
+        existing.update!(deleted: true)
+        expect(described_class.from_omniauth(auth_hash(email:))).to eq(existing)
+      end
+    end
+
+    context "when no matching user exists" do
+      it "creates a PQ user from the Azure profile" do
+        user = described_class.from_omniauth(auth_hash(email: "new.user@justice.gov.uk", name: "New User"))
+
+        expect(user).to be_persisted
+        expect(user.email).to eq("new.user@justice.gov.uk")
+        expect(user.name).to eq("New User")
+        expect(user.roles).to eq(User::ROLE_PQ_USER)
+      end
+
+      it "downcases the stored email" do
+        user = described_class.from_omniauth(auth_hash(email: "New.User@Justice.gov.uk"))
+        expect(user.email).to eq("new.user@justice.gov.uk")
+      end
+
+      it "falls back to the email local part when Azure provides no name" do
+        user = described_class.from_omniauth(auth_hash(email: "new.user@justice.gov.uk", name: nil))
+        expect(user.name).to eq("new.user")
+      end
+    end
+
+    it "returns nil when the auth hash has no email" do
+      expect(described_class.from_omniauth(auth_hash(email: nil))).to be_nil
+      expect(described_class.from_omniauth(auth_hash(email: "  "))).to be_nil
+    end
+  end
+
   describe "validations" do
     it "requires a name" do
       user.name = nil

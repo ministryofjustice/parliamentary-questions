@@ -19,7 +19,11 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :early_bird_members
   resources :action_officers
 
-  devise_for :users, controllers: { invitations: "users/invitations", sessions: "users/sessions" }
+  devise_for :users, controllers: {
+    invitations: "users/invitations",
+    sessions: "users/sessions",
+    omniauth_callbacks: "users/omniauth_callbacks",
+  }
   resources  :users
   resources :pqs, only: %i[index show update] do
     resource :proposal, only: %i[new create]

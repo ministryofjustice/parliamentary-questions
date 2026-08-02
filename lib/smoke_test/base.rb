@@ -37,11 +37,21 @@ module SmokeTest
     def login_to_app
       agent.get app_uri.to_s
 
-      agent.page.forms.first.tap do |f|
+      password_form.tap do |f|
         f["user[email]"]    = @user
         f["user[password]"] = @pass
         f.submit
       end
+    end
+
+    # The sign in page can render several forms (e.g. the Azure Entra ID
+    # single sign-on button is a POST form), so pick the one with the
+    # email/password fields rather than assuming it is first on the page.
+    def password_form
+      form = agent.page.forms.find { |f| f.field_with(name: "user[email]") }
+      raise "Could not find the email/password sign in form. Is password sign in enabled (AUTH_METHODS)?" unless form
+
+      form
     end
 
     def initialize(app_url, user, pass)

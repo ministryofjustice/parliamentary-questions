@@ -53,12 +53,35 @@ class User < ApplicationRecord
          :lockable,
          :timeoutable,
          :validatable,
-         validate_on_invite: true
+         :omniauthable,
+         validate_on_invite: true,
+         omniauth_providers: %i[entra_id]
 
   validates :name, presence: true
   validates :roles, presence: true
 
   after_initialize :set_defaults
+
+  # Finds the user matching an Azure Entra ID OmniAuth hash by email
+  # (case-insensitively), or creates a new PQ user from the Azure profile if no
+  # account exists yet. Returns nil when the auth hash carries no email.
+  # Soft-deleted users are returned as-is so the caller can reject them.
+  def self.from_omniauth(auth)
+    email = auth.info.email.to_s.strip
+    return nil if email.blank?
+
+    find_by("LOWER(email) = ?", email.downcase) ||
+      create_from_omniauth(email, auth.info.name)
+  end
+
+  def self.create_from_omniauth(email, name)
+    create!(
+      email: email.downcase,
+      name: name.presence || email.split("@").first,
+      roles: ROLE_PQ_USER,
+      password: Devise.friendly_token(32),
+    )
+  end
 
   def invited_by_user
     invited_by_id && User.find(invited_by_id).name

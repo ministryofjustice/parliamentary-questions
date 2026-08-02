@@ -284,9 +284,15 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  # Azure Entra ID single sign-on. The three OMNIAUTH_AZURE_* values come from
+  # the Azure app registration - see the "Azure Entra ID single sign-on"
+  # section of the README for how to obtain them for local development.
+  # Whether SSO is offered to users is controlled by the AUTH_METHODS
+  # environment variable (see lib/auth_methods.rb).
+  config.omniauth :entra_id,
+                  client_id: ENV["OMNIAUTH_AZURE_CLIENT_ID"],
+                  client_secret: ENV["OMNIAUTH_AZURE_CLIENT_SECRET"],
+                  tenant_id: ENV["OMNIAUTH_AZURE_TENANT_ID"]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
