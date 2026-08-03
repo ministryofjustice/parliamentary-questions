@@ -3,6 +3,9 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     unless AuthMethods.password_enabled?
+      # Also stop Warden lazily authenticating from the submitted params later
+      # in this request (e.g. via a current_user call).
+      request.env["devise.allow_params_authentication"] = false
       redirect_to new_user_session_path, alert: t("devise.failure.password_sign_in_disabled") and return
     end
 

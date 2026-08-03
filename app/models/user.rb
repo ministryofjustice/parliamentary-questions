@@ -70,8 +70,10 @@ class User < ApplicationRecord
     email = auth.info.email.to_s.strip
     return nil if email.blank?
 
+    # NB: auth.info["name"] (not auth.info.name) because OmniAuth's InfoHash#name
+    # falls back to the email address when no name is present.
     find_by("LOWER(email) = ?", email.downcase) ||
-      create_from_omniauth(email, auth.info.name)
+      create_from_omniauth(email, auth.info["name"])
   end
 
   def self.create_from_omniauth(email, name)
