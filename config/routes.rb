@@ -24,7 +24,7 @@ ParliamentaryQuestions::Application.routes.draw do
     sessions: "users/sessions",
     omniauth_callbacks: "users/omniauth_callbacks",
   }
-  resources  :users
+  resources :users
   resources :pqs, only: %i[index show update] do
     resource :proposal, only: %i[new create]
   end

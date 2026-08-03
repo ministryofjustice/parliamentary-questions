@@ -104,7 +104,7 @@ describe Users::OmniauthCallbacksController, type: :controller do
       end
     end
 
-    context "feature flag" do
+    context "with feature flag" do
       let!(:user) { create(:user, email: user_email, name: user_name) }
 
       context "when AUTH_METHODS=password_only" do
