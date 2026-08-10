@@ -29,6 +29,23 @@ jobs:
       - name: Security audit application code
         run: bundle exec brakeman -q
 
+      - name: Snyk dependency scan (Ruby)
+        uses: snyk/actions/ruby@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      - name: Install packages
+        run: yarn install --pure-lockfile
+
+      - name: Snyk dependency scan (Node)
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
   test:
     runs-on: ubuntu-latest
     permissions:
