@@ -133,6 +133,34 @@ $ rake user:create_admin
 $ rake "user:create_admin[admin@admin.com, 123456789, admin]"
 ```
 
+### Azure Entra ID single sign-on
+
+In addition to signing in with email and password, users can sign in with
+their Azure Entra ID (Microsoft) account through Devise OmniAuth, using the
+[omniauth-entra-id](https://github.com/RIPAGlobal/omniauth-entra-id) strategy.
+
+Users are matched by email address (case-insensitively). If no matching
+account exists, one is created automatically with the `PQUSER` role using the
+name from the Azure profile. Soft-deleted accounts cannot sign in via SSO.
+
+For SSO to work on your local machine you will need to set the three
+`OMNIAUTH_AZURE_*` environment variables listed in `.env.sample`. A colleague
+can provide these. The tenant and client id will usually be shared across
+local/dev environments, but the client secret should be unique to your machine
+so it can be revoked individually. The Azure app registration must include
+`http://localhost:3000/users/auth/entra_id/callback` (and each deployed
+host's equivalent `https://<host>/users/auth/entra_id/callback`) as a
+redirect URI.
+
+Which sign in methods are offered is controlled by the `AUTH_METHODS`
+environment variable (see `lib/auth_methods.rb`):
+
+```
+AUTH_METHODS=both           # SSO and email/password (default when unset)
+AUTH_METHODS=sso_only       # SSO only; password sign in is blocked
+AUTH_METHODS=password_only  # email/password only; the SSO callback is blocked
+```
+
 ## Emails
 Emails are sent using the [GOVUK Notify service](https://www.notifications.service.gov.uk).
 
@@ -168,6 +196,10 @@ Instructions on setting up the `GOVUK_NOTIFY_API_KEY` can be found in the [maile
 | `TEST_USER`            | n                              | The current application version tag |
 | `TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests |
 | `GOVUK_NOTIFY_API_KEY` | y                              | A key required to send emails via [GovUK Notify](https://www.notifications.service.gov.uk/) |
+| `OMNIAUTH_AZURE_TENANT_ID` | n                          | Azure Entra ID tenant id for single sign-on |
+| `OMNIAUTH_AZURE_CLIENT_ID` | n                          | Azure Entra ID app registration (client) id for single sign-on |
+| `OMNIAUTH_AZURE_CLIENT_SECRET` | n                      | Azure Entra ID client secret for single sign-on |
+| `AUTH_METHODS`         | n                              | Sign in methods offered: `both` (default), `sso_only` or `password_only` |
 
 You can add the env variables required for local development to your `bash_profile` using the format:
 

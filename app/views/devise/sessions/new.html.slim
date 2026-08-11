@@ -2,20 +2,26 @@
   = 'Sign in - '
 
 h1.govuk-heading-l.govuk-main-wrapper--auto-spacing Sign in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  = render partial: "shared/flash_messages", flash: flash
-  = devise_error_messages!
+= render partial: "shared/flash_messages", flash: flash
+
+- if AuthMethods.password_enabled?
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    = devise_error_messages!
+    .form-group
+      label.form-label for="user_email"  Email (required)
+      = f.email_field :email, class: 'form-control', autofocus: true
+    .form-group
+      label.form-label for="user_password"  Password (required)
+      = f.password_field :password, class: 'form-control', autocomplete: "off"
+    .form-group
+      - if devise_mapping.rememberable?
+        label.block-label for="chk-remember-me"
+          = f.check_box :remember_me, {id: 'chk-remember-me'}
+          | Remember me
+    .form-group
+      = f.submit "Sign in", :id => 'sign_in', :class => 'button'
+      = render "devise/shared/links"
+
+- if AuthMethods.sso_enabled?
   .form-group
-    label.form-label for="user_email"  Email (required)
-    = f.email_field :email, class: 'form-control', autofocus: true
-  .form-group
-    label.form-label for="user_password"  Password (required)
-    = f.password_field :password, class: 'form-control', autocomplete: "off"
-  .form-group
-    - if devise_mapping.rememberable?
-      label.block-label for="chk-remember-me"
-        = f.check_box :remember_me, {id: 'chk-remember-me'}
-        | Remember me
-  .form-group
-    = f.submit "Sign in", :id => 'sign_in', :class => 'button'
-    = render "devise/shared/links"
+    = button_to t("devise.omniauth.providers_sign_in.entra_id"), user_entra_id_omniauth_authorize_path, method: :post, id: "sso_sign_in", class: "button button-secondary"

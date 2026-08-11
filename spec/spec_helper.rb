@@ -9,6 +9,7 @@ require File.expand_path("../config/environment", __dir__)
 require "rspec/rails"
 require "./spec/support/features/session_helpers"
 require "./spec/support/db_helpers"
+require "./spec/support/auth_methods_helpers"
 require "paper_trail/frameworks/rspec"
 
 ActiveRecord::Migration.maintain_test_schema!
