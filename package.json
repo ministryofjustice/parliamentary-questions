@@ -1,4 +1,8 @@
 {
+  "resolutions": {
+    "immutable": "^5.1.5",
+    "picomatch": "^2.3.2"
+  },
   "dependencies": {
     "@rails/ujs": "^7.1.501",
     "font-awesome": "^4.7.0",
