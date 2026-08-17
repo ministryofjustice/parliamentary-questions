@@ -41,7 +41,8 @@
       <p>GOV.UK uses cookies to make the site simpler. <a href="https://www.gov.uk/help/cookies" data-module="track-click" data-track-category="cookieBanner" data-track-action="Cookie banner clicked">Find out more about cookies</a></p>
     </div>
 
-    <%= govuk_header(homepage_url: "/", service_name: "PQ Tracker") %>
+    <%= govuk_header(homepage_url: "/") %>
+    <%= govuk_service_navigation(service_name: "PQ Tracker", service_url: "/") %>
 
     <div class="govuk-width-container">
       <main class="govuk-main-wrapper" id="main-content">

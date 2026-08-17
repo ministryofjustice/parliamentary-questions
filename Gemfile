@@ -20,7 +20,7 @@ gem "rails", "~> 8.1.3"
 gem "responders", "~> 3.2"
 gem "rspec_junit_formatter", "~> 0.6.0"
 gem "sentry-rails", "~> 6.0", ">= 6.0.0"
-gem "sentry-ruby", "~> 5.28"
+gem "sentry-ruby", "~> 6.0"
 gem "sidekiq", ">= 8.1.1"
 gem "sinatra", "~> 4", require: false
 gem "slim", "~> 5.2"
@@ -29,7 +29,7 @@ gem "sprockets-rails", "~> 3.5"
 gem "will_paginate", "~> 4.0"
 
 group :development do
-  gem "annotate", ">= 2.6.6"
+  gem "annotate"
 end
 
 group :test, :development do
