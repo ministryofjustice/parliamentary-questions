@@ -98,7 +98,7 @@ module PqState
       end,
       ## With POD
       Transition(DRAFT_PENDING, WITH_POD) do |pq|
-        !!pq.draft_answer_received # rubocop:disable Style/DoubleNegation
+        !!pq.draft_answer_received
       end,
       ## POD Clearance
       Transition.factory([WITH_POD], [POD_CLEARED]) do |pq|

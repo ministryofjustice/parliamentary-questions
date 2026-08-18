@@ -82,7 +82,7 @@ describe AssignmentService do
   end
 
   describe "#reject" do
-    let(:reason) { double(reason_option: "reason option", reason: "Some reason") } # rubocop:disable RSpec/VerifiedDoubles
+    let(:reason) { double(reason_option: "reason option", reason: "Some reason") }
 
     it "rejects the assignment" do
       expect(assignment).to receive(:reject).with "reason option", "Some reason"
