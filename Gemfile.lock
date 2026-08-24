@@ -158,7 +158,7 @@ GEM
       rails (>= 4.1.0)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
-    http-cookie (1.0.8)
+    http-cookie (1.1.6)
       domain_name (~> 0.5)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
@@ -191,7 +191,7 @@ GEM
       net-smtp
     marcel (1.2.1)
     matrix (0.4.3)
-    mechanize (2.14.0)
+    mechanize (2.14.1)
       addressable (~> 2.8)
       base64
       domain_name (~> 0.5, >= 0.5.20190701)
@@ -204,10 +204,10 @@ GEM
       rubyntlm (~> 0.6, >= 0.6.3)
       webrick (~> 1.7)
       webrobots (~> 0.1.2)
-    mime-types (3.6.0)
+    mime-types (3.7.0)
       logger
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.1203)
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2026.0701)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (6.0.6)
@@ -228,7 +228,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
-    nkf (0.2.0)
+    nkf (0.3.0)
     nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -452,7 +452,7 @@ GEM
       concurrent-ruby (~> 1)
     warden (1.2.9)
       rack (>= 2.0.9)
-    webrick (1.9.1)
+    webrick (1.9.2)
     webrobots (0.1.2)
     websocket (1.2.11)
     websocket-driver (0.8.2)
@@ -488,7 +488,7 @@ DEPENDENCIES
   jsbundling-rails (~> 1.3)
   logstasher (~> 3.0)
   mail (>= 2.8)
-  mechanize (~> 2.14)
+  mechanize (~> 2.14, >= 2.14.1)
   paper_trail
   parallel_tests
   pg (~> 1.6)
