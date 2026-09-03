@@ -20,7 +20,7 @@ module PQA
     def encode_answer_response(answer_response)
       Nokogiri::XML::Builder.new { |x|
         x.AnswerResponse(XML_NS) do
-          x.AswerPreviewUrl answer_response.preview_url
+          x.AnswerPreviewUrl answer_response.preview_url
         end
       }.to_xml
     end
