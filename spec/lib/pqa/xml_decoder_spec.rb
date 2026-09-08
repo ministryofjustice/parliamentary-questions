@@ -58,6 +58,22 @@ describe PQA::XmlDecoder do
           ).to eq("https://wqa.parliament.uk/Questions/Details/33367")
         end
       end
+
+      context "when round-tripping through PQA::XmlEncoder.encode_answer_response" do
+        let(:answer_response) do
+          response = PQA::AnswerResponse.new
+          response.preview_url = "https://wqa.parliament.uk/Questions/Details/33367"
+          response
+        end
+
+        let(:encoded_xml) { PQA::XmlEncoder.encode_answer_response(answer_response) }
+
+        it "preserves the preview_url" do
+          expect(
+            described_class.decode_answer_response(encoded_xml).preview_url,
+          ).to eq(answer_response.preview_url)
+        end
+      end
     end
   end
 end
