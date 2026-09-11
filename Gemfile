@@ -46,7 +46,7 @@ group :test, :development do
   gem "rails-controller-testing"
   gem "rspec-rails", ">= 8.0.3"
   gem "rubocop-govuk", ">= 5.2.0", require: false
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", ">= 4.36.0"
   gem "shoulda-matchers", ">= 8.0.0", require: false
   gem "timecop"
   gem "unicorn"
