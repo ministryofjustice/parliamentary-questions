@@ -383,9 +383,9 @@ GEM
     ruby2_keywords (0.0.5)
     rubyntlm (0.6.5)
       base64
-    rubyzip (3.1.1)
+    rubyzip (3.6.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.35.0)
+    selenium-webdriver (4.49.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -499,7 +499,7 @@ DEPENDENCIES
   rspec-rails (>= 8.0.3)
   rspec_junit_formatter (~> 0.6.0)
   rubocop-govuk (>= 5.2.0)
-  selenium-webdriver
+  selenium-webdriver (>= 4.36.0)
   sentry-rails (~> 6.0, >= 6.0.0)
   sentry-ruby (~> 6.0)
   shoulda-matchers (>= 8.0.0)
