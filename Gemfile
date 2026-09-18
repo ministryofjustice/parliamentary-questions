@@ -37,7 +37,7 @@ group :test, :development do
   gem "binding_of_caller"
   gem "brakeman"
   gem "capybara"
-  gem "capybara-lockstep", ">= 2.3.1"
+  gem "capybara-lockstep", ">= 2.3.2"
   gem "database_cleaner"
   gem "debug"
   gem "factory_bot_rails"
