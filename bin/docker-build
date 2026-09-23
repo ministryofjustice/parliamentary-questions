@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+APP_ROOT = File.expand_path("..", __dir__)
+
+FileUtils.chdir APP_ROOT do
+  ruby_version = File.read(".ruby-version").strip
+
+  exec "docker", "build", "--build-arg", "RUBY_VERSION=#{ruby_version}", *ARGV, "."
+end

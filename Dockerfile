@@ -1,4 +1,8 @@
-FROM ruby:3.4.9-alpine as base
+# Keep in sync with .ruby-version. Build via bin/docker-build, which reads
+# .ruby-version and passes it as --build-arg RUBY_VERSION, so that file
+# remains the single source of truth.
+ARG RUBY_VERSION=4.0.3
+FROM ruby:${RUBY_VERSION}-alpine as base
 
 WORKDIR /app
 

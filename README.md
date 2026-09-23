@@ -109,6 +109,21 @@ $ bundle exec rake
 
 This will run specs and rubocop linting. Or you can run them individually, with `rake rubocop` and `rake spec`.
 
+#### Building the Docker image
+
+Use `bin/docker-build` instead of `docker build` directly. It reads the Ruby
+version from `.ruby-version` and passes it as `--build-arg RUBY_VERSION`, so
+the image always matches the version pinned in that file without editing the
+Dockerfile. Any extra arguments are forwarded to `docker build` as-is; don't
+pass the trailing build context path (`.`), `bin/docker-build` adds it for you:
+
+```
+$ bin/docker-build -t parliamentary-questions
+```
+
+CI uses the same wrapper when building and pushing images, so bumping
+`.ruby-version` is enough to roll the Ruby version everywhere.
+
 ## User authentication
 
 It's done using devise and devise invitable:
