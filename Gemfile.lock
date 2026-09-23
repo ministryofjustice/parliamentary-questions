@@ -88,7 +88,7 @@ GEM
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
     bigdecimal (4.1.2)
-    binding_of_caller (1.0.1)
+    binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
     brakeman (6.2.2)
       racc
@@ -235,6 +235,7 @@ GEM
     notifications-ruby-client (6.2.0)
       jwt (>= 1.5, < 3)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     pagy (9.4.0)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
@@ -489,6 +490,7 @@ DEPENDENCIES
   logstasher (~> 3.0)
   mail (>= 2.8)
   mechanize (~> 2.14, >= 2.14.1)
+  ostruct
   paper_trail
   parallel_tests
   pg (~> 1.6)
@@ -514,7 +516,7 @@ DEPENDENCIES
   will_paginate (~> 4.0)
 
 RUBY VERSION
-   ruby 3.4.9p82
+  ruby 4.0.3p0
 
 BUNDLED WITH
-   2.4.19
+  4.0.6
