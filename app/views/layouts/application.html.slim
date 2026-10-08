@@ -8,7 +8,7 @@
     = link_to ' feedback', 'https://www.smartsurvey.co.uk/s/CD5V13/', aria: { label: 'Click to send feedback via a web form' }
     | .
 
-  - if HostEnv.is_staging?
+  - if HostEnv.is_staging? || HostEnv.is_dev?
     .staging_banner
       | This is not the live Parliamentary Questions Tracker environment
 
