@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe HealthCheckController, type: :controller do
   describe "INDEX" do
-    it "returns 200 if successful" do
+    it "returns 200 if successful, with no per-component detail" do
       service = instance_double HealthCheckService
       report = HealthCheckService::HealthCheckReport.new("200", "All Components OK")
       allow(HealthCheckService).to receive(:new).and_return(service)
@@ -12,10 +12,10 @@ describe HealthCheckController, type: :controller do
 
       get :index
       expect(response.status).to eq(200)
-      expect(response.body).to eq report.to_json
+      expect(response.body).to eq({ status: "ok" }.to_json)
     end
 
-    it "returns 500 if unsuccessful" do
+    it "returns 500 if unsuccessful, with no per-component detail" do
       service = instance_double HealthCheckService
       report = HealthCheckService::HealthCheckReport.new("500", ["Error message 1", "Error message 2"])
       allow(HealthCheckService).to receive(:new).and_return(service)
@@ -25,7 +25,7 @@ describe HealthCheckController, type: :controller do
 
       get :index
       expect(response.status).to eq(500)
-      expect(response.body).to eq report.to_json
+      expect(response.body).to eq({ status: "error" }.to_json)
     end
   end
 end

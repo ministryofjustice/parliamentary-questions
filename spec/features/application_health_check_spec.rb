@@ -12,22 +12,22 @@ describe "/healthcheck" do
   context "without errors" do
     let(:errors) { nil }
 
-    it "when there are no errors it should return a 200 code" do
+    it "when there are no errors it should return a 200 code with no per-component detail" do
       visit "/healthcheck"
 
       expect(page.status_code).to eq 200
-      expect(page).to have_content "All Components OK"
+      expect(page.body).to eq({ status: "ok" }.to_json)
     end
   end
 
   context "with errors" do
     let(:errors) { "Database Error" }
 
-    it "when there are component errors" do
+    it "when there are component errors it returns a minimal response with no per-component detail" do
       visit "/healthcheck"
 
       expect(page.status_code).to eq 500
-      expect(page.body).to match(/Database Error/)
+      expect(page.body).to eq({ status: "error" }.to_json)
     end
   end
 end
