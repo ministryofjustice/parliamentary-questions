@@ -5,9 +5,9 @@ class HealthCheckController < ApplicationController
     report = HealthCheckService.new.report
 
     if report.status == "200"
-      render(json: report)
+      render(json: { status: "ok" })
     else
-      render(json: report, status: :internal_server_error)
+      render(json: { status: "error" }, status: :internal_server_error)
     end
   end
 end

@@ -1,5 +1,6 @@
 ParliamentaryQuestions::Application.routes.draw do
   get "ping"               => "ping#index"
+  get "deploy_info"        => "ping#deploy_info"
   get "healthcheck"        => "health_check#index"
 
   resources :minister_contacts
