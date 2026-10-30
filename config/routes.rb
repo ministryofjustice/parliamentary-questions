@@ -86,4 +86,5 @@ ParliamentaryQuestions::Application.routes.draw do
 
   get "/404", to: "errors#not_found"
   get "/500", to: "errors#internal_error"
+  get "/sign_in_failed", to: "errors#sign_in_failed"
 end

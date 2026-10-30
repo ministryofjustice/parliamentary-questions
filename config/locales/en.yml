@@ -3,3 +3,10 @@ en:
     attributes:
     errors:
       models:
+  errors:
+    sign_in_failed:
+      page_title: "Error - 403 - Sign in could not be completed"
+      heading: "We could not complete your sign in"
+      no_access: "Your account may not have permission to use the Parliamentary Questions Tracker."
+      contact_prefix: "If you think this is wrong, please contact "
+      contact_suffix: " and include the time you tried to sign in."

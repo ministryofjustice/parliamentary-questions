@@ -1,0 +1,14 @@
+/ Carries no provider text, no claim values, and no link back into the
+/ handoff: the handoff auto-submits on a fresh arrival, so a retry link here
+/ would spin. Support address comes from Settings rather than being hardcoded
+/ the way the 404 and 500 pages do it.
+.govuk-width-container
+  main#main-content.govuk-main-wrapper[role="main"]
+    h1.govuk-heading-xl.govuk-main-wrapper--auto-spacing
+      = t("errors.sign_in_failed.heading")
+    p.govuk-body
+      = t("errors.sign_in_failed.no_access")
+    p.govuk-body
+      = t("errors.sign_in_failed.contact_prefix")
+      = link_to(Settings.mail_tech_support, "mailto:#{Settings.mail_tech_support}")
+      = t("errors.sign_in_failed.contact_suffix")
