@@ -3,6 +3,22 @@ en:
     attributes:
     errors:
       models:
+  users:
+    oauth_handoff:
+      # On screen for however long Entra takes, so it has to read as progress
+      # rather than as a broken page.
+      fresh:
+        heading: "Signing you in…"
+        body: "Please wait while we take you to the Ministry of Justice sign in page."
+        button: "Continue to sign in"
+      signed_out:
+        heading: "You have been signed out"
+        body: "You can sign in again at any time."
+        button: "Sign in"
+      expired:
+        heading: "Your session has expired"
+        body: "You were signed out because you were inactive for a while."
+        button: "Sign in again"
   errors:
     sign_in_failed:
       page_title: "Error - 403 - Sign in could not be completed"

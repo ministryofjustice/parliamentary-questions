@@ -22,6 +22,14 @@ ParliamentaryQuestions::Application.routes.draw do
 
   devise_for :users, controllers: { invitations: "users/invitations", sessions: "users/sessions" }
   resources  :users
+
+  # Task 9 re-points the new_user_session route name at this action and removes
+  # the standalone path below; it exists now so the handoff is reachable and
+  # testable before that switch.
+  devise_scope :user do
+    get "/users/oauth_handoff" => "users/oauth_handoff#new"
+  end
+
   resources :pqs, only: %i[index show update] do
     resource :proposal, only: %i[new create]
   end
