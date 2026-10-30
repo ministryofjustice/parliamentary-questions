@@ -284,9 +284,31 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  # Entra ID is the only real provider: one IdP, one tenant. Registered behind
+  # the flag so an environment can be put back on password login by changing a
+  # configmap rather than by shipping code.
+  #
+  # ignore_tid keeps the strategy's uid equal to the bare `oid`, which is what
+  # users.azure_oid stores. Left at its default the gem would hand back
+  # `tid + oid` concatenated, silently disagreeing with the column.
+  #
+  # The gem verifies aud, iss, exp and nbf, but neither the id_token signature
+  # nor tid. AzureOauth::Claims re-checks tid, aud and iss for that reason.
+  if Settings.oauth_azure_enabled?
+    config.omniauth :entra_id,
+                    tenant_id: Settings.omniauth_azure_tenant_id,
+                    client_id: Settings.omniauth_azure_client_id,
+                    client_secret: Settings.omniauth_azure_client_secret,
+                    scope: "openid profile email",
+                    ignore_tid: true
+  end
+
+  # The developer strategy mints an identity from an unauthenticated form, so
+  # it must not exist anywhere but a developer's laptop — not in test either,
+  # which drives OmniAuth's test mode instead. This guard is the single thing
+  # standing between a deployed environment and a forgeable login, and
+  # spec/lib/omniauth_configuration_spec.rb asserts it permanently.
+  config.omniauth :developer if Rails.env.development?
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -321,3 +343,9 @@ Devise.setup do |config|
     LogStuff.info "AUTH-LOG-OUT: user #{user.email}, log out"
   end
 end
+
+# Route every provider failure through Users::OmniauthCallbacksController#failure
+# to the PQ error page. Without this, OmniAuth re-raises in development, so a
+# cancelled sign-in would show a stack trace there and the error page
+# everywhere else — and development is where that path gets exercised.
+OmniAuth.config.failure_raise_out_environments = []
