@@ -105,8 +105,12 @@ module_function
     env_flag("OAUTH_AZURE_ENABLED")
   end
 
+  # Defaults to false: every environment, including test and localhost, uses
+  # the OAuth journey unless explicitly told otherwise. Set
+  # PASSWORD_LOGIN_ENABLED=true to mount the password routes again — it needs a
+  # restart, because routes are drawn at boot.
   def password_login_enabled?
-    env_flag("PASSWORD_LOGIN_ENABLED")
+    env_flag("PASSWORD_LOGIN_ENABLED", default: false)
   end
 
   def omniauth_azure_tenant_id

@@ -48,8 +48,22 @@ RSpec.describe Settings do
   end
 
   describe ".password_login_enabled?" do
-    it "defaults to true when unset" do
+    # Defaults the opposite way to oauth_azure_enabled?: the password path is
+    # off unless an environment explicitly asks for it.
+    it "defaults to false when unset" do
       with_env(PASSWORD_LOGIN_ENABLED: nil) do
+        expect(described_class.password_login_enabled?).to be false
+      end
+    end
+
+    it "defaults to false when the variable is set but empty" do
+      with_env(PASSWORD_LOGIN_ENABLED: "") do
+        expect(described_class.password_login_enabled?).to be false
+      end
+    end
+
+    it "is true when PASSWORD_LOGIN_ENABLED is 'true'" do
+      with_env(PASSWORD_LOGIN_ENABLED: "true") do
         expect(described_class.password_login_enabled?).to be true
       end
     end

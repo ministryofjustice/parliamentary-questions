@@ -1,4 +1,10 @@
-require "spec_helper"
+# rails_helper, not spec_helper: it is what calls
+# config.infer_spec_type_from_file_location!, and without that these specs have
+# no :feature type, so the type-scoped includes below never apply and the
+# session helpers go missing. In a full suite run another spec loads
+# rails_helper and it works by luck; running a feature spec on its own does
+# not.
+require "rails_helper"
 
 require "./spec/support/features/pq_helpers"
 require "capybara/rspec"
@@ -34,6 +40,18 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include Capybara::DSL
   config.include Features::PqHelpers
+
+  # Reset OmniAuth's mock between examples so a stubbed identity or failure
+  # cannot leak into the next one.
+  #
+  # Scoped to feature specs deliberately: with test_mode on, OmniAuth
+  # intercepts the callback path and hands back the mock, which would stop
+  # spec/requests/omniauth_request_phase_spec.rb from being able to exercise a
+  # real provider-reported failure.
+  config.after(type: :feature) do
+    OmniAuth.config.test_mode = false
+    OmniAuth.config.mock_auth.delete(:entra_id)
+  end
 end
 
 ParliamentaryQuestions::Application.default_url_options = ParliamentaryQuestions::Application.config.action_mailer.default_url_options
