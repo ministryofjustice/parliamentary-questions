@@ -52,6 +52,14 @@ RSpec.describe Users::OauthHandoffController, type: :controller do
       expect(response.body).not_to include "submit()"
     end
 
+    # The producer side of the :signed_out mode above. ApplicationController
+    # sends a signing-out user here carrying the marker, so the page confirms
+    # the sign-out instead of submitting itself and signing them back in.
+    it "is where sign out sends the user, carrying the auto-submit marker" do
+      expect(controller.after_sign_out_path_for(:user))
+        .to eq new_user_session_path(signed_out: 1)
+    end
+
     # Review Focus 3: an auto-submitting page reachable by a signed-in user is
     # a redirect loop.
     it "redirects a signed-in user to root" do

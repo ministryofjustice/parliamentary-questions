@@ -10,6 +10,7 @@ br
   p.govuk-body= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
 - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
   p.govuk-body= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
-- if devise_mapping.omniauthable?
-  - resource_class.omniauth_providers.each do |provider|
-    p.govuk-body= link_to "Sign in with # provider.to_s.titleize ", omniauth_authorize_path(resource_name, provider)
+/ The omniauthable block that used to sit here has been removed. It rendered a
+/ link_to — a GET — to the authorize path, which omniauth-rails_csrf_protection
+/ rejects, and its label was a malformed interpolation that printed literally.
+/ Users::OauthHandoffController is the only entry point into the OAuth journey.
