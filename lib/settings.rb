@@ -129,6 +129,23 @@ module_function
     "https://login.microsoftonline.com/#{omniauth_azure_tenant_id}/v2.0"
   end
 
+  # The absolute host OmniAuth should build callback URLs from.
+  #
+  # Left unset, OmniAuth derives the callback URL from the request's Host or
+  # X-Forwarded-Host header and warns on every request that this can be forged
+  # unless something in front of the app checks it. Pinning it also guarantees
+  # the redirect_uri Entra receives is https, which force_ssl plus the
+  # ingress's X-Forwarded-Proto is expected to produce but does not guarantee.
+  #
+  # nil on localhost and in test, where there is no SENDING_HOST and deriving
+  # from the request is what allows an arbitrary port to work.
+  def omniauth_full_host
+    host = ENV.fetch("SENDING_HOST", nil).to_s.strip
+    return if host.empty?
+
+    host.start_with?("http://", "https://") ? host : "https://#{host}"
+  end
+
   # Failing at boot beats failing at a user's first sign-in. Only the variable
   # name is reported, never its value.
   def validate_azure_credentials!

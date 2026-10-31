@@ -126,6 +126,40 @@ RSpec.describe Settings do
     end
   end
 
+  # OmniAuth otherwise builds the callback URL from the request's Host header,
+  # which it warns about on every request because that header can be forged.
+  # Pinning it to the environment's own host also guarantees the redirect_uri
+  # Entra receives is https, which force_ssl plus the ingress's
+  # X-Forwarded-Proto is expected to produce but does not guarantee.
+  describe ".omniauth_full_host" do
+    it "is the environment's host over https" do
+      with_env(SENDING_HOST: "staging.trackparliamentaryquestions.service.gov.uk") do
+        expect(described_class.omniauth_full_host)
+          .to eq "https://staging.trackparliamentaryquestions.service.gov.uk"
+      end
+    end
+
+    # Unset on localhost and in test, where OmniAuth should keep deriving the
+    # host from the request so that any port works.
+    it "is nil when no host is configured" do
+      with_env(SENDING_HOST: nil) do
+        expect(described_class.omniauth_full_host).to be_nil
+      end
+    end
+
+    it "is nil when the host is blank" do
+      with_env(SENDING_HOST: "  ") do
+        expect(described_class.omniauth_full_host).to be_nil
+      end
+    end
+
+    it "does not double up a scheme already present" do
+      with_env(SENDING_HOST: "https://example.gov.uk") do
+        expect(described_class.omniauth_full_host).to eq "https://example.gov.uk"
+      end
+    end
+  end
+
   describe ".validate_azure_credentials!" do
     it "does not raise when all three credentials are present in production" do
       with_env(RAILS_ENV: "production", OAUTH_AZURE_ENABLED: "true",

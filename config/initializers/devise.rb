@@ -349,3 +349,10 @@ end
 # cancelled sign-in would show a stack trace there and the error page
 # everywhere else — and development is where that path gets exercised.
 OmniAuth.config.failure_raise_out_environments = []
+
+# Build callback URLs from the environment's own host rather than from the
+# request's Host header, which can be forged. Also guarantees the redirect_uri
+# sent to Entra is https. Unset on localhost and in test, where deriving the
+# host from the request is what lets an arbitrary port work.
+full_host = Settings.omniauth_full_host
+OmniAuth.config.full_host = full_host if full_host
