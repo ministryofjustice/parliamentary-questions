@@ -29,6 +29,7 @@
 #  failed_attempts        :integer          default(0)
 #  unlock_token           :string
 #  locked_at              :datetime
+#  azure_oid              :string
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

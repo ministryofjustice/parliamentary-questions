@@ -1,0 +1,12 @@
+/ Follows not_found.html.slim, but reads the support address from Settings
+/ rather than hardcoding it.
+.govuk-width-container
+  main#main-content.govuk-main-wrapper[role="main"]
+    h1.govuk-heading-xl.govuk-main-wrapper--auto-spacing
+      = t("errors.unprocessable_content.heading")
+    p.govuk-body
+      = t("errors.unprocessable_content.body")
+    p.govuk-body
+      = t("errors.unprocessable_content.contact_prefix")
+      = link_to(Settings.mail_tech_support, "mailto:#{Settings.mail_tech_support}")
+      = t("errors.unprocessable_content.contact_suffix")

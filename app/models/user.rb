@@ -29,6 +29,7 @@
 #  failed_attempts        :integer          default(0)
 #  unlock_token           :string
 #  locked_at              :datetime
+#  azure_oid              :string
 #
 
 class User < ApplicationRecord
@@ -45,6 +46,11 @@ class User < ApplicationRecord
 
   has_paper_trail
 
+  # omniauth_providers is derived from what config/initializers/devise.rb
+  # actually registered rather than hand-listed here. Initializers run before
+  # models autoload, so this reads the real registry, and the developer
+  # strategy therefore cannot drift into a deployed environment by being
+  # forgotten in a second list.
   devise :invitable,
          :database_authenticatable,
          :recoverable,
@@ -53,6 +59,8 @@ class User < ApplicationRecord
          :lockable,
          :timeoutable,
          :validatable,
+         :omniauthable,
+         omniauth_providers: Devise.omniauth_configs.keys,
          validate_on_invite: true
 
   validates :name, presence: true

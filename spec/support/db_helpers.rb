@@ -33,13 +33,24 @@ module_function
     end
   end
 
+  # Each fixture carries a deterministic azure_oid so feature specs are matched
+  # on oid, the way a returning user is. Without it every sign-in would take
+  # the trust-on-first-use email path instead, which is meant to happen exactly
+  # once per account.
   def users
     [
-      ["pq@pq.com", "pq-user", User::ROLE_PQ_USER],
-      ["admin@admin.com", "admin-user", "#{User::ROLE_PQ_USER},#{User::ROLE_ADMIN}"],
-    ].map do |email, name, role|
+      ["pq@pq.com", "pq-user", User::ROLE_PQ_USER, "oid-pq-user"],
+      ["admin@admin.com", "admin-user", "#{User::ROLE_PQ_USER},#{User::ROLE_ADMIN}", "oid-admin-user"],
+    ].map do |email, name, role, azure_oid|
       u = User.find_or_initialize_by(email:, name:, roles: role)
-      u.update!(password: USER_PASSWORD, password_confirmation: USER_PASSWORD) if u.new_record?
+      u.azure_oid = azure_oid
+
+      if u.new_record?
+        u.password = USER_PASSWORD
+        u.password_confirmation = USER_PASSWORD
+      end
+
+      u.save! if u.changed?
       u
     end
   end

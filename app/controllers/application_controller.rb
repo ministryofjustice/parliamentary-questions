@@ -28,6 +28,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_path and return unless current_user.admin?
   end
 
+  # Carries the marker Users::OauthHandoffController reads to suppress its
+  # auto-submit. Without it the handoff would submit itself immediately, and
+  # because the Entra session outlives the PQ one the user would be signed
+  # straight back in — making "Sign out" a lie.
+  def after_sign_out_path_for(_resource_or_scope)
+    new_user_session_path(signed_out: 1)
+  end
+
 protected
 
   def set_page_title

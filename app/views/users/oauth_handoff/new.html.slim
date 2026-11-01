@@ -1,0 +1,22 @@
+/ The button is the no-JS and assistive-technology path: it carries visible
+/ text and is never hidden. The auto-submit script is an enhancement on top of
+/ it, rendered only for a fresh arrival.
+.govuk-width-container
+  main#main-content.govuk-main-wrapper[role="main"]
+    h1.govuk-heading-xl.govuk-main-wrapper--auto-spacing
+      = t("users.oauth_handoff.#{@mode}.heading")
+    p.govuk-body
+      = t("users.oauth_handoff.#{@mode}.body")
+    = button_to t("users.oauth_handoff.#{@mode}.button"), \
+      omniauth_authorize_path(:user, @provider), \
+      method: :post, \
+      class: "govuk-button", \
+      data: { module: "govuk-button" }, \
+      form: { id: "oauth-handoff-form" }
+
+    / Nonced because CSP sets script_src without 'unsafe-inline' and lists
+    / script-src in nonce_directives: an un-nonced inline script is blocked by
+    / the browser, and the auto-submit would silently never fire.
+    - if @mode == :fresh
+      = javascript_tag nonce: true do
+        | document.getElementById("oauth-handoff-form").submit();
