@@ -58,20 +58,44 @@ RSpec.describe AzureOauth::Claims do
       expect(claims.error).to eq :tenant_mismatch
     end
 
-    it "is false when aud does not match the configured client id" do
-      claims = described_class.new(entra_auth(aud: "some-other-client"))
+    # aud and iss are NOT re-checked here, and must not be.
+    #
+    # omniauth-entra-id validates aud, iss, exp and nbf itself, with
+    # JWT::Claims.verify_payload! against the id_token — and it does so BEFORE
+    # `id_token_data.merge!(auth_token_data)` overwrites those keys with the
+    # ACCESS token's values. So the merged raw_info this class reads can carry
+    # Graph's app id as aud and the v1 `sts.windows.net` issuer, for any
+    # account type whose access token happens to decode. Re-checking them here
+    # would refuse every legitimate sign-in, in some tenants and not others.
+    #
+    # tid is different: it is identical in both tokens, the gem never checks
+    # it, and tenant membership is the only access gate — so that check stays
+    # and is the only one of its kind in the system.
+    it "accepts the access token's audience, which the merge may leave in raw_info" do
+      claims = described_class.new(
+        entra_auth(aud: "00000003-0000-0000-c000-000000000000"),
+      )
 
-      expect(claims).not_to be_valid
-      expect(claims.error).to eq :audience_mismatch
+      expect(claims).to be_valid
     end
 
-    it "is false when iss is not the expected issuer for the tenant" do
+    it "accepts the v1 issuer form, which the merge may leave in raw_info" do
       claims = described_class.new(
-        entra_auth(iss: "https://login.microsoftonline.com/elsewhere/v2.0"),
+        entra_auth(iss: "https://sts.windows.net/#{tenant_id}/"),
+      )
+
+      expect(claims).to be_valid
+    end
+
+    it "still refuses a response from another tenant" do
+      claims = described_class.new(
+        entra_auth(tid: "another-tenant",
+                   aud: "00000003-0000-0000-c000-000000000000",
+                   iss: "https://sts.windows.net/another-tenant/"),
       )
 
       expect(claims).not_to be_valid
-      expect(claims.error).to eq :issuer_mismatch
+      expect(claims.error).to eq :tenant_mismatch
     end
 
     it "is false when oid is blank" do
@@ -92,19 +116,6 @@ RSpec.describe AzureOauth::Claims do
       expect(claims.error).to eq :missing_oid
     end
 
-    # aud is permitted to be an array in a JWT, and raw_info merges the access
-    # token's claims over the id token's. A naive string compare would reject
-    # every sign-in for a tenant whose tokens carry a multi-valued audience.
-    it "accepts an aud array that contains the configured client id" do
-      expect(described_class.new(entra_auth(aud: ["other-client", client_id]))).to be_valid
-    end
-
-    it "rejects an aud array that does not contain the configured client id" do
-      claims = described_class.new(entra_auth(aud: %w[other-client another-client]))
-
-      expect(claims.error).to eq :audience_mismatch
-    end
-
     # Failing closed matters more than convenience here: tenant membership is
     # the only access gate, so an unconfigured tenant must authenticate nobody
     # rather than everybody.
@@ -112,15 +123,7 @@ RSpec.describe AzureOauth::Claims do
       allow(Settings).to receive(:omniauth_azure_tenant_id).and_return(nil)
 
       expect(described_class.new(entra_auth)).not_to be_valid
-    end
-
-    it "is false when no client id is configured" do
-      allow(Settings).to receive(:omniauth_azure_client_id).and_return(nil)
-
-      claims = described_class.new(entra_auth)
-
-      expect(claims).not_to be_valid
-      expect(claims.error).to eq :audience_mismatch
+      expect(described_class.new(entra_auth).error).to eq :tenant_mismatch
     end
   end
 

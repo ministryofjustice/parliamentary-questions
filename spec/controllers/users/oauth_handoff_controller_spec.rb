@@ -26,6 +26,45 @@ RSpec.describe Users::OauthHandoffController, type: :controller do
       expect(response.body).to include 'method="post"'
     end
 
+    it "hands off to Entra when Azure credentials are configured" do
+      get :new
+
+      expect(assigns(:provider)).to eq :entra_id
+    end
+
+    # A developer's laptop has no Azure credentials, and the developer strategy
+    # is registered in development only. Posting to :entra_id there makes the
+    # gem raise ArgumentError ("You must provide either client_secret or
+    # certificate_path and tenant_id"), which lands the developer on the
+    # failure page with no way in — so local sign-in, and with it every manual
+    # verification step in the plan, is impossible.
+    context "when there is no Azure client secret, as on a developer's laptop" do
+      # The developer routes exist only in development, so the path helper the
+      # view would call is absent here.
+      render_views false
+
+      before do
+        allow(Settings).to receive(:omniauth_azure_client_secret).and_return(nil)
+        allow(User).to receive(:omniauth_providers).and_return(%i[entra_id developer])
+      end
+
+      it "hands off to the developer strategy instead" do
+        get :new
+
+        expect(assigns(:provider)).to eq :developer
+      end
+    end
+
+    # A developer who sets the three variables gets the real round trip, which
+    # is what the spec says should happen.
+    it "prefers Entra over the developer strategy once a secret is configured" do
+      allow(User).to receive(:omniauth_providers).and_return(%i[entra_id developer])
+
+      get :new
+
+      expect(assigns(:provider)).to eq :entra_id
+    end
+
     it "includes an auto-submit script on a fresh arrival" do
       get :new
 

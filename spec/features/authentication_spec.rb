@@ -43,6 +43,21 @@ describe "authentication" do
     expect(page).to have_no_link "Sign out"
   end
 
+  it "writes the sign out to the audit log, without the email address" do
+    create_pq_session
+    visit dashboard_path
+
+    messages = []
+    allow(LogStuff).to receive(:info) { |*_args, &block| messages << block&.call }
+
+    click_link "Sign out"
+
+    output = messages.compact.join("\n")
+    expect(output).to include "AUTH-LOG-OUT"
+    expect(output).to include pq_user.id.to_s
+    expect(output).not_to include pq_user.email
+  end
+
   it "stays signed out until the user asks to sign in again" do
     create_pq_session
     visit dashboard_path
@@ -51,6 +66,24 @@ describe "authentication" do
     visit dashboard_path
 
     expect(page).to have_current_path "/users/sign_in"
+  end
+
+  # Task 13 gated AdminController on authenticate_admin!, which redirects
+  # non-admins to root. Leaving the link visible to everyone meant a basic user
+  # clicked a nav item and was silently returned to where they started.
+  it "does not offer Settings to a basic PQ user" do
+    create_pq_session
+    visit dashboard_path
+
+    expect(page).to have_link "Sign out"
+    expect(page).to have_no_link "Settings"
+  end
+
+  it "offers Settings to an admin" do
+    create_admin_session
+    visit dashboard_path
+
+    expect(page).to have_link "Settings"
   end
 
   it "provisions an unknown tenant user as a basic PQ user" do

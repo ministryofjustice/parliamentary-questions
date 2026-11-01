@@ -126,6 +126,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get "/accessibility" => "pages#accessibility"
 
   get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unprocessable_content"
   get "/500", to: "errors#internal_error"
   get "/sign_in_failed", to: "errors#sign_in_failed"
 end

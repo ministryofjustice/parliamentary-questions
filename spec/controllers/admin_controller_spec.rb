@@ -15,6 +15,11 @@ RSpec.describe AdminController, type: :controller do
   end
 
   context "when signed in as an admin" do
+    # Renders for real: this page links on to the administration screens, and a
+    # route helper removed by the conditional routing would otherwise only
+    # surface in production.
+    render_views
+
     it "renders the settings page" do
       sign_in create(:admin)
 

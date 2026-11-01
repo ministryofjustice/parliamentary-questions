@@ -19,11 +19,13 @@ module AzureOauth
   #
   # The gem does NOT verify the id_token signature — both decodes are
   # `JWT.decode(token, nil, false)` — and relies on having received the token
-  # over TLS straight from the token endpoint. It DOES verify aud, iss, exp and
-  # nbf via JWT::Claims.verify_payload!, but it never verifies tid. Tenant
-  # membership is this service's only access gate, so tid, aud and iss are all
-  # re-checked here as defence in depth, and the tid check below is the only
-  # one of its kind in the system.
+  # over TLS straight from the token endpoint.
+  #
+  # It DOES verify aud, iss, exp and nbf, via JWT::Claims.verify_payload!
+  # against the id_token, immediately BEFORE merging the access token's claims
+  # over it. So those four are already enforced on the correct token, and the
+  # values left in the merged raw_info below are not necessarily the id_token's
+  # — which is why this class checks only `tid`. See #entra_error.
   #
   # #error is for logging only and is never rendered: provider-supplied text
   # reaching a PQ-branded page is a reflected-content vector.
@@ -91,23 +93,26 @@ module AzureOauth
       :missing_oid if raw_oid.blank?
     end
 
+    # Only `tid` is checked here, deliberately.
+    #
+    # The gem validates `aud`, `iss`, `exp` and `nbf` itself, via
+    # JWT::Claims.verify_payload! against the id_token — and crucially it does
+    # so BEFORE `id_token_data.merge!(auth_token_data)` overwrites those keys
+    # with the ACCESS token's values. The merged raw_info visible here can
+    # therefore carry Graph's app id as `aud` and the v1 `sts.windows.net`
+    # issuer, for any account type whose access token happens to decode. A
+    # re-check here would refuse every legitimate sign-in — in some tenants and
+    # not others, depending on whether that decode succeeds.
+    #
+    # `tid` is the opposite case and is why this method still exists: it is
+    # identical in both tokens, the gem never verifies it, and tenant
+    # membership is this service's only access gate. This is the only tid check
+    # in the system.
     def entra_error
       return :tenant_mismatch unless claim_matches?(raw_info["tid"], Settings.omniauth_azure_tenant_id)
-      return :audience_mismatch unless audience_matches?
-      return :issuer_mismatch unless claim_matches?(raw_info["iss"], Settings.azure_issuer)
       return :missing_oid if raw_oid.blank?
 
       nil
-    end
-
-    # `aud` is permitted to be an array in a JWT, and raw_info merges the
-    # access token's claims over the id token's, so a single-value compare
-    # would reject every sign-in in a tenant whose tokens carry several.
-    def audience_matches?
-      expected = Settings.omniauth_azure_client_id
-      return false if expected.blank?
-
-      Array(raw_info["aud"]).any? { |value| claim_matches?(value, expected) }
     end
 
     # A blank expected value never matches. An unconfigured tenant must

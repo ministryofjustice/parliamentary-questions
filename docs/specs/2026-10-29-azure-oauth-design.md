@@ -23,8 +23,20 @@ Agreed with the repository owner during implementation:
 - The gem does **not** verify the id_token signature — both decodes are
   `JWT.decode(token, nil, false)`, relying on TLS from the token endpoint. It
   *does* verify `aud`, `iss`, `exp` and `nbf` via `JWT::Claims.verify_payload!`.
-  It does **not** verify `tid`. Designer decision 5's own `tid`/`aud`/`iss`
-  validation is retained as defence in depth, and is the only `tid` check.
+  It does **not** verify `tid`.
+- **Designer decision 5 is amended: PQ validates `tid` only, not `aud` or
+  `iss`.** The gem runs its `aud`/`iss`/`exp`/`nbf` check against the id_token
+  *immediately before* `id_token_data.merge!(auth_token_data)` overwrites those
+  keys with the **access token's** values. The merged `extra.raw_info` that PQ
+  can see therefore carries Graph's app id as `aud` and the v1
+  `https://sts.windows.net/{tid}/` issuer whenever the access token decodes —
+  which depends on the account type. Re-checking them in
+  `AzureOauth::Claims` refused exactly those responses, so the belt-and-braces
+  intended by decision 5 was in practice a sign-in outage that would appear in
+  some tenants and not others. Those two claims are already enforced, on the
+  correct token, by the gem. `tid` is unaffected and still checked by PQ: it is
+  identical in both tokens, the gem never verifies it, and tenant membership is
+  the only access gate — so it remains the one claim check PQ owns.
 - Registered with `ignore_tid: true` so the gem's `uid` is the bare `oid` that
   `azure_oid` stores, rather than its default `tid + oid` concatenation.
 

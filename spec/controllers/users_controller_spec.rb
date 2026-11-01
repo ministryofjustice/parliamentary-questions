@@ -45,10 +45,43 @@ RSpec.describe UsersController, type: :controller do
   end
 
   context "when signed in as an admin" do
+    # Renders for real. Without this, `have_http_status :ok` passes while the
+    # template raises on a route helper that no longer exists — which is
+    # exactly what happened: invitations are not mounted when password login is
+    # off, so `new_user_invitation_path` was undefined and this, the only
+    # user-administration screen, 500ed in every deployed environment.
+    render_views
+
     before { sign_in create(:admin) }
 
     it "lists users" do
       get :index
+
+      expect(response).to have_http_status :ok
+    end
+
+    it "renders the user list without a dead invitation link" do
+      create(:user, email: "listed@justice.gov.uk", name: "Listed User")
+
+      get :index
+
+      expect(response.body).to include "Listed User"
+      expect(response.body).not_to include "Invite new user"
+    end
+
+    it "renders a user's details" do
+      user = create(:user, email: "shown@justice.gov.uk", name: "Shown User")
+
+      get :show, params: { id: user.id }
+
+      expect(response).to have_http_status :ok
+      expect(response.body).to include "Shown User"
+    end
+
+    it "renders the edit form" do
+      user = create(:user, email: "edited@justice.gov.uk", name: "Edited User")
+
+      get :edit, params: { id: user.id }
 
       expect(response).to have_http_status :ok
     end

@@ -46,6 +46,13 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
     messages.join("\n")
   end
 
+  def info_from
+    messages = []
+    allow(LogStuff).to receive(:info) { |*_args, &block| messages << block&.call }
+    yield
+    messages.compact.join("\n")
+  end
+
   describe "GET entra_id" do
     it "signs in a user whose oid is known" do
       user = create(:user, email: "jane.smith@justice.gov.uk", name: "Jane", azure_oid: oid)
@@ -102,6 +109,27 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
       expect(session[:planted_before_sign_in]).to be_nil
     end
 
+    # The Warden hook in the Devise initializer is the forensic record of who
+    # signed in. It was written with a bare string, and LogStuff.log opens with
+    # `return unless block_given?`, so it logged nothing at all — on the very
+    # journey this branch introduces.
+    it "writes the sign in to the audit log" do
+      user = create(:user, email: "jane.smith@justice.gov.uk", name: "Jane", azure_oid: oid)
+
+      output = info_from { get :entra_id }
+
+      expect(output).to include "AUTH-LOG-IN"
+      expect(output).to include user.id.to_s
+    end
+
+    it "keeps the email address out of the audit log" do
+      create(:user, email: "jane.smith@justice.gov.uk", name: "Jane", azure_oid: oid)
+
+      output = info_from { get :entra_id }
+
+      expect(output).not_to include "jane.smith@justice.gov.uk"
+    end
+
     it "handles the developer strategy with the same action as the real provider" do
       expect(described_class.instance_method(:developer).original_name).to eq :entra_id
     end
@@ -115,20 +143,21 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
         expect(response).to redirect_to sign_in_failed_path
       end
 
-      it "redirects to the failure page when the audience does not match" do
-        request.env["omniauth.auth"] = auth_hash(aud: "another-client")
+      # aud and iss are enforced by the gem against the id_token, before it
+      # merges the access token's claims over them — so the values that reach
+      # here may legitimately be Graph's app id and the v1 issuer. Signing in
+      # must still succeed; refusing these was a sign-in outage.
+      it "signs in despite the access token's audience and issuer in raw_info" do
+        create(:user, email: "jane.smith@justice.gov.uk", name: "Jane", azure_oid: oid)
+        request.env["omniauth.auth"] = auth_hash(
+          aud: "00000003-0000-0000-c000-000000000000",
+          iss: "https://sts.windows.net/#{tenant_id}/",
+        )
 
         get :entra_id
 
-        expect(response).to redirect_to sign_in_failed_path
-      end
-
-      it "redirects to the failure page when the issuer does not match" do
-        request.env["omniauth.auth"] = auth_hash(iss: "https://login.microsoftonline.com/elsewhere/v2.0")
-
-        get :entra_id
-
-        expect(response).to redirect_to sign_in_failed_path
+        expect(controller.current_user).to be_present
+        expect(response).not_to redirect_to sign_in_failed_path
       end
 
       it "redirects to the failure page when the oid is missing" do

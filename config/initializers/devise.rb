@@ -335,12 +335,17 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
+  # Block form is required: LogStuff.log opens with
+  # `return unless block_given?`, so the previous bare-string calls logged
+  # nothing at all — leaving no audit trail for sign in or sign out.
+  #
+  # Identified by id rather than email, to keep personal data out of the logs.
   Warden::Manager.after_authentication do |user, _auth, _opts|
-    LogStuff.info "AUTH-LOG-IN: user #{user.email}, log in"
+    LogStuff.info(:auth) { "AUTH-LOG-IN: user #{user.id}, log in" }
   end
 
   Warden::Manager.before_logout do |user, _auth, _opts|
-    LogStuff.info "AUTH-LOG-OUT: user #{user.email}, log out"
+    LogStuff.info(:auth) { "AUTH-LOG-OUT: user #{user&.id}, log out" }
   end
 end
 

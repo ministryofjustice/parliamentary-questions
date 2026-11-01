@@ -20,6 +20,12 @@ en:
         body: "You were signed out because you were inactive for a while."
         button: "Sign in again"
   errors:
+    unprocessable_content:
+      page_title: "Error - 422 - Request could not be processed"
+      heading: "Sorry, we could not process that request"
+      body: "This can happen if a page was left open for a long time. Please go back and try again."
+      contact_prefix: "If it keeps happening, please contact "
+      contact_suffix: " with the details to report this issue."
     sign_in_failed:
       page_title: "Error - 403 - Sign in could not be completed"
       heading: "We could not complete your sign in"

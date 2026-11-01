@@ -16,9 +16,30 @@ module Users
 
     def new
       @mode = mode
+      @provider = handoff_provider
     end
 
   private
+
+    # Which strategy the form posts to.
+    #
+    # A developer's laptop has no Azure credentials, and posting to :entra_id
+    # there makes the gem raise ArgumentError, so the developer lands on the
+    # failure page with no way in. The developer strategy is registered in
+    # development only (see the guard in the Devise initializer), so prefer it
+    # exactly when it exists and there is no secret to do the real round trip
+    # with. A developer who sets the three variables gets the real provider,
+    # which is what the spec intends.
+    def handoff_provider
+      return :developer if developer_strategy_available?
+
+      :entra_id
+    end
+
+    def developer_strategy_available?
+      User.omniauth_providers.include?(:developer) &&
+        Settings.omniauth_azure_client_secret.blank?
+    end
 
     # An auto-submitting page reachable by a signed-in user is a loop.
     def redirect_signed_in_user

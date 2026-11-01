@@ -29,6 +29,35 @@ RSpec.describe ErrorsController, type: :controller do
     end
   end
 
+  # config.exceptions_app is the route set, and ShowExceptions rewrites
+  # PATH_INFO to "/<status>". Without a /422 route, an
+  # ActionController::InvalidAuthenticityToken — which Rails maps to 422 —
+  # found nothing to render and the user got a completely blank page. That is
+  # reachable by a legitimate user: the handoff's signed-out and expired modes
+  # deliberately wait for a click, so the page can sit open long enough for its
+  # token to go stale.
+  context "when the request could not be processed" do
+    render_views
+
+    it "renders the expected template" do
+      get :unprocessable_content
+
+      expect(response).to render_template(:unprocessable_content)
+    end
+
+    it "responds 422" do
+      get :unprocessable_content
+
+      expect(response.status).to eq 422
+    end
+
+    it "is not blank, and points the user at support" do
+      get :unprocessable_content
+
+      expect(response.body).to include Settings.mail_tech_support
+    end
+  end
+
   context "when sign in failed" do
     # Controller specs do not render views by default, which would make every
     # body assertion below pass against an empty string.
