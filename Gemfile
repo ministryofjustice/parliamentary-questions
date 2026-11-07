@@ -45,7 +45,7 @@ group :test, :development do
   gem "faker"
   gem "parallel_tests"
   gem "rails-controller-testing"
-  gem "rspec-rails", ">= 8.0.3"
+  gem "rspec-rails", ">= 8.0.5"
   gem "rubocop-govuk", ">= 5.2.0", require: false
   gem "selenium-webdriver", ">= 4.36.0"
   gem "shoulda-matchers", ">= 8.0.0", require: false
