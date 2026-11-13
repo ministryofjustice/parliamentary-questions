@@ -21,7 +21,7 @@ gem "rails", "~> 8.1.4"
 gem "responders", "~> 3.2", ">= 3.2.1"
 gem "rspec_junit_formatter", "~> 0.6.0"
 gem "sentry-rails", "~> 7.0", ">= 7.0.0"
-gem "sentry-ruby", "~> 6.0"
+gem "sentry-ruby", "~> 7.0"
 gem "sidekiq", ">= 8.1.1"
 gem "sinatra", "~> 4", require: false
 gem "slim", "~> 5.2"
