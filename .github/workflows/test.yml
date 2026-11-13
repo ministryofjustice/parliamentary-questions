@@ -61,6 +61,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1"
       PQ_REST_API_HOST: http://localhost:8888
+      GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
       CI: true
       CI_TOTAL_JOBS: ${{ matrix.ci_total_jobs }}
       CI_JOB_INDEX: ${{ matrix.ci_job_index }}
@@ -109,6 +110,7 @@ jobs:
     permissions: write-all
     env:
       RAILS_ENV: test
+      GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

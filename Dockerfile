@@ -33,7 +33,7 @@ RUN bundle config deployment true && \
 COPY . .
 
 RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass \
-    SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
+    GOVUK_NOTIFY_API_KEY=dummy SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
 
 # Copy govuk assets
 RUN cp -r node_modules/govuk-frontend/dist/govuk/assets/. public/assets/
