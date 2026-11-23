@@ -39,7 +39,7 @@ describe "authentication" do
 
     click_link "Sign out"
 
-    expect(page).to have_content "You have been signed out"
+    expect(page).to have_text "You have been signed out"
     expect(page).to have_no_link "Sign out"
   end
 
@@ -109,7 +109,7 @@ describe "authentication" do
     complete_entra_sign_in
 
     expect(page).to have_current_path "/sign_in_failed"
-    expect(page).to have_content "contact"
+    expect(page).to have_text "contact"
   end
 
   it "reactivates a returning removed user as a basic user" do
