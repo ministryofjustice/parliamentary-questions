@@ -13,7 +13,7 @@ describe "authentication" do
   it "never shows a password field" do
     visit dashboard_path
 
-    expect(page).to have_no_field "Password (required)"
+    expect(page).to have_no_field "Password (required)" # rubocop:disable Capybara/RSpec/NegationMatcherAfterVisit
   end
 
   # Exercises the interstitial for real, rather than going straight to the
