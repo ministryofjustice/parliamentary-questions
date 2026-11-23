@@ -93,7 +93,9 @@ module_function
   end
 
   def govuk_notify_api_key
-    ENV.fetch("GOVUK_NOTIFY_API_KEY", nil) || @h["govuk_notify_api_key"]
+    ENV.fetch("GOVUK_NOTIFY_API_KEY") do
+      raise "Cannot find environment variable GOVUK_NOTIFY_API_KEY. Please set it first"
+    end
   end
 
   # The OAuth flags and credentials below read ENV on every call rather than
