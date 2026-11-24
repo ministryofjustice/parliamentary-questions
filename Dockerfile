@@ -38,6 +38,7 @@ COPY . .
 # They are never used — nothing authenticates during asset compilation — and
 # the real values come from the configmap and pq-secrets at runtime.
 RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass \
+    GOVUK_NOTIFY_API_KEY=dummy \
     OMNIAUTH_AZURE_TENANT_ID=dummy OMNIAUTH_AZURE_CLIENT_ID=dummy OMNIAUTH_AZURE_CLIENT_SECRET=dummy \
     SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
 
