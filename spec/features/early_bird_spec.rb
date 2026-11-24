@@ -10,7 +10,7 @@ describe "Early bird member sees allocated questions" do
   end
 
   it "An admin can create a new early bird member", :js do
-    create_pq_session
+    create_admin_session
     click_link "Settings"
     click_link "Early bird list"
     click_link_or_button "Add early bird member"

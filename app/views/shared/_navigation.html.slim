@@ -3,7 +3,11 @@
     = sn.with_navigation_item(text: "New", href: dashboard_path)
     = sn.with_navigation_item(text: "In progress", href: dashboard_in_progress_path)
     = sn.with_navigation_item(text: "Backlog", href: dashboard_backlog_path)
-    = sn.with_navigation_item(text: "Settings", href: admin_path)
+    / Admin-only: AdminController requires authenticate_admin!, so showing this
+    / to every PQ user meant clicking it bounced them back to the dashboard
+    / with no explanation.
+    - if current_user.admin?
+      = sn.with_navigation_item(text: "Settings", href: admin_path)
     = sn.with_navigation_item(text: "Sign out", href: destroy_user_session_path)
     = sn.with_end_slot do
       = form_tag(search_path, { :method => 'get', :id => 'search_form', :class => 'navbar-form navbar-right', :role => 'search'}) do

@@ -126,10 +126,82 @@ CI uses the same wrapper when building and pushing images, so bumping
 
 ## User authentication
 
-It's done using devise and devise invitable:
+Users sign in with OAuth 2.0 against **Microsoft Entra ID** (Azure AD), using
+[OmniAuth](https://github.com/omniauth/omniauth) through Devise's
+`omniauthable` module. PQ holds no passwords and inherits the MoJ tenant's
+controls — MFA, conditional access, and the joiner/leaver process.
 
+* https://github.com/pond/omniauth-entra-id
 * https://github.com/plataformatec/devise
 * https://github.com/scambra/devise_invitable
+
+### How a sign in works
+
+Any unauthenticated request redirects to `/users/sign_in`, which is an
+interstitial that immediately POSTs to the OmniAuth authorize path. It is a
+form rather than a redirect because `omniauth-rails_csrf_protection` requires
+the request phase to be a POST carrying a valid authenticity token (the fix for
+CVE-2015-9284). The page has a visible button, which is the path for anyone
+without JavaScript.
+
+After an explicit sign out or a session timeout the same page does **not**
+submit itself — it waits for a click. The Entra session outlives the PQ one, so
+auto-submitting would sign the user straight back in and make "Sign out"
+meaningless.
+
+Any failure — a refused claim, a cancelled sign in, a provider error — lands on
+`/sign_in_failed`, a PQ-owned page that directs the user to support. Reasons are
+logged and never rendered.
+
+### Identity
+
+Accounts are keyed on the Entra **immutable object id** (`oid`), stored in
+`users.azure_oid`, not on email.
+
+* On a user's first sign in, PQ matches them to an existing account by email,
+  case-insensitively, and records the `oid`. **That is the only time email is
+  trusted for an account.** The link is logged at warn level.
+* After that the account is pinned. An email match onto a row already holding a
+  different `oid` is refused, since that is what an address reassigned within
+  the tenant would look like.
+* An unknown tenant user is provisioned automatically with the `PQUSER` role.
+  Any account in the MoJ tenant can sign in; there is no domain allowlist and no
+  group check.
+* A returning soft-deleted user is **reactivated in place** — never duplicated —
+  and their roles are reset to `PQUSER`, so re-enabling an account cannot
+  silently restore admin rights. Re-granting `ADMIN` needs the console.
+* Name and email are refreshed from Entra on every sign in. If the email now
+  belongs to another account the sync is skipped and logged; the `oid` already
+  proves who they are.
+
+### Local development
+
+**You do not need Azure credentials to work on PQ locally.** The OmniAuth
+`developer` strategy is registered in the development environment only, and
+gives you a local form that exercises the whole callback path — claim
+validation, identity resolution, provisioning, sign in — with no secret on your
+machine. Developer identities get a `dev-` prefixed `oid`, so they can never
+collide with a real Entra one.
+
+The guard that keeps that strategy out of deployed environments is asserted
+permanently by `spec/lib/omniauth_configuration_spec.rb`. It must stay there.
+
+If you want to exercise the real round trip, set `OMNIAUTH_AZURE_TENANT_ID`,
+`OMNIAUTH_AZURE_CLIENT_ID` and `OMNIAUTH_AZURE_CLIENT_SECRET`; the
+`http://localhost:3000` redirect URI is already registered in Azure.
+
+### Getting the password form back
+
+The email/password path is still in the codebase, switched off by a flag. Set
+`PASSWORD_LOGIN_ENABLED=true` and **restart** — routes are drawn at boot, so a
+running process will not pick it up. With the flag off the password routes are
+not mounted at all: `/users/password/new` and the invitation routes 404 rather
+than merely being hidden.
+
+The two flags are independent, so with password login on the OAuth journey
+remains available at `/users/oauth_handoff`.
+
+### Creating users locally
 
 For development, you can create users with a rake task.
 
@@ -183,6 +255,11 @@ Instructions on setting up the `GOVUK_NOTIFY_API_KEY` can be found in the [maile
 | `TEST_USER`            | n                              | The current application version tag |
 | `TEST_USER_PASS`       | y                              | The password for the test users created by `rake db:staging:sync` and smoke tests |
 | `GOVUK_NOTIFY_API_KEY` | y                              | A key required to send emails via [GovUK Notify](https://www.notifications.service.gov.uk/) |
+| `OMNIAUTH_AZURE_TENANT_ID` | n                          | Entra tenant id. A public identifier, so it lives in the configmap. Not needed locally — the developer strategy covers it |
+| `OMNIAUTH_AZURE_CLIENT_ID` | n                          | Entra app registration client id. Also public, also in the configmap |
+| `OMNIAUTH_AZURE_CLIENT_SECRET` | n                      | Entra client secret. **Never commit this** — it lives in the `pq-secrets` secret, managed outside this repo |
+| `OAUTH_AZURE_ENABLED`  | n                              | Defaults to `true`. With it on, a production environment refuses to boot unless all three credentials above are set |
+| `PASSWORD_LOGIN_ENABLED` | n                            | Defaults to `false`. Set to `true` to mount the email/password routes again; needs a restart |
 
 You can add the env variables required for local development to your `bash_profile` using the format:
 

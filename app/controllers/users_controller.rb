@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  # Admins only, not merely signed-in users. user_params below permits :roles
+  # and :deleted, and the role select in the edit view offers only PQUSER — so
+  # the interface hid self-escalation rather than preventing it, and a crafted
+  # PATCH set roles to "PQUSER,ADMIN". That was reachable only with an emailed
+  # invitation before; with Entra auto-provisioning, anyone holding an account
+  # in the MoJ tenant can sign in and reach it.
+  before_action :authenticate_admin!
 
   def index
     @users = User.active_list

@@ -32,8 +32,15 @@ RUN bundle config deployment true && \
 
 COPY . .
 
+# The Azure values below are dummies for the same reason as PQ_REST_API_*:
+# assets are precompiled with RAILS_ENV=production, and Settings refuses to
+# boot a production environment that has OAuth enabled without credentials.
+# They are never used — nothing authenticates during asset compilation — and
+# the real values come from the configmap and pq-secrets at runtime.
 RUN RAILS_ENV=production PQ_REST_API_HOST=localhost PQ_REST_API_USERNAME=user PQ_REST_API_PASSWORD=pass \
-    GOVUK_NOTIFY_API_KEY=dummy SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
+    GOVUK_NOTIFY_API_KEY=dummy \
+    OMNIAUTH_AZURE_TENANT_ID=dummy OMNIAUTH_AZURE_CLIENT_ID=dummy OMNIAUTH_AZURE_CLIENT_SECRET=dummy \
+    SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
 
 # Copy govuk assets
 RUN cp -r node_modules/govuk-frontend/dist/govuk/assets/. public/assets/

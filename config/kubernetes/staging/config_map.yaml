@@ -4,6 +4,23 @@ data:
   RAILS_ENV: production
   SENDING_HOST: staging.trackparliamentaryquestions.service.gov.uk
   DB_NAME: parliamentary_questions_staging
+  # Authentication is OAuth against Microsoft Entra ID. The password form is
+  # retained in code but not mounted; set PASSWORD_LOGIN_ENABLED to "true" to
+  # put it back, which needs a pod restart because routes are drawn at boot.
+  OAUTH_AZURE_ENABLED: "true"
+  PASSWORD_LOGIN_ENABLED: "false"
+  # Tenant and client id are public identifiers — they appear in the authorize
+  # URL — so they belong here rather than in a secret. The client secret does
+  # NOT: it lives in the pq-secrets secret, managed outside this repo.
+  #
+  # TODO: set these to this environment's app registration values before
+  # deploying. They are deliberately left empty rather than filled with a
+  # placeholder: Settings refuses to boot a production environment that has
+  # OAuth enabled without credentials, so an unset value fails immediately and
+  # visibly instead of letting the app start and then refusing every user at
+  # their first sign-in.
+  OMNIAUTH_AZURE_TENANT_ID: ""
+  OMNIAUTH_AZURE_CLIENT_ID: ""
 kind: ConfigMap
 metadata:
   name: environment-variables

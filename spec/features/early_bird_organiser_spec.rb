@@ -15,7 +15,7 @@ describe "Early bird organisers can be set" do
   let(:current_early_bird_status_text_two) { "The early bird is currently turned off between #{date_from_new} and #{date_to_new}." }
 
   it "An admin can create set early birds not to run between two dates" do
-    create_pq_session
+    create_admin_session
     click_link "Settings"
     click_link_or_button "Suspend early bird email"
     fill_in date_from_field, with: date_from
@@ -28,7 +28,7 @@ describe "Early bird organisers can be set" do
   end
 
   it "When an early bird has been set, there is a message explaining this on the organiser page" do
-    create_pq_session
+    create_admin_session
     click_link "Settings"
     click_link_or_button "Suspend early bird email"
     fill_in date_from_field, with: date_from
@@ -40,7 +40,7 @@ describe "Early bird organisers can be set" do
   end
 
   it "An early bird can be overwritten by entering new dates" do
-    create_pq_session
+    create_admin_session
     click_link "Settings"
     click_link_or_button "Suspend early bird email"
     fill_in date_from_field, with: date_from

@@ -20,8 +20,49 @@ ParliamentaryQuestions::Application.routes.draw do
   resources :early_bird_members
   resources :action_officers
 
-  devise_for :users, controllers: { invitations: "users/invitations", sessions: "users/sessions" }
-  resources  :users
+  # Drawn conditionally so that with PASSWORD_LOGIN_ENABLED off there is no
+  # password endpoint at all — the routes 404 rather than merely being hidden.
+  # Note this is read at boot, so changing the flag needs a restart.
+  if Settings.password_login_enabled?
+    devise_for :users, controllers: {
+      invitations: "users/invitations",
+      sessions: "users/sessions",
+      omniauth_callbacks: "users/omniauth_callbacks",
+    }
+
+    # The flags are independent, so leaving the password form mounted must not
+    # take the OAuth journey away with it.
+    devise_scope :user do
+      get "/users/oauth_handoff" => "users/oauth_handoff#new"
+    end
+  else
+    # Invitations go with the password routes: accepting an invitation is a
+    # password-setting flow. Role management continues through the existing
+    # `resources :users` screens below.
+    devise_for :users,
+               skip: %i[sessions passwords unlocks registrations invitations],
+               controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+    devise_scope :user do
+      # Keeping the NAME new_user_session is what makes automatic entry work
+      # without touching anything else: Devise's authenticate_user! failure
+      # path already redirects here and stored_location_for already captures
+      # the destination, so every controller and deep link keeps working.
+      # This is also the only path to the handoff — one way into a page that
+      # submits itself.
+      get "/users/sign_in" => "users/oauth_handoff#new", as: :new_user_session
+
+      # Devise.sign_out_via rather than a literal verb: the Devise initializer
+      # sets config.sign_out_via twice, :delete and then :get, so the effective
+      # value is :get and _navigation.html.slim renders sign-out as a plain
+      # link. Deriving it keeps this route correct if that is ever cleaned up.
+      match "/users/sign_out" => "users/sessions#destroy",
+            as: :destroy_user_session, via: Devise.sign_out_via
+    end
+  end
+
+  resources :users
+
   resources :pqs, only: %i[index show update] do
     resource :proposal, only: %i[new create]
   end
@@ -85,5 +126,7 @@ ParliamentaryQuestions::Application.routes.draw do
   get "/accessibility" => "pages#accessibility"
 
   get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unprocessable_content"
   get "/500", to: "errors#internal_error"
+  get "/sign_in_failed", to: "errors#sign_in_failed"
 end

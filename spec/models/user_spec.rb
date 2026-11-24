@@ -29,6 +29,7 @@
 #  failed_attempts        :integer          default(0)
 #  unlock_token           :string
 #  locked_at              :datetime
+#  azure_oid              :string
 #
 
 require "rails_helper"
@@ -42,6 +43,32 @@ describe User do
 
   it "provides a method for authentication" do
     expect(user.active_for_authentication?).to be(true)
+  end
+
+  describe "azure_oid" do
+    it { is_expected.to have_db_column(:azure_oid).of_type(:string) }
+    it { is_expected.to have_db_index(:azure_oid).unique(true) }
+
+    # The declared index above is what Task 5's trust-on-first-use link relies
+    # on to be unclaimable twice, so prove the database actually refuses the
+    # second claim rather than only that the index is declared.
+    it "refuses two users claiming the same oid" do
+      create(:user, email: "first@example.com", azure_oid: "oid-shared")
+
+      expect { create(:user, email: "second@example.com", azure_oid: "oid-shared") }
+        .to raise_error(ActiveRecord::RecordNotUnique)
+    end
+
+    # Equally load-bearing, and the opposite risk: every row predating OAuth
+    # has no oid, so the unique index must tolerate many NULLs. Postgres does,
+    # but a later well-meant `null: false` or a change of index type would
+    # lock everyone but one user out.
+    it "allows many users to have no oid" do
+      create(:user, email: "first@example.com", azure_oid: nil)
+
+      expect { create(:user, email: "second@example.com", azure_oid: nil) }
+        .not_to raise_error
+    end
   end
 
   describe "validations" do

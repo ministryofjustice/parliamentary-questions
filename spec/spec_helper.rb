@@ -4,6 +4,15 @@ SimpleCov.start "rails"
 ENV["RAILS_ENV"] ||= "test"
 ENV["ENV"] ||= "test"
 
+# Azure identifiers for the test environment. These are not secrets and reach
+# no network: OmniAuth runs in test mode, so nothing is ever sent to Entra.
+# They have to be present and non-blank because AzureOauth::Claims fails closed
+# — an unconfigured tenant validates nobody — so without them every mocked
+# sign-in would be refused with :tenant_mismatch.
+ENV["OMNIAUTH_AZURE_TENANT_ID"]     ||= "test-tenant-id"
+ENV["OMNIAUTH_AZURE_CLIENT_ID"]     ||= "test-client-id"
+ENV["OMNIAUTH_AZURE_CLIENT_SECRET"] ||= "test-client-secret"
+
 require File.expand_path("../config/environment", __dir__)
 
 require "rspec/rails"

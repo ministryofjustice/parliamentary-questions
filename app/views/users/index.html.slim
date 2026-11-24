@@ -2,8 +2,13 @@ h1.govuk-heading-l Users
 = render partial: "shared/flash_messages", flash: flash
 #admin-users-list
   div
-    ul#admin-button-bar
-      li= link_to 'Invite new user', new_user_invitation_path, {class: 'button-secondary'}
+    / Invitations are a password-setting flow, so the routes only exist while
+    / PASSWORD_LOGIN_ENABLED is on. With OAuth, users are provisioned
+    / automatically on their first sign in and there is nobody to invite —
+    / rendering the link unconditionally raised on the missing helper.
+    - if Settings.password_login_enabled?
+      ul#admin-button-bar
+        li= link_to 'Invite new user', new_user_invitation_path, {class: 'button-secondary'}
   table.table aria-label="users"
     thead
       tr

@@ -129,12 +129,65 @@ jobs:
       - name: Collate coverage
         run: bundle exec rake coverage:report
 
+      # Posts the `SimpleCov` check run that branch protection on main requires.
+      #
+      # This replaces joshmfrankel/simplecov-check-action, which created the check
+      # run and then immediately PATCHed it to completion. That second request
+      # intermittently 404'd on a check run GitHub had created ~1s earlier (replica
+      # lag), and the action has no retry, so the job failed and the check was left
+      # stuck in_progress. Creating the run already-completed in a single POST
+      # removes the second request, and with it the race.
+      #
+      # Only the suite-wide gate is enforced. The action's minimum_file_coverage
+      # was always inert here: it is applied only when coverage/coverage.json
+      # exists, and spec_helper.rb uses the default HTML formatter, so that file
+      # is never written.
       - name: Code coverage
-        uses: joshmfrankel/simplecov-check-action@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_suite_coverage: 75
-          minimum_file_coverage: 100
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # On pull_request, github.sha is the merge commit; the check must be
+          # attached to the PR head or it will not satisfy branch protection.
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          MINIMUM_SUITE_COVERAGE: "75"
+        run: |
+          set -euo pipefail
+
+          if [ ! -r coverage/.last_run.json ]; then
+            echo "::error::coverage/.last_run.json not found - did 'rake coverage:report' run?"
+            exit 1
+          fi
+
+          covered=$(jq -er '.result.line' coverage/.last_run.json)
+
+          if awk "BEGIN { exit !($covered >= $MINIMUM_SUITE_COVERAGE) }"; then
+            conclusion=success
+          else
+            conclusion=failure
+          fi
+
+          jq -n \
+            --arg sha "$HEAD_SHA" \
+            --arg conclusion "$conclusion" \
+            --arg covered "$covered" \
+            --arg minimum "$MINIMUM_SUITE_COVERAGE" \
+            '{
+              name: "SimpleCov",
+              head_sha: $sha,
+              status: "completed",
+              conclusion: $conclusion,
+              output: {
+                title: "\($covered)% covered (minimum \($minimum)%)",
+                summary: "* \($covered)% covered\n* \($minimum)% minimum coverage for suite"
+              }
+            }' \
+            | gh api "repos/$GITHUB_REPOSITORY/check-runs" --method POST --input - --silent
+
+          if [ "$conclusion" = "failure" ]; then
+            echo "::error::Coverage $covered% is below the minimum $MINIMUM_SUITE_COVERAGE%"
+            exit 1
+          fi
+
+          echo "Coverage $covered% meets the minimum $MINIMUM_SUITE_COVERAGE%"
 
   build-and-deploy:
     needs: [linting, coverage]
